@@ -40,6 +40,10 @@ impl UnitInterval {
     pub fn complement(self) -> Self {
         Self(1.0 - self.0)
     }
+    /// Subtract another fraction, saturating at zero when it is larger.
+    pub fn saturating_sub(self, other: Self) -> Self {
+        Self((self.0 - other.0).max(0.0))
+    }
     /// Normalize within an increasing interval, saturating at its endpoints.
     pub fn clamped_inverse_lerp(self, lower: Self, upper: Self) -> FractionResult<Self> {
         if lower >= upper {

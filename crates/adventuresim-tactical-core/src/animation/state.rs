@@ -844,11 +844,6 @@ fn finite_clamp(value: f32, minimum: f32, maximum: f32, fallback: f32) -> f32 {
     }
 }
 
-fn smoothstep(value: f32) -> f32 {
-    let value = value.clamp(0.0, 1.0);
-    value * value * (3.0 - 2.0 * value)
-}
-
 fn centered_knot_acceleration(
     incoming_secant: f32,
     outgoing_secant: f32,

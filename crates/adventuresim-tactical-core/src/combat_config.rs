@@ -4,7 +4,7 @@ use crate::animation::{
 };
 use crate::animation::{
     AngularSpeedRadians, AnimationElapsed, AnimationFrequency, NonnegativeLength,
-    PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
+    PositiveAnimationDuration, UnitInterval,
 };
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
 use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
@@ -17,6 +17,7 @@ pub use landing::AnimationLandingConfig;
 pub use locomotion::{AnimationGaitConfig, AnimationLocomotionConfig};
 pub use maneuvers::ManeuverTimingConfig;
 pub use playback::AnimationPlaybackConfig;
+pub use state_transitions::AnimationStateTransitionConfig;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use thiserror::Error;
@@ -46,6 +47,7 @@ mod pose_buffer;
 mod procedural;
 mod ragdoll;
 mod runtime;
+mod state_transitions;
 
 pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 9;
 
@@ -88,14 +90,6 @@ pub struct GuardFootworkConfig {
     pub planning_reach_metres: f32,
     pub reference_leg_length_metres: PositiveLength,
     pub maximum_unsupported_contact_seconds: PositiveAnimationDuration,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimationStateTransitionConfig {
-    pub dive_root_handoff_start_fraction: f32,
-    pub downed_facing_sector_half_width: SignedHalfTurns,
-    pub downed_facing_edge_stickiness: SignedHalfTurns,
 }
 
 /// Additive rotational hit springs on the rendered skeleton. A hit kicks
@@ -632,11 +626,9 @@ impl TacticalCombatConfig {
         }
 
         let animation = self.animation;
-        animation.locomotion.validate(
-            animation
-                .playback
-                .initial_locomotion_speed_metres_per_second,
-        )?;
+        let initial_locomotion_speed = animation.playback.initial_locomotion_speed_metres_per_second;
+        animation.locomotion.validate(initial_locomotion_speed)?;
+        animation.state_transitions.validate()?;
         let guard = animation.guard_footwork;
         if ![
             guard.default_half_width_metres,

@@ -65,24 +65,25 @@ impl PostureTransitionState {
         // whole character before the supine pose catches up. Reserve the first
         // part of recovery for settling, then transfer root yaw with zero
         // endpoint velocity. The endpoint remains the complete canonical turn.
-        let root_handoff_start_fraction = crate::combat_config::runtime_animation_config()
-            .state_transitions
-            .dive_root_handoff_start_fraction;
+        let tuning = crate::combat_config::runtime_animation_config().state_transitions;
         let root_handoff_end_fraction = match trajectory {
             // The shorter slide devotes a larger normalized share to the same
             // fixed presentation settling time, so its handoff finishes with
             // the transition. The longer airborne recovery can finish just
             // before the terminal pose without outrunning the authored turn.
-            DiveTrajectory::GroundedSlide => 1.0,
-            DiveTrajectory::Airborne => 0.92,
+            DiveTrajectory::GroundedSlide => UnitInterval::ONE,
+            DiveTrajectory::Airborne => tuning.dive_airborne_root_handoff_end_fraction,
         };
-        let recovery = ((self.phase.fraction() - 0.5) * 2.0).clamp(0.0, 1.0);
-        let handoff = ((recovery - root_handoff_start_fraction)
-            / (root_handoff_end_fraction - root_handoff_start_fraction))
-            .clamp(0.0, 1.0);
+        let recovery = self
+            .phase
+            .clamped_inverse_lerp(DIVE_GROUND_CONTACT_PHASE, UnitInterval::ONE)?;
+        let handoff = recovery.clamped_inverse_lerp(
+            tuning.dive_root_handoff_start_fraction,
+            root_handoff_end_fraction,
+        )?;
         Ok(Some(DiveRecovery {
             direction,
-            progress: UnitInterval::from_fraction(smoothstep(handoff))?,
+            progress: handoff.smoothstep()?,
         }))
     }
 }
@@ -124,7 +125,7 @@ pub fn dive_landing_facing_delta(
         DiveDirection::Right => -std::f32::consts::FRAC_PI_2,
     };
     Ok(Quat::from_rotation_y(
-        total_yaw * (current_progress.fraction() - previous_progress.fraction()).clamp(0.0, 1.0),
+        total_yaw * current_progress.saturating_sub(previous_progress).fraction(),
     ))
 }
 
