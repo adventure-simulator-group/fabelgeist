@@ -2,11 +2,17 @@
 
 The migration in #726 still has unfinished discovery and producer-to-consumer
 propagation gaps. This handoff preserves the audit evidence so Adler can finish
-the ledger before implementation resumes.
+the ledger before implementation resumes. Adler may return the audit to Bruno
+while it remains incomplete; completion is a prerequisite for code repairs,
+not a prerequisite for handing the work back.
 
 **No code repairs may begin until the audit ledger is complete.** Read and use
 [`PROMPT.md`](PROMPT.md) as the continuation prompt. Bruno explicitly required
 this order after a propagation gap was found during PR review.
+
+This branch is the primary handoff artifact. On return, publish an updated
+handoff branch with the ledger, evidence, partial frontiers and next actions.
+Issue #993 is superseded as an entry point.
 
 ## Start here
 

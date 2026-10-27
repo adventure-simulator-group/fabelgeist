@@ -10,7 +10,10 @@ discovery was still incomplete caused producer-to-consumer propagation gaps.
 Do not repeat it. The merged PR #992 was a specific exception requested by
 Bruno; that exception is closed and grants no permission for another repair.
 
-Your first assignment is audit discovery and ledger completion only. Do not
+Your assignment is to continue audit discovery and the ledger. You are not
+expected to finish the entire audit before handing it back to Bruno. An
+incomplete audit is an acceptable return state; code repairs remain blocked
+until the ledger is complete, whoever completes it. Do not
 edit product source, Cargo manifests, generated bindings, tests, fixture
 helpers, assertions or doctests. Do not run project builds, tests, lint,
 scanners, generators, runtime probes or CI fixes as a substitute for discovery.
@@ -18,7 +21,8 @@ Read existing test source where needed. Keep audit receipts and progress in
 ignored local output. This explicitly requested handoff is a publication
 snapshot, not permission to commit ordinary iteration reports to main.
 
-Finish all thirteen selected lenses across the exact registered populations:
+The eventual audit must cover all thirteen selected lenses across these
+registered populations:
 2,853 original source roles, 246 overlays, 38 frozen merged paths, 196 original
 shared-material scopes, and every prospectively registered extension. Reconcile
 all twenty migration families against the actual current source. The old
@@ -65,7 +69,15 @@ player-bearing data. Do not modify the root README or write wiki prose as part
 of this audit. Keep meaningful findings separate from speculative concerns.
 
 The audit was paused to create this handoff. This prompt assigns continuation
-to you; it does not resume the old local agents. Complete discovery and the
-ledger before selecting an implementation slice. At that point report the
-completed ledger and its remaining policy decisions; do not treat this handoff
-as blanket authorization to start repairs.
+to you; it does not resume the old local agents. Continue from the saved
+frontiers and hand the work back whenever requested or when your session ends.
+Do not wait for the entire audit to finish before returning it.
+
+Return a GitHub handoff branch like this one, with a concise entry point,
+updated authoritative ledger, exact evidence and source pins, separate pending
+proposals, partial-read ranges, mandatory qualifications and the next bounded
+unread action for each active lens. Preserve incomplete states honestly and
+make it possible for Bruno to continue without restarting completed work.
+Keep the no-code-repairs-until-ledger-complete gate explicit in every handoff.
+Do not use a tracking issue as the primary return artifact. Do not merge the
+handoff branch into main. This assignment does not authorize code repairs.

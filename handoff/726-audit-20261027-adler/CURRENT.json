@@ -1,6 +1,6 @@
 {
   "at": "2026-10-27T17:56:20.140556+00:00",
-  "objective": "Complete the thirteen-lens audit and connected repair/dependency/acceptance ledger before writing any further product code.",
+  "objective": "Continue the thirteen-lens audit and connected repair/dependency/acceptance ledger. Return an incomplete audit with exact checkpoints when needed; no code repairs until ledger completion.",
   "audit_goal_status": "paused by user; this publication is a handoff, not resumed audit or implementation.",
   "implementation_gate_complete": false,
   "main_pin": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
@@ -81,5 +81,19 @@
     "merged_total": 38,
     "family_total": 20
   },
-  "publication_limits": "Snapshot transport/hash verification is not source-body review, lens completion, runtime validation, CI or unique-finding acceptance."
+  "publication_limits": "Snapshot transport/hash verification is not source-body review, lens completion, runtime validation, CI or unique-finding acceptance.",
+  "return_contract": {
+    "primary_artifact": "GitHub handoff branch",
+    "completion_required_before_return": false,
+    "code_repairs_allowed_before_ledger_completion": false,
+    "required": [
+      "updated authoritative ledger",
+      "exact evidence/source pins",
+      "separate pending proposals",
+      "partial-read scopes",
+      "mandatory qualifications",
+      "next bounded unread actions"
+    ],
+    "qualification": "Adler may hand the audit back to Bruno before completing it. Preserve unfinished state honestly; do not restart qualified completed work."
+  }
 }
