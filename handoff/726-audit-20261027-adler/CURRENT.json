@@ -95,5 +95,18 @@
       "next bounded unread actions"
     ],
     "qualification": "Adler may hand the audit back to Bruno before completing it. Preserve unfinished state honestly; do not restart qualified completed work."
-  }
+  },
+  "kind": "Authoritative continuation handoff to Adler Halbe",
+  "handoff_branch": "handoff/726-audit-ledger-20261027-adler",
+  "read_first": [
+    "README.md",
+    "CURRENT.json",
+    "AUDIT-RESUME.md",
+    "SOURCE-LOCATORS.json",
+    "PROMPT.md"
+  ],
+  "status": "Audit paused locally; continue source discovery only. Incomplete handback is allowed. No code repairs until ledger completion.",
+  "supersedes": "Earlier handoff resume/status aliases; original receipt bytes, findings and qualifications remain historical evidence.",
+  "audit_resume": "AUDIT-RESUME.md",
+  "source_locators": "SOURCE-LOCATORS.json"
 }

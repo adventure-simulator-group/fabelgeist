@@ -1,9 +1,9 @@
 {
   "kind": "Byte transport manifest, not audit source/lens or runtime clearance",
-  "at": "2026-10-27T18:44:16.263684+00:00",
+  "at": "2026-10-27T18:48:39.906355+00:00",
   "root_projection": "evidence/ -> ignored target/recovery-20261025/",
-  "entry_count": 15001,
-  "total_bytes": 270545640,
+  "entry_count": 15004,
+  "total_bytes": 270561324,
   "entries": [
     {
       "path": "evidence/HANDOFF-CURRENT.json",
@@ -74832,8 +74832,8 @@
     },
     {
       "path": "CURRENT.json",
-      "bytes": 5393,
-      "sha256": "b809a8892ddac6629d3771d6e840a0bf7b5b86685d4a04423e7b04cbd2639348"
+      "bytes": 6008,
+      "sha256": "719587d774150773f452721622527bdf43fa0c098ae5996d121d1e80d6f9c82a"
     },
     {
       "path": "PROMPT.md",
@@ -74847,8 +74847,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8153,
-      "sha256": "9e444b22af1597cfd1e5a504be00dead3d53b590659a0914047c3445e38ea21c"
+      "bytes": 5683,
+      "sha256": "db6af5e399a34c05bb059069e0cb17ca5d437652e3c872008b96c4f0f9717de3"
     },
     {
       "path": "rules/AGENTS.md",
@@ -75009,6 +75009,21 @@
       "path": "PUBLICATION-AUTHORIZATION.json",
       "bytes": 801,
       "sha256": "c11fe4642582fde143629da080ac1eac641de0f3ba7f420ff6167f6d7083304d"
+    },
+    {
+      "path": "AUDIT-RESUME.md",
+      "bytes": 6199,
+      "sha256": "9852b01b4c5c949493a05bf4335b8f8307c509734d4c9fd234d8428bd522eba1"
+    },
+    {
+      "path": "SOURCE-LOCATORS.json",
+      "bytes": 4654,
+      "sha256": "b0315349043bdac0c822fed833f7cfb0b9fe6c92c8fd70751ffe213e2dd1ffdb"
+    },
+    {
+      "path": "SOURCE-BYTE-VERIFICATION.json",
+      "bytes": 6686,
+      "sha256": "0eacf0dd57164ecde7e4e3ea219ef57790fd712df3b0a585af9e4c7254e61b23"
     }
   ],
   "excludes": "This manifest itself and later transport-verification metadata are not recursively included. No stash/environment/conversation/credential files selected."
