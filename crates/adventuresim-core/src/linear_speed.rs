@@ -27,6 +27,8 @@ pub enum SpeedError {
     NonPositive,
     #[error("linear speed arithmetic overflowed")]
     Overflow,
+    #[error("linear speed interpolation bounds must be strictly increasing")]
+    NonIncreasingBounds,
     #[error("invalid speed interpolation fraction: {0}")]
     Fraction(#[from] FractionError),
 }
@@ -66,7 +68,6 @@ impl NonnegativeSpeed {
 
     pub fn checked_lerp(self, other: Self, factor: UnitInterval) -> SpeedResult<Self> {
         let factor = factor.fraction();
-        // Same scalar operation order as the pinned Bevy/glam FloatExt kernel.
         Self::from_metres_per_second(self.0 + (other.0 - self.0) * factor).map_err(|error| {
             if error == SpeedError::NonFinite {
                 SpeedError::Overflow
@@ -74,6 +75,23 @@ impl NonnegativeSpeed {
                 error
             }
         })
+    }
+
+    /// Normalize speed within an increasing interval, saturating at its endpoints.
+    pub fn clamped_inverse_lerp(self, lower: Self, upper: Self) -> SpeedResult<UnitInterval> {
+        if lower >= upper {
+            return Err(SpeedError::NonIncreasingBounds);
+        }
+        if self <= lower {
+            return Ok(UnitInterval::ZERO);
+        }
+        if self >= upper {
+            return Ok(UnitInterval::ONE);
+        }
+        // Metres per second cancel inside this scalar normalization kernel.
+        Ok(UnitInterval::from_fraction(
+            (self.0 - lower.0) / (upper.0 - lower.0),
+        )?)
     }
 }
 

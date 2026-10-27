@@ -1,19 +1,20 @@
 use crate::animation::{
-    AngularMagnitudeDegrees, CycleDelta, KneeTargetAmplification, ResponseRate,
-    ResponseShapingTime, SignedAngleDegrees, SignedAngularSpeedDegrees,
+    AngularMagnitudeDegrees, KneeTargetAmplification, ResponseRate, ResponseShapingTime,
+    SignedAngleDegrees, SignedAngularSpeedDegrees,
 };
 use crate::animation::{
-    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, AnimationSampleRate, HeightDistance,
-    NonnegativeLength, PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
+    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, NonnegativeLength,
+    PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
 };
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
-use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
+use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
 use adventuresim_core::{
     body::BodyPart,
     combat::{AutoresolveParameters, CombatResolutionParameters},
 };
 use bevy::prelude::Resource;
 pub use landing::AnimationLandingConfig;
+pub use locomotion::{AnimationGaitConfig, AnimationLocomotionConfig};
 pub use maneuvers::ManeuverTimingConfig;
 pub use playback::AnimationPlaybackConfig;
 use serde::{Deserialize, Serialize};
@@ -38,6 +39,7 @@ mod ai_offense;
 mod defaults;
 mod incapacitation_forecast;
 mod landing;
+mod locomotion;
 mod maneuvers;
 mod playback;
 mod pose_buffer;
@@ -74,29 +76,6 @@ pub struct TacticalAnimationConfig {
     pub bouncy_bones: BouncyBonesConfig,
     pub inverse_kinematics: InverseKinematicsConfig,
     pub ragdoll: RagdollConfig,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimationLocomotionConfig {
-    pub sample_hz: AnimationSampleRate,
-    pub landing: AnimationLandingConfig,
-    pub walk: AnimationGaitConfig,
-    pub run: AnimationGaitConfig,
-    pub raised_guard: AnimationGaitConfig,
-    pub prone: AnimationGaitConfig,
-    pub supine: AnimationGaitConfig,
-    pub blend_speed: PositiveSpeed,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimationGaitConfig {
-    pub reference_speed_metres_per_second: PositiveSpeed,
-    pub step_distance_metres: PositiveLength,
-    pub support_phase_radius: CycleDelta,
-    pub bounce_metres: HeightDistance,
-    pub flight_apex_metres: HeightDistance,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -653,31 +632,9 @@ impl TacticalCombatConfig {
         }
 
         let animation = self.animation;
-        let locomotion = animation.locomotion;
-        let gait_values = [
-            locomotion.walk,
-            locomotion.run,
-            locomotion.raised_guard,
-            locomotion.prone,
-            locomotion.supine,
-        ];
-        if gait_values.into_iter().any(|gait| {
-            ![
-                gait.step_distance_metres.metres(),
-                gait.support_phase_radius.cycles(),
-                gait.bounce_metres.metres(),
-                gait.flight_apex_metres.metres(),
-            ]
-            .into_iter()
-            .all(finite_nonnegative)
-                || gait.step_distance_metres.metres() == 0.0
-                || !(0.0..0.5).contains(&gait.support_phase_radius.cycles())
-        }) {
-            return Err(TacticalCombatConfigError::Validation(
-                "invalid animation locomotion tuning",
-            ));
-        }
-        locomotion.landing.validate()?;
+        animation
+            .locomotion
+            .validate(animation.playback.initial_locomotion_speed_metres_per_second)?;
         let guard = animation.guard_footwork;
         if ![
             guard.default_half_width_metres,

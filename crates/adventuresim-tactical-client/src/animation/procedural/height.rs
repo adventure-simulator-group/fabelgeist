@@ -6,7 +6,7 @@ use super::height_values::{
 use super::*;
 use crate::animation::presentation::playback_tuning;
 use adventuresim_building_generator::spatial_geometry::SignedLength;
-use adventuresim_tactical_core::animation::{CyclePhase, UnitInterval};
+use adventuresim_tactical_core::animation::CyclePhase;
 
 impl LocomotionHeightState {
     /// Apply the landing-only metre offset in the actual pelvis parent frame.
@@ -250,25 +250,18 @@ pub(super) fn locomotion_height_wave(
         return Ok(HeightDistance::ZERO);
     }
     let profile = locomotion_profile(skeleton, speed)?;
-    let moving_weight = smoothstep(
-        playback_tuning()
-            .initial_locomotion_speed_metres_per_second
-            .metres_per_second(),
-        runtime_animation_config()
-            .locomotion
-            .blend_speed
-            .metres_per_second(),
-        speed.metres_per_second(),
-    );
+    let moving_weight = speed
+        .clamped_inverse_lerp(
+            playback_tuning().initial_locomotion_speed_metres_per_second,
+            runtime_animation_config().locomotion.blend_speed.nonnegative(),
+        )?
+        .smoothstep();
     if profile.flight_apex_metres <= HeightDistance::ZERO {
         return Ok(HeightDistance::ZERO);
     }
-    profile.flight_apex_metres.flight_wave(
-        skeleton.gait_phase,
-        UnitInterval::from_fraction(moving_weight).map_err(|error| {
-            AnimationValueError::from(error).for_quantity(AnimationQuantity::HeightDistance)
-        })?,
-    )
+    profile
+        .flight_apex_metres
+        .flight_wave(skeleton.gait_phase, moving_weight)
 }
 pub(super) fn authored_height_compensation(
     skeleton: &SkeletonState,
@@ -281,33 +274,21 @@ pub(super) fn authored_height_compensation(
     {
         return Ok(HeightDistance::ZERO);
     }
-    let run_weight = locomotion_profile(skeleton, skeleton.animation_speed()?)?
-        .flight_apex_metres
-        .metres()
-        / run_locomotion_profile().flight_apex_metres.metres();
-    if !run_weight.is_finite() {
-        return Err(AnimationValueError::Overflow {
-            quantity: AnimationQuantity::HeightDistance,
-        });
-    }
+    let speed = skeleton.animation_speed()?;
+    let run_weight = speed.clamped_inverse_lerp(
+        walk_locomotion_profile().reference_speed,
+        run_locomotion_profile().reference_speed,
+    )?;
+    let moving_weight = speed
+        .clamped_inverse_lerp(
+            playback_tuning().initial_locomotion_speed_metres_per_second,
+            runtime_animation_config().locomotion.blend_speed.nonnegative(),
+        )?
+        .smoothstep();
     procedural_tuning()
         .authored_ordinary_passing_rise_metres
-        .scaled_by(UnitInterval::from_fraction(run_weight.clamp(0.0, 1.0))?)?
-        .scaled_by(
-            UnitInterval::from_fraction(smoothstep(
-                playback_tuning()
-                    .initial_locomotion_speed_metres_per_second
-                    .metres_per_second(),
-                runtime_animation_config()
-                    .locomotion
-                    .blend_speed
-                    .metres_per_second(),
-                skeleton.animation_speed()?.metres_per_second(),
-            ))
-            .map_err(|error| {
-                AnimationValueError::from(error).for_quantity(AnimationQuantity::HeightDistance)
-            })?,
-        )
+        .scaled_by(run_weight)?
+        .scaled_by(moving_weight)
 }
 pub(super) fn landing_compression_for_impact(
     profile: LocomotionProfile,

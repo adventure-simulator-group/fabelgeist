@@ -149,6 +149,8 @@ pub enum AnimationValueError {
     OutsideSignedUnitInterval { quantity: AnimationQuantity },
     #[error("{quantity} bounds are inverted")]
     InvertedBounds { quantity: AnimationQuantity },
+    #[error("{quantity} bounds must be strictly increasing")]
+    NonIncreasingBounds { quantity: AnimationQuantity },
     #[error("{quantity} arithmetic overflowed")]
     Overflow { quantity: AnimationQuantity },
 }
@@ -169,6 +171,7 @@ impl AnimationValueError {
             Self::OutsideUnitInterval { .. } => Self::OutsideUnitInterval { quantity },
             Self::OutsideSignedUnitInterval { .. } => Self::OutsideSignedUnitInterval { quantity },
             Self::InvertedBounds { .. } => Self::InvertedBounds { quantity },
+            Self::NonIncreasingBounds { .. } => Self::NonIncreasingBounds { quantity },
             Self::Overflow { .. } => Self::Overflow { quantity },
         }
     }
@@ -183,6 +186,7 @@ impl From<adventuresim_core::linear_speed::SpeedError> for AnimationValueError {
             SpeedError::Negative => Self::Negative { quantity },
             SpeedError::NonPositive => Self::NonPositive { quantity },
             SpeedError::Overflow => Self::Overflow { quantity },
+            SpeedError::NonIncreasingBounds => Self::NonIncreasingBounds { quantity },
             SpeedError::Fraction(error) => Self::from(error),
         }
     }

@@ -1,7 +1,7 @@
 //! Checked finite fractions, independent of each producer's clamp policy.
 
 use serde::{Deserialize, Serialize};
-use std::fmt;
+use std::{fmt, ops::Mul};
 
 pub type FractionResult<T> = Result<T, FractionError>;
 
@@ -32,8 +32,26 @@ impl UnitInterval {
     pub fn max(self, other: Self) -> Self {
         Self(self.0.max(other.0))
     }
+    pub fn complement(self) -> Self {
+        Self(1.0 - self.0)
+    }
+    /// Evaluate the cubic on a half interval, then reflect its upper half.
+    /// This keeps the result in the unit interval without an output clamp.
+    pub fn smoothstep(self) -> Self {
+        let reflected = self.0 > 0.5;
+        let value = if reflected { self.complement() } else { self };
+        let value = Self(value.0 * value.0 * (3.0 - 2.0 * value.0));
+        if reflected { value.complement() } else { value }
+    }
     pub fn fraction(self) -> f32 {
         self.0
+    }
+}
+impl Mul for UnitInterval {
+    type Output = Self;
+
+    fn mul(self, other: Self) -> Self {
+        Self(self.0 * other.0)
     }
 }
 impl From<UnitInterval> for f32 {

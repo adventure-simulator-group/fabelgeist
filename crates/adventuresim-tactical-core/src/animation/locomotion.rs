@@ -143,12 +143,7 @@ pub fn locomotion_profile(
     }
     let walk = walk_locomotion_profile();
     let run_profile = run_locomotion_profile();
-    let run = UnitInterval::from_fraction(
-        ((speed.metres_per_second() - walk.reference_speed.metres_per_second())
-            / (run_profile.reference_speed.metres_per_second()
-                - walk.reference_speed.metres_per_second()))
-        .clamp(0.0, 1.0),
-    )?;
+    let run = speed.clamped_inverse_lerp(walk.reference_speed, run_profile.reference_speed)?;
     Ok(LocomotionProfile {
         gait: if run >= UnitInterval::HALF {
             LocomotionGait::Run
@@ -162,34 +157,27 @@ pub fn locomotion_profile(
         support_phase_radius: walk
             .support_phase_radius
             .checked_lerp(run_profile.support_phase_radius, run)?,
-        bounce_metres: walk
-            .bounce_metres
-            .scaled_by(UnitInterval::from_fraction(1.0 - run.fraction())?)?,
+        bounce_metres: walk.bounce_metres.scaled_by(run.complement())?,
         flight_apex_metres: run_profile.flight_apex_metres.scaled_by(run)?,
         landing: landing_profile(),
     })
 }
 
-/// Shared distance model through authored walk/run reference points. This
-/// replaces duplicated cadence arithmetic without changing current timing.
+/// Shared distance model through authored walk/run reference points.
 pub fn ordinary_step_distance(speed: NonnegativeSpeed) -> AnimationValueResult<NonnegativeLength> {
-    let speed = speed.metres_per_second().max(0.0);
     let walk = walk_locomotion_profile();
     let run = run_locomotion_profile();
-    let distance = if speed <= walk.reference_speed.metres_per_second() {
-        0.9_f32.lerp(
-            walk.step_distance.metres(),
-            speed / walk.reference_speed.metres_per_second(),
+    if speed <= walk.reference_speed {
+        NonnegativeLength::from_metres(0.9)?.checked_lerp(
+            walk.step_distance,
+            speed.clamped_inverse_lerp(NonnegativeSpeed::ZERO, walk.reference_speed)?,
         )
     } else {
-        let blend = ((speed - walk.reference_speed.metres_per_second())
-            / (run.reference_speed.metres_per_second() - walk.reference_speed.metres_per_second()))
-        .clamp(0.0, 1.0);
-        walk.step_distance
-            .metres()
-            .lerp(run.step_distance.metres(), blend)
-    };
-    NonnegativeLength::from_arithmetic(distance)
+        walk.step_distance.checked_lerp(
+            run.step_distance,
+            speed.clamped_inverse_lerp(walk.reference_speed, run.reference_speed)?,
+        )
+    }
 }
 
 pub fn gait_cycle_phase_delta(

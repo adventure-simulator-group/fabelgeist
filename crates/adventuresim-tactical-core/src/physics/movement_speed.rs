@@ -41,9 +41,7 @@ pub(super) const UNATTRIBUTED_JOG_SPEED: NonnegativeSpeed = authored_speed(3.75)
 pub fn tactical_jog_speed(endurance: f32) -> SpeedResult<NonnegativeSpeed> {
     let endurance = endurance.clamp(0.0, 5.0);
     if endurance <= 1.0 {
-        let smooth_endurance = UnitInterval::from_fraction(
-            (endurance * endurance * (3.0 - 2.0 * endurance)).clamp(0.0, 1.0),
-        )?;
+        let smooth_endurance = UnitInterval::from_fraction(endurance)?.smoothstep();
         return TACTICAL_WALK_SPEED_METRES_PER_SECOND
             .checked_lerp(MINIMUM_JOG_SPEED_METRES_PER_SECOND, smooth_endurance);
     }

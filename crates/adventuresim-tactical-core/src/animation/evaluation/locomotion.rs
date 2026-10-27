@@ -121,24 +121,23 @@ pub(super) fn upright_locomotion_samples(
         return locomotion_samples(speed, phase);
     }
 
-    let locomotion = smoothstep01(
-        speed.metres_per_second()
-            / crate::combat_config::runtime_animation_config()
+    let locomotion = speed
+        .clamped_inverse_lerp(
+            NonnegativeSpeed::ZERO,
+            crate::combat_config::runtime_animation_config()
                 .locomotion
                 .blend_speed
-                .metres_per_second(),
-    )?
-    .fraction();
-    let longitudinal_weight = longitudinal / total;
-    let lateral_weight = lateral / total;
+                .nonnegative(),
+        )?
+        .smoothstep();
+    let longitudinal_weight = BlendWeight::from_factor(longitudinal / total)?;
+    let lateral_weight = BlendWeight::from_factor(lateral / total)?;
     let mut samples = locomotion_samples(speed, phase)?;
     for sample in &mut samples {
         if sample.pose == SemanticPose::IdleRelaxed {
             continue;
         }
-        sample.weight = sample
-            .weight
-            .checked_scale(BlendWeight::from_factor(longitudinal_weight)?)?;
+        sample.weight = sample.weight.checked_scale(longitudinal_weight)?;
     }
     let strafe_phase = combat_cycle_phase(phase)?;
     let mut strafe = cycle_sample(
@@ -149,7 +148,7 @@ pub(super) fn upright_locomotion_samples(
             strafe_phase
         },
     );
-    strafe.weight = BlendWeight::from_factor(locomotion * lateral_weight)?;
+    strafe.weight = BlendWeight::from(locomotion).checked_scale(lateral_weight)?;
     samples.push(strafe);
     samples.retain(|sample| !sample.weight.is_absent());
     Ok(samples)
@@ -189,26 +188,26 @@ fn alternating_contact_pair(
     contact: SemanticPose,
 ) -> AnimationValueResult<Vec<PoseSample>> {
     let half = phase.wrapped().cycles() * 2.0;
-    let progress = smoothstep01(half.fract())?.fraction();
+    let progress = smoothstep01(half.fract())?;
     let (start_mirrored, end_mirrored) = if half < 1.0 {
         (ClipMirror::Original, ClipMirror::Mirrored)
     } else {
         (ClipMirror::Mirrored, ClipMirror::Original)
     };
     let mut samples = Vec::with_capacity(2);
-    if progress < 1.0 {
+    if progress < UnitInterval::ONE {
         samples.push(PoseSample {
             pose: contact,
             sampling: PoseSampling::Anchor,
-            weight: BlendWeight::from_factor(1.0 - progress)?,
+            weight: BlendWeight::from(progress.complement()),
             mirror_lower_body: start_mirrored,
         });
     }
-    if progress > 0.0 {
+    if progress > UnitInterval::ZERO {
         samples.push(PoseSample {
             pose: contact,
             sampling: PoseSampling::Anchor,
-            weight: BlendWeight::from_factor(progress)?,
+            weight: BlendWeight::from(progress),
             mirror_lower_body: end_mirrored,
         });
     }
@@ -219,23 +218,19 @@ fn locomotion_samples(
     speed: NonnegativeSpeed,
     phase: CyclePhase,
 ) -> AnimationValueResult<Vec<PoseSample>> {
-    let locomotion = smoothstep01(
-        speed.metres_per_second()
-            / crate::combat_config::runtime_animation_config()
+    let locomotion = speed
+        .clamped_inverse_lerp(
+            NonnegativeSpeed::ZERO,
+            crate::combat_config::runtime_animation_config()
                 .locomotion
                 .blend_speed
-                .metres_per_second(),
-    )?
-    .fraction();
-    let run = ((speed.metres_per_second()
-        - walk_locomotion_profile()
-            .reference_speed
-            .metres_per_second())
-        / (run_locomotion_profile().reference_speed.metres_per_second()
-            - walk_locomotion_profile()
-                .reference_speed
-                .metres_per_second()))
-    .clamp(0.0, 1.0);
+                .nonnegative(),
+        )?
+        .smoothstep();
+    let run = speed.clamped_inverse_lerp(
+        walk_locomotion_profile().reference_speed,
+        run_locomotion_profile().reference_speed,
+    )?;
     let mut samples = Vec::with_capacity(5);
     append_scaled(
         &mut samples,
@@ -245,17 +240,17 @@ fn locomotion_samples(
             weight: BlendWeight::ONE,
             mirror_lower_body: ClipMirror::Original,
         }],
-        BlendWeight::from_factor(1.0 - locomotion)?,
+        BlendWeight::from(locomotion.complement()),
     )?;
     append_scaled(
         &mut samples,
         vec![cycle_sample(SemanticPose::WalkContact, phase)],
-        BlendWeight::from_factor(locomotion * (1.0 - run))?,
+        BlendWeight::from(locomotion * run.complement()),
     )?;
     append_scaled(
         &mut samples,
         vec![cycle_sample(SemanticPose::RunContact, phase)],
-        BlendWeight::from_factor(locomotion * run)?,
+        BlendWeight::from(locomotion * run),
     )?;
     samples.retain(|sample| !sample.weight.is_absent());
     Ok(samples)

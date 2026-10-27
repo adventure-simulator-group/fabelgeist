@@ -370,10 +370,7 @@ fn raised_guard_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
 }
 
 fn smoothstep01(value: f32) -> AnimationValueResult<UnitInterval> {
-    let value = value.clamp(0.0, 1.0);
-    Ok(UnitInterval::from_fraction(
-        value * value * (3.0 - 2.0 * value),
-    )?)
+    Ok(UnitInterval::from_fraction(value.clamp(0.0, 1.0))?.smoothstep())
 }
 
 fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> AnimationValueResult<PoseSample> {
@@ -381,12 +378,12 @@ fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> AnimationValueResult<P
         pose: SemanticPose::AirborneCenter,
         sampling: PoseSampling::Span {
             end: SemanticPose::AirborneTravel,
-            progress: smoothstep01(
-                horizontal_speed.metres_per_second()
-                    / walk_locomotion_profile()
-                        .reference_speed
-                        .metres_per_second(),
-            )?,
+            progress: horizontal_speed
+                .clamped_inverse_lerp(
+                    NonnegativeSpeed::ZERO,
+                    walk_locomotion_profile().reference_speed,
+                )?
+                .smoothstep(),
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,
