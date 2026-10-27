@@ -1,11 +1,13 @@
 {
-  "at": "2026-10-27T17:59:52.879324+00:00",
-  "kind": "Transport verification only, not project checks/audit source coverage/CI/runtime acceptance",
-  "verified_payload_commit": "3cf623748f004fe4e6889cf3ab7d9f7c9d09d51c",
-  "verified_payload_tree": "d87aa62c96a20e7729707eb6d59f0400fdc8fc8b",
-  "verified_files": 15000,
-  "verified_bytes": 273803833,
-  "method": "Every transported Git blob was read back and SHA-256 compared to the prepared source bytes. MANIFEST entries retain relative paths and exact content hashes.",
+  "at": "2026-10-27T18:40:05.070598+00:00",
+  "kind": "Byte transport verification only; no project tests/scanners/audit-body/runtime/CI acceptance",
+  "verified_payload_commit": "1b2b863f4aeadcf24262b4c202d1ff8a54baf584",
+  "verified_payload_tree": "6ea4561b8e6127e89f25563bf871585c2cef7713",
+  "verified_files": 15002,
+  "verified_bytes": 273804952,
+  "method": "All transported payload blobs read back and SHA-256 checked against prepared bytes; manifest excludes itself and transport metadata from recursive hashing.",
+  "public_disclosure_authorized": true,
   "credential_pattern_candidates": 0,
-  "source_tree_mutation": false
+  "text_conversion": "Handoff subtree .gitattributes uses * -text; receipt/source bytes are preserved.",
+  "product_changes": false
 }
