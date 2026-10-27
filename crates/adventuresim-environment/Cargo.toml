@@ -1,0 +1,47 @@
+[package]
+name = "adventuresim-environment"
+description = "Living environments: plant ecosystems grown by fabelgeist-botany, drawn in Bevy, and a viewer to watch them grow"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[features]
+default = []
+# The forest drawn in Bevy: GPU-instanced branches and leaves.
+render = [
+  "fabelgeist-botany/viewer",
+  "dep:bevy",
+  "dep:bevy_eidolon",
+  "dep:bytemuck",
+]
+viewer = [
+  "render",
+  "bevy/default",
+  "dep:bevy_egui",
+  "dep:bevy_panorbit_camera",
+  "dep:fabelgeist-gpu",
+  "dep:pollster",
+  "dep:clap",
+]
+
+[dependencies]
+anyhow = "1"
+thiserror.workspace = true
+fabelgeist-botany = { path = "../fabelgeist-botany" }
+bevy = { workspace = true, features = ["3d_bevy_render"], optional = true }
+bevy_eidolon = { workspace = true, optional = true }
+bytemuck = { workspace = true, features = ["derive"], optional = true }
+bevy_egui = { workspace = true, optional = true }
+bevy_panorbit_camera = { workspace = true, optional = true }
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false, optional = true }
+pollster = { version = "0.4", optional = true }
+clap = { workspace = true, optional = true }
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "environment-viewer"
+path = "src/viewer/main.rs"
+required-features = ["viewer"]

@@ -1,0 +1,39 @@
+[package]
+name = "fabelgeist-botany"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+
+[dependencies]
+fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
+fabelgeist-mesh = { "path" = "../fabelgeist-mesh" }
+fabelgeist-buildings = { "path" = "../fabelgeist-buildings" }
+fabelgeist-spatial-hash = { "default-features" = false, "path" = "../fabelgeist-spatial-hash" }
+fabelgeist-tube = { "default-features" = false, "path" = "../fabelgeist-tube" }
+anyhow = { "version" = "1.0" }
+bytemuck = { "version" = "1.16", "features" = ["derive"] }
+rayon = { "version" = "1.10" }
+web-time = { "version" = "1.1.0" }
+fabelgeist-gpu = { "default-features" = false, "optional" = true, "path" = "../fabelgeist-gpu" }
+fabelgeist-compute = { "optional" = true, "path" = "../fabelgeist-compute" }
+fabelgeist-surface-field = { "optional" = true, "features" = ["gpu"], "path" = "../fabelgeist-surface-field" }
+fabelgeist-hlod = { "optional" = true, "features" = ["gpu"], "path" = "../fabelgeist-hlod" }
+wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"], "optional" = true }
+pollster = { "version" = "0.4", "optional" = true }
+image = { "version" = "0.25", "optional" = true, "default-features" = false, "features" = ["png", "jpeg", "bmp", "tga", "hdr"] }
+
+[dev-dependencies]
+naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
+tokio = { "version" = "1", "features" = ["full"] }
+pollster = { "version" = "0.4" }
+fabelgeist-gpu = { "default-features" = false, "features" = ["image-io"], "path" = "../fabelgeist-gpu" }
+image = { "version" = "0.25", "default-features" = false, "features" = ["png", "jpeg", "bmp", "tga", "hdr"] }
+
+[features]
+default = ["gpu"]
+gpu = ["dep:fabelgeist-gpu", "dep:fabelgeist-compute", "fabelgeist-spatial-hash/gpu", "fabelgeist-tube/gpu"]
+viewer = ["gpu", "dep:fabelgeist-surface-field", "dep:fabelgeist-hlod", "dep:wgpu", "dep:pollster", "dep:image"]
+
+[lints]
+workspace = true
