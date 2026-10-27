@@ -265,14 +265,13 @@ fn dive_transition_samples(
     phase: UnitInterval,
 ) -> AnimationValueResult<Vec<PoseSample>> {
     let dive = dive_pose(direction);
-    let progress = phase;
-    let phase = progress.fraction();
-    if phase < DIVE_GROUND_CONTACT_PHASE.fraction() {
+    if phase < DIVE_GROUND_CONTACT_PHASE {
         return Ok(vec![PoseSample {
             pose: SemanticPose::GuardThrust,
             sampling: PoseSampling::Span {
                 end: dive,
-                progress: UnitInterval::from_fraction(phase * 2.0)?,
+                progress: phase
+                    .clamped_inverse_lerp(UnitInterval::ZERO, DIVE_GROUND_CONTACT_PHASE)?,
             },
             weight: BlendWeight::ONE,
             mirror_lower_body: ClipMirror::Original,
@@ -288,7 +287,7 @@ fn dive_transition_samples(
     // pelvis release and the authoritative directional root handoff. Starting
     // this span linearly made the complete upper-body chain visibly twist on
     // the first grounded frame, including on forward dives with no root yaw.
-    let recovery = dive_contact_pose_progress(progress)?;
+    let recovery = dive_contact_pose_progress(phase)?;
     Ok(vec![PoseSample {
         pose: dive,
         sampling: PoseSampling::Span {
@@ -307,9 +306,7 @@ fn dive_lower_body_samples(
     direction: DiveDirection,
     phase: UnitInterval,
 ) -> AnimationValueResult<Vec<PoseSample>> {
-    let progress = phase;
-    let phase = progress.fraction();
-    let sampling = if phase < DIVE_GROUND_CONTACT_PHASE.fraction() {
+    let sampling = if phase < DIVE_GROUND_CONTACT_PHASE {
         PoseSampling::Anchor
     } else {
         let contact = match direction {
@@ -320,7 +317,7 @@ fn dive_lower_body_samples(
         };
         PoseSampling::Span {
             end: contact,
-            progress: dive_contact_pose_progress(progress)?,
+            progress: dive_contact_pose_progress(phase)?,
         }
     };
     Ok(vec![PoseSample {
@@ -332,7 +329,8 @@ fn dive_lower_body_samples(
 }
 
 fn dive_contact_pose_progress(phase: UnitInterval) -> AnimationValueResult<UnitInterval> {
-    smoothstep01((phase.fraction() - DIVE_GROUND_CONTACT_PHASE.fraction()) * 2.0)
+    let progress = phase.clamped_inverse_lerp(DIVE_GROUND_CONTACT_PHASE, UnitInterval::ONE)?;
+    Ok(progress.smoothstep()?)
 }
 
 fn dive_pose(direction: DiveDirection) -> SemanticPose {
@@ -369,24 +367,17 @@ fn raised_guard_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
     }]
 }
 
-fn smoothstep01(value: f32) -> AnimationValueResult<UnitInterval> {
-    let value = value.clamp(0.0, 1.0);
-    Ok(UnitInterval::from_fraction(
-        value * value * (3.0 - 2.0 * value),
-    )?)
-}
-
 fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> AnimationValueResult<PoseSample> {
     Ok(PoseSample {
         pose: SemanticPose::AirborneCenter,
         sampling: PoseSampling::Span {
             end: SemanticPose::AirborneTravel,
-            progress: smoothstep01(
-                horizontal_speed.metres_per_second()
-                    / walk_locomotion_profile()
-                        .reference_speed
-                        .metres_per_second(),
-            )?,
+            progress: horizontal_speed
+                .clamped_inverse_lerp(
+                    NonnegativeSpeed::ZERO,
+                    walk_locomotion_profile().reference_speed,
+                )?
+                .smoothstep()?,
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,
