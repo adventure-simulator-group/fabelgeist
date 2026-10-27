@@ -33,7 +33,7 @@ pub(crate) use ik::{
 };
 use ik::{
     FootTrackSide, LimbSegments, TwoBoneChain, apply_two_bone_solution, canonical_knee_pole,
-    constrain_rendered_leg_pole, smoothstep, snapshot_chain, solve_landing_two_bone,
+    constrain_rendered_leg_pole, snapshot_chain, solve_landing_two_bone,
 };
 #[cfg(test)]
 use ik::{

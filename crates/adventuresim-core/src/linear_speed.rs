@@ -67,7 +67,7 @@ impl NonnegativeSpeed {
     pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> SpeedResult<Self> {
         let difference = other - self;
         let scaled_difference = difference * fraction;
-        self + scaled_difference
+        Self::try_from((self + scaled_difference)?)
     }
 
     /// Normalize speed within an increasing interval, saturating at its endpoints.
@@ -157,12 +157,12 @@ impl PositiveSpeed {
     }
 }
 
-/// Adding a signed offset can cross zero or overflow, so its result is checked.
+/// Adding a signed offset permits negative results and rejects overflow.
 impl Add<SignedSpeed> for NonnegativeSpeed {
-    type Output = SpeedResult<Self>;
+    type Output = SpeedResult<SignedSpeed>;
 
     fn add(self, offset: SignedSpeed) -> Self::Output {
-        Self::from_arithmetic(self.0 + offset.0)
+        SignedSpeed::from_metres_per_second(self.0 + offset.0).map_err(|_| SpeedError::Overflow)
     }
 }
 
@@ -208,6 +208,13 @@ impl From<PositiveSpeed> for NonnegativeSpeed {
 impl From<NonnegativeSpeed> for SignedSpeed {
     fn from(speed: NonnegativeSpeed) -> Self {
         Self(speed.0)
+    }
+}
+impl TryFrom<SignedSpeed> for NonnegativeSpeed {
+    type Error = SpeedError;
+
+    fn try_from(speed: SignedSpeed) -> SpeedResult<Self> {
+        Self::from_metres_per_second(speed.0)
     }
 }
 impl From<NonnegativeSpeed> for f32 {

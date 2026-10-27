@@ -221,6 +221,7 @@ impl From<adventuresim_core::unit_interval::FractionError> for AnimationValueErr
         match error {
             FractionError::NonFinite => Self::NonFinite { quantity },
             FractionError::OutsideUnitInterval => Self::OutsideUnitInterval { quantity },
+            FractionError::NonIncreasingBounds => Self::NonIncreasingBounds { quantity },
         }
     }
 }

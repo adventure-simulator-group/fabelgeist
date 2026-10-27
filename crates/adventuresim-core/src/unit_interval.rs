@@ -2,7 +2,7 @@
 
 use fabelgeist_math::units::Ratio;
 use serde::{Deserialize, Serialize};
-use std::{fmt, ops::Mul};
+use std::ops::Mul;
 
 pub type FractionResult<T> = Result<T, FractionError>;
 
@@ -10,10 +10,14 @@ pub type FractionResult<T> = Result<T, FractionError>;
 #[serde(try_from = "f32", into = "f32")]
 pub struct UnitInterval(f32);
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum FractionError {
+    #[error("unit fraction must be finite")]
     NonFinite,
+    #[error("unit fraction must lie in [0, 1]")]
     OutsideUnitInterval,
+    #[error("unit fraction interpolation bounds must be strictly increasing")]
+    NonIncreasingBounds,
 }
 
 impl UnitInterval {
@@ -35,6 +39,19 @@ impl UnitInterval {
     }
     pub fn complement(self) -> Self {
         Self(1.0 - self.0)
+    }
+    /// Normalize within an increasing interval, saturating at its endpoints.
+    pub fn clamped_inverse_lerp(self, lower: Self, upper: Self) -> FractionResult<Self> {
+        if lower >= upper {
+            return Err(FractionError::NonIncreasingBounds);
+        }
+        if self <= lower {
+            return Ok(Self::ZERO);
+        }
+        if self >= upper {
+            return Ok(Self::ONE);
+        }
+        Self::from_fraction((self.0 - lower.0) / (upper.0 - lower.0))
     }
     /// Evaluate cubic smoothstep and admit the resulting fraction.
     pub fn smoothstep(self) -> FractionResult<Self> {
@@ -70,12 +87,3 @@ impl TryFrom<Ratio> for UnitInterval {
         Self::from_fraction(value.ratio())
     }
 }
-impl fmt::Display for FractionError {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        formatter.write_str(match self {
-            Self::NonFinite => "unit fraction must be finite",
-            Self::OutsideUnitInterval => "unit fraction must lie in [0, 1]",
-        })
-    }
-}
-impl std::error::Error for FractionError {}
