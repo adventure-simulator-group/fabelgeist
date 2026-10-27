@@ -1,5 +1,6 @@
 //! Structured rejection of invalid animation quantities and arithmetic.
 
+use adventuresim_core::linear_speed::SpeedError;
 use derive_more::Display;
 
 /// Result of checked animation quantity admission or arithmetic.
@@ -151,6 +152,8 @@ pub enum AnimationValueError {
     InvertedBounds { quantity: AnimationQuantity },
     #[error("{quantity} bounds must be strictly increasing")]
     NonIncreasingBounds { quantity: AnimationQuantity },
+    #[error("{quantity} divisor must be nonzero")]
+    ZeroDivisor { quantity: AnimationQuantity },
     #[error("{quantity} arithmetic overflowed")]
     Overflow { quantity: AnimationQuantity },
 }
@@ -172,14 +175,14 @@ impl AnimationValueError {
             Self::OutsideSignedUnitInterval { .. } => Self::OutsideSignedUnitInterval { quantity },
             Self::InvertedBounds { .. } => Self::InvertedBounds { quantity },
             Self::NonIncreasingBounds { .. } => Self::NonIncreasingBounds { quantity },
+            Self::ZeroDivisor { .. } => Self::ZeroDivisor { quantity },
             Self::Overflow { .. } => Self::Overflow { quantity },
         }
     }
 }
 
-impl From<adventuresim_core::linear_speed::SpeedError> for AnimationValueError {
-    fn from(error: adventuresim_core::linear_speed::SpeedError) -> Self {
-        use adventuresim_core::linear_speed::SpeedError;
+impl From<SpeedError> for AnimationValueError {
+    fn from(error: SpeedError) -> Self {
         let quantity = AnimationQuantity::Speed;
         match error {
             SpeedError::NonFinite => Self::NonFinite { quantity },
@@ -187,6 +190,7 @@ impl From<adventuresim_core::linear_speed::SpeedError> for AnimationValueError {
             SpeedError::NonPositive => Self::NonPositive { quantity },
             SpeedError::Overflow => Self::Overflow { quantity },
             SpeedError::NonIncreasingBounds => Self::NonIncreasingBounds { quantity },
+            SpeedError::ZeroDivisor => Self::ZeroDivisor { quantity },
             SpeedError::Fraction(error) => Self::from(error),
         }
     }

@@ -9,6 +9,8 @@ use serde::{Deserialize, Serialize};
 pub struct AnimationLocomotionConfig {
     pub sample_hz: AnimationSampleRate,
     pub landing: AnimationLandingConfig,
+    /// Zero-speed endpoint of the distance model before blending to the walk stride.
+    pub zero_speed_step_distance_metres: PositiveLength,
     pub walk: AnimationGaitConfig,
     pub run: AnimationGaitConfig,
     pub raised_guard: AnimationGaitConfig,
@@ -53,7 +55,7 @@ impl AnimationLocomotionConfig {
                 "run reference speed must exceed walk reference speed",
             ));
         }
-        if self.blend_speed.nonnegative() <= initial_locomotion_speed {
+        if NonnegativeSpeed::from(self.blend_speed) <= initial_locomotion_speed {
             return Err(TacticalCombatConfigError::Validation(
                 "locomotion blend speed must exceed initial locomotion speed",
             ));

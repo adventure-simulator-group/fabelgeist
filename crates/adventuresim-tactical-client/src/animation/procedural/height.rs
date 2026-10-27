@@ -253,12 +253,9 @@ pub(super) fn locomotion_height_wave(
     let moving_weight = speed
         .clamped_inverse_lerp(
             playback_tuning().initial_locomotion_speed_metres_per_second,
-            runtime_animation_config()
-                .locomotion
-                .blend_speed
-                .nonnegative(),
+            runtime_animation_config().locomotion.blend_speed,
         )?
-        .smoothstep();
+        .smoothstep()?;
     if profile.flight_apex_metres <= HeightDistance::ZERO {
         return Ok(HeightDistance::ZERO);
     }
@@ -285,12 +282,9 @@ pub(super) fn authored_height_compensation(
     let moving_weight = speed
         .clamped_inverse_lerp(
             playback_tuning().initial_locomotion_speed_metres_per_second,
-            runtime_animation_config()
-                .locomotion
-                .blend_speed
-                .nonnegative(),
+            runtime_animation_config().locomotion.blend_speed,
         )?
-        .smoothstep();
+        .smoothstep()?;
     procedural_tuning()
         .authored_ordinary_passing_rise_metres
         .scaled_by(run_weight)?

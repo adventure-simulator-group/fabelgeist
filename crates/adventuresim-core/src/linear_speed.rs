@@ -1,7 +1,9 @@
 //! Checked scalar linear speeds shared by tactical and strategic mechanics.
 
 use crate::unit_interval::{FractionError, UnitInterval};
+use fabelgeist_math::units::Ratio;
 use serde::{Deserialize, Serialize};
+use std::ops::{Add, Div, Mul, Sub};
 
 pub type SpeedResult<T> = Result<T, SpeedError>;
 
@@ -29,6 +31,8 @@ pub enum SpeedError {
     Overflow,
     #[error("linear speed interpolation bounds must be strictly increasing")]
     NonIncreasingBounds,
+    #[error("linear speed divisor must be nonzero")]
+    ZeroDivisor,
     #[error("invalid speed interpolation fraction: {0}")]
     Fraction(#[from] FractionError),
 }
@@ -57,28 +61,23 @@ impl NonnegativeSpeed {
     }
 
     pub fn checked_scale(self, factor: f32) -> SpeedResult<Self> {
-        Self::from_metres_per_second(self.0 * factor).map_err(|error| {
-            if error == SpeedError::NonFinite {
-                SpeedError::Overflow
-            } else {
-                error
-            }
-        })
+        Self::from_arithmetic(self.0 * factor)
     }
 
-    pub fn checked_lerp(self, other: Self, factor: UnitInterval) -> SpeedResult<Self> {
-        let factor = factor.fraction();
-        Self::from_metres_per_second(self.0 + (other.0 - self.0) * factor).map_err(|error| {
-            if error == SpeedError::NonFinite {
-                SpeedError::Overflow
-            } else {
-                error
-            }
-        })
+    pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> SpeedResult<Self> {
+        let difference = other - self;
+        let scaled_difference = difference * fraction;
+        self + scaled_difference
     }
 
     /// Normalize speed within an increasing interval, saturating at its endpoints.
-    pub fn clamped_inverse_lerp(self, lower: Self, upper: Self) -> SpeedResult<UnitInterval> {
+    pub fn clamped_inverse_lerp(
+        self,
+        lower: impl Into<Self>,
+        upper: impl Into<Self>,
+    ) -> SpeedResult<UnitInterval> {
+        let lower = lower.into();
+        let upper = upper.into();
         if lower >= upper {
             return Err(SpeedError::NonIncreasingBounds);
         }
@@ -88,10 +87,20 @@ impl NonnegativeSpeed {
         if self >= upper {
             return Ok(UnitInterval::ONE);
         }
-        // Metres per second cancel inside this scalar normalization kernel.
-        Ok(UnitInterval::from_fraction(
-            (self.0 - lower.0) / (upper.0 - lower.0),
-        )?)
+        let offset = self - lower;
+        let span = upper - lower;
+        let quotient = (offset / span)?;
+        Ok(UnitInterval::try_from(quotient)?)
+    }
+
+    fn from_arithmetic(value: f32) -> SpeedResult<Self> {
+        Self::from_metres_per_second(value).map_err(|error| {
+            if error == SpeedError::NonFinite {
+                SpeedError::Overflow
+            } else {
+                error
+            }
+        })
     }
 }
 
@@ -137,9 +146,6 @@ impl PositiveSpeed {
         }
     }
 
-    pub const fn nonnegative(self) -> NonnegativeSpeed {
-        self.0
-    }
     pub const fn metres_per_second(self) -> f32 {
         self.0.metres_per_second()
     }
@@ -148,6 +154,54 @@ impl PositiveSpeed {
     }
     pub fn min(self, other: Self) -> Self {
         Self(self.0.min(other.0))
+    }
+}
+
+/// Adding a signed offset can cross zero or overflow, so its result is checked.
+impl Add<SignedSpeed> for NonnegativeSpeed {
+    type Output = SpeedResult<Self>;
+
+    fn add(self, offset: SignedSpeed) -> Self::Output {
+        Self::from_arithmetic(self.0 + offset.0)
+    }
+}
+
+/// Two finite nonnegative speeds differ by at most the largest finite magnitude.
+impl Sub for NonnegativeSpeed {
+    type Output = SignedSpeed;
+
+    fn sub(self, other: Self) -> Self::Output {
+        SignedSpeed(self.0 - other.0)
+    }
+}
+
+impl Mul<UnitInterval> for SignedSpeed {
+    type Output = Self;
+
+    fn mul(self, fraction: UnitInterval) -> Self {
+        Self(self.0 * fraction.fraction())
+    }
+}
+
+/// Speed units cancel; signed ratios and ratios above one remain valid.
+impl Div for SignedSpeed {
+    type Output = SpeedResult<Ratio>;
+
+    fn div(self, divisor: Self) -> Self::Output {
+        if divisor.0 == 0.0 {
+            return Err(SpeedError::ZeroDivisor);
+        }
+        let quotient = self.0 / divisor.0;
+        if !quotient.is_finite() {
+            return Err(SpeedError::Overflow);
+        }
+        Ok(Ratio::from_ratio(quotient))
+    }
+}
+
+impl From<PositiveSpeed> for NonnegativeSpeed {
+    fn from(speed: PositiveSpeed) -> Self {
+        speed.0
     }
 }
 

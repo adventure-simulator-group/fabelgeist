@@ -1,5 +1,6 @@
 //! Checked finite fractions, independent of each producer's clamp policy.
 
+use fabelgeist_math::units::Ratio;
 use serde::{Deserialize, Serialize};
 use std::{fmt, ops::Mul};
 
@@ -35,13 +36,10 @@ impl UnitInterval {
     pub fn complement(self) -> Self {
         Self(1.0 - self.0)
     }
-    /// Evaluate the cubic on a half interval, then reflect its upper half.
-    /// This keeps the result in the unit interval without an output clamp.
-    pub fn smoothstep(self) -> Self {
-        let reflected = self.0 > 0.5;
-        let value = if reflected { self.complement() } else { self };
-        let value = Self(value.0 * value.0 * (3.0 - 2.0 * value.0));
-        if reflected { value.complement() } else { value }
+    /// Evaluate cubic smoothstep and admit the resulting fraction.
+    pub fn smoothstep(self) -> FractionResult<Self> {
+        let fraction = self.0;
+        Self::from_fraction(fraction * fraction * (3.0 - 2.0 * fraction))
     }
     pub fn fraction(self) -> f32 {
         self.0
@@ -63,6 +61,13 @@ impl TryFrom<f32> for UnitInterval {
     type Error = FractionError;
     fn try_from(value: f32) -> FractionResult<Self> {
         Self::from_fraction(value)
+    }
+}
+impl TryFrom<Ratio> for UnitInterval {
+    type Error = FractionError;
+
+    fn try_from(value: Ratio) -> FractionResult<Self> {
+        Self::from_fraction(value.ratio())
     }
 }
 impl fmt::Display for FractionError {

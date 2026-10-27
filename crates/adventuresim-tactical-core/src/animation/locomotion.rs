@@ -168,7 +168,12 @@ pub fn ordinary_step_distance(speed: NonnegativeSpeed) -> AnimationValueResult<N
     let walk = walk_locomotion_profile();
     let run = run_locomotion_profile();
     if speed <= walk.reference_speed {
-        NonnegativeLength::from_metres(0.9)?.checked_lerp(
+        let zero_speed_step_distance = NonnegativeLength::from(
+            crate::combat_config::runtime_animation_config()
+                .locomotion
+                .zero_speed_step_distance_metres,
+        );
+        zero_speed_step_distance.checked_lerp(
             walk.step_distance,
             speed.clamped_inverse_lerp(NonnegativeSpeed::ZERO, walk.reference_speed)?,
         )
@@ -245,7 +250,7 @@ fn gait_profile(
 ) -> LocomotionProfile {
     LocomotionProfile {
         gait,
-        reference_speed: config.reference_speed_metres_per_second.nonnegative(),
+        reference_speed: config.reference_speed_metres_per_second.into(),
         step_distance: config.step_distance_metres.into(),
         support_phase_radius: config.support_phase_radius,
         bounce_metres: config.bounce_metres,

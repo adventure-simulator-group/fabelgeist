@@ -332,7 +332,10 @@ fn dive_lower_body_samples(
 }
 
 fn dive_contact_pose_progress(phase: UnitInterval) -> AnimationValueResult<UnitInterval> {
-    smoothstep01((phase.fraction() - DIVE_GROUND_CONTACT_PHASE.fraction()) * 2.0)
+    let progress = UnitInterval::from_fraction(
+        (phase.fraction() - DIVE_GROUND_CONTACT_PHASE.fraction()) * 2.0,
+    )?;
+    Ok(progress.smoothstep()?)
 }
 
 fn dive_pose(direction: DiveDirection) -> SemanticPose {
@@ -369,10 +372,6 @@ fn raised_guard_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
     }]
 }
 
-fn smoothstep01(value: f32) -> AnimationValueResult<UnitInterval> {
-    Ok(UnitInterval::from_fraction(value.clamp(0.0, 1.0))?.smoothstep())
-}
-
 fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> AnimationValueResult<PoseSample> {
     Ok(PoseSample {
         pose: SemanticPose::AirborneCenter,
@@ -383,7 +382,7 @@ fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> AnimationValueResult<P
                     NonnegativeSpeed::ZERO,
                     walk_locomotion_profile().reference_speed,
                 )?
-                .smoothstep(),
+                .smoothstep()?,
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,

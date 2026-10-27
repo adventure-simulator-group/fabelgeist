@@ -177,6 +177,7 @@ animation:
   locomotion:
     sample_hz: 64.0
     landing: { minimum_impact_speed_metres_per_second: 1.0, compression_per_metre_per_second: 0.012, minimum_compression_metres: 0.04, maximum_compression_metres: 0.08, recovery_seconds: 0.16 }
+    zero_speed_step_distance_metres: 0.9
     walk: { reference_speed_metres_per_second: 2.0, step_distance_metres: 1.22, support_phase_radius: 0.28, bounce_metres: 0.04, flight_apex_metres: 0.0 }
     run: { reference_speed_metres_per_second: 5.5, step_distance_metres: 1.78, support_phase_radius: 0.175, bounce_metres: 0.0, flight_apex_metres: 0.12 }
     raised_guard: { reference_speed_metres_per_second: 2.0, step_distance_metres: 0.38, support_phase_radius: 0.25, bounce_metres: 0.03, flight_apex_metres: 0.0 }

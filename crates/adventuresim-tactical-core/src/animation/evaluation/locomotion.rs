@@ -126,10 +126,9 @@ pub(super) fn upright_locomotion_samples(
             NonnegativeSpeed::ZERO,
             crate::combat_config::runtime_animation_config()
                 .locomotion
-                .blend_speed
-                .nonnegative(),
+                .blend_speed,
         )?
-        .smoothstep();
+        .smoothstep()?;
     let longitudinal_weight = BlendWeight::from_factor(longitudinal / total)?;
     let lateral_weight = BlendWeight::from_factor(lateral / total)?;
     let mut samples = locomotion_samples(speed, phase)?;
@@ -188,7 +187,7 @@ fn alternating_contact_pair(
     contact: SemanticPose,
 ) -> AnimationValueResult<Vec<PoseSample>> {
     let half = phase.wrapped().cycles() * 2.0;
-    let progress = smoothstep01(half.fract())?;
+    let progress = UnitInterval::from_fraction(half.fract())?.smoothstep()?;
     let (start_mirrored, end_mirrored) = if half < 1.0 {
         (ClipMirror::Original, ClipMirror::Mirrored)
     } else {
@@ -223,10 +222,9 @@ fn locomotion_samples(
             NonnegativeSpeed::ZERO,
             crate::combat_config::runtime_animation_config()
                 .locomotion
-                .blend_speed
-                .nonnegative(),
+                .blend_speed,
         )?
-        .smoothstep();
+        .smoothstep()?;
     let run = speed.clamped_inverse_lerp(
         walk_locomotion_profile().reference_speed,
         run_locomotion_profile().reference_speed,
@@ -294,7 +292,7 @@ pub(in crate::animation) fn gait_pair(
     // anchor zero endpoint velocity. Linear quarter interpolation changed
     // velocity discontinuously at each anchor and produced a visible knee and
     // ankle snap even though the poses themselves were continuous.
-    let progress = smoothstep01(quarter.fract())?.fraction();
+    let progress = UnitInterval::from_fraction(quarter.fract())?.smoothstep()?;
     let (start, start_mirrored, end, end_mirrored) = match quarter.floor() as u8 {
         0 => (contact, ClipMirror::Original, passing, ClipMirror::Original),
         1 => (passing, ClipMirror::Original, contact, ClipMirror::Mirrored),
@@ -302,19 +300,19 @@ pub(in crate::animation) fn gait_pair(
         _ => (passing, ClipMirror::Mirrored, contact, ClipMirror::Original),
     };
     let mut samples = Vec::with_capacity(2);
-    if progress < 1.0 {
+    if progress < UnitInterval::ONE {
         samples.push(PoseSample {
             pose: start,
             sampling: PoseSampling::Anchor,
-            weight: BlendWeight::from_factor(1.0 - progress)?,
+            weight: BlendWeight::from(progress.complement()),
             mirror_lower_body: start_mirrored,
         });
     }
-    if progress > 0.0 {
+    if progress > UnitInterval::ZERO {
         samples.push(PoseSample {
             pose: end,
             sampling: PoseSampling::Anchor,
-            weight: BlendWeight::from_factor(progress)?,
+            weight: BlendWeight::from(progress),
             mirror_lower_body: end_mirrored,
         });
     }

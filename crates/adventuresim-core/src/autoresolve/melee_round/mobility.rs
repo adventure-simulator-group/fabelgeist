@@ -72,7 +72,7 @@ pub(in crate::autoresolve) fn preview_melee_pair_movement(
             } else {
                 parameters.guarded_movement_speed_metres_per_second
             })
-            .nonnegative())
+            .into())
     };
     let acceleration = |combatant: &Combatant| {
         ground_drive_acceleration(
