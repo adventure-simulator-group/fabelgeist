@@ -1,13 +1,15 @@
 {
-  "at": "2026-10-27T18:44:17.329625+00:00",
+  "at": "2026-10-27T18:48:41.004335+00:00",
   "kind": "Byte transport verification only; no project tests/scanners/audit-body/runtime/CI acceptance",
-  "verified_payload_commit": "c58e84137884350a3efb10543e958cf9d2f71fb0",
-  "verified_payload_tree": "a332cf71c42aa580a1f19e775596f585ea2ca26a",
-  "verified_files": 15002,
-  "verified_bytes": 273806734,
+  "verified_payload_commit": "3e0f5369381fbeb54ff2c6c48f7f86b8145785dc",
+  "verified_payload_tree": "0fe4e88f94b315db4df8482bdcd5b8566ca33111",
+  "verified_files": 15005,
+  "verified_bytes": 273822887,
   "method": "All payload blobs read back and SHA-256 checked against prepared bytes; manifest excludes itself and transport metadata from recursive hashing.",
   "public_disclosure_authorized": true,
   "text_conversion": "Handoff subtree .gitattributes uses * -text.",
   "product_changes": false,
-  "handoff_contract": "Primary artifact is the handoff branch. Adler may return an incomplete audit with exact checkpoints; code repairs remain blocked until ledger completion."
+  "central_entry": "README.md",
+  "layout": "Matches previous central README, CURRENT, AUDIT-RESUME, SOURCE-LOCATORS, SOURCE-BYTE-VERIFICATION, MANIFEST and TRANSPORT-VERIFICATION structure.",
+  "handoff_contract": "Adler may return an incomplete audit with exact checkpoints; no code repairs until ledger completion."
 }
