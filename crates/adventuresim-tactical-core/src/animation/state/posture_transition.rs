@@ -67,10 +67,8 @@ impl PostureTransitionState {
         // endpoint velocity. The endpoint remains the complete canonical turn.
         let tuning = crate::combat_config::runtime_animation_config().state_transitions;
         let root_handoff_end_fraction = match trajectory {
-            // The shorter slide devotes a larger normalized share to the same
-            // fixed presentation settling time, so its handoff finishes with
-            // the transition. The longer airborne recovery can finish just
-            // before the terminal pose without outrunning the authored turn.
+            // Slides finish the transfer at the transition endpoint; airborne
+            // recovery uses the configured earlier handoff endpoint.
             DiveTrajectory::GroundedSlide => UnitInterval::ONE,
             DiveTrajectory::Airborne => tuning.dive_airborne_root_handoff_end_fraction,
         };

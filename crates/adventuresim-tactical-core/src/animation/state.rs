@@ -1501,7 +1501,7 @@ impl SkeletonState {
         if matches!(transition.kind, PostureTransitionKind::DiveToDowned { .. }) {
             if !self.body.is_surface_supported() {
                 transition.dive_was_airborne = true;
-                transition.phase = UnitInterval::HALF;
+                transition.phase = DIVE_GROUND_CONTACT_PHASE;
                 self.posture_transition = Some(transition);
                 return Ok(());
             }
@@ -1512,10 +1512,11 @@ impl SkeletonState {
                     self.finish_posture_transition(transition.kind);
                     return Ok(());
                 }
-                transition.phase = UnitInterval::from_fraction(
-                    0.5 + 0.5 * recovery_elapsed.samples() as f32
-                        / transition.duration_ticks.samples() as f32,
+                let recovery = UnitInterval::from_fraction(
+                    recovery_elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
                 )?;
+                transition.phase =
+                    DIVE_GROUND_CONTACT_PHASE.checked_lerp(UnitInterval::ONE, recovery)?;
                 self.posture_transition = Some(transition);
                 return Ok(());
             }
@@ -1526,13 +1527,14 @@ impl SkeletonState {
                 // landing so pose and facing remain continuous.
                 transition.dive_was_airborne = true;
                 transition.dive_landing_tick = Some(current_tick);
-                transition.phase = UnitInterval::HALF;
+                transition.phase = DIVE_GROUND_CONTACT_PHASE;
                 self.posture_transition = Some(transition);
                 return Ok(());
             }
-            transition.phase = UnitInterval::from_fraction(
-                0.5 * elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
+            let launch = UnitInterval::from_fraction(
+                elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
             )?;
+            transition.phase = UnitInterval::ZERO.checked_lerp(DIVE_GROUND_CONTACT_PHASE, launch)?;
             self.posture_transition = Some(transition);
             return Ok(());
         }

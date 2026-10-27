@@ -44,6 +44,10 @@ impl UnitInterval {
     pub fn saturating_sub(self, other: Self) -> Self {
         Self((self.0 - other.0).max(0.0))
     }
+    /// Interpolate admitted endpoints and check the computed fraction.
+    pub fn checked_lerp(self, other: Self, fraction: Self) -> FractionResult<Self> {
+        Self::from_fraction(self.0 + (other.0 - self.0) * fraction.0)
+    }
     /// Normalize within an increasing interval, saturating at its endpoints.
     pub fn clamped_inverse_lerp(self, lower: Self, upper: Self) -> FractionResult<Self> {
         if lower >= upper {
