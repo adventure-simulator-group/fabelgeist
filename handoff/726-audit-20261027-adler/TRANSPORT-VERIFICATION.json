@@ -1,7 +1,18 @@
 {
-  "kind": "Prepared return payload; Git blob readback pending before publication",
-  "at": "2026-10-28T17:02:03.979690+00:00",
-  "implementation_gate_complete": false,
+  "at": "2026-10-28T17:05:41.681245+00:00",
+  "kind": "Return handoff Git byte readback only; no product/audit/runtime/CI acceptance",
+  "verified_payload_commit": "8e2b6259a5971a1595473fed24460f1120e9453d",
+  "verified_payload_tree": "f2f6e2aeaa736066f4b79ccabc3c9e9b1d2e6509",
+  "verified_files": 18144,
+  "verified_bytes": 512284789,
+  "method": "Every manifest-listed payload blob plus manifest read from exact Git commit and SHA-256 compared against prepared bytes. Current verification excludes itself to avoid recursive self hash.",
+  "changed_paths": 3150,
   "product_changes": false,
-  "supersedes": "Historical transport verification preserved in history/b97bcedc262f91de07635c69cd1a4fc4f9a7d13f/TRANSPORT-VERIFICATION.json"
+  "ledger_sha256": "0425f4ba22a7068d26073e1349a01b29f874f6333a2c33dcc5c0cece8017039a",
+  "implementation_gate_complete": false,
+  "goal_status": "paused by user for return handoff",
+  "text_conversion": "Handoff .gitattributes uses * -text",
+  "central_entry": "README.md",
+  "public_disclosure_review": "PUBLICATION-REVIEW.json",
+  "historical_source_evidence_check": "adler/VERIFY-L11-396.json"
 }
