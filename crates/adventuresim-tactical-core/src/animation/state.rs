@@ -1534,7 +1534,8 @@ impl SkeletonState {
             let launch = UnitInterval::from_fraction(
                 elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
             )?;
-            transition.phase = UnitInterval::ZERO.checked_lerp(DIVE_GROUND_CONTACT_PHASE, launch)?;
+            transition.phase =
+                UnitInterval::ZERO.checked_lerp(DIVE_GROUND_CONTACT_PHASE, launch)?;
             self.posture_transition = Some(transition);
             return Ok(());
         }
