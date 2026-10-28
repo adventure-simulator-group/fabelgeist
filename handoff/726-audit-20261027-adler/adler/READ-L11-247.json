@@ -1,0 +1,302 @@
+{
+  "lens": 11,
+  "batch": 247,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1700,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-535.json",
+      "registration_sha256": "09a4a98639ea34417000338c7abf664826b2f2d1bb58292d5f7c6bd34978abdb",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/cameras.rs",
+      "sha256": "339321b37e85cb2c1b1e2fcc138cac67330b953e40a94cf2797cdfcee382ae5e",
+      "scope": [
+        [
+          1,
+          224
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          224
+        ]
+      ]
+    },
+    {
+      "original_index": 1701,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-536.json",
+      "registration_sha256": "519667152ef40beb19cd70b0f1ec85de8b98dbbb1f2959285448061b18f79e7d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "sha256": "da0f087a671bf4958225ba9cd45f834cff0b0d651c9ab03c1ebcc9242a01b1e0",
+      "scope": [
+        [
+          1,
+          301
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          301
+        ]
+      ]
+    },
+    {
+      "original_index": 1702,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-537.json",
+      "registration_sha256": "438911653cbf5966d9801f2becee472ef5b7c5f18fc8d2a5c0badd0fb07b0b4c",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+      "sha256": "c8bf873f1396ed17589c6b0fb5c91895a48f20e35fb6e80f7caca42730245af5",
+      "scope": [
+        [
+          1,
+          76
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "original_index": 1703,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-538.json",
+      "registration_sha256": "967ded2a800550d08e54e64a61a92119a9b8628777a218de793ae353a2651515",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/camera_obstruction.rs",
+      "sha256": "fef0313045022b4f77f5869639bcddf97b5f81c87ce84c1e95ca7ba0dcf0bbf5",
+      "scope": [
+        [
+          1,
+          97
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          97
+        ]
+      ]
+    },
+    {
+      "original_index": 1704,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-539.json",
+      "registration_sha256": "99bf6c88f69ef5e1819c057b0a55252482cf2c4be213da52af298d19601fd0bc",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "scope": [
+        [
+          1,
+          373
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          373
+        ]
+      ]
+    },
+    {
+      "original_index": 1705,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-540.json",
+      "registration_sha256": "5d0b54f04329291ed175c166535c809329c99b48d247315ec1aae3a9720204fd",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_terrain.rs",
+      "sha256": "e900f86c48e53d3a6ca276cb50c94a1f0630dc8738d0a1f1c56bd8828d55b580",
+      "scope": [
+        [
+          1,
+          54
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          54
+        ]
+      ]
+    },
+    {
+      "original_index": 1706,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-541.json",
+      "registration_sha256": "34a4f70d1806cc3d21e8fd00b39edaa799f457bcdabe653d0363f13e8f526d20",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_visibility.rs",
+      "sha256": "327d3a435905a1e7bd3a748bc4cc1b881d82dced9cc1c656d1839620810f6098",
+      "scope": [
+        [
+          1,
+          39
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          39
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1700
+      ],
+      "ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/readiness/error and sourcefixture contract.",
+      "disposition": "Full224 review camera. Unknown JSON fields rejected, SceneBuildingId and typed Architectural/PlotRelative target positions, target enums and displacement. Geometry datum transforms target and displacement before native camera; native target-local gable/opening/heating axes explicitly mapped. Offset finite typed constructor and nonzero >0.1m check. Missing building/target/opening/window SignSite errors currently Bevy terminal diagnostic text; shared CaptureCameraError/category owner needs actual sibling/global owner before duplicate error proposal. No underlying native cause is discarded at these absence predicates. Phantom Architectural offset also denotes target-local authored axes according to target docs; global frame type fit pending, no numeric frame bug presumed. Nonzero orientation/base-elevation fixture read only."
+    },
+    {
+      "source_indices": [
+        1701
+      ],
+      "ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/readiness/error and sourcefixture contract.",
+      "disposition": "Full301 building review readiness. Actual plugin installs GpuReadiness and observes before capture; Configure permitted deliberately to install camera/visibility state, then per-view readiness resets. It checks required counts, every batch/door/window material GPU handles, sign/boundary parts, exactly3LOD material classes per building, production palette, physical glass and streaming sign lettering when camera close. Garden check Err becomes pending boolean, recomputed at120s timeout and printed; actual garden owned error/provider and native GPU pending-versus-terminal status needed before cause-loss/indefinite-pending finding. Timeout boundswaiting, not generic infinite loading. Native RenderAdapterInfo/config emitted at final artifact serialization; rawu64 building-key projection and discriminantset canonical ID/LOD owner-fit questions, no duplicated physical authority or runtime pass."
+    },
+    {
+      "source_indices": [
+        1702
+      ],
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/readiness/error and sourcefixture contract.",
+      "disposition": "Full76 viewer building native adapter. Selects distant placements by canonical building IDs excluding playable; gate datum uses checked elevation, SceneDoor/typed opening/directions and explicit native rotation; compile collider and native transform errors propagate. Some opening/sign/entity commands queue before later compile error, but this is CLI setup with terminal handler contract pending; no blanket atomic-scene guarantee inferred. Read-only capture static physics bodies stay transient Bevy, no SpacetimeDB tactical persistence."
+    },
+    {
+      "source_indices": [
+        1703
+      ],
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/readiness/error and sourcefixture contract.",
+      "disposition": "Full97 obstruction capture delegates actual BoomRecovery/CameraFrame/CameraVolume with checked positions/rotation/scene support, zero animation elapsed for stateless sample. No focused tree supplies ordinary camera plus hit=false observation; viewer validation requires true hit for obstruction plate, so no false obstructed pass or legacy support fallback. Boundary camera required terrain errors propagate. Trunk root estimate uses TREE_TRUNK_HEIGHT constant from focused obstacle convention; actual producer setup_obstacles and species geometry needed before wrong focus claim."
+    },
+    {
+      "source_indices": [
+        1704
+      ],
+      "ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/readiness/error and sourcefixture contract.",
+      "disposition": "Full373 capture state and image metrics owner. CapturePhase enum enforces one readback branch, distinguishes Prime/Warmup/Screenshot; LightingConvergence Pending/Ready/Exhausted after8reads, latest2finite samples and <=max(2percentmean,1.5) delta. Actual viewer246 skips only Pending then records ready=false for Exhausted, so exhaustion cannot become ready. mean_luminance missing/empty ->NaN is internal invalid-measurement sentinel that finite convergence rejects; checked source at UI output pending before new owned-error design. Foreground/detail/canopy return0 for absent/short/zero-sizedimages, checkedratio saturates10000; native screenshot admitted size/format/row-layout contract still pending, no arbitrary malformed Image accepted. FNV1a deterministic compact nonadversarial witness, not literally stored bytewise comparison or cryptographic identity; hash collision not claimed observed. Tests cover representative changed bytes only, not universal proof. State latitude/longitude/canopy/profile/LODu8 global canonical-owner fit retained. All fixture assertions read only."
+    },
+    {
+      "source_indices": [
+        1705
+      ],
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/readiness/error and sourcefixture contract.",
+      "disposition": "Full54 actual required-terrain/camera reject terminal adapter. Missing/ambiguous SceneTerrain query or placement error goes directly to Display log+failure.txt and AppExit error; Option None is control return after rejection, no fabricated height/infinite wait/early library cause discard. Secondary artifact-write IO error logged independently while original rejection log retained, app stillfails. Final terminal output permitted to format owned causes. No filewrite/app/runtime executed."
+    },
+    {
+      "source_indices": [
+        1706
+      ],
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/readiness/error and sourcefixture contract.",
+      "disposition": "Full39 canonical ProductionLeaves Bevy query filter excludes TreeReviewSpecimen and UnderstoryReviewSpecimen before production suppression, closing deferred write race premise for that specific path. Alias names ECS query tuple intentionally, not compatibility alias; actual isolated specimens retain explicit per-view visibility. Source fixture verifies filter shape but was not run. Does not prove benchmark_leaf_representations visibility filtered; separate query246 remains all matching components."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-243.json",
+      "sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-244.json",
+      "sha256": "5fb5a7ba00f88d568e03a1f4c12b7bf041a85a1b764a8617ea67f545e8f6d0b0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-245.json",
+      "sha256": "abfe870f524691806cd9dc05331066a35b40d3dad0f15f6db460b944aecabc4d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5"
+    }
+  ],
+  "pending_contracts": [
+    "247 full1700..1706 complete metadata union, next1707. L11=1707/2853; all13/populations/current/all20/aliases/finaldedup incomplete, gatefalse accepteduniquechange0.",
+    "Actual CapturePhase/convergence/hash helpers close246 source dependencies: latesttwo finite convergence with explicit Exhausted, viewer records exhaustednotready. Final required-terrain failure writes artifact/log/exit, Option returns afterterminal rejection. No silent missing-height substitute or indefinite convergencewait claim.",
+    "Buildingreview source readiness bounded120s, actual GpuReadiness/native PipelineCache and gardens.check ownedoutcome provider remain pending before native-terminal-failure collapse finding. Source counts/material observations not completed-frame acceptance.",
+    "ProductionLeaves explicitly excludes isolated specimens, narrowing possible deferred suppression race. Existing benchmark count mismatch actualconsumer remains unchanged; no broader visibility equivalence.",
+    "Actual ReviewView target-relative authoring displacement mapped through explicitframes anddatum; canonicalerror/coordinateowner all20 fit pending before extra types/errors. Capturesetup no promised transaction assumed.",
+    "All prior qualifications/future ordered reuse2248/2249/2250/2701, seven scopedextensions/nativeoriginal4EOFqualification, partial later129/L13 and L12 unchanged. Nextregistration542 and original1707 exactunion beforebody.",
+    "No product source changes/builds/tests/lints/scanners/generators/runtime/native probes/CI/newtests/commits/pushes/PR/publication/externalmessages. Goal active/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1707
+}

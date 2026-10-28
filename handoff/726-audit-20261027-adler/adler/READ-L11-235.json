@@ -1,0 +1,345 @@
+{
+  "lens": 11,
+  "batch": 235,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1636,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-469.json",
+      "registration_sha256": "28b0e7e482d58440dca399b3a9e8930c97843a49d096626dddc65938b1a4a7bf",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "sha256": "b571c37d64c20535df90dc5b14ebddd2cc22010885764fbeae66c78ad6970d6c",
+      "scope": [
+        [
+          1,
+          1187
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          190
+        ],
+        [
+          191,
+          380
+        ],
+        [
+          381,
+          570
+        ],
+        [
+          571,
+          760
+        ],
+        [
+          761,
+          950
+        ],
+        [
+          951,
+          1140
+        ],
+        [
+          1141,
+          1187
+        ]
+      ]
+    },
+    {
+      "original_index": 1637,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-470.json",
+      "registration_sha256": "60929792d45d26050188b2068bc4f2691e9c6ccf6f86b83815c13244ea810b3e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/details.rs",
+      "sha256": "15095204e03f1e13f74d77b1afbd17e33489f798b7732c59acfbacdfcc219307",
+      "scope": [
+        [
+          1,
+          362
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          190
+        ],
+        [
+          191,
+          362
+        ]
+      ]
+    },
+    {
+      "original_index": 1638,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-471.json",
+      "registration_sha256": "2285c1cf09b87e0eec96a1ed6ea1021d24ae50eaddf380185214ee08aa64cd5c",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/error.rs",
+      "sha256": "0dcc310f1d6919c226afcb66bdbce1186f7417e49c24e6b3b292857980cbb1bb",
+      "scope": [
+        [
+          1,
+          21
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "original_index": 1639,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-472.json",
+      "registration_sha256": "06e9443a62c58fe9a10051957aedf54df9ef21073833029b098d3b272a9d468c",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/focused.rs",
+      "sha256": "d1bb5a38bc3cecf8703fb9165e1c290037f3ae5d346d3285a7f34e256458c83e",
+      "scope": [
+        [
+          1,
+          144
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          144
+        ]
+      ]
+    },
+    {
+      "original_index": 1640,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-473.json",
+      "registration_sha256": "48e919d51a557616be1105585db9a0cafeab65ac62385b55895a336796baff7b",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/focused/meshes.rs",
+      "sha256": "d61a67fcf466b67a7f9f3b27752a4c27605ede3b1d12850ef7fc5a962dc4740a",
+      "scope": [
+        [
+          1,
+          144
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          144
+        ]
+      ]
+    },
+    {
+      "original_index": 1641,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-474.json",
+      "registration_sha256": "80855791007053e4773cad627acba9a8ddf12e5fe5605090ab34dbe6c9858c9a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/grass.rs",
+      "sha256": "d6c99d033f27462e88a6c1dbafd194a210933ababf7450d35111f18e155ad01e",
+      "scope": [
+        [
+          1,
+          253
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          253
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1636
+      ],
+      "ranges": [
+        [
+          1,
+          1187
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/owner/producer/native boundary contracts and source-only acceptance fixtures.",
+      "disposition": "Full1187 vista observer/admission/fixtures. Exact scene digest selects playable terrain/ground/environment and pending.accept before preparation; PendingVista exact consume/error/retry semantics still pending, no consume-before-validate claim from name. PreparedVistaLod::prepare_all validates all visible required rings before active_surface update/despawning old entities; owned VistaMeshError formatted at final observer boundary preserves error until log. Active surface retains canonical playable source then publishes chunks, near-tree/details setup. Optional missing playable scene returns before publication. maximum_lods comes validated graphics217, no arbitrary infinite/unbounded config input. Native material weather packing uses canonical saturatedbps; chunk32cells is ECS submission policy preserving exact terrain, not visual coarse sampling. Boundary coverage uses canonical ScenePlanPoint/GroundCover and managed urban exclusion, typed0..1 conversion then native leaf. All regional holes/upward normals/backdrop-ring support/terrain authority/stitches/palette/LOD/tree angular/furniture support tests source read only; no fixture assets or generator/app/assert execution. Actual PendingVista/PreparedVistaLod/ActiveVistaSurface/streets and native helper contract bodies remain to inspect at ordered scope."
+    },
+    {
+      "source_indices": [
+        1637
+      ],
+      "ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/owner/producer/native boundary contracts and source-only acceptance fixtures.",
+      "disposition": "Full362 actual distant rocks/trees. Rock world lattice limited playable extent+420 and spacing24, canonical ScenePlanPoint admission plus support and typed SignedLength constant lift; native shape positive fixed authored recipe, fixed12face far mesh and same-loop attributes. sample_vista_environment converts world ScenePlanPoint relative to raw VistaLod origin, nearest lookup get; actual grid>=2/finite positive spacing/environment cardinality admission needed before malformed index/NaN claim. Distant trees use exact same whole-tree atlas specimen0, species owner and cache/Prepared asset APIs; calibrated stand aggregate intentionally not survey stem identity, no per-cell bake required. Typed StreamId candidate/scale/count, bounded24or3 per cell, canonical admitted source dimensions still needed for total count. tree support queried at local+lod.origin but native Transform uses local x/z with no ChildOf; qualified placement frame family below. Do not change deliberate local species/community point or physical stand density merely to add wrappers. Card-height fallback12 is absent provenance policy, raw imported asset bounds still under228 admission finding. Rotation-safe Aabb/visibility uses native asset height/scale; actual renderer/asset/frame acceptance still pending."
+    },
+    {
+      "source_indices": [
+        1638
+      ],
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/owner/producer/native boundary contracts and source-only acceptance fixtures.",
+      "disposition": "Full21 VistaMeshError canonical owner. InvalidLod retains VistaLevelIndex; Geometry and TerrainSupportError owned transparent; DegenerateNormal/MissingColor retain actual ScenePlanPoint. Shared PreparationError218 owns VistaMeshError, so no duplicate String parse or stale error owner. Source-only exact producer/consumer propagation follows1636/1640; no native failure execution."
+    },
+    {
+      "source_indices": [
+        1639
+      ],
+      "ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/owner/producer/native boundary contracts and source-only acceptance fixtures.",
+      "disposition": "Full144 actual FocusedGround installation connects1618 regional candidate. PreparedCityProduct/document and CityFrame supplied, typed SystemState borrow and fallible digest/GroundMeshes/material propagate as native Bevy Result. Landform/fine/vista entities queued under candidate root and explicit RegionalMap owner/layer; GroundMeshes all fallible geometry/reflection precedes renderer commands. Paving spawn remains fallible before state.apply(world); earlier asset allocations/queued commands and exact CommandQueue drop cleanup need native/source lifecycle before leak/partial publication claim.1618 candidate root teardown on returned error remains source-connected, not asserted GPU completion. Returned support/material handles/half extent tie actual accepted source product to reanchor/marker paths. Source Coordinate inverse/reflection/native errors retain owned inner errors rather than strings."
+    },
+    {
+      "source_indices": [
+        1640
+      ],
+      "ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/owner/producer/native boundary contracts and source-only acceptance fixtures.",
+      "disposition": "Full144 GroundMeshes complete native product. Product landform enum Natural/Patch drives optional mesh; Patch requires document surface recipe or owned LandformRecipe error. Do not invent mismatched private PreparedCityProduct halves without actual constructor violation;218 generator consistency and later landform product still dependencies. Fine, actual patch and selected vista chunks feed GroundSupport in canonical coordinates before all fallible reflected() passes; Reflection/VistaMesh errors owned, transpose/collect propagate before publication. LOD origin retained as native GroundChunk origin, inner half extents update admitted grid dimensions/spacing. Positive/raw half extent declared native geometry boundary; actual use city whole-window support1617 remains tied to product validity. Native reflection/source support and validity of additive origin/local mesh semantics still pending actual receivers."
+    },
+    {
+      "source_indices": [
+        1641
+      ],
+      "ranges": [
+        [
+          1,
+          253
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/owner/producer/native boundary contracts and source-only acceptance fixtures.",
+      "disposition": "Full253 actual vista grass joins existing playable canonical lattice and placement owners. Coverage excludes exact playable rectangle per tuft, urban ground suppresses, density uses saturatedbps/admitted settings; no overlapping duplicate gameplay terrain authority. Owned property-surface path queries canonical surface_below and slope threshold, sampled vista uses lod.local_offset(ScenePlanPoint) then canonical VistaVertexGeometry and native tangents. Authored positive2m sample radius .ok()? cannot reject literal; no arbitrary lost recoverable user error claimed. Ground support optional holes/slope rejection intentional. Per-tier outer collar covers fade reach, NearEdge clones exact Near placements, Vista uses separate named stream. Pure scatter and native spawn share helper, no CPU benchmark/test execution. Core source interpolation, native tuft and all dynamic topology219 qualifiers remain."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    }
+  ],
+  "pending_contracts": [
+    "235 completes1636..1641 full exact union; next1642. All13 original/overlay/merged/shared/later/extensions/current/all20/aliases/connected acceptance remain incomplete, gatefalse/uniquechange0, goal active.",
+    "Vista required all-ring preparation precedes replacement; actual pending.accept occurs before preparation but exact PendingVista retry/consumption owner still unread. Do not call token consumption or lost retry from call order alone. Owned VistaMeshError preserved through native observer log and focused geometry result.",
+    "Distant tree source-query versus native-local placement difference preserved as qualified frame finding. Exact tree_root_height/ActiveVistaSurface/native parent and admitted origin constraints still needed; zero-origin fixtures do not demonstrate bug or clear nonzero domain. Focused chunk origin is separate concrete receiver, not automatic tactical frame proof.",
+    "FocusedGround1618 install actual geometry complete/reflected before queued publication, paving still fallible before state.apply. Native CommandQueue drop/asset allocation cleanup and exact paving owner needed before partial/leak finding; returned error still triggers candidate root teardown1618.",
+    "Prepared tree asset admission family now actual vista consumer connected; card bounds/provenance/raw loaded version/native/current remain unresolved. Actual LOD and density/grid bounds need canonical source admission, no arbitrary malformed private source assertions.",
+    "Landform cause-discard234 remains recipe-only branch; focused PreparedTerrainLandform path retains typed Natural/Patch and owned missing-recipe/reflection/VistaMesh errors. Product mismatch is not assumed possible; exact product constructor/source still needed. No supplied-patch/recipe compatibility allegation.",
+    "Ground categorical map linear enum interpolation/SceneGround capacity233, sky/shared-scatter material lifecycle221/232, GPU generation214/231 and all prior findings retain dependencies. Tests source only; no actual assets loaded/generator/app/assertion/runtime/native verification.",
+    "All seven scoped extensions independent all13 mandatory. EOF231 qualification versus inherited raw240 explicit/no nonexistent-line credit. Main comparison, all20, accepted unique dedup incomplete. L12/L13 unchanged.",
+    "Firstordered2248REG398/2249REG396/2250REG397 READ220 and separate later5/6/7/11/127/128/129 obligations unchanged;12954..117unread. Next registration475, next1642 requires exact metadata full union before body.",
+    "No product changes/builds/tests/lints/scanners/generators/runtime probes/CI fixes/new tests/commits/pushes/PRs/merges/external messages. Ignored source/Git/evidence bookkeeping only."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1642
+}

@@ -1,0 +1,244 @@
+{
+  "lens": 11,
+  "batch": 251,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1720,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-557.json",
+      "registration_sha256": "13b90f3d3f6a2de849a7c452a83e92e207d0ee5aa14b60efbdd679d89b9ea8df",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/plant_lods.rs",
+      "sha256": "36ec27846639fcd39472f076870256cb3a37ae29dfd489fe49f7e93cbe40d0a7",
+      "scope": [
+        [
+          1,
+          113
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          113
+        ]
+      ]
+    },
+    {
+      "original_index": 1721,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-558.json",
+      "registration_sha256": "e7e26107608b8d10820475ef6011fdd882e1f20c6312a8337cc6e379ef81ee82",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/setup_obstacles.rs",
+      "sha256": "ed251a1127b90eec10478382e61cb9fc193e36c1d7c15104e43dfdefab03d3e4",
+      "scope": [
+        [
+          1,
+          166
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          166
+        ]
+      ]
+    },
+    {
+      "original_index": 1722,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-559.json",
+      "registration_sha256": "6990f073da4a8d76078e074ae77d8686c149e29711b32d849886a54df25fc483",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "sha256": "17a9a24f5d15cbd9db474bed73f9cecc39d1dddb1af6a7ff2d9d74a83ae13461",
+      "scope": [
+        [
+          1,
+          350
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          350
+        ]
+      ]
+    },
+    {
+      "original_index": 1723,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-560.json",
+      "registration_sha256": "4f40e377fe0273931fc69a5966126c94435b694ca523ceb36211e77476464b1b",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "8a9fe4f5dd1a72f306edf38bf29bb147569abd3314d13ff00e9f3fc01fb8e66e",
+      "scope": [
+        [
+          1,
+          122
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          122
+        ]
+      ]
+    },
+    {
+      "original_index": 1724,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-561.json",
+      "registration_sha256": "c6d8dd6090af126ba694b472850e7d684341e5e5dbc6a8328e60e7114af40f9a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "1d7e47c42a77acec3c103a59dbd02b3810eb0fed0afacbc35c1866908cc55e30",
+      "scope": [
+        [
+          1,
+          78
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          78
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1720
+      ],
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/coordinate/native error/diagnostic owner-fit contract; sourcefixtures only.",
+      "disposition": "Full113 plant LOD observation. Uses exact capture camera VisibleEntities mesh list, separately reports distance/range predicate; avoids aggregate other-camera/shadow ViewVisibility. Actual root co-location epsilon groups rows; producer species/root uniqueness required before conflating nearby plants. CPU Assets<Mesh> missing indices ->0 triangle telemetry, actual plant RenderAssetUsages/native Mesh source-data lifetime and report consumer needed before zero-as-real-count finding; prior216 Image semantics must not be transferred to Mesh. Final serialized Observation typed PlantLod/PlantSpecies, native distance/triangles at diagnostic port. Source fixture visibility separation read only."
+    },
+    {
+      "source_indices": [
+        1721
+      ],
+      "ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/coordinate/native error/diagnostic owner-fit contract; sourcefixtures only.",
+      "disposition": "Full166 obstacle producer. Admits every SupportedObstacle and required terrain support before queuing any obstacle/overlay. Exact original grid multiply-subtract order intentional numerical preservation, not compatibility path. Canonical Scene positions plus tree collider-centre halfheight / rock radius offset. Confirms247 obstruction camera tree-root subtracts same canonical halfheight, so no root-offset mismatch from that convention. Focus source chooses nearest plan centre, native static collider and hiddenoverlay transientBevy. Rock seed-to-yaw is final deterministic native rotation arithmetic; actual named RNG stream requirement/all20 fit pending, no fabricated semanticidentity or DB persistence."
+    },
+    {
+      "source_indices": [
+        1722
+      ],
+      "ranges": [
+        [
+          1,
+          350
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/coordinate/native error/diagnostic owner-fit contract; sourcefixtures only.",
+      "disposition": "Full350 actual CaptureCameraError preserves owned AnimationValueError/GeometryError/CameraError/TerrainSupportError transparently, missingauthoring/livequery/buildingpose retain CapturePose. Canonical SceneCameraView keeps positions/orientation until native leaf. Optional tree/rock/debris absence selects ground view; whether that is accepted depends actual DetailRequirement/spec/manifest gates, not automatically legacy fallback or false-pass. Missing required plant/vista/authored/building camera fails with category. Species-specific lit framing intentional. Checked Position/SignedLength/angle propagation, no native CameraError stringify before final reject. Scene distance signed owner admissible at private authored camera quantities requires actual constants before negative input defect."
+    },
+    {
+      "source_indices": [
+        1723
+      ],
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/coordinate/native error/diagnostic owner-fit contract; sourcefixtures only.",
+      "disposition": "Full122 landscape camera uses typed geographic extrema and required MissingVista forpeak/valley, horizon may intentionally use playable terrain when no vista. Fixed heading for zero coincident direction is geometric policy. Native f32 clamp/framing/angle math re-admits checked Position and SceneCameraView, no fabricated geographic support or older schema. Grazing/overview artistic offsets require actual fixtures/frame acceptance, no exactheight/visual success claimed."
+    },
+    {
+      "source_indices": [
+        1724
+      ],
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/coordinate/native error/diagnostic owner-fit contract; sourcefixtures only.",
+      "disposition": "Full78 SceneCameraView. Position<Scene>/SpatialDirection<Scene>/RigidRotation retained; enum orientation distinguishes LookingAt from Fixed, fixed rotation may validly share target/position without lookat singularity. LookingAt checks normalized forward and crossup before constructing, native Bevy owns final lookat arithmetic. CaptureCameraPlacement pairs view with optional typed obstruction observation. Field visibility is module-scoped; actual invalid field mutation not observed. Final native up/Transform conversion boundary deliberate, no redundant arbitrary wrapper or early Result-to-string loss."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-243.json",
+      "sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-244.json",
+      "sha256": "5fb5a7ba00f88d568e03a1f4c12b7bf041a85a1b764a8617ea67f545e8f6d0b0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-245.json",
+      "sha256": "abfe870f524691806cd9dc05331066a35b40d3dad0f15f6db460b944aecabc4d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-247.json",
+      "sha256": "d708a807a9dae6f7e9b5aca74f689a1957bed6da93083c0a1c49ce0360a7abb7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-248.json",
+      "sha256": "624989266f35db42d013d11c5cb9d530a4fc7f4f592f836a0010bd1688ac357e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-249.json",
+      "sha256": "62268c42c3d7b3379934c63bf291f8920ea159290dfcf0071b28663dbb2f2df6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-250.json",
+      "sha256": "0ab04ff9b4c5befdbdd0ee2ba7405075381da0d279b9e300ecc2a9ee97666d2f"
+    }
+  ],
+  "pending_contracts": [
+    "251 full1720..1724 metadataunion complete, next1725. All13 populations/extensions/current/all20/aliases/finaldedup incomplete, gatefalse/accepteduniquechange0.",
+    "Canonical CaptureCameraError/SceneCameraView actual sources connected; native placement/source errors remain owned through finalreject. Obstacle collider-centre convention source confirms obstruction camera root subtraction matches producer, narrows247 pendingrootframe premise.",
+    "Optional tree/rock/debris camera ground choice requires actual view DetailRequirement/final acceptance contract next1725 before falsepass finding. Plant observation actual camera-specific visibility correct; CPU mesh index absence returns0 telemetry needs actual Mesh extraction/producer/consumer before defect.",
+    "All priorfindinglimits, eight boundedextensions including later147prefix1..13/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L13 and L12/L13 unchanged. Nextregistration562, original1725 all metadata union1..1101 beforebody.",
+    "No productchanges/builds/tests/lints/scanners/generators/runtime/probes/CI/newtests/commits/pushes/PR/publication/externalmessages; goalactive/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1725
+}

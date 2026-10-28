@@ -1,0 +1,183 @@
+{
+  "lens": 11,
+  "batch": 323,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2067,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-917.json",
+      "registration_sha256": "920a93c5c6c26c86beacb2a8e1582322d92d23e370b0d846b1ae7b696b80c7f8",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "scope": [
+        [
+          1,
+          3497
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          3497
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2067
+      ],
+      "ranges": [
+        [
+          1,
+          360
+        ]
+      ],
+      "roles": "Independent lens11 exact query composition, player input validation carriers, attack-facing time authority, posture and enemy scaling.",
+      "disposition": "First1..360 fully read before compaction and retained summary; complete remaining ranges re-read below. ValidatedPlayerInput owns once-normalized checked yaw/pitch with raw normalized native vectors/enums; AuthoritativeInputTick wraps canonical tick and wrap-aware freshness; AuthoritativePostureIntent single camera-mode enum plus separate command sequences. AttackFacing captures target Entity/live position/contact tick then updates to inclusivecontact using Fixed time/sample quantization; canonical same schedule/config/time correlation remains relevant before timing claim. Mission difficulty/BPS health0 policy explicit source and zero-combat-scale test intentional, not compatibility alias."
+    },
+    {
+      "source_indices": [
+        2067
+      ],
+      "ranges": [
+        [
+          361,
+          1080
+        ]
+      ],
+      "roles": "Independent lens11 complete transient reconnect projection shape, actual connected-player spawn, durable equipment-to-ECS projection, normal join authority gateway.",
+      "disposition": "DisconnectedProjection is Loading or boxed full Projected snapshot, private reconnect capability/positive-time/unclaimed invariants; actual snapshot holds combat/physics/input/quickstep/lunge/authority/pending contact but does not retain MissionOpeningAwareness or AttackFacing. Need intended reconnect preservation, perception/defaulting and other-entity target remap consumers before asserting omitted-state failure. Actual SpawnRecipient::Enemy only path adds MissionEnemy+Enemy at574..575; Loading path party never gets marker, closing321 MissionEnemyQuery normal-party-count concern. Strategic raw attrs/skills/health/bodymass and topology expects rely admitted ConnectedPlayer upstream; precise validation still2071/stdb owners pending. Religion hours filters finite and nonnegative then sums; finite-sum overflow needs actual durable bounds before finding. Starting incap subtracts fatigue once then fatigue is explicit; derive_combat_starting_condition and total-incap contract remain owners. Every item Entity reserved before topology; zeroquantity skips afterreservation, duplicate IDs collapse map and attachment expects rely upstream inventory uniqueness/positivequantity/parent completeness. Actual canonical equipment geometry assigns nonzero local Y anchor for parametric weapons, strengthens319 pickup-frame issue. Normal enter_mission call is queued through reducer gateway before inserting LoadingPlayer/token; reducer acceptance/auth/callback correlation and duplicate concurrent non-reconnect joins await actual stdb contracts. Reconnect path validates current token+character, immediately claims then queues snapshot/rebind/newtoken/inventory/lifecycle moves; no fallible operation after claim in this observer."
+    },
+    {
+      "source_indices": [
+        2067
+      ],
+      "ranges": [
+        [
+          1081,
+          1740
+        ]
+      ],
+      "roles": "Independent lens11 complete input freshness, incapacitation/jump/posture admission, body/controller projections and motion snapshot publication.",
+      "disposition": "Whole request rejects nonfinite look/movement/quickstep before tick or controller changes; finite yaw wrapped once, pitch clamped, native movement clamped and quickstep normalized/filterzero deliberate admission policy not legacy fallback. Jump edges consumed even rejected by incap/airborne/posture to prevent latent command replay; requested guard is lowered on incap, clears push/movement. Accepted posture transition and optional DiveLaunch correlated by exhaustive transition construction before expect. begin_authoritative_quickstep uses DodgeSpec admission then begins skeleton and force actuator together, native Vec2/Quat/origin inputs require actual caller invariant not universal wrapper. Posture duration draws validated runtime config and quantized sample span. Restore fixed-loop intent deliberately persists latest complete unreliable packet until explicit stop; controller/body frame transforms and prone Aim suppression explicit, roll overrides ordinary movement, optional controller branch is test/headless feature not compatibility path. Locomotion constructs finite checked observation, warns and skips rejected observation; canonical before/after facing partial-mutation policy needs owner errors. Motion snapshot deliberately captures controller postcollision/inputACK and quickstep/lunge, separate from presentation."
+    },
+    {
+      "source_indices": [
+        2067
+      ],
+      "ranges": [
+        [
+          1741,
+          2154
+        ]
+      ],
+      "roles": "Independent lens11 disconnect atomic evidence capture, reconnect token lifecycle and expiry, fresh player extras and debug dump binding boundaries.",
+      "disposition": "Disconnect captures all queried owned snapshot fields before deferred competing Aeronet despawn; moves item ownership to orphan and rebuilds cache. Orphan stores boxed snapshot rather than Player, so simulation pauses while disconnected; intentionality of freeze and terminalparty/enrollment grace with291/321/322 contracts remains policy pending, not assumed wrong. Missing complete projection falls back to actual Loading only, otherwise warns without retain; normal component invariants/add observers upstream before missing-component failure. Token is random256bit; reconnect_matches exactcharacter/capability, positive grace, unclaimed, immediate mutation serializes duplicates; invalid suppliedtoken rejected rather than fresh join. Expiry decrements native time; queue-level leave_mission error retains orphan/retries; reducer remote acknowledgment semantics stillpending. on_player_added insert_if_new ensures fresh transport/controller extras and preserves snapshot existing values; snapshot.insert currently restores Player before other groups, native deferred observer ordering must be inspected before claimed override. Debug-only world dump join explicitly distinct devmode, uses dynamic world copy+entitymap, warns pending if no template, inserts posture/pace and item Replicated on success. Source claim atomic scene.write_to_world needs actual native partial-write guarantees before acceptance; not production compatibility shim. No DB tactical tick persistence introduced."
+    },
+    {
+      "source_indices": [
+        2067
+      ],
+      "ranges": [
+        [
+          2155,
+          3497
+        ]
+      ],
+      "roles": "Independent lens11 complete existing standalone/reconnect/input/motion/posture acceptance fixture bodies, source-only.",
+      "disposition": "Read all tests, none executed. Standalone fixture asserts template removal, ECS ownership+InventoryItems remap and Replicated/newcombat extras while Enemybot untouched. Competing disconnect observer orders test owned snapshot survive; tests capability rotation/wrongcharacter/consumed/expiry/duplicate claim and rebind Replicated. Config scaling test explicitly0combat multiplier keeps health. Input tests reject each nonfinite field as oneupdate; wrap-aware jump and continuous input ticks; snapshot acknowledges input42. Finite normalization ordinary10vectors/yaw+pitch; no allfinite-extreme movement guarantee inferred. Camera modes exhaustive; backward/lateral dive and supine recovery transfer halfturns with physics rotation, roll/posture locking and 64Hz authored transitions; fixed unreliable movement persists fourticks until explicitNone, quickstep starts skeleton+force together, downed body-vs-controller frame across severalcamera yaws and supinehalf-speed, prone Aim suppresses movement. Test imports/constants/helpers native currentness/compilation not assessed by source reads alone."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-313.json",
+      "sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-314.json",
+      "sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-315.json",
+      "sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-317.json",
+      "sha256": "5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-318.json",
+      "sha256": "32707985195045901c315ee055171daede0e511e453b79148b272017e543f5c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-319.json",
+      "sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-320.json",
+      "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-321.json",
+      "sha256": "2e9432b7679a30e7a11ef409431ec616e514bb620902fc13043834778eca3613"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-322.json",
+      "sha256": "49c7ef78eebe15793f1e55e7d6f502d702cf1bb5441e8a2966804cfb7996c4f1"
+    }
+  ],
+  "pending_contracts": [
+    "323 accounts full2067 next2068; REG918..925 already prospectively registered unread. Must firstorderedadopt2075REG915full120 and2077REG916full75 from322 same-lens exactproof; no new global/extension scope.",
+    "Prior combined REG917361..1080 output was truncated and credited0. Each361..540/541..720/721..900/901..1080 was fully re-read separately before recording. Fresh1..360 was fully viewed precompaction; 1081..3497 newly read bounded. Full3497 coverage now personal exacthash, not based on truncated output.",
+    "Mission enemy marker ownership now traced actual normal recipient; remaining actual ConnectedPlayer validation/upstream topology/positive quantity/bodymass source2071/stdb and canonical normaljoin strategic permission/callbacks needed. Reconnect omitted awareness/facing/target entity references and intended freeze deserve connected owner reads before findings. No failed gameplay/network/test claimed.",
+    "All13 populations/current/all20/aliases/connected acceptance and dedup ledger incomplete;13extensions/fourEOFqualifications retained, gatesfalse accepteduniquechange0. Source-only local bookkeeping, no product execution/repairs/commits/publication."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2068
+}

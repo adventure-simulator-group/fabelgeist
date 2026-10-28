@@ -1,0 +1,76 @@
+{
+  "lens": 11,
+  "batch": 134,
+  "status": "Original1244 exact445-line time activity producer contract source-accounted WITH findings",
+  "original_index": 1244,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/activities.rs",
+  "sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-050.json",
+  "scope": [
+    [
+      1,
+      445
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      250
+    ],
+    [
+      251,
+      445
+    ]
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "roles": "Purpose-separated incident chances, activity outcome/execution location, skill/population inputs, earned currency/morale/reputation and optional leisure effects.",
+      "disposition": "ActivityRisks namedf32 fields have different purposes but same boundedchance numericinvariant under coreproducer; carousing personality multiplier3/0.35/1 then clamp0.95 is effectscale distinct chance. Existing typed Skill/Temperance/ActivityLocation meaningful; rawstrength/endurance/stealth/combat ratings/maxprecision are not all same numericalcheck role, retain coreActivityOutcomeInputs named fields rather than positional scalars. interval_endminute is absoluteclock separate elapsed/dailyschedule; source id/time/reputationunit values typed at operation boundaries. includeleisure boolean splits deliberate activityversusrest behavior, not backwardscompatibility branch. Human criminalactivity display/source tags differ authored activityselector; no global closure without reputationowner."
+    },
+    {
+      "ranges": [
+        [
+          179,
+          256
+        ]
+      ],
+      "roles": "Immediate single activity/duration/optional organization versus saved dailyplan and location eligibility.",
+      "disposition": "Actual ImmediateActivity enum already finite, but Apprenticeship/ProfessionPractice optionalOrganizationID association belongs selectedvariant; unrelated activities ignore optionalOrg under currenthelper. ScheduleAllocation one interval converted into dailyallocation struct with one field selected. Endpoint requires characterauthority/living/no unresolvedencounter or pendingincident and locationpolicy including namedoutdooronlyraiding/nojourneycamp. Requestedwholehours60..1440 owns operationduration, not universal validelapsedbound. Validates organization schedule beforetime mutation; exact owner admission/current userflow pending."
+    },
+    {
+      "ranges": [
+        [
+          258,
+          368
+        ]
+      ],
+      "roles": "Requested versus actual terminalclipped interval, injury no-recovery versus disease/time/weather/needs/lifecycle, effective activitydaily scaling and training/work/incident commit.",
+      "disposition": "Actual flow previewsinjury, clipdisease, settlesinjury with NONErecovery thenwritescharacterclock usingsettledelapsed; appliesweather/needs/disease/lifecycle/family andreturnsterminalbeforeactivityreward. Typed InjurySettlement and terminalcause separate from rawelapsed; carry one admitted ActivityIntervalOutcome to prevent differentfrontier use. Native injurysettlement can call deathtransition before thisclockwrite; exact diseaseclip/time/deathowner and no-hiddenclockmutation proof needed before historicaldeathtimestamp finding. Source model expected terminal mayconsume time withoutreward, not partialcommit automatically. Onecanonicalday passed with effectiveactualminute allocation intentionally scales bothlineareffects, not extra dayelapsed. Labor adds samegeneral calories/fatigue; no newfatiguepool or continuous speedpenalty. Namedcompletion/interruption would improve endpointResult<()> which returnsOkeven clipped attempt; actual client response contract pending."
+    },
+    {
+      "ranges": [
+        [
+          370,
+          445
+        ]
+      ],
+      "roles": "Organization-specific apprenticeship/profession accrual, fixed minute-scale representation, cadence reward delta and typed rewardkind.",
+      "disposition": "Stores elapsed*allocatedminutes with canonical MINUTES_PER_DAY denominator in cadence; this is scaledactivity accrual, not plainelapsedminutes despite fieldnames. Purpose ActivityAccrual/RewardCadence types should preserve shared fixedpoint invariant, distinguish organization ID from settlement/character/sourceclock. Named ActivityRewardGold/Fame already meaningful, require positivecadence and compute quotientdifference preserving remainder acrosschunks. u32/i32 saturation for rewardadapters explicit bounds policy, not universal positivity. Missing eligiblemembership/roleerror must remain typed cause through internalcallers before formatting, no currency/reputation operations executed."
+    }
+  ],
+  "pending_contracts": [
+    "Exact diseaseclip/strategic timeowner/death timestamp order and terminalinterruption/clockrole consumer path, core training/outcome/organization accrual/current/native SDK/client admission.",
+    "All13 sourcepopulations/extensions/current/all20/aliases/connected repair/acceptance incomplete; no tests/runtime/generators or product repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1245
+}

@@ -1,0 +1,124 @@
+{
+  "lens": 11,
+  "batch": 123,
+  "status": "Original1226 complete908-line journey camp source accounted WITH findings",
+  "original_index": 1226,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+  "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-027.json",
+  "scope": [
+    [
+      1,
+      908
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      320
+    ],
+    [
+      321,
+      630
+    ],
+    [
+      631,
+      908
+    ]
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "roles": "Next walking leg, per-member endurance/fatigue/schedule projection, itinerary elapsed/movement/camp and summary statistics.",
+      "disposition": "Actual forecast decides next leg duration; no continuous fatigue movement-speed factor appears here. ItineraryMember retains raw capacity/calories/schedule without CharacterId, relies actual caller order; typed capacity/nonnegative used fatigue and member association preserve roles. Schedule is location-filtered JourneyCamp mode with deterministic Seed. Camp coalescing requires same movement boundary and contiguous elapsed span; mean versus maximum stats have separate roles and max aggregation policy. Existing ItinerarySegmentKind owns Camp/Walking; native flattened fields could retain coherent variant payload but do not collapse independent time dimensions."
+    },
+    {
+      "ranges": [
+        [
+          113,
+          308
+        ]
+      ],
+      "roles": "Start active leg, actual/forecast camp intervals and canonical reached-camp place identity.",
+      "disposition": "Active leg forecast excludes speculative return, rejects truncation and breaks objective continuity at actual departure. PartyJourney fields include endpoint sum, absolute departure, total/completed movement versus elapsed, travel budget and accumulated camps; semantic roles need same canonical owners not rawu64 interchange. Optional persisted route valid supported representation awaiting actual caller admission, not presumed compatibility. Reached/current predicate requires no settlement/site, exact destination and incomplete progress plus reached movement cursor. StrategicPlaceId::journey_camp proves name, helper proves current coherence separately; retain admitted current place association across fixture/presence APIs. No global history/time proof from identity syntax."
+    },
+    {
+      "ranges": [
+        [
+          311,
+          458
+        ]
+      ],
+      "roles": "Movement interruption versus resolved encounter camp stop, exact route terrain exposure and stored-direct versus excess-effective training.",
+      "disposition": "Interruption advances movement/elapsed but does not itself mark durable camp; only finally Resolved exact incomplete boundary matching current journey promoted. This narrows prior generic between-camps/no-fireplace concern at the actual selected receiver. Terrain training integrates clipped persisted departure spans with snow mixture, applies canonical Skill/direct training and accumulates excess effective hours per CharacterId. Return BTreeMap retains member association but f32hours and arrayindices of six terrain skills lack purpose owners. Missing route returns empty is supported no terrain-data path, not necessarily forbidden legacy; real route-required product contract needed."
+    },
+    {
+      "ranges": [
+        [
+          460,
+          542
+        ]
+      ],
+      "roles": "Sorted pre-gain oral training snapshot, direct language hours/effective excess and six-way conserved terrain/snow weighted exposure.",
+      "disposition": "Snapshot sorted byID, canonical party_oral_training_gains_capped gets intervalhours once; additional companions not multiplied time in native adapter. Exact actual helper body/core policy remains own dependency. Terrain mixes real overlap hours, trainingpermille, per-terrainpermille and snowBPS; multipliers/fractions/elapsed are distinct units. Snow replaces proportional underlying hours rather than extra parallel exposure. Existing arrays expose implicit skill ordering; named TerrainTrainingExposure/typed access can retain association, no arbitrary probability bound for training multiplier."
+    },
+    {
+      "ranges": [
+        [
+          544,
+          663
+        ]
+      ],
+      "roles": "Common safe movement prefix and disease plan, zero-boundary settlement, survivor outcome, wilderness elapsed/local environmental anchor and journey-state update.",
+      "disposition": "One party disease plan shared by per-traveler previews; actual min prefix then committed for all; zero prefix settles only member whose preview0. Training occurs after all clocks advance same prefix. Return(actualminutes,allsurvived) can be named outcome retaining associated prefix/survivor status instead of positional scalar/bool; actual death/terminal source semantics require time/disease owner proofs in this lens, no cross-lens12 body credit. Updating journey fields deliberately preserves possibly changed leader. journey_local_minute wraps day offset and wilderness_environment returns(now,anchor): different absolute subjective/environment anchor roles despite same StrategicMinute. Keep deliberate wrapping semantics and inspect canonical operations rather than infer monotonic whole world clock from naming."
+    },
+    {
+      "ranges": [
+        [
+          665,
+          819
+        ]
+      ],
+      "roles": "Remaining active-leg forecast, elapsed camp-rest record and finish/redirect authority.",
+      "disposition": "Refreshed forecast begins actual completed elapsed frontier and offsets new relative movement/elapsed intervals once. Actual versus forecast camp records distinct; mean/max end stats and coalescing policies need owner semantics before calling max overwrite bug. record_party_camp_rest advances wilderness elapsed then records camp; caller must establish current reached camp and common time prefix, API admission currently raw. Forecast limit/truncation rejection versus count cap separate contracts. Finishing deletes journey/encounter cursor/route metadata only. Return route endpoint duration supports actual origin/destination; no compatibility assumption."
+    },
+    {
+      "ranges": [
+        [
+          821,
+          908
+        ]
+      ],
+      "roles": "Route interpolation E7 coordinates, distance/elapsed cursor fraction, unresolved combat or bound narrative lock, character-to-party encounter guard.",
+      "disposition": "Interpolation uses canonical UnboundedCoordinateE7 decode then always geographic distance flagtrue; actual route producer CRS admission needed before mismatch claim. Missing/zero-length route may return first coordinate, zero minutes distinct absent points. Named typed position/route cursor can preserve CRS and span association. Actual require_no_unresolved_encounter checks AwaitingChoice combat or open road challenge bound to current party position. require_character_no_unresolved_encounter only looks up character party and delegates encounter lock; it does NOT establish caller ownership or gateway authorization. This narrows same-lens122 imported-guard question, but require_living_character/native reducer/gateway boundary still required before any ordinary unauthorized request conclusion."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-117.json",
+      "sha256": "be98696e66675d7ff6b232c6ae65b20f8fdcecdc716efa6d5c2ffe587fbf921b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-118.json",
+      "sha256": "0c8f7d5c20e6d09b6ef8709868423dad32d6faacfb5306d63c43f564721ed216"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-122.json",
+      "sha256": "a155bf833c0515ba137951134fc89dd5b47ea176418533e29022252c0953bb54"
+    }
+  ],
+  "pending_contracts": [
+    "Canonical itinerary/time/disease/terrain/party oral-training operations and actual current native route CRS/authentication/camp callers; previous same-lens proofs retained without cross-lens transfer.",
+    "All13 original/overlay/merged/shared/extensions/current/all20/alias/connected repair/acceptance incomplete; no project execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1227
+}

@@ -1,0 +1,2 @@
+import continuation as c
+c.register_original(1995,[[1,140]],'REGISTRATION-ADLER-846.json','Prospective within-existing original1995 necessary signature closure1..36: scoped main37..140 invokes Request::parse and capture/policy/layout/diagnostic/composition modules; actual Request CLI fields/types and exact module source aliases/imports are missing from raw scope37..140. Complete result/input/authority ownership requires this prefix. New range1..36 mandatory independently all13; no new globalidentity/otherlens credit.')

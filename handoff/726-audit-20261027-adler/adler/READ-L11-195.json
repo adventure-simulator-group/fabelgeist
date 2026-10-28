@@ -1,0 +1,165 @@
+{
+  "lens": 11,
+  "batch": 195,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1387,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-203.json",
+      "registration_sha256": "4cd9e345fd21a38ae1eab5102c470a629af53f9aa64c4eb9e0841a3b07f87757",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "sha256": "fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82",
+      "scope": [
+        [
+          1,
+          395
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          320
+        ],
+        [
+          321,
+          395
+        ]
+      ]
+    },
+    {
+      "original_index": 1388,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-204.json",
+      "registration_sha256": "2ece4661f574556bfeb35c13b95eab58e1e7efdcf3291745820e00a55d63ed11",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/run_reach.rs",
+      "sha256": "5c01b29f63732c34ba8e0fc73277f220ccb1ee6fc67f243a9c06ba5743093b92",
+      "scope": [
+        [
+          1,
+          276
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          276
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1387
+      ],
+      "ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "roles": "Checked scene elevation and explicit raise-only versus descend foot-floor operation.",
+      "disposition": "FootClearanceFloor retainscheckedminimum orsurface+sole+clearance until completedSceneElevation; FootDescent distinguishesreachingfloorfromraisingonly. Ordinaryterrainconformity onlyraisesauthoredpose weighted, not fullplantplanner. native_run_swing_clearance constituent is privateunretainedscalar, checkedatcompleteequation not gratuitouswrapperoneveryintermediate. Missingterrainreturnsdesired unchanged inrunconform beforecheckedfullVec3, callerpublication responsibilitypending; donotclaimthismethodalone alwaysvalidatesY."
+    },
+    {
+      "source_indices": [
+        1387
+      ],
+      "ranges": [
+        [
+          150,
+          304
+        ]
+      ],
+      "roles": "Settle clearance, actual ankle/toe evidence and rotation margin.",
+      "disposition": "Settle combinesauthoredterrainblend andoptional actualtoe floor thencheckscompletedtarget. Toefloor needsactualankle/toeheight anddesiredlocationheight, absenceNone notzero; relativeclearanceprofile intentionallytransported. transition floor recomputessole/toe maximum thenadmitsfinalelevation, optionaltoemeasurementexplicit. Angularmargin usesconfiguredspeed*elapsed clamped90deg, actualconfignegativeadmission andfirstrelease distinctangularspeed needsownercontract, noaccepted penalty/geometryfinding. Missingterrain is allowedNone, strengthening194incompletegrid-coveragequalification withoutassertingfailure."
+    },
+    {
+      "source_indices": [
+        1387
+      ],
+      "ranges": [
+        [
+          306,
+          395
+        ]
+      ],
+      "roles": "Checked complete native positions/scene points and existing settle source fixture.",
+      "disposition": "ScenePlanPoint/Elevation/SignedLength adapters preserve typed quantity onoverflow; checked_foot_target checksallVec3finite. Private clearance raw constituent carries no retainedmeasurement/policyhandoff asdocumented. Existingsettle testcoversstart/apex/forward/end geometry only; no execution or runtimeacceptance. No crosslens magicnumber transfer."
+    },
+    {
+      "source_indices": [
+        1388
+      ],
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "roles": "Follower motion versus contact-tolerance readiness and checked final descent retarget.",
+      "disposition": "No previousowner acceptsinitialtarget explicitly withoutinventingbudgethistory. Loose followerstep includes solecontacttolerance, motionstep usesnarrowmargin byseparatepurpose. Descentretarget onlyunacquired, adjustsactualterrain+anatomicaltrack thenprojectstwodisks, finallychecksactualreach+motion afterlastterrainresample beforeSome. Native finiteintermediate squaredoverflow permitted untilcompletedboundary. Actualreachwithin helpercanacceptinfinite reach output fromnativecoeff, admittedphysicalinputs/callerfinalsolutionpending."
+    },
+    {
+      "source_indices": [
+        1388
+      ],
+      "ranges": [
+        [
+          154,
+          276
+        ]
+      ],
+      "roles": "Predicted stance reach intersection and explicit short-support policy.",
+      "disposition": "Predictentry/center/exit upperroots fromphase/stepdistance andactualterrainwherepresent; absentterrainpreservespredictedheight deliberately. Dykstra finiteiteration projectionapproximation, resamplebetweenpasses. Ifnotwhole-stancereachable explicitentry-onlyfallback returnscandidateforlaterrelease latch; Some doesnotcertifywhole-stancegeometry. Role/namecommentmustnotreplaceactualresultpolicy. Finalordinaryownerreachability and captureacceptance stillpending, noacceptedbudget/reachdefectjustfromfallbackexistence."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-189.json",
+      "sha256": "a68730444c62595c5321a8e762a9366f327caa5cbce6b39a3f6ce17b0b4ae462"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-190.json",
+      "sha256": "cdc7a00ed64a26af256d37d15b0e1d80c6528b74f8033576246f892f53f2d878"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-191.json",
+      "sha256": "d4a0ce1e2f009f987fc1f2f2bf7d6d9a7d0f731123a31f2252eea74dc8ac3779"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-192.json",
+      "sha256": "9051400928f7f0d626a83c40d6aec372792be967d1df026c64f7a742caab97ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-193.json",
+      "sha256": "2f1d3a05d04acc122015a402c21c1ade67b0a13d26ed9280feeef178e1e8257c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-194.json",
+      "sha256": "4a3984eb552f1121f4c991ad8aaced174eb3ddd2e75748b5af80b22adfbe6914"
+    }
+  ],
+  "pending_contracts": [
+    "Existing IK tests original1389 union is full1..3461, not first inherited1..1840; registration205 saved prospectively but body entirely unread at this checkpoint.",
+    "Projection short-stance/overbudget/unknownterrain policies remain qualified by ordinary admission/owner routing/current and actual acceptance.",
+    "All13 populations/current/all20families/aliases/connected acceptance incomplete; no project execution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1389
+}

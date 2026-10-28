@@ -1,0 +1,171 @@
+{
+  "lens": 11,
+  "batch": 384,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2372,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1241.json",
+      "registration_sha256": "c4d04106555ae1d940df99c3f1b12b0491a708962ad787ef538fcccdeab2c085",
+      "source_id": "pr-working:crates/strategic-web/src/routes/scene_assets.rs",
+      "sha256": "1c8846c66fb8bbf851e770ac75472794fa7c32b45112e5736e3ee1110bc53685",
+      "scope": [
+        [
+          1,
+          121
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          121
+        ]
+      ]
+    },
+    {
+      "original_index": 2373,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1242.json",
+      "registration_sha256": "381ceea59bd0cacf4b6bb43204b69aad34d30d5d3b1387b8e4c6d4447426ec6e",
+      "source_id": "pr-working:crates/strategic-web/src/routes/scene_equipment.rs",
+      "sha256": "2ecdbb109e62b9227c8b94ae71714cab987c49a1cb9c47c4e87afb39560ac210",
+      "scope": [
+        [
+          1,
+          306
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          306
+        ]
+      ]
+    },
+    {
+      "original_index": 2374,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1243.json",
+      "registration_sha256": "b3cf4130f1bc1eeee950a09e4ce48edb05fe41ddce15000a63daafeb546eae66",
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/camp.rs",
+      "sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "scope": [
+        [
+          935,
+          1246
+        ]
+      ],
+      "fresh_reads": [
+        [
+          935,
+          1246
+        ]
+      ]
+    },
+    {
+      "original_index": 2375,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1244.json",
+      "registration_sha256": "0559a4254544f1669ce232860bbaff0266a18710bd5f0f1e83dd1382137ad934",
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "scope": [
+        [
+          296,
+          484
+        ]
+      ],
+      "fresh_reads": [
+        [
+          296,
+          484
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2372
+      ],
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "roles": "Scene asset coordinate/native generation/admission/error boundary",
+      "disposition": "Full121. Session-selected actor and requested-settlement equality guard. Wgs84 constructor rejects invalid coordinates; missing terrain/profile/join/generation errors become unavailable with local cause logged. Blocking generation holds one of two permits through generation. Semaphore acquire waits rather than try-acquire, so no assertion of bounded waiting requests. Scene document generation/ensure_catalog is strategic preparation, not persisted tactical tick state. Native scene_preparation minute/profile, vicinity, catalog side-effect and generator/current contracts pending. No tests in file."
+    },
+    {
+      "source_indices": [
+        2373
+      ],
+      "ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "roles": "Full scene equipment observer/identity/native recipe and occupancy conversion plus owning acceptance",
+      "disposition": "Full306. Entire comma-ID parse rejects any invalid element; 1..256 bound, every requested identity must resolve and satisfy explicit ownership/party/same-settlement visibility. Two absent settlements do not grant access, owning tests cover that. Stable worn/edge sorting and same-character inventory/occupancy joins. Generated hash try_into admits exact array length; anchor match requires relevant location/parent/attachment fields, owning invalid-edge/hash tests read only. Native recipe/version/hash semantic and graph/dangling-parent admission still pending; no assertion these are malformed from source alone. Concurrent DB projections and current-character visibility connected to observer snapshot family, not proven live leak."
+    },
+    {
+      "source_indices": [
+        2374
+      ],
+      "ranges": [
+        [
+          935,
+          1246
+        ]
+      ],
+      "roles": "Scoped travel provisioning forecast producer and direct native inputs",
+      "disposition": "Complete two forecast functions935..1246 only, not full camp1246. Itinerary camp segments supply dated rest intervals. Alive travelers sorted; missing standard ration/waterskin/needs rows return OkNone, most query failures StringErr. Aggregates personal+party food and contained water via OperationalCustody; departure assumes counted skins filled, actual native departure workflow needed. Alcohol demand uses sorted/dedup rest evenings and history; query_single clock/personality absence/error semantics not read here. Native PartyProvisioningInputs forecast/standard item producers/TravelProvisionForecast and hydration helpers pending. ration_count is output only, not input to forecast; actual food-lot reserve representation needed before double/under-count finding. u32 quantity sums and len asu32 require admitted population/quantity bounds before overflow claim. No unrelated camp prefix credit."
+    },
+    {
+      "source_indices": [
+        2375
+      ],
+      "ranges": [
+        [
+          296,
+          484
+        ]
+      ],
+      "roles": "Scoped capability/training/party observed projection producer admission and errors",
+      "disposition": "Complete native functions296..484. Capability refresh Result ignored; query Err->None; training occupancy Err->empty and item errors->skip into normal profile, qualified finding. Active-party membership/leader/character query errors become empty/default, leader-first stable sort; helper explicitly hides ahead members and dated-life failure restores only dead flags to avoid future death disclosure. Social notifications require alive actor/member plus equal settlement/case-site options; both None equality may mean road context, native presence policy before co-location finding. Social source/address/preference errors become defaults; native public freshness/availability UI policy pending. No unrelated prefix1..295 read or credited."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-379.json",
+      "sha256": "3ccd79f3d8604fb29b3791a57817ca981986a981fc56ccaeaffd3673b4144059"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-380.json",
+      "sha256": "cb5832667e4116a4cb093bdd887e1f03d359d3048e699089f8ea1ab8f427db7e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-381.json",
+      "sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-382.json",
+      "sha256": "42fe1ac969c0f8db3f0ba6824e6e117bc3430ce76549e5c5d458ddc5f82d3c47"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-383.json",
+      "sha256": "ffed8895bfac2b9aac91253fa21be130516b90e4ad1b4d2535fa951ea1ea0b39"
+    }
+  ],
+  "pending_contracts": [
+    "384accounts2372..2375 exact metadata unions, next2376medical. LastREG1244.27mandatoryall13scopedextensions/sevenstrictEOFqualifications and future proofs retained.",
+    "Capability/training error-to-ordinary-projection family is source-qualified. Scene-equipment observer/date and separate mutable projection reads connect379; native policies/current/all20/acceptance remain open.",
+    "Camp query_single/forecast input/result declarations and native quantity/food-lot/alcohol/custody owners are pending materially reached dependencies. No unexplained whole-file expansion, no speculative gameplay arithmetic finding.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup incomplete; gatefalse accepteduniquechange0. No product execution, changes, tests or publication."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2376
+}

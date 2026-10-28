@@ -1,0 +1,218 @@
+{
+  "lens": 11,
+  "batch": 215,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1520,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-338.json",
+      "registration_sha256": "2abfbd3b87028041ee98d82c7af43dd297837b128dfa782c2d014e27bcab1dd6",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/kit.rs",
+      "sha256": "57a7b0a2728f339fce3da666494543ca1e9a1e4f6424523d0bd30c00c2a2cdd0",
+      "scope": [
+        [
+          1,
+          107
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          107
+        ]
+      ]
+    },
+    {
+      "original_index": 1521,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-339.json",
+      "registration_sha256": "fd7a58ce6c1433c48902b2edf2fe0d042dbc88031c85dadb8e5062fe31864800",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+      "scope": [
+        [
+          1,
+          568
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          568
+        ]
+      ]
+    },
+    {
+      "original_index": 1522,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-342.json",
+      "registration_sha256": "513cc320bbeb295c27f33805d41133a3ae70fd569d6241bbddbdddc87410ea19",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "sha256": "93f6d71ef4483adfa946c8c19da9692b9843eb84629a32210c1652a3978b3e4d",
+      "scope": [
+        [
+          1,
+          54
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          54
+        ]
+      ]
+    },
+    {
+      "original_index": 1523,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-341.json",
+      "registration_sha256": "3921b9f8b37061344456eef8227753c111fed6b38e0fab73aaee819d103b3d90",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+      "sha256": "57739c962cf2f6d39add14a9e57aac70c6d418dc2a57972bd12080a7135dc4b3",
+      "scope": [
+        [
+          1,
+          155
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          155
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1520
+      ],
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "roles": "Complete kit cache/instance transform/native mesh and WASM facade installation.",
+      "disposition": "Cache stores actual component dimensions/interior flag, geometry generated at concrete size then instance transform shifted by typed local_origin. Repeated geometry identity retains material/UV offsets and LOD policy. Arbitrary transform scale culling/normal issue from214 still needs actual TimberInstance provider; native-sized component meshes alone do not prove every instance is rigid. WASM facade installation does fallible retain_facade after adding meshes/component cache but before publishing levels; worker/generation ownership and failure policy pending. Missing facade/dynamic detail intentional LOD policy, not compatibility fallback."
+    },
+    {
+      "source_indices": [
+        1521
+      ],
+      "ranges": [
+        [
+          1,
+          568
+        ]
+      ],
+      "roles": "Complete semantic building appearance, physical material recipes, atlas/PBR adapters and every source fixture.",
+      "disposition": "Private appearance enum and ALL Vec initialization keep palette indexing aligned; deterministic cosmetic Seed/StreamId is explicit visual policy, no raw-u64 identity mixing finding by itself. All reviewed surface UVs use Affine2::from_scale and fixed positive authored tile constants, narrowing214 arbitrary-UV rotation concern for these helpers. surface_material_with_tint binds packed ARM to metallic_roughness_texture/occlusion_texture and sets scalar roughness/metallic1; actual CityMaterial drops those maps and shader503 consumes scalars as final, qualified semantic-loss family. Native channel/multiplier semantics and intended distant approximation/current still pending, no observed visual/GPU defect asserted. Window-glass physical contract transmittance/normal/roughness/thickness fields explicit; comment scalar thickness intentional StandardMaterial limitation, not hidden old-schema fallback. Child palette/furniture/workplace mappings need exact actual contracts before claiming every source map/alpha variant validated. All generation/material tests and100000sample loops source-only not executed."
+    },
+    {
+      "source_indices": [
+        1522
+      ],
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "roles": "Complete newly reached prepared installation through cache publication, full fresh reread under REG342.",
+      "disposition": "Inherited owner/evidence scope1..50 ended mid aggregate. REG3401..50 personally read first; actual EOF54 identified by line-count metadata, REG342 full54 saved before new full reread1..54. Only REG342 fresh full54 used for first ordered credit. Newly reached51..54 closes aggregate, pushes completed levels then returnsOk, actual publication dependency not unrelated whole-file expansion. Additional tail51..54 registered as mandatory all13 within-original extension, no new source/original or other-lens credit. Prepared geometry and recipe/program agreement needs worker authority, canonical typed origin/plan errors propagate before levels publication."
+    },
+    {
+      "source_indices": [
+        1523
+      ],
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "roles": "Complete building plugin installation, sign board/lettering geometry and native camera-distance residency.",
+      "disposition": "Actual plugin installs GPU, boundaries, streaming and per-frame lettering. Optional authored sign/site absence means no sign; mount mismatch chooses first supported site and mutates mounted copy intentionally, not automatic compatibility alias. ShopSign render cache compile returns parts without Result here; generator/rendercache native outcome contract pending. Lettering uses load48/release60 hysteresis, current site transformed with origin; any active Camera3d affects residency regardless of layer/owner. Actual hidden scene cameras/layer relationship and intended resource policy needed before cross-owner rendering/residency defect. No active camera distanceMAX releases lettering intentionally. Retained Option<Entity> liveness depends exclusive ownership; external child despawn not inferred. No spelling/name/static fallback introduced."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Earlier original full fresh connected reinspection, no original credit",
+      "original_index": 503,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-343.json",
+      "registration_sha256": "e953f5216958185f974b1bc2c8bcf940371df5fe655b64a76c743810fb26d08b",
+      "source_id": "pr-working:assets/shaders/tactical_city.wgsl",
+      "source_sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "scope": [
+        [
+          1,
+          109
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          109
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Fresh full shader109 personally read now under prospective343; no borrowed earlier personal/source/lens verdict and no second original credit. Typed CPU shader ABI matches frame/geometry lanes. Actual fragment105..106 sets roughness/metallic directly from scalar surface values with no ARM sampler; albedo/normal only bound. Component normal transform assumes rigid or appropriate transform subset; actual TimberInstance provider pending before nonuniform-scale finding. Partial cluster out-of-range vertex intentionally clipped; no uninitialized WGSL failure claim without native semantics."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-209.json",
+      "sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-210.json",
+      "sha256": "3bc7553ba64ad3660efcf2e54e3cb475d6ffa9bea6dd326dbc7b43b8a0a35ff4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-211.json",
+      "sha256": "e2ef6f2a8c60bb4e1ff4f0091fca312c5f370bb405d66d214fd46dddf2328e4b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-212.json",
+      "sha256": "c061be62985f34109cefdf7579106841a59f4924cf4e31a382efbe2e62b9f876"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-213.json",
+      "sha256": "3c4cdd97e621dcb92858ab64068c6302f2d1c7a029ccc82049a2de0d9b61878f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    }
+  ],
+  "pending_contracts": [
+    "All13 populations/extensions/current/all20 families/aliases/connected acceptance incomplete, accepted unique0/gatefalse; no product execution/repair/publication.",
+    "Added mandatory all13 within-original extension1522:51..54, source alreadyoriginal1522 not newglobal identity. Full54 reread under342; earlier340 partial1..50 retained unchanged and not mistaken for EOF proof. Other lenses must independently cover new publication tail.",
+    "Original503 shader full109 freshly reinspected connected only, no repeat original or other-lens credit; body proof not inferred from old source index.",
+    "City material map/scalar semantic loss source chain established, but native PBR semantics, actual palette routing, deliberate approximation/current/rendered acceptance pending; no visually reproduced bad surface claim.",
+    "Kit TimberInstance transform admission and actual child material palette/furniture/workplace providers still need exact reached registration. Signs first-supported mount and optional omission intentional policies, not automatic legacy compatibility.",
+    "Earlier future1533 full READ214/REG335 and future1589 full READ206/REG274 pending first ordered original credit; explicit same-lens adoption required. Later-material123 draw READ214/REG336 does not transfer ordered later-population or lens09 coverage.",
+    "Next1524 streaming owning/evidence/reached scope175..245; register exact range prospectively. Follow newly reached signatures/errors/producer dependencies as needed without blanket full-file scope or unrelated prefix credit.",
+    "All material generators/mesh/texture tests, native shader functions, scenes and cache operations read only. No builds/tests/lints/scanners/generators/runtime probes/CI fixes/product changes/commits/messages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1524
+}

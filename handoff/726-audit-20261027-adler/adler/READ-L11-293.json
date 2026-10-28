@@ -1,0 +1,291 @@
+{
+  "lens": 11,
+  "batch": 293,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1917,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-759.json",
+      "registration_sha256": "7fa298cc4a87b8fcabc1f4d00c9776712286f24fb9d7d6a4b3a787a76f1fc372",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "sha256": "8d39af4feaf3413ec32ff198193d1f15b9c029ac9be1f9582f00834976ac1bcc",
+      "scope": [
+        [
+          1,
+          188
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          188
+        ]
+      ]
+    },
+    {
+      "original_index": 1918,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-760.json",
+      "registration_sha256": "6e7973314ce8d30fdc16d95d93f4565479037e314bf73de2da1859e8aae5cf5d",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/reservations.rs",
+      "sha256": "94061c8113ad39b5d8311e3078a34d743557bbf36b7e14324f149f08c068bcc3",
+      "scope": [
+        [
+          1,
+          48
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          48
+        ]
+      ]
+    },
+    {
+      "original_index": 1919,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-761.json",
+      "registration_sha256": "4838ed0366da4df847ea25cf35dce6bd71f9fc8759cdd342ca4982ef979aedd9",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "scope": [
+        [
+          1,
+          103
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          103
+        ]
+      ]
+    },
+    {
+      "original_index": 1920,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-762.json",
+      "registration_sha256": "a758e9292490cc0a35e41850f90b24ec19fc183313be53c4b91dacf83f8c9a71",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/detail_obstacles.rs",
+      "sha256": "3f3f41a4aa24cbc26e90b89344ff0efd29cb7949da014bd7df1d6326bae2e702",
+      "scope": [
+        [
+          1,
+          50
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "original_index": 1921,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-763.json",
+      "registration_sha256": "c5fe1733fa9a0b6265da07e0f718e5ea9303dfbefd7717359a687546a27a79b3",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/environment.rs",
+      "sha256": "5dc4692893cb46eafc83376730b05121885a310d915bfacc8b824aebd24eee3d",
+      "scope": [
+        [
+          1,
+          86
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "original_index": 1922,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-764.json",
+      "registration_sha256": "a1d6c4f88be33fe2d4f1bfccf870d4606cd727655669286d97d4a71707bc2ba0",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/error.rs",
+      "sha256": "80158c095602a7e448e6da5071281e1c49d757524c199fcd9f193ea44d0c0a04",
+      "scope": [
+        [
+          1,
+          74
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          74
+        ]
+      ]
+    },
+    {
+      "original_index": 1923,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-765.json",
+      "registration_sha256": "e2b64b85c5a22013eb0827e6ecf2122afb35a9979f8a8c5a50b701aaf492ad38",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/establishments.rs",
+      "sha256": "9033f4633d599fd7c5a2d4802c4942993bca3a804ed98f9e88b3e4ea1cdbfbc1",
+      "scope": [
+        [
+          1,
+          68
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          68
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1917
+      ],
+      "ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "roles": "Independent lens11 complete exact physical placement/obstacle reservation, scene descriptor/environment/error/establishment role and admission source contracts.",
+      "disposition": "Full188 GeneratedBuilding::geometry_datum actualcollision.bounds.centre isbothorigin andinput toArchitecturalPlanProjection::from_placement samebounds; originXZmatchesprojectionoriginbyactualconstructor, narrowing291potentialpivotmisbindingforthisrealproducer. FloorbasearchitecturalY0 notboundsminimum; returnednativeTransform onlyfromchecked datum. Sourcefixturesdistantpromotionselectedfloor/program/idposition/orientation andGoslar304/14 actualburiedslabs/structuralbearings/door thresholds exactfloor allunexecuted, no generatedbuilding/nativeassertion run."
+    },
+    {
+      "source_indices": [
+        1918
+      ],
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "roles": "Independent lens11 complete exact physical placement/obstacle reservation, scene descriptor/environment/error/establishment role and admission source contracts.",
+      "disposition": "Full48 ObstacleReservation centreScenePlanPoint/halfextentsPlanExtents (degenerateallowed) +orientation, physicalobstaclegridnativeportmultiplythensubtract. Checkedpointconstruction propagatesGeometryError, thenprivate rotatedapron contains. Thisisobstacleexclusionnotfloorselection/ownedoccupiedplot, so no imposingPlanDimensions strictpositivityonlegitimateline/pointreserves. Nativeapronradius5.5 fixedgeometryrole; actualcallersuppliesvalidorientation/fullsceneextent beforeanybadnativegeometryfinding."
+    },
+    {
+      "source_indices": [
+        1919
+      ],
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "roles": "Independent lens11 complete exact physical placement/obstacle reservation, scene descriptor/environment/error/establishment role and admission source contracts.",
+      "disposition": "Full103 TacticalSceneInput descriptorstrictunknownfieldsdeny version29/generation73/32MiB; actualpublicdatacontract rawsceneKeystring andsource pluscanonicallat/lon/minute/elevation adapter, grids/recipes/patches/properties/grounding typedroles. DeriveDeserialize directnotautomaticvalidate_source, actualload/digest validate andgenerationalorderingstillpending; do notinferalladmittedJSONalreadyaggregatevalid. GroundingOptionrequiredforbuildingsbycomment notenforcedhere, actualvalidationbodyneeded. Sourcecatalogcurrent-schema/operatorbrandingexactrecapture fixtureassertions readonlynotexecuted."
+    },
+    {
+      "source_indices": [
+        1920
+      ],
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "roles": "Independent lens11 complete exact physical placement/obstacle reservation, scene descriptor/environment/error/establishment role and admission source contracts.",
+      "disposition": "Full50 TerrainDetailObstacles convertsactualu16gridordinals/spacing andterrainhalfextent intoScenePlanPoint, positiveRockInfluenceradiusfromrecipe nativecm conversion; ResultcarriesGeometryError, treespointsprivatecompiledlist notpersistedphysicsstate. Partiallybuiltlocallistnotreturnedonerror, so no productpartialmutation. Exactrockrecipepositivecollisionradiusproducer/sceneinputadmissionstillneededbeforezero-radiusfailurefinding."
+    },
+    {
+      "source_indices": [
+        1921
+      ],
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": "Independent lens11 complete exact physical placement/obstacle reservation, scene descriptor/environment/error/establishment role and admission source contracts.",
+      "disposition": "Full86 SceneEnvironment immutablepresentationmetadata weather/provenance/materialBPS, checkedgeo/minute/elevation butrawdigestString/generationu16 anddensityu16directserde. Actualsnapshot1914validatedsourceaverages andexplicitTemperateHillsfixture boundedconstants; immutabilitydoesnotadddecodevalidation. Existing rain/weather/ownershipactualconsumerfamilies retained; no inventedhash/revision/BPSadmissionclaimfromnamesalone. Fixturecoordinates/elevationcheckedconst, midnight/noonminute explicit; sourceonly no snapshotsgenerated."
+    },
+    {
+      "source_indices": [
+        1922
+      ],
+      "ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "roles": "Independent lens11 complete exact physical placement/obstacle reservation, scene descriptor/environment/error/establishment role and admission source contracts.",
+      "disposition": "Full74 SceneInputError dedicatedResult andtransparenttypedBoundaryAdmission/SupportCollider/TerrainAdmission/BoundaryGeometry/Furniture/Geometry/Collision/Door/Entrance/TerrainGrade/GardenSupport causes, Io/JSON actualsource retained, Interior buildingid+source. Boxgrounding/projection/settlementsupport/boundarysupport conversions preserveactualerror values andboundedstackrepresentation, notstringerasure. TheseFromconversionscurrentrepresentationnotlegacyforwardingAPIs. EarlierSceneTerrainOptionfactoryerasecannotbeexcusedbyavailableerrorvariant; concretecaller/expectationstillrequired. No finalreporter/currentsourcecredit fromenum."
+    },
+    {
+      "source_indices": [
+        1923
+      ],
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "roles": "Independent lens11 complete exact physical placement/obstacle reservation, scene descriptor/environment/error/establishment role and admission source contracts.",
+      "disposition": "Full68 SceneEstablishment immutabletypedbuilding/business/CharacterId/RenderedPersonalName/OptionShopName, parentvalidationagainstactualbuildingusage maps; rejectszerobuilding/operator/emptyname, duplicatesbuilding/business/operator, crosssettlement,missingusage/mismatch, staleShopName exactforcapturedoperator+use. Actualdescriptorbrandingsourcefixtures293/292 matchcontract. Domainintentoneoperatoronebusinesspercapturedscene deliberatevalidatedpolicy notassumedorganizationalbug. RawsettlementStringref atvalidationcomparison explicitcatalogBusinessIdcanonicalowner actualdeepvalidation/current pending."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4"
+    }
+  ],
+  "pending_contracts": [
+    "293 completes1917..1923 exactfullmetadataunion,next1924full145 metadataonly,nextreg766. No partial/unrecordedbodyreads.",
+    "RealGeneratedBuildinggeometry_datum sharescollisionboundscentre withplanprojection, so possiblearbitrarypublicdatumorigincorrespondence notactualplacementmisbinding. Nativefloor/buriedslabsourcefixturespositiveevidence nottestpass.",
+    "ActualSceneInput aggregatevalidation/sourcegenorder, environmentcount/heightbound, marketpatchadmission andweatherfinitesignedtemperatureaddition remainpendingowningbodies. DescriptorDeserialize notautomaticallyaggregatevalidate; load/digest invokevalidate explicitly. TypedSceneInputError retainsowningactualcauses.",
+    "Allpriorqualifiedfamilies/tenextensions/fourEOFqualifications/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1924
+}

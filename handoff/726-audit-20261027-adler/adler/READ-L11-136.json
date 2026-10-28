@@ -1,0 +1,150 @@
+{
+  "lens": 11,
+  "batch": 136,
+  "status": "Original1247 camprest378 and1248 clock127 exact producer scopes source-accounted WITH findings",
+  "sources": [
+    {
+      "lens": 11,
+      "original_index": 1247,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "object_path": "target\\726-audit-adler-20261027\\adler\\source-objects\\0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "ranges": [
+        [
+          1,
+          378
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Lens11 exact378-line camp rest materially reached producer scope, canonical time/death/recovery/camp association.",
+      "provenance": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "fresh_reads": [
+        [
+          1,
+          230
+        ],
+        [
+          231,
+          378
+        ]
+      ]
+    },
+    {
+      "lens": 11,
+      "original_index": 1248,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "object_path": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\source-objects\\5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Lens11 exact127-line clock producer-reached authority source; subjective versus official/world/wilderness coordinate ownership.",
+      "provenance": "Transported exact registered object",
+      "fresh_reads": [
+        [
+          1,
+          127
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1247,
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "roles": "Allowed field camp schedule, explicit duration/shelter/party leadership/recovery permission and possible narrative-rest interruption.",
+      "disposition": "Allowed schedule clears reading/apprenticeship/practice/labor/theft/raiding and organizationrefs while leaving permittedotheractivities. Purpose CampSchedule can own filteredlocationallocation instead of mutablefullScheduleAllocation. Actual FieldShelter enum alreadycanonical, Tent requires positive party inventory with authoredfield_sheltertag; exact itemreference/capabilitycatalog owner needed before tagclosure. Requested0 successfulno-op and maxoneYear operationbounds, not universalpositiveDuration. Living/directrecoverypermission and exact fieldlocation guard allow settlement/currentcase/campdestination; actual currentreachedcamp versus between-campfireplace consumers separate dependencies. NarrativeRest cursor/requested boundary distinct movementcursor and timeofday; minclip protects earliestnarrativebeforework, no new tests/invocations."
+    },
+    {
+      "original": 1247,
+      "ranges": [
+        [
+          110,
+          219
+        ]
+      ],
+      "roles": "Explicit prerest washing, one common diseaseplan and minparticipantprefix, independent personalclocks/wound recovery/weather/needs/lifecycle.",
+      "disposition": "Actual members livingonly, washing precedes clipping explicitly chosenrest. Diseaseplanshared plus min disease/injury safeelapsed calculated beforeloop; per member then clipsplan/settlesinjury and writes start+actualelapsed after settlement. Same conditional terminaltimestampchain135, not separatelyunique. Endtime differs perparticipant startingclock despite commonduration; do not infer everyone agedto maxfrontier from commentabout sharedinterval. Terminal/dead membercontinueswithout training/rest effects but source alreadyappliesweather/needs/lifecycle. Named SharedRestPlan/MemberRestOutcome can retain membership/minsafeelapsed/individualfrontier association, reuse existingdisease/injury owners. Preview versuscommit downtimestate needs actual illness/filth/corecontracts before ordinarydivergence."
+    },
+    {
+      "original": 1247,
+      "ranges": [
+        [
+          220,
+          342
+        ]
+      ],
+      "roles": "Convalescence versus maintenance/fatigue priority, downtime training/oral/leisure/chat and postrest survivingparty/camp/narrativefrontier.",
+      "disposition": "Actual priority max(fatiguerest,convalescence+maintenance) means fatigue canrecover concurrently withwoundrepair; cannot add eachduration blindly or use genericexclusiveactivityenum. Training realhours/effectiveexcess/skillrankandcoefficient separate quantities, source fields retain CharacterId association. Existing pre-gainlanguage choices coherent snapshot, automaticchats sorted deferreduntil allmemberclockwrites. All-dead teardown separate from survivingparty fatigue summary/camprestrecord/narrativematerialize/forecast/objectivecontinuity. record_party_camp_rest receives commonelapsed while per-memberelapsedmightclipagain; dependency actualsharedplan guarantees before mismatchclaim. Current journey/place/sourceproof imported, not full runtimeprovenance."
+    },
+    {
+      "original": 1247,
+      "ranges": [
+        [
+          344,
+          378
+        ]
+      ],
+      "roles": "Party mean/max fatigue ratio and individual nonnegativeusedcalories/endurancecapacity.",
+      "disposition": "Return anonymous(mean,max) f32tuple and capacity/fatigue rawleaves need named FatigueSummary, canonical nonnegativefatigue/positivecapacity/dimensionlessratio. Actual fatigue mayexceed1, no UnitInterval clamp for underlyingratio simplybecause wheeldisplay cutoff. Empty returns0summary coherent, missingmembercomponent returnsstructuredcause currentlyString. Livingbefore/after populations differ on death intentionally; comparemeans doesnotclaim individualfatigue delta or additionalpool."
+    },
+    {
+      "original": 1248,
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "roles": "Official worldclock initialization/epochmicros/observednow and canonicalStrategicMinute refresh.",
+      "disposition": "Canonical StrategicMinute separates realtimestampmicros versus in-gameabsolute minute. Actual initialize oneclockrow, refresh delegates calculate_official_minute thenupdatesonly changedvalue; no CharacterTime mutation here. Epoch/now both signedmicrostime differentroles and expectedclockdirection mustbe owned canonicalfunction, no infer fromthisadapter. Native helper refreshclock canwrite worldclock, so callingit is not read-only operationally; onlysource readhere."
+    },
+    {
+      "original": 1248,
+      "ranges": [
+        [
+          33,
+          127
+        ]
+      ],
+      "roles": "Active marriage/household/kinship NPC family propagation, same-party exclusion and boundedwork, ownsubjective interval advance.",
+      "disposition": "Actual selects firstactivemarriage, dedup relatedIDs withBTreeSet, includeshousehold+kinship, filtersNPCpolicy andoutside sameparty, cap32 deterministic; typed FamilyClockParticipants can retain source/admission/exclusion rather thanrawIDVec. Actual familyadvance skips originNPC/elapsed0 toprevent recursivepropagation, advancesonlylivingrelated ownclockbyelapsed, not alignfamilyto sourceabsoluteclock. Membership/sameparty exclusion avoidsdoubleadvance throughpartyactivity but complete relatedgraph/kinshiprelationship semantics separateowner. MissingCharacter mayenterselectedset through is_none_or but laterlivingcheckskips it, so not ordinarypanic fromthispredicate. initialize_character_time forwardsensure helper meaning actual publicoperation, assess cleanAPI need atcanonicalowner not genericcompatibilityassumption."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-123.json",
+      "sha256": "8657e88cd50455db5cf89fd18ce376f5057b6d0b579156662be62876a4f5eddf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-126.json",
+      "sha256": "cd6a07be3d20fc53a9f88afe2c4f3ec086544a444a7359ef317b83b8438eef4e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-130.json",
+      "sha256": "e02c1b4909652c8f95e837116d09bbf43ae266b604000c994a8a6b53f4958f64"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-135.json",
+      "sha256": "d372cbb844c43145a600f5e9602d63e1a0b0eadca1a5bf3f793e3e18b0f1d83b"
+    }
+  ],
+  "pending_contracts": [
+    "Singleterminalclock/deathrecord source acrosscamp/activity/travel/wait; exact sharedplanclipping/filth/lifecycle sideeffects, currentalias and ordinaryacceptedsource beforeunique/runtimefindings.",
+    "Canonical schedule/location/shelter/duration/fatigue/relationshipfamily propagation and actual currentowner APIs; all13 populations/extensions/current/all20/aliases/connected repairacceptance incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1249
+}

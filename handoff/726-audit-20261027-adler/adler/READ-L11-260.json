@@ -1,0 +1,343 @@
+{
+  "lens": 11,
+  "batch": 260,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1770,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-607.json",
+      "registration_sha256": "cc6766a179792d6037dc495b4609bcc5faff8185e7581f99e5cabc6bd73dff1b",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/motion_modes.rs",
+      "sha256": "9181b00087f1047a6a98384a3dfedf32c803368a63afed7727703c7999c51617",
+      "scope": [
+        [
+          1,
+          77
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          77
+        ]
+      ]
+    },
+    {
+      "original_index": 1771,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-608.json",
+      "registration_sha256": "c5c5d7839faab2af0df5277246c60a8e16924f00cef9fba7334d837778034495",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/packs.rs",
+      "sha256": "b1fa6c0abdf46f0a491d49293683bcb7a67ad6270b717b82ddb056cdcc6bad1f",
+      "scope": [
+        [
+          1,
+          194
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          194
+        ]
+      ]
+    },
+    {
+      "original_index": 1772,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-609.json",
+      "registration_sha256": "c71b0875b5c01064cb079825a35c9d91602f969fd89700c0f89424950f377437",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/phase_response.rs",
+      "sha256": "924c663fe54edaaedc6f31a0d905cb5e72fe3e1e4cb918fbaad959e06d060fd5",
+      "scope": [
+        [
+          1,
+          52
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          52
+        ]
+      ]
+    },
+    {
+      "original_index": 1773,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-610.json",
+      "registration_sha256": "2de06875de161de0357da29cf6af32dee4b86b3b124ebbc101814253aee7b8b9",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/pose_coordinates.rs",
+      "sha256": "10188a5b28d9578344b32aff9e51ca9b673e16696f9750f745d903bc85c281b3",
+      "scope": [
+        [
+          1,
+          95
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "original_index": 1774,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-611.json",
+      "registration_sha256": "bb7db42a1b314692c49910e010549e937b7262907613b0df3e4b028144fedcaa",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "scope": [
+        [
+          1,
+          217
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          217
+        ]
+      ]
+    },
+    {
+      "original_index": 1775,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-612.json",
+      "registration_sha256": "29daf789fc33a2ef6448eb9e1d7aacff3529c169e7f53a3bdde304b0bf81b690",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "scope": [
+        [
+          1,
+          86
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "original_index": 1776,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-613.json",
+      "registration_sha256": "bcea63a18bedd9219fda5ed67a38692a96c4a92f02614dcfaa6b311e671e537b",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "scope": [
+        [
+          1,
+          110
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          110
+        ]
+      ]
+    },
+    {
+      "original_index": 1777,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-614.json",
+      "registration_sha256": "e6a9beed4eb547eec9fa60c5fd7964080c7e7d48547317c450f974629a4e7581",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+      "scope": [
+        [
+          1,
+          207
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          207
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1770
+      ],
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "roles": "Independent lens11 full exact scalar/mode/pack/typegranularity/serde/native andstructured-error owner contract.",
+      "disposition": "Full77 carriedmotion enums distinguishDownedMotion/GuardedLocomotionMode/JumpAnticipation; explicitboolwire encodingsforbinarymodes preserve allvalidvalues, notlegacyAPIaliases. Sprint pace mapsSprint vsWalk/JogFootwork intentionally, chargestayspresentationonly notphysicalspeed/posture. Actualmodeproducer/consumer/codec/current/all20 stillrequired."
+    },
+    {
+      "source_indices": [
+        1771
+      ],
+      "ranges": [
+        [
+          1,
+          194
+        ]
+      ],
+      "roles": "Independent lens11 full exact scalar/mode/pack/typegranularity/serde/native andstructured-error owner contract.",
+      "disposition": "Full194 AnimationPackId/SkeletonFamily/SemanticPose typedthroughpacklibrary, structuredPackValidationError retainsIDs/pose. insertduplicatechecked, structurechecksreferencecycles/families, releasecomplete requiresrootwithoutfallbackandexactrequiredsemanticcoverage. resolve returnsClip(original/mirrored) or explicitBindPoseT forincompleteart; pack/semanticfallback inheritance iscurrentassetbehavior, notautomaticlegacycompatibilityshim. Actualrelease/runtimevalidationcaller before invalidpack/bindpose-as-successfinding. Mainattackchoice nearestpackwithswing/thrust, offhand/preparation inheritedseparatelyOR; broadcommentanyattack/fullset must bequalifiedbyactualcode andintendedcapabilitypolicy, no mislabeledattackruntimeobserved."
+    },
+    {
+      "source_indices": [
+        1772
+      ],
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "roles": "Independent lens11 full exact scalar/mode/pack/typegranularity/serde/native andstructured-error owner contract.",
+      "disposition": "Full52 PhaseCorrectionRate andPhaseErrorLimit finite nonnegativezeropolicy, limitabove1 valid, notunitfractionorcycliccoordinate. PrivatefieldserdeTryFrom admission retainssemanticquantity errors. Nativecoefficientextraction atcorrectionkernel, actualcompleteoperation/caller/currentpending; no duplicateelapsed/frequencyowner."
+    },
+    {
+      "source_indices": [
+        1773
+      ],
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "roles": "Independent lens11 full exact scalar/mode/pack/typegranularity/serde/native andstructured-error owner contract.",
+      "disposition": "Full95 AttackPoseCoordinate finitesigneddrawback/overshoot, onlyexplicitclamped_to_curve appliesruntimepolicy; ActionProgressDelta finitesignednonwrapping difference. Decoderfiniteprogressclamp[0,1] explicitowningadmission, rejectnonfinite ratherthan inventedzero. Notbackwardcompatibilityversionpath. AttackCurvebound/provider andactualSemanticPoseSpanconsumer pendingbefore broaderboundsclaim."
+    },
+    {
+      "source_indices": [
+        1774
+      ],
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "roles": "Independent lens11 full exact scalar/mode/pack/typegranularity/serde/native andstructured-error owner contract.",
+      "disposition": "Full217 physicalresponse roles. PositiveReferenceAcceleration/LookDistribution independentnative ratio/divisor, unboundednonnegativeInertialLeanGain/MuscleTone/AngularStiffness/compliance; these are distinct physicalunits notgenericunitblends. ResponseRatezeroallowed, expnegativeinfinity andlinearfullresponse saturatedvalidlimit intentionally. Compressioncheckedoverflow/invertedbounds beforeclamp; interpolationretainsnativearithmeticorder/subnormals. Nativecomponentratio/distribute_radians canbeunboundedintermediate; actualjointclamp/bodyangle/PD retainedchecks mustbeconnectedbefore declaringtypedvalueoverflowfailure. Semantic errors retained/classified, no IO/loadercauseconvertedString."
+    },
+    {
+      "source_indices": [
+        1775
+      ],
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": "Independent lens11 full exact scalar/mode/pack/typegranularity/serde/native andstructured-error owner contract.",
+      "disposition": "Full86 AnimationSampleRate retainsoriginalpositivefrequency andcheckedPositiveAnimationDuration reciprocal, serde scalarpreservesfrequencybits. AnimationFrequency calibrationmultiplier positivefinite admits tinyvalueswithoutrepresentablereciprocal; intentionallydifferentadmittedset. elapsed_for_span preservescount-beforedivision andreturnscheckedElapsed, zeroSpanvalid; actuallarge-span/lowrateoverflow diagnosticclassification/caller/currentpending, no nativeexecution."
+    },
+    {
+      "source_indices": [
+        1776
+      ],
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "roles": "Independent lens11 full exact scalar/mode/pack/typegranularity/serde/native andstructured-error owner contract.",
+      "disposition": "Full110 SampleTick/Span distinctfullu64clockcoordinate/count, zeroordinary. Checked/saturating/wrappingfunctions explicitnamedcontracts; deadlinessaturateneverwrap, observationclockMAX->0 intentional. from_positive_duration multiply-round-min1-nativeu64saturation preservesoverflowpolicy, notsilentpending/default. Actualserver/clientevent/clockordering whichoperationused pending, no blanketintegerwrapperorwrapbug."
+    },
+    {
+      "source_indices": [
+        1777
+      ],
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "roles": "Independent lens11 full exact scalar/mode/pack/typegranularity/serde/native andstructured-error owner contract.",
+      "disposition": "Full207 CyclePhase/CycleDelta finite signedunwrapped, wrappingonlyperiodicoperation; checkedadd/sub/advance rejectnonfinitecomputedretention. Contactsubtract-then-modulo unchanged, fixedhalf-cycle offsets structuralbilateralgeometry. BlendWeight finite nonnegativeunboundedabove1 withcheckedaddition/multiplication, everypositive contributioncounts. ClipMirror twoenumstates withbooleanwire; no fractionalreflection. RawfractioninCycleDelta.checked_lerp iscomplete nativekernel notretainedsemanticfield, callerpolicy/all20ownerstillrequired. No producttests or partialbodycredit."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-250.json",
+      "sha256": "0ab04ff9b4c5befdbdd0ee2ba7405075381da0d279b9e300ecc2a9ee97666d2f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-251.json",
+      "sha256": "54a12494f41f525a231ff50d16e2180e42d501dcb280890e87cc1e02bc006b4a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-252.json",
+      "sha256": "e7729603daaf9fae26dc8b8392783c032e0e0459260816ab4c6ca2ff0471b529"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-253.json",
+      "sha256": "dbcb9b6fdb116f020d207508f9d2ea34b7f77533dd27b37a9c8ed5453827db88"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-254.json",
+      "sha256": "ed04a9af432005743576305fd8de7d2c3ea25b2246d96ea205689b19625d763f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-255.json",
+      "sha256": "8ef17f37d109d1c2710b41634a4f9f4b0a622db3410bff2119702130d65d13d7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-256.json",
+      "sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-257.json",
+      "sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-258.json",
+      "sha256": "91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    }
+  ],
+  "pending_contracts": [
+    "260 full1770..1777 allmetadataunion complete,next1778. All13 populations/extensions/current/all20/aliases/finaldedup incomplete,gatefalse/accepteduniquechange0.",
+    "Currentpackinheritance/incompleteartBindPoseT distinctfromlegacycompatibilitypath; actualruntimevalidationandcapabilitypolicy callerspending. Main/offhandinheritance codequalifiedagainst broadcomment, no actualbadcontent/runaccepted.",
+    "Positivefrequencyversuscheckedreciprocalrate, signedunwrappedphase/actionoffsets vsboundedprogress/additiveweights andnamedclockwrap/saturation preserved. Nativeintermediateinfinity mayvalidlysaturatecomplete response; actualretainedconsumerneededbeforeoverflowissue.",
+    "Allpriorfindinglimits/eightscopedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L13/L12L13unchanged. Nextregistration615 original1778full1132 metadataunionbeforebody. No productchanges/execution/newtests/CI/commits/publication/externalmessages;goalactive/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1778
+}

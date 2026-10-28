@@ -1,0 +1,21 @@
+"""Record exact sky capture/configuration and native targeting sources."""
+import bookkeeping as b
+from record_l11 import record
+sources=[(1742,579,[[1,200],[201,400],[401,600],[601,787]]),(1743,580,[[1,60]]),(1744,581,[[1,84]])]
+notes=[
+'Full787 actual native sky capture. Canonical SkyView enum, StrategicMinute/latitude/longitude retained. Native Vec3/f32 camera configuration/extracted observations are rendererports, fixed preset provider next. SkyCameraProbe sharedArcMutex reads exactlyone ExtractedView<Camera3d> inPrepareViews; requires>=2observations andmain/render translation/direction/FOV matches, then actualScreenshotCaptured content/dimensions gate. Not merely CPUsettings proof, but missingprobe/screenshot unboundedwait/nativepipelinefailure lifecycle stillpending before deadlock claim. Singleconfiguredcamera identity/source lifecycle must hold; no observedforeigncameramix. Tiny authoritative tacticalterrain plus separate unreplicatedhorizonplane deliberate diagnosticdisplay, no tacticalDBauthority. World native inputs fixedsourceWeatherSnapshot/defaults, no arbitraryweather admission. Pixel data None/empty returns0 andcannotpassnonblack256; missingcameraNaNfallback notordinaryreachable afterstateobservedSomeset. Onepixelderiveddivision cannotcertify success underdimension/contentgates. UnitBasisPoints.from_ratio_floor canonical beforefinalu16. TerminalCLI IO/panic/gitprovenancefallback and optionaloldfailuremarker removal sourceonly, none executed. ActualSkyManifest atmosphere/mapfields partlyauthoredconfig, component/runtime/render acceptance remains explicit not all fields GPUobserved. All sourcefixture assertions read only.',
+'Full60 deterministic sky configuration uses canonicalSkyView/StrategicMinute/daystart/solar/lunar owner andnative EUN->Bevy direction conversion, checkedfixedcoordinates. FOV12/20/72/80 currentvalid, fixedtranslation andnormalizedsun/moon/star/horizon directions. Historical comments about astronomical slots are sourceclaims, no astronomicalverification/nativecapture run. This is preset geometric/lighting configuration, not new clockauthority, compatibilitypath or runtime mutableinput. Finaldiagnosticdegrees/floats nativeleaf; reusableTacticalCameraSetup ownerfit/all20/globalcurrent stillpending.',
+'Full84 auto_aim_candidate nativegeometry helper. Normalizes camera forward, rangechecksactordistance thenangularerror/distance/stableu64 tie-break, TCopygenericidentity returned unchanged. No cursorcone intentionalexplicit sourcefixture evenbehind; do not flagbehindtargetasbug. maximumdistance.max0 normalization and fallbackalignment-1 forcoincidentcamerapoint geometricpolicy, actualpositivefiniteworld/rangeproducer and canonicalquantityowner required before invalidinputfinding. No typedsharedposition/ID stored/redecoded here, genericlocaltuple/kernel not automatically bespokeeveryfloat/key. Sourcefixtures not run.'
+]
+roles=[]
+for (i,n,_),note in zip(sources,notes):
+ g=b.read(b.OUT/f'REGISTRATION-ADLER-{n:03}.json')
+ roles.append(dict(source_indices=[i],ranges=g['ranges'],roles='Independent lens11 full exact native camera/geometry/error/diagnostic type-owner and sourcefixture contract.',disposition=note))
+pending=[
+'255 full1742..1744 metadataunion complete, next1745. All13 populations/extensions/current/all20/aliases/finaldedup incomplete, gatefalse/accepteduniquechange0.',
+'Sky capture directly observes extractedrendercamera andmaincamera+actualpixelcontent, sourcechainclosed; no nativecapture executed. Actual renderpipeline/asyncreadback/probelifetime/unavailableterminal policy/current stillpending. Fixedauthoredskyinputs not maliciousarbitraryJSON evidence.',
+'Targeting no cursorcone intentional; rawrange/nativeVec3/stablegenericu64 actualcaller/canonicalowner fit remainsquestion, not behindtargetbug or automaticglobalIDloss.',
+'Allpriorfindings/qualifications/eightscopedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L13 retained; L12/L13 unchanged. Nextregistration582 UI1745full1039beforebody.',
+'No productchanges/builds/tests/lints/scanners/generators/runtime/nativeprobes/CI/newtests/commits/pushes/PR/publication/externalmessages; goalactive/incomplete.'
+]
+record(255,254,sources,roles,[214,216,231,232,246,250,251,252,253,254],pending,1745)

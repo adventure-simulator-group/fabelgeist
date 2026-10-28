@@ -1,0 +1,227 @@
+{
+  "lens": 11,
+  "batch": 352,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2216,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1075.json",
+      "registration_sha256": "68386725aa6849a05d9279835a400289e09b34ccec642e591db133cb4999dcd6",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/template.rs",
+      "sha256": "a1cd00e8c02d5c25d675041927317755b24262122ac4096db8fec9a5b1ac16c8",
+      "scope": [
+        [
+          1,
+          317
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          317
+        ]
+      ]
+    },
+    {
+      "original_index": 2217,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1076.json",
+      "registration_sha256": "145399ee4ddb2c316a73c6200cc4189862238d97b52993591642a0afcc423725",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tests.rs",
+      "sha256": "166ec2be7855c465b709326152b2be1babfdcd538a062213cc6a5d8ae680d1f9",
+      "scope": [
+        [
+          1,
+          192
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          192
+        ]
+      ]
+    },
+    {
+      "original_index": 2218,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1077.json",
+      "registration_sha256": "4aa82711da6f26ee99645545dfdd9b2f71410e782500aa4dbca1b1bbf573576c",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tile_map.rs",
+      "sha256": "2acac8447a7f7a9347382ff425f74de58a7aeef6786c43d1d352412cbaff4065",
+      "scope": [
+        [
+          1,
+          115
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          115
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2216
+      ],
+      "ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "roles": "Independent lens11 complete actual plate template, existing tiling acceptance body and per-tile surface-walk admission.",
+      "disposition": "Full317 actualTileTemplate facewallbevel/holeproducer. FromvalidatedPlate dimensionsboundedpositive, outlinepatterncount4/20, holes<=6circles12, spacingminside*.125 -> boundedinteriorlatticeaspectratio<=.2/.012~16.67; no arbitraryunboundednativeCDT normalinput. Capoutlineuniformscales1-2bevel/minside, holeringsunscaled atsametargetxy andwallholesextendbacktofront. Newqualifiedbevelholeadmissiongap: validPlate12x20mm/gauge12mm/bevel5.4mm shrinksfront to1.2x2mm; onepairradius2.4mm atx±3.24/y4.72mm remainsoutsidecap. ActualnativeCDTcontainment/rejection/closedtemplateacceptance pending, no modelgenerated. faceconstraints rawResult bulk_load_cdt(...).ok erasesnativeErrtoOptionNone andpublicconstructmapsNoneHoleSpacing; typednativeerrorowner/variantreadrequired beforefullstructuredfamilydedup, no nativeerrorcategoriesinvented. CDTcentroid insideouter/outsideholes filter appropriategivenvalidnoncrossingconstraints, notproofholesinsidecap. Allquad/face/flags populatedcoherently percreatedtriangles. QuadlengthNaN/<=0 silentlyskipsbadfacet, normalfiniteness actualboundedvalidatedcoordinateproof andnativeacceptedshape neededbeforebroaderfailurefamily. Existingclosurevolume/holesourcechecks quantizepositions1micrometre/edgepairnetzero notexactmanifoldallusecount guarantee; testonlydefaults scale/lamellar, unexecuted. No point/edge intersectionfullnativeproof fromtestnames."
+    },
+    {
+      "source_indices": [
+        2217
+      ],
+      "ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "roles": "Independent lens11 complete actual plate template, existing tiling acceptance body and per-tile surface-walk admission.",
+      "disposition": "Full192 requestedchangedtilingtests sourceonly, noexecution. Sleevefixture11x48cylinder.05radius/.25height typed3jointskinvalidindices/nonnegativeinterpolatedweights andone.shiftedmorph translation; reversesgridvertices notsnapshotspacing samplelist butactualconstructGridSurface ignoresSurfaceGrid.sampleshere sofixturebodyconsistent. Scaleactualoutputindices/finite/skinweightSum/deltaCardinality/translation andoutwardnormals checks bothorientations, Lamellarfiniteheight/overlap/lacingpresentation, Solidunchanged, NoSurfaceGrid1x4doesnotspan, finaltrimouterband+face counts tests. No extremebevel/holecapcase oroversizepreallocationacceptance inthisfile; entiretestinventorynotyetexhausted. DiscreteNativeRigSkinCount3fixturecatalognotglobalhardcodedgameplayjointlimit. Existingtestgeometry/helpersReadonly no nativeSourcefixtures or generatorrun."
+    },
+    {
+      "source_indices": [
+        2218
+      ],
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "roles": "Independent lens11 complete actual plate template, existing tiling acceptance body and per-tile surface-walk admission.",
+      "disposition": "Full115 actualTileMap privatecoarse4x8lattice plus15%margin normalnativeport. Walk8spine+4across each9spinerows builds45nodes viafallibleFrame.step, fixedboundedworkpercandidate; no perGridextent/rowcount/totalcandidatebudget here, strengthens351lateMAX_TILES cause notclosedbyhiddenwalkcap. Realpositivefiniteflatgrid step haspositiveGramdeterminant untilf32range issues, no arbitrarylargeextentcap inthisowner; actualchosenoversizesource/Tilingcurrentnativeacceptance pending noalloc. TileMapcell positivewidth/height1.3/CELLS fromvalidatedPlate, indexingclampsboundarycell but extrapolatesfraction intentionallytofollowlacingoverhang. InterpolatedGridPoints usebasefitmaterialcoordinates capturedthenreusedonmorph forcorrespondence, sameunitrole notrestingworldcoordinate. Actualrow/columnmovementfinite onlyFrame.step checkedGramnotallreturnedfinite atallnativeextremes; actualnormalanatomicalbounds beforeNaNpublishingclaim. Existingunevencylinder4positions size/chord/center tests readunexecuted, independentapproximationtolerances not broadprovedphysicalisometry."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-345.json",
+      "sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-346.json",
+      "sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-347.json",
+      "sha256": "b7b08ad4dad155bfcf195bcc699b9610eafab357465b16b8e4b98f8b263158b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-348.json",
+      "sha256": "f0d025b2140115f122f63ffb2678ab70a287add4dd21273c6b454f1fcf81c2f6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-349.json",
+      "sha256": "0bff5939fdb73a63c5a63325ffedcec3439554381099e28875b9fbb394cd3acb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-350.json",
+      "sha256": "4f1f0b4e94459f5aac9245aac4aea33f36f29161d85b81506cbeb21539b55a97"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-351.json",
+      "sha256": "3e294b193103b5cc026b79e866cf4d2fb60a598f6e9d78dcc51b87d393e94f78"
+    }
+  ],
+  "pending_contracts": [
+    "352 accounts2216..2218 next2219trim128REG1078/2220edges319REG1079/2221finish146REG1080/2222split330REG1081/2223tests276REG1082 allregisteredunread. LastREG1082.18mandatoryextensions/sixEOFqualification/futureproofs retained.",
+    "Newqualifiedbevelholeactualadmissionmismatch source Plate12x20gauge12/bevel5.4/radius2.4mm allboundsvalidbutcap1.2x2mm holecentresoutside. ExactnativeCDTconstraints/outsidehole/returnshape/currentacceptance stillpending, no generatedbadmeshclaimed. NativeResult.ok toOptionNone->HoleSpacing errorlossalsoactualproducerpath pendingcanonicaldedup.",
+    "ActualTileMapper-candidate45fixednodes nottotalbudget closes351missingchildsource requirementbutdoesnotexecuteoversizegridorproveactualcurrentdataresourcefailure. Existingtilingtranslation/reversednormal/unitweights/defaultclosedplate tests sourcebodyonly, no passingtestclaim.",
+    "All13 populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2219
+}

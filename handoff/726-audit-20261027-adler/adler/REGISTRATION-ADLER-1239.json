@@ -1,0 +1,185 @@
+{
+  "lens": 11,
+  "original_index": 2370,
+  "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+  "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+  "object_path": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\source-objects\\4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+  "ranges": [
+    [
+      1,
+      930
+    ]
+  ],
+  "prospective": true,
+  "purpose": "Prospective exact EOF930 qualification: rawmetadata union extends935 but verified frozenGit bytes end930. RawREG1238 retained, no rawbodyattempted. Effective1..930 beforebody, all13mandatoryqualification, no newidentity/scopedextension.",
+  "provenance": "Transported exact registered object",
+  "inherited_scope_extent_qualification": {
+    "kind": "Frozen Git exact-byte EOF qualification",
+    "original_index": 2370,
+    "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+    "actual_EOF": 930,
+    "raw_requested_range": [
+      1,
+      935
+    ],
+    "effective_range": [
+      1,
+      930
+    ],
+    "excluded_nonexistent_ranges": [
+      [
+        931,
+        935
+      ]
+    ],
+    "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/mod.rs",
+    "inherited_metadata": {
+      "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+      "snapshot": "pr-working",
+      "path": "crates/strategic-web/src/routes/mod.rs",
+      "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "bytes": 35092,
+      "already_in_frozen_variants": false,
+      "evidence": [
+        {
+          "shard": "rig",
+          "record": "wave-01/audit-producer-propagation/rig/supplemental-digest-sources.json",
+          "ranges": [
+            [
+              516,
+              903
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "RIG-SUPP-DIGEST-001"
+          ]
+        }
+      ],
+      "audit_owner": "rig",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 379,
+          "read_ranges": [
+            [
+              187,
+              351
+            ],
+            [
+              440,
+              837
+            ],
+            [
+              899,
+              935
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-ROUTE-SOURCE-054"
+          ],
+          "read_status": "scoped_complete_route_and_native_call_receivers",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/mod.rs"
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 560,
+          "read_ranges": [
+            [
+              1,
+              930
+            ]
+          ],
+          "contract_refs": [
+            "RIG-OWNER-WEB-TERRAIN-FORAGE-082"
+          ],
+          "read_status": "full_current_lens_source_read",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/mod.rs"
+        }
+      ],
+      "current_owner_suppliers": [
+        "camera",
+        "rig"
+      ],
+      "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-021",
+          "json_pointer": "/fresh_current_source_reads/3",
+          "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/mod.rs",
+          "read_ranges_as_recorded": [
+            [
+              187,
+              351
+            ],
+            [
+              440,
+              515
+            ],
+            [
+              904,
+              930
+            ]
+          ],
+          "source_context": {
+            "assigned_index": 341,
+            "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+            "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+            "read_ranges": [
+              [
+                187,
+                351
+              ],
+              [
+                440,
+                515
+              ],
+              [
+                904,
+                930
+              ]
+            ]
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        }
+      ],
+      "producer_inventory_accounting": {
+        "initial946_cell": false,
+        "frozen1650_supplement_index": 986,
+        "new158_material_role_packet": false,
+        "expanded36_context_variant": false,
+        "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+        "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+      },
+      "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+    },
+    "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1238.json",
+    "superseded_registration_sha256": "62252537398331825bb98c92ba2685a7ea08d194443c7cf63fa86be721ed2f2a",
+    "failed_read": "No raw body read attempted. Registration metadata EOF930 detected overshoot before first body. Raw1238 preserved; effective1239 prospective.",
+    "limits": "All13 independent lenses must qualify exact hash EOF930; no931..935bodycredit/newidentity/scopedextension or otherlenscoverage.",
+    "mandatory_lenses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "new_global_source": false,
+    "other_lens_coverage_transferred": false
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "lens": 11,
+  "batch": 108,
+  "status": "Full selected original1207 inventory reconstructed WITH findings;1208 exact prior personal proof retained",
+  "originals": [
+    {
+      "original_index": 1207,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "scope": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "actual_new_reads": [
+        [
+          1,
+          26
+        ],
+        [
+          114,
+          420
+        ],
+        [
+          421,
+          760
+        ],
+        [
+          761,
+          1120
+        ],
+        [
+          1121,
+          1450
+        ],
+        [
+          1451,
+          1570
+        ],
+        [
+          1626,
+          1910
+        ],
+        [
+          1911,
+          2160
+        ]
+      ],
+      "same_lens_personal_reuse": {
+        "receipt": "target\\726-audit-adler-20261027\\adler\\READ-ADLER-108-PARTIAL.json",
+        "sha256": "05fe55dabb602ff1067473b449f5cbe59419db2693d32b0e187fcc2419d9ca6d",
+        "ranges": [
+          [
+            27,
+            113
+          ],
+          [
+            1571,
+            1625
+          ],
+          [
+            2161,
+            2815
+          ]
+        ]
+      },
+      "qualification": "Re-assessed missing semantic inventory inside inherited partial1207 only; no restart of completed originals0..1206. Earlier predecessor consumption remains historical, not falsely claimed as fresh."
+    },
+    {
+      "original_index": 1208,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "scope": [
+        [
+          1,
+          29
+        ]
+      ],
+      "same_lens_personal_reuse": {
+        "receipt": "target\\726-audit-adler-20261027\\adler\\READ-ADLER-108-PARTIAL.json",
+        "sha256": "05fe55dabb602ff1067473b449f5cbe59419db2693d32b0e187fcc2419d9ca6d",
+        "ranges": [
+          [
+            1,
+            29
+          ]
+        ]
+      }
+    }
+  ],
+  "registrations": [
+    {
+      "path": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-007.json",
+      "sha256": "38b24daa4795e50ec170412249cb8af5385e9fb63a9c4eedfb143247de216e38"
+    },
+    {
+      "path": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-008.json",
+      "sha256": "e3853ffe6e3abbabeb4020e13eb51903766e9de61f1febfe0b39d537333ec89c"
+    }
+  ],
+  "connected_personal_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+      "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "original": 2805,
+      "ordered_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "shared": 68,
+      "shared_count_credit": 0
+    }
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "roles": "Separate presenter identity, encounter origin and trigger; typed skill/personality/religion adapters, raw attribute check, closed effects and information source identity.",
+      "disposition": "Origin ChanceTravel/ChanceRest/Errantry/DeveloperDemo and Travel/Rest trigger describe different facts. Restricted authored skill/axis enums map exhaustive cases to canonical owners. Native religion adapter ignores argument but authored ReligionId has only RomanCatholic (prior personal proof), so reject missing-variant defect. Currency positive-count credit and generic monetary debit are distinct units; retain authored currency category and explicit conversion authority instead of one undifferentiated integer. Information identity binds occurrence/party/information and timestamp; keep separate from human text.",
+      "repair_dependencies": "Reuse canonical Skill/MutablePersonalityAxis/OfficialReligion, currency/catalog identity and existing quantity owners; any future typed catalog subset must preserve actual authored subset policy.",
+      "acceptance": "All selected variants and exact quantity/currency semantics survive real inventory/native boundaries; quantity/denomination policy and all callers remain separately qualified."
+    },
+    {
+      "ranges": [
+        [
+          166,
+          375
+        ]
+      ],
+      "roles": "Ordinary-stack cost, errantry issuance/private overlay, action and revision receipts, follow-up source/payload, display projection, launch variants and puzzle attempt history.",
+      "disposition": "Measured/durable items are explicitly excluded before ordinary-stack withdrawal; preflight shortage checks precede local writes, no transaction/runtime guarantee. Private overlay can express unrelated optional case/site/group fields beside origin/reward flag: admitted origin-owned payload should retain true associations while generic chance encounters legitimately have no quest. Follow-up authority keeps immutable CombatOutcomeSet snapshot separate from later applied-payload receipt. Open/solved/active/current capability and immutable wrong-attempt history must not collapse into one state bit. ErrantryLaunch::DirectDemoCamp(PuzzleKind) already owns meaningful payload; NormalTravel is distinct production mode, not compatibility fallback.",
+      "repair_dependencies": "Challenge/road/native authority schemas, canonical IDs, origin-bound quest payload, typed codec adapters and existing receipt owners.",
+      "acceptance": "Admitted aggregate prevents unsupported origin/quest combinations while retaining chance cases; immutable attempts and runtime activity remain independent. No blanket demand to persist tactical ticks."
+    },
+    {
+      "ranges": [
+        [
+          377,
+          604
+        ]
+      ],
+      "roles": "Gateway projections, parsed/validated puzzle, accepted active contract, catalog revision/digest, authored requirement preview, contextual treatment/contact state, selected body region and presentation response.",
+      "disposition": "Puzzle private seed/solution is not emitted by observed projection. Typed puzzle and presented puzzle differ; .ok/filter_map conflates missing/invalid/unavailable classification but does not prove actual privacy or malformed-runtime bug. Visible availability is a preview, not the admitted execution capability. Raw BodyRegion slug is late presentation encoding. Context membership revision/contact revision/catalog revision/attempt revision are different roles. Treatment preview treats any positive bandaged cut as completion and can still present another unbandaged limb; do not infer all-wound completion. Religion preview uses direct hours while reducer calls target_religion_check: leave exact intended preview/execution policy unresolved, no invented mismatch witness."
+    },
+    {
+      "ranges": [
+        [
+          606,
+          883
+        ]
+      ],
+      "roles": "Journey/camp identity, movement versus elapsed/official clocks, pending encounter exclusion, deterministic occurrence identity, route/coordinate native adapter, origin/trigger and optional quest absence.",
+      "trace": "Core errantry102..129 compares departure+movement+reached stop and separately elapsed>=available threshold; parent chance-travel branch630..632 additionally checks exact elapsed. Materializer uses route/fallback position, encode_position_e7, durable Seed and actual origin; world_actor receives occurrence and official minute.",
+      "disposition": "Use distinct movement/elapsed/absolute clock and coordinate owners and a named admitted bound camp. ZERO departure and journey-camp:unbound encode not-yet-bound status; proper Unbound/Bound payload avoids sentinel ambiguity at API level. No actual journey starts at zero counterexample established. Road generic fields empty case/group are absent quest context, not real IDs. Keep origin-private metadata and human position/encounter presentation separate.",
+      "repair_dependencies": "Shared core camp matcher; ChallengeAuthority/RoadChallengeAuthority and binding/materialization functions; route and encoding owners; actual chance selection callers.",
+      "acceptance": "Bounded context cannot swap journey identity/time axes and preserves travel versus rest eligibility; all route, coordinate, scheduling and current callers remain pending."
+    },
+    {
+      "ranges": [
+        [
+          885,
+          1137
+        ]
+      ],
+      "roles": "Named random stream, source-bound strategic combat, actor identity, awareness, full outcome payload set, retry receipt, personality development source and reward eligibility.",
+      "disposition": "RoadCombatArchetype restricted Bandits is a supported authored subset, not duplicate proof. Actual initiating Character is retained separately from party leader and receives development after combat. Awareness Both/PartyOnly derives actual contact; keep distinct from result. JSON stores immutable authored payload, then selected result uses typed outcome before raw receipt string. Required roster count is checked after rebind, but no runtime partial-write inference. Personality source uses axis ordinal; preserve qualified stable-source encoding concern pending canonical source identity/alias review. Victory-gated addendum differs generic payload effects and private errantry reward flag; no hidden combat modifier found in this scope.",
+      "repair_dependencies": "Canonical encounter/occurrence/party/character IDs, typed CombatOutcomeKind and structured payload codec, personality source receipt, native cast rebind/build/outcome callers.",
+      "acceptance": "Exact initiating actor/source/outcome/payload association remains valid for all authored outcomes and retries; full build/rebind/SDK/transaction/current behavior not cleared."
+    },
+    {
+      "ranges": [
+        [
+          1139,
+          1458
+        ]
+      ],
+      "roles": "First actual camp binding, optional trial frame, case/site/contract capability, normalized submitted answer, attempt/revision replay, typed puzzle authority and solved fact.",
+      "disposition": "Binder links accepted party contract and destination before replacing unbound frame site; road availability uses elapsed+rest delay while camp identity stays movement based. Named BoundTrial/CampIdentity can own this aggregate. Attempt receipt is checked before mutable active-contract/case/camp state, supporting intended lost-response behavior. Puzzle submission normalized through typed PuzzleSubmission; incorrect answer still commits an immutable attempt and advances revision, only correct emits ChallengeSolved. MAX revision saturation is representable protocol concern, not ordinary exhaustion incident. Typed admitted session/issuer/trial capability could replace repeated unrelated raw coordinates without narrowing supported wrong answers.",
+      "repair_dependencies": "Case objective/OutcomeFact, puzzle validation/replay/check and native issuer/dialogue, ChallengeAttemptReceipt and bindings.",
+      "acceptance": "Actual callers and canonical owners preserve immutable request equivalence versus current admission; all native/parser/schema error policies remain explicit. Existing core case887 and road987 same-lens proofs retained, not executions."
+    },
+    {
+      "ranges": [
+        [
+          1460,
+          1767
+        ]
+      ],
+      "roles": "Road action syntax/receipt, party leader/quest binding, catalog digest/revision and selected choice, treatment versus requirements/checks, effect/personality/transition and resolution receipt.",
+      "disposition": "ActionId, choice/catalog ID and expected revision have distinct syntax/authority. Retry compares same actor/challenge/choice before live state; no new all-party authorization guarantee. Blocked interaction is explicitly non-executable. Ordinary treatment skips duplicate bandage requirement and consumption; other effects remain. Skill/attribute/religion checks use different owners though all numerical; milli-difficulty is not probability. Optional Transition plus Noop is redundant absence as prior040 records; StartCombat owns count/outcomes while TravelDelay owns duration. Resolution choice/deed/transcript association should be payload-shaped, but generic authored capabilities must stay independent.",
+      "acceptance": "Canonical admitted choice retains catalog revision/digest, source actor and resolved effects until actual native boundary; no new clinical, runtime, error rollback or alias count claim."
+    },
+    {
+      "ranges": [
+        [
+          1769,
+          2160
+        ]
+      ],
+      "roles": "Active demo reuse, tagged challenge identity grammar, issuer representative, development encounter selection, dialogue-bound production acceptance and original materialization.",
+      "disposition": "ErrantryChallengeId borrowed parser distinguishes namespace/character but drops ordinal and leaves puzzle_kind raw; storage ID and parsed lookup fields are purpose-specific rather than one generic String. NormalTravel and DirectDemoCamp legitimate alternatives. Named VerifiedIssuer can replace tuple(NPC,settlement,location) with actual association; acceptance verifies live organization session/presence then chapter capability. Development materialization still requires leader, actual reached journey camp, catalog and durable entropy; dev suffixes/ordinals are scoped identity policy, not universal ID limits. Catalog ordinal count and deterministic seed are separate concepts.",
+      "acceptance": "No source execution/bootstrap/reset. Actual organization/dialogue native helpers and creation cardinality remain qualified until receiving scopes reviewed."
+    },
+    {
+      "ranges": [
+        [
+          2161,
+          2815
+        ]
+      ],
+      "reuse": "Exact personal prior READ-ADLER-108-PARTIAL inventory",
+      "disposition": "Retain full tail role inventory and source-fixture-only limits; no source-body coverage of included files or execution."
+    },
+    {
+      "source": "challenge_state.rs1-80;errantry.rs1-132",
+      "disposition": "Actual ChallengeAuthority openness derives solved timestamp; road openness derives choice presence. Independent fields permit inconsistent resolved_deed/transcript but ordinary writer sets together; named resolution payload is source-strengthening candidate, not demonstrated malformed persisted state. Frame purpose and trial kind are meaningful typed roles, charge/finding/preparation are prose. TacticalInsightKind singleton names mechanically meaningful information and need not be removed solely for one variant; canonical ThreatId is unnecessarily widened to String in payload. Core helper deliberately omits elapsed from camp identity and adds availability threshold only for rested trial."
+    },
+    {
+      "source": "combat_error.rs1-29",
+      "reuse": "Exact personal prior READ-ADLER-108-PARTIAL inventory",
+      "disposition": "Useful StrategicCombatResult alias and canonical typed leaf variants; Operation(String) retains cause-erasure gap only for actual internal converting callers. No compatibility forwarding or second competing owner proposed."
+    }
+  ],
+  "inherited_same_lens_context": [
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-017-receipt.json",
+      "sha256": "248e389c980fabae29b237383d7f7e5974775a7ae6eccf99fb4ac741199271bf"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-034-receipt.json",
+      "sha256": "1c32165aeec548d529c12cad8746034abe727fc5e73834f77ce581d3338e1510"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-040-receipt.json",
+      "sha256": "1cafc13cab5c6749d60a28b0fbde49949745362216da3cc54ff0469bd8097f6e"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-043-receipt.json",
+      "sha256": "b82b6ad36c17396bc9156fb55b7ff194266c614eea286c038c4ad8b2e8abaf1c"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-045-receipt.json",
+      "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-048-receipt.json",
+      "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-101-receipt.json",
+      "sha256": "3126c4ae02fb943f1a56167e4014d3c2be754805792fe73f0b32617b197047ed"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-102-receipt.json",
+      "sha256": "4e87e3eb5300b6e467f587f37901d200fa66656accb00451864edf5cd1f2ad47"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-104-receipt.json",
+      "sha256": "adb3d27108be33387260ef3bdcfbe50f1911ea4f1d015bca55136e06713ae8c9"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-105-receipt.json",
+      "sha256": "ee409eec20ed323ae54ad55d00d70d49c4987ae2f92e53970263e2c1cce68e99"
+    }
+  ],
+  "mandatory_qualifications": "All selected107 corrections/limits including native-time identity, fatigue-speed and smithing supplement remain. Personal connected reads establish only exact scopes, not future original2805 ordered credit, shared population completion, other lenses/current/SDK/clinical/runtime/global acceptance.",
+  "pending_contracts": [
+    "Actual native build/rebind/cast/personality/issuer/dialogue/coordinate, case-fact and route/delay recipients still require separate qualified inventories; future originals keep ordered scope.",
+    "Specific canonical types/quantity/currency/preview policy, input/schema/Serde/SATS and UI/gateway all-caller fit, exact aliases/current/all20/connected acceptance remain incomplete.",
+    "Core errantry reached ranges1..61 and99..132 prospectively extend old shared68 range62..98; mandatory other-lens queue, no retroactive transferred body/count."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "original_accounted_before": 1207,
+  "original_accounted_after": 1209,
+  "next_original": 1209
+}

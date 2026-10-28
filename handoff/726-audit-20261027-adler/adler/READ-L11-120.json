@@ -1,0 +1,91 @@
+{
+  "lens": 11,
+  "batch": 120,
+  "status": "Original1223 exact417-line hostile surrender source accounted WITH findings",
+  "original_index": 1223,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+  "sha256": "f1b6b291bd216720319051244c99925d2f4797fef16883a2f37d1bbb6350d2ba",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-024.json",
+  "scope": [
+    [
+      1,
+      417
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      270
+    ],
+    [
+      271,
+      417
+    ]
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "roles": "Demand versus Offer, Refused versus Declined versus Accepted, exact private receipt/public binding, awareness basis points and offer election.",
+      "disposition": "Retain canonical HostileSurrenderMode/Outcome distinct from HostileResolutionKind and response prose; declined player offer and refused hostile demand have different cause/side effects. Native receipt mode plus Option<bool> permits irrelevant/missing answer; payload-owned Demand versus Offer{answer} can retain valid cases, reusing actual enum where canonical. Awareness is boundedBPS, morale and language/social quantities distinct; helpers erase canonical owners to raw scalars."
+    },
+    {
+      "ranges": [
+        [
+          82,
+          159
+        ]
+      ],
+      "roles": "Observer-scoped gateway availability with exact spokesman and Surrendered capability, live mode and latest response.",
+      "disposition": "Reuses same-lens119 exact authority projection for sapient negotiable active group/no bound mission/current contextual Surrendered capability, observer personal minute, unique live spokesman and common language. Private IDs remain in receipt and public exact binding remains source scoped. Offer mode election uses zero social ability/affinity projection inputs; actual assessment helper implementation must establish offers_surrender independence from those inputs before any mismatch claim. No inference based on function name or fixtures alone."
+    },
+    {
+      "ranges": [
+        [
+          161,
+          253
+        ]
+      ],
+      "roles": "Named request with correlated answer, complete immutable retry matching, current authority and live mode election.",
+      "disposition": "Receipt equality includes actor/site/spokesman/context/revision/mode/optional answer before mutable admission, exact committed retry preserved. Fresh request re-resolves Surrendered authority; actual shared core assessment computes abilities/language/affinity/morale/awareness and rejects stale/forged mode. Demand explicitly rejects Some(answer), Offer requires Some(answer). Actual public reducers construct coherent request variants; structural invalid-state opportunity is API representation, not an ordinary malformed native request finding."
+    },
+    {
+      "ranges": [
+        [
+          254,
+          376
+        ]
+      ],
+      "roles": "Battle-independent whole-group surrender transition, player-declined offer versus refused demand affinity change, source time and native reducer adapters.",
+      "disposition": "Accepted branch revalidates authority then commits Surrendered with no mission/capture subject; cannot equate this resolution with custody capture/killing/DrivenOff. Declined offer changes no affinity; refused demand applies affinity-1 and leaves group active. Outcome enum/source-specific prose correctly distinguish these facts. Both reducers guarantee mode/answer relation at construction. Subjective occurrence time is actual StrategicMinute. Plain String errors erase actual internal structured causes, requiring canonical owner propagation before formatting at adapter; current/all-reader scope pending."
+    },
+    {
+      "ranges": [
+        [
+          378,
+          417
+        ]
+      ],
+      "roles": "Existing mode election examples and source text assertions.",
+      "disposition": "Read only, not executed. Examples establish intended offer threshold sample but not whole numeric policy; source contains/absence checks do not prove battle independence, no custody effects or semantic all-path guarantees beyond actually consumed production body."
+    }
+  ],
+  "same_lens_context": {
+    "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-119.json",
+    "sha256": "2afdd33b60841538a8c7a601cc8df45c4ed728fbb43123a7a103e3bd45fd6f1e",
+    "qualification": "Actual negotiated authority/unique spokesman source just consumed; core assessment body and transition remain separate dependencies."
+  },
+  "pending_contracts": [
+    "Core strategic_action::assess_hostile_surrender offers_surrender dependency versus projection zero inputs; canonical quantity/identity/revision owners, actual shared hostile transition and view/native/client current reconciliation.",
+    "All populations/extensions/all20/alias/connected repair and acceptance remain incomplete; no project execution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1224
+}

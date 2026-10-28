@@ -1,0 +1,346 @@
+{
+  "lens": 11,
+  "batch": 347,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2195,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1053.json",
+      "registration_sha256": "bd5ecc447b254f7f8337fa69c47ebf6ce68a34c5e19cd8b39581325e01b9a552",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "scope": [
+        [
+          1,
+          335
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          335
+        ]
+      ]
+    },
+    {
+      "original_index": 2196,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1054.json",
+      "registration_sha256": "088d88d4099710ea954a5449db6afd650c4519636e0579b618bdaa7d378063e2",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "scope": [
+        [
+          1,
+          331
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          331
+        ]
+      ]
+    },
+    {
+      "original_index": 2197,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1063.json",
+      "registration_sha256": "8f7d9b55365920601dd10064a730f820f2dcd8d9dddeb35c583c31e13964f1b9",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "scope": [
+        [
+          1,
+          362
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          362
+        ]
+      ],
+      "inherited_scope_extent_qualification": {
+        "kind": "Frozen Git exact-byte EOF qualification",
+        "original_index": 2197,
+        "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+        "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+        "source_sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+        "actual_EOF": 362,
+        "raw_requested_range": [
+          1,
+          369
+        ],
+        "effective_range": [
+          1,
+          362
+        ],
+        "excluded_nonexistent_ranges": [
+          [
+            363,
+            369
+          ]
+        ],
+        "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/part.rs",
+        "inherited_metadata": {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+          "snapshot": "pr-working",
+          "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+          "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+          "scope_kind": "materially_reached_owner_contract",
+          "bytes": 13741,
+          "owner_contract_proofs": [
+            {
+              "supplier": "rig",
+              "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+              "row": 130,
+              "read_ranges": [
+                [
+                  1,
+                  160
+                ],
+                [
+                  335,
+                  369
+                ]
+              ],
+              "contract_refs": [
+                "RIG-OWNER-ARMOR-GPU-SHELL-041"
+              ],
+              "read_status": "partial_current_lens_source_read",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/gpu/part.rs"
+            },
+            {
+              "supplier": "rig",
+              "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+              "row": 214,
+              "read_ranges": [
+                [
+                  1,
+                  362
+                ]
+              ],
+              "contract_refs": [
+                "RIG-OWNER-ARMOR-NATIVE-MATERIAL-087"
+              ],
+              "read_status": "full_current_lens_source_read",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/gpu/part.rs"
+            }
+          ],
+          "current_owner_suppliers": [
+            "rig"
+          ],
+          "audit_owner": "rig",
+          "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+          "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+          "producer_reached_contract_observations": [
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+              "receipt": "RIG-PPS-019",
+              "json_pointer": "/fresh_current_source_reads/11",
+              "source_id_as_recorded": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  160
+                ],
+                [
+                  335,
+                  362
+                ]
+              ],
+              "source_context": {
+                "assigned_index": 443,
+                "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+                "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+                "read_ranges": [
+                  [
+                    1,
+                    160
+                  ],
+                  [
+                    335,
+                    362
+                  ]
+                ]
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            }
+          ],
+          "producer_inventory_accounting": {
+            "initial946_cell": false,
+            "frozen1650_supplement_index": 1501,
+            "new158_material_role_packet": false,
+            "expanded36_context_variant": false,
+            "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+            "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+          },
+          "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+        },
+        "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1055.json",
+        "superseded_registration_sha256": "4d11605435a70948958ce344f063bdbc4b66adee79fdfd016beca4c8dd368e78",
+        "failed_read": "No rawbodyreadattempted: register1053 metadataEOF output362 detectedovershoot beforebody. RawREG1055full369 retained; prospectiveREG1063full362 beforefirstbody.",
+        "limits": "All13 independentlenses mustqualifyexacthashEOF362, no363..369credit/newidentity/scopedextension or otherlenscoverage.",
+        "mandatory_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "new_global_source": false,
+        "other_lens_coverage_transferred": false
+      }
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2195
+      ],
+      "ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "roles": "Independent lens11 complete native metal texture, armor GPU context and checked part-shell lifecycle, with exact EOF qualification.",
+      "disposition": "Full335 nativeMetaltextures4shaderstages. ActualDRAWS_PER_SCRATCH5 agrees5nextdrawsx/y/angle/span/depth notwithstandingbriefcommentlists4semanticgroups (positiontwo). FixedSTAMP_REACH3 vsactualscratch_widthrange requiresMetal.validatebodybeforedroppedwide-stampclaim. Atomicpositivegroovebitsmonotoneu32max, negative/nonfinitegroovecomparisonexcludedratherthanwritinginvalidbits; nativezeroedbuffernewguarantee pendingbeforeinitialmaxallocationclaim. sizes32..1024publicguardearlier346excludeszero/divisor/mod andu32productwrap. Imagebilinearwrap dimensionsfromnativePNGdecoder nonemptyadmissionnativeimage contractpending forwidth0; extremeimagewidth>i32max/nativei32wrap notordinarypublictextureinputwithoutdecoder/resourcebounds. Normalimage slopesrotatewith2Dimage andhoststrength; height centraldifferencephysicaltexel=1/(TILES_PER_METRE*n), alreadyresampledengravingtiles, so nativeheight derivativeincludesrepetitionimplicitly; closes346missingtilesfactorhypothesisonthatsourcepath. FinalRGBAbytesnormZ1/sqrt(dx2+dy2+1) finiteunderadmittedslopes, outputroughnessclamped0..1. Normal-onlycutsource slopeswrite butrecessnotexplicitlywrittenbeforefinalreads; nativezeroedBuffer scratchexpectedbutactualnativecreationnotread so no invalidroughnessclaim. Scratchnormalgradientusesauthoredscratch_depthintexelscalenativeport vsfinishmetres; actualMetalcontractbeforephysicalunitconversionfinding. Allfence/nativecrossdeviceassurancesconditionalexacthost_floatimplementation/currentacceptanceunread."
+    },
+    {
+      "source_indices": [
+        2196
+      ],
+      "ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "roles": "Independent lens11 complete native metal texture, armor GPU context and checked part-shell lifecycle, with exact EOF qualification.",
+      "disposition": "Full331 actualArmorGpu ownscontext+KernelCache+MeshQuery+bothnormalweightingkernels, currentDevicePartcarriesprivatePartBuild notoldAPIalias. Publicbuild_in validatesallhostPartFramesbeforeupload, invokesrecorder thenrecord_shells+submit+part.read, closes343hostframevalidationmissinghypothesisonthishostconveniencepath. RawBufferrecorderframesnativepipelineindependentadmissionstillpending. DevicePart exposescarrier/finalbuffer getters record_shells/readlifecycle describedbutnotcompiletimephase split; nativecaller/bodybeforewrong-phasefinding. PartLayoutindexshellmethods rawusize assumevalidindices no claimedanyindexsafe. Actualgenericdevice_error(implDisplay) at329..330 formatsArcstr intoGenerateErrorGpu, ownsdiagnosticnotnativecause/category; newqualifiedtypedoutererrorerasurefamilywithactualGenerateError343outerenum. Readbackvariant existsbutnativebuf.read routegenericGpustr vsactualcomputeReadbackError semanticoverlapneedsnativeAPIproofbeforeunifyingvariants. open_async usesnew_compute vsmetalnew default differentworkload/currentdeviceformatpurpose notcompatfallback. Nearest_points rawquery/targetcounts asu32 uncheckedwithnonempty targetguard; actualboundedcallers/nativeBufferlimits beforelargeallocationoverflowclaim. scratchexplicitzeroedAPI documentationnarrowsuninitializedtextureclaimbutactualBuffer::new body/nativecontractpendingbeforeverification. No native device/cache/readback/mesh/execution."
+    },
+    {
+      "source_indices": [
+        2197
+      ],
+      "ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "roles": "Independent lens11 complete native metal texture, armor GPU context and checked part-shell lifecycle, with exact EOF qualification.",
+      "disposition": "Full362 understrictsixthEOFqualification: rawREG1055 metadataunion1..369 retained; metadataregistrationEOF362 detectedbeforebody, prospectiveREG1063effective1..362 withfrozenGitbyteequality andrawreg/registrySHA beforeallbodyreads. Exclude363..369nonexistentmandatoryall13, no newidentity/scopedextension. PartBuild capturesonePartLayout definingcarrier/finalcounts/source/topology/skinhinge arenas, wideu64bufferbytesafteru32layout counts; actualPartLayoutboundedchecks/topologyowner2198pending. record_shells rewindsbothauthoredcarrier+finalindices usingnativecapturedmirrorflags thenarea+anglecarriernormals/extrudedwalls/assemble/optionalplacement/finalnormals ordereddispatch. finish stagesfourstatuses areaalwaysrejectdegenerate/angleonlyifusesAngleNormals+shellstatus/normalstatus, preventinggenericbadcarriernormalsfrompublishingoncanonicalcheckedread. Exactwall/collapsedfinitenessnativekernels/statuswriters pending, no fullgeometricfinite/closedclaimmerelyfromstatusnames. CapturedhingeCount andprivatePartSlots relatesstagedbuffersbutStagedResultsorigin/cardinality guarantee2201neededbeforemixedslots/shortreadsclaim. BuiltPartpublicnativeparallelarrays appendinfalliblepositionsoffsetasu32+indicesoffset+componentranges+gridremapping; actualboundedcombinedparts/canonicalGeometrymaxu32 admissionbeforehugeappendwrapfinding. Nativeappendupdatesallstructuralrolescoherently, no droppedgrid/componentfinding. shelltablefixedSHELL_WORDS bitcastExtrusioncode+thickness withzeroedotherfields kernelstagewritessamearena; actualnativeABIdefinitions2198/kernelsbeforemismatchclaim."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-345.json",
+      "sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-346.json",
+      "sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a"
+    }
+  ],
+  "pending_contracts": [
+    "347 accounts2195..2197 next2198layout289REG1056/2199pauldron244REG1057/2200recipe166REG1058/2201staging77REG1059/2202carrierWGSL64REG1060/2203shapeWGSL55REG1061/2204wrappedtassets154REG1062 allalreadyprospectiveregisteredunread. LastREG1063.18mandatoryscopedextensionsunchanged; sixthEOFqualificationnew2197raw369vsactual362.",
+    "RawREG1055 full1..369 retainedwithno bodyreadattempted, exactsourceSHA/frozenGit bytesagree362, prospective1063full362beforefirstbody. Strictignoredverifier2197branch verifiesinheritedmetadata/registrySHA/rawregistrationSHA/nonexistent363..369all13. PreviousverifierhashsavedVERIFIER-BEFORE-347.json. No countfornonexistentlines/newglobalidentity/extension.",
+    "NewqualifiedArmorGpu genericDisplay->Arcstr causeerasureactualGenerateError typedouterowner. NativeErrorconcretes/readbackrelation/current/all20dedup withexistingengraving/metalGPU familypending. Actualpublichostbuild validatesPartFrames, actualheightderivativeincludesresamplingfrequency; no normalunboundedtexture/floatframefailureclaimed.",
+    "All13 populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2198
+}

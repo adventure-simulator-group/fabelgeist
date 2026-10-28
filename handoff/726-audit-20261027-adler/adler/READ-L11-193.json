@@ -1,0 +1,211 @@
+{
+  "lens": 11,
+  "batch": 193,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1379,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-195.json",
+      "registration_sha256": "1ed3ed5145d928adb6b4634681b6b5f96640a0575d9c72aa534f2f9f720bd23d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+      "sha256": "a677e882ad829a28f90793efb5ccfadcef1512255ef4b1c5105e9f8365e9f543",
+      "scope": [
+        [
+          1,
+          564
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          564
+        ]
+      ]
+    },
+    {
+      "original_index": 1380,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-196.json",
+      "registration_sha256": "84d837a301025d5c56f3288db90bf3bc21be35086ccb5259fe7b4bc1d2699932",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+      "sha256": "bc1f1722e87fddf61d7200058af9bb729170ce3431ff1b2b344da00847d5f80b",
+      "scope": [
+        [
+          1,
+          479
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          320
+        ],
+        [
+          321,
+          479
+        ]
+      ]
+    },
+    {
+      "original_index": 1381,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-197.json",
+      "registration_sha256": "825e1d588d11e6831cc926a5f87e8b6408be713b6ac65e67fd4fedd5036cc4f7",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state/publication.rs",
+      "sha256": "b6746424e6fc5ccd0bdf97a25b61b2643ab2b19661ffd5e8f0fccc936b822d4e",
+      "scope": [
+        [
+          1,
+          107
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          107
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1379
+      ],
+      "ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "roles": "Purpose-specific chain/solution, typed pelvis adjustment and reach policy entry points.",
+      "disposition": "TwoBoneChain carries actual root/current knee/end, measured lengths and chosenpole; TwoBoneSolution bundles final knee/end/direction. Typed wrappers are deferred until nativekernel asdocumented. Missing previous target adoptsdesired; finiteprevious+nonfinitedesired retainsprior. Completed nativeadvance Vec3 has no localcheckedreturn, publication must check actualretainedresult. Explicit geometric fallback targetdirection fromcurrentend otherwisegravitydown whenzerooffset, notfakepreviousobservation."
+    },
+    {
+      "source_indices": [
+        1379
+      ],
+      "ranges": [
+        [
+          185,
+          299
+        ]
+      ],
+      "roles": "Analytic endpoint/bend finite admission and actual hierarchy snapshots.",
+      "disposition": "Solver rejects nonfinite root/target, tiny measuredsegments, inverted/NaN bounds; native intermediateoverflow allowed but finalknee/end checkedfinite. Direction derivesnormalized actualoffset/currentend or explicitgeometrypolicy. Snapshot nativeactualglobal required, parentabsence/parentcomputeerror collapsesidentity; valid-rootpolicy and malformedhierarchy distinction requireactualnativecontract, nolegacyshimfinding. Aim helperchecksfinitebefore normalize, notafter; finite nonunit framepolicy retained and zero/outputadmissionqualified."
+    },
+    {
+      "source_indices": [
+        1379
+      ],
+      "ranges": [
+        [
+          301,
+          564
+        ]
+      ],
+      "roles": "Native two-bone hierarchy application and existing source fixtures.",
+      "disposition": "Void helper canearlyreturn beforeorafter uppernativewrite; lower and endrotation optionalwrites, currenttwisthierarchy resampled atstages. Confirms prior pending application-successwitness issue; no blanketwholeentitytransaction requirement inferred. Final footrotation restorespresolveworldorientation then callerownslope/roll. Sourcefixtures coveranalyticreach/singularbend/twistintermediateorientation; notexecuted, noactualasset/capturecoverageclaimed."
+    },
+    {
+      "source_indices": [
+        1380
+      ],
+      "ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "roles": "Transient Bevy state, logical/observed support distinction, quickstep handoff and diagnostic readiness.",
+      "disposition": "State intentionallypresentationlocal, noSpacetimeDB authority. QuickstepContactHandoff variants None/Converging/Held bindbothtargets andframefinitecheckedbeforeseed. Solverownership/actualcontactstoredseparately; footplantreadiness propervariant. Bare knee-yaw Angle defaultsZERO and copiesintodiagnosticswithout Option, strengthening191missing-measurement family. Many optional perleg caches not automatically granularerrors; actuallifecycle contract required."
+    },
+    {
+      "source_indices": [
+        1380
+      ],
+      "ranges": [
+        [
+          214,
+          390
+        ]
+      ],
+      "roles": "Observed owner motion, discontinuity retirement, terminal pelvis update and settle momentum.",
+      "disposition": "Zeroelapsed holdshistory; checkedmeasuredownerplanarspeed beforecontactretirement andframewrite. Discontinuity clearsactual/history/plans/support/rotation/release/settle. Typedterminaltarget+shift preparebeforeupdate; firstnonterminalsampleacceptsdesired withoutelapsed. support_was_acquired requiresbothplantacquired+Somepositivecurrentconfidence, resolves192supportreadinessdependency. Retainedvelocity strongestrecentquarterratio isexplicitpresentationmomentumpolicy, no replicated tacticalstate."
+    },
+    {
+      "source_indices": [
+        1380
+      ],
+      "ranges": [
+        [
+          392,
+          479
+        ]
+      ],
+      "roles": "Terrain release lifecycle and diagnostics projection.",
+      "disposition": "finish_terrain_release clearsplants/world/ownertargets/planstart/planphase/support/orientation/settle but does NOTclear left/right_planned_contact; exactcomment says laterreenablecannotresurrectstaleplants. Main1370laterreadsretainedplan, but normalordinarylowered owner routedaway: actualreachableplanproduction/release/reenable proofneeded beforeacceptingstaleplanbug, no runtimeclaim. Doesnotresetquickstep/ownerframe/raisedshift, eachdistinctownerpolicyneedsproof ratherthanblanketclearall. Diagnostics mapscurrentstate andexplicitsettle plans, releasegoalworldprojection hasnofinalfinitefilter despitefiniteleaves; actualinputbounds pending."
+    },
+    {
+      "source_indices": [
+        1381
+      ],
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "roles": "Bespoke solve request, checked publication and observed support retention.",
+      "disposition": "FootSolveRequest bindsactualframe/target/plantedtarget/typedweight/releasepolicy; retain convertsnativeworldtolocal, laterpublish validates selectedtargets andsettlepayloadbeforecomponentreplace/insert. Validatesfinitepoints only, not rotationcaches/planstart orwholeobservations; those checksatown seams mustbeconnected before declaringhole. Requested support temporarily assignedbeforemain replaceswithanalyticreport; failure/no-solve branchmainsetsZERO. Nofalseclaim everyweight isobserved, logicaltransitionweight intentionallyseparate. Source-only noexecution."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-187.json",
+      "sha256": "384f724657d2dd13432ad6a5573671a61bc6a7f39b73b02ce2b0357742e8d895"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-188.json",
+      "sha256": "fbb51803f979a69f77ec1aca11053bd2a7adb46d3504a064eaedac0f0af38163"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-189.json",
+      "sha256": "a68730444c62595c5321a8e762a9366f327caa5cbce6b39a3f6ce17b0b4ae462"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-190.json",
+      "sha256": "cdc7a00ed64a26af256d37d15b0e1d80c6528b74f8033576246f892f53f2d878"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-191.json",
+      "sha256": "d4a0ce1e2f009f987fc1f2f2bf7d6d9a7d0f731123a31f2252eea74dc8ac3779"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-192.json",
+      "sha256": "9051400928f7f0d626a83c40d6aec372792be967d1df026c64f7a742caab97ac"
+    }
+  ],
+  "pending_contracts": [
+    "Knee-yaw family now confirms state/LegIkDiagnostics loses missing-measurement distinction; downstream telemetry/acceptance/current still pending.",
+    "Foot orientation family now confirms actual apply helper has no success witness and may return after partial native mutation. Native ordinary failure scenario and correct publication contract still pending.",
+    "Terrain release leaves planned_contact while clearing associated metadata; actual reachable plan producer across owner routing/release/reenable needed before accepting lifecycle defect.",
+    "All13 populations/current/all20 families/aliases/connected acceptance incomplete; no project execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1382
+}

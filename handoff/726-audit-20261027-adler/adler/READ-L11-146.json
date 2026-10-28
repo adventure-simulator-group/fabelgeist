@@ -1,0 +1,122 @@
+{
+  "lens": 11,
+  "batch": 146,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1266,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-073.json",
+      "registration_sha256": "a303b5af83dd1c8760d055314e3003a63d1df00e942a1480ce940ee126dedf37",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+      "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+      "scope": [
+        [
+          1,
+          119
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          119
+        ]
+      ]
+    },
+    {
+      "original_index": 1267,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-074.json",
+      "registration_sha256": "da08ebdb9daeb811462c026958c8c227595e1f3d064f582717cafbd63cffd738",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+      "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+      "scope": [
+        [
+          1,
+          590
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          410
+        ],
+        [
+          411,
+          590
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1266
+      ],
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "roles": "Version9 serialized failure report, reason/category/operation, nullable quest coverage, bounded trace and distinct counters.",
+      "disposition": "Fixture only defines investigation-night-window failure envelope with one quest_decision, no agents and allzero metrics; it is not actual evidence of current run or passing parser. Numeric agentID0/sequence1/schema9 and similarly typed count/minutes/gold/grams/bps need owning report roles, not unqualified generic metric map. Distinguish missing quest coverage, empty agents, zeroobservations and zeroevents; total1 vs singleton untruncatedtrace supports shape only. Detail string semicolon keys are serialized diagnostic payload, actual first-party parsers/report ownership pending."
+    },
+    {
+      "source_indices": [
+        1267
+      ],
+      "ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "roles": "Pure lifecycle scenario, clock cadence, money/billing/wedding state, conception quantum and morale/batch policies.",
+      "disposition": "ScenarioState purpose-specific fixture already owns state; uses canonical courtship/billing/leisure/conception APIs, separate seed and absoluteStrategicMinute. Raw funds/counts/periods/durations/ordinal should retain roles at helper boundaries. advance_to whole internally splits every day, while Daily calls same helper each day; equivalence covers same daily partition composition, not arbitrary interval segmentation/native chronology. Wedding/dowry bool+counter and conceptionminute/birthminute/birthcount are locally correlated state, named scenario outcome can constrain, not duplicate runtime lifecycle authority. Fixed spouse12h morale and perinterval NPCbatch are scenario policy; no native gameplay conclusion."
+    },
+    {
+      "source_indices": [
+        1267
+      ],
+      "ranges": [
+        [
+          267,
+          474
+        ]
+      ],
+      "roles": "Projected acceptance metrics, actual computed assertions versus declared scenario assumptions.",
+      "disposition": "Pure core calculations/observed scenario state coexist with unconditional true fields e.g formal_route_requires_opposite_sexes/father_approval, informal_same-sex/disapproval coverage and secrecychecksrequired. Acceptance conjunction includes these booleans, so report does not actually exercise those admission contracts. Need evidence-kind or actual witnessed contract outcomes rather than assertive labels conflating assumed/computed/tested; retain explicit offline-tier limitations. newborndependentcheck only birthcount+positiveadultageconstant, deterministic child seeds evaluated evenwithoutbirth usingzero fallback; actualpregnancy/birth acceptance separately gates count. Social priority fallback is intentional ordered candidate policy, not backwardcompatibility path. Budgetbps and milli morale are separate scale roles."
+    },
+    {
+      "source_indices": [
+        1267
+      ],
+      "ranges": [
+        [
+          476,
+          590
+        ]
+      ],
+      "roles": "Metrics vs report digests, cadence comparison, privacy canary/findings and immutable report output.",
+      "disposition": "Full report digests include cadence while normalized metrics digest allowscomparison, distinct fingerprint types fit. Privacy JSONaudit and serialized canary check inspectprojected reports, not persistence/subscriptions/browser; comparison.passed combines actual flags. Outputdir must notexist, filescreate_new, serializationdonebeforemkdir; multi-file atomiccompletebundle and partialIOerror outcome remain unrepresented, do notclaimatomicfilesystemwrite. Tests source includes temp recursivecleanup but was neither executed nor copied into audit helper. Existing purefixtures are acceptance proposals, no runtimepasses credited."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-145.json",
+      "sha256": "e7af3a5c5e959368cbb7fa7ebdbc47d2d58028e0be9003fdec9e85e9d25aa8de"
+    }
+  ],
+  "pending_contracts": [
+    "Report/deserialization/failure category and metric owners, canonical lifecycle admission rules actually exercised vs hardcoded assumptions, privacy audit and sampling source, native/current/all20/alias acceptance pending.",
+    "All13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete; no project execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1268
+}

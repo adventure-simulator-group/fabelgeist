@@ -1,0 +1,966 @@
+{
+  "kind": "Ignored evidence integrity only; not product test/runtime verification",
+  "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-362.json",
+  "receipt_sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+  "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-362.json",
+  "state_sha256": "628fc7c9addc916cf0875c6c2a22c6d8748defc3d4397726b8beef35c2b4b911",
+  "previous_verification_sha256": "458346602ca98ecfc9e3738dbf7abdabc1ec0cb91a4c7578e60e86ad181aa16b",
+  "ledger_sha256": "3af8b7b26b4bfba0dcca2599dcb2f2b8bab5f5f32fc025b9f5552ce5cc9232ca",
+  "checks": [
+    {
+      "original_index": 2274,
+      "population": "original",
+      "population_index": null,
+      "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "lines": 303,
+      "registered_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2275,
+      "population": "original",
+      "population_index": null,
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "registered_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    }
+  ],
+  "contextual_checks": [],
+  "extension_checks": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          99,
+          132
+        ]
+      ],
+      "registration_sha256": "e3853ffe6e3abbabeb4020e13eb51903766e9de61f1febfe0b39d537333ec89c",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "ranges": [
+        [
+          216,
+          240
+        ]
+      ],
+      "registration_sha256": "6fb3a6b3a9f0282f04359daf06a2409d710eb4ee436284c228b3ce7d994aefce",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "registration_sha256": "0e7b6088d5524760ee77210b9920a86e43f892a0911ea57a5d6c547c8a819c0d",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/materials.rs",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "registration_sha256": "b55f71b929d8a03b5da44632ccdea4730b2e05f9f68529063c6dd1ff37fbbb25",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "registration_sha256": "513cc320bbeb295c27f33805d41133a3ae70fd569d6241bbddbdddc87410ea19",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "ranges": [
+        [
+          1,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "registration_sha256": "0cf8f380e9c3e6e8e8d275c256de20ed2642579c2a529e09ae229640baf5267e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          18,
+          154
+        ]
+      ],
+      "registration_sha256": "bb31ecc94007bc997eae168738ab9171b95c1ad8ec4c364e6a8d99173a056255",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "registration_sha256": "1fdcf8e3be10fafe9f18109e6b8329014e396ca86fd6a346307931318c6c2e56",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "registration_sha256": "f072608d8b99aff4ec29c0962fdc5e5a3594cffb77fc776414277bcf75f9bbcb",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+      "ranges": [
+        [
+          45,
+          58
+        ]
+      ],
+      "registration_sha256": "1e0e429b2de643e01bf27ed5f8dfdd2d79f28c3946413f46d5e3580037cc8406",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "registration_sha256": "e16ef24c1ddcb2771ca1bacd2af8dbdc1969e13d69390dd23f228ce96ad0f366",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "ranges": [
+        [
+          159,
+          220
+        ]
+      ],
+      "registration_sha256": "7ce8a122950b0928d811bd00f59844147b718007bf8a8bbcc00c4bfd7e83a271",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "registration_sha256": "942bbfecc6805536bba33f0f9edbc45a344febbe83a88ee4501447f83272ba86",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "ranges": [
+        [
+          126,
+          236
+        ]
+      ],
+      "registration_sha256": "6a9555e7d93d8f1238f6531db9e06739cbb8dea032d0dd46ccd9ac06b4b3ec78",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "ranges": [
+        [
+          113,
+          139
+        ],
+        [
+          286,
+          330
+        ]
+      ],
+      "registration_sha256": "54cd295d154000e54ead341579cd2ba31f47a91b979e50b81abb935a4cc32ea2",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          309,
+          314
+        ],
+        [
+          531,
+          756
+        ]
+      ],
+      "registration_sha256": "ecc5ab4c7a9555e402cd9b9765e37e7f7c8f75a3655bec92ea3e7d00c1a203ec",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "ranges": [
+        [
+          331,
+          333
+        ]
+      ],
+      "registration_sha256": "fe44c609e1a3a9df276ced700b8a50e7fc2ea03dcb70c3e07e653a6cab81c66e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          166,
+          199
+        ],
+        [
+          225,
+          235
+        ]
+      ],
+      "registration_sha256": "aadcb07fbd1b7fb0f5a765456e30a02738035d82706f45dc00a4966dd5348b04",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+      "ranges": [
+        [
+          231,
+          472
+        ]
+      ],
+      "registration_sha256": "eb36e56ab29cd7fe1466d8039c9c1b1e9959a0d6c77610d312e08f05fccc9a89",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+      "ranges": [
+        [
+          306,
+          327
+        ]
+      ],
+      "registration_sha256": "62cc234890bcbd0a8b0ea7a525f856b1db8e74f3a8d0b1bae93a17b939a12b90",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/transfer.rs",
+      "ranges": [
+        [
+          230,
+          271
+        ]
+      ],
+      "registration_sha256": "17d52a258bcfb24e9e62fdfb7555960933410d2a60376649c82a2ad02c10a0a3",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 2276,
+      "state_sha256": "628fc7c9addc916cf0875c6c2a22c6d8748defc3d4397726b8beef35c2b4b911"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "branch": "handoff/726-audit-ledger-20261027-adler",
+  "worktree_status": "",
+  "next_original_metadata": [
+    {
+      "original_index": 2276,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6193,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 65,
+            "read_ranges": [
+              [
+                1,
+                178
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMOR-CONSTRUCTION-021",
+              "RIG-OWNER-KERNEL-BYTES-022"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1449,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 2277,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2729,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 66,
+            "read_ranges": [
+              [
+                1,
+                89
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-NATIVE-CAUSE-023"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1450,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 2278,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+        "bytes": 1655,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/additional-sources-014.json",
+            "ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-PRIMITIVE-PORTS-01"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 539,
+            "read_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PLAN-GPU-PORTS-079"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 964,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 2279,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+        "bytes": 21838,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/additional-sources-002.json",
+            "ranges": [
+              [
+                1,
+                115
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 540,
+            "read_ranges": [
+              [
+                1,
+                484
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PLAN-GPU-PORTS-079"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 965,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 2280,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6797,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 221,
+            "read_ranges": [
+              [
+                1,
+                187
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PIPELINE-CAUSE-088"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1558,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 2281,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+        "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+        "bytes": 954,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/additional-sources-002.json",
+            "ranges": [
+              [
+                1,
+                42
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 541,
+            "read_ranges": [
+              [
+                1,
+                42
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PLAN-GPU-PORTS-079"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 966,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    }
+  ],
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "qualifications": [
+    "362 accounts2274..2275 next2276metadatauninspected. LastREG1134.21 mandatory all13 scopedextensions/six strict EOF qualifications/futureproofs retained.",
+    "Existing356uniformABI finding extended with actual standard public bind-group packing source: missing and Unsigned silentlyzero vs cachedexplicitintegerpacking/missingerror. Actual reflectionowner/ComputePasscaller/current/all20/native acceptance remainpending; no new acceptedidentity.",
+    "TypedbyteLength/Offset nativeu64 role distinctions do not automaticallyproveallocation/device/alignment orbufferidentity; actualbufferextentandnativeusageadmission stillpending.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup incomplete gatefalse accepteduniquechange0. No product changes/builds/tests/lints/scanners/generators/runtime probes/CI/new tests/commits/publication/external messages; goalactive."
+  ]
+}

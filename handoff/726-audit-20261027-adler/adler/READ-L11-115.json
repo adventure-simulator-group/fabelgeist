@@ -1,0 +1,132 @@
+{
+  "lens": 11,
+  "batch": 115,
+  "status": "Original1217 full781-line schema scope source-accounted WITH findings and exact inherited session ranges",
+  "original_index": 1217,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+  "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+  "scope": [
+    [
+      1,
+      781
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      116
+    ],
+    [
+      180,
+      400
+    ],
+    [
+      401,
+      781
+    ]
+  ],
+  "inherited_same_lens_reuse": {
+    "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-102-receipt.json",
+    "sha256": "4e87e3eb5300b6e467f587f37901d200fa66656accb00451864edf5cd1f2ad47",
+    "ranges": [
+      [
+        117,
+        179
+      ]
+    ],
+    "attribution": "Previously adopted auditor source body and semantic session-state proof, not fresh root read"
+  },
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-018.json",
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "roles": "Free-form local message, player-party versus NPC resident audience, routed observer projection and wall-clock creation time.",
+      "disposition": "Free-form body/name are human text, distinct from player-party/resident/owner IDs. resident_character_id Option selects two different conversation audiences while backend flattens them into conversation_kind plus mutually exclusive raw subject fields/empty sentinels; named ChatSubject::PlayerParty/Resident can prevent mixed payloads. Directed audience/other parties earn distinct roles; same-party case avoids duplicate routing. Current member list is projection policy, not a proof of historical-access/privacy semantics. No actual message/body data queried, code only."
+    },
+    {
+      "ranges": [
+        [
+          114,
+          179
+        ]
+      ],
+      "reuse": "Same-lens102 session/state selected body117..179",
+      "disposition": "Keep actual owner party/character, location, conversation/catalog/session revision and Active/Closed semantics. Native raw storage representation does not prove all malformed combinations unreachable; same-lens prior qualification retained."
+    },
+    {
+      "ranges": [
+        [
+          180,
+          390
+        ]
+      ],
+      "roles": "Participant actor/player association, source-aligned event, prompt mode/policy/choice/state/source snapshot, immutable action and answer, learned topic, source-bound investigation capability and public schemas.",
+      "disposition": "Participant CharacterId Option plus actor_idString/role/display is correlated actor payload, not one generic text ID. Event fragments/source refs are aligned typed logical record flattened into separate JSON strings; actual resolved producer enforces alignment. Open/Resolved PromptState is already a finite owner; current native decode permits typed higher API but raw fields admit unrelated snapshots. DialogueAction actually stores only session/action/action_kind/resulting_revision, confirming earlier missing normalized-request association question; DialogueAnswer has original chosen IDs and actor, so future repair should assess reusing that existing fact rather than duplicating mutable authorities. Knowledge and topic options retain different learned versus currently offered sources. Binding expected-custody and consumed sentinel belong to action-specific available/consumed payload. Native/projection ID/source/codecs should be owned locally and kept typed across internal consumers."
+    },
+    {
+      "ranges": [
+        [
+          392,
+          547
+        ]
+      ],
+      "roles": "Session player viewer list, gateway-only projections, canonical catalog digest admission.",
+      "disposition": "Private table with observer-bound public projection is meaningful separate representation, not redundant independently mutable authority. Viewer membership is derived from player CharacterId Option, not actor string. Gateway filtering and per-viewer duplication are observed native routing, not blanket service security proof. Catalog digest has exact compile-time identity role distinct from session counter; actual JSON/native renderer/SDK/client all-reader scope still pending."
+    },
+    {
+      "ranges": [
+        [
+          549,
+          695
+        ]
+      ],
+      "roles": "Live actor/NPC co-presence, owning party and subjective minute, canonical strategic venue, physical presence frontier and organization chapter authority; coded contact failure.",
+      "trace": "Requires current actor same owner party and settlement, at least one persistent NPC, actual actor time, canonical venue selection, parsed NPC u64 IDs/profiles/presence and co-presence at same observer frontier. Rejects invalid NPC identity before returning primary NPC.",
+      "disposition": "This narrows conditional all-player/address concerns: scripted mutation explicitly requires NPC and validates NPC actor IDs; free-form player chat is separate. An AdmittedDialogueContext can retain actor/party/place/frontier/NPC association rather than erase all presence proof to one NPC row; reuse actual StrategicPresence/StrategicPlaceId. Native error code DialogueContactUnavailable is embedded into String inside helper, so typed code/cause follow-through still needs endpoint/native consumer reconciliation. Full core presence algorithm and every caller are not inferred from this boundary.",
+      "acceptance": "Retain actual physical/party/chapter admission and source-specific errors; conditional address filtering issue must not be called an ordinary malformed-ID panic without constructor/caller evidence."
+    },
+    {
+      "ranges": [
+        [
+          697,
+          781
+        ]
+      ],
+      "roles": "Existing exact tagged session/state/prompt-policy/topic parser fixtures.",
+      "disposition": "Fixtures require exact codes and reject prose/prefix/suffix/empty coordinates; no compatibility preservation for invalid syntax. Corpse permission approach request appears in parse-only fixture while actual permission adapter uses other canonical approaches; parser is intentionally partial tagged-shape admission, so this alone does not prove ordinary unsupported approach emission. No tests executed, no new assertions/doctests."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-111.json",
+      "sha256": "5bcc28845b4f1396ff46a283d10e46f99e7b24684433f6c22bc1cc2cba232d1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-112.json",
+      "sha256": "543639dbc4390beb6c20a339e646b2102f5cacbcde38e3ade7b8cbb478cd8266"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-113.json",
+      "sha256": "ee12142fe17c9a078a58823d040d33697d576b62054c4918befdebbb73274f27"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-114.json",
+      "sha256": "eebd1c49cb0897eb9ab19287777b9331a4d57bb17b1122078d50a9a580622b42"
+    }
+  ],
+  "pending_contracts": [
+    "Actual startup participant constructors and all physical-context callers; native/client/reducer-code/schema/JSON/source alignment and canonical owner APIs remain separately required.",
+    "Conditional address/projection/privacy/request-retry questions retain currentness/ordinary reachability limits; do not widen into security or runtime conclusions.",
+    "All inherited original/overlay/merged/shared/extension/current/all20/alias/connected acceptance obligations remain incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1218
+}

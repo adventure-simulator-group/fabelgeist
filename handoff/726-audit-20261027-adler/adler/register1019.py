@@ -1,0 +1,2 @@
+import continuation as c
+c.register_original(2157,[[1,330]],'REGISTRATION-ADLER-1019.json','Prospective necessary same-identity closure: raw REG1011 metadata union1..112,140..285 cuts the correlation matrix at112 and first acceptance assertion at285. Complete missing matrix113..139 and test acceptance tail286..330 required to inspect correlation ownership, finite direct-field and transferred mastery contracts. Raw registry retained. Mandatory independent all13 scoped extension; no new global source, no other-lens transfer, no execution.')

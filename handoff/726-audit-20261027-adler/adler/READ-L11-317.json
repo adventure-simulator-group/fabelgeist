@@ -1,0 +1,199 @@
+{
+  "lens": 11,
+  "batch": 317,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2040,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-884.json",
+      "registration_sha256": "b02670cb0f2b3050e94fbc8e150fca11744d66df424676e9c016a0d76333f3ff",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "scope": [
+        [
+          1,
+          473
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          473
+        ]
+      ]
+    },
+    {
+      "original_index": 2041,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-885.json",
+      "registration_sha256": "c74e629ab2f5af203b4a8c48dc8eee9967a0c0d6688d87d156ac95c1eb0ca460",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "scope": [
+        [
+          1,
+          186
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          186
+        ]
+      ]
+    },
+    {
+      "original_index": 2042,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-886.json",
+      "registration_sha256": "aeef58c4143f80ce888819d3bb337631f7991caf23754e001fec47d7ea58045e",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "scope": [
+        [
+          1,
+          129
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          129
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2040
+      ],
+      "ranges": [
+        [
+          1,
+          473
+        ]
+      ],
+      "roles": "Independent lens11 complete staged melee completion/admission/authorization/native resolution ownership.",
+      "disposition": "Full473 actualliveattacker/defenderview+transforms/dimensions/states/side andreportedprecision capturesMeleeIntentFacts, cheapgate thennativeLOS thencheckedcooldown thenread-onlyactive defense preparation beforeauthorityconsume. Afterauthorize usesAuthorizedMeleeAttack getters, pre-capturedhand/style/sample andliveimmutableviews (sameobservercontext), no eventreadsafterconsume; not automaticallyunboundpayload becausecapturedrawbeforecall. ActualLOS Dir3failure rejectsNaN/zerooffset narrows earlierrawposition-normalizationacceptanceconcern. contact_at_completion scheduledmeasure fallbacksurface_distance cannotnormallyoccur afterprivateauthoritypermits/started_at succeeds withactive metadata, so no lostactualscheduledmeasureclaim. Scalesprecision finite*UnitInterval<=1 thereforeexpect safe for everyfinite±MAX input, no requireprecisionunitclamp. Resultnativef32scaledbyperformance+retainedpower; actualcoreContact/DefenseAlignment admitsneededbeforeNaN resultfinding. Logsrejectionreason beforeabortandnoauthorityconsumptiononfalliblepreparation."
+    },
+    {
+      "source_indices": [
+        2041
+      ],
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "roles": "Independent lens11 full prepared active defense and atomic authoritative trade/response work consumer.",
+      "disposition": "Full186 checkedDefenderCondition performance beforeprepareddefense, errors logged/source retained, previewnativecontact/Shieldalignment completed beforePreparedMeleeDefense returned. commit onlyafterincomingAuthorizedattack, tradespreserveauthority, weaponBlock/Parry chargeonegeneraldefensework; dodgeworkchargedatinitialingressandnotagainhere. AttemptedParry cancelsownattack evenifeffectivealignmentfailed intentionalcommittedphysicalresponse; removesPendingContact+MeleeLunge andemitscapturedkey, offhandBlockeffective transformsremainingattackpower currentpolicy. Actualeffectiveness sourceWeaponDefenseAlignment/coreconsumer/current neededtoqualify314NaNclamp power concern. No newpenaltyorpersistenttickstate."
+    },
+    {
+      "source_indices": [
+        2042
+      ],
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "roles": "Independent lens11 full authorized melee outcome/native presentation and consequence event projection.",
+      "disposition": "Full129 requiresunambiguousstrikingBodySide→actualslot beforeemit, responsechoosesactualshield/weapon blockinghand, canonicalimpactusescapturedactorpositions/masses/contactbodypart, thenqueuesApplyMeleeAttackResult beforeSuccessfulAttackResponse withsameauthoritativeimpactvalues/effects. DeferredapplycanfailmissingLimbs/state/woundswhileclientmessagealreadyqueued; actualnormalprojectioncomponentinvariant andobservercommandordering neededbeforeincorrectpublishedhitfinding, cheap+Viewer+Skeletongate largelyrequireordinaryactors. Nativefinalstructuredresponse rawresult/flank/impactvectors actualproducer capturedcontext all20 rolecomparisonpending; debuglogbodypart enum/damage scalarprojectionfinalsink appropriate. Terminalmeaningnotwrittenbythisevent. No acceptedruntimecorrectness inferred merelyfromqueueorder."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-311.json",
+      "sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-312.json",
+      "sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-313.json",
+      "sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-314.json",
+      "sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-315.json",
+      "sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-316.json",
+      "sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7"
+    }
+  ],
+  "pending_contracts": [
+    "317 accounts2040..2042fullmetadataunion,next2043unregistered,nextreg887. No partialorunsavedbodyreads.",
+    "ActualMeleeCompletion readsallfallibledefense/cooldown/LOS beforeconsume; privateactiveauthorityinvariantnarrowsfallbackmeasure; finiteprecision*UnitInterval cannotoverflow. ActualRangedfactsproducer2044stillneededtoclose314targetposition/yawexpectcorrelation.",
+    "DeferredApplyconsequencemissingcomponents versusalreadyqueuedclientresponse needsactualnormalprojection+Bevycommands invariant beforefinding. Existingall20/nativecurrent/terminalreceipt paths mandatory.",
+    "All13scopes/current/all20/aliases/connectedacceptance/dedup incomplete;elevenextensions/fourEOF/futureproofs/L12/L13 retained. Gatefalseaccepteduniquechange0; no productexecution/repair/newtests/commits/publication;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2043
+}

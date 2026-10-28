@@ -1,0 +1,338 @@
+{
+  "lens": 11,
+  "batch": 282,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1855,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-696.json",
+      "registration_sha256": "fc357dcd8075d631f5359c0b068ed26cb4684d66882a43f6af13872941f5f349",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/production.rs",
+      "sha256": "5f93404e0fc4e5bcc3c452fd4874298568fb5b933a531c09430b006ebb0e6e17",
+      "scope": [
+        [
+          1,
+          123
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          123
+        ]
+      ]
+    },
+    {
+      "original_index": 1856,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-697.json",
+      "registration_sha256": "9654f6fc37720ecb419dc348716bfa4881a7a24f8f1256e3f546c66bb86c57af",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs",
+      "sha256": "661dc3873537da23868c5366984c8aeed205db213413a8c3d4634f77e00eca49",
+      "scope": [
+        [
+          1,
+          199
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          199
+        ]
+      ]
+    },
+    {
+      "original_index": 1857,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-698.json",
+      "registration_sha256": "5be781a33ca8f5d08931387fd8591275e15331b708f92abe0425a556522f71da",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/surfaces.rs",
+      "sha256": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+      "scope": [
+        [
+          1,
+          164
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          164
+        ]
+      ]
+    },
+    {
+      "original_index": 1858,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-699.json",
+      "registration_sha256": "e775f3a69b6887bc5ddbb23f6bb68727d0fc8970b0a26f2a5ed57f979b391c0b",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "scope": [
+        [
+          1,
+          290
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          290
+        ]
+      ]
+    },
+    {
+      "original_index": 1859,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-700.json",
+      "registration_sha256": "95235098c697fd39c37b299d8fb0c56cff723196d347f3b491cc09e6157514f4",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat/attack_key.rs",
+      "sha256": "0c195d5b16f4846e5d0e043e5864a0b65328387495a88af8a48719234aacd063",
+      "scope": [
+        [
+          1,
+          23
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          23
+        ]
+      ]
+    },
+    {
+      "original_index": 1860,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-701.json",
+      "registration_sha256": "c265dcb72cc115197e1fcd8563e24f422b4f203fd098a68da05d25d9b0f6e3d0",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "scope": [
+        [
+          1,
+          826
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          190
+        ],
+        [
+          191,
+          380
+        ],
+        [
+          381,
+          570
+        ],
+        [
+          571,
+          750
+        ],
+        [
+          751,
+          826
+        ]
+      ]
+    },
+    {
+      "original_index": 1861,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-702.json",
+      "registration_sha256": "f4eedd5340982181424cb088d2548aca0f83203afe687cd2e386c1771f7d329b",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "scope": [
+        [
+          1,
+          37
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          37
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1855
+      ],
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "roles": "Independent lens11 full exact fixture/native/configuration admission, retained role and cause contracts.",
+      "disposition": "Full123 ignored productioncompound fixture exactsourceinput/generate_unfurnished plusphysicalterrain/buildings/outdoor/enclosures andselectedgateopen. Chooses gate-containing passage then hardindexes access1..4 for bothcourt thresholds/return; canonical producer routecardinality/order needed before classifying broader schema mismatch. Stops firstfailedvisit/property, nonemptyobservations required andallpassed, actual reporthasinputdigestandscope. No execution or reportcreation; selectedroutes notfullcityacceptance."
+    },
+    {
+      "source_indices": [
+        1856
+      ],
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "roles": "Independent lens11 full exact fixture/native/configuration admission, retained role and cause contracts.",
+      "disposition": "Full199 production singleentrance fixture filters one-member supportowner, compilesactualground architecturaldoors sortedID, assertscount=supportregionslen-1 thenzip. Centre/bothusablewidth tracks derive halfwidth minusphysicalradius/skin/tolerance; optionalcentreline/track/entrance selectors mean emittedscope mustbequalifiedbyactualenvironment before calling allwidths observed. Assertsnonempty visitsandentry/returnshortfall<.08; exactrotatedGoslar2 staircontact JSON fixture and60degreephysicalfaceblocking sourceassertions. Allunexecuted, no subtractionunderflow claim untilactualSurface regioncardinality admission known."
+    },
+    {
+      "source_indices": [
+        1857
+      ],
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "roles": "Independent lens11 full exact fixture/native/configuration admission, retained role and cause contracts.",
+      "disposition": "Full164 public semantic CityStreetPatch/CityYardPatch deriveDeserialize with rawVec2/f32 fields and separate is_valid, no checked type ownership. Corridor checksfinite endpoints/distance>0 andfinitewidth1..20; Market checksfinitecornersonly. convex_quad_contains assumesvalidconvexorderedquad andallzero-cross returns true, so fourequalfinitecorners admitted byMarket is_valid markseveryfinitepoint inside. Yard checksfinitecorners andareaabs>1 butnotconvexity/order/finitecomputedarea. Actualproduction/sceneparent/admitteddecoder/current materialconsumers pending, newconditionalhelperfinding. DirectCityStreetSurface priority scalar adapter explicit finiteenum ordering."
+    },
+    {
+      "source_indices": [
+        1858
+      ],
+      "ranges": [
+        [
+          1,
+          290
+        ]
+      ],
+      "roles": "Independent lens11 full exact fixture/native/configuration admission, retained role and cause contracts.",
+      "disposition": "Full290 explicit ForwardLungeAcceleration finite permitsnonpositive by documentedcannotarrive meaning; MeleeLungeArrival separatesNotNeeded/CannotArrive/ArrivesIn andtypedcontact/delay preserveauthoredtiming. Public MeleeLunge retainsrawf32distance, forward<=0 precedesfiniteness (negativeInf givesArrivesIn fixedtick); Quickstep ignoresdistance andusespositive duration. Actualmelee_lunge producer checksfiniteseparation/quickstepdistance, clampsreachandgap, dispatchesthresholds; actualnativecaller/type-role/current neededbefore invaliddistance runtimeclaim. Acceleration arithmetic finitechecks finalresult andoverflowseconds; no inventedpositiveaccelerationpolicy. Existingtiming/window/anatomyonce sourcefixturesnotexecuted."
+    },
+    {
+      "source_indices": [
+        1859
+      ],
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "roles": "Independent lens11 full exact fixture/native/configuration admission, retained role and cause contracts.",
+      "disposition": "Full23 opaque MeleeAttackKey(u64) serde transparent/From, everybitpattern includingzero explicitlyvalid, absenceOption. encoded onlydiagnostics/externalword; to_le_bytes deterministicseed boundary. No guessednonzero/count/timestamp alias requirement."
+    },
+    {
+      "source_indices": [
+        1860
+      ],
+      "ranges": [
+        [
+          1,
+          826
+        ]
+      ],
+      "roles": "Independent lens11 full exact fixture/native/configuration admission, retained role and cause contracts.",
+      "disposition": "Full826 TacticalCombatConfig directfinalschema9 denyunknownfields; ownspositivereferencespeed/stepduration andmeasurednonnegative movement speeds. validate checksresolution/autoresolve,finiteauthority/movement/safetybounds/profiles/turncurve, AIintervals/input/hitboxes/presentation/gaits/guard/bouncy/IK plusdelegates landing/playback/pose/procedural. Guarddurations positivebutno maximum/minimumpositivefloors beyondtypedleaf; speedsno upperbound. Downedstate transitions andragdoll fields notvisited byparentvalidate; actualowner/consumer needed. AI offensepartialvalidation nowconnected1861. ErrorValidation(staticstr) andSerialization(error.to_string) erasebespokecause/field/bound, schema version error carriesnoactualexpected; exactexternal loader/reportpending andfinaldedup. digest validates thenSHA256 JSON, Defaultcanonical clone; sourcefixturesnotrun. Actual positiveconfiguredgaitreference confirms259factoryweakensretainedrole; nozero providerfailureclaim."
+    },
+    {
+      "source_indices": [
+        1861
+      ],
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "roles": "Independent lens11 full exact fixture/native/configuration admission, retained role and cause contracts.",
+      "disposition": "Full37 AiOffenseConfig public serde/raw scalar hit_precision, reach/range fields; has_valid_intervals checksfinite min andmax>=min, delaysordered, longthresholdfinitepositive andmelee fractionunitinterval. Doesnotcheck hit_precision/ranged_standoff_slop/ranged_reach_fraction orfinite max. Actualparentvalidate callsit butdoesnototherwisevisit these fields. Conditionaladmissiongap withactualconsumer/current/boundpolicy pending; no executednegative/NaN config."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-268.json",
+      "sha256": "b5413b9cc004828f8ac1a43b56423e9f461f20c714de6c38706c883e4c7b7e1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-269.json",
+      "sha256": "fc8d370a5eeefdf3ea8cdd9de8173fabffc67a26fda6a1822689d33b192a8773"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-272.json",
+      "sha256": "35b60435bb78f200471ebf07c89713af991d2cb90a52b434e4bcccf6ceb7ad6f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-275.json",
+      "sha256": "a6cec4d4cfcf939d571330e3bfd99a9776ac3098891988460b184e9f3bd66450"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-276.json",
+      "sha256": "01b6e6ba6853277399a71bf77d7d6b2bbb7865022bca906ad4bc8cec8adf0aae"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-277.json",
+      "sha256": "3a59ce224639206868fc150f0ebdffc1cb18604e7c7cfad38ae403b842b47a02"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-278.json",
+      "sha256": "9d22b717fd830e3402946d343cb8d63be302ee98f292903964ffa5739a89d47a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-280.json",
+      "sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-281.json",
+      "sha256": "7df0652b431f991b40f6cb387c3d72a3028b954211bdad089b882147cd2a981b"
+    }
+  ],
+  "pending_contracts": [
+    "282 exact1855..1861 complete; next1862 registration703. Prior attemptedmetadata1862..1873 dumptruncated, no body/scopecredit; compact1862..1870 metadata reread exactunion subsequenttool complete. No unrecordedbodyreads.",
+    "NewMarket degeneracy andAIoffense partialadmission sourcefindings requireactualconsumer/parent/current. Configguardintervalpositiveleaf doesnotitselfbound workfamily264; actualnormalcontrollerbounds/current stillpending.",
+    "Allpriorqualifiedfamilies/tenextensions/EOFexceptions/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incomplete; gatefalse accepteduniquechange0. No productrepairs/execution/newtests/publication."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1862
+}

@@ -1,0 +1,236 @@
+{
+  "lens": 11,
+  "original_index": 2104,
+  "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+  "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+  "object_path": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\source-objects\\13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+  "ranges": [
+    [
+      1,
+      145
+    ]
+  ],
+  "prospective": true,
+  "purpose": "Prospective exact EOF145 qualification: inherited metadata requests1..150 but frozen exact object ends145. RawREG953 retained with no bodyread attempted; effective1..145 registered before any body. All13 independently mandatory qualification, no new identity or extension.",
+  "provenance": "Transported exact registered object",
+  "inherited_scope_extent_qualification": {
+    "kind": "Frozen Git exact-byte EOF qualification",
+    "original_index": 2104,
+    "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+    "actual_EOF": 145,
+    "raw_requested_range": [
+      1,
+      150
+    ],
+    "effective_range": [
+      1,
+      145
+    ],
+    "excluded_nonexistent_ranges": [
+      [
+        146,
+        150
+      ]
+    ],
+    "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/mesh.rs",
+    "inherited_metadata": {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+      "snapshot": "pr-working",
+      "path": "crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "bytes": 4871,
+      "already_in_frozen_variants": false,
+      "evidence": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+          "ranges": [
+            [
+              1,
+              145
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": []
+        },
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+          "ranges": [
+            [
+              1,
+              145
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-WEAPON-MODEL-001"
+          ]
+        },
+        {
+          "shard": "rig",
+          "record": "wave-01/audit-producer-propagation/rig/additional-sources-004.json",
+          "ranges": [
+            [
+              1,
+              150
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-WEAPON-MODEL-001",
+            "RIG-PHYSICAL-CATALOG-01"
+          ]
+        }
+      ],
+      "audit_owner": "camera",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "owner_contract_proofs": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 123,
+          "read_ranges": [
+            [
+              1,
+              145
+            ]
+          ],
+          "contract_refs": [
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+          ],
+          "read_status": "full",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 414,
+          "read_ranges": [
+            [
+              1,
+              145
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 431,
+          "read_ranges": [
+            [
+              1,
+              145
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs"
+        }
+      ],
+      "current_owner_suppliers": [
+        "root",
+        "camera"
+      ],
+      "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-CAMERA-WEAPON-PHYSICAL-PACKET-040",
+          "json_pointer": "/source_proofs/7",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              145
+            ]
+          ],
+          "source_context": {
+            "index": 388,
+            "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+            "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs",
+            "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+            "read_ranges": [
+              [
+                1,
+                145
+              ]
+            ],
+            "evidence_mode": "fresh full body read",
+            "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+            "contract_trace": "Physical f64 -> gameplay raw32 leaves and renderer f32 arrays are different contracts. Root typed physical output and immutable shape native codecs; head extrema +/-Inf represent no striking geometry before fallback0, not a measured length; mesh bounds on empty source similarly requires later admission/state decision. Preserve exact cast/scan/filter/spear-working-section order."
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-WEAPON-MODEL-031",
+          "json_pointer": "/current_sources/7",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              145
+            ]
+          ],
+          "source_context": {
+            "index": 388,
+            "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+            "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs",
+            "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+            "read_ranges": [
+              [
+                1,
+                145
+              ]
+            ],
+            "evidence_mode": "fresh full body read",
+            "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+            "contract_trace": "Physical f64 -> gameplay raw32 leaves and renderer f32 arrays are different contracts. Root typed physical output and immutable shape native codecs; head extrema +/-Inf represent no striking geometry before fallback0, not a measured length; mesh bounds on empty source similarly requires later admission/state decision. Preserve exact cast/scan/filter/spear-working-section order."
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        }
+      ],
+      "producer_inventory_accounting": {
+        "initial946_cell": false,
+        "frozen1650_supplement_index": 925,
+        "new158_material_role_packet": false,
+        "expanded36_context_variant": false,
+        "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+        "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+      },
+      "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+    },
+    "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-953.json",
+    "superseded_registration_sha256": "6221ad47dff20a5873a0207444cf694a63151a0bc946ffc808e403c41ab7eec1",
+    "failed_read": "No rawbodyread attempted. Registration949 metadataEOF display revealed145 before body. REG953raw1..150 retained; effective974full145 prospectively saved before firstbody.",
+    "limits": "All13 independent lenses must qualify exact same hash EOF145; no146..150 body credit/newglobalidentity/extension/otherlens verdict transfer.",
+    "mandatory_lenses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "new_global_source": false,
+    "other_lens_coverage_transferred": false
+  }
+}

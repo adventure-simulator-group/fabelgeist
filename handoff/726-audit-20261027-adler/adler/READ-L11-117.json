@@ -1,0 +1,180 @@
+{
+  "lens": 11,
+  "batch": 117,
+  "status": "Original1219 full1463-line changed encounter source accounted WITH findings",
+  "original_index": 1219,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+  "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-020.json",
+  "scope": [
+    [
+      1,
+      1463
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      350
+    ],
+    [
+      351,
+      650
+    ],
+    [
+      651,
+      935
+    ],
+    [
+      1006,
+      1250
+    ],
+    [
+      1251,
+      1463
+    ],
+    [
+      936,
+      1005
+    ]
+  ],
+  "prior_same_lens_context": {
+    "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-106-receipt.json",
+    "sha256": "c800245f37c8d078dd9ae1ba17aa9282cb91512a785669cfb5cb82bf9359a161",
+    "ranges": [
+      [
+        936,
+        1005
+      ]
+    ],
+    "qualification": "Actual prefix reread personally here; prior proof never credited whole commit."
+  },
+  "connected_context": {
+    "source_id": "pr-working:crates/adventuresim-core/src/encounter.rs",
+    "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+    "original_index": 917,
+    "prior_receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-023-receipt.json",
+    "prior_receipt_sha256": "03b30b384e3206d060da613d1da2619503e1dfed244ee67fa51bcd8aaddc4a42",
+    "prior_registered_read_ranges": [
+      [
+        1,
+        1019
+      ]
+    ],
+    "fresh_root_observed_body_ranges": [
+      [
+        130,
+        175
+      ]
+    ],
+    "qualification": "Search locator also returned actual body130..175 within already registered full same-lens scope; no new source population credit or other-lens transfer."
+  },
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "roles": "Movement cursor terrain, deliberate tactical terrain quotient, journey endpoint and geographic position.",
+      "disposition": "JourneyTerrainKind distinguishes wetland but encounter four-surface vocabulary deliberately maps it to Open; this is lossy classification, not alias equivalence. Coordinates with geographic bool and raw tuple flatten incompatible coordinate meaning; missing Camp endpoint can cause zero/start synthetic fallback unless persisted route resolves actual point. Actual caller first uses route position and validates E7 encoding; do not infer ordinary Gulf-of-Guinea encounter without route/constructor proof. Typed position/endpoint association should avoid anonymous f64 pair and geographic flag."
+    },
+    {
+      "ranges": [
+        [
+          88,
+          209
+        ]
+      ],
+      "roles": "Party/personal/body mass versus carrying capacity and incapacitation status, calories/fatigue capacity/percent.",
+      "disposition": "Strategic inventory sums unit weight times actual fractional/full quantity and uses food lot mass authority; do not transfer tactical stack-mass receiver finding across lenses. BodyMassKg admits body authority then erases to f32, while personal burden and capacity are distinct physical roles. Condition Ready/Staggered/Incapacitated has explicit capacity multipliers. Worst member fatigue percent derives calories/endurance and clamps to100; intermediate raw scalar and units need named owner/collection semantics. Missing attributes/limbs are omitted or zero policies, not automatically ordinary invalid state."
+    },
+    {
+      "ranges": [
+        [
+          211,
+          378
+        ]
+      ],
+      "roles": "Opaque encounter identity, elapsed delay versus movement cursor, construction and sneak score.",
+      "disposition": "Delay advances living members and elapsed forecast without movement. Return completed/total tuple same scalar roles can be swapped; named journey frontier keeps saturation semantics. Constructor many distinct roll/movement/elapsed/absolute/coordinate/fatigue/awareness/count roles needs coherent typed input, not enum of independent dimensions. Awareness already canonical enum is flattened into booleans; native archetype/choice IDs erase canonical owners. Sneak score is min capped training rank, not probability; u16 saturation/cast policy distinct bounded percent."
+    },
+    {
+      "ranges": [
+        [
+          380,
+          618
+        ]
+      ],
+      "roles": "Earliest canonical combat/narrative boundary, journey-relative versus local subjective/world clocks, destination-specific quest influence, movement clipping and cursor.",
+      "disposition": "Keep requested/actual leg duration, roll ordinal, boundary minute, independent combat versus narrative selection and reached cursor together in named result. Narrative wins equal boundary; no aware combat leads no encounter. Actual active contract must match destination case before hostile influence; route local-problem callback uses official refresh clock rather than projected boundary time deliberately visible as separate time authority question. Caller rescans after clipped movement and replaces selection; no inference full traversal atomicity or downstream death semantics."
+    },
+    {
+      "ranges": [
+        [
+          620,
+          749
+        ]
+      ],
+      "roles": "Committed cursor and materialized encounter state, actual roster identity and post-travel recalculation.",
+      "disposition": "Recomputes actual counts/fatigue/burden/choices after movement, validates archetype/terrain/awareness, and requires counterparty roster length matches enemy count. Snapshot/raw authority versus admitted typed encounter could keep these invariants across phase. Narrative and combat are separate Option inputs; ordinary selector produces mutually exclusive pair but API admits both, and narrative early return wins. Named interruption sum could own real alternatives without forbidding independent context axes. No persisted tactical tick/HP/positions introduced; strategic roster identity is separate from transient battle."
+    },
+    {
+      "ranges": [
+        [
+          751,
+          934
+        ]
+      ],
+      "roles": "Surrender preview owner scope/value/count and committed removal; pooled claims/reserve; encounter avoidance delay.",
+      "disposition": "Loss owner_kind party/member plus owner_id0 sentinel and inventory row can be payload-owned CarriedInventoryScope/typed owner, reusing existing owner. Actual private producer emits only party/member; else branch not proof of ordinary arbitrary-kind deletion. Actual resolver compares fresh preview before commit and refreshes revision on changes, preventing stale preview loss. Stable sorted stake allocation uses u128 proportional intermediate, truncation remainder goes reserve; units of value/stakes/count need canonical owner, no new rounding policy. Native string terrain unknown defaults Open; actual commit earlier validates JourneyTerrainKind so malformed ordinary terrain not established. Detour/run delay consumes time without movement."
+    },
+    {
+      "ranges": [
+        [
+          936,
+          1097
+        ]
+      ],
+      "roles": "Transient battle outcome to bounded strategic consequences, physical hit/condition/morale/ammunition/corpse provenance and four-way battle resolution.",
+      "disposition": "Actual commit records report, filth, weapon/contact impact, typed BodyPart to BodyRegion mapping, hit injury, blood loss, capability and defeat morale. These are strategic consequences, not proof of prohibited tactical tick persistence; exact surgery/condition owner boundaries still needed. Ammunition helper receives requested used count but returns no committed count (same-lens106 qualification retained). Source/battle/party/member association raw IDs should stay typed through report/consequence operations. Actual enemies are exact context roster then authored threat, coherent Seed xor roll; difficulty count is not challenge rating generically. Returns four battle outcomes as String; EncounterOutcome must also include avoided/surrendered, so binary victor or pure BattleResolution too narrow. Authored followup deliberately suppresses generic loot."
+    },
+    {
+      "ranges": [
+        [
+          1099,
+          1271
+        ]
+      ],
+      "roles": "Authorized encounter request/receipt, leader or protective delegated actor, canonical choice/stale revision, refreshed preview or terminal outcome.",
+      "disposition": "Receipt matches encounter/actor/choice/expectedrevision BEFORE living/current unresolved checks, preserving legitimate committed retry. This is concrete full-payload compare evidence and narrows any generic all-receipts allegation. Fresh path rejects stale identity/revision, unavailable choice, delegated attack and too-slow run. Surrender changed preview commits explicit preview_refreshed receipt while keeping encounter unresolved; same retry remains that original refresh result, distinct from later resolution. Native DTO flat status/selectedchoice/outcome/revision and raw request comparison deserve lifecycle-specific payloads and canonical choice/IDs. Resolved transition calls narrative followup/camp and deactivates roster before immutable receipt; transaction/runtime atomicity not inferred from source alone."
+    },
+    {
+      "ranges": [
+        [
+          1273,
+          1463
+        ]
+      ],
+      "roles": "Camp redirect route/weather admitted geometry, departure frontier, party/member/location/contract synchronization and readiness exemption.",
+      "disposition": "Distinct route-driven versus endpoint return route is actual supported policy; do not automatically label optional route as compatibility. Canonical weather interval and route-origin/destination checks precede replacement; meaningful route package/weather/spans should remain coherent. Departure time max member clock differs world time; resets movement/elapsed/camp history and forecast. Snapshot compares leader/camp/location/optional active contract, validates all living members and incident-site exclusivity. allow_incapacitated_case_site_withdrawal boolean selects a real policy and should be named permission when needed; exemption only at case site, not universal unready departure. Unknown/multiple pending incident sites block departure."
+    }
+  ],
+  "qualified_policy_followthrough": [
+    {
+      "source": "encounters.rs280..285/688..707 plus core encounter.rs130..175",
+      "observation": "Core sustainable encounter speed directly multiplies fatigue factor (whole_bps-fatigue_percent*50), burden/logistics/terrain and controls available/run choices. Native commit supplies current worst-member fatigue, so there is an actual selected strategic encounter escape-eligibility receiver, unlike previous unconnected movement hypotheses.",
+      "qualification": "This does not establish ordinary walking/tactical movement speed reduction. Determine intended scope of no-fatigue movement penalty rule for strategic encounter evasion, exact existing alias and current source before accepting a distinct defect. Do not introduce extra hidden impairment, fatigue pool or arbitrary units."
+    }
+  ],
+  "pending_contracts": [
+    "Core presence of actual current/native/client/catalog/times/position/roster/surgery/condition/inventory owner APIs and acceptance remain pending; imported functions are not covered by mention.",
+    "Preserve prior source identities/errata/partials, all20 migration families, alias reconciliation, overlays/merged/shared/extensions and all13 independent lenses."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1220
+}

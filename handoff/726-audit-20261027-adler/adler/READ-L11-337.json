@@ -1,0 +1,251 @@
+{
+  "lens": 11,
+  "batch": 337,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2153,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1007.json",
+      "registration_sha256": "dc4f3879b67e94c8788bdb0e0a2ae15821eae24e2fa288a151b7d7ce59de8719",
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "sha256": "e4be1391bce49d102c596d622f3dcb646e44ac71555c5ded9028a50f5beeeeaa",
+      "scope": [
+        [
+          1,
+          64
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "original_index": 2154,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1008.json",
+      "registration_sha256": "22d6bc7ccffd70551521fdc3abbd4ee9d76fb7717c86a307d3c67636e1eaa7dd",
+      "source_id": "pr-working:crates/adventuresim-world-import/src/sources/road_inference.rs",
+      "sha256": "f74f07db1d321f14985590625124b5cbaccae7ff6ef35b7430a0749d2d8cfcf5",
+      "scope": [
+        [
+          1,
+          299
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          299
+        ]
+      ]
+    },
+    {
+      "original_index": 2155,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1009.json",
+      "registration_sha256": "57ba371bdeebc612805d8f2dc3e64da0e17f83b4922dad0c1fd4626beb908c5f",
+      "source_id": "pr-working:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "scope": [
+        [
+          1,
+          121
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          121
+        ]
+      ]
+    },
+    {
+      "original_index": 2156,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1010.json",
+      "registration_sha256": "7702b6ff5f60a0c373d0c601d4555ee9036160c8a535538d2ac32cad243ff978",
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/basis_points.rs",
+      "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "scope": [
+        [
+          1,
+          151
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          151
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2153
+      ],
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "roles": "Independent lens11 exact complete terrain collection/road source admission, build schema producer and canonical bounded numeric owner.",
+      "disposition": "Full64 actualTerrainFeaturesproductionhand-off directlycopiesPackage roads/waterringcollections withfullprecisionnativepoints, wetlands suppliedunchanged; finalizedcultivated.polygonsassignedunchanged. No polygonunion/dedup/disjointnessbefore325builderpolygon_mask, closing336actualchildpipeline path. Namedno-cultivationSHA isexplicitDocumentedBasepurposeemptyfeatureidentity notfallbackforfailedFinalcapture; FinaloverwriteswithactualHYDEsourcehash/polygons/rulesversion. RoadnativegeometryandNativeRoadLine shareorder/pointvalues, lattertypedkind includedonlyinbinarypayload/metadata geometrydigestpointsonlybyintent. SourcePackageDigestcanonicalownerwouldbenefitretainedhashfields butall20apiconsumer/dedupneededbeforeindependentStringwrapperfinding."
+    },
+    {
+      "source_indices": [
+        2154
+      ],
+      "ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "roles": "Independent lens11 exact complete terrain collection/road source admission, build schema producer and canonical bounded numeric owner.",
+      "disposition": "Full299 actualinference takesownedCompiledWorld+borrowedDocumentedBaseTerrainPack, createsboundedspatialbuckets256/neighbor candidates8evaluationspernode/degree2 accepted12km/360min; sortsHashSetderivedIDs/bucketmembers/candidates/accepted fordeterministicselection. CapturedIDs rawu64domainnode/edge vscoordinatesnative tuples, canonicalWorldtypefit all20ownerpending. SourceplansallErrorsignoredat136 ratherthanjustErrorNoRoute, newqualifiedterrainerroradmissionfamily, relates336cultivationconsumerbutdifferentoperationkeepcanonicaldedupdependency. .plan actualearlier325 canIO/Validation failunderlazydecode evenafterload, notallerrorslegitimateabsence. ConvertsGeoRoutePoint toTravelGeometryPointbeforemutatingworld andvalidatesgeometrycounts/length thenstableID SHA256topbit/exists+acceptedcollisioncheck; reportbindsdigest evenifallcandidateerrorsskipped. Overwritesplanstart/endwithoriginalnodes afternativeendpointssnap andsimplification, neverrevalidatesnewsegments againstterrain; underlyingRoute::Land hasnoWaterCrossings, actualWorldnodeslandadmission/routeterrainattestation/nativewholepath/currentneedtracebeforecrosswaterlinkfinding. Rawstage_placeholderRouteTerrain actualstagedcompiledworld pipeline notcompatfallback, outervalidate/terrainprojectionfinalization ownerrequired beforepersistedplaceholderclaim. ExistingGraphshortestallkinds connectivitysuppressionpredicate purposefulrules9networkbaseline, routekind/travelmode contractbeforeinapplicableroutefinding. Completehaversine/stableID/reorder/shortestfixturesreadunexecuted."
+    },
+    {
+      "source_indices": [
+        2155
+      ],
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "roles": "Independent lens11 exact complete terrain collection/road source admission, build schema producer and canonical bounded numeric owner.",
+      "disposition": "Full121 worldschema Cargo buildsource readsrepository-ownedcontent/names sortedYAMLextensionfiles asstrictJSONsubset, mergesalltypedNameCatalogDocument thenappliesfragmentsbyknownrepertoireIDbeforecanonicalvalidate. Fixeddeveloperbuildscriptpanicsexplaininputfile/declaredcatalogerror atterminalCargo boundary; notautomaticallya runtimefailedstructuredAPI. Doesnotexecutegeneratornow, namecontent orcalendar/demographic/schema/validationbodiesnotcreditedfromincludes. Sourcehashincludesrelativepathseparatornormalization+0delimiter+exacttext, capturedoutputJSON+digestString immutablegeneratedconstants, no productcontentrewrites. FragmentlookupduplicateIDcanselectfirstbeforevalidatepotentiallyvalidatorrejectsduplicates; actualnamecatalogownerbeforeambiguityfinding. collect_yaml_files directoryrecursionsymlinkpolicy/reprooutsidefilenames no unrequestedfilesystemwarn; actualrepocontributor-ownedsource. JSONsubsetwith.yamlfileextension currentexplicitauthoringformatnotoldYAMLfallback."
+    },
+    {
+      "source_indices": [
+        2156
+      ],
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "roles": "Independent lens11 exact complete terrain collection/road source admission, build schema producer and canonical bounded numeric owner.",
+      "disposition": "Full151 canonicalUnitBasisPointsprivateu16intended0..10000; SignedUnitBasisPointsprivatei16intended±10000. newchecks, zero/whole/min/max/defaultvalid, fromfinitef32/f640..1 roundsoneBPSprecision, ratiofloor128widepreventsproductoverflow thenexplicitlysaturatesaboveWhole intendednamedclampedratiofeature. scaleu32/u64useswidearithmeticvalidinputpreconditionpreservesoutput<=whole. complement subtracts10000-backingassumingprivatefieldvalid. BothderiveSerdeDeserialize+transparentandcfgSpacetimeTypewithouttry_from/validatedDeserialize; exactnewtypeprivatefieldcannotforceconstructorwhenautogeneratedimpldeserializesfield. Newqualifiedwireadmissionfamily source-reasoned decoded10001 givesfraction>1andcomplementunderflowpotential; signeddecoded±32768 outsideadvertisedbounds. NoSerde/BSATNdecode/test/overflowexecuted; exactnativeSerde/Spacetimegeneratedroutes/actualschemawireconsumers/current/all20canonicalownerfit acceptance requiredbeforeliveadmittedfailure. Existingtestconstructors/scalingonlysourcecomplete notexecuted, no deserializationcaseinthisfilebutwholetestinventorynotyetexhausted."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-309.json",
+      "sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-319.json",
+      "sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-320.json",
+      "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-321.json",
+      "sha256": "2e9432b7679a30e7a11ef409431ec616e514bb620902fc13043834778eca3613"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-322.json",
+      "sha256": "49c7ef78eebe15793f1e55e7d6f502d702cf1bb5441e8a2966804cfb7996c4f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-323.json",
+      "sha256": "bdd4da522066f630a917409c133a91e1bfd2da7af2896c8c2fd5c54d726346fd"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-324.json",
+      "sha256": "4b5876ec29d29d47b23c0238ca20fef5448a781db7ba1a63896e8919a25bbb02"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85"
+    }
+  ],
+  "pending_contracts": [
+    "337 accounts2153..2156 next2157 bestiarymetadataunion1..112,140..285 unregistered. Metadata336next2158calendarunionfull698/coordinates2159full512/2160bounds49/2161projection83known, no bodycredit. LastREG1010,next1011.14extensions/fiveEOFqualifications/future2151adopted335 andallotherfutureproofqueues retained.",
+    "Qualifiednewroadinferenceall-terrainError-vsNoRoute omission, andcanonicalBPSderivedSerdeboundsbypass. Independentexactsourceproofnowread, no native/data/decode/test/arithmeticprobe orcurrentcomparison. Actualall20numeric/errorconsumer/schema/current andacceptance mandatorybeforefinaldedup/repairledger.",
+    "Actual2153terraincollectionproducerdirectlypreservesallpolygoncollections tosharedXORowner, closingactualchildpath336; nativeimportadjacentcellsharedpixel/disjointness/realoverlap stillsourcequalified. Inferenceendpointrewriteafterplan snap/simplification remainspendingland/wholepathattestationbeforecrosswaterclaim.",
+    "All13 populations/current/all20/aliases/connectedacceptance/dedup ledger incompletegatefalseaccepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2157
+}

@@ -1,0 +1,236 @@
+{
+  "lens": 11,
+  "batch": 354,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2224,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1083.json",
+      "registration_sha256": "dca216b5aa220da8be1b9b16942f5bbd6638d4e5769e644eb77119bf0cf32d3c",
+      "source_id": "pr-working:crates/fabelgeist-bvh/Cargo.toml",
+      "sha256": "fc9b1f379eeea4867b58375107863be9dc93fead720fa2598f2a3a9f319fd73b",
+      "scope": [
+        [
+          1,
+          23
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          23
+        ]
+      ]
+    },
+    {
+      "original_index": 2225,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1084.json",
+      "registration_sha256": "750c59fca120595b7d45bbf57e32f9ac1da9b6910a208743cc68f85d1e2f3819",
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/aabb.rs",
+      "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+      "scope": [
+        [
+          1,
+          299
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          299
+        ]
+      ]
+    },
+    {
+      "original_index": 2226,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1085.json",
+      "registration_sha256": "8e5723da69dc91c2fef852d26894ac943b262de5ef2a3af91c784c5174632e53",
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "scope": [
+        [
+          1,
+          462
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          462
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2224
+      ],
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "roles": "Independent lens11 complete BVH dependency, native bounding/ray math and CPU hierarchy admission.",
+      "disposition": "Full23 requestedchangedBVHmanifestnativeGPU/math defaultfeaturesfalse, optionalComputeGPUspecdefaultgpu andanyhow/bytemuck derive. Dependencyfeaturewiringnoforbiddenlegacyaliasinmanifest. ActualnativequeryadmissionCPU/GPUimplementationsrequirednotinferredfromdependencies. No Cargo/build/test resolution."
+    },
+    {
+      "source_indices": [
+        2225
+      ],
+      "ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "roles": "Independent lens11 complete BVH dependency, native bounding/ray math and CPU hierarchy admission.",
+      "disposition": "Full299 currentnativeAabbrawVec3extents/point/ray/triangleports, EMPTY(+Inf,-Inf) deliberateaggregationidentity notnonfinitephysicalposition. Degenerateaxesnormalize.5 documenteddimensionprojectionpolicy notcompatibilityfallback. PublicAabb.newallowsrawbounds, actualcanonicalproducerboundsadmission beforefinite/orderingwrapperproposal. RayprivateinverseDirectioncomputedoncebutdirectionpublicmutable, exactcachedauthorityinvariantgap newqualifiedfinding. PublicRay::hitsdoesnotis_emptyguard, reciprocalslabcanSome0forEMPTY (+Inf/-Inf reorder) contraryAabbdoc everyquerymissesempty, separatequalifiedemptycontractfamily. Parallelrayonexactslabboundary zero*InfNaN policydependsactualVec3min/max/component reducers nativebodyunread, no unverifiedclaimgivenfloatminchoice. Raydirectionnotnormalized meansdistance parameter reallyscale-dependent t; actualRaycallers currentbeforedeclaringunitlengthnecessary. Closest_triangleEricsonedges defensivezero-denominator0 returns, duplicateA==BwithCdistinct/queryoffAB canearlyABreturnAalthoughACprojectiondifferent; actualvalidnondegeneratemeshadmission andcanonicaldegeneratequerypolicybeforefinding. Ray_triangleEPS1e-8 determinant+positivehit parameter intentionallydropsselfhit, max_distance inclusiveactualend<=. Allf32arithmeticextremes/usernegativeexpand/rawNaN radius needactualcaller/nativegeometricboundsbeforeliveinvalidqueryclaim."
+    },
+    {
+      "source_indices": [
+        2226
+      ],
+      "ranges": [
+        [
+          1,
+          462
+        ]
+      ],
+      "roles": "Independent lens11 complete BVH dependency, native bounding/ray math and CPU hierarchy admission.",
+      "disposition": "Full462 nativeCPU BvhpublicNodes+indices andTriangleBvh positions/triangles/bvh rawsharedgeometry caches, constructioncorrectlyemptybounds ->noNodes andwalkemptyreturns, closesempty-treefalsecallbackevenwhile2225directEMPTYRay.hitsdefectremains. Buildu32indexcast/2nreserve/fulltreerecursion sourceexpectsreasonablevalidcount; split countdecreases1..n-1 orstops, stackVec::with_capacity64 initialcapacitynotdepthcap, no silent64traversaltruncation. Binned12SAHcentroid bounds/sweeps/rightsum sourcecoherent, far/nearcost onlyperformance; emptybin-skips avoidzeroareaemptyNaN. closestcallback<=squaredlimit, Raycastcallback<limit inconsistencywithray_triangle<=max causesexactmaxhit omission newqualifiedactualTriangleBvhpath. Tieclosestoverwrites<=stablelasttraversal whileRaycast<keepsfirstequal, no universalindex-tiepromisefoundhere/CPUoraclecurrentpendingbeforetiebugfinding. candidates leafunion intentionallyoverreports; query exactownboundsfilter explicitdifferentAPI notcompatfallback. Refitexpectsunchangedgeometrytopology/count, publicarrays canmutatestaleoutsideupdate_positions; actualsourcecallers/nativeownershipall20pending beforecacheADThardeningfamily. update_positionswritesbeforeboundsdereference canpanicinvalidcountbutactualvalidmeshinputnativeports nottypedadmittedAPI yet. Threepositions/triangleindices no finite/degeneratecheck atTriangleBvh.new; earliestadmissioncanonicalproducer/currentnativequery tests pending. No BVHconstructed/queries/probes/tests executed."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-345.json",
+      "sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-346.json",
+      "sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-347.json",
+      "sha256": "b7b08ad4dad155bfcf195bcc699b9610eafab357465b16b8e4b98f8b263158b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-348.json",
+      "sha256": "f0d025b2140115f122f63ffb2678ab70a287add4dd21273c6b454f1fcf81c2f6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-349.json",
+      "sha256": "0bff5939fdb73a63c5a63325ffedcec3439554381099e28875b9fbb394cd3acb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-350.json",
+      "sha256": "4f1f0b4e94459f5aac9245aac4aea33f36f29161d85b81506cbeb21539b55a97"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-351.json",
+      "sha256": "3e294b193103b5cc026b79e866cf4d2fb60a598f6e9d78dcc51b87d393e94f78"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-352.json",
+      "sha256": "26aa4b9b61faf2cb4ad61457ec4ea4388b90e770dd87111a018abab73cc45a7e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-353.json",
+      "sha256": "379300f02147011e3c4507c285801623bd889f810ad737b27d81529f39fd88d7"
+    }
+  ],
+  "pending_contracts": [
+    "354 accounts2224..2226 next2227clothmanifest21REG1086/2228clothmod93REG1087/2229fabric156REG1088/2230lib34REG1089/2231surfacecontact1REG1090/2232colormanifest25REG1091/2233color80REG1092/2234conversion1..230of472REG1093 allregisteredunread. LastREG1093.18extensions/sixEOFqualifications/futureproofs retained.",
+    "NewqualifiedRaydirection/inversecacheinvariant, EMPTYboxslabhitcontradiction andBVHstrictmaxendpointvsactualtriangleinclusiveconstraint. Exactfirst-partycodepathsread notexecuted. Actualunit/Vec3nativeparallelNaN/current/all20/callers/acceptance beforeacceptedledger.",
+    "CPUemptywholeBVH guard closesempty-treeincorrectcallbackhypothesis; onlydirectEMPTYRay.hits remainsqualified. Explicitleafcandidatesoverreport semantics/fixedinitial64stackcapacitynotdepthcap/SAHdecreasingcounts notfalsefindings.",
+    "PublicTriangleBvhrawgeometry/cachefields/update_position anddegenerateprimitiveclosestpoint policy requireactualnormalproducer/caller/current beforefurtherfindings; no arbitraryunvalidatedextremeinputfailureclaimednormal.",
+    "All13 populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2227
+}

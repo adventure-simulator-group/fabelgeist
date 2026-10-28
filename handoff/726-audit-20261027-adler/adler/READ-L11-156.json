@@ -1,0 +1,202 @@
+{
+  "lens": 11,
+  "batch": 156,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1282,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-092.json",
+      "registration_sha256": "9cc6b2bf6cadc7fcaaaef93dd3d7e5be87403efad5ea21a8114baacb2bae3110",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+      "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+      "scope": [
+        [
+          1,
+          528
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          265
+        ],
+        [
+          266,
+          528
+        ]
+      ]
+    },
+    {
+      "original_index": 1283,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-093.json",
+      "registration_sha256": "dbdfa4520db0721795d8357d44bda4345fcd4421481b8e1ace5db02510bbdf9a",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+      "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+      "scope": [
+        [
+          1,
+          216
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          216
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1282
+      ],
+      "ranges": [
+        [
+          5,
+          123
+        ]
+      ],
+      "roles": "Selected actual itinerary, closed onsite/advance decisions and visible incapacitation forecast.",
+      "disposition": "SelectedCaseSitePlan alreadyownsoutbound/returnedforecasts with walking/window/wait/recoveryandinsulation; reuseownerfor148/155droppedfields insteadparallelplanstruct. OnSiteActionDecision/GeneratedAdvanceResult distinctReady/Rest/Return/Hold andProgress/RecoveryCommitted/NoProgress correctnames, but classifyinput elapsedbool frommaxpartyfrontier remains151dependency. projectedstatus usescanonicalStrategicIncapacitation status, fatiguecanonicalfromcalories/capacity, allnonfatiguecombinedinpainfieldshape; preservevisibleaggregateonce/nohiddenfatiguepenalty, actual decompositionpresentationpending. NaN/negative/rawcapacity fallback0.01 musttrace upstreamadmission before invalidforecastclaim."
+    },
+    {
+      "source_indices": [
+        1282
+      ],
+      "ranges": [
+        [
+          125,
+          267
+        ]
+      ],
+      "roles": "Bounded movement/action budgets, candidatewalkingwindow search and preference-based action rank.",
+      "disposition": "Roundtrip2movement+action checked thenceilhour, generatedwindowsalsopushpreciseaction/movementandallsmallerlegaldailybudgets, so nothour-onlysearch. Selection firstfeasibleunderorderedpreference schedule thennightflag; firstfourwindows broaderwaitgrid vsotherdailywalkingstarts intentionalboundedsearch, no globalearliest/optimalsafetyproof. Failurediagnosiscountscomplete/thermal/fatigue/site/projectionflags hasprecedence andpossiblecontradictorycombos; namedCandidateSearchSummary fitsactualfacts. Anonymous5tuple actionrank purposely lexicographic but nameroles progress/initialskillfit/confidence/reversedmaxduration/wait. Useexistingprojectionavailabilityowner, notrawprogressscoreasgenericgameplaystat."
+    },
+    {
+      "source_indices": [
+        1282
+      ],
+      "ranges": [
+        [
+          269,
+          343
+        ]
+      ],
+      "roles": "Balanced unique agentgroups and exactcasepin identity admission.",
+      "disposition": "Groupcount ceilprofilelen/party_size, balancedtargets sumprofiles, roleorderedroundrobin eachindexonce, sortsleadersactivity-onlylast. Undervalidatedconfig2..8 andnonemptyprofiles, groupsnonempty withinparty_size anddisjoint, resolvesbootstrap group[0]/duplicateagent uncertainty147/153 for ordinary path; standalonepub(crate) party_size0 stillunadmitted parameter, do notclaim validatedeverycall. PartyIDunique fromnative soloformation stillownerdependency, no directidentityduplicaterow accepted. Actualpinmatch owner+publiccase+typedoccupiedsite, preserveAdmittedCasePin ratherthansixswapablescalars."
+    },
+    {
+      "source_indices": [
+        1282
+      ],
+      "ranges": [
+        [
+          345,
+          455
+        ]
+      ],
+      "roles": "Projected actionstate vs authoritative reason-bound exactwait, public NPC window and typed replans.",
+      "disposition": "Travelcapabilityprecedence overwait reason deliberateprojection; Night/ContactSchedule allow1..one-day, otherreasonsBlocked. currentcontactpresence choosesfirstcharacterrow no settlement/location/ambiguitybound, actualunique rowproducerrequiredbefore wrongwindowfinding. DailyPresenceWindow canonicalparser checksrawstart/end, errorerasedNone. typedDialogueContactUnavailable /InvestigationActionUnavailable/Stale driveboundedreplan, no Englishmessageheuristic. Connectednativecamp094 explicitlyallowsrestatsettlement+fieldcamp+questsite, so155under60fieldbranchvalidnativeadmission, no invalidwaitfinding; differsfreefieldrestfrompaidIndoorservicebyactualprovisioncontract."
+    },
+    {
+      "source_indices": [
+        1282
+      ],
+      "ranges": [
+        [
+          457,
+          528
+        ]
+      ],
+      "roles": "Elapsed provision bound, exact active camp interval and diagnostic clipping.",
+      "disposition": "Projectedjourneyminutesdistance>0/legalpositivewalking, canonicalmovement thenovernighttime*4reservefactor isconservativeboundnotactualfutureclock; zero-distance returnsNonepurposebudgetpolicy. Campintervalclipscompletedfrontier/total, activeexactlyoneorNone; separatecountretainsambiguousvsabsentthenactualclassifier. Tuple(start,duration) couldexistingnamedPublicActiveCampObservation/JourneyCampInterval facts, notgenericpair. Diagnosticlimits clamp onlyrenderedvalues, mustnotleakboundedasactual simulationauthority."
+    },
+    {
+      "source_indices": [
+        1283
+      ],
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "roles": "Named activecamp state, postencounteradmission, geodeticboundaries and postrest exact/interrupted/terminal outcomes.",
+      "disposition": "ExistingPublicRoutePoint typedLatitude/Longitude admitsdegrees/e7tocollectedmicrodegrees; unitsalreadycanonical, elevationrawmetresi16portrole. PublicPostEncounterJourneyState independentbool/countfacts couldvalidatedsnapshotwithcoherentonejourneydestination, actualclassifiervalidates. PostRestProgress correctlyretainsactualdurationandcause, rejectsregression/overshoot/aftertotal, terminalallowszero, interruptedshortpositiveonly; nativeactualterminalpostconditionssourcepending, no resultoutcomeclaimfromrequestedminutes."
+    },
+    {
+      "source_indices": [
+        1283
+      ],
+      "ranges": [
+        [
+          129,
+          216
+        ]
+      ],
+      "roles": "Matched identity terminalclock deltas, unique activecamp classification and percharacter simulationbaseline/fraction quantity.",
+      "disposition": "public_alive_to_dead_ids matchesexactcharacterthenalivetransition, sortnotdedup; public_terminal_rest_elapsed matchedbefore/afterIDs checkednonregressionthenminterminalinterval. Thisalreadyprovidesroleexamplefor151repair; terminal-onlyminimumcontractmustnotblindlyreuseasgeneralpartyinterval. Missingemptyterminal =>None, named outcome retainsabsence. PostEncounterclassifier firstreclassifiesunresolved/noactivedestination beforevalidatingcount, fails mismatch/overlap; actualretainedstate-admissionpermissionpending. simulation_elapsed percharacterbaselineowner matches147; publicfractionSome replacesintegerquantity consistentcanonicalamountportcontract, invalidmicros expectpanic dependsgeneratedDBinvariant, no producttest."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-094.json",
+      "registration_sha256": "589180a7c6c1486fdd69c9c816cc8d7304150872e82bc6494f7e691882e822aa",
+      "original_index": 1247,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "fresh_reads": [
+        [
+          1,
+          145
+        ]
+      ],
+      "additional_population_credit": 0,
+      "qualification": "Same-lens already-accounted source declaration/admission reinspection only;145structattribute expressionprefix partial, no tailcoverage."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-136.json",
+      "sha256": "ad18a29e24dbe517ae21426515bc30e0ce30226e7a53216ced3abc05269b1457"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-147.json",
+      "sha256": "4725705d8c4623f09e5b697e541cdafa37100610002351d014693613491544b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-148.json",
+      "sha256": "45521a56371b519bb94567a8155b3f1884b7a4e2124a7966100914e3de9c5194"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-149.json",
+      "sha256": "d75a4eff75e0fa10b00c5a28b33c30da8487e3003a427f0426581d33c991b8fa"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-151.json",
+      "sha256": "cb2c307f2d1f4cd4cf35c4ef2e20dea809d892297a1297e890cba410b2c1d283"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-153.json",
+      "sha256": "56634eb36a2ea30c5a90d99290db3dbe25220bfed77d4df02f542d02e3161c4f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-154.json",
+      "sha256": "a8bb0a3f3cc012a0e1bfcc5795cf73d47adb2e6d89b81142a6d6cf823135dbed"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-155.json",
+      "sha256": "1aca7f56970f3ddc1dca6b83f87ecb2f6a28efe42c95de57a689baa782df6813"
+    }
+  ],
+  "pending_contracts": [
+    "Resolved: generatedshortwait1..59 atsettlement validnativefieldrest; resolved ordinary balancedagentgroup nonempty/disjoint/bounded underadmittedconfig.",
+    "Native/current/aliases/all20, actualcase-siteforecast/mission/death/hostilesubscription/event/trainingowners and all13 populations/connected acceptance remain incomplete; noexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1284
+}

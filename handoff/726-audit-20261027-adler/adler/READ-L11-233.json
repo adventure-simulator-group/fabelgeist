@@ -1,0 +1,341 @@
+{
+  "lens": 11,
+  "batch": 233,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1626,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-459.json",
+      "registration_sha256": "707d8fb65d7aa02bc34355ff2e37b22c73e95290e5ae7ce371eacfcd3dbcd4d8",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+      "sha256": "e641530bea571c2b122e60d817a9ae562934f67c7488eae746bc1366af605599",
+      "scope": [
+        [
+          1,
+          1509
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          190
+        ],
+        [
+          191,
+          380
+        ],
+        [
+          381,
+          570
+        ],
+        [
+          571,
+          760
+        ],
+        [
+          761,
+          950
+        ],
+        [
+          951,
+          1140
+        ],
+        [
+          1141,
+          1330
+        ],
+        [
+          1331,
+          1509
+        ]
+      ]
+    },
+    {
+      "original_index": 1627,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-460.json",
+      "registration_sha256": "a137eeaccdf0ad5a2a8bfcd0db295934c73dfa7ccc9613ce9cb533cb5857387d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs",
+      "sha256": "cf8143d0fb1820eebb4f01d1aa21abbe65a2373af1ae68117d6a1cf78d39ff30",
+      "scope": [
+        [
+          1,
+          216
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          216
+        ]
+      ]
+    },
+    {
+      "original_index": 1628,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-461.json",
+      "registration_sha256": "42ec7c5a2cec259d5ae4bd1711e153d6f82dedb10173067e6d01df61570ccfaa",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/ground_map.rs",
+      "sha256": "bbf75ad65cfa71106ead637d07a5e9459e19e1d02733186f198acdb94db447f7",
+      "scope": [
+        [
+          1,
+          258
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          258
+        ]
+      ]
+    },
+    {
+      "original_index": 1629,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-462.json",
+      "registration_sha256": "e03023656557fb276d8e111a117a4da6251ca96fd9ddb636033eec2566b2c719",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/ground_map/noise.rs",
+      "sha256": "24ee59010ffb33dc1c4e401ac68c3969a9e2be909b3243872d073ececa36d26f",
+      "scope": [
+        [
+          1,
+          102
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          102
+        ]
+      ]
+    },
+    {
+      "original_index": 1630,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-463.json",
+      "registration_sha256": "3df8f5631a3204bb715e84158ba0effc058a6a9ce8aff3efbd6fc4c4a0f69a6c",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/heightmap.rs",
+      "sha256": "839811921ba225be4c535ea62d19c6df02f248fbde4539de1780c16f12cdd749",
+      "scope": [
+        [
+          1,
+          96
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          96
+        ]
+      ]
+    },
+    {
+      "original_index": 1631,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-464.json",
+      "registration_sha256": "ba3700fcb967e2575b86c1f42b08edfcef1a1f1779fbb6086eefb822137ed94f",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/material.rs",
+      "sha256": "be5f1ca4e6b11d18c8ce8c36e0f360d08e2edd36ba694977b9c616ba5982c70f",
+      "scope": [
+        [
+          1,
+          103
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          103
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1626
+      ],
+      "ranges": [
+        [
+          1,
+          1509
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/producer/owner source with source-only fixtures and native dependency qualification.",
+      "disposition": "Full1509 terrain lifecycle/detail renderer and all fixtures source read. ScenePresentationOf Entity is exact owning scene, TerrainDetailPatch has typed ScenePlanPoint and raw vista revision matching source counter contract. Pending observer marks additions, actual pending loop refreshes paired existing presentations or spawns new; only Ok(true) removes pending and marks startup, Ok(false) waits, Err retains pending and logs owned GeometryError at final system boundary. Volumetric producer/caller readiness needs review before claiming terminal-error pending defect or partial transaction. Detail patch admits snapped camera point, filters wrong active entity, revision/centre gate, keeps main-world Mesh for mutation and updates triangle diagnostics from replacement. Canonical urban topology intentionally yields empty detail slot, not alternate collision authority. Fixed49x49 positions and bounded index arithmetic; invalid/missing support positions have zero placeholder but are excluded from cell indices. Native normals may include unused positions; actual SDK/source mesh contract pending. Fine authoritative vista/terrain heights morph into coarse height; or(fine_height) is geometry-level coverage policy, not legacy compatibility. Relief/root/road/rock/drainage/noise numerical helpers explicitly cfg(test), not active parallel procedural terrain or compatibility path. Tests include lifecycle/mask/triangles/transition cuts and string shader checks; no generation/tests/assertions/native execution."
+    },
+    {
+      "source_indices": [
+        1627
+      ],
+      "ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/producer/owner source with source-only fixtures and native dependency qualification.",
+      "disposition": "Full216 cliff terrain extension and fixtures. Single native binding group owns packed Vec4/Mat4 and texture handles; TacticalTerrainMaterial type alias is canonical ExtendedMaterial specialization, not deprecated compatibility alias. set_geographic_frame takes actual CityFrame, inverse world_from_city provides material source coordinates and disables moving detail cutout; native inverse validity depends on admitted CityFrame owner, no arbitrary singular custom matrix assumed. enable_cliff_surface accepts canonical TerrainSurfaceRecipe and matches Massive/Bedded/Foliated to shader mode0/1/2, permyriad/metres conversions at native boundary. Recipe parameters must own positive grain tile, normal/bed ranges; core recipe proof pending rather than infer division by zero from private data. Shared texture samplers explicit and source test checks equality/16-limit rationale; actual shader/adapter/native limits not verified by test source."
+    },
+    {
+      "source_indices": [
+        1628
+      ],
+      "ranges": [
+        [
+          1,
+          258
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/producer/owner source with source-only fixtures and native dependency qualification.",
+      "disposition": "Full258 organic ground image/mask producer. Explicit GroundCover/GroundSubstrate mapping packs native enum channels; canonical UnitBasisPoints saturates density before scale255 and cover height clips byte range. Managed urban surface_at uses unwarped point and overrides warped natural samples, preserving property boundaries. No-ground optional produces intentional1x1 empty native mask, not invalid explicit-data fallback. ScenePlanPoint conversions propagate GeometryError through GeometryResult to material, not stringify/reparse. Densified raster arithmetic and u32 casts rely on actual SceneGround dimension/scale admission and native/device limits; those canonical owners pending before demonstrated overflow/capacity rejection. Native image RENDER_WORLD only, prior216 Image extraction keeps Image object, no automatic missing asset claim. Linear interpolation then rounded cover channel comment requires actual shader discrete selection/allowed transition proof; multiple nonadjacent enum codes could interpolate intermediate codes, source question not proven visual failure. Alpha deliberately repurposed from gameplay height to signed canopy boundary; authoritative SceneGround height retained. Chamfer diagonal cost1 is intentional bounded approximate mask distance, not promised Euclidean metric."
+    },
+    {
+      "source_indices": [
+        1629
+      ],
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/producer/owner source with source-only fixtures and native dependency qualification.",
+      "disposition": "Full102 cached deterministic lattice. GroundMaskNoise shares canonical terrain_streams::GROUND_MASK_LATTICE with scalar cfg(test) helper, signed i32 cells sign-extend to u64 consistently. Origin/end/table width calculated once including next interpolation corner. Actual organic_ground_pixels1628 constructs tables for0..maximum with identical scales/offsets used by sample, narrowing arbitrary out-of-bounds/private sampled-point claim. Full admitted dimension/f32 rounding maxima/core SceneGround bounds and target wasm pointer limits remain pending. No fall-back scalar implementation in production; scalar helper is test reference, not legacy compatibility. Seed.xor_word at channel callers preserves typed Seed but canonical named stream/all20 domain separation owner question remains; no deterministic replay change or collision asserted. Fixtures/ignored microbenchmark source only, never run."
+    },
+    {
+      "source_indices": [
+        1630
+      ],
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/producer/owner source with source-only fixtures and native dependency qualification.",
+      "disposition": "Full96 exact TerrainContactHeightmap closes earlier retained-tree terrain binding producer dependency. Struct owns Image and SceneElevationRange together. required_elevation_range/required_height_at propagate TerrainSupportError owned through TerrainHeightmapError::Support; Dimensions retains original usize dimensions on checked u32 narrowing, TexelPoint retains coordinates, EncodingRange rejects nonfinite difference. All checked support sampled before constructing complete Image. Quantized RGBA8 two-byte16bit elevation is native leaf, rangefloor0.001 for flat terrain explicit. Source creates RENDER_WORLD Image and consumes via into_image; it does not require retained CPU pixel data after extraction, earlier216 native Image object retention preserved. u32 dimension alone not native device/aggregate allocation bound; actual SceneTerrain and device admission pending, no arbitrary impossible allocated-terrain overflow claim. Core support extrema and finite height owner still pending exact proof."
+    },
+    {
+      "source_indices": [
+        1631
+      ],
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/producer/owner source with source-only fixtures and native dependency qualification.",
+      "disposition": "Full103 shared physical terrain material. Final native packing uses saturated canonicalbps, graphics grass settings previously admitted217, fixed procedural tile/height constants and typed terrain extents. City frame applied separately1627; initial source_from_world identity intentional scene frame. ground_map_image GeometryError propagates before adding image handle to constructed material. Shared procedural assets cloned intentionally. Shader selector/fade/coverage semantics and source-surface normalmap ABI remain exact shader/native dependencies, not each Vec4 field bespoke wrapper mandate. Material makes no physical support or tactical DB state. No generator or GPU execution."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    }
+  ],
+  "pending_contracts": [
+    "233 accounts1626..1631 full exact source union; next1632 urban336/1633owned_tests259/1634volumetric338/1635venues100. All13 population/current/all20/alias/connected acceptance obligations remain incomplete, gatefalse/uniquechange0.",
+    "Actual TerrainContactHeightmap1630 now independently source-read, closes producer body dependency in retained-tree230 and tree native terrain binding. Complete support/range coupled and owned errors retained; canonical SceneTerrain/device capacity, exact native Image/shader decoding and runtime/current still pending. No general Mesh extraction proof transferred from216 Image SDK.",
+    "Terrain pending Ok(false)/Err keeps marker and only Ok(true) marks prepared; actual volumetric refresh/spawn, startup/status/ready readers and dependency error policy needed before classifying same terminal-failure-as-pending family as textures. Final warn owns formatted error, no automatic early stringify bug.",
+    "Ground map dimensions/scale from SceneGround need canonical bounds before overflow, f32 lattice endpoint or native capacity finding. Actual GroundMaskNoise sample domain matches constructor, so no arbitrary private input evidence. All fixed detail grid capacities remain authored/bounded distinct from219 admitted dynamic grass topology.",
+    "Packed categorical cover image uses linear sampling and comment says shader rounds enums; actual shader allowed transitions/membership must be reviewed because interpolation of nonadjacent codes can create intermediate code. Pending ABI question only; no visual/current/shipped failure asserted. Explicit map versus enum as-u8 consistency requires canonical GroundCover discriminants, not source cast assumption.",
+    "Relief numerical helpers are cfg(test) references to canonical tactical-core generator, not forbidden active dual implementation. Bounded geometric defaults/hole handling/optional missing-ground mask remain intentional absent contrary admitted contract.",
+    "Cliff recipe positive/bounded parameters, CityFrame invertibility, graphics/native bindings and procedural texture constants remain existing canonical dependencies; final native Vec4/Mat4/bytes not automatically duplicated owners.",
+    "All seven Adler scoped extensions mandatory across13 independent lenses. 231 SurfaceEOF reconciliation preserves raw240 disagreement and historical231 qualification, zero nonexistent-line credit. L12/L13 and all prior native/current qualifications preserved.",
+    "2248REG398/2249REG396/2250REG397 READ220 first ordered adoption still pending; later-material5/6/7/11/127/128/129 connected proof separate,12954..117unread. No new global source identity/accepted unique count.",
+    "No product changes/builds/tests/lints/scanners/generators/runtime/native probes/CI/new tests/commits/publication/external messages; ignored source/evidence bookkeeping only. Goal remains active/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1632
+}

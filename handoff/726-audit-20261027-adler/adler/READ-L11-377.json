@@ -1,0 +1,271 @@
+{
+  "lens": 11,
+  "batch": 377,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2347,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1213.json",
+      "registration_sha256": "14f69d515cca8e1f40b9d8e69ccc5c51e9c93aeb8287a58ab1f7d93284fcc554",
+      "source_id": "pr-working:crates/fabelgeist-timer/Cargo.toml",
+      "sha256": "33cebad8c429f5d694041bac3e8b3e61049ddc1fc9f1bf695d072196ee007065",
+      "scope": [
+        [
+          1,
+          15
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          15
+        ]
+      ]
+    },
+    {
+      "original_index": 2348,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1214.json",
+      "registration_sha256": "76c0917ad68641efd4849b3d10553c379da32df5daee34f81df0c091ee20a1ec",
+      "source_id": "pr-working:crates/fabelgeist-xpbd/Cargo.toml",
+      "sha256": "e049988fc93c6de3ae4cea1aa73b63039c36c5038a5ce196487911d301f3d64a",
+      "scope": [
+        [
+          1,
+          21
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "original_index": 2349,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1215.json",
+      "registration_sha256": "5e42fc53e13b460d5c3fa93c50a71bcedb7f57addc2a225770062b76269c346d",
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/constraint.rs",
+      "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+      "scope": [
+        [
+          1,
+          292
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          292
+        ]
+      ]
+    },
+    {
+      "original_index": 2350,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1216.json",
+      "registration_sha256": "c64ce99acb2e45d937cdca2a34c061a39b15ca53bb010c2f917f378b77202ed4",
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+      "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+      "scope": [
+        [
+          1,
+          160
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ]
+      ]
+    },
+    {
+      "original_index": 2351,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1217.json",
+      "registration_sha256": "8e899cf8ea507c963cfa2b986b1106d42457a310fbd5eb4940db4bdade1de4e2",
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+      "sha256": "5bb8e91c0567547ebdbb72da14d8b7e9384b3caded29267f1f3d96ac49ececf3",
+      "scope": [
+        [
+          1,
+          206
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          206
+        ]
+      ]
+    },
+    {
+      "original_index": 2352,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1218.json",
+      "registration_sha256": "3e608a85ead9b78b33dc15b0835d980a2141beb053b7efc88e6a9f3c22043919",
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/solver.rs",
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "scope": [
+        [
+          1,
+          280
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          280
+        ]
+      ]
+    },
+    {
+      "original_index": 2353,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1219.json",
+      "registration_sha256": "583765ec442197ee37fea5b02f8d66b4c459c24c8c4ab032ba151d0384f179e3",
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/wgsl.rs",
+      "sha256": "4487bcbbd210e05e934aa372373cb6095e69edcb35fa8e33b26d90b7baf93c15",
+      "scope": [
+        [
+          1,
+          301
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          301
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2347
+      ],
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "roles": "Independent lens11 exact native solver, constraint record, mass and projection admission contracts.",
+      "disposition": "Full15 timermanifestdifferentnativeTokio andwasmGlootimers dependencies actualplatformports, notdeprecatedcompatibilityfallback. No timerimplementation/futuresclockbehaviorcoveragefrommanifest."
+    },
+    {
+      "source_indices": [
+        2348
+      ],
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": "Independent lens11 exact native solver, constraint record, mass and projection admission contracts.",
+      "disposition": "Full21 XPBDnativeGPU/compute/math/derive_moremetadata plusserdeJSON/tokioacceptancedependency, no execution."
+    },
+    {
+      "source_indices": [
+        2349
+      ],
+      "ranges": [
+        [
+          1,
+          292
+        ]
+      ],
+      "roles": "Independent lens11 exact native solver, constraint record, mass and projection admission contracts.",
+      "disposition": "Full292 ConstraintSetownscoloring/kernel/arityandprivateoriginalcount, sharedGPUbuffers/attachmentspublic. distance/springcheckrest/parameterrecordcountsandreorderalongcoloringbeforeattach, attachchecksonevalueperconstraintandemptysetallocatesunusedwordbyexplicitnativeGPUportnotlegacydatafallback. attach_rawonlymultipleofcountandnonnumericNoUninit,noactualreflectedrecordstridevalidation; ShellBEND8lane/SpringVec4callercontractsneededbeforewrongstridefinding. Publiccustomattachmentscanreusebindingnames, record_solveinsertsattachmentsafterpositions/lambdas/particles; actualPassParametersinsertreplacementfrom362known,butcustomkernelAPIintendedpolicy/currentbeforecallshadowfinding. No particleaddressextentcheckagainstrecord_solveParticlesvisible; actualConstraintIncidence/addressowner/current/acceptancebeforecross-populationOOBfinding. Publicbufferreplace/cachedeviceidentityfamilyalreadyqualifiedglobal. compliancerawf32notvalidatedhere, finalnativeXPBDconstraintownerpending. No testschildbodycoverage."
+    },
+    {
+      "source_indices": [
+        2350
+      ],
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "roles": "Independent lens11 exact native solver, constraint record, mass and projection admission contracts.",
+      "disposition": "Exactrawscope1..160of162 massfile, completeactualnumericfunctionsreadbutnotunreadtail/testmodule. InverseMass/PaticleMassf32nativeconstructionexplicitpreservesallfloatwords, validityseparateFinNonnegative, mobility0prescribedelseDynamicrequiresupstreamvalidity. ArealDensitypositivefiniteexplicitcheckcallernotconstructor. ParticleMassinverse<=1e-12pinnedexplicitnumericalmasslesspolicy, invalidNaN/negativealsopinnedunlessupstreamvalidate; actualShellMeshvalidate/nativeproducerrequiredbeforehiddenbadmassfinding. PositiveInfmassinverse0samequalification; validityAPIprovidescheckbutisnotautomaticallycalled. Unitidentityfromrawfloatlegitimateforeignportnotlegacyfallback. f32area/densityproductsuncheckedfiniteoverflowneedsboundedgeometry/inputpolicy/currentbeforeclaimnormalgarmentbad."
+    },
+    {
+      "source_indices": [
+        2351
+      ],
+      "ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "roles": "Independent lens11 exact native solver, constraint record, mass and projection admission contracts.",
+      "disposition": "Full206 nativeprojectionbespoketypesseparatesignedgradient,barycentricweight,clippingfraction,depth,speed,massresponse. Producerownsaffinecoordinatesnoboundsclamp; ratios/gradientssignedintentional, notunit-interval. Activitythresholdscontact<=1e-12/distance<1e-12/layer<=0preserveactualnativepolicy. NonfiniteNaNresponse/depthcanclassifyActivebecausecomparisonfalse,butSurfaceContactsfiniteinputs/masscheckscloseinputNaNpremise; derivedproductoverflow/finiteness/velocityadmissionandcurrentpolicyremainpending. Sharedcorrectionformulasnotindependenttype-levelvalidityproof; nohiddennormalization/compatibilityshim. ActualCompliancePerSubstepowner2654stillunread."
+    },
+    {
+      "source_indices": [
+        2352
+      ],
+      "ranges": [
+        [
+          1,
+          280
+        ]
+      ],
+      "roles": "Independent lens11 exact native solver, constraint record, mass and projection admission contracts.",
+      "disposition": "Full280 Solversettingspublicrawsubsteps/iterations/gravity/damping/speed. record_step/interleavedguardcount0/delta<=0/substeps0butnotdeltafinite; record_substepnolocalpositivefiniteguard. Shellstep_interleavedguardsfiniteandmaxsubsteps1,butgenericSolverdirectportsdonotsharethatpolicy, qualifiedsubstepadmissionfinding. iterations0clamp1explicitpolicy; substeps0genericdisablevsShelloneiteration semanticdifferencecurrentcallersneededbeforechanging. predict/hook/clearlambda/sweep/after_solve/finalizesequencepositivelyestablished. DefaultSubstepHookafter_solveno-oplegitimateoptionalhooknotdeprecatedforwarder. NativeGPUcachecontextidentityglobalfindingretained; no process/testGPUexecution."
+    },
+    {
+      "source_indices": [
+        2353
+      ],
+      "ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "roles": "Independent lens11 exact native solver, constraint record, mass and projection admission contracts.",
+      "disposition": "Full301 sharedWGSLXPBDdenominatorguard,alpha_tildecompliance/(h*h), predictgravity/exponentialdrag/rawspeedcap, finalizevelocitydelta/h. Directh0/NaNcanreachdivision/domainfailurethroughgenericSolverport. SPRINGsparamsxytravel/wbumpused,zadvertiseddampingneverreadandnovelocityinput; qualifiedunusedspringcontrolfinding. Distancecoincidentreturnexplicitgeometricdirectionpolicy, nativehostmirror/all20beforecallinglegacyfallback. BENDnativecallerrecordstrideandpartialattachmentsadmissionpending. Positivepinnedmassw0guardsintegrationbutparticle_movedoesnotitselfguard; boundedgradient/multipliermustavoid0*InfNaNthroughactualnumericadmission. Notestsshadercompiled/dispatched."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-369.json",
+      "sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-373.json",
+      "sha256": "fb9c316197d33b42681e0a8dd8f5b2194742e1e0716a16f0defa3cb9e975313e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-375.json",
+      "sha256": "f9138ff64b9a78b7b6964690189db73afd90a997bf7023ef2c91ac0fe8558fe5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-376.json",
+      "sha256": "c4585a0d7ccb53ddcab4db859a541c662f7b46ee7069a4d6e1600e475c34c4b1"
+    }
+  ],
+  "pending_contracts": [
+    "377accounts2347..2353next2354strategic-webAGENTS. LastREG1219.25mandatoryall13scopedextensions/sixstrictEOFqualifications/remainingfutureproofsretained. Mass2350scope1..160of162nofullfileclaim.",
+    "NewqualifiedgenericXPBDsubstepadmissionandunusedper-springdampingfamilies, directnativeproducercallers/CPU/current/all20/acceptancepending. ShellwrapperguardsfiniteframebutdoesnotprovegenericSolverportsvalid.",
+    "NativeMass/Projectionroletypesexplicitlyallowrawforeignfloatwordsandownseparatevalidity/activityqueries. Actualgeometry/Mass/Particle/ConstraintIncidence/coloring/attachments/Cpudynamicsownersrequireconnectedsourcebeforederivingnormal-pathbadinputs. Numericalguardsarenotautomaticallylegacyfallbacks.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedupincompletegatefalseaccepteduniquechange0. No productrepairs/builds/tests/lints/scanners/generators/runtimeprobes/CI/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2354
+}

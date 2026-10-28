@@ -1,0 +1,276 @@
+{
+  "lens": 11,
+  "batch": 321,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2062,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-906.json",
+      "registration_sha256": "c0854347ad29cefca6c1ed9eee20540ab7c9215b8cba499b8bbdd9571f4651dc",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "scope": [
+        [
+          1,
+          726
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          720
+        ],
+        [
+          721,
+          726
+        ]
+      ]
+    },
+    {
+      "original_index": 2063,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-910.json",
+      "registration_sha256": "7ce8a122950b0928d811bd00f59844147b718007bf8a8bbcc00c4bfd7e83a271",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "scope": [
+        [
+          1,
+          220
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          158
+        ],
+        [
+          159,
+          220
+        ]
+      ]
+    },
+    {
+      "original_index": 2064,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-911.json",
+      "registration_sha256": "942bbfecc6805536bba33f0f9edbc45a344febbe83a88ee4501447f83272ba86",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+      "scope": [
+        [
+          1,
+          320
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          51
+        ],
+        [
+          52,
+          220
+        ],
+        [
+          221,
+          320
+        ]
+      ]
+    },
+    {
+      "original_index": 2065,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-909.json",
+      "registration_sha256": "d77316f5e8ce915e064f9e46884b95323f080021dd73c3de76a7325d34aa42c8",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/terminal.rs",
+      "sha256": "a381bfd75836c7f9f37ad73df102d94cfb8e8b2afb79592549e12b3ddbde1347",
+      "scope": [
+        [
+          1,
+          303
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          303
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2062
+      ],
+      "ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "roles": "Independent lens11 exact serverroot/startup and connected terminal state machine/input/result/authority source contracts.",
+      "disposition": "Full726 actualbinarymodulegraph usesopenings/scene_setup/scene_spawn/terrain_collision notorphaneddoors/boundaries modules; raworiginal2046/2025 sourcesremainrequiredauditbutnotproofnormalrootwiredpath, actualopenings2066nextmusttrace. StartupInputs::load validatesexactscene/combatbeforeapp resource, ownstartup2075needread beforeconfigadmissionclearance. MaininstallsrealCombat/Equipment/Bot/Openings/Physics/network andinputprojection; generatedwholeSceneInput.generate beforestaticspawn/terrain recipe replication, connects304landformactualpublishpath awaitterrain_collision. Debugdumpstandalone intentionallynoDB/localterminalpath notlegacyfallback, productiondebughandlerscfg-gated althoughmessagealwaysregistered. Args timeout/reconnect rawf32 directTimer::from_seconds/Duration::from_secs_f32 withoutclapfinite/nonnegativeconstraints; nativeconstructorinvalidinputpolicy/current beforeadmissionfinding, expectedpartyNonZeroU32 explicitlychecked. Debugworldloadallowswrite_to_worldfailureafterpartialapplication/flush notrollback, actualdevdumpnativecontract/current beforefinding. Fullsourceworlddumpallowlist/InventoryItemsentitymap/relationshiphook testsunexecuted no dumpfilesread."
+    },
+    {
+      "source_indices": [
+        2063
+      ],
+      "ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "roles": "Independent lens11 exact serverroot/startup and connected terminal state machine/input/result/authority source contracts.",
+      "disposition": "Scoped1..220 ofactual362 undernewnecessaryextension159..220 beyondrawscope1..158; completeMissionStatefacade/ticktimeout/TerminalCombatSnapshot/CombatOutcomeHold+held_duration andcfgtesthelper, unrelated221..362testtailunread. PrivateMissionState controlsenrollment/terminal withoutpubliclifecyclemutation. Capturedcounts rawu32/boolean snapshot admitsincoherentcombinations asprivate input, actual2064querybuildercanonicalcaps/invariants/all20 beforepublicwirefinding. Actualrequired>0/allrequiredloaded/enrollmentsealed/nonemptyparty guard, three-secondcontinuousenemypartyhold resetwheneverconditionfalse; simultaneouspartydefeatdominatesvictory. Durationnativepositiveelapsed/time, no implicitpartypermanence fromcountswithoutidentityenrollment."
+    },
+    {
+      "source_indices": [
+        2064
+      ],
+      "ranges": [
+        [
+          1,
+          320
+        ]
+      ],
+      "roles": "Independent lens11 exact serverroot/startup and connected terminal state machine/input/result/authority source contracts.",
+      "disposition": "Full320 undernewnecessaryprefix1..51 beyondraw52..320 closesactualqueryalias/constants/input/result ownership. ExactlysameFrozenTerminal resolution+receipt snapshots beforebegin, rejection/queuefailretry immutablepayload, connectedoutcome onlyafteraccept, ambiguousACK10sexitsErrornopresentation; standaloneNoneconn actualdebuglocalauthority explicitcurrentmode notlegacycompat. Nativeclock1sretry/3spresentation/10sgrace knowncaptureddurations. MissionEnemyQuery marker+Player noSidefilter, actualplayerprojection2067markerassignment neededbeforepartybot-enemycountfinding (iterationbothmarkers isotherboundedharness). OwnedterminaltypedresultincludesRejectedString actualSDKboundary cause familypending. Main2062schedulesDBresultbeforechecks, spawn+ApplyDeferredbeforeoutcome, stalledACKbeforecheck, no loopclaimafterstateFinished. Source standaloneimmediatetimeoutfixture unexecuted."
+    },
+    {
+      "source_indices": [
+        2065
+      ],
+      "ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "roles": "Independent lens11 exact serverroot/startup and connected terminal state machine/input/result/authority source contracts.",
+      "disposition": "Full303 TerminalLifecycle privateRunning/RetryScheduled/Submitting/TransportFailed/Presenting/Finished, FrozenTerminal inseparableresolution+receipt retainedacrossrejection/queuefail. TerminalState thincratefacade samecanonicalowner notdeprecatedforwardingalias; privatevariants preventfabricatedoutcome beforeaccept. ExactACKdeadlineinclusive, noambiguousretry, presentationoncepositivecountdown; Duration saturatingclockarithmetic namednativepolicy. Rejectionallcauses retryindefinitelybackoff actualpermanentSDKerrorpolicy/currentbeforelivenessfinding, nofalseacceptedoutcome. TacticalMissionResolution->TacticalOutcome exhaustiveclosedenum, differentsemanticstrategicresolutionvsclientpresentation purposeful. Fullrejectionpayload/retryboundary/acceptonlyonepresent/ackfailclosed testsunexecuted."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-308.json",
+      "sha256": "315b5fd262fd97d09fa2d4bc459306ed5d3793869338040deb3a0f3cc0939c63"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-309.json",
+      "sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-313.json",
+      "sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-314.json",
+      "sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-315.json",
+      "sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-316.json",
+      "sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-317.json",
+      "sha256": "5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-318.json",
+      "sha256": "32707985195045901c315ee055171daede0e511e453b79148b272017e543f5c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-319.json",
+      "sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-320.json",
+      "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+    }
+  ],
+  "pending_contracts": [
+    "321 accounts2062..2065 next2066unregistered,nextreg912 aftertwo necessarysignatureextensions910/911. 13boundedextensions nowmandatoryall13, no newglobalidentity; fourEOFqualificationsunchanged. 2063 only1..220actual362,221..362unreadnotcredit.",
+    "Mainrootnormalmoduleopenings notrawdoors/boundaries; actual2066owner next. MainStartupInputs2075exactload andterrain_collision2077actuallandformpublish stillpending. Normaltransienttickstate architecture retained, terminalstrategicacceptauthority read.",
+    "Metadata321linked original/laterregistry containsno exactfrozen mission/enrollment.rs orreceipt.rs identity; gitls-tree6533 confirmsbothactualblobs(f1ee59791c70c50a3eb0f26dd6f1fbb4d82fab72/dbd49f0b04b844d012a2edf1ffebdd618a3bf0e6), no bodies read. Theseactualdirectchildcontracts materiallyneededforcapturedroster/terminalreceipt, mustprospectivelyregister necessarynewconnected-globalextensionswithall13independentobligations and exactsha256/ranges beforebody; original2853/later196 countsunchanged.",
+    "MissionEnemyQuerymarker/noSide actualplayerprojectionassignment2067 neededbeforecounterclaim. TerminalSDKRejectedString/permanenterrorretry policy/current, rawCLIclockdurationnativeadmission andfrozenreceiptproducerownership remainpending.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productexecution/repair/tests/commits/publication;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2066
+}

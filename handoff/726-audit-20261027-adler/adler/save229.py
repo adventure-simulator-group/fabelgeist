@@ -1,0 +1,59 @@
+"""Record full production tree presenter and connected findings."""
+import copy
+import bookkeeping as b
+from record_l11 import record
+
+fresh=[[1,150],[151,300],[301,450],[451,600],[601,750],[751,900],[901,1050],[1051,1200],[1201,1392]]
+role=dict(source_indices=[1607],ranges=[[1,1392]],
+ roles='Full exact original/owner/producer/reached native tree presenter plus every fixture; independent source-only lens11.',
+ disposition='Full1392 boundedvisiblebodyread. Actualcachedbranches/leaves immutableArc, speciesenum retained though species_name staticdisplaymetadata; namedSeedcache keyquantizescompetition and sitesalt, actualsource1609/residency1608 exactpolicyneededbefore collision/stalegeometryclaim. Pending transforms checkedScenePlanPoint before cache creation, activeenvironment/terrain absence returns, typedretainedactivateerror warns/returns; actualretry/readinessconsumer pending. Current privatecachedOptions filled before childexpects, assetgeneration order: detailed requiresLOD1bakeclusterlayout; helperensures it601..610, defeating missingclusters simplisticpanic. Immutable source reuse intentional, not legacycompat path. Runtimeoptionalprepared and sourcebakes are declaredfixed-sceneoptimization; ifSomepreparedmismatches usage/species/seed/lod itpanics rather than silentlyfallsback. Resolveversionassert from228 reachedhere, expectedsourcehash notcompared; currentfixedscene/trust/request/release policy stillpending. Actualsharedgenerate calls midtrunk593 and species-specificbake416..425, narrowing226/227 callerquestions but actualplayable_tree_source/speciesfactory1609 stillunread. Newexacttrianglecomponent andprojectionauthority findingsbelow. LowernativeLODcalls currentloops1..4, fixedarrays andbitmaskselected; uncheckedoverrideu8 also usedinshift685, actualCLIvalidation upcomingbeforepanicclaim. Bothtrunks alwaysresident maskbit0andspawned together; nativeVisRange normallydistinguishes but forcedLODs makesbothabrupt per228, preservecapturebenchmarkqualification. Newmaterial creation duringstreaming plus221value-onlylightingcache remains sourcependingactualschedule, notclearedby nativeconstructor. Full974..1392fixtures bitmaskprefetch, leafselected, material/shadows, fargeometrybudget/species/vista source-only; no generatedmesh/atlas/Appupdate/statisticaltest/currentcomparison. No globalfullyvalidated verdict.')
+
+old=b.read(b.ROOT/'evidence/continuation-segovb/ledger.json')['discovery_findings_and_dependencies']
+updates={}
+for key,notes in {
+ 'ADLER-L11-MID-TRUNK-ROLE-ADMISSION':['Actualproductiongenerate_tree_assets_resident592..595 applies midtrunkhelper to cached.branches for everycachedspecies whenmaskbit0. PresentercachestypedTreePresentationSpecies and dispatchesmatchingmaterials; exactplayable_tree_source1609beechfactory stillpending. No longeronlycalllocator.'],
+ 'ADLER-L11-TREE-CROWN-SELECTION-OWNERSHIP':['Actualbake_tree_card_for_cached416..425 usesgenericstylepath fornon-EnglishOak, cachetypedCommonBeech path917..935; raster228 consumesselectedsubset. Speciesfactory/bake_style1609 andactualruntime/currentimage acceptance pending.'],
+ 'ADLER-L11-PREPARED-TREE-ASSET-ADMISSION':['Actualpresenter399..414 resolvesSomeprepared and panicsifmissingmatchingrecord; versionassert/meshconversion reachedifmatch. Vista791..796 similarly resolvesSomeprepared. Fixedpreparedavailability/request/release/artdemo lifecycle stillpending, no shippedbadassetassertobserved.'],
+ 'ADLER-L11-TREE-BAKE-PROVENANCE-GEOMETRY-KEY':['Actualpresenter invokesdebugprovenancevalidator443/802, retainsprovenanceoncachedcards andwholebillboard, but usesseparateSeedcacheidentity, notsourcehashasgeneralcachekey. Actualexpectedhashcomparison observedonlycfgtest228; diagnosticexportconsumerspending.'],
+ 'ADLER-L11-TREE-LOD-ADMISSION':['Currentordinaryresidency loopsbound aggregate1..4; rawoverride.lod alsoflowsintobitshift(1<<(lod+1))685, notonlyvisibilitymatch. ActualCLIadmission and canonicalsharedstate pending, no acceptedinvalidruntimeinputclaim.'],
+}.items():
+ f=copy.deepcopy(old[key]);f.setdefault('connected_receipts',[]).append('../../adler/READ-L11-229.json');f['trace'].extend(notes);updates[key]=f
+
+triangle=dict(
+ classification='Frozen exactsubmittedtriangle component uses biologicalsourceleafcount while actual flatcardmesh retains75percent; connectedsource arithmetic mismatch, diagnosticconsumer/current pending',
+ source_receipt='../../adler/READ-L11-229.json',
+ source_key='eb8c1a54c7a158a3a3858b2eb9ba2b4f5c62ce6fb1fde444bc6b2c2207b824be:54-58,232-249,264-288,525-536; c47a14c6ada04f5f80c476dae5e16fb28dbc5c4b34b9cb6a098a4a2d37e59567:221-227,416-474; a01ecfebb9837e6abc2b46941f50ec94710f30e93bbf0395eed65f47ca5ad40c:30-60',
+ trace=['TreeLeafTriangleCount documentedexactsubmitted count setoncebecause mainworldvertexdata relinquished afterrenderextraction.','AlphaCardchild276 setscountallclusterleaves*2, but actualresidentleafmesh528 usesprocedural_oak_leaf_card_group_mesh->detailed_flat_card_group_leaves, whichomits1of4stableordinallanes.','Actualresidencydiagnostics separatelyrecordsourceversusretainedleaves529..535 andnativevertexcount, confirmingtwoquantitiesalreadyknown atowner. Meshtriangles2*retainedleaves, not2*sourceleaves.','For16-leaf oakshoots(and12-leafbeech) lanesbalanceexactly: component reports4/3actualflatcardtriangles. This is source arithmetic, not a benchmarkmeasurement. Actualconsumer/reporting/current needbodyproof; no claimallsceneGPUtimings wrong.'],
+ first_failed_contract='The exact submitted-triangle owner must be constructed from the actual retained renderer geometry, not the biological source population.',
+ canonical_owner='Existing TreeLeafTriangleCount paired with cachedrepresentation mesh/generatednativecounts beforerenderworldhandoff.',
+ repair_dependencies=['Actual TreeLeafTriangleCount diagnostic/benchmark/capture readers and current source','Cache/streaminginstance count ownership and complete source/retainedgeometry statistics','All20/aliases/shared count authority dedup; native meshmetadata extraction'],
+ acceptance=['Each cambered/flatcard component agrees with actualsubmittedindices/triangles forcanonicaloaks/beech','Do notdiscardbiologicalsourcecount; keepseparate source/retained/renderedmeaning','No needto retain fullmainworldvertexdata solelyfor recomputation or introduceparallelinconsistentcount'],
+ repair_status='not started; exhaustive audit ledger incomplete',
+ validation_status='Exact full producer/cache/selection/mesh source and arithmetic; reader/nativeactualbenchmark/current unverified, no testsrun',
+ accepted_unique_count_change=0)
+projection=dict(
+ classification='Frozen residency andvisibility reconstruct projectedscale from differentcamera inputs; conditionalcoldfirstapproach gap predictedbysource, native/current pending',
+ source_receipt='../../adler/READ-L11-229.json',
+ source_key='eb8c1a54c7a158a3a3858b2eb9ba2b4f5c62ce6fb1fde444bc6b2c2207b824be:156-173,369-384,663-733,750-763,1115-1166; 9e94d087fccffc1d1ed76815d33256a0d9c53b941cf11929db12be7d6419b4bd:104-118,154-170; 918bd2a4ed873968c420e4ad7c3070043b2073a9bbdd30e27d1dbbd6c1a4d2a1:770-814',
+ trace=['Visibilityupdater usesphysicalviewportheight/(2tanFOV/2) normalizedto720-height reference andclampscale0.25..4. Residency675..683 usesonlyFOVratioandoverride, omitsviewportheight andupperclamp.','Bothcodestatesclaim sameprojectedscale-awaremetric/prefetch, butnotthesameadmittedviewstate. Exactcurrentenginecamera/viewport API andreceivercontractpending.','Sourcecounterfactual legitimatefiniteviewport2160,FOV80deg,nooverride ->visibilityscale3,residencyscale1. Atobstacleorigindistance140,coldstreammask onlybit5(wholeLOD4); initialCachedTree hasnone meshes andfarrequestconstructsonlycard4.','VisibilityLOD4start150..180, so140belowits start; requiredLOD3hasstart72..96/end180..210 butresidencyLOD3prefetchbit4 only18..100andnotset140. Othercrown/trunktiers alsoabsentcold. Sourcepredictsmissingcoldrepresentation, whilelaternearvisitkeepsresidentchildren andcanmaskgap onreturn. Not an observedruntime/render result.','AggregateLODentities have noclustercomponent, so radiusdefault3.5 makesexampleindependentofclusterbounds. Actualwindow/targetsupport, nativeVisibilityRange/distance interpretation andschedule remainacceptance dependencies.'],
+ first_failed_contract='Tree asset residency anddraweligibility must consume the same admitted projected view scale, includingviewport andFOV, with sufficient prefetch for supported views.',
+ canonical_owner='Canonical projectedtreeview/scale usedforboth visibilityandresidency, retaining actualcamera/viewportprojection authority.',
+ repair_dependencies=['NativeCamera physicalviewport/VisibilityRange distance/API and actualrendering schedule','Supportedwindow/render-target/FOV/override inputs, allview selection policy','Current/all20/aliases/dedup with treeLODownership; sourcecoldapproach fixture acceptance afterledgergate'],
+ acceptance=['Cold firstapproach hasrequiredrepresentation resident beforeitsdrawband at supportedviewportheights/FOVs/scales','Returningwarmcache mustnotbeonlypassing scenario; sourcecase2160/FOV80/distance140 coveredif supported','Preserve authoredLODhandoffs/budget with sharedprojectionmeaning, no symptom-specificarbitrarydistancepadding'],
+ repair_status='not started; exhaustive audit ledger incomplete',
+ validation_status='Exact full frozen streaming/visibility/sourceinitialization plus sourcearithmeticexample; supportednativeviewport/engine/current/runtimeunverified, no probes/tests',
+ accepted_unique_count_change=0)
+updates['ADLER-L11-TREE-CARD-TRIANGLE-DIAGNOSTIC-AUTHORITY']=triangle
+updates['ADLER-L11-TREE-STREAMING-PROJECTION-AUTHORITY']=projection
+pending=[
+ '229 completes original1607full1392 exactallowner/producer/reached/fixtures; next1608. Currentturn228/229authoritativeprogress, previousgoalturn227progress revalidated. All13 populations/extensions/current/all20/aliases/connected acceptance incomplete, gatefalse/accepteduniquechange0.',
+ 'Productioncachedspecies pathmidtrunk andnon-EnglishOakspeciesstylebake connected, but exactspeciesfactory1609androot/growth/current/nativeacceptance stillpending beforegeneralallbeech/runtimeclaims.',
+ 'Exacttrianglecomponent sourcepopulationversusretainedmesh mismatch connected; actualbenchmarkreader/export/engine/native countcontext pending. No measuredFPS/triangles/testfailureclaim.',
+ 'Projectionauthority mismatch sourcecase2160/FOV80/dist140cold requires supportedwindow/viewport/VisibilityRange/native schedule/currentproof. Do notrepairbynarrowdistancepadding, assumeallcameraoutputsor claimobservedmissingtrees.',
+ 'PreparedSome matchfailurepanics actualcallers connected. Runtimepreparedcardsourcehashnotcompared; optionalfixedpreparedlifecycle1608/request/release andauthoritativefixedscene gate stillpending. No unsupportedcompatibilityfallbackinference.',
+ 'Raw TreeLODcurrentloopbounds valid, actualCLIoverride mayadmit0..4; retainstructuraltypefitcandidatewithout fabricatedbadinput. ForcedLODbothtrunksabruptcapturequalification remains.',
+ 'Tree leaf residency chosenbybase1.5..2.5 whilepercluster/focalvisibilityscaled; actualnewchildprefetch/cohort andprojectionfamily maycoverrelatedgaps, dedupbeforeaddingfamily. Sharedlightingvaluecache/newassets221 pendingactualschedule.',
+ 'Next1608residency194/1609source245/1610specimen28/1611ownership59, then1612firstorderedadoptREG373READ218. Native treepresentationdiagnostics importedmodule notsourcecreditedbyuse; findexactregisteredlaterentrybeforebody. Nextregistration441.',
+ 'Future2248/2249/2250REG398/396/397READ220 samequeue. Alllaterconnectedsources scoped, rootprofile129tail54..117unread. No product edits/builds/tests/lints/scanners/generators/runtime/nativeprobes/CI/commits/publication/messages.',
+]
+record(229,228,[(1607,440,fresh)],[role],[206,219,220,221,222,223,224,225,226,227,228],pending,1608,findings=updates)

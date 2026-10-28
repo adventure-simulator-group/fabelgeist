@@ -1,0 +1,255 @@
+{
+  "lens": 11,
+  "batch": 234,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1632,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-465.json",
+      "registration_sha256": "b030350124fd1ae57baf1dcb71f81912f687a26c4eb41c5fd0b00644409e0d0d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs",
+      "sha256": "9a5b7ee95b337a7ebea938ba18f6e87c6ab6bd67b1119745c9287b756925deee",
+      "scope": [
+        [
+          1,
+          336
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          336
+        ]
+      ]
+    },
+    {
+      "original_index": 1633,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-466.json",
+      "registration_sha256": "8e9eb5e76814a8497b6d709d273b99d14fee1b4b9bc226e838b9db628a207cb5",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/urban/owned_tests.rs",
+      "sha256": "dec16e8dcf926fed2d6260f315e3a1a59d9697ba51fae232d6bb74b1155c23e3",
+      "scope": [
+        [
+          1,
+          259
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          259
+        ]
+      ]
+    },
+    {
+      "original_index": 1634,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-467.json",
+      "registration_sha256": "f6477c28e910b4269ceecb2261bda4718e736b38be85d6c950756ce63d3f80ba",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs",
+      "sha256": "0f2bab77a6c50c3112e630c06558e9a4b3612de7011b2de38930f464abd3cfe1",
+      "scope": [
+        [
+          1,
+          338
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          338
+        ]
+      ]
+    },
+    {
+      "original_index": 1635,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-468.json",
+      "registration_sha256": "5aa3aa45fb3c025c96436d30a1b7c989f187d6e7a59ede17f611f2d00db09bda",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/venues.rs",
+      "sha256": "ae556b18add14ae22e1b97bc772ab06f455827e6afdff55b5659fac6ae9b9d27",
+      "scope": [
+        [
+          1,
+          100
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          100
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1632
+      ],
+      "ranges": [
+        [
+          1,
+          336
+        ]
+      ],
+      "roles": "Independent lens11 full exact owner/producer/native source and source-only acceptance fixture.",
+      "disposition": "Full336 canonical versus sampled topology owner. GroundTopology enum follows actual property_surface or exact vista scene digest; GroundCoverage retains source revision and topology, actual Update order follows terrain pending/detail updates. Canonical owned/playable mesh with optional transition preserves authored vertical steps/support levels, sampled coarse/detail explicitly for natural scene. Native coverage cutout/visibility tracks topology, mesh replacement uses new handle even absent old CPU asset, diagnostic updated from actual replacement. Missing previous coverage only rebuilds canonical, matching spawn producer initial sampled mesh. Owned playable_mesh optional result selects canonical terrain mesh when no owned surface, not schema legacy compatibility. Native old mesh handle drop/removal lifecycle and exact property/source revisions pending before leak/stale-mesh claim. Source tests late-vista switch, manual base CPU removal and restore are read only; no Mesh SDK extraction proof from fixture comment."
+    },
+    {
+      "source_indices": [
+        1633
+      ],
+      "ranges": [
+        [
+          1,
+          259
+        ]
+      ],
+      "roles": "Independent lens11 full exact owner/producer/native source and source-only acceptance fixture.",
+      "disposition": "Full259 owned catalogue test contracts only. Actual catalogue names facade-review/heating-review expected no streets/yards but property surface. Fixture uses canonical GroundCoverage and spawn_base_and_fault, separately spawns visibility probe detail. Tests demand zero sampled detail vertices, retained source mesh handle, no canonical-base cutout, natural collar triangles removed but exact accepted foundation support triangles retained bit-for-bit, and serialized source terrain unchanged. TriangleBits alias is native float-bit test comparison, not bespoke simulation identity or compatibility. These are authoritative acceptance expectations in source, no actual assets loaded, geometry generated, app/update/assertions or fixtures executed."
+    },
+    {
+      "source_indices": [
+        1634
+      ],
+      "ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "roles": "Independent lens11 full exact owner/producer/native source and source-only acceptance fixture.",
+      "disposition": "Full338 actual terrain refresh/spawn/fault/native boundary. PendingScenes includes typed scene identity and terrain/environment plus optional source products, actual query does not require ground or landform. refresh first checks both material handles, returns Ok(false) when missing, builds fallible ground material before mutation; native mut borrows cannot concurrently remove those handles within function, so speculative second-target disappearance not a source race. Detail Mesh missing is skipped while Ok(true) returns; ordinary missing detail mesh/lifecycle must be proved, actual detail mesh MAIN_WORLD retained. spawn fallible ground material before adding/publishing entities, then base/fault/detail construction unit paths; no post-material recoverable error is propagated. spawn_base_and_fault157..159 chooses exact supplied patch else computes from supplied recipe but .ok() erases owned generator failure, rendering it same Option None as absent recipe. Spawn caller then returns Ok and1626 clears pending/marks startup even if requested fault patch failed. Actual admitted failure and geometry hole/player outcomes remain pending, finding below. This local-prepared versus replicated-recipe distinction is documented legitimate producer model, not backward compatibility. Native patch UV count equals source positions, buffers owned by SceneTerrainPatch; canonical producer cardinality proof pending. append_detail_cell bounded fixed grid, canonicalcollar and circle centre selection source now connected to1626 fixtures. No execution."
+    },
+    {
+      "source_indices": [
+        1635
+      ],
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "roles": "Independent lens11 full exact owner/producer/native source and source-only acceptance fixture.",
+      "disposition": "Full100 actual venue identities/selection. PlaceId bespoke String, PlaceKind enum maps total authored BuildingUse policy. PortraitId bespoke u64 accepts only decimal JSON string and retains ParseIntError, preserving JavaScript integer boundary; no numeric JSON fallback. PortraitId semantically character identity and operators Iterator<Item=u64> unwraps canonical operator_character_id; compare existing shared CharacterId/StrategicPlaceId/PlaceId/product binding owners before redundant alias or isolated new type. Building selection first operator establishment then matching local/distant usage is explicit gameplay selection policy, not legacy schema fallback. No actual mismatched venue/operator input or wrong-building finding established. Source u64-max wire fixture only read."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2"
+    }
+  ],
+  "pending_contracts": [
+    "234 completes1632..1635 full exact union; next1636. Goal active/incomplete, all13 populations/extensions/current/all20/aliases/connected acceptance remain mandatory, gatefalse/uniquechange0.",
+    "Landform .ok() cause discard actual generation-to-prepared acknowledgment source chain established. Generator owned error details/admitted failure, local/replicated producer/current, transition geometry/status/native/frame effects still pending; no observed hole or player effect. Legitimate supplied-patch versus recipe-only path is not legacy compatibility.",
+    "Terrain refresh material-missing returns pending before new allocations; mut asset borrow prevents speculative concurrent handle deletion inside function. Missing detail Mesh skip+Ok(true) actual source only; retained MAIN_WORLD and actual removers/native lifecycle needed before actionable absent-mesh bug.",
+    "Urban canonical topology and acceptance preserve exact foundation support, owned vertical steps and natural collar cutout, source terrain unchanged. Tests source read only, no actual catalogue/asset/gen/update/assert execution. No broad compatibility or Mesh extraction assumption from comments.",
+    "Venue PortraitId/operators raw canonical character identity and PlaceId String duplication are shared identity-owner/all20 questions. Preserve JSON decimal-string-only admission and owned ParseIntError. Operator-first/local/distant building choice explicit policy, not invalid legacy fallback.",
+    "Ground categorical texture interpolation/enum ABI and SceneGround dimension/scale/native capacity dependencies233 still open. Exact TerrainContactHeightmap support/image ownership source closed, native/core/current qualifications retained. Sky/shared scatter material asset-lifecycle concern232/221 still pending actual order.",
+    "Seventh Adler scoped extension1622 prefix and inherited EOF231 versus raw240 preserved, zero nonexistent-line/other-lens credit. Firstordered2248REG398/2249REG396/2250REG397 READ220 and later-material separate obligations retained;12954..117 unread.",
+    "L12/L13 unchanged, main comparison and all20 canonical-owner dedup pending. No product edits/builds/tests/lints/scanners/generators/runtime/native probes/CI/new tests/commits/pushes/PRs/merges/external messages. Ignored source/Git/evidence bookkeeping only."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1636
+}

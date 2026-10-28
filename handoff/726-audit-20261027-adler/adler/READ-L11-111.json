@@ -1,0 +1,139 @@
+{
+  "lens": 11,
+  "batch": 111,
+  "status": "Exact original1212 registered scopes source-accounted WITH findings; not whole1095-line file",
+  "original_index": 1212,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+  "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+  "registered_original_ranges": [
+    [
+      241,
+      398
+    ],
+    [
+      400,
+      867
+    ]
+  ],
+  "actual_new_original_reads": [
+    [
+      241,
+      334
+    ],
+    [
+      365,
+      398
+    ],
+    [
+      400,
+      700
+    ],
+    [
+      701,
+      867
+    ]
+  ],
+  "inherited_same_lens_original_reuse": {
+    "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-105-receipt.json",
+    "sha256": "ee409eec20ed323ae54ad55d00d70d49c4987ae2f92e53970263e2c1cce68e99",
+    "ranges": [
+      [
+        335,
+        364
+      ]
+    ],
+    "attribution": "Prior same-lens auditor proof adopted by root, not fresh root body coverage."
+  },
+  "inherited_connected_context": {
+    "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-102-receipt.json",
+    "sha256": "4e87e3eb5300b6e467f587f37901d200fa66656accb00451864edf5cd1f2ad47",
+    "ranges": [
+      [
+        1,
+        215
+      ]
+    ],
+    "attribution": "Same-lens prior source inventory, no new original coverage."
+  },
+  "new_connected_read": [
+    [
+      216,
+      240
+    ]
+  ],
+  "registrations": [
+    "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-012.json",
+    "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-013.json"
+  ],
+  "registration_qualification": "013 purpose initially called216..240 a callee-complement. Actual body is complete sibling resolve_dialogue_fragments wrapper sharing runtime binding authority. Direct call from resolve_dialogue_turn is not asserted. No outside-range source or ordering credit.",
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          216,
+          267
+        ]
+      ],
+      "roles": "Authored/runtime Fragment versus ResolvedFragment, authored Turn versus ResolvedTurn, optional addressee and speaker role.",
+      "disposition": "Resolved output types earn useful distinction: authored fragments take checked from_authored path and runtime fragments require contextual bindings; mixed turn resolution validates source alignment. Default empty RuntimeBindings when no runtime fragments is an intentional no-context mode, not legacy fallback. Internal errors become generic String before native endpoint; actual canonical resolution error/callers remain qualified. Speaker_role rawstr should use actual role owner if canonical fit exists; do not invent a closed enum without all authored/native sources."
+    },
+    {
+      "ranges": [
+        [
+          269,
+          398
+        ]
+      ],
+      "roles": "Session/character/source scope/action/revision capability ID; canonical/private/public observer case refs; manual versus validated generated recipient.",
+      "disposition": "InvestigationAction is typed through selection but encoded into action-name string for ID and later stored family. Keep semantic ID/source/Revision owners, distinct case-reference namespaces and typed action internally. Observer case refs deliberately contains canonical/investigation/public aliases; do not collapse identities merely because represented as String. Generated recipient must match objective/action and actual resident session participants; manual fallback is a legitimate origin mode, not compatibility behavior. Validated generated manifest meaningful association retained via canonical owner (same-lens105 exact335..364)."
+    },
+    {
+      "ranges": [
+        [
+          400,
+          588
+        ]
+      ],
+      "roles": "Physical evidence custody versus informational knowledge, objective-specific recipient selection and session participants.",
+      "disposition": "EvidencePresentationKind alternatives rely on different authority: physical Party/Character custody versus observer knowledge. Named admitted evidence/recipient payload can retain these distinctions. Locate needs exact known location and actual site ownership; identify/expose needs observer belief; negotiate needs actual resident proposition match; proof/testimony/return/release/exchange/report each has distinct recipient/object/custody requirements. Evidence, subject, witness, recipient, custodian, issuer and party IDs must not share one undifferentiated type. Bool/Option availability intentionally describes policy result but lacks rejection classification; classify only after actual UI/native consumer policy."
+    },
+    {
+      "ranges": [
+        [
+          590,
+          721
+        ]
+      ],
+      "roles": "Action effect extraction, leader/session capability, resident actor set, active contract and exact observer provenance sources.",
+      "disposition": "No investigation actions is valid successful no-op; nonleader false is distinct from malformed authority String error. Session-bound rumor receipt, received testimony and owned evidence/custody/known proposition are distinct case sources, not generic knowing-any-case authority. Resident actor IDs are semantic session participants, not automatically parseable CharacterIds. Selecting fallback from HashSet first is actual ambiguous-recipient policy when multiple residents; no determinism/runtime bug inferred without concrete session constraints."
+    },
+    {
+      "ranges": [
+        [
+          723,
+          867
+        ]
+      ],
+      "roles": "Unique objective recipient, optional custody version, pending admitted action tuple, immutable binding association and consumption state.",
+      "trace": "For each action selects exactly one objective/recipient after native and generated checks; expected custody version only applies to return/exchange/release. Existing binding compares party/recipient/case/objective/version and rejects consumed_by nonempty; new row stores same admitted coordinates, issued revision, action family and empty consumed sentinel.",
+      "disposition": "Named AdmittedInvestigationBinding can own session/actor/party/source/action/recipient/objective and action-specific custody capability, replacing tuples and nullable version unrelated to action. Available versus Consumed{receipt} payload prevents empty-string sentinel misuse while preserving actual immutable source. All actions are collected before insertion, narrowing partial-binding suspicion but not establishing native transaction guarantees. Intersection of exact provenance refs is purpose-specific match, not generic authorization proof."
+    }
+  ],
+  "repair_dependencies": [
+    "Canonical dialogue runtime/authored/resolved owners, source-aligned fragments and actual typed resolution errors",
+    "DialogueInvestigationBinding schema/session/actor/action/custody association and consumption owner",
+    "Core objective/fact/custody and generated-manifest recipient policy",
+    "All caller session cardinality, native/Serde/SATS/UI paths and exact current/alias fit"
+  ],
+  "acceptance": [
+    "Retain manual versus generated modes and physical versus informational evidence guarantees.",
+    "Expected custody version must be present only for admitted custody actions, with correct source/recipient/actor/revision at consumption.",
+    "New registered216..240 is separate extension; no whole-file/tests868..1095 or other-lens coverage.",
+    "All inherited populations/extension/current/all20/aliases/connected acceptance remain incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1213
+}

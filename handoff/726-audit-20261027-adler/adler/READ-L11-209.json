@@ -1,0 +1,292 @@
+{
+  "lens": 11,
+  "batch": 209,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1474,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-290.json",
+      "registration_sha256": "0c2a38a9beb7ba283e1f1fd89400c8275be8721ba628a8d8c575e0aad683774c",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment.rs",
+      "sha256": "c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "scope": [
+        [
+          1,
+          1745
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          600
+        ],
+        [
+          601,
+          750
+        ],
+        [
+          751,
+          900
+        ],
+        [
+          901,
+          1050
+        ],
+        [
+          1051,
+          1200
+        ],
+        [
+          1201,
+          1350
+        ],
+        [
+          1351,
+          1500
+        ],
+        [
+          1501,
+          1650
+        ],
+        [
+          1651,
+          1745
+        ]
+      ]
+    },
+    {
+      "original_index": 1475,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-291.json",
+      "registration_sha256": "2a2a4c9413c9f5c14611c0cdfadc0967a9a2ad78b998c6b4d38e30137fe4f2c3",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+      "sha256": "458e3d73d56242705d9f851842b96b9e5b302ecfffac569a0da3a43a5b3bd392",
+      "scope": [
+        [
+          1,
+          141
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          141
+        ]
+      ]
+    },
+    {
+      "original_index": 1476,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-292.json",
+      "registration_sha256": "a0fdf6020cad351b89e359d802c5bffc00e303a5327269bfc8a54eaf5502e344",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/icons.rs",
+      "sha256": "1932b164b861910e18306e412564384cf8d4f1e057432b047eb4c1abd71b1804",
+      "scope": [
+        [
+          1,
+          206
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          206
+        ]
+      ]
+    },
+    {
+      "original_index": 1477,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-293.json",
+      "registration_sha256": "7db8c841bf7fe7ce7e6e4ff37ae9fa8aac44b2838e6265ad6ea7eddf93326a53",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/placeholder_update.rs",
+      "sha256": "a424e97712e998e237be73411cbc824e915ea7e23cdecbaf14c7cdf7e47a13ad",
+      "scope": [
+        [
+          1,
+          139
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          139
+        ]
+      ]
+    },
+    {
+      "original_index": 1478,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-294.json",
+      "registration_sha256": "93110008726fe1ecdae497d1e88214ef2b3ca560e70e35d64e33cc81d4fa026f",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+      "sha256": "43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+      "scope": [
+        [
+          1,
+          63
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          63
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1474
+      ],
+      "ranges": [
+        [
+          1,
+          1745
+        ]
+      ],
+      "roles": "Complete original equipment input/HUD/mesh caches/attachment receiver and allsource fixtures.",
+      "disposition": "Full1745includesallinput300..400,mesh700..812,attachment915..1065producerfragments andallfixtures, no prefixscope inference. Grabactionrequest typedsequence/expectedrevision/expectedhanditem/destinationentity; serverauthority remainsnot localinventorymutation. Item/grip/body frame quantities nativeatmeshboundary, aggregatecache keys purpose-specific; noautomaticwrappereveryUIpixel/index. Cachedweapon/holder decodedrecipe/version/hash reauthentication beforecachehit sourceproved; .ok erasesownedcauses connectedexistingweaponpreparationfamily. Missing/corrupt holder visuallyabsent explicitfixture, genericboxfallbackfornonprocedural/failedweapon explicitsourcepolicy, notautomaticlegacycompatibilitypath. Socketparentinheritance32bound+visited cycle checks sourcefixture1669..1730 deliberatelyacceptsblade-withoutlocalsocket usingbeltmount; no unintendedfallbackfinding solelyfromancestry. Actualpelvis/localbone socketframe writer/currentpending. Sourcefixturesbindcorrection cancelsuniform1.25scale ratherthanproofallrenderworldscalesdiffer. Sparseaxisidentityfallback andappearanceRemove/invalidphysical lifetime policies requireactualnative producers/schedules beforedefect. Alltests readonly."
+    },
+    {
+      "source_indices": [
+        1475
+      ],
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "roles": "Full expanded scene grab/door/window query and currentselection/outline consumer.",
+      "disposition": "Ownerfirst85 expandedproducer141 allactualsourceaccounted. NativeGlobalTransform sceneitems/doors/windows, canonicaltypeddoorcentres/directions unwrappedonlynearquery, exactlyonegameplaycamera. visiblefailednormalization false, notclear; narrows207queryfamily. Autoaimcandidate andserverpickup/openeligibility oldauthoritycontractpending; no implicitclaimocclusionchecksalllayerswithoutactualcollidermasks. TypedGrabSelection preservesexplicitslot/hand overpointedworldupdates, correctsourcefixturesmain. PICKUPRANGE native2m queryconstant localpolicy notnewquantitytypefinding withoutcrossboundaryrole."
+    },
+    {
+      "source_indices": [
+        1476
+      ],
+      "ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "roles": "Actual appearance-icon admission, typedcachekeys/nativeimage generation andHUDdegradedportrait receiver.",
+      "disposition": "Weapon/holdermesh-independenticoncachechecksmax/version/decode/hash beforewarmlookup, boundsfixedconstsize64 supersample4; decode/generateIconErrNone aliasesexistingcausefamily. Armorportraitfile lookupcanonicalcatalogplacementandexactfile, asynchronousAssetHandle readiness separatefromEguiTextureId; no GPUreadyclaim. AtlasfallbackincurrentUI intentionalimagesourcepolicy; unknownslugmapsfirstindex0 whilemainunknowncataloguseshelpnotinlist, actualadmittedcatalog/unknownitemreachabilityanddesiredmissingiconcontractpending beforeplayer-facingwrongiconfinding. Do notreplacevalidcacheauthenticationwithrawhashtrust."
+    },
+    {
+      "source_indices": [
+        1477
+      ],
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "roles": "Full reached unchanged placeholder transform/visibility andactualsocket/rig constraint consumer.",
+      "disposition": "Failedprocedural markerforcesHidden/removeshandconstraint; missingitemdespawns. DroppeditemusesitemTransform sceneframe, resolvedwornskinnedrootunderactualrig_sceneidentity, helditemhandconstraintrequirescanonicalWeaponRole; missingbindinghiddenexplicitnotassertsuccess. worn_attachment129..138 selectssemanticbodybone andappliesresolvedsocketwithoutframeconversion; comment132declarespelvislocal. Sourceactualsocketwriter generation1484 calls sockets::garment_sockets butbodyunread, so potentialnonpelvisparentframe mismatch pendingprovider/admittedcatalog ratherthanacceptedfromcommentalone. Ancestorsocketinheritance intentionknownmainfixture, no automaticrestoration/removal."
+    },
+    {
+      "source_indices": [
+        1478
+      ],
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "roles": "Producer-only full generated/genericvisual children andgriprelativeTransform contract.",
+      "disposition": "Noownerproofarray at1478, fullsourceobligationcomesfromtwoactualproducerreceiver63proofs; notexemptorfirstfragment. Generatedparttranslate -generated.grip, genericboxusesvalidatedphysicaldimensions/anchoroffset, bothattachGrabTargetOutline. GenericboxrenderactualNoneconsumerconnectedexistingweaponcausefamily, not gameplayphysicspersistence. Detailedmodelreadiness errorscomponentstate resolved/failedseparateownersstillpending; no model-readyclaimfrommerelyhavingMesh3d."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 1481,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-295.json",
+      "registration_sha256": "4a25c4b1d4cc90e31987b8d1447729ea76e080dd902f538015e26fef220802d4",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "source_sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+      "scope": [
+        [
+          1,
+          234
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          234
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Fullrender-binding234actualnativeSkinnedMesh/bound-vs-unbound/visibility producer/fixtures. Registrationpurposeincludedanticipatedsocketwriter; actualfiledoesnotwriteEquipmentAttachmentSockets. Exactwriterlocatedseparatelygeneration1484/socketschild, no socket-production-framebodycreditclaimedhere. Thissourceisrequiredskinpipelinecontextforbloodgeometry andequipmentvisibility. Mustexplicitlyreusefullsame-lensproof orrereadwhenorderedfrontier1481reached. Originalowner234/producers234fullyreadnow, onlyfirstfrontiercountdeferred."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-191.json",
+      "sha256": "d4a0ce1e2f009f987fc1f2f2bf7d6d9a7d0f731123a31f2252eea74dc8ac3779"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-193.json",
+      "sha256": "2f1d3a05d04acc122015a402c21c1ade67b0a13d26ed9280feeef178e1e8257c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-200.json",
+      "sha256": "6a4f467f43c8988c7b26057370c538af88e1c74a60261d5bd63739043d76abf7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-202.json",
+      "sha256": "63324c59ddaeb19782a2601cef6e7b19df50498e267cf6794658a5db3fb42bdd"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-207.json",
+      "sha256": "9c5f8bd91940e9101d6095a51b3533405565670a5772c63aec2d0e35916d34d4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-208.json",
+      "sha256": "f4ce6a807608895d189acd545424e1b52ce4a873d72b81164e478e0b55704c44"
+    }
+  ],
+  "pending_contracts": [
+    "All13 lenses/allpopulations/extensions/current/all20 migrationfamilies/aliases/connectedacceptance incomplete; acceptedunique0 implementationgatefalse. Fivecompleteorderedoriginals andconnectedfuture1481 full234, no crosslens/transferredcredit.",
+    "Sourcefuture1481 personalfullscope proof295/209 mustbeexplicitlyadoptedbeforelaterfirstfrontiercredit; do notdoublecount. Earlierfuture1589 fullproof274/206 likewisependingfirstcredit. No connectedfuture1484 generation/socketbodycredit fromsearchlocators.",
+    "Actualsocketwriter locatedgeneration1484 calls sockets::garment_sockets; intendedpalvislocal transform versusarbitraryselectedbone1477 mustresolvefromprovider/body/catalogbeforeframefinding. Parentancestorinheritance explicitlyintendedfixture, notlegacycompatibilitybyname.",
+    "Bloodquery material/hierarchy/skinnedtriangle/current ordinaryscaleinvariantpendingdespiteactualwornSkinnedMesh renderpipeline confirmed; no automaticallskinnedwrongUV/unequalGlobalscale claim.",
+    "Weapon/holder/iconownedcause erasureconnectedexistingforgefamily, canonicaldecode/appearance/generation/error/masteraliases/currentstillpending. Reauthentication onwarmcachehit mustremain; genericplaceholder/holderabsence displaypolicy notautomaticallyoldschemafallback.",
+    "AllsourcefixtureWorld/App/updatecalls readonly; no tests, builds, geometry/runtime/nativequeries, generators/scanners/lints, productsourcechanges, commits/publication/messages executed."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1479
+}

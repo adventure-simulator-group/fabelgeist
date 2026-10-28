@@ -1,0 +1,190 @@
+{
+  "lens": 11,
+  "batch": 281,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1852,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-693.json",
+      "registration_sha256": "bf0e48d2768d24bf8b9a1c13df0a9cf48542f7b9f2fec8ba56c98c168f46c3f2",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement.rs",
+      "sha256": "9a3b4ed5cede2d65e1b880ae2247536fe3478b19fe34207df5ebd6cd96ec6a29",
+      "scope": [
+        [
+          1,
+          689
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          689
+        ]
+      ]
+    },
+    {
+      "original_index": 1853,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-694.json",
+      "registration_sha256": "1b9b238cff993bcaae9dac4d9165e06891ef06d72f088d840a252185f2542144",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/gardens.rs",
+      "sha256": "7194841c344f694469815ebb3e0ac44331b6b0dffe29fd41ebfd096e08f0bc3e",
+      "scope": [
+        [
+          1,
+          227
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          227
+        ]
+      ]
+    },
+    {
+      "original_index": 1854,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-695.json",
+      "registration_sha256": "71d659978c7393b4f6a22e8dbb0e60ac844219e24868f586786b98bb998dc126",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/outdoor.rs",
+      "sha256": "0a214fa18fafd300f3f87c6e6eca9ef295a41ec09420af5aadd17adc4fe5b3d5",
+      "scope": [
+        [
+          1,
+          77
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          77
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1852
+      ],
+      "ranges": [
+        [
+          1,
+          689
+        ]
+      ],
+      "roles": "Independent lens11 full movement harness/native controller/source fixture scope.",
+      "disposition": "Actual MinimalPlugins/Input/Transform/EnhancedInput/AdventureSimulatorPhysicsPlugin and default TacticalCombatConfig motor speed/gravity/maxstep/maxslope, humanoid AABB bottom/cylinder radius, 64Hz. Waypoint drive tapers within body radius, budget derives distance/speed with min640ticks; actualmotor braking64ticks untilspeed<.01, no synthetic teleport or zero velocity injection. Failure diagnostics actual native MoveAndSlide casts/controller/collision transforms. Exact recorded occupied programs compile real tactical collision, selected floors, enclosure/gate transforms; sourceasserts ordinary step/headroom and maxstep rejection, route entry/return and undersized landing negative fixture. Explicit isolated proposed-support scope not production city acceptance. All689 personally source-read, no fixture/exporter/native physics run. Test-local vector/time arithmetic not retained product API."
+    },
+    {
+      "source_indices": [
+        1853
+      ],
+      "ranges": [
+        [
+          1,
+          227
+        ]
+      ],
+      "roles": "Independent lens11 actual production garden acceptance fixture and full physical installation scope.",
+      "disposition": "Ignored fixture loads frozen FABELGEIST_TERRAIN_SCENE, optional property/report selectors, generate_unfurnished and physical outdoor/terrain/building/enclosure/gate collision. Validates garden geometry then uses access[0..2] for eight entry/tending/return targets; actual canonical generator cardinality still needed before classifying broader public-schema nonempty versus fixture indexing. Asserts nonempty observations and all reached, stops first failure; no empty-success selected property. Explicit centerline/unfurnished/vista-no-physics limitations, no garden-soil/fullwidth discontinuity acceptance. Nearby natural BVH uses original complete intersecting geometry, exact building transform/collider and boundary support Solid, gate hinge/angle/datum from actual selected boundary. OccupiedBuilding compiles immutable collider once, retained per generated building. No source-only fixture asserts actual successful runtime."
+    },
+    {
+      "source_indices": [
+        1854
+      ],
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "roles": "Independent lens11 native outdoor collision adapter test harness.",
+      "disposition": "Builds Static native bodies for generated tree cylinder, rock recipe sphere with deterministic seed yaw, canonical scene point from playable grid spacing and terrain dimensions, height_at exact source support. Furniture physical instances use actual collider and scene position/orientation; distant scenery deliberately excluded server physics. Bounds predicate only filters installation, clones original shape and transform. Native raw geometry/seed extraction owned at adapter boundary; expect/unwrap fixture invariants await production input/producer where applicable. No current source or actual native execution claim."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-268.json",
+      "sha256": "b5413b9cc004828f8ac1a43b56423e9f461f20c714de6c38706c883e4c7b7e1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-269.json",
+      "sha256": "fc8d370a5eeefdf3ea8cdd9de8173fabffc67a26fda6a1822689d33b192a8773"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-272.json",
+      "sha256": "35b60435bb78f200471ebf07c89713af991d2cb90a52b434e4bcccf6ceb7ad6f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-275.json",
+      "sha256": "a6cec4d4cfcf939d571330e3bfd99a9776ac3098891988460b184e9f3bd66450"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-276.json",
+      "sha256": "01b6e6ba6853277399a71bf77d7d6b2bbb7865022bca906ad4bc8cec8adf0aae"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-277.json",
+      "sha256": "3a59ce224639206868fc150f0ebdffc1cb18604e7c7cfad38ae403b842b47a02"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-278.json",
+      "sha256": "9d22b717fd830e3402946d343cb8d63be302ee98f292903964ffa5739a89d47a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-280.json",
+      "sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7"
+    }
+  ],
+  "pending_contracts": [
+    "281 completes original1852..1854 exact full metadata unions, next1855; next prospective registration696. No unrecorded reads remain for693..695.",
+    "Production garden fixture requires canonical three access waypoints while public geometry validation nonempty; resolve actual producer/current admitted fixture contract before calling test indexing a product finding.",
+    "All prior qualified families/ten extensions/EOF exceptions/future reuse/partial later129/L12/L13 retained. All13 populations/current/all20/aliases/connected acceptance/dedup remain incomplete; gatefalse accepteduniquechange0. No product execution/repair/new tests/publication."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1855
+}

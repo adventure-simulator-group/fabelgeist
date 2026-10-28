@@ -1,0 +1,247 @@
+{
+  "lens": 11,
+  "batch": 286,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1882,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-723.json",
+      "registration_sha256": "eaa2fcf1a19102bae33b19405b018ffeb046fcafd39deca27703f99c01005773",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/lib.rs",
+      "sha256": "244fd713d736e5e7da01d379afdcae5c77cd5705016504d882221057490eef26",
+      "scope": [
+        [
+          1,
+          159
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          159
+        ]
+      ]
+    },
+    {
+      "original_index": 1883,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-724.json",
+      "registration_sha256": "7dcff363d1e28cd45e29a3946164d61e040386bee17edc6b502853a04971de60",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra.rs",
+      "sha256": "f9f54199093c3a25bf9295b11ebeedceb88fe03c44be92ffcfed2c6bf990f335",
+      "scope": [
+        [
+          1,
+          278
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          278
+        ]
+      ]
+    },
+    {
+      "original_index": 1884,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-725.json",
+      "registration_sha256": "6216134be650597943ba0c5d0ad05207a5efe3abff10aa2ad52d6978dfc8b4c4",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface.rs",
+      "sha256": "7e6ff1e41f864ad664c6996727b8d1b11570d3b5ed8af1201b15347ae59018bc",
+      "scope": [
+        [
+          1,
+          107
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          107
+        ]
+      ]
+    },
+    {
+      "original_index": 1885,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-726.json",
+      "registration_sha256": "40574593d323314d497ab48670784cc9eb4e130022a0d89fad2f6dab1d1956ff",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface/tests.rs",
+      "sha256": "3437832bcc3bd88d508e7b5ecc06146e4202ba88eb2ce9c4fd23f8fe785a860a",
+      "scope": [
+        [
+          1,
+          90
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          90
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1882
+      ],
+      "ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "roles": "Independent lens11 exact public ownership/native grid and complete field-to-edge/mesh admission operation plus connected source acceptance fixtures.",
+      "disposition": "Full159 tacticalcorelib directlyreexportsactualownedtypes/functions throughprelude, public/private module graph andnativeAvian/BevyAhoy/input namespacereexports; notnewtypealiases orcompatibilityshims. AdventureSimulatorCorePlugins group actualphysics pluginsharedclient/server. TacticalworldtransientBevyboundary retained. Doesnotproveentirechildmodulebodies frompubuse listing; current/all20alias semanticcomparison stillpending."
+    },
+    {
+      "source_indices": [
+        1883
+      ],
+      "ranges": [
+        [
+          1,
+          278
+        ]
+      ],
+      "roles": "Independent lens11 exact public ownership/native grid and complete field-to-edge/mesh admission operation plus connected source acceptance fixtures.",
+      "disposition": "Full278 marching ownscheckedusizeproduct, nativefiniteposition/value sampling, explicitzero-snap1e-5m, deterministicmixedcell z/y/x/tet traversal, edgekeysharedzeroendpoint andsortedlatticepairs, checkedu32vertexcapacity. Generalextractdimensionssubtract1 unguardedminimum; actualcaller713side/verticalandotherproduceradmission neededbeforezeroaxis panicfinding. Nativef32edge denominator=start-end canoverflow foradmittedfiniteoppositesignfieldvalues ->fraction0, newconditionalhelpernumericfinding; finalSceneTerrainPatch constructor/current/actualgeneratedfieldrangependingbeforeacceptedwrongsceneclaim. Orientation usesDVec3 cross/dot source-toempty solid linear-tet policy; triangle_normal usesf32cross andlength_squared==0 filtering, normalize_or_zero accumulatednormals. Tiny/overflowingintermediates actualgeneratedfield/gridrange andfinalfrom_mesh_buffers admission neededbeforecrack/silentinvalidnormalfinding. EmptyoutputErrEmptySurface distinct, no assumedvalidemptyworld. Earlier234discardconsumer mustpreservethisactualcause whenreachable."
+    },
+    {
+      "source_indices": [
+        1884
+      ],
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "roles": "Independent lens11 exact public ownership/native grid and complete field-to-edge/mesh admission operation plus connected source acceptance fixtures.",
+      "disposition": "Full107 optimizedheight extraction checksdimensionproducts/min2/heightslen, finiteheights/elevations/endpointpositions, finiteendpointheightdifferences andstrictincreasing sharedY. Privateposition_at signatureassumesidenticalXZalllevels/sharedYacrosscolumns perdoc; checksfirstcolumnY andcolumnendpointfinite only, actualproducerbeforecallingarbitraryclosure invalid. Partitionssnappedcrossingandtrimsonlyuniformcells retaining z/y/x/tetorder andglobaledgeidentity; intentionalcurrentgeometryalternative togeneral3Doverhangsampler, notlegacycompatpath. Actualedgeinterpolation/build_surface shared724 keepssameconditionalnumericconstraints."
+    },
+    {
+      "source_indices": [
+        1885
+      ],
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "roles": "Independent lens11 exact public ownership/native grid and complete field-to-edge/mesh admission operation plus connected source acceptance fixtures.",
+      "disposition": "Full90 fixture sixflat/slope/outsideverticalgrid/sine/nearzerosnapchecker/obliquesurfaces comparescompleteorderedtrimmedmesh vsdenseResult, notonlytrianglecounts. Explicitnonfiniteheight and±MAXheightdifference overflow rejection sourcefixtures; thesecloseunvalidatedheightdifferencehypothesisfor725. Theydo notdirectlytestgeneral724oppositesignMAXedgefieldvalues because725rejectsendpointfielddifferenceearlier. Allsourceassertionsunexecuted; no benchmark/rayon/product/scalarprobe."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-268.json",
+      "sha256": "b5413b9cc004828f8ac1a43b56423e9f461f20c714de6c38706c883e4c7b7e1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-269.json",
+      "sha256": "fc8d370a5eeefdf3ea8cdd9de8173fabffc67a26fda6a1822689d33b192a8773"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-272.json",
+      "sha256": "35b60435bb78f200471ebf07c89713af991d2cb90a52b434e4bcccf6ceb7ad6f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-275.json",
+      "sha256": "a6cec4d4cfcf939d571330e3bfd99a9776ac3098891988460b184e9f3bd66450"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-276.json",
+      "sha256": "01b6e6ba6853277399a71bf77d7d6b2bbb7865022bca906ad4bc8cec8adf0aae"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-277.json",
+      "sha256": "3a59ce224639206868fc150f0ebdffc1cb18604e7c7cfad38ae403b842b47a02"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-278.json",
+      "sha256": "9d22b717fd830e3402946d343cb8d63be302ee98f292903964ffa5739a89d47a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-280.json",
+      "sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-281.json",
+      "sha256": "7df0652b431f991b40f6cb387c3d72a3028b954211bdad089b882147cd2a981b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-284.json",
+      "sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b"
+    }
+  ],
+  "pending_contracts": [
+    "286 original1882..1885 exactfullunioncomplete,next1886 unregistered,nextregistration727. No unrecordedbodyreads.",
+    "NewgeneralMarchingedge sourcecounterexample finite±MAXdenominatoroverflow, actuallocalfielddomain/finalmesh/currentpending; optimizedheightpath rejectsownheightdifferenceoverflow andnotfalseacceptanceproducer. Generalzeroaxis/f32normalunderflow concerns requireactualcaller/grid/meshconstructor beforefurtherfinding.",
+    "Quantitymodule notfoundinoriginalregistrypr-working byexactpath metadataquery285, contrarytopending genericqueuedwording. Actualquery2812 SHA88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512 andinventory_armor2813 SHA6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b locatedmetadataonly. Locatequantityinlater196/current/explicitextension beforecredit; no missingfilebody inferred.",
+    "Allpriorqualifiedfamilies/Marketpatch282/AIoffense282/positiveprofile283/tenextensions/EOFexceptions/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incomplete; gatefalse accepteduniquechange0. No productrepairs/execution/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1886
+}

@@ -1,0 +1,167 @@
+{
+  "lens": 11,
+  "batch": 261,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1778,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-615.json",
+      "registration_sha256": "72d703f11e2c9414160914e6508142a9c00198eae5b838426c03f6d33a6117c7",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/semantic.rs",
+      "sha256": "bd7fae5f4804c3a1827174d3b17e17391688e8a3308bba7ecc68333100c7ac45",
+      "scope": [
+        [
+          1,
+          1132
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          130
+        ],
+        [
+          131,
+          300
+        ],
+        [
+          301,
+          500
+        ],
+        [
+          501,
+          700
+        ],
+        [
+          701,
+          900
+        ],
+        [
+          901,
+          1100
+        ],
+        [
+          1101,
+          1132
+        ]
+      ]
+    },
+    {
+      "original_index": 1779,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-616.json",
+      "registration_sha256": "9bef03e0c46a68e4139204b5d04f275978dda52f8722001814ce2e63a44295db",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "scope": [
+        [
+          1,
+          63
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          63
+        ]
+      ]
+    },
+    {
+      "original_index": 1780,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-617.json",
+      "registration_sha256": "8b2c907be2d2001951bd894571df2ded0deac9128e69647175aee025972bcdbb",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/skeleton_family.rs",
+      "sha256": "526f6b40dbe2b1a94aac7807e7ca9cb7f2fab69bd0a86f074319e7fd4f4e00bc",
+      "scope": [
+        [
+          1,
+          24
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          24
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1778
+      ],
+      "ranges": [
+        [
+          1,
+          1132
+        ]
+      ],
+      "roles": "Independent lens11 complete semantic/type/normalization/error ownership source and assertion review.",
+      "disposition": "Full1132 semantic enum owns41 stableposevariants, exactALL and30 HUMANOID_REQUIRED exclude11 attackcapabilities. Mirroredrollcounterparts explicitcurrentartreflection, semanticfallback iscurrentasset substitution notlegacyAPIcompatibility. as_str clipnames forAttackSwing/Thrust/Offhand differfromserde enumspellings byexplicitmapping; actualloader/serdeconsumer before inconsistentidentityfinding. FromStr uniterror lacks offendinginput, actualboundary attribution needed before structuredparsecausefinding. Tests sourceassert finiteelapsed rejection beforebodymutation, ownedaction/bodypayloads, downedclearsraised/action, evasionpreemptsattack, actionbusy/postureerrors, raisedintentwire normalization, phaseclamp andpostcardroundtrip. These are sourcecontract assertions only, no executedacceptance and no implementationcredit fromcalls. Actualstate/rawprojection/replication/current/all20/aliases remainmandatory."
+    },
+    {
+      "source_indices": [
+        1779
+      ],
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "roles": "Independent lens11 complete semantic/type/normalization/error ownership source and assertion review.",
+      "disposition": "Full63 ResponseShapingTime isfinite signedseconds, intentionallydistinctfromnonnegativeelapsed/positiveconfiguredrecovery. advance_settle performsdivide/add/min1 thenfiniteSettleProgress; advance_guard divides/adds/clamps0..1, checkedlerp preservesFloatExt differenceform. Zero/negativecoefficients intentionallyadmitted byowner; nativeinfinite orNaNquotient maybecomecompletedresponse throughmin/clamp, actualcaller/config/shapingpolicy andretainedstate neededbefore badadmission/normalizationclaim. PriorSettleProgress arithmeticabove1 concern narrowsforadvance_settle becauseactualmin1, notglobalclearanceofotherprivateconstructorcallers. No reinterpretationasuniversalpositiveduration."
+    },
+    {
+      "source_indices": [
+        1780
+      ],
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "roles": "Independent lens11 complete semantic/type/normalization/error ownership source and assertion review.",
+      "disposition": "Full24 SkeletonFamily wrapsopenauthoredCow staticstr withString/&str admission, transparentserde andtypedHUMANOIDconstant. Openfamily identity permitsfutureauthoredfamilies; notclosedenum/noautomaticnonemptyorhumanoid-onlyrequirement. Actualpackvalidation/rigcachekeys/loader/current/sharednamespace neededbefore ownerduplication orbadidentityfinding."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-255.json",
+      "sha256": "8ef17f37d109d1c2710b41634a4f9f4b0a622db3410bff2119702130d65d13d7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-256.json",
+      "sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-257.json",
+      "sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-258.json",
+      "sha256": "91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440"
+    }
+  ],
+  "pending_contracts": [
+    "261 full1778..1780 exactmetadataunion complete,next1781 registered618 full2069 unread. Truncatedprior6151..600 attempt carriesnocredit;freshbounded1..1132 rereadcomplete inthisreceipt.",
+    "Source tests are assertions notexecution. State/action/projection/serde/nativecallers remainneeded; no productrepairs/execution untilall13 exhaustiveledger.",
+    "Shapingcoefficients finite signedwithkernelownedcap/clamp; do noterase signed/zero roles ordeclareintermediateinfinity universallyinvalid. Settleadvance caps1 narrowsprior arithmeticconstructor concernonlyatthisactualcaller.",
+    "Allpriorfindings/eight scopedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L12/L13 qualifications unchanged. All13/current/all20/aliases/connectedacceptance/dedup incomplete,gatefalse/accepteduniquechange0. No commits/publication/externalmessages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1781
+}

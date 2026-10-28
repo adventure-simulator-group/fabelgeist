@@ -1,0 +1,234 @@
+{
+  "lens": 11,
+  "batch": 178,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1321,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-132.json",
+      "registration_sha256": "62be5b5003779ad40ee9574b1ad52687891bafe2bf81d91df7f8e45aade4697a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+      "sha256": "5141597330c799f5d0ca0312cb48602fb6dd20520737d18c46429dcf21829330",
+      "scope": [
+        [
+          1,
+          117
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          117
+        ]
+      ]
+    },
+    {
+      "original_index": 1322,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-133.json",
+      "registration_sha256": "035dbae7b0679ad21fdcb6411f0bfc22a44b193bc63ff758b8b4e67e5d1a0159",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+      "sha256": "255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+      "scope": [
+        [
+          1,
+          312
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          312
+        ]
+      ]
+    },
+    {
+      "original_index": 1323,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-134.json",
+      "registration_sha256": "b85db89510aab24e85951672cafc00f762cdb48cf06cc056bf3e1f09594b8484",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/fallback.rs",
+      "sha256": "6c30cf49f852b97aca93c3f079511091c20e90b0f0e910571eb9a98e34d48dda",
+      "scope": [
+        [
+          1,
+          141
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          141
+        ]
+      ]
+    },
+    {
+      "original_index": 1324,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-135.json",
+      "registration_sha256": "fc444135f2fac904a79010298c8e23c6d84034b920c262fb6955336374164dfe",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/foot_influence.rs",
+      "sha256": "132728572eda6899b6d6f9ebe07e1c1dae458a7f8347e66f86d692edf4af3a1c",
+      "scope": [
+        [
+          1,
+          124
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          124
+        ]
+      ]
+    },
+    {
+      "original_index": 1325,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-136.json",
+      "registration_sha256": "100033b12aaf5391fea5d736b13b9062511c70782dfb054d5a6795d2033cd018",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/jitter.rs",
+      "sha256": "aa9bc30e0fc0897f1fd272a8702ca8bfef43e3dc14846a71d4b6666a1b25f39e",
+      "scope": [
+        [
+          1,
+          608
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          234
+        ],
+        [
+          235,
+          400
+        ],
+        [
+          401,
+          560
+        ],
+        [
+          561,
+          608
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1321
+      ],
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "roles": "Diagnostic wire structs after typed application interpretation.",
+      "disposition": "Named recordtypes preserve SemanticRoutePath/inputs, actionphaseUnitInterval, BlendWeight/ClipTime/CycleDelta/SkeletonState, SupportElevation atnativeSerializeboundary. Translation/quaternion/scale arrays andcounter/timeu64 intentionallywireleaves, notinternaldomainaliasproof. DiagnosticBone.from_global decomposesnativeGlobalTransform thencheckedsceneplanpoint/terrain lookup, None conflatesinvalidplanpoint/missingterrain/outsidecoverage foroptionaldiagnosticavailability; actualfinitecapturepolicy pending. ScheduleCompletion joinscount andelapsed metadata requiringcoherence ofactualproducer, newqualifieddependency."
+    },
+    {
+      "source_indices": [
+        1322
+      ],
+      "ranges": [
+        [
+          17,
+          99
+        ],
+        [
+          101,
+          255
+        ],
+        [
+          257,
+          312
+        ]
+      ],
+      "roles": "Rendertelemetry publication, structuredJSONLwriter and exactcontrolled-player pose snapshots.",
+      "disposition": "Twoatomiccount/time snapshot notatomicjoinedobservation, recordedconditionalfindingpendingactualconcurrentwriter. JSONwriter keepsnativeSerializeValue finaladapter, inserts frame, logsandreturnsonearlywrite/flushfailure withoutpropagatingstatus; partialJSON/newline orflushfailure canretainframecounter, actualcaptureconsumer admissionpending. PlayerqueryfilteredClientPlayer, boneownership exactbind.owner andsortname+target; firstterrainneedsunique-sceneproof, routeequivalence actualtypedcomparison. Raw command_kindString/elapsed inDiagnosticInputStatus actualproducerpending; no multipleplayeridentityfindingwithoutordinarycardinalityproof. Optionaldiagnosticfailure log doesnotfailgameplay bydesign; acceptanceconsumer separatelyneeded. Performanceguard map staticlabel->maxmsandinterval rawfloats arelocaldiagnostickernel, notgameplayclock."
+    },
+    {
+      "source_indices": [
+        1323
+      ],
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "roles": "Explicit temporarymannequin geometry and nativeBevymesh adapter.",
+      "disposition": "FallbackGeometry/FallbackCapsule andPositiveLength/CuboidDimensions validateauthoredpositivegeometry beforeanyspawn/materialcreation. RootlocalanchorsrawVec3 constantauthoredframe notuntrustedscenevalue; namesl_uparm/l_lowarm/l_wrist arepresentationlabels forsinglecuboid notactualrigBoneRolealiasadmission. IntentionalobviousTposeuntilauthoredbaseavailable, notbackcompatibilityshim orserverauthority. Actualfallbackretirement/loadingowner remainsunread."
+    },
+    {
+      "source_indices": [
+        1324
+      ],
+      "ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "roles": "Left/rightFootIkInfluence reduction andposepolicy.",
+      "disposition": "FootIkInfluence retainsleft/rightUnitIntervalprivatefields, closedNONE/BOTH/LEFT/RIGHT; actionwithoutlowerbodyintentionallynoIK. TypedPoseSampling/SemanticPosecase mapping, separatecontactrunprofile vs simulationcompletecontact. NativeVec2kernelonlylocal; checkedfiniteintermediate/BlendWeightaccumulation thennormalization+clamp+checkedUnitInterval. Retainvalidweights>1 beforemean, zero-totalNONE, mirror swaps actualfeet. CrossroleOverflowquantity BlendWeight whileintermediateweightedfootinfluence isrelated ownerlabel, actualerrorconsumerpendingnotmagicstringverdict."
+    },
+    {
+      "source_indices": [
+        1325
+      ],
+      "ranges": [
+        [
+          1,
+          183
+        ],
+        [
+          186,
+          286
+        ],
+        [
+          288,
+          449
+        ],
+        [
+          451,
+          608
+        ]
+      ],
+      "roles": "Scenario-aware derivative diagnostics, measurementcoverage, numericalwindows andexistingfixtures.",
+      "disposition": "NamedJitterClass/ScenarioMetadata/JitterBoneIdentity preserveclassification/labelsatserialization; rawthresholdf32channels distinguishunits onlybyfields, finite/nonnegadmissionpending. AnimationElapsed time supportsabs_diff+minimumfloor so backward/equaltimeobservations are notexplicitlyrejected here; actualchronologyproducerneeded. Analysis partitionsscenario+segment, acquisition/contactwarmupintentionalexceptions; diagnosticcomplete doesnotprovemeasurablewindows, qualifiednewcoveragefinding. Missingboneentiresegmentskipped andnonfiniteincidentvaluesignored; capturefinite/identityminimumwindowreceiversmandatory. Positionaccel normthenderivativeofnorm, angularangle_between magnitudeanddtstride offset preservedactualmath; no unsolicitedstencilrewrite beforemeaningfulacceptancecontract. Existingnoise/quickstep/guardthreshold fixtures unexecuted anddo notvalidatecoverage failure cases."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-177.json",
+      "sha256": "83b32878f60a4e5fc21053c537efe6bd576a167ca3acdee4469e90658f1a95c7"
+    }
+  ],
+  "pending_contracts": [
+    "Jitter output failed CP1252 encoding atline235 on first161..320 attempt; only161..234 visiblecredited then235..400 rereadwithUTF8. No absent235..320 prefix credit.",
+    "Render completion coherentobservation and jittermeasurementcoverage are qualified source dependencies, not accepted runtime failures; ordinary writer/admission/acceptance/current evidence remains mandatory.",
+    "All13 populations/current/all20families/aliases/connected repairacceptance incomplete; no productexecution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1326
+}

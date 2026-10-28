@@ -1,0 +1,289 @@
+{
+  "lens": 11,
+  "batch": 382,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2369,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1237.json",
+      "registration_sha256": "637dbe74123ae57285b9c8290b6237a8de80444fa588483c749102f9c7dc4563",
+      "source_id": "pr-working:crates/strategic-web/src/routes/missions.rs",
+      "sha256": "c4a54e247cf699583c7874b9ad0b29861fa8ea3b0d48b1572e10d52d19f83e1e",
+      "scope": [
+        [
+          1,
+          340
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          340
+        ]
+      ]
+    },
+    {
+      "original_index": 2370,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1239.json",
+      "registration_sha256": "1d5205ff2505a2643f376e40ebc53bfcf59eea26ac5cd58eff08f001c774d3d1",
+      "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+      "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "scope": [
+        [
+          1,
+          930
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          930
+        ]
+      ],
+      "inherited_scope_extent_qualification": {
+        "kind": "Frozen Git exact-byte EOF qualification",
+        "original_index": 2370,
+        "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+        "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+        "source_sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+        "actual_EOF": 930,
+        "raw_requested_range": [
+          1,
+          935
+        ],
+        "effective_range": [
+          1,
+          930
+        ],
+        "excluded_nonexistent_ranges": [
+          [
+            931,
+            935
+          ]
+        ],
+        "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/mod.rs",
+        "inherited_metadata": {
+          "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+          "snapshot": "pr-working",
+          "path": "crates/strategic-web/src/routes/mod.rs",
+          "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+          "bytes": 35092,
+          "already_in_frozen_variants": false,
+          "evidence": [
+            {
+              "shard": "rig",
+              "record": "wave-01/audit-producer-propagation/rig/supplemental-digest-sources.json",
+              "ranges": [
+                [
+                  516,
+                  903
+                ]
+              ],
+              "source_read_status": null,
+              "trace_refs": [
+                "RIG-SUPP-DIGEST-001"
+              ]
+            }
+          ],
+          "audit_owner": "rig",
+          "scope_kind": "affected_unchanged_reached_contract",
+          "owner_contract_proofs": [
+            {
+              "supplier": "camera",
+              "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+              "row": 379,
+              "read_ranges": [
+                [
+                  187,
+                  351
+                ],
+                [
+                  440,
+                  837
+                ],
+                [
+                  899,
+                  935
+                ]
+              ],
+              "contract_refs": [
+                "CAM-OWN-ROUTE-SOURCE-054"
+              ],
+              "read_status": "scoped_complete_route_and_native_call_receivers",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/mod.rs"
+            },
+            {
+              "supplier": "rig",
+              "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+              "row": 560,
+              "read_ranges": [
+                [
+                  1,
+                  930
+                ]
+              ],
+              "contract_refs": [
+                "RIG-OWNER-WEB-TERRAIN-FORAGE-082"
+              ],
+              "read_status": "full_current_lens_source_read",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/mod.rs"
+            }
+          ],
+          "current_owner_suppliers": [
+            "camera",
+            "rig"
+          ],
+          "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+          "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+          "producer_reached_contract_observations": [
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+              "receipt": "RIG-PPS-021",
+              "json_pointer": "/fresh_current_source_reads/3",
+              "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/mod.rs",
+              "read_ranges_as_recorded": [
+                [
+                  187,
+                  351
+                ],
+                [
+                  440,
+                  515
+                ],
+                [
+                  904,
+                  930
+                ]
+              ],
+              "source_context": {
+                "assigned_index": 341,
+                "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+                "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+                "read_ranges": [
+                  [
+                    187,
+                    351
+                  ],
+                  [
+                    440,
+                    515
+                  ],
+                  [
+                    904,
+                    930
+                  ]
+                ]
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            }
+          ],
+          "producer_inventory_accounting": {
+            "initial946_cell": false,
+            "frozen1650_supplement_index": 986,
+            "new158_material_role_packet": false,
+            "expanded36_context_variant": false,
+            "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+            "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+          },
+          "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+        },
+        "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1238.json",
+        "superseded_registration_sha256": "62252537398331825bb98c92ba2685a7ea08d194443c7cf63fa86be721ed2f2a",
+        "failed_read": "No raw body read attempted. Registration metadata EOF930 detected overshoot before first body. Raw1238 preserved; effective1239 prospective.",
+        "limits": "All13 independent lenses must qualify exact hash EOF930; no931..935bodycredit/newidentity/scopedextension or otherlenscoverage.",
+        "mandatory_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "new_global_source": false,
+        "other_lens_coverage_transferred": false
+      }
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2369
+      ],
+      "ranges": [
+        [
+          1,
+          340
+        ]
+      ],
+      "roles": "Independent lens11 exact mission action ownership and canonical strategic route/URL/time contracts.",
+      "disposition": "Full340 Missionenterrequiresauthenticatedactor, party/activecontract/privatecase-sitecasebindingbeforemissionrequest, partyID+data.new_idwallclockmicrosecondnonce actualcallerof379uniquenesspending. Status/cancelchecksviewerpartyagainstpending/readyserverbeforeassigningviewercharacterID, closingcrosspartyrelabelinghypothesis; responsecurrentviewerlinkassertionsreadunexecuted. Entryqueryfailuresparties/contract/sitebecomeabsenceandhomeRedirect, initialcharacterfailurelogged; no broadtypedcausecontracthere. Cancelawaitexecute_or_request_party_actionresultignoredthenhomeRedirect, qualifieddiscardedactionoutcomefamily. NativePartyAction/reducer/scopeauthorization/currentbeforefinalcancelpolicy. Missionprojectionisserverrequest/statusmetadata, no tacticaltickpositions/HPpersistedhere."
+    },
+    {
+      "source_indices": [
+        2370
+      ],
+      "ranges": [
+        [
+          1,
+          930
+        ]
+      ],
+      "roles": "Independent lens11 exact mission action ownership and canonical strategic route/URL/time contracts.",
+      "disposition": "Qualifiedfull930ofrawrequested935; prospectiveREG1239exactGitbytesproveEOF930andexclude931..935, seventhstrictEOFqualificationall13. RawREG1238andregistrymetadataunmodified,nobeyondEOFbodyattempt/credit. NativeSocialDurationprivateu16+TryFrom15..480step15andmanualSerdechecked; SocialActionIdprivateStringASCIIalnum/-/_len1..96+manualSerdechecked. Positiveproof381SocialChatRequestforeignboundarynoSerde-bypass. local_return_urlrejectscontrols/backslash/doubleslash/scheme/authorityandexplicitfixtureallowsquery+fragment; closesheaderinjectionpremisebutconfirms381foragequery-after-fragmentbug. Partyactionentryrefreshesstrategiccondition/readinessexceptexactonsitewithdrawal, corpsesexcluded; no tacticaltickpersistencetransfer. planned_travel_callfailuresreturnsNoneandcallerselectsaction.reducer_call, qualifiedfailure-to-unplannedprotocolfamily. Missingterrain/noorigin andnontravelreturnNonealso; nontravelmatchoccursAFTERactor/partyterrainprofilequeries, unnecessaryfailuredependencycanpreventnontravelactionbeforeoptionalNone. Departuremaxskipsnot-observable/aheadmembers/missingclock, actualauthoritativesynchronization/callers/reducerbeforeincorrectweatherfinding. Nativeweather usesforage_environmenterror->elevation0,separatequalifiederrorasdefaultpendingcanonicalterrainmetadata. PersistedrouteWGSgreatcircledistance/rawlinearcoordinateinterpolationandearlyu64productsaturationindependentlyread, explicitconditionalgeometry/arithmeticfamilies; no realworlddateline/hugejourneyclaim. Routeplanwater-spansomittednativeinvariantsbeforemalformedpayloadfinding; SATSgeneratedenumserdeexplicitnativeencodingnotcompatibilityalias. ManyerrorsformattedString; exactPartyAction/reducer/typednativeownerbeforefinaldedup. include_strnotusedhere, samefileactualreadiness/nativepayload/localURLfixturesreadunexecuted.",
+      "evidence_bookkeeping_qualification": {
+        "helper": "target\\726-audit-adler-20261027\\adler\\verify_l11_evidence.py",
+        "helper_sha256": "0a21db3039e8e400ed34b213e666077f0fc903b687085e023dabe3f81dfac006",
+        "reason": "Recognizeonlyexactregistered2370GitEOF930/raw935qualification, no generictruncation. Metadataunionincludesmaterial_contract_ranges_as_recordedalongsideotherrangekeys; rawreceiptsunchanged. Priorother6strictEOFqualificationsretained."
+      }
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-374.json",
+      "sha256": "c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-378.json",
+      "sha256": "fe891c6d5afa119ad72eebc3d06d5ea2c1523edc59db840cc1296922762e6ff8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-379.json",
+      "sha256": "3ccd79f3d8604fb29b3791a57817ca981986a981fc56ccaeaffd3673b4144059"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-380.json",
+      "sha256": "cb5832667e4116a4cb093bdd887e1f03d359d3048e699089f8ea1ab8f427db7e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-381.json",
+      "sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f"
+    }
+  ],
+  "pending_contracts": [
+    "382accounts2369..2370next2371questsfull2102. LastREG1239.27mandatoryall13scopedextensions/SEVENstrictEOFqualificationsnowincluding2370raw1..935effective1..930/excluded931..935; rawREG1238preserved,nobeyondEOFbodycredit. Otherfutureproofsretained.",
+    "Newqualifiedforagequery-fragment,planningfailure-to-unplannedprotocol,routeprogressprematureproductoverflow,andmissioncancellostoutcomefamilies. Actualnativeaction/reducer/callers/current/all20acceptancepending. ExistingWGSgeopathfamilygetsindependentwebsourceevidenceonly,noother-lensverdict/coverageadoption.",
+    "Aheadmembers/missingclocksdeparturemax/sea-levelonelevationfailure/nontravelunnecessaryplanningdependencyandWallclocknew_idmissionnoncefamilyremainpendingnativeproducer/reducerpolicy. ActualSocialDuration/ActionIdmanualSerde/URLcontrolvalidationpositivecontractsestablished.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedupincompletegatefalseaccepteduniquechange0. No productrepairs/builds/tests/lints/scanners/generators/runtimeprobes/CI/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2371
+}

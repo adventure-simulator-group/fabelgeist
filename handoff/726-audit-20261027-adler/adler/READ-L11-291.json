@@ -1,0 +1,600 @@
+{
+  "lens": 11,
+  "batch": 291,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1906,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-747.json",
+      "registration_sha256": "018218f86df57a55e0a4cb63c8a6b112c52d5d707773287a900831145e24b9df",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries/tests.rs",
+      "sha256": "34cb597c3f3bb88bb27643278afb28cdf549f1e490a075404cd3448648f7b2f2",
+      "scope": [
+        [
+          1,
+          57
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          57
+        ]
+      ]
+    },
+    {
+      "original_index": 1907,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-755.json",
+      "registration_sha256": "fc977f6e5b1ceadb7287fa4b97096dc98de75b6f1d48281615dfa9a5a98a3d8e",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "scope": [
+        [
+          1,
+          122
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          122
+        ]
+      ],
+      "inherited_scope_extent_qualification": {
+        "kind": "Frozen Git exact-byte EOF qualification",
+        "original_index": 1907,
+        "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+        "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+        "source_sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+        "actual_EOF": 122,
+        "raw_requested_range": [
+          1,
+          155
+        ],
+        "effective_range": [
+          1,
+          122
+        ],
+        "excluded_nonexistent_ranges": [
+          [
+            123,
+            155
+          ]
+        ],
+        "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+        "inherited_metadata": {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "owner": "root",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "base_sha256": "4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+          "state": "modified",
+          "bytes": 4219,
+          "audit_owner": "root",
+          "scope_kind": "frozen_requested_change",
+          "producer_source_proof": [
+            {
+              "shard": "root",
+              "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+              "ranges": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "source_read_status": "full",
+              "trace_refs": [
+                "ROOT-PP-GEOMETRY-002"
+              ]
+            },
+            {
+              "shard": "rig",
+              "record": "wave-01/audit-producer-propagation/rig/supplemental-root-shared-proofs.json",
+              "ranges": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "source_read_status": null,
+              "trace_refs": [
+                "ROOT-PP-GEOMETRY-002"
+              ]
+            }
+          ],
+          "owner_contract_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 44,
+              "read_ranges": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-FRAMES-004"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/scene_coordinates.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 407,
+              "read_ranges": [
+                [
+                  1,
+                  155
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-PRICE-AND-FRAME-081"
+              ],
+              "read_status": "affected_ranges",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/scene_coordinates.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 409,
+              "read_ranges": [
+                [
+                  1,
+                  155
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-FRAMES-004",
+                "ROOT-OWNER-PRICE-AND-FRAME-081"
+              ],
+              "read_status": "affected_ranges",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/scene_coordinates.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 48,
+              "read_ranges": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-HOME-029"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/scene_coordinates.rs"
+            },
+            {
+              "supplier": "native",
+              "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+              "row": 149,
+              "read_ranges": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "contract_refs": [
+                "NATIVE-OWNER-CELESTIAL-FRAME-005"
+              ],
+              "read_status": null,
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/scene_coordinates.rs"
+            }
+          ],
+          "current_owner_suppliers": [
+            "root",
+            "native"
+          ],
+          "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+          "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+          "producer_reached_contract_observations": [
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+              "receipt": "ROOT-PPS-SCENE-DATUM-CONTRACTS-022",
+              "json_pointer": "/source_proofs/2",
+              "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "source_context": {
+                "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+                "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+                "read_ranges": [
+                  [
+                    1,
+                    122
+                  ]
+                ]
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            },
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+              "receipt": "NATIVE-PS-SKY-CLOUD-010",
+              "json_pointer": "/related_current_reads/1",
+              "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  55
+                ],
+                [
+                  68,
+                  105
+                ]
+              ],
+              "source_context": {
+                "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+                "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+                "read_ranges": [
+                  [
+                    1,
+                    55
+                  ],
+                  [
+                    68,
+                    105
+                  ]
+                ],
+                "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+                "scope": "bounded actual producer/receiving body; no full unrelated source claim"
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            }
+          ],
+          "producer_inventory_accounting": {
+            "initial946_cell": true,
+            "frozen1650_supplement_index": 811,
+            "new158_material_role_packet": false,
+            "expanded36_context_variant": false,
+            "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+            "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+          },
+          "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+          "admission03_increment046_role_observations": [
+            {
+              "supplier": "native",
+              "registry": "continuation/native/admission03/source-range-registration.jsonl",
+              "row_1based": 4,
+              "registration_id": "NATIVE-ADMISSION03-REG-004",
+              "original_record": {
+                "id": "NATIVE-ADMISSION03-REG-004",
+                "at": "2026-10-22T06:35:47.123228+00:00",
+                "authority": "continuation/root/admission03-discovery-authority-043.json",
+                "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+                "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+                "snapshot": "pr-working",
+                "actual_EOF": 122,
+                "material_ranges": [
+                  [
+                    1,
+                    122
+                  ]
+                ],
+                "role": "Direct canonical ScenePlanPoint/SupportElevation definition: constructor, visibility, raw backing and Serde/reflection admission routes used by exact assigned IK terrain helpers.",
+                "reason": "Root confirms no current03 canonical wrapper witness. Existing global source; registration precedes fresh bounded body analysis. Generic geometry proof does not automatically establish wrapper admission.",
+                "exclusions": "No unrelated terrain/building operations, no producer/owner/later-lens credit; supporting definitions are not assigned443 coverage.",
+                "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+                "status": "registered_before_new_admission_body_analysis"
+              },
+              "local_qualifications": [],
+              "effective_material_ranges": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_coordinates.rs",
+              "actual_EOF": 122,
+              "bytes": 4219
+            }
+          ]
+        },
+        "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-748.json",
+        "superseded_registration_sha256": "03fe68917621f72269b419f70d205fcb0cce81949b2d8913fb1343369963e684",
+        "failed_read": "REG748 rawrequested1..155 retained. ExactmetadataEOF122 printedbeforebody; attemptedrawread748 subsequentlyrejectedbyEOFassertbeforeanybodyoutput. No sourcecredit. New755 effective1..122 prospectivelyregisteredbeforefreshbody.",
+        "limits": "All13 independentlenses mustqualify exactsamehashEOF122; no123..155credit/newsourceidentity/scopedextension orotherlensverdicttransfer.",
+        "mandatory_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "new_global_source": false,
+        "other_lens_coverage_transferred": false
+      }
+    },
+    {
+      "original_index": 1908,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-749.json",
+      "registration_sha256": "60ad536f73c9962bda0faac28178dfd56b572751eb15aeeb7a52a3254e24560e",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs",
+      "sha256": "e2ab1721fe7a2424bb3b878a6e98d58d12b6f1edc5ef39a0ae15a8bd3f322956",
+      "scope": [
+        [
+          1,
+          191
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          191
+        ]
+      ]
+    },
+    {
+      "original_index": 1909,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-750.json",
+      "registration_sha256": "a7b2fdfaf41ffd2b12755f57e276e5e83f52508d2fa862bce52aedd3e291416e",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "scope": [
+        [
+          1,
+          270
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          270
+        ]
+      ]
+    },
+    {
+      "original_index": 1910,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-751.json",
+      "registration_sha256": "98bac691cddf561f82f95655eac220623b683e6f1755b25a22f65f30a7951e3d",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial_tests.rs",
+      "sha256": "1a9a519142dab5d29d3a258936cf8538a7305f0faa3d303a28915f7d3b849588",
+      "scope": [
+        [
+          1,
+          173
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          173
+        ]
+      ]
+    },
+    {
+      "original_index": 1911,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-752.json",
+      "registration_sha256": "3afb21401c1478a5e10c8182d69a4923fe34490a161c3f3a933af229b296d680",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "scope": [
+        [
+          1,
+          38
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          38
+        ]
+      ]
+    },
+    {
+      "original_index": 1912,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-753.json",
+      "registration_sha256": "83f00382bbacabb4ba62e075449f6437a78506544c7a55dd524487b60f2f5d47",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+      "scope": [
+        [
+          1,
+          136
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          136
+        ]
+      ]
+    },
+    {
+      "original_index": 1913,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-754.json",
+      "registration_sha256": "221ff73a5d29478a5876a470986bef275b586a637bc5d4eeab162b7d3a320033",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "sha256": "326752c9f0ad95c8f898c8ad0d106eae2395e3a89ec135922c6fd7da8d860622",
+      "scope": [
+        [
+          1,
+          88
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          88
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1906
+      ],
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "roles": "Independent lens11 exact full qualified coordinate/native spatial conversion and terrain query/ground producer source acceptance contracts.",
+      "disposition": "Full57 exactquerysourcefixtures nonunitscale/outsideterrain None/sameAvianmeshtriangle diagonal/matchingnormalsfiniteatcentre/boundary. No fullrangeheightdifference/normaloverflow fixture, no actualexecution; sourceassertionssupportintendedsinglephysicalsurface notproofallnativeinputdomain."
+    },
+    {
+      "source_indices": [
+        1907
+      ],
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "roles": "Independent lens11 exact full qualified coordinate/native spatial conversion and terrain query/ground producer source acceptance contracts.",
+      "disposition": "Fullactual122 qualifiedoriginal1907 rawmetadataunion1..155. REG748rawscopepreserved; exactobjectEOF122 printedmetadatabeforeattemptedrawread. Rawread748assertrejectedbeforebody; newREG755sameSHA/frozenGitbyteequality/effective1..122 prospectivelybeforefreshbody. No123..155credit, all13mandatoryindependentEOFqualification/no newidentity/extension. ScenePlanPoint finiteprivateVec2 properScene frame, PlanDisplacement distinctrole, translated checkscompletecomputedpoint withGeometryErrorrole/axis; serdecheckedfinite, nativeVec2conversionports. FromPosition<Scene> dropsY onlyexplicitsceneplanprojection, preservesXYplanasXZnativeaxes. No hiddengeographicdegree/architectural interchange. Testsourceunexecuted."
+    },
+    {
+      "source_indices": [
+        1908
+      ],
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "roles": "Independent lens11 exact full qualified coordinate/native spatial conversion and terrain query/ground producer source acceptance contracts.",
+      "disposition": "Full191 ScenePlanPolygon exactarbitrarypolygonconstructorviaPlanPolygon, distinctrigidarchitecturalprojectionpath deliberatelyretainsactualroundedf32render/collisionvertices withoutrehull/epsilonmerging. from_rigid_projection private onlyknownrigidprojection/translation callers, f64translatedarea>0+allvertexdistinct preventscoordinatecollapse andnonfinitepointscheck beforecall. Orientationvalidatedatprojection andpointoperations. Thisintentionalroundedprojection policy explicitlynotcompatfallbackoruncheckedarbitrarydeserialize; noDeserializeimpl. ActualsourcePlanPolygon convexadmission priorowner andFloorRegionserialization currentpending; fulltestassertnativearithmetic/reject1e20collapse/reversedarbitrarypolygon notexecuted."
+    },
+    {
+      "source_indices": [
+        1909
+      ],
+      "ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "roles": "Independent lens11 exact full qualified coordinate/native spatial conversion and terrain query/ground producer source acceptance contracts.",
+      "disposition": "Full270 typedScene/GateRelative/GroundRelative/PlotRelative/CollisionRelative framescompile_fail examples uncompiled. ArchitecturalFloorDatum/CollisionCentreDatum preserveoriginalnativepivot/transformorder andfinitecheckedpoint/displacement/inverseoutputs. ActualDoorSpecsource/opening andGeometrycause retainedinDoorError, no erasure. GateDatum boundSupportElevation changesYonly andsamepointinverse. SceneDoorPose pairsprivateleaf/nativeRigidRotation fromsingleconversion, accessorreturnsleafcopy preventsmodifyingpairednativequaternionbyfield. ArchitecturalGateDatum separateYgatereference, horizontalplanprojection/orientationchecked. No unit/defaultdynamicstatepersistence; actualplacement/origincaller correspondence neededbeforepivotmisbindingfinding."
+    },
+    {
+      "source_indices": [
+        1910
+      ],
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "roles": "Independent lens11 exact full qualified coordinate/native spatial conversion and terrain query/ground producer source acceptance contracts.",
+      "disposition": "Full173 sourceacceptance orientationpostcardnativebitpattern(-PI,-0,0,.43)/opaqueReflect rejectsNaN/Inf/+PI/-TAU andcanonicalnegative-axisangle. Datumsordinarynonzerofloor/rotationandtwohinges preservepositions/nativequaternion/sweepradius andinversewithin1e-5; GateMAX+relativeMAX rejectionsourceassertactualoverflowchecked. No native/test/compile_fail execution, actualBuildingOrientationownerbody stillfuture1915 dependency."
+    },
+    {
+      "source_indices": [
+        1911
+      ],
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "roles": "Independent lens11 exact full qualified coordinate/native spatial conversion and terrain query/ground producer source acceptance contracts.",
+      "disposition": "Full38 SceneVelocity signedsceneeast/up/north eachcanonicalSignedSpeed, nativeVec3admission completecomponentwiseResult andexplicitVec3adapter. Zero/rest/reverseallowed, no position/displacement/unsignedspeed alias. SpeedErroridentifiesquantitytype butnotcomponentaxisactualdiagnosticconsumer before addingbespokeaxiserrorfamily."
+    },
+    {
+      "source_indices": [
+        1912
+      ],
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "roles": "Independent lens11 exact full qualified coordinate/native spatial conversion and terrain query/ground producer source acceptance contracts.",
+      "disposition": "Full136 SceneWindowPose sameprivatepairedleaf/RigidRotation, CollisionCentreDatum::window carriesactualleaf/opening/source/bars/dimensions andcheckedtransformedcentre/hinge/directions/yaw/nativequaternionproduct. Geometrycause convertedintoWindowError withsource/opening maintained. SourceTownHouse42fixture actualgenerator +0/.37/PI2 transformations/opensweep andpostcardleafroundtrip readonly; no newgeometrygeneratedoracceptedruntimeproof."
+    },
+    {
+      "source_indices": [
+        1913
+      ],
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "roles": "Independent lens11 exact full qualified coordinate/native spatial conversion and terrain query/ground producer source acceptance contracts.",
+      "disposition": "Full88 build_scene_ground actualenvironment->baseGroundSurface, treeleaflitter bydeterministiccoordinatesonly thenSceneGround::from_samples checkedconstructor andUrbanGroundSurfaces::new. Thisnormalgeneratedproducerenforcesgroundconstructor bounds butdoesnotclose290directserde/uniformfactorybypass. Treewritesamplesgridindexbeforefrom_samples countcheck: actualSceneInput environmentalcountadmission mustprecedegeneration beforeclaimingpanic. GroundSurfaceOptioncauseconvertsunitSceneValidationError::GroundSurface; no sourceTerrainAdmissionError becausefactoryOption. Nativefloats localdistance/probability kernel/StreamId seedwords, notnewretainedtypes."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    }
+  ],
+  "pending_contracts": [
+    "291 completes1906..1913 effectivefullmetadataunion,next1914full1026 unregistered,nextreg756. Original1907newfourthEOFqualification raw155->actual122 all13mandatory, previousoriginal4/1622/1800 exceptionsretained; noeleventhscopedextension. No partial/unrecordedbodyreads.",
+    "ActualroundedScenePlanPolygonrigidpath preservesintentionalnativevertices/topology andrejectscollapse; do notreplacewithgeneralexactrehull/markcompatfallback. Spatialdoor/windowpairedposeerrorsretainactualcause/source/opening.",
+    "Normalbuild_scene_groundcheckedfactoryqualifies290wirebypassbutdoesnotclosedecodeadmission. Treeenvironmentlength mustbetracedat1914validatebeforeindexloop, no prematurepanicfinding.",
+    "Allpriorconditionalfamilies/GradeOffset289/Quickstep287qualified288/tenextensions/fourEOFqualifications/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1914
+}

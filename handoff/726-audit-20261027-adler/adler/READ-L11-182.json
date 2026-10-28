@@ -1,0 +1,381 @@
+{
+  "lens": 11,
+  "batch": 182,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1336,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-152.json",
+      "registration_sha256": "7208d6cf702d104ffa8b5e53aeaad98eb7fe368c24660ac8d8310fb394cc52b3",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/hierarchy.rs",
+      "sha256": "b79d3b43a0f596852969cadef317f8c9e8db26bdfab12f4884fa094af46ac949",
+      "scope": [
+        [
+          1,
+          146
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          146
+        ]
+      ]
+    },
+    {
+      "original_index": 1337,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-153.json",
+      "registration_sha256": "74ef71a7d0af9d5af18854d8c00358a7fed7bdbf9307c7c239de821fbcf36967",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/inertialization.rs",
+      "sha256": "8bf6f24386dae22c8e339928d6d9c90fbf89cfc3b438d0cd0e74468559e8cd84",
+      "scope": [
+        [
+          1,
+          443
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          320
+        ],
+        [
+          321,
+          443
+        ]
+      ]
+    },
+    {
+      "original_index": 1338,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-154.json",
+      "registration_sha256": "5bc917e27557969b174a4659a02331ac1d17c945e0b0a6ce33c48e5d0c6dc18c",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/interpolation.rs",
+      "sha256": "df4064a80398f5a380e477f40ed91275fd6622505798ea906a41e6eb232d169e",
+      "scope": [
+        [
+          1,
+          42
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          42
+        ]
+      ]
+    },
+    {
+      "original_index": 1339,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-155.json",
+      "registration_sha256": "9d53f778ec50a11e95216b9de209632e2ce0d49975870e89e8f0b2f06df74326",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/locomotion_sampling.rs",
+      "sha256": "deb2a7d38a16173129e6f12866eca3c14f9de0d1754040b34d37a08f54d3d0e1",
+      "scope": [
+        [
+          1,
+          110
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          110
+        ]
+      ]
+    },
+    {
+      "original_index": 1340,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-156.json",
+      "registration_sha256": "d116ef56826177ee6da5900fe9784df1e00b37e2834016770d5416612f79a680",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration.rs",
+      "sha256": "6d2b74658ffa77e2c7d32635515ddbc3589a7aff449110421f754a56ca0e9cc6",
+      "scope": [
+        [
+          1,
+          434
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          434
+        ]
+      ]
+    },
+    {
+      "original_index": 1341,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-157.json",
+      "registration_sha256": "15c6177d721f4589de35e1eec512afe7298e01afdcdf97f12b8fba1dabb87685",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/curve.rs",
+      "sha256": "5b1c1ef5eef21306ecadd36217f88b1c00be40518fea94696a27498347562f65",
+      "scope": [
+        [
+          1,
+          80
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          80
+        ]
+      ]
+    },
+    {
+      "original_index": 1342,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-158.json",
+      "registration_sha256": "1a55174f1fa92ff3c2d9a73c6ffd9128641015d5ce320443f07fc36cfe768f88",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/periodic_smoothing.rs",
+      "sha256": "c18acd7fab5ff2e7a9e77f0d7a6009b4d17637cfe08b4d204a4cffab107808be",
+      "scope": [
+        [
+          1,
+          55
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "original_index": 1343,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-159.json",
+      "registration_sha256": "60bc0a9fc7754b6781e315e9df903a8adea183bb08d898a353f74e83aa6259bd",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs",
+      "sha256": "3e8b29f3b61d9b5f287ba3b5f7bc392f8302da7462721bea60b4ec4b2d26fc30",
+      "scope": [
+        [
+          1,
+          98
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          98
+        ]
+      ]
+    },
+    {
+      "original_index": 1344,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-160.json",
+      "registration_sha256": "0e426314c7cf9fbed8a103f79b756de35d9e3bad53cac9010a5641fe01616cea",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/proportions.rs",
+      "sha256": "02cbec8ef4635c8fc9afb5ee10bf4abacdc552432f70d03d44cf4f46995e24ec",
+      "scope": [
+        [
+          1,
+          103
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          103
+        ]
+      ]
+    },
+    {
+      "original_index": 1345,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-145.json",
+      "registration_sha256": "bc996d072971f2987a9d296d3618401ccf524bfe01ee273dfb969c96e078fced",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/rig.rs",
+      "sha256": "bb6e369f80f80ea602ae9a6938e333749590e3958b30a1dad1137c4bcb606288",
+      "scope": [
+        [
+          1,
+          192
+        ]
+      ],
+      "fresh_reads": []
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1336
+      ],
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "roles": "Typed rigordinal hierarchy, hand subtrees and live/source pose composition.",
+      "disposition": "CanonicalBoneRole HandLeft/Right usedacrossancestortraversal unlikecasefoldterrain180. Recursive transforms andcache useRigJointOrdinal directly withsameRigDefinition/tables, acyclic/inbounds/completeparentnative sceneadmission remainsneeded; no artificialrecursionlimit tohideinvalidhierarchy. aimnormalizesdirections andchecksfinitequaternion beforewrite, zeroquatnormalization/localposefinite guarantees dependnativeunitrotation admission. Syntheticexactwrist/fingerfixture checksright/leftsubtreeonly unexecuted."
+    },
+    {
+      "source_indices": [
+        1337
+      ],
+      "ranges": [
+        [
+          1,
+          262
+        ],
+        [
+          264,
+          443
+        ]
+      ],
+      "roles": "Perjoint inertial coefficient capture, quaternion kernels, checked time and originalfixtures.",
+      "disposition": "JointInertialOffset.capture prepares translation+rotation beforecommittingeither; narrows180partialjointchannelmutationconcern. Joint.update checksnextelapsed beforetimecommit; peeknativeposemathaftercommit notcheckedfinite. QuinticChannel.new enforcesdurationthroughPositiveAnimationDuration+elapsedconversion andexistingfloors/overshootpolicy, butrawdirection/magnitude/velocity/polynomialcoefficients notfiniteadmittedindividually. Hugefiniteoffsetnormorblendproducts canexceedf32kernelbounds; actualpose/configadmission/ordinaryfixture needed beforeacceptedinvalidstate. Per-rigcaptureloopnotglobalatomicbutvalidsameblendactualErrreachabilitynarrow, noautomaticrollbackbugclaim. Localvelocitytuple linear/angularVec3sameframepurpose roles encodedbytupleonly, potentialnamedvelocitywitnessowner. Existingcontinuity/endzero/velocity/antipodefixtures narrow normalvalues; noneexecuted, no referencedGDCpapercontent readorclaimed."
+    },
+    {
+      "source_indices": [
+        1338
+      ],
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "roles": "Admitted fixed-clock interpolation fraction.",
+      "disposition": "PoseInterpolation wrapsUnitInterval andPositiveAnimationDuration, finiteelapsed/intervalratio checkedBEFOREclamp androle-specificAnimationQuantity inerrors. Zeroelapsed valid, largefiniteelapsed clampsONE, divisionoverflow errors notsilentlyclamped. Nativefractionextraction onlyinterpolationclockadapter, not generic alias forphase/count."
+    },
+    {
+      "source_indices": [
+        1339
+      ],
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "roles": "Sparse locomotion segment selection, sourceanchor interpolation and fixture coverage.",
+      "disposition": "CyclePhasefinite thenexplicitperiodicremappingquarterindex/startendnativeu32+UnitInterval. RatioClipTime/duration checkedviaCyclePhase, zeroClipDuration mapsphase0 purposefulstaticclip. sample_anchor multiply-beforedivide preservesnativef32order andcheckedClipTime. Actualamountcubic smoothstepcontrastsdocumentedlinearpolicy; newqualifieddependencypendingweightedproducer/calibration/current. Testsquartersandmidpoint cannotdistinguishlinearvs cubic, no execution. No changingnativekerneljusttofitdocumentationbeforegates."
+    },
+    {
+      "source_indices": [
+        1340
+      ],
+      "ranges": [
+        [
+          1,
+          434
+        ]
+      ],
+      "roles": "Physical/authored phase mappings, oriented contact spans, admittedmonotonic input and native distancefit.",
+      "disposition": "Bespoke trajectory/mapping/span structsjoin CyclePhase/SignedLength values withnamedroles, nonemptyspanconstructor mandatoryfirstsample andcheckedpositivephysicaldeltas; reverseauthoredallowed. ContactOrientationuses2semanticcenterzip andactualcontactcallerhas2feet; genericexcesssegmentsignoredfororientationonly, currentprivateproducerboundsnarrow. CheckedCycleDelta/advance beforephasepublish; endpointallowance, nativeinterpolation andpositive-totaldistancefloor preserveexistingnumericsemantics. Zero/invalidfit returnsNone versusarithmeticErr, forward/reversebaselineoperandorders intentionallydifferentforfloatreproducibilitynotcompatibilityalias. Heightwindowmin/maxvalidordering reliesPoseBufferConfig crossfieldadmission; actualconfigbodypending. No standaloneacceptancefromcomments claimingorderedshift cannotoverflow; constructor+nativef32bounds needallproducerproof."
+    },
+    {
+      "source_indices": [
+        1341,
+        1342
+      ],
+      "roles": "PhaseCurveMapping and atomic checked periodicconvolution.",
+      "disposition": "Empty/singletonIdentity namedstate distinctfromabsentcalibration; Sampled>=2 requireslast=first±onecycle. Privatevalues retainunwrappedauthoredphaseuntilactualsamplingnativeperiodicwrap; physicalgriduniform byconstructor no independenttimestamps. Periodictriangularstencil usescheckedCycleDelta products/sums thenpreparesfullreplacement+seam beforecopy, rejectswithoutmutatingsuppliedsamples. Signedisizewrapping/indexrole nativeconvolution notcrosssemantictick. Relevantphasegridintervaltype/configconstructoractualadmissionstillneeded; no new tests/execution."
+    },
+    {
+      "source_indices": [
+        1343
+      ],
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "roles": "Physics-to-pose buffer ownership and exact pinned sampling state.",
+      "disposition": "Rigordinalaccessors, displayedposepeekwithretainedoffset, physicsownershipexplicitseparatevisibility. ReturningPhysics->Authored clearsplan markerforcescapturedtransition evenunchangedclips; pin_joint resetsbothposes,offset andvelocities butdoesNOTsetPosePresentationModeDisplaying, sophysicsdoesnotforgeauthoredhistory. LocalPose.affine nativeBevyadapter rawfields. Actualphysicsbodyreadback/nativefinitepose admission and captureconsumer stillpending."
+    },
+    {
+      "source_indices": [
+        1344
+      ],
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "roles": "Perwearer immutable proportionoffset application and nonaccumulation fixture.",
+      "disposition": "sample_character_plan computesfreshownedpose thenappliesactualper-entityoffsetonce, sharedbakedclipsremainunchanged. apply_offsets zipposes/entities requiressame-rigcardinality; rawVec3offset addition notfinitechecked here, actualoffsetproducer/config/morphadmissionpending. Twoiterationnarrow/widefixture preservesunmodifiedsourceandrotation/yz butonlyonejointsmallvalidoffset; no realassets/runtime/testexecution."
+    },
+    {
+      "source_indices": [
+        1345
+      ],
+      "ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "roles": "Explicit same-lens full source proof adoption at original frontier; no fresh reread.",
+      "reuse_proof": {
+        "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+        "receipt_sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504",
+        "connected_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-145.json",
+        "registration_sha256": "bc996d072971f2987a9d296d3618401ccf524bfe01ee273dfb969c96e078fced",
+        "source_sha256": "bb6e369f80f80ea602ae9a6938e333749590e3958b30a1dad1137c4bcb606288",
+        "read_ranges": [
+          [
+            1,
+            192
+          ]
+        ],
+        "origin": "Fresh root connected source read recorded180; zero extra frontier credit then, first population credit now."
+      },
+      "disposition": "Consumesexactfullsource androles from180: RigDefinition/BoneRole/nameordinals/cachedfamilybinding, perownerentitiesmapping, pendingasynccompleteness/nativehierarchy/canonicalcase and repeatedtickclocksemantics retained. Reconciledagainstfreshhierarchy1336, physics13343, proportions13344 actualconsumers; no newbodyreadorcross-lensverdicttransfer. Familyfirstbinding/datarevision/definitioncardinality admission stillpending, no blanketacceptedrigguarantee."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-177.json",
+      "sha256": "83b32878f60a4e5fc21053c537efe6bd576a167ca3acdee4469e90658f1a95c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-179.json",
+      "sha256": "592e7c3ea9002077c648bd26c1c5d2c1e44740ec15ce14c3c98c6fa2f19e43b1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-181.json",
+      "sha256": "65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980"
+    }
+  ],
+  "pending_contracts": [
+    "Entry1345 accounted by exact qualified same-lens180 fullsource reuse; sourcefresh_reads empty intentionally. Typographic role refs13343/13344 mean indices1343/1344, not citations/newpopulationentries.",
+    "Sparse interpolation documentation/kernel discrepancy pendingactualweighted/resolver producer+calibration/current; no runtimevisualholdclaim or numeric repair.",
+    "All13 populations/current/all20families/aliases/connectedrepairacceptance remainincomplete; no productexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1346
+}

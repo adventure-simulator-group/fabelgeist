@@ -1,0 +1,96 @@
+{
+  "lens": 11,
+  "batch": 112,
+  "status": "Original1213 full selected source-accounted WITH findings",
+  "original_index": 1213,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+  "sha256": "e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201",
+  "scope": [
+    [
+      1,
+      636
+    ]
+  ],
+  "actual_personal_reads": [
+    [
+      1,
+      320
+    ],
+    [
+      321,
+      636
+    ]
+  ],
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-014.json",
+  "registration_sha256": "8c416ca5375cfbae2ae62e828c6710dade801a5ef4e6f99afa33b0a67c8f7056",
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "roles": "Typed effect dispatch, live session/NPC, topic knowledge, service contract and organization selectors, referred-testimony event sequence, source/action/revision and profession-of-faith flag.",
+      "disposition": "Effect enum already owns meaningful alternatives, but native selectors selected-service-contract/selected-service and explicit profession share raw String payloads. Use admitted selection variants while retaining real session-derived authority; no direct arbitrary contract acceptance should be introduced. Promotion optional target is meaningful: absent accepts only a unique authored target; explicit target must be direct authored successor. Missing testimony event is rejected before passive assessment; named admitted TestimonyEffect can carry required event rather than unrelated Option on every effect. Local-faith Bool plus raw flag is finite adapter policy, distinct from broader authored library flag vocabulary; all adapters/callers needed before global enum closure. Human topic text versus TopicId/session/action/source identity remains separate.",
+      "repair_dependencies": "Canonical dialogue effect/selector and event/source owners, native admitted session and organization service/chapter association, Condition religion and contract interaction stage owners.",
+      "acceptance": "Retain scoped NPC issuer matching and actual capability selection, typed causes through internals and final rendering boundary; no runtime effect/transaction/security proof."
+    },
+    {
+      "ranges": [
+        [
+          219,
+          295
+        ]
+      ],
+      "roles": "Exact representative/chapter/location identity and service actor lookup.",
+      "trace": "Native representative selects organization and chapter, canonicalizes observed/effective places, validates StrategicFixtureId::chapter and exact NPC fields, then returns raw organization String. Service helper parses resident actor from session participants and returns service_id.",
+      "disposition": "AdmittedChapterRepresentative can own associated NPC/organization/chapter/place instead of checking then erasing the association to String. Canonical StrategicPlace/FixtureId already provides actual identity distinctions and must be reused rather than duplicate generic location wrapper. Same textual location is interpreted in owning settlement. Service actor and raw dialogue role are different identifiers. Actual core field-match/canonical place/SDK implementations remain pending where no same-lens body proof exists."
+    },
+    {
+      "ranges": [
+        [
+          297,
+          535
+        ]
+      ],
+      "roles": "Consumption of pre-issued investigation binding, current party leader/session/action/source/revision, exact recipient and objective, custody version, typed fact and consumed action receipt.",
+      "trace": "Actual recipient consumer rechecks binding/session/actor/party/action/source/issued revision and consumed_by empty, session resident presence, open case/objective, native/generated recipient and expected custody version. Return/Release/Exchange call actual custody wrappers withfalse/true flags then consume binding; other actions construct typed facts before ingest_case_outcome_fact then consume binding.",
+      "disposition": "This is concrete producer1212->binding state->consumer1213->custody1209/core fact chain. Named admitted/available versus consumed binding with action-owned custody payload can preserve validated association and avoid raw tuple/Option coupling. Bool exchange/release are backed by actual typed requirement branch, so not demonstrated mixed-flag runtime bug. Custody versions use optimistic concurrency distinct from session revision. This consumer rejects consumed binding before re-ingestion; it narrows generic fact-retry concern, not proof of ordinary repeated ingestion failure. Actual outer dialogue action receipt and session transaction remain pending."
+    },
+    {
+      "ranges": [
+        [
+          538,
+          636
+        ]
+      ],
+      "roles": "Player co-location/party pair and NPC local presence/departure window/character identity admission.",
+      "disposition": "same_location accepts common settlement OR concrete contextual presence, not merely equal None fields. Player sender/subject party tuple is directional and can use named participants with canonical PartyId. NPC helper verifies canonical navigable place, parsed resident CharacterId, actual profile/presence/home-settlement/location/daily window and npc_is_present against sender subjective clock. Separate u16 daily-window endpoints versus absolute StrategicMinute deserve existing time-of-day/interval owners, no arbitrary new bounds. Repeated raw coordinates can be owned by admitted LocalConversationContext; exact native scheduling/body semantics and all callers remain separately pending."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-111.json",
+      "sha256": "5bcc28845b4f1396ff46a283d10e46f99e7b24684433f6c22bc1cc2cba232d1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-109.json",
+      "sha256": "c3b06e14f86970706f192921c1db5fc91ab84538b68a0b4bb6ebf3d8b28f542f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-108-COMPLETE.json",
+      "sha256": "64eca025693aa15ec5a18402c93ab59ce4303df3687baf295c25712266581e83"
+    }
+  ],
+  "pending_contracts": [
+    "Outer session/action/retry/revision receipt policy and actual native reducers remain source queues; no blanket security/atomic/rollback/current proof.",
+    "Canonical authored Effect selectors across all adapters, organization field/place/native implementations and true service/profession/open flag vocabulary.",
+    "All inherited populations/extensions/current/all20/aliases/SDK/connected acceptance remain mandatory; +0 accepted unique."
+  ],
+  "next_original": 1214,
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false
+}

@@ -1,0 +1,183 @@
+{
+  "lens": 11,
+  "batch": 318,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2043,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-887.json",
+      "registration_sha256": "b948b138fe2f6a74fb2a849bd6c42357429b40982091a4c3f24175dd9c905ebf",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "scope": [
+        [
+          1,
+          86
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "original_index": 2044,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-888.json",
+      "registration_sha256": "132f9d03480ab457a69b2bb0a60714f456c5a63b3b8422414f708271dc1f8168",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "scope": [
+        [
+          1,
+          325
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          325
+        ]
+      ]
+    },
+    {
+      "original_index": 2045,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-889.json",
+      "registration_sha256": "7b04a137f495e5c746e84f280e4f819f4fc110417dfa3bc75db8e2b1449ee61d",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+      "scope": [
+        [
+          1,
+          105
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          105
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2043
+      ],
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": "Independent lens11 complete server-owned combat intent/pending/observation protocol.",
+      "disposition": "Full86 intent/pending semanticEntity/AttackHand/StrikeFamily/BodyPart/key/nativeCombatInstant/Duration/checkedReportedPrecision owners, raw RNGsamples complete actualproducer2036captured. RangedtargetNone explicitlyauthoritativefiredmiss, not missingvaluefallback. PendingDefenderResponse actualdodge/rollchoice+serverclock, acceptedbool diagnosticresult distinctattempt/committedphase. All20 actualrepeat/identity admissioncomparison remains, no legacy duplicateprotocolinferredfromprivateeventnames."
+    },
+    {
+      "source_indices": [
+        2044
+      ],
+      "ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "roles": "Independent lens11 complete ranged validation/preparation/authorization/ammunition/state/presentation consumer.",
+      "disposition": "Full325 actualRangedIntentFacts alloptionalposition/yaw/separation/aimcone fromsame captured Option<(Look,Transform)> target_character; cheapgate requiresSomefiniteseparation+aimtrue beforeexpecttargetposition/yaw, closes314uncorrelatedfactsnormalproducerpanicconcern. Samequeryimmutablethroughobserver proveslatergettargetTransformexpect afterauth, no queuedmutationappliedbeforethatread. Checkedcooldown/read-onlyammopreparation andtypeddefenderperformance/defense allbeforeauthorize; dryfireconsumescooldown, missesconsumeammo notdefense, validhitconsumesammo+pendingresponse thennativeequation. ActualRangedAmmunitionpositiveCoreItemQuantity decrementlastNone notzero; multipleammo nativequery selection actualinterchangeability/globalidentity before nondeterministicfault. Structuraltest2026staleq_ammo.iter().findneedle nowformalacceptancecandidate318; no testexecution. Finalimpactedresponseusesauthorizedshot notunvalidatedeventafterconsume."
+    },
+    {
+      "source_indices": [
+        2045
+      ],
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "roles": "Independent lens11 complete actual ranged outcome/native response and consequence projection.",
+      "disposition": "Full105 RangedContact keepsAuthorizedRangedShot andcapturedbodypart/target/result/response, nativeimpactworld/localframe andsharedoneeffectsprovider thenqueuesApplyMeleeAttackResult+sameclientresponse. Reuses ApplyMelee event type forresolvedrangedconsequence intentionallysharedtransientresult, not legacyAPIalias. Rangedanatomicalsubregion/surfacecoordinate.5 andMeleeContactAtTime::intended0 areexplicitno-melee-geometrytelemetryprojection; actualMeleeAttackResolved consumers/iterationfilterbeforemisclassifyingrangedasmelee acceptancefinding. Persistentterminalreceipt no tickstateDBwrite. No newtestsor nativeexecution."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-311.json",
+      "sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-312.json",
+      "sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-313.json",
+      "sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-314.json",
+      "sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-315.json",
+      "sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-316.json",
+      "sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-317.json",
+      "sha256": "5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1"
+    }
+  ],
+  "pending_contracts": [
+    "318 completes2043..2045fullunion,next2046 REG890672registeredunread;891..8972047..2053registeredunread,nextnewreg898. No unsavedbodyreads.",
+    "Actualrangedfactsoptionalvaluesallfromsametarget_character closes314potentialexpectpanicnormalproducer. Newstalerangedsource-testneedle candidate deterministicfrozenbodymismatch2026vs2044, actualcurrent/behaviorcontractpending; no test run/failuretranscript invented.",
+    "SharedrangedApplyMeleeAttackResult/MeleeAttackResolved diagnostic projection musttraceconsumersbeforetelemetrymisclassificationfinding; deliberatelysharedgameplayconsequence notcompatibilityalias.",
+    "All13scopes/current/all20/aliases/connectedacceptance/dedup incomplete;elevenextensions/fourEOF/futureproofs/L12/L13 preserved. Gatefalseuniquechange0; no productexecution/repair/tests/commits/publication;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2046
+}

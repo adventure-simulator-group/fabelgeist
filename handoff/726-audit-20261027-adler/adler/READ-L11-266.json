@@ -1,0 +1,227 @@
+{
+  "lens": 11,
+  "batch": 266,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1792,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-629.json",
+      "registration_sha256": "d5c1639911057b9d80922ce6fa7d11e1a23202663b7781d0f6a93f1e793e52ff",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs",
+      "sha256": "b92ee2d412b4ce07eeae5e08de9f482ccb8226d8a4e76b0fe3200e014acae923",
+      "scope": [
+        [
+          1,
+          160
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ]
+      ]
+    },
+    {
+      "original_index": 1793,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-630.json",
+      "registration_sha256": "39f33f52dbda9e2bdf478f9d06e23409f9a1e32603c86339ce8c0a9b2f2f459f",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "scope": [
+        [
+          1,
+          216
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          216
+        ]
+      ]
+    },
+    {
+      "original_index": 1794,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-631.json",
+      "registration_sha256": "2b0189e538eab98d71b000358a1c97debb28dff174b1f6e61150bdbffd8bc48e",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/homes.rs",
+      "sha256": "7dfacb7e216eecec7860d9e42a6abbb2cfc92ca6df1114d21a74bb762c6230ee",
+      "scope": [
+        [
+          1,
+          57
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          57
+        ]
+      ]
+    },
+    {
+      "original_index": 1795,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-632.json",
+      "registration_sha256": "61c68c05c669d395c49d80e4d8b38bc20d3c68b4263c1113453f037f68c25784",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/property/gate_sweep.rs",
+      "sha256": "60ca372a1f75d3accd4461f56dea1305e81bf8b653ca03850af93866782dfd6a",
+      "scope": [
+        [
+          1,
+          100
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "original_index": 1796,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-633.json",
+      "registration_sha256": "e94a0d2be348acea97e62fc7eb16f84758952b475d3269ee3e550ff0fbc7931b",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "scope": [
+        [
+          1,
+          291
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          291
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1792
+      ],
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "roles": "Independent lens11 full or explicitly scoped static scene/support/home/property contracts, native units andstructured rejection attribution.",
+      "disposition": "Full160 heatingcataloguefixture usescanonicalSeed including0/MAX, SceneBuildingId ordinalninefixtureitems, ScenePlanPoint/SupportElevation/BuildingOrientation typedplacement, productionBuildingProgram/recipe thenarrangegrid withGeometryErrorpropagation. IDs indexasu64+1 boundedbyfixednineitems, no generalarbitrarycountoverflowinference. Nativepointorientationmetres unwrappedonlygeometricfixturekernel. Tests assert9specificprograms/seeds retainedandbareplayableterrainunderupperfloorheatedspecimens, no generation/build/testexecution; importedcataloguearranger/buildfixture bodies stillno credit."
+    },
+    {
+      "source_indices": [
+        1793
+      ],
+      "ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "roles": "Independent lens11 full or explicitly scoped static scene/support/home/property contracts, native units andstructured rejection attribution.",
+      "disposition": "Full216 groundedfixtures readfromowningJSON asset andactualSelectedCityGrounding selectcompile methods; sourceassertstablephysicalidentity/program/orientation/horizontalplacement acrossdetailpromotion/inputorder, onlybaseelevationchanges. Duplicate/unboundbuilding andpropertyoverlap errors canonicalIDs withno inputmutation assertions; deterministicduplicateowners sortedexpecteddiagnostics. TypedpositiveSupportLimits/CourtStairLimits/FoundationEmbedment/StreetApron dims. Fixture expectedfloors21.042906/19.056694 tolerance0.001 specify capturedacceptance notactualproductionbehaviortestpass. LoadedJSON/body/callee code/currentstillneeded; no fixtureerrorassertion transfersverdict."
+    },
+    {
+      "source_indices": [
+        1794
+      ],
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "roles": "Independent lens11 full or explicitly scoped static scene/support/home/property contracts, native units andstructured rejection attribution.",
+      "disposition": "Full57 generatedhomes combinesplayable/distantoccupiedprogram, dwellingfilter/sortbytypedSceneBuildingId, sameexacttransform/programuntilGeneratedHome scalarcatalog boundary. PropertyId::new validatedsettlement+buildingordinal, catalog.validate final beforereturn; underlyingPropertyId/GeneratedHome schema/canonicalsettlementidentity/all20needactualsharedownertrace, notinventnewsettlementtypeatthisleaf. ClassNone structuredInvalidCatalog (noarchetypepayload), actualinvaliddwellingproducer beforeinsufficientdiagnosticfinding. Geometrydimensions integralcells positiveadmissionownedelsewhere, nativefloatwidth/centre/yawfrozenproductcatalog extraction; no runtimepositiontickpersistenceinferredfromstaticresidencecatalog."
+    },
+    {
+      "source_indices": [
+        1795
+      ],
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "roles": "Independent lens11 full or explicitly scoped static scene/support/home/property contracts, native units andstructured rejection attribution.",
+      "disposition": "Scoped1..100 actualclear/building_solids complete82 +fixtureprefixonly; actualEOF127 no101..127credit. GateRelative typedDoorSpec/CollisionCuboid andArchitecturalGateDatum floorZERO explicitrelativefloor. Angularsubdivisionpi/180, enlargedmidpointcuboids withboundingcandidatefilter thenorientedintersects, falseisclearancepredicate notdiscardedResult. Openangle0 yieldssteps0 loopnone; verylargefiniteangle cast canlargework, actualDoorSpec angleadmission/canonicalgateprovider requiredbeforeclearance/workboundfinding. building_solids retainsCollisionError.source_id+cause fromper-solidprojection/angle; initialArchitecturalPlanProjectionfailure collapsedInvalidProjection needsactualerrorcodomain beforeloststructuredcauseclaim. NecessaryProjection/DoorSpec contractdependency pendingwithoutwholefileextension/importcredit."
+    },
+    {
+      "source_indices": [
+        1796
+      ],
+      "ranges": [
+        [
+          1,
+          291
+        ]
+      ],
+      "roles": "Independent lens11 full or explicitly scoped static scene/support/home/property contracts, native units andstructured rejection attribution.",
+      "disposition": "Full291 physicalsupport plans immutablelayout, validatesduplicatephysicalIDs beforeBTreeMap, sortscompoundIDs, localclonedrecipepalette. Buildingprogrammeexact equalityverified, missingmember/route/geographicobservationretaintypedproperty/building/pointcontexts, no nearestmatch/zerofloorsuccess. Uniquegate route filtering rejectsmissingor>1binding, explicitdirectionalthresholdandcourt/street/elevationcallstoactualstreetselectorunread. Nativecontactcentre/bounds rotation math admitsbackthroughScenePlanPoint/PlanDimensions/CityPlotBounds. CitySupportError InvalidBearing ownPlanGeometryError field preservesstructuredcause butnotmarkedsource (actualsourcechainconsumerneeded). memberground_floor_contact_bounds None currentlyusesbindingclosureThreshold(outward) beforeactualdoor lookup, despiteGroundBearing available; structuredrolemisclassificationcandidate newlyrecorded. Actualfailedprogramme/current neededbeforeobservedmisleadingreportclaim. StreetApronDimensions finitepositive2Dnewconstructor/canonicalPositiveLength, no zeroapronalias."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-257.json",
+      "sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-258.json",
+      "sha256": "91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-261.json",
+      "sha256": "fe22c536959ab05a2b96acaf9d6ec3261b022e7f8a7856cf2f90abece4676fe6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    }
+  ],
+  "pending_contracts": [
+    "266 sourceaccounted1792..1796 exactmetadataunion,next1797 unregistered. Gate1795 scope1..100actualEOF127 no101..127credit orwholefixtureclaim.",
+    "Newbearingbindingdiagnostic sourcecandidate existingGroundBearing unusedforactualNonebranch, no observedrecipe/nativefailure, top-levelreport/current/dedup pending. Geographicmissingobservation explicitSourceSample, no fallbackfloatzero.",
+    "Gateangleadmission/subdivisionwork/zeroangle andArchitecturalPlanProjectionerrorcodomain requireexactexistingowner/callers next beforefinding/extension. HomesGeneratedHome/PropertyId/catalog finalsharedschemas all20stillneeded.",
+    "Allpriorqualifications/eightscopedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productexecution/repairs/newtests/commits/publication/externalmessages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1797
+}

@@ -1,0 +1,2 @@
+import continuation as c
+c.register_original(2089,[[1,236]],'REGISTRATION-ADLER-948.json','Prospective necessary same-identity operation/result closure126..236: inherited scope1..125 ends at opening signature of refine_rational_surface Result. Complete refinement/termination/error and deviation owner required by measured surface tolerances and shared split_edges producer; all13 independent mandatory, no new global source or other-lens verdict transfer. Raw REG937 retained.')

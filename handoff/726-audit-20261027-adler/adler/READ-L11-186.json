@@ -1,0 +1,258 @@
+{
+  "lens": 11,
+  "batch": 186,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1357,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-172.json",
+      "registration_sha256": "112465f52385d1cc26586365b2a42f66a4eaecc6992cef3a90a32118d47d5c5e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "scope": [
+        [
+          1,
+          490
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          340
+        ],
+        [
+          341,
+          490
+        ]
+      ]
+    },
+    {
+      "original_index": 1358,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-173.json",
+      "registration_sha256": "1194e21927009e6a5953300c79325003bda3aae385cd513d7fa317581e176508",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "scope": [
+        [
+          1,
+          140
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          140
+        ]
+      ]
+    },
+    {
+      "original_index": 1359,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-174.json",
+      "registration_sha256": "7384bed33c5996eef511b681dc61a74859f837055b1573411a0471f2c8a7806b",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "scope": [
+        [
+          1,
+          211
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          211
+        ]
+      ]
+    },
+    {
+      "original_index": 1360,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-175.json",
+      "registration_sha256": "5c51b0a1a5903b005dc1c2be7c923421fa69343e884c6ea2240b79d184162308",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/clock.rs",
+      "sha256": "f71ea0cad3b1311e6b0d29b398a293759f859ee7fc9c2fd2d91b2e09a54c33c0",
+      "scope": [
+        [
+          1,
+          36
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          36
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1357
+      ],
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "roles": "Retained bodyresponse candidate, actual body-frame inputs andclock observation.",
+      "disposition": "advance_for_presentation takesCopyself, checkedcurrentlocalvelocity/acceleration andallfilter/target/angulararithmetic beforeOkself; caller185 statewrite onlysuccess preservespreviousresponseonerror. RetainedBodyObservation localvelocity lacksoldframe whiledeceleration targetexpectscomparableprevious/current, newqualifiedfinding. Smoothedacceleration currentbodyprojection vsretainedlocalbasis alsoexplicitpolicydependency. Fixedclockdedup comparespreviousobservation.tick (authoritativeskeleton sourceTick) withclockfixedTick, thenstoresauthoritativeTickagain; normalcapturemayalignbut distinctsource/captureclockinputsneedactualproducerproof beforeinterchangeabilityclaim. Boundedwrappingpresentation_tick_delta distinguishesfirst/zero/forwardgap/reset withoutinventinghistory."
+    },
+    {
+      "source_indices": [
+        1357
+      ],
+      "ranges": [
+        [
+          115,
+          276
+        ],
+        [
+          278,
+          490
+        ]
+      ],
+      "roles": "Actual response publication, stablepelvis reference/leg compensation, checked spring andexistingfixtures.",
+      "disposition": "Applycollectsvalidatedresponseperowner andonlythenupdatesstate/bonerotations; currentauthoredpelvisrotation+bindreference transportsbodyresponse toparentspace andcomputesexactlegcounterrotation. NativeQuatkernel assumesvalidrigunitrotations; componentfinitebodyanglesnotcompleteQuaternionproof. Smoothaccelerationchecksplanarnorms/exponentialfraction/re-admittedvector. Implicittwo-axis springchecksdenominator/numerator,nextvelocitynorm BEFOREspeedcapthencheckedangle/velocitypayload; correctderivedoverflowhandling beyondfiniteleaf. Statecopy avoidspartialtargetcommit. Tests stableframecancel/braking/attackrelease/ratebound/targetstep/sprintramp narrow normalvalues and noowner-turn/framecounterexample; unexecuted."
+    },
+    {
+      "source_indices": [
+        1358
+      ],
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "roles": "Bodytarget travel/braking/turn policies and reference-frame comparison.",
+      "disposition": "NamedBrakingLeanScale distinctfromposeblend fraction, actualdeceleration usesprevious velocity dotcurrentaccel pluscurrentspeedSquared<=previousSquared+allowance. Thisrequiresframeconsistency absentBodyObservation, newfindinglinked. Currentbodyforward+Z explicitlydifferentfromauthoredrigfacingcorrection; no frame-signbugfrom185labelalone. Targetfinite/magnitudecapped aftertypedtravel/inertial angle sum. OverallmaximumResponseDegrees minusreportmargin maynegativeifzero/tinycapadmitted; actualBodyResponseConfigwholevalidation/zero-policy required beforezerocapfinding. Preserveexistingoperandorder/clampdirections andinertialgain/budget numericpolicy; no runtime ormagicnumbers credit."
+    },
+    {
+      "source_indices": [
+        1359
+      ],
+      "ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "roles": "Finite signed response leaves, derivednorm checks and retainedcomposite response.",
+      "disposition": "BodyAngle wrapsfiniteRadians signed; BodyAngularMagnitude finite>=0 (zero valid), velocity/acceleration vectors admitcomponentfinite, explicitplanarSquaredchecksderivedoverflow, angularVec2componentfinite checkedbeforelaternorm. BodyResponseAngles namedpitch/roll andBodyResponseStep joinangles/angularVelocity; BrakingLeanScale UnitInterval explicitpurpose. Nativebodytarget kernels extractscalars thenre-admitboundedresults, no wrappersforeachprivatearithmeticneeded. Nativecheckedcap comparesmaximum² potentiallyinfiniteforhugefinitecapbutalreadycheckedresponse normfinite so noacceptedunboundedresult fromthatcomparison. Frame identity/timeprovenance notcarriedbynominalunitwrappers, connectedfinding requiresmatchedobservation."
+    },
+    {
+      "source_indices": [
+        1360
+      ],
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "roles": "Explicitdeterministic sampleclock override.",
+      "disposition": "FixedAnimationStep typedtick+AnimationElapsed pair, gameplayoverrideNone default; set_fixed_step retainscallerprovidedpairwithoutcouplingtoauthoritativeSkeletonState.sourceTick. Repeatedrenderdedupmustcompareevaluationtickofthisclock, notassumedsourceclockvalue, actualcaptureproduceralignmentpending. No chronologicalvalidation/timeadvanceassertionfromsetterexistence, no backwardcompatibilityfallback; nativegameplaydelta route intentionallydistinct."
+    },
+    {
+      "connected_original_indices": [
+        1392
+      ],
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "roles": "Connected exact procedural sample-state record proof.",
+      "disposition": "BodyObservation holdsauthoritativeTick+BodyLocalVelocityonly, confirmsmissingrotation/world-framewitness; LocomotionBodyResponseState retainscheckedangles/velocities andsmoothedbodyAcceleration. HeightHistory separateguard/posture/action/contact/landingsequence/evaluationtick; heightstate usesHeightDistance/Speed/SignedLength leavesplusoptionalworldplantvectors. Futureoriginal1392 notfrontiercredited; allsourcefreshreadscoperecordedwithhash, childheightfinite/clockgeometryownersstillunread."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-176.json",
+      "registration_sha256": "c75d15aea450befa2d326388029b78896a8d3f1723287883b5d27a7ded9ae59a",
+      "original_index": 1392,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+      "source_sha256": "2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+      "scope": [
+        [
+          1,
+          73
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          73
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "future_original_accounting": "Pending explicit qualified same-lens consumption when frontier1392 is reached; no double count."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-177.json",
+      "sha256": "83b32878f60a4e5fc21053c537efe6bd576a167ca3acdee4469e90658f1a95c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-179.json",
+      "sha256": "592e7c3ea9002077c648bd26c1c5d2c1e44740ec15ce14c3c98c6fa2f19e43b1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-181.json",
+      "sha256": "65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-182.json",
+      "sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-183.json",
+      "sha256": "426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-184.json",
+      "sha256": "11b67f5b3e5cdbd7c200ceaa155c1fc0d06582f2093356559de529284b7f5303"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    }
+  ],
+  "pending_contracts": [
+    "Connected1392 fullsource freshread zero extra frontier count; lateroriginalexplicitqualifiedsame-lensreuse required.",
+    "Body-observation frame finding sourceconcrete but actualturn/server/nativepipeline/currentacceptance pending; fixed-source clock provenance andoverallzero-responsecap remainqualifiedsource dependencies, no extraacceptedfinding.",
+    "All13 populations/current/all20families/aliases/connectedrepairacceptance remainincomplete; no productexecution/repairs. Nextoriginal1361 requiresregistration."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1361
+}

@@ -1,0 +1,166 @@
+{
+  "lens": 11,
+  "batch": 357,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2248,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-398.json",
+      "registration_sha256": "73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601",
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "scope": [
+        [
+          1,
+          58
+        ]
+      ],
+      "fresh_reads": []
+    },
+    {
+      "original_index": 2249,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-396.json",
+      "registration_sha256": "d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7",
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "scope": [
+        [
+          1,
+          213
+        ]
+      ],
+      "fresh_reads": []
+    },
+    {
+      "original_index": 2250,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-397.json",
+      "registration_sha256": "5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40",
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "scope": [
+        [
+          1,
+          169
+        ]
+      ],
+      "fresh_reads": []
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2248
+      ],
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "roles": "First ordered adoption of exact independent lens11 frozen source read, previously zero ordered credit.",
+      "disposition": "Determinism public exports and exact highbit24/53 inclusive/halfopen unit conversion source58 complete. Native SplitMix64 seedzero sequence/endpoint fixtures read but not executed. Reproducibility conditional on canonical inputs/draw sequence explicit; replay marker/fixture updates required for intentional output changes, no claim existing twig raw-parity oracle follows current namedstream. Earliest READ220 proof adopted here without fresh body claim; later341 reinspection remains supplemental. No other-lens coverage, current reconciliation or accepted unique identity transfer.",
+      "reuse_proof": {
+        "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+        "receipt_sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+        "connected_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-398.json",
+        "registration_sha256": "73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601",
+        "source_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+        "read_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "origin": "First ordered frontier adopts earliest same-lens READ220 connected proof; no fresh read and no second identity."
+      }
+    },
+    {
+      "source_indices": [
+        2249
+      ],
+      "ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "roles": "First ordered adoption of exact independent lens11 frozen source read, previously zero ordered credit.",
+      "disposition": "Seed/StreamId complete213 full union read. Named stream seeds BLAKE3 length-framed root/purpose/context, then rng uses derived seed, so named twig side sampler is distinct from raw parent parity by contract. SeedHash/Ord preserve explicit canonical bytes/numeric order; serde record/ParseIntError/From<u64> leaf explicit, native rand versions are actual integrations, not deprecated compatibility aliases. Fixture reference BLAKE3 hashing intentional independent oracle, no runtime verification. Earliest READ220 proof adopted here without fresh body claim; later341 reinspection remains supplemental. No other-lens coverage, current reconciliation or accepted unique identity transfer.",
+      "reuse_proof": {
+        "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+        "receipt_sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+        "connected_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-396.json",
+        "registration_sha256": "d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7",
+        "source_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "read_ranges": [
+          [
+            1,
+            131
+          ],
+          [
+            132,
+            213
+          ]
+        ],
+        "origin": "First ordered frontier adopts earliest same-lens READ220 connected proof; no fresh read and no second identity."
+      }
+    },
+    {
+      "source_indices": [
+        2250
+      ],
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "roles": "First ordered adoption of exact independent lens11 frozen source read, previously zero ordered credit.",
+      "disposition": "DeterministicRng full169. SplitMix64 owns full-width draws; index samples fixedu64 using Rand Uniform(0,NonZero) then checked usize conversion, no parentword modulo contract. Empty catalogue panics documented, optional owners must prehandle; litter actual generated counts nonempty. SamplingError retained categories, zero/allzero/overflow weighted admission explicit; pinned rand error unreachable native contract not generalized arbitrary failure. rangef32 admits finiteordered endpoints but arithmetic result bounds/extreme range ownership remains separate native/current issue, not evaluated by this call graph. RejectionProbe source only. Earliest READ220 proof adopted here without fresh body claim; later341 reinspection remains supplemental. No other-lens coverage, current reconciliation or accepted unique identity transfer.",
+      "reuse_proof": {
+        "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+        "receipt_sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+        "connected_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-397.json",
+        "registration_sha256": "5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40",
+        "source_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+        "read_ranges": [
+          [
+            1,
+            169
+          ]
+        ],
+        "origin": "First ordered frontier adopts earliest same-lens READ220 connected proof; no fresh read and no second identity."
+      }
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+    }
+  ],
+  "pending_contracts": [
+    "357 accounts2248..2250 by earliestREAD220 same-lens exact proof adoption, next2251FBXmanifest18. No fresh body claimed. REG398/396/397 preserved with original hashes and zero previous ordered credit; no other-lens verdict transfer.",
+    "LastnewREG1109,21 mandatory all13 scoped extensions/six strict EOF qualifications and other future source proofs retained. Next register2251..2258 metadata exact scopes before reads.",
+    "Previously identified name weighted SamplingError ownership/admission341 and random unit/stream contracts remain qualified by actual fixed-width native sampling rather than arbitrary parent modulo expectations; no new accepted finding from adoption.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup incomplete gatefalse accepteduniquechange0. No product changes/builds/tests/lints/scanners/generators/runtime probes/CI/new tests/commits/publication/external messages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2251
+}

@@ -1,0 +1,2 @@
+import continuation as c
+c.register_original(2164,[[1,333],[1633,1690],[1768,1909],[2670,3510]],'REGISTRATION-ADLER-1021.json','Prospective necessary enum closure331..333: rawREG1018first1..330 ends after opening CatholicLutheranChurch enum and firstvariant. Register bounded adjacent tail before reading. Other raw metadata union preserved; sourceEOF4796 unchanged. All13 independent mandatory scoped extension, no new global identity or body transfer.')

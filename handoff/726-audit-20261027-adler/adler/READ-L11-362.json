@@ -1,0 +1,115 @@
+{
+  "lens": 11,
+  "batch": 362,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2274,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1133.json",
+      "registration_sha256": "539d752bb81cbe27a173e487e7c3775132c209826c97a363075b26767c303c5f",
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "scope": [
+        [
+          1,
+          303
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          303
+        ]
+      ]
+    },
+    {
+      "original_index": 2275,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1134.json",
+      "registration_sha256": "58b207c246084683065a5f30dff047cd9e560fe52d51d434c4f92741a44175a1",
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "scope": [
+        [
+          1,
+          53
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          53
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2274
+      ],
+      "ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "roles": "Independent lens11 complete standard native shader binding admission and typed byte quantity owners.",
+      "disposition": "Full303 standard public create_bind_groups reflects uniform fields by name, then chooses representation only from supplied PassParameter variant. It silently ignores missing fields and unhandled variants, including Unsigned, while buffer/texture/sampler missing/wrong-kind checks return text errors. Existing356uniform ABI family extended with actual independent standard owner source, no separate accepted identity. Number writesf32, matrices usecolumn-majorfield sizes/Mat3stride butno field-kind check; boundingguards onlyoutbuffer extent. Textureformat/dimension/view checks concrete typed native enums; optionalactualformat absent leavesnativeGPUvalidation, actualexternaltexturemetadataauthoritypending. Storage buffers bound as_entire_binding here vsfastpath356logicalextent clamp: actualBuffer backingpadding/logicalarrayLength requirements/current before newextentfinding. Native device/context and reflectionbinding owner needed; no bindgroup/GPU/parameter/test execution."
+    },
+    {
+      "source_indices": [
+        2275
+      ],
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "roles": "Independent lens11 complete standard native shader binding admission and typed byte quantity owners.",
+      "disposition": "Full53 native BufferByteLength and Offset distinctprivateu64 role wrappers, Fromu64/usize legitimate rawbyteadmission, no boundedsize/device/alignment promise here. checked_after guardsu64overflow onaddress+extent, actualReadback2246 usesitcorrectly. Neither typeclaimsaddresswithinparticularbufferidentitydespiteproseaddress withinbuffer; allocation/write/read actualboundchecks requiredbeforetrusting storageextent. No serialization/uncheckedarithmetic implorcompatibilityalias. Native128bitusize notconfiguredtarget, no unjustifiedcastfindingoncurrent64/32targets."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31"
+    }
+  ],
+  "pending_contracts": [
+    "362 accounts2274..2275 next2276metadatauninspected. LastREG1134.21 mandatory all13 scopedextensions/six strict EOF qualifications/futureproofs retained.",
+    "Existing356uniformABI finding extended with actual standard public bind-group packing source: missing and Unsigned silentlyzero vs cachedexplicitintegerpacking/missingerror. Actual reflectionowner/ComputePasscaller/current/all20/native acceptance remainpending; no new acceptedidentity.",
+    "TypedbyteLength/Offset nativeu64 role distinctions do not automaticallyproveallocation/device/alignment orbufferidentity; actualbufferextentandnativeusageadmission stillpending.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup incomplete gatefalse accepteduniquechange0. No product changes/builds/tests/lints/scanners/generators/runtime probes/CI/new tests/commits/publication/external messages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2276
+}

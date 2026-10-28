@@ -1,0 +1,248 @@
+{
+  "lens": 11,
+  "batch": 122,
+  "status": "Original1225 complete3250-line trade/inventory/hostile-resolution source accounted WITH findings",
+  "original_index": 1225,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+  "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-026.json",
+  "scope": [
+    [
+      1,
+      3250
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      350
+    ],
+    [
+      351,
+      700
+    ],
+    [
+      701,
+      1050
+    ],
+    [
+      1051,
+      1400
+    ],
+    [
+      1401,
+      1750
+    ],
+    [
+      1751,
+      2100
+    ],
+    [
+      2101,
+      2450
+    ],
+    [
+      2451,
+      2800
+    ],
+    [
+      2801,
+      3100
+    ],
+    [
+      3101,
+      3250
+    ]
+  ],
+  "prior_same_lens_context": {
+    "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-045-receipt.json",
+    "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b",
+    "ranges": [
+      [
+        2140,
+        2175
+      ],
+      [
+        2295,
+        2338
+      ],
+      [
+        2370,
+        2405
+      ],
+      [
+        2450,
+        2505
+      ],
+      [
+        2510,
+        2585
+      ],
+      [
+        2650,
+        2695
+      ],
+      [
+        2745,
+        2820
+      ],
+      [
+        2940,
+        3005
+      ]
+    ],
+    "qualification": "All ranges now personally reread within full source; prior proof was exact connected contracts only."
+  },
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "roles": "Intra-party inventory transfer with exact row ownership, equipped restriction, physical object/subtree, measured amount, medication course, durable condition, food lot and fungible stack.",
+      "disposition": "Canonical CarriedInventoryScope/OperationalCustody already distinguish actual source/destination; keep object IDs vs personal row IDs vs catalog/character/party IDs typed through ports. Object/row atomic check and rehome preserves stable identity; measured/medication/durable one-row policies differ fungible positive quantity and food split. Actual producer classification matters; do not replace all with one generic quantity type or claim alternate non-object row is compatibility without canonical object owner contract. Fungible overflow creates separate row instead of saturating/loss. Missing auth cannot be concluded from helper names; exact require_character_no_unresolved_encounter owner remains required."
+    },
+    {
+      "ranges": [
+        [
+          162,
+          288
+        ]
+      ],
+      "roles": "Intrinsic unit/line/lot/subtree value, fractional amount and physical object backing rows.",
+      "disposition": "Food value finite nonnegative may floor0, measured scale floor differs full units; checked u64 multiplication/addition maintained. Value Amount/UnitPrice/row quantity distinct but share actual nonnegative representation where admitted. Subtree object location must match Personal/Party and backing row exists; return typed valued subtree can retain admitted custody association instead of recomputing raw IDs. Durable predicate uses repairable capability, not just equipment kind; medication separate course kind. Documentation misattached comment not a functional conclusion."
+    },
+    {
+      "ranges": [
+        [
+          290,
+          470
+        ]
+      ],
+      "roles": "Existing durable/object/medication source fixtures.",
+      "disposition": "Read only; source-string checks name important paths but do not establish operation semantics, current validity or all-object coverage. No fixtures/helpers/assertions executed or authored."
+    },
+    {
+      "ranges": [
+        [
+          472,
+          618
+        ]
+      ],
+      "roles": "Fallible inventory add versus swallowing wrapper, individual stable objects/measured/food/condition/weapon initialization, fungible merge and credit stake/reserve.",
+      "disposition": "add_to_party_inventory_checked owns meaningful fallible DB/food/object/weapon operations; wrapper explicitly discards Result. Actual callers1532/1651/1759/1784 add then remove source/credit value, so lost-cause and claimed-success API question is connected, but no ordinary admitted failure shown. Prefer canonical checked operation/result propagation, no compatibility forwarding wrapper in clean final API. Individuality is requires_stable_object, not just repairability; fresh per-row conditions and weapon initialization preserve identity. Actual loop quantity may0 no-op, credit value0 no-op; positive wrapper everywhere would tighten valid operation unnecessarily. Checked stake/reserve additions, raw IDs/amounts should retain own role."
+    },
+    {
+      "ranges": [
+        [
+          619,
+          925
+        ]
+      ],
+      "roles": "Bound mission/candidate/capability provenance, pending objective/path, subject/site custody/version, deterministic weighted selection, committed/failed lifecycle.",
+      "disposition": "Revalidates complete candidate association against immutable bound mission and active capability, pending expression evaluation, and capture custody actual site/version/Subject kind. Capture payload has two Options but only Captured requires both; variant-owned payload can retain this while allowing no capture in other resolutions. Sorts candidates by stable ID before deriving seed from outcome entropy/ID/capability/weight/resolution and weighted draw; weight not probability. weighted_index error .ok merges invalid weights with no available candidate then fails mission; typed unavailable versus invalid-distribution cause should be preserved if meaningful. Complete success already committed returnsfalse, failure helper permits Failed retry and rejects conflicting terminal state. Actual MissionAuthority::parsed_state validation narrows native flat-state concern but discards parsed sum and formats typed error; retain owner through transitions."
+    },
+    {
+      "ranges": [
+        [
+          927,
+          1196
+        ]
+      ],
+      "roles": "Named hostile battle-independent commit, complete request receipt equality, bound mission versus precombat authority and outcome payloads.",
+      "disposition": "Receipt compares party/mission/group/observer/case/site/resolution/capture before mutable lookup. Validates resolution contract, active group, authored Surrendered policy, exact case/site, bound mission and current matching candidate; no-mission restricted DrivenOff/Surrendered and present leader/current approach. Distinguish battle success, defeat, drive-off, whole-group surrender and subject custody capture. Noncaptured or invalid CaptureTargetKilled rejected by validator dependency before unreachable arm; no ordinary panic inferred. Actual transitions group disposition, deactivates roster/capabilities, emits typed fact or custody transition, finishes incident, stores receipt. Captured calls current.version+1 after current candidate proof. Generic String/Option tuple erased identity and admission could be named typed admitted commit; no tactical tick state persisted. Same-lens121 resistance semantics now actual call1181 receives no resolution discriminator: still determine which arrest incidents can admit peaceful generated negotiation before ordinary mislabeled resistance claim."
+    },
+    {
+      "ranges": [
+        [
+          1198,
+          1436
+        ]
+      ],
+      "roles": "Battle outcome-source receipt, bound immutable mission power, participant/morale/drop reward authority and shared hostile commit.",
+      "disposition": "Canonical OutcomeSourceId/BattleId/MissionId/HostileGroupId briefly validate then erase raw Strings. Receipt compares battle/party/mission/group/resolution, omits capture_subject/drops/include_random_gold; legitimate public producer samples exact bound candidate and outer mission/hostile receipts narrow ordinary changed-payload replay. Treat inner operation equivalence as qualified associated-payload question, not automatic duplicate loot/runtime failure. Bound mission normalized power/difficulty drives morale/rewards even live hostile group changes; preserve snapshot vs current distinction. Drops aggregate per catalog ID saturating quantity, randomgold upper bound difficulty*10 and enum asu8 in entropy require exact arithmetic/codec/current policy reconciliation, no invented observed overflow. BattleResult/participants/loot are strategic summary/entitlement separate transient tick."
+    },
+    {
+      "ranges": [
+        [
+          1438,
+          1695
+        ]
+      ],
+      "roles": "Battle loot selection/entitlement and living participant value split, personal-to-pool deposit/custody/condition/stake.",
+      "disposition": "Loot empty ID list intentionally means all, whereas explicit selected lines require unique IDs/positive available quantities; use All versus Selected payload, do not impose globally nonempty list. Party result ownership and actual recorded living participants checked; share division remainder reserve. Swallowing add before decrementing entitlement1532 yields connected commit-success contract dependency above, no actual admitted failure proved. Deposit computes whole/subtree value, rehomes stable object or measured/condition rows, credits absolute personal stake and removes source. Durable deposit discovers newest matching party row if helper returns no row; canonical add receipt should return created identity and admit exact condition association, not infer arbitrary sorted ordering defect."
+    },
+    {
+      "ranges": [
+        [
+          1697,
+          1963
+        ]
+      ],
+      "roles": "Personal-gold forwarding API, equal-value currency transfer/consumption, value-funded withdrawal with earned stake or personal top-up.",
+      "disposition": "consume_personal_gold merely forwards canonical consume_personal_currency; record for removal within eventual clean API repair, no compatibility alias preservation. Actual party currency consumption checks aggregate before any mutation and deterministic(item,id) order; transfer helpers preserve actual currency item IDs. u64amount vs u32stack slice separate admitted roles, amount0 valid no-op. Pool withdrawal costs whole subtree/lot/measured value; personal coin tops up cost above stake, stake subtract saturates by cost intentionally uses only existing contribution. Named payment/withdrawal plan can retain amount/custody/value association. Rehomes stable object; nonobject measured/food/condition conversion maintains exact source row dependencies. No currency inventory/reset operation executed."
+    },
+    {
+      "ranges": [
+        [
+          1965,
+          2199
+        ]
+      ],
+      "roles": "Liquidation/discard staged unique row quantities, settlement service alternatives, exact whole-object destruction and party offer.",
+      "disposition": "Validate aligned unique positive rows, ownership/equipped/atomic physical rows before staged commit. Liquidation chooses actual Market or GeneralStore service; alternative service is supported policy, not schema compatibility. Converts full intrinsic proceedsu64 tou32 checked; source sale destroys subtree or row with amount/condition/food tracking. Party offer parser canonical positive TradeQuantity then native destructures to scalars and reuses transfer; preserve typed associated line through validation/commit. Repeated same source row across offer lines needs parser aggregate policy before overdraw finding; source prevalidation alone is not commit atomicity proof."
+    },
+    {
+      "ranges": [
+        [
+          2201,
+          2504
+        ]
+      ],
+      "roles": "Merchant versus explicit storefront selection, exact provider identity/admission, stake-authorized personal purchase maximums, typed payment plan and quote.",
+      "disposition": "Existing StorefrontTradeRequest/TradeScope/MerchantProviderId/StorefrontPaymentAuthorization useful canonical owners. Storefront route derives location/service; default provider requires unique service/home/default physical location, actual current presence rechecked at actor time. Provider nonzero does not prove current merchant alone. Maximum unitquote/personal/stake budget separate amounts and plan obeys declared authorization, transfers stake coins and decrements stake before shared purchase. Validation returns anonymous(PartyId,UnitQuote); admitted purchase context should retain source/provider/item/quantity/frontier/quote association especially shared implementation enforces PairwiseSoft temporal sync after preliminary quote. Do not claim price-budget violation without actual synchronization/effects contracts. Whole native errors formatted inside helpers should retain typed cause/code until ABI."
+    },
+    {
+      "ranges": [
+        [
+          2506,
+          2814
+        ]
+      ],
+      "roles": "Shared exact storefront execution, actor/provider pairwise frontier, admitted store stock and unique sale instances, aggregate cost/proceeds with distinct quote modes.",
+      "disposition": "Typed request immediately reconstructed into parallel vectors and raw quantities; iterate canonical line records deeper, keeping catalog vs inventory identity. Revalidates actual living actor settlement/service availability/provider home/service/location/default/current presence and unique provider before quote. Same commodity sale rows remain independent to prevent double netting. Purchases forbid currency/medication, require stocked catalog/book allowlist. Sales forbid unavailable/equipped/currency/medication, atomic object; subtree/food/measured/full-item quote modes differ, measured0 intrinsic may legitimately yield0. Checked line totals/additions preserved; purpose amount/unitquote/bps/language wrappers should follow existing owners, do not arbitrarily bound money to f32exact range. Private human language/effects policy is distinct from provider identity."
+    },
+    {
+      "ranges": [
+        [
+          2815,
+          2998
+        ]
+      ],
+      "roles": "Net settlement, exact sold subtree/row removal, new purchase stable-object versus stack classification, party-first versus personal funding and stakeholder credit.",
+      "disposition": "Actual balance includes proceeds before cost, then commits sales/buys and net debt or receipt; named NetSettlement::Owes/Receives/Even avoids two mutually exclusive rawtuple fields. Both checked purchase and u32 proceeds capacity remain. Party funding deliberately pooled first then personal contribution earns stake; personal purchase separate. Fresh personal stack merge uses CatalogItemKind four equipment cases rather than canonical requires_stable_object; measured or other stable-object types may need cross-owner reconciliation before claiming ordinary stacking loss. No existing equipped stack merged. No full transaction or live stock correctness inference."
+    },
+    {
+      "ranges": [
+        [
+          3000,
+          3250
+        ]
+      ],
+      "roles": "Self leave versus leader removal, temporary companion stake settlement, disband reserve/pooled conservation and clean solo membership.",
+      "disposition": "Leader cannot remove self, actor must sameparty and leader/self role, clear camp fireplace and positive stake before membership transition. Temporary dismissal helper3093..3109 reads positive stake then only transfers partycurrency to personal; unlike stake-funded purchase2343 it never decrements stake. Caller3046..3056 immediately rejects still-positive stake, yielding concrete frozen source failed postcondition for positive earned stake. Treat canonical atomic stake settlement as repair dependency with exact aliases/current before accepted unique. Disband checks no unresolved encounter, reportable contract/site/stakes and pooled only currency exactly reserve; transfers reserve to leader and reconstructs solo parties, preserves value policy not blind destruction. No calls executed."
+    }
+  ],
+  "pending_contracts": [
+    "Actual canonical object/row/food/medication/condition/weapon owners and alternate native admission states, checked add result propagation and exact created-row receipt; no broad catalog or runtime proof.",
+    "Canonical stake settlement operation, actual temporary generated companion dismissal and sufficient coin preconditions, current source and inherited alias groups before accepting unique defect.",
+    "All13 original/overlay/merged/shared/extensions/current/all20/alias/connected repair/acceptance remain incomplete; imported/referenced bodies are not covered automatically."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1226
+}

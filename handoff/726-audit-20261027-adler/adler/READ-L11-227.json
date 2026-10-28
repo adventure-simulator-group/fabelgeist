@@ -1,0 +1,191 @@
+{
+  "lens": 11,
+  "batch": 227,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1600,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-433.json",
+      "registration_sha256": "08e7fafbb3703d58f390aaf60375600f51b1b0b90ab67ca6c63e1fa2b6fdaf7d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "sha256": "918bd2a4ed873968c420e4ad7c3070043b2073a9bbdd30e27d1dbbd6c1a4d2a1",
+      "scope": [
+        [
+          1,
+          1231
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          600
+        ],
+        [
+          601,
+          750
+        ],
+        [
+          751,
+          900
+        ],
+        [
+          901,
+          1050
+        ],
+        [
+          1051,
+          1200
+        ],
+        [
+          1201,
+          1231
+        ]
+      ]
+    },
+    {
+      "original_index": 1601,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-434.json",
+      "registration_sha256": "9990b6648ec431fb887c3ef2df2e7f2333c3d088a9d08bc32c1477831eea919e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/card_mesh.rs",
+      "sha256": "b05ac342df292a30117ec56a148a282b51c6fe49d23f3b6f26b68059e092c416",
+      "scope": [
+        [
+          1,
+          54
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          54
+        ]
+      ]
+    },
+    {
+      "original_index": 1602,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-435.json",
+      "registration_sha256": "a4b49efa74729b6e2d133e46bef3b4cec0c20452edd5a76f3de33dc5024a8c78",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/orientation.rs",
+      "sha256": "0832c7f01271afcbd8d65ccc61ac2a3b0837c605f1d6239b8ece5dddc7fb64bd",
+      "scope": [
+        [
+          1,
+          56
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          56
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1600
+      ],
+      "ranges": [
+        [
+          1,
+          1231
+        ]
+      ],
+      "roles": "Full exact original/owner/producer/reached/native source and included fixtures; independent source-only lens11.",
+      "disposition": "Full1231 union includes earlier1..135 witness, all current native/owner roles and fixtures. TreeBakeCard stores primarymask plus secondaryrange, but Some range selector ignoresmask for branch/leaf, while orientation435 conjuncts both: membership owner mismatch below. Actual cards fixed28/14/14/8 for supported mature recipes; lod1 malformedemptybranch input can yield0cards/divceil0 but actual generatedmature prerequisites must be checked before acceptedzeroatlaspanic. Native lodu8 admitted1..4 bake/0..4 visibility/name uses expects/unreachable, actualcaller canonicalLODowner1605/nativeports pending before extra wrapper demand. BakeTreeStyle species-specific dimensions/coverage intentional approximation; fixed tile sizes bound current atlasproducts. Provenance.validate debug-onlyfieldchecks do not establish source correspondence; hash omissions below, no cachekey use claimed. TREE_IMPOSTOR_BAKE_VERSION xor changesprovenancehash but not sourcecanonicalconstructor guarantee. WholeTree8views createsonlyone runtimequad withfullatlasUV intentional shaderbillboard ABI; actualshaderconsumer unread, not8overdrawbug. Countsu16 fit revieweddefaultoak50784/beech7200, arbitrarymutated params/cardowner pending. All fixtures named oak representative seed42 read-only; shaderstringchecks not actualshaderbody compilation/visual acceptance. Visibility deliberate trailing overlaps across nonidentical silhouettes and matchingobstacleanchor, no genericditherhole from complementaryassumption. No generation/tests/runtime."
+    },
+    {
+      "source_indices": [
+        1601
+      ],
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "roles": "Full exact original/owner/producer/reached/native source and included fixtures; independent source-only lens11.",
+      "disposition": "Full54 native final quadaggregate TreeCardGeometry and borrowed outputbuffers. Normalized right/up, width/height scaling, fourvertices/sixindices and explicit imageVflip consistent owner emission. Native inputgeometry/frame/atlasUV admission depends actual fit and stylecaller; no demanded bespoke type for every private finalfloat nor zeroaxisfailure absentactualinput. u32index cast bounded currentfixedcardcounts, not userconfigtopology219. Sourceonly no GPUtest."
+    },
+    {
+      "source_indices": [
+        1602
+      ],
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "roles": "Full exact original/owner/producer/reached/native source and included fixtures; independent source-only lens11.",
+      "disposition": "Full56 actualcrown orientation. subcluster key enters explicitnamedStreamId. crown_group_right selects outerdepth1horizontalaxiswithfallbackX intentional geometric policy; no compatibility path. lod1_macro_cluster_axis explicitly requires primary_group AND secondaryrange, whereas1600 card.includes overridesprimary whenrangeSome. This independently pinpoints owner loss at membership consumer rather than orientation generator. Sourcefallback handles empty/cancellingaxis; no actual emptygroup/nativebadframe claim. No procedural computation/tests."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b"
+    }
+  ],
+  "pending_contracts": [
+    "227 completes original1600..1602 full1231/54/56 exactunion; next1603raster976. Independent source lens11 only; all13 populations/extensions/current/all20/aliases/connected acceptance incomplete, gatefalse/accepted unique change0.",
+    "Owned secondaryrange/primary selection mismatch has actualbeech producer sourceinterval proof; actualruntimebeechcaller and raster/native outcome pending, no observedartifact/testresult.",
+    "Provenance fingerprintsource contract omits leaforientation and narrowsidentity tof32; actualexport/cache/validatorconsumer pending. Do notclaimcachekey reuse or requirestyleinside a sourcegeometry-only fingerprint absentcontract.",
+    "WholeTreeonequad/eightviewatlas is deliberate nativeABI, actualshaderconsumer pending. Fixedmaturecard/tilecounts support boundednativeallocation but arbitraryemptytree/invalidlod/parameter routes notprovedadmitted.",
+    "RawLODcanonicalowner/actualcaller1605 andpresentation remains upcoming. Avoidduplicating wrapperwhereexisting owneralreadyfits; reference current0..4/aggregate1..4 semantics explicitly.",
+    "Midtrunk rootrole226 andshootidentity224 findings remain qualifiedcurrent/all20/dedup. All prior source/deletion/preservation/native/extension qualifications retained.",
+    "Future orderedqueue1612REG373READ218;2248/2249/2250REG398/396/397READ220 unchanged. Latermaterial129tail54..117unread; connectedlater proofsnotorderedpopulationcredit.",
+    "Nextregistration436. Register1603rasterfull976 then1604assets444/1605lod402/1606materials629 beforebody. No product changes/builds/tests/lints/scanners/generators/runtime/probes/CI/publication/messages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1603
+}

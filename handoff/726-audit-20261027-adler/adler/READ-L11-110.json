@@ -1,0 +1,111 @@
+{
+  "lens": 11,
+  "batch": 110,
+  "status": "Originals1210-1211 fully source-accounted WITH findings",
+  "originals": [
+    {
+      "original_index": 1210,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_gallery.rs",
+      "sha256": "95917e848a7696eed59a6878365b3b9171c9257d530a6254819270c59cead7e7",
+      "scope": [
+        [
+          1,
+          312
+        ]
+      ],
+      "actual_reads": [
+        [
+          1,
+          312
+        ]
+      ],
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-010.json",
+      "source_recovery": "Exact6533 commit/path bytes match frozen registry SHA; no arbitrary current-file substitution."
+    },
+    {
+      "original_index": 1211,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+      "scope": [
+        [
+          1,
+          573
+        ]
+      ],
+      "actual_reads": [
+        [
+          1,
+          300
+        ],
+        [
+          301,
+          573
+        ]
+      ],
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-011.json"
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source": "development_gallery.rs1-123",
+      "roles": "Flat bounded gallery index, typed puzzle collection, scoped primary-character IDs, production materialization launch and scenario/subject registration, postcondition.",
+      "disposition": "Gallery cursor is a dispatch coordinate, not CharacterId/catalog ordinal or puzzle kind; named ScenarioRecipe could own fixed/puzzle/road choices and source binding. First four match arms protect subtraction offset and fixed array access; no underflow in inspected dispatch. bool return distinguishes materialized item from end-of-gallery, not failure. Dev numeric identity namespaces and saturation are scoped source policies, no actual huge-catalog collision claim. Postcondition only verifies primary character exists; it does not prove every recipe fully prepared or all earlier reducer transactions rolled back. Source comment requires later behavior/comment reconciliation, no execution claim."
+    },
+    {
+      "source": "development_gallery.rs125-312",
+      "roles": "Static recipe tuple(slug/category/label/description/CharacterId/route), autopsy/outbreak/recurring-threat helper calls, fixture attributes/hours, deterministic generation seed and subject kind.",
+      "trace": "Puzzle/road/quest recipe producers feed actual register_development_scenario and register_development_subject bodies in1211. Dedicated actor/settlement constants, current startup profile changes and source-bound generated problem are distinct roles.",
+      "disposition": "Named recipe metadata prevents swapping unrelated text fields and IDs; category/label/description are human grouping/presentation, slug/subject IDs/route are mechanical identities or navigation. Captured generated problem identity is stronger than an arbitrary search for any recurring problem. Typed TemplateFamily/ErrantryLaunch/PuzzleKind are retained; no duplicate enum owner needed. Fixed hours, attributes, deadlines, party rations and awareness basis points must keep distinct quantity semantics despite fixture scope. Existing debug assertions describe authored policy only and were not executed.",
+      "acceptance": "Actual bootstrap wrapper, scenario_characters, autopsy/outbreak/generated source/role inputs and UI/router recipients remain pending; no resets/seeds/new helper/tests performed."
+    },
+    {
+      "source": "development_scenarios.rs1-172",
+      "roles": "Scenario/subject/update-receipt tables; native metadata and quest projections; compiled capability/gateway gate; registered slug/route/character, subject kind/ID and deterministic query index.",
+      "disposition": "ScenarioSlug, RequestId, CharacterId, ProblemId and scan hash/revision are different roles. Subject kind+raw subject ID is a flattened association: consumed producers supply Case/RoadEncounter/GeneratedProblem, but all callers/extension policy must be reviewed before assuming closed vocabulary. Tuple/string registration admits arbitrary kind/id combination after only scenario existence; a named admitted subject can retain its real source association. Subject scan hash is a query index, not the semantic identity to substitute. Metadata revision literal1 is a recipe version policy, not a subject revision. Gateway plus compiled bootstrap capability is the observed gate; no environmental secrets or full authorization audit performed."
+    },
+    {
+      "source": "development_scenarios.rs174-293",
+      "roles": "Scenario character presence, template-derived settlement identity and foraging coordinates, target party stock and awareness floor.",
+      "disposition": "Existing character is reused if present, no global name/life/ownership guarantee; reserved ID policy/allcaller scope remains. Settlement helper verifies name on reuse, clones template and removes source node; distinct fixture identity versus location/name provenance. Foraging empirical terrain comment is not actual terrain validation. Provisions use positive target counts minus existing quantities with saturating deficit, intentionally idempotent stock top-up rather than overwrite. Awareness floor6000 basis points differs count/revision/skill hours. Actual shared item and settlement owner contracts remain pending; no database operation executed."
+    },
+    {
+      "source": "development_scenarios.rs296-468",
+      "roles": "Gateway-only bounded catalog/quest projections; subject-to-scenario map; generated problem, contract, road-encounter status and optional scenario binding.",
+      "disposition": "Three quest families have different source/state payloads but are widened to one struct with String quest_kind/status and sentinel empty scenario/canonical-case fields. A family-owned payload plus explicit optional scenario association prevents cross-family ID/status mix-ups. Human title/summary remains separate; current safe summary fallback is actual presentation absence policy. supports_incident_action is derived from scenario binding+unresolved recurring source, not another retained mutable authority. Taking before sorting bounds workload but does not prove exhaustive stable population or absence of hidden entries. Missing kind/subject/observer/UI schema semantics remain separate."
+    },
+    {
+      "source": "development_scenarios.rs470-517",
+      "roles": "Incident update request, exact scenario/problem registered association, official event minute and immutable update receipt.",
+      "disposition": "RequestId validation is distinct from scenario/problem identity; exact retry checks immutable associations before new event creation. Current source correctly rejects an unregistered generated problem. Resulting incident ordinal and occurrence time belong in source-bound receipt, not a generic count/status. Actual trigger_next_generated_incident recipient semantics and all UI callers remain pending."
+    },
+    {
+      "source": "development_scenarios.rs519-573",
+      "roles": "Existing source selector and dynamic-state fixture assertions.",
+      "disposition": "Full test source read; lexical include_str targets and assertions are not executed state/security/current proofs. No new tests/assertions/doctests, no backward compatibility requirement for strings."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-108-COMPLETE.json",
+      "sha256": "64eca025693aa15ec5a18402c93ab59ce4303df3687baf295c25712266581e83"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-066-receipt.json",
+      "sha256": "16f2aecb0b7d7a148ae2a27e02d5a1a4d0e9ca26a56196b0142c49eeef35acbd"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-089-receipt.json",
+      "sha256": "121119e2b04ab8448b1fb92ee15c4a99333ca645e4cd24c1a3afc1e90488e0d0"
+    }
+  ],
+  "pending_contracts": [
+    "Actual scenario_characters child/caller bootstrap/native/UI/router and all registry subject callers; import or source fixtures grant no body coverage.",
+    "All generation/autopsy/outbreak/local-problem/settlement/item/capability numeric policies and returned error causes retain their owning source scopes.",
+    "All inherited extension/current/all20/aliases/SDK/runtime/connected acceptance obligations remain; no arbitrary closure of open IDs and no compatibility paths."
+  ],
+  "next_original": 1212,
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "current_reconciled": false,
+  "validated": false
+}

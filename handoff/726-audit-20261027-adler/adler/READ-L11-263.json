@@ -1,0 +1,211 @@
+{
+  "lens": 11,
+  "batch": 263,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1782,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-619.json",
+      "registration_sha256": "20934f0cdbcaee3d2c96627f2159cf74ee8002be199a1b9aa03d49db601a8a2f",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "scope": [
+        [
+          1,
+          89
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "original_index": 1783,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-620.json",
+      "registration_sha256": "585539dde272bcd0cd6249298467eec0cfcafa7620500f54e348df3571d2c1fe",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "scope": [
+        [
+          1,
+          353
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          353
+        ]
+      ]
+    },
+    {
+      "original_index": 1784,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-621.json",
+      "registration_sha256": "eeed7af0f661cd50beee6b05bd5efb40359ab611b34303a283ab0db6c1ead850",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+      "sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+      "scope": [
+        [
+          1,
+          153
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          153
+        ]
+      ]
+    },
+    {
+      "original_index": 1785,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-622.json",
+      "registration_sha256": "cd7ed371822837b27c215585a3f73a5d6f040d2116a1fa3f0670903a364d28ec",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "scope": [
+        [
+          1,
+          123
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          123
+        ]
+      ]
+    },
+    {
+      "original_index": 1786,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-623.json",
+      "registration_sha256": "edd1c75e60de7a8e911b5aa9a3bac85c98d1336d1c9d09c2567de23767f23c6f",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+      "scope": [
+        [
+          1,
+          158
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          158
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1782
+      ],
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "roles": "Independent lens11 full state-kernel semantic granularity, native arithmetic, admission anderror ownership.",
+      "disposition": "Full89 ActionTimeline privateownedtypedabsoluteTick/nonnegativeSpan; new/with_recovery/normalized enforceatleastONE, contacts/end saturated. Samplecomputesintegerdifferencesbeforefloat, Completeafterend oratMAX, exactordinaryendActiveONE intentionally. Nozero-preparationdivision, backwardtickmaps0 via saturatingdiff, fullu64 finiteconversion. ExplicitMAXcompletion notaccidentalwrap. Actualserverevent clock wrap/order policy/current pending."
+    },
+    {
+      "source_indices": [
+        1783
+      ],
+      "ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "roles": "Independent lens11 full state-kernel semantic granularity, native arithmetic, admission anderror ownership.",
+      "disposition": "Full353 SignedHalfTurns finite signedunwrapped vsDownedFacingStep finite>=0 andDownedRollMotion signedunit. WireownedDownedFacingState deliberatelyfinitefallback/clamps, cameraobservation producerdelta[-pi,pi] mapsbounded[-1,1]; checkedscalaradmission doesnotrepair nonfinite. for_frame positiveDuration ratiooverflow maps0 explicitlyproducerpolicy. Fourstickysectors useactualruntimeconfig halfwidth/stickiness; onlysectorchangesinterpolate, releasehalf-tiebodyparity retained. Lattice casts largefinitehalfturncoordinate to i64 inpose/release/contact paths withoutrepresentabilitybound, unlikeearlier evaluationnearintegerbranchguard; registeredcandidateneedsactualadmittedsource/current andequivalentfiniteperiodiclattice classification, notclaimcommoncamera provideshugeangle. nextcoordinate checkedbeforestateassignment, no mutate-before-Err atthiskernel. Bodytransition followsfinitecoordinate; nativequaternion/yawproducerbodyelsewhere next. Testbodyread notrun."
+    },
+    {
+      "source_indices": [
+        1784
+      ],
+      "ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "roles": "Independent lens11 full state-kernel semantic granularity, native arithmetic, admission anderror ownership.",
+      "disposition": "Full153 Guardfootwork actualGuardStepPlan.progress consumer clamps0..1 beforeCyclePhase, closingrawratio concern262 forthiskernel. Typedphysicalspeed/elapsed/tick butnativeVec2 contacts/advection/planningarithmetic retainedunchecked; actualprojectionnorm/admission/configbounds neededbeforeoverflowfinding. Localplan computed thencontactidentity mayupdatebeforefinalCyclePhase falliblewrite; boundedprogress/typedtick ensuresordinaryfinitephase, so do notinferpracticalpartial-errorjustfromquestionmark. Namedcontactdeadline orleadingcontact<=0 releasesplan; support/rate durationclamppolicy configminimum<=maximum mustbevalidated. Runtimeguardtuning used, geometricposes notSpacetimeDB persistedtacticalauthority. Stepduration ceil/min1 cast saturatesnativeoverflow; admittedconfig/rate callerpending."
+    },
+    {
+      "source_indices": [
+        1785
+      ],
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "roles": "Independent lens11 full state-kernel semantic granularity, native arithmetic, admission anderror ownership.",
+      "disposition": "Full123 Guardgeometry importsSignedLength frombuilding_generator, sharedcanonicalowner relationship/all20 remainspending ratherthanautomaticduplicate. Allowsnegativeinput thenmax0, returnscheckedNonnegativeLength, nativeVec2 normalization finitepolicy callerpending. Unitconversions yard/threerinches andmeasuredrig ratios encodeauthoredgeometry, notautomaticallynewruntimecombatknobs. referencelegconfigusedserver vsclientliveanatomy isexplicitapproximation, currentanatomicalcharacterstate/admission neededbefore divergentauthorityfinding. Referencefixture sourceasserts distances/scaling, noexecution."
+    },
+    {
+      "source_indices": [
+        1786
+      ],
+      "ranges": [
+        [
+          1,
+          158
+        ]
+      ],
+      "roles": "Independent lens11 full state-kernel semantic granularity, native arithmetic, admission anderror ownership.",
+      "disposition": "Full158 PostureTransitionState privatefields andtypedspan/phase, new/normalized duration>=ONE. DiveRecovery ownedOption<direction,UnitInterval>; actualruntimehandoffstartfraction butairborneendfixed0.92 vsgrounded1; configvalidatedstart<0.92 requiredforpositivehandoffinterval, actualvalidationproviderpending. Directionalpi/halfpi rootyaw geometriccanonicalpose convention, smoothstepcompletekernel; optionalprevious/currentmeaningfullyunavailable/finished mapsidentity/completion, notlosterrorfallback. Structurederrorpropagatesfromdive_recovery, nativeQuat receivesboundedangle. Supinegetup onlyspecifiedkind withclampednonnegativeprogressdelta; actualrootphysicalapplication/network authority/current acceptancepending."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-257.json",
+      "sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-258.json",
+      "sha256": "91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-261.json",
+      "sha256": "fe22c536959ab05a2b96acaf9d6ec3261b022e7f8a7856cf2f90abece4676fe6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d"
+    }
+  ],
+  "pending_contracts": [
+    "263 full1782..1786 complete,next1787 unregistered. Metadataunionfull exactbodies; source assertions notexecution.",
+    "Newdownedlatticefamily sourcequalifiedfiniteunwrapped/i64classification mismatch; boundedactualcamera[-1,1] explicitlynarrowsruntimeclaim. No claimnormalcamera generateshugeangles, noall20/currentacceptance.",
+    "Actualguardstep progressclampsbeforegaitphase; zero/postureSpan normalizedONE actualcallee confirmed. Nativeguardvectors/projection/positiveprofile/rate andhandoffconfig<0.92 validatecaller next beforeconditionalfailurepromotion.",
+    "Allpriorqualifications/eightscopedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/finaldedup incompletegatefalseaccepteduniquechange0; no productexecution/repairs/commits/publication/externalmessages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1787
+}

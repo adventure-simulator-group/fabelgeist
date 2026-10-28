@@ -1,0 +1,38 @@
+{
+  "lens": 11,
+  "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+  "sha256": "4351bf685bda2d29433f4b23698ef5377f466b51528b0e3400af6147b7d63931",
+  "object_path": "target\\726-audit-adler-20261027\\adler\\source-objects\\4351bf685bda2d29433f4b23698ef5377f466b51528b0e3400af6147b7d63931",
+  "ranges": [
+    [
+      1,
+      167
+    ]
+  ],
+  "prospective": true,
+  "provenance": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-procedural-textures/src/runtime.rs",
+  "kind": "Materially reached connected source dependency; no original frontier credit",
+  "purpose": "Actual ProceduralTextureResidency::request/is_ready dependency consumed by art-demo show/scenery_ready; distinguish unavailable/failed/loading/ready texture outcome and preserve native asset boundary. Entire167-line receiver/plugin/loader context, not blanket SDK exemption.",
+  "reached_from_originals": [
+    1449,
+    1454,
+    1455
+  ],
+  "additional_original_frontier_credit": 0,
+  "mandatory_lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "other_lens_coverage_transferred": false
+}

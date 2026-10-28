@@ -1,0 +1,65 @@
+//! Sustained catastrophic horizontal foot-displacement acceptance policy.
+
+use super::{BoneRole, FrameSample, body_local, procedural_leg_solver_gates_apply};
+use bevy::prelude::*;
+
+const CATASTROPHIC_FOOT_HORIZONTAL_HIP_OFFSET_METRES: f32 = 0.65;
+const CATASTROPHIC_FOOT_DISPLACEMENT_SECONDS: f32 = 0.1;
+
+pub(in crate::animation_viewer::report) fn catastrophic_foot_displacement(
+    frames: &[FrameSample],
+) -> bool {
+    let mut duration = 0.0_f32;
+    for pair in frames.windows(2) {
+        let [before, after] = pair else {
+            continue;
+        };
+        if before.scenario != after.scenario || !procedural_leg_solver_gates_apply(&after.scenario)
+        {
+            duration = 0.0;
+            continue;
+        }
+        let displaced = [
+            (BoneRole::ThighLeft, BoneRole::FootLeft),
+            (BoneRole::ThighRight, BoneRole::FootRight),
+        ]
+        .into_iter()
+        .any(|(hip, foot)| {
+            body_local(after, hip)
+                .zip(body_local(after, foot))
+                .is_some_and(|(hip, foot)| catastrophic_horizontal_foot_offset(hip, foot))
+        });
+        if displaced {
+            duration += (after.time_seconds.seconds() - before.time_seconds.seconds()).max(0.0);
+            if duration >= CATASTROPHIC_FOOT_DISPLACEMENT_SECONDS {
+                return true;
+            }
+        } else {
+            duration = 0.0;
+        }
+    }
+    false
+}
+
+fn catastrophic_horizontal_foot_offset(hip: Vec3, foot: Vec3) -> bool {
+    (foot - hip).xz().length() > CATASTROPHIC_FOOT_HORIZONTAL_HIP_OFFSET_METRES
+}
+
+#[cfg(test)]
+mod tests {
+    use super::catastrophic_horizontal_foot_offset;
+    use bevy::prelude::Vec3;
+
+    #[test]
+    fn severe_sideways_foot_displacement_is_catastrophic() {
+        let hip = Vec3::new(0.2, 1.0, 0.0);
+        assert!(!catastrophic_horizontal_foot_offset(
+            hip,
+            Vec3::new(0.84, 0.1, 0.0)
+        ));
+        assert!(catastrophic_horizontal_foot_offset(
+            hip,
+            Vec3::new(0.851, 0.1, 0.0)
+        ));
+    }
+}

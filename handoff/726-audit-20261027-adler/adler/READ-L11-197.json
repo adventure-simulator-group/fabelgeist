@@ -1,0 +1,367 @@
+{
+  "lens": 11,
+  "batch": 197,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1393,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-207.json",
+      "registration_sha256": "720e258aaa302f1bd9ea881561d51458baff5979b7b688ef71b327e0b5040d79",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs",
+      "sha256": "4164ade7dd800ba7a39b1318bce6a59e5920b0931d86fc161b9c1cfb8bff4a76",
+      "scope": [
+        [
+          1,
+          602
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          602
+        ]
+      ]
+    },
+    {
+      "original_index": 1394,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-208.json",
+      "registration_sha256": "01614760215ef08b11394b20ceee5ab5f3978200c2fd821d596b09a539aa8e45",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+      "sha256": "10c455bd92024d36b8b6cfc339c73ba3f7ebebe1fc0971090e69d63497d59904",
+      "scope": [
+        [
+          1,
+          237
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          237
+        ]
+      ]
+    },
+    {
+      "original_index": 1395,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-209.json",
+      "registration_sha256": "0409e4647f81f73252c56508085a06630e8c767357b3198f6bb669bb3e878b0a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+      "sha256": "ba3c2942e73fcaac4b7698ec909382e907d0fd807f395e5f31509d904f910d6f",
+      "scope": [
+        [
+          1,
+          359
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          359
+        ]
+      ]
+    },
+    {
+      "original_index": 1396,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-210.json",
+      "registration_sha256": "787f79373bd751f09c18ebfe67845e4063cf8ce89ced380cae4c250e8440fc60",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs",
+      "sha256": "90a0f67311aeddea43683a7d3e4c1c8ce0fa9dda96367303edd0e7557c63e224",
+      "scope": [
+        [
+          1,
+          66
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          66
+        ]
+      ]
+    },
+    {
+      "original_index": 1397,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-211.json",
+      "registration_sha256": "7aa9f4d3b4aa6c55726f237f328c769447748b9f6f79b4bd1bb018d266367da8",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/mod.rs",
+      "sha256": "eaddce3e79397bc2d636eb4cecac5907f696760cbc35c1c305699bdc700df91a",
+      "scope": [
+        [
+          1,
+          336
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          336
+        ]
+      ]
+    },
+    {
+      "original_index": 1398,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-212.json",
+      "registration_sha256": "497595bfa44697f16ab05e7c2f3955cccb95b5f4f72cc15863d13b4ebbcab496",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+      "scope": [
+        [
+          1,
+          275
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          275
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1393
+      ],
+      "ranges": [
+        [
+          1,
+          334
+        ]
+      ],
+      "roles": "Proportioned bind specification, bilateral canonical roles and typed joint limits.",
+      "disposition": "Fixed15body/14joint static specs retain BoneRole, CapsuleSelector, AnchorAt and FlexDirection instead of string/nativeflags atpolicy. RagdollJointKind Spherical/Hinge bindsdistinctanglepayloads, JointAngleLimits bespokepair ofRadians. usize indicesareprivate definition-local actualarraypositions, not automaticallyneednewtype justcount. Capsule typedpositive config, measuredBindAxis fallback explicitlysupportsfarjointabsence/degenerate geometry, notlegacycompatibility."
+    },
+    {
+      "source_indices": [
+        1393
+      ],
+      "ranges": [
+        [
+          336,
+          602
+        ]
+      ],
+      "roles": "Whole definition readiness and actual bind-axis anatomy.",
+      "disposition": "Missinganydrivingbone ormatchingjointbody returnsOkNone aswholedefinition; structuredGeometryResultangles separateErr. Characterforward fromactualfoot/toepairs otherwisecontrollerdirectionpolicy. Jointanchorsselectactualchild/midpoint/optionalneckrole; no tacticalstatepersistence. No fullfinitebind admission inbuilder, actualauthoredbind/scale validationandnativepreparationpending. Existing testscoverstaticparentfirst completeness/bilateralhingeanatomy/capsule/missinghead sourceonly."
+    },
+    {
+      "source_indices": [
+        1394
+      ],
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "roles": "Physics pose readback with joint ordinal and parent-first hierarchy authority.",
+      "disposition": "RigJointOrdinal/RigJointTable andcachedtopologicalorderretainjointidentity; privatebodyindices require aligneddefinition/bodies fromentry. Nativeactualbodyaffines convertedthroughliveparentchain, ancestorsheldexactly andundrivenlastpose preserved. `pin_joint` and displayedposefinalreassert actualfinite/ownership contracts mustconnect priorposebufferproof, no automaticassumption finite nativeaffine inverse/decomposition. Expect callsguardedbydrivencheck sameimmutablequery, no acceptedpanic justexpectsyntax."
+    },
+    {
+      "source_indices": [
+        1394
+      ],
+      "ranges": [
+        [
+          114,
+          237
+        ]
+      ],
+      "roles": "Client ragdoll terrain correction and native sample-to-typed offset boundary.",
+      "disposition": "Kinematicpelvisignored, actualterrainmax acrosspresent heightfields, typedcompletedpositioncheckedbeforewrite, onlydownwardvelocityremoved/horizontalretention. Capsule penetration samplesends/center andfoldsnonnegativezero; unknownsampleneutralmeansnocorrection notobservedcontact claim. Nonfinite nativegeometrycanbemasked byoptionalpoint/f32max, actualseed/nativephysicsadmissionpending, notindependentacceptedterraintruthfinding. Existingtilted/offset sourcefixturesnotexecuted."
+    },
+    {
+      "source_indices": [
+        1395
+      ],
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "roles": "Live pose snapshots, body seed completeness and observed velocity interval.",
+      "disposition": "BodySeed/MuscleTarget/SpawnedRagdoll purpose-specific aggregates. Previous/upcomingrigsamples sharecurrentlivebase, wholebodymomentumadded separately ratherthancountedtwiceasrootdiff. PositiveAnimationDuration preventszero linear denominator; angularfloor numericalsmallintervalpolicy. Liveworldtraversal stopsmissingTransform andusespartialaffine; topologicalorderbreakscyclesbutreturnspossiblyincomplete whilejointworldtablesstartIDENTITY, actualBevyhierarchy/inventoryadmission neededbeforephantomposefinding. Fullnative completedseedadmission gap newqualifiedfamily."
+    },
+    {
+      "source_indices": [
+        1395
+      ],
+      "ranges": [
+        [
+          175,
+          359
+        ]
+      ],
+      "roles": "Prepare-before-spawn boundary, isolated native body/joint publication and angular source fixture.",
+      "disposition": "RagdollGeometry preparefalliblebeforequeuedspawns, successfulspawnbodiesmayskipunseededbody andjointspair onlywhenbothpresent. Native seed fields passedunvalidated frompreparation, freshqualifiedfamily. Nativecolliderbody positive radius/signedsegment contract from210 preserved; no gratuitousabs orlegacyfallthrough. RagdollPart owner tiescleanup, collisionlayer onlyvisual island. Capturedentryrelative orientation MuscleTarget usescurrentbodyrotations, exactPDconsumer212connects. Existingangularshortarcfixture sourceonly."
+    },
+    {
+      "source_indices": [
+        1396
+      ],
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "roles": "Checked scaled collider dimensions before entity queue.",
+      "disposition": "CapsuleShape positive radius+length inbindunits; prepareadmits scaled radiuspositive andsignedsegment/halflength asnativeParrysemantics, marginNonnegativeLength. Seeds onlypresencechecked, no pose/velocityadmission; collidertranslation/axisnativecompletedfinite constraints alsodependency. zipcardinality caller seedvec initializeddefinition length inentry; do notinventordinaryshortseedpanic absentexternalproducer. No productexecution."
+    },
+    {
+      "source_indices": [
+        1397
+      ],
+      "ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "roles": "Explicit transient ragdoll lifecycle and live/proportioned hierarchy sampling.",
+      "disposition": "Server coarsebody/root authority retained, clientkinematicpelvis plusdynamicvisualchildren. Ragdolling holdsnameddefinition/parts/mapping/order/muscles/typedage andentryscale/pelvislocal; no duplicateddamage/HP/positionDB authority. Playerquery actualscope pendingprojectmeaning, no assumedmissingNPC. Cleanupchecksownercomponent andexitexplicitspawns/despawns viaCommands; no externaldeletion. ProportionedbindMAX64 stopsmalformedchain butreturnsnonemptytruncatedlocals, ordinarydeepvalidrig boundproofneededbeforeacceptingwrongbind."
+    },
+    {
+      "source_indices": [
+        1397
+      ],
+      "ranges": [
+        [
+          195,
+          336
+        ]
+      ],
+      "roles": "Entry readiness, seed geometry admission, pose ownership transfer and exit.",
+      "disposition": "Wholedefinition andpelvisseed presence requiredbeforeentry; spawngeometryErr returnsbeforePoseOwnershipPhysics. OwnerworldscaleX assumeduniformbycontractcomment, actualwholeowner scaleadmission/nativeinverse pending. Physicsownership setafterspawnsqueued, exitdespawnsownedparts returnsAuthored forinertializednextsample. Source-onlyworldfixtureproportionedrotation/offset composition, no runtimephysicsproof."
+    },
+    {
+      "source_indices": [
+        1398
+      ],
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "roles": "Visual PD envelope, once-per-physics scheduling intent and checked age retention.",
+      "disposition": "MuscleTone/AngularStiffness/ResponseRate/AngularSpeedRadians/AnimationElapsed/MuscleReleaseAfterOrNever preservepurpose/units, no muscle-specific gameplay fatigue introduced. Agechecked+envelopecheckedbeforehistorywrite; actualResTime physics schedule delta stillneedsregistrationproof. PDrelativequaternionerror andnativeangularvectorclamp/finalspin sums unchecked, actualnativeinput/configbounds pending notblanketfiniteintermediaterequirement. Kinematicpelvis neverwritten bysplit/damp, parentindexstaticdefinitionowner. Jointdamping0.5parentaddition isvisualheuristic notassertedphysicalmomentumconservation."
+    },
+    {
+      "source_indices": [
+        1398
+      ],
+      "ranges": [
+        [
+          179,
+          275
+        ]
+      ],
+      "roles": "Existing envelope and pelvis split source fixtures.",
+      "disposition": "Fixturescoverstun/rise/limpNever/midlimp andequaloppositedynamicpair/pelviszero onlypurehelper intent. No actualphysicsgetMany mutation/native input/ragdolllifecycleacceptance executed. No newtest/helper authored."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-182.json",
+      "sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-186.json",
+      "sha256": "915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-187.json",
+      "sha256": "384f724657d2dd13432ad6a5573671a61bc6a7f39b73b02ce2b0357742e8d895"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-188.json",
+      "sha256": "fbb51803f979a69f77ec1aca11053bd2a7adb46d3504a064eaedac0f0af38163"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-189.json",
+      "sha256": "a68730444c62595c5321a8e762a9366f327caa5cbce6b39a3f6ce17b0b4ae462"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-190.json",
+      "sha256": "cdc7a00ed64a26af256d37d15b0e1d80c6528b74f8033576246f892f53f2d878"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-191.json",
+      "sha256": "d4a0ce1e2f009f987fc1f2f2bf7d6d9a7d0f731123a31f2252eea74dc8ac3779"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-192.json",
+      "sha256": "9051400928f7f0d626a83c40d6aec372792be967d1df026c64f7a742caab97ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-193.json",
+      "sha256": "2f1d3a05d04acc122015a402c21c1ade67b0a13d26ed9280feeef178e1e8257c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-194.json",
+      "sha256": "4a3984eb552f1121f4c991ad8aaced174eb3ddd2e75748b5af80b22adfbe6914"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-195.json",
+      "sha256": "d75d0a9b3a71fe677dccf7fda0bc9595c68709a57745458eb53888cae3cd3d30"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-196.json",
+      "sha256": "dba4a7805482f2ffbb10e4fdfb5810ae760a69a7d96a6f1b8d982acbfddf54ed"
+    }
+  ],
+  "pending_contracts": [
+    "Ragdoll seed-preflight family remains source-qualified: dimensions preparation does not validate completed pose/velocity; native arithmetic/input-bound/ordinary/runtime/current acceptance pending.",
+    "Ragdoll existing sources contain live/native fallback geometry policies, not automatically backwardcompatibility paths. No tactical server/SpacetimeDB authority change inferred from client visual pose island.",
+    "Full PoseBufferRig/current hierarchy admission and actual physics-schedule Time delta, handoff/cleanup and readback witness contracts remain to connect. All13 populations/current/all20families/aliases/acceptance incomplete, acceptedcount0, no execution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1399
+}

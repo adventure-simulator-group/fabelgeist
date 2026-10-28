@@ -1,0 +1,238 @@
+{
+  "lens": 11,
+  "batch": 312,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2013,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-857.json",
+      "registration_sha256": "94ce7e63dc88096300ff8aeba761a2190a56aeedf799a13db64bb3608c9fc3cc",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+      "sha256": "ed0fe144881de7795bc3d5911ffa2a14bc9d33052a4c04f4af4d0db81e80ad95",
+      "scope": [
+        [
+          1,
+          213
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          213
+        ]
+      ]
+    },
+    {
+      "original_index": 2014,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-858.json",
+      "registration_sha256": "41db010e31f312d2124b36cfd714f68e1acb7eb31ea45fc7589013cea0569d28",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "5a603f0c5055543157a0dd1d47bc979a6109569d0e61cf088f5ca7a99ca495bd",
+      "scope": [
+        [
+          1,
+          263
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          263
+        ]
+      ]
+    },
+    {
+      "original_index": 2015,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-859.json",
+      "registration_sha256": "db1ce82183146e04f9abe295d4e50c51f97b7ff05eba539a275726f2f32d47a1",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "sha256": "06ae9c455782ac10767b46537f84eea1e57f16391b7033fe44352edc24e0f8bc",
+      "scope": [
+        [
+          1,
+          270
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          270
+        ]
+      ]
+    },
+    {
+      "original_index": 2016,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-860.json",
+      "registration_sha256": "7912ac6ed40f4238de2adb5b2e5ef7f0651353db92c480dc04e8edb1f59baa80",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+      "sha256": "bf80b110a492a275bd8550afe0af9bfc9b858b45faa71340c0f13dd6d5992ee3",
+      "scope": [
+        [
+          1,
+          85
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "original_index": 2017,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-861.json",
+      "registration_sha256": "eba557cf14f1682b4894016f5cdbb75457898ff87fbc705238f2e2bc8600e5aa",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "scope": [
+        [
+          1,
+          325
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          325
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2013
+      ],
+      "ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "roles": "Independent lens11 complete native measurement owner, actual runner/report publication and acceptance context.",
+      "disposition": "Full213 private Measurement<Role> finitef64 reportscalar with PhantomData role distinguishes tactical/autoresolve clocks, metres, joules, performance, rates; nativef32 promotedonce, checkedadd/mean/rates nevernarrowsgameplayquantity. ReportQuantity typed NonFinite/Overflow categories, actualfrom_f64 error mappedtoOverflow onlyinside arithmetic andretainsquantity. ZERO/default valid forreportaccumulators, signedWinRateDifference legitimate, no globalnonnegative/0..1 bound onall measurements because aggregatefatigue/fraction sums mayexceedunit and signed difference role. mean(samples0) retains accumulator existingzero policy plus optionalcontactextrema, not universally missingevidence predicate. Actualrun2014 rejectszeroseedcounts beforeWinRate, fixtureonlyfromDuration wallzero→throughput0 explicitreportpolicy. No codecDeserialize/Reflectinvalidmutation."
+    },
+    {
+      "source_indices": [
+        2014
+      ],
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "roles": "Independent lens11 complete native measurement owner, actual runner/report publication and acceptance context.",
+      "disposition": "Full263 CLI rejects0tactical/autoresolve seeds, getsactualcore acceptanceevidence/roster then oneboth-batch peropponent, finiteMeasurement calculations andtypedIterationResult propagation before summary JSON. Allrun_matchup accumulators local: measurementfailure returnsErr before thatsummary/reviewerpublication, narrowing311 partialmutatedsummary externallypublishedhypothesis; streamingtracesmayalreadyexist but nativebinary exitsErr. Count/seed/key/name nativefixture identities andretainedreportstrings all20 roles needed. JSON acceptanceaudit is explicitreport, not assertedbinaryexitgate so do notinferCLIallgreenfromOk. Fixedopponents actualroster source beforevacuousacceptancefinding."
+    },
+    {
+      "source_indices": [
+        2015
+      ],
+      "ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "roles": "Independent lens11 complete native measurement owner, actual runner/report publication and acceptance context.",
+      "disposition": "Full270 retainedcausalreport measurements typedperrole untilSerialize; Optionalextrema explicitabsence, countersu64 nativecounts, keyString distributionsfromsemanticenumdebug formatting versusnativeJSONmapkeys all20 exactownershiprequired. finish_means calledoncelyactualrunner2017 aftercompletebatch, so repeateddivideprivateoperation notactualnormalbug. Finalvalue fieldnames finalfatigue etc holdaggregate sums intentionallyacrossruns (notclaimedpercombatantcurrentunitfraction); actualreportconsumerinterpretation pending, do notaddUnitIntervalclampthatlosessum. record_final admitsfiniteobservationsthenaccumulates, errors propagateactualrun2014beforepublishedsummary."
+    },
+    {
+      "source_indices": [
+        2016
+      ],
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "roles": "Independent lens11 complete native measurement owner, actual runner/report publication and acceptance context.",
+      "disposition": "Full85 ReviewerCombatant/contextpacket strings andrawf32 attribute/skills are finalSerialize-only presentationprojections fromactualbuild, noDeserialize retainedgameplayowner. Averagedarmstrength/agility/hoursweightedrank nativeoutput calculation; actualboundedbuildattributes/Skill::training_rank contract beforeoverfloworwrongSwordrankfinding. No reviewagents spawned or reportwrite executed."
+    },
+    {
+      "source_indices": [
+        2017
+      ],
+      "ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "roles": "Independent lens11 complete native measurement owner, actual runner/report publication and acceptance context.",
+      "disposition": "Full325 actualtacticalandautoresolve eachseed boundedbypositiveCLIcounts, typedSeed.wrapping_offset, typedTacticalElapsed/Measurement sums andwallDuration, unknownTacticalVictor explicitlytypederror. Actualresolve_battle calledwith exactlyone ally/oneenemy, returnedoutcome[0] indexing reliesoncore outcomecontract not arbitraryprovided public wire. Streamwriter flusherrors propagated, summaryreturnonlyafterall measurements/means; oldpartialcountersnotpublishedasacceptedaggregate. actualtimelineconsumer filters missingcombatant_id, filters missingAttackStarted attackID/contacttick, missingcontactschedule doesnotincrementprematurecounter; extends311 evidencecompletenesspremise pendingactualcoretimelineproducer. OrdinaryTerminal/noactor legitimate; do notrequireactorforalleventkinds. Weaponreach absentweapon→0 intentionalunarmedmeasurement. Tacticalactorbynameversuscore actoru64 IDs/reporteddefenseimplementID, actualtwofighterroster source/contextbeforemixupfinding. Numericfailure/fullreports no sourceexecution."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-311.json",
+      "sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182"
+    }
+  ],
+  "pending_contracts": [
+    "312 completes2013..2017fullunion,next2018 REG8621248registeredunread;863..8722019..2028 registeredunread,next newreg873. No unsavedbodyreads.",
+    "ActualpositiveCLIcounts closezeroseednormalrun; localaccumulatoronfailure returnsErrbeforeaggregatepublication, streamoutputmayexistnotvalidsummary. Actualcoretimelineproducer/roster/evidencecompleteness remainsneeded311; missingactor/schedulekindpolicies must distinguishlegitimateTerminal fromrequiredMovement/Attack/Contact.",
+    "All13 scopes/current/all20/aliases/connectedacceptance/dedup incomplete; elevenextensions/fourEOF/futureproofadoption/partiallater129/L12/L13 preserved. Gatefalseuniquechange0; no productrepair/execution/newtests/commits/publication;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2018
+}

@@ -1,0 +1,269 @@
+{
+  "lens": 11,
+  "batch": 191,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1371,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-187.json",
+      "registration_sha256": "2834e8f9a33b72332cd569782678d9c401370604a2a878c4fcb5d9dd61dd1606",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+      "scope": [
+        [
+          1,
+          453
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          320
+        ],
+        [
+          321,
+          453
+        ]
+      ]
+    },
+    {
+      "original_index": 1372,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-188.json",
+      "registration_sha256": "88efe1ba0d0535fc163d5685a53044c629d0cf8b5cb43b632d7e32870776ea00",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+      "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+      "scope": [
+        [
+          1,
+          530
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          530
+        ]
+      ]
+    },
+    {
+      "original_index": 1373,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-189.json",
+      "registration_sha256": "1a42f85f6b033892f08922e4f4173af6adab614eba104faa281d47e79728a7cb",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation/anatomical_yaw.rs",
+      "sha256": "c4d855062c60ad77559b87fcf6a346547a1e881fa904c620fe1b0e91dac439e8",
+      "scope": [
+        [
+          1,
+          165
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          165
+        ]
+      ]
+    },
+    {
+      "original_index": 1374,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-190.json",
+      "registration_sha256": "7b9cdee41bb9ccbc596b3126a220d8896818539fb3802c20a19378d747b537cb",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/plant.rs",
+      "sha256": "4f30c6b7a81f9d8ba4f6d7b9d9fc02c40e102eff64ed14861234da7885647336",
+      "scope": [
+        [
+          1,
+          44
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          44
+        ]
+      ]
+    },
+    {
+      "original_index": 1375,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-191.json",
+      "registration_sha256": "7bfebe375ac8ed4b244cb9d84038da8d1c54f1d91f7bf3373926f425ac39f2c2",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+      "sha256": "2debf0e3594941b0920d795bbb04740691602b4dfc6df95066770b0e156eb15b",
+      "scope": [
+        [
+          1,
+          498
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          340
+        ],
+        [
+          341,
+          498
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1371
+      ],
+      "ranges": [
+        [
+          1,
+          236
+        ]
+      ],
+      "roles": "Propagated endpoint/rotation snapshot and pose owner-aware contact reconciliation.",
+      "disposition": "All actual present endpoints/rotations finite-checked before snapshot-field assignments. Missing values stay Option. Actual propagated frame otherwise retained prior owner frame is explicit continuity policy, not automatically current observation. Terrain single required for entire observer: absent terrain skips even endpoint capture. Authored locomotion exits after endpoint retention before refresh_run_support; ordinary upright grounded lowered/actionNone run satisfies locomotion owns, so its run-support refresh branch is bypassed. Intended semantic-cadence versus actual terrain conformity support contract must be reconciled, no claimed actual run support validation from this helper alone. retain_monotonic_sequence accepts only same/+1, skips larger observation gaps; actual packet/sample gap semantics pending."
+    },
+    {
+      "source_indices": [
+        1371
+      ],
+      "ranges": [
+        [
+          237,
+          453
+        ]
+      ],
+      "roles": "Observed terrain support versus disabled semantic cadence; planted contact/phase helpers.",
+      "disposition": "observed_support_weight needs actual ankle/height when enabled and returns None if unavailable, disabled uses nominal cadence intentionally. FootPlant observation only promotes actual contact; release controlled explicitly elsewhere. refresh_run_support compares actual globals to target/terrain and preserves None, but normal locomotion early-exit above means reachability must be proved. Does not update RaisedFootworkState per-foot support weights in observer, while LegIkMemory supports change; consumers/intent pending."
+    },
+    {
+      "source_indices": [
+        1372
+      ],
+      "ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "roles": "Pole transport, final foot-facing constraint and native slope alignment.",
+      "disposition": "Meaningful world/owner pole distinctions and actual sole/toe geometry preserved. Option for degenerate horizontal leg/facing explicitly keeps prior/canonical policy; not legacy compatibility despite historical comment wording. Projected body center weighted available actual bones rather than assumed origin; checked finite output and actual geometry admissions pending. Slope rotation writes only after optional local conversion."
+    },
+    {
+      "source_indices": [
+        1372
+      ],
+      "ranges": [
+        [
+          271,
+          530
+        ]
+      ],
+      "roles": "Bounded angular advance, final native chain/cache and local conversion.",
+      "disposition": "Previous finite orientation retained, desired nonfinite rejected only when previousSome; no previous returns desired directly. local_rotation_for_world checks pre-normalized localfinite then Some(normalize), not normalized resultfinite; finite zero may normalize invalid, but actual admissible native inputs/current pending and finite nonunit frame requirement retained. New qualified desired-vs-applied final orientation finding; run_roll187 pure function reread under existing full registration, zero additional population credit. Cached LegRotationChain bespoke aggregate retains per-evaluation actual local fields."
+    },
+    {
+      "source_indices": [
+        1373
+      ],
+      "ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "roles": "Final canonical leg constraint and actual per-leg knee-yaw observation.",
+      "disposition": "KneeYawLeg LEFT/RIGHT constants bind bone roles/side, actual geometry measured. rendered_offset typed Option angle makes missing observations visible until coordinator converts them to initializedZERO; newqualified missing-measurement finding. Downed/transitions/quickstep excluded; name standing does not alone establish grounded/upright condition because posture predicate only excludes those modes. Actual callers/design current pending."
+    },
+    {
+      "source_indices": [
+        1374
+      ],
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "roles": "Canonical planted target/readiness state owner.",
+      "disposition": "FootPlant Absent/Acquiring/Acquired binds target+acquisition in variant, no phantom acquired without present target through retain. replace_target intentionally retains acquisition; observe_contact(false) does not downgrade. Whether movement of acquired target or persistent readiness after loss is allowed belongs explicit caller policy, not automatic enum-granularity defect."
+    },
+    {
+      "source_indices": [
+        1375
+      ],
+      "ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "roles": "Raised step contact topology, candidate validation and per-foot retained diagnostics.",
+      "disposition": "GuardStepState Uninitialized/Stationary/LeftSwing/RightSwing has support identity carried by variant and GuardSwing typed progress; bespoke request/geometry/validated targets preserve roles. Candidate validates step endpoints/solve targetsfinite before component publication; does not prove native transform transaction. Validate is finite request witness, not actual reachable bothfeet: support intentionallyimmutable and legs solveindependently."
+    },
+    {
+      "source_indices": [
+        1375
+      ],
+      "ranges": [
+        [
+          197,
+          498
+        ]
+      ],
+      "roles": "Swing reach planning and stationary turn state progression.",
+      "disposition": "Physical motion direction otherwise server planned direction determines swing room. Stationary threshold launches onefoot, updates destination/progress, typed duration errors. Reach clamp preserves support; swing adjustment permits finite requests outside actual 3Dreach when vertical alone exceeds reach in horizontal-overrun branch (targetY preserved). Type comment states finite request and solver independence, so do not promote validation into guaranteedreach witness or infer runtime defect solelyfromname. Native finite overflow/end result checks are dependencies. anatomical_side uses measured hip lateral else semantic foot side explicitly; foot-track native world/owner transforms preserve finite nonunit qualification."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-186.json",
+      "sha256": "915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-187.json",
+      "sha256": "384f724657d2dd13432ad6a5573671a61bc6a7f39b73b02ce2b0357742e8d895"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-188.json",
+      "sha256": "fbb51803f979a69f77ec1aca11053bd2a7adb46d3504a064eaedac0f0af38163"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-189.json",
+      "sha256": "a68730444c62595c5321a8e762a9366f327caa5cbce6b39a3f6ce17b0b4ae462"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-190.json",
+      "sha256": "cdc7a00ed64a26af256d37d15b0e1d80c6528b74f8033576246f892f53f2d878"
+    }
+  ],
+  "pending_contracts": [
+    "Knee-yaw missing measurement and desired/applied orientation mismatch remain qualified findings; diagnostics/acceptance/current/ordinary native reachability unresolved, acceptedcount0.",
+    "Normal authored locomotion observer exits before refresh_run_support; do not credit actual propagated run-support correction without resolving caller ownership intent. Sequence sample gaps and no-terrain endpoint retention also pending.",
+    "All13 populations/current/all20 families/aliases/connected acceptance incomplete; no product execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1376
+}

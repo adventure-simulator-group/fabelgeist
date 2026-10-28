@@ -1,0 +1,293 @@
+{
+  "lens": 11,
+  "batch": 205,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1449,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-262.json",
+      "registration_sha256": "4c7e1c131fc6cf89fcbcb6b1267ed4457106c5457b664b91fdecd8c9ab63e198",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo.rs",
+      "sha256": "81ecb5d3d8ae44d03b83c3de1fe81332b833fcffabf776d4faeed2baad4cb708",
+      "scope": [
+        [
+          1,
+          343
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          343
+        ]
+      ]
+    },
+    {
+      "original_index": 1450,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-263.json",
+      "registration_sha256": "224ef46c7db5718a0ad02f1899918926d11c5859b86cf4365dab27c2984dddd6",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/camera.rs",
+      "sha256": "f224852ee3543e1c0825abbacf14ffcfe52d92a1b2bdddfdaa8645a12feff4de",
+      "scope": [
+        [
+          1,
+          179
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          179
+        ]
+      ]
+    },
+    {
+      "original_index": 1451,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-264.json",
+      "registration_sha256": "7f20032d76e79db1a72c7413090cf357740c3dbcc4f9ebcc1ac581e127c1fef8",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/district.rs",
+      "sha256": "ced1a14ba05320405f8cac4e768b2d3748c26d408ecd23c3f25c124585c888b2",
+      "scope": [
+        [
+          1,
+          136
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          136
+        ]
+      ]
+    },
+    {
+      "original_index": 1452,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-265.json",
+      "registration_sha256": "58ec660987bd3e1817d07fed5b2072cdde9eed908aeab90276882df5a3c816b5",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/exhibits.rs",
+      "sha256": "5896675fcae039122783eb698deaed6685a79a3a2ae52bf861dc0bcfdb27d19c",
+      "scope": [
+        [
+          1,
+          275
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          275
+        ]
+      ]
+    },
+    {
+      "original_index": 1453,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-266.json",
+      "registration_sha256": "d47189833fe6717b7d867a9c69b2be5f8a46759d5126d1cea42ccf2914b986e9",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/preparation.rs",
+      "sha256": "5c5a0fb15ea84f9280fac5580c45ad6471f2a8a2bc5fd61a4a92b63e143b5e33",
+      "scope": [
+        [
+          1,
+          45
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          45
+        ]
+      ]
+    },
+    {
+      "original_index": 1454,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-267.json",
+      "registration_sha256": "5c8dc5bde7c1ec5f22c9a557b3a7db500e8d7cb39adc7dde0703d04bd2e64ef0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/residency.rs",
+      "sha256": "9b5cf78205d9e06cf9e5020a05dfa36cec92c54a5bb40e7480790be0471a5279",
+      "scope": [
+        [
+          1,
+          336
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          336
+        ]
+      ]
+    },
+    {
+      "original_index": 1455,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-268.json",
+      "registration_sha256": "fe9e85b18fc6d1d47e6b971f59b47004006024a727a12ba3403946884f655a37",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "scope": [
+        [
+          1,
+          365
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          365
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1449
+      ],
+      "ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "roles": "Art demo closed commands, browser boundary admission, plugin/schedule setup and status publication.",
+      "disposition": "DemoCommand serde denies unknownfields/closed ExhibitId; queue explicitly rejects nonfinite orbit/zoom/pan before adding pending command. This is distinct from204capture CLI orbit; no infer universal camera bug. Show clears obsolete pending navigation intentionally. DemoStatus variants keep readiness/failed/unavailable/loading distinct; typed shared preparation errors projected to message only at UI serialization boundary. Renderererror terminalFailed published afterLast before AppExit, not relyfutureframe. reportreadiness checks main/recursive scene loadfailures and PendingCityBuildings but pendingtextures exposeonlyLoading; connected newfamily. Existing cfgtests readonly."
+    },
+    {
+      "source_indices": [
+        1450
+      ],
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "roles": "Full reached unchanged art camera owner: orbit/zoom/pan and native input/exposure.",
+      "disposition": "Entire179 contract includes all owner/evidence/producer ranges, not prefixreuse. External finite inputs admitted1449, yaw wraps, pitch clamps, positive zoom limits recovered after exponentialoverflow aslocalclamp policy; tests coverMAXzoom andpitch but notallfinitecamera proof. Internal rawdistance/focus fromshipped catalog andnative input requiresactualbounds/catalogadmission; clamp_length native semantics/derivedfocus accumulation pending. No one-purposewrapper demandedfor everylocalized float. Landscape andstudio exposure/axes intentionaldesign, no combat authority."
+    },
+    {
+      "source_indices": [
+        1451
+      ],
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "roles": "Prepared city source projection, version compatibility rejection and validated scene handoff.",
+      "disposition": "CityLayout separate preparedprojection typedcanonicalnested geometry; exact schema/generation mismatch rejected, no legacydualpath/migration. Curate changes locallyownedinput then input.validate; errorcaller dropspreparation, no sharedschema storage mutation. PreparedOutdoorFurniture raw vectors parsedafterlayoutvalidate; fixturetests checkoutdoor/group membership/scene foundations; actualgeneric furniture validation/consumer contract remainspending ratherthanclaimallcheckedbyinput.validate. Tests sourceonly."
+    },
+    {
+      "source_indices": [
+        1452
+      ],
+      "ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "roles": "Closed exhibit identity, texture recipe sets, prepared assets/generator results and native display meshes.",
+      "disposition": "TextureRecipeId enum/staticsets, no parsingwirelabelsdeepinconsumers. Shipcatalog id/kind/asset correlatedbyartifact, Option<String> distinguishesmissing armor/weapon withbespokeerror; actualcatalogfinitepositiveframing/generatorbounds needed before rawscale division issue. generate Resultpropagatescause beforeworldspawn, native mesh conversionworksfromgenerated output but no SDKproof. Armorasset scenehandle returned forreport readiness; weapon/sceneryOkNone meanssynchronouspreparation completednotmissingasset. Staticstudio geometry no schematicdomain storage."
+    },
+    {
+      "source_indices": [
+        1453
+      ],
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "roles": "Structured shared preparation errors retained across cached/loading state.",
+      "disposition": "ArtDemoPreparationError owns original Json/SceneInput boxed/Collider/Weapon causes and ArcAssetLoadError forimpostor; SharedArtDemoResult Arc retains exacterror throughcacheclone. Errorprojectiontomessage onlyatUIstatus not wholesalegenericerrorerasure. CloudSceneMismatch retainsbaked/scene identities, MissingOak/asset variants distinguishoperationalcauses. CityFormatMismatch versionvaluesnotattached; field-richdiagnosticusefulness pending no inventedcausefromexternalknownerrorlost."
+    },
+    {
+      "source_indices": [
+        1454
+      ],
+      "ranges": [
+        [
+          1,
+          336
+        ]
+      ],
+      "roles": "Cached studio results, delayed scenery lifecycle, texture/impostor readiness and navigation cancellation.",
+      "disposition": "Cache stores typedResult includingErrArc; prefetchdiscarded immediate resultstillcached so not erasedcause. Sixresidentstudio cap/recency/sourcehandles and camera views separatepurpose; evictionsprotectactive inprefetch, show intentionallyremovespreviousselection. PendingScenery canceledbeforeselectionchange, retirementboundedframes explicitrenderreleaseheuristic not verifiedlivewait. textures_readybool andearlyfalse masksfailedtexture, connected runtime fullbody nowtraced. Impostor mainLoadState failure retainedArtDemoError::ImpostorLoad; recursivefailure distinction pending. Absenttexture resourceis_none_ortrue only actualpluginresourcecontractdeterminesreachability, do not callcompatfallback automatically. Tests sourceonly."
+    },
+    {
+      "source_indices": [
+        1455
+      ],
+      "ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "roles": "Prepared scene binding, cloud identity, scene-coordinate terrain/tree selection and publication.",
+      "disposition": "OakExhibitSite/root Position<Scene> andGeographicHeightControl couple actualsampledground/root; root_slope center-elevation substitution forout-of-boundsneighbor isintentionalgeometricedgepolicy notlegacycompatibility. OptionpreparedfurnitureNone->empty forOak distinct legitimate nofurniture. Cloud digest keyedauthored fixture beforeboundcitylayout intentionallydifferentfrompublishedscene_digest aftercuration; mismatcherror retainsidentities. RawRGBA byteextentvalidatedsourcefixtureonly; nativeenvironmentconsumer admission pending. Someworldresources/optional oakspawn precede collider? failure andSceneVistaBundle publication; actualchecked terraincontract/cleanup required beforeatomicityfinding, notassumedfailure. Ignoredofflinegeneratortests readsourceonly, neverexecuted."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "New materially reached dependency outside original registry; mandatory all13 lenses, no transfer",
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-269.json",
+      "registration_sha256": "0e7b6088d5524760ee77210b9920a86e43f892a0911ea57a5d6c547c8a819c0d",
+      "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+      "source_sha256": "4351bf685bda2d29433f4b23698ef5377f466b51528b0e3400af6147b7d63931",
+      "scope": [
+        [
+          1,
+          167
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          167
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Plugin initializesresidency; requested/installed cannotpreservefailed status; nativeAssetLoaderErravailable butnotreadbyreadiness consumer. Stable destinationhandles andmapinstallation separateactualmaterialcontract. Loaderio::Error boundary preservesread/decodefail causes via?; recipefilename mismatch ownmessage, no claimed full foreign/nativecoverage fromthis167linefile. Module handles/tests newlyreachedsignaturedeps pendingexactmaterialregistration; no blanket SDKexemption."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-202.json",
+      "sha256": "63324c59ddaeb19782a2601cef6e7b19df50498e267cf6794658a5db3fb42bdd"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-204.json",
+      "sha256": "0120db149cb71611b30ec917fb25120a1d036c192176cec395490e461d611872"
+    }
+  ],
+  "pending_contracts": [
+    "All13 lens populations, current/all20 migration families/aliases/connected acceptance incomplete; acceptedunique0 gatefalse. Seven complete originalowner bodies accounted plus newconnected167line receiver, no productexecution.",
+    "Exact nativeasset failure semantics, TacticalPresentationPlugin BakedTexturesPlugin install/schedule, mapdestinations/handles, allreadinessconsumers/current required for newfamily. Missingrawresource/emptyrecipes/studio distinctions preserved.",
+    "Shippedcatalog framing/positivebounds and weapon generatedpositivefiniteextent beforedivision requireactualadmission proof. Cityfurniture typedcontainermembership validation/sceneconsumer and worldpartialpreparation cleanup remainpending notaccepted defects.",
+    "Existingrenderererror andtypedArccachedpreparationcauses retained, no falsecause-erasureclaim from prefetchearlyresultdiscard or UI displaystrings. Geometricneighborfallback islegitimateedgepolicy."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1456
+}

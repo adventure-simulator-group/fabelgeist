@@ -1,0 +1,243 @@
+{
+  "lens": 11,
+  "batch": 290,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1901,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-742.json",
+      "registration_sha256": "ccd7e695ad7a40e29f4118ec0f32eaff2252c33e02d786fdbc01fc665ef7abee",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "scope": [
+        [
+          1,
+          182
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          182
+        ]
+      ]
+    },
+    {
+      "original_index": 1902,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-743.json",
+      "registration_sha256": "5f23501560fa97174adf1e203ea84c683bf9ecf06dbcbb454db6cade3c92091b",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground/tests.rs",
+      "sha256": "3af5fab04d729f25434e3c731429726b08d94fb12f637ad51c3be301bb25a4dc",
+      "scope": [
+        [
+          1,
+          28
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          28
+        ]
+      ]
+    },
+    {
+      "original_index": 1903,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-744.json",
+      "registration_sha256": "590653075eeb28983d96a7db3cf4e89719d129b613188fd65ae63f4accc8ae0e",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground/urban.rs",
+      "sha256": "f126fe289f242ec3ba4166575dca79fcbc5be9c21e74c7f0fe63988d97907aff",
+      "scope": [
+        [
+          1,
+          378
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          378
+        ]
+      ]
+    },
+    {
+      "original_index": 1904,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-745.json",
+      "registration_sha256": "c2bb93564fcb88eee85cd53c45816b5c6b112fe7e202ec5155254013217f6261",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "scope": [
+        [
+          1,
+          181
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          181
+        ]
+      ]
+    },
+    {
+      "original_index": 1905,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-746.json",
+      "registration_sha256": "379cad185d2adce4970c564210534a56f9f2c4a3abe6fe14675cc01b12ddced2",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "scope": [
+        [
+          1,
+          170
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1901
+      ],
+      "ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "roles": "Independent lens11 exact full ground/urban/owned terrain transport, native query/collision and retained field admission with source acceptance.",
+      "disposition": "Full182 SceneGround centereddiscretesemanticgrid, enumsphysicalsubstrate/cover notclientmaterialindices. from_samples rejectsaxes<2/countmismatch/badscale/density>10000/height>1000 butdirectderiveDeserialize bypassesall, newconcreteadmissionfinding. uniform_for_terrain copiesvalidterraindimensions butpublicGroundSurface unconstrainedu16density/height bypassconstructor too; actualproducer/current neededbeforeinvalidgameinputclaim. ground_at checksgridbounds thenurbanexactownershipbeforenaturalfloorcell; width/depth relyinvariantanddividewidth. cover_intersects_square checksfinite>=0 radius thennativegridrectangle andnaturalsamples only, noturbanoverride; actualgrasscallerurbanoverlapsdisk combinedpolicyneededbeforenaturalgridfalseexclusionfinding. Immutablecomponent/privatefields do notvalidatewire. Noactualdeserialization/query executed."
+    },
+    {
+      "source_indices": [
+        1902
+      ],
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "roles": "Independent lens11 exact full ground/urban/owned terrain transport, native query/collision and retained field admission with source acceptance.",
+      "disposition": "Full28 sourcefixture exactcentereddiscretesample/leaflitter footprint/outsidebound/1vertexconstructorreject. Doesnotdecodeinvalidwire oruniforminvalidGroundSurface. No actualtestpass fromsourceassertions."
+    },
+    {
+      "source_indices": [
+        1903
+      ],
+      "ranges": [
+        [
+          1,
+          378
+        ]
+      ],
+      "roles": "Independent lens11 exact full ground/urban/owned terrain transport, native query/collision and retained field admission with source acceptance.",
+      "disposition": "Full378 UrbanGroundLookup publicnativeconstructor copiespatches andbuildscoarsebucketmaps no CityStreetPatch.is_valid gate; UrbanGroundSurfaces derivesDeserialize withskippedOnceLock, equalityonlysourcegeometry cacheimmutablederived. Actualsurfaceprioritystreet->building->yard andBare0density/height, suppressgrassstreet|yard anddiskfullenvelope edgeintersection; buildingcounts onlysurface/disk notsuppresses_grass intentionalactualcallerneeded. Spatialbuckets pergeometryAABB boundscandidatequery: degenerateMarketfourzerovertices onlyindexedzero bucket, so282containsallfinite doesnotmeanallmapgrasssuppression, actualwrongownership withincandidatebucket remainsconditional. newchecksbuildingPlanDimensions butcopiesstreets/yardsunchanged; actualupstreamTacticalSceneInput parentvalidation/currentpending. Nativei32bucketcasts/rangeenumeration couldhugework withunboundedfiniteextent; actualsourcepatchscene/projectionbounds neededbeforeworkfinding. Sourcefixtures spatiallookup/exactownershipnearboundaries plustransportsubcellgardenclearswithinonly, notexecuted. rawUrbanDeserialize canadmitinvalidpatches no owneradmission bycachebuild itself."
+    },
+    {
+      "source_indices": [
+        1904
+      ],
+      "ranges": [
+        [
+          1,
+          181
+        ]
+      ],
+      "roles": "Independent lens11 exact full ground/urban/owned terrain transport, native query/collision and retained field admission with source acceptance.",
+      "disposition": "Full181 TerrainGeometry Sampled|Owned existingBoundedSettlementTerrain distinctgeneratedgeometry; with_property_surface installsacceptedimmutabletopology, allphysicalqueries/mesh/collidersownedsurface andlatergridrepair/refinedreject. Metadataheightmapextent/materialsampling retained, actualsurfaceproducer/framebinding neededbeforemismatchfinding. sampledgeographicsurface usesexactheightfielddiagonal notvista; ownedsupport excludesburiedbottoms/verticalfacesforelevationcomparisons intentionally. surface_below usesexplicitqueryceiling, defaultheight_at ownedhighest distinct. property_foundationexactownerlookup; foundationcolliders collecterrorsbeforefilter ContactOnly no silentlydiscardedcolliderfailure. Nativeownedmeshstartusize->u32unchecked forflattenedpresentationandnaturalcombinedfaces, actualBoundedSettlement capacityadmission beforeoverflowfinding; existinggridcapacity739 doesnotautomaticallyboundownedflattenedtrianglecounts. UV/gridframe connectionpendingcurrent. No dynamic tacticalpersistence."
+    },
+    {
+      "source_indices": [
+        1905
+      ],
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "roles": "Independent lens11 exact full ground/urban/owned terrain transport, native query/collision and retained field admission with source acceptance.",
+      "disposition": "Full170 SceneElevationRange nonemptyfiniteorderedcheckedmin/max, requiredheight/range errorsnamedpoint/missingbounds, optionalqueries representexpectednoground. Sampledcompletekernel exactsamecelltriangle/nativeheightfielddiagonal, boundaryadjacentcellclamping, f32heightdiff/interpolation/cross thenSurfaceHit::from_geometry; finiteinputheights739 notproofallintermediatesfinite. NumericalfailuremaycollapseintoMissingSupport throughOption, actualSurfaceHitowner/source/current neededbeforefinalcausefinding. Ownedqueriesswitchhighest_surface_at explicitnativephysicaltopology; coarsestrideonlysampledLOD, no independentqueryauthority."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-284.json",
+      "sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    }
+  ],
+  "pending_contracts": [
+    "290 completes1901..1905 exactfullmetadataunion,next1906 unregistered,nextregistration747. No partial/unrecordedbodyreads.",
+    "NewSceneGroundwirebypass hasactualconstructor/derive/querysource andconcretedecodedwidth0 arithmeticpath, actualtransport/currentunverified. Market282nowactualurbanconsumerconnectedandqualifiedbucketlimitedimpact, noall-mapclaim.",
+    "Ownedmeshflattenedusize->u32 requiresactualBoundedSettlement capacity; gridcapacity739 isnotproof. Scenequeryf32intermediatefailure->Option beforeMissingSupport actualSurfaceHit/source/current neededbeforeerrorfamily. Naturalcoverfootprint vsurbanoverride actualcallercachedpolicy beforegrassfinding.",
+    "Allpriorconditionalfamilies/GradeOffset289/Quickstep287qualified288/tenextensions/EOFexceptions/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1906
+}

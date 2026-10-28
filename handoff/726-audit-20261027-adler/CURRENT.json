@@ -1,74 +1,96 @@
 {
-  "at": "2026-10-27T17:56:20.140556+00:00",
-  "objective": "Continue the thirteen-lens audit and connected repair/dependency/acceptance ledger. Return an incomplete audit with exact checkpoints when needed; no code repairs until ledger completion.",
-  "audit_goal_status": "paused by user; this publication is a handoff, not resumed audit or implementation.",
-  "implementation_gate_complete": false,
-  "main_pin": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
-  "product_tree": "9ad4f2300a9255bebc06f3aa1b15e58f69382130",
-  "local_checkout_head": "5376d149da40b9ba3afd93d86827832eab1f1f89",
-  "prior_handoff_commit": "90b18956a366ab38f9cd79d856abbcce10396bb3",
-  "frozen_source_archive": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "kind": "Authoritative return handoff to Bruno Segovia (segovb)",
+  "at": "2026-10-28T16:08:22.848975+00:00",
+  "status": "Audit incomplete; paused at user request for handoff back to segovb after verified batch396.",
+  "handoff_commit": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "handoff_branch": "codex/726-audit-handoff-20261028-segovb",
+  "current_main_pin": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+  "product_qualification": "Checked-out handoff product code predates main; exact registered source hashes are the frozen source authority. No newly claimed current-source comparison.",
   "ledger": "evidence/continuation-segovb/ledger.json",
-  "ledger_sha256": "faa02f4f9b8c0643ae7baa4a3ac81da1778e42f8637e197036fc10fb1245662b",
-  "root_adopted_frontiers": [
+  "ledger_sha256": "0425f4ba22a7068d26073e1349a01b29f874f6333a2c33dcc5c0cece8017039a",
+  "evidence_projection": {
+    "historical": "target/recovery-20261025/",
+    "local": "target/726-audit-adler-20261027/evidence/",
+    "restored_files": 15004,
+    "rule": "Historical receipts unchanged. Local ledger deliberately updated; its original bytes remain in published handoff. Copied MANIFEST and CURRENT describe inherited snapshot, not new local ledger. New receipts in adler/."
+  },
+  "adoptions": [
     {
-      "lens": 8,
-      "name": "behavior-preservation",
-      "authoritative_state": "audit-resume-20261027/lens08/STATE-129.json",
-      "coverage": "2853/2853 original scoped roles WITH findings, all701 affected frozen base comparisons;246/246 overlays;38/38 merged;196/196 shared scopes. New extensions/current/all20/aliases/connected repair acceptance pending.",
-      "state_sha256": "7f7bf345493f369ff9eb147afca1ab761c5fb9e32a274fe731c21911b2e8d7c9"
+      "path": "adler\\ADOPTION-070-lens11.json",
+      "sha256": "60dd9cb2f05cea4e9f8334334b7096c9a72b6d1ad4bc9d59c737ed3acd6916ee"
     },
+    {
+      "path": "adler\\ADOPTION-071-lens12.json",
+      "sha256": "adc5e0cb2c0a8c832ab21ae3a168dc5e624ef5c8b3599c228f5334aecfc68aa2"
+    },
+    {
+      "path": "adler\\ADOPTION-072-lens13.json",
+      "sha256": "d359ea9f878363270a513c70ee5741a1805845e53a3939fcfb8a96ac175712b4"
+    }
+  ],
+  "frontiers": [
     {
       "lens": 11,
       "name": "type-granularity",
-      "authoritative_state": "audit-resume-20261027/lens11/STATE-proposal-101.json",
-      "coverage": "1195/2853 original scoped source roles WITH findings; next1195. Other populations/newextensions/current/all20/alias/acceptance separately pending.",
-      "state_sha256": "ffb606a4b7f0847f5f57a034826d9ea93a26698abf431823c3bedfa694e52881"
+      "original_accounted": 2415,
+      "next_original": 2415,
+      "state": "adler/STATE-L11-396.json",
+      "next_action": "Register and read original2415; all13 populations/current/all20/aliases/connected acceptance remain incomplete; no project execution or repairs.",
+      "state_sha256": "8e176f65195b38b0b179aa2bd24b517f2d13d9f67d631c90c962aba5a38d68a6",
+      "original_total": 2853,
+      "latest_receipt": "adler/READ-L11-396.json"
     },
     {
       "lens": 12,
       "name": "magic-strings",
-      "authoritative_state": "audit-resume-20261027/lens12/STATE-proposal-228.json",
-      "coverage": "1079/2853 original scoped source roles WITH findings; next1079. Other populations/newextensions/current/all20/alias/acceptance separately pending.",
-      "state_sha256": "e2707f6516b02e3a5587684a864dc8481d89875225ed1c2ff16693ef7b325b15"
+      "original_accounted": 1094,
+      "next_original": 1094,
+      "state": "adler/STATE-L12-234.json",
+      "latest_receipt": "adler/READ-L12-234.json",
+      "qualification": "Disease1093 combines inherited1..1200 persisted roles, checkpoint attestation1201..1800 and new personal1801..2950. Raw predecessor tool outputs1201..1800 not separately transported; not invented personal evidence.",
+      "next_action": "Prospectively register original1094 then follow bounded unread source. Preserve all native/UI/schema/clinical/currentness and extension qualifications.",
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0",
+      "original_total": 2853
     },
     {
       "lens": 13,
       "name": "magic-numbers",
-      "authoritative_state": "audit-resume-20261027/lens13/STATE-061-proposal.json",
-      "coverage": "350/2853 original scoped roles WITH findings; next350. Other populations/new extensions/current/all20/aliases/connected acceptance pending.",
-      "state_sha256": "7aeb67d38f6a6cb4603d950d26f04f58b5727d1619107e233a80858a61317ba3"
+      "original_accounted": 360,
+      "next_original": 360,
+      "state": "evidence/continuation-segovb/audit-resume-20261027/lens13/STATE-062-proposal.json",
+      "partial_receipt": "adler/READ-L13-231-232-PARTIAL.json",
+      "next_action": "Complete231-232 inventories360..364 from exact checkpoint reads plus new receiving records. No absent364 tail39..44 credit; smoothstep872..873 partial only. Latest queue062 from checkpoint supersedes state field pointing058; preserve both historical records.",
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa",
+      "original_total": 2853
     }
   ],
-  "pending_checkpoints": [
-    {
-      "path": "evidence/continuation-segovb/audit-resume-20261027/lens11/HANDOFF-paused-20261027-001.json",
-      "sha256": "43269fdaa1eec33dcea0670bc9ac713a16db4a6d2d1a0f376c2dd193758f0b44"
-    },
-    {
-      "path": "evidence/continuation-segovb/audit-resume-20261027/lens12/HANDOFF-paused-adler-001.json",
-      "sha256": "a3f0cb4b99e3e6cc7557354a57e25ddb9ae3be92783bbe37949fab01a36bdc74"
-    },
-    {
-      "path": "evidence/continuation-segovb/audit-resume-20261027/lens13/HANDOFF-ADLER-20261027-001.json",
-      "sha256": "d9bf01dd475c1c48ad09006f79d29cfd7cdbeb20854dc6ec9722107d9f913176"
-    }
-  ],
-  "pending_proposals": {
-    "11": "102\u2013107 reach1207; packet108 partial1207 through2160, next2161, not root-adopted",
-    "12": "229\u2013233 reach1093; original1093 partial1\u20131800 consumed, read log persists1\u20131200: recover/disclose before assigning coverage; not root-adopted",
-    "13": "223\u2013230 / STATE062 reach360; in-flight360\u2013364 consumption in checkpoint, not root-adopted"
-  },
+  "all_other_lenses": "Saved states and count qualifications preserved; extensions/current/all20/aliases/connected acceptance remain mandatory for every lens. No all-green summary.",
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "project_execution": "No product changes/builds/tests/lints/scanners/generators/runtime probes/CI fixes/new tests/helpers/assertions/doctests. Only Git/source/evidence bookkeeping.",
   "preservation": {
-    "working_tree": "clean at publication preparation; no product edits for audit/handoff",
-    "stashes": [
-      "6c109560050d97dd6deeb842b1d71ec8a280949b",
-      "5d123a896914dae269833c473330d63d454aff7b",
-      "b6da4b4bdb70def66126f540ea8bb828e4c80d49",
-      "c0b78fa61cc4a893ce66ad4aa54850621c73aee4"
+    "new_stash": "37425931d1bd5c5fa104900d2f5f6a3a40e06afd",
+    "stash_name": "codex-preserve-before-726-audit-20261027",
+    "stashed_files": 6020,
+    "prior_local_stashes": [
+      "5f6624e22fc5b56132a3396dd4fa936d65c09d0d",
+      "bc59ca7bf0aa017ae5cad7d65bd4a4b52834ffbd"
     ],
-    "qualification": "Unrelated local stashes remain local and untouched; their contents are not part of the handoff payload."
+    "segovb_four_stashes": "Not transported; no attempt to recreate or alter them."
   },
+  "publication": "Requested return handoff snapshot; no product changes, PR, merge, issue update, conversation publication or external message.",
+  "previous_checkpoint_archive": "checkpoint-history/167355873b27233905b978774d0ea47e1f7b0584277a8f484a0c621e73138481.json",
+  "audit_goal_status": "paused",
+  "prior_handoff_commit": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "read_first": [
+    "README.md",
+    "CURRENT.json",
+    "AUDIT-RESUME.md",
+    "SOURCE-LOCATORS.json",
+    "PROMPT.md"
+  ],
+  "source_locators": "SOURCE-LOCATORS.json",
+  "audit_resume": "AUDIT-RESUME.md",
   "scope_authorities": {
     "original": "evidence/audit05/original-scope-072.json",
     "original_total": 2853,
@@ -81,32 +103,36 @@
     "merged_total": 38,
     "family_total": 20
   },
-  "publication_limits": "Snapshot transport/hash verification is not source-body review, lens completion, runtime validation, CI or unique-finding acceptance.",
-  "return_contract": {
-    "primary_artifact": "GitHub handoff branch",
-    "completion_required_before_return": false,
-    "code_repairs_allowed_before_ledger_completion": false,
-    "required": [
-      "updated authoritative ledger",
-      "exact evidence/source pins",
-      "separate pending proposals",
-      "partial-read scopes",
-      "mandatory qualifications",
-      "next bounded unread actions"
-    ],
-    "qualification": "Adler may hand the audit back to Bruno before completing it. Preserve unfinished state honestly; do not restart qualified completed work."
+  "inherited_current": "history/b97bcedc262f91de07635c69cd1a4fc4f9a7d13f/CURRENT.json",
+  "resume_ignored_root": "target/726-audit-adler-20261027",
+  "restore": "restore.py",
+  "latest_verifier": "adler/VERIFY-L11-396.json",
+  "other_lens_states": "Authoritative ledger retains every other lens state and count qualification. No other-lens verdict transfer.",
+  "remaining_original_counts": {
+    "11": 438,
+    "12": 1759,
+    "13": 2493
   },
-  "kind": "Authoritative continuation handoff to Adler Halbe",
-  "handoff_branch": "handoff/726-audit-ledger-20261027-adler",
-  "read_first": [
-    "README.md",
-    "CURRENT.json",
-    "AUDIT-RESUME.md",
-    "SOURCE-LOCATORS.json",
-    "PROMPT.md"
-  ],
-  "status": "Audit paused locally; continue source discovery only. Incomplete handback is allowed. No code repairs until ledger completion.",
-  "supersedes": "Earlier handoff resume/status aliases; original receipt bytes, findings and qualifications remain historical evidence.",
-  "audit_resume": "AUDIT-RESUME.md",
-  "source_locators": "SOURCE-LOCATORS.json"
+  "last_registration": 1293,
+  "next_registration": 1294,
+  "next_batch": 397,
+  "mandatory_extensions": 36,
+  "strict_eof_qualifications": 8,
+  "preservation_at_return": {
+    "new_stash": "37425931d1bd5c5fa104900d2f5f6a3a40e06afd",
+    "stash_name": "codex-preserve-before-726-audit-20261027",
+    "stashed_files": 6020,
+    "prior_local_stashes": [
+      "5f6624e22fc5b56132a3396dd4fa936d65c09d0d",
+      "bc59ca7bf0aa017ae5cad7d65bd4a4b52834ffbd"
+    ],
+    "segovb_four_stashes": "Not transported; no attempt to recreate or alter them.",
+    "segovb_original_stashes": [
+      "6c109560050d97dd6deeb842b1d71ec8a280949b",
+      "5d123a896914dae269833c473330d63d454aff7b",
+      "b6da4b4bdb70def66126f540ea8bb828e4c80d49",
+      "c0b78fa61cc4a893ce66ad4aa54850621c73aee4"
+    ],
+    "qualification": "All listed stashes remain local to their owning machines; no stash content transported. Adler three local stashes untouched. Segovb four were not present on Adler machine and were not recreated."
+  }
 }

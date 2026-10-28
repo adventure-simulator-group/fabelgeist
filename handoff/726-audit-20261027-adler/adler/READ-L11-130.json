@@ -1,0 +1,146 @@
+{
+  "lens": 11,
+  "batch": 130,
+  "status": "Original1238 complete1435-line native surgery/injury/treatment source accounted WITH findings, no clinical/runtime validation",
+  "original_index": 1238,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+  "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-039.json",
+  "scope": [
+    [
+      1,
+      1435
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      300
+    ],
+    [
+      301,
+      600
+    ],
+    [
+      601,
+      900
+    ],
+    [
+      901,
+      1200
+    ],
+    [
+      1201,
+      1435
+    ]
+  ],
+  "prior_same_lens_context": [
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-049-receipt.json",
+      "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df",
+      "ranges": [
+        [
+          395,
+          566
+        ]
+      ],
+      "qualification": "Prior exact same-lens connected body, now fresh personally reread within full source; no earlier whole credit."
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-066-receipt.json",
+      "sha256": "16f2aecb0b7d7a148ae2a27e02d5a1a4d0e9ca26a56196b0142c49eeef35acbd",
+      "ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          230,
+          305
+        ]
+      ],
+      "qualification": "Prior exact same-lens connected body, now fresh personally reread within full source; no earlier whole credit."
+    }
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "roles": "Strategic durable injury versus transient tactical tick, full treatment request/receipt disposition, body-region keyed wound and projectile provenance.",
+      "disposition": "Already canonical BodyRegion/ProjectileKind/SurgeryProcedure/StrategicMinute own real closed vocabularies. TreatmentActionReceipt compares all actor/patient/limb/procedure/projectile/soap/context/revision/action fields via New/ExactReplay/Collision; keep request association, no generic receipt weakness allegation. Stored splint owner/row two Options correlated AppliedSplint payload; stitched bool/quality and infection origin/exposure/checkordinal have real relations not independent generic fractions. Cut/bruise/frostbite accumulated damage distinct fracture subset, stitch quality skill and retained projectile DC deliberately uncapped; do not force every f32 into UnitInterval. Native public wound rows hold strategic consequence categories, not persisted transient tactical HP/tick. Initialization/reset contract requires each BodyRegion once; reset owner/callers pending, no execution."
+    },
+    {
+      "ranges": [
+        [
+          187,
+          365
+        ]
+      ],
+      "roles": "Projected limb health, seeded cut and frostbite, single-hit versus aggregate damage/fracture, retained projectile depth/source.",
+      "disposition": "Projection cut+max(bruise,fracture)+frostbite prevents double fracture health penalty; injury_for exact initialized key asserts existence/identity rather than compatibility autofill. Single hit delegates aggregate passing blunt twice for sum/max, aggregate fracture only largest hit and capped to bruise; actual admission of finite/nonnegative bounded consequence remains caller contract, helper max/clamp not universal proof. Frostbite restricted peripheral regions, separate tissue category no projectile/blood. BodyRegion broader than allowedperiphery suggests focused admitted region type only if repeated boundary needs it, not one enum for every minor local case. Actual random projectile contribution typed child entropy before rawpoints; positive totaldamage gating observed, no hidden extra fatigue pool/speed impairment inferred."
+    },
+    {
+      "ranges": [
+        [
+          366,
+          600
+        ]
+      ],
+      "roles": "Recovery-only minutes versus requested/committed elapsed and terminal/alive preview/settlement, continuous blood/cut evolution and convalescence forecast.",
+      "disposition": "InjuryRecoveryMinutes meaningful purpose over u64, zeroNONE and min(requested) permits independent rest portion; keep common elapsed underlying quantity without substituting totalelapsedforrest. Named preview/settlement already distinguish terminal from alive; public elapsed scalar/boolean can express invalid frontier but actual core simulation returns coherent state. Bloodfraction missing/invalidcapacity uses1policy; exact canonical blood mass/volume owner still required. Loop reuses BodyRegion order for cuts/interval vectors—named perregion results avoid reorder/length mistakes; core producer exact matching required before panic concern. Native settle changes injury/blood and returns actualelapsed, explicitly does not write CharacterTime; timeowner commits frontier once. Bandage/stitch/projectile/splint affect wound recovery/infection with distinct rates, no new movement speed assertion. Convalescence considers bandaged cuts/bruises/splintedfracture only; frostbite/untreated/unrecoverable cases require exact caller forecast semantics before calling time0 false healed."
+    },
+    {
+      "ranges": [
+        [
+          602,
+          727
+        ]
+      ],
+      "roles": "Available inventory count versus applied splint exact row and return owner, infection accumulated exposure/check index/source occurrence, one item consumption.",
+      "disposition": "Splint select smallest unequipped row; split quantityone or move actual row to patient, return validates exact splint item/quantity then owner, preserving reusable provenance. Native row mutation bypasses canonical physicalobject rehome shown elsewhere; determine splint actual stableobject capability/custody writer before ordinary ghost-object assertion. Named AppliedSplint record can retain owner,row,patient association. Counts total rawu32 may overflow acrossmanyrows, no ordinary hugeinventory proof. Standing exposure/checkordinal is cumulative numeric, not0..1 probability; eventsource injuryid:check index stable; origin+ordinal as StrategicMinute distinct actual elapsedinfectionfrontier, actual disease receiving contract/currentness required before chronology finding. consume_one returns no receipt, loses exact consumed row to callers but no wrongrow from deterministic min policy."
+    },
+    {
+      "ranges": [
+        [
+          730,
+          887
+        ]
+      ],
+      "roles": "Surgery procedural skill versus general skill, disease-effective attributes and self-treatment, infection control, pairwise presence/aligned clock/common safe wait.",
+      "disposition": "Existing canonical procedure_skill owns self-use policy; effective disease attributes/limb weighted skill checks actual performance, no double fatigue pool inferred. Infectioncontrol subtracts activeepisode1 from surgicalskill, not general movementpenalty; source missinglevel defaults3immunity/ZEROtime need own admission. require_together living actors same settlement or contextualpresence, not just party membership. Align waits lagging actor/patient to max, rechecks together, deduplicates selfparticipant, builds one diseaseplan and min disease/injury preview then commits common safe duration. Named TreatmentWaitOutcome would distinguish completion/interruption/death and associate clocks rather than bool, actual time/disease/current source pending. No human medical advice or clinical validation."
+    },
+    {
+      "ranges": [
+        [
+          889,
+          1169
+        ]
+      ],
+      "roles": "Authenticated exact treatment receipt, optional contextual claim, allowed/refused/unavailable rights, procedure-specific target/DC/tools/soap, interrupted completion and strategic commit.",
+      "disposition": "Actor authority and limbslug admission precede receipt; contextref+membershiprevision require both or neither. Exact committed replay returns before mutable presence/rights/resource checks, legitimate lostresponse path. New checks contextualdecision before upsert and after alignedwait; Allowed payload discarded, owner could carry admitted treatment association. Procedure sum includes OpenBody but liveendpoint rejects it; typed LivingTreatment::Extract{projectile}/Bandage/Stitch/Splint/RemoveSplint can prevent irrelevantprojectile/soap/claim combinations at internal ports while core SurgeryProcedure may legitimately span corpse API. Actual DC/gates selected from current wound/projectile beforewait; afterwait injury reloaded but skill/DC/projectile snapshot retained. Actual corewait/wound/resource/rights mutations needed before claiming stale treatment ordinaryfailure. Soap explicitly selected/applicable rechecked, alcohol automatically bestdisinfectant and consumed; intended UI legibility/playerselection policy pending actual consumer. Commits bandage/stitch/splint/extract effects, source blood/exposure/derivedprojection, capabilities for survivedpatient, then receipt. Hidden infection rolls are authored game design not unsolicited new combat penalties; no clinical claim/tests. Whole object/item helper diagnostics could retain structuredcause through internal operation."
+    },
+    {
+      "ranges": [
+        [
+          1171,
+          1435
+        ]
+      ],
+      "roles": "Existing source-order/full request fixture, singlehit fracture/projectileDC/frostbite/selfskill and chunk invariance, injury initialization and explicit recovery API.",
+      "disposition": "Read only, no tests/helpers/assertions run. Samples assert exact keys including verylargeCharacterId no truncation aliases, bounded body projection but uncapped extractionDC, coherent blood/cut integration and explicit singleclockowner. These fixtures do not prove allnative readonly preview/atomictransaction/schema/clinical/runtime/currentsource guarantees. Nonempty initialized region/table precondition remains actual construction contract. Imported source-string helpers are not body coverage."
+    }
+  ],
+  "pending_contracts": [
+    "Exact surgery entropy/authority/projectile child scopes1239..1241 next; canonical core surgery/physiology/blood/disease/time/inventory/rights owner APIs and actual typed treatment/public projection current readers.",
+    "Splint physicalobject capability/rehome association, procedure prewait versus commit-time target admission, standinginfection eventclock and all13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1239
+}

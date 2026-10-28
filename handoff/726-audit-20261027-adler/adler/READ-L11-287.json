@@ -1,0 +1,154 @@
+{
+  "lens": 11,
+  "batch": 287,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1886,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-727.json",
+      "registration_sha256": "06c14cc58238c5b2629c3ed7efaef75ce3154ac53e9dfa5af43bc348a43e8ca7",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "scope": [
+        [
+          1,
+          1738
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          720
+        ],
+        [
+          721,
+          900
+        ],
+        [
+          901,
+          1080
+        ],
+        [
+          1081,
+          1260
+        ],
+        [
+          1261,
+          1440
+        ],
+        [
+          1441,
+          1620
+        ],
+        [
+          1621,
+          1738
+        ]
+      ]
+    },
+    {
+      "original_index": 1887,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-728.json",
+      "registration_sha256": "2ce8cad7a261bd276f21f96d393317c833af196988e8188cdf0328d173c2b9b3",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "scope": [
+        [
+          1,
+          18
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          18
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1886
+      ],
+      "ranges": [
+        [
+          1,
+          1738
+        ]
+      ],
+      "roles": "Independent lens11 full changed physics native state/force/target/controller policy, complete actual motor consumer and source fixtures.",
+      "disposition": "Full1738 source includescontrollernativefactory withAhoyaccel/frictiondisabled, rawrollbackSnapshot checkedinputtickOption/Vec3/Quat/velocity andQuickstepPush rawworldorigin/orientation/direction/boolactive, MeleeLungeMovement rawplanarorigin/direction/distance. Actualreplication/restore validationstillneeded; noSpacetimeDBtacticalpersistence. apply_motor_configactualinvokedperentity; bodymass+inventorymass andhealthy-legattributes ownphysicalforces/jump, notfatigueparallelspeedpenalty. Ordinaryspeed Resultwarn+continue, quickstepsupportduration/targetspeed/observedspeed errorswarn+continue. Errorcanoccuraftercontroller/masspartialwrites butbeforevelocity, actualtransactioncontract beforepartialmutationfinding. Missingactuator partialrestore usesboundedbraking explicitcurrentrecovery, notcompatpath. Quicksteptrackingactualtargetposition/velocityfeedforwardaccel, boundedforce/timing/lengthsupport thennativevelocity; supporttickconvertceilfloat->u64, actualconfiguredrange/clock policy pending. TargetResultchecksSignedSpeed only, rawdisplacement/accelerationunvalidated, newconditionalunderflowfinding. Actualdurationcallerpositive, clocktarget_phase notyetread, preventsruntimeclaimforarbitraryhelperinputs. Ordinarymotortractioncaps,burden/injurylimits,agility1..5turncurve andclampedordinaryspeedfraction butno fullnormbound for264contactcount; actualtargetspeed522 andplayer640 next. Allsourcefixtures include conservativearrivalagainstfixedmotor, mass/injury/traction, brakedreversal,turnradii/speed/jump,quickstepprofile/cap/drift/support andpronepace; noexecutedtests/nativeprobe orassumedQueryrequiredcomponents coverage."
+    },
+    {
+      "source_indices": [
+        1887
+      ],
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "roles": "Independent lens11 native actual controller configuration adapter.",
+      "disposition": "Full18 zerosAhoyhorizontalacceleration/friction/stopspeed acrossground/air/water, setsactualmotorgravity/stepheight/slopecosine. Rawfloatatnativeadapterintentional, scalarconfigadmission282actualvalidator finitepositiveandcompiledlimits upstream. Invoked727beforetargetselection; no doublemotoracceleration pathclaimed. No independenthiddenfatigue/totalincap speedpenalty introduced."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-284.json",
+      "sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    }
+  ],
+  "pending_contracts": [
+    "287 full1886physics1738 and1887controller18 complete,next1888 metadatafull522,nextregistration729. No unrecordedpartialbodyreads. Missingmetadata rangesnull exceptionfirstattempt1888 wasno bodycredit, compact1888..1894 reread complete.",
+    "Newtrajectoryacceleration underflowsourcehelperfinding needsactualclocktarget_phase/quantization/config/current; noassertnormalphysicsproducesInf. Generalmotoractualscalarbounds do notyetclose264contactwork or263downedperiodicrange concerns.",
+    "Allpreviousfamilies/Market282/AIoffense282/Marching286/positiveprofile283/tenextensions/EOFexceptions/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1888
+}

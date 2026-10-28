@@ -1,0 +1,160 @@
+{
+  "lens": 11,
+  "batch": 142,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1257,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-064.json",
+      "registration_sha256": "35bb916de30dcb6ecdbe763fa4b51a6e7cb4a7818066131de59f57ae1ad033e2",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "scope": [
+        [
+          1,
+          445
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          245
+        ],
+        [
+          246,
+          445
+        ]
+      ]
+    },
+    {
+      "original_index": 1258,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-065.json",
+      "registration_sha256": "3fdd8da875f336d5a9df9611c0248b81233eca7bc64c97719948c76bd675b65d",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "scope": [
+        [
+          1,
+          78
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          78
+        ]
+      ]
+    },
+    {
+      "original_index": 1259,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-066.json",
+      "registration_sha256": "12a378ec4ee17e7beb950112b6fb70d7de5bcf6223dd78a594fd98fb4e69499b",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "scope": [
+        [
+          1,
+          152
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          152
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1257
+      ],
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "roles": "Stable physical object identity, independent weapon/holder recipe records, exact persisted projections and backend capability.",
+      "disposition": "Distinct native record types already separate weapon/holder; raw object/row/catalog identifiers and gram/mm leaves should retain actual roles across helpers, not duplicate canonical model owners. Gateway identity guard surrounds backend projection for carried Personal/Party objects; public view attribute alone is not unrestricted recipe disclosure. ConnectedWeaponAppearance shared shape erases weapon vs holder kind, caller field association remains required. Physical object ID outside encoded design is bound by authoritative lookup, not authenticated by comparing it to itself."
+    },
+    {
+      "source_indices": [
+        1257
+      ],
+      "ranges": [
+        [
+          141,
+          326
+        ]
+      ],
+      "roles": "Initialization, fitting authority, chassis identity and evaluated recipe replacement.",
+      "disposition": "Melee known default requires single inventory row then physical identity; unknown default no-op is unsupported nonparametric category policy until actual catalog owner, not automatically compatibility fallback. Initializers unconditionally call replace_design after default construction; repeated call/custody route needs source before assuming stored custom recipes survive reinitialization. Fitting holder uses require_object for holder but weapon uses object_for_row; actual caller weapon custody proof pending before unauthorized fitting conclusion. Replacement owns canonical validation/chassis match, caller reducer owns authority/material/time; no blanket demand duplicate authorization inside owner helper. Purpose-specific admitted object handles/structured errors should survive to actual boundary rather than formatted String throughout."
+    },
+    {
+      "source_indices": [
+        1257,
+        1259
+      ],
+      "ranges": [
+        [
+          328,
+          391
+        ],
+        [
+          1,
+          105
+        ]
+      ],
+      "roles": "Authenticity, storage quantization, geometry, optional unfitted holder and corrupt construction.",
+      "disposition": "Reuse EvaluatedWeapon/EvaluatedHolder canonical owners. Decode enforces generator/recipe bounds/catalog and full reconstruction equality including encoded bytes/hash/projections; no old-version fallback. Storage rounds gram/mm, positive mass/length floor1 and grip0 allowed; preserve exact representable range/rounding semantics. Generic scale/label helper allows unit confusion and internal String erasure; structured unit-specific storage projection conversion fit. fitted_holder_mass Result<Option> distinguishes absent/unfitted from corruption; combat_geometry converts object lookup errors and invalid recipe to None, so receiving default/catalog policy must be traced before silent fallback conclusion. Current canonical admissible numeric maximum needed before float-u32 boundary concern."
+    },
+    {
+      "source_indices": [
+        1258
+      ],
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "roles": "Personal row/catalog association, duplicate rejection, authenticated appearance projection and rounded physical fields.",
+      "disposition": "View helper scans actual Personal row/catalog, requires exactly one physical object and canonical evaluation; no independent character/sender proof here, sender-scoped outer view remains owning dependency. Projection uses authenticated stored rounded grams/mm converted back to SI rather than raw precise derived values; receipt/render consumers must preserve this deliberate storage quantization. Absent, duplicate and corrupt become None; named internal outcome may retain reasons until outer optional projection boundary. No raw recipe leak claim without outer sender authorization trace."
+    },
+    {
+      "source_indices": [
+        1257,
+        1259
+      ],
+      "ranges": [
+        [
+          393,
+          445
+        ],
+        [
+          107,
+          152
+        ]
+      ],
+      "roles": "Existing construction/tampering and per-object recipe tests.",
+      "disposition": "Pure fixtures mutate all seven encoded/projection fields and distinguish same catalog object IDs/recipes; source reading only, not passing validation. Tests do not cover repeated initializer on existing custom design, cross-owner fitting admission or actual option/default receiver policy."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-132.json",
+      "sha256": "c90248a60cfbfa2915375e49221a0189d50b201c7738965bd6eb338e43a33fc0"
+    }
+  ],
+  "pending_contracts": [
+    "Trace actual initializer reuse, fitting custody caller, sender-scoped outer appearance, combat geometry absent/corruption consumers and precise canonical range; reconcile current/master aliases and all20 families.",
+    "All13 original/overlay/merged/shared/extension/current/alias/acceptance populations remain incomplete; no project execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1260
+}

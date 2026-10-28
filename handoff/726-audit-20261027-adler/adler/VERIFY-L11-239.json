@@ -1,0 +1,873 @@
+{
+  "kind": "Ignored evidence integrity only; not product test/runtime verification",
+  "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-239.json",
+  "receipt_sha256": "6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801",
+  "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-239.json",
+  "state_sha256": "7e0737d8f8f172a686b7f7a9d858ca571d77037121a4a70de0311612a921a317",
+  "previous_verification_sha256": "00b2a65fc522616b8cc05fd179e3879a2878fc5ec8d5e906ffb62d361e7ef9ce",
+  "ledger_sha256": "fbda7a13a0bd038bb9969f365497bd9e1577f40ea97cbcc496e3d432ae0a287f",
+  "checks": [
+    {
+      "original_index": 1660,
+      "population": "original",
+      "population_index": null,
+      "sha256": "0c1abe95c96378d50acffc88477c5694fd8a715b32de66f586bdb4eac30f46c5",
+      "lines": 168,
+      "registered_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 1661,
+      "population": "original",
+      "population_index": null,
+      "sha256": "30fdd1c0dc0b3569a4f38a70bca296cf20ec370c5487a0411c18011987fec1cf",
+      "lines": 91,
+      "registered_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 1662,
+      "population": "original",
+      "population_index": null,
+      "sha256": "7166792f47fb4800916b03dd90a149033382ed4a4f2d2e7b058a1237a4586f71",
+      "lines": 153,
+      "registered_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 1663,
+      "population": "original",
+      "population_index": null,
+      "sha256": "001e9ddd72769e824937e8765c48d3c42f9bf67f348ff62f258129019cd61f26",
+      "lines": 331,
+      "registered_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 1664,
+      "population": "original",
+      "population_index": null,
+      "sha256": "f1235fb0cff334be1c2f34ba2ea9c1419161753aa704b69f4b4321ced4c8231e",
+      "lines": 175,
+      "registered_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 1665,
+      "population": "original",
+      "population_index": null,
+      "sha256": "e71c17fce89d8304542afd21ad84fde3cec70c08368bc21c27f318146268e48a",
+      "lines": 295,
+      "registered_ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    }
+  ],
+  "contextual_checks": [],
+  "extension_checks": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          99,
+          132
+        ]
+      ],
+      "registration_sha256": "e3853ffe6e3abbabeb4020e13eb51903766e9de61f1febfe0b39d537333ec89c",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "ranges": [
+        [
+          216,
+          240
+        ]
+      ],
+      "registration_sha256": "6fb3a6b3a9f0282f04359daf06a2409d710eb4ee436284c228b3ce7d994aefce",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "registration_sha256": "0e7b6088d5524760ee77210b9920a86e43f892a0911ea57a5d6c547c8a819c0d",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/materials.rs",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "registration_sha256": "b55f71b929d8a03b5da44632ccdea4730b2e05f9f68529063c6dd1ff37fbbb25",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "registration_sha256": "513cc320bbeb295c27f33805d41133a3ae70fd569d6241bbddbdddc87410ea19",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "ranges": [
+        [
+          1,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "registration_sha256": "0cf8f380e9c3e6e8e8d275c256de20ed2642579c2a529e09ae229640baf5267e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          18,
+          154
+        ]
+      ],
+      "registration_sha256": "bb31ecc94007bc997eae168738ab9171b95c1ad8ec4c364e6a8d99173a056255",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 1666,
+      "state_sha256": "7e0737d8f8f172a686b7f7a9d858ca571d77037121a4a70de0311612a921a317"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "branch": "handoff/726-audit-ledger-20261027-adler",
+  "worktree_status": "",
+  "next_original_metadata": [
+    {
+      "original_index": 1666,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs",
+        "owner": "root",
+        "sha256": "ec1e85e8624809e09deeccbb67ed4d8df1b5fa5b32b8de830b026965b6631e36",
+        "base_sha256": "6c638e6ee0d704fe7f46671e9d244453a1ac022db6ec022dd14d490e5c15ba36",
+        "state": "modified",
+        "bytes": 6158,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                156
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-PRESENTATION-011"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-geometry-shared-source-proofs.json",
+            "ranges": [
+              [
+                1,
+                156
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "ROOT-PP-PRESENTATION-011"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 210,
+            "read_ranges": [
+              [
+                1,
+                156
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-PAVING-054"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 545,
+            "read_ranges": [
+              [
+                1,
+                156
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-PAVING-054",
+              "ROOT-OWNER-TERRAIN-KERNEL-063",
+              "ROOT-OWNER-TERRAIN-FIXTURES-064",
+              "ROOT-OWNER-VOLUMETRIC-068",
+              "ROOT-OWNER-ROUTE-FRAMES-AND-FIXTURES-074",
+              "ROOT-OWNER-ROCK-AND-DENSITY-076",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083",
+              "ROOT-OWNER-RENDER-FRAME-CLOSURE-084"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1667,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs",
+        "sha256": "90cb292cda48fd9f01d10205004aea74f606b3a6d497c9c2eae6fdf298e3a9f3",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4803,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 176,
+            "read_ranges": [
+              [
+                1,
+                140
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RENDER-FRAME-CLOSURE-084"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-REGIONAL-SUPPORT-018",
+            "json_pointer": "/source_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                140
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs",
+              "sha256": "90cb292cda48fd9f01d10205004aea74f606b3a6d497c9c2eae6fdf298e3a9f3",
+              "read_ranges": [
+                [
+                  1,
+                  140
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1083,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 1668,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs",
+        "sha256": "16f0b13d745982af2531eea71ae383e868ab6846571b1428db7552b05c019305",
+        "bytes": 15539,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                404
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-TERRAIN-005"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-geometry-shared-source-proofs.json",
+            "ranges": [
+              [
+                1,
+                404
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "ROOT-PP-TERRAIN-005"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 198,
+            "read_ranges": [
+              [
+                1,
+                404
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RENDER-SUPPORT-053"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 537,
+            "read_ranges": [
+              [
+                1,
+                404
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RENDER-SUPPORT-053",
+              "ROOT-OWNER-TERRAIN-KERNEL-063",
+              "ROOT-OWNER-TERRAIN-FIXTURES-064",
+              "ROOT-OWNER-VOLUMETRIC-068",
+              "ROOT-OWNER-ROUTE-FRAMES-AND-FIXTURES-074",
+              "ROOT-OWNER-ROCK-AND-DENSITY-076",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083",
+              "ROOT-OWNER-RENDER-FRAME-CLOSURE-084"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-REGIONAL-SUPPORT-018",
+            "json_pointer": "/source_proofs/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                404
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs",
+              "sha256": "16f0b13d745982af2531eea71ae383e868ab6846571b1428db7552b05c019305",
+              "read_ranges": [
+                [
+                  1,
+                  404
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 689,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 1669,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support/index.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/support/index.rs",
+        "sha256": "0d1996b54836de12fe00be92ed1b3205d0fd644d038497946bd7f6f158f3d671",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4622,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 95,
+            "read_ranges": [
+              [
+                1,
+                132
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RENDER-SUPPORT-053"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/support/index.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-REGIONAL-SUPPORT-018",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support/index.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                132
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support/index.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/support/index.rs",
+              "sha256": "0d1996b54836de12fe00be92ed1b3205d0fd644d038497946bd7f6f158f3d671",
+              "read_ranges": [
+                [
+                  1,
+                  132
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1035,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 1670,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs",
+        "sha256": "3195a4f45a963f88a33777e7b530ca7f8804383461ac655219685b184c2f428f",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3648,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 102,
+            "read_ranges": [
+              [
+                1,
+                127
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-PAVING-055"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 157,
+            "read_ranges": [
+              [
+                1,
+                127
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "native"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PAVING-TRAFFIC-019",
+            "json_pointer": "/source_proofs/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                127
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs",
+              "sha256": "3195a4f45a963f88a33777e7b530ca7f8804383461ac655219685b184c2f428f",
+              "read_ranges": [
+                [
+                  1,
+                  127
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1038,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 1671,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs",
+        "sha256": "fad483542b55d8c03320f7821e731f040ab8d531131f55fce69bb448321463ef",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6745,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 104,
+            "read_ranges": [
+              [
+                1,
+                175
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-PAVING-055"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PAVING-TRAFFIC-019",
+            "json_pointer": "/source_proofs/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                175
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs",
+              "sha256": "fad483542b55d8c03320f7821e731f040ab8d531131f55fce69bb448321463ef",
+              "read_ranges": [
+                [
+                  1,
+                  175
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1040,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    }
+  ],
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "qualifications": [
+    "239 completes1660..1665 full metadata union; next1666. All13 populations/extensions/current/all20/aliases/connected acceptance incomplete, gatefalse/accepteduniquechange0, goal active. Prior failed functions script parse did not execute/write; source reads all retained.",
+    "Focused paving error occurs at prepared.meshes before mask/material/entity work, narrowing235 potential late-paving partial command claim. Prior terrain native allocations/commands and drop/asset lifetime/current remain pending, no leak accepted.",
+    "PreparedCityGround perowner OnceLock retains owned Arc error and independent scene/map winding uploads. Native Asset store epoch/removal/trust needs actual contracts, not generic cache bug or hostile-worker premise.218 exact worker document/program admission remains.",
+    "GroundSupport.clip triangle admission next required for plane normalize/normalY division; actual positive support filtering not credited until body read. Canonical semantic street/plot endpoints/positive width/convex outline owner and all20 dedup needed before raw invalid geometry or duplicate bespoke wrappers.",
+    "Scene detail upload rejection follows required vista publication but precedes its paving entities; actual mandatory/optional product/status contract needed before whole-vista atomicity claim. Focused1618 product failure/teardown remains typed.",
+    "Native activity wear/dampness policy and shader packed fields explicit final payload, not gameplay state. Spatial order preserved and actual polygon subtract follows broad phase; geometric optional/default paths not legacy compatibility.",
+    "Nonzero pigment fixture238 supports interpolation domain only; distant tree frame235/236 still tactical source/origin/native/current qualified. Landform234 and all native/GPU/cache/texture/ground categorical findings retain dependencies.",
+    "Seven extensions independently mandatory all13,1622EOF231/raw240 explicit zero nonexistent/otherlens credit. L12/L13 unchanged, current/all20/global family dedup pending.2248/2249/2250READ220 first ordered reuse and later129tail54..117 unchanged.",
+    "Nextregistration499, exact metadata fullunion before next body. No product edits/builds/tests/lints/scanners/generators/runtime/native probes/CI/new tests/commits/pushes/PRs/merges/external messages; ignored source/Git/evidence bookkeeping only."
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "lens": 11,
+  "batch": 310,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2003,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-847.json",
+      "registration_sha256": "9f2a84658419dc48d5cf7cd012651ec97dc9adfe061826433519258b3bbbb2c3",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/terrain_capture.rs",
+      "sha256": "f5121eacfb30ddcea6841d7b6fe1b4b1d29b213befb32f006e727040b8a0b92c",
+      "scope": [
+        [
+          1,
+          164
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          164
+        ]
+      ]
+    },
+    {
+      "original_index": 2004,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-848.json",
+      "registration_sha256": "c8ef9522f812b788340aa47c1290166b960048164189d07ec5d18ec9595eb17b",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/tests/startup_fixtures.rs",
+      "sha256": "5861efab34c5c52becfe579f62be7ba57e67b8f3c83a9b8c79e761259ae76272",
+      "scope": [
+        [
+          1,
+          108
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          108
+        ]
+      ]
+    },
+    {
+      "original_index": 2005,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-849.json",
+      "registration_sha256": "858794dfa4a27a0621a825ee99b946c2fdc051b89b8470a3de15adfb08c56a60",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/settlement_buildings.rs",
+      "sha256": "cd7c7620ecad6eea71eb5e453d882bce444f9308ab4f6d2cee08423609964585",
+      "scope": [
+        [
+          1,
+          42
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          42
+        ]
+      ]
+    },
+    {
+      "original_index": 2006,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-850.json",
+      "registration_sha256": "85fe59247b58aa975720d1b6e2c1e94f7fa6bedb166d0e118918cfeedbb83a84",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs",
+      "sha256": "be0e11404dadb950d9b751312555425b25e836bc3e3b0063664512290012f8c8",
+      "scope": [
+        [
+          1,
+          38
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          38
+        ]
+      ]
+    },
+    {
+      "original_index": 2007,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-851.json",
+      "registration_sha256": "0775878394bd15d77d16c25350dc5fe7e8db46f9a1b2b41f9485ce6e90725029",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/Cargo.toml",
+      "sha256": "c966f29016d32aca39e17ea882e55271f208891ab003c331287114388a449a3a",
+      "scope": [
+        [
+          1,
+          55
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "original_index": 2008,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-852.json",
+      "registration_sha256": "f2fde757e7125cab43bc6c9daa16300c4d10f99d0f2609a2aea5f6192d2c9afb",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+      "sha256": "e1be72383593bbc4c921ecfdc904afcc7dc0b8364bef5b64efc35cb0ad11e5b3",
+      "scope": [
+        [
+          1,
+          7
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          7
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2003
+      ],
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "roles": "Independent lens11 complete capture/shared classification/provider and binary/manifest ownership.",
+      "disposition": "Full164 TerrainCaptureError owns transparent Geometry/SourceDigest/Terrain sources and exactpoint OutsideSource/InvalidElevation with originali16; SourceElevationSample typedposition/absoluteElevation native explicit Serialize leaves outputscalars, no uncheckedDeserializebypass. sample_points/241stationsperaxis fixed6km25mtransects callnativecontinuouscoordinate kernel, everymissingcentre/probecell typederror. Production sample_city_vista returnsString inherited2000 thenwrappedVistaSampling(String), so newtypedoutercannotrecovererasedunderlyingcause, connects309. Source samplewire and bad9001mtypedcausefixture unexecuted."
+    },
+    {
+      "source_indices": [
+        2004
+      ],
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "roles": "Independent lens11 complete capture/shared classification/provider and binary/manifest ownership.",
+      "disposition": "Full108 explicitlyignored startup exportfixture uses productiongenerator atdistinctsettlementidentities/coordinatestoassertdifferentbuildingprograms, canonicalRegionalCityInput/digest/identity andmatchingregionalenvironment builtbeforeJSONexports. Fixture IDs offsetnativeordinal intentionally disjoint, populationfromoptionalenvparsed diagnostic fixture notplayerdata. No fixtureexportexecuted or envvaluesread; generatedfixture filenames/serde isartifactboundary notgameplaysemanticrecord."
+    },
+    {
+      "source_indices": [
+        2005
+      ],
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "roles": "Independent lens11 complete capture/shared classification/provider and binary/manifest ownership.",
+      "disposition": "Full42 typedSettlementBusinessOperatorProfile retains canonicalBusinessId/CharacterId/RenderedPersonalName; SettlementSceneProfile rawsettlementString/populationlevelestimate publicownedsetuprecord actualall20 identity/population admissionneeded, not allnumbersnativebecausecopiedfromDB. place_settlement_buildings deterministicseed sharedsettlementID/population/economy, CitySite generation->compile->partition fallibleCityCompileError retained, confirms309upstreamStringlosesactualcause. Nocompatibilityaliases."
+    },
+    {
+      "source_indices": [
+        2006
+      ],
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "roles": "Independent lens11 complete capture/shared classification/provider and binary/manifest ownership.",
+      "disposition": "Full38 sharedenvironmentprojection multipliesu8percents by100 to nativeu16BPS, maxu8255*10025500 fitsintegerbutmayexceedsemantic10000; actualTerrainPackCell percentdecode/source admissionrequired before invalidnormalcellclaim. ActualSceneInputvalidate_source299 andRegionalTerrain constructor1999 latercheckboundedcontract. Crossing deliberatelysetswater0 whilecrossing10000, independentwetland/canopy/hilly/cultivated keep separatechannels. Surfaceexhaustiveenum mapping nofallback."
+    },
+    {
+      "source_indices": [
+        2007
+      ],
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "roles": "Independent lens11 complete capture/shared classification/provider and binary/manifest ownership.",
+      "disposition": "Full55 serverfeature/dependency graph only: iterationbinary requiresfeatureiteration (emptygate), debugremote/scene/ron andremote-types->debug actualflags; sharedthiserror/serde/geometry/building/world/core/netcode ownership dependencies. Nomanifestedcompatibilityalias/dualAPI fromfeaturenamesalone, no claimchildsourcecoverage. Sourceonlyread no Cargoedit/build."
+    },
+    {
+      "source_indices": [
+        2008
+      ],
+      "ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "roles": "Independent lens11 complete capture/shared classification/provider and binary/manifest ownership.",
+      "disposition": "Full7 purpose IterationResult returnedfromrun directly, thinbinary boundary no stringify/default, childmoduleactualtypes needread; no sourcealiasmigration or hidden oldentrypointimplied."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-308.json",
+      "sha256": "315b5fd262fd97d09fa2d4bc459306ed5d3793869338040deb3a0f3cc0939c63"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-309.json",
+      "sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361"
+    }
+  ],
+  "pending_contracts": [
+    "310 completes2003..2008fullmetadataunion,next2009 REG853197registeredunread;854..8562010..2012alsoregisteredunread;nextnewreg857. No unsavedbodyreads.",
+    "Actual typed TerrainCaptureError cannotrecover VistaSampling(String) inheritedcauseloss; CityCompileError actualproducer before provisioningString confirmed. Nativeu8 percent range meaningful100 ceilingneeds actualTerrainPackdecode beforeclaiminginvalidproductionbasispoints.",
+    "Allpriorqualifiedfamilies/elevenextensions/fourEOF/futureproofs/L12/L13 retained; all13populations/current/all20/aliases/connectedacceptance/dedup incomplete gatefalse accepteduniquechange0; no productexecution/repair/tests/commits/publication;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2009
+}

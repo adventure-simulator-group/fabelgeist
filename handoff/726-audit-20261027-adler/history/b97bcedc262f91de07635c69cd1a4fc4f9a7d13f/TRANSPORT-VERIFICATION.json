@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-27T18:48:41.004335+00:00",
+  "kind": "Byte transport verification only; no project tests/scanners/audit-body/runtime/CI acceptance",
+  "verified_payload_commit": "3e0f5369381fbeb54ff2c6c48f7f86b8145785dc",
+  "verified_payload_tree": "0fe4e88f94b315db4df8482bdcd5b8566ca33111",
+  "verified_files": 15005,
+  "verified_bytes": 273822887,
+  "method": "All payload blobs read back and SHA-256 checked against prepared bytes; manifest excludes itself and transport metadata from recursive hashing.",
+  "public_disclosure_authorized": true,
+  "text_conversion": "Handoff subtree .gitattributes uses * -text.",
+  "product_changes": false,
+  "central_entry": "README.md",
+  "layout": "Matches previous central README, CURRENT, AUDIT-RESUME, SOURCE-LOCATORS, SOURCE-BYTE-VERIFICATION, MANIFEST and TRANSPORT-VERIFICATION structure.",
+  "handoff_contract": "Adler may return an incomplete audit with exact checkpoints; no code repairs until ledger completion."
+}

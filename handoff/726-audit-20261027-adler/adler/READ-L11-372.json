@@ -1,0 +1,259 @@
+{
+  "lens": 11,
+  "batch": 372,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2319,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1179.json",
+      "registration_sha256": "e6f4ecbb03b27f1cad4beaf11b48a4706596f6d4873574c6f71a8e7db47150f4",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/correctives.rs",
+      "sha256": "315f5296ef9ba45169384bc17e9157b66cb1224bedfb4962a04e32821afc63c4",
+      "scope": [
+        [
+          1,
+          188
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          188
+        ]
+      ]
+    },
+    {
+      "original_index": 2320,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1180.json",
+      "registration_sha256": "715f05cd294fa6689f413aaf44250ab1d0ce06da1dcfa05bbcb5e34036e46697",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/math.rs",
+      "sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+      "scope": [
+        [
+          1,
+          357
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          357
+        ]
+      ]
+    },
+    {
+      "original_index": 2321,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1181.json",
+      "registration_sha256": "b38e4117b02deb73aff2702e7de5a01cf6cc9014109da1b9f0abe1fbac5f19b0",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model.rs",
+      "sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "scope": [
+        [
+          1,
+          626
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          626
+        ]
+      ]
+    },
+    {
+      "original_index": 2322,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1182.json",
+      "registration_sha256": "d9cdded0031fb8a1cd8170b9053410edf4f42277a5e75174baf9de1184b98e13",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def.rs",
+      "sha256": "aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+      "scope": [
+        [
+          1,
+          348
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          348
+        ]
+      ]
+    },
+    {
+      "original_index": 2323,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1183.json",
+      "registration_sha256": "55309ff4e00a323ea35b0edd171258eb94530a8dece906739038374bcb41e976",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def/layout.rs",
+      "sha256": "add108e99167c2fa9f7550558f56bdd7f28bf7e5d5b6537fc516b9481a2ef247",
+      "scope": [
+        [
+          1,
+          303
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          303
+        ]
+      ]
+    },
+    {
+      "original_index": 2324,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1184.json",
+      "registration_sha256": "0272f6e3049e954a3effc7dbd1d504d247314b3d639abada5a32bd5342445cf6",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def/tests.rs",
+      "sha256": "8a4c3ccff3704053320170d56ccd92e1e3d449f9744b8993f0cebe87b7aef0a1",
+      "scope": [
+        [
+          1,
+          143
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          143
+        ]
+      ]
+    },
+    {
+      "original_index": 2325,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1185.json",
+      "registration_sha256": "c0b564deb2acc101dde1ed184cb3240121b9032c8c7d721531cfa8e46b5f5c7a",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/skel_state.rs",
+      "sha256": "ec915bd52ab4e9fae98af225984322c62de94699e071cd90df48e8c7af0249b0",
+      "scope": [
+        [
+          1,
+          302
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          302
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2319
+      ],
+      "ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR corrective/transform/tensor/parser/layout/native acceptance contracts.",
+      "disposition": "Full188 correctives exactbasisrank3/axis3/vertices/componentcounts andsparseindices2*values/sparseboundschecks established. Howeverposed_joints=num_joints-2 beforeminimumjointadmission, hidden/productsuncheckedbeforeVec/Tensorallocation; Characterallowsonejoint, so qualifiedextentcontract. NativeNpz dtype/shape/conversionbodyneededbeforeassertingarraypayloadcoherence; no duplicate-sparseaccumulationclaimwithoutformatpolicy. MissingbasisOkNone explicitLODoptionalpolicy, notlegacyfallback. Publicforwardrequires[batch,joints,7] bydocumentedprecondition; ordinaryMhrcallshapevalid. No tensors/archivesexecuted."
+    },
+    {
+      "source_indices": [
+        2320
+      ],
+      "ranges": [
+        [
+          1,
+          357
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR corrective/transform/tensor/parser/layout/native acceptance contracts.",
+      "disposition": "Full357 nativef64Quat/Vec3/Mat4aliases andTransform areactualnumericalrepresentations, notautomaticallydeprecatedcompatibilityaliases. Eulerorder nativeconversion, unknownRotationOrderincludingSphericXYZfallbackneedsunsupportedformatpolicy; noautomaticunknownenumcompatacceptance. affine_inverse singular/near-singular determinant uses0 inverse andreturnsdegeneratematrix, from_matrix uniform/no-shear assumptionsnotvalidated atFBXadmission. Nativezeroquatidentitynormalization intentionalnumericpolicy separatelyfrominverseclaim. Matrix16rawslicehelper ordinaryskincheckslen16, closingordinaryshortmatrixpanic. HostEuler/quaternion/matrix/inversetestsreadunexecuted; nothairVec3bodycoverage."
+    },
+    {
+      "source_indices": [
+        2321
+      ],
+      "ranges": [
+        [
+          1,
+          626
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR corrective/transform/tensor/parser/layout/native acceptance contracts.",
+      "disposition": "Full626 Mhr configurationrange4..6validatedallloadports; properassetrootorassets layout intentionalcurrentlocationsnotlegacyformatfallback. from_uri catchesallfirstreaderrors,retriesnestedandformatsbotherrors/UTF8causeintotext; from_files usesContext retainingnativecause. Modelnew validates117blendshapenames butnotauthorednamessemanticorder, nativefaceu32->i32checkedwithoutvertexextent, scalarweights>1e-5dropsNaNandtinyweightswithoutpost-thresholdrenormalization. NoGPU-boundNaNclaim: badNaNskinrowscaninsteadbecomezeroretainedinfluences. Actualvertex_normals select/assignconsumesfaceindicesunvalidatedbyvertexcount, connecting371topologygapbutnativebackendfailuremodeunread. Publiccharacterandparameter_transform mutableafterprivateGPUtensorssnapshot, counts/facesqueriedliveinforward caninvalidatecachedshapes. Inputidentity/expression/modelcolumncountsandbatchbroadcastchecksareactualpositivecontracts; no blankettensorshapeabsenceclaim. README154notcomputednormals falseforthisfrozenmodel, READMELOD0..6broaderthanruntimerange. NoTaskimplinthisfile, facadestillunread. NativeTF32accuracycommentsnotindependentlyverifiedSDKclaims. Normalsisolatedvertexzeroexplicitpolicy despiteunitnormalprose; no invented direction."
+    },
+    {
+      "source_indices": [
+        2322
+      ],
+      "ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR corrective/transform/tensor/parser/layout/native acceptance contracts.",
+      "disposition": "Full348 parser exactheader, unknownjoint/channelerrors, purpose-specificrow/column/name/set identitiesanddensification. Malformedexpressiontermsignored, bareconstantsassignednotaccumulatedandreferencedrowcopiescoefficientswithoutoffset. Numericweights/limitsparsef32withoutfinite/orderadmission; limitbracketorderuncheckedbeforestringrange, malformedrecognizedlimit canpanic. Otherunsupportedlimitkindsdocumentedunused, finalsupportpolicybeforeclassifyingcompatibilityfallback. ParameterSets unknownnamesignored andinvalidweightdefault1qualifiedgrammarpolicy, notautomaticnewcompatAPI. apply_limits shortsliceignoresmissingparameters; intendedpartialprojectionneedsnativecallerbeforefailureclaim. Fullstyle/parsercurrent/all20closurepending."
+    },
+    {
+      "source_indices": [
+        2323
+      ],
+      "ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR corrective/transform/tensor/parser/layout/native acceptance contracts.",
+      "disposition": "Full303 actualJointChannelclosed7 enum; exactnamesnewtypesprivateString/columnprivateusize andpurpose-specifictablesretainnumericboundary. Firstduplicatecolumnlookupintentionalprose. Matrixpublicadd/row usesrawRigJointOrdinalandcolumnfromanytable, notownerbranded; ordinaryparsercreatespairedidentity/extentbeforeadd so no ordinaryforeign-columnbugclaim. append_columns maypaniconshrinking, tensor_transpose columns>stored panics, publicAPIpreconditions/finalcheckedboundary/currentdedupneeded. productsuncheckedbeforeallocation; canonicalMHRsizesboundedbyassetbutarbitrarypublicinputsnotchecked. No derivedSerdeinfile. Nativeconversionmethods legitimateforeignTensor boundary notdeprecatedaliases."
+    },
+    {
+      "source_indices": [
+        2324
+      ],
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR corrective/transform/tensor/parser/layout/native acceptance contracts.",
+      "disposition": "Full143 fixturescoverparameterorder, coefficientswithscaledjointreference, duplicatecoefficientassignmentaccumulation, onebareconstant, normalsets/orderedlimits/weightdefault andappendedzerojointcolumns. Theydonotcovermultipleconstants/referenceoffsets, bracketorder/reversedNaNbounds, invalidshapeorpublicMhrcachemutation. Readunexecuted, no passingassertioncredit. RawfixtureSkeletontwojointcolumnsconsistent, notproofallconstructedSkeletonsvalid."
+    },
+    {
+      "source_indices": [
+        2325
+      ],
+      "ranges": [
+        [
+          1,
+          302
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR corrective/transform/tensor/parser/layout/native acceptance contracts.",
+      "disposition": "Full302 tensorquaternion/skeletonoperatorsmatchingdocumented4/8channels; publichelpersassumenormalizedquaternion/shape, canonicalMhrconstructsproperchannelsfromEuler/prerotation. Prefixchains followparentswithoutcycle/rangecheck, canonicalSkeletonBuilderparentprecedenceclosesordinaryacyclicproof, arbitrarypublicparenttablemaycycle/unboundedgrow; actualRigJointTableownerrequiredbeforefinalfinding. Firstemptysourcelevelstops; canonicaltreehasallintermediatedepths, so no unsupportedarbitrarydepthgapbug. Host/tensorand9jointbranchedprefixsourceassertionsreadunexecuted; noGPUtestresult."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-369.json",
+      "sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-371.json",
+      "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e"
+    }
+  ],
+  "pending_contracts": [
+    "372accounts2319..2325,next2326numpy-storageCargo.toml. LastREG1185.22mandatoryall13extensions/sixEOFqualifications/remainingfutureproofsretained.",
+    "Connected371topologyandweightfindingsqualifiedwithactualGPUconsumer; noNaNuploadclaim. Newlimitgrammar/affineexpression/cachedmodelshape/bindinverse/correctiveextent/loadererrorfamiliescurrent/native/all20dedupincomplete.",
+    "Otherpendingcontracts: nativeFBX/rig/NPZadmission, sparseCOOduplicatepolicy, exactMomentumgrammar/limits, actualmodelhostediting/LOD/Taskfacade/docs, Tensorbackendselection/errorownership. HairCollider/PointGrid/Vec3/GPUinput/HairGpuErrorpendingunchanged.",
+    "All13populations/current/all20/aliases/connectedacceptanceincompletegatefalseaccepteduniquechange0. No productrepair/builds/tests/lints/scanners/generators/runtimeprobes/CI/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2326
+}

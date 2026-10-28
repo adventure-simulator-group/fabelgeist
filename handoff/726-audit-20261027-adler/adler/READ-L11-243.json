@@ -1,0 +1,356 @@
+{
+  "lens": 11,
+  "batch": 243,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1684,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-517.json",
+      "registration_sha256": "625223eb140d25ec3b3499d66b5fe06d5b9f9511e9a308af2ea6810f9da61033",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+      "sha256": "66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+      "scope": [
+        [
+          1,
+          95
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "original_index": 1685,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-518.json",
+      "registration_sha256": "951e5ed9fdd732c2ec4c7cbf1bcc630b3cf6889851c7cf5b07d7a8d5894075a9",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/lighting_diagnostics.rs",
+      "sha256": "a1627688fff10fc5762346ef4f2842952fb09815946d3ccbb17408e48353cb4c",
+      "scope": [
+        [
+          1,
+          40
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "original_index": 1686,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-519.json",
+      "registration_sha256": "6b785fe6b5c36938d8634fc5074c9672fcdd33a1ecd4b75c16d617d9197fe9d7",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+      "sha256": "22bb9e14d430e2d820e9f1b489065461324a0cc48cfd1dbc1fe2c81f0a622628",
+      "scope": [
+        [
+          1,
+          298
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          298
+        ]
+      ]
+    },
+    {
+      "original_index": 1687,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-520.json",
+      "registration_sha256": "89c4113a36d99dd315800322ebee4be406a5eeba0789f02b50ca16ff95125422",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+      "sha256": "5ecd9a8fa01b48aabda78b79670d7f2da23bd8a83d67efa8237d12d0c9a63a2c",
+      "scope": [
+        [
+          1,
+          65
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "original_index": 1688,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-521.json",
+      "registration_sha256": "a1c5bb93099f4e6f307bfb27480c1adb3f0826bb68edaee700bb39e53bbd420e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+      "sha256": "a336c40ca633f682bc6f03794f3d049316b2c1578ff0817d186b926ac4d2e93e",
+      "scope": [
+        [
+          1,
+          133
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          133
+        ]
+      ]
+    },
+    {
+      "original_index": 1689,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-522.json",
+      "registration_sha256": "fa915264510eb89d182d2b1a6b2421ab4ad88ede0079dbf133c1d14b0b1aa064",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/render_diagnostics.rs",
+      "sha256": "24723b09d19d3e854b960b1efe8dc118b2bf236352886ac871f5396e05dc9f40",
+      "scope": [
+        [
+          1,
+          93
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          93
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1684
+      ],
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native protocol and structured-error contracts, source-only fixtures.",
+      "disposition": "Full95 strategic display instance/native descriptor boundary. GeneratedBuilding transform/datum and typed operable door/window geometry errors propagate through native Bevy Result, prepared geometry and SceneBuilding descriptor inserted together so observer does not regenerate. Doors/windows retain SceneBuildingId/OpeningId/typed position/directions, native Transform under strategic root. Furniture typed positions/orientation feed native child transforms. Function queues building entity before compiling allleaves, but actual caller/preparation failure/command application needed before partial-publication bug; no blanket transactional contract inferred. Descriptors do not persist tactical state to strategic DB. No localserver/runtime/asset generation."
+    },
+    {
+      "source_indices": [
+        1685
+      ],
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native protocol and structured-error contracts, source-only fixtures.",
+      "disposition": "Full40 bounded lighting diagnostics. Active StrategicCamera only, native worldposition/exposure and InteriorLightingGpu.sample_at for camera/forward conversationdistance. This is source-reported field sampling, not proof native GPU image/readback/frame. Vec3/f32 are final serialized diagnostic/native leaf outputs, canonical lighting field owner and actual browser consumer pending before label/misleadingdiagnostic finding. No speculative duplicated metric types for every finalfloat."
+    },
+    {
+      "source_indices": [
+        1686
+      ],
+      "ranges": [
+        [
+          1,
+          298
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native protocol and structured-error contracts, source-only fixtures.",
+      "disposition": "Full298 actual strategic lifecycle/callgraph. RetainedScene owns root/venues/street/people/pending buildings/Arc<PreparationError>, rawlocation/digest semanticidentity remain sharedall20 ownerfit question. Update chain worldretain->streetbuild->retainpeople->equipment->lights->views->shadows beforeEquipmentVisualSystems; postmodelinherit/cull beforeCheckVisibility. retainpeople removals despawn oldrigs, stable venue position rank with modulo requires nonempty admitted Venue.positions from1678/ConversationPose owner; demand-gates newrigs. Native layers assigned monotonically fromcanonicalconstants, SceneModel native layer not gameplayidentity. PortraitId converts to canonicalCharacterId at adapter, identityredecoding/all20 owner pending. Native parenting lookup for equipment model ownership intentional, no compatibility fallback. Bounds onlystrategicidle with0.4m margin, exact renderer/morph envelope proof pending before cullmiss. Roomlights layers refresh to room+residentpersonlayers, actualregional layer excluded byconditionunless sharedroomlight. release_scene endsdisplayroot ownership/resets localScene before replicated tacticaladmission; no server/database changes. Actual root mutation/cache identity and statusprovider still queued."
+    },
+    {
+      "source_indices": [
+        1687
+      ],
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native protocol and structured-error contracts, source-only fixtures.",
+      "disposition": "Full65 canonical strategic PreparationError. Owns boxed SceneInput/GenerationPreparationError, Geometry/Backdrop/TerrainSupport and native BevyError, missingbuilding/interior/conversation IDs retained; orientation category fieldless noownedcause erased. From<GenerationError> routes existing generationowner, native outer BevyError stored intact rather than stringified. Canonical separation strategic request/prepared-native display from sharedgenerator1612 not deprecatedalias/shim. Actual finalserialized status and all20 graph still pending, no duplicate error owner introduced."
+    },
+    {
+      "source_indices": [
+        1688
+      ],
+      "ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native protocol and structured-error contracts, source-only fixtures.",
+      "disposition": "Full133 actual strategic native/browser protocol. CanvasRect fields rawphysical pixels/cropoffsets butapply safely minclips origin/extent and disables zeroextent beforeViewport; fullsize max1 native normalization explicit, no invalid offscreenviewportfinding. Shared rawdescriptor does not itself admit native targetmax/finitecrop; actual map boundary2701 newlyreached below supplies strictmapvalidation, do not apply missingmapadmissionpremise. MapPose fresh1616 reinspection: pan/requestwindow use max1, frame_route rawaspect checkedspan/origin before assignment; properbrowser MapCommand admitspositivefulldims. StrategicView deriveDeserialize rawrevision/location/vectors/optionalviews, Person enum/tags typed; actual browserrequest receiver/frontend constraints still pending before malformedduplicateIDs/appearance/screenshotlimits defect. Portrait/Place IDs canonicalreexport, nativeRenderLayerconstants separatedroom/forge/compositor/map/person. Stage subject selected/activeplace/Scene enum total actualpolicy, no legacystringselector. Sourcefixture offscreen/partialviewport only read.",
+      "context_reinspections": [
+        {
+          "original_index": 1616,
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+          "receipt_sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+          "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-448.json",
+          "registration_sha256": "3ac9b91fa9cc1ea66171d268fe922790b401ef7754a4c34b5cfc09d468b9bc47",
+          "source_sha256": "e489903779b44ce0caf1979e761f7234bd5556bd984af9e0abc4b7cba7fce7ef",
+          "fresh_reinspection_ranges": [
+            [
+              1,
+              189
+            ]
+          ],
+          "additional_original_frontier_credit": 0,
+          "scope": "Fresh full189 map camera under priorprospective448, exactpan/routefit/requestwindow dependencies; no neworiginal/lens/global credit."
+        }
+      ]
+    },
+    {
+      "source_indices": [
+        1689
+      ],
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native protocol and structured-error contracts, source-only fixtures.",
+      "disposition": "Full93 render census/telemetry source. Ready/assets+cache/root gatesone census perroot, but parts query all Mesh3d globally; root onlytrigger, hierarchyclassifies via component/name thenparent, not membershipfilter. Actual retainedroot/tactical/forge lifecycle and intended metric scope pending before claiming misreportedresident counts. Visible bool is anyViewVisibility, visible_cuboids heuristic indiceslen36, not verified concrete Cuboid geometry/native GPUdraw, no count acceptance borrowed. HashSetAssetId unique count thenBTree label/sourceorderedvisible sort, max20loggroups explicit. serdeJSONexpect effectively ownfiniteintegerCounts/skipmeshset leaf, no meaningful structuredcause discarded there. NativeCPU assetmissing makesheuristicfalse intentional optionalobservation; no Meshresidency proof from216ImageSDK."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 2701,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-523.json",
+      "registration_sha256": "693e4c28a2ab1dc85032a1ec5bee3d431204ff54942964329862ccc3968bcee6",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+      "source_sha256": "b38278c0ba58dc3340ed19e4e21d06e2fde33846e95cc58b804421f73366f024",
+      "scope": [
+        [
+          1,
+          126
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          126
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Full126 actual regionalMapCommand decoder. Canonical CanvasRect reexport fromstrategic1688 confirmed, Open/Resize customviewportdeserializer requires width/height>0, fullsize>=extent, finite/nonnegativeoffset andcroppedend<=fullsize+1pixel; closes231/233 missingmapviewportadmissionpremise, nozerodivmapcamerabug. MapPointerDisplacement finite serdeTryFrom, positiveMapOverlayRevision<=2^53-1, unknownfields denied andtypedMapSpan/Radians/source/WGS/overlay/environment/ticket. Native customserde boundary reports fieldlessMapProtocolErrorViewport string throughownedserdeerror, noinnerIOcause todiscard. NativeGPUlimit andstrategicsnapshotdescriptor boundary remainseparate. All original metadata full126; firstorderedcredit deferred2701, no crosslens/history verdict transfer."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-209.json",
+      "sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-236.json",
+      "sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-237.json",
+      "sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-238.json",
+      "sha256": "ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-239.json",
+      "sha256": "6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-240.json",
+      "sha256": "892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-241.json",
+      "sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a"
+    }
+  ],
+  "pending_contracts": [
+    "243 completes1684..1689 full exact union, next1690. Futureoriginal2701 full126 registration523 read for directlyreached maprectangle decoder, no orderedcredit until2701. Freshsame-lens1616 reinspection189 under prior448/231 adds noordered/global/lens credit. All13 populations/current/all20/aliases/connected acceptance incomplete, gatefalse/uniquechange0, goalactive.",
+    "ActualmapCanvasRect admission nowdirectsourceproved: customOpen/Resizeviewportvalidator positiveextent/fullsizefits, finitepositivecrop withonepixel outwardtolerance. Prior pending1616/231/233 assumptions clarified, no malformedzero/nonfinitemaprectfailureclaim. SharedrawCanvasRect is nativeport with map-specific admission, not deprecatedcompatibilityalias. Strategic/browser targetsize/descriptor/frontend receiver validation stillpending, no arbitraryhuge/hostileJSONbug accepted.",
+    "StrategicPreparationError retains all meaningfultypedcauses including nativeBevyError throughcaller boundary. Finalstatusserialize/globalcanonicalerrorfit stillpending. Buildinginstance queuedbeforeleafcompilation couldpartiallyqueue onlyifactualcaller/validfailurepath allows; noatomicpublicationdefectfromlocalorderalone.",
+    "ActualstrategicUpdate/PostUpdate ordering connects242 cache/equipment/person/globallighting dependencies. RetainedPerson rig removal/readdition canassignnewnativelayer, butcompletedimage reuse maybeintentionalsameportrait; actualviewprojection/layer/appearance producer and sourceidentity/root invariants required before stalecachefinding.",
+    "Census queriesallMesh3d despiteperroottrigger, visible_cuboids isindices36heuristic. Actualresident/hidden/tactical/forge entitylifecycle/intendedmetric scope and telemetryconsumers neededbeforemisleadingcountfinding. Diagnosticfield sample notGPUreadback/frameproof.",
+    "Sourcefuturequeue now2248REG398/2249REG396/2250REG397 READ220 plus2701REG523 READ243. Existinglater5/6/7/11/127/128/129connectedproofs separate,129tail54..117unread. No bodycreditforimportedstatus/views/street/world/coreowners.",
+    "AllsevenAdler scopedextensions independentmandatory13lenses;1622EOF231/raw240explicit no nonexistent orotherlens credit. L12/L13 unchanged, currentmain/all20/aliases/finaldedup ledger incomplete. Priorweather/traffic/tree/root/crown/landform/GPU/texture/cache findings retain exactlimits.",
+    "Nextregistration524, next1690metadatafullunion beforebody. No product changes/builds/tests/lints/scanners/generators/runtime/native probes/CI fixes/newtests/commits/pushes/PRs/merges/externalmessages; ignored source/Git/evidencebookkeeping only."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1690
+}

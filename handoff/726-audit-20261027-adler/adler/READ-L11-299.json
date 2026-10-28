@@ -1,0 +1,205 @@
+{
+  "lens": 11,
+  "batch": 299,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1958,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-801.json",
+      "registration_sha256": "5efc1d982e348d2166b4f7f22933e03c926434f0d86eed527d2101d29001fef4",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+      "sha256": null,
+      "scope": [],
+      "fresh_reads": [],
+      "deleted_original": true,
+      "absence_evidence": {
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+        "git_ls_tree_stdout": "",
+        "git_ls_tree_exit_code": 0
+      },
+      "base_source": {
+        "source_id": "historical-base:crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+        "sha256": "d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+        "object_path": "target\\726-audit-adler-20261027\\adler\\source-objects\\d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+        "ranges": [
+          [
+            1,
+            27
+          ]
+        ],
+        "prospective": true,
+        "provenance": "3a50b708381ad00c116445c2c999a49c3943088b:crates/adventuresim-tactical-core/src/scene_input/tests/road.rs"
+      },
+      "base_fresh_reads": [
+        [
+          1,
+          27
+        ]
+      ],
+      "owner_proof_qualification": "Inherited pr-working1..27 proof cannotestablishlivebodywithnullSHA/deleted. Historicalbase27sourceonly separatelyreadforremoval/acceptancemigration, currentroadrefinement1952/1953actualreplacementpersonallyread298 andsemanticcomparisonstillneeded; no current/nativeexecution orotherlensverdicttransfer."
+    },
+    {
+      "original_index": 1959,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-802.json",
+      "registration_sha256": "1f6ab8787e81897fea84497d31d53b3b36c68c27e8995af75b7acdaab14d1782",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "scope": [
+        [
+          1,
+          20
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          20
+        ]
+      ]
+    },
+    {
+      "original_index": 1960,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-803.json",
+      "registration_sha256": "ae5344c3fb0086796743acb6d632ebcd25441ff5bb4d35066a14b2361957646c",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "scope": [
+        [
+          1,
+          64
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          64
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1958
+      ],
+      "ranges": [],
+      "historical_base_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "roles": "Independent lens11 exactfrozen deletedoriginal absence andhistoricalsource acceptance relocation; no livebodycredit.",
+      "disposition": "CurrentfrozenGitls-treeabsent andoriginalSHAnull verified. Historicalbase3a50b708 exactd35e66...27linebody only source-read underprospectiveREG801. OldGoslarroadbitheight fixture nowexisting1953REG796full32: samecorridor/defaultground/DETAILseed/point(-43.5,-39.5)/expected7.0231724bits retained, newcheckedScenePlanPoint port/import/module location. Thisisretiredtestrelocationtoowningroadmodule notnewtest/compatibilityoldAPI. No stale27currentcodecredit or actualtestexecution; all13independentownerqualification preserved."
+    },
+    {
+      "source_indices": [
+        1959
+      ],
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "roles": "Independent lens11 actualurban SceneInput admission andnestedowner call hierarchy.",
+      "disposition": "Full20 urbanvalidatesstreetcount/maxandstreet.is_valid, yardslikewise thenactive/distantplacements/compounds/gardens/parishes validators. ActualMarket.is_valid282onlyfinitecorners sofouridenticalcorners areacceptedbythisrealparent, no additionalpolygoncheckhere. Thisconnectsactualsourceadmission to290UrbanGroundproducer/lookup, notmerelyanunusedpublichelper. Actualwholevalidate_sourcecall1960 provesowneractive; completepublishedscene/grounding/currentstillpending. Yardsconvexity sameleafhypothesisrequiresownactualcounterexample beforeadditionalfamily. Unrelatedchildvalidatorbodiesnotcreditedbycalls."
+    },
+    {
+      "source_indices": [
+        1960
+      ],
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "roles": "Independent lens11 completeSceneInput source admission order/numericbounds/provenance/urban/weather contracts.",
+      "disposition": "Full64 validate_source explicitversion/key/sourceidlength ->validate_grid playable ->landform ->urban ->establishments ->properties ->vista<=8/strictordinal+spacingorder ->finitef64origins ->samevalidate_grid(count/heights/env/spacing)eachvista ->checkedaggregate<=2million ->weather. Connects292height±12000/count/BPSand.25..2000spacingbefore297geographicupsample/microrelief/groundindex andsupportedself.validate. Thus source-invalidzero dimensions/environmentcountcannotreachnormalgenerationloops; 290directSceneGroundwireadmissionbypass remainsseparate. Grade289A1e8notadmittedthroughSceneInputgeneratedpath, standaloneSceneTerrainfinite-only publiccontractstillbroader. Originf64 finitebutnotrepresentablef32 restrictionhere, however actualGeographicSurface273from_presented_scene rejectsnonzerooriginandnonfinitecast factoryearlier; unoccupiedVistaactualconsumers/current beforefalseprojectionclaim. Weather+5overflowhypothesis stillneedsactualWeatherSnapshotfieldtype/invariant beforefinding, nowactualvalidate_weathercallerconnected. Nativegeneratedrecipe/cache/missingexpecteddata errors unchanged; no test/runtimeprobe."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-294.json",
+      "sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-295.json",
+      "sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-298.json",
+      "sha256": "6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546"
+    }
+  ],
+  "pending_contracts": [
+    "299 completes1958deleted/currentabsence+historical27,1959urban20,1960validation64,next1961full82metadataonly,nextreg804. No partial/unrecordedbodyreads. Materialrangeunionverifierchanges297retained; source2699futurefull56reusependingzeroorderedcredit.",
+    "ConcreteMarket282nowactualsourcevalidator/geographicurbanproducer connected, effectbucketlimited/nostallgenerationforfourzeroexample; fullpublishedscene/current stillpending. GradeOffset2891e8explicitlyexcludedactualSceneInputvalidatedgeneration, helpercontractstillbroaderfiniteonly. SceneGround290rawserdewidth0notnormalproduceroutput; inputloopprevalidationhypothesisclosed.",
+    "Deletedroad1958 liveabsencecorrectedbeforecredit; historicalfixturepreservedinactual1953checkedScenePlanPoint owner withsameexpectedbits, notmissingacceptance/no newtestexecution. All13independentfrozenownerqualifications maintained.",
+    "Allpriorqualifiedfamilies/tenextensions/fourEOFqualifications/futurereuseincluding2699/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1961
+}

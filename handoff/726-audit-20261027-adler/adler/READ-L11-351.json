@@ -1,0 +1,255 @@
+{
+  "lens": 11,
+  "batch": 351,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2212,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1071.json",
+      "registration_sha256": "117852efe0eb09b20ad301aa7ef415279f259ae56dafbe7924d00dc799435acc",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/lacing.rs",
+      "sha256": "cce09840d83fc6c71d1020fc45961df2a0c9b4c2a85d5702bc0f65d6fad902a4",
+      "scope": [
+        [
+          1,
+          321
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          321
+        ]
+      ]
+    },
+    {
+      "original_index": 2213,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1072.json",
+      "registration_sha256": "71766c0e1921bc47a9600f41f268ccbaf40c9f6465ca7bccc96ac3656c49bb31",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/layout.rs",
+      "sha256": "9d9424e679eb33b176ce1687f202f9a81fcf765ef6d910fdd02bb1f409711fc2",
+      "scope": [
+        [
+          1,
+          342
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          342
+        ]
+      ]
+    },
+    {
+      "original_index": 2214,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1073.json",
+      "registration_sha256": "32bb2dadef8538702c9d814e3eafe916e29341927c5d7518bf2c043b78308e9f",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/mod.rs",
+      "sha256": "7ff5bfe0408afa8433957ee7575dd1fbb9f83d6afe4bb3af59a581a81724280d",
+      "scope": [
+        [
+          1,
+          137
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          137
+        ]
+      ]
+    },
+    {
+      "original_index": 2215,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1074.json",
+      "registration_sha256": "3414413fec5725b355be6d17cb115a71c92e2c6742121bb94943f329cd4acc99",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/surface.rs",
+      "sha256": "b11e892b1c5cebf91866d5ffeed3801659fd98201fe446753a33aadf65598020",
+      "scope": [
+        [
+          1,
+          441
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          441
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2212
+      ],
+      "ranges": [
+        [
+          1,
+          321
+        ]
+      ],
+      "roles": "Independent lens11 complete actual lacing/layout/public construction and canonical base/morph surface admission.",
+      "disposition": "Full321 actualLacer privateplatevalidatedbyGeneratedArmor.constructed2214 beforemesh; Tiling342 lacingrequirespositiveholes countandcordradius<=.9hole. Closespairs-1underflow/pairindexonpublicconstructionvalidpath; withoutlacing noLacercalled. FixedSIDES6/STEP6mm actualnativecordsampling, positions/tangents builtfromsamepoints so zipcardinalitycoherent; capsfornonclosedbothends. Tangentnormalize assumesdistinctneighborpoints, framefallbackliftedlength<=.1 choosesframeacross nativecross-axisstability notcompatpath. Actualvalidcordedthroughfront/back radius>0 givesdistinctlineheight; hangercollision/periodicshortestcolumnwalk/doubleback tangent zero needactualTileMap/canonicalnativeacceptance beforefinding. nearestlowerhole measuredphysicaldistance ordering deterministicfirsttie, emptybelow returnsDegenerateSurface notsilentlydropshanger. Extendingcorddistance/STEP maygrowunboundedonhugepublicsurface; aggregateMAX_TILES alonedoesnotboundcordlength ormeshvertices, currentall20resource/normalanatomicalbounds pending. Framesstepfallible propagatesConstructionError andallmeshprivateuntilsuccess, no partialpublicmeshclaim."
+    },
+    {
+      "source_indices": [
+        2213
+      ],
+      "ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "roles": "Independent lens11 complete actual lacing/layout/public construction and canonical base/morph surface admission.",
+      "disposition": "Full342 actualLayout privatepairedTiles/TileRows/slopes, verifiedfinitepositivesurfacelength/positiveplateheight andoverlap<=.6 from2214constructorvalidation -> mostpitch>=.4height, nearestpitchhalfguard prevents arbitrarilytiltedrows andnormaldenominator0. Bothcyclicceilcount/openfloorcountAtLeast1 deliberateevenwrapvsfit policy, alternate-rowstagger andoverhang quarter documented. Boundsallowoverhangexactwithin.001evenunits; filteredTileMap corners breakruns retainedclosedonlyifcyclic/noDropped. ActualMAX_TILES checkafterlay_gridcomplete at84, lay_gridfirstallocatesrowscapacity andcolumnVec thenpushesallfittingtilesbeforecountlimit. Newqualifiedlatebudgetadmissionfamilywithactualpublic2214 and2215finitegeometryadmission, no hugegrid/allocationconstructed. Sourcefixturecap10 verifiesreturnederrorafterfullgrid, notpreallocationresourcebound, readonlytestnotexecuted. CallermaxusizeMAX onlytest fixture notnormalproductionbudget. NeedsTileMaprealfit/current/all20resourcefamily acceptance beforefinalrepairdedup."
+    },
+    {
+      "source_indices": [
+        2214
+      ],
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "roles": "Independent lens11 complete actual lacing/layout/public construction and canonical base/morph surface admission.",
+      "disposition": "Full137 actualGeneratedArmor.constructed validatesConstruction first (finitePlate+Lacingandholefit) thenSolidreturnsunchanged intentionally; Lamellar/Scale useonlyspanninggrids, GridSurfacebase Optionfailure returnsDegenerateSurface/noGridsNoSurfaceGrid. MAX_TILES20000 passedLayoutnew, verifiesrawcontrols notbadsourceattributes/gridindices/sourceweights/directmorpharrayadmission, whichneedcanonicalGeneratedArmorproducer/current. FinaltilesandlacingbothstagedlocalResults beforeConstructed published; aLacererrorreturnscallerErr, no partiallypublishedplates. Schemahashcapturespreviousdesignhash+serializedconstruction thenparametrichash, serialize unwrap_or_default justifiedcommentnumbers/variants yeterrorfallbackownsnoexplicittypedserializationcause; alladmittedcontrolsfinite+fixedSerde schema hasnoobservedserializationfailure, notautomaticallylegacycompatpath. TileTemplate physicalcut/roundedgeometrynext2216bodypending; Embedded normals inverse-transpose shear [nx,ny+slope*nz,nz] followsZshear=z-slope*y beforeframe.normalize. Surface_domain copied source, materialsroles/components emptytiledrepresentationintentionaldistinct fromoldsolidretention; docsothernongridshellsnotrebuiltbutactualoutputonlygriddedtiles deliberateexplicitnotimplicitdata-lossfinding. No constructiongeometry/native/testexecuted."
+    },
+    {
+      "source_indices": [
+        2215
+      ],
+      "ranges": [
+        [
+          1,
+          441
+        ]
+      ],
+      "roles": "Independent lens11 complete actual lacing/layout/public construction and canonical base/morph surface admission.",
+      "disposition": "Full441 canonicalGridSurface storesrawpositions+SurfaceGrid withsharedArcbaseSpacing andOrientation snapshot, morphrealized replacespositionsonly retainingbasematerialcoordinates intended. Publicconstructedfilteris_spanning minrows2/mincols2open3cyclic +rows*cols==verticeslength, actualmultiplicationunchecked beforelength forarbitraryu32rawgrid, current/privateproducerboundednormalcounts earlier. baseindexespositions/normalswithoutlength/vertexboundcheck thenmeasurespositiveextent+finiteoutwardorientation atallgridvertices; sourceGridindices/directmorphlength/weightsvalidationmustupstreamnativeproducer, no promisepublicGeneratedArmorchecked. Onlypositiveextentnotmaxanatomicalextentcap, largefiniteplanarspanninggridcanbegeometricallyadmitted inprinciple; normalruntimebodyextent/currentacceptance notclaimedlarge. Actualcornersreturns4weightedindices, clampscellfractions0..1 forfiniteGridPoint ->positive<=1sum1, closes350unknowncornerarity andnarrowsSkinShareoverflowfromarbitraryhugeweightsassumingupstreamvalidunitweights. Geometrypoint permitslinearoverhangbut skinweightsclampedintentionalnearestedgecorrespondence, notcompatfallback. Frameorthonormal basisd_column×d_row/outward thenacrossprojected/outcrossup, localnormalization assumesnondegeneratecapturedsurface; basechecksallvertexoutwardfinite butnotallinterior/morphpatches. Frame.step determinantNaN/smallGramreject, actualf32sourcebound/nativecounterexamplespendingbeforeclaimnegativeoroverflowaccepted. index_at flatzero-distanceintervalreturnsfraction0 localnumericalinversion policy; no broadstalegridfallbackassertion. Entirecylinder/unevenfixture,orientation/step/indexinverse bodiesreadunexecuted."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-345.json",
+      "sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-346.json",
+      "sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-347.json",
+      "sha256": "b7b08ad4dad155bfcf195bcc699b9610eafab357465b16b8e4b98f8b263158b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-348.json",
+      "sha256": "f0d025b2140115f122f63ffb2678ab70a287add4dd21273c6b454f1fcf81c2f6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-349.json",
+      "sha256": "0bff5939fdb73a63c5a63325ffedcec3439554381099e28875b9fbb394cd3acb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-350.json",
+      "sha256": "4f1f0b4e94459f5aac9245aac4aea33f36f29161d85b81506cbeb21539b55a97"
+    }
+  ],
+  "pending_contracts": [
+    "351 accounts2212..2215 next2216template317REG1075/2217tests192REG1076/2218tile_map115REG1077/2219trim128REG1078/2220edges319REG1079/2221finish146REG1080/2222split330REG1081/2223tests276REG1082 allprospectiveregisteredunread. LastREG1082.18mandatoryextensions/sixEOFqualifications/futureproofs retained.",
+    "NewqualifiedlateMAX_TILESadmission: publicconstructorvalidatesrawplatecontrolsbeforeLayoutbutlayoutcaponlyafterwholegridallocation/push. Largefinitegeometrysourcehypothesis readnotconstructed, TileMap/normalbody/current/all20boundedworkacceptance stillpending; no observedallocationfailureoracceptedrepaircountchange.",
+    "ActualpublicConstructionvalidateslacingholecount>0 beforeLacerpairs-1 andpositiveplatepitch; canonicalGridSurfacecorners4finiteclampedweights closesunknownarity. Upstreamskinunitweights/gridindices/morphlength/nativegeometry stillnotassumedvalidatedbyrawGeneratedArmor. No native/tests/probesrun.",
+    "All13 populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2216
+}

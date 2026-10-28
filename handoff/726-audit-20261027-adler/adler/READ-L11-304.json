@@ -1,0 +1,135 @@
+{
+  "lens": 11,
+  "batch": 304,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1975,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-818.json",
+      "registration_sha256": "eed83cb00856a03dd27c481c641399ec26ef90edcfb59273a8baa11a7c78a96e",
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "scope": [
+        [
+          1,
+          475
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          475
+        ]
+      ]
+    },
+    {
+      "original_index": 1976,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-819.json",
+      "registration_sha256": "726684ae251cacfa1e67b7aa4a8216f14552939c6a3b90c6fedba8d05976e75c",
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "sha256": "3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "scope": [
+        [
+          1,
+          242
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          242
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1975
+      ],
+      "ranges": [
+        [
+          1,
+          475
+        ]
+      ],
+      "roles": "Independent lens11 full transport message ownership/native value and authority contract.",
+      "disposition": "Full475 requests retain canonical CharacterId/token, equipment sequence/revision/location/hand and mapped Bevy entities; depthu16/native command edgeu32 and raw movement/look/quickstep/defenddirection/reportedprecision require actual server admission/all20 role comparison, wire not assumed valid tactical state. SceneVistaBundle retains raw digest, extent, city recipes and LODs with no wrapper validation here; actual send/receive ownership needed. SuccessfulAttackResponse carries raw flanking/damage/impact vectors in documented local/world frames, actual authoritative producer and presentation final admission pending; total_damage raw addition actual damage limits before overflow finding. Outcome response explicitly follows strategic acceptance, not parallel tactical authority. Complete mapping/debug tests source-only, never run."
+    },
+    {
+      "source_indices": [
+        1976
+      ],
+      "ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "roles": "Independent lens11 complete replication registration, document-vs-binary codec adapter and source acceptance.",
+      "disposition": "Full242 registers actual SceneGround/SceneTerrain network consumers, strengthening290 direct decode admission exposure but actual normal producer builds checked ground299 and network current stillpending. Tactical state remains transient replicated Bevy, not strategic DB persistence. Building custom RuleFns encodes JSON document bytes inside postcard, exact reverse decode checked SceneBuilding factory; default postcard internally-tagged BuildingProgram decode failure explicitly asserted by test body. This intentional transport/document distinction is not compatibility fallback. Landform recipe replicate_once default path versus nested tagged TerrainGeologicStructure candidate recorded separately pending exact dependency/live caller/current. Client input unreliable ordered bespoke tick; command/equipment/combat streams ordered/mapped; debug request registration inallbuilds alone doesnotmeanproductionhandlerpresent. Static collider replication filtered, heavyweight building compound remains server authoritative. Full furniture compact<32B/allkeys, building codec, door/window typed leaf roundtrip source tests unexecuted."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    }
+  ],
+  "pending_contracts": [
+    "304 completes1975..1976 fullmetadataunion,next1977 unregistered; next reg820. No unsaved body reads.",
+    "New conditional landform default codec versus nested tagged geology candidate needs exact default Replicon/postcard/serde owners and actual publication/client/current; existing building fixture not a performed landform test.",
+    "Metadata304 original verbose dump truncated, no source/body/metadata proof credit from that dump; compact metadata304compact reread all1977..1988 hashes/range unions in full, no bodies read. New registrations must precede bodies.",
+    "All thirteen-lens populations/current/all20/aliases/connected acceptance/dedup incomplete; prior tenextensions/fourEOF and future reuse preserved. Gatefalse accepteduniquechange0, no product execution/repairs/tests/commits/publication; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1977
+}

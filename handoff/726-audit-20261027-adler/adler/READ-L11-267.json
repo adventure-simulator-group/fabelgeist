@@ -1,0 +1,496 @@
+{
+  "lens": 11,
+  "batch": 267,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1797,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-634.json",
+      "registration_sha256": "e67118d3bfe7f427e6f19909c901a93cbfa1a9b0bdde22f3bcd2acf27bf8de42",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "scope": [
+        [
+          1,
+          67
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          67
+        ]
+      ]
+    },
+    {
+      "original_index": 1798,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-635.json",
+      "registration_sha256": "ddd3bc02752a6c6c706299407721f675dd8d484ed2c27c45ed4b3d3d1638a995",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/tests.rs",
+      "sha256": "7c6a8e1c2dff28aca275a96b548ba687a6723103c0ef7844b7dbd3b4cb22f0e8",
+      "scope": [
+        [
+          1,
+          250
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          250
+        ]
+      ]
+    },
+    {
+      "original_index": 1799,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-636.json",
+      "registration_sha256": "6fd0f605d05ed4cf55bd097926b55638ad4c9eacfab47f21bde21abbdae9b8cf",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/tests/neighboring.rs",
+      "sha256": "05fa8e91c739271d3354f764d365b9faca0d7d667c13f993afbd9f200d8d08f8",
+      "scope": [
+        [
+          1,
+          152
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          152
+        ]
+      ]
+    },
+    {
+      "original_index": 1800,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-640.json",
+      "registration_sha256": "00506e9f0278d14556d128b3e15238f4cac3f65d900fe17dae8b904aa951d97f",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+      "sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+      "scope": [
+        [
+          1,
+          97
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          97
+        ]
+      ],
+      "inherited_scope_extent_qualification": {
+        "kind": "Frozen Git exact-byte EOF qualification",
+        "original_index": 1800,
+        "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+        "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+        "source_sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+        "actual_EOF": 97,
+        "raw_requested_range": [
+          1,
+          120
+        ],
+        "effective_range": [
+          1,
+          97
+        ],
+        "excluded_nonexistent_ranges": [
+          [
+            98,
+            120
+          ]
+        ],
+        "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+        "inherited_metadata": {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+          "sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+          "bytes": 2989,
+          "already_in_frozen_variants": false,
+          "evidence": [
+            {
+              "shard": "root",
+              "record": "wave-01/audit-producer-propagation/root/additional-sources-025.json",
+              "ranges": [
+                [
+                  1,
+                  120
+                ]
+              ],
+              "source_read_status": "partial",
+              "trace_refs": [
+                "ROOT-PP-RECEIVER-CLOSURE-025"
+              ]
+            },
+            {
+              "shard": "root",
+              "record": "wave-01/audit-producer-propagation/root/additional-sources-027.json",
+              "ranges": [
+                [
+                  1,
+                  97
+                ]
+              ],
+              "source_read_status": "full",
+              "trace_refs": [
+                "ROOT-PP-SOURCE-OWNERS-027"
+              ]
+            },
+            {
+              "shard": "root",
+              "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+              "ranges": [
+                [
+                  1,
+                  120
+                ]
+              ],
+              "source_read_status": "partial",
+              "trace_refs": [
+                "ROOT-PP-RECEIVER-CLOSURE-025"
+              ]
+            },
+            {
+              "shard": "root",
+              "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+              "ranges": [
+                [
+                  1,
+                  97
+                ]
+              ],
+              "source_read_status": "full",
+              "trace_refs": [
+                "ROOT-PP-SOURCE-OWNERS-027"
+              ]
+            },
+            {
+              "shard": "rig",
+              "record": "wave-01/audit-producer-propagation/rig/supplemental-db-shared-proofs.json",
+              "ranges": [
+                [
+                  1,
+                  97
+                ]
+              ],
+              "source_read_status": "full",
+              "trace_refs": [
+                "ROOT-PP-SOURCE-OWNERS-027"
+              ]
+            },
+            {
+              "shard": "rig",
+              "record": "wave-01/audit-producer-propagation/rig/supplemental-root-strategic-root-proofs.json",
+              "ranges": [
+                [
+                  1,
+                  120
+                ]
+              ],
+              "source_read_status": "partial",
+              "trace_refs": [
+                "ROOT-PP-RECEIVER-CLOSURE-025"
+              ]
+            }
+          ],
+          "audit_owner": "root",
+          "scope_kind": "affected_unchanged_reached_contract",
+          "owner_contract_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 167,
+              "read_ranges": [
+                [
+                  1,
+                  105
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SCATTER-041"
+              ],
+              "read_status": "affected_ranges",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 229,
+              "read_ranges": [
+                [
+                  1,
+                  97
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-RIGID-HULL-058"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 573,
+              "read_ranges": [
+                [
+                  1,
+                  97
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SCATTER-041",
+                "ROOT-OWNER-RIGID-HULL-058",
+                "ROOT-OWNER-SUPPORT-AND-RANGE-CLOSURE-086"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 9,
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-RATIO-003",
+                "ROOT-OWNER-ZERO-LENGTH-007",
+                "ROOT-OWNER-FRAMES-004"
+              ],
+              "read_status": "partial_exact_reached_contract",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs"
+            }
+          ],
+          "current_owner_suppliers": [
+            "root"
+          ],
+          "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+          "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+          "producer_reached_contract_observations": [
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+              "receipt": "ROOT-PPS-GARDEN-HULL-021",
+              "json_pointer": "/source_proofs/0",
+              "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  97
+                ]
+              ],
+              "source_context": {
+                "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+                "sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+                "read_ranges": [
+                  [
+                    1,
+                    97
+                  ]
+                ]
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            }
+          ],
+          "producer_inventory_accounting": {
+            "initial946_cell": false,
+            "frozen1650_supplement_index": 748,
+            "new158_material_role_packet": false,
+            "expanded36_context_variant": false,
+            "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+            "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+          },
+          "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+        },
+        "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-637.json",
+        "superseded_registration_sha256": "11a562d6b799f6d573bddd03b06d87763cdc9b845d403cc6d3791ec5f4e9a4e3",
+        "failed_read": "No invalid-range read attempted; raw requested metadata1..120 was registered637, exactobject metadataEOF97 checked before anygardenbody. New640 effective1..97 registered beforebody.",
+        "limits": "All13 lenses must independently qualify their original1800 metadata to exactsamehashEOF97. No98..120credit or historicalproofrewrites, no new sourceidentity/globalrangeextension orproductdefect claim."
+      }
+    },
+    {
+      "original_index": 1801,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-638.json",
+      "registration_sha256": "fdc736a4cebc7ea96aac79eaaa402ed6496810816d40be894905369e8a1e942c",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/geometry.rs",
+      "sha256": "6714471caf51d59b35d1f74bc741f96616aa5eded3fd07658d13516b2aeab93d",
+      "scope": [
+        [
+          1,
+          270
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          270
+        ]
+      ]
+    },
+    {
+      "original_index": 1802,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-639.json",
+      "registration_sha256": "a97641317542406b65e33e41f64f7aabcb820c02c18c0552bdbec3728a079838",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs",
+      "sha256": "f4f7b85d6aa1694b5b2732810b329ac15caf2ebb77b71832a67880c70e0bd4d4",
+      "scope": [
+        [
+          1,
+          61
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          61
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1797
+      ],
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "roles": "Independent lens11 exact street/support-fixture/garden composite admission/native geometry anderror ownership; qualifiedEOFwhereapplicable.",
+      "disposition": "Full67 streetapronselection usescanonicalScenePlanPoint/CityPlotBounds/PlanDimensions, onlylocalnativeVec2/geometricrun kernel. Preferrednearhalf reservationclippedavailable_runminuscontacttolerance; retrieslargeraprononlyStairGoing/StairClearance/AccessGrade/CutFill andpropagatesallotherexactSupportDiagnostic. This isboundedcurrentconstraintsearch, notbackwardcompatibilityorallerrorstoemptyterrain. Maximumpositiveapron frompolicy, exactaccess_regions/available_run/CompoundSupportRequest constraints andcompositioncaller pendingbeforeownership/zero-runfailureclaims."
+    },
+    {
+      "source_indices": [
+        1798
+      ],
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "roles": "Independent lens11 exact street/support-fixture/garden composite admission/native geometry anderror ownership; qualifiedEOFwhereapplicable.",
+      "disposition": "Full250 supportfixtures specifytenpopulation/seed combinations(900/6500/12000 threeeach+30000seed101), 6500neighbourfixtureseparate. Generate/compile/partition/select/terraincompose assertions retainallmembers/programmes/horizontalgeometry/capacity, per-membercontact/thresholdheight andmaxgrade. Diagnosticsave calls onlyfailurepathsource not executed/generatedoutput. Exactmissingmember/duplicatephysicalIDs assertions anddetailpromotion invariance. No bearingNone rolecoverage266 establishedbythese sourcefixtures; no actualpassedmatrix ornativeproof."
+    },
+    {
+      "source_indices": [
+        1799
+      ],
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "roles": "Independent lens11 exact street/support-fixture/garden composite admission/native geometry anderror ownership; qualifiedEOFwhereapplicable.",
+      "disposition": "Full152 neighbouringfixture usesproductiongeneralpacking fromseed42/pop6500 thenfilterscanonicalIDs519/520/16903 andfrozengeographictriangles, notobsoletepre-packingrectangle authority. Assertsactualbearingcontacts coveredbutemptyrectangularcorner retainsoriginalgeographicheights, allreorderinginvariance. Staticcityscene selectedsupportidentity/reseating notpersistenttacticaltickstate. AssetJSON/generator/terraincomposition bodies/currentneeded, sourceassertionsnotexecution."
+    },
+    {
+      "source_indices": [
+        1800
+      ],
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "roles": "Independent lens11 exact street/support-fixture/garden composite admission/native geometry anderror ownership; qualifiedEOFwhereapplicable.",
+      "disposition": "Fullactual97 gardens.rs original1800 rawmetadataunion1..120 qualifiedtoEOF97. REG637 retainedrawinvalidextent, noinvalidreadattempt; REG640 exactsamehash/frozenGit bytes/effective1..97 prospectiveregisteredbeforebody. Exclude98..120 forall13independentlenses, no newglobalidentity/extension orhistoricalproofrewrite. TypedGardenPlantId fullu64identity, GardenPlantScale privatepositivefinite withopaqueReflect/customserde; STANDARD0.75 isauthoreddefault. CompositeCityGarden publiccollections andserdeunknownfieldsdenied; hasseparatevalidategeometry, no automaticfullyvalidatedaggregatefromderiveDeserialize. world_hull nativeVec2 transform/scale finalgeometrykernel, actualenvelopeandgardenadmission before malformedacceptedhullfinding. Groundingexplicitlysceneproducerowned."
+    },
+    {
+      "source_indices": [
+        1801
+      ],
+      "ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "roles": "Independent lens11 exact street/support-fixture/garden composite admission/native geometry anderror ownership; qualifiedEOFwhereapplicable.",
+      "disposition": "Full270 gardengeometry checksbounded100mplot,16elements, accesswidth<=2,streetapproach<=6,scale<=2, positivefinitebounds/routes andwind-expandedhulls; compositesvalidatedbeforeprivateaccess[0]/corridorunwrap path, so nopa nicclaimfromemptyaccessaftervalidate_bounds. clearance_geometry canbeinvokedwithoutfullvalidate butreturnsInvalidAccess; clears_building prefilterassumesvalidatedgarden, actualcallerorderingneededbeforeinvalidscalebypass. SATnativepolygons/emptyedges onlyvalid ifspecimenenvelope convex/nondegenerate, embeddedassetadmission/proofpending. CityGarden.translate mutatesplotthenotherswithfalliblecasts; concretecallerclone/transaction contractneededbeforepartialmutationfinding. Selectedarithmeticcorridor returnsOptionandGardenIssue ratherthanrootGeometryError, actualstructuredattribution expectation/caller neededbeforecause-lossfinding; no hiddenSpacetimeDBtickstate."
+    },
+    {
+      "source_indices": [
+        1802
+      ],
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "roles": "Independent lens11 exact street/support-fixture/garden composite admission/native geometry anderror ownership; qualifiedEOFwhereapplicable.",
+      "disposition": "Full61 GardenSpecimen singleCommonHazel semanticidentity, LazyLockembeddedJSONdeserializesGardenSpecimenEnvelope withrawgeometryrevision/Seed/hullheights/count. expect messagechecked isassertionnotactualvalidationprovenance; parseralone doesnotenforceconvexnonemptyhull/edgepositivelength/minmax/geometryrevision correspondence. Actualembeddedcontent/currentgenerator/enveloperevision/nativevertexwitness neededbeforeadmittingbadasset/finding. contains_local_vertex finitepoint/height/hullhalfspaces explicitmath, zeroedges/emptyhull specialpolicy actualasset contractneeded. Windstrength0.035/clearance0.04 sharedsiting/rendercontract vsmeasuredbound0.036; actualshader/nativecoefficient trace pending,nointerferenceproof fromcomment."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-257.json",
+      "sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-258.json",
+      "sha256": "91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-261.json",
+      "sha256": "fe22c536959ab05a2b96acaf9d6ec3261b022e7f8a7856cf2f90abece4676fe6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-266.json",
+      "sha256": "b72d261271583a8c9d18c8e7401745cd081b355ea69a23cd2ebe9cc56e5aa50a"
+    }
+  ],
+  "pending_contracts": [
+    "267 full/scoped1797..1802 allmetadataunion effectivecomplete,next1803 unregistered. Original1800 exactEOF97 rawrequested120, newaudit-onlyall13qualification; no98..120credit, no ninthscopedextension/sourceidentity. Verifieraddsstrict1800branch frozenGit/registry/retained637 checks, previous1622/original4 branchespreserved.",
+    "Supportstreet retry classifiedspecificcurrentconstraintsearch, notlegacyfallback orunconditionalcauseerasure. Tenpopulation/seedmatrix andneighbourproductiongeometry sourceassertions read, notexecutedacceptance.",
+    "Garden compositeadmission/validatorordering/envelopeassetgeometryrevision/windshader actualproof pending. translate transactioncaller andcorridorOption attribution concretecontractsneededbeforefinding; privatevalidate_access index0 guardedbybounds, no spuriouspanicclaim.",
+    "Allpriorconditionalfamilies/eightscopedextensions/nativeoriginal4and1622EOF/future2248/2249/2250/2701/partiallater129/L12/L13 unchanged. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1803
+}

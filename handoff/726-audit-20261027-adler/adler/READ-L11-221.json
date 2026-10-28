@@ -1,0 +1,191 @@
+{
+  "lens": 11,
+  "batch": 221,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1571,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-399.json",
+      "registration_sha256": "770b7a46def4e90e05aef51042ed80cc42061966082cc433bf252b333d9acca2",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs",
+      "sha256": "91ff28710a9a14a819f4922ea771cfe62fa7d385fb63f2b561f10444600c057d",
+      "scope": [
+        [
+          1,
+          676
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          600
+        ],
+        [
+          601,
+          676
+        ]
+      ]
+    },
+    {
+      "original_index": 1572,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-400.json",
+      "registration_sha256": "77e9d56e9c911422b26a8c7d6c2654662243506440c204a7b5691c021b7074a7",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/spawn.rs",
+      "sha256": "8ae3f85f7348aa4417fecbfc8408f36dda93ea3e4c707f0e79bc673e0cac3ef7",
+      "scope": [
+        [
+          1,
+          250
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          250
+        ]
+      ]
+    },
+    {
+      "original_index": 1573,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-401.json",
+      "registration_sha256": "4e63251cd5a89262957ca3d7ed4640c080693ac899029bd5201b937bc1c72376",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "sha256": "1577f17b44515d9e38cd44b010e81127ddace5a721dfc82688cc46be04c341fa",
+      "scope": [
+        [
+          1,
+          522
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          522
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1571
+      ],
+      "ranges": [
+        [
+          1,
+          676
+        ]
+      ],
+      "roles": "Full exact original/producer/owner/reached/native source and included fixtures; independent source-only lens11.",
+      "disposition": "Full676 stone source/fixtures read. PebbleMeshLod and PebbleDensity explicit semantic alternatives; fixed49 candidates/6or16 radial/2or3 rings bounded native mesh arithmetic, not user-config topology219. Candidate radius/jitter/survival draws named and repeated across LODs to preserve identity; native arrays/indices expected final leaf, no needless quantity wrappers demanded. Billboard normal channel explicitly stores centre, intentional shader ABI. Ground-plane downhill-axis fallback on nearflat normal is geometric policy, not legacy compatibility. Shader/material comments describe current cheap rendering policy; old StandardMaterial mention does not prove active fallback or parallel renderer. Native RENDER_WORLD mesh usage deliberately differs retained litter CPU prototypes; no render-world removal bug inferred. Fixtures exact density/count/manifold/pixelhandoff and shader-string assertions only read, no actual mesh generation/compile/screenshot/current acceptance. Imported loose_stone streams actual body not credited by identifier use, remains later population dependency."
+    },
+    {
+      "source_indices": [
+        1572
+      ],
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "roles": "Full exact original/producer/owner/reached/native source and included fixtures; independent source-only lens11.",
+      "disposition": "Full250 includes owner165..210 subset plus exact producer/owner union. PatchAssets creates3densities*8variants with same seed/halfextent for hero/near/billboard, matching ordered offsets/index<8 and bounded actual vectors. Actual woodland has no billboard entity; distant allocation for unused woodland assets is not automatically correctness defect. physical_pebbles0 on nonhero LOD intentionally prevents diagnostic doublecount, not absent semantic pebble state. Canonical ScenePlanPoint/terrainheight/Dir3 admission then native Transform emission. Managed-ground exclusion uses full rotation-safe envelope including overhang before placement; cannot allege centre-only urban exclusion. Native positive gridscale/finite extent and urban disk contract require SceneGround/urban producer proof. Authored material surface and native depth/LOD/shadow decisions explicit. No runtime, output generation or tests."
+    },
+    {
+      "source_indices": [
+        1573
+      ],
+      "ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "roles": "Full exact original/producer/owner/reached/native source and included fixtures; independent source-only lens11.",
+      "disposition": "Full522 shared source read. GroundFoliagePresentationCache retained mesh/material handles private to owning module/descendants, actual spawn calls staged litter prepare_meshes before use; this narrows220 arbitrary empty-catalogue/missing-prototype scenario. Exact retained handle removers/reset and native Mesh extraction still need source before lifecycle defect. GroundScatterError owns GeometryError/MeshMergeError; spawn_ground_foliage propagates and present_ground_scatter returns Bevy Result via? before Presented marker, rather than erasing failure toString/marking success. Understory entities queued before litter merge error: atomic whole-scene publication not promised, so no duplicate retry claim without native system-error policy/scheduling. Active grass separate instanced path explicit; old macrograss explanatory comment is not active compatibility path. Local written celestial cache keys only lighting/ambient values and updater returns on unchanged celestial, while actual constructors add default-lit assets: new-material after prior write could miss values absent material identity/revision key; actual scheduling/asset lifecycle/shader consumers/current still pending, no observed stale rendering. Numeric quality/shading vector selectors are native payload meaning; actual CPU receiver quality.x gate read, enum/wrapper policy requires fullowner/ABI rather than automatically everyVec4invalid. Lighting geometric nightdirection fallback intentional. Canonical environmentbps/admittedterrain remain authority; scatter seed distinct named stabletext digest+scene, not inferred from arbitrary raw userstring. No generation/tests/execution."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-212.json",
+      "sha256": "c061be62985f34109cefdf7579106841a59f4924cf4e31a382efbe2e62b9f876"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    }
+  ],
+  "pending_contracts": [
+    "221 accounts original1571..1573 full exact union; next1574 plants source. All13 populations/extensions/current/all20/aliases/connected acceptance remain incomplete, accepted unique change0/gatefalse.",
+    "Shared scatter owner preserves owned Geometry/MeshMerge errors through Bevy Result before Presented marker; actual native system error policy/scheduling required for retry/partialcommand outcome. No generic swallowed error accepted.",
+    "Actual fixed cache preparation and owning private fields narrow missing CPUprototype/emptycatalogue suspicion; nativeMesh extraction/removal/reset owner still pending. Image SDK proof216 does not establish Mesh behavior automatically.",
+    "Celestial write suppression source241..266 ignores asset cohort changes, and constructors adddefault-lit materials. Need exact system order/scene transition/asset creation and shader lighting use before stale-material finding. No visual/runtime failure observed.",
+    "Loose-stone imported StreamId bodies not independently read in this lens yet; actual later-material registry and exact scope required, no inferred source/global credit from imports. All authored fixed mesh capacities remain distinct from admitted dynamic grass topology.",
+    "Future ordered adoption queue unchanged:1589 REG274 READ206;1612 REG373 READ218;2248 REG398/2249 REG396/2250 REG397 READ220. Later-material5 full53 READ220 not orderedlaterpopulation credited.",
+    "Next1574 plants/1575lod/1576streams/1577tests/1578review_specimens; inspect metadata fullunion and prospectively register before body. No fresh registration beyond401 created.",
+    "No product edits/builds/tests/lints/scanners/generators/runtime probes/CI fixes/commits/publication/messages; ignored source/evidence bookkeeping only."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1574
+}

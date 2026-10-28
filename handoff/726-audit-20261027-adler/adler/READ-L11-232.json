@@ -1,0 +1,220 @@
+{
+  "lens": 11,
+  "batch": 232,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1623,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-456.json",
+      "registration_sha256": "389c62b857296d6e9922407ec71d30539ae1275990e2108569f164bd3e976b21",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/astrometry.rs",
+      "sha256": "553895e6bbe39722c38999355c9d30c0c5bd72f3e5a702b2143d5826b749b6f2",
+      "scope": [
+        [
+          1,
+          32
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          32
+        ]
+      ]
+    },
+    {
+      "original_index": 1624,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-457.json",
+      "registration_sha256": "2dc51698a117a6a638397d27896b9e1261b87cb45cd9f1d7510099c348b25442",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "sha256": "98db3fe74b0ea6ed6df1900a31714f9462067510a09b1583c055fcdc354225b1",
+      "scope": [
+        [
+          1,
+          827
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          720
+        ],
+        [
+          721,
+          827
+        ]
+      ]
+    },
+    {
+      "original_index": 1625,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-458.json",
+      "registration_sha256": "5a6c7e3cb227e39100eadbf71fce9e5617978de7ca37d0535eb6a134106404d9",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/strategic_scene_assets.rs",
+      "sha256": "0c9d0aabc0f31d29f92b8cc5884247ea436077a3c41c3ba434dbe5f24059f9f2",
+      "scope": [
+        [
+          1,
+          37
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          37
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1623
+      ],
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "roles": "Independent lens11 full exact owner/producer/native source and source-only fixtures.",
+      "disposition": "Full32 astrometry native matrix boundary. StrategicMinute, LatitudeMicrodegrees and LongitudeMicrodegrees preserve canonical calendar/location ownership; degrees/day convert to f32 solely for trigonometric native Mat4. Equatorial columns follow actual catalog direction convention, EUS north sign differs deliberately from core EUN conversion. Sidereal constants are authored approximation; precision/time-horizon and exact core calendar contract remain pending, not arbitrary NaN or coordinate-wrapper defect from final Mat4 fields. Full metadata union root/native independently read; no historical lens verdict adoption."
+    },
+    {
+      "source_indices": [
+        1624
+      ],
+      "ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "roles": "Independent lens11 full exact owner/producer/native source and source-only fixtures.",
+      "disposition": "Full827 sky owner/native materials/fixtures. CelestialLightingSnapshot keeps actual scene Entity and shares one computed sun/moon/calendar/weather snapshot; from_environment converts core EUN directions to normalized EUS exactly once. Presented update reacts active/environment changes, missing active clears snapshot. Apply reacts snapshot/settings and matches active scene; missing snapshot explicitly zeros sun/moon/ambient, hides celestial meshes and restores exposure. Native Color/Vec3/Mat4/Vec4 uniform payloads retain comments and fixed shader ABI, typed celestial-angle/intensity owner fit across core/shared/current still pending before isolated wrappers. Regional clone1615 receives already EUS Transform. Source supports moon rotation pole basis fallback as intentional geometry, no legacy compatibility. AtmosphereIblStatus bool observes EnvironmentMapLight presence only; comment claims completed GPU bake, actual installation/provider lifecycle required before readiness defect. Sky shader material layout preserves SpecializedMeshPipelineError via?, native cascade builder receives graphics settings validated217. preset_cascade_config always Some despite stale None comment is source/documentation mismatch, no live dual implementation inferred. Star parser only actual include_str shipped catalog; silently drops malformed required fields and defaults missing/invalid B-V to authored0.65, finite/dataset admission remains source dependency, no demonstrated bad shipped row or external user-input parser. Attribute buffers produced from same six-corner/star loop have equal cardinality; fixed authored distance/radius/pixel/HDR uniforms are final native leaves. Existing tests read only (bounded catalog/exposure/phase/shadows/sun/moon/clear), no generation/assertions/native execution."
+    },
+    {
+      "source_indices": [
+        1625
+      ],
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "roles": "Independent lens11 full exact owner/producer/native source and source-only fixtures.",
+      "disposition": "Full37 building-local preparation native-only generation. Input.validate before digest or geometry, owned PreparationResult propagates validation/digest/building recipe/furnishing errors. Building placements share canonical cached program recipes and retain GeneratedBuilding collision/plan; no tactical positions/HP/enemies persisted. PreparedStrategicScene.digest remains raw String returned from TacticalSceneInput.digest; reconcile existing canonical SceneDigest/product binding/global migration owners before duplicate bespoke type or failure claim. WASM generate omission is platform boundary, not compatibility path. Actual digest semantics, callers and generation cache contracts preserve218 qualifications; no source/body transfer from type name alone."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    }
+  ],
+  "pending_contracts": [
+    "232 accounts1623..1625 full exact union; next1626 terrain1509. All13 original/overlay/merged/shared/later/extensions/current/all20/aliases/connected acceptance remain incomplete, gatefalse/uniquechange0.",
+    "Sky1624 is actual PresentedCelestialLighting producer: updates snapshot only active/environment change and apply uses celestial/settings gates. Shared scatter1573 cached material write suppression221 still needs actual system order and new-asset lifecycle before stale-material finding. Sky source does not clear that dependency or establish observed rendering failure.",
+    "AtmosphereIblStatus active reflects actual camera EnvironmentMapLight presence with scene snapshot; completed-bake provenance requires actual installer/provider/native GPU stage. Do not equate presence/encoded work with completed-frame acceptance or invent ordinary unsupported state.",
+    "Private compiled catalog parser silently omits malformed required rows/defaults B-V; actual fixed dataset and intended admission contract need source before owned-error or NaN finding. No arbitrary external catalog/input assumed. Shader bodies/native matrix/provider not credited merely from references.",
+    "Astrometry typed calendar/geography converts only at native trig/matrix leaf; precision horizon and core celestial finite/unit direction invariants remain canonical-owner dependencies. No redundant wrapper mandate for every uniform or geometric fallback.",
+    "PreparedStrategicScene String digest is connected global identity owner question alongside218 product ticket/digest/cache contracts, not separately accepted unique repair. All owned generator/furnishing errors propagate here.",
+    "231 inherited EOF qualification and new within-original1622 prefix extension preserved. All seventh scoped-extension obligations remain independently mandatory across13 lenses; no232..240 source credit or other-lens historical verdict borrowing.",
+    "2248REG398/2249REG396/2250REG397 READ220 await first ordered adoption; later connected5/6/7/11/127/128/129 separate,129tail54..117 unread. L12/L13 unchanged and current main comparison pending.",
+    "No product edits/builds/tests/lints/scanners/generators/runtime/native probes/CI fixes/new tests/commits/pushes/PRs/merges/external messages. Ignored evidence bookkeeping only, goal active/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1626
+}

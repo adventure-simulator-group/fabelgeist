@@ -1,0 +1,178 @@
+{
+  "lens": 11,
+  "batch": 109,
+  "status": "Original1209 full selected source-accounted WITH findings",
+  "original_index": 1209,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+  "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+  "scope": [
+    [
+      1,
+      1677
+    ]
+  ],
+  "actual_personal_reads": [
+    [
+      1,
+      350
+    ],
+    [
+      351,
+      700
+    ],
+    [
+      701,
+      1050
+    ],
+    [
+      1051,
+      1400
+    ],
+    [
+      1401,
+      1677
+    ]
+  ],
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-009.json",
+  "registration_sha256": "f3fc21bb5c34c245db5997acdd729bcf510bfd47bc212c268d7546d7bd224001",
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "roles": "Typed hostile defeat fact, semantic custody object/holder adapters, party dispatch and paired immutable fact attribution.",
+      "disposition": "Incidents/random encounters without cases are intentional absence, not failed quest admission. Core AssetId/SubjectId and CustodyObject distinguish roles but native kind+rawID parameters flatten their payload. CustodyHolder has actual Site/Party/Character/Npc versus Destroyed/Released variants; native empty String is a sentinel for terminal holder, not a real ID. CustodyPartyDispatch distinguishes unattributed seed, ordinary party continuity and resident NPC authority; neither nonempty string nor a single exists Bool proves which authority. Exact retry paired-fact attribution is required independently of live party existence.",
+      "repair_dependencies": "Reuse core case AssetId/SubjectId/CustodyHolder and existing native dispatch owner, named PartyAttribution/AdmittedCustodyTransition with canonical source and associated fact.",
+      "acceptance": "Preserve NPC exclusion from player continuity and reject ambiguous/unknown party authority, while unattributed seeding remains valid. No blanket privileged caller/transaction proof."
+    },
+    {
+      "ranges": [
+        [
+          136,
+          236
+        ]
+      ],
+      "roles": "Existing dispatch/attribution/source-parser tests.",
+      "disposition": "Fixtures support intended ordinary versus NPC/unattributed/ambiguous state distinctions and exact attribution checks. Actual assertions are source only, not executed acceptance. Fixed party/case strings are test identities, not global input vocabulary."
+    },
+    {
+      "ranges": [
+        [
+          238,
+          429
+        ]
+      ],
+      "roles": "Custody transition receipt, object state, core state-machine admission, native row write, optional paired fact and terminal impossibility; authored objective custody seed.",
+      "trace": "Next record uses canonical CaseId/CustodyObject/CustodyHolder; retry compares case/object/kind/holder/version and, if fact supplied, validates paired case/party attribution. New transition reconstructs existing core record, calls core apply_custody, writes native CaseCustody then ingests fact and selected ordinary-party continuity. Seed derives object kinds from objective leaves and checks one authored association per required object.",
+      "disposition": "Admitted aggregate can retain kind/ID/holder/source/version/fact coupling instead of large primitive parameter bag. Result<bool> distinguishes accepted change versus exact/no-op retry and should be named if it prevents consumers mixing those facts. Optional fact is intentionally absent for initial seed; do not force all transitions to have one. Actual core/native conversions and all-caller attribution remain separately qualified.",
+      "acceptance": "Full caller graph must preserve source-bound transition and fact identity with unchanged no-op behavior; no observed partial writes/rollback or malformed source state asserted."
+    },
+    {
+      "ranges": [
+        [
+          431,
+          733
+        ]
+      ],
+      "roles": "Leader subjective time, optional open objective expression, survive/protect continuity record, broken/completed lifecycle and escorted arrival.",
+      "disposition": "party_strategic_minute uses leader personal clock rather than refresh_clock world authority. Site survival versus subject custody/version protection need different payloads. Empty site/subject strings and optional custody_version beside kind admit unsupported combinations; actual writer fills appropriate fields. Open/Broken/Completed guard state is distinct from deadline and generated objective fact. Predicate validates current site or same custody version and only then emits fact/completes. Do not derive completion from now>=through alone. Escort arrival is distinct terminal custody and increments version; exact version bounds/currentness remain separate.",
+      "repair_dependencies": "ObjectiveContinuityGuard and core requirement/fact owners, party subjective-time authority, native custody and arrival mutation hooks.",
+      "acceptance": "Keep site versus subject/version requirements explicit and preserve elapsed boundary versus committed fact distinction; all mutation paths and time integration remain pending."
+    },
+    {
+      "ranges": [
+        [
+          735,
+          904
+        ]
+      ],
+      "roles": "Terminal destruction/release objective impossibility, asset retrieve/return/exchange and subject rescue/release adapters.",
+      "disposition": "Destroyed asset blocks Retrieve/Return/Exchange; terminal subject blocks capture/rescue/escort/protect, but Released is not failure for Release objective. These are real semantic alternatives, not one generic terminal error. exchange/release Bool chooses distinct typed fact/holder payloads and should be expressed by operation variants when migrating. Native receipt/current object inputs must retain canonical IDs through all wrappers; no unsupported new bounds or preserved empty-string API required."
+    },
+    {
+      "ranges": [
+        [
+          906,
+          1137
+        ]
+      ],
+      "roles": "Manual/generated case provenance, validated manifest, typed source/fact, optional outbreak remediation, stored outcome fact/replay, evaluation, contract transitions and selected finale.",
+      "trace": "Generated authority requires exact unique manifest/canonical ID and objective-expression equality; Manual permits no generated authority. Ingest parses CaseOutcomeSource, makes typed OutcomeFact with current refresh_clock timestamp, serializes it then compares full stored JSON on existing source before new fact/state mutation. Actual expression evaluation chooses Pending/Satisfied/Failed.",
+      "disposition": "Keep ValidatedQuestGenerationAuthority and manual versus generated provenance as owned alternatives. Indexed metadata plus immutable JSON is a native storage adapter, not automatically redundant live authority. OutcomeFactId/source/case/party and happened_at differ. Retry compares fresh timestamp in encoded fact: an internal repeated call after clock advance can differ even with same semantic request; actual caller receipts may short-circuit. This is qualified API replay binding, not proven ordinary retry failure. MissionOutcome removes outcome: prefix while DomainEvent keeps raw coordinate, so outcome:mission:7 and mission:7 both map fact:mission:7; inspect caller namespace admission before any runtime/collision claim. Winning path u16 conversion .ok and unavailable finale empty sentinel retain separate authority/capacity questions.",
+      "repair_dependencies": "CaseOutcomeSource/OutcomeFact identity and timestamp authority; all ingest callers and their immutable outer receipts; canonical core case evaluation, outbreak remediation and native finale/contract state owners.",
+      "acceptance": "Reconcile aliases and intended source namespace/timestamp semantics against actual producers. A future admitted source/receipt must retain unique identity and immutable occurrence time without blocking legitimate internal re-evaluation."
+    },
+    {
+      "ranges": [
+        [
+          1139,
+          1282
+        ]
+      ],
+      "roles": "Finale selection and immutable execution receipt, generated world event, hostile objective resolution policy, immutable mission outcome candidate.",
+      "disposition": "Available/Selected/Executed/Ineligible finale are lifecycle states, separate from execution receipt keyed by finale/source/party. Optional eligible path is a policy selector, not an absent resolved path error. Generated provenance changes the world-event branch; retain typed authority, no hidden direct contract payment here. Defeated/DrivenOff/Surrendered resolution and relative weights50/30/20 are authored policy, not probabilities. Mission candidate retains source capability identity and objective/capture association; do not treat copied immutable fields as independent recomputed authority.",
+      "acceptance": "Native generated event effects and whole effect transaction are not executed; actual world_event and candidate consumers remain pending."
+    },
+    {
+      "ranges": [
+        [
+          1284,
+          1417
+        ]
+      ],
+      "roles": "Unique generated site combat group and eligibility across manifest/site/name/objective/finale/current-group/fact authority.",
+      "disposition": "All related IDs and generated canonical manifest must agree; site safe_label is part of immutable authority matching, not merely an arbitrary display string to drop. Exactly one distinct compatible finale group and one current group at that site are required. Pending hostile objective and available matching finale are separate evidence. Optional required-resolution is a filter, not a state sentinel. Pure Option availability currently folds invalid/missing/mismatched cases, leaving typed policy granularity question rather than demonstrated error suppression incident."
+    },
+    {
+      "ranges": [
+        [
+          1419,
+          1677
+        ]
+      ],
+      "roles": "Mission reuse/binding, observer exact site knowledge, generated/manual origin, objective capability construction, capture custody version, surrender authoring and native MissionAuthority capture.",
+      "disposition": "Observer, party, mission/site/group/objective/path identities and scene key prevent distinct association mix-ups. Bound/terminal mission alternatives are meaningful; reused mission checked against immutable association. Some(Some(generated)),Some(None manual),None invalid provenance should become named sum where it clarifies API. Capture subject+custody version must be paired with Captured resolution; other outcomes legitimately have no capture payload. Tactical candidate excludes surrendered outcome while authored surrender capability may persist for strategic use. Canonical MissionAuthority::capture result is mapped to String inside internal helper, requiring actual cause/all-caller follow-through later. Counts/path indices/weights/version/native IDs are not interchangeable primitive roles.",
+      "acceptance": "Actual MissionAuthority capture/error owner, approach ID codec, native observer/group/provenance and downstream mission resolution bodies remain mandatory separate scopes; all20/current/alias/global completion not established."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-017-receipt.json",
+      "sha256": "248e389c980fabae29b237383d7f7e5974775a7ae6eccf99fb4ac741199271bf"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-037-receipt.json",
+      "sha256": "9eba0cc942018e3348434818aa4201ceb3a5509ab2183eb34b9a6e117cc1c75a"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-045-receipt.json",
+      "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-048-receipt.json",
+      "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-101-receipt.json",
+      "sha256": "3126c4ae02fb943f1a56167e4014d3c2be754805792fe73f0b32617b197047ed"
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-105-receipt.json",
+      "sha256": "ee409eec20ed323ae54ad55d00d70d49c4987ae2f92e53970263e2c1cce68e99"
+    }
+  ],
+  "pending_contracts": [
+    "All actual custody/ingest/continuity mutation callers and core case numerical/state-operation limits; native DB/JSON/reducer transaction semantics not blanket cleared.",
+    "Outcome source namespaces/immutable timestamp/outer retry receipts and aliases/current source; no ordinary failure witness.",
+    "Mission capture, capability ID, generated-provenance, world event/outbreak/finale/observer recipients remain registered original/material queues, no transferred body credit.",
+    "All inherited original1207 corrections/other populations/extension queues/current/all20/aliases/connected acceptance remain pending."
+  ],
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "current_reconciled": false,
+  "validated": false,
+  "next_original": 1210
+}

@@ -1,0 +1,228 @@
+{
+  "lens": 11,
+  "batch": 206,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1456,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-270.json",
+      "registration_sha256": "d5880628554593cd83e36285b2668c67f509a108f07523a4453c68096b05d006",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo_main.rs",
+      "sha256": "2521e13453acacdb89c6e96f50324d3ee88f1cb272b8e63f915cd7130fff3b01",
+      "scope": [
+        [
+          1,
+          41
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          41
+        ]
+      ]
+    },
+    {
+      "original_index": 1457,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-271.json",
+      "registration_sha256": "5a369201d77c4c1ea77f8208a886319390ca3147e3975a6fa3892504b0eb3f1b",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "scope": [
+        [
+          1,
+          206
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          206
+        ]
+      ]
+    },
+    {
+      "original_index": 1458,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-272.json",
+      "registration_sha256": "e189421cfa858d4c13bcad3d82872e22da4f58906562dc8d9ffe9b9e0ccbdedf",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+      "scope": [
+        [
+          1,
+          507
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          130
+        ],
+        [
+          131,
+          300
+        ],
+        [
+          301,
+          470
+        ],
+        [
+          471,
+          507
+        ]
+      ]
+    },
+    {
+      "original_index": 1459,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-273.json",
+      "registration_sha256": "ee8572badc3199b06529fd9caa6e77aa93f9ae22449c1f9886a3f03378dfd35c",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime/forge_view.rs",
+      "sha256": "be717339d13100a2187fb5bbe385c1c074f5625fb45e7e40254f2f35f40551f3",
+      "scope": [
+        [
+          1,
+          44
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          44
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1456
+      ],
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "roles": "Actual standalone/native/browser artdemo entry, panic terminalstatus and queue/status exports.",
+      "disposition": "Wasm command wrapper directlyqueues artdemo1449 and statusreturnsserializedstatus, confirmsfinitebrowseradmissionactualexport. Native main run vswasmboot intentionallyseparateplatformentry notlegacyAPIalias. wasm panic hook setsFailedbeforeconsolehook, actualRenderrunner handled205distinct. UI message strings leafwireboundary allowed, no automaticinternalerrorerasureclaim forResultStringwrapper."
+    },
+    {
+      "source_indices": [
+        1457
+      ],
+      "ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "roles": "Audio YAML/IO config boundary, numeric validators and retained tuning fields.",
+      "disposition": "Explicitfinite unitinterval/positive/orderedpitch, windthreshold<whole, heavyrainfraction<1 preventsdenominatorzero whereused. Newqualifiedstructuredcause family followsactualparse/load Stringformat; rawretainednumericfields/deriveDeserialize alternativeentryrequiresactualconsumerproof beforeclaiminvariantbypass. Metadata32KiBsizecheck present, no claimstrictboundedread againstconcurrentfilechange. Tests readsourceonly."
+    },
+    {
+      "source_indices": [
+        1458
+      ],
+      "ranges": [
+        [
+          1,
+          507
+        ]
+      ],
+      "roles": "Full combined root/rig browser runtime scope, typed scene/map/tactical commands, forge inputs/mesh preparation and quantity/error adapters.",
+      "disposition": "Full507includesrootfirst225 plusrigwholeowner andtesttail/preparecity, no narrowingtofirstprefix. BrowserMode enumseparatesstrategic/tacticalvisuals; PreparationTicket retainedforcity, StrategicView/MapCommand bespokeprotocol. Forge yaw rawaccumulation reachesnativeorientation; generatorErrdiscard newfamilies. Invalidexplicitrecipe isrejectednotdefaulted; serde missingcataloglongsword defaultassertedfixture butactualoptionalfeaturevslegacycontract requirescaller beforecompatverdict. JSON/encode/editor/quote helpers stringify atbrowseradapter boundary; corecause fromsmithing belongsactualowner, no assertentirecoreerrorproof. EnterTactical onlynewidentityifclientsisempty; actualproducerexit/bindingsemanticsneededbeforeignoredswitchfinding. pending_commands poisonedlock unwrapdefault conditional butactualpoisonreachability unknown, no generic hiddenfallbackfinding. Native meshscaleepsilon isdegenerategeometrydisplaypolicy pendinggeneratorboundproof, notlegacycompatibility."
+    },
+    {
+      "source_indices": [
+        1459
+      ],
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "roles": "Forge camera setup and actual strategic rectangle/viewport receiver.",
+      "disposition": "NativeprojectionFOV derivedTacticalCameraSetup default, renderlayerbespokeFORGE_LAYERconstant intentionalresourceidentity. Eachsync disablescamera thenappliestypedStrategicView.forgerrect viarect.apply ifwindow/viewpresent; actualrectangleadmission separatefutureowner, Nonelegitimatelyhidden notfailedcapture. No newtypes demandedforlocalizedcameraorder/exposureconstants."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Connected exact source body; zero ordered original credit",
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-274.json",
+      "registration_sha256": "ea66bba06331db1a4b6da9e3ac957bcbc1dacdf8f688d4ebbc411781a00302ce",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "source_sha256": "388ce709c22690649f7f24cc0ba3f537e11a40e32b9a449c00695ee3e2ba96b3",
+      "scope": [
+        [
+          1,
+          407
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          407
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Full future original source for actual plugin installation and configuration/schedule witness; no ordered frontier credit. All ownerfull407 and native material197..352 roles accounted only inthisconnected receipt, mustexplicitlyreuse orreread when1589reached. Graphicsshippedconfigparse/admittedsettingsclone explicit, childbackportfunctionname not proofcompatshim; actualimplementationcontractpending.",
+      "original_index": 1589
+    },
+    {
+      "kind": "Connected exact source body; zero ordered original credit",
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-275.json",
+      "registration_sha256": "b55f71b929d8a03b5da44632ccdea4730b2e05f9f68529063c6dd1ff37fbbb25",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/materials.rs",
+      "source_sha256": "ccff04d8f8288d9f670097d34527841e9a8f2f91472692b25e5dd53b85c5aba8",
+      "scope": [
+        [
+          1,
+          35
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          35
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Newmateriallyreached plugin receiver installs BakedTexturesPlugin unconditionally aftertwo material tuples. Native tuplearity split intentionalSDKshape, notlegacydualAPI. Allmaterialtype internals remain outsidethis35line scope; no blanketSDKclearance."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-204.json",
+      "sha256": "0120db149cb71611b30ec917fb25120a1d036c192176cec395490e461d611872"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    }
+  ],
+  "pending_contracts": [
+    "All13 lenses and allpopulations/extensions/current/all20/aliases/connectedacceptance incomplete; acceptedunique0 gatefalse. Fourneworderedoriginals, future1589 connectedfullread407 notorderedcredit, newmaterialextension35 mandatoryall13.",
+    "Texture actualpluginchain sourceconnected now; nativeassetfail fixture/allreadinessconsumers/current stillpending. Sourcefolder/assetdescriptors and weaponpositivefinitegeneratedbounds/catalogframing futuredependencyqualificationretained.",
+    "Forge200largefiniteorbitinputs arithmetic case demonstrates retained yaw overflow sourceonly, notrunparser ortransform/nativebehavior; actualWasmbridge/producers/current stillpending. Capture204orbitdegreeinput distinctowner/wireunit, dedupwithoutunitconflation.",
+    "Forgegeneratorerror discardedactualbranch; admitted invalid WeaponDesign generatingErr and frontend outcomecontractpending. Audio configerrorcauseformattedbeforecaller, actualstartup/current and quantity typefitpending. No scope-wide extrapolation fromthesequalifiedfamilies.",
+    "Presentationmodule fullsource doneconnectedonly. Backporthelper name alone notlegacycompatibilityverdict; SDKtargetedbugfix implementationmustbeinspected beforecleanupclaim."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1460
+}

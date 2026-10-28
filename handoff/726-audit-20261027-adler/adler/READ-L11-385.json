@@ -1,0 +1,423 @@
+{
+  "lens": 11,
+  "batch": 385,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2376,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1249.json",
+      "registration_sha256": "20ee59e0a3e72833f35e6905217b0392ac4ca8066103b28e845310ed314ffd43",
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+      "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "scope": [
+        [
+          1,
+          567
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          567
+        ]
+      ],
+      "inherited_scope_extent_qualification": {
+        "kind": "Frozen Git exact-byte EOF qualification",
+        "original_index": 2376,
+        "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+        "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+        "source_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+        "actual_EOF": 567,
+        "raw_requested_range": [
+          1,
+          568
+        ],
+        "effective_range": [
+          1,
+          567
+        ],
+        "excluded_nonexistent_ranges": [
+          [
+            568,
+            568
+          ]
+        ],
+        "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/medical.rs",
+        "inherited_metadata": {
+          "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+          "snapshot": "pr-working",
+          "path": "crates/strategic-web/src/routes/settlements/medical.rs",
+          "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+          "bytes": 19434,
+          "already_in_frozen_variants": false,
+          "evidence": [
+            {
+              "shard": "camera",
+              "record": "wave-01/audit-producer-propagation/camera/native-endpoint-sources.json",
+              "ranges": [
+                [
+                  462,
+                  568
+                ]
+              ],
+              "source_read_status": null,
+              "trace_refs": [
+                "CAM-PROP-CORPSE-WEB-PORT-001"
+              ]
+            },
+            {
+              "shard": "camera",
+              "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+              "ranges": [
+                [
+                  462,
+                  568
+                ]
+              ],
+              "source_read_status": null,
+              "trace_refs": [
+                "CAM-PROP-CORPSE-WEB-PORT-001"
+              ]
+            }
+          ],
+          "audit_owner": "camera",
+          "scope_kind": "affected_unchanged_reached_contract",
+          "owner_contract_proofs": [
+            {
+              "supplier": "camera",
+              "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+              "row": 423,
+              "read_ranges": [
+                [
+                  1,
+                  567
+                ]
+              ],
+              "contract_refs": [
+                "CAM-OWN-WEB-MEDICAL-106"
+              ],
+              "read_status": null,
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/medical.rs"
+            },
+            {
+              "supplier": "camera",
+              "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+              "row": 662,
+              "read_ranges": [
+                [
+                  1,
+                  567
+                ]
+              ],
+              "contract_refs": [
+                "CAM-OWN-WEB-MEDICAL-106"
+              ],
+              "read_status": "complete",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/medical.rs"
+            }
+          ],
+          "current_owner_suppliers": [
+            "camera"
+          ],
+          "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+          "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+          "producer_reached_contract_observations": [
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+              "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+              "json_pointer": "/current_sources/6",
+              "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  567
+                ]
+              ],
+              "source_context": {
+                "camera_assigned_index": 397,
+                "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+                "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/medical.rs",
+                "expected_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+                "observed_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+                "read_ranges": [
+                  [
+                    1,
+                    567
+                  ]
+                ],
+                "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            },
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+              "receipt": "RIG-PPS-034",
+              "json_pointer": "/fresh_current_source_reads/6",
+              "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  567
+                ]
+              ],
+              "source_context": {
+                "camera_assigned_index": 397,
+                "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+                "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/medical.rs",
+                "expected_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+                "observed_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+                "read_ranges": [
+                  [
+                    1,
+                    567
+                  ]
+                ],
+                "proof_mode": "Fresh current complete PR material body; paired same-byte variant fingerprint verified where supplied, preserving different downstream P16 error types",
+                "status": "body-read-actual-receiver-closure-pending"
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            },
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+              "receipt": "RIG-PPS-035",
+              "json_pointer": "/fresh_current_source_reads/3",
+              "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  567
+                ]
+              ],
+              "source_context": {
+                "camera_assigned_index": 397,
+                "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+                "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/medical.rs",
+                "expected_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+                "observed_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+                "read_ranges": [
+                  [
+                    1,
+                    567
+                  ]
+                ],
+                "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            }
+          ],
+          "expanded_producer_contract_observations": [
+            {
+              "delta_observation_index": 181,
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+              "receipt": "CAM-PPS-CORPSE-012",
+              "json_pointer": "/current_sources/7",
+              "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row1275/proofs/0",
+              "read_ranges_as_recorded": [
+                [
+                  490,
+                  535
+                ]
+              ],
+              "material_contract_ranges_as_recorded": [
+                [
+                  490,
+                  535
+                ]
+              ],
+              "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+              "role_as_recorded": null,
+              "read_status_as_recorded": "fresh_actual_supplement_body",
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            }
+          ],
+          "producer_inventory_accounting": {
+            "initial946_cell": false,
+            "frozen1650_supplement_index": 989,
+            "new158_material_role_packet": false,
+            "expanded36_context_variant": false,
+            "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+            "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+          },
+          "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+        },
+        "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1245.json",
+        "superseded_registration_sha256": "a81f969eef442d02fd06f0d967331033c26cb569d1134a2bd4c477e6e046e6a6",
+        "mandatory_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "new_global_source": false,
+        "other_lens_coverage_transferred": false
+      }
+    },
+    {
+      "original_index": 2377,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1246.json",
+      "registration_sha256": "71bb4042b44d57a95d6741d480eb12bc22df3b087785339abdc75f2010c7e47a",
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "scope": [
+        [
+          1,
+          898
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          898
+        ]
+      ]
+    },
+    {
+      "original_index": 2378,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1247.json",
+      "registration_sha256": "fab24f237e2265d4eb5a2a94b1d79d508d00cbae5b906f71cf5d1cb04fc284fb",
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "scope": [
+        [
+          86,
+          382
+        ]
+      ],
+      "fresh_reads": [
+        [
+          86,
+          382
+        ]
+      ]
+    },
+    {
+      "original_index": 2379,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1248.json",
+      "registration_sha256": "7826c41be88f569c81ba431466d5275d5d096a106821b74c9631b841c6263093",
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/residences.rs",
+      "sha256": "f95d9bc6d0274f4525b6a04742e81bd574abbeb74fc78e7d0cab24879d33b34b",
+      "scope": [
+        [
+          1,
+          417
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          417
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2376
+      ],
+      "ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "roles": "Full qualified surgery/repair/corpse overview handlers and owning acceptance",
+      "disposition": "Fullactual567; rawmetadata1..568/rawREG1245unchanged andREG1249 exactfrozenGitEOFqualification excludesnonexistent568, eighthall13qualification. Required surgery injuries/projectiles/inventory/catalog reads explicitly return medical-unavailable HTML. Active/patient broad fallback reads and context rows have distinct availability/chronology requirements; native patient permission/current needed before disclosure claim. Limb parse BodyRegion, SurgeryProcedure canonical enum and generated SATS schedule codec retained; tests read only. Disinfectant best selection includes inventory rows without local quantity>0 filter, native row-quantity invariant/selector/treatment authority pending before false medicine selection finding. Capability0actualcaller connected384. Repair fixed3services, no dynamic reducer name from browser. Surgery/repair failures redirect with logs; backend final authority unaltered. Settlement lookup Err explicitly unavailable, corpse/aliases/descriptions failures ordinary empty optional displays need native UI availability policy. No unrelated source-body or product execution.",
+      "evidence_bookkeeping_qualification": {
+        "helper": "target\\726-audit-adler-20261027\\adler\\verify_l11_evidence.py",
+        "helper_sha256": "08b783b57d1c2530502db71f615b4381873a5fdd40888d3b7a291911f6b6b2d1",
+        "reason": "Recognizes only exact original2376 raw1..568/frozenGitEOF567/excluded568 qualification; no generic clipping. Seven prior strict qualifications retained."
+      }
+    },
+    {
+      "source_indices": [
+        2377
+      ],
+      "ranges": [
+        [
+          1,
+          898
+        ]
+      ],
+      "roles": "Full inventory/equipment/medication/form/party/clinical receiving and owning acceptance",
+      "disposition": "Full898. Inventory/catalog lookup Err503 vs absent404 correct. Canonical placement index resolved including only-placement default, invalid target JSON rejects, exact replace/attach/equip branches represent product operations not backward paths. Medication uses current preparation profile and typed route/version/standard dose/self patient/None region; no unchecked medication, no arbitrary browser dose/profile/target. Owning SATS/authorization/profile tests read only. Native equip graph query failures -> ordinary empty/partial graph connected384; capacity countu16/nativebounds pending. Bulk transfer parser returns paired entries, malformed form becomes empty, sequential individual action results ignored; native atomicity/current feedback pending. Selected nonself character_as_observed + exact current location guard, authoritative personality intentionallyNone, can_examine=false; no blanket private personality leak. Medical charts observer+patient scoped and Errunavailable, clockErr/Noneunavailable; history failure instead default empty qualifiedfamily. Attributes/injuries/projectiles/filth/morale/reputation errors default, native template unknown-vs-empty and observerdate snapshot policies pending. get_strategic_condition fails refresh closed unlike capability helper."
+    },
+    {
+      "source_indices": [
+        2378
+      ],
+      "ranges": [
+        [
+          86,
+          382
+        ]
+      ],
+      "roles": "Scoped complete personal-location producer and owning acceptance",
+      "disposition": "Exact86..382 only, wholefunction andsource-shape fixture, no prefix1..85credit. Self-onlyselectedcharacter and current location guard. Activity building/location native enums preserve ineligible case sites; origin settlement used for site preview, positive authorization flagraiding, static testdoesnotestablishbackend behavior. Rawattributes/skills/limbs/schedule/query errors -> empty; clockNone->ZERO qualifieddatefamily, nativequery_single pending. Authoritative personality deliberatelyNone. Medical/inventory/foodlot/catalog data sent to template with availability-default risks pending actual template/nativeowners. Foraging return path preserves building, native381queryfragmentfamily actualpreserve_building fragment possibility pending. No render executed."
+    },
+    {
+      "source_indices": [
+        2379
+      ],
+      "ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "roles": "Full residence acquisition/observer-family/date/result ownership and owning acceptance",
+      "disposition": "Full417. Fixed closedResidenceOperation5 andResidenceTier4browsernames rejectunknown; acquire requires exact propertysettlement+tier, nonacquire requires holding+Current; final reducers remain authority. Success notice only aftercallOk, all Err genericunavailable with ownedcause logged, not asserted hiddenbackendcause bug withoutpublicpolicy. ensure physical properties and required offers/residences failunavailable; current settlement Err currentlynotfound. Familyowner+observer children filtering retained, related names broadCharacterreads only nameused, no claim full futuredata exposed. ClockErr/NoneZERO actually feeds effective-offer visibility and relationshipcountdown, qualifiedfinding. Querysuccessnotice acceptedbrowserparameter is ordinaryflashtext not proof of mutation/replay authorization. Typedoperationtestsreadunexecuted."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-378.json",
+      "sha256": "fe891c6d5afa119ad72eebc3d06d5ea2c1523edc59db840cc1296922762e6ff8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-379.json",
+      "sha256": "3ccd79f3d8604fb29b3791a57817ca981986a981fc56ccaeaffd3673b4144059"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-380.json",
+      "sha256": "cb5832667e4116a4cb093bdd887e1f03d359d3048e699089f8ea1ab8f427db7e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-381.json",
+      "sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-382.json",
+      "sha256": "42fe1ac969c0f8db3f0ba6824e6e117bc3430ce76549e5c5d458ddc5f82d3c47"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-383.json",
+      "sha256": "ffed8895bfac2b9aac91253fa21be130516b90e4ad1b4d2535fa951ea1ea0b39"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-384.json",
+      "sha256": "87fb4c748de2613b3248c5c7332fc2b07b596d5373198caa2c3787603854cba4"
+    }
+  ],
+  "pending_contracts": [
+    "385accounts2376..2379,next2380rest. LastREG1249.27mandatoryscopedextensions andEIGHTstrictEOFqualificationsincluding2376raw568->567exclude568retainedall13.",
+    "Connected384projectionfamilyactualsurgery0andpartygraph/defaultcapacity; qualifiedstrategicclockandmedicalhistoryavailabilityfamilies, existingmissionoutcomefamilycross-consumerextendedwithbulktransfer/repair/treatment. No accepteduniqueincrease.",
+    "Nativequery_single/ActivityPreviewRates/MedicalPresentation/sanitize/backendchart/history/date/quantity/equipment/reducer/template/current/all20contracts remainpending. No inferred privacy/security/gameplay violation from optional empty defaults alone.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalse. No sourcechanges, projectexecution, tests, publication or externalmessages. Goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2380
+}

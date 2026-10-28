@@ -1,0 +1,3 @@
+import continuation as c
+p=c.register_original(2292,[[1,187]],'REGISTRATION-ADLER-1158.json','Prospective necessary same-identity public facade/contract closure: rawREG1151 metadata1..90 stops mid module documentation about host/GPU authority and omits actual public owners/export signatures reached by2291/2289. Register missing91..187 before reading to finish that documented contract and actual feature/facade declarations. All13 mandatory independent scoped extension, no new source identity or other-lens verdict transfer; raw metadata preserved.')
+print('2292 REG1158 actualEOF',len(p.read_bytes().decode().splitlines()))

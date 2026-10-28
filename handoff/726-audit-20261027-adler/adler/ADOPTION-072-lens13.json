@@ -1,0 +1,540 @@
+{
+  "lens": 13,
+  "kind": "Root adoption of inherited same-lens discovery WITH qualified findings, not new personal body reads",
+  "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens13\\batch-223-230-receipt.json",
+  "receipt_sha256": "a2f67e4566f6860c13dbffadc49498103c6bd7aab322a3b1960809623beee111",
+  "state": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens13\\STATE-062-proposal.json",
+  "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa",
+  "source_references": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "read_mode": "Independent ordered inventory: own213 actual1-240 reused, fresh223241-310; no false fresh whole-body claim.",
+      "original": 350
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "read_mode": null,
+      "original": 351
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "read_mode": null,
+      "original": 352
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_mode": null,
+      "original": 353
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "read_mode": "Independent ordered inventory: own208 actual1-75 reused, fresh22376-132.",
+      "original": 354
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "read_mode": null,
+      "original": 355
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "read_mode": null,
+      "original": 356
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "read_mode": null,
+      "original": 357
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read_mode": null,
+      "original": 358
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/lib.rs",
+      "sha256": "f0f319e706f85bf05b038d8e0387be8085c488aaa4b736609cb386eff9bd51e6",
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "read_mode": null,
+      "original": 359
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "sha256": "2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "ranges": [
+        [
+          650,
+          875
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          650,
+          875
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+      "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/item_type.rs",
+      "sha256": "149704173dda23f065ff0e747bf57d2d8516db76a5e8dd864f810337a508bf62",
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "ranges": [
+        [
+          300,
+          330
+        ],
+        [
+          420,
+          495
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          300,
+          330
+        ],
+        [
+          420,
+          495
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "ranges": [
+        [
+          375,
+          419
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          375,
+          419
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "read_mode": null,
+      "original": null
+    }
+  ],
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+      "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+      "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-225-registration.json",
+      "sha256": "2e1204f681423557a17cc1cfb782a8addb508937a52671bc71385f21ccd5e21a"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-226-registration.json",
+      "sha256": "391a62a73b87b11b78ec86f1402846dd1726b0b9fb143c5329a53eb520c91d71"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-227-registration.json",
+      "sha256": "56302c82e715cd1344a1feb473de42e147134b58144493b84a604906739ac31c"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-228-registration.json",
+      "sha256": "069bf4dfc230d5bdb5869023535175de829e045cc4e7259c12f7f347f384d153"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-229-registration.json",
+      "sha256": "d958e21382e4bdbb9752c865e62e69a2583b06b342e219ed611dc4a7f6deb26b"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-230-registration.json",
+      "sha256": "b020c0c3b7b95335a6e1282592433d898f9939b0625189d7295892de56e3ea67"
+    }
+  ],
+  "prior_original_accounted": 350,
+  "original_accounted": 360,
+  "next_original": 360,
+  "basis": [
+    "Reviewed complete independent role inventory350..359, actual receiving traces, qualified source cases and read chronology; source hashes and original registry identities match.",
+    "Positive fungible stack quantity3 with unit massw propagates quantity separately from geometry.mass; inventory_weight sums only item weight while strategic mass multiplies effective quantity. Retain source-backed conditional mass-propagation finding, no current/live/accepted alias claim.",
+    "Raw config admission omissions remain frozen qualified; some may already be repaired by merged M04. Equal bounds, valid zero and actual validators narrow proposed type bounds.",
+    "Native numeric .min may mask NaN; absent field admission alone does not prove infinite pose. MAX aggregates are public representability concerns without ordinary input witness.",
+    "Canonical nonzero quantity, matched armor projection and individual item quantity1 narrow malformed/stack claims; native atomic wrapping concerns remain qualified."
+  ],
+  "extension_queue": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens13\\OTHER-LENS-EXTENSIONS-062.json",
+  "extension_queue_sha256": "6ae3eccf5eecf74bc083bfb2da28f0124d35e64c3428ecad91b2567df3592777",
+  "queue_qualification": "Use latest062 checkpoint queue; STATE062 still points to older058 queue. Preserve both historical records, no queue count or body-coverage transfer.",
+  "partial360_to364": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens13\\HANDOFF-ADLER-20261027-001.json",
+  "partial_qualification": "Actual read consumption is preserved but no completion inventory/receipt for231-232 exists. Do not grant ordered credit yet.",
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "current_reconciled": false,
+  "validated": false,
+  "remaining": "Original360 onward; independent overlay246/merged38/shared196/extensions/current/all20/aliases/connected acceptance and all inherited correction qualifiers remain pending."
+}

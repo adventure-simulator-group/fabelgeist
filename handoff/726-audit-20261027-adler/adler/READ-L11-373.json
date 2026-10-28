@@ -1,0 +1,294 @@
+{
+  "lens": 11,
+  "batch": 373,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2326,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1186.json",
+      "registration_sha256": "01c63b0a753f90490f5a721e6c1b4d59e592e1d1f3cf857cff994a9ebb241bc4",
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/Cargo.toml",
+      "sha256": "8ef22429cd59cffcebbdcb08b0b646a6f5b0714736087c0787ddd4d417518599",
+      "scope": [
+        [
+          1,
+          24
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "original_index": 2327,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1187.json",
+      "registration_sha256": "e82e96283a83c4aebec94ea011d5e442b895bd9419cbc8e6896dbb3fb4a4f2bd",
+      "source_id": "pr-working:crates/fabelgeist-physics/Cargo.toml",
+      "sha256": "91c93380a6b93e8f00e036cca5dc7da6e4752393a6b5e07c4baa69881c545a12",
+      "scope": [
+        [
+          1,
+          21
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "original_index": 2328,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1188.json",
+      "registration_sha256": "fd8c5ebf634c2131866f284fa96c7f3a88daa12f68afb8e7a4d7d55550dfe202",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "scope": [
+        [
+          1,
+          261
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          261
+        ]
+      ]
+    },
+    {
+      "original_index": 2329,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1189.json",
+      "registration_sha256": "6347222bfb40a4097d32c3d794c003f9f4159c9d8cbcd82ee2002603dd0a6cdc",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "scope": [
+        [
+          1,
+          385
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          385
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2326
+      ],
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "roles": "Independent lens11 native physics contact, analytic/mesh kernels, and connected extent/normal ownership.",
+      "disposition": "Full24 numpy-storage manifestseparateworkspaceBurnstd/wgpu pin/plironpatchsameasMHR, memmap2 andflate2pureRustbackend. ActualNPZ/Npy/Zipnativebodiesfuture2656/2666/2667 stillunread, so no MHRarraystorage/dtypeadmissionprooffrommanifest."
+    },
+    {
+      "source_indices": [
+        2327
+      ],
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": "Independent lens11 native physics contact, analytic/mesh kernels, and connected extent/normal ownership.",
+      "disposition": "Full21 physics GPU/compute/math/xpbd/bvhdependencyports andbytemuck/tokiotestmetadata; no feature/build/GPUcapabilityvalidation."
+    },
+    {
+      "source_indices": [
+        2328
+      ],
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "roles": "Independent lens11 native physics contact, analytic/mesh kernels, and connected extent/normal ownership.",
+      "disposition": "Full261 Collisions analyticprivateVec/Buffercapacity/count, updatesamefullusizecountadmission positivecontract. ActualCountnativefor_count/fit/bind narrowsu32androundingunchecked atfuture2481READ373; hugehostextent vsdeviceadmissionneedsfinalcheckedowner, nohugeallocation. set_colliders setscapacitybeforefallibleBuffer::new, potentialerrorstateinconsistency requiresactualBuffernewcanErrbeforeacceptingtransactionfailure. No unconditionalbadstateclaim. record disabled/zero guardsvalid; publicparticle_radius/rawsurfaceunitsinvariantsnotcheckedhere. record_push_outcopiespositionstopreviousregardlessenabled/meshNone, documentedstaticrecovery; actualcallerstatepolicyneededbeforeraisingvelocityresetbug. HookChainsequential?retainsfirsterror, partialrecording/batchsubmissioncallerpolicyunread."
+    },
+    {
+      "source_indices": [
+        2329
+      ],
+      "ranges": [
+        [
+          1,
+          385
+        ]
+      ],
+      "roles": "Independent lens11 native physics contact, analytic/mesh kernels, and connected extent/normal ownership.",
+      "disposition": "Rawreachedscope1..385 personallyread; exactsameidentityextensionREG1190386..413completesreachedtriangleboundsproducerkernel. Analyticclosedkind0/1/2/3packmeansdefaultBoxbranchnotunknownlegacyvariantfallback. Validdegeneratecapsuletosphere/upnormalisexplicitgeometricpolicy. ValididentityBoxcenterGPUinsidebranchsign0canzeronormalvsnativehostsignum0unitaxis, qualifiednormalparityfinding. MeshsweptAABBqueriesendpointnearesttriangle, notfullcontinuoussweptintersectionproof; actualcollisiontrajectoryacceptance/currentneededbeforetunnelingclaim. Degeneratetrianglefallbackupintentionalrobustnessnotcompatibilityshim. ActualMeshCollider.newvalidatesalltriangleindicesagainstpositionsandemptytrianglesreject, closingordinaryGPUOOBpremiseforcanonicalphysicsmesh (doesNOTcloseMHRseparatepath). Publicbuffersmutable/privatecounts/BVH remainresourceidentityqualification; rawmeshcounts narrowedu32andwrite_positionsnarrowscomparison, nativeBuffer/deviceboundsbeforehugecountfindings. No shadercompiled/dispatched."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Future original scoped same-lens source read, no ordered original credit",
+      "original_index": 2481,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1191.json",
+      "registration_sha256": "f54b1e8a9e3848dee5a77afa35a6c65ce962c3729cc5b764d33497a902ee18a9",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "scope": [
+        [
+          1,
+          55
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          55
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Full55 count/capacitynativeprojectionproof, earliestREAD373mustadoptat2481. No counttestsbodycoverage."
+    },
+    {
+      "kind": "Future original scoped same-lens source read, no ordered original credit",
+      "original_index": 2482,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1192.json",
+      "registration_sha256": "78c85634dff85b73eba6062df5fd5c48bba1e5789620f13dfef3801d929aadb8",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "scope": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Exactregisterednativeanalyticpackandhostsigned_distanceproof; REG1192rawscope+REG1194mandatory134..211extensionjointlyfull218, earliestREAD373mustadoptbothat2482. HostquerycomparedtoWGSLnormal; noexecution."
+    },
+    {
+      "kind": "Future original scoped same-lens source read, no ordered original credit",
+      "original_index": 2482,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1194.json",
+      "registration_sha256": "c975dc97c2fb429038f8e555bd72fc0ed6b1c83bb0190cc94321cdb4370a1cb7",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "scope": [
+        [
+          134,
+          211
+        ]
+      ],
+      "fresh_reads": [
+        [
+          134,
+          211
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Exactregisterednativeanalyticpackandhostsigned_distanceproof; REG1192rawscope+REG1194mandatory134..211extensionjointlyfull218, earliestREAD373mustadoptbothat2482. HostquerycomparedtoWGSLnormal; noexecution."
+    },
+    {
+      "kind": "Future original scoped same-lens source read, no ordered original credit",
+      "original_index": 2551,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1193.json",
+      "registration_sha256": "a923d17cf01cda24dd8fcbfd119d15565b18638cf4c643183b229b3dc01bfffb",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "scope": [
+        [
+          1,
+          205
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          205
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Full205 nativeMeshCollidernewvalidatesnonemptytriangles/everyvertexindexbeforeupload, countnarrowing/nativebufferidentityqualification; earliestREAD373mustadoptat2551. NoBVHimplementationbodytransfer."
+    },
+    {
+      "kind": "Within-existing original scoped extension",
+      "original_index": 2329,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1190.json",
+      "registration_sha256": "cc16c15c32ea1b0c12878041b6189ebab8f865346942a333515c0151c964ceea",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "source_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "scope": [
+        [
+          386,
+          413
+        ]
+      ],
+      "fresh_reads": [
+        [
+          386,
+          413
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Exactmissing386..413triangleboundsproducerkernelcontractclosure; no new ordered sourcecredit orother-lenscoverage."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-363.json",
+      "sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-369.json",
+      "sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-371.json",
+      "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-372.json",
+      "sha256": "5f990af297784d2bf0e83b69b032bfff1d8102ce13ae71e3afe5f82eb3e849e9"
+    }
+  ],
+  "pending_contracts": [
+    "373accounts2326..2329 next2330rigmanifest. LastREG1194.24 mandatoryall13extensions(after1190WGSLtail/1194hostmirror)/sixstrictEOFqualificationsretained. No other-lenscredit.",
+    "NewfutureearliestREAD373proofsmustadoptat2481REG1191full55,2482REG1192rawscope+1194extensionfull218,and2551REG1193full205, zeroorderedcreditnow. Priorfutureproofsunchanged.",
+    "Physicsvalidboxcenternormalparityqualifiedfinding; CPUmaxaxis/WGSLsigncontract/current/acceptancepending. MeshnewpositiveindexadmissiondoesnottransferMHRseparateconstructor. Counttruncation/capacityallocationfailure/bufferidentity/finitesurfaceparams/meshtrajectorytestscallerclosurepending.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productrepairs/builds/tests/lints/scanners/generators/runtimeprobes/CI/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2330
+}

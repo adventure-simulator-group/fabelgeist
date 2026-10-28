@@ -1,0 +1,114 @@
+{
+  "lens": 11,
+  "batch": 150,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1274,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-083.json",
+      "registration_sha256": "52d0e83e3807496e0c4600a4e2f76ef7e2c8535f65ffb72688bea2b388480f23",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/error.rs",
+      "sha256": "d3c463510dc48c5dcaf3e13310352dfaede3f8be29c90146ebca5dd2bf289214",
+      "scope": [
+        [
+          1,
+          362
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          210
+        ],
+        [
+          211,
+          362
+        ]
+      ]
+    },
+    {
+      "original_index": 1275,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-084.json",
+      "registration_sha256": "cc7594b7b17eb567f046d8461e928e039b994232aebe1b601ccc14c6b377502a",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/events.rs",
+      "sha256": "ad1df9028c6cd6b2b5b676aa9b7c3c48445f6e0db3eb11646f639b19b217b80e",
+      "scope": [
+        [
+          1,
+          215
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          215
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1274
+      ],
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "roles": "Closed reducer operation provenance and travel-failure category.",
+      "disposition": "ReducerOperation purpose enum already distinguishes same reducer calledfor differentpolicyphases, stableIDrenderatdiagnosticport correct. is_travel classification includes camprest andjourneycallbacks but excludes somewait/config/recoveryoperations; actual failurecategorymeaning andcalleeclassification before missingcasefinding. Reuse existingoperationowner rather than invent separateoperationstring per source."
+    },
+    {
+      "source_indices": [
+        1274
+      ],
+      "ranges": [
+        [
+          206,
+          362
+        ]
+      ],
+      "roles": "Dispatch/rejected/timedout reducerfailure, parsed structured rejection, contextual operation failure and authored threat cause.",
+      "disposition": "ReducerCallFailure privateconstructor enforcesoperation+failurekind, rejected preservesdetail+optional parsedcode; dispatch andtimeout no fabricatedcode. CoreLoopError preserves AuthorThreat typedsource and operation tags, but Other(String) conversions and Operationdetail erase first-party semantic errors before finalreport; existingcycle/medicalResultStringgraph needs connected typederrorowner allwaytoactual reportport. Parser livesexternalclosure notreadhere, noclaimrecoveryfrommessages. Error::source onlyauthoredthreat, reasonableStringSDKport yet underlyingtypeddispatchcauseerasedupstreampending. Timeout uncertaincommit vsrejectednoapply distinction should survive retry admission, actualcallbackrunnerpending."
+    },
+    {
+      "source_indices": [
+        1275
+      ],
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "roles": "Closed event kind and semantic subject, typed event identity vs diagnostic publictrace.",
+      "disposition": "CoreLoopEventSubject sum retainscharacter/partycontract/generatedcase/action/item/encounter identity internally; Payload constructors stillacceptanykindwithanysubject, purposecomposedEvent enum or restricted constructorscouldpreventinvalidkind-subjectcombos. semantic_key includesagent+kind+subject intentionally excludesdetail/sequence; actualduplicatepolicy mustdefine repeatedsamekind/subject in differentphases rather than assumeallrepeatsbugs. into_public dropssubject; serializedCoreLoopEvent onlysequence/agent/kind/detailString, so independent savedreport cannot reconstruct exactsemanticidentity withoutparsingdiagnosticdetail or separateevidence. QuestCoverageEvidence aggregatesboolean witnesses beforedrop, but external duplicate/reviewacceptance needs exactowner/provenance notgenericdetailprefix. No newwire compatibilityfields/aliases proposed, cleanfinalschema ifrepairgate opens."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-147.json",
+      "sha256": "4725705d8c4623f09e5b697e541cdafa37100610002351d014693613491544b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-148.json",
+      "sha256": "45521a56371b519bb94567a8155b3f1884b7a4e2124a7966100914e3de9c5194"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-149.json",
+      "sha256": "d75a4eff75e0fa10b00c5a28b33c30da8487e3003a427f0426581d33c991b8fa"
+    }
+  ],
+  "pending_contracts": [
+    "Actual reducer code parser/callback timeout and first-party Stringerrorgraph, failurecategoryreport consumers, duplicate-event/questcoverage public semantic evidence and current aliases remainpending.",
+    "All13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete; noexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1276
+}

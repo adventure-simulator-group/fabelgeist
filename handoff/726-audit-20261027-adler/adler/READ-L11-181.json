@@ -1,0 +1,212 @@
+{
+  "lens": 11,
+  "batch": 181,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1332,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-148.json",
+      "registration_sha256": "b49d944bee2afcc59a3b97ec62dc72e5e0662374c67d27494c682ea8c99003c4",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/baking.rs",
+      "sha256": "ad98238ee42b11ab107af73e24e4d4f43849fa442e0ef1ea2ae4a2d90ba55d26",
+      "scope": [
+        [
+          1,
+          240
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          130
+        ],
+        [
+          131,
+          240
+        ]
+      ]
+    },
+    {
+      "original_index": 1333,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-149.json",
+      "registration_sha256": "57d7d793e514c744d2e1cd5ae71b9f646f1f1ad4d8ecb374ed641363d6fd8bf5",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/calibration_inputs.rs",
+      "sha256": "bc7371531895550fdec30c4a70a75f549a9cf24c209efbef405f831df198b58a",
+      "scope": [
+        [
+          1,
+          59
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          59
+        ]
+      ]
+    },
+    {
+      "original_index": 1334,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-150.json",
+      "registration_sha256": "2d58e16e95b53d14ce8ac14db4524c365447d97a5ec1a6ef205cce291cfb0d60",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/contact_calibration.rs",
+      "sha256": "818826cc05de685d9d918e9e1ec5693f18cf7544fd36a7777ffa191f80e7de32",
+      "scope": [
+        [
+          1,
+          447
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          320
+        ],
+        [
+          321,
+          447
+        ]
+      ]
+    },
+    {
+      "original_index": 1335,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-151.json",
+      "registration_sha256": "87e34891012dcfd8f7f63439b787b3daa6c1bb5ea3370dd34ec3457341e129ef",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/display_history.rs",
+      "sha256": "671c08c8e47aac129b38a9cc107630319a1fa9a2e9eb29bd1128272dcf15e268",
+      "scope": [
+        [
+          1,
+          17
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          17
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1332
+      ],
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "roles": "Admitted baked-grid shape, sampledchannel ownership and interpolation adapter.",
+      "disposition": "BakedFrameCount NonZeroUsize distinguishes samples fromintervals; singletonvalid. BakedClip::new checksallthreechannelcounts everytrack beforeprivateownership, readonly/sliceedits preservelength. Duration+frameDt typed andtimegridprojection clamp admittedindex includingf32roundup safeguard. Doesnotprovefinitechannelvalues or rigjointtablecardinality becauseconstructorhasnorigidentity; actualbakeproducer constructsdefinitionparalleltracks, otherprivatecallers/tests pending. offset_translations zip acceptsfewer/moreoffsets silently; actualoffsetproducerlength contract pendingnoacceptedbadordinaryinput. frame_time acceptsunboundedusize ordinal ->checkedClipTimefinite notmembershipbound, realcallers usegridcount."
+    },
+    {
+      "source_indices": [
+        1332
+      ],
+      "ranges": [
+        [
+          148,
+          240
+        ]
+      ],
+      "roles": "Asset/bakedcachekey, rawsource sampling grid and checked array-sizepreparation.",
+      "disposition": "get_or_bake redundantid+handle inputcachekey(definition.family,id) whileactualclipslookuphandle; known180callers consistentlypasssamehandle.id so no ordinarycache-poisonfinding. Canonical handle-derivedidentity cleanAPI ownercandidate. bakechecksoriginalClipDurationbeforeminimumgridextent, PositiveAnimationDurationinterval, finite/usizegrid+endpointproduct beforeallocatingallchannels. Finite representablecardinality isnottotalmemorybudget; resourceadmission/downstreamartifactconstraints pending beforehuge-valid-clipfinding. Everychannel defaultsbindwhenunanimated, tracksource Authoredmeansanytargetcurve noteachchannel explicit; laterhandsourceconsumer usesintendedtargetownership. bakeerrorloggedthenOptionNoneconflictsunavailable/errorifcallerneedreason, actualcaptureboundedfailureconsumerpending. Config/sampleHz/family/versioninvalidate sources mustprove cachevalidity, notassumedruntimeconfigmutable."
+    },
+    {
+      "source_indices": [
+        1333
+      ],
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "roles": "Calibration configuration identity and per-actor/reference cache selection.",
+      "disposition": "CalibrationInputs typed sampleHz/grid/positivegeometry/phaseinterval/contactheightwindow includesonlyrelevanttuning; actualcurrent() readsconfig notrigoffsets. CalibrationLookup for_actor requiresCharacterLocomotionStrides.matches_offsets(rig,joints), thenAuthoredLocomotionStrides methodalsofiltersconfiguration. Actualmatches_offsetsimplementation remainsupcomingchildscope; no proofbyname. Referencecalibrationfallback explicitno-current-character-measurementpolicy, notlegacycompatibility. Same exactcurrent tunitune+immutable offsets mustbindmeasurementwitnessatconsumer, retainedoldcache notselectedautomatically."
+    },
+    {
+      "source_indices": [
+        1334
+      ],
+      "ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "roles": "Exact anatomical foot identity, cycle contact segmentation, orientation/phase fitting andcheckedstride witness.",
+      "disposition": "definition.joint_ordinal exactL_FOOT/R_FOOT usingconnected180name map; strengthensrole mismatchfamilywithoutduplicatefinding. measurecontact returnsResultOption distinguishinginvalidarithmetic fromunrepresentable/nocontact; perboneRigJointOrdinal plusCalibrationAxis typedposition/NonnegativeLength, CyclePhase unwrappedthroughseam; cyclicindexwrap onlyperiodicloop. Atleast4bakedframesbeforecontactfit, longestcircularcontactwindow>=3/foot; all-low/absentfeet ->None nofalsefit. fit_stride computescommoncovarianceslope/residual arrays; checksfinite result, positivesignedcycle andconfiguredrange beforepublishedtypedstride+curve. StanceDirection convertsorientation, rawf32means/scalars nativekernelnotblanketrawtypeviolation. ChildContactOrientation/ContactPhaseFit/low_height_contacts remain source dependencies no reexportbodycredit."
+    },
+    {
+      "source_indices": [
+        1334
+      ],
+      "ranges": [
+        [
+          226,
+          447
+        ]
+      ],
+      "roles": "Existing source-only contact fit/footrange fixture acceptance scope.",
+      "disposition": "BespokeAuthoredRigJoint andordinalsyntheticrig explicit; testsmeanfootrange2.5m, stanceignoreairborneexcursions, quadraticprojectionphase inversion, wrongwaylowapproachallowedNone/excessslip andbackwardcycle authoredphase decreases. FixtureobjectsBakedClip newchannelcounts typedgrid; noGPU/runtime/nativeclipreader andnofinitebadidentity/shortwindowacceptanceproof. No execution/newtests; exactthresholdnumericspellings sourceevidenceonlynotlens13credit."
+    },
+    {
+      "source_indices": [
+        1335
+      ],
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "roles": "Authored display-history flag owner independent of physics andvisibility.",
+      "disposition": "ClosedPosePresentationMode Inactive(default)/Displaying, has_presented_pose exactenumtest. Distinguishesactualauthoredhistory frombuffersfilledbypinnedphysics, asused180firstplan transition/culling. Publicmethod canbecombinedwithreadiness; byitselfdoesnotproveinertialsettled/rendercomplete/finiteoutput. No deprecatedcompatibilityalias inferredfromequivalentpredicatename."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-177.json",
+      "sha256": "83b32878f60a4e5fc21053c537efe6bd576a167ca3acdee4469e90658f1a95c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-179.json",
+      "sha256": "592e7c3ea9002077c648bd26c1c5d2c1e44740ec15ce14c3c98c6fa2f19e43b1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    }
+  ],
+  "pending_contracts": [
+    "Same-lens180 exactfootrole difference strengthened byactualcontactcalibrationexactlookup; onlyexistingfindingupdated, acceptedcount0.",
+    "Calibration offsets/phasefit/nativehierarchy/inertialization/sampling/captureacceptance/currentstillpending; BakedClip resourcebudget andexplicitrejectionavailability qualifiedwithoutinventedordinaryfailure.",
+    "All13 populations/current/all20families/aliases/connectedrepairacceptance remainincomplete; nextoriginal1336 requiresprospectiveregistration. No productexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1336
+}

@@ -1,0 +1,1679 @@
+{
+  "kind": "Ignored evidence integrity only; not product test/runtime verification",
+  "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-385.json",
+  "receipt_sha256": "051770b7513c96ff3e0f8146360e3bf4a68d79485d6d2355e1d3b7712aa4985d",
+  "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-385.json",
+  "state_sha256": "8884c8323efb48e823420853539498091fea92dd59525e4cccb06645f61453fc",
+  "previous_verification_sha256": "321b48a9c4f667ddd8c97ff3d2cb222e8b76b6e4de669676a39a6b3335a324a8",
+  "ledger_sha256": "da81725ab27e9de9978499a3cccd8accc5225a03fa3c7c9a1d2d2916f07b4912",
+  "checks": [
+    {
+      "original_index": 2376,
+      "population": "original",
+      "population_index": null,
+      "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "lines": 567,
+      "registered_ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "complementary_same_receipt_scopes": [],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": false,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [
+        [
+          568,
+          568
+        ]
+      ],
+      "proof_kind": "fresh exact registered source ranges with inherited EOF qualification"
+    },
+    {
+      "original_index": 2377,
+      "population": "original",
+      "population_index": null,
+      "sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "lines": 898,
+      "registered_ranges": [
+        [
+          1,
+          898
+        ]
+      ],
+      "complementary_same_receipt_scopes": [],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2378,
+      "population": "original",
+      "population_index": null,
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "lines": 382,
+      "registered_ranges": [
+        [
+          86,
+          382
+        ]
+      ],
+      "complementary_same_receipt_scopes": [],
+      "full_file_covered": false,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2379,
+      "population": "original",
+      "population_index": null,
+      "sha256": "f95d9bc6d0274f4525b6a04742e81bd574abbeb74fc78e7d0cab24879d33b34b",
+      "lines": 417,
+      "registered_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "complementary_same_receipt_scopes": [],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    }
+  ],
+  "contextual_checks": [],
+  "extension_checks": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          99,
+          132
+        ]
+      ],
+      "registration_sha256": "e3853ffe6e3abbabeb4020e13eb51903766e9de61f1febfe0b39d537333ec89c",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "ranges": [
+        [
+          216,
+          240
+        ]
+      ],
+      "registration_sha256": "6fb3a6b3a9f0282f04359daf06a2409d710eb4ee436284c228b3ce7d994aefce",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "registration_sha256": "0e7b6088d5524760ee77210b9920a86e43f892a0911ea57a5d6c547c8a819c0d",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/materials.rs",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "registration_sha256": "b55f71b929d8a03b5da44632ccdea4730b2e05f9f68529063c6dd1ff37fbbb25",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "registration_sha256": "513cc320bbeb295c27f33805d41133a3ae70fd569d6241bbddbdddc87410ea19",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "ranges": [
+        [
+          1,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "registration_sha256": "0cf8f380e9c3e6e8e8d275c256de20ed2642579c2a529e09ae229640baf5267e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          18,
+          154
+        ]
+      ],
+      "registration_sha256": "bb31ecc94007bc997eae168738ab9171b95c1ad8ec4c364e6a8d99173a056255",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "registration_sha256": "1fdcf8e3be10fafe9f18109e6b8329014e396ca86fd6a346307931318c6c2e56",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "registration_sha256": "f072608d8b99aff4ec29c0962fdc5e5a3594cffb77fc776414277bcf75f9bbcb",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+      "ranges": [
+        [
+          45,
+          58
+        ]
+      ],
+      "registration_sha256": "1e0e429b2de643e01bf27ed5f8dfdd2d79f28c3946413f46d5e3580037cc8406",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "registration_sha256": "e16ef24c1ddcb2771ca1bacd2af8dbdc1969e13d69390dd23f228ce96ad0f366",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "ranges": [
+        [
+          159,
+          220
+        ]
+      ],
+      "registration_sha256": "7ce8a122950b0928d811bd00f59844147b718007bf8a8bbcc00c4bfd7e83a271",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "registration_sha256": "942bbfecc6805536bba33f0f9edbc45a344febbe83a88ee4501447f83272ba86",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "ranges": [
+        [
+          126,
+          236
+        ]
+      ],
+      "registration_sha256": "6a9555e7d93d8f1238f6531db9e06739cbb8dea032d0dd46ccd9ac06b4b3ec78",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "ranges": [
+        [
+          113,
+          139
+        ],
+        [
+          286,
+          330
+        ]
+      ],
+      "registration_sha256": "54cd295d154000e54ead341579cd2ba31f47a91b979e50b81abb935a4cc32ea2",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          309,
+          314
+        ],
+        [
+          531,
+          756
+        ]
+      ],
+      "registration_sha256": "ecc5ab4c7a9555e402cd9b9765e37e7f7c8f75a3655bec92ea3e7d00c1a203ec",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "ranges": [
+        [
+          331,
+          333
+        ]
+      ],
+      "registration_sha256": "fe44c609e1a3a9df276ced700b8a50e7fc2ea03dcb70c3e07e653a6cab81c66e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          166,
+          199
+        ],
+        [
+          225,
+          235
+        ]
+      ],
+      "registration_sha256": "aadcb07fbd1b7fb0f5a765456e30a02738035d82706f45dc00a4966dd5348b04",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+      "ranges": [
+        [
+          231,
+          472
+        ]
+      ],
+      "registration_sha256": "eb36e56ab29cd7fe1466d8039c9c1b1e9959a0d6c77610d312e08f05fccc9a89",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+      "ranges": [
+        [
+          306,
+          327
+        ]
+      ],
+      "registration_sha256": "62cc234890bcbd0a8b0ea7a525f856b1db8e74f3a8d0b1bae93a17b939a12b90",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/transfer.rs",
+      "ranges": [
+        [
+          230,
+          271
+        ]
+      ],
+      "registration_sha256": "17d52a258bcfb24e9e62fdfb7555960933410d2a60376649c82a2ad02c10a0a3",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/lib.rs",
+      "ranges": [
+        [
+          91,
+          187
+        ]
+      ],
+      "registration_sha256": "98aba4f6c2e948763dfee5851d3394abc621a1a0b3a5307e3addfa7f9fed68e8",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "ranges": [
+        [
+          386,
+          413
+        ]
+      ],
+      "registration_sha256": "cc16c15c32ea1b0c12878041b6189ebab8f865346942a333515c0151c964ceea",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "ranges": [
+        [
+          134,
+          211
+        ]
+      ],
+      "registration_sha256": "c975dc97c2fb429038f8e555bd72fc0ed6b1c83bb0190cc94321cdb4370a1cb7",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/topology.rs",
+      "ranges": [
+        [
+          236,
+          427
+        ]
+      ],
+      "registration_sha256": "0cc3e38b9c25caee06705b6de105b2f2c23812e9a71b7e650a86fc6c1b7e03cd",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "registration_sha256": "f6323f353e077704778a3c2699fbb48ac29511ce8f5266615dadf4ac46bd27da",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "ranges": [
+        [
+          1,
+          23
+        ],
+        [
+          63,
+          174
+        ],
+        [
+          441,
+          938
+        ],
+        [
+          1031,
+          1319
+        ]
+      ],
+      "registration_sha256": "519c9c775d7663b6f558fdfcda8ca3fb27dc034287d78ab14be4ac694eef3492",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 2380,
+      "state_sha256": "8884c8323efb48e823420853539498091fea92dd59525e4cccb06645f61453fc"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "branch": "handoff/726-audit-ledger-20261027-adler",
+  "worktree_status": "",
+  "next_original_metadata": [
+    {
+      "original_index": 2380,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\settlements\\rest.rs",
+        "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 840,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/additional_actual_source_proofs/9",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/settlements/rest.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                205
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/rest.rs",
+              "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+              "read_ranges": [
+                [
+                  1,
+                  205
+                ]
+              ],
+              "actual_line_count": 840,
+              "scope": "Exact reached material bodies; range endpoints use actual EOF. No inferred whole unrelated source proof."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 110,
+            "registration_id": "RIG-ADMISSION03-REGISTER-110",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-110",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\settlements\\rest.rs",
+              "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+              "actual_EOF": 840,
+              "material_ranges": [
+                [
+                  206,
+                  377
+                ]
+              ],
+              "reason": "Complete actual rest handler consuming original717settlement_rest_minutes admission, authority/co-location and reducer receiver routes; exclude unrelated later forge/religion handlers.",
+              "exclusions": "Exact direct admission route only, no unrelated feature/test/SDK graph.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:37:42.046031+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                206,
+                377
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\settlements\\rest.rs",
+            "actual_EOF": 840,
+            "bytes": 30485
+          }
+        ]
+      }
+    },
+    {
+      "original_index": 2381,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest_preview.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\settlements\\rest_preview.rs",
+        "sha256": "f545d695b666086cb43166e8c7d28a2290272758191042c37530967a71184a21",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 233,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/additional_actual_source_proofs/11",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/settlements/rest_preview.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                233
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest_preview.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/rest_preview.rs",
+              "sha256": "f545d695b666086cb43166e8c7d28a2290272758191042c37530967a71184a21",
+              "read_ranges": [
+                [
+                  1,
+                  233
+                ]
+              ],
+              "actual_line_count": 233,
+              "scope": "Exact reached material bodies; range endpoints use actual EOF. No inferred whole unrelated source proof."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2382,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/routes/settlements/service_quests.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\settlements\\service_quests.rs",
+        "sha256": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 725,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/additional_actual_source_proofs/13",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/settlements/service_quests.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                43
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/routes/settlements/service_quests.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/service_quests.rs",
+              "sha256": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+              "read_ranges": [
+                [
+                  1,
+                  43
+                ]
+              ],
+              "actual_line_count": 725,
+              "scope": "Exact reached material bodies; range endpoints use actual EOF. No inferred whole unrelated source proof."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2383,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/routes/travel.rs",
+        "snapshot": "pr-working",
+        "path": "crates/strategic-web/src/routes/travel.rs",
+        "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+        "bytes": 25323,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-digest-sources.json",
+            "ranges": [
+              [
+                35,
+                210
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DIGEST-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 130,
+            "read_ranges": [
+              [
+                1,
+                155
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+            ],
+            "read_status": "affected_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/travel.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 391,
+            "read_ranges": [
+              [
+                145,
+                180
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "scoped_digest_forwarder_and_native_forage_start",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/travel.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 561,
+            "read_ranges": [
+              [
+                1,
+                696
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-WEB-TERRAIN-FORAGE-082"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/travel.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera",
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "json_pointer": "/source_proofs/9",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/travel.rs",
+            "read_ranges_as_recorded": [
+              [
+                25,
+                87
+              ],
+              [
+                110,
+                315
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/routes/travel.rs",
+              "path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/travel.rs",
+              "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+              "read_ranges": [
+                [
+                  25,
+                  87
+                ],
+                [
+                  110,
+                  315
+                ]
+              ],
+              "scope": "Whole TerrainPlanKey/new/planner3methods and actual worker/cause/cache receiving loop; surrounding declaration/prose output fragments only, not whole travel module",
+              "supplier_trace_ref": "../native/traces.jsonl#NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-021",
+            "json_pointer": "/fresh_current_source_reads/4",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/travel.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                34
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 342,
+              "source_id": "pr-working:crates/strategic-web/src/routes/travel.rs",
+              "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+              "read_ranges": [
+                [
+                  1,
+                  34
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/additional_actual_source_proofs/8",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/travel.rs",
+            "read_ranges_as_recorded": [
+              [
+                319,
+                492
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/routes/travel.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/travel.rs",
+              "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+              "read_ranges": [
+                [
+                  319,
+                  492
+                ]
+              ],
+              "actual_line_count": 696,
+              "scope": "Exact reached material bodies; range endpoints use actual EOF. No inferred whole unrelated source proof."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+            "json_pointer": "/related_current_reads/9",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/travel.rs",
+            "read_ranges_as_recorded": [
+              [
+                25,
+                87
+              ],
+              [
+                110,
+                315
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/routes/travel.rs",
+              "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+              "read_ranges": [
+                [
+                  25,
+                  87
+                ],
+                [
+                  110,
+                  315
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/travel.rs",
+              "scope": "Whole TerrainPlanKey/new/planner3methods and actual worker/cause/cache receiving loop; surrounding declaration/prose output fragments only, not whole travel module"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 990,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2384,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/session.rs",
+        "snapshot": "pr-working",
+        "path": "crates/strategic-web/src/session.rs",
+        "sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+        "bytes": 11327,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-007.json",
+            "ranges": [
+              [
+                120,
+                270
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 556,
+            "read_ranges": [
+              [
+                1,
+                355
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-WEB-GRANTED-IDENTITY-081"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/session.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-021",
+            "json_pointer": "/fresh_current_source_reads/5",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/session.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                355
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 343,
+              "source_id": "pr-working:crates/strategic-web/src/session.rs",
+              "sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+              "read_ranges": [
+                [
+                  1,
+                  355
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 991,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2385,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+        "snapshot": "pr-working",
+        "path": "crates/strategic-web/src/spacetimedb/client.rs",
+        "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+        "bytes": 8664,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/native-endpoint-sources.json",
+            "ranges": [
+              [
+                1,
+                273
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORPSE-WEB-PORT-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                273
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORPSE-WEB-PORT-001"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-digest-sources.json",
+            "ranges": [
+              [
+                180,
+                235
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DIGEST-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 424,
+            "read_ranges": [
+              [
+                1,
+                273
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054",
+              "CAM-OWN-WEB-CLIENT-110"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 387,
+            "read_ranges": [
+              [
+                185,
+                222
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "scoped_complete_actual_HTTP_call",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 668,
+            "read_ranges": [
+              [
+                1,
+                273
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEB-CLIENT-110"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/15",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                110
+              ],
+              [
+                190,
+                230
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs",
+              "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "actual_lines": 273,
+              "read_ranges": [
+                [
+                  1,
+                  110
+                ],
+                [
+                  190,
+                  230
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual SpacetimeError native HTTP/JSON causes, reducer-code text-envelope parse and actual call JSON/status/body port; camera canonical aggregate owner retained"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-021",
+            "json_pointer": "/additional_actual_source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                60
+              ],
+              [
+                80,
+                235
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+              "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "read_ranges": [
+                [
+                  1,
+                  60
+                ],
+                [
+                  80,
+                  235
+                ]
+              ],
+              "trace": "query_response actual reqwest SQL/body and response.textÃ¢â€ â€™serde_json; query_sats_into155Ã¢â‚¬â€œ171/query_one_sats_into175Ã¢â‚¬â€œ189 require Display then manufacture Spacetime(String) from concrete U::Error; actual call193Ã¢â‚¬â€œ220 sends native JSON and retains opaque remote text error."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/15",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                110
+              ],
+              [
+                190,
+                230
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs",
+              "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "actual_lines": 273,
+              "read_ranges": [
+                [
+                  1,
+                  110
+                ],
+                [
+                  190,
+                  230
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual SpacetimeError native HTTP/JSON causes, reducer-code text-envelope parse and actual call JSON/status/body port; camera canonical aggregate owner retained"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/fresh_current_source_reads/1",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                273
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 398,
+              "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs",
+              "expected_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "observed_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "read_ranges": [
+                [
+                  1,
+                  273
+                ]
+              ],
+              "proof_mode": "Fresh full material source/fixtures read; identical-hash PR/P16 variants explicitly reconciled after byte fingerprints, preserving downstream role distinctions. Source only; no project execution.",
+              "read_status": "full-source-read-receiver-reconciliation-in-progress"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-008",
+            "json_pointer": "/exact_source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                273
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 398,
+              "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\spacetimedb\\client.rs",
+              "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "read_ranges": [
+                [
+                  1,
+                  273
+                ]
+              ],
+              "actual_line_count": 273,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Actual HTTP reqwest/JSON/SATS decode -> generic query conversion -> internal recipients. U::Error -> Spacetime(String) is CAM-OWNER-F015; primitive SQL/HTTP leaves justified only at actual call.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/web-request-reconciliation-039.json",
+            "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+            "json_pointer": "/source_dispositions/1",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                273
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 398,
+              "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\spacetimedb\\client.rs",
+              "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "read_ranges": [
+                [
+                  1,
+                  273
+                ]
+              ],
+              "actual_line_count": 273,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Actual HTTP reqwest/JSON/SATS decode -> generic query conversion -> internal recipients. U::Error -> Spacetime(String) is CAM-OWNER-F015; primitive SQL/HTTP leaves justified only at actual call.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 992,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    }
+  ],
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "qualifications": [
+    "385accounts2376..2379,next2380rest. LastREG1249.27mandatoryscopedextensions andEIGHTstrictEOFqualificationsincluding2376raw568->567exclude568retainedall13.",
+    "Connected384projectionfamilyactualsurgery0andpartygraph/defaultcapacity; qualifiedstrategicclockandmedicalhistoryavailabilityfamilies, existingmissionoutcomefamilycross-consumerextendedwithbulktransfer/repair/treatment. No accepteduniqueincrease.",
+    "Nativequery_single/ActivityPreviewRates/MedicalPresentation/sanitize/backendchart/history/date/quantity/equipment/reducer/template/current/all20contracts remainpending. No inferred privacy/security/gameplay violation from optional empty defaults alone.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalse. No sourcechanges, projectexecution, tests, publication or externalmessages. Goalactive."
+  ]
+}

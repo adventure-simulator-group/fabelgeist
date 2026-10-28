@@ -1,0 +1,395 @@
+{
+  "lens": 11,
+  "batch": 216,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1524,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-350.json",
+      "registration_sha256": "0cf8f380e9c3e6e8e8d275c256de20ed2642579c2a529e09ae229640baf5267e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "scope": [
+        [
+          1,
+          272
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          272
+        ]
+      ]
+    },
+    {
+      "original_index": 1525,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-345.json",
+      "registration_sha256": "633613f7dd4fe135ed4b92496b71e02242b4046b1096d6e6c1183546e088ba36",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+      "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+      "scope": [
+        [
+          1,
+          148
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          148
+        ]
+      ]
+    },
+    {
+      "original_index": 1526,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-346.json",
+      "registration_sha256": "b375c8fcfd5d93c1d68979fcf70acf45d028c0e95a3eafde584852b0ec00dc37",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/cloud_bake_assets.rs",
+      "sha256": "e5ae55fc95ea907b2d01ae26ffd4b4dd1334a1db7befee2d9f8add866f6ed5be",
+      "scope": [
+        [
+          1,
+          56
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          56
+        ]
+      ]
+    },
+    {
+      "original_index": 1527,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-347.json",
+      "registration_sha256": "2f8395eedd0af9ff2b56a12430a4de127086df5c44f2d018b1440b508b4e7662",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+      "sha256": "ed0d069d3ad4096d18a89716b34158f0db25d84009ea752a90e7beb367de52c4",
+      "scope": [
+        [
+          1,
+          1692
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          600
+        ],
+        [
+          601,
+          750
+        ],
+        [
+          751,
+          900
+        ],
+        [
+          901,
+          1050
+        ],
+        [
+          1051,
+          1200
+        ],
+        [
+          1201,
+          1350
+        ],
+        [
+          1351,
+          1500
+        ],
+        [
+          1501,
+          1692
+        ]
+      ]
+    },
+    {
+      "original_index": 1528,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-348.json",
+      "registration_sha256": "59097ab09bd3c2fd63e77b49aa9473d231e48ff903f4d51c37ff183685ed10ad",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/noise.rs",
+      "sha256": "be3ebae3349fed391089881f331e4d441b3028d0f2b882bc7b80b9020e51c6fc",
+      "scope": [
+        [
+          1,
+          138
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          138
+        ]
+      ]
+    },
+    {
+      "original_index": 1529,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-349.json",
+      "registration_sha256": "75877f4ae5a2e993e187c40a87bc49af2b0c5f0f27f7a684103b32de441c8f7e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/streams.rs",
+      "sha256": "2331da03edfee132b8f78ada82f67e4f5e56f8f4845fccd28a54fea442641428",
+      "scope": [
+        [
+          1,
+          13
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          13
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1524
+      ],
+      "ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "roles": "Complete exact source/owner/producer/reached contracts and all included fixtures; lens11 source-only.",
+      "disposition": "Initial inherited175..245 ends mid present consumer and excludes actual PendingCityBuildings authority. REG344 first scoped read then locator signatures identified new/finished/advance/failure and related fixtures1..174 plus present246..272. REG350 full272 prospectively saved before fresh full reread. Newly reached1..174 and246..272 mandatory all13 extension, no new global/original count. Queue retains first failure messageString and deliberately removes failed descriptor while continuing ready assets. completed() counts processed failures and successes, finished only queueempty; source fixture explicitly asserts this policy. Assembly1508 finished gate can proceed after failed placements, but failure message retained and actual status consumers must be read before claiming false successful city. report_failure(Display) destroys owned cause and failed placement identity; qualified streaming failure ownership. Native spawn derives canonical Scene placement + local_origin and typed orientation, no automatic frame bug. Optional sign and fallible cached_building_levels preserve earlier contracts; recipe cleanup/release_unused_facades only after drained queue. All fixture loops read, no execution."
+    },
+    {
+      "source_indices": [
+        1525
+      ],
+      "ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "roles": "Complete exact source/owner/producer/reached contracts and all included fixtures; lens11 source-only.",
+      "disposition": "LeafDimensions canonical admitted dimensions enter raw-bit cache only after typed owner, purpose-specific keys intentionally preserve exact native geometry. Door cache shares only mesh handle; independent entity transforms prove intended operable instances. Window kind enum selects glass versus shutter geometry and preserves material partitions. ClosureMeshError wraps owned CollisionError and MissingPrimaryMaterial kind, not a String API here. All fixtures source-only; no native dimension admission bypass or stale transform finding."
+    },
+    {
+      "source_indices": [
+        1526
+      ],
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "roles": "Complete exact source/owner/producer/reached contracts and all included fixtures; lens11 source-only.",
+      "disposition": "PrebakedCloudEnvironment stores static raw bytes with fixed dimensions checked at image conversion; actual art-demo provider READ205 and fresh current prefix1..100 validates asset-scene digest before resource insertion. Do not claim arbitrary unvalidated demo bake. image_from_rgba8 fixed array sizes bounded, only RENDER_WORLD asset use; locked native extraction keeps Image object (existing later185/186), so no missing-asset conclusion from usage flag. Fixed art-demo prebuild versus production native animated pipeline explicit policy, not automatically legacy compatibility."
+    },
+    {
+      "source_indices": [
+        1527
+      ],
+      "ranges": [
+        [
+          1,
+          1692
+        ]
+      ],
+      "roles": "Complete exact source/owner/producer/reached contracts and all included fixtures; lens11 source-only.",
+      "disposition": "Full1692 includes all geometry/noise/kernel/weather/native/WASM lifecycle and all fixture suffix. CloudForm enum converted to profilef32 then CPUas_u32 branching though actual material.shape carries storm/blend/interval/eye, not profile; qualified reuse canonical enum finding. Private constructors currently only produce11 valid finite codes, no malformed external profile admission alleged. Explicit CloudDensityCoordinate/Warp and active ordinal preserve native numerical roles, no demand to wrap every private optical coefficient. Native tasks only under notwasm; setup creates empty no-layer bake Images, WASM update without prebaked leaves them but sets animation_readytrue; actual shader samples redopacity0/discards, qualified enabled-WASM production initialization question. Art-demo provider validates fixed digest; no assertion its initial bakes absent. Native key-change cancels pending, stale completedkey rejected, completed endpoints install/queue before state advance; fixture assertions source only. Optional Images.get_mut skipping does not prove normal missing-image path; Bevy0.19.1 retains assetobject and takes GPUdata, rejecting eviction assumption. BakeKey layers/seed excludes direct wind while tasks retain capturedwind and shader current wind; actual digest/weather update invariant pending before stale-wind bug. Disabled/no-layer/no-environment readyfalse and benchmark/capture consumers require exact source before stall allegation. Setup/update offscreen first non-cloud Camera3d assumes intended camera scope; update cloud motion uses Single<TacticalGameplayCamera>, actual multiple-camera native lifetime pending. Fullres and offscreen paths deliberate capture/performance policy, not legacy compat. Cloud analytic string-match shader fixtures do not constitute native compile/GPU proof.",
+      "context_reinspections": [
+        {
+          "original_index": 1455,
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+          "receipt_sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0",
+          "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-268.json",
+          "registration_sha256": "fe9e85b18fc6d1d47e6b971f59b47004006024a727a12ba3403946884f655a37",
+          "source_sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+          "fresh_reinspection_ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "additional_original_frontier_credit": 0,
+          "qualification": "Prior205 complete1..365 same-lens qualified source proof retained; only1..100 freshly re-read now for actual digest/prebake provider. No current full fresh/scenery recredit or other-lens transfer."
+        }
+      ]
+    },
+    {
+      "source_indices": [
+        1528
+      ],
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "roles": "Complete exact source/owner/producer/reached contracts and all included fixtures; lens11 source-only.",
+      "disposition": "Dimensionless CloudDensityCoordinate and CloudDensityWarp separate world metres from numerical lattice, typed Seed/StreamId preserve stable purpose. Finite coefficient-generated coordinates enter kernel; actual extreme/time/native range admission needed before f32toi64 lattice narrowing concern. ActiveCloudLayerOrdinal explicitly ordered among filtered active layers, not physical low/middle/high slot or profileID; compact seeding intentional, no removed-layer identity bug inferred. Weather seed uses typed StrategicMinute.period_index360 and geographic fields; constant nonzero expect justified, no divisionzero example."
+    },
+    {
+      "source_indices": [
+        1529
+      ],
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "roles": "Complete exact source/owner/producer/reached contracts and all included fixtures; lens11 source-only.",
+      "disposition": "All named StreamId purposes define replay contract; purpose-specific immutable constants used by actual cloud lattice/density/warp consumers. No unowned random source or arbitrary per-name wrapper required. No transfer to magic-string/number lenses."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-351.json",
+      "registration_sha256": "779621946e54b89fbec3b6df4871b72901d23c26a14e56b27008ce8b416146cb",
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "source_sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "scope": [
+        [
+          1,
+          177
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          177
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "kind": "Earlier original full fresh connected reinspection, no original credit",
+      "original_index": 507,
+      "disposition": "Full177 cloud shader actual endpoint red opacity/wind direction consumer, fresh earlier original read under351. Empty red endpoints produce opacity0 then fragment discard146..147; no native image/GPU compilation/runtime observation claimed. Fixed wind compensation consumes current cloud_motion.xy and local blend interval. No repeated original credit."
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-352.json",
+      "registration_sha256": "66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63",
+      "source_id": "native-support:bevy_render-0.19.1/src/render_asset.rs",
+      "source_sha256": "fec69e4c27506056a55fc472e30fb113fdf316dc73647fb11794fb6c1ac77377",
+      "scope": [
+        [
+          280,
+          364
+        ]
+      ],
+      "fresh_reads": [
+        [
+          280,
+          364
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "kind": "Existing later-material scoped same-lens source read, no original credit",
+      "population": "later-material",
+      "population_index": 185,
+      "population_registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\later-material\\registry-196.json",
+      "population_registry_sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+      "new_global_source": false,
+      "disposition": "Exact existing bounded native support, Bevy0.19.1 package/member archive verified against frozen Cargo.lock and registered source hash. Independent lens11 read, no origin lens08 transfer, no original/later ordered count. Generic extraction280..364 keeps asset via get_mut_untracked and takes_gpu_data; image usage26..38 returns Image.asset_usage. This contradicts assumption render-only removes whole Image from main Assets. Other take_gpu_data internals or native upload lifetime not read/claimed; no SDK whole-file credit."
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-353.json",
+      "registration_sha256": "537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a",
+      "source_id": "native-support:bevy_render-0.19.1/src/texture/gpu_image.rs",
+      "source_sha256": "93ce4dd53c7e855b2ebc057fc23e71c191f1fd74c0f9ae224b49de260d556708",
+      "scope": [
+        [
+          26,
+          38
+        ]
+      ],
+      "fresh_reads": [
+        [
+          26,
+          38
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "kind": "Existing later-material scoped same-lens source read, no original credit",
+      "population": "later-material",
+      "population_index": 186,
+      "population_registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\later-material\\registry-196.json",
+      "population_registry_sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+      "new_global_source": false,
+      "disposition": "Exact existing bounded native support, Bevy0.19.1 package/member archive verified against frozen Cargo.lock and registered source hash. Independent lens11 read, no origin lens08 transfer, no original/later ordered count. Generic extraction280..364 keeps asset via get_mut_untracked and takes_gpu_data; image usage26..38 returns Image.asset_usage. This contradicts assumption render-only removes whole Image from main Assets. Other take_gpu_data internals or native upload lifetime not read/claimed; no SDK whole-file credit."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-209.json",
+      "sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-210.json",
+      "sha256": "3bc7553ba64ad3660efcf2e54e3cb475d6ffa9bea6dd326dbc7b43b8a0a35ff4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-211.json",
+      "sha256": "e2ef6f2a8c60bb4e1ff4f0091fca312c5f370bb405d66d214fd46dddf2328e4b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-212.json",
+      "sha256": "c061be62985f34109cefdf7579106841a59f4924cf4e31a382efbe2e62b9f876"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-213.json",
+      "sha256": "3c4cdd97e621dcb92858ab64068c6302f2d1c7a029ccc82049a2de0d9b61878f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    }
+  ],
+  "pending_contracts": [
+    "Previous goal turn progress verified215: original1502..1523 complete; current216 accounts1524..1529 with source qualification, no accepted unique increment.",
+    "All13 populations/extensions/current/all20 migration families/aliases/connected acceptance incomplete, gatefalse; no product repairs/execution/publication.",
+    "Added all13 within-original1524 expansion1..174/246..272 from actual reached queue/consumer contracts, not a new global source/original count. Earlier1522 tail51..54 extension retained independently.",
+    "Native later-material185:280..364 and186:26..38 newly personally read under352/353, exact locked Bevy0.19.1 crate/member archive and registry hashes verified. No whole-file SDK/origin lens08/ordered later-population credit.",
+    "Locked Bevy extraction keeps Image objects, contradicting an assumed render-only entire-asset eviction. Missing-asset false-ready path therefore not accepted from flags alone.",
+    "Cloud enabled-WASM initialization, existing CloudForm erasure and conditional wind identity source findings qualified; actual production/config/provider/weather-digest/readiness/browser/current dependencies remain.",
+    "Viewer benchmark_progress/TacticalCloudAnimationStatus consumers located by search only, no bodies credited and no clear-sky/disabled capture hang allegation.",
+    "Scenery205 full365 prior same-lens proof pinned; only1..100 freshly reinspected for actual fixed demo digest/prebake provider, no fresh full scenery credit.",
+    "Future1533 READ214/REG335 and1589 READ206/REG274 still pending first ordered credit; later draw123 READ214/REG336 remains connected only.",
+    "Next1530 config414,1531 doors61,1532 environment full577 beyond165..240/185..280 fragments,1533 explicit same-lens reuse,1534 generation89; register all exact scopes before body.",
+    "All noise/bake/image/material/world/task/fixture code read only; no geometry/cloud/native runtime calls, builds/tests/lints/scanners/generators/CI fixes/product edits/commits/messages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1530
+}

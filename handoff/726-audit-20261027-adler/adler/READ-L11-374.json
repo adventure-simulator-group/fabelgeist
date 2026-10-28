@@ -1,0 +1,300 @@
+{
+  "lens": 11,
+  "batch": 374,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2330,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1195.json",
+      "registration_sha256": "ecb7cb9e3628c519a6502cbd3547cad7214ffc19fb1e92daf6286d59c57c0b04",
+      "source_id": "pr-working:crates/fabelgeist-rig/Cargo.toml",
+      "sha256": "bfc8f1cdfedc5b57930f84fa5d33fba192fb4d30053794b50dafaef512336a43",
+      "scope": [
+        [
+          1,
+          17
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "original_index": 2331,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1196.json",
+      "registration_sha256": "e6d3c86a949acd45ee58db88e0466057cfddc0c55f36e88216a87aa1d35beed3",
+      "source_id": "pr-working:crates/fabelgeist-rig/README.md",
+      "sha256": "6c65e76c80820396e8f2be0f4660188eb1b7f473f46454d6d0697b9a479b8bbb",
+      "scope": [
+        [
+          1,
+          43
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "original_index": 2332,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1197.json",
+      "registration_sha256": "1955036af07f95632ab63730bbb586918fe12ce9588f9e15af238da528070e15",
+      "source_id": "pr-working:crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "scope": [
+        [
+          1,
+          155
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          155
+        ]
+      ]
+    },
+    {
+      "original_index": 2333,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1198.json",
+      "registration_sha256": "417d180f4ffee42dc364ae3c76eae792b560b68d86ddeb20f80ad9f9d615fb46",
+      "source_id": "pr-working:crates/fabelgeist-rig/src/mhr.rs",
+      "sha256": "c5f8425545851f8a1162c1f48129cbc6acdfba3b8a627dd8b17bdd91040a530a",
+      "scope": [
+        [
+          1,
+          35
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "original_index": 2334,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1199.json",
+      "registration_sha256": "14a8f6665f8377562b48140ee71b2fe2c9b3c882000d5bd6f97c09815b09b9e1",
+      "source_id": "pr-working:crates/fabelgeist-rig/src/names.rs",
+      "sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "scope": [
+        [
+          1,
+          78
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          78
+        ]
+      ]
+    },
+    {
+      "original_index": 2335,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1200.json",
+      "registration_sha256": "ef0f993ebf8e8800ae3ed135775f61aac9a8a11f492b0ceaf3e0bbc252af459a",
+      "source_id": "pr-working:crates/fabelgeist-rig/src/part.rs",
+      "sha256": "bb324df83dafc6706069ecbe3e4fa829c21af0de463166169f96904089a034b7",
+      "scope": [
+        [
+          1,
+          135
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          135
+        ]
+      ]
+    },
+    {
+      "original_index": 2336,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1201.json",
+      "registration_sha256": "9a2e3ec9a91deca5b359a97a3853fa527b479ca807a797205b09bcf64a8cab8b",
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "scope": [
+        [
+          1,
+          226
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          226
+        ]
+      ]
+    },
+    {
+      "original_index": 2337,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1202.json",
+      "registration_sha256": "cdf529e500068bdebd0e4b9e11b523e5b947e1ae2a1a8948d9b64275c4b48679",
+      "source_id": "pr-working:crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "scope": [
+        [
+          1,
+          108
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          108
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2330
+      ],
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "roles": "Independent lens11 exact shared rig label/ordinal/part/table/native packed skin ownership.",
+      "disposition": "Full17 sharedriglightweightderive_more/strum/serde, nativeMHRbackendnotdependency. No Cargo/procmacro/testexecution.",
+      "evidence_bookkeeping_qualification": {
+        "helper": "target\\726-audit-adler-20261027\\adler\\verify_l11_evidence.py",
+        "helper_sha256": "8be91ad40f3989d891d8cf644eb0aef303eada22992b2485cde267a8495f20dd",
+        "reason": "373 introducescomplementaryprospectivescopesinsamereceipt. IntegrityhelpernowcheckseachregisteredSHA/scopeindependentlyandmetadataunionagainstexactcompanions, matchingactualsourcecoverage; extensionvalidationselectsexactproofcoveringmissingrangesratherthanfirstsameindex. No evidencebodyrewritten/no productexecution. VERIFY373passeswith9sourcechecks/all24extensions/sixEOFqualifications. Immutable373retained."
+      }
+    },
+    {
+      "source_indices": [
+        2331
+      ],
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "roles": "Independent lens11 exact shared rig label/ordinal/part/table/native packed skin ownership.",
+      "disposition": "Full43 identityguideexplicitlypermitempty/unfamiliar/namespace/whitespaceexactlabels, normalizedbyformatowner; intendedscalarSerdeandfirstduplicatequeryno semanticadmissionclaim. RigJointOrdinalunprovenexternalmembershipusescheckedget, equalcountdoesnotprovesameriginstance. Nativepacku32checkedandweights/parent/animationapplicationpolicyseparate. Thisclosesinferenceemptylabel/transparentSerdeitselfbypassescheckedidentityinvariant: no suchinvariantpromised."
+    },
+    {
+      "source_indices": [
+        2332
+      ],
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "roles": "Independent lens11 exact shared rig label/ordinal/part/table/native packed skin ownership.",
+      "disposition": "Full155 exactCowlabelidentityprivatepayload, String/&strconstructorsintentionallyopen, Serdescalarretainsspelling. Side/anatomicalpart/ordinaldistinct, require_in typedmissinglookupretainsqueriedidentity. RigJointOrdinalusizeunboundmembershipexplicitlybelongsreceivingRigJointTable, nativeu32encodingchecked. family_prefix/contains_part semanticqueriesnotanatomyproof, no hiddennormalization. compile_failbodiesreadnotcompiled; directreexportslegitimatecurrentfacade notdeprecatedaliases."
+    },
+    {
+      "source_indices": [
+        2333
+      ],
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "roles": "Independent lens11 exact shared rig label/ordinal/part/table/native packed skin ownership.",
+      "disposition": "Full35 mhrnamedprofilecenter(world/root/c_)orsidedl_/r_ vocabularyonly, proposedrightpartnerreturnsstringidentityanddoesnotclaimreceivingrigmembership. sidedusesclosedRigSideandRigJointPart; no arbitraryboolselector. DistinctauthoredprofilefromexactlabelperdeclaredAPI, notlegacyfallback."
+    },
+    {
+      "source_indices": [
+        2334
+      ],
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "roles": "Independent lens11 exact shared rig label/ordinal/part/table/native packed skin ownership.",
+      "disposition": "Full78 canonicalstaticCowlabels/left-rightlegchainsandactualauthoredlowleg/loleg/lowarm/loarmvariants. Sharedunfamiliarlabelsremainvalid, constantsnotwhitelistrestriction. Multipleactualspellingconstantsnotautomaticallydeprecatedcompatibilityaliases; exactasset/consumer/current/all20beforemergingvocabulary. No anatomyclassificationorIKruntimeexecuted."
+    },
+    {
+      "source_indices": [
+        2335
+      ],
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "roles": "Independent lens11 exact shared rig label/ordinal/part/table/native packed skin ownership.",
+      "disposition": "Full135 RigJointPartclosedstrum-authoredtokenenumkeepsmeaningdistinctfromlabel, enumeratesactualanatomicalfragmentsinclhelper/proc/misspellings. No unknownFromStr/defaultfallbackorlegacyforwardingAPI. Actualstrumgenerateddisplaynativeimplementationnotexecuted/independentlyread."
+    },
+    {
+      "source_indices": [
+        2336
+      ],
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "roles": "Independent lens11 exact shared rig label/ordinal/part/table/native packed skin ownership.",
+      "disposition": "Full226 metadataunion1..190+1..226accountedfully. PackedRigSkinprivateu32rows+jointcount admitsALLwordsagainstactualrigbound includingzeroweightslots; encodecheckedu32andbounds, appendrejectsdifferentnonemptybounds, emptyadoptsotherexplicitassemblypolicy. EqualboundexplicitlyNOTsameinstanceproof. Native RigInfluencespublicjoints/weights carriesno numericvalidityowner; strongest_fourcombinesduplicates/stableordinalties,truncates4thenunconditionallydividesbysum, zerototalrowsproduceNaN. ExistingMHRfiniteweightfindingearlierboundaryremains; PackedRigSkinvalidatesindicesonlyandweighted_vertexpassesrawweights. set_vertexResultvalidatesjointsbutvertexunchecked, documentedassociatedsurfacecontractbeforegeneralpanicclaim. No valueconstructed/exported."
+    },
+    {
+      "source_indices": [
+        2337
+      ],
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "roles": "Independent lens11 exact shared rig label/ordinal/part/table/native packed skin ownership.",
+      "disposition": "Full108 RigJointTabletransparentVecrolewrapperexplicitlystatescreatorownsparallelcolumnrigorder/noinstancemembershipproof; get/get_mutcheckedexternalordinals, Indexuncheckedguaranteedconstruction. OrdinaryMHRbuildermeetsparallelordering, arbitrarypublicSkeletonnotcheckedgraphadmission. ThisclosesclaimtableSerdeitselfviolatesgraphvalidationpromisedbytype: graphcontractapplication-owned. Nativefromcounttableproducesactualextent; exactScalarRigJointOrdinalmembershipnotbynewtypealone."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-369.json",
+      "sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-371.json",
+      "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-372.json",
+      "sha256": "5f990af297784d2bf0e83b69b032bfff1d8102ce13ae71e3afe5f82eb3e849e9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-373.json",
+      "sha256": "fb9c316197d33b42681e0a8dd8f5b2194742e1e0716a16f0defa3cb9e975313e"
+    }
+  ],
+  "pending_contracts": [
+    "374accounts2330..2337next2338. LastREG1202.24mandatoryall13scopedextensions/sixstrictEOFqualifications/remainingfutureproofsretained. No other-lenscredit.",
+    "NativeRigJointTable/Count/Ordinalexplicitroleidentitynotgraph/instancevalidity; applicationgraph/parallelcolumnadmissionrequiredwherepromised. SharedPackedRigSkinvalidatesallnativeindicesbutnotseparateweights; qualifiedstrongest_fourzerototalnormalizationfamilyconnectedMHR/exports/current/all20pending.",
+    "373futureproofs2481REG1191/2482REG1192+1194/2551REG1193mustadoptearliestREAD373atorderedfrontiers; previousfutureproofsunchanged. Exact24mandatoryextensionsretained, rawmetadataunchanged.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedupincompletegatefalseaccepteduniquechange0. No productrepairs/builds/tests/lints/scanners/generators/runtimeprobes/CI/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2338
+}

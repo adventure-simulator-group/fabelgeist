@@ -1,0 +1,83 @@
+{
+  "kind": "Authoritative local Adler continuation checkpoint; supersedes copied inherited CURRENT.json for local resume",
+  "at": "2026-10-28T03:13:52.154248+00:00",
+  "status": "Discovery incomplete. No code repairs until exhaustive ledger completion.",
+  "handoff_commit": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "handoff_branch": "handoff/726-audit-ledger-20261027-adler",
+  "current_main_pin": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+  "product_qualification": "Checked-out handoff product code predates main; exact registered source hashes are the frozen source authority. No newly claimed current-source comparison.",
+  "ledger": "evidence/continuation-segovb/ledger.json",
+  "ledger_sha256": "8613b2a29e2b9790e69fe388435f51d244b19743a4e4c600fefbbd14af2a6c13",
+  "evidence_projection": {
+    "historical": "target/recovery-20261025/",
+    "local": "target/726-audit-adler-20261027/evidence/",
+    "restored_files": 15004,
+    "rule": "Historical receipts unchanged. Local ledger deliberately updated; its original bytes remain in published handoff. Copied MANIFEST and CURRENT describe inherited snapshot, not new local ledger. New receipts in adler/."
+  },
+  "adoptions": [
+    {
+      "path": "adler\\ADOPTION-070-lens11.json",
+      "sha256": "60dd9cb2f05cea4e9f8334334b7096c9a72b6d1ad4bc9d59c737ed3acd6916ee"
+    },
+    {
+      "path": "adler\\ADOPTION-071-lens12.json",
+      "sha256": "adc5e0cb2c0a8c832ab21ae3a168dc5e624ef5c8b3599c228f5334aecfc68aa2"
+    },
+    {
+      "path": "adler\\ADOPTION-072-lens13.json",
+      "sha256": "d359ea9f878363270a513c70ee5741a1805845e53a3939fcfb8a96ac175712b4"
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "name": "type-granularity",
+      "original_accounted": 1782,
+      "next_original": 1782,
+      "state": "adler/STATE-L11-262.json",
+      "next_action": "Register and read original1782; all13 populations/current/all20/aliases/connected acceptance remain incomplete; no project execution or repairs.",
+      "state_sha256": "c2970f2be999adbc8070556ec4277c1dbab753c230a915c4be654690932608e4",
+      "original_total": 2853,
+      "latest_receipt": "adler/READ-L11-262.json"
+    },
+    {
+      "lens": 12,
+      "name": "magic-strings",
+      "original_accounted": 1094,
+      "next_original": 1094,
+      "state": "adler/STATE-L12-234.json",
+      "latest_receipt": "adler/READ-L12-234.json",
+      "qualification": "Disease1093 combines inherited1..1200 persisted roles, checkpoint attestation1201..1800 and new personal1801..2950. Raw predecessor tool outputs1201..1800 not separately transported; not invented personal evidence.",
+      "next_action": "Prospectively register original1094 then follow bounded unread source. Preserve all native/UI/schema/clinical/currentness and extension qualifications.",
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0",
+      "original_total": 2853
+    },
+    {
+      "lens": 13,
+      "name": "magic-numbers",
+      "original_accounted": 360,
+      "next_original": 360,
+      "state": "evidence/continuation-segovb/audit-resume-20261027/lens13/STATE-062-proposal.json",
+      "partial_receipt": "adler/READ-L13-231-232-PARTIAL.json",
+      "next_action": "Complete231-232 inventories360..364 from exact checkpoint reads plus new receiving records. No absent364 tail39..44 credit; smoothstep872..873 partial only. Latest queue062 from checkpoint supersedes state field pointing058; preserve both historical records.",
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa",
+      "original_total": 2853
+    }
+  ],
+  "all_other_lenses": "Saved states and count qualifications preserved; extensions/current/all20/aliases/connected acceptance remain mandatory for every lens. No all-green summary.",
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "project_execution": "No product changes/builds/tests/lints/scanners/generators/runtime probes/CI fixes/new tests/helpers/assertions/doctests. Only Git/source/evidence bookkeeping.",
+  "preservation": {
+    "new_stash": "37425931d1bd5c5fa104900d2f5f6a3a40e06afd",
+    "stash_name": "codex-preserve-before-726-audit-20261027",
+    "stashed_files": 6020,
+    "prior_local_stashes": [
+      "5f6624e22fc5b56132a3396dd4fa936d65c09d0d",
+      "bc59ca7bf0aa017ae5cad7d65bd4a4b52834ffbd"
+    ],
+    "segovb_four_stashes": "Not transported; no attempt to recreate or alter them."
+  },
+  "publication": "Local ignored continuation only; no handoff/product commits, pushes, PR/issue updates, merges or external messages.",
+  "previous_checkpoint_archive": "checkpoint-history/b7c6ae9d441825792b0ab299e7128a286d89272374450874d7d49aa3823fa922.json"
+}

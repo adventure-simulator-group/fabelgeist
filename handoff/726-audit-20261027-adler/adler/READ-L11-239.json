@@ -1,0 +1,296 @@
+{
+  "lens": 11,
+  "batch": 239,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1660,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-493.json",
+      "registration_sha256": "f09f134a68e4cc051e6f4b061ea3f3be3d169c76f657148c3806eafa103f10d9",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets.rs",
+      "sha256": "0c1abe95c96378d50acffc88477c5694fd8a715b32de66f586bdb4eac30f46c5",
+      "scope": [
+        [
+          1,
+          168
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          168
+        ]
+      ]
+    },
+    {
+      "original_index": 1661,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-494.json",
+      "registration_sha256": "35bbff0e8f8a149c788ccc2239132eea1cad8c95b8af591661e86748ef51bae9",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/activity.rs",
+      "sha256": "30fdd1c0dc0b3569a4f38a70bca296cf20ec370c5487a0411c18011987fec1cf",
+      "scope": [
+        [
+          1,
+          91
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          91
+        ]
+      ]
+    },
+    {
+      "original_index": 1662,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-495.json",
+      "registration_sha256": "746727038ffbd9dbd45241f50d832da0977d0b16c477799387f481d35deee1f1",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/material.rs",
+      "sha256": "7166792f47fb4800916b03dd90a149033382ed4a4f2d2e7b058a1237a4586f71",
+      "scope": [
+        [
+          1,
+          153
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          153
+        ]
+      ]
+    },
+    {
+      "original_index": 1663,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-496.json",
+      "registration_sha256": "4e66cad89811867dab09f0c774825c944cd2c3248e90b954da45e7e37fdfa984",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/mesh.rs",
+      "sha256": "001e9ddd72769e824937e8765c48d3c42f9bf67f348ff62f258129019cd61f26",
+      "scope": [
+        [
+          1,
+          331
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          331
+        ]
+      ]
+    },
+    {
+      "original_index": 1664,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-497.json",
+      "registration_sha256": "e4ecb50200d6205b224c000aa21135fd115dfc3c4ba90aa07412d263c133cacf",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/partition.rs",
+      "sha256": "f1235fb0cff334be1c2f34ba2ea9c1419161753aa704b69f4b4321ced4c8231e",
+      "scope": [
+        [
+          1,
+          175
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          175
+        ]
+      ]
+    },
+    {
+      "original_index": 1665,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-498.json",
+      "registration_sha256": "3fe1a39257d1397983c532ebb957ecb0eeeb6034aac1e7672637a6dc747945d6",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs",
+      "sha256": "e71c17fce89d8304542afd21ad84fde3cec70c08368bc21c27f318146268e48a",
+      "scope": [
+        [
+          1,
+          295
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          295
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1660
+      ],
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full168 CityGroundAssets native actor/map install. FocusedPavingPlacement owns root Entity, CityFrame, weather. spawn_focused first calls fallible owner-specific prepared.meshes? before neutral mask/material/entity work, narrowing235 speculative late-paving fallibility window. Earlier terrain allocations/commands235 and native cleanup remain pending, no leak asserted. Neutral map traffic explicit presentation policy, no actor traffic resource installed. Scene path pure preparation, final owned upload/reflection rejection warn/return, once-per-tile masks and declared streaming residency. Required vista replacement precedes optional details1636; mandatory paving/status contract still pending before whole-vista atomicity claim."
+    },
+    {
+      "source_indices": [
+        1661
+      ],
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full91 ActivityWear source and fixtures. Typed FurnitureGroup refs selected by rotation-safe overlap then canonical oriented FurnitureFootprint local test. Positive extents/orientation at owner, fixed0.9m feather, explicit kind enum bounded wear/dampness max-combine, final Vec2 goes vertexUV1. No hidden gameplay impairment/tactical persistence. Source-only rotated/interior/corner/outside tests, no execution."
+    },
+    {
+      "source_indices": [
+        1662
+      ],
+      "ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full153 native CityGround material. CityGroundKind enum ALL5/index coherent with actual arrays; total surface conversions. Saturated canonicalbps and fixed authored positive spacing/tile constants packed into final shader Vec4. CityGroundMaterial canonical generic specialization, not legacy alias. CityFrame inverse preserves material-space stones/wear during reanchor1617; exact admitted frame/shader/native limits pending. texture_ids retains actual four image IDs for readiness, no implicit provider/source credit."
+    },
+    {
+      "source_indices": [
+        1663
+      ],
+      "ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full331 SurfaceVertices producer/serde/native Mesh and fixtures. Raw semantic CityStreetPatch endpoints/width require canonical patch nonzero/positive admission before normalize failure. Existing ScenePlanPoint/PlanDisplacement/PositiveLength/outline owner and all20 dedup first, no duplicate private-field wrappers. Support.clip provides DVec3 triangles, actual garden subtraction and traffic-tile clipping; represented f32 X/Z then original planeY plus authored lift emits all five attribute arrays in same loop. PatchKind enum converted only to native float ABI. Plane normalize/division by normalY needs actual GroundSupport admission next before vertical/zero claim. Clipped zero area filtered, worker payload trust qualification218 retained, no arbitrary forged CBOR input. Tests require short-street finite/nonempty, spike/diagonal barycentric clearance, no source outside support; source read only."
+    },
+    {
+      "source_indices": [
+        1664
+      ],
+      "ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full175 deterministic spatial/subtract contracts. Fixed32m cells map indices into exact immutable source slice, BTreeSet returns unique source order. Finite extent/corner admission needed before arbitrary huge or NaN lattice claim. AABB broad phase intentionally conservative and exact polygon subtract follows, no false-positive omission from broad phase alone. DVec3 convex fourcorner clipping preserves source plane, reversed winding handled; nonzero finite crossing denominator from signs, later mesh filter removes degenerate pieces. Canonical plot admission still pending before self-intersected/zero bed input. Source fixtures order/negativecells/sloped area/reversed winding read only."
+    },
+    {
+      "source_indices": [
+        1665
+      ],
+      "ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full295 immutable PreparedCityGround transport/upload owner. Pure builders grouped by enum5/BTree tiles, from_scene PreparationResult retains digest/VistaMesh errors. Owned support uses exact displayed extent/collar, adds supplied typed landform patch; sampled support preserves LOD origin. Per-PresentationOwner OnceLock stores Result<InstalledGround,Arc<GeographicGroundError>>, skipped runtime fields reset after serde, map-only reflection and separate native uploads. Failure retained, no bool/String collapse. Native Assets<Mesh> epoch/removal and exact raw transport trust pending before stale-handle or malformed-payload claim;218 worker tuple/document/program admission retained. Full roundtrip/warmreuse/owner winding/bytes fixtures source read only."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-236.json",
+      "sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-237.json",
+      "sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-238.json",
+      "sha256": "ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601"
+    }
+  ],
+  "pending_contracts": [
+    "239 completes1660..1665 full metadata union; next1666. All13 populations/extensions/current/all20/aliases/connected acceptance incomplete, gatefalse/accepteduniquechange0, goal active. Prior failed functions script parse did not execute/write; source reads all retained.",
+    "Focused paving error occurs at prepared.meshes before mask/material/entity work, narrowing235 potential late-paving partial command claim. Prior terrain native allocations/commands and drop/asset lifetime/current remain pending, no leak accepted.",
+    "PreparedCityGround perowner OnceLock retains owned Arc error and independent scene/map winding uploads. Native Asset store epoch/removal/trust needs actual contracts, not generic cache bug or hostile-worker premise.218 exact worker document/program admission remains.",
+    "GroundSupport.clip triangle admission next required for plane normalize/normalY division; actual positive support filtering not credited until body read. Canonical semantic street/plot endpoints/positive width/convex outline owner and all20 dedup needed before raw invalid geometry or duplicate bespoke wrappers.",
+    "Scene detail upload rejection follows required vista publication but precedes its paving entities; actual mandatory/optional product/status contract needed before whole-vista atomicity claim. Focused1618 product failure/teardown remains typed.",
+    "Native activity wear/dampness policy and shader packed fields explicit final payload, not gameplay state. Spatial order preserved and actual polygon subtract follows broad phase; geometric optional/default paths not legacy compatibility.",
+    "Nonzero pigment fixture238 supports interpolation domain only; distant tree frame235/236 still tactical source/origin/native/current qualified. Landform234 and all native/GPU/cache/texture/ground categorical findings retain dependencies.",
+    "Seven extensions independently mandatory all13,1622EOF231/raw240 explicit zero nonexistent/otherlens credit. L12/L13 unchanged, current/all20/global family dedup pending.2248/2249/2250READ220 first ordered reuse and later129tail54..117 unchanged.",
+    "Nextregistration499, exact metadata fullunion before next body. No product edits/builds/tests/lints/scanners/generators/runtime/native probes/CI/new tests/commits/pushes/PRs/merges/external messages; ignored source/Git/evidence bookkeeping only."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1666
+}

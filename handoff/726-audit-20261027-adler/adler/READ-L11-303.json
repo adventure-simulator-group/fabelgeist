@@ -1,0 +1,158 @@
+{
+  "lens": 11,
+  "batch": 303,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1973,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-816.json",
+      "registration_sha256": "8c1a2126907e842232fae02813db0afc77352c2602e465e379a55676abe70631",
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client.rs",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "scope": [
+        [
+          1,
+          1514
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          720
+        ],
+        [
+          721,
+          900
+        ],
+        [
+          901,
+          1080
+        ],
+        [
+          1081,
+          1260
+        ],
+        [
+          1261,
+          1440
+        ],
+        [
+          1441,
+          1514
+        ]
+      ]
+    },
+    {
+      "original_index": 1974,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-817.json",
+      "registration_sha256": "2a0062ff41f44acde89cfbe2fdbb9f4e08040ae792b5e9516a7e9c4eb6e38c17",
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+      "sha256": "bc62caee41b6c642c35101af3a0f5dee241c87afceff2d426fc038ec8740cf03",
+      "scope": [
+        [
+          1,
+          178
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          178
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1973
+      ],
+      "ranges": [
+        [
+          1,
+          1514
+        ]
+      ],
+      "roles": "Independent lens11 complete client connection/config/input state publication, native wire ports and source acceptance.",
+      "disposition": "Full1514 receives server config then validate and install_runtime_snapshot before replacing client config; actual runtime pack/profile admission call is now confirmed on this client path, server/config loading/current still pending. Reconnect capability process-owned optional CharacterId/token pair, only sent when character matches; raw player_id/server_url retained public setup ports need all20 identity/URL role comparison. Input resources use enums and checked UnitInterval/AnimationElapsed with remote reflection wrappers; native gamepad axis/trigger and Vec2 quickstep/look/movement are input scratch/wire, server admission still needed. Sprint stage copy computes checked elapsed and commits only on success, includes release frame but not a new press. Invalid sprint/attack clears previous attack edge and logs typed source error; whole DirectControlState is not globally transactional (earlier posture/guard may already change), actual failure reachability and policy required before partial publication finding. Wrapping u32 command sequences and bespoke PlayerInputTick serve edge identity, native adapter not automatic compatibility. normalize_server_url adds ordinary ws scheme, encrypted native config selected by wss prefix; not legacy protocol fallback. Client sends ordinary requests including diagnostic override across authoritative server, no tactical Spacetime persistence. Full test bodies cover process reconnect, release-triggered main/offhand, sprint exact hold threshold/idle/latch, posture release/dive consumption, downed roll/rearm, jump charge, aimed quickstep chord/ground contact and direction; all unexecuted."
+    },
+    {
+      "source_indices": [
+        1974
+      ],
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "roles": "Independent lens11 complete prepared attack owner and final progress admission/atomic publication.",
+      "disposition": "Full178 private HeldAttack observes checked elapsed, computes independent main/offhand before building PreparedAttackInput; publication consumes complete staged result and clears forced edge only after preparation succeeds. MeleePreparation owns enum states and checked UnitInterval progress; full ratio divided by positive duration then clamped before final admission intentionally permits finite-input overflow to completed1, not required to reject meaningful final bounded result. Strict greater-than chooses alternate/offhand; at exact threshold progress1 but selectedPreferred is source-tested main boundary policy, not inconsistent numeric admission. Raw trigger observation f32 native physical port; actual device/config/server/current before invalid axis claim. No defaulted checked error or mutation of retained preparation before successful full admission."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8"
+    }
+  ],
+  "pending_contracts": [
+    "303 completes1973..1974 full metadata union,next1975 REG818475 and1976 REG819242 already registered unread; next newreg820. No partial/unsaved source body credit.",
+    "Actual client server-config observer validates and installs runtime snapshot before publication, narrowing runtime-pack admission uncertainty on this path. Actual authoritative server/IO/current paths remain pending.",
+    "All thirteen independent lenses and scope populations/current/all20/aliases/connected acceptance/dedup remain incomplete, all prior qualifications preserved. Gatefalse accepteduniquechange0; no product repairs/execution/newtests/commits/publication; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1975
+}

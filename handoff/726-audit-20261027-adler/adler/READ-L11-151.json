@@ -1,0 +1,173 @@
+{
+  "lens": 11,
+  "batch": 151,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1276,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-085.json",
+      "registration_sha256": "bc85a5899bbc11bc4bf24c4858bcb032f19f9d7fc1dda7c737844db613b90b8f",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+      "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+      "scope": [
+        [
+          1,
+          1273
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          260
+        ],
+        [
+          261,
+          520
+        ],
+        [
+          521,
+          780
+        ],
+        [
+          781,
+          1030
+        ],
+        [
+          1031,
+          1273
+        ]
+      ]
+    },
+    {
+      "original_index": 1277,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-086.json",
+      "registration_sha256": "5cf021ada627b5d1789b0c76295e3370d21120eb7e99cfcd480da2c4bba39c82",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition_policy.rs",
+      "sha256": "3445a120138cc90a66de9186ddcbd2e3fb8da430e9e6e506883baa6cc071c7e9",
+      "scope": [
+        [
+          1,
+          240
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          240
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1277
+      ],
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "roles": "Named actual activity/expedition observations, sponsorship budget, recovery outcome and actionable/passive rest capability.",
+      "disposition": "ExpeditionMemberObservation realpurpose type preserves visiblephysiology/readiness/load andidentity; raw elapsed_minutes isStrategicMinute absolutefrontierdespitelabel, notduration. SettlementRestSponsor binds payer+budgetshares butadmittedcapabilitymustretainpatient/location/quote inactualrequestowner. Existing RecoveryRestActor sum correctly separates actionable vs passive, role staticStringshouldclosedleader/companionreasonowner. Reuse richer sum instead anonymous tuple while retainingnativefinalauthority."
+    },
+    {
+      "source_indices": [
+        1277
+      ],
+      "ranges": [
+        [
+          148,
+          240
+        ]
+      ],
+      "roles": "Living recovery predicates, portable supplies/rest margin, observed origin and actual duration metric.",
+      "disposition": "NeedsRecovery aliveandnotReady/orill; missingcondition !=SomeReady fails safe. CanResume require nonempty living andallready/asymptomatic, redundantanyready butnotfalse zero-partyresume. Supply budgetuses carriedfood/water equalnormdaily*livingcount, actualtransferability/custody availability ownerpending. Passiveallows allnoncriticallivingknowncondition, noactionableactor andlivingleader plusone-daystores; hardcoded booleancallproofmatters. Source-levelmaxclockdifferencecounterexample recordedfinding; notactualaggregateproof. Public endpoint renders closedJourneyEndpoint boundary, outputString isdiagnostic notnewcanonicalplace."
+    },
+    {
+      "source_indices": [
+        1276
+      ],
+      "ranges": [
+        [
+          8,
+          235
+        ]
+      ],
+      "roles": "Exactly-one affordable controlled arrest, current party agent/member observation, optional condition/survival/time and actual carried stores.",
+      "disposition": "Partyagents living+controlled mapping sortednotdedup; observations includeallmembers andfailoutsidecontrolledroster, no implicitNPCsupportclaim. Missingtime=>ZERO, missingsurvival=>Default andconditions hunger/thirst/etc0eraseunavailable; conditionOption retainsreadinessfail-safe but physicaldefaultreceiversneednamedavailability. Supplies include carryingpredicate/OperationalCustody canonical owner; foodlot roleifpersonalorpartyID; no unitweight/stackmassfindingtransfer. Corpsememberinventory countedpotentialpool, actualaccessiblecustodyneedsnativeauthoritybeforeavailablefooddefect."
+    },
+    {
+      "source_indices": [
+        1276
+      ],
+      "ranges": [
+        [
+          237,
+          516
+        ]
+      ],
+      "roles": "Before/after diagnostics and holds, current actor selection and rest permission.",
+      "disposition": "Diagnostics missingaftermember reusesbefore, so no observed disappearance outcome retained; suppliesdelta duplicatedpermember diagnostic only, not actualsumconsumeruntiltraced. record_journey_hold alwaysreturnsHeldNoActionableActor evenotherreasons; callersmapHeld coarsepolicy but structuredreasonneededforaccurateartifact. Recoveryactor prefersreadyleaderelsecompanion, errorsreducedNone; actualnamedActionableRestActor existsnextandshouldreplaceanonymousreturntuple. Passive admission passespersistedcampjourney=true afteractualcamp-or-casesiteguard; name stricterthancallerfact, native at-sitecamprest admission requiredbeforefalsecapabilityclaim."
+    },
+    {
+      "source_indices": [
+        1276
+      ],
+      "ranges": [
+        [
+          519,
+          856
+        ]
+      ],
+      "roles": "Public return origin, unique knowledge, idle-site continuation, arrest surrender and actual return postcondition.",
+      "disposition": "Journeysettlementorigin/destination first thenunique publicpinorigins elseobservedactivityorigin. Ambiguouspins =>None noarbitraryfirstorigin, observedactivity originordinaryknownsource notlegacycompat. Idlecase excludesactivecontract/unresolvedgenerated andneedsreadiness/supplies/forecast unlessknownun-pinnedactivityreturn, thenactual livingparty settleddestination+nocamp provedaftertravel. Surrenderexactonecontrolled+livingpartyinstigator, token callback thenactionabsentandpartystillsite beforefinecounter/currentoriginrecord; finecount fromquoteactualpaidcontractpending. Strong postcondition differstravel-initiationonly trace, keepdistinct."
+    },
+    {
+      "source_indices": [
+        1276
+      ],
+      "ranges": [
+        [
+          858,
+          1273
+        ]
+      ],
+      "roles": "Bounded field recovery with actor revalidation, passive attempt vs actualduration and thermal/supply/encounter policy, evacuation completion.",
+      "disposition": "Unresolvedencounter/incoherentcamp/noactor =>hold; clearreadyparty idle-return separate. Fieldrecoverymax2 reselectsactor/checksthermalaftereachrest andreevaluateslife/critical/supplies, actualmaxclockmetricfinding. ExistingResumed checksactualalllivingready butnot endstores? supplybudgetdecisionprior, actualpolicyownermustdefine marginbeforedepletingandresumingclaim. Evacuation permitscontinuingcoherentjourney/observedactivityorigin/forecastpublicpin, actualpinlookuphere notownerfilteredbutreturnoriginwasmemberpin/observed; scopeboundsrequiredbeforeprivateleakclaim. Currentlivingleader initiatesreturn, verifiesdestination+nocamp+livingpostcondition beforeEvacuated counter. No hiddenfatiguepenalty/physicalspeedruleintroduced; allstaticsimulationpolicyonly."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-136.json",
+      "sha256": "ad18a29e24dbe517ae21426515bc30e0ce30226e7a53216ced3abc05269b1457"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-140.json",
+      "sha256": "d83dc10d29bda2525d53c6589c5fa1ba86e10171bd6b92d7df3b215e0b9ccaf5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-147.json",
+      "sha256": "4725705d8c4623f09e5b697e541cdafa37100610002351d014693613491544b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-148.json",
+      "sha256": "45521a56371b519bb94567a8155b3f1884b7a4e2124a7966100914e3de9c5194"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-150.json",
+      "sha256": "4f90ed4fceee6e652c0279c0f6bc7a3f8c1ba781dbcdf31e496841b5a68e5a28"
+    }
+  ],
+  "pending_contracts": [
+    "Current/member/death/observation availability and actual callback/nativerest witnesses, exact duration metric semantics, thermal/foodtransferability/permission native ownership and all aliases/families pending.",
+    "All13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete; noexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1278
+}

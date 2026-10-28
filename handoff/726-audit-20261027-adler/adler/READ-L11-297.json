@@ -1,0 +1,238 @@
+{
+  "lens": 11,
+  "batch": 297,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1945,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-788.json",
+      "registration_sha256": "c260d73d985639dd9539ae93720d57610d03f3c227c0a81409b0cd98155b11e7",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "scope": [
+        [
+          1,
+          96
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          96
+        ]
+      ]
+    },
+    {
+      "original_index": 1946,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-789.json",
+      "registration_sha256": "ee615d63114c92976e4feaedd3d8fc3adfb42349f4e48f3e3ab4157f76b4ef45",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic/tests.rs",
+      "sha256": "567fff2185681d5767893b4a091f52e5d133ddd6a8576921b248cdd6e342bcbd",
+      "scope": [
+        [
+          1,
+          39
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          39
+        ]
+      ]
+    },
+    {
+      "original_index": 1947,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-790.json",
+      "registration_sha256": "cf8b2dd21021f8058fa5e43b49b918222e85f04a14a5a4bd2432982754912c3f",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/grounding/tests.rs",
+      "sha256": "fbe00d6ad48ad16142a3f1e110a1d35f58a27b88aecf6198a15f357a8e411f22",
+      "scope": [
+        [
+          1,
+          217
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          217
+        ]
+      ]
+    },
+    {
+      "original_index": 1948,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-791.json",
+      "registration_sha256": "776bb99713b5012b3f168ca643d083cd585f05fb458b30478b3b35d624634d4a",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/support_obstacles.rs",
+      "sha256": "275490834d4f7a36140e5d3a0739f5ce80d5a731c9d261f5645675bd4647f624",
+      "scope": [
+        [
+          1,
+          87
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          87
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1945
+      ],
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "roles": "Independent lens11 exact full geographic-stage admission/order and actual support regression/physical obstacle contracts source-only.",
+      "disposition": "Full96 prepare_geographic_terrain actualvalidate_source first ->prepare_buildings ->upsamplematchingheight/environment ->microrelief/graderepair ->checkedcoarseSceneTerrain ->nativeobstacles/corridor/buildingexclusions ->build_scene_ground ->refine_authoritative_terrain. Narrows291/292potentialprevalidationgridindex concern: validationisindeedcalledbeforeallprivategrid operations, butactual1960validate_source->validate_grid call mustreadbeforefullclosure. Geographicsourcecloneimmutableactual&self; allassetsreservationsretained, buildingfloorsnotselectedbygeographicstage. Compiledfield/groundusescoarsegrid thenfinequeryterrain separateLOD notalternateauthority. Gridfrom_heightmapOption replacedunitGeographicHeightmap, actualinvalid inputwhenvalidatedshouldbeunreachableforboundeddata barringcomputednonfinite; specificcausepolicy pending."
+    },
+    {
+      "source_indices": [
+        1946
+      ],
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "roles": "Independent lens11 exact full geographic-stage admission/order and actual support regression/physical obstacle contracts source-only.",
+      "disposition": "Full39 sourcefixture mutatesgardenreviewsourceordinaryslope.1 andpreparesgeographywithoutsourceedits, keepsallbuildings/placements/nolevelledsamples, retainslargeleft-rightrelief anddeterministicterrain/obstacles. Actualfixtureassertionsnotexecuted, no all-source/citymatrixcurrentproof."
+    },
+    {
+      "source_indices": [
+        1947
+      ],
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "roles": "Independent lens11 exact full geographic-stage admission/order and actual support regression/physical obstacle contracts source-only.",
+      "disposition": "Full217 productioncitycompilerfixture CitySite=>generate=>compile=>partition50, exactsameassets/terrain/vistabind; occupieddraftvalidate mustfail, groundedrestoredvalidates andgeneratesphysicalqueryfloor/programme/horizontalposeidentity, distant900m sourcedtrianglequery preserved. Missing/stalegrounding/placementdifference rejectswithtypedPlacementMismatch/SourceMismatch nofloor/recipefallback. prepare_supported matchesfullscene terrain/ground/repairsbytes andrejectsmissingdistantgardenmember/mismatchedfloor beforepublishedscene. Sourceexpectsdeepvalidation+reconstruction andnativegeometry butnotexecutedtest ortransportedacceptedverdict. Actualground_generated_city owningbody remainsfuturemetadata notcreditedfromtestcall."
+    },
+    {
+      "source_indices": [
+        1948
+      ],
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "roles": "Independent lens11 exact full geographic-stage admission/order and actual support regression/physical obstacle contracts source-only.",
+      "disposition": "Full87 support_obstacles explicitconstruction/approachphysicalexclusion, addsHumanoidCollisionRadius+actualAhoyskin torock/trunkradius thenprojectionSurface.intersects_disc. Thischangesclearanceenvelope notgradingregion ormovementlimits; groundalreadycompiledbeforeobstacleremoval actualpipelineknown. Inplace retainpureboolean nativepositions, no ownedResult discarded. Cumulativeu32removedcounts boundedactualgridwhenvalidated anddisjointremovalstages, no overflowcounterexampleonnormalinput. Kasselapproachsourcefixture confirmscentreonly/barepolygon insufficientbutfullradiusclears andregionorderdoesnotmatter;actualsurfacepredicatebody/currentearlierproofnottransferredfromtests."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 2699,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-787.json",
+      "registration_sha256": "506dc570f996a673ad6f077e490a4497bca1d2d9629199e712222a3e29e67012",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "source_sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "scope": [
+        [
+          1,
+          56
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          56
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Fullactual56 existingregisteredmaterial_ranges/effective_material_ranges1..56, notnewidentity/scopedextension. Actualprepare_supported_terrain self.validate beforegeographicstage; thenbuildingpads/compoundsgeneratedchecks, sourceGeographicSurface completefromactualfineTerrain+Vista, projection.reconstruct exactphysicalplacements ->installOwned immutableterrain, removeobstaclesphysicalsupport, completeSupportedSceneTerrain. Thisconfirmsactualgeneratedcallerprevalidationnotonlydigestattail andownedstitchedsource; deepvalidate_source1960 andprojectionearlierexactscope/current beforeglobalclearance. Publicstructfields areactualoutputretainedshape notautomaticvalidatedmanualconstructor. Sourcebodyreceivingprooffor2699 mustadoptatfirstorderedfrontier;zeroorderedcreditnow."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-294.json",
+      "sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-295.json",
+      "sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec"
+    }
+  ],
+  "pending_contracts": [
+    "297 completes1945..1948 fullmetadataunion,next1949full148metadataonly,nextregistration792. Future2699REG787full56 personallyreadconnected, zeroorderedcredit, exactproofmustadoptfirstordered2699. No partial/unrecordedbodyreads.",
+    "Correctionto296emptyrangespending: metadata2699 alreadycontainsmaterial_ranges/effective_material_ranges1..56 (compacthelperoriginallyignoredthesekeys); no newall13extensionneeded. Ignoredverifierall_ranges nowrecognizesthesematerialkeys fortheactualscopeunion, no historicalreceipt/registryrewrite orimplicitbodycoverage.",
+    "Actualsupportedvalidatesbeforegeographic, geographicvalidatesourcebeforegrid/groundindex; completesorderinghalf ofgridlength/heightboundsdependency. Need1960validate_sourceactualvalidate_grid/urban callsbeforefullnormalpipelineclosure. Actualroot/stitchacceptancesourcefixtures unexecuted.",
+    "Allpriorqualifiedfamilies/tenextensions/fourEOFqualifications/futurereuseincluding2699/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1949
+}

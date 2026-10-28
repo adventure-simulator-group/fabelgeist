@@ -1,0 +1,268 @@
+{
+  "kind": "Ignored audit checkpoint integrity only, not product test or exhaustive audit completeness evidence",
+  "current_sha256": "88f2d057f5d79c5987df525eaab9ebc79e3e7f370adccfab2bf5bf1f8e39f00a",
+  "ledger_sha256": "754624ac86cf9dd02ab3687c3118cfadd0de995d04213e1b06362252c0373a19",
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 1281,
+      "state_sha256": "ccfc93cfb482d87e0bfd84ab478a344f28ba11a351974602d71f05fa7f67b1ba"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "state_receipt_pairs": [
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-148.json",
+      "state_sha256": "ad1e24e7b90b1707b4a694c63f839834baf570651a58f5092f8527c71678f79f",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-148.json",
+      "receipt_sha256": "45521a56371b519bb94567a8155b3f1884b7a4e2124a7966100914e3de9c5194"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-149.json",
+      "state_sha256": "4a4ab08ff6c9cbb88a712320966fbf4b8592134941a533fbc746061b5086c04d",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-149.json",
+      "receipt_sha256": "d75a4eff75e0fa10b00c5a28b33c30da8487e3003a427f0426581d33c991b8fa"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-150.json",
+      "state_sha256": "4dd9e74f2df22896a1bc96b8c7d62231b51f53952207c6a7491f2fc8288ed414",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-150.json",
+      "receipt_sha256": "4f90ed4fceee6e652c0279c0f6bc7a3f8c1ba781dbcdf31e496841b5a68e5a28"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-151.json",
+      "state_sha256": "01b25862974f24aea1580b9e0c9c32f34f52c24625571ed37e5ffc1f51f42e09",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-151.json",
+      "receipt_sha256": "cb2c307f2d1f4cd4cf35c4ef2e20dea809d892297a1297e890cba410b2c1d283"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-152.json",
+      "state_sha256": "2297d4a4f7c8410c7890e681f39b7182980861b54586e0174c5be68d421e360f",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-152.json",
+      "receipt_sha256": "177f936ed66f950e389d72d42443a4d9a7955743d0c7f93e9c7e17e975b4d787"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-153.json",
+      "state_sha256": "ccfc93cfb482d87e0bfd84ab478a344f28ba11a351974602d71f05fa7f67b1ba",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-153.json",
+      "receipt_sha256": "56634eb36a2ea30c5a90d99290db3dbe25220bfed77d4df02f542d02e3161c4f"
+    }
+  ],
+  "registrations": [
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-078.json",
+      "sha256": "edfba1555089ae302b168e1400da1b3eab967df32b7adacd54f3501b92beb5a7",
+      "original_index": 1270,
+      "source_sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "actual_lines": 964,
+      "requested_ranges": [
+        [
+          1,
+          964
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-079.json",
+      "sha256": "6b86e239aff45cc4cdaf6ffdda32b9c4ff4b33b38e9c95d943c1f9002caeb0f1",
+      "original_index": 1271,
+      "source_sha256": "1859c9e05a96c7365a50d26980e7a2dfbdf5040106f5aa5131b56b86005d9596",
+      "actual_lines": 204,
+      "requested_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-080.json",
+      "sha256": "8bbe07ab27118657d562893155155d967e60f53c458a0580cb832067cdfb4305",
+      "original_index": 1272,
+      "source_sha256": "ce9a63997e69ca2ab6dd04b3f95c73180ee30527716047bd527cc290f9fdc4f4",
+      "actual_lines": 391,
+      "requested_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-081.json",
+      "sha256": "d9f7d750096f63160e71f681e4b5f62bcfffdd7d5c1428629c3ce7322dee61d0",
+      "original_index": 1273,
+      "source_sha256": "7d3199ead47d5700c22743f7a862eabfccaeb9b3027af9131908f1fea2d5884c",
+      "actual_lines": 330,
+      "requested_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "superseded_overrun": true
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-082.json",
+      "sha256": "da29d75e06c42c7ff8893b3e9c89d88fd2020fbe82ed220963e0b6941a8d509b",
+      "original_index": 1273,
+      "source_sha256": "7d3199ead47d5700c22743f7a862eabfccaeb9b3027af9131908f1fea2d5884c",
+      "actual_lines": 330,
+      "requested_ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-083.json",
+      "sha256": "52d0e83e3807496e0c4600a4e2f76ef7e2c8535f65ffb72688bea2b388480f23",
+      "original_index": 1274,
+      "source_sha256": "d3c463510dc48c5dcaf3e13310352dfaede3f8be29c90146ebca5dd2bf289214",
+      "actual_lines": 362,
+      "requested_ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-084.json",
+      "sha256": "cc7594b7b17eb567f046d8461e928e039b994232aebe1b601ccc14c6b377502a",
+      "original_index": 1275,
+      "source_sha256": "ad1df9028c6cd6b2b5b676aa9b7c3c48445f6e0db3eb11646f639b19b217b80e",
+      "actual_lines": 215,
+      "requested_ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-085.json",
+      "sha256": "bc85a5899bbc11bc4bf24c4858bcb032f19f9d7fc1dda7c737844db613b90b8f",
+      "original_index": 1276,
+      "source_sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+      "actual_lines": 1273,
+      "requested_ranges": [
+        [
+          1,
+          1273
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-086.json",
+      "sha256": "5cf021ada627b5d1789b0c76295e3370d21120eb7e99cfcd480da2c4bba39c82",
+      "original_index": 1277,
+      "source_sha256": "3445a120138cc90a66de9186ddcbd2e3fb8da430e9e6e506883baa6cc071c7e9",
+      "actual_lines": 240,
+      "requested_ranges": [
+        [
+          1,
+          240
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-087.json",
+      "sha256": "3897bfa7a66104daf3d254e5f1d89ed7fcc9e68714c04ea183a001e6ef82324c",
+      "original_index": 1278,
+      "source_sha256": "41b12232f4ba5a4d1f824b38338091fb5a01a3f79bf300903f02ba558c24e99b",
+      "actual_lines": 457,
+      "requested_ranges": [
+        [
+          1,
+          457
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-088.json",
+      "sha256": "784f3224dfe4681f34189a5dcc08b7e35f0c2e4cf5c51da83b9626e2ab1fa7a6",
+      "original_index": 1279,
+      "source_sha256": "db839d73026a5d4ecb4ff4ee8e73872b345be0e3c83a09010d9c4868dfc3ce31",
+      "actual_lines": 424,
+      "requested_ranges": [
+        [
+          1,
+          424
+        ]
+      ],
+      "superseded_overrun": false
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-089.json",
+      "sha256": "4aa50cd0325e3d7cf3bbd8d3be002175a8dbdbfbb967673328b692383533a3f2",
+      "original_index": 1280,
+      "source_sha256": "c692472c82e278cfd719eb457b7554561bc30117577225ca0c68c8eec6a8801b",
+      "actual_lines": 133,
+      "requested_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "superseded_overrun": true
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-090.json",
+      "sha256": "996586e097339703f16c16016f438cf756ce4d9d437f391c85e13d19c72bb1f5",
+      "original_index": 1280,
+      "source_sha256": "c692472c82e278cfd719eb457b7554561bc30117577225ca0c68c8eec6a8801b",
+      "actual_lines": 133,
+      "requested_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "superseded_overrun": false
+    }
+  ],
+  "new_original_indices": [
+    1270,
+    1271,
+    1272,
+    1273,
+    1274,
+    1275,
+    1276,
+    1277,
+    1278,
+    1279,
+    1280
+  ],
+  "historical_requested_overrun_corrections": {
+    "081": "0821..330",
+    "089": "0901..133"
+  },
+  "erratum": "READ152 exact emitterbody supersedes147 unboundedsemantickeys inference; retainedkeys cap withtrace100000.",
+  "worktree_clean": true,
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "no_product_execution": true,
+  "next_original": 1281
+}

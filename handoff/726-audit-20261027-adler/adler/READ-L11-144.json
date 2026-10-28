@@ -1,0 +1,161 @@
+{
+  "lens": 11,
+  "batch": 144,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1261,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-068.json",
+      "registration_sha256": "0d3a9646b29a195f199e6dbe1031c7e64a96403ec46c2de2d6907c89a9a32679",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/authority_tests.rs",
+      "sha256": "347470fad13ff5772d20c8221b4f1157d851eab67776ae32614339069ba56d33",
+      "scope": [
+        [
+          1,
+          49
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          49
+        ]
+      ]
+    },
+    {
+      "original_index": 1262,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-069.json",
+      "registration_sha256": "538e19c35d042d85bb7d3fdd131f83c2f5ccaa2c13a4d119113b0e0f335d8975",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/contact_authority_tests.rs",
+      "sha256": "67f3636f0569656541c6b0c20e49646ff86e0cd51031ae2f6e7ba810f7d8d1a5",
+      "scope": [
+        [
+          1,
+          130
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          130
+        ]
+      ]
+    },
+    {
+      "original_index": 1263,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-070.json",
+      "registration_sha256": "2d65b575888a37d4918439322ae57ad783b01b244108328e20c5909b22153fd9",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "scope": [
+        [
+          1,
+          196
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          196
+        ]
+      ]
+    },
+    {
+      "original_index": 1264,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-071.json",
+      "registration_sha256": "73c88ced1f80ba0de10d2b03ff2376a4fbd67815ad3a8f0b36baa58f17127a5c",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "scope": [
+        [
+          1,
+          28
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          28
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1261,
+        1262
+      ],
+      "ranges": [
+        [
+          1,
+          49
+        ],
+        [
+          1,
+          130
+        ]
+      ],
+      "roles": "Guarded interval persistence and contact receipt/awareness acceptance source.",
+      "disposition": "Dev-bootstrap-gated reducers define actual DB fixtures but were not called. Interval fixture intends historical half-open validity and idempotent repeated closure. Contact fixture uses StrategicEncounter, verifies scoped contact awareness/remove sneak, exact retry without duplicate receipt, conflicting payload/stale revision rejection and second new-action revision3. It does not exercise case/hostile membership-vs-contact revision policy, mixed clinical frontiers or social duration. Embedded literal IDs and raw strings are fixture adapters; keep role distinction in actual builders, no blanket scalar wrapper per literal."
+    },
+    {
+      "source_indices": [
+        1263
+      ],
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "roles": "Half-open membership interval, exactly-one occupancy, typed observer co-presence, birth/death chronology.",
+      "disposition": "Wellformed permits zero-length interval, valid_at requires entered<=minute<left. exactly_one rejects zero/ambiguity. Case backend validates leader occupancy canonical place and exact knowledge at personal frontier plus patient discoverability. Character alive at frontier requires existing Character+birth beforefrontier+no death through frontier; intentionally independent current alive bool for historical view. Retain signed birth versus unsigned strategicminute conversion owner, do not replace with naive raw comparison. ProjectedCaseClaim currently anonymous (membershipID,revision) and actor presence anonymous (StrategicPresence,minute); named admitted facts can own associations without duplicating canonical presence."
+    },
+    {
+      "source_indices": [
+        1263
+      ],
+      "ranges": [
+        [
+          148,
+          196
+        ]
+      ],
+      "roles": "Exact site identity/provenance, historical knowledge/correction and coordinate/stage proof.",
+      "disposition": "Exact site canonical place matches authority, generated provenance alias is actual content identity relation not compatibility fallback. Observer-owned lead known at frontier, same case/provenancealias, exact coordinates/stage; correction invalidates only at/after correction frontier, requires sameowner. This narrows public discriminator to authorized known actual place and forbids inference from ID equality alone. Semantic alias set still needs current reconciliation; hash proof not body coverage."
+    },
+    {
+      "source_indices": [
+        1264
+      ],
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "roles": "One-time roster closure, authoritative close minute and clock refresh failure.",
+      "disposition": "Close only open rows, max(requested,entered) avoids reversed history, saturating revision; later repeated supplied closed row no-op. Helper takes mutable row snapshot, so stale open clone after earlier closure can overwrite actual end unless callers re-read; actual call graph needed before ordinary stale violation. Deactivate default refresh swallows clock error into zero then maxentered; structured closing result should retain clock failure rather than invent authoritative instant. Exact refresh failure admission/current source needed before runtime finding. No DB operation performed."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-137.json",
+      "sha256": "c946a8d8bc5bcb60cc67b15452a559da525e640e8fda5e2fbeb54da4bf892124"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-143.json",
+      "sha256": "53c63c86c60312621a6e218960ed8724ff398771b8f977d6167c5ce9bc68a899"
+    }
+  ],
+  "pending_contracts": [
+    "Current clock failure contract/actual roster closures and re-materialization callers, case-specific contact repetition/social receiver, all aliases/family/connected acceptance remain pending.",
+    "All13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete; no project execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1265
+}

@@ -1,0 +1,206 @@
+{
+  "lens": 11,
+  "batch": 311,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2009,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-853.json",
+      "registration_sha256": "0ea4058b0825eb8171735438ae62928fb30134db038c80988643cc7438f315af",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44",
+      "scope": [
+        [
+          1,
+          197
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          197
+        ]
+      ]
+    },
+    {
+      "original_index": 2010,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-854.json",
+      "registration_sha256": "2d7bf4b5ef36a65045f63882fee810336232eb26b4bafb231a1b4a15904eeebb",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "sha256": "29a2443a5b6c08cb12ec620c470751f9f02b01152f0cdfce51f49395aaa84170",
+      "scope": [
+        [
+          1,
+          330
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          330
+        ]
+      ]
+    },
+    {
+      "original_index": 2011,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-855.json",
+      "registration_sha256": "b50725306ffb32934658eade6c4222ada7d7eec69342ac1100e9ee55566bf2b0",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "sha256": "6b3523710ea972a96aebe9e062898169c56d10cf28ff987bdbfc36e5370521f0",
+      "scope": [
+        [
+          1,
+          185
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          185
+        ]
+      ]
+    },
+    {
+      "original_index": 2012,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-856.json",
+      "registration_sha256": "1a2bf33ffcd72348cc4850b5482316c1526e80bf154171677d32f09de95277f4",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "sha256": "ff23deb907351c2ca0aab6e8e2831f2dfee7c3ec855d91124522d9e0102442e4",
+      "scope": [
+        [
+          1,
+          62
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          62
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2009
+      ],
+      "ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "roles": "Independent lens11 complete melee acceptance aggregation and native measurement role checks.",
+      "disposition": "Full197 audit derives timeouts/energy/timeline/simultaneous/cancel/windup/movement/contactbands and matchup response counts from explicit causal records/evidence. Native64Hztolerance constant assumesactualautoresolveschedule; capturedsource acceptance dependencies pending. .all(empty) vacuouspass andhardcoded6polearm/2simultaneous counts requireactualrunmatchup/evidenceproducer beforeemptyfixturefinding. PurposeMeasurements<AutoresolveSeconds/CenterSeparationMetres> re-admit nativeconstants. Weapon string war_hammer explicit evidence role, classification/material enums typed; all20 weaponidentity/enumkey family comparison required. No auditexecuted orboolean passclaimed."
+    },
+    {
+      "source_indices": [
+        2010
+      ],
+      "ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "roles": "Independent lens11 complete tactical causal report aggregate/error/admission operation.",
+      "disposition": "Full330 outcome actors classified byname String equality john_name andallotherasopponent; actualfixture distinctnames/exacttwo combatants before wrongactorfinding. Percombatantprevious elapsed Option resetperoutcome, checked elapsed_since andtypedMeasurement sums, no timelineunitmixup. Mutatescounters before laterfalliblemeasurement checks; callerabort/localreportpublication neededbeforepartialexternalreportfinding. Armor partition rawf32sum tolerance notcheckedfinite; actualnativecombatboundedenergy producer andMeasurement owner before NaNfalsepassfinding. Debugformatkeys armorID/material/anatomicalcategories finalJSONdistributionports versus retainedsemanticBTreeMapstrings all20 exactrolecomparisonpending. Fatigue is one diagnosticvalue fromincapacitation snapshots, no new game penalty."
+    },
+    {
+      "source_indices": [
+        2011
+      ],
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "roles": "Independent lens11 full autoresolve telemetry/movement/response observer and acceptance measurement boundary.",
+      "disposition": "Full185 contactinterval unavailable rejectsReportContractError, checked Elapsed/performance/energy/distance accumulators preserve semanticseconds/metres. TimelineMovement before/aftervelocity/speedlimit/elapsed explicitlyrequiredtypedmissingcause, while optionaldisplacement/distance endpoints zero-default candidate recordedseparately pendingactualeventproducer. Movementnativeinequality computesf32displacement<=speed*elapsed+tolerance beforecounting; maxobservedspeed notdirectlycomparedtolimit here, physicaldisplacementcontract explicit, actualproducerpolicy beforeaccelerationpeakfinding. Response optionalavailability/choice/delay diagnostics omittedwhenabsent; expectedresponsecount audit2009checksapplicable totals, no silentinventeddefenseclaimed."
+    },
+    {
+      "source_indices": [
+        2012
+      ],
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "roles": "Independent lens11 complete iteration root error/result and required movement observation owner.",
+      "disposition": "Full62 IterationResult alias Result<...,IterationError> retains actual BattleResolution/MeleeIteration/AnimationValue/Measurement/Elapsed/ReportContract/IO/serde causes transparently; writeerrorcapturedpath+source, InvalidSeedCounts exactbothu64. ReportContractError missingmovement enum VelocityBefore/After/SpeedLimit/Elapsed+sequence and unknownvictorString capturedvalue; actualmissing displacement/distance absentfromenum candidate2011. Purposeerrorowners/composedsource not type-per-message/compatforwarding. Fullsubmodulechecked stat/error sources stillupcoming."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-309.json",
+      "sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a"
+    }
+  ],
+  "pending_contracts": [
+    "311 accounts2009..2012fullmetadataunion,next2013unregistered,nextreg857. No partialorunsavedreads.",
+    "New conditionalmovementreportmissing-evidence-zero-admission candidate actualrequiredfield/error/auditconsumer trace, actualcoretimelineproducer/currentneedsreconciliation before livefailure/uniquecount. Tacticalrawenergypartition/nonfinite andnameidentity/partialaggregate counter concerns needactualproducercalleradmission beforeadditionalfindings.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedup incomplete;elevenextensions/fourEOF/futureproofs/L12/L13 preserved. Gatefalseaccepteduniquechange0; no product execution/repair/tests/commits/publication;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2013
+}

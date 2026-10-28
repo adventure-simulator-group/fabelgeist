@@ -1,0 +1,73 @@
+{
+  "lens": 11,
+  "batch": 133,
+  "status": "Original1243 exact133-line tactical request snapshot/roster source accounted WITH findings",
+  "original_index": 1243,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical/request.rs",
+  "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-049.json",
+  "scope": [
+    [
+      1,
+      133
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      133
+    ]
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "roles": "Immutable mission-lifetime business operator name snapshot, typed BusinessId versus operatorCharacterId and settlement scale/economy/operator association.",
+      "disposition": "Display operator_name intentionally frozen peractive mission, laterrequestsrecapture; immutable humanname not canonicalbusinessidentity, do not repair by treating liveCharacter rename mandatory. TacticalSettlementSnapshot optional onlysite distance0 and scene matches actualorigin; originsettlement provenance alone does not make wilderness partsettlement. Missingorigin or scenemismatch returnsNone (same representation as outside), expected optional versus invalidauthority causeclassification needs actual dispatcher/scene semantics. Actual ensurespopulation then verifies eachBusinessId settlementcomponent and residenthome, requiresCharactername, sortsbyBusinessId. This is admitted operatorassociation but output publicfields/rawsettlementID/numeric scale need canonical owners; no proof business uniqueoperator or everybusinesspresent unless actual canonical assignmenttable/caller requires it."
+    },
+    {
+      "ranges": [
+        [
+          93,
+          103
+        ]
+      ],
+      "roles": "Canonical TacticalPartyRoster from actual living party member projection with typed admission error.",
+      "disposition": "Actual uses living_party_member_ids which sortsbut doesnotdedup; canonical TacticalPartyRoster::try_from owns invalidempty/duplicate/count policy, and typed TacticalRosterError propagated bythishelper. Retain typed roster acrossnative internalregistration until wireVecadapter; no forwardcompatibility alias or ad hoc duplicatevalidator. Actual core source alreadyearlier032 contextualproof retained, not uninspectedallroster/runtimeacceptance."
+    },
+    {
+      "ranges": [
+        [
+          105,
+          133
+        ]
+      ],
+      "roles": "Existing site fixture and0-versus2000metre inside-origin predicate.",
+      "disposition": "Read only, not run. Sample abstractcoordinates/scene/IDs not globalvalidtacticalentry: actual parentrequestrequiresgeographic andstandaloneprivatefixture path is separate. distance0 permits inside testpredicate but actual snapshot also requires originexists/scenematch; donot credit purepredicate asfull snapshotadmission. No new arbitrarypositiveDistanceowner excludes validinside0."
+    }
+  ],
+  "prior_same_lens_context": {
+    "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-032-receipt.json",
+    "sha256": "1dd44f6a3c68698dbe73e37b15eb3605b87540976bc61d1326400284be4944ef",
+    "ranges": [
+      [
+        80,
+        130
+      ]
+    ],
+    "qualification": "Previously consumed exact receiving contract; full133 freshly read now."
+  },
+  "pending_contracts": [
+    "Actual current dispatcher/scene/settlement snapshot/native SDK/operatorcharacter/roster canonical owner and source alias reconciliation.",
+    "All13 populations/extensions/current/all20/aliases/connected repair/acceptance incomplete; no tests or execution or productchanges."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1244
+}

@@ -1,0 +1,109 @@
+{
+  "lens": 11,
+  "batch": 137,
+  "status": "Original1249 time module107 and1250 model98 exact scopes source-accounted WITH findings",
+  "sources": [
+    {
+      "lens": 11,
+      "original_index": 1249,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "object_path": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\source-objects\\00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Lens11 exact time module and model contracts; ordered source discovery only.",
+      "provenance": "Transported exact registered object",
+      "fresh_reads": [
+        [
+          1,
+          107
+        ]
+      ]
+    },
+    {
+      "lens": 11,
+      "original_index": 1250,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "object_path": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\source-objects\\8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Lens11 exact time module and model contracts; ordered source discovery only.",
+      "provenance": "Transported exact registered object",
+      "fresh_reads": [
+        [
+          1,
+          98
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1249,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "roles": "Canonical activity/schedule/time/clock imports, native shared-scope includes, exact post-clock lifecycle operation and test source corpus.",
+      "disposition": "Imports reuse existing core DailySchedule, SkillHours, SocializingSociability, ActivityLocation, StrategicMinute and explicit InjuryRecoveryMinutes; do not introduce parallel owners. OfficialMinute alias is local import spelling of same canonical function, not deprecated compatibility API by itself. Ordered include fragments share native macro scope; referenced bodies are independent source obligations. Post-write lifecycle takes admitted absolute minute and settles age/continuity/residence/weddings/births/discovery/marriage/outbreak in specified order after injury/disease state. This does not repair an already earlier immutable death timestamp by rewriting it. Purpose PostClockFrontier can retain exact CharacterId/committed minute/outcome association; no arbitrary runtime atomicity or full lifecycle coverage from this adapter. Test-only TIME_SOURCE concat misses nested lifecycle file while compiler includes it; source-text corpus not comprehensive semantic acceptance."
+    },
+    {
+      "original": 1250,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "roles": "Official world minute versus real epoch microseconds, private personal chronology and trusted scan index; recovery/price constants.",
+      "disposition": "WorldClock public projection uses canonical StrategicMinute and signed real epoch, CharacterTime private independent chronology uses same numeric owner but different authority purpose. Never unify personal clock with world projection; real timestamp and game duration require distinct roles. scan_id native index sentinel is not actor identity. Existing health recovery per day/per physiology point and inn price named constants differ damage fraction/rate/currency; actual owning canonical units and consumers retain purpose rather than generic f32 wrapper for every intermediate. Simulation epoch shifts are explicitly capability-owned behavior, no simulation/reset operation called."
+    },
+    {
+      "original": 1250,
+      "ranges": [
+        [
+          38,
+          98
+        ]
+      ],
+      "roles": "Daily budget with implicit leisure remainder, organization-bound apprenticeship/practice, single immediate activity discriminator and saved plan.",
+      "disposition": "ScheduleAllocation public fields do not themselves prove daily sum<=1440 or organization association. Actual schedule validator must admit coherent allocation; a ValidatedDailySchedule can preserve total, implicit remainder and organization-specific payload rather than unrelated field/options. Existing ImmediateActivity enum is deliberate closed wire discriminator with separate payload, but documentation says service_id while actual activities1244 takes organization_id. Clean final API should use canonical organization purpose/context, no compatibility field/alias. Small stable-discriminator rationale does not require preserving invalid correlated request combinations. CharacterTrainingSchedule retains actual daily plan separately from immediate interval, as earlier134 source established. allocated_minutes delegates canonical aggregate and returns total duration, not actual elapsed activity time."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-134.json",
+      "sha256": "127cef88ccbb3f83de2214aded9d872360030ffd68f98ad02fcebde3232e29f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-135.json",
+      "sha256": "d372cbb844c43145a600f5e9602d63e1a0b0eadca1a5bf3f793e3e18b0f1d83b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-136.json",
+      "sha256": "ad18a29e24dbe517ae21426515bc30e0ce30226e7a53216ced3abc05269b1457"
+    }
+  ],
+  "pending_contracts": [
+    "Actual schedule admission/source scope1251, terminal/lifecycle/clock association current callers, native generated schema/client owner propagation and canonical recovery/payment types.",
+    "All13 original/overlay/merged/shared/extensions/current/all20/aliases/connected repair acceptance incomplete; no project execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1251
+}

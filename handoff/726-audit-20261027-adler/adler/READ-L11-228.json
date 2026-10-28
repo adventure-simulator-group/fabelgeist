@@ -1,0 +1,251 @@
+{
+  "lens": 11,
+  "batch": 228,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1603,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-436.json",
+      "registration_sha256": "44c57bb843c17831a701025d97dcad17cc9d296bb6bf00bf303596473ab222c8",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "sha256": "ee16efd8a79ab3116e35ecd6f0e7ac5eb6a5e48c573e33e84eba57b4c5634913",
+      "scope": [
+        [
+          1,
+          976
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          600
+        ],
+        [
+          601,
+          750
+        ],
+        [
+          751,
+          900
+        ],
+        [
+          901,
+          976
+        ]
+      ]
+    },
+    {
+      "original_index": 1604,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-437.json",
+      "registration_sha256": "b3e80bcd87410a29ce5a9302253e739e91f46c7dd84194873bce64563563f5b4",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "scope": [
+        [
+          1,
+          444
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          444
+        ]
+      ]
+    },
+    {
+      "original_index": 1605,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-438.json",
+      "registration_sha256": "a13a8ef9fdb46c7e707d004dcd6b243a760ad067e7760559483ff60b74bba37e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/lod.rs",
+      "sha256": "9e94d087fccffc1d1ed76815d33256a0d9c53b941cf11929db12be7d6419b4bd",
+      "scope": [
+        [
+          1,
+          402
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          402
+        ]
+      ]
+    },
+    {
+      "original_index": 1606,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-439.json",
+      "registration_sha256": "f37b6e7a8278cb61cdbbb211929fee8a1e520209c946e1163bb3341a4d44c88d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+      "sha256": "3611b0226c15f78d4dd5c10bb85a682798a4c5bcec6a5eec1aa09ca05d81a2e9",
+      "scope": [
+        [
+          1,
+          629
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          600
+        ],
+        [
+          601,
+          629
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1603
+      ],
+      "ranges": [
+        [
+          1,
+          976
+        ]
+      ],
+      "roles": "Full exact original/owner/producer/reached/native source and every included fixture; independent source-only lens11.",
+      "disposition": "Full976 raster production and all fixtures read. Actual render_tree_card filters branches bycard.includes_branch and leaves bycard.includes_leaf before owned nativebake meshes; confirms227 membership gap reaches actual softwareprojection. Actual camberedleaf mesh consumes retainedorientation/torsion, then project_to_tile uses positions/normals, extending227 fingerprint relevance. Native TreeRasterTarget/Sample/AtlasRegion and TreeSourceMaterial enum preserve separate buffer/sample/material roles; fixedtile/currentcard invariant required before invalidpixelshape claim. Depthtest earlier and writer same <=tie preserve exact tiepolicy, no newdifferentdepth semantic branch. baked_leaf_color deliberately uses semanticshadeXY and ambientW, ignores selfshadowselectorZ as pigment; oldlimebake comment refers replacedbehavior, no activelegacyfallback. Strideowner sorts retainedshootID/ordinal and samplesper-shoot rather than globalstep_by; fixedstride>0 bystyle, no emptyshootdraw on actualloop. All coverage96/192grid/atlasalpha/oak/beech/forcedfixture source-only; projectedproxy coverage approximate, not actualGPU renderedacceptance or group-membership proof. Focusedfixture rawobstacleSeed&3 needs actualoak_variant_for_site source1610 before agreementclaim; previewvariant stream417 distinctcaller. No bake/test/scene generation."
+    },
+    {
+      "source_indices": [
+        1604
+      ],
+      "ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "roles": "Full exact original/owner/producer/reached/native source and every included fixture; independent source-only lens11.",
+      "disposition": "Full444 wire asset/native runtime boundary. Gzip/read and postcarddecoder errors retained in owned IO Error source, not formattedString; PreparedTreeImpostorUsage enum retained. Serialized privatebakes keep speciesu8/lodu8/version/arrays/indices/cluster/provenance asdecoded; actualresolve filters usage/species/seed/lod butnot expectedsourcehash. Versionchecked only runtime assert335, actual semantic/native shape admission candidate below. matches_art_demo expectedsourcehash recomputation and from_runtime generator cfg(test), so do notpresentthem as release-runtime validator. Requestedfixed artdemo asset and optional handles deliberate ownership, no genericmalicious-file/securityfinding or shippedassetfailure. Runtimeimage/mesh constructor contracts stillrequire native source; optional precomputed versus softwarebake use actualpresentationcaller upcoming. Wiredecode shape doesnotprove nativearrays cardinality/nonfinite/atlas compatibility; no unsupportedlegacy migration introduced."
+    },
+    {
+      "source_indices": [
+        1605
+      ],
+      "ranges": [
+        [
+          1,
+          402
+        ]
+      ],
+      "roles": "Full exact original/owner/producer/reached/native source and every included fixture; independent source-only lens11.",
+      "disposition": "Full402 union includes former1..180prefix and sourceonlyticks/isolationfixtures. Actual existing TreeLod wrapper holds pubcrateu8 unchecked and overrideOptionu8 flows to direct branchselection/raw helpercalls; boundedsemanticowner candidate below, no duplicatePlantLod. Exact leafrepresentation enum, dedicated Playable markers distinguishwild/review/nativefamilies; fivebenchmarkhidebools independentaxes, not automatically invalidaggregate. ProjectedScale nativecameraFOV/defaultreference usesclamp, actualCLIadmission/nonfinite/camera lifecycle pending. Single cameraquery returns ifabsent/multiple, no arbitraryfirstcamera. Writesonlyifchanged preserve componentticks. ForcedLOD makes bothtrunkmarkers abrupt visiblefor<4; preservecapturequalification that forcedview/benchmark maydiffer normaldistance selection, actualreceiver/capture policyneeded beforeacceptedbug. No CPU/GPUtestsor App.update executed."
+    },
+    {
+      "source_indices": [
+        1606
+      ],
+      "ranges": [
+        [
+          1,
+          629
+        ]
+      ],
+      "roles": "Full exact original/owner/producer/reached/native source and every included fixture; independent source-only lens11.",
+      "disposition": "Full629 includes former1..130roles but materiallyaddsactualbark/leaf/impostoruniform construction andfixtures. SceneElevationRange canonical owner extractedonlynativeheightuniform, speciesrawconstants/Vec4 are finalnativecalibration, not everyprivatefloatneedsa wrapper. Aggregatebark distinctbespokematerial/type/layout intentionallyremovesexpensiverelief pipeline, sharedExtendedMaterial alias nativeAPI not compatibility. Bark COLOR rootheightgeometry/leafRGBsemanticchannels confirmed; softwarebake singlecolorproxy deliberatelydifferentfrom texturedlive material, no requirementinventedidenticalprojection. Currentconstructor defaults celestial lighting then shared221 updateronlychanges can leave newcohort question, nativeevents/actualscheduling upcoming. All shaderstringcontains/performance-symbol/derivative/soil/optics/transmissionfixtures read-only; shaderbodies/compilation/nativeGPU notcreditfrom strings. Canonicalmaterialcrate reexports need registerednativeowner, not coveredbyimport. No texturesgenerated/testsrun."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5"
+    }
+  ],
+  "pending_contracts": [
+    "228 completes4 original1603..1606 full976/444/402/629 union; next1607presentation1392. Previous goalturn progress verified227, currentauthoritativesource/ledger advancement; no no-progressblocker.",
+    "All13 populations/extensions/current/all20/aliases/connected acceptance incomplete; gatefalse/accepteduniquechange0; earlier count/provenance/current/native/extension/preservation qualifications retained.",
+    "Crownselection227 reachesactualrasterinputs. Fingerprint227 omittedorientationreachesactualmeshprojection; preparedexpectedhashmatcher onlycfg(test), releaseconsumer selectsusage/species/seed/lod. No generalcachekeyreuseor actualrenderartifactclaimed.",
+    "Preparedassetversion/semanticadmission and existingTreeLodtypefit candidates recordedsource-only. Actualfixedartifactcontent/trust/current/caller/nativebounds stillpending; no malformedinput/decompression/native/runtimeprobe.",
+    "Focusedfixture1603 rawobstaclemask&3 versus production oak_variant_for_site needsactual1610body; otherpreviewcaller417namedstreamnot automaticallysamepolicy. Do notassume agreementorfailure untilnativeowner.",
+    "ForcedLODbothtrunktiers get abruptvisibilityfor<4, differs normaldistanceranges; actualcapture/benchmarkcontract pendingbeforefinding. Sharedlightingnewassetcohort221 remainspendingactualschedule.",
+    "Nextregister440 presentation1607full1392 thenresidency1608full194/source1609full245/specimen1610full28/ownership1611full59.1612REG373READ218firstorderedreusepending;2248/2249/2250samequeue. Nextregistration440.",
+    "No product changes/builds/tests/lints/scanners/generators/runtime/nativeprobes/CI/commits/publication/messages; allnewworkignoredsource/evidencebookkeeping."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1607
+}

@@ -1,0 +1,299 @@
+{
+  "lens": 11,
+  "batch": 180,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1331,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-142.json",
+      "registration_sha256": "673e59c7bb2325c2be29bfd4302f61bebce16fb85df1b04e24c3694a3733c7b1",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "scope": [
+        [
+          1,
+          1892
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          320
+        ],
+        [
+          321,
+          480
+        ],
+        [
+          481,
+          640
+        ],
+        [
+          641,
+          800
+        ],
+        [
+          801,
+          960
+        ],
+        [
+          961,
+          1120
+        ],
+        [
+          1121,
+          1280
+        ],
+        [
+          1281,
+          1440
+        ],
+        [
+          1441,
+          1600
+        ],
+        [
+          1601,
+          1760
+        ],
+        [
+          1761,
+          1892
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          187
+        ],
+        [
+          305,
+          363
+        ]
+      ],
+      "roles": "Retained pose/bakedcache/rig tables, planidentity and revision invalidation.",
+      "disposition": "RigJointTable/RigJointOrdinal preservearrayindexrole; LocalPose nativeVec3/Quat scale andvelocity arrays are numericalposepayload whileworld/ownercontact vectors require explicitframeownership. PosePlanKey normalizedassetID/layer topology includeszero-weightspans butnotdynamicweight/time/coordinate intentionallyavoidsnewtransitioneveryframe. Cliprevision onlyclearsaffectedplan marker preservingdisplayhistory. Bone/pose arrays parallel lengths tieddefinitionbyconstructor butactualsame-rig cardinality ownerproofconnected1345read."
+    },
+    {
+      "ranges": [
+        [
+          189,
+          303
+        ],
+        [
+          365,
+          401
+        ]
+      ],
+      "roles": "Semantic continuation spline and captured display offsets.",
+      "disposition": "DistinctAttackCoordinate/Tangent/Readiness/UnitInterval untilnativequaternion/splinekernel, signed/unwrapped semantics retained. NativeLocalPosearithmetic notcheckedfinitecomponentateachstep; sanitizepose later fallbackpolicy exists. capture_transition_offsets updatesperjoint thenmarksBlendingafterallcapturecalls; childoffset.capture actualfailure/atomicityneeded beforewhole-rig rollbackclaim. Firstplan uses target/zerovelocity ratherthaninventeddisplayhistory; physics/frozen andauthoredhistory separate asdocumented."
+    },
+    {
+      "ranges": [
+        [
+          403,
+          639
+        ]
+      ],
+      "roles": "Actualsampleclock, culling/physicsownership, sampling/terrain and retainedcommit graph.",
+      "disposition": "begin_observation thenphysicsstandsdown, firstdisplaybeforecull, resumevisible. Checkedaccumulatorbeforeownedupdate butcommittedbefore sampling; failedsampleOptioncontinuesoldpose, actualrejection/readiness consumersmandatory. Localtargetsampleconformedbeforecommit; weaponTarget commandqueuedbeforeoffsetcapture mayoutlivefailedplan butactualcapturefailurecontractpending. Directsampling velocities onlysameplan/nontransition, bufferedclock helper preservesdifferentcadence. Perjointapplyoffset.update failure skipsonejoint whileothers maycommit; notblankettransaction, childinertializationbodypending. Alloffsetsdone setsSettled independentfromAnimationPlayback.presentation_is_settled(nonemptyplan), actualcaptureconsumerpending."
+    },
+    {
+      "ranges": [
+        [
+          641,
+          985
+        ]
+      ],
+      "roles": "Calibration caller, complete endpoint baking and normalizedlocalpose accumulation.",
+      "disposition": "SharedHumanoidcalibrationdelegatesactualhas_unmeasured/calibrate notblanketfitproof. SamplePlanOption waitsorloses .ok errorcause fromcheckedlocomotion/weight arithmetic; nativeclipavailability/errors andactualreceivingreadinessneedbespokePending/Rejected distinctions ifconsumerrequires. Everydeclaredendpoint baked BEFOREweightskip preservingzero-weighttopology; thenskipzero numericcontribution. Perjointlayer/bodyregion filters; pelviscombatUpperrotation+lowertranslation/scale assembledseparately, handsrequireauthoredtrack. accumulate preparesnextweight+fraction beforemutatingpose/weight; aggregateweightalreadyadmitted179narrowsordinaryoverflowpaths. Missingnativeindividualchannel usesbindvalue intentionalpartialauthoredtrack contract."
+    },
+    {
+      "ranges": [
+        [
+          987,
+          1221
+        ]
+      ],
+      "roles": "Terrain leg-chain lookup and local/worldgeometry solver.",
+      "disposition": "Frameownertransform includesauthoredsceneoffset; terrainonlyraisesfoot lowerbound andpreservesrotation/referencepelvis, noidentitytwo-bonesolve. Contact Reset usedactualupdate branch; Retain branch testedseparately notproofruntimeplantpolicy. Legchainmatchesnamescase-insensitivewhilecachedrolesexact: qualifiedconnectedfinding. Native solveOffsettry_normalize beforedistance.clamp(abs(lengthdiff)+epsilon,sum-epsilon), so veryshort/degeneratelimbs mayformreversedclampbounds beforeOptionfiniteguard; actualchainlength/admittedasset andmorph invariants needed, noordinarypanicaccepted. sanitizePosefinitevalidquatelsewholebind explicitcurrentvisualpolicy testedbelow, notlegacycompatibilityshim; not evidenceinvalidsourcegetsrejectedatloading."
+    },
+    {
+      "ranges": [
+        [
+          1223,
+          1892
+        ]
+      ],
+      "roles": "Existing pose mathematics and terrainfixture source acceptance scope.",
+      "disposition": "Spline testsanchors/derivatives/contactvelocity andendzero, nonfinitebindfallback intentionalfixture. TerrainconstructorskeepAuthoredRigJointname/role, typedordinal, testlowercasecanonicalchains andcontrolledsynthetictransforms/terrain; donotcovercasefoldrole discrepancy. Testsproveexpected assertions only, noexecution/renderer/network/realcanonicalrig acceptance. Retainplantlimit fixture invokesprivateRetainpolicy manually, productionupdateResetnotcontradicted. No new tests/helpers/assertions/doctests authored or run."
+    },
+    {
+      "connected_original_indices": [
+        1406,
+        1391,
+        1345,
+        2332,
+        2334
+      ],
+      "roles": "Connected exact rig-name, semanticrole, binding and sampleclock sources.",
+      "disposition": "RigJointNameopenexactcase-identity withseparatequerycasefold andcheckedu32ordinalencoding; constants exactleft/rightnames. AuthoredRigJoint classifiesroleonceexact andbodyregionquerycasefold/substrings independently; bodyregionnotcanonicalBoneRole. HumanoidRig exactBoneRolemapduplicatekeepslowestEntity andsoleaxesretainedacrosstopologyrebuild, mirror usescanonicalmhrmembershipchildsourcepending. AuthoredBindGlobal stopsatmissing/wrongowner andreturnsnonemptypartialchain, actualrootcomplete admissionpending. PoseRigDefinition cachesfirstfamilybindingfromanynonemptytargetset, exactnamesordinals+cachedrole retained; asynccompletebinding/sourceversion invariants stillneeded. Clock repeatedfixedtick zeroesdecay andskipsevaluation, boundedelapsedacceptedbeforeupdates; no hiddengameplayclockaging. Futureoriginalsnotfrontiercredited, allfullfreshsource ranges saved."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-143.json",
+      "registration_sha256": "c4252c02fe902379eed1eed737fb66061daf384466eaae1cf2e36a5dff99706d",
+      "original_index": 1406,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+      "source_sha256": "207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+      "scope": [
+        [
+          1,
+          84
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          84
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "future_original_accounting": "Pending explicit same-lens qualified consumption when original frontier reaches this entry; no double count."
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-144.json",
+      "registration_sha256": "f87f44b30d6bc4ddb871a61c8a4a35abbb75491ae33aa8befa21701948a45aba",
+      "original_index": 1391,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "source_sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+      "scope": [
+        [
+          1,
+          514
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          340
+        ],
+        [
+          341,
+          514
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "future_original_accounting": "Pending explicit same-lens qualified consumption when original frontier reaches this entry; no double count."
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-145.json",
+      "registration_sha256": "bc996d072971f2987a9d296d3618401ccf524bfe01ee273dfb969c96e078fced",
+      "original_index": 1345,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/rig.rs",
+      "source_sha256": "bb6e369f80f80ea602ae9a6938e333749590e3958b30a1dad1137c4bcb606288",
+      "scope": [
+        [
+          1,
+          192
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          192
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "future_original_accounting": "Pending explicit same-lens qualified consumption when original frontier reaches this entry; no double count."
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-146.json",
+      "registration_sha256": "c1f39fe7702f1bfb7e04dc00b11cd22d3da71266c3aa9e08a371016da5c99e75",
+      "original_index": 2332,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/lib.rs",
+      "source_sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "scope": [
+        [
+          1,
+          155
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          155
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "future_original_accounting": "Pending explicit same-lens qualified consumption when original frontier reaches this entry; no double count."
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-147.json",
+      "registration_sha256": "d992f67dccdc4424551370a2b5c90467d2b644a09249e43895b3e48c5150435f",
+      "original_index": 2334,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/names.rs",
+      "source_sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "scope": [
+        [
+          1,
+          78
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          78
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "future_original_accounting": "Pending explicit same-lens qualified consumption when original frontier reaches this entry; no double count."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-177.json",
+      "sha256": "83b32878f60a4e5fc21053c537efe6bd576a167ca3acdee4469e90658f1a95c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-179.json",
+      "sha256": "592e7c3ea9002077c648bd26c1c5d2c1e44740ec15ce14c3c98c6fa2f19e43b1"
+    }
+  ],
+  "pending_contracts": [
+    "Full1331 owner scope1..1892 consumed; olderregistryfirst340prefix notusedtonarrowscope.",
+    "Fivefutureoriginal connected fullsources read withzeroextra frontiercount; later explicitsame-lenssource-role reuse mayconsume180butmustnotclaimfreshreads or blanketcoverage.",
+    "Source-only role discrepancy recorded, actual alternate/helper ingress/current/chaingeometry and complete async rig/readiness contracts pending; no productexecution or repairs.",
+    "All13 populations/current/all20families/aliases/connectedrepairacceptance remainincomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1332
+}

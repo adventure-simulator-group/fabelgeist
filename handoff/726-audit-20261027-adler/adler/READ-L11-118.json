@@ -1,0 +1,147 @@
+{
+  "lens": 11,
+  "batch": 118,
+  "status": "Original1220 complete1653-line changed governance source accounted WITH findings",
+  "original_index": 1220,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+  "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-021.json",
+  "scope": [
+    [
+      1,
+      1653
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      320
+    ],
+    [
+      321,
+      650
+    ],
+    [
+      651,
+      1000
+    ],
+    [
+      1001,
+      1330
+    ],
+    [
+      1331,
+      1653
+    ]
+  ],
+  "prior_same_lens_context": {
+    "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-104-receipt.json",
+    "sha256": "adb3d27108be33387260ef3bdcfbe50f1911ea4f1d015bca55136e06713ae8c9",
+    "ranges": [
+      [
+        61,
+        270
+      ],
+      [
+        757,
+        902
+      ],
+      [
+        1018,
+        1073
+      ]
+    ],
+    "qualification": "Previously inherited selected source boundaries now personally reread as part of whole file; no earlier whole credit."
+  },
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "roles": "Local chat subject, location, routed party audience, message human text.",
+      "disposition": "Actual subject_kind player/npc admits different payloads: Player numeric target and empty location, NPC numeric resident and exact place via npc_conversation_party. Returns correlated audience/other-party/resident tuple matching native schema115; typed ChatSubject and admitted audience record can preserve this relation. Message text trim and500 Unicode-char bound is product policy not ID semantics. Gateway/living checks observed, no full private-service authorization proof."
+    },
+    {
+      "ranges": [
+        [
+          60,
+          270
+        ]
+      ],
+      "roles": "Member requested action, human summary, raw serialized typed action, leader approval and immutable resolution receipt; optional planned route.",
+      "disposition": "Known action_kind whitelist but request stores unchecked JSON payload until approval parses ApprovedPartyAction and matches kind. Actual canonical sum already owns variants; native stored request could use canonical tag/codec, keeping human summary separate. Travel/inventory coalescing is purposeful supersession, not generic dedupe of every request. Approval verifies leader and matching typed payload then executes before resolution. Existing resolved receipt associates leader/request, planned retry ignores supplied route once committed: request_id may intentionally identify one immutable approved action but actual route-equivalence/client contract pending; do not automatically label failed idempotency. Typed StrategicCombatResult generic versus plain String endpoint differences need exact error cause migration, no wrapper aliases."
+    },
+    {
+      "ranges": [
+        [
+          272,
+          488
+        ]
+      ],
+      "roles": "Leader voter/candidate/member identity, membership/life-state normalized ballots and all-dead strategic retirement.",
+      "disposition": "Living voter/candidate same party required. Ballots discarded if either identity not living member, sole survivor votes for self, core elect_leader owns actual election. Inputs raw IDs/tuple and leader_alive bool are correlated admission snapshot, not interchangeable user IDs. All-dead withdraws active accepted/reportable contract, clears journey/encounter/requests/roles/join applications/offer while retaining pooled assets and tactical mission authority. No execution/deletion performed, no whole teardown completeness inferred; core election source separately required."
+    },
+    {
+      "ranges": [
+        [
+          490,
+          754
+        ]
+      ],
+      "roles": "Stable solo party, reserved temporary character party teardown and deterministic fixture attachment.",
+      "disposition": "PartyId generated solo:<character> semantics differs display name and free member role. Solo creation reuses existing party and normalizes election; default travel/check values belong separate canonical fields. Temporary teardown checks no other member before deleting strategic assets/roles; name alone does not prove this helper cannot target an unrelated existing singleton party, so caller capability binding needed. Fixture attachment requires source party has no other member; development workflow distinct from ordinary recruitment and not a compatibility path. Typed temporary-party capability can retain actual caller guarantee without replacing ordinary PartyId. No fixture/reset/seed called."
+    },
+    {
+      "ranges": [
+        [
+          756,
+          1111
+        ]
+      ],
+      "roles": "Recruitment role identity versus human name, specialized/general purpose, creation versus update slot bounds, saved template and requirements/check ratings.",
+      "disposition": "Create slot quantity1..8 differs update0..8; request/join treats quantity0 as unbounded, so representation needs deliberate policy (GeneralJoin purpose vs Unbounded/Bounded capacity), not universal positive count. Filled slot count constrains update. Weapon precision permits0..2 in0.5 steps, athletics/endurance whole0..5; purpose-specific ratings distinct from check thresholds f32whole0..5. Create validates all six specialist ratings while update/save helper only athletics/endurance; actual role_requirements zeros physiology/surgery/command/religion at match. Thus obsolete fields may be eliminated through clean final requirement schema rather than imposing arbitrary missing bounds on unused ratings. Existing core RoleRequirements owner must be reused; alias/current/effect-reader reconciliation pending. Human role name copied to members but recruitment_role_id is canonical; no automatic stale name authority claim."
+    },
+    {
+      "ranges": [
+        [
+          1113,
+          1264
+        ]
+      ],
+      "roles": "Recruitment offer binding snapshot, current observer/official frontier, live leader/party/NPC/place and open/expired/closed policy.",
+      "disposition": "Named binding fields already improve many-argument coherence but bool/payload/ID matching remains admitted association; can return typed validated context rather than reconstruct unconstrained fields. Distinguish ordinary player party with no offer from temporary NPC company requiring authoritative offer. Open-but-expired persisted state intentionally renewable, not compatibility fallback; refreshed status separates stale bindings (Closed) and time expiry (Expired). now StrategicMinute is canonical, no arbitrary clock substitution. Error-path persistence/transaction semantics not proved by this function source."
+    },
+    {
+      "ranges": [
+        [
+          1266,
+          1380
+        ]
+      ],
+      "roles": "Party merge applicant leader and target role, location/simulation/contract readiness, general join purpose and capability snapshot.",
+      "disposition": "Request validates current party leader, no active source contract, separate same-simulation scope and synchronized exact location, living target and offer. Requirement meet bool is captured informational snapshot; source does not assert it is mandatory admission, so no bypass finding from lack of rejection. General role is purpose-tagged and quantity0 with default requirements, created lazily then shared request path. Native raw role/request/party IDs need distinct owners and member association."
+    },
+    {
+      "ranges": [
+        [
+          1382,
+          1653
+        ]
+      ],
+      "roles": "Target leader approval, source applicant continuity and merge transfer of physical custody/assets/absolute stakes/members/ballots/advertised capacity; rejection.",
+      "disposition": "Approval rechecks target leader/offer, both unresolved encounters, applicant remains source leader, no active source contract, simulation and location frontiers. Durable carried object subtree is rehomed with typed OperationalCustody while non-object durable row or fungible stack follows actual supported representation; do not call row alternative legacy without instance-owner contract. Absolute stakes and reserve preserved, not repartitioned dilution. Source dead-member rejection occurs after asset-transfer code but source order alone does not prove partial commit; transactional reducer semantics/caller boundary required. Party/role association is recovered from stored request/schema, role label not sole authority. Source roles/pending applications/votes cleaned and destination leadership normalized. Open capacity checks one role-assigned applicant while whole source party merges; actual role slot purpose, not total-party-size cap. Conditions/receipt/custody/food fractional-value owner paths and runtime/current validation pending."
+    }
+  ],
+  "pending_contracts": [
+    "Every canonical action envelope/error family and actual current leader-election/role/temporary-party/custody/asset authority plus client request/route retry contract.",
+    "All20/aliases/current/source-populations/extensions/all13 connected repair/acceptance remain incomplete; no project execution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1221
+}

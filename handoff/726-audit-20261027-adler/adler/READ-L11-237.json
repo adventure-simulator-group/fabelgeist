@@ -1,0 +1,332 @@
+{
+  "lens": 11,
+  "batch": 237,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1648,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-481.json",
+      "registration_sha256": "1c0c44b76b70fa9c197bdd8d46dfa76ca016264e943fbd72fcffafcf3bc8d4a7",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/exterior.rs",
+      "sha256": "14bec49a7133afd8e2a87a8a4476e35a6d192e118f024ca9347d09995a8799a6",
+      "scope": [
+        [
+          1,
+          205
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          205
+        ]
+      ]
+    },
+    {
+      "original_index": 1649,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-482.json",
+      "registration_sha256": "e214060eea9ee3ae5fae78a06a7a9b422b4f2b74741d1c1cdbb63b8181f7ce58",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/exterior/tests.rs",
+      "sha256": "1455f521cb6c71612071972a6fabcf3c2f061a1535307613a39e5aa13796fc12",
+      "scope": [
+        [
+          1,
+          278
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          278
+        ]
+      ]
+    },
+    {
+      "original_index": 1650,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-483.json",
+      "registration_sha256": "43661b5baf936e085ca591a640caf90aced414e9b71cdc6235114aa013429920",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/ground_support.rs",
+      "sha256": "7ac7dc7ee87995bdbce4474c3e4021af78fedc680be85307c28b0a1b9d7b8742",
+      "scope": [
+        [
+          1,
+          24
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "original_index": 1651,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-484.json",
+      "registration_sha256": "f82811fed9b460f29f66c88d74511586f50e867fc862d67f6ccb719b99507ef0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/landform_tests.rs",
+      "sha256": "14b7c273b21771348ab17951483968e1e7af0202447adba841bc22efd5a66123",
+      "scope": [
+        [
+          1,
+          118
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          118
+        ]
+      ]
+    },
+    {
+      "original_index": 1652,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-485.json",
+      "registration_sha256": "a643c93e53a79598126fcd8073fb8321bc791969a3c05bf8801f4aa0506b8e2e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs",
+      "sha256": "faef758b3ef963184f891557add73e0e4cde021149d19e799f6b56c872e36c66",
+      "scope": [
+        [
+          1,
+          350
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          350
+        ]
+      ]
+    },
+    {
+      "original_index": 1653,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-486.json",
+      "registration_sha256": "09c4b78c70021a1ebe2ef345e2991aa5f286bea0a44f0d84116fe0b950dec3ff",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pending.rs",
+      "sha256": "d23d3716ef9b634a101ce7e70d7f0b1e6be43de6e38ccf32c015ffacfb804aa2",
+      "scope": [
+        [
+          1,
+          83
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          83
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1648
+      ],
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only acceptance fixture.",
+      "disposition": "Full205 exact exterior render selection. GroundPresentation holds immutable canonical BoundedSettlementTerrain, foundation refs and optional native region set. Foundation bounding filter includes positions and cut faces; source face bounds use same half-open clipper policy as1647, source order retained. Collar tests original face centroid before winding/clipping, affects natural/cut faces only while foundation top/bottom/visible solids remain. internal_sides groups exact four-vertex f32 bits per one foundation into Single/Pair/Multiple; hides exactly opposing direction Pair, preserves same direction/ambiguous/separate property cases. HashMap iteration only sets percell bitflags, not emitted order, no nondeterminism evidence. Native cell6vertices/solid8faces, top/bottomfirst and sidepairs correspond canonical PropertyFoundationMesh layout; exact core constructor invariant pending before claiming chunks truncation/index panic. u8 hidden-side mask is bounded3bits geometric leaf, not untyped semanticidentity mandate. No collider/support source mutations. Native +/-0 exact bit inequality and no tolerance intentionally stated, no fuzzy compatibility path."
+    },
+    {
+      "source_indices": [
+        1649
+      ],
+      "ranges": [
+        [
+          1,
+          278
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only acceptance fixture.",
+      "disposition": "Full278 exterior source fixtures. Typed CityPropertyId and PropertyMembers/Position constructors own actual test prism inputs. Region filter versus full-source clipping compared bit-for-bit for crossing cut-face, boundary, disjoint and empty regions/collar. Interior matched side removal retains support/top/bottom and source serialized bytes and collider query, including rotated/transformed source. Separate property/terrace/unmatched/same-direction/multiple occurrences must retain geometry. Source/cut face winding/order exact assertions. All source-read only, no fixture generation/collision ray/app/assertion or native result. Test trianglebit arrays refer numerical exact geometry identity, not backwards compatibility."
+    },
+    {
+      "source_indices": [
+        1650
+      ],
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only acceptance fixture.",
+      "disposition": "Full24 GroundSupport owned region producer. Same GroundPresentation and actual clipper as displayed mesh, declared half extent/collar supplied native producer, zero scene offset. Adds only displayed region exact triangles, preserving no support outside admitted renderextent. GroundSupport::add_triangles native admission/index policy still source dependency, not automatically verified by call. Ties235 actual focused support and236 shared mesh contracts without transferring other-lens coverage."
+    },
+    {
+      "source_indices": [
+        1651
+      ],
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only acceptance fixture.",
+      "disposition": "Full118 landform boundary acceptance source. Actual facade-review source generation and admitted quantized fault recipe, canonical collar centroid selects natural triangles removed; exact foundation support retained through vista ring clipping. Source witness explicitly ensures fixture cutout and distant-bearing overlap before final assertions, no vacuous fixture acceptance assumed. All test-only TriangleBits comparator. Requested visual/support contract source-connected to234 error family, but valid-path fixture does not demonstrate rejected generator input or failure publication outcome. No source asset loaded/generation/assert execution."
+    },
+    {
+      "source_indices": [
+        1652
+      ],
+      "ranges": [
+        [
+          1,
+          350
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only acceptance fixture.",
+      "disposition": "Full350 owned terrain acceptance source. Native mesh to GeographicSurface helper filters vertical/roundoff slivers using scene-scale f64 area error bound and canonical triangle admission; test requires actual plot coverage and source support alternatives across retaining multi-level edges rather than single invalid affineheight comparison. Grade/garden input generation and ring seams/route endpoints/canonicalcandidate heights source expectations only. repeated_traversal_meshes explicitly test-only numerical/order reference to frozen traversal; not live compatibility renderer. Ignored12fixture acceptance requires position/normal/color bytes and index order exactly, but manifest unprovided/unread and no measurements/testexecution. Do not claim bounded object/platform source acceptance from test name or sourceassertion."
+    },
+    {
+      "source_indices": [
+        1653
+      ],
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only acceptance fixture.",
+      "disposition": "Full83 actual PendingVista lifecycle narrows235 speculative retry concern. accept matches exact scene_digest in supplied environments and retains clone only while terrain unavailable; ready clears option. present_ready_vista queries SceneTerrain+SceneEnvironment, takes only exact match and triggers event. Actual1636 receiver query additionally requires SceneGround; if missing it calls accept with no matching playable environment and requeues clone, so lack of ground is not inherently dropped request. Once terrain/ground ready, pure required vista preparation can reject before replacement; pending owner is specifically terrain waiting, no source contract promising automatic retry of rejected geometry, so do not classify ready clearing as consume-before-validation bug alone. Single latest Option bundle deliberate current owner; actual simultaneousscene/stale-digest/current source policy remains shared identity dependency, not asserted failure. Fixture exact unrelated-versus-matching once delivery source only."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-236.json",
+      "sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48"
+    }
+  ],
+  "pending_contracts": [
+    "237 completes1648..1653 full exact union; next1654. Authoritative checkpoint35? Prior2301613 to2371654 is41 original ordered slots; current source-only progress, no wait/blocker. All13 populations/extensions/current/all20/aliases/connected acceptance incomplete, gatefalse/uniquechange0; full goal active.",
+    "PendingVista exact body now read: terrain-only pending not general preparation retry. Missing SceneGround requeues through actual1636 receiver, narrowing/drop-before-ready suspicion. No automatic retry promise for rejected pure geometry, so do not elevate clear-before-prepare order as invalid consumption. Existing resident retained until PreparedVistaLod all required meshes succeed.",
+    "Owned exterior and support use shared immutable canonical surface/filter/clipper, exact per-property bit matching hides only opposing unique pair. Actual sixvertex/eightface prism constructor/core invariants still pending; no arbitrary malformed buffer/truncation/index or HashMap iteration nondeterminism claims.",
+    "Clipping region bound/collar rules and exact foundation-bearing retention now connected source acceptance across1633/1651/1652. Test reference traversal is numerical/performance optimization equivalence only, not active legacy compatibility. Vertical/roundoff filtering still requires real projected coverage and canonical support candidates, no test relaxation endorsed.",
+    "Ignored accepted12city manifest and Goslar input tests source read only, no manifest/asset loaded or generated acceptance output. No runtime/native/support/GPU/test execution; source assertions cannot establish passing result or current main compatibility.",
+    "235/236 vista tree support uses world vs emittedlocal placement frame finding still qualified by admitted nonzero origin, tactical chunk transform and canonical owner/current. Related owned/sample mesher frame conventions require full owner before targeted repair.234 landform owned error discard still needs admitted failing source and actual provider/native/status acceptance.",
+    "Seven scoped extensions all13 independent mandatory,1622EOF231 versus raw240 preserved with zero nonexistent/otherlens credit. All20/aliases/current/dedup and L12/L13 saved frontiers unchanged; no accepted unique count change.",
+    "Firstordered2248REG398/2249REG396/2250REG397 READ220 still pending. Later5/6/7/11/127/128/129 separate;129tail54..117unread. Next1654 metadatafullunion and prospective registration487 before body. No source credit beyond486/neworiginal1653.",
+    "No product changes/builds/tests/lints/scanners/generators/runtime probes/CI fixes/new tests/commits/pushes/PRs/merges/external messages. Ignored source/Git/evidence bookkeeping only. Main branch pin comparison remains unaccepted."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1654
+}

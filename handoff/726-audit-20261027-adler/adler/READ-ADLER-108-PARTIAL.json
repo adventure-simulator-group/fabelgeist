@@ -1,0 +1,125 @@
+{
+  "lens": 11,
+  "kind": "New personal reads and retained partial inventory; no ordered advancement beyond1207",
+  "registration_receipts": [
+    {
+      "path": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-001.json",
+      "sha256": "ca13ed14a4a8ea32669a7cfb3dc4ec8cdeb0c99b98bb50081cf92ed6061ff2fa"
+    },
+    {
+      "path": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-002.json",
+      "sha256": "85ba5b449ec833b1829329b5bbf852ea5ec9d809821d22f02a86bad301b5a044"
+    }
+  ],
+  "actual_new_body_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "ranges": [
+        [
+          2161,
+          2815
+        ],
+        [
+          27,
+          113
+        ],
+        [
+          1571,
+          1625
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "ranges": [
+        [
+          363,
+          377
+        ]
+      ],
+      "reuse": "Original987 already accounted by same-lens040; exact variant check only, zero extra count"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "ranges": [
+        [
+          947,
+          980
+        ]
+      ],
+      "limits": "947..959 complete treatment predicate;961..980 only partial contact function, no whole-function or future-original credit"
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source": "challenges.rs:2161-2433",
+      "trace": "Typed ObjectiveRequirement::Defeat/CaseStatus/ContractStatus/PuzzleKind/ErrantryFrame/JourneyEndpoint produce native authority rows; distinct IDs, movement and elapsed clocks retained as primitives; Wgs84CoordinateE7 axes explicitly converted at SDK storage boundary; materialized hostile group links same site/group IDs.",
+      "disposition": "Keep semantic case/contract/challenge/site/hostile identities and typed lifecycle/payloads through internal calls. Authored title/description/charge are prose, not identity. Direct-demo camp coordinates are scoped fixture policy, not universal time/distance bounds. Initial zero coordinates precede camp binding; do not infer a current origin-position bug from placeholder records alone. Distinct actual/forecast camp history remains intentional.",
+      "repair_dependencies": "Canonical authority-schema owners, materialize_hostile_group and bind_errantry_trials_to_current_camp; complete producer and binding inventories before any repair.",
+      "acceptance": "Typed request and admitted authority preserve correct site/group/puzzle association and separate movement/elapsed/absolute clocks; actual binding path still requires complete semantic inventory."
+    },
+    {
+      "source": "challenges.rs:2435-2815",
+      "trace": "Existing test source checks exact identifier grammar, immutable retry fields, private/public projection, generic combat dispatch, actor-bound follow-up, optional trials, ordinary treatment and authored reward routes.",
+      "disposition": "Source assertions describe intended contracts, not executed acceptance or body coverage of included world_actor, encounters, custody_objectives, tactical or mission_bootstrap files. Distinct outcome branches, payload snapshots and physical preparation remain meaningful. Literal test IDs and ordinal7/2 are fixture inputs, not global bounds."
+    },
+    {
+      "source": "challenges.rs:68-72;road_encounter_catalog.rs:363-365",
+      "trace": "Native adapter ignores ReligionId argument and emits RomanCatholic; the exact authored enum admits only RomanCatholic.",
+      "disposition": "Reject an omitted-religion mapping defect for this exact frozen domain. A restricted authored religion vocabulary remains a policy/ownership choice; no new missing-variant or current-runtime finding."
+    },
+    {
+      "source": "challenges.rs:1579-1617;world_actor.rs:947-959",
+      "trace": "Treatment-required choice checks any bandaged positive cut on the first contextual Patient; requirements then skip an extra bandage charge.",
+      "disposition": "Keep ordinary treatment authority distinct from narrative reward. Predicate does not promise every injury is treated. Complete clinical/all-patient semantics remain unproved, so do not promote all-wound completion, double-charge or ordinary clinical failure claims. Source is read, not invoked."
+    },
+    {
+      "source": "combat_error.rs:1-29",
+      "trace": "StrategicCombatResult aliases Result<T,StrategicCombatError>; authored threat and resolution errors retained in typed variants; RequiredDeathUnavailable is a specific failure; From<String>/From<&str> route to Operation(String).",
+      "disposition": "Alias names a useful operation boundary. Specific variants prevent collapsing all failures to a binary/string result, while Operation(String) cannot retain original causal types and is a qualified internal migration gap where actual callers erase causes.",
+      "repair_dependencies": "Reuse this canonical strategic combat owner and identify each actual converting caller and leaf cause; avoid a second competing enum or compatibility forwarding API.",
+      "acceptance": "All retained failure classes and leaf causes propagate to the reducer formatting boundary; this source alone does not establish every caller or global structured-error completion."
+    }
+  ],
+  "original1207": {
+    "prior_read_proof": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\HANDOFF-paused-20261027-001.json",
+    "prior_ranges": [
+      [
+        1,
+        2160
+      ]
+    ],
+    "new_tail": [
+      [
+        2161,
+        2815
+      ]
+    ],
+    "discovery_complete": false,
+    "reason": "Inherited partial checkpoint has observations but no completed per-range semantic inventory for1..2160. Whole source EOF consumption alone does not complete discovery."
+  },
+  "original1208": {
+    "scoped_source_accounted_with_findings": true,
+    "ordered_credit": 0,
+    "reason": "Out-of-order completed source preserved while1207 inventory remains incomplete"
+  },
+  "next_bounded_action": "Reconstruct missing1207 semantic inventory in bounded registered scopes within1..2160, preserving actual predecessor reads and receiver corrections. Do not restart completed0..1206. Then reconcile complete108 disposition before ordered advancement.",
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "current_reconciled": false,
+  "validated": false,
+  "mandatory_qualifications": "All STATE-proposal107, paused checkpoint, native-time, fatigue-speed and smithing corrections retained. No other-lens, clinical, SDK-wide or current runtime clearance."
+}

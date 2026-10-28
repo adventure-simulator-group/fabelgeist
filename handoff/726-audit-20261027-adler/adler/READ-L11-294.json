@@ -1,0 +1,266 @@
+{
+  "lens": 11,
+  "batch": 294,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1924,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-766.json",
+      "registration_sha256": "2ded3e3fe6fb8d8e2771563cf08233d1aab87ad4423e14c9cfbcc0f8b34fc4c3",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture.rs",
+      "sha256": "a6e05f5d76dc07ebb642f6ff405725f46b5aa8a429666231e0b09e9c768abf2d",
+      "scope": [
+        [
+          1,
+          145
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          145
+        ]
+      ]
+    },
+    {
+      "original_index": 1925,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-767.json",
+      "registration_sha256": "9a85e5aece4c69ae93b8d0167e265f9934914996778a1d6483ae3de023ffe1f4",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates.rs",
+      "sha256": "3d43e5f1ea3eaa2b4ef34c3b21965f23981802c64eea068ee61ae184c69e6a00",
+      "scope": [
+        [
+          1,
+          143
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          143
+        ]
+      ]
+    },
+    {
+      "original_index": 1926,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-768.json",
+      "registration_sha256": "c13bdde2d005e3e8191a353a7c34acb2a9ac03f24cbf8fc4f7d3423954f68e28",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/composition.rs",
+      "sha256": "05750ce7d6a8f3afd88276d9baebd4bc1d7f523692648055c76682c740f901c1",
+      "scope": [
+        [
+          1,
+          24
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "original_index": 1927,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-769.json",
+      "registration_sha256": "ad46ce987b6cea5c9b50894d1132cad5fba23a5e51f9fbd72bae749103232546",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/frontage.rs",
+      "sha256": "41fde4d65e80d763b05b87610fd7abd7b749f080370869c1d57eebb153b30131",
+      "scope": [
+        [
+          1,
+          71
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "original_index": 1928,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-770.json",
+      "registration_sha256": "2e800b5f653f3ca48a2ada926ab10d15acd740550581d6d9366469979ae4e4d2",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/market.rs",
+      "sha256": "dd69ac02f15fd9ea319e4936ca043f3d44bb7c3c17ee086a3bddefa939c70236",
+      "scope": [
+        [
+          1,
+          208
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          208
+        ]
+      ]
+    },
+    {
+      "original_index": 1929,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-771.json",
+      "registration_sha256": "93a6a4447c480ff9cea0b19379d612a82469b9b177b69e63361011c6c306bd24",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/collision.rs",
+      "sha256": "f62042f52b90927aa161dcd0af4e4fd714c15b0e1732e8e93a7a2cff98aed060",
+      "scope": [
+        [
+          1,
+          29
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          29
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1924
+      ],
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "roles": "Independent lens11 exact full furniture stable identity/location and private geometric candidate/recipe/native collision ownership and admission contracts.",
+      "disposition": "Full145 furniture identities distinctFurnitureInstanceId/FurnitureGroupId andSceneBuildingId vsRoomIndex/StoreyIndex, Outdoor/Interior taggedlocation; generatedplacementcheckedPosition<Scene>/BuildingOrientation. Marketanchor retainsrawu32patchindex, actualcanonicalordinal/all20 roleownership notinventdurableID withoutcontract. PublicSceneFurnitureGroup/SceneVistaFurniture immutablemetadatawrappers andlayoutvectors directserdewithtypedleaves notaggregatevalidator; actualplacement/occupancy capacity/unique-ID checks pending. Distantinstancesexplicitnopphysics, scene/currentphysicalinstances separateauthority. install/furnish delegateowninginteriorResult, actualmutationbodyunread so noatomicityclaim. generate actualsitescollectthenplacement Result, no wholesalechildcredit."
+    },
+    {
+      "source_indices": [
+        1925
+      ],
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "roles": "Independent lens11 exact full furniture stable identity/location and private geometric candidate/recipe/native collision ownership and admission contracts.",
+      "disposition": "Full143 LocalCandidate privateGroupId/kind/anchor/localDisplacement<FurnitureLocal> offsets/PlanExtents, completeboundsextrema remainlocalscratchnativeVec2 thencheckedextent/positionhandoff. Compositionnonemptyconfirmed768 soemptyfoldInfconcernclosedforactualkinds. Recipeskey.recipe? retainedFurnitureRecipeError, allclearancesunionnativeboundsexact; arrangementsxgap .25 andcentredoffsetchecked. DeterministicGROUP_DOMAIN wordsanchor-tag/id/kindordinal/slot nativefinalseedencoding, expectedidentitycollision/order stability actualoccupancy/consumerneeded. Candidateplace leavesmarketNone untilmarket-specificownedcopy, notlegacyfallback."
+    },
+    {
+      "source_indices": [
+        1926
+      ],
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "roles": "Independent lens11 exact full furniture stable identity/location and private geometric candidate/recipe/native collision ownership and admission contracts.",
+      "disposition": "Full24 actualcomposition everyVendor/Receiving/HorseStop/Domestic/Workshop pathreturns1..3realFurnitureKinds, deterministicCOMPOSITION_DOMAIN andfullu64id seed. Exhaustiveenumallgroups intentionalcompletearrangements; no emptygroup ornonfinitebound fromhypotheticalemptycomposition. Nativecatalogindexrange4 branch_ lastactualfourthvalue, no arbitraryomitted enumkind."
+    },
+    {
+      "source_indices": [
+        1927
+      ],
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "roles": "Independent lens11 exact full furniture stable identity/location and private geometric candidate/recipe/native collision ownership and admission contracts.",
+      "disposition": "Full71 frontagekindmapsvalidBuildingUse classes toactivitygroup, usageswithoutfurniture legitimatelyNone ->Okempty nofailuredefault. Group limits1horse/2others; bounded20candidatefrontages beforeplacement acceptance. Nativefraction/sideindexephemeralgridkernel, ScenePlanPoint/Footprint admission andrecipeerrors propagate. Doesnotitselfassertactualdoor/street/neighborclearances despiteheading; finalplacement/reservations current source neededbeforeacceptanceclaim."
+    },
+    {
+      "source_indices": [
+        1928
+      ],
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "roles": "Independent lens11 exact full furniture stable identity/location and private geometric candidate/recipe/native collision ownership and admission contracts.",
+      "disposition": "Full208 marketframecentroid/nativeorientation/localbounds, edgeclearanceResult.ok()->Option thenwholeframeNone skipmarket; exactreservations::market_edge_clearance semantics/actualbadproducer neededbeforecause-erasurefinding. Fouridenticalcorners returnsNone atfrontagezeroedge beforeclearance, so282degeneratehelpercaseproducesnostallcandidateshere, actualurbanquery290stillseparatebadgeometryconsumer. Bounded128rowsperhalf/512rowcandidates, recipewholeclearances, actualreservedcentralandpairedaisles; capspermarket donotbythemselvesproveaggregatebudget acrossmaxpatchcount, finalplacementcap/current pending. Slotrowshift32/coldeterministicseedwords rawnativeIDs, marketpatchindexu32 retainedanchor andhashinput actualsourcecountmax12000 ensurescastifvalidated. CandidateFootprintcheckedposition/angle; completeclearance/polygon/terrain acceptance laterplacement notcreditedfromcandidateconstruction."
+    },
+    {
+      "source_indices": [
+        1929
+      ],
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "roles": "Independent lens11 exact full furniture stable identity/location and private geometric candidate/recipe/native collision ownership and admission contracts.",
+      "disposition": "Full29 furniture_collider usesactualrecipeResult andallcuboids/nativeyaw*xroll*zfallquaternion product, excludescanvas/water bycatalogphysicalrecipe contract, actualleg/troughopen spaces retained. Boundedsizesalreadyrecipeownedchecks neededbeforeemptycompound/invalidnativecuboidfinding, no panicsourceinvented. Samephysicaladapterusedfixture184? source-only no actualAvianconstruction orruntimeprobe."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b"
+    }
+  ],
+  "pending_contracts": [
+    "294 completes1924..1929 fullmetadataunion,next1930unregistered,nextreg772. No partial/unrecordedbodyreads.",
+    "Actualfurniturecompositionnonemptyclosesprivateemptyboundsfoldhypothesis; marketfourzeroexampledeclinesframebeforestallgeneration, doesnotclear282actualurbanconsumerfinding. Marketedgeclearance.ok failuremeaning/aggregatecapacity/identityordering/terrain/routegeometryfinalacceptance mustreadactualreservations/placement/occupancy.",
+    "Allpriorqualifiedfamilies/tenextensions/fourEOFqualifications/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1930
+}

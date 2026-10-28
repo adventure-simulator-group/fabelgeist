@@ -1,0 +1,147 @@
+{
+  "lens": 11,
+  "batch": 189,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1368,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-184.json",
+      "registration_sha256": "2e89cff70f32008156b854a7519171b0feaff6a366ab9819c1da546e45741b58",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+      "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+      "scope": [
+        [
+          1,
+          526
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          280
+        ],
+        [
+          281,
+          420
+        ],
+        [
+          421,
+          526
+        ]
+      ]
+    },
+    {
+      "original_index": 1369,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-185.json",
+      "registration_sha256": "3a6182353ddfdee80726805e3af703d66f7c28b6368964838a729f7c930da02f",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs",
+      "sha256": "51077dd4848c32f8c559637ff794ba44f8b071f92ed20fd7103ab1773aac8b9d",
+      "scope": [
+        [
+          1,
+          121
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          60
+        ],
+        [
+          61,
+          121
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1368
+      ],
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "roles": "Ordinary locomotion ownership, support weights and actual evaluation-clock identity.",
+      "disposition": "Bespoke Pending/Tracking SignedLength pelvis shift state and fixed-clock AnimationSampleTick retain readiness and duplicate-render identity. First valid desired observation initializes even at zero elapsed; subsequent zero elapsed retains prior. Ownership excludes airborne/posture transitions/quickstep and admits ordinary lowered locomotion plus raised moving attacks. Support weights typed and exact current foot for raised moving rather than fabricated low-speed stance."
+    },
+    {
+      "source_indices": [
+        1368
+      ],
+      "ranges": [
+        [
+          132,
+          325
+        ]
+      ],
+      "roles": "Actual rig-frame/terrain/limb observation to root correction, chain solve and memory publication.",
+      "disposition": "Actual ObservedRigFrame required; missing/ambiguous terrain represented Option. Per-leg typed terrain target and measured LimbSegments precede aggregate root shift. Aggregate desired pelvis shift starts numeric zero and is observed even when no leg measurement succeeds: readiness/no-terrain intended policy must be reconciled against full IK owner before calling this fabricated measurement. Root/native chain writes precede fallible LegIkMemory publication; candidate component retention does not establish entity-wide transform atomicity. No proven runtime failure asserted."
+    },
+    {
+      "source_indices": [
+        1368
+      ],
+      "ranges": [
+        [
+          328,
+          526
+        ]
+      ],
+      "roles": "Parent-frame vertical correction and weighted slope rotation; ownership/support fixtures.",
+      "disposition": "Root correction converts world vertical delta through actual parent affine inverse; absence uses explicit root policy. Finite local delta check does not prove final sum/affine invertibility, actual native admission still pending; finite nonunit frame policy from188 retained. Slope rotation uses actual sole axis and surface normal, typed weight. Existing fixtures check ownership and support selection only; no solver/runtime execution or capture acceptance."
+    },
+    {
+      "source_indices": [
+        1369
+      ],
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "roles": "Measured authored chain, knee pole, reach and actual surface alignment.",
+      "disposition": "Canonical BoneRole/LeadFoot retained in OrdinaryLeg. Snapshot/segment measurement and Option two-bone solution reject unavailable geometry; identity ankle target preserves authored chain and reports weight without repoling. Authored knee pole may use canonical pole by explicit geometric policy. Surface alignment needs real terrain normal/sole axis; success reports weight even if orientation alignment unavailable. apply_two_bone_solution returns no success witness here, so returned support semantics require owning helper proof. Entire prior 121-line tool attempt was truncated and credited nothing; only fresh visible1..60 and61..121 count."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-181.json",
+      "sha256": "65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-187.json",
+      "sha256": "384f724657d2dd13432ad6a5573671a61bc6a7f39b73b02ce2b0357742e8d895"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-188.json",
+      "sha256": "fbb51803f979a69f77ec1aca11053bd2a7adb46d3504a064eaedac0f0af38163"
+    }
+  ],
+  "pending_contracts": [
+    "Full IK owner1370 is unread; resolve no-target pelvis initialization, solve/publication success semantics and actual native frame admissions before accepting defects.",
+    "All13 populations/current/all20 families/aliases/connected acceptance incomplete. Existing test source read only; no product execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1370
+}

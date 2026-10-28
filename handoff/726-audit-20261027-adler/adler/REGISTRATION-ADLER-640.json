@@ -1,0 +1,249 @@
+{
+  "lens": 11,
+  "original_index": 1800,
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+  "sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+  "object_path": "handoff\\726-audit-20261027-adler\\evidence\\audit10\\successor-source-objects\\fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+  "ranges": [
+    [
+      1,
+      97
+    ]
+  ],
+  "prospective": true,
+  "purpose": "Prospective effective exact EOF scope97 after metadata-only extentcheck; rawunion1..120 exceedsimmutablehashsource. No98..120credit, no newidentity/scopedextension orhistorical/otherlensverdicttransfer.",
+  "provenance": "Transported exact registered object",
+  "inherited_scope_extent_qualification": {
+    "kind": "Frozen Git exact-byte EOF qualification",
+    "original_index": 1800,
+    "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+    "actual_EOF": 97,
+    "raw_requested_range": [
+      1,
+      120
+    ],
+    "effective_range": [
+      1,
+      97
+    ],
+    "excluded_nonexistent_ranges": [
+      [
+        98,
+        120
+      ]
+    ],
+    "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+    "inherited_metadata": {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+      "snapshot": "pr-working",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+      "sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+      "bytes": 2989,
+      "already_in_frozen_variants": false,
+      "evidence": [
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/additional-sources-025.json",
+          "ranges": [
+            [
+              1,
+              120
+            ]
+          ],
+          "source_read_status": "partial",
+          "trace_refs": [
+            "ROOT-PP-RECEIVER-CLOSURE-025"
+          ]
+        },
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/additional-sources-027.json",
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-SOURCE-OWNERS-027"
+          ]
+        },
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+          "ranges": [
+            [
+              1,
+              120
+            ]
+          ],
+          "source_read_status": "partial",
+          "trace_refs": [
+            "ROOT-PP-RECEIVER-CLOSURE-025"
+          ]
+        },
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-SOURCE-OWNERS-027"
+          ]
+        },
+        {
+          "shard": "rig",
+          "record": "wave-01/audit-producer-propagation/rig/supplemental-db-shared-proofs.json",
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-SOURCE-OWNERS-027"
+          ]
+        },
+        {
+          "shard": "rig",
+          "record": "wave-01/audit-producer-propagation/rig/supplemental-root-strategic-root-proofs.json",
+          "ranges": [
+            [
+              1,
+              120
+            ]
+          ],
+          "source_read_status": "partial",
+          "trace_refs": [
+            "ROOT-PP-RECEIVER-CLOSURE-025"
+          ]
+        }
+      ],
+      "audit_owner": "root",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "owner_contract_proofs": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 167,
+          "read_ranges": [
+            [
+              1,
+              105
+            ]
+          ],
+          "contract_refs": [
+            "ROOT-OWNER-SCATTER-041"
+          ],
+          "read_status": "affected_ranges",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs"
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 229,
+          "read_ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "contract_refs": [
+            "ROOT-OWNER-RIGID-HULL-058"
+          ],
+          "read_status": "full",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs"
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 573,
+          "read_ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "contract_refs": [
+            "ROOT-OWNER-SCATTER-041",
+            "ROOT-OWNER-RIGID-HULL-058",
+            "ROOT-OWNER-SUPPORT-AND-RANGE-CLOSURE-086"
+          ],
+          "read_status": "full",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs"
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 9,
+          "read_ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "contract_refs": [
+            "ROOT-OWNER-RATIO-003",
+            "ROOT-OWNER-ZERO-LENGTH-007",
+            "ROOT-OWNER-FRAMES-004"
+          ],
+          "read_status": "partial_exact_reached_contract",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs"
+        }
+      ],
+      "current_owner_suppliers": [
+        "root"
+      ],
+      "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-GARDEN-HULL-021",
+          "json_pointer": "/source_proofs/0",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              97
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+            "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+            "sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+            "read_ranges": [
+              [
+                1,
+                97
+              ]
+            ]
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        }
+      ],
+      "producer_inventory_accounting": {
+        "initial946_cell": false,
+        "frozen1650_supplement_index": 748,
+        "new158_material_role_packet": false,
+        "expanded36_context_variant": false,
+        "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+        "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+      },
+      "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+    },
+    "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-637.json",
+    "superseded_registration_sha256": "11a562d6b799f6d573bddd03b06d87763cdc9b845d403cc6d3791ec5f4e9a4e3",
+    "failed_read": "No invalid-range read attempted; raw requested metadata1..120 was registered637, exactobject metadataEOF97 checked before anygardenbody. New640 effective1..97 registered beforebody.",
+    "limits": "All13 lenses must independently qualify their original1800 metadata to exactsamehashEOF97. No98..120credit or historicalproofrewrites, no new sourceidentity/globalrangeextension orproductdefect claim."
+  }
+}

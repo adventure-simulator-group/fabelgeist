@@ -1,0 +1,311 @@
+{
+  "lens": 11,
+  "batch": 288,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1888,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-729.json",
+      "registration_sha256": "1fd009912adc47169c678cebd6188231217160e1789f83adcb48f0d992ce1d3b",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "scope": [
+        [
+          1,
+          522
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          522
+        ]
+      ]
+    },
+    {
+      "original_index": 1889,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-730.json",
+      "registration_sha256": "85ce112e08bff8baef3e3917abfefd46e9fec44279ff751e28e7ed605ff48a05",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "scope": [
+        [
+          1,
+          81
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "original_index": 1890,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-731.json",
+      "registration_sha256": "02a20a4a9508530cd8952c2b904e50a9fd4612d8610817bb40f59ef327f9bbca",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "scope": [
+        [
+          1,
+          640
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          640
+        ]
+      ]
+    },
+    {
+      "original_index": 1891,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-732.json",
+      "registration_sha256": "2498b966cefd47bd32d81d8dae360be855a60a9650ff3846930e5870f1fbde82",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "scope": [
+        [
+          1,
+          41
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          41
+        ]
+      ]
+    },
+    {
+      "original_index": 1892,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-733.json",
+      "registration_sha256": "72ceadb91d294a47998a7ac61f706330ee96069c0f8a7c75283d1bbfe6075f0d",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "scope": [
+        [
+          1,
+          211
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          211
+        ]
+      ]
+    },
+    {
+      "original_index": 1893,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-734.json",
+      "registration_sha256": "20163da640f45fc10d737cfe9c70f6de74a12481a83c63812f1bac37814cadff",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/input_tick.rs",
+      "sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "scope": [
+        [
+          1,
+          33
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          33
+        ]
+      ]
+    },
+    {
+      "original_index": 1894,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-735.json",
+      "registration_sha256": "6fa3678382165a88dbb56794bdbb63f2af16645dd8f12c0a23be85af9b539b63",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "scope": [
+        [
+          1,
+          104
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          104
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1888
+      ],
+      "ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "roles": "Independent lens11 exact full movement/player/clock/authority retained role and complete source-only operation/acceptance.",
+      "disposition": "Full522 movement usesNonnegativeSpeed completecheckedscale/lerp, clampsjogendurance0..5 andsprintphysicalstrength/health/burdenresult1.7..12.4; intentionalexertionspeed drivesonefatigue contribution independentofexternallyimposedvelocity, fullJogcappedneutral/walkrecover/sprintcharge. Actualmotorordinarycontroller configwalk/run/crawl maydiffercompiledutilityconstants; attribjog/sprintbounded, unattributedconfigrun andpronejog divisorconfigpositivebutunboundedupper/lower. Thusnormalsprinttarget boundedbutnotallobservedphysicsvelocity/current264work closure. Ordinaryprone+supine sharecrawlpace; exertionhelperbranchesonlyProne andusescompiledlateral/effortscale whileconfiguredordinarycontroller usesconfigandinputmagnitude; actualcallerbody-normalization/configsynchronization neededbefore mismatchfinding. Inputnormclamp nativecontract ratherthanbespokerepresentation invention; suppliednonfinite/overflowednorm actualinputadmissionpending. No directfatigue/totalincap movementspeedpenalty here; injuryandphysicalburden intended. Sourcefixtureswalk/jog/sprint/guard/prone directions/neutralexhaustion/diagonal magnitudes unexecuted."
+    },
+    {
+      "source_indices": [
+        1889
+      ],
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "roles": "Independent lens11 exact full movement/player/clock/authority retained role and complete source-only operation/acceptance.",
+      "disposition": "Full81 QuickstepSampleClock actionspan round(duration*sampleHz).max1 asu64, targetphase=(elapsed.saturating_addONE)/action ->strictlypositive finiteaction; helperphase0example287 thereforecannotbeemitted. Atordinary64Hz tiny1e-25duration givesaction1andphase>=1 earlyfinishedbranch, soexcludesexactnumericharnesscasefromnormalmotor. VeryhighsampleHz/otherhelperinputs/actualAnimationSampleRate maximumadmission/current stillneededbeforebroaderclosure. begin rawdirectionnormalize_or_zero,orientation/originretainedunvalidatedpublicnativefields; activeonlydirection!=0; cancelbool explicitlifecycle. elapsedauthoritativeSkeletonsampleclock minusstart saturating, absentSkeletonusesstart=>zeroelapsed. boundedrecovery<=action+2 andvelocitythreshold. Contactticks usesmin2totalticks thenfloorhalf, whereasclockroundtotal canodd; actualsymmetricdodgecaller/defaultcontract before offbyonetimingfinding. No scalar/nativeexecution."
+    },
+    {
+      "source_indices": [
+        1890
+      ],
+      "ranges": [
+        [
+          1,
+          640
+        ]
+      ],
+      "roles": "Independent lens11 exact full movement/player/clock/authority retained role and complete source-only operation/acceptance.",
+      "disposition": "Full640 Playercomponent requirescanonicalchildren, CharacterDimensions rawpositive-measurementintent/nativef32serde defaultmeasuredrig; CharacterId u64strategicidentitydistincttransport, colorseedexplicitStreamId. TacticalCombatSide enumimmutable/transient. Stats rawcalories/focus butphysical_skill_condition explicitly1 avoidsdoublefatigue/burden/caloriepenalty. Limbs rawhealth/massmutable, damageclampedremaining andaggregatepain, intentionalinjury separatefromincap policy; actualstateprojectionadmissionbeforeNaNhealthinvented runtimefailure. Skills rawhoursprojectstrategicdefault, religionaggregatealltraditions whilebestiary effectivecategoryconversion, missingtacticalcooking/herbalism/terrainzeroexplicitprojection supportedscope needsactualconsumer before lostskillfinding. TacticalAttributes directtransparent PlayerAttributeValues owner/Deref notduplicateleaf; TacticalPlayerView alias concretePlayerInfo composition andControlledPlayer aliasnativeActions generic, notcompatshim. Viewerget/get_for_attack genericResultfromprelude propagatesnativequery error? conversion with?, actualowningResult neededbeforecauselossclaim. Configure_attack_curve actualequipmentinertia+skill+config consumed; sourcefixturesdefaultprojection/flatwire/wheelsource valuesunexecuted."
+    },
+    {
+      "source_indices": [
+        1891
+      ],
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "roles": "Independent lens11 exact full movement/player/clock/authority retained role and complete source-only operation/acceptance.",
+      "disposition": "Full41 actualattacktiming propagatesElapsedResult fromsharedphysicalcadence, clampsstrengthcorrectionandpreparation.08...75/recovery.08...55 afterskill/continuationmultipliers. RetainsAnimationElapsed singleowner directimport, nofallibleelapsedunwrap. Rawinertia/skill/limbattributeactualprojectionboundsandkernelneededbeforefiniteNaNmaskfinding; boundedcorrectionsintentionalcurrentgameplay, notcompatibility."
+    },
+    {
+      "source_indices": [
+        1892
+      ],
+      "ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "roles": "Independent lens11 exact full movement/player/clock/authority retained role and complete source-only operation/acceptance.",
+      "disposition": "Full211 CombatState explicitlyservertransient/replicated neverSpacetimeDB. Onefatigueblack/encumbrancegrey/projectedpresentationonly; charge_work updateslivefatigueandtotalincapdelta atomicallybetweenserver ticks, noadditionalparallelpool. Sourcebreakdownrecomputesremainingblood/pain/livefatigue andretainsenrollmentstrategicsources; totalexplicitallsources. Statusderivedsoleincap>=1incapacitated/>.5staggered/otherwiseReady; publicrawf32 fields andfallthroughNaN policy actualauthorityproducer/admission/currentrequiredbeforefalsereadinessfinding. Sourceassertworkvisiblebeforetick/sourcetotal/doublecaloriehistorynotcounted allunexecuted. Zero/nonfinite/negativefractions roleownershipall20pendingratherthangloballyclampingphysics."
+    },
+    {
+      "source_indices": [
+        1893
+      ],
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "roles": "Independent lens11 exact full movement/player/clock/authority retained role and complete source-only operation/acceptance.",
+      "disposition": "Full33 PlayerInputTick completeu32 transportwordincludingfirst0, wrapnext, strictnewer nonzerodistance<=halfwindow; independentofequipmentcommandsequence/revision andAnimationSampleTick. encodedonlytransport/diagnosticnativeport; no genericclockalias orsentinelabsence. SnapshotOptionobservedtick727preservesabsencevs0."
+    },
+    {
+      "source_indices": [
+        1894
+      ],
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "roles": "Independent lens11 exact full movement/player/clock/authority retained role and complete source-only operation/acceptance.",
+      "disposition": "Full104 immutableRegionalEnvironment customwire samecheckednew admission, checkedaggregateusizeconnections/pointbudget, privateRegionalConnection min2positionsafterconsecutivededup andbound. CanonicalWgs84CoordinateE7 checkedcoordinateowner, kindenum; nonconsecutiveclosedloopallowednotinvalidduplicatebydefault. Geometry/Capacity errorsunitvariants losecounts/locationrolesforreportingconditionalactualcallerpolicy; no IOcause discardedhere. Deserializeallocbeforeaggregatecap actualtransportboundedinput beforeDoSclaim. No sourceconsumer/currentcreditfromtypealone."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-284.json",
+      "sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    }
+  ],
+  "pending_contracts": [
+    "288 completes1888..1894 exactfullmetadataunions including522/640/211changedfiles,next1895unregistered,nextregistration736. No unrecordedbodyreads.",
+    "Actualquickclockqualifies287: recordedphase0counterexamplenotproduced andtiny1e-25durationexcludedatordinary64Hz. Standalonehelperfindingretained, noobservedruntimefailure. ActualsampleHzmaximum/native/config/othercaller/currentstillneededbeforebroaderclosure.",
+    "MovementutilityProne-onlyfatigue versuscontrollerProne|Supine/configutilitydifferences requireactualcallerbody/input/confignormalization, notyetacceptednewgameplaybug. Skills/health/characterdimensions/rawincap andstableIDs retainedroles needall20canonicalownercomparison; no inventedpositivebound orhiddenpool.",
+    "Allpriorconditionalfamilies/tenextensions/EOFexceptions/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1895
+}

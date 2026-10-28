@@ -1,0 +1,247 @@
+{
+  "lens": 11,
+  "batch": 187,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1361,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-177.json",
+      "registration_sha256": "2dea3cd199c7dc3c9952402af76951338a252aaeacfefe7b2a2455584afb4e0a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "26b5e25b95cf1676bd54e0138ece10b0c150bf9787a1b47818b88746e3b9bfb2",
+      "scope": [
+        [
+          1,
+          152
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          152
+        ]
+      ]
+    },
+    {
+      "original_index": 1362,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-178.json",
+      "registration_sha256": "44161464e14d1692df74e9559cf6df11ea7ed71cb334809f3b061723c6321b8e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "b9328929e65c3617acb6340dc0db4ed3db4b260b76b791e7cd1fb8ed1b3cd441",
+      "scope": [
+        [
+          1,
+          355
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          130
+        ],
+        [
+          131,
+          260
+        ],
+        [
+          261,
+          355
+        ]
+      ]
+    },
+    {
+      "original_index": 1363,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-179.json",
+      "registration_sha256": "03f6cbbf11369b2ac27d47abaa36135a7fee74b2ee6cf9922c611c8441e5964d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/height_values.rs",
+      "sha256": "185b3d1b5dd499737ed32495e54f252665053c4d330711e358639a88f58bd240",
+      "scope": [
+        [
+          1,
+          39
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          39
+        ]
+      ]
+    },
+    {
+      "original_index": 1364,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-180.json",
+      "registration_sha256": "26a65c35951ce6c7872f7d12aec7f1f07f0bfdce398046e4ee66299c68ac8a5a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/evaluation_clock.rs",
+      "sha256": "494c46a4fd56879e1b9901c824fedc3ae9d2e5a44d40535a7b7ef5acb93425be",
+      "scope": [
+        [
+          1,
+          23
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          23
+        ]
+      ]
+    },
+    {
+      "original_index": 1365,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-181.json",
+      "registration_sha256": "2de3db89f3a3d1dece391d499affacfe129d6cfa304fec3b0aff10268304b13d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/foot_roll.rs",
+      "sha256": "7166759c52955028a3f30d17715d0b9abfe7b58c527666aeeebcaac588809717",
+      "scope": [
+        [
+          1,
+          118
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          118
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1361
+      ],
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "roles": "Bespoke bounded dive contribution and native pelvis-reference rotation.",
+      "disposition": "DiveInfluence finitechecked BEFOREclamp thenUnitInterval, separatelylabelledquantity; preservesoriginalfiniteout-of-rangeproducer clamp policy. ActualPostureTransitionKind::DiveToDowned direction/phase controlsadmission andtwo-sidedenvelope; no stringprotocol. Authored/bindunitquaternion andfinalslerp/rotationfinite/nativeinvariantstillupstream, ResultdivedoesnotvalidateallnativeQuatcomponents. Existing directional/guardrelease cases arepuremathfixture expectedvalues, noanimation/runtime/physics proof or execution."
+    },
+    {
+      "source_indices": [
+        1362
+      ],
+      "ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "roles": "Height candidate state, authoritative sequence/clock history and landing state lifecycle.",
+      "disposition": "advance_height consumesCopyself andpublishesonlyafterallcheckedheight/wave/landingoperations, whilequickstepzerosheights/plantsandreturnswithoutupdatinghistory (actualtransition/sequencehandoff policy dependency). Firstsample seedsrealHeightHistory/landingsequence, noinventedlanding. presentation_tick_delta None mapszerodelapsedandresyncstimestamp/history, notcatchupaging; sourceclock not proceduralfixedclock intentionallyseparateowner, actualcoalescedvisualcontinuity acceptance pending. landingtarget/absorption/recovery/arrival phaseswithnamedHeightDistance/Speed; supportsplantsgrounded/actionnone/mincompression. apply_landing_pelvis_compression transforms worlddown throughactualparent inverse thenfinite localdelta, butuncheckedexistingtranslation+delta result; nativecurrentbodybounds/unitytransform admission pending beforeoverflowfinding. Pervalue/owneratomicity notwholeentitytransaction. Actionlabelled helperignoredinput recordedascleanAPIdependency."
+    },
+    {
+      "source_indices": [
+        1362
+      ],
+      "ranges": [
+        [
+          232,
+          355
+        ]
+      ],
+      "roles": "Actual additive flight/compensation/impact policy and signedwave.",
+      "disposition": "Wavepresentationonly doesnotmoveauthoritativecontroller. Gatesgrounded/action/posture/guard/speed, explicittypedprofile andcheckedUnitInterval weights. Authored33mmcompensation onlyunarmedlowered-upright andrunweight; actualrunapexzero permitsdenominator0? checkedfinite rejects, wholeprofilezero/crossfieldadmission required before acceptedzeroapexbug. Impactthreshold+compressionrate actualcanonicalpolicy, actionhelper exactforwarderconfirmed. Signedwave offset computedafterperiodicnonnegativeheight kernel; clearfootplantsresetallassociatedowner/tick fields."
+    },
+    {
+      "source_indices": [
+        1363
+      ],
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "roles": "Signedheight-offset checked arithmetic.",
+      "disposition": "ReusesexistingSignedLength andHeightDistance/HeightSpeed roleowners, add/sub/advancenativekernelre-admitsresultwithHeightOffsetOverflow. Negationof finitef32cannotintroduceInf byitself; clampboundedmaximumDelta (alreadyzero-permittingnonnegative) retains producerpolicy. Privatehelpers actual semanticarithmetic notcompatibilityaliases orindependentfatigue/movementstate."
+    },
+    {
+      "source_indices": [
+        1364
+      ],
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "roles": "IK fixed evaluation clock deduplication.",
+      "disposition": "LegIkMemory.evaluation_tick specificallystoresclock.step.tick, repeatsNone, firstfixedreturnscheckedelapsed, liveTimezeroNone. Thisisexplicitcorrecttemporalcoordinate unlike186BodyObservation.sourceTickvsfixedTick comparison; confirmsdistinctownerneedwithoutordinarycallerproof. Switchingfixed/live/fixedsamevalueepoch mayretainnevaluationTickbecauselivebranchdoesnotclear; actualoverrideproducerlifecycle/reset required beforebugclaim. Clockelapsedcommittedbeforelatersolverresults, notwholeIKrollback proof."
+    },
+    {
+      "source_indices": [
+        1365
+      ],
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "roles": "Phase-aware signedfootroll and nativeworldrotation adapter.",
+      "disposition": "TypedLeadFoot/CyclePhase nearestcontactoffset, actualrun profile/action/guard/speedgates; SignedAngleDegrees resultcheckedwithBodyAngle context, retainscoordinate/sagittalrole atnativeboundary. Profile-support radius vsfixedpiecewisebreakpoints requireswholeprofilecrossfieldinvariants toavoiddegenerate/reversedranges; actualcoreadmissionpending. run_foot_roll_world_rotation usesrig lateralworldaxis andbaseWorldQuat, assumesunitfiniteframes; no hiddennativevalidationfromResulttag alone. Existingphase heel/flat/toe/swing/rightcontactfixture exactexpectedshape, notcompletecurve/renderer/collision proof, unexecuted."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-179.json",
+      "sha256": "592e7c3ea9002077c648bd26c1c5d2c1e44740ec15ce14c3c98c6fa2f19e43b1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-181.json",
+      "sha256": "65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-182.json",
+      "sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-183.json",
+      "sha256": "426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-184.json",
+      "sha256": "11b67f5b3e5cdbd7c200ceaa155c1fc0d06582f2093356559de529284b7f5303"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-186.json",
+      "sha256": "915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4"
+    }
+  ],
+  "pending_contracts": [
+    "Landing action-policy forwarder recorded forcanonicalimpact-only final API; no compatibility preservation or product repair attempted; realactionhistory retainsseparatepurpose.",
+    "Height first/quickstep history, zero-apex/profilebreakpoint andrawnativeQuat/parentaddition observations remainqualifiedpendingwholeowner/current/ordinaryadmission.",
+    "All13 populations/current/all20families/aliases/connectedrepairacceptance remainincomplete; no productexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1366
+}

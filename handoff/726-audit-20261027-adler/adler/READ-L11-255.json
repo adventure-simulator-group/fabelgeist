@@ -1,0 +1,172 @@
+{
+  "lens": 11,
+  "batch": 255,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1742,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-579.json",
+      "registration_sha256": "2d890dd5bde5f13190ef39384829266924ec287d3f603c92f482bd42eea70f7d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs",
+      "sha256": "cbb6ea6fc7bcecaff9f470a543695ac8757ae4fc43485dc74761262b147ed1e4",
+      "scope": [
+        [
+          1,
+          787
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          600
+        ],
+        [
+          601,
+          787
+        ]
+      ]
+    },
+    {
+      "original_index": 1743,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-580.json",
+      "registration_sha256": "4024362403ea6309046a68b245a8d342af670824c37c10c49b211130184d5892",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer/configuration.rs",
+      "sha256": "2ab68ac424a1330be6d25120eafe310737c3379a7e0be402a06f24c097c8fef0",
+      "scope": [
+        [
+          1,
+          60
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          60
+        ]
+      ]
+    },
+    {
+      "original_index": 1744,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-581.json",
+      "registration_sha256": "31304cd335700a26ca5a2b9bdd5ccc375cf511906f685dd6ea662b5b1c6c7503",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/targeting.rs",
+      "sha256": "d1d12b0de4fd11d6e6b88a8a2c5b8f61ef2e05121c72a09853d745dc7db54f5c",
+      "scope": [
+        [
+          1,
+          84
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          84
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1742
+      ],
+      "ranges": [
+        [
+          1,
+          787
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/geometry/error/diagnostic type-owner and sourcefixture contract.",
+      "disposition": "Full787 actual native sky capture. Canonical SkyView enum, StrategicMinute/latitude/longitude retained. Native Vec3/f32 camera configuration/extracted observations are rendererports, fixed preset provider next. SkyCameraProbe sharedArcMutex reads exactlyone ExtractedView<Camera3d> inPrepareViews; requires>=2observations andmain/render translation/direction/FOV matches, then actualScreenshotCaptured content/dimensions gate. Not merely CPUsettings proof, but missingprobe/screenshot unboundedwait/nativepipelinefailure lifecycle stillpending before deadlock claim. Singleconfiguredcamera identity/source lifecycle must hold; no observedforeigncameramix. Tiny authoritative tacticalterrain plus separate unreplicatedhorizonplane deliberate diagnosticdisplay, no tacticalDBauthority. World native inputs fixedsourceWeatherSnapshot/defaults, no arbitraryweather admission. Pixel data None/empty returns0 andcannotpassnonblack256; missingcameraNaNfallback notordinaryreachable afterstateobservedSomeset. Onepixelderiveddivision cannotcertify success underdimension/contentgates. UnitBasisPoints.from_ratio_floor canonical beforefinalu16. TerminalCLI IO/panic/gitprovenancefallback and optionaloldfailuremarker removal sourceonly, none executed. ActualSkyManifest atmosphere/mapfields partlyauthoredconfig, component/runtime/render acceptance remains explicit not all fields GPUobserved. All sourcefixture assertions read only."
+    },
+    {
+      "source_indices": [
+        1743
+      ],
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/geometry/error/diagnostic type-owner and sourcefixture contract.",
+      "disposition": "Full60 deterministic sky configuration uses canonicalSkyView/StrategicMinute/daystart/solar/lunar owner andnative EUN->Bevy direction conversion, checkedfixedcoordinates. FOV12/20/72/80 currentvalid, fixedtranslation andnormalizedsun/moon/star/horizon directions. Historical comments about astronomical slots are sourceclaims, no astronomicalverification/nativecapture run. This is preset geometric/lighting configuration, not new clockauthority, compatibilitypath or runtime mutableinput. Finaldiagnosticdegrees/floats nativeleaf; reusableTacticalCameraSetup ownerfit/all20/globalcurrent stillpending."
+    },
+    {
+      "source_indices": [
+        1744
+      ],
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "roles": "Independent lens11 full exact native camera/geometry/error/diagnostic type-owner and sourcefixture contract.",
+      "disposition": "Full84 auto_aim_candidate nativegeometry helper. Normalizes camera forward, rangechecksactordistance thenangularerror/distance/stableu64 tie-break, TCopygenericidentity returned unchanged. No cursorcone intentionalexplicit sourcefixture evenbehind; do not flagbehindtargetasbug. maximumdistance.max0 normalization and fallbackalignment-1 forcoincidentcamerapoint geometricpolicy, actualpositivefiniteworld/rangeproducer and canonicalquantityowner required before invalidinputfinding. No typedsharedposition/ID stored/redecoded here, genericlocaltuple/kernel not automatically bespokeeveryfloat/key. Sourcefixtures not run."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-250.json",
+      "sha256": "0ab04ff9b4c5befdbdd0ee2ba7405075381da0d279b9e300ecc2a9ee97666d2f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-251.json",
+      "sha256": "54a12494f41f525a231ff50d16e2180e42d501dcb280890e87cc1e02bc006b4a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-252.json",
+      "sha256": "e7729603daaf9fae26dc8b8392783c032e0e0459260816ab4c6ca2ff0471b529"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-253.json",
+      "sha256": "dbcb9b6fdb116f020d207508f9d2ea34b7f77533dd27b37a9c8ed5453827db88"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-254.json",
+      "sha256": "ed04a9af432005743576305fd8de7d2c3ea25b2246d96ea205689b19625d763f"
+    }
+  ],
+  "pending_contracts": [
+    "255 full1742..1744 metadataunion complete, next1745. All13 populations/extensions/current/all20/aliases/finaldedup incomplete, gatefalse/accepteduniquechange0.",
+    "Sky capture directly observes extractedrendercamera andmaincamera+actualpixelcontent, sourcechainclosed; no nativecapture executed. Actual renderpipeline/asyncreadback/probelifetime/unavailableterminal policy/current stillpending. Fixedauthoredskyinputs not maliciousarbitraryJSON evidence.",
+    "Targeting no cursorcone intentional; rawrange/nativeVec3/stablegenericu64 actualcaller/canonicalowner fit remainsquestion, not behindtargetbug or automaticglobalIDloss.",
+    "Allpriorfindings/qualifications/eightscopedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L13 retained; L12/L13 unchanged. Nextregistration582 UI1745full1039beforebody.",
+    "No productchanges/builds/tests/lints/scanners/generators/runtime/nativeprobes/CI/newtests/commits/pushes/PR/publication/externalmessages; goalactive/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1745
+}

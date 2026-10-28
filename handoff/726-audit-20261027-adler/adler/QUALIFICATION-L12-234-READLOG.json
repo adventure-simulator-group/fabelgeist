@@ -1,0 +1,34 @@
+{
+  "lens": 12,
+  "original_index": 1093,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+  "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+  "checkpoint": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens12\\HANDOFF-paused-adler-001.json",
+  "checkpoint_sha256": "a3f0cb4b99e3e6cc7557354a57e25ddb9ae3be92783bbe37949fab01a36bdc74",
+  "persisted_prior_read_ranges": [
+    [
+      1,
+      1200
+    ]
+  ],
+  "additional_inherited_read_attestation": [
+    [
+      1201,
+      1500
+    ],
+    [
+      1501,
+      1800
+    ]
+  ],
+  "additional_inherited_roles": "SettlementExposureSource raw source IDs1236/window_source1251 forwarded to core protected source1255; local problem scope settlement1583; raw outbreak disease parse1546 and local problem parse1605 erase causes; typed disease stable_id1660 retained in InfectionEpisodeRow1671. Result String diagnostics1266/1289, core resolve map_err1309, private key missing1712/version1715. exposure_id &str1455 passed to core1466 and seed format outbreak1571/problem1639. Profile preparation ID1791/version1792 passed into physiology owner. Comments/fixture reason strings read but no native/numeric/clinical/current acceptance.",
+  "disposition": "Accept checkpoint disclosure as inherited partial-read evidence only. Raw last tool outputs were not separately transported; no fresh root read or full-original completion claimed. Historical read log remains immutable.",
+  "unread_ranges": [
+    [
+      1801,
+      2950
+    ]
+  ],
+  "completion_credit": 0,
+  "next_bounded_action": "Verify exact disease hash then read1801..2950; retain partial function boundary at1800; reconstruct complete inventory before ordered credit."
+}

@@ -1,0 +1,122 @@
+{
+  "kind": "Ignored audit evidence integrity only; not producttest or audit completion proof",
+  "current_sha256": "9bc1b61e2db5ae4c0d3ba10fa9b3c16818d66d1c55321cb844ad4c0f8db0b077",
+  "ledger_sha256": "ba3fbd7c59ef81947aa8045d621712deb7e58b280f97130fb779f2f555dc322a",
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 1294,
+      "state_sha256": "f87e6a40a647d60dd55f5bfed99691d63eb8dc10a9ae2598d8ca7e8127dc28b5"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "state_receipt_pairs": [
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-162.json",
+      "state_sha256": "f35b4cb587b742f9647a20bff753bcb24edb10ca1ad3bdf48457506f9ccd9ffb",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-162.json",
+      "receipt_sha256": "1b3779f754f2e9cdcf604871c5833477fa1ea1856aa346479481e645c546f9f7"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-163.json",
+      "state_sha256": "deafe8fb62367b2f2922be2068c471fc243288a162f8b2e00fb5aaaef59a90fc",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-163.json",
+      "receipt_sha256": "34cde6921c0b1af0f87244f2089a34a116c5a14bcc13115fc6839e64e43d759e"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-164.json",
+      "state_sha256": "f87e6a40a647d60dd55f5bfed99691d63eb8dc10a9ae2598d8ca7e8127dc28b5",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-164.json",
+      "receipt_sha256": "c06678c55ceb0f8582ab1c703ea2c424a1f54b163eaab6990da76a7dd91c4796"
+    }
+  ],
+  "registrations": [
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-103.json",
+      "sha256": "cc078f44f9c16888265391f478e9b0b70ab9101064e1cc1044ca36cf43671f9d",
+      "source_sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+      "original_index": 1292,
+      "actual_lines": 2550,
+      "scope": [
+        [
+          1,
+          2550
+        ]
+      ]
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-104.json",
+      "sha256": "836fa9c61f951b3f4b73735ba46c9d425c771f3fe4b505fd5c5716bb08886110",
+      "source_sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+      "original_index": 1293,
+      "actual_lines": 812,
+      "scope": [
+        [
+          1,
+          812
+        ]
+      ]
+    }
+  ],
+  "new_original_indices": [
+    1292,
+    1293
+  ],
+  "partial162_completed163_exact_ranges": [
+    [
+      1,
+      260
+    ],
+    [
+      261,
+      520
+    ],
+    [
+      521,
+      780
+    ],
+    [
+      781,
+      1040
+    ],
+    [
+      1041,
+      1300
+    ],
+    [
+      1301,
+      1560
+    ],
+    [
+      1561,
+      1820
+    ],
+    [
+      1821,
+      2080
+    ],
+    [
+      2081,
+      2340
+    ],
+    [
+      2341,
+      2550
+    ]
+  ],
+  "worktree_clean": true,
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "no_product_execution": true,
+  "next_original": 1294
+}

@@ -1,0 +1,270 @@
+{
+  "lens": 11,
+  "batch": 301,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1965,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-808.json",
+      "registration_sha256": "91a8c4947e459086692f3bd1f50734dd2c9a2b890ba0d1b3b68f50526bb9ca8c",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "sha256": "7623a9336cbe4a4c30650bd451893f1769952e1d29b6cd4c18e6c4f23780887e",
+      "scope": [
+        [
+          1,
+          526
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          526
+        ]
+      ]
+    },
+    {
+      "original_index": 1966,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-809.json",
+      "registration_sha256": "c16b2a9197ba6d097f370702065be1473459ababa18b00fb283f179ebc0b15e7",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/error.rs",
+      "sha256": "e3616e905943b4275f23b767ac43c8a4f19c1661ddcaef93914bbead401ab7a9",
+      "scope": [
+        [
+          1,
+          40
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "original_index": 1967,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-810.json",
+      "registration_sha256": "9595e1b8fb501c8947279063e2a71ec2532d6f3bf9e4c4ea304b32b923916cb4",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/patch.rs",
+      "sha256": "f51a14125e8e313cd4e2fcfc73efc27b9c219f1804556cbeffaf224dfb4a31f8",
+      "scope": [
+        [
+          1,
+          99
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          99
+        ]
+      ]
+    },
+    {
+      "original_index": 1968,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-811.json",
+      "registration_sha256": "dc0677361377d0b5e288816b564b6c7b2c08a14231c3f1f9b38badfbbd6a1b9e",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "scope": [
+        [
+          1,
+          217
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          217
+        ]
+      ]
+    },
+    {
+      "original_index": 1969,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-812.json",
+      "registration_sha256": "57b2b71f8929a1a9efc6e1c37c233f2c7ca00191fee8bfc6430b64454646f945",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/resistance.rs",
+      "sha256": "775f5d7a035eea6e401828aeceab320737bbaf8286024f65b9e65153a24d7f3b",
+      "scope": [
+        [
+          1,
+          114
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          114
+        ]
+      ]
+    },
+    {
+      "original_index": 1970,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-813.json",
+      "registration_sha256": "65eaaeb6a8341d1feb01411f125f20049ac191a5d45e7c49f471c66a29ddfbf8",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs",
+      "sha256": "bba6cc80f38ff3d02d8c7fced6c2f8b6a18271b18b4d115a260a97453c2c3923",
+      "scope": [
+        [
+          1,
+          17
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          17
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1965
+      ],
+      "ranges": [
+        [
+          1,
+          526
+        ]
+      ],
+      "roles": "Independent lens11 complete owner, admission, native arithmetic and connected source acceptance contract.",
+      "disposition": "Full526 immutable landform preparation and checked patch/native collider ports. Recipe validate before preparation. Fault uses optimized marching_height_surface, not general volumetric scalar sampling. Simulated scarp grid is local offline preparation, not persistent tactical tick state. Finite sampled height ranges and final patch admission catch nonfinite output; native Collider::trimesh constructor admission/panic policy still needs actual native source before a finding. Combined meshes check usize and u32 vertex total before offsetting. Fixed 224 erosion steps with independent buffers and precomputed resistance; side cap occurs after simulation, but actual recipe bounds read1968 bound the horizontal stencil. Source fixtures deterministic one-vs-four threads/edge use/LOD collar behavior unexecuted."
+    },
+    {
+      "source_indices": [
+        1966
+      ],
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "roles": "Independent lens11 complete owner, admission, native arithmetic and connected source acceptance contract.",
+      "disposition": "Full40 canonical TerrainRecipeResult retains transparent TerrainSupportError source. Other variants retain operation category but omit actual bad dimensions/count/sample; actual failure producer and top-level report before cause/context finding. Earlier234 dropped landform cause remains separately qualified, not cleared by adding a typed leaf error."
+    },
+    {
+      "source_indices": [
+        1967
+      ],
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "roles": "Independent lens11 complete owner, admission, native arithmetic and connected source acceptance contract.",
+      "disposition": "Full99 immutable private patch buffers, opaque Reflect and deny_unknown_fields custom wire invoke same factory. Factory checks nonempty arrays, matching position/normal cardinality, u32 vertex count, triangle count multiple of3, in-bounds indices and every position/normal finite. Thus shared marching cannot publish nonfinite patch buffers; finite but wrong crossing remains possible on standalone general field domain. No documented unit-normal/manifold/nondegenerate admission promise: actual native collider/render consumer policy needed before finding. Consuming into_mesh_buffers is native upload projection, not mutation bypass of existing admitted owner."
+    },
+    {
+      "source_indices": [
+        1968
+      ],
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "roles": "Independent lens11 complete owner, admission, native arithmetic and connected source acceptance contract.",
+      "disposition": "Full217 quantized centimetre/native document wire remains distinct from admitted immutable TerrainLandformRecipe; from_quantized builds checked origin/direction/length/collar and validates surface/tangent/dimensions, serde calls same factory. Tangent norm .98..1.02; relief1..20m, half-length4..50m, half-width3..20m, collar>=1m and < half-length and <half-width/2; Detail .5m, Fringe1m spacing. These bound pre-cap fault horizontal simulation to hundreds of cells per side, exclude arbitrarily tiny collars and i64 noise-lattice extremes from actual recipe path; i32 cm origin finite ~21million m, not arbitrary f32. Validate(terrain) additionally checks intersection with playable extent but does not impose full SceneTerrain elevation range; normal SceneInput bounds299 remain relevant. Raw quantized fields/getters intentionally native wire ports, all20 exact roles still pending. Coarse Dimensions mappings lose finer construction categories; actual accepted input/report policy before independent error finding."
+    },
+    {
+      "source_indices": [
+        1969
+      ],
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "roles": "Independent lens11 complete owner, admission, native arithmetic and connected source acceptance contract.",
+      "disposition": "Full114 private ScarpResistanceGrid computes native lattice edge-midpoint material coefficient once, ScarpResistance purpose-specific clamped dimensionless owner. Constructor private actual caller from full1965 supplies matching side squared masks, positive bounded spacing and checked minimum; indexing concerns are not arbitrary public wire admissions. Neighbor absent when outside side or inactive mask, not default terrain/error suppression. Clamped coefficient/noise scratch preserve current complete native operation; no per-step changes or gameplay impairment pool."
+    },
+    {
+      "source_indices": [
+        1970
+      ],
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "roles": "Independent lens11 complete owner, admission, native arithmetic and connected source acceptance contract.",
+      "disposition": "Full17 height_at_extended_edge explicitly extends actual SceneTerrain support by clamping to captured half extent, constructs checked ScenePlanPoint then required_height_at retains typed TerrainSupportError. Boundary support extension is deliberate geometry policy, not legacy/default terrain fallback. Degenerate malformed standalone terrain admission remains separate earlier scene owner concern."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-300.json",
+      "sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d"
+    }
+  ],
+  "pending_contracts": [
+    "301 completes1965..1970 full metadata union; next1971 unregistered, next reg814. All fresh reads saved, no partial body credit.",
+    "Actual quantized recipe bounds close arbitrary-small-collar and unbounded pre-cap horizontal simulation hypotheses for normal FaultScarp; height/elevation arithmetic still conditioned on actual SceneInput/standalone SceneTerrain contract. Patch finite admission qualifies marching286, no published nonfinite mesh claim.",
+    "All prior findings/ten extensions/four EOF qualifications/future same-lens reuse including2699 material56, partial later129 and L12/L13 preserved. All13 populations/current/all20/aliases/connected acceptance/dedup incomplete; implementation gate false and accepted unique change0. No product execution, repairs, tests, commits or publication; goal active."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1971
+}

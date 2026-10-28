@@ -1,0 +1,190 @@
+{
+  "lens": 11,
+  "batch": 183,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1346,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-161.json",
+      "registration_sha256": "a5f1e43f4763589b1a5f5cbf4b5e5a36bf26b25bc4c314402f95400082ad1061",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/sampling_clock.rs",
+      "sha256": "2f9571a011a7099a5089fdff4360e78d20c638d2c8790a84187b65bedf89223a",
+      "scope": [
+        [
+          1,
+          63
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          63
+        ]
+      ]
+    },
+    {
+      "original_index": 1347,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-162.json",
+      "registration_sha256": "8524f1ef276356fdd4228a6d17307ff97f7e9efec1840c25930b49dbbfdc4227",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/spline.rs",
+      "sha256": "81c80049332da27f4e7ba2bac782477bf2d848d1f37ee1ec56b0cd0dacc36e0b",
+      "scope": [
+        [
+          1,
+          69
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          69
+        ]
+      ]
+    },
+    {
+      "original_index": 1348,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-163.json",
+      "registration_sha256": "c35f578089ce8363d2150cfe2849ea9c788c0f62a915eed72d9376b6a3b82fb9",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/stride_calibration.rs",
+      "sha256": "f3474e23dc4875712eb9e3c3a0ad4da0bd71e840ff758ae43ab1b877231e05e4",
+      "scope": [
+        [
+          1,
+          297
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          297
+        ]
+      ]
+    },
+    {
+      "original_index": 1349,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-164.json",
+      "registration_sha256": "5857a2fa65aeb673588ab0355e0b592529459834ff235f4da33d306b850da2c2",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/visibility.rs",
+      "sha256": "bf02e1e338624be655cffa36d3628074ab252de4018d400f9ffc629cb37f5f34",
+      "scope": [
+        [
+          1,
+          98
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          98
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1346
+      ],
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "roles": "Fixedsampleclock preparation, elapseddebt and retainedtarget update.",
+      "disposition": "samples_due rawu32count fromnativefloor floatquotient, sample_span checkedelapsed before remainder+PoseInterpolation thenonlycommitsposes/clocks. Ifduemorethanone oneprevious->latesttarget pair overtotalelapsed intentionallyboundedwork/debtconsumption notloopallintermediateposes. TargetvelocitieslocalrawVec3 pair afterclockadmission; samerigtablecardinality/finite targetmath stillproducercontract. Float->u32castsaturatesifhuge quotient while sample_spancheckedtime maynotconsumealldebt, boundedmaxobservation/sampleHz admissionmustestablishactualcountbounds; existing0/3.2interval/.1sfixture notallrangeproof. No clock orphysics step executed."
+    },
+    {
+      "source_indices": [
+        1347
+      ],
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "roles": "Native cubic spline numericalkernel with aligned constgeneric arrays.",
+      "disposition": "Knots/values/start/end tangent/progress aredirectnativekernelcaller180usesfourknots0/readiness/.5/1 andsemanticcheckedvaluesbeforeprojection. KNOTS>=2assert preventsunderflowfirstactualcalledkernel; strictincreasingfiniteknots/nonsingulardiagonals/finitevectorsnotadmittedinsidekernel, actualContinuationReadiness permitscorrectboundsbodypending. Keepnativepolynomialoperationorder/denominatorstencil; no wrappersforeachprivateintermediate, noacceptedordinaryinvalidspline fromarbitraryprivateinput."
+    },
+    {
+      "source_indices": [
+        1348
+      ],
+      "ranges": [
+        [
+          1,
+          237
+        ],
+        [
+          239,
+          297
+        ]
+      ],
+      "roles": "Calibration axis/types, exactcurrentrig-offsetmatch, measured/unavailable/error state andactualfit composition.",
+      "disposition": "CharacterLocomotionStrides.bindsArcdefinition+fulloffsetVec; matches_offsets requiresptr_eq,lengthandcomponentwiseexactcurrent offsets. Recompute whenreferencechangedoroffset/definitionchanges; freshmeasurementsadmittedthencomponentinserted, actualsameframeorderingpluginpending. CalibrationSource typedMotionId/Axis, currentUnarmedfourmotionowners; offsetscompletebyactualrigentitytable length. Nativebake errors orfitErr donotmarkmeasured andoldcachedmotionkeptuntilsuccessfulreplacement; revision181retiresseparately. OkNone clearsmotion andmarksactualclipIDobserved so no endlessretry; excessive-slipSome retainedwithwarning soactualcadencebudgetconsumer upcomingmustrejectit. Walk/Runmeasurebakedsourcefoottrajectory whilelivesamplersparse; strengthens182compositiondependencywithoutassertingactualvisualbug. Combatfootrange+zeroslip notsemanticcontactfit, explicittemporarydataavailabilitypolicy notlegacyAPI. Existingrotatingrootlongerlimbfixture checksgeometricratio1.5 only, unexecuted."
+    },
+    {
+      "source_indices": [
+        1349
+      ],
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "roles": "Allactive3D-view pose culling and history-preservingresume.",
+      "disposition": "AnimationViews nativeBevyQuery alias legitimateframeworkshape, notbespoketypeforalreadytypedresourcetuple. Noactiveviews ->notoutside (do notfreezefirstdefaultscene); activebutnolayermatch oroutsideallboundedfrusta ->frozen. Per-actorRenderLayers andnativeSphere+typedpositivecullparameters maintainedtoboundary. Resume clearsaccumulator/fraction/targetvelocitiesonlyafterFrozen thenVisible, preservesauthoreddisplayhistory/plan/inertialoffsetownership. Actualcontinuityduringlongcull andoffsetdecay handledotherowner, no terrain/probephysicalauthorityinferred. Testportaitlayermatch/noactive/physicaldistance sourceonly."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-177.json",
+      "sha256": "83b32878f60a4e5fc21053c537efe6bd576a167ca3acdee4469e90658f1a95c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-179.json",
+      "sha256": "592e7c3ea9002077c648bd26c1c5d2c1e44740ec15ce14c3c98c6fa2f19e43b1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-181.json",
+      "sha256": "65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-182.json",
+      "sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8"
+    }
+  ],
+  "pending_contracts": [
+    "Exact RigDefinition/offsetmatching closes priorname-only CalibrationLookup dependency; scheduling and budget receivers stillrequired.",
+    "Sparse sampling/calibration input composition remainsqualifiedsourcefinding andcurrentcomparisonpending; no productexecution/repairs.",
+    "All13 populations/current/all20families/aliases/connectedrepairacceptance remainincomplete; nextoriginal1350 requires registration."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1350
+}

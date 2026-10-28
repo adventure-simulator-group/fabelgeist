@@ -1,0 +1,148 @@
+{
+  "lens": 11,
+  "batch": 148,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1270,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-078.json",
+      "registration_sha256": "edfba1555089ae302b168e1400da1b3eab967df32b7adacd54f3501b92beb5a7",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+      "sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "scope": [
+        [
+          1,
+          964
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          250
+        ],
+        [
+          251,
+          500
+        ],
+        [
+          501,
+          750
+        ],
+        [
+          751,
+          964
+        ]
+      ]
+    },
+    {
+      "original_index": 1271,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-079.json",
+      "registration_sha256": "6b86e239aff45cc4cdaf6ffdda32b9c4ff4b33b38e9c95d943c1f9002caeb0f1",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/departure_policy.rs",
+      "sha256": "1859c9e05a96c7365a50d26980e7a2dfbdf5040106f5aa5131b56b86005d9596",
+      "scope": [
+        [
+          1,
+          204
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          204
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1270
+      ],
+      "ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "roles": "Public issuer presence, unsafe active contract abandonment, quest-owner/leader revalidation, readiness and acceptance.",
+      "disposition": "Cycle refreshes safe party for captured questowner after medical actions; current leader differsowner stops abandonment, not silently acting asoriginalactor. Public issuer visibility checkedbefore andafter provisioning, authoritative provider-unavailable rejection yieldspolicydefer, othererror retained. Reserved contract vs chosen/active sum represented Options+resumingbool; named AdmittedContractExecution can preserve origin/owner/status rather than indistinguishable BackendContract. Attempt counters increment before finalaccept callback, accepted semantic eventlater; keepattempt vscommitted acceptance roles."
+    },
+    {
+      "source_indices": [
+        1270
+      ],
+      "ranges": [
+        [
+          253,
+          500
+        ]
+      ],
+      "roles": "Exact owner/case site, thermal itinerary/wait, provisions, travel initiation/completion, reassessed health/matchup and mission identity.",
+      "disposition": "Case pin from owner/case picks deterministic distance/site. Itinerary/wait match drops case_site_recovery_minutes with .. and configure passesNone; actual shared itinerary owner/generated path needed before lost recovery policyfinding. Travel semantic event emitted after initial travel reducer before travel_camps completion; direct_traveled evidence therefore initiation, not proof arrived/completed, though latercombat/turnin can independently witness. Aftertravel checks previously captured party_agents rather than freshmembership; actual joins/succession policy pending, refresh living/current leader narrows staleauthority. Uses typed JourneyTravelOutcome !=Completed earlyexit and re-evaluatespublic matchup. Mission key binds party/site/cycle, current aliases/delimiter/uniqueattempt semantics pending."
+    },
+    {
+      "source_indices": [
+        1270
+      ],
+      "ranges": [
+        [
+          501,
+          701
+        ]
+      ],
+      "roles": "Autoresolve report authority, battle-result existence victory, loot/value, retreat/turnin, party currency sale and medical spending priority.",
+      "disposition": "Requeriesleader immediatelyafter battle and returnsifnone BEFOREreport/defeatsemantic accounting; allpartydeath handling/report metrics require connected observe_deaths/acceptance, not inferredfulloutcomecoverage. Existence of BattleResult denotesvictory bynativecontractpending; Optionwinningbattleid correlatesbool. Loot count vsstacks vsquantity*unitpricevalue distinct, unknown price0 metricpolicy notfreepurchase. Rawparallelid/quantityvectors passedliquidation erase row-quantity association internally; SDKportmayrequirearrays but purpose SellStack vector should ownbeforeport. Retries/callback coherence actualcallcontract, no atomic multi-reducer purchase/travel/lootflow claim. Turns in currentleader afterreturn; contractownership and receiverturninownerpending."
+    },
+    {
+      "source_indices": [
+        1270
+      ],
+      "ranges": [
+        [
+          703,
+          964
+        ]
+      ],
+      "roles": "Upgrade candidate utility vs condition/load, provider quote, medical reserve, party stake spend and exact equipped inventory row.",
+      "disposition": "Anonymous7tuple of utilitygain/cost/shortfall/reserve/service/provider/item haspurposeAdmittedUpgradeCandidate and coherent Offer; canonical storefronthelperrevalidationexists. Unknown medical reserve becomes0, currentunknownmeansnoneorunavailablepolicyneedsowner. Computesencumbrance byaddingcandidateweight while old gear remainscarried, deliberate conservative carriedloadnot replacement subtract. Requeriespurse/stake around reducer, actualcost=sumconsumed stake+personal; stake-spendmetric namedwithdrawn differsactualcashwithdrawalrole. Picks max matching catalog inventoryID afterpurchase, not actualreceipt ID; actualstack/instance receiver must prove newlyboughtrow. Destination/root authored placement thenequip revalidatedrequested exactrow; actual crossslot/holder occupancy testednative onlylater. Missingcondition defaultshealthy1 sharedreportpolicyneedsowner."
+    },
+    {
+      "source_indices": [
+        1271
+      ],
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "roles": "Closed readiness/provision failure reasons, structured itinerary vs wait outcomes, forecast vs representable exact waits and physical readiness thresholds.",
+      "disposition": "DepartureReadiness/DeferralReason andTravelProvisionDecision are actualnamedcategories, reuse acrosscaller rather than strings/magicbools. Keepwalkingminutes/day separate waitelapsed and casesiterecoveryduration; itineraryfields duplicated acrossvariants useful sharedSafeItinerary owner, no generaloneMinute wrapper. Safe immediate-vsdelayed waits60..day, forecast up to7days vs representable one-day meaningfulseparate admissiontypes. Forecastrounds<60 to60 evenzero, actualchosenwindowmaynolongersameif0or<60; canonical walkingwindow/callerrevalidationcontractneeded. Sorted dedup safe departure candidates canincludehourgridandprecisewalkingstart, notclaimhour-roundedall. Thresholdwetness/thermal/bpsmassnotfatiguepenalties, no gameplaypolicychange."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-132.json",
+      "sha256": "c90248a60cfbfa2915375e49221a0189d50b201c7738965bd6eb338e43a33fc0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-142.json",
+      "sha256": "d2458b763be2c6597d303367b936c98397785c710664c4245f2ded1c4b366c84"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-147.json",
+      "sha256": "4725705d8c4623f09e5b697e541cdafa37100610002351d014693613491544b8"
+    }
+  ],
+  "pending_contracts": [
+    "Actual turnin owner, callback coherence, allpartydeath reporting, droppedcase siterecovery itinerary receiver, observed offer/reserve/purchasedidentity, semantictravel initiated-vscompleted and current aliases pending.",
+    "All13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete; no execution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1272
+}

@@ -1,0 +1,149 @@
+{
+  "lens": 11,
+  "batch": 152,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1278,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-087.json",
+      "registration_sha256": "3897bfa7a66104daf3d254e5f1d89ed7fcc9e68714c04ea183a001e6ef82324c",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure.rs",
+      "sha256": "41b12232f4ba5a4d1f824b38338091fb5a01a3f79bf300903f02ba558c24e99b",
+      "scope": [
+        [
+          1,
+          457
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          240
+        ],
+        [
+          241,
+          457
+        ]
+      ]
+    },
+    {
+      "original_index": 1279,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-088.json",
+      "registration_sha256": "784f3224dfe4681f34189a5dcc08b7e35f0c2e4cf5c51da83b9626e2ab1fa7a6",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure_projection.rs",
+      "sha256": "db839d73026a5d4ecb4ff4ee8e73872b345be0e3c83a09010d9c4868dfc3ce31",
+      "scope": [
+        [
+          1,
+          424
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          220
+        ],
+        [
+          221,
+          424
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1278
+      ],
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "roles": "Typed semantic event emitters, capped retained evidence, immediate duplicate metric and error capture.",
+      "disposition": "Thin eventhelpers retain actualsubject variants untilpublicserialization. emit_event BOTH traceandsemantickeys insidecapguard, correcting147incorrectunboundedclaim. sequence/duplicatecountercontinueregardlesscap, lastsemanticupdatesall, capturecalledallevents. call converts observedtypedfailure toString onlyafterrecorderretainsclone, so typedprojectioncanrecoverfromsharedrecorder; notgenericclaimallcallerrorslost. Errorshandledbeforerunner.call bypassrecord intentionallyproviderdefer."
+    },
+    {
+      "source_indices": [
+        1278
+      ],
+      "ranges": [
+        [
+          147,
+          326
+        ]
+      ],
+      "roles": "Public failure snapshot availability, visible service/food/quote and activity vs nonactivity rest choice.",
+      "disposition": "public_failure_agent Noneifmissingcharacter/condition/survival, capturedfilter_map silentlyomitsunavailableagent, no totalroster/captureabsenceproof inartifact. Illnessmissing=>false butactualunknownpolicyneedsowner; surfaceddiagnosticfailureavailabilityshouldnamed. Venue publicservices andsupply/purse/reserve choosesOptionalservice vs ordinarywaitpreference choosesavailableInn/Temple; deliberatehorizon distinction, do not inferuniversalTemplearrivalpolicyhere. Prices useactualone-daycanonicalquote, differentpaidreduceractualduration."
+    },
+    {
+      "source_indices": [
+        1278
+      ],
+      "ranges": [
+        [
+          328,
+          457
+        ]
+      ],
+      "roles": "Party/currentleader, personal-clock maximum and death observation receipt.",
+      "disposition": "party_for readsChar.partyid+Party, doesnotadmitliving ormemberlist; current_leader addsalive+matchesleader+charparty+controlledagentindex. public_party_elapsed_max includesallparty clocks and ZEROdefault, confirmsstructuralindependentclock maxfinding151 and calleractiveprogresslimitation; notelapsedintervaltype. observe_deaths insertion recordedsetbeforelookingupimmutabledeath, ifdeathauditrecordmissingthenemitsunavailableandneverretries; actualcoherenttransaction/subscription orderingneededbeforeordinarylostcauseclaim. DiseasecounteronlytypedDeathSourceDisease; all-dead cycle skipbattle metrics notclosedbydeathcausecounter. Diagnostic sourceid bounded, rawcause/sourceprivatepublicationpolicyremaining."
+    },
+    {
+      "source_indices": [
+        1279
+      ],
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "roles": "Consecutive semanticduplicates, typed rejection-driven recoverability, stable safe failure category/reason/message.",
+      "disposition": "Duplicateonlyadjacentexactsamekey andnonrepeatablekind; no globalreplaydedupauthority. RepeatableTravel etc allowsmultiplesamecontracttrace, richerkind/phaseidentityneededforunitarycompletionclaims. Provider-unavailablehelpers usetypedReducerErrorCode notmessageparsingheuristics; sharedparseownerstillpending. Existing category/reason enums andcodedmatch derivepublicsafeconstantmessage, operationfallback aftertypedcodemeaning deliberateprivacyprojection. CoreLoopFailureProjection permitscategory/reasonindependentconstructorprivate, cancohereonefailurekindowner rather thanaddthirdtaxonomy. Typeddispatch/timeoutdetailnotpublicleakedbyprojection."
+    },
+    {
+      "source_indices": [
+        1279
+      ],
+      "ranges": [
+        [
+          263,
+          424
+        ]
+      ],
+      "roles": "Shared original failure recorder/draft, immutable artifact write, bounded trace, public snapshot scales.",
+      "disposition": "RecorderwriteprefersrecordedtypederroroverpassedpossiblyString-erasederror, no allerrorlossclaim. recordoverwriteslast notfirst; ifrecoverableobservedfailurefollowedlateruntypedfailurecouldstaleclassification, actualhandledcallerrequired. Draft/errorseparatemutexupdatequietlyignorespoison butwritefailstypedUnavailable, missingdiagnosticnotpassing. Publicartifactformatscategory/reason/operationexplicitportlabels andnointernaldetail, quest_coverage alwaysNone onfailure; missingisunknownnotfalse. create_new avoids overwrite butpartialIOfilepossible, namedwrittenartifactproofonlyaftercompletewrite needed. Failuretrace64tailofretained100000prefix confirmsfinding. PrivatePublicSurvivalObservationDefault0 mixesequipmentfalse andneutralthermal/zerocapacity meaningunknownnothealthy, actualpolicyreceiverspending."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-147.json",
+      "sha256": "4725705d8c4623f09e5b697e541cdafa37100610002351d014693613491544b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-148.json",
+      "sha256": "45521a56371b519bb94567a8155b3f1884b7a4e2124a7966100914e3de9c5194"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-150.json",
+      "sha256": "4f90ed4fceee6e652c0279c0f6bc7a3f8c1ba781dbcdf31e496841b5a68e5a28"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-151.json",
+      "sha256": "cb2c307f2d1f4cd4cf35c4ef2e20dea809d892297a1297e890cba410b2c1d283"
+    }
+  ],
+  "pending_contracts": [
+    "READ152 supersedes147 unsupported unboundedsemantic key inference; priorreceiptretained, no oldbroadclaim survives.",
+    "Actual reportacceptance/capacity, typederrorrecordrecoverability/diagnosticavailability, callbacksubscriptioncoherence, allcurrent/aliases/families pending.",
+    "All13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete; noexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1280
+}

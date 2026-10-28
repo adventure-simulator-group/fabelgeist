@@ -1,0 +1,201 @@
+{
+  "lens": 11,
+  "batch": 213,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1498,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-314.json",
+      "registration_sha256": "2735644695c268a0d9820abed52182cf72c0878973722755314a1fe4de16137a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player.rs",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "scope": [
+        [
+          1,
+          944
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          600
+        ],
+        [
+          601,
+          750
+        ],
+        [
+          751,
+          944
+        ]
+      ]
+    },
+    {
+      "original_index": 1499,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-315.json",
+      "registration_sha256": "bdcce886efa76d6a294bb71ef280ce032e60d917186369e9c087229f06870db0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "sha256": "1b21e39987ef8116d961373662e3566233e45bff974103bf29e399d4defaa9dd",
+      "scope": [
+        [
+          1,
+          201
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          201
+        ]
+      ]
+    },
+    {
+      "original_index": 1500,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-316.json",
+      "registration_sha256": "bed30bcc415ad801e1d8870c9566f3b1147cac6d45a7a57119eecd0172a56b8b",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "sha256": "9217876cb451796dde9e82c22f7a9533fbe263ebe21068756fb672e66eb622cf",
+      "scope": [
+        [
+          1,
+          453
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          453
+        ]
+      ]
+    },
+    {
+      "original_index": 1501,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-317.json",
+      "registration_sha256": "6ea5be747847a6feec18a9efce50304a4435a4ab92dc87899a5fda6953376a03",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "scope": [
+        [
+          1,
+          128
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          128
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1498
+      ],
+      "ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "roles": "Complete requested player source plus all root/camera/rig owner and reached producer roles, including every fixture beyond805.",
+      "disposition": "Full944 covers target selection, anatomy/collider/acquisition, timer/native ray completion, spawn/controller/camera hooks, facing, controls and all fixtures. AttackTarget retains body/hitbox/bodypart/local strike/arrival purpose-specific identity; local strike converted through GlobalTransform inverse at acquisition and back at completion. Body-stable selection tries reachable limbs within chosen enemy before changing body; explicit fixture intentional alternative selection, not legacy compatibility. Acquiring invalid sight Dir3 excludes target and update_attack_state unresolved direction uses preserved admitted aim; do not generalize camera clear-on-invalid concern to all queries. Missing attacker/camera Ok(None,None,NEG_Z) and view query misses may be intentional no-target/unready handling; exact spawning/schedule/native validation pending before hidden error claim. Reach usability for melee admits anatomy independently of weapon length, fists fixture establishes intent; actual weapon reach invariant provider pending. Facing uses checked BodyFacingTurn and warns while preserving previous valid state; presentation does not authorize authoritative combat positions/HP. Quickstep input sent on sequenced authoritative stream, client-only dodge animation explicitly avoided. All source fixtures, including beyond805 and same-enemy/near-ray/threshold, read without execution."
+    },
+    {
+      "source_indices": [
+        1499
+      ],
+      "ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "roles": "Full melee acquisition/playback timing, checked elapsed/sample boundary and continuation fixture.",
+      "disposition": "NonnegativeSpeed/ForwardLungeAcceleration/PositiveAnimationDuration canonical inputs and AnimationElapsed checked add/nativeDuration propagate typed errors. rounded_samples rejects nonfinite product before intentional saturating integer conversion; tick addition saturation explicit native clock policy, not automatically a lost overflow defect. animation_ticks minimum one sample differs delay_ticks zero by intended policy. Continuation sequence_start comes from skeleton attack timeline and contact_from_input subtracts replicated locomotion sample; immediate starts derive local Time in1500. Clock origins not yet reconciled; source-qualified clock ownership candidate retains actual sync/rebase dependencies rather than declaring all clocks wrong. Fixture asserts replicated continuation cooldown, not late-join cross-clock compatibility."
+    },
+    {
+      "source_indices": [
+        1500
+      ],
+      "ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "roles": "Complete selected/prepared melee, ranged prediction, immediate/buffered admission and actual client publication.",
+      "disposition": "PreparedMeleeAttack computes complete fallible timing/state before publication, storescanonicaltypedelapsed and sample ticks. Immediate melee matches InvalidAnimationValue and propagates it, Busy buffers, Downed/Posture rejects. Ranged178..183 and buffered433..438 instead is_err->Ok discard every transition error; qualified existing ActionTransitionError handling asymmetry requires actual state provider1781 to establish possible invalid variants under prepared inputs. Viewer/query .ok/OkNone for absent components unready observation not automatically failure concealment. AttackState/client requests inserted only after begin_attack_timed success, no claimed network send on rejected local start. Buffered replay keeps preferred hand/family and reacquires current weapon; early ordinary rejection may intentionally retain buffer. Raw Time elapsed conversion326..328/409..411 samples local clock, while continuation paths use skeleton sample; exact epoch/sync/current pending."
+    },
+    {
+      "source_indices": [
+        1501
+      ],
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "roles": "Full local quickstep source diagnostic observation and warning/log native boundary.",
+      "disposition": "ObservedQuickstepActuator enum preserves Inactive retained_start_tick versus Active start tick; current animation/actuator/input ticks explicit bespoke owners. Diagnostic has_changed compares dodge membership, actuator active and start tick; mismatch also reads snapshot.melee_lunge.quickstep88..89 absent from observation. Conditional unchanged action/actuator but changed attack-lunge bit can change mismatch without producing new log; actual snapshot atomicity/lunge producer invariant and intended diagnostic contract pending, no gameplay effect or accepted false-pass asserted. Initial observation always logs mismatch; retained inactive tick changes intentionally observed."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-208.json",
+      "sha256": "f4ce6a807608895d189acd545424e1b52ce4a873d72b81164e478e0b55704c44"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-209.json",
+      "sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-210.json",
+      "sha256": "3bc7553ba64ad3660efcf2e54e3cb475d6ffa9bea6dd326dbc7b43b8a0a35ff4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-211.json",
+      "sha256": "e2ef6f2a8c60bb4e1ff4f0091fca312c5f370bb405d66d214fd46dddf2328e4b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-212.json",
+      "sha256": "c061be62985f34109cefdf7579106841a59f4924cf4e31a382efbe2e62b9f876"
+    }
+  ],
+  "pending_contracts": [
+    "All13 populations/extensions/current/all20 families/aliases/connected acceptance incomplete; no repairs/execution before exhaustive ledger.",
+    "Actual SkeletonState provider1781 full2069 and action_timeline1782 full89 located by registry metadata only, no body credit. Resolve actual invalid transition reachability and shared sample origin/synchronization before accepting two new qualified families.",
+    "Quickstep diagnostic predicate omits melee_lunge.quickstep state that affects discrepancy; conditional missed-log example requires actual snapshot/lunge atomicity and intended diagnostic acceptance, no gameplay defect asserted.",
+    "Native typed weapon/anatomy/transform validity and camera/attacker unready policy remain pending; intentional same-enemy limb fallback, free aim, anatomical fists, display T-pose and last-valid-facing preservation are not automatically legacy compatibility.",
+    "Future1589 full connected READ206/REG274 remains awaiting first ordered credit; source fixtures in this batch complete toEOF but not executed.",
+    "Next1502 buildings full596 plus later all owner/reached ranges; product branch/head remains untouched, no builds/tests/lints/scanners/generators/runtime probes/CI changes/commits/publication/messages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1502
+}

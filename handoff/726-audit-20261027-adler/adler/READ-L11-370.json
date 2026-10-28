@@ -1,0 +1,121 @@
+{
+  "lens": 11,
+  "batch": 370,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2313,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1173.json",
+      "registration_sha256": "a43afcbdda56cd73c6e0cfdaa1f26b35e13558707cc2a5ed8dbb57fc42c98f54",
+      "source_id": "pr-working:crates/fabelgeist-mhr/Cargo.lock",
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "scope": [
+        [
+          1,
+          7093
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          7093
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2313
+      ],
+      "ranges": [
+        [
+          1,
+          7093
+        ]
+      ],
+      "roles": "Independent lens11 frozen requested lockfile identity and dependency-name records only.",
+      "partial_receipts": [
+        {
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-370-PARTIAL-001.json",
+          "sha256": "7f19e656f6b4f5a48e306688b5ba987b27ef15977a7b1ba4098c2acc2ecc6395",
+          "read_ranges": [
+            [
+              1,
+              1200
+            ]
+          ]
+        },
+        {
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-370-PARTIAL-002.json",
+          "sha256": "74e058e2f97c7dfa6e6642ecd722a1ffb31e35ace29bbc34239841cd9fd7df64",
+          "read_ranges": [
+            [
+              1201,
+              2400
+            ]
+          ]
+        },
+        {
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-370-PARTIAL-003.json",
+          "sha256": "1c833a3444ff43283272e3a5be134957c0b7a9fd95872fbbf2797381bdbf6bc5",
+          "read_ranges": [
+            [
+              2401,
+              3600
+            ]
+          ]
+        },
+        {
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-370-PARTIAL-004.json",
+          "sha256": "51cb4adc3beda0624f45748215224e279b78f21b49baffd8fa25b77170b063a8",
+          "read_ranges": [
+            [
+              3601,
+              4800
+            ]
+          ]
+        },
+        {
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-370-PARTIAL-005.json",
+          "sha256": "0e0181d338a47fe737908fb864840a1d029406670c9cb9e0f804629a22443758",
+          "read_ranges": [
+            [
+              4801,
+              6000
+            ]
+          ]
+        },
+        {
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-370-PARTIAL-006.json",
+          "sha256": "7c87db545dfffbd7e8086b7606c1c453ddfc04ab76876f13bd94e52589d164e6",
+          "read_ranges": [
+            [
+              6001,
+              7093
+            ]
+          ]
+        }
+      ],
+      "read_provenance": "Cumulative first independent personally read source ranges, retained six exact continuous partial receipts; no reread claim. Each partial granted zero ordered credit. Full1..7093 now complete.",
+      "disposition": "Generated Cargo lock v4 package/version/source/checksum and named dependency records read in full. Burn0.22pre2 Gitb1502de8, CubeCL0.11pre2 Git088dd705, CubeK0.3pre2 Git93a27826; WGPU/Naga30.0.1, anyhow1.0.104, reqwest0.12.28, thiserror1.0.69/2.0.20, serde1.0.229. Gitpliron26106513 andtracelLLVM0853480b pins included. Local MHR->FBX/rig/fs/numpy-storage dependencies recorded; native API bodies and enabled platform/backend/capability features NOT inferred from lock package presence. Multiple native/web/CPU/GPU backend records and dependency major versions do not themselves prove deprecated compatibility code. All20 owners/current/native error and shape admission remain pending. No dependency resolution/build/test/scanner/generator/runtime execution."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-369.json",
+      "sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140"
+    }
+  ],
+  "pending_contracts": [
+    "370 accounts2313full7093 via six hash-linked cumulative first-read partial receipts, next2314MHRmanifest.22 mandatory all13 scoped extensions/six strictEOF qualifications/remaining future same-lens proofs retained. No other-lens verdict transfer.",
+    "Lock dependency identities only; actual MHR tensor/layout/topology and ndarray/native error bodies need source comparison, not inferred behavior from package names. Existing hair pending contracts unchanged.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup remain incomplete, gatefalse and accepteduniquechange0. No product repairs/builds/tests/lints/scanners/generators/runtime probes/CI/newtests/commits/publication/externalmessages. Goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2314
+}

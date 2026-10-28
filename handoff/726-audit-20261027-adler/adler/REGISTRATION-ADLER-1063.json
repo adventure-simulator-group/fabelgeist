@@ -1,0 +1,155 @@
+{
+  "lens": 11,
+  "original_index": 2197,
+  "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+  "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+  "object_path": "handoff\\726-audit-20261027-adler\\evidence\\audit10\\successor-source-objects\\b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+  "ranges": [
+    [
+      1,
+      362
+    ]
+  ],
+  "prospective": true,
+  "purpose": "Prospective exact EOF362 qualification: metadata union requests1..369 but exact frozen source ends362. RawREG1055 retained, no rawbodyread attempted. Effective1..362 registered beforebody. All13 mandatoryqualification, no newidentity or scopedextension.",
+  "provenance": "Transported exact registered object",
+  "inherited_scope_extent_qualification": {
+    "kind": "Frozen Git exact-byte EOF qualification",
+    "original_index": 2197,
+    "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+    "actual_EOF": 362,
+    "raw_requested_range": [
+      1,
+      369
+    ],
+    "effective_range": [
+      1,
+      362
+    ],
+    "excluded_nonexistent_ranges": [
+      [
+        363,
+        369
+      ]
+    ],
+    "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/part.rs",
+    "inherited_metadata": {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+      "snapshot": "pr-working",
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "scope_kind": "materially_reached_owner_contract",
+      "bytes": 13741,
+      "owner_contract_proofs": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 130,
+          "read_ranges": [
+            [
+              1,
+              160
+            ],
+            [
+              335,
+              369
+            ]
+          ],
+          "contract_refs": [
+            "RIG-OWNER-ARMOR-GPU-SHELL-041"
+          ],
+          "read_status": "partial_current_lens_source_read",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/gpu/part.rs"
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 214,
+          "read_ranges": [
+            [
+              1,
+              362
+            ]
+          ],
+          "contract_refs": [
+            "RIG-OWNER-ARMOR-NATIVE-MATERIAL-087"
+          ],
+          "read_status": "full_current_lens_source_read",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/gpu/part.rs"
+        }
+      ],
+      "current_owner_suppliers": [
+        "rig"
+      ],
+      "audit_owner": "rig",
+      "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-019",
+          "json_pointer": "/fresh_current_source_reads/11",
+          "source_id_as_recorded": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              160
+            ],
+            [
+              335,
+              362
+            ]
+          ],
+          "source_context": {
+            "assigned_index": 443,
+            "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+            "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+            "read_ranges": [
+              [
+                1,
+                160
+              ],
+              [
+                335,
+                362
+              ]
+            ]
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        }
+      ],
+      "producer_inventory_accounting": {
+        "initial946_cell": false,
+        "frozen1650_supplement_index": 1501,
+        "new158_material_role_packet": false,
+        "expanded36_context_variant": false,
+        "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+        "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+      },
+      "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+    },
+    "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1055.json",
+    "superseded_registration_sha256": "4d11605435a70948958ce344f063bdbc4b66adee79fdfd016beca4c8dd368e78",
+    "failed_read": "No rawbodyreadattempted: register1053 metadataEOF output362 detectedovershoot beforebody. RawREG1055full369 retained; prospectiveREG1063full362 beforefirstbody.",
+    "limits": "All13 independentlenses mustqualifyexacthashEOF362, no363..369credit/newidentity/scopedextension or otherlenscoverage.",
+    "mandatory_lenses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "new_global_source": false,
+    "other_lens_coverage_transferred": false
+  }
+}

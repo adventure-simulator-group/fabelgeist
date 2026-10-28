@@ -1,0 +1,270 @@
+{
+  "lens": 11,
+  "batch": 305,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1977,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-820.json",
+      "registration_sha256": "2bcf4df8a30b34895fc132c970c78ab8df323a9e21106de938cca6adf15e650f",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+      "sha256": "7a0b3a8a4149fccbcca7de846096d3935ba19c76ec08656385cb421b19a70bf7",
+      "scope": [
+        [
+          1,
+          349
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          349
+        ]
+      ]
+    },
+    {
+      "original_index": 1978,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-821.json",
+      "registration_sha256": "3b83734bc32b107e0e5d011066bbafea752c65b68514e314fe14edf8af6fe26b",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+      "sha256": "3f691c1bd9644eff005d95abba6f62c0c89a8b0ed2ad2f54112a4b19321140f3",
+      "scope": [
+        [
+          1,
+          36
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          36
+        ]
+      ]
+    },
+    {
+      "original_index": 1979,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-822.json",
+      "registration_sha256": "28056ee45e8aae8d1bada7e9f96f818eec660ef6bbe9bd4191f55acf6926e10d",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+      "sha256": "e65174baeec670a652bbab20759b78eee8e4298bb06332eaf027a7ef6f28c509",
+      "scope": [
+        [
+          1,
+          21
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "original_index": 1980,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-823.json",
+      "registration_sha256": "570488a7c14a865aaab0ff96e3b39518dd9c07f3126e5e52c6ea2d9834571a8b",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+      "sha256": "d1dc987945cf487f097125d544dd536513a1e62e2cec5c21e898698e8e1883f8",
+      "scope": [
+        [
+          1,
+          102
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          102
+        ]
+      ]
+    },
+    {
+      "original_index": 1981,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-824.json",
+      "registration_sha256": "bc02cb5e52adeca76c427ac4e90f39082c55c942221b65bc631311bf3890b92e",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+      "sha256": "a661575cb030eb98630e010d43a9abba58071c261328a6e344d886f323ae2d51",
+      "scope": [
+        [
+          1,
+          142
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          142
+        ]
+      ]
+    },
+    {
+      "original_index": 1982,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-825.json",
+      "registration_sha256": "2f3ecaa1d06726b05040d7b0699eb531e1acd46ca6fe47927de9f5c526bdbca1",
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+      "sha256": "2b6ea6abaeb692db9921b48233e4e180f82d6db8b98c0b1d291d7d17e09ea770",
+      "scope": [
+        [
+          1,
+          176
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          176
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1977
+      ],
+      "ranges": [
+        [
+          1,
+          349
+        ]
+      ],
+      "roles": "Independent lens11 full diagnostic capture/provider/measurement ownership and error propagation.",
+      "disposition": "Full349 compares four exact semantic TerrainStageRole variants, resolves byrole notarrayordinal; fixed private source construction contains all4, expect cannot fail via public wire here. Loads exact scene/stage input and canonical SourcePackageDigest match before generated/source capture; full production context prepared before grading. Actual collisionbounds centre aligns outline and threshold projection; source ranges/complete triangle overlay distinct from exact corner probes. Requested rawu64 building IDs CLI parsed then verified every requested present and nonempty before report. Box<dyn Error> preserves underlying causes from actual fallible compile/generation/IO; locally authored provenance/no-support failures plain strings omit structured context, all20 error ownership/report family pending. Explicit scope doesnot certify controller/collision/render acceptance; stage reorder test source-only."
+    },
+    {
+      "source_indices": [
+        1978
+      ],
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "roles": "Independent lens11 full diagnostic capture/provider/measurement ownership and error propagation.",
+      "disposition": "Full36 diagnostic capture retains semantic TerrainPreparationPurpose enum, raw input digest versus canonical source digest, SceneTerrain and deny_unknown_fields wire. geographic_surface checks exact input digest and imported package equality then full presented source admission; does not itself restrict purpose CompleteSceneContext vs PropertyAssetIsolation. Actual inspecting consumers mustcheckpurpose before treating isolated capture as complete; next1983/othercaller pending. Not production scene format or strategic persistence."
+    },
+    {
+      "source_indices": [
+        1979
+      ],
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": "Independent lens11 full diagnostic capture/provider/measurement ownership and error propagation.",
+      "disposition": "Full21 calls capture geographic_surface before writes; metadata trianglecount/scope followed by capture JSON. Two writes may partially publish diagnostic output if second fails; actual capture consumer identity/content contract before stale-artifactfinding. Purpose policy actualcaller pending; no product schema change. IO/serde errors retained in boxed source errors, metadata is diagnostic evidence not gameplay acceptance."
+    },
+    {
+      "source_indices": [
+        1980
+      ],
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "roles": "Independent lens11 full diagnostic capture/provider/measurement ownership and error propagation.",
+      "disposition": "Full102 typed CornerProbeError retains Geometry source and exact missing/unsupported point, native shape-cast error mapped to unit category+point losing native source onlyif native error has materially distinguishable variants; dependency before errorfinding. Ray/nearest/cylinder/height-query observations explicitly distinct, full static supportcolliders materialized once, checked SupportQuery from bearing. Native arithmetic/cylinderconstants output diagnostics, no tactical persistence. Enclosure projection and collider admission fallible typed causes retained, reported base/min/count metrics not acceptance proof."
+    },
+    {
+      "source_indices": [
+        1981
+      ],
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "roles": "Independent lens11 full diagnostic capture/provider/measurement ownership and error propagation.",
+      "disposition": "Full142 complete soil/bed/route/plant hull geographic triangle measurements, checked ScenePlanPolygon owner at boundary, sourcecollectionordinal Optionusize correctly distinct from property identity. Uses f64 perimeter*coordinate tolerance coverage bound and compares complete before/after intersections, explicit source coverage/contact/construction-vs-walking limits. Root projection failure becomes explicit passfalse/error final diagnostic text, not silently accepted absent support. Controller walking grade from default TacticalCombatConfig ratherthan actual process-selected config; diagnostic explicitly authored controller/default context, actual claimed report consumers/currentbefore configuration mismatch finding. No traversal/clearance certification inferred."
+    },
+    {
+      "source_indices": [
+        1982
+      ],
+      "ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "roles": "Independent lens11 full diagnostic capture/provider/measurement ownership and error propagation.",
+      "disposition": "Full176 offline final TerrainPack/current world-schema and inference-rule checks, explicit Wgs84CoordinateE7/StrategicMinute/canonicalSourceDigest admission before production dispatcher. Appearance operator IDs intentionally authored fixture enum/profile, not persistent residents. output JSON plus optional terrain stage/sourcecompound catalogue outputs retain inputdigest and same source/coordinate/seed; no source bypass generator. Raw settlement String CLI boundary resolved to actual world record, actual all20 identity ownership stillpending. Boxed typed load/generate/IO errors preserved; own absent/version/finalpack failures plain diagnostic strings pending canonical error family. No export executed/filesgenerated by this audit."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-280.json",
+      "sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-298.json",
+      "sha256": "6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-300.json",
+      "sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    }
+  ],
+  "pending_contracts": [
+    "305 full1977..1982 accounted,next1983 REG826328registeredunread;827..8311984..1988 alsoregisteredunread; next newreg832. No partial bodyreads.",
+    "PreparedTerrainCapture geographic_surface doesnotinspect enum purpose; actual inspected consumer1983 and otherapplicablepaths mustbe read before final purpose admission finding. Exact input/source identity alreadychecked.",
+    "All earlier qualified families/tenextensions/fourEOF/futurereuse/partial later129/L12/L13 remain. All13 population/current/all20/aliases/connected acceptance/dedup incomplete gatefalse acceptedunique0; no product repairs/execution/tests/commits/publication; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1983
+}

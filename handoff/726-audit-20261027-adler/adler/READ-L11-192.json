@@ -1,0 +1,172 @@
+{
+  "lens": 11,
+  "batch": 192,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1376,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-192.json",
+      "registration_sha256": "89c3ad8a9830d468784c6882e0750564221518f87b25b587b2cafda4babd7fb5",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/reach.rs",
+      "sha256": "1cc9f3d9d7158bd2ad9c143ad3256ce97afd1e58516d4f968a224dbfb1e52a70",
+      "scope": [
+        [
+          1,
+          148
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          148
+        ]
+      ]
+    },
+    {
+      "original_index": 1377,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-193.json",
+      "registration_sha256": "0e8f4e8ae28920bb9ffb6fc41abc839090452111d6bd9342ee076b51b337a69a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+      "sha256": "82541741fb7abc29a8018c22de3a815a496f10c8a19000345a9b5c708720a9c8",
+      "scope": [
+        [
+          1,
+          373
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          373
+        ]
+      ]
+    },
+    {
+      "original_index": 1378,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-194.json",
+      "registration_sha256": "6bce302d008cbd11885ba6113faede64bb19364f8b4ea10bbc57cb27a3c34eae",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs",
+      "sha256": "f5003b3bf06fa6b565747e7a1e37a08ca9ed66aeb64d6d702ca90268078203c6",
+      "scope": [
+        [
+          1,
+          297
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          297
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1376
+      ],
+      "ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "roles": "Measured segment lengths and deferred native reach operation.",
+      "disposition": "LimbSegments holds checked NonnegativeLength upper/lower from immutable chain snapshot; zero allowed length is rejected later by solve policy, not assumed positive. ReachLimit Fixed/Flexed/Extended/Landing binds operation inputs rather than eagerly retained possibly overflowing scalar. Explicit contract allows nonfinite native intermediate before later finite completed clamp; do not require every arithmetic intermediate finite or add incompatible positive-only input requirement. Terrain and ordinary clamp/weight order intentionallydifferent. Inverted landing interval Option maps typed InvertedBounds; completed SignedLength checks overflow. Actual solver admissibility follows next."
+    },
+    {
+      "source_indices": [
+        1377
+      ],
+      "ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "roles": "Stop/restart/raised contact ownership and terminal contact preparation.",
+      "disposition": "Actual visible retained foot targets preferred on handoff; boundedrelease active with no previousgoal is valid transition, narrows earlier correlated-option concern. Restart preserves acquiredcontact and restartsunacquiredfrompropagated endpoints. Finishidle promotes bothpresenttargets only after caller-rendered guard; no phantom target ifNone becauseFootPlantretain. Terminal prepare requires actualbothterrainheight samples before new target/plant preparation; seed before samplefailure is candidate mutation, notcomponent publish byitself. Typed SettleProgress/Elapsed and TerminalContacts distinct ownership."
+    },
+    {
+      "source_indices": [
+        1377
+      ],
+      "ranges": [
+        [
+          223,
+          373
+        ]
+      ],
+      "roles": "Actual terminal rendered ankle/toe acceptance and safe stance.",
+      "disposition": "Terminal acceptance requires both last-rendered ankle, retainedtarget and toe, close horizontal target, actual height and boundedsole/toe clearance; absent any witness false. It consumes prior propagation retained samples during current prepropagation pass, current-tick freshness not encoded locally; actual scheduling/observer timing and intended completion frame pending. Safe stance helper accepts targets and real terrain with COM projection, is not same actualrendered gate. Terrain support requires observed ankle/height. No tests run."
+    },
+    {
+      "source_indices": [
+        1378
+      ],
+      "ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "roles": "Balance capture planning from actual selected swing foot.",
+      "disposition": "Recentvelocity/knownunsafe stance/raisedhandoff triggers plan, actual renderedswing required via last-propagated or currentnativefoot; root is legitimate COM approximation only, never fabricated swingfoot. Capture+landing checked before seed/support/settle payload assignment. choose support canreturndefaultLeftwithnoobservations but caller thenrequiresactualoppositefoot before publishing complete plan; not standalone phantommeasurement finding. Supportacquisition frompriorFootPlant retained; exactstate helper stillpending."
+    },
+    {
+      "source_indices": [
+        1378
+      ],
+      "ranges": [
+        [
+          149,
+          297
+        ]
+      ],
+      "roles": "Explicit support selection, anatomical swing side and capture margin.",
+      "disposition": "Measured supportweight preference otherwise actualfoot relativeCOM choose support, missingfeet explicitpolicy; landingprojection/corridor then restoresforwardcapturemargin. Purpose-specific FootTrackSide avoids encodingsemanticfootinto lateral floats except nativegeometryboundary. Existing tests demonstrate diagonal capture/actualtrack/unsafeidle direction source intent, no executed/nativepipeline proof."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-187.json",
+      "sha256": "384f724657d2dd13432ad6a5573671a61bc6a7f39b73b02ce2b0357742e8d895"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-189.json",
+      "sha256": "a68730444c62595c5321a8e762a9366f327caa5cbce6b39a3f6ce17b0b4ae462"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-190.json",
+      "sha256": "cdc7a00ed64a26af256d37d15b0e1d80c6528b74f8033576246f892f53f2d878"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-191.json",
+      "sha256": "d4a0ce1e2f009f987fc1f2f2bf7d6d9a7d0f731123a31f2252eea74dc8ac3779"
+    }
+  ],
+  "pending_contracts": [
+    "No-target ordinary pelvis readiness remains unresolved: reach arithmetic policy documents native intermediate behavior, not first valid terrain observation semantics.",
+    "Terminal acceptance uses retained prior propagated sample in prepropagation owner; actual freshness/schedule/consumer requirements pending, no defect accepted solely from timing.",
+    "All13 populations/current/all20 families/aliases/connected acceptance incomplete; no product execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1379
+}

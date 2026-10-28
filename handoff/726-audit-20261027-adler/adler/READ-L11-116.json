@@ -1,0 +1,100 @@
+{
+  "lens": 11,
+  "batch": 116,
+  "status": "Original1218 exact351-line source scope accounted WITH findings",
+  "original_index": 1218,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+  "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+  "scope": [
+    [
+      1,
+      351
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      351
+    ]
+  ],
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-019.json",
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "roles": "Gateway/revision/living actor, party, canonical venue, pairwise personal time, NPC authority and conversation admission.",
+      "disposition": "The actual constructor parses the requested NPC as u64, resolves persistent resident/home settlement, validates organization authority and authoritative co-presence at actor frontier. Conversation has Player and Npc roles. Exact source objects for core admission algorithms and gateway/client still need separate scope; endpoint String erasure needs cause/code reconciliation. These checks establish meaningful admitted participant context, not arbitrary raw actor text."
+    },
+    {
+      "ranges": [
+        [
+          113,
+          151
+        ]
+      ],
+      "roles": "Parsed session identity, request reuse, player participant and native session state.",
+      "disposition": "ParsedDialogueSessionId associates owner character and nonce. Existing session compares conversation/settlement/location/catalog and revalidates existing presence; does not compare requested npc_actor_id to existing bound NPC. A second different co-present NPC with same conversation can satisfy incoming validation while existing session remains bound to original NPC. Qualified request-equivalence policy question related to prior receipt findings; actual client session-ID reuse/current source required, not an observed incident. Player participant deliberately uses character:<id> and Some(CharacterId), distinct from NPC numeric actor and None."
+    },
+    {
+      "ranges": [
+        [
+          152,
+          215
+        ]
+      ],
+      "roles": "Co-present candidate pool, distinct NPC assignment, role cardinality and live guard.",
+      "disposition": "NPC actor_id is produced from actual u64 character_id, selected primary then unused co-present residents; no arbitrary NPC strings constructed. At least one NPC role plus live guard materially rules out the earlier conditional empty addressee/malformed NPC hypothesis along this constructor path. Additional roles take first available candidate, with min>1 rejected; role compatibility/order/optional min policy needs catalog contract, not an inferred runtime defect. Existing typed ParticipantKind and source role cardinality should remain distinct from raw persisted role names. No all-constructor proof."
+    },
+    {
+      "ranges": [
+        [
+          216,
+          276
+        ]
+      ],
+      "roles": "Greeting response selection, aligned authored source coordinates, resolved runtime fragments and startup effect scope.",
+      "disposition": "Runtime fragments are actually resolved with authored speaker/addressee, and source refs derive per fragment/field/turn using canonical fragment variants. This confirms direct production caller of resolve_dialogue_fragments and inherited pairwise binding guard. response_id/start scope/session revision establish different source identities; tuple serialized aligned arrays remain an owning-record candidate. Startup effects no prompt row, which is intentional context rather than missing prompt universally."
+    },
+    {
+      "ranges": [
+        [
+          277,
+          351
+        ]
+      ],
+      "roles": "Rumor delivery source authority, exact session speaker, journal receipt and witness capability.",
+      "disposition": "Surfaces problem using requested primary NPC, selects observer/session delivery, distinguishes public threat from local problem authority, locates actual participant matching requested actor for speaker role, and invokes current-speaker referral renderer. Journal receive is restricted to LocalProblem typed receipt, then capability/topic refresh. Confirms actual referral production use and source-specific semantics. Comment overview fallback describes product discovery mode, not automatic forbidden compatibility. Source/read-model visibility and incident/receipt/currentness remain pending."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-111.json",
+      "sha256": "5bcc28845b4f1396ff46a283d10e46f99e7b24684433f6c22bc1cc2cba232d1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-113.json",
+      "sha256": "ee12142fe17c9a078a58823d040d33697d576b62054c4918befdebbb73274f27"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-114.json",
+      "sha256": "eebd1c49cb0897eb9ab19287777b9331a4d57bb17b1122078d50a9a580622b42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-115.json",
+      "sha256": "585870d41731c4a2aa8dc39d78800b87d02ca72a3d489febf61096972cb1b57a"
+    }
+  ],
+  "pending_contracts": [
+    "Every other participant constructor/mutator before global actor validity guarantee; catalog cardinality/order/role compatibility and whole core presence/temporal owner APIs.",
+    "Actual client session/action-ID generation and normalized request policy, native codec/schema/source-alignment, current source, aliases, all20 and all other population/extension/connected acceptance obligations."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1219
+}

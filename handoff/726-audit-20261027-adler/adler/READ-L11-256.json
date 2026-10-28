@@ -1,0 +1,318 @@
+{
+  "lens": 11,
+  "batch": 256,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1745,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-582.json",
+      "registration_sha256": "139b31a68d2699811d440b2abfa2629d53f7edcc678e758646a86ff1701b99e2",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+      "scope": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          600
+        ],
+        [
+          601,
+          800
+        ],
+        [
+          801,
+          1000
+        ],
+        [
+          1001,
+          1039
+        ]
+      ]
+    },
+    {
+      "original_index": 1746,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-583.json",
+      "registration_sha256": "87014f396894473003792fcc858d363f3ec1746ded0cd3b2675dcbf3cf5f1ebe",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+      "sha256": "4a377bed178aa3822eba2e6be0f9b97db5e7b8267ade2b3bdc90924241a074a2",
+      "scope": [
+        [
+          1,
+          140
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          140
+        ]
+      ]
+    },
+    {
+      "original_index": 1747,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-584.json",
+      "registration_sha256": "072e1d38b52cd9168387eb4b6d9b9a17d1c57499453db147e909f799e433e8b6",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "sha256": "35e0527b4916af005b7cf251be2808a43f5226c23fefc9287f14ae511c6b27e9",
+      "scope": [
+        [
+          1,
+          208
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          208
+        ]
+      ]
+    },
+    {
+      "original_index": 1748,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-585.json",
+      "registration_sha256": "7ec76c34ef2b22e3791ef9c69cd7073c4b8b222f590e0bb5ab19c5b910a811fe",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "scope": [
+        [
+          1,
+          17
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "original_index": 1749,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-586.json",
+      "registration_sha256": "8af4f3c17acb1d101dd4c1bd19c3500cb3f92bf4218e070b8d5b58523acb16cd",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "scope": [
+        [
+          1,
+          44
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          44
+        ]
+      ]
+    },
+    {
+      "original_index": 1750,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-587.json",
+      "registration_sha256": "afaa5a17a1372f2dbd83710c7594addde69b34ceb67783d2cd0a3d15c2c3f8a4",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/README.md",
+      "sha256": "b3acfbbe37624ffc0518b11dd27945d3d6c1258e0aa6759a95e2ca395b7ad5ac",
+      "scope": [
+        [
+          1,
+          239
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          239
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1745
+      ],
+      "ranges": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "roles": "Independent lens11 full exact nativeUI/audio/gameplaycontract/typegranularity/structured-error ownership; sourcefixtures anddocsnotexecution.",
+      "disposition": "Full1039 UI union includes every inherited extra range. Primary egui context explicitly onlyAdded TacticalGameplayCamera, excludes offscreen/strategic camera adoption; actual context/native schedule source notexecuted. UI identity/tag/string formatting at finalnativepresentation leaf is intentional, CharacterId remains owned until CSS/display. AttackResult/DefenderResponse/TacticalOutcome canonicalenums drive labels, queryerrors needed byResult retained; missingoptionalplayer/head/viewport skips UI and rootheightfallback is display anchor, not gameplayposition. Inventory update Changed<InventoryItems> dependency requiresactualitem/equipproducer before stalequantitylabelclaim. Wheel sources fromactualcombatstate/limbs/will; currentblackfatigue/greyencumbrance and100percentdisplayclip preserved, yellowforecast onlyvisual and no new movement/combat penalties. Self draw gatedstate.incapacitation>0 despiteforecasthelper admittingpositiveforecast withzerocurrent; actualcanonicalforecastproducer/correlation and intendedinitialpreview policy required before omittedpreviewfinding. Enemyzeroabsence intentionalsourcefixture. StableHUD/strategicmode hiding lifecycle and nativeegui viewportunits pending before overlay/DPIdefect; no runtime/testexecution."
+    },
+    {
+      "source_indices": [
+        1746
+      ],
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "roles": "Independent lens11 full exact nativeUI/audio/gameplaycontract/typegranularity/structured-error ownership; sourcefixtures anddocsnotexecution.",
+      "disposition": "Full140 actual wheel/label helper. Nine currentsegments, pain+acutetrauma pink, fatigueblack, imbalancewhite, encumbrancetranslucentgrey. Remainingcurrenttotal reservesdisplaybudget; forecast scales onlyavailablefraction andinterleavesyellow, cannot displace admittednonnegativeactualtotal before100percentclip. Current/forecastsources rawf32 are finalpainterkernel inputs; canonicalderivedvalue admission/all20sourceowner required before universalunitwrappers. Forecastnoneatcurrent>=1 intentional displaycutoff, zero helpercanproject; actualparentdrawgate qualification1745. Combat label finalstring usesonefatiguevalue, no hiddensecondary oxygen/per-muscle pool. Sourcefixtures not run."
+    },
+    {
+      "source_indices": [
+        1747
+      ],
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "roles": "Independent lens11 full exact nativeUI/audio/gameplaycontract/typegranularity/structured-error ownership; sourcefixtures anddocsnotexecution.",
+      "disposition": "Full208 actual rainaudio. Canonical RainAudioLayer/RainSurface enums retained until native assetpath/gain; UnitBasisPoints saturatesweatherintensity before nativeunitfractionmix. Missingground softbed and zero rainwhenNoEnv/snow legitimateoptional presentation policy, notlegacygeometry or physicalsupport substitution. Nativeconfig gain/exponent/threshold response owners requireactualTacticalAudioConfig admission before division/nonfinite claim. update independentlytakesfirstSceneEnvironment/SceneGround/listener, ignoring existingexplicitActiveTacticalScene choice; fresh1532context3..48 supportsmostrecentlivepolicy/multiplelivefallback, so audio selection is unbound to canonical sceneidentity. Actual multiscene/audio outcome/current unverified; no observedwrongrain/ground. Fullsourcefixtures read only.",
+      "context_reinspections": [
+        {
+          "original_index": 1532,
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+          "receipt_sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+          "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-356.json",
+          "registration_sha256": "cd1132790fca0d8d92c67ed21f1daa3aa802bde23930ef4ee9f7b87f78b273b4",
+          "source_sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+          "fresh_reinspection_ranges": [
+            [
+              1,
+              90
+            ]
+          ],
+          "additional_original_frontier_credit": 0,
+          "scope": "Fresh1..90 within earlier registered1532scope1..300, actualEOF577. Exactactivation/membership/mostrecentselector proof; no301..577 bodycredit, no whole577fileclaim or neworiginal/otherlens credit."
+        }
+      ]
+    },
+    {
+      "source_indices": [
+        1748
+      ],
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "roles": "Independent lens11 full exact nativeUI/audio/gameplaycontract/typegranularity/structured-error ownership; sourcefixtures anddocsnotexecution.",
+      "disposition": "Full17 frozen tacticalcore AGENTS source. Combat/movement/targeting/impact/animation runtime tuning belongscanonicalcontent/tactical/combat.yaml, typedvalidation/defaultsync andserver-loadedsnapshot; compiletime/protocol/math structuralconstants allowed. This is scoped owningguide contract, not source/testproof or permissiontoexecute. No Rust/manifestedits. CosmeticHUDpixelgeometry/capturecameraartisticpresets are not automatically new combatgameplaytuningfields."
+    },
+    {
+      "source_indices": [
+        1749
+      ],
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "roles": "Independent lens11 full exact nativeUI/audio/gameplaycontract/typegranularity/structured-error ownership; sourcefixtures anddocsnotexecution.",
+      "disposition": "Full44 tacticalcore Cargomanifest. Direct fabelgeist-geometry/determinism/building/world/core deps, optionalmeshgen/Avian-debug anddefaultnofeatures, workspaceBevycolor/serde/thiserror/libm etc. Canonical sharedscalar/frameworkfreeowner dependency graph partofall20scope; no inference build/MSRV/versioncompat or generatedbindings frommanifestdeclaration. No cargo command/build/test/scanner/generator."
+    },
+    {
+      "source_indices": [
+        1750
+      ],
+      "ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "roles": "Independent lens11 full exact nativeUI/audio/gameplaycontract/typegranularity/structured-error ownership; sourcefixtures anddocsnotexecution.",
+      "disposition": "Full239 owningcoreREADMEcontract read, not accepted implementationproof. Static scene/support/access products separatetransienttickauthority. Sharedgeometrydatums, canonicalScene/Building/Opening IDs, orientation[-pi,pi), compile-cacheexecutableidentity, finitegeometry/cause retention allneedactualcode. AnimationElapsed/sharedlinear speeds, blends>1/signedunwrappedphase, progressclampvsreject, samplingintervalvsmultiplier, nativefinitequaternion deliberatelynotunitnormalization, opaque reflection, explicit unavailable observations/recovery andMeleeAttackKeyzero ordinary retain precise documented distinctions for upcomingcode. Canonicalnamespace reexports not automaticallylegacyaliases; actualall20aliasownership graph required. No READMEedit/wiki or evidence-summarycommit."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-241.json",
+      "sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-250.json",
+      "sha256": "0ab04ff9b4c5befdbdd0ee2ba7405075381da0d279b9e300ecc2a9ee97666d2f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-251.json",
+      "sha256": "54a12494f41f525a231ff50d16e2180e42d501dcb280890e87cc1e02bc006b4a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-252.json",
+      "sha256": "e7729603daaf9fae26dc8b8392783c032e0e0459260816ab4c6ca2ff0471b529"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-253.json",
+      "sha256": "dbcb9b6fdb116f020d207508f9d2ea34b7f77533dd27b37a9c8ed5453827db88"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-254.json",
+      "sha256": "ed04a9af432005743576305fd8de7d2c3ea25b2246d96ea205689b19625d763f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-255.json",
+      "sha256": "8ef17f37d109d1c2710b41634a4f9f4b0a622db3410bff2119702130d65d13d7"
+    }
+  ],
+  "pending_contracts": [
+    "256 full1745..1750 metadataunion complete,next1751. All13 populations/extensions/current/all20/aliases/finaldedup incomplete,gatefalse/accepteduniquechange0.",
+    "Rainaudio canonicalscene binding sourcegap nowconnected viafresh1532selector1..90 underprior356/217 scope1..300(actualEOF577), zero301..577credit. Actualmultiscene/listener/ground/nativeaudio/current acceptancepending, no observedwrongambience. Relatedvisualweatherrevision241 remainsdistinctuntilfinaldedup.",
+    "UI forecastdisplay0currentpredicate versushelperpositiveforecast needsactualcoreforecastproducer/correlation/initialpreviewpolicy beforefinding. Wheelonefatigue,encumbranceonce,forecastyellow and100percentcutoff preserved inreadsource; no runtime/gameplaytestpass.",
+    "CoreREADME authoredcontract notimplementationproof, especially finiteorientationnotunit, unsignedtickvswrap, gainvsunit, signedphases/contactoffsets/zerorecoveryvsunavailable; upcomingcorecodeall20required. No documentation/AGENTSclaims inheritedasverdict.",
+    "Eightboundedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L13 andL12/L13 unchanged.Nextregistration588 original1751 metadataunion beforebody. No productchanges/execution/CI/newtests/commits/publication/externalmessages;goalactive/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1751
+}

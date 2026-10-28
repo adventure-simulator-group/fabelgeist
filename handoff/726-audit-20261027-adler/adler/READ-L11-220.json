@@ -1,0 +1,474 @@
+{
+  "lens": 11,
+  "batch": 220,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1562,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-386.json",
+      "registration_sha256": "6be732b735f436d08aa9e48ab3915739ddd9dbf8c18bdb8234e71c84fcae2ac5",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+      "scope": [
+        [
+          1,
+          322
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          322
+        ]
+      ]
+    },
+    {
+      "original_index": 1563,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-387.json",
+      "registration_sha256": "c3787fce799eea0558dcfde154e8afe5d763605753ca339e9930731793b1fe64",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/layers.rs",
+      "sha256": "0e61965bb7febc3e4d4ebcb0aee7aefd10c0985e79dd8d912e9bf332a3566fdc",
+      "scope": [
+        [
+          1,
+          18
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "original_index": 1564,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-388.json",
+      "registration_sha256": "51b6d4fc87e816272a0119a227b57a73523b7ad1536a1b21179d915f3d660788",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "sha256": "f62cff728e5975471e4fdf4e7860b6c8bc7a5cca3029e579b2fbdace6fde82b4",
+      "scope": [
+        [
+          1,
+          964
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          600
+        ],
+        [
+          601,
+          750
+        ],
+        [
+          751,
+          900
+        ],
+        [
+          901,
+          964
+        ]
+      ]
+    },
+    {
+      "original_index": 1565,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-389.json",
+      "registration_sha256": "f4674315612f56421b44090c4cc152d361666c4d7ec3c96fc0b7e863ef2d7efa",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/assets.rs",
+      "sha256": "f665b74f46d6c4bbc34a478c6c53616af25118ee90528ceb68edb558a807bca2",
+      "scope": [
+        [
+          1,
+          68
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          68
+        ]
+      ]
+    },
+    {
+      "original_index": 1566,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-390.json",
+      "registration_sha256": "f886cec56688cc9fe2f7a70bd7f4b0c1f6a262b9acb3e059070674a3fd327ba8",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+      "sha256": "8c3a2661fde2fbe6cdd22710e282ee606e4a3126071315d4d202d85c211305cf",
+      "scope": [
+        [
+          1,
+          129
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          129
+        ]
+      ]
+    },
+    {
+      "original_index": 1567,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-391.json",
+      "registration_sha256": "508f7b45a46a8e6dff8193f549b4b0bcb1395f01541253343e3a14f43a43dc3b",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+      "sha256": "62a7640d999653991c48ac18f49aef2c03981b53739cdb02e46983582bb71b11",
+      "scope": [
+        [
+          1,
+          122
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          122
+        ]
+      ]
+    },
+    {
+      "original_index": 1568,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-392.json",
+      "registration_sha256": "3a0ab34cfc104553f3e5264a915d1d03e0fd9931b84cd8846a3af368672035af",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/geometry.rs",
+      "sha256": "e5e98d3e8ea4894a4d531ed56439fd85dee6fa6f6945c5f724a330d83f6531ca",
+      "scope": [
+        [
+          1,
+          58
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "original_index": 1569,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-393.json",
+      "registration_sha256": "353c100ee6f2ebbd0d54de0e0eb0eff2662d27a488ef0aa7bd8751ea2ee7c17d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/mesh.rs",
+      "sha256": "9f5f7ea3b29228456efef67b2ec04fa48dc8b5950f5561aa912185781d4f6932",
+      "scope": [
+        [
+          1,
+          257
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          257
+        ]
+      ]
+    },
+    {
+      "original_index": 1570,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-394.json",
+      "registration_sha256": "2038dc049efbe1cb088f54879577d23546ae95188c6ea46cca365b2e63ee0f92",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs",
+      "sha256": "8837d5ffdc23783fd82a7946e6b46deea41b1c779cc09adf842577cdd7c6b992",
+      "scope": [
+        [
+          1,
+          78
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          78
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1562
+      ],
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "ShrubRepresentation enum and species retain distinct branch/cambered/card semantics until native material/instance emission. All species instances constructed from admitted terrain point/height/normal and checked Position<Scene>; same placement walk intentionally reused, plumb yaw deliberately drops terrain tilt, not a retained legacy renderer solely from comment. Empty species skipped before fitted_batch_aabb, so no empty-AABB finding. Missing cache mesh/material skips and bark pigment fallback require actual cache preparation/asset ownership before lifecycle or erasure claim. Fast lighting/no shadows/A2C stated rendering policy; shader bodies not credited by path names. Shader seed low32 native payload deliberate, no topology truncation analogy."
+    },
+    {
+      "source_indices": [
+        1563
+      ],
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "GroundScatterLayer six-way enum plus distinct Presented/locally-controlled GrassInteractor marker read in full. No stringly layer dispatch or optional boolean aggregate established. Local-control marker clarifies intended interactor authority, but actual marker insertion/multiple-actor lifecycle still pending."
+    },
+    {
+      "source_indices": [
+        1564
+      ],
+      "ranges": [
+        [
+          1,
+          964
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "Full964 including exact original full owner and supplementary1..205 role union read. Typed metre geometry and named Seed streams retained through LitterPlacement and native mesh. Population constants authored fixed budgets, not unvalidated user-config topology. Assets indexed after nonempty cached catalogue assumption; downstream assets389 prepares4/3/3 generated nonempty families, retained cache owner still pending. MeshMergeError propagated rather than formatted early. Capture roots and diagnostics collected before append result; append missing-source returnsOk means rendered-anchor guarantee depends retained prototype availability, not proven failure. Proximity grid indexing and signed radius depend SceneGround canonical dimensions/scale, no arbitrary extreme-input panic accepted. All material/visibility/topology/palette/anchor fixtures source-only, none executed. Actual twig cross-section production357 uses named TWIG_SIDES whereas exact topology fixture929 uses raw hash%2; linked seed/stream owners establish different authorities, no per-variant failing value computed. Test-local seed search566..576 deliberately finds plant presence and is not an authoritative fixed acceptance fixture proof."
+    },
+    {
+      "source_indices": [
+        1565
+      ],
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "PreparedFamily stages all missing family GeometryResult<Vec<Mesh>> before install of any retained cache entry51..67. This rejects partial retained-cache publication suspicion on generation error. Retained handles cloned as intentional scene reuse, not compatibility path. Fixed4/3/3 nonempty generated families support actual catalogue indexing; externally mutated/removed cache or optional empty retained Vec require actual owner/current evidence. Does not verify each retained handle exists in Assets during reuse."
+    },
+    {
+      "source_indices": [
+        1566
+      ],
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "Native batching preserves checked scene root until Transform port; positions rebased to24m cell, error from Mesh::merge retained. Missing prototype24..25 returnsOk and omits batch, so any failure/diagnostic finding needs actual retained-asset lifecycle. Prototype meshMAIN_WORLD from393 versus transformed uploaded batchRENDER_WORLD explicit; do not repeat rejected assumption render-only usage necessarily removes whole Image/asset without native type extraction contract. Fixture exercises two CPU scene batches but no real render extraction, read-only. Cell integer capacity depends scene admitted bounds, not automatic bug from ascast."
+    },
+    {
+      "source_indices": [
+        1567
+      ],
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "GroundLitterCapturePair owns distinct checked Position<Scene> leaf/twig roots and PairCandidate checked NonnegativeLength; planar separation explicitly native spatial hash contract. Zero cap/zero separation returns empty, deterministic full position tie-break ordering and maximum_pairs prefix intentional. No uniqueness requirement stated, so repeated leaf/twig across candidate pairs is not automatically defect. Finite roots alone do not prove i32 cell neighborhood capacity; actual scene extents/cell minimum needed before overflow finding. Capture represents generated placements; actual rendered guarantee depends batching asset presence, not batch-cell origin. No capture/runtime probe."
+    },
+    {
+      "source_indices": [
+        1568
+      ],
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "LitterPatch explicit renderer-owned GeometryFrame; RosetteLeaf/CamberedLeaf/TwigStation retain typed point/direction/displacement/elevation/positive spans, TwigCrossSection enum5/6 sides and TwigBase closed/fork explicit alternatives. No numeric enum compatibility or redundant public parameter authority. Distinct station points not guaranteed merely by finite PositiveLength, but owning fixed recipe construction read388 before native normalization, so no arbitrary coincident-station panic claim."
+    },
+    {
+      "source_indices": [
+        1569
+      ],
+      "ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "Native kernel converts checked patch geometry to arrays/indices at final mesh leaf. GroundLitterMeshData private; actual fixed catalogue bounds its vertex counts, so usize->u32 here not same unsupported-config topology as219. Four twig rings, optional closed base and apex give side*4+2/side*8; fork omits base gives side*4+1/side*7, confirming fixture formula shape but not its raw-parity side oracle. MAIN_WORLD prototype retention explicit150..154, per-attribute vectors populated consistently by actual recipe. Geometric reference-axis choice intentional normalization policy; no legacy fallback allegation. Cambered leaf nine-point area-normal and rootUV ABI, authored nondegenerate spans; no mesh generation performed."
+    },
+    {
+      "source_indices": [
+        1570
+      ],
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "roles": "Full exact owner/producer/reached/native source and included fixtures; source-only independent lens11.",
+      "disposition": "LitterPlacement carries checked Position<Scene>, native Quat/scale and semantic BatchKind until batching. Named jitter/yaw/scale draws, optional coverage/terrain admission and slope threshold intentionally reject unavailable/nonconforming sites. Height offset/kind-specific scale selected once; full root checked before retention. Comment arithmetic-order preservation does not establish forbidden compatibility alias or dual renderer. Native finite/scale invariants derived authored coefficients and actual admitted terrain, runtime/current pending."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 2249,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-396.json",
+      "registration_sha256": "d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7",
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "source_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "scope": [
+        [
+          1,
+          213
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          131
+        ],
+        [
+          132,
+          213
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Seed/StreamId complete213 full union read. Named stream seeds BLAKE3 length-framed root/purpose/context, then rng uses derived seed, so named twig side sampler is distinct from raw parent parity by contract. SeedHash/Ord preserve explicit canonical bytes/numeric order; serde record/ParseIntError/From<u64> leaf explicit, native rand versions are actual integrations, not deprecated compatibility aliases. Fixture reference BLAKE3 hashing intentional independent oracle, no runtime verification."
+    },
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 2250,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-397.json",
+      "registration_sha256": "5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40",
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "source_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "scope": [
+        [
+          1,
+          169
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          169
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "DeterministicRng full169. SplitMix64 owns full-width draws; index samples fixedu64 using Rand Uniform(0,NonZero) then checked usize conversion, no parentword modulo contract. Empty catalogue panics documented, optional owners must prehandle; litter actual generated counts nonempty. SamplingError retained categories, zero/allzero/overflow weighted admission explicit; pinned rand error unreachable native contract not generalized arbitrary failure. rangef32 admits finiteordered endpoints but arithmetic result bounds/extreme range ownership remains separate native/current issue, not evaluated by this call graph. RejectionProbe source only."
+    },
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 2248,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-398.json",
+      "registration_sha256": "73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601",
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+      "source_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "scope": [
+        [
+          1,
+          58
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          58
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Determinism public exports and exact highbit24/53 inclusive/halfopen unit conversion source58 complete. Native SplitMix64 seedzero sequence/endpoint fixtures read but not executed. Reproducibility conditional on canonical inputs/draw sequence explicit; replay marker/fixture updates required for intentional output changes, no claim existing twig raw-parity oracle follows current namedstream."
+    },
+    {
+      "kind": "Existing later-material full same-lens source read, no original credit",
+      "population": "later-material",
+      "population_index": 5,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-395.json",
+      "registration_sha256": "a294e4af5bbb11e2b6d106aff2738228ef8c406aa119bb3ea9b4e7f79f22367e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+      "source_sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+      "scope": [
+        [
+          1,
+          53
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          53
+        ]
+      ],
+      "new_global_source": false,
+      "additional_original_frontier_credit": 0,
+      "disposition": "All53 actual imported purpose constants read independently under existing later-material5. TWIG_SIDES is visual.ground-scatter.litter.twig-sides distinct from TWIG/FORK and raw parent bits. No ordered later-population or other-lens body/verdict credit; no new globally reached source."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    }
+  ],
+  "pending_contracts": [
+    "220 accounts9 ordered original slots1562..1570; connected future2248/2249/2250 fullsame-lens proofs and later-material5 full53 add no ordered/global credit. No other lens transfer.",
+    "All13 populations/extensions/current/all20/aliases/connected acceptance incomplete; gatefalse/accepted unique change0, earlier qualifications retained.",
+    "Twig production namedstream versus fixture rawparity authority mismatch established independently, exact pervariant test failure not measured or computed. Later5 was already registered, not new source.",
+    "Cache preparation stages missing families before installs; retained handles nonempty/existence/lifetime depend actual GroundFoliagePresentationCache owner. Missing get returnsOk may suppress geometry but no actual runtime loss established.",
+    "Native geometric reference-axis, optional coverage rejection, retained CPU prototypes, fixed catalogue sizes and instanced plumb shrub rendering intentionally distinct from compatibility fallback. No arbitrary wrapper demanded at native leaf.",
+    "Future first ordered adoption queue:1589 REG274 READ206;1612 REG373 READ218;2248 REG398/2249 REG396/2250 REG397 READ220. Explicit proof reference or fresh reread required; no double count.",
+    "Next1571 loose_stone676 then1572 spawn250 and1573 ground_scatter/mod522; register exact union before body. Other source populations/current/acceptance gates remain open.",
+    "No product changes/builds/tests/lints/scanners/generators/runtime probes/CI fixes/commits/publication/external messages; ignored local source/evidence bookkeeping only."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1571
+}

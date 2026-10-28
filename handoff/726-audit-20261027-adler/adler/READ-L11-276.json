@@ -1,0 +1,207 @@
+{
+  "lens": 11,
+  "batch": 276,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1837,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-677.json",
+      "registration_sha256": "642e882f74c1c3f2ceeacf28aa4398f651490ec775678e46660f129a46c9d9f3",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/query.rs",
+      "sha256": "f10e81a1d2a2040a7bb9aaaf1cb83951a49f47404a6c2e7ae3db66175b393637",
+      "scope": [
+        [
+          1,
+          61
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          61
+        ]
+      ]
+    },
+    {
+      "original_index": 1838,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-678.json",
+      "registration_sha256": "cea1b0e661ff595d514651312c49a87137a07c9cc960716fdf2a0cfa766d1e6c",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "sha256": "c4827110d150c745990de0f5da9e210b9dfd0797122a4cd661ef7353d2142084",
+      "scope": [
+        [
+          1,
+          127
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          127
+        ]
+      ]
+    },
+    {
+      "original_index": 1839,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-679.json",
+      "registration_sha256": "ba66307dc141e950ff9f01c9f0f1a6ffc36c19197e5a5ce39cf833c0590329f1",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+      "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+      "scope": [
+        [
+          1,
+          115
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          115
+        ]
+      ]
+    },
+    {
+      "original_index": 1840,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-680.json",
+      "registration_sha256": "86496c0b59d0ef09b29dbf051c4c47441e36592b24c8930e35f68a869dfd8b3c",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+      "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+      "scope": [
+        [
+          1,
+          281
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          281
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1837
+      ],
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "roles": "Independent lens11 full query/compoundselection/singleplan/apron semantic/rawkernel/cause andpublication ownership.",
+      "disposition": "Full61 SupportQuery explicitfiniteScenePlanPoint plusSupportCeiling::Bounded(SupportElevation)/Unbounded; no InfScenePosition sentinel. NativeVec3TryFrom finiteXY/Z typedframedGeometryError, ceiling+contacttolerance iscompletebooleancomparison: intermediateInfmaycorrectlyadmitallrepresentablefiniteelevationswhenrealboundexceedsf32MAX, notautomaticretainednonfinitegeometrybug. Publicpoint/ceilingfields remainvalidtypecombinations, actor-specificclearance suppliedcaller. Compile_failwrongframedocsnotexecution. CanonicalsharedElevation/ScenePointaliases/currentall20 stillpending."
+    },
+    {
+      "source_indices": [
+        1838
+      ],
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "roles": "Independent lens11 full query/compoundselection/singleplan/apron semantic/rawkernel/cause andpublication ownership.",
+      "disposition": "Full127 CompoundSupportRequest actualselection levelthenTerraced onlyCutFill/AccessGrade/StairGoing, earlyotherbinding/geometryerrorsretained. Firstlevelcandidatepassescompileuniquemember/threshold/route checksbeforelaterretryconstraints; retryfind routescannotinventnearestbinding. candidate privateunboundcompile ->completeaffinebounded_floor_shift -> checkedtypedlevels translated ->recompile ->bindstreetentry ->support_surface validate_source_controls beforeplanreturn. Thisactualfinalsourceacceptanceconnectionnarrows268point-onlydisplacementhelperclaim; no resultpublishedaftermereheightprobe. Calledstreet_gate_level beforecompileinputvalidation, actualpublicproperty/provider admission andhelperfinitepolicy needtracebeforeinvalidinputpanicfinding. Selectedrawclampscourt/rear toreachablefloors intentionalengineeringselection, nophysicalspeed/fatiguepenalty."
+    },
+    {
+      "source_indices": [
+        1839
+      ],
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "roles": "Independent lens11 full query/compoundselection/singleplan/apron semantic/rawkernel/cause andpublication ownership.",
+      "disposition": "Full115 singleplan requesttypedproperty/bearing/region/entranceidentity/supportrole/ScenePoint/SceneDirection/geographic/policy; uniqueentrance required, absentMinimum andduplicateExactbound diagnostics preserveentrance. OnlyArchitecturalFloor entrances constructaprons, sortedlowestentrancefloorselection whileoriginaladmittedthresholdorder retained. Alllocalaggregatebuild sourcecontrolvalidate +admit_generated bef oretypedplanreturn; publicresultproperty/floor/thresholds/surface fields allowlaterinconsistency butactualconsumeradmission neededbeforewireauthorityfinding. Actualfloor/bearing/apron-surface code nextunread, nocreditfromprivatefunctions. Multipleappendpartiallocalerrorsnotpublishedunlikearbitrarysharedmutableselfclaim."
+    },
+    {
+      "source_indices": [
+        1840
+      ],
+      "ranges": [
+        [
+          1,
+          281
+        ]
+      ],
+      "roles": "Independent lens11 full query/compoundselection/singleplan/apron semantic/rawkernel/cause andpublication ownership.",
+      "disposition": "Full281 singleapron finiteSceneDirection typedbutnativeunitlengthrecheck usescontactlengthtol dimensionlesscomparison: actualPlanDirectionowner andpolicyintent beforeunitmismatchfinding. Actualavailable_run Infinity maximum caller66..73 nowconnected: explicitextent-from-private-regionspolicy, notinvalidterrain/legacydefault. secondboundinternal_run+configuredrun, contactstripreserve; source_pair boundarycheckedScenePoint preservesFramedGeometryError orSourceSample no fabricatedheight0 (array0onlyinitializedthenallfilledorErr). PreparedApron nativefields localnumericalkernel, floor_interval wrapscomputedbounds infiniteSupportElevation typewithoutcheckedctor; PositiveLengthpolicy canbeverylarge/small, actualfloor_select/intervalboundedconsumer/engineeredpolicy before semanticretainednonfinitefinding. Crossedminmax intentionallykeptforinfeasibilityandfixtureassertion ratherthanreordered/clamped. append_to localcalleraggregate buildscheckedregionthenmeshunionandpushregions, fulltransactionatSingleRequestselect result only. No newtest/nativeexecution."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-266.json",
+      "sha256": "b72d261271583a8c9d18c8e7401745cd081b355ea69a23cd2ebe9cc56e5aa50a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-268.json",
+      "sha256": "b5413b9cc004828f8ac1a43b56423e9f461f20c714de6c38706c883e4c7b7e1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-269.json",
+      "sha256": "fc8d370a5eeefdf3ea8cdd9de8173fabffc67a26fda6a1822689d33b192a8773"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-272.json",
+      "sha256": "35b60435bb78f200471ebf07c89713af991d2cb90a52b434e4bcccf6ceb7ad6f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-275.json",
+      "sha256": "a6cec4d4cfcf939d571330e3bfd99a9776ac3098891988460b184e9f3bd66450"
+    }
+  ],
+  "pending_contracts": [
+    "276 originals1837..1840 fullchanged/metadataunioncomplete,next1841 unregistered,newregistrationnext681. Actualfloor/bearing/apron-surface/admit_generated next neededbeforefinalgrade274/priorprofile275 reachabilityclassification.",
+    "Compoundselection actualfinalsupport_surface.validate_source_controls connection showscompleteintersections/banks beforeselectedplanreturn, narrowspoint-onlyacceptance268. Level/terraced constrainedstrategysearch iscurrentengineeringpolicy notlegacyfallback.",
+    "Singleapron usesactualavailable_run Inf intentionalunboundedprivateplotextent nativekernel; doesnotmanufactureinfiniteScenePoint. Its FloorConstraints computedSupportElevation directwrap possibleunboundedinterval needsactualfloor_select/engineeredpolicy/typedretention tracebeforefinding, no coercedbounds orsilentcrossedswap.",
+    "Allpriorfamilies/tenall13extensions/auditonly1800EOF/native4and1622EOF/future2248/2249/2250/2701/2708/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1841
+}

@@ -1,0 +1,185 @@
+{
+  "lens": 11,
+  "batch": 147,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1268,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-075.json",
+      "registration_sha256": "5b07ceaf57a7e5c5bc68363ffd9010be6d15da3d99a8b66d69e9136c0e3e7635",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "scope": [
+        [
+          1,
+          1325
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          270
+        ],
+        [
+          271,
+          535
+        ],
+        [
+          536,
+          800
+        ],
+        [
+          801,
+          1065
+        ],
+        [
+          1066,
+          1325
+        ]
+      ]
+    },
+    {
+      "original_index": 1269,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-076.json",
+      "registration_sha256": "df18d9c84a006b0347e2e8f8c4c095b15a6acca93488a1f1ca5fba9465ba641d",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "scope": [
+        [
+          1,
+          171
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          171
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1268
+      ],
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "roles": "Actionable leader identity, equipment preference, fixture provenance/ambiguity and bounded contract observation.",
+      "disposition": "Leader predicate binds alive+authoritativeleader+party, anonymous independent IDs should become admitted identity capability without adding stale authority. Equipment score is policy utility mixing authored normalized weights, not gameplay physical-unit equation; preserve purpose score vs mass/protection/reach. Public fixture exactly-one ID0/runID and direct/generated roles match expected two parties, but allows either permutation; laneplan later checks directcontract, exact designatedroles needed before swapped fixture verdict. Pair tuples (leaderID,partyID) already have FixturePartyIdentity nearby, reuse. Contract wait uses wallclock timeout separate strategicminute, rejects ambiguous new offered eligible matches."
+    },
+    {
+      "source_indices": [
+        1268
+      ],
+      "ranges": [
+        [
+          147,
+          405
+        ]
+      ],
+      "roles": "Run-error preservation, validated deployment, explicit subscriptions, fresh DB/import provenance, claimed run and gateway re-subscribe.",
+      "disposition": "FailureRecorder preserves original error vs secondary report failure through CoreLoopRunError sum. Config.validate precedes environment/network builder. Initial simulation_run check rejects reuse; fixture rejects preexisting import/settlements, imported mode pins manifest/completion/settlement and claimed run nonce. Claim exactly-one row and fresh gateway subscription address visibility refresh without asserting runtime concurrency. Clinical subscription comment conflicts actual public limb_injury source: see connected reinspection finding. Other backend physiology charts/limbs and actual consumers remain pending; no livecalls/database/network during audit."
+    },
+    {
+      "source_indices": [
+        1268
+      ],
+      "ranges": [
+        [
+          406,
+          640
+        ]
+      ],
+      "roles": "Deterministic bootstrap identities, actual component configuration/fixture damage/disease, ordinary join requests and questlane admission.",
+      "disposition": "Generated characterID seed is distinct profile agentindex and NPC biologicalseed. Uses actual reducers through typed ReducerOperation tags, fixture disease onlyagent0, joins ordinaryrequest/accept. Group nonempty/maxparty and all callback visibility assumptions owned by balancedgroups/call contracts, not established from indexing. Quest fixture state held as two correlated Options and anonymous tuples then expects/unwraps; AdmittedFixturePlan could own required two party identities and lane state. Candidate pure authored enemy used power estimate, actual serverseed distinct; do not claim simulation seed reproduces server RNG."
+    },
+    {
+      "source_indices": [
+        1268
+      ],
+      "ranges": [
+        [
+          641,
+          1068
+        ]
+      ],
+      "roles": "Per-character absolute baseline/elapsed budget, recovery/journey closed outcomes, quest policy and bounded cleanup.",
+      "disposition": "Elapsed from each immutable start, leader change resolves its own baseline, terminal cycles and recovery-resumed exception deliberate. Rich ExpeditionRecoveryOutcome/JourneyTravelOutcome already retain holds/resume/return/evacuation. Quest path raw string is constructed then stringmatched with wildcardactivity, selectionreason strings +bools duplicate sums; purpose QuestDecision enum can own actual directcontract/generatedcase/activity payload, renderstablelabels at traceport. Activity no-progress fallback and final rescue/medical cleanup deliberately allowed outsideordinarydurationbudget, not backwardcompatibility. Recovery returned/evacuated uses starting settlement EnsureActivity; actual destination semantics needed before staleplace defect. Plain active/held state conflates whycycleended in finalreport, named termination receipt can retain limits/held/noactor distinctions."
+    },
+    {
+      "source_indices": [
+        1268
+      ],
+      "ranges": [
+        [
+          1070,
+          1325
+        ]
+      ],
+      "roles": "Public final observations, physical/currency/condition metrics, bounded trace vs unbounded semantic quest evidence and deployment provenance.",
+      "disposition": "Final join requires actual character/capability/condition/time and party, dead retainrows dependent on native contracts; currency quantitysum/minu32 gold projection differs exactpersonalcoin/partystake/treasury roles. Equipmentcondition sumsdamage tiers boundthenremaining, unavailablecondition default1, actual item invariant/reportmeaning before falsehealthy claim. Publicsurvival source gates reported thermal/load/bps/ammo vs private clinical. Quest evidence uses typed semantic subjects bound party+contract/case and original fixtureleaderagent; leader succession coverage semantics pending, no truncate-based falsecoverage inferred because separate semantic keys. Report openly lacks deployedbinarydigest and policyseednotserverRNG, retain limitation. maxpersonalelapsed is game report aggregate, not officialworldduration."
+    },
+    {
+      "source_indices": [
+        1269
+      ],
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "roles": "Shared action bounds, validated simulation config, imported-vs-fixture capability and bootstrap credential input.",
+      "disposition": "CoreLoopConfig is raw deserialized representation; validate returns unit then raw strings used, admitted LoopbackSimulationConfig could retain credentialfreeHTTPorigin+disposableDB+boundedpopulation/work/nonce+disease+exclusiveworldmode+pin. Imported mode and requiredquestfixture incompatible, fixture cannotclaimmanifest, canonical final sum matches actual valid combinations. validate_loopback_url uses parsedURL then exacthost allowlist, actual URL IPv6 host formatting contract pending; no networkprobe. Defaults fixture_disease/coverage optional may be current convenience vs backwards schema policy, no preservation/extension of legacy path inferred. Bootstrap checks hexlength but cannotprove randomentropy from input, never printtoken; no environmentvalue read. SDK/CoreDestinationKnowledgeStage exhaustive enum mapping is correct explicitadapter, notcompatibility shim."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-077.json",
+      "registration_sha256": "f6479533f9a1177b6f309bef09b6c9a75a8441bb54b39a6e1c3b72902fcab032",
+      "original_index": 1238,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "fresh_reads": [
+        [
+          1,
+          130
+        ]
+      ],
+      "additional_population_credit": 0,
+      "qualification": "Already accounted same lens source, connected declaration only; line130 next declaration prefix partial not tail coverage."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-130.json",
+      "sha256": "e02c1b4909652c8f95e837116d09bbf43ae266b604000c994a8a6b53f4958f64"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-141.json",
+      "sha256": "20236f5297a11911d3b41680568d145cf8683fe56a06e810ea2a90ab41013625"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-145.json",
+      "sha256": "e7af3a5c5e959368cbb7fa7ebdbc47d2d58028e0be9003fdec9e85e9d25aa8de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-146.json",
+      "sha256": "916cbe88a3c4720166e938731060d30ae2a344881b0eefd2083dd5cb7dfa32b4"
+    }
+  ],
+  "pending_contracts": [
+    "Current clinical subscription/consumer contract, named validated config/request/fixture/quest decisions, actual callbacks and semantic coverage under leader succession remain pending.",
+    "All13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete; no project execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1270
+}

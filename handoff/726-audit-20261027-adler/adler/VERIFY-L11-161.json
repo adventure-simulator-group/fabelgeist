@@ -1,0 +1,118 @@
+{
+  "kind": "Ignored audit evidence checkpoint integrity only; not product test or exhaustive audit completeness evidence",
+  "current_sha256": "5b7b7920eb2f7cfa6c9f53fda9301c8d46fc7734f2020433ba111957bd45bea4",
+  "ledger_sha256": "5ba9dbbc75b818d2a122e0f837a62da62f660750aad4c5b8e12c63fed8a27a53",
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 1292,
+      "state_sha256": "c590ec08b55e0f6bcaeff51bf38b858712a59447785d8e8be83baf4f3b72ca30"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "state_receipt_pairs": [
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-159.json",
+      "state_sha256": "2a655240a2700a4c8ec22c1d2271313f0e64aec8a4a3f8665d174a64ef22098a",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-159.json",
+      "receipt_sha256": "9b6543baa73d82f6207dd503872fad54ac35e82ec5199181c3b8124c408a3267"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-160.json",
+      "state_sha256": "2328d502c4587669e6843178e575d20cfeb011b515fd6416f71a14190baa31f4",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-160.json",
+      "receipt_sha256": "43ea7c704bbf240c697cc20e28510d69ca6a1a473406e8fed3c0cb3100d50b81"
+    },
+    {
+      "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-161.json",
+      "state_sha256": "c590ec08b55e0f6bcaeff51bf38b858712a59447785d8e8be83baf4f3b72ca30",
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-161.json",
+      "receipt_sha256": "3d67a6e88394dc2dd23806528152e79e06af3b515f10f52ade809e9860ba52ef"
+    }
+  ],
+  "registrations": [
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-101.json",
+      "sha256": "1d9db105af1d63ccabf92bebd57db2c6d3613b34e5f316a5b20964c250681829",
+      "source_sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "original_index": 1290,
+      "actual_lines": 2043,
+      "scope": [
+        [
+          1,
+          2043
+        ]
+      ]
+    },
+    {
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-102.json",
+      "sha256": "987e4afe8bbf534b460fe6038456f8591def317b5d809044d16f7c19c2f49308",
+      "source_sha256": "d63da6e7d914ed703ad1850a7f61871078405ae1ed305e011d36cb54e8f45636",
+      "original_index": 1291,
+      "actual_lines": 427,
+      "scope": [
+        [
+          1,
+          427
+        ]
+      ]
+    }
+  ],
+  "new_original_indices": [
+    1290,
+    1291
+  ],
+  "partial159_completed160_exact_ranges": [
+    [
+      1,
+      260
+    ],
+    [
+      261,
+      520
+    ],
+    [
+      521,
+      780
+    ],
+    [
+      781,
+      1040
+    ],
+    [
+      1041,
+      1300
+    ],
+    [
+      1301,
+      1560
+    ],
+    [
+      1561,
+      1820
+    ],
+    [
+      1821,
+      2043
+    ]
+  ],
+  "qualification_notes": [
+    "READ161 role311..427 incidental token170? is not a source reference or coverage claim; actual callback timing proof is READ157 original1285 policy564..598.",
+    "READ160 exact journey-local departurehelper1653..1717 supersedes READ155 speculative personal-time wait wording."
+  ],
+  "worktree_clean": true,
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "no_product_execution": true,
+  "next_original": 1292
+}

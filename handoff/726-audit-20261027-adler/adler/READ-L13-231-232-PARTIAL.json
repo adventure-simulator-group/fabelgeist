@@ -1,0 +1,95 @@
+{
+  "lens": 13,
+  "kind": "New bounded receiver reads; in-flight231-232 original inventory stays partial",
+  "registration_correction": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-005-CORRECTION.json",
+  "correction_qualification": "Corrected physical physics.rs path before read; exact object hash/ranges never changed. No false mod.rs source identity credit.",
+  "actual_personal_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "ranges": [
+        [
+          301,
+          522
+        ]
+      ],
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-004.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+      "ranges": [
+        [
+          638,
+          760
+        ]
+      ],
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-004.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+      "ranges": [
+        [
+          761,
+          873
+        ]
+      ],
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-005.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+      "ranges": [
+        [
+          432,
+          485
+        ]
+      ],
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-005.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "ranges": [
+        [
+          169,
+          235
+        ]
+      ],
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-006.json"
+    }
+  ],
+  "inherited_checkpoint": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens13\\HANDOFF-ADLER-20261027-001.json",
+  "role_dispositions": [
+    {
+      "source": "physical movement_speed.rs301-522",
+      "disposition": "Existing tests use role-specific endurance/health/burden/speed/effort, unit and normalized input quantities, fixture values3/5/.5/.71 and zero/no-input outcomes. Positive burden and limb effects are independent of a pre-incapacitation fatigue-speed penalty. Every test body read as source only, not executed; test helper agreement does not establish that motor selects it."
+    },
+    {
+      "source": "physical animation/state.rs638-873",
+      "trace": "AttackCurve fields tell_fraction/drawback/follow_through_fraction/overshoot are raw f32 with different roles. from_handling accepts inertia kg*m^2/skill and config; input inertia finite check with0.3 fallback and nonnegative max; skill normalized by5 then finite_clamp0..1. Constructor returns normalized fractions0.15..0.75/0.1..0.65 and bounded distances with explicit fallbacks. Coordinate/queued coordinate call AttackPoseCoordinate::from_arithmetic; queued tail additionally min-caps coordinate; actual finite_clamp864..870 distinguishes finite values from fallback.",
+      "disposition": "Retain separate inertia/skill/fractions/extrapolation coordinates and named numeric policies. Actual constructor normalization narrows tiny-coefficient->infinite-pose suspicion; arbitrary public field/config construction and unread polynomial/fallible-constructor recipients remain separate. Do not claim every animation output finite or every error handled from this bounded source alone.",
+      "limits": "smoothstep872..873 is only a partial helper. centered_knot_acceleration,quintic_hermite,AttackPoseCoordinate::from_arithmetic and actual callers remain pending contracts unless exact earlier same-lens proof is adopted."
+    },
+    {
+      "source": "physical physics.rs432-485; movement_speed.rs169-235",
+      "trace": "Motor calls ordinary_controller_speed with actual player432..438; player body+inventory weight456 produces mass_kg460 then updates/inserts native Mass474..477 and passes mass into ordinary_jump_height482. Selected speed helper separately uses same burden181 in tactical_sprint_speed184..190.",
+      "disposition": "This connects inherited conditional stack-quantity omission to actual native mass and sprint/jump input signatures. Effects are conditional on actual admitted stack/item/selected runtime path; no current-tree, live magnitude or broad movement/clinical acceptance claim."
+    },
+    {
+      "source": "physical movement_speed.rs169-235",
+      "trace": "ordinary_controller_speed prone/supine branch216 multiplies source speed by unmodified input magnitude; tactical_prone_movement_speed_for_pace230 separately multiplies x by TACTICAL_PRONE_LATERAL_SPEED_SCALE. Motor selects ordinary helper432.",
+      "disposition": "Retain source-keyed selected-path policy question: helper tests can pass while ordinary motor path lacks that lateral scaling. Need actual authored policy and current/behavior-preservation reconciliation; no new globally accepted defect or movement-speed rule conflict inferred."
+    }
+  ],
+  "original360_to364": "Retain all actually consumed predecessor ranges and full-versus-partial qualifications; no complete per-role231-232 receipt was saved, so ordered original count remains360.",
+  "next_bounded_action": "Prepare complete231-232 semantic inventories for360-364 using checkpoint actual reads and these exact receiver records; register only missing contract ranges. Never credit absent364 lines39-44 or the partial smoothstep helper. Preserve old193/quantity/mass aliases and all partial-body/native/currentness qualifiers.",
+  "accepted_unique_count_change": 0,
+  "new_ordered_original_credit": 0,
+  "original_accounted": 360,
+  "next_original": 360,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,321 @@
+{
+  "lens": 11,
+  "batch": 236,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1642,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-475.json",
+      "registration_sha256": "f2a060917b9a1ff3476e72cdf84e574351e51ad03f06c7c85a75afc2ec577a34",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/grass/tests.rs",
+      "sha256": "413e7f0a46f9ade07d36de3a8527daee18a330a7bec2faad7de40f69d7b8724e",
+      "scope": [
+        [
+          1,
+          119
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          119
+        ]
+      ]
+    },
+    {
+      "original_index": 1643,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-476.json",
+      "registration_sha256": "f46c613deaedd1f3bc986fff62687469248efe8b9c0897167eb0ebfd578cbfc5",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/ground.rs",
+      "sha256": "ba28b2b2e5c003d146de3b09771d7a8e55584f1410dc43b71c954f69ff82a830",
+      "scope": [
+        [
+          1,
+          130
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          130
+        ]
+      ]
+    },
+    {
+      "original_index": 1644,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-477.json",
+      "registration_sha256": "e6d9387283f2344ee8c4aefa4a61eb023a314920bc64f707dafa401b5ec7e1fb",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+      "sha256": "092e4f6411cb3672bfc3912437384989831eddd10bc3a27fa86b234f5df82d0a",
+      "scope": [
+        [
+          1,
+          300
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ]
+      ]
+    },
+    {
+      "original_index": 1645,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-478.json",
+      "registration_sha256": "5f68e20f79ac5b0cb4108ed52221bc9d741cf5f8e35a3c13e3fdd3431458c703",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+      "sha256": "724bf4201d7a9163847a097d79c1b60de6d72e529328bb507431b22e0e05661e",
+      "scope": [
+        [
+          1,
+          163
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          163
+        ]
+      ]
+    },
+    {
+      "original_index": 1646,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-479.json",
+      "registration_sha256": "dfef65ccee676716d2343045ef60ddfef61d603e5fad2cd16520f4dfc93e5725",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned.rs",
+      "sha256": "fc443e290759faede36ab8cc231e4f16928949d389ad8e0e3b03b097815cdd55",
+      "scope": [
+        [
+          1,
+          149
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          149
+        ]
+      ]
+    },
+    {
+      "original_index": 1647,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-480.json",
+      "registration_sha256": "0219aeb78b393f1e5f394dfab56feb78fe09bf042b5dd19fbd6a07d39bc0c7b6",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/clip.rs",
+      "sha256": "4e14903e00a1840de0492898616f4971787fe47e206cf9aa86be0677cfceba62",
+      "scope": [
+        [
+          1,
+          173
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          173
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1642
+      ],
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/producer/owner/native/support contracts and source-only fixtures.",
+      "disposition": "Full119 vista grass source fixtures only. Owned terrain source triangles compiled via BoundedSettlementTerrain and FoundationEmbedment; tests demand accepted exterior support instead of sampled raw20m height, reject holes/steep slope, preserve sampled unowned heightfield. The old_height local variable is a numerical/reference witness required to distinguish test input, not active legacy fallback. Exact fixture files/library behavior not executed or implicitly source credited by names. Actual support owner definitions and broader accepted-city manifests remain distinct obligations."
+    },
+    {
+      "source_indices": [
+        1643
+      ],
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/producer/owner/native/support contracts and source-only fixtures.",
+      "disposition": "Full130 actual vista physical-surface dispatch. Property_surface presence explicitly selects canonical owned mesh/support; otherwise sampled ring mesher, legitimate different source ownership rather than deprecated schema fallback. Both requested LOD and coarser validated via natural::validate_source before owned path; sampled path validates itself. vista_scatter_transform uses one typed ScenePlanPoint for support and admitted Position<Scene> native translation, slope gate before emit, canonical Dir3 normal. tree_root_height85..97 uses supplied world ScenePlanPoint for property surface_below or presented_height_at; closes235 query-frame helper dependency. It does not subtract origin or return a native planar point; caller1637 still emits separate local x/z. Native support missing/steep/position failure returns intentional absent scenery, no promised mandatory actor terrain. Fixed positive sample2m constant conversion .ok()? not meaningful discarded user error; normal admission appropriate optional scenery leaf."
+    },
+    {
+      "source_indices": [
+        1644
+      ],
+      "ranges": [
+        [
+          1,
+          300
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/producer/owner/native/support contracts and source-only fixtures.",
+      "disposition": "Full300 exact scenery support fixtures. Zero-origin raw_lod and owned triangles exercise source/LOD support with missing/steep rejection and native rock normal/height. Ignored Goslar property1236 and12-fixture manifest tests read external accepted input paths from env and require exact reported property/source support. They assert actual source-versus-raw difference and retained support normal; no accepted manifest loaded/generated or tests run. Tests exercise height/helper and rock transform, not spawned distant-tree nonzero-origin x/z, so no frame finding clearance. Preserve accepted physical support authority rather than restitch rejected raw source to satisfy visuals."
+    },
+    {
+      "source_indices": [
+        1645
+      ],
+      "ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/producer/owner/native/support contracts and source-only fixtures.",
+      "disposition": "Full163 sampled native mesher/admission. Private mesher holds typed PositiveLength normal distance. All four vertices validated as PlanDisplacement, lod.scene_point maps point and carries GeometryError; missing support, nonfinite/degenerate normal or missing pigment retains VistaMeshError with point. Actual arrays from same four-vertex loop share counts and indices. Empty clipped region is Ok(None), not discarded failure. validate_source gates lod.has_height_grid and environment count equal heights; exact has_height_grid definition/source input validation still needed for complete finite/grid/spacing admission. Chunk<=32 cells and small-ring two-way culling explicit bounded submission; boundary subdivision fan cardinality/native u32 bound still exact helper/terrain limits dependency, not arbitrary oversized private matrix input. Mesh vertices are LOD-local native coordinates bysource116, source ScenePlanPoint carries origin for validation; actual tactical surface chunk origin still pending."
+    },
+    {
+      "source_indices": [
+        1646
+      ],
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/producer/owner/native/support contracts and source-only fixtures.",
+      "disposition": "Full149 owned ground partition/render. Playable property surface selected exactly, GroundPresentation filters source triangles before clipping with optional collar, native UVs from canonical terrain extent. unwrap position attribute fits owning position_mesh constructor, not fallible external Mesh. Vista rectangle clipping uses centred bounds; colors admit PlanDisplacement then lod.scene_point; emitted source positions kept. Nonzero LOD origin interplay with absolute accepted property triangles needs canonical origin/current provider proof together235 frame family, not isolated native wrapper. Source ordered pass retains triangle order; empty chunks skip intentionally. position_mesh u32::try_from(...).expect cites bounded terrain; exact BoundedSettlementTerrain/partition/boundary count authority pending before claiming a reachable overflow. Native generated normals and RENDER_WORLD only; source tests elsewhere not implicitly read."
+    },
+    {
+      "source_indices": [
+        1647
+      ],
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "roles": "Independent lens11 full exact original/producer/owner/native/support contracts and source-only fixtures.",
+      "disposition": "Full173 exact source-triangle rectangle clipping with tests. PreparedTriangle bounds derived from same three native points, ClippedTriangles Interior/Boundary enum and exact iterator carry actual emitted alternative. Half-open rectangle rejection at upper edge plus inclusive clipped bounds implements region boundary policy, not proven missing wall at globalouteredge without source/coverage contract. DVec3 Sutherland-Hodgman intersections preserve source plane, represented f32 X/Z followed by f64 plane Y evaluation prevents spurious steep normals; real vertical normalY0 keeps interpolated Y. Zero-area pieces filtered as geometry policy. Native coordinates from admitted source/regions; no arbitrary NaN triangles or zero denominator crossing asserted, crossing signs guarantee da-db nonzero for finite admitted coordinates. Full area/plane and vertical retaining-face source fixtures only; no execution/native result."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509"
+    }
+  ],
+  "pending_contracts": [
+    "236 completes1642..1647 full exact union, next1648. Authoritative fresh source-only progress, no waiting/blocker. All13 original/overlay/merged/shared/later/extensions/current/all20/aliases/connected acceptance remain incomplete; gatefalse/accepteduniquechange0.",
+    "Vista tree_root_height actual helper body closes235 source-query frame proof. Supplied world ScenePlanPoint used directly for canonical owned support or presented height, native tree caller still emits local. Actual sampled mesh local/source distinction and owned centred clipping broaden frame-owner dependency; canonical admitted nonzero origins and tactical chunk transform/current/native still pending. No runtime misplacement claimed.",
+    "Owned and sampled ground dispatch are intentional source authorities, not active deprecated compatibility paths. Accepted property support keeps own vertical topology; unowned sampled ring uses canonical interpolation. Numerical old-height/source fixtures are test references only.",
+    "natural::validate_source checks canonical has_height_grid and equal environment count, but underlying definition/input admission/core normal/geometry/pigment/partition bounds still require exact source. Do not claim arbitrary malformed source, missing attributes or index overflow from private native ports alone.",
+    "Required accepted Goslar/property and12-city fixture manifest tests only source-read. No external manifest/input loaded, library generator/scanner/runtime/app/update/assertion/build/test run. Native Mesh/clip/normal/frame outcomes unverified. Asset and support acceptance remains exact frozen source contract, not measured evidence.",
+    "Half-open clipping edge and degenerate-piece removal are geometry policies pending full region/ownership contract before missing-boundary claim. Native Position/PlanDisplacement/ScenePlanPoint/PositiveLength/Dir3 admission used on actual paths, no redundant final-Vec wrapper mandate.",
+    "Landform error cause-discard234, terrain pending/detail lifecycle233/234, categorical ground-image enum interpolation233, native texture/city GPU/tree admission and sky cache all retain qualifications/dependencies. All20/global owner/alias/current dedup remains pending.",
+    "Seven Adler scoped extensions independently mandatory for all13. Original1622 inherited EOF231 already qualified historically versus raw240; fresh extent checked/no nonexistentline or otherlens credit. L12/L13 unchanged, mainpincomparison pending.",
+    "2248REG398/2249REG396/2250REG397 READ220 first ordered adoption pending; later5/6/7/11/127/128/129 separate,129tail54..117unread. Next1648 metadata fullunion then new registration481 before body.",
+    "No product changes/builds/tests/lints/scanners/generators/runtime/native probes/CI fixes/new tests/commits/pushes/PRs/merges/external messages. Ignored source/Git/evidence bookkeeping only. Full goal active/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1648
+}

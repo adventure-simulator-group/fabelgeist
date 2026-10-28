@@ -1,0 +1,107 @@
+{
+  "lens": 11,
+  "batch": 113,
+  "status": "Original1214 exact1..13 and1215 full1..616 source-accounted WITH findings",
+  "originals": [
+    {
+      "original_index": 1214,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+      "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "registered_scope": [
+        [
+          1,
+          13
+        ]
+      ],
+      "actual_reads": [
+        [
+          1,
+          13
+        ]
+      ],
+      "actual_eof": 14,
+      "qualification": "14 not read or credited; selected method closes at13. Metadata fourteen-line file is not blanket full-file credit."
+    },
+    {
+      "original_index": 1215,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "registered_scope": [
+        [
+          1,
+          616
+        ]
+      ],
+      "actual_reads": [
+        [
+          1,
+          310
+        ],
+        [
+          311,
+          616
+        ]
+      ]
+    }
+  ],
+  "registrations": [
+    "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-015.json",
+    "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-016.json"
+  ],
+  "role_dispositions": [
+    {
+      "source": "dialogue_policy.rs1-13",
+      "roles": "Persisted native prompt policies -> typed PromptMode/ResolutionPolicy with typed DialoguePolicyParseError.",
+      "disposition": "Two already distinct canonical policy types prevent swapping roles; tuple does not itself require another wrapper. Native storage decoding is concrete boundary, not automatic type-erasure defect. Actual answer reducer434 formats this typed error at endpoint. Keep all other raw consumers/native schema policy separate; no compilation/SDK behavior claim."
+    },
+    {
+      "source": "dialogue_prompts.rs1-79",
+      "roles": "Resolved prompt mode/choice collection/minimum/maximum, organization-promotion dynamic role choices.",
+      "disposition": "Named admitted PromptChoices can own coupled mode/allowed choices/selection bounds, rather than separate u32 tuple counts. Canonical PromptMode and typed promotion effect already meaningful. Dynamic target role is bound to real organization/membership/promotion graph, and absent authored wait/request choices cause explicit failure. min/max counts differ choice IDs and ordinal roles; fixed1/1 is actual Single policy, not a universal count range."
+    },
+    {
+      "source": "dialogue_prompts.rs81-220",
+      "roles": "Parsed CorpsePermissionTopicId with typed scope/raw approach/corpse identity; native topic selection/request/revision; actual permission and emitted response event.",
+      "trace": "Known topic prefix parses scope Examination/Exhumation plus nonempty approach/corpse; actual offered topic membership and NPC participant checked before corpse grant_permission_from_dialogue. bool granted selects human familiar/formal response, distinct from prior typed scope and recipient identity.",
+      "disposition": "Partial bespoke topic type earns useful validated tagged shape, but approach/corpse remain raw and should reuse existing PermissionPetitionApproach/CorpseId when full owner fit established. Ordinary unknown topics remain separate from malformed recognized permission topic; Result<Option> is meaningful. Event sequence, catalog revision, session revision and wall-clock micros differ. Topic retry currently accepts any existing session/action ID before topic comparison; no ordinary reused-ID witness."
+    },
+    {
+      "source": "dialogue_prompts.rs222-368",
+      "roles": "Authored known/eligible topic, source-aligned resolved turns, optional emitted testimony event, applied effects, native prompt/choice/source snapshot and action receipt.",
+      "disposition": "Typed runtime/authored fragment result and SourceRef keep prose provenance and emitted claim identity distinct. At most one claim event enforced, no other-lens source-proof transfer. Respondent role, optional prompt, typed mode/resolution and permitted min/max are different contracts. Prompt state Open and resolved choice[] encode initial lifecycle at DB boundary; a named state payload can retain invariant if all native readers support it. Exact immutable allowed choices/source refs snapshot differs later authored catalog text. Session revision +=1 versus saturating arithmetic elsewhere is a capacity/source-policy question, no ordinary wrap claim.",
+      "acceptance": "All source-reference alignment and testimony/outer receipt/native transaction recipients remain separately qualified."
+    },
+    {
+      "source": "dialogue_prompts.rs370-445",
+      "roles": "Prompt-state parsing and committed answer receipt, respondent membership, catalog/session revision, raw submitted choice IDs -> allowed unique checked ballot.",
+      "trace": "dialogue_answer_is_committed_retry parses state and accepts matching action_kind answer:{prompt_row_id}; caller returns before parsing choice_ids_json when retry committed. Fresh ballot validates uniqueness, min/max, membership in allowed choices and exactly one unless Multi.",
+      "disposition": "ChoiceId/PromptRowId/ActionId/Role/Revision and admitted Ballot deserve distinct ownership; arbitrary Vec<String> should not flow beyond actual ballot admission. Existing prompt-scoped action receipt lacks immutable choice payload, so conflicting payload reuse can acknowledge success. This is a source-qualified API replay question, not actual duplicated effect/current/live incident. Canonical mode/policy parse remains typed until native reducer error display, so no premature policy error formatting claim."
+    },
+    {
+      "source": "dialogue_prompts.rs446-616",
+      "roles": "One answer per character/prompt, native ballot snapshot, respondent/vote counts and resolution policy, winning effects/result turns, resolved prompt and action receipt.",
+      "disposition": "Answer count/eligible respondent count/vote count and literal majority denominator differ semantically. FirstResponse/Majority/Unanimous/AllRespondents already own meaningful policies; grouping them would erase real behavior. Parsing stored ballots with .ok omits malformed rows but ordinary producer serializes checked choices, no corrupt-row runtime witness. Unanimous compares ordered ballots and AllRespondents chooses max vote with lexical tie-break; intended multi-choice/order semantics require actual authored policy, not automatic bug. Resolving actor may be last answering character; effect authority versus ballot owner/party leadership needs concrete participant policy before defect classification.",
+      "trace": "Winning effects call actual1213 apply_dialogue_effect with current actor/session and source_scope; result turns call actual resolve_dialogue_fragments216..240 from1212 extension. Typed resolved fragments and parallel source refs then cross JSON native boundary.",
+      "acceptance": "All real respondent cardinality and authored policy/input/gateway consumers remain pending; no voting algorithm execution, direct SDK, clinical, authority/global clearance."
+    }
+  ],
+  "source_backed_narrowings": [
+    "Actual1212 sibling resolve_dialogue_fragments216..240 is called by1215 result-turn emission584..591; registration013 earlier purpose erratum remains preserved.",
+    "Native outer answer action receipt short-circuits before effects on committed retry; therefore consumed-binding rejection in1213 is not ordinary duplicate-effect proof. Exact payload association still incomplete."
+  ],
+  "repair_dependencies": [
+    "Canonical admitted PromptChoices/Ballot and prompt lifecycle association with stored policy/choice/source snapshots",
+    "DialogueAction immutable request identity, normalized selected choices and actor/prompt binding across topic/answer reducers and actual UI requests",
+    "Existing scope/approach/corpse/topic identity and current typed policy/native schema boundaries",
+    "Actual authored multi-choice/resolution semantics and respondent/effect authority"
+  ],
+  "pending_contracts": [
+    "Participant cardinality/session/gateway/catalog/case/dialogue runtime and all JSON native consumers are mandatory separate scopes.",
+    "All inherited populations/extensions/current/all20/aliases/connected acceptance remain incomplete; no arbitrary input/output compatibility preservation."
+  ],
+  "next_original": 1216,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false
+}

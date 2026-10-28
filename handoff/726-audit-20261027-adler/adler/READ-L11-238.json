@@ -1,0 +1,271 @@
+{
+  "lens": 11,
+  "batch": 238,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1654,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-487.json",
+      "registration_sha256": "426c5cf96fc978a6020b87e6ac081cc7f67e067e77d13aa3dcf3adf7c384ecc4",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+      "sha256": "46de07541d21c23ef7533675e901fb632dbe0b7d321900d053603c56426f559d",
+      "scope": [
+        [
+          1,
+          192
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          192
+        ]
+      ]
+    },
+    {
+      "original_index": 1655,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-488.json",
+      "registration_sha256": "ba8ff03e06f0f6acede9709e7b278879eab7259c067bc3251474b50382408681",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs",
+      "sha256": "ce37914d95bcac68d8f6c18eaf640503b932b3ede8b79a839c15ca86d2ccf3c8",
+      "scope": [
+        [
+          1,
+          236
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          236
+        ]
+      ]
+    },
+    {
+      "original_index": 1656,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-489.json",
+      "registration_sha256": "c4d3aae1725768ba30ac9e3f58d4ed4da028589f305c609320ba33930d8cf3cf",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/prepared.rs",
+      "sha256": "c3c5dda2b43208a48d70060c29d876025c47aca6e4fe836ea002b2ec651ca44d",
+      "scope": [
+        [
+          1,
+          62
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          62
+        ]
+      ]
+    },
+    {
+      "original_index": 1657,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-490.json",
+      "registration_sha256": "68b8e4f20ad42d89ef4819418e316513687ed888023d305cecd88a5365f41e1e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/regional.rs",
+      "sha256": "2e65532ed7e9acac69d98e68480149db8e0cd282b93caf96ea82ebf63c397b01",
+      "scope": [
+        [
+          1,
+          56
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          56
+        ]
+      ]
+    },
+    {
+      "original_index": 1658,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-491.json",
+      "registration_sha256": "6adfd2be4cae32de39d3c2e5c9d0f9d3bac5c9da8f0d7c5d7b860cf25124a98b",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "sha256": "8534f53749dd9918cd0c3a9549561eab6825e7edb7b8908db60da2a8639ee64a",
+      "scope": [
+        [
+          1,
+          190
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          190
+        ]
+      ]
+    },
+    {
+      "original_index": 1659,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-492.json",
+      "registration_sha256": "1528ed88a77ed8a9c987743a68ea067be140301cd8a9b1578d166d67103dd537",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/strategic/colors.rs",
+      "sha256": "db6776dd0ba46be63553e5964b3f8e913e35b2378966be4f62067b9284f9550d",
+      "scope": [
+        [
+          1,
+          68
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          68
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1654
+      ],
+      "ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full192 pigment owner. VistaVertexColors/SampleColors tied by lifetime to exact immutable LOD and weather supplied per mesh preparation, own/coarser buffers and optional playable pigment explicit. No retained cross-weather cache here; no stale global material identity finding transferred from221. Typed PlanDisplacement converts through lod.scene_point to ScenePlanPoint, sample subtracts exact LOD origin before bilinear sampling. Coarser missing sample retains own color deliberately, not invalid schema fallback. Native Vec4 RGB and alpha geometric sward coverage explicitly different meaning; playable edge blends RGB while restoring vista alpha. Saturated canonicalbps controls hills/snow/cultivation/water; TacticalSurface enum policy explicit. Private SampleColors direct indices require validated grid/count/spacing from actual1643/1645 owner chain; standalone invalid private object not asserted. Test-only presented_color exact reference, not active legacy implementation."
+    },
+    {
+      "source_indices": [
+        1655
+      ],
+      "ranges": [
+        [
+          1,
+          236
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full236 exact pigment source fixtures. varied_lod has explicit origin east125/north-275, so nonzero-origin interpolation is an authored supported test domain; this extends prior235/236 zero-origin fixture observation, does not establish actual tactical producer admission or spawned tree placement. Fields compare f32 bits to uncached reference across weather/coarser/playable/localgrid and outside-domain cases. Ignored12city manifest checks all owned mesh position/color cardinality and exact old-reference bytes, nonempty examined witness. Exact reference preserves ordering/interpolation, not backward compatibility live path. No manifest/asset load, generation/app/tests/assertions execution."
+    },
+    {
+      "source_indices": [
+        1656
+      ],
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full62 PreparedVistaLod actual all-visible mesh stage. VistaSceneryRange Near/Distant enum for source indices0/1 versus rest; retains exact lod/coarser, native clipping extent and meshbatch. Fallible mesh preparation via? completes entire vector before caller1636 publishes/replaces. Empty geometry skips presentation, no error collapse; not advancing inner extent for skipped ring is intentional coverage possibility until actual ordered ring/owned-empty contract reviewed, no overlap/coverage defect inferred. Saturating width/depth subtraction after native source validation not compatibility shim. Actual all-visible limit/order/core grid and world origin contracts remain pending."
+    },
+    {
+      "source_indices": [
+        1657
+      ],
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full56 exact regional_mesh connects1619/1622 source triangle support producer. Typed scale enum and fixed REGIONAL_TERRAIN_SIDE supply EUS native grid, elevation remains typed until f32. Positions/colors emitted once per source vertex; holes have placeholders but triangles require all three actual vertices. Diagonal SW/SE/NW then SE/NE/NW and positive winding match1619 support. All holes yields None intentionally and1622 active clear path handles it. RENDER_WORLD mesh/native normals do not establish retained CPU asset or GPU completion. Canonical RegionalTerrain cardinality and actual native normal handling remain source dependencies, no arbitrary invalid vector claim."
+    },
+    {
+      "source_indices": [
+        1658
+      ],
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full190 strategic scenery admission/preparation. StrategicBackdrop private SceneTerrain data is inside display component, not spawned SceneTerrain or SceneId tactical authority. Constructor admits sampled heightmap via existing Option and explicit environment cardinality; cannot accuse discarded owned error where from_heightmap exposes only Option. BackdropError Heightmap/VistaMesh enum distinguishes source categories, exact field granularity/core API and current all20 remain. LODs copy only selected maximum; actual grid validation at PreparedBackdrop::new via sampled mesher. height_at samples only retained foreground/rings, required path owns MissingSupport point; actual callers must establish prepared/admitted use before malformed LOD/raw query failure claim. Prepared chunks built completely with owned VistaMeshError before spawn, optional foliage not part of physics. Ring origin explicitly emitted in native Transform under root; actual backdrop root frame/lifecycle pending rather than same renderer proof for tactical trees. Native foreground color shared count, UV removed intentionally. Queued native Assets access presumes plugin resources, exact provider needed before missing-resource panic claim."
+    },
+    {
+      "source_indices": [
+        1659
+      ],
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "roles": "Independent lens11 exact full original/owner/producer/native contracts and source-only fixtures.",
+      "disposition": "Full68 strategic native edge-color adapter. Owning sampled mesh supplies positions/colors, native attribute checks intentionally return when absent; actual producer491 inserts both. Zip cardinality follows canonical foreground shape admitted in constructor, not demonstrated truncation. Boundary color uses same row-major antidiagonal triangles as sampled foreground; clamps final cell and carries RGB plus sward alpha, source coverage/native leaves explicit. spacing comes source validated sampled ring before call, no arbitrary zero-divisor. Local mesh coordinate/nativeorigin interplay same shared frame dependency235; finite core/source limits still pending, no duplicate final Vec wrapper mandated."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-236.json",
+      "sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-237.json",
+      "sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4"
+    }
+  ],
+  "pending_contracts": [
+    "238 completes1654..1659 full exact union, next1660. Previous237 progress was41 original slots1613..1653, exact1654-1613=41; provisional stray checkpoint35? wording in237 is not authoritative count. No lens12/13 or other-population credit. All13 scopes/current/all20/aliases/connected acceptance incomplete, gatefalse/uniquechange0.",
+    "Vista pigment field immutable per LOD/mesh/weather, no stale cross-weather cache here. Actual nonzero east125/north-275 fixture now read for pigment only;235/236 tree placement finding remains conditional on tactical admitted source/native parent/current. Do not generalize earlier zero-origin fixtures to all tests or claim nonzero trees tested.",
+    "PreparedVistaLod all required ring meshes complete before publication source now connected. Source validation validates own/coarser via natural/corehas_height_grid; exact grid/spacing/origin admission owner remains pending. Empty geometry is intentional absence, not owned failure discard. PendingVista owner237 waits terrain, not rejected geometry auto-retry.",
+    "Regional native mesh triangle/winding/source-hole policy matches1619 geographic support,1622 camera/surface and1636 source assertions. Fixed scale/cardinality core owner and native normals/frame outcomes still pending; holes placeholder never indexed in actual emitted triangles.",
+    "StrategicBackdrop displays sampled data without tactical ECS terrain identity; retains selected ring count for support/height queries, typed required MissingSupport. Initial Option heightmap admission does not expose an owned error to discard. Prepared stage owns VistaMesh errors; exact pre-preparation query callers/native resource/root/frame current contracts pending.",
+    "All seven scoped extensions independently mandatory across13. SurfaceEOF actual231/raw240 qualification explicit, nonexistent-line/otherlens credit0. All20/global family/alias/current/dedup acceptance pending; prior tree/landform/GPU/native/texture/cache/ground categorical questions retain limits.",
+    "Firstordered2248REG398/2249REG396/2250REG397 READ220 and separate later5/6/7/11/127/128/129 obligations unchanged;129tail54..117unread. Next1660metadatafullunion then registration493 before body.",
+    "No product changes/builds/tests/lints/scanners/generators/runtime/native probes/CI fixes/new tests/commits/pushes/PRs/merges/external messages. Ignored source/Git/evidence bookkeeping only, full goal active/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1660
+}

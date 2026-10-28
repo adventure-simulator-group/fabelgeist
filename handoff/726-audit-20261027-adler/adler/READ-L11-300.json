@@ -1,0 +1,235 @@
+{
+  "lens": 11,
+  "batch": 300,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1961,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-804.json",
+      "registration_sha256": "837efb6b5ac1f28e14658eaaab1dbcd182557013ce2b74a81f872e03c8cb2fe2",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_transition_mesh.rs",
+      "sha256": "9bfbec3a8d552438491d80b4939c112bde61108a815c2f3b4ff0129ad796e048",
+      "scope": [
+        [
+          1,
+          82
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          82
+        ]
+      ]
+    },
+    {
+      "original_index": 1962,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-805.json",
+      "registration_sha256": "371bfc46167f2fc7a389ae1bd335bdfc305a5208e6f95ca92aea049fef972de1",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition.rs",
+      "sha256": "df252469b9538a750abdbc7646c7cb240e14f41a73eb79e640670ab4be6dda90",
+      "scope": [
+        [
+          1,
+          200
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ]
+      ]
+    },
+    {
+      "original_index": 1963,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-806.json",
+      "registration_sha256": "f968eeb71289036bbf742ced8d22ac6559d90ad6a8693231327d85d7cb265f14",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition/admission.rs",
+      "sha256": "b5fd9a68595105294678fd91c0f3c492e18e5d71d72be01dc8fe7b235f8f25a8",
+      "scope": [
+        [
+          1,
+          41
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          41
+        ]
+      ]
+    },
+    {
+      "original_index": 1964,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-807.json",
+      "registration_sha256": "a6d3163ea83681db6d8a7332edbd6139f90a1f2db4c368ce760f85b5dfe28179",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "scope": [
+        [
+          1,
+          480
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          480
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1961
+      ],
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "roles": "Independent lens11 full native terrain transition mesh/collider adapter and clipping source contract.",
+      "disposition": "Full82 mesh_from_components nativeBevy vertex/UV/indexandareaweightednormals render-worldasset, collidermesh convertsactualstride1triangleindices fornativephysics; transitionusessamefullsampled/ownedmeshcomponents withcentroidcollarcut. Meshbuffersnativefinalports notretaineddomainrecords. Actualcentroidclippinggeometricseampolicy/nativeacceptance beforefulltrianglecoveragefinding; failedScenePlanPointconversion meansnotcut butsourceadmissionfinite/currentactualgeometry stillneeded. Coarsestride quotientround recoversownerinteger ratio frompositivefinitegrid, actualrefinedextent/underflowdomain requirement beforeuncheckedcastfinding. No mesh/native execution."
+    },
+    {
+      "source_indices": [
+        1962
+      ],
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "roles": "Independent lens11 full checked collar engineering/provider/decode and complete native field operation.",
+      "disposition": "Full200 TerrainCollarParameters checkedpoint/PlanDirection/PositiveLength/wander/variation ->privateTerrainTransitionCollar retainedprimitivewire/nativefieldcachedseedshape; exactcanonicalowners versusprimitives all20comparison remainsmaterial. Wirechecksencodedaxiswithoutnormalizingbits, thenfinitehalfextent>width>0/wander>=0/variation<=5000, cachednoise rootstreamsderivednotserialized. Completecontains/cutsOut inclusivevsexclusivecurrentnativegeometry, clampalong/seededlattice/widthvariation/radialblend. Boundedrecipeactualdimensionsneededbeforeclaimingnarrowcollar1-inner cancellation/signedi64latticesaturation onallfiniteleafdomain; no executedscalarcounterexample. actualsourcegeneratorquantizationnext1968. Neitherfallbackmodulo norgeometricalternativelegacycompatpath."
+    },
+    {
+      "source_indices": [
+        1963
+      ],
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "roles": "Independent lens11 exact collar leaf zero/finite/range ownership and wire admission.",
+      "disposition": "Full41 RuptureWander finite>=0m includingzero, CollarWidthVariation0..5000BPS separatepurposeboundnotgeneral10000unitfraction. privateopaqueReflect/checkedserde constructors sameadmission, no invalidpublicrawfield. Optionfactory vsserdeformattederrors finaldecoderboundary, noactualIOcauseerased. Parentcollarretainedrawcopy1962 roleownership stillall20comparison notimplicitclearance."
+    },
+    {
+      "source_indices": [
+        1964
+      ],
+      "ranges": [
+        [
+          1,
+          480
+        ]
+      ],
+      "roles": "Independent lens11 full vista nativecompleteheight/LOD/seam/normal calculation, coordinate-role and structural admission contract.",
+      "disposition": "Full480 VistaVertexGeometry ownsSupportElevation andSceneDisplacementtangents aftercompletefinitegeometry, neighborabsentfallsbackcentralheight intentionallyfinite-differencestencil notnewterrainheight; nativecoarseown/rawnonfinite interpolations remainf32untilfinaladmission soSomeNaNcannotbecomeNoneandselectownfallback. has_height_grid checksdims/storage/positivefinitespacing/f32representableorigins butnotheights/environment, fullSceneInputvalidator299ownsboundedsourcecontract. Localoffset/scene_point checkedexplicittransforms; newconditionalplayableseamframefinding whereLODlocalusedasSceneorigin. Cellrectsplits/strideclipping/LODseam currentgeometricalternatives; raw[f32;4]/axisusize andinnerextentVec2 retainedpublicrectangularhelperinputs actualcanonicalrectangle/axisownership all20 required, notaddtypenamesfromscratchmathalone. LODtransitionuseswidth-derivedsquarehalfextent, actualrectangularinputproducer/meshpolicy beforeasymmetricedgefinding. Actualpublicsampled_triangle matchesnorth-southotherdiagonalvista(unequaltoheightfield) intentionally; GeographicSurface273 usesexactpresentedsource andrejectsnonzeroorigins. No browser/native/geometry/tests/scalarprobe."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-294.json",
+      "sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-295.json",
+      "sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-298.json",
+      "sha256": "6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6"
+    }
+  ],
+  "pending_contracts": [
+    "300 completes1961..1964 fullmetadataunion,next1965REG808full526registeredunread,809..8131966..1970 alsoalreadyregisteredunread; nextnewreg814. No partial/unrecordedbodyreads.",
+    "NewVistaPlayableseamframe sourcecounterexample localoffsetvsSceneorigin, withactualadmission/sourcefurnitureconsumer; occupiedGeographicSurface273rejectsnonzeroorigin so no acceptednormalcityclaim. Othercapturedorigin/mesh/nativecurrent andall20/dedup needed.",
+    "Collarprivatefullf32fieldrange versusactualquantizedrecipe1968 bounds andvista square-transition width versusrectangularactualproducer remainpending, no additionalacceptednumericalfindingbasedsolelyonfiniteness.",
+    "Allpriorqualifiedfamilies/tenextensions/fourEOFqualifications/futurereuseincluding2699REG787material56/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1965
+}

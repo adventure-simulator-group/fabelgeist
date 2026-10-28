@@ -1,0 +1,88 @@
+{
+  "lens": 11,
+  "batch": 128,
+  "status": "Original1236 exact346-line travel planning material scope source-accounted WITH findings",
+  "original_index": 1236,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+  "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-037.json",
+  "scope": [
+    [
+      1,
+      346
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      346
+    ]
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "roles": "Hybrid strategic position adapter versus canonical WGS84/unbounded E7 and route point coordinate.",
+      "disposition": "Encode validates geographic as Wgs84CoordinateE7 or abstract as UnboundedCoordinateE7, then erases to twoi32 fields without CRS; decode tuple plus bool similarly loses association. Use coordinate-kind payload over existing owners at internal ports, no duplicate coordinate validation/types. Longitude-latitude order versus Wgs84::new(latitude,longitude) explicit named methods prevent swap; actual adapter coherent, not demonstrated wrong-axis bug. Route point validator specifically WGS84, distinct hybrid standalone coordinate type."
+    },
+    {
+      "ranges": [
+        [
+          55,
+          120
+        ]
+      ],
+      "roles": "Travel graph neighbor node/metre edge and accumulated distance, first reachable settlement boundary, duration conversion.",
+      "disposition": "Undirected edge enumeration and Dijkstra saturatingdistance produce neighboring settlements, stopping when first settlement reached prevents skipping settlements. NodeId vs SettlementId vs Distance metres vs u64duration distinct actual roles; named edge/route distance record avoid tupleu64/u32 confusion. Journey durationceil at canonical overland speed with minimum1, quest duration multiplier separate purpose. Numeric inner kernel may stay numeric but API leaves need owning quantities; no arbitrary probability policy."
+    },
+    {
+      "ranges": [
+        [
+          122,
+          238
+        ]
+      ],
+      "roles": "Gateway terrain package/digest/version, admitted departure weather, bounded continuous WGS84 route geometry/time/terrain skill spans.",
+      "disposition": "validate_journey_route first exact gateway terrain schema/package then validates payload. Meaningful validatedroute aggregate should retain admitted digest/weather/points/spans/time/endpoint relation rather than unitreturn over publicly mutable rawplan. Existing named coordinate wrappers own geographic bounds. Actual requires2..512 points/1..256 spans, distance/time positive<=2million, each segment1..100000m, physical distance tolerance5percent+250m, speed<=7500m/hour, continuous positive spanminutes exactly total. Terrainweights sum1000, urban0, trainingpermille<=1000, checkmillirank<=5000; share numeric invariant when appropriate but retain terrain fraction/trainingeffort/checkrank purposes. No additional bounds invented. Weather rulesversion/interval/fractions/clearintensity checked, not proof actual weather sample matches canonical source absent trusted gateway contract."
+    },
+    {
+      "ranges": [
+        [
+          240,
+          289
+        ]
+      ],
+      "roles": "Synchronized departure weather interval and separate planned return leg validation.",
+      "disposition": "Absolute StrategicMinute floorweatherinterval owns canonical bucket, forward wrapper camp_redirect repeats same canonical operation no unique alternate semantics; assess final API owner instead of preserve compatibility forwarding alias. Return independently planned leg required but reuses package/departure weather snapshot and validates full reverse geometry; actual later refreshed return departure contract needed before stale-return-weather failure allegation. ReturnRoute shape and outbound are separate spans, not include speculative return in active itinerary."
+    },
+    {
+      "ranges": [
+        [
+          291,
+          346
+        ]
+      ],
+      "roles": "Greatcircle versus planar coordinate distance, invalid geographic sentinel and canonical safe distance adapter.",
+      "disposition": "Internal rawf64/bool fiveoperand distance can mix coordinate axes/system; typed coordinate pair operation avoids ambiguity. Greatcircle nonfinite returnsu64MAX sentinel versus actual numericdistance, planar nonfinite cast behavior differs; actual coordinate_distance adapter admits both endpoints via canonical decode and returnsOption, so no ordinary invalid-coordinate result shown. Typed DistanceOutcome/Option should distinguish invalid rather than universal MAX length if raw public usage retained. Roundingmetres, fixedEarthRadius and unitconversion intrinsic to algorithm not free policy. Core elementary numeric kernel need not one wrapper per intermediate scalar."
+    }
+  ],
+  "connected_qualification": {
+    "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-123.json",
+    "sha256": "8657e88cd50455db5cf89fd18ce376f5057b6d0b579156662be62876a4f5eddf",
+    "source_range": "journey_camp.rs821..863",
+    "disposition": "Actual planned-route admission here requires every point WGS84, narrowing prior geographic-distance flagtrue question for validated PartyJourneyRoute. No mismatch for valid admitted geographicroute follows merely because decoder uses UnboundedCoordinateE7 representation. Other route constructors/bypass/abstract route contracts remain required before universal guarantee."
+  },
+  "pending_contracts": [
+    "Actual route payload producers/gateway admission and storedroute constructors, travel synchronized departure/return weather and numeric units/coordinate current native/SDK/client owners.",
+    "All13 original/overlay/merged/shared/extensions/current/all20/alias/connected repair/acceptance incomplete; no tests/builds/scanners/generators/runtime execution or product repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1237
+}

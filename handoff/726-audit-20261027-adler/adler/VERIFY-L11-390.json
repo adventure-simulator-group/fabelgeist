@@ -1,0 +1,2176 @@
+{
+  "kind": "Ignored evidence integrity only; not product test/runtime verification",
+  "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-390.json",
+  "receipt_sha256": "3676cb690ba13d84292c5814a6fd3af6312963c98b5d91c386396e179e449e07",
+  "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-390.json",
+  "state_sha256": "28a83e3f5274af18ef5e5886940eace83a8dd0c80e7374ea8fd39ce388c968f1",
+  "previous_verification_sha256": "3bb031e96d3265827025300f233754a1c2f4adee2e1479f3bbffa9121783745b",
+  "ledger_sha256": "39bb3febd6cf7578045e3b6537cdc93bae7160d50196fec5168619dfcef4699b",
+  "checks": [
+    {
+      "original_index": 2394,
+      "population": "original",
+      "population_index": null,
+      "sha256": "c78ba1ba7989dbb10ddda4b92fd1118f802fa26bb36d5e5623449ffb567af9c9",
+      "lines": 119,
+      "registered_ranges": [
+        [
+          60,
+          94
+        ]
+      ],
+      "complementary_same_receipt_scopes": [
+        {
+          "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1268.json",
+          "sha256": "1a977ca644a178a9d1647b6b96b15ae3de78ff28739af7e5e72a0c4d9ee9444c",
+          "read_ranges": [
+            [
+              1,
+              59
+            ],
+            [
+              95,
+              119
+            ]
+          ]
+        }
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2395,
+      "population": "original",
+      "population_index": null,
+      "sha256": "77df6dfebbf56847588ce02dcb339e40ea550e5f67e05ce4611e2d538981fec1",
+      "lines": 224,
+      "registered_ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "complementary_same_receipt_scopes": [],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2396,
+      "population": "original",
+      "population_index": null,
+      "sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+      "lines": 1067,
+      "registered_ranges": [
+        [
+          1,
+          1067
+        ]
+      ],
+      "complementary_same_receipt_scopes": [],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2394,
+      "population": "original",
+      "population_index": null,
+      "sha256": "c78ba1ba7989dbb10ddda4b92fd1118f802fa26bb36d5e5623449ffb567af9c9",
+      "lines": 119,
+      "registered_ranges": [
+        [
+          1,
+          59
+        ],
+        [
+          95,
+          119
+        ]
+      ],
+      "complementary_same_receipt_scopes": [
+        {
+          "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1265.json",
+          "sha256": "081535a2aa0fd7d21f25e6959bce6e51a1cb3952c1b5e4c920442fa64b872e7f",
+          "read_ranges": [
+            [
+              60,
+              94
+            ]
+          ]
+        }
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    }
+  ],
+  "contextual_checks": [
+    {
+      "original_index": 2371,
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-383.json",
+      "receipt_sha256": "ffed8895bfac2b9aac91253fa21be130516b90e4ad1b4d2535fa951ea1ea0b39",
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1240.json",
+      "registration_sha256": "0bb5e44c9bb8b436b7f35938f0dd102e2138c2baf8935ac07872e0573b634695",
+      "source_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "fresh_reinspection_ranges": [
+        [
+          1160,
+          1243
+        ],
+        [
+          1240,
+          1411
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "reason": "Reinspect actual combat-readiness/counterparty projection and recipients while reading quest template. Prior full1..2102 proof retained, no new original or other-lens credit."
+    }
+  ],
+  "extension_checks": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          99,
+          132
+        ]
+      ],
+      "registration_sha256": "e3853ffe6e3abbabeb4020e13eb51903766e9de61f1febfe0b39d537333ec89c",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "ranges": [
+        [
+          216,
+          240
+        ]
+      ],
+      "registration_sha256": "6fb3a6b3a9f0282f04359daf06a2409d710eb4ee436284c228b3ce7d994aefce",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "registration_sha256": "0e7b6088d5524760ee77210b9920a86e43f892a0911ea57a5d6c547c8a819c0d",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/materials.rs",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "registration_sha256": "b55f71b929d8a03b5da44632ccdea4730b2e05f9f68529063c6dd1ff37fbbb25",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "registration_sha256": "513cc320bbeb295c27f33805d41133a3ae70fd569d6241bbddbdddc87410ea19",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "ranges": [
+        [
+          1,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "registration_sha256": "0cf8f380e9c3e6e8e8d275c256de20ed2642579c2a529e09ae229640baf5267e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          18,
+          154
+        ]
+      ],
+      "registration_sha256": "bb31ecc94007bc997eae168738ab9171b95c1ad8ec4c364e6a8d99173a056255",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "registration_sha256": "1fdcf8e3be10fafe9f18109e6b8329014e396ca86fd6a346307931318c6c2e56",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "registration_sha256": "f072608d8b99aff4ec29c0962fdc5e5a3594cffb77fc776414277bcf75f9bbcb",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+      "ranges": [
+        [
+          45,
+          58
+        ]
+      ],
+      "registration_sha256": "1e0e429b2de643e01bf27ed5f8dfdd2d79f28c3946413f46d5e3580037cc8406",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "registration_sha256": "e16ef24c1ddcb2771ca1bacd2af8dbdc1969e13d69390dd23f228ce96ad0f366",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "ranges": [
+        [
+          159,
+          220
+        ]
+      ],
+      "registration_sha256": "7ce8a122950b0928d811bd00f59844147b718007bf8a8bbcc00c4bfd7e83a271",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "registration_sha256": "942bbfecc6805536bba33f0f9edbc45a344febbe83a88ee4501447f83272ba86",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "ranges": [
+        [
+          126,
+          236
+        ]
+      ],
+      "registration_sha256": "6a9555e7d93d8f1238f6531db9e06739cbb8dea032d0dd46ccd9ac06b4b3ec78",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "ranges": [
+        [
+          113,
+          139
+        ],
+        [
+          286,
+          330
+        ]
+      ],
+      "registration_sha256": "54cd295d154000e54ead341579cd2ba31f47a91b979e50b81abb935a4cc32ea2",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          309,
+          314
+        ],
+        [
+          531,
+          756
+        ]
+      ],
+      "registration_sha256": "ecc5ab4c7a9555e402cd9b9765e37e7f7c8f75a3655bec92ea3e7d00c1a203ec",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "ranges": [
+        [
+          331,
+          333
+        ]
+      ],
+      "registration_sha256": "fe44c609e1a3a9df276ced700b8a50e7fc2ea03dcb70c3e07e653a6cab81c66e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          166,
+          199
+        ],
+        [
+          225,
+          235
+        ]
+      ],
+      "registration_sha256": "aadcb07fbd1b7fb0f5a765456e30a02738035d82706f45dc00a4966dd5348b04",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+      "ranges": [
+        [
+          231,
+          472
+        ]
+      ],
+      "registration_sha256": "eb36e56ab29cd7fe1466d8039c9c1b1e9959a0d6c77610d312e08f05fccc9a89",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+      "ranges": [
+        [
+          306,
+          327
+        ]
+      ],
+      "registration_sha256": "62cc234890bcbd0a8b0ea7a525f856b1db8e74f3a8d0b1bae93a17b939a12b90",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/transfer.rs",
+      "ranges": [
+        [
+          230,
+          271
+        ]
+      ],
+      "registration_sha256": "17d52a258bcfb24e9e62fdfb7555960933410d2a60376649c82a2ad02c10a0a3",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/lib.rs",
+      "ranges": [
+        [
+          91,
+          187
+        ]
+      ],
+      "registration_sha256": "98aba4f6c2e948763dfee5851d3394abc621a1a0b3a5307e3addfa7f9fed68e8",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "ranges": [
+        [
+          386,
+          413
+        ]
+      ],
+      "registration_sha256": "cc16c15c32ea1b0c12878041b6189ebab8f865346942a333515c0151c964ceea",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "ranges": [
+        [
+          134,
+          211
+        ]
+      ],
+      "registration_sha256": "c975dc97c2fb429038f8e555bd72fc0ed6b1c83bb0190cc94321cdb4370a1cb7",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/topology.rs",
+      "ranges": [
+        [
+          236,
+          427
+        ]
+      ],
+      "registration_sha256": "0cc3e38b9c25caee06705b6de105b2f2c23812e9a71b7e650a86fc6c1b7e03cd",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "registration_sha256": "f6323f353e077704778a3c2699fbb48ac29511ce8f5266615dadf4ac46bd27da",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "ranges": [
+        [
+          1,
+          23
+        ],
+        [
+          63,
+          174
+        ],
+        [
+          441,
+          938
+        ],
+        [
+          1031,
+          1319
+        ]
+      ],
+      "registration_sha256": "519c9c775d7663b6f558fdfcda8ca3fb27dc034287d78ab14be4ac694eef3492",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/service_quests.rs",
+      "ranges": [
+        [
+          44,
+          44
+        ]
+      ],
+      "registration_sha256": "c78dc683d32a747fd1774a351a83caded6725203247af3851d1d838aa4fa7a1b",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/interface_help.rs",
+      "ranges": [
+        [
+          1,
+          59
+        ],
+        [
+          95,
+          119
+        ]
+      ],
+      "registration_sha256": "1a977ca644a178a9d1647b6b96b15ae3de78ff28739af7e5e72a0c4d9ee9444c",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 2397,
+      "state_sha256": "28a83e3f5274af18ef5e5886940eace83a8dd0c80e7374ea8fd39ce388c968f1"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "branch": "handoff/726-audit-ledger-20261027-adler",
+  "worktree_status": "",
+  "next_original_metadata": [
+    {
+      "original_index": 2397,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_details.rs",
+        "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 1065,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/17",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                485
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_details.rs",
+              "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+              "actual_lines": 1065,
+              "read_ranges": [
+                [
+                  1,
+                  485
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  485
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/17",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                485
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_details.rs",
+              "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+              "actual_lines": 1065,
+              "read_ranges": [
+                [
+                  1,
+                  485
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  485
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2398,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_details\\summary.rs",
+        "sha256": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 56,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/18",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                56
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+              "sha256": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+              "actual_lines": 56,
+              "read_ranges": [
+                [
+                  1,
+                  56
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  175
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/18",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                56
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+              "sha256": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+              "actual_lines": 56,
+              "read_ranges": [
+                [
+                  1,
+                  56
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  175
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2399,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+        "snapshot": "pr-working",
+        "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+        "sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+        "bytes": 105027,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/native-endpoint-sources.json",
+            "ranges": [
+              [
+                314,
+                454
+              ],
+              [
+                1514,
+                1603
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORPSE-WEB-PORT-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                314,
+                454
+              ],
+              [
+                1514,
+                1603
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORPSE-WEB-PORT-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 427,
+            "read_ranges": [
+              [
+                1,
+                2165
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEB-HEALTH-109"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 666,
+            "read_ranges": [
+              [
+                1,
+                2165
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEB-HEALTH-109"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/current_sources/7",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2165
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 401,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health.rs",
+              "expected_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+              "observed_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+              "read_ranges": [
+                [
+                  1,
+                  2165
+                ]
+              ],
+              "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-034",
+            "json_pointer": "/fresh_current_source_reads/7",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2165
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 401,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health.rs",
+              "expected_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+              "observed_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+              "read_ranges": [
+                [
+                  1,
+                  2165
+                ]
+              ],
+              "proof_mode": "Fresh current complete PR material body; paired same-byte variant fingerprint verified where supplied, preserving different downstream P16 error types",
+              "status": "body-read-actual-receiver-closure-pending"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_source_reads/4",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2165
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 401,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health.rs",
+              "expected_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+              "observed_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+              "read_ranges": [
+                [
+                  1,
+                  2165
+                ]
+              ],
+              "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 184,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CORPSE-012",
+            "json_pointer": "/current_sources/6",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row1296/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                310,
+                470
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                310,
+                470
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 999,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2400,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+        "snapshot": "pr-working",
+        "path": "crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+        "sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1500,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 671,
+            "read_ranges": [
+              [
+                1,
+                27
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEB-HEALTH-109"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/notebook.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/current_sources/14",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                27
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 661,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+              "expected_sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+              "observed_sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+              "read_ranges": [
+                [
+                  1,
+                  27
+                ]
+              ],
+              "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-034",
+            "json_pointer": "/fresh_current_source_reads/14",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                27
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 661,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+              "expected_sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+              "observed_sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+              "read_ranges": [
+                [
+                  1,
+                  27
+                ]
+              ],
+              "proof_mode": "Fresh current complete PR material body; paired same-byte variant fingerprint verified where supplied, preserving different downstream P16 error types",
+              "status": "body-read-actual-receiver-closure-pending"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_source_reads/6",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                27
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 661,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+              "expected_sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+              "observed_sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+              "read_ranges": [
+                [
+                  1,
+                  27
+                ]
+              ],
+              "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1362,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2401,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+        "snapshot": "pr-working",
+        "path": "crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+        "sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2253,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 672,
+            "read_ranges": [
+              [
+                1,
+                72
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEB-HEALTH-109"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/segments.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/current_sources/15",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                72
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 662,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+              "expected_sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+              "observed_sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+              "read_ranges": [
+                [
+                  1,
+                  72
+                ]
+              ],
+              "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-034",
+            "json_pointer": "/fresh_current_source_reads/15",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                72
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 662,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+              "expected_sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+              "observed_sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+              "read_ranges": [
+                [
+                  1,
+                  72
+                ]
+              ],
+              "proof_mode": "Fresh current complete PR material body; paired same-byte variant fingerprint verified where supplied, preserving different downstream P16 error types",
+              "status": "body-read-actual-receiver-closure-pending"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_source_reads/7",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                72
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 662,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+              "expected_sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+              "observed_sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+              "read_ranges": [
+                [
+                  1,
+                  72
+                ]
+              ],
+              "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1363,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2402,
+      "registry_record": {
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+        "snapshot": "pr-working",
+        "path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+        "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 159242,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 234,
+            "read_ranges": [
+              [
+                1530,
+                1558
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-FINAL-RECEIVERS-089"
+            ],
+            "read_status": "scoped_current_lens_actual_receiving_body_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_skills.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/19",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                60
+              ],
+              [
+                195,
+                340
+              ],
+              [
+                502,
+                546
+              ],
+              [
+                574,
+                660
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "actual_lines": 3812,
+              "read_ranges": [
+                [
+                  1,
+                  60
+                ],
+                [
+                  195,
+                  340
+                ],
+                [
+                  502,
+                  546
+                ],
+                [
+                  574,
+                  660
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  60
+                ],
+                [
+                  195,
+                  340
+                ],
+                [
+                  502,
+                  546
+                ],
+                [
+                  574,
+                  660
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-030",
+            "json_pointer": "/fresh_current_source_reads/3",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "read_ranges_as_recorded": [
+              [
+                1530,
+                1558
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 510,
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "read_ranges": [
+                [
+                  1530,
+                  1558
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-030",
+            "json_pointer": "/additional_fresh_sources/0",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "read_ranges_as_recorded": [
+              [
+                1520,
+                1562
+              ],
+              [
+                1580,
+                1644
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "read_ranges": [
+                [
+                  1520,
+                  1562
+                ],
+                [
+                  1580,
+                  1644
+                ]
+              ],
+              "disposition": "Actual HTML/ARIA/data recipient of scoped helper; not full-file proof"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/19",
+            "source_id_as_recorded": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                60
+              ],
+              [
+                195,
+                340
+              ],
+              [
+                502,
+                546
+              ],
+              [
+                574,
+                660
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "actual_lines": 3812,
+              "read_ranges": [
+                [
+                  1,
+                  60
+                ],
+                [
+                  195,
+                  340
+                ],
+                [
+                  502,
+                  546
+                ],
+                [
+                  574,
+                  660
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  60
+                ],
+                [
+                  195,
+                  340
+                ],
+                [
+                  502,
+                  546
+                ],
+                [
+                  574,
+                  660
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1569,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "producer_followup_scope_additions": [
+          {
+            "authority": "continuation/root/producer-scope-extension-authority-022.json",
+            "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+            "registered_before_body_analysis": [
+              {
+                "registry": "continuation/camera/owner-reached-producer-followup/source-range-registration.jsonl",
+                "row_1based": 7,
+                "registration_id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-007",
+                "supplier": "camera",
+                "original_record": {
+                  "id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-007",
+                  "at": "2026-10-22T04:20:13.767599+00:00",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+                  "snapshot": "pr-working",
+                  "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+                  "actual_eof_metadata": 3812,
+                  "ranges": [
+                    [
+                      486,
+                      501
+                    ]
+                  ],
+                  "material_reach": "Exact remaining character_summary_icons tail between new341Ã¢â‚¬â€œ485 and old502Ã¢â‚¬â€œ507actualreturn.",
+                  "existing_proof_insufficiency": "P16 context absent or exact role/range absent; cannot infer from PR counterpart path/SHA/owner verdict.",
+                  "pre_body_status": "registered_before_new_body_analysis; no coverage credit"
+                }
+              }
+            ],
+            "effective_local_material_ranges": [
+              [
+                486,
+                501
+              ]
+            ],
+            "qualification_refs": [],
+            "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+            "producer_discovery": "separate actual source/recipient packet acceptance required",
+            "owner_fit": "pending exact new-role delta against owner019",
+            "source_or_other_lens_credit": "none from scope bookkeeping"
+          }
+        ],
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 111,
+            "registration_id": "RIG-ADMISSION03-REG-111",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REG-111",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "actual_eof": 3812,
+              "ranges": [
+                [
+                  547,
+                  573
+                ]
+              ],
+              "material_caller": "q726 ProfessionActivityPreview::reward_delta starts544; exact complete method needed for preview scalar admission",
+              "reason": "Original ends546 and resumes574, missing exact branch/guard before already-scoped rewards receiver; finish only method gap.",
+              "exclusions": "No other unscoped character_skills functions/tests.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                547,
+                573
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+            "actual_EOF": 3812,
+            "bytes": 159242
+          },
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 112,
+            "registration_id": "RIG-ADMISSION03-REG-112",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REG-112",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "actual_eof": 3812,
+              "ranges": [
+                [
+                  806,
+                  873
+                ],
+                [
+                  944,
+                  958
+                ],
+                [
+                  1517,
+                  1519
+                ],
+                [
+                  1563,
+                  1579
+                ],
+                [
+                  1645,
+                  1649
+                ],
+                [
+                  2005,
+                  2071
+                ]
+              ],
+              "material_caller": "Original q726 scoped factories/receivers",
+              "reason": "Complete exact direct summary aptitude/hour admission helpers, bestiary receivers and producer of private reward threshold before division; unrelated reading factory body excluded.",
+              "exclusions": "All other unscoped helpers/tests.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                806,
+                873
+              ],
+              [
+                944,
+                958
+              ],
+              [
+                1517,
+                1519
+              ],
+              [
+                1563,
+                1579
+              ],
+              [
+                1645,
+                1649
+              ],
+              [
+                2005,
+                2071
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+            "actual_EOF": 3812,
+            "bytes": 159242
+          }
+        ],
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 143,
+            "registration_id": "RIG-ADMISSION03-REG-143",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REG-143",
+              "at": "2026-10-22T17:47:17.820225+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "actual_eof": 3812,
+              "ranges": [
+                [
+                  2287,
+                  2355
+                ]
+              ],
+              "material_caller": "OriginalCON745/ADD112 private ProfessionActivityPreview reward threshold->sole production schedule_special_row call at symbol2306",
+              "reason": "Native current Root103 validator admits practice_allowed=false with cadence0; actualalready-scoped with_professions retains both roles. Exact direct caller must establish exclusion or expose route before threshold positivity can be concluded. Native033 actual P16 same bounded function supplies counterpart navigation only.",
+              "exclusions": "No other unrelated template function or tests/JS; no source credit for symbolnavigation at1240/2306.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "RIG-ADMISSION03-REG-143",
+                "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+                "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+                "effective_material_ranges": [
+                  [
+                    2287,
+                    2354
+                  ]
+                ],
+                "context_excluded": [
+                  [
+                    2355,
+                    2355
+                  ]
+                ],
+                "original_qualification": {
+                  "registration": "RIG-ADMISSION03-REG-143",
+                  "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+                  "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+                  "actual_eof": 3812,
+                  "prospective_registered_ranges": [
+                    [
+                      2287,
+                      2355
+                    ]
+                  ],
+                  "actual_material_ranges": [
+                    [
+                      2287,
+                      2354
+                    ]
+                  ],
+                  "context_or_blank_no_material_credit": [
+                    [
+                      2355,
+                      2355
+                    ]
+                  ],
+                  "proof": "rig/admission03/dependency-qualification-114.json;dependency-qualification-115.json",
+                  "qualification": "Actual schedule_special_row invokes reward_delta unconditionally for supplied profession. Whole source excluded outside registered ranges; no source/test credit from navigation.",
+                  "exclusions": "No other unrelated template function or tests/JS; no source credit for symbolnavigation at1240/2306."
+                },
+                "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+                "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+                "metadata_only_no_source_or_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                2287,
+                2354
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+            "actual_EOF": 3812,
+            "bytes": 159242
+          },
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 144,
+            "registration_id": "RIG-ADMISSION03-REG-144",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REG-144",
+              "at": "2026-10-22T17:47:47.032181+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "actual_eof": 3812,
+              "ranges": [
+                [
+                  1235,
+                  1247
+                ]
+              ],
+              "material_caller": "CON745 reward_delta544->REG143 schedule_special_row2306 actual practice row selection caller1245",
+              "reason": "Read bounded branch choosing actual profession to establish whether forbidden role cadence0 can reach divided reward. Navigation identified choices filter1240 andcall1245; no source credit yet.",
+              "exclusions": "All other unscoped character_skills HTML factory/template/tests excluded.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "RIG-ADMISSION03-REG-144",
+                "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+                "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+                "effective_material_ranges": [
+                  [
+                    1235,
+                    1247
+                  ]
+                ],
+                "context_excluded": [],
+                "original_qualification": {
+                  "registration": "RIG-ADMISSION03-REG-144",
+                  "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+                  "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+                  "actual_eof": 3812,
+                  "prospective_registered_ranges": [
+                    [
+                      1235,
+                      1247
+                    ]
+                  ],
+                  "actual_material_ranges": [
+                    [
+                      1235,
+                      1247
+                    ]
+                  ],
+                  "context_or_blank_no_material_credit": [],
+                  "proof": "rig/admission03/dependency-qualification-114.json;dependency-qualification-115.json",
+                  "qualification": "Actual choices filter practice_allowed, selected ID restricted to choices; apprenticeship early return0. Native actual allowed cadence>0 predicate plus Camera151 paired normal build closes normal threshold route; public zip/raw API gap remains.",
+                  "exclusions": "All other unscoped character_skills HTML factory/template/tests excluded."
+                },
+                "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+                "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+                "metadata_only_no_source_or_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1235,
+                1247
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+            "actual_EOF": 3812,
+            "bytes": 159242
+          }
+        ]
+      }
+    }
+  ],
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "qualifications": [
+    "390accounts2394..2396next2397character-details485. LastREG1268.29mandatoryall13scopedextensions/eightstrictEOFqualifications/futureproofs retained.",
+    "Interfacewheel legend positivelystatesallmaincolors/projectedyellow/encumbrancegrey/100%cutoff; actualhealth/wheel/nativeCSS/runtimeacceptance stillpending. Questcontextreceiver narrows383 potentialbroadfuturefactsclaim; no XP/wealthdisplay alleged.",
+    "QuestlootDOMper-rowproducerandemptydynamicformconnected383pairedparserfamily, actualJSstaging/nativequantity/reducer/current pending. Medical/recoverydisabledreason/priceunknown/nativeactiontoken/missionaddressandID contracts remainpending beforefinalfindings/repair.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productsourcechanges/builds/tests/lints/scans/generation/probes/CI/newtests/publication/externalmessages. Goalactive."
+  ]
+}

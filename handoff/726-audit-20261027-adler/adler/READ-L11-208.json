@@ -1,0 +1,204 @@
+{
+  "lens": 11,
+  "batch": 208,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1470,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-286.json",
+      "registration_sha256": "10a73c563b28ce8027268dc352a3b940ebfe92c4a129183bea9b82d4604dbc54",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "sha256": "236a5328824e94bb189a8bde68dcf4f82154f9f48a4badb36397fe8f3fecf453",
+      "scope": [
+        [
+          1,
+          308
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          308
+        ]
+      ]
+    },
+    {
+      "original_index": 1471,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-287.json",
+      "registration_sha256": "b718bd5ee21cd833d4bea4dc9c14b3c5b3e6dd3593e00af3c7e18fa4795a5b41",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects/blood_decals.rs",
+      "sha256": "3e00a08166bcf6b3d43e75aea399b0c990287a726a79642e49133cdf2f166066",
+      "scope": [
+        [
+          1,
+          337
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          337
+        ]
+      ]
+    },
+    {
+      "original_index": 1472,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-288.json",
+      "registration_sha256": "54d06f69d14976e4a76d9f3d14f54ce52bbe4425ffd407119ac0abdc0436e744",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+      "scope": [
+        [
+          1,
+          376
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          376
+        ]
+      ]
+    },
+    {
+      "original_index": 1473,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-289.json",
+      "registration_sha256": "a8e1c78feae85ec83f5214bca21136d947d18486ea8b1530d5fc9e6b35a50158",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/diagnostics.rs",
+      "sha256": "f75fd2dcfa8891b72b801dec9631fdbb68183bdf125fd08f0a614ba420048a17",
+      "scope": [
+        [
+          1,
+          876
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          720
+        ],
+        [
+          721,
+          876
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1470
+      ],
+      "ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "roles": "Full reached unchanged confirmed combat impact effects, audio variation and local visual particle integration.",
+      "disposition": "Allowner/evidence/producerfull308 read, not100..225 prefix. Eventrequestsdrivevisuals/audio, onlylocalparticles/masks no combatHP/positionspersistedDB. Optionalaudioseed beforeallchannels newqualifiedgatingfamily. Localfloatparticlevelocity/remainingseconds nativeboundedvisualkernel no gratuitousbespoketypeforeachfloat. Eventimpactpoint/normal local->world native affine semantics/nonuniformnormal transform requireactualproducerframecontract beforewrongnormalfinding. Particleterrainlookup usesuntranslatedbounds/globalmask; actualsingle/activeterrainscene invariantpending beforewrongsceneclaim. Configcombatpitch/gain consumer206numericallyvalidatedparse connected, no newinputadmissionbypassclaimed."
+    },
+    {
+      "source_indices": [
+        1471
+      ],
+      "ranges": [
+        [
+          1,
+          337
+        ]
+      ],
+      "roles": "Full materially reached blood surface selection, material handoff and native mask stamping.",
+      "disposition": "Rawlocaltriangle distances rankedacrosssurfaces newframe/metricfamily; actualskinnedmaterial/targethierarchy/scaleinvariantpending. ClosesttriangleUV fixture checksoneunscaledtriangle, notnativeactualposedmeshvalidation. is_descendant excludesentityself, actualhitrootcontractsneededbeforemissingdirectsurfacefinding. Deferredmaterialswitch/BloodMaskSurface maskinstallation lifetime andsimultaneousobserverflush semanticsrequireactualnativeproof beforeloststainclaim. PrivatecreatedR8mask512positive dims/bytes normallyadmitted; publicterrainimageowner validationpending ratherthaninventzeroimagepanic. Shaderbindingindices andread_onlyfield nativeGPUboundary schema notcrosslensnumbers/stringcredit."
+    },
+    {
+      "source_indices": [
+        1472
+      ],
+      "ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "roles": "Complete debug nativeinput/control/mock registry and actual typed camera/aim visualization.",
+      "disposition": "Full376scopeincluding207..262targeting and279..338camera immediateconsumers, notboundedrangeexpandedcredit. Actualgizmos projecttypedScene cameraendpoints/volumenative_transform, OptionrigNone meansno measuredrig ratherthanvisualzero. Drawaim blockedusesactualcamera/muzzleidentitypredicate207. Debugspeed quarterbool finitechoice andsameDebugGameTimeScaleRequest adjustsclientvirtualtime plusserversignal; transientserverauthority preserved. ReflectComponent metadataregistration completesnativeSDKreflection notautomaticallylegacycompatibilityshim justbecausecommentmentionsversion. F12usesexplicitheadlesstarget/windowseparatelegitimate modes; timestampepochdefault/filenamecollision question requiresoutputidentitycontractbeforefinding. Sourcecfgtests readnotrun."
+    },
+    {
+      "source_indices": [
+        1473
+      ],
+      "ranges": [
+        [
+          1,
+          876
+        ]
+      ],
+      "roles": "Full diagnostic option/script preparation, writers/native render telemetry, input execution and capture completion.",
+      "disposition": "Newpreflight/install-outputstate andelapsed-zero entrysentinel findings, existingcapturecompletionfamily receivespersonalL11directoryerror->AppExitSuccessproof; nativeSaveDisk callbacksemantics notborrowedlens08bodycredit. ActualRender completion registration andLastsnapshotoutput connected178family, pairconcurrency/consumerinterpretationpending. Scriptenum closed privatepayloadvalidate finitepositive/boundedmovement/attacktime/path, so rawf32storagealone notunvalidatedinputproof; startstatewrongbecauseelapsed0valid. rotatewrap boundsderivedangleeachcommand, distinctfromforgeunboundedaccum206. WaitForSignal intentionalfilesentinel nofreshnessfinding beforeexternalprotocol/generator identityinspection. FrameTiming automaticSuccessreflectssampletimer notpresentedframes; downstreamanalysis/current mustproveacceptancemeaning. Screenshotprimarywindow ignoresheadlesstarget debugF12supports; actualdiagnosticheadlessmode/CLIproducer pendingnotacceptedunsupportedmodebug. Allfixtures sourceonly."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-200.json",
+      "sha256": "6a4f467f43c8988c7b26057370c538af88e1c74a60261d5bd63739043d76abf7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-203.json",
+      "sha256": "f0471ed988a4558b1deba5274c9b03be79005613a95dba03734c6bbb728582f3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-207.json",
+      "sha256": "9c5f8bd91940e9101d6095a51b3533405565670a5772c63aec2d0e35916d34d4"
+    }
+  ],
+  "pending_contracts": [
+    "All13 lens populations/extensions/current/all20 families/aliases/connectedacceptance incomplete; acceptedunique0 implementationgatefalse. Fourfulloriginalsources1897lines sourceaccounted; no productexecution/tests/repairs.",
+    "Bloodsurface scale/skinning/currentasset and authoritative hit/root/attackeridentity invariants required beforeordinary visualfailureclaim. Cosmetic kernelstacticalauthority separate, no gameplayDBpersistence.",
+    "Diagnosticpreflight createslogs beforecompleteoptionsadmission; clonefailureabsence outcome/screenshotdirectoryfailureAppExitSuccess/elapsedzero commandentry exactsourcecases qualified, no fs/native/probe/timeexecution.",
+    "Existingcapturefamily connected with freshpersonalL11diagnosticexitproof, nocross-lensBevysave_to_diskbodycredit. Rendertelemetry actualwriter/consumer connected178, coherentpaircontract/concurrency/current pending.",
+    "ActualCLI/newcaller/headless screenshot target and scriptfilesentinel producerprotocol, source/sharedmasterexactaliases andall20families stillrequired; no broadfalsepass/compatfallback verdict fromuninspecteddependencies."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1474
+}

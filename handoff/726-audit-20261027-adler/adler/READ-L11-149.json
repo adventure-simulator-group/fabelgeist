@@ -1,0 +1,154 @@
+{
+  "lens": 11,
+  "batch": 149,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1272,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-080.json",
+      "registration_sha256": "8bbe07ab27118657d562893155155d967e60f53c458a0580cb832067cdfb4305",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/discovery_policy.rs",
+      "sha256": "ce9a63997e69ca2ab6dd04b3f95c73180ee30527716047bd527cc290f9fdc4f4",
+      "scope": [
+        [
+          1,
+          391
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          210
+        ],
+        [
+          211,
+          391
+        ]
+      ]
+    },
+    {
+      "original_index": 1273,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-082.json",
+      "registration_sha256": "da29d75e06c42c7ff8893b3e9c89d88fd2020fbe82ed220963e0b6941a8d509b",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "sha256": "7d3199ead47d5700c22743f7a862eabfccaeb9b3027af9131908f1fea2d5884c",
+      "scope": [
+        [
+          1,
+          330
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          165
+        ],
+        [
+          166,
+          330
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1272
+      ],
+      "ranges": [
+        [
+          5,
+          163
+        ]
+      ],
+      "roles": "Discovery contact identity/fingerprint/backoff frontier, public bucketed diagnostics and referral selection.",
+      "disposition": "Contact identity purpose type already binds resident/conversation/location, but fingerprint active_symptoms anonymousfourtuple meaning/timing should benamed. Backoff uses officialminute not characterpersonalminute; actual producerretry_at mustsameauthority before falsebackoffclaim. Inn preference thenoverview and contactrotation ordinarypolicy, not backwardcompatibility. Emptycandidate/caseslice modulo safe in actual helper onlyifpositionfound; emptypositionNone returns0 so no dividebyzero fromempty alone. Referral prioritizesnewchangedun-corrected ownerlead, elseunresolvedcase, keeps canonicallead/clock notprivate knowledge."
+    },
+    {
+      "source_indices": [
+        1272
+      ],
+      "ranges": [
+        [
+          165,
+          308
+        ]
+      ],
+      "roles": "Public semantic dialogue fingerprint, actual topic attempt/no-progress, current NPC availability and fair casecursor.",
+      "disposition": "Fingerprintpurpose type omits incidental chronology intentionally; semantic vectors requirestablecanonicalorderactualproducer, not hashes asproof. Actions keepmethod/durationrange/skillcontributionsrawString alongsidetypedavailability andCaseSiteId; parsed admitted semantics shouldsurvive first-party policy boundary with canonical enumowner. npc dailywindow checkscontext/health beforecanonical containswindow. Candidate sort has deterministicpriority/tiebreak but no dedup, associatedpublicidentity uniquenesscallercontract. Case rows use anonymousowner/id/title/status/time thenreturnid/title; reuse current namedpublicprojection. fair_open_case_indexreturns0fornocases, actualreceiver mustavoidindexempty; no panicclaimwithoutcall."
+    },
+    {
+      "source_indices": [
+        1272
+      ],
+      "ranges": [
+        [
+          310,
+          391
+        ]
+      ],
+      "roles": "Closure attribution and discovery/intake/dialoguetopic closed states.",
+      "disposition": "Existing enums GeneratedClosureAttribution/IntakeSource/DialoguePurpose/Topic encodeactualstates andstableportIDs. ClosureonlyOpen->SomeResolved classified, missing/othertransition returnsStillOpen evenifnotactuallyopen; namedNoObservedResolution rather than lyingstate or wider outcomeadmission needsactualcallers beforepolicyfailure. Topic unknown returnsNone parserport and documentedthree supportedtopics, no legacyaliases. Preserve these canonicalowners when replacing rawString priorpolicy rather thanparallelcopies."
+    },
+    {
+      "source_indices": [
+        1273
+      ],
+      "ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "roles": "Protective encounterchoices, authored narrativelegal alternatives and persona preference.",
+      "disposition": "EncounterPolicyChoice/NarrativeChoice namedrecords stillchoiceString+staticreasonstrings, closedstrategicresponse should reuse existingchoiceowner at internal API and retainselected-publicavailabilityproof. Strategy detour/run/surrender thenattackonlynon-evac deliberateprotectivepolicy. Narrative parse typedEncounterPresentation atJSONboundary, filtersavailable; finds globallyuniqueauthoredchoiceID, rejectschecks/startcombat thenpositivepersonalityfit, elseavailableignore. Requiresglobalchoiceidentityuniqueness/canonicalcatalogrelationship, doesnotcheck authoredconsequence resourcepreference otherthanpersonality, commentstateslegalitynotpreference. Unknown/ambiguous ignoresmalternatives ratherthanforgedchoice, no authorizationbypassclaim."
+    },
+    {
+      "source_indices": [
+        1273
+      ],
+      "ranges": [
+        [
+          163,
+          299
+        ]
+      ],
+      "roles": "Public combat member fingerprint, readiness vs capability, contract reason/power/margin and bounded quantization.",
+      "disposition": "Reusecoreauthoritativecombatpowerandsafetymargin, separateenemycount/difficultypositivepreconditions. PublicContractAssessment bool+reasonstring+Optioncount+metrics couldclosedEligible/UnknownCount/InvalidDifficulty/MissingPower/Overflow/Unsafe carryingcoherentfacts. Sumreadymelee/rangedpowerchecked, missingpower0 distinctunknown; no newparallelcombatscore. Fingerprint sortscharacterIDs butnotdedups, quantizesskills centipointsandarmorbools+power, omitsreadinessdistinctfield. Allactualsuppressionrelevantcondition/sourceupdates mustbetracedbefore equivalentfingerprintmeansunchangedcombatfact. Typedskillcentipoints vs powerunits distinct, negative/NaNmaxclamp conversion requiresupstreamcanonicalvalidity."
+    },
+    {
+      "source_indices": [
+        1273
+      ],
+      "ranges": [
+        [
+          301,
+          330
+        ]
+      ],
+      "roles": "Initial persona skill preference vs live learnedskill and unchangeddefeat suppression.",
+      "disposition": "Methodfitusesprofile.initial_skills, terrain-dependenttracking0deliberateunobservablefeaturepolicy, rawmethodmatchwildcard0closedfiniteownerneeded. Roundedboundedtraininghours usedrankscoresnotactualeffectiveskillcheck. Defeat suppression requirescombat_available+exactpreviousfingerprint, no passingactualreadiness/injuryclonecredit. Registration081requested1..346 inheritedproducer metadata but exactobjectEOF330; registration082beforebodyread correctseffectivescope1..330. No nonexistent331..346read/coveragecredit, preserve081originalregistration ashistory."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-147.json",
+      "sha256": "4725705d8c4623f09e5b697e541cdafa37100610002351d014693613491544b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-148.json",
+      "sha256": "45521a56371b519bb94567a8155b3f1884b7a4e2124a7966100914e3de9c5194"
+    }
+  ],
+  "pending_contracts": [
+    "Discovery fingerprint ordering/timeauthority and actual faircursor/closure/defeatsuppressionreceivers, canonical encountercatalogidentity and current/aliases pending.",
+    "Registration081 historical overrun explicitly clipped by082 to hash-verifiedEOF330; no missingtailcredit.",
+    "All13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete; no projectexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1274
+}

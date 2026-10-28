@@ -1,0 +1,283 @@
+{
+  "lens": 11,
+  "batch": 289,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1895,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-736.json",
+      "registration_sha256": "92dc979ecaddc9e235d03267064539bce11e5b61d14f2c15fc097cc908ac3774",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_map.rs",
+      "sha256": "3e21ceb6c449abd106a26ce32d246c70609ea373b36cfedb144252d328dd6d9b",
+      "scope": [
+        [
+          1,
+          245
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          245
+        ]
+      ]
+    },
+    {
+      "original_index": 1896,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-737.json",
+      "registration_sha256": "b39f12746a8a671cc4a4c7cdb0a87d38fd1b68635c473cbd573e492c9e0203d2",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "scope": [
+        [
+          1,
+          112
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          112
+        ]
+      ]
+    },
+    {
+      "original_index": 1897,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-738.json",
+      "registration_sha256": "df63ef2864ce7a538fc2e0fdb3fcc36e183cb42ba4888fb06b944288ff6627d4",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "scope": [
+        [
+          1,
+          553
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          553
+        ]
+      ]
+    },
+    {
+      "original_index": 1898,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-739.json",
+      "registration_sha256": "432455617aeb179c6b25e1a6b0bdf307b0c221462de823a8f1672ae53a38f7da",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "scope": [
+        [
+          1,
+          98
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          98
+        ]
+      ]
+    },
+    {
+      "original_index": 1899,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-740.json",
+      "registration_sha256": "e47c5e7c572211149c4cc8f78208b18613db038515f2de6265ecee329ddd8a43",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/grade.rs",
+      "sha256": "60f79c6fe38de7e44aa07d908848a9a81e03efc77be1522585275f3f8e3f2c0e",
+      "scope": [
+        [
+          1,
+          296
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          296
+        ]
+      ]
+    },
+    {
+      "original_index": 1900,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-741.json",
+      "registration_sha256": "8aa15eae941469b2a41dfb9541408a2f90f124e5953f766e508ef20095d75e3a",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/grade/tests.rs",
+      "sha256": "480ab83fca39804dcdb282b16c1d3ebfb6ce3b257b1f7b89f0455cce60a10601",
+      "scope": [
+        [
+          1,
+          109
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          109
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1895
+      ],
+      "ranges": [
+        [
+          1,
+          245
+        ]
+      ],
+      "roles": "Independent lens11 exact full map/geographic/scene nativegrid and complete physical-grade admission, diagnostic ownership and source acceptance fixtures.",
+      "disposition": "Full245 mapoverlay observeradmittedpresentation notdiscoveryauthority. MarkerusescanonicalStrategicPlaceId/Wgs84Microdegrees/rank/emphasis andSourcePackageDigest; checkedoverlaycapsmarkers, type/rankmatching, distinctplaces/atmostonecurrentandselected, typedroute2..65536points andkindComputed/Estimate, samewirecheckednew. No explicitrouteunique/distinctgeometrycontract so repeatedpoints notautomaticallybug. MapSpan wrapsPositiveLength range40..8192000; MapZoomRatio finite.05..20, completezoom productf64clampedpresentationrange beforecheckedf32handoff, no rawfloatfieldweakening. MapScaleError retainsactualbadquantity andGeometrysource, overlaycountrolesprovidedretained; duplicate/placeuniterrors actualreporterbeforelostcontextfinding. Future2701protocolsame-lensREAD243proof remainsseparate noearlyorderedcredit."
+    },
+    {
+      "source_indices": [
+        1896
+      ],
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "roles": "Independent lens11 exact full map/geographic/scene nativegrid and complete physical-grade admission, diagnostic ownership and source acceptance fixtures.",
+      "disposition": "Full112 regionalterrain fixed65^2vertexwindow, requestcanonicalorigin+roleScaleenum separatefromvistaordinal. Optionvertex explicitgeographicholes nofabricatedground; ElevationMeters absoluteground notSceneSupportElevation/scene-localfloor. Scaleowns30/250/2000/16000/128000m spacingnativehandoff; newandwireenforceexact4225count andretainprovidedError. EnvironmentalSample/sourceDigest canonicalowners stillactualadmissiondependencies, no broadclearancefromtypereferences."
+    },
+    {
+      "source_indices": [
+        1897
+      ],
+      "ranges": [
+        [
+          1,
+          553
+        ]
+      ],
+      "roles": "Independent lens11 exact full map/geographic/scene nativegrid and complete physical-grade admission, diagnostic ownership and source acceptance fixtures.",
+      "disposition": "Full553 SceneTerrain privategrid+sampled/ownedgeometry customwire, cellvsvertex constructorsdistinct, checkedusizecounts/dimensions/validatebeforequery/nativeheightfield. TerrainGenerator exposesrawperiod/gridscale andnativeNoizseedlowu32 adapter; sourceheightfunction finitecheckedaftergeneration. from_heightmap validatesviaOption losingactualTerrainAdmissionError; refined likewisevalidateddimensions/replacement andallOptionquerycallback failurecollapsed, actualreportercause beforetypederrorfinding. rewrite_heights stagescompletefinitecheckedreplacement beforepublish, so no partialheightmutation oncallbackfailure. colliders sampledAvianheightfield vsownedseparatestaticshapes intentionalnativegeometry, nosecondtacticalauthority. CoarseLOD stridegeometry, rowmajorrender/columnmajorParrymatrix nativeports, checkedu32capacity ensuresindices; centroidfiltercaller semantics pendingbeforeundercoveragefinding. Sourcefixturescoarse/queryauthority/rowmajor/colliderverticalrayalignmentreadnotexecuted. Fullscenevalidate739 establishesfiniteonlyheights, noactualelevationmagnitude bound, relevantgradecounterexample."
+    },
+    {
+      "source_indices": [
+        1898
+      ],
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "roles": "Independent lens11 exact full map/geographic/scene nativegrid and complete physical-grade admission, diagnostic ownership and source acceptance fixtures.",
+      "disposition": "Full98 SceneTerrain admission rejectsless2axes, checkedvertex/triangleindicesu32capacity, scale finitepositive andrepresentedextentsfinite, stridepositive/dividesbothcellcounts, exactrowlengthandallheightfinite. Nativeheightmapconstructor/wire samevalidate butOwnedgeometryrelationship stillactualTerrainGeometryowner pending. Defaultfiniteflat1m square explicitframeworkdefault notmissingdatafallback. Extentfiniteness notstrictpositiveproduct check atsubnormal scale butwidth>=2 andscale>0 resultatleastscale. ErrorunitvariantsDimensions/Scale/Stride/Heights preservecategory notindex/value/count; actualproducerreporter neededbeforefinalbespokecauseclaim."
+    },
+    {
+      "source_indices": [
+        1899
+      ],
+      "ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "roles": "Independent lens11 exact full map/geographic/scene nativegrid and complete physical-grade admission, diagnostic ownership and source acceptance fixtures.",
+      "disposition": "Full296 TerrainGradeLimit finite>=0 serdecustom, PLAYABLE.65 roleproceduralrepairdifferentfromactorwalklimit. Completeconstrain f64promotesbeforeheightdifferences/norm/projection, stagesreplacement commitonlysuccessfulconvergence, bounded1024sweeps, dirtycellsinvalidation deterministicandpreconditioner currentnumericalalgorithm notcompatfallback. ErrorConvergence ownsHeightmapCell/measuredGeographicGrade/permittedTerrainGradeLimit/DiagnosticCount; no fabricatedzero sample normal failure becausepositiveworstcell exists whenactualresidual>bound. Absoluteheight-scaled4ULProundoff earlysuccess canadmitphysicalsteepface atlargefiniteoffset, newsourcefinding connectedactualpublicSceneTerrain constructor. Laterreplacement castdoesnotrecheckphysicalgrade butordinaryroundoffpolicy actualconsumer/current pendingbeforeseparatesamefamilyfinding."
+    },
+    {
+      "source_indices": [
+        1900
+      ],
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "roles": "Independent lens11 exact full map/geographic/scene nativegrid and complete physical-grade admission, diagnostic ownership and source acceptance fixtures.",
+      "disposition": "Full109 gradefixtures diagonalphysicaltrianglebound, unchangedvalidaxisreliefbits, neighboringdeterministicconvergence, invalidrequestpreservesinput, dirtyvsunconditionalfullsameprojectionandsameconvergencestatus64passes. Ordinaryheight0..7 and17x13 sourcefixtures notlargeabsoluteoffset case. No executedtest/nativegeometry/product/scalarprobe. Completehelperf64bounds do notbythemselvesguaranteephysical.65 dueadmissionroundoffpolicy."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-284.json",
+      "sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    }
+  ],
+  "pending_contracts": [
+    "289 completes1895..1900 fullmetadataunion,next1901 registeredmetadata182butnotyetprospectivelyregistered, nextreg742. No partial/unrecordedbodyreads.",
+    "Newgrade absoluteoffset sourcecounterexample actualpublicSceneTerrain admission connected, notgenericarithmeticassumption. ActualtypicalSceneInput heights/frame/gradecall/nativecurrent stillneeded. Gradef64measurementseparatefrom274PropertySupportMesh normaloverflow and286edgeinterpolation untilfinaldedup.",
+    "Scene from_heightmap/refined eraseTerrainAdmissionError viaOption, actualreporter/caller andlegitimategeometricabsencepolicy beforefinalcausefinding. Mapspan ownscompletef64boundedzoom; regionalholesexplicitOption nofabrication. No implicitallchildmodulecredit.",
+    "Allpriorqualifiedfamilies/Quickstep287qualified288/Market282/AIoffense282/Marching286/tenextensions/EOFexceptions/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1901
+}

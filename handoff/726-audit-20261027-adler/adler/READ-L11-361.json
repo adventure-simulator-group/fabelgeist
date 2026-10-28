@@ -1,0 +1,307 @@
+{
+  "lens": 11,
+  "batch": 361,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2266,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1125.json",
+      "registration_sha256": "e58f658f47683b1b537046ae385e194aa87de5f3132cf73d643f97c617e22ca0",
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "scope": [
+        [
+          1,
+          715
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          715
+        ]
+      ]
+    },
+    {
+      "original_index": 2267,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1126.json",
+      "registration_sha256": "a8684dd10756bd765b356342b41b203449dd1c8a0963b6f3fd2ddc386e542ccf",
+      "source_id": "pr-working:crates/fabelgeist-geometry/Cargo.toml",
+      "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+      "scope": [
+        [
+          1,
+          21
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "original_index": 2268,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1127.json",
+      "registration_sha256": "6c4f2fb1fcdd5ccaa2c9ad643b89b83ef3289029123e4101c0f42401bd3fe78e",
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "scope": [
+        [
+          1,
+          126
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          126
+        ]
+      ]
+    },
+    {
+      "original_index": 2269,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1128.json",
+      "registration_sha256": "6b64ea3946e5a23ac9532ccfdb701dc497d95eb227988084844d84bb7af5b2f3",
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "scope": [
+        [
+          1,
+          95
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "original_index": 2270,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1129.json",
+      "registration_sha256": "a493e29fc96d5d784b55c13b1d3ed70e2df6fa0f9cc515594341176fc7030631",
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "scope": [
+        [
+          1,
+          40
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "original_index": 2271,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1130.json",
+      "registration_sha256": "5bb426255802eac6d2b2bdbeb3424fe9fe29af80ec226406de74d4ed20312dfd",
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "scope": [
+        [
+          1,
+          16
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          16
+        ]
+      ]
+    },
+    {
+      "original_index": 2272,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1131.json",
+      "registration_sha256": "243e59673943ddc09e0622c119c24931a546fab079b4bddb5964c549dbd9aa3d",
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "scope": [
+        [
+          1,
+          104
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          104
+        ]
+      ]
+    },
+    {
+      "original_index": 2273,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1132.json",
+      "registration_sha256": "b8a7c607c1788b6896cd02c20afbec8511b193f26be90e64d3095cde8cb7a284",
+      "source_id": "pr-working:crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "scope": [
+        [
+          1,
+          43
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          43
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2266
+      ],
+      "ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "roles": "Independent lens11 exact garment fit producer and shared portable geometry value/error admission.",
+      "disposition": "Full715 actual garment fit adapter closes355Fabric density premise: build_garment passes fabric.density into cloth::build while resolution and panel translations convertedcm->m; not ignored density. All matched stitch runs share monotonically raised finite1..64 segment demands, so fixedpoint terminates and ordinarypairedruns have samecounts; native pattern edges/indices validation still canonical PatternSpec owner unread. Missing/skipped panels/invalid stitch edges ignored deliberately but actual public pattern invalidity policy before new partial-output error. Fitsettings raw cm/body height/delta/substeps actual shared Solver admission pending, no tested invalidcase. Fit::new makes one private cache for exactly suppliedcontext, narrowing356crossdevicecacheissue for this ordinaryproducer; context itself public mutable and standalone cache APIstillunbound. Top Fitdoc says isolated device but new/step docs and sourceuse supplied application context, stale durable architecture text/current consumer required beforeproduct change. set_body updatesGPUcollider+CPUbody thenclear; public set_collision_mesh updatesonlyGPU, actualanimatedbody/reset/callerpolicy before staleCPU clear-bodyfinding. set_pose restpositions +framesreset deliberate placement, readback_handles clonespairedcontext/buffer coherently. clear_body actualhostBVHclosestnormal .5mreach and offsets, degeneratefaces skipped, exactnativegeometry tests remain childunread. normalize_body empty returnsVecempty, degenerateheightscale1 and finite target/geometry unchecked; actual source mesh loader/typedpositions/current before failure family. No tests/helper source executed."
+    },
+    {
+      "source_indices": [
+        2267
+      ],
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": "Independent lens11 exact garment fit producer and shared portable geometry value/error admission.",
+      "disposition": "Full21 sharedgeometry manifest engine-independent default and optional Bevy math/reflection; native typed roles can cross nonengine consumers without mandatory renderer dependency. Actualserde/thiserror workspace versions not resolved."
+    },
+    {
+      "source_indices": [
+        2268
+      ],
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "roles": "Independent lens11 exact garment fit producer and shared portable geometry value/error admission.",
+      "disposition": "Full126 private CuboidDimensions three admitted SignedLength, explicit finite axis precheck then nonnegative extent peraxis; point/line/zero solids intentionally valid. Manual Deserialize routes axes through checked from_metres, not derived-wire bypass. Native Vec3 tuple struct serializer identity and optional native vector projection are schema/native ABI choices; current/all20contract comparison before declaring backward-compatibilityshim merely from preserveidentitycomment. Tuplevisitor reads exactly3 and delegates serializer tuple contract extraelement enforcement; actualSerde native formats beforeclaimextraignored. Native negativezero nonnegative admitted deliberate finite semantics. No runtime decode."
+    },
+    {
+      "source_indices": [
+        2269
+      ],
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "roles": "Independent lens11 exact garment fit producer and shared portable geometry value/error admission.",
+      "disposition": "Full95 portable GeometryError structured axis/role and exact DirectionError source category, serialization maps typed variants to stable labels. TextDisplay not runtimeclassification, shared error ownership explicit. Actual framework direction adapter classification body unread; cannot claim native cause remainsownedifonlyportablecategory until actualadapter source reviewed. No dynamic gameplay string selector introduced."
+    },
+    {
+      "source_indices": [
+        2270
+      ],
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "roles": "Independent lens11 exact garment fit producer and shared portable geometry value/error admission.",
+      "disposition": "Full40 PositiveLength privatefinitepositivef32metres, checkedzero/negative/nonfinite admission and manualDeserialize sameconstructor. Negativezero excluded by==0; reflectionopaque. Nouncheckedconstructororpublicmutablefield here. Verysmallpositive native values allowed by contract; consumers mayrequirestrongerworkingclearance bounds ratherthanrestrictallpositive lengths globally."
+    },
+    {
+      "source_indices": [
+        2271
+      ],
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "roles": "Independent lens11 exact garment fit producer and shared portable geometry value/error admission.",
+      "disposition": "Full16 sharedgeometry exports canonical checked owners and error types; optionalnativevector projection separate from scalar admission, directcurrentexports not automatically compatibilityaliases. Child pathsalreadyread onlyscopedfiles; no implied othernativeposition/frame owner body."
+    },
+    {
+      "source_indices": [
+        2272
+      ],
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "roles": "Independent lens11 exact garment fit producer and shared portable geometry value/error admission.",
+      "disposition": "Full104 SignedLength finite signedzero/negativeinsets intentionallyvalid, manualSerde checked; Area finite nonnegative includingzero manualSerdechecked. scaled_by rechecks result and u16millimetres division boundedfinite, preservingactualcalculationorderingratherthanoldAPIcompatibility. PositiveLength->SignedLength validwidening distincttypeidentity, compile_fail snippets expressrole/unitseparation butnotexecuted. NoAdd/Multiplyuncheckedreturn APIs here. Native serializedrawf32 boundary intentionalcheckeddecode. Noinvalidacceptedfinding."
+    },
+    {
+      "source_indices": [
+        2273
+      ],
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "roles": "Independent lens11 exact garment fit producer and shared portable geometry value/error admission.",
+      "disposition": "Full43 GPU manifest sharedmath/color ownership and optionalimage/fsports with defaultimage-io. NoFeature/backend/compiler resolution performed. ActualGPUlayout/reflection/uniform and nativebufferextentowners next2274/2275 remainpending before356ABI/cache/nativevalidation acceptance."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9"
+    }
+  ],
+  "pending_contracts": [
+    "361 accounts2266..2273 next2274GPUbindgroupfull303REG1133 then2275extent53REG1134 bothregisteredunread. LastREG1134.21 all13mandatoryextensions/sixEOFqualifications/futureproofsretained.",
+    "Actual garment build consumes Fabric density into meshconstruction, narrowing355 densityignoredhypothesis. NormalFitnew cache iscreatedforonecontext, narrowing356 crossdevicecachehypothesis onthisproducer; publiccachegetcontext andpublicFitcontextmutability still separate current/caller dependencies.",
+    "Geometry manualSerde constructors enforce actual invariant; zeroCuboid/zeroArea/signedoffset legitimate roles, PositiveLength rejects0. No automaticcompatibilityfindings fromnativeVec3tupleidentity, numericordering preservation orcurrentprojection adapters.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup incomplete gatefalse accepteduniquechange0. No product changes/builds/tests/lints/scanners/generators/runtime probes/CI/new tests/commits/publication/external messages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2274
+}

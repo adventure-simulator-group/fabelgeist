@@ -1,0 +1,311 @@
+{
+  "lens": 11,
+  "batch": 200,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1412,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-225.json",
+      "registration_sha256": "c1a03aaf6416afe7916aa300667d7a3c7ed34b1b2346e36f558488d65c1b3508",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "scope": [
+        [
+          1,
+          1021
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          720
+        ],
+        [
+          721,
+          900
+        ],
+        [
+          901,
+          1021
+        ]
+      ]
+    },
+    {
+      "original_index": 1413,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-226.json",
+      "registration_sha256": "87e70d96ea93124b0673460a682b14bbc0b6edda1e8a995db887b9118f565edb",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "scope": [
+        [
+          1,
+          168
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          168
+        ]
+      ]
+    },
+    {
+      "original_index": 1414,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-227.json",
+      "registration_sha256": "12834896101b32d0a5aecbeb0c6cb90541ce2bbb3ea2f0cec5d5b9daec2364f1",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "scope": [
+        [
+          1,
+          57
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          57
+        ]
+      ]
+    },
+    {
+      "original_index": 1415,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-228.json",
+      "registration_sha256": "e80d7cd53196829764c84e89d8e3e6e07cefe59e4b006d15696f3448ea418238",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "scope": [
+        [
+          1,
+          58
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          58
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1412
+      ],
+      "ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "roles": "Capture sequence/complete payload, planned-frame selection and frozen look input.",
+      "disposition": "CaptureSequence retainsplan/index/view/applied/admission/settle/wait/inflight/diagnostics plusactualsimulationtick; CompletedCapture transfersowned vectors withmemtake, notcompletionvalidationbytype. OpenScenarioMetadata label outsidefiniteplan mayassertunknown inResult-returningnew; actualCLIcallerprevalidation needsregisteredproof beforestructurederrorfinding. FullRagdollhasexplicitplanoverride, authoredreadybypass separate. Existingnumericalsourcebodies transportedlens08 onlybytesprovenance; freshrootread recordedhere, no crosslenscredit."
+    },
+    {
+      "source_indices": [
+        1412
+      ],
+      "ranges": [
+        [
+          185,
+          465
+        ]
+      ],
+      "roles": "Deterministic capture driver, current-subject readiness and state/root/action sequencing.",
+      "disposition": "Driver requiresplayback andauthoredready exceptFullRagdoll, firstscenarioresetlegs/arms/raisedheight/bodyresponse andtypedrootpreparation beforeapplied. Root/controller/animationmotion wrappers typederrors becomeRejected, notreadinesswait. MutatescandidateECSstate beforelaterreadiness rejection, intendedwarmup persistentfixture ratherthanclaimedfulltransaction. ExactCaptureSubjectsingle checkedlatercapture; driversqueryforloop assumesexpectedone, actualsetupcardinalityfuture. simulationtick advancedonlynewdrivenlogicalframe, fixedclock carrieszeroelapsedfirstscenario andwarmup; actualchildren readiness/rootmotion uninspected."
+    },
+    {
+      "source_indices": [
+        1412
+      ],
+      "ranges": [
+        [
+          467,
+          626
+        ]
+      ],
+      "roles": "Ground overlay, observed event attribution and capture prerequisites.",
+      "disposition": "Gridnativeconstants visual-only, no gameplayfactor. Collectevents cachesallreadpayload owner+sampletick withcurrentplanframe; actualeventownership/emit-beforecapture-readiness guards requireconsumersproof. Capture Lastrequiresapplied/admissionopen/notinflight, actualsinglepresentedsubject+playback+route+authoredready exceptragdoll. Missingreadinessusesboundedwaitcounter afterapplied; outerharnessrunif mayblockbeforewait, actualharnesschildpending. Settle60first/2views explicitGPUpreviouscamerarender guard not actualrender completiondiagnosticpairproof."
+    },
+    {
+      "source_indices": [
+        1412
+      ],
+      "ranges": [
+        [
+          627,
+          759
+        ]
+      ],
+      "roles": "Observed capture diagnostic fields and competing support authorities.",
+      "disposition": "Groundcollectsbonesactualsubject/terrain, missingLegIkdefaultsbarezero-yaw diagnostics ->capturesdegrees, strengthens191missingmeasurement family. Bodyresponse/heightmissingdefaultZEROalsoerasesavailabilitybutactualrequiredscenario/component contractpending beforeindependentfinding. admitIKsupport terminalguard from1413 honouredfirst, then initializedRaisedFootwork weights overridefreshadmittedLegIK; newqualifiedsupportdispatchfamily linkedactualobserver191 andplugin184same-lens fullproof. Generalandik-support fieldsbothserialized, downstream usespending. Contactsequence alwaysRaisedFootwork counterevenuninitialized byexplicitownershipcomment, legitimategap>1 fixture199makes191retainmonotonicgap a qualifiedactualconsumer issue; nativegapscenario/currentpending."
+    },
+    {
+      "source_indices": [
+        1412
+      ],
+      "ranges": [
+        [
+          761,
+          898
+        ]
+      ],
+      "roles": "Asynchronous three-view image completion and jitter frame conversion.",
+      "disposition": "Screenshot callback advancesoneviewonlyonactualScreenshotCaptured, fingerprint recordsduplicateviews; no sourceproof save_to_disk error/outstandingGPU callbacktimeouthandling, actualrenderSDKcontractpending. Fingerprintinvalidimage0/hash excludesUI top96 andsampledRGB intentionalcheapduplicateheuristic notimage-equalityproof. FullRagdoll explicitlyEXCLUDED fromjitterframes828..830, resolvesprior198potentialwrongjitterclassification concern for thisconsumer; metadatarepeatable/defaultsolverstillothermetricspending, noacceptedFullRagdolljitterdefect. Jittersegments splitonaction/landing/contact/guardstop/takeoff, parentmissing retainsworldcoordinates fallback actualbonecoveragepending. read transformscalarsnotstrongproofallwindowsvalid."
+    },
+    {
+      "source_indices": [
+        1412
+      ],
+      "ranges": [
+        [
+          900,
+          1021
+        ]
+      ],
+      "roles": "Bounded applied capture wait and existing plan/completion source fixtures.",
+      "disposition": "wait_or_fail loadsframecount threshold thenwritesfailure/exit, but screenshotinflight/harnessblocked outerpaths do notincrementhere; no claimedwholepipelinebounded guarantee. TestsflatgridoptinconfiguredIK/sprintandcompleteownership only sourcefixtures, no capture/GPUexecution."
+    },
+    {
+      "source_indices": [
+        1413
+      ],
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "roles": "Terminal typed capture admission distinct from loading waits.",
+      "disposition": "Open/Rejected(typedFrameInterval/Locomotion/Terrain/Geometry)/Terminated monotonicterminalauthority atrejectsystem; sceneheightrequirednotOptiondefaultneutral. ActualordinaryauthoredIKenabled requiresSomebothsupportobservations evenwithoutsolvetargets, explicitUnavailableObservationError preventsNoneflight. Nonordinarywithbothsolvetargetsabsent usescadenceasdefinedsemanticpolicy. failwritepreservesfailurelogerror anderrorExit, no silentloadretry. NewcaptureoverridestillcanreplacevalidZEROwithcacheONE afterthisguard."
+    },
+    {
+      "source_indices": [
+        1414
+      ],
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "roles": "Actual capture schedule and admission-before-readiness terminal ordering.",
+      "disposition": "Driver/frozenlook PreUpdate, camerabeforepropagation, overlayafterpropagation. Lastinspection/harnessreadiness/events/reject/capturerunifchain ensuresrejectionconsumed evenharnessnotready, confirms1412supportcaptureafterplugin184postpropobservation. Typedcaptureadmission notreadygate isseparaterunif; actualharnessruntimevalidation pending. Existingplugin170full109 source rereadfororderingcontextonly noadditionalfrontiercredit."
+    },
+    {
+      "source_indices": [
+        1415
+      ],
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "roles": "Native fixed clock interval and logical sample identity.",
+      "disposition": "AnimationSampleRate->f64reciprocal->Durationtry finite/native-zero reject beforeTimeFixed, no f32roundtripchange requested. nextsimulationtick zeroonlyabsolutefirst, elsewrapping_next acrossnewscenario evenelapsedzero. Scenarioframe0ElapsedZERO deliberatehold notmissingclock measurement. Existingtickboundaryfixture sourceonly; completednativephysics/frontendtime consistency stillpending."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-184.json",
+      "sha256": "11b67f5b3e5cdbd7c200ceaa155c1fc0d06582f2093356559de529284b7f5303"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-186.json",
+      "sha256": "915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-187.json",
+      "sha256": "384f724657d2dd13432ad6a5573671a61bc6a7f39b73b02ce2b0357742e8d895"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-188.json",
+      "sha256": "fbb51803f979a69f77ec1aca11053bd2a7adb46d3504a064eaedac0f0af38163"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-189.json",
+      "sha256": "a68730444c62595c5321a8e762a9366f327caa5cbce6b39a3f6ce17b0b4ae462"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-190.json",
+      "sha256": "cdc7a00ed64a26af256d37d15b0e1d80c6528b74f8033576246f892f53f2d878"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-191.json",
+      "sha256": "d4a0ce1e2f009f987fc1f2f2bf7d6d9a7d0f731123a31f2252eea74dc8ac3779"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-192.json",
+      "sha256": "9051400928f7f0d626a83c40d6aec372792be967d1df026c64f7a742caab97ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-193.json",
+      "sha256": "2f1d3a05d04acc122015a402c21c1ade67b0a13d26ed9280feeef178e1e8257c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-194.json",
+      "sha256": "4a3984eb552f1121f4c991ad8aaced174eb3ddd2e75748b5af80b22adfbe6914"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-195.json",
+      "sha256": "d75d0a9b3a71fe677dccf7fda0bc9595c68709a57745458eb53888cae3cd3d30"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-196.json",
+      "sha256": "dba4a7805482f2ffbb10e4fdfb5810ae760a69a7d96a6f1b8d982acbfddf54ed"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-197.json",
+      "sha256": "52066eac0653dcd70fc3672fc38d96f8b433d57e74f3f55662519adbcd2afcde"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-198.json",
+      "sha256": "e4012e75b26f5fc29410e92d361e299e4812206453c17fd86cb9c417ff25c794"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-199.json",
+      "sha256": "78bc988036910554fd798e86c2f77b7fad2c670ba9c24b1fb956851e206dd76e"
+    }
+  ],
+  "pending_contracts": [
+    "Newraised-supportcapturefamily retainsconditionalnativehierarchymismatch/current/actualmetricacceptance qualification. Knee-yaw missing-observationZERO nowconfirmed actualcapturefieldtransport, downstreamgatepending.",
+    "FullRagdoll explicitlyfiltered fromjitterframes, correcting198unresolvedgenericclassification concern for jitterconsumer; no newacceptedragdolljitterpolicyfinding. Othermetricsmetadata stillpending.",
+    "Readiness/repeatedevaluation/globalbones/rootmotion/subjectmotion andactualmetricreportchildren remainunread; do notinfercapturecomplete/fromadmittedplan alone. All13 populations/current/all20families/aliases/acceptance incomplete, noexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1416
+}

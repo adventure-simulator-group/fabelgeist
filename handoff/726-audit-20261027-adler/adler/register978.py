@@ -1,0 +1,4 @@
+import continuation as c
+for i,reg,n in [(2125,978,94),(2126,979,265),(2127,980,98),(2128,981,102),(2129,982,231),(2130,983,38),(2131,984,187),(2132,985,207),(2133,986,135),(2134,987,62),(2135,988,78),(2136,989,275),(2137,990,87),(2138,991,70),(2139,992,217),(2140,993,153),(2141,994,106),(2142,995,65),(2143,996,140),(2144,997,240),(2145,998,75),(2146,999,137),(2147,1000,126),(2148,1001,174),(2149,1002,42),(2150,1003,101)]:
+ p=c.register_original(i,[[1,n]],f'REGISTRATION-ADLER-{reg:03}.json','Prospective independent lens11 exact full metadata union: canonical recipe/quantity/schema/structure/error/material and actual dimension/graph/melee/ranged/shield/native geometry admission contracts. Future2151REG975READ328 mustadoptatorderedfrontier, no newsource/otherlenscoverage.')
+ print(i,reg,n,'EOF',len(p.read_bytes().decode().splitlines()))

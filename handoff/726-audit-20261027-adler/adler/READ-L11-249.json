@@ -1,0 +1,261 @@
+{
+  "lens": 11,
+  "batch": 249,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1710,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-545.json",
+      "registration_sha256": "9d543c04499b5a40042b638afe74d4ecbe7c2311b2de988ab3c65601b2f9a0bd",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+      "sha256": "5b18a1ddb04059c6126b350b2df16288411ef3402b2573d661ab0bafcb582ea5",
+      "scope": [
+        [
+          1,
+          177
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          177
+        ]
+      ]
+    },
+    {
+      "original_index": 1711,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-546.json",
+      "registration_sha256": "b84084553858f4d140b610a9a0e0d5dbf80fe84688bc7f6302eafc0067fe45d3",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs",
+      "sha256": "dabf3bf9fa2f2c3901d7d9737809119ec7f14c610b352fae3adcd159772bd386",
+      "scope": [
+        [
+          1,
+          64
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "original_index": 1712,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-547.json",
+      "registration_sha256": "0acc14706bd22991a386ddf4024348762375c3fe49164ddb187f7b5a9b194cf0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+      "sha256": "8f349e6bcd0e513f6a77a8b70f6957051ba93b126b1d2f6a6fe384e2ee035ab3",
+      "scope": [
+        [
+          1,
+          160
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          160
+        ]
+      ]
+    },
+    {
+      "original_index": 1713,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-548.json",
+      "registration_sha256": "d57f60d6e0c38424637b6d43d3440a2d79bd433bfde91e4fc2c330b82e70112d",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+      "sha256": "bce910fe4144f1301ece257fd3e0a1b333d4f4e61ae2908f796f4e4e72faa933",
+      "scope": [
+        [
+          1,
+          241
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          241
+        ]
+      ]
+    },
+    {
+      "original_index": 1714,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-549.json",
+      "registration_sha256": "ec5216641dd3f3d644bd7829ba31f442d0a844efe821e6d8a8405b225067a046",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "sha256": "bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+      "scope": [
+        [
+          1,
+          379
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          379
+        ]
+      ]
+    },
+    {
+      "original_index": 1715,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-550.json",
+      "registration_sha256": "0dd997e86d9a06632ebb218796553da3f7fd8f7cec5b932ece393a7df76be51e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+      "sha256": "e02b7ac3ba7478629a9233a5790f4c54e8f1d2f20d859926fd2c804a87759cd1",
+      "scope": [
+        [
+          1,
+          201
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          201
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1710
+      ],
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/identity/native readiness/structured-error owner-fit review; sourcefixtures only.",
+      "disposition": "Full177 actual furniture capture. Production SceneFurniture/key recipe/collider/native transforms use owned errors and checked ScenePlanPoint/required terrain heights, no synthesized support. OUTDOOR enum kind chooses authored instances; stable last group specialcases two kinds intentionally, actual group producer policy pending before identity-order defect. Market centroid explicitly rejects empty Vendors with FurnitureCaptureError. ExpectedFurniture totals local+distant instance/mesh counts from actual recipes; layout/geometry/IO errors retained to native Result. write_layout emits final artifact for allprofiles, serialization/path formatting appropriate terminal boundary. Palette identity versus furniture ID and distant marker producer need global owner connection before count mismatch claim."
+    },
+    {
+      "source_indices": [
+        1711
+      ],
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/identity/native readiness/structured-error owner-fit review; sourcefixtures only.",
+      "disposition": "Full64 debug-only overlay. Native Vec2 footprint edge arithmetic, then ScenePlanPoint/height_at optional: invalid/offterrain annotation skipped; hidden CaptureOverlay has no physics/gameplay authority. This optional debug visualization must not be conflated with required production-support loss. No fabricatedzeroheight, schema compatibility or hidden combat penalty. Degenerate edge and sourcefootprint invariants remain geometry owner question, no output fault observed."
+    },
+    {
+      "source_indices": [
+        1712
+      ],
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/identity/native readiness/structured-error owner-fit review; sourcefixtures only.",
+      "disposition": "Full160 actual furniture readiness/plugin chain. Requires buildingreview for building/room/terrain-grounding profiles and GPU observer for furniture profiles, avoids duplicate GpuReadiness install. Configure deliberately permitted/reset before checking. Check requires nonempty ground, native GPU ground masks, exact all local+distant counts, canonical instance parent/material binding and required material textures. False waits bounded120s then terminal assertion; cannot claim indefinite loading. Native GPU provider, pipeline failure cause and no-generation-witness pending; this boolean consumer alone is not completed native frame evidence. Final evidence records per-view ready, not ScreenshotCaptured success. Sourcefixture plugin installation not executed."
+    },
+    {
+      "source_indices": [
+        1713
+      ],
+      "ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/identity/native readiness/structured-error owner-fit review; sourcefixtures only.",
+      "disposition": "Full241 ordinary interior camera. Four known archetypes required with category error, matching hall/merchant find expects guarded by prior successful archetype pass. Storey preference falls to ground storey when upper absent as deliberate profile choice; generated nonempty storey/rooms/cells/internal-wall invariants and exact fixture must precede panic finding. Architectural centre -> native placement transform -> checked Position, local wall-facing plaster light basis authoredgeometry. Scalar angle/incidence/native rotation arithmetic is native geometric leaf; global typed PlasterRakingLight fit pending, no broken frame observed. Nonexecuted fixture source verifies finite framing and incidence only."
+    },
+    {
+      "source_indices": [
+        1714
+      ],
+      "ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/identity/native readiness/structured-error owner-fit review; sourcefixtures only.",
+      "disposition": "Full379 catalog/furnished-room profiles. CATALOG slug/label table indexed by canonical FurnitureKind::INTERIOR, const sized; ROOM_USES/labels/indexmatch dispatches typed RoomSelection, no legacyselector. Canonical enum role/Operating kind passed to actual rooms camera. All nonwarmup furniture views demand settled readback pair. Existing CatalogAdmissionError retains missing FurnitureKey/invalidorientation categories; raw profile/fixture text belongs terminal CLI selection. Actual RoomSelection/room/sightline owner queued; no route/camera acceptance from import. Expected counts derive recipe errors, final interiors JSON emitted at terminal artifact boundary. Source framing/catalog uniqueness tests read only."
+    },
+    {
+      "source_indices": [
+        1715
+      ],
+      "ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "roles": "Independent lens11 full exact producer/identity/native readiness/structured-error owner-fit review; sourcefixtures only.",
+      "disposition": "Full201 catalog stage. Rejects nonempty local instance fixture, installs explicit InteriorFurnitureExhibition, assigns bounded synthetic FurnitureInstanceId namespace and documented reserved building0/capture room indices in Interior payload. Actual renderer/exhibition isolation and all20 canonical ID fit pending; no real-world building0/collision/DB persistence claimed. Every specimen terrain location checked, explicit PIorientation canonical, pair envelope perspective frustum uses checked CuboidDimensions/Position. Joined counters use one admitted level datum to remain contiguous, intentional exhibition geometry rather than missing physical support. Catalogue/variant labels final artifact; all recipe/geometry/serialization/IO errors propagate. Finishes sibling body uncredited."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-243.json",
+      "sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-244.json",
+      "sha256": "5fb5a7ba00f88d568e03a1f4c12b7bf041a85a1b764a8617ea67f545e8f6d0b0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-245.json",
+      "sha256": "abfe870f524691806cd9dc05331066a35b40d3dad0f15f6db460b944aecabc4d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-247.json",
+      "sha256": "d708a807a9dae6f7e9b5aca74f689a1957bed6da93083c0a1c49ce0360a7abb7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-248.json",
+      "sha256": "624989266f35db42d013d11c5cb9d530a4fc7f4f592f836a0010bd1688ac357e"
+    }
+  ],
+  "pending_contracts": [
+    "249 full1710..1715 metadataunion complete, next1716. All13 registeredpopulations/extensions/current/all20/aliases/finaldedup incomplete; no gate/countchange.",
+    "Furniture readiness observes exact source recipe counts/material/GPU presence before readback and times out120s. Native GpuReadiness/pipeline failure/pending/generation and actual local+distant production markers remain required source dependencies.",
+    "Catalog reservedbuilding0 and syntheticinstance namespace explicit capture-only exhibition; actual renderer/canonical ID isolation must precede sentinel defect. No legacyalias or real strategic DB authority assumed. Normalstoreypreference and optionaldebug-overlay skip deliberate geometry policies.",
+    "Interior RoomSelection/room camera/sightline and finish providers next, no import credit. All staged coordinates/requiredsupport errors retained, no physical-render/test acceptance from source fixtures.",
+    "Prior findings/limits, seven extensions/original4EOF qualification/future2248/2249/2250/2701 and partial later129/L13 retained. L12/L13 unchanged, nextregistration551.",
+    "No product changes/builds/tests/lints/scanners/generators/runtime/probes/CI/newtests/commits/pushes/PR/publication/externalmessages. Goal active/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1716
+}

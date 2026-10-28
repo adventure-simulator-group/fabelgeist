@@ -1,0 +1,358 @@
+{
+  "lens": 11,
+  "batch": 244,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1690,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-524.json",
+      "registration_sha256": "0e6b82e932ec81dad15ff4f7fa81b4d8d4abe8e776d18ffc7e44d15dda644e03",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/shadows.rs",
+      "sha256": "88162a5ba0e0b8ea382882acfed34414b1f0d04d2ea5ebd003a065c7e22b81a0",
+      "scope": [
+        [
+          1,
+          94
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          94
+        ]
+      ]
+    },
+    {
+      "original_index": 1691,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-525.json",
+      "registration_sha256": "3b428a1c6808d705493c8a19446dbd794eacaa4bce0780497ec0ecaa79d675cc",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+      "sha256": "a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+      "scope": [
+        [
+          1,
+          130
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          130
+        ]
+      ]
+    },
+    {
+      "original_index": 1692,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-526.json",
+      "registration_sha256": "873d67df6816df50b8d34c734487bfea1a7af0362cc4402bfef9dd6817a4e4a4",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "sha256": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+      "scope": [
+        [
+          1,
+          226
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          226
+        ]
+      ]
+    },
+    {
+      "original_index": 1693,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-527.json",
+      "registration_sha256": "9e6423bfcd07957e6320a6357b48cec7093113542a2fa819c1d104f47906d5e1",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status/characters.rs",
+      "sha256": "aa6c73924aed3d3ba5cbd7e45de20812330b8c560e31e38a5929f8b996c7b95a",
+      "scope": [
+        [
+          1,
+          55
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "original_index": 1694,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-528.json",
+      "registration_sha256": "7a591c0c536f6c16e3b3c5f624b139b1ed02910f107fad06ab7acd87eded0d84",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/street.rs",
+      "sha256": "05e1262eceecd704375cc6d33a557bb5ad265eafb44ecf6697a08a74dc439197",
+      "scope": [
+        [
+          1,
+          314
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          314
+        ]
+      ]
+    },
+    {
+      "original_index": 1695,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-529.json",
+      "registration_sha256": "3d1cd4a35c5889e7c2ad1d08795a9f92fe38331b74bcc9cf2900667071882baa",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/tests.rs",
+      "sha256": "61a75136cb8f74dc15d82067001e779adb530856156117c3a1a8502dfe23493c",
+      "scope": [
+        [
+          1,
+          361
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          361
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1690
+      ],
+      "ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "roles": "Independent lens11 full registered source, producer and native error/readiness ownership.",
+      "disposition": "Full94 shadows: active camera layer union controls SceneMesh shadow membership; authored NotShadowCaster is preserved, only owned InactiveCharacterShadow is restored. Update versus later snapshot PostUpdate activity changes requires native frame/order evidence before first-capture mismatch finding. Source ownership fixtures read, not executed."
+    },
+    {
+      "source_indices": [
+        1691
+      ],
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "roles": "Independent lens11 full registered source, producer and native error/readiness ownership.",
+      "disposition": "Full130 conversation staging: architectural ground-storey admitted waypoints, typed Position/clearance and checked elevation/geometry errors. Collision top selection within 0.3m and default architectural zero are ground-storey datum policy pending canonical floor/circulation contract, not automatically missing terrain support. Direction candidates check standing clearance and camera clearance, daylight sorted, spacing 0.65m; empty result becomes existing MissingConversationPosition so retained-person modulo is admission guarded. Synthetic ResolvedItemId(0) collision label needs canonical identity owner before collision claim."
+    },
+    {
+      "source_indices": [
+        1692
+      ],
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "roles": "Independent lens11 full registered source, producer and native error/readiness ownership.",
+      "disposition": "Full226 actual strategic status provider. Installation gates view location, all places and pending buildings, requested people, all loaded/posed rigs, textures/city/terrain/sky, and absence of stored failures. Complete additionally requires equipment, zero waiting pipeline count, and Scene GPU readiness where city exists. Snapshot ready follows capture settlement; these booleans/counters alone are not native GPU completion. capture_asset_failures88..100 stores path-only String and loses native event stable asset ID and original owned cause, independently confirmed by connected original4. No local reset shown, actual retry/root policy pending. Final status_error formatting of retained PreparationError is appropriate serialization boundary; distinguish earlier native cause loss. waiting_pipelines count SDK pending/error semantics not yet read."
+    },
+    {
+      "source_indices": [
+        1693
+      ],
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "roles": "Independent lens11 full registered source, producer and native error/readiness ownership.",
+      "disposition": "Full55 demand character readiness: global SceneModel query counts HumanoidRig and has_presented_pose, while required identities resolve exact RetainedPerson entities. Pose component existence alone is not accepted as presented pose. Scene membership/old-root lifecycle requires world/provider evidence before global count mismatch; source only."
+    },
+    {
+      "source_indices": [
+        1694
+      ],
+      "ranges": [
+        [
+          1,
+          314
+        ]
+      ],
+      "roles": "Independent lens11 full registered source, producer and native error/readiness ownership.",
+      "disposition": "Full314 synthetic strategic street. Relocation and furniture transforms use typed scene positions/orientation/support elevations with propagated errors; required backdrop sample has no fabricated missing-height fallback. Building display arrangement, default outward direction and camera FOV are intentional presentation geometry. Multiple admitted places selecting same building could repeat relocation, overwrite moves and duplicate bays; actual place/building producer, admission and uniqueness policy pending before concrete defect. Source tests verify geometry/furniture correspondence only; no execution."
+    },
+    {
+      "source_indices": [
+        1695
+      ],
+      "ranges": [
+        [
+          1,
+          361
+        ]
+      ],
+      "roles": "Independent lens11 full registered source, producer and native error/readiness ownership.",
+      "disposition": "Full361 strategic source fixtures: hierarchy/layers, inverse bounds, demand-only rigs, reattachment and equipment cleanup, preservation of visited portraits, removal when absent from roster. More than 100 distinct RenderLayers are explicitly exercised in source, no invented 32-layer cap. Optional environment-guarded fixture generator and all tests were read only; no native/WASM execution or asset writes."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Earlier original full fresh connected reinspection, no original credit",
+      "original_index": 4,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-530.json",
+      "registration_sha256": "5b369038543d80a9c9e655c48f9970e98ee7ab89aa2124c023d182c302721de2",
+      "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+      "source_sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "scope": [
+        [
+          1,
+          129
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          129
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "inherited_scope_extent_qualification": {
+        "kind": "Native package member exact-byte EOF qualification",
+        "original_index": 4,
+        "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+        "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+        "source_sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+        "actual_EOF": 129,
+        "raw_requested_range": [
+          1,
+          159
+        ],
+        "effective_range": [
+          1,
+          129
+        ],
+        "excluded_nonexistent_ranges": [
+          [
+            130,
+            159
+          ]
+        ],
+        "native_archive": "target\\726-audit-adler-20261027\\adler\\native-packages\\bevy_asset-0.19.1.crate",
+        "native_archive_sha256": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38",
+        "native_member": "bevy_asset-0.19.1/src/event.rs",
+        "frozen_lock_locator": "6533e444fa37552927070cc8d8190907fd3b413e:Cargo.lock",
+        "frozen_lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "native_package": {
+          "name": "bevy_asset",
+          "version": "0.19.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38"
+        },
+        "inherited_owner_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 56,
+            "read_ranges": [
+              [
+                1,
+                159
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ASSET-CAUSE-020"
+            ],
+            "read_status": "current-lens-exact-native-error-owner-receiving-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/bevy_asset-0.19.1/src/event.rs"
+          }
+        ],
+        "historical_qualification": "Original4 registry carries requested1..159 with no explicit EOF qualification in this metadata. Independently qualified here by exact locked package/member, no borrowed historical owner/lens verdict or phantom130..159 source body.",
+        "mandatory_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "new_global_source": false,
+        "other_lens_coverage_transferred": false,
+        "failed_registration_helper": "Earlier helper rejected non-pr-working recovery before creating REG530 or reading any source body; REG530 now first actual prospective registration of this reinspection."
+      },
+      "disposition": "Exact locked Bevy asset event source full129 freshly read. UntypedAssetLoadFailedEvent owns id, path, AssetLoadError; conversion clones the original cause. This proves strategic status1692 discards an available native cause and ID. Native archive/member/checksum and frozen Cargo.lock independently qualify EOF129 against inherited requested1..159; nonexistent130..159 never credited, historical metadata untouched, all13 independent qualification mandatory. No other-lens clearance or new global source."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-209.json",
+      "sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-243.json",
+      "sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1"
+    }
+  ],
+  "pending_contracts": [
+    "244 full1690..1695 and connected nativeoriginal4 full129; next1696. EOF qualification applies independently all13, does not add eighth extension/new identity or historical nonexistent-body credit. Ledger audit and all populations/current/all20/aliases remain incomplete.",
+    "Strategic native error cause/ID loss source-proved; actual native error variants, required load/retry/root lifecycle/current still pending. Final status formatting of retained typed PreparationError is intentional and distinct. Strategic failure reports error, unlike artdemo generic Loading family.",
+    "Actual readiness provider/source chain now connected; global native pipeline waiting count error semantics, resource-generation witness and completed native frame acceptance remain pending.",
+    "World root membership/scene request lifecycle, actual ViewSpec projector/native snapshot cache identity and synthetic street repeated-building admission pending; no raw hostile input or runtime outcome assumed.",
+    "All prior qualified findings, seven scoped extensions, future first-ordered reuse2248/2249/2250/2701 and partial later129/L13 tails retained. L12/L13 unchanged. No product edits or execution.",
+    "Next prospective registration531, original1696 exact metadata union before body; no builds/tests/lints/scanners/generators/runtime/CI fixes/newtests/commits/PRs/publication/externalmessages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1696
+}

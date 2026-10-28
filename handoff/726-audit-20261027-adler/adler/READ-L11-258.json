@@ -1,0 +1,183 @@
+{
+  "lens": 11,
+  "batch": 258,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1758,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-595.json",
+      "registration_sha256": "f9519b84f033bd9a2aad35b1fd4f6da9e32546553b227cbbb5ccfd4a04bfc74b",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "scope": [
+        [
+          1,
+          591
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          591
+        ]
+      ]
+    },
+    {
+      "original_index": 1759,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-596.json",
+      "registration_sha256": "a10d92a06b49c574489e455ddfb67ac7c63c646d7073e04e29883f93cc05e506",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/attack.rs",
+      "sha256": "c1787a5b36b9fd27891c2646fd70a7d5206d7a1eefe00b86d1b3068d4dba8b03",
+      "scope": [
+        [
+          1,
+          82
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          82
+        ]
+      ]
+    },
+    {
+      "original_index": 1760,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-597.json",
+      "registration_sha256": "b899d5986ef10afae514cfa73bf2e7c6a3372ef72a862411bf970fd443131d89",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7",
+      "scope": [
+        [
+          1,
+          327
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          327
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1758
+      ],
+      "ranges": [
+        [
+          1,
+          591
+        ]
+      ],
+      "roles": "Independent lens11 full exact semantic evaluation/checkedoperations/canonicalowner/structured-error contract; sourcefixturesonly.",
+      "disposition": "Full591 AnimationEvaluation::from_skeleton takesimmutableSkeletonState andbuildsalllocalcheckedPoseSamples beforepublishingresult, no retainedstatewriteonthispath. Typed SemanticPose/PoseSampling distinguishes Anchor/Cycle/Timeline/Span/CurveSpan/ContinuationSpan; signedcurvecoordinate notgloballyclampedwhilefiniteprogressclampadmissionisexplicit. BlendWeight additiveowner andClipMirror binary kept. Derivedspeed/airbornephase/heightfinitechecks andnestedAnimationValueError propagate. Posture/quickstep/downedfacing fallback ismutuallyexclusive semanticselection, not legacyparallelgraph. Large signedroll cast toi64 isafterinteger-nearbyguard; representablehugef32rolls integer returnbeforecast, no arbitrarysaturatingparitybugassumed. ActualSkeletonState admission/update/nativeposeconsumer/current stillpending. Sourcefixturesnotrun."
+    },
+    {
+      "source_indices": [
+        1759
+      ],
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "roles": "Independent lens11 full exact semantic evaluation/checkedoperations/canonicalowner/structured-error contract; sourcefixturesonly.",
+      "disposition": "Full82 actual attack projection. Continuation branch carriesownedtypedstartcoordinate/tangent andusesContinuationReadiness::FOLLOW_READY atline29, connecting257 measuredanchor torealruntimepose; actualauthoritativecurve/configrole stillneededforstructuralversustuningclassification. NoncontinuationcheckedAttackCurve.coordinate/queued_recovery_coordinate propagateserrors. AttackanimationNone defaultsThrust onlyonactualAttack dispatch; actualActionState construction/deserialize invariants required before silentmissingattackfinding, no malformedservereventobserved. CanonicalAttackAnimation->SemanticPose mapping total; optionaloffhandpreparation explicitpolicy, no droppedinnererror."
+    },
+    {
+      "source_indices": [
+        1760
+      ],
+      "ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "roles": "Independent lens11 full exact semantic evaluation/checkedoperations/canonicalowner/structured-error contract; sourcefixturesonly.",
+      "disposition": "Full327 locomotion projection. NonnegativeSpeed/cyclephase/BlendWeight carryvaluesuntilcomplete direction/blendkernels, nonzeroaxis/total guards orfilteredno-samples beforedivision, allscaled contributions collectedbeforeextend. Runtime animationconfig thresholds/blends andwalk/runreference speed owner; actualruntime_animation_config binding/server-loadedsnapshot/caller provenance requiredbefore compileddefaultdivergence. Canonicalgaitwrap andhalf/quartercontactanchor offsets structuralmapping versusruntime authoredthreshold distinctionpreserved. Downed speedzero whennotturning isanimationselection, notphysicalfatigue/movement-speedpenalty. Puretestgait_pair undercfgtest numerical/referencehelper notlegacyproductionpath. No tests/baking/runtimeexecuted."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-241.json",
+      "sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-250.json",
+      "sha256": "0ab04ff9b4c5befdbdd0ee2ba7405075381da0d279b9e300ecc2a9ee97666d2f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-251.json",
+      "sha256": "54a12494f41f525a231ff50d16e2180e42d501dcb280890e87cc1e02bc006b4a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-252.json",
+      "sha256": "e7729603daaf9fae26dc8b8392783c032e0e0459260816ab4c6ca2ff0471b529"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-253.json",
+      "sha256": "dbcb9b6fdb116f020d207508f9d2ea34b7f77533dd27b37a9c8ed5453827db88"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-254.json",
+      "sha256": "ed04a9af432005743576305fd8de7d2c3ea25b2246d96ea205689b19625d763f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-255.json",
+      "sha256": "8ef17f37d109d1c2710b41634a4f9f4b0a622db3410bff2119702130d65d13d7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-256.json",
+      "sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-257.json",
+      "sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a"
+    }
+  ],
+  "pending_contracts": [
+    "258 full1758..1760 metadataunioncomplete,next1761. All13 populations/extensions/current/all20/aliases/finaldedup incomplete,gatefalse/accepteduniquechange0.",
+    "ActualevaluationpureimmutableSkeletonState->checkedlocalrecord, no partialretainedstatewritehere. Skeletonadmission/mutatingupdates/nativeFK/Ragdoll/caller/currentstillpending, notwholeanimationclearance.",
+    "ActualcontinuationusesFOLLOW_READY constant1759line29; actualcurve/configstructuralvsYAMLrolepending. runtime_animation_config use1760 requiresownbinding/server-loadedprovenance before divergenceclaim. Attackkind/optionalAttackAnimation invariants neededbeforeThrustdefaultmisclassification.",
+    "Allpriorfindingslimits/eightscopedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L13/L12L13unchanged. Nextregistration598 original1761 metadataunionbeforebody. No productchanges/execution/newtests/CI/commits/publication/externalmessages;goalactive/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1761
+}

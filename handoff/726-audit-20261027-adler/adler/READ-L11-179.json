@@ -1,0 +1,256 @@
+{
+  "lens": 11,
+  "batch": 179,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1326,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-137.json",
+      "registration_sha256": "4898ae749a4741ef033ab45d3c8780c92eee364477a71390358f3431c3a10dce",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "scope": [
+        [
+          1,
+          390
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          280
+        ],
+        [
+          281,
+          390
+        ]
+      ]
+    },
+    {
+      "original_index": 1327,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-138.json",
+      "registration_sha256": "ad6946172ae89330a929f15b7ab0bed060022da7d42071c82052107d2935e1fd",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading/motion.rs",
+      "sha256": "6240a63d570d51843113c28182afebe0b156ee558ae60ef960acbe737c308eb6",
+      "scope": [
+        [
+          1,
+          175
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          175
+        ]
+      ]
+    },
+    {
+      "original_index": 1328,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-139.json",
+      "registration_sha256": "4e10e65e7ccf01b4cd4678b77e787f838ce9cd184880612754059b82fb773282",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "scope": [
+        [
+          1,
+          810
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          340
+        ],
+        [
+          341,
+          510
+        ],
+        [
+          511,
+          670
+        ],
+        [
+          671,
+          810
+        ]
+      ]
+    },
+    {
+      "original_index": 1329,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-140.json",
+      "registration_sha256": "9af4f60657c6fcb26694da61f460828317386240a8c85bc185ed76344988bd6a",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/playback_contributions.rs",
+      "sha256": "5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+      "scope": [
+        [
+          1,
+          43
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "original_index": 1330,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-141.json",
+      "registration_sha256": "c4ca3f1c4f77e023e8a4a12c96a532ad60d80f1617eaec177d0918c6c341410b",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+      "sha256": "e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+      "scope": [
+        [
+          1,
+          155
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          155
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1326
+      ],
+      "ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "roles": "Assetrequest scope, bodyavailabilitylibrary, loadedmotion/grip admissions and frame/seconds boundary.",
+      "disposition": "BaseRigLoad namedstate isseparatefromrequestedMotionLoad andnativehandles. BrowserStrategicrequestsactualidleonly thenBrowserModechange addsothermotions withoutdiscardingpersistentcache; preservedpurposefulmodepolicy. Libraryrebuiltfromactualadmittedclip+framefit persemanticanchor; incrementalreset+insert errorslogged mayyieldpartiallibrary butfixedbuiltincatalogvalidated177, custommutationordinaryadmissionpending. MotionClipAdmission Pending/Unavailable/Ready avoids assumingloadedhandle equalsvalidmotion; soleanimation exactlyone, framescheckedatconfiguredAnimationFrequency. targets_match_base requiresnonemptyactualcurvekeys andallin canonicalset, notallbonesmustanimate (partialauthoredtracks intentional). Gripsseparatefromsemanticavailabilitysolackgrip-onlylibraryrebuild177notbyitselfmissingbodyupdate."
+    },
+    {
+      "source_indices": [
+        1326
+      ],
+      "ranges": [
+        [
+          199,
+          390
+        ]
+      ],
+      "roles": "Base rig sceneattachment, targetidentitybinding, gripgeometry and nativeassetpath adapter.",
+      "disposition": "AttachWorldAssetRoot wrapperwhenbase.scene available andinsertdefaultplayback beforeauthoredchildren readiness; updatevisibilitymod610..633 hidesfallback basedwrapperexistence notcompletegeometry. ActualWorldAssetRoot sceneattach/scheduling/readinessmustprove no gap; qualifieddependency notconfirmeddisappearance. TargetbindingfindsSkeleton namedroot andrecursiveNamepath IDs, retainsRigJointName throughAuthoredRigJoint; missingName stopschildwalk, duplicatecanonicalID cardinalitypendingnativeexportcontract. Collectgrips checkscurrentnativeLoadState andnonemptycanonicaltargetsubset +checkedClipDuration thenpublishes, nooldhandle-readyassumption. AssetPathfinaladapterpreservesworkspaceAssetSource nativeversusbrowserdefault; no unnecessarysourcegrammarenum."
+    },
+    {
+      "source_indices": [
+        1327
+      ],
+      "ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "roles": "Optional native motion requeststate, fullpath/source/labelrevision association and clipadmission.",
+      "disposition": "InternalMotionLoadState PendingTask versusReadyOption, pollOptionOption faithfullydistinguishespending fromcompletedunavailable; cleanbespokeoutcome couldremove nestedOption butno falseequivalenceclaim. Missingoptionalasset info vsotherload/typefailures errorlogged, finalavailabilityunavailable intentionallypresentationdegradation nothiddenproductsuccess. ExactretainedAnimationAssetPath matchesnativeget_path includingasset source/label wheninitialrequest lacks typedhandle; observe doesnotinitiateperframeretry. Pollchecks currentGltfloadstate thenMotionClipAdmission checkschildloadstate,canonicalcurvekeys,durationrequiredframebeforepublishing; narrowspriorfailedoldclipavailabilityconcern. Cause erasure toUnavailable onlylegitimateifactualreadinesserrorconsumerneedsno typedreason; sourcefailure/invalidcontent distinction pendingactualconsumer."
+    },
+    {
+      "source_indices": [
+        1328
+      ],
+      "ranges": [
+        [
+          1,
+          275
+        ],
+        [
+          277,
+          475
+        ]
+      ],
+      "roles": "Animationfacade/stateowner graph and checked-plan finaladmission/commit.",
+      "disposition": "LoadedClip typedDuration+Layer; ResolvedAnchor includesactualpack/semantic/mirror/timelinedirection, PlaybackPoseprivateownedplan fields permitcompletepreparedreplacement. evaluate_skeletons resolveslocaltarget, addsgrips theninto_playback beforemutatingretainedAnimationPlayback; errorsretainpreviousplayback (needactualrevisionreadinessconsumer afterinvalidstate). TypedNonnegativeSpeed hysteresis; inventory EquipSlot+WeaponItem lookup usesfirstheldslot assumingnativeuniqueequipadmission, itemidrawStringnativecatalogboundary. weapon_grip usesnumeric9skillarraypolearmindex0 ratherthancanonicalWeaponSkillWeights; reusableowner+payloadproducerrequired, no magicnumbers lenscredit. Twohanded/offhand packrules explicitcapabilitypolicy, notoldschemafallback. No schedulingbodyhere: presentationplugin isseparatemodule."
+    },
+    {
+      "source_indices": [
+        1328
+      ],
+      "ranges": [
+        [
+          477,
+          634
+        ],
+        [
+          635,
+          810
+        ]
+      ],
+      "roles": "Actualhit-spring producer, poseanchor resolution andvisualrigvisibility plusoriginalfixtures.",
+      "disposition": "onSuccessfulAttackactualserverresponseimpact_velocity_change.length_squared>0 thenrawVec3*tuningimpulse_scale sendsBoneKick: closes176producerlocation butnativeattackmessage finitebound/configadmission stillrequired. Samepacksemanticlibraryresolution yieldsloadedclip; reversedquickstep/substitutepose explicitcontentavailability andbinaryTimelineDirection, notcompatibilityshim. Mirroredgait usescheckedderivedMotionId+packtuple, doesnotfractionallyreflectnativebonepose. append_resolved_sample createslocalspans thenonlyreturnsweighted clips; actualcallers mustestablishthishelper isappropriatewithoutcontinuation/extrapolation span output. Visibility usesauthoredwrapper existence+playbackpresence asabovependingactualsceneinstantiation. Existingsemantic/IK tests covercatalogroles/contacts/quickstepthreeactionticks only,no actualload/render/runtimeexecution."
+    },
+    {
+      "source_indices": [
+        1329
+      ],
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "roles": "Owned immutable playbackcontribution topology and aggregateweight admission.",
+      "disposition": "Privatevectors clips/extrapolated/continuation checkedsumBlendWeight includingallgroups beforeconstruction, zero-weightendpoints retained andbindonlywhenallthreeempty. Protectsaggregateoverflow eveneachweightvalid; individualspan/cliptime topology validation comesfromtypedproducers notthissumalone. Accessorsreadonly slices. No forcednormalization/clamp validweightsaboveone."
+    },
+    {
+      "source_indices": [
+        1330
+      ],
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "roles": "Bespoke carriedplaybackstates, baserigtypestate, readinesspredicates andcadence/hysteresis.",
+      "disposition": "BaseRigLoad sourcealwaysretainedforLoading/Ready/Failed, onlyReady exposesScenehandle. Direction/ordinaryactivity/ownership/visibility/inertialstates separateenums goodrolefit. authored_pose_is_ready andpresentation_is_settled bothonlynonbindplan; no actualInertialState/posebuffer/scene/rendercompletion insecondpredicate. Semanticreadiness contract andcaptureconsumers mustestablishactualsettledwitness beforeacceptingfixturepass; forwardingpredicate notautomaticallylegacycompatibilitywithoutprovenhistory. Playbackinitialspeedvsactivation/deactivationhysteresis owners typedNonnegativeSpeed. Bufferedonlywhenallactionspanvectorsabsent elseDirect toavoidfastmotiongridaliasing; no serverauthoritymovementchange."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-177.json",
+      "sha256": "83b32878f60a4e5fc21053c537efe6bd576a167ca3acdee4469e90658f1a95c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    }
+  ],
+  "pending_contracts": [
+    "Actual scene wrapper/childreadiness and presentation_is_settled consumers remain required; visualfallback policy and native readyhandle are not backwardcompatibilityshims.",
+    "Hit-spring producer nowlocated but message/configfinite admission stillunread; render-completion writer/acceptance and jittercoverage consumers from178 remainpending.",
+    "Current/all20/all13populations/aliases and connectedrepairacceptance remainincomplete, no productexecution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1331
+}

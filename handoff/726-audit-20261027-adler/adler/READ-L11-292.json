@@ -1,0 +1,187 @@
+{
+  "lens": 11,
+  "batch": 292,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1914,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-756.json",
+      "registration_sha256": "edcb7bd118fe2f6522c446cf2c4f4090bf424917acec5b26a1381328d3bbe6bc",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "scope": [
+        [
+          1,
+          1026
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          720
+        ],
+        [
+          721,
+          900
+        ],
+        [
+          901,
+          1026
+        ]
+      ]
+    },
+    {
+      "original_index": 1915,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-757.json",
+      "registration_sha256": "9dfa1fb16574771331aca3c618117b1929d6d1dd7f24c15e454f01c16589d2dc",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "scope": [
+        [
+          1,
+          438
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          438
+        ]
+      ]
+    },
+    {
+      "original_index": 1916,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-758.json",
+      "registration_sha256": "737e49f72259248c2cb25f7944f91d2efc409f2f96c27f5740b3af852027555c",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "sha256": "53af66cb68d475328494f071fc1fc64701c6c2fbd3204ffb79a82bbfd318a7b0",
+      "scope": [
+        [
+          1,
+          40
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          40
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1914
+      ],
+      "ranges": [
+        [
+          1,
+          1026
+        ]
+      ],
+      "roles": "Independent lens11 complete exact TacticalSceneInput and building identity/placement provider, native operation, admission and source fixture contracts.",
+      "disposition": "Full1026 TacticalSceneInput loadmetadatafilesizebound thenJSONdecode+validate_source/grounding; digestvalidatesbeforeJSONSHA256; environment_snapshot rawStringdigestandtemplate/nativeBPSaverages exacttypedcanonicalminute/coordinate/elevation/weather, actualvalidatecallerduringgeneration beforearbitrarypublicinputclaim. Actualvalidate_grid checks2..maxside/countbothheightsandenvironment/spacing.25..2000/allsourceheightsfinite±12000/allBPS<=10000. Thisexcludes289A1e8counterexamplewheninvoked, actualvalidation.rs+generation.rs ordernextdependencies. Upsample<=601side integerfactorbilinearheight/nearestdiscretesemantics, sourcevalidateddomainnativearithmeticthenmicroreliefboundedfinite/environmentvalues andreservedcorridor. repair_playable_terrain invokesgradePLAYABLEactualownedoperation anderror? thenwatercorridorsemanticrepair; actualgenerationcalls/refinement/ownedinstallation pending. Nativecounts u32bounded<=601²whenvalidated, notfloatcardinalityloss. validate_weather compoundrawfieldpolicytemperature+5 potentialintegeradditionrange beforeweather type/admissionproof, no newfindingyet; Cloud/topbase/probabilityrules domainordering explicit, unitSceneValidationError losesfieldvaluespolicyactualreportpending. Sourcefixturesdeterminism/urbanbarematerial/microrelief/upsample/sourcebounds/unknownJSON/oversizefile/11productionformatcatalog/6landformlithologies/horizonpeak/obstacleproxy/corridorrepair allreadnotexecuted. No filefixture openedorgeneratedbeyondregisteredsourcebody. Scene_inputchilddescriptor/generation/validation bodiesnotcreditedbyexports."
+    },
+    {
+      "source_indices": [
+        1915
+      ],
+      "ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "roles": "Independent lens11 complete exact TacticalSceneInput and building identity/placement provider, native operation, admission and source fixture contracts.",
+      "disposition": "Full438 BuildingOrientation privatefinitecanonical[-PI,PI), serdecheckswithoutrewrapping preservesnativebits, from_radians explicitcurrentanglecanonicalization, frontagezeroreject/positivePI->negativePI correction currentnumericpolicy notcompatibilityshim. Placement/SceneBuilding useSceneBuildingId/canonicalcheckedplanpoint/supportelevation/orientation; buildingprogramactualdeepvalidationlaterrecipeproducer. Distantoccupiedprogram usageNonefixtureversusSomeusage actualpurpose selection preservesoccupiedoriginalservice_size, notlegacyfallback;promotioncopiesstableid/frame/elevation. SceneDoor wiretypedfiniteposition/LeafDimensions/SpatialDirectionwithsourceGeometrycause wrappedbuilding/opening; aggregatehorizontal/orthogonalrelationship andactualposeprovider neededbeforemalformedopeningfinding. SceneBuildingIdnonzerouniquecheckedatplacementaggregate max64/maxtotaldistant, enumindividualword admits0byactualleaf; errorunitidentity category butnodeepcause erased. prepare_buildings actualcachedprogramtakeelsegenerate, generatorownederror retainedwithbuilding source. PadsactualSATbothaxes andpartywall.4allowance currentgeometricpolicy, notgenericcolliderexactnessproof. Fullnativeorientation/overlap/distantrecipefixturesunexecuted."
+    },
+    {
+      "source_indices": [
+        1916
+      ],
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "roles": "Independent lens11 complete exact TacticalSceneInput and building identity/placement provider, native operation, admission and source fixture contracts.",
+      "disposition": "Full40 SceneBuildingId transparentbespokeu64 independentofOpeningAssemblyId/ResolvedItemId, fullrawword public/From/serdeandopaqueReflect. Nonzero/uniqueness iscurrentplacementaggregatecontract757, no leafnonzero imposedwithoutconsumers. Exactdisplayatformatboundary; compile_fail identityexample sourceonly."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1"
+    }
+  ],
+  "pending_contracts": [
+    "292 completes1914full1026/1915full438/1916full40metadataunion,next1917unregistered,nextregistration759. No partial/unrecordedbodyreads.",
+    "Actualvalidate_grid bound±12000 qualifies289largeabsoluteoffsetcounterexampleatSceneInputadmission ifcalled; needvalidation_source/generationactualorder. Treegroundindexloopenvironmentcount andupsample/privatezerodimension divisionguard sameorderingdependency, noacceptedpanicclaim.",
+    "Weatherdewpointchecktemperature+5 maynativeintegeroverflowbutexactWeatherSnapshotfieldtype/admission/parentvalidationordering stillneeded, noformalnewfinding. SceneDoorhorizontal/orthogonalaggregateintent beforecallingunit3Ddirectionsinvalid.",
+    "Allpriorqualifiedfamilies/tenextensions/fourEOFqualifications/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1917
+}

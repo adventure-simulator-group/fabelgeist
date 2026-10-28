@@ -1,0 +1,1229 @@
+{
+  "kind": "Ignored evidence integrity only; not product test/runtime verification",
+  "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-348.json",
+  "receipt_sha256": "f0d025b2140115f122f63ffb2678ab70a287add4dd21273c6b454f1fcf81c2f6",
+  "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-348.json",
+  "state_sha256": "eb5624bb2bf767b6b6bfefd35478a0fc48add88e54eda8e1070c117f9ec325c2",
+  "previous_verification_sha256": "dface4b89d5bc6d86e26f34c4f12828e13648b99e5ac00877c9d521ccfa5bbab",
+  "ledger_sha256": "2aba52c7e01ed3b81b2a28a670c7054c4cb23dd2cc5602924d370aacdd18874c",
+  "checks": [
+    {
+      "original_index": 2198,
+      "population": "original",
+      "population_index": null,
+      "sha256": "ff78ae8e0c6e40168541eebee2a17792bb8193146d0a4b93463143adcf71c626",
+      "lines": 289,
+      "registered_ranges": [
+        [
+          1,
+          289
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2199,
+      "population": "original",
+      "population_index": null,
+      "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+      "lines": 244,
+      "registered_ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2200,
+      "population": "original",
+      "population_index": null,
+      "sha256": "09540bbac5ff1df4fbe07021b362cd80495d565cc843ed8b484f8ab401fe508b",
+      "lines": 166,
+      "registered_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2201,
+      "population": "original",
+      "population_index": null,
+      "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "lines": 77,
+      "registered_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    }
+  ],
+  "contextual_checks": [],
+  "extension_checks": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          99,
+          132
+        ]
+      ],
+      "registration_sha256": "e3853ffe6e3abbabeb4020e13eb51903766e9de61f1febfe0b39d537333ec89c",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "ranges": [
+        [
+          216,
+          240
+        ]
+      ],
+      "registration_sha256": "6fb3a6b3a9f0282f04359daf06a2409d710eb4ee436284c228b3ce7d994aefce",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "registration_sha256": "0e7b6088d5524760ee77210b9920a86e43f892a0911ea57a5d6c547c8a819c0d",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/materials.rs",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "registration_sha256": "b55f71b929d8a03b5da44632ccdea4730b2e05f9f68529063c6dd1ff37fbbb25",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "registration_sha256": "513cc320bbeb295c27f33805d41133a3ae70fd569d6241bbddbdddc87410ea19",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "ranges": [
+        [
+          1,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "registration_sha256": "0cf8f380e9c3e6e8e8d275c256de20ed2642579c2a529e09ae229640baf5267e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          18,
+          154
+        ]
+      ],
+      "registration_sha256": "bb31ecc94007bc997eae168738ab9171b95c1ad8ec4c364e6a8d99173a056255",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "registration_sha256": "1fdcf8e3be10fafe9f18109e6b8329014e396ca86fd6a346307931318c6c2e56",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "registration_sha256": "f072608d8b99aff4ec29c0962fdc5e5a3594cffb77fc776414277bcf75f9bbcb",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+      "ranges": [
+        [
+          45,
+          58
+        ]
+      ],
+      "registration_sha256": "1e0e429b2de643e01bf27ed5f8dfdd2d79f28c3946413f46d5e3580037cc8406",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "registration_sha256": "e16ef24c1ddcb2771ca1bacd2af8dbdc1969e13d69390dd23f228ce96ad0f366",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "ranges": [
+        [
+          159,
+          220
+        ]
+      ],
+      "registration_sha256": "7ce8a122950b0928d811bd00f59844147b718007bf8a8bbcc00c4bfd7e83a271",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "registration_sha256": "942bbfecc6805536bba33f0f9edbc45a344febbe83a88ee4501447f83272ba86",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "ranges": [
+        [
+          126,
+          236
+        ]
+      ],
+      "registration_sha256": "6a9555e7d93d8f1238f6531db9e06739cbb8dea032d0dd46ccd9ac06b4b3ec78",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "ranges": [
+        [
+          113,
+          139
+        ],
+        [
+          286,
+          330
+        ]
+      ],
+      "registration_sha256": "54cd295d154000e54ead341579cd2ba31f47a91b979e50b81abb935a4cc32ea2",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          309,
+          314
+        ],
+        [
+          531,
+          756
+        ]
+      ],
+      "registration_sha256": "ecc5ab4c7a9555e402cd9b9765e37e7f7c8f75a3655bec92ea3e7d00c1a203ec",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "ranges": [
+        [
+          331,
+          333
+        ]
+      ],
+      "registration_sha256": "fe44c609e1a3a9df276ced700b8a50e7fc2ea03dcb70c3e07e653a6cab81c66e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          166,
+          199
+        ],
+        [
+          225,
+          235
+        ]
+      ],
+      "registration_sha256": "aadcb07fbd1b7fb0f5a765456e30a02738035d82706f45dc00a4966dd5348b04",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 2202,
+      "state_sha256": "eb5624bb2bf767b6b6bfefd35478a0fc48add88e54eda8e1070c117f9ec325c2"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "branch": "handoff/726-audit-ledger-20261027-adler",
+  "worktree_status": "",
+  "next_original_metadata": [
+    {
+      "original_index": 2202,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+        "sha256": "d2769977cd06ab462c3180b8faf97efd4b55c067d626ff300078d8a6baa6409d",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3353,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 109,
+            "read_ranges": [
+              [
+                1,
+                64
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-WRAPPED-ASSEMBLY-034"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-024",
+            "json_pointer": "/fresh_current_source_reads/9",
+            "source_id_as_recorded": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                64
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 427,
+              "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+              "sha256": "d2769977cd06ab462c3180b8faf97efd4b55c067d626ff300078d8a6baa6409d",
+              "read_ranges": [
+                [
+                  1,
+                  64
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1485,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2203,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+        "sha256": "6bf36983d7b2fe90b22fd0e5bccd860aa4e951be3fd90828a85c87438f8f6c40",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2502,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 110,
+            "read_ranges": [
+              [
+                1,
+                55
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-WRAPPED-ASSEMBLY-034"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-024",
+            "json_pointer": "/fresh_current_source_reads/10",
+            "source_id_as_recorded": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                55
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 428,
+              "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+              "sha256": "6bf36983d7b2fe90b22fd0e5bccd860aa4e951be3fd90828a85c87438f8f6c40",
+              "read_ranges": [
+                [
+                  1,
+                  55
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1486,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2204,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+        "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6274,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 108,
+            "read_ranges": [
+              [
+                1,
+                154
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-WRAPPED-ASSEMBLY-034"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-024",
+            "json_pointer": "/fresh_current_source_reads/8",
+            "source_id_as_recorded": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                154
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 426,
+              "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+              "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+              "read_ranges": [
+                [
+                  1,
+                  154
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1484,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2205,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-armor/src/limb_armor.rs",
+        "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 12448,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 100,
+            "read_ranges": [
+              [
+                1,
+                160
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DEVICE-FIT-030"
+            ],
+            "read_status": "partial-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/limb_armor.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-024",
+            "json_pointer": "/fresh_current_source_reads/4",
+            "source_id_as_recorded": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                160
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 418,
+              "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+              "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+              "read_ranges": [
+                [
+                  1,
+                  160
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1476,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 53,
+            "registration_id": "RIG-ADMISSION03-REGISTER-053",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-053",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+              "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+              "actual_EOF": 376,
+              "material_ranges": [
+                [
+                  1,
+                  34
+                ],
+                [
+                  188,
+                  292
+                ],
+                [
+                  354,
+                  376
+                ]
+              ],
+              "reason": "Direct PlateGauge/FootArmorDesign/BootDesign/default declarations, LimbArmorDesign enum/fluting access/common validate header and actual Sabaton/LeatherBoot predicate arms needed for assigned gpu/footwear native divisions/geometry admission. Other limb shapes and their predicate arms excluded.",
+              "exclusions": "Greave/Cuisse/Rerebrace/Spaulder/Gauntlet declarations35–187 and their validator branches293–353 excluded. Other feature/caller/SDK/later lens not authorized.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T10:21:30.071640+00:00"
+            },
+            "local_qualifications": [
+              {
+                "id": "RIG-ADMISSION03-SOURCE-QUALIFICATION-015",
+                "registration_ref": "RIG-ADMISSION03-REGISTER-053",
+                "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+                "material_ranges": [
+                  [
+                    1,
+                    34
+                  ],
+                  [
+                    188,
+                    287
+                  ],
+                  [
+                    354,
+                    376
+                  ]
+                ],
+                "original_registered_ranges": [
+                  [
+                    1,
+                    34
+                  ],
+                  [
+                    188,
+                    292
+                  ],
+                  [
+                    354,
+                    376
+                  ]
+                ],
+                "excluded_incidental_display": [
+                  [
+                    288,
+                    292
+                  ]
+                ],
+                "reason": "Only common validator prefix282–287 needed; adjacent firstGreave arm288–292 is unrelated, no semantic read/coverage claim. Footattachedderive187 registeredseparately054. No original802 reduction or newwholefilecredit."
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                34
+              ],
+              [
+                188,
+                287
+              ],
+              [
+                354,
+                376
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+            "actual_EOF": 376,
+            "bytes": 12448
+          },
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 54,
+            "registration_id": "RIG-ADMISSION03-REGISTER-054",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-054",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+              "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+              "actual_EOF": 376,
+              "material_ranges": [
+                [
+                  187,
+                  187
+                ]
+              ],
+              "reason": "Attached FootArmorDesign derive required to close actual Serde admission route for declared source188–200 inREG053.",
+              "exclusions": "Other limb declarations remain excluded. REG053 displayed Greave288–292 incidentally in common validator prefix; no material role or body credit for that unrelated branch, actual common range282–287 only.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T10:21:57.738628+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                187,
+                187
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+            "actual_EOF": 376,
+            "bytes": 12448
+          },
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 65,
+            "registration_id": "RIG-ADMISSION03-REGISTER-065",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-065",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+              "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+              "actual_EOF": 376,
+              "material_ranges": [
+                [
+                  288,
+                  343
+                ]
+              ],
+              "reason": "Actual five handled long-limb/jointcup/Spaulder predicate arms in LimbArmorDesign.validate before assigned gpu/limb.shape native charts. OtherPauldron/Mitten branches344–353 remain excluded, plus originalfoot/common scopes separate.",
+              "exclusions": "Only actually reached admission/nativeproducer body; alternative rejected or unrelated limb helpers do not gain semantic credit. No SDK/newfeature/laterlens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T10:31:15.638293+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                288,
+                343
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+            "actual_EOF": 376,
+            "bytes": 12448
+          },
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 71,
+            "registration_id": "RIG-ADMISSION03-REGISTER-071",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-071",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+              "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+              "actual_EOF": 376,
+              "material_ranges": [
+                [
+                  344,
+                  353
+                ]
+              ],
+              "reason": "Direct Pauldron match arm calls actual PauldronDesign.validate before native carrier/count projection; Mitten other arm inspected only to preserve branch separation, no wider gauntlet feature.",
+              "exclusions": "No unrelated armor caller/foreign package/later lens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T10:39:48.834364+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                344,
+                353
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+            "actual_EOF": 376,
+            "bytes": 12448
+          }
+        ],
+        "parallel_material_role_extensions": [
+          {
+            "id": "CONT-OWNER-RANGE-EXTENSION-199",
+            "at": "2026-10-22T19:49:25.128591+00:00",
+            "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+            "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+            "material_ranges": [
+              [
+                161,
+                186
+              ]
+            ],
+            "audit_owner": "rig",
+            "reason": "ExactmissingGauntletdefinition/Defaulttail161-186; old1-160and187-376overlay086preserved.",
+            "scope_registration": [
+              {
+                "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+                "sha256": "74d566692010be470a3d23896f535c76738774312f6978c60a3a9faaa94caf96",
+                "row_1based": 7,
+                "id": "RIG-INITIAL06-REG-007",
+                "original_record": {
+                  "id": "RIG-INITIAL06-REG-007",
+                  "at": "2026-10-22T19:36:00.580940+00:00",
+                  "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+                  "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+                  "snapshot": "pr-working",
+                  "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+                  "actual_EOF": 376,
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\limb_armor.rs",
+                  "material_ranges": [
+                    [
+                      161,
+                      186
+                    ]
+                  ],
+                  "material_caller": "Original scoped limb_armor1–160 ends inside GauntletDesign; current scoped LimbArmorDesign::Mitten branch and GPU limb recipients need complete declared product/default to compare owner",
+                  "reason": "Exact missing current definition tail only; prior03 partial/declaration exclusions preserved until prospective extension. No body161–186 analyzed before registration.",
+                  "exclusions": "No broader garment feature/fixtures/SDK; original scopes and other row qualifiers preserved",
+                  "status": "prospectively_registered_before_body_analysis; existing variant overlay pending"
+                }
+              }
+            ],
+            "limits": "Prospectivelyregisteredbeforefreshread; newexactrangeonly, alloldrolesremain. No semanticcreditfrommetadata; RootG095actual03newroleanalysisseparate."
+          }
+        ]
+      }
+    },
+    {
+      "original_index": 2206,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/material.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-armor/src/material.rs",
+        "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3464,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 210,
+            "read_ranges": [
+              [
+                1,
+                103
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMOR-NATIVE-MATERIAL-087"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/material.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1550,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 2207,
+      "registry_record": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/ornament.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-armor/src/ornament.rs",
+        "sha256": "5aaf7f24806502832feef0cc0a9d5e572e80199b63c1d371b05a14fd6cb361ef",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6162,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 229,
+            "read_ranges": [
+              [
+                1,
+                189
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-FINAL-RECEIVERS-089"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-armor/src/ornament.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1564,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    }
+  ],
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "qualifications": [
+    "348 accounts2198..2201 next2202carrierWGSL64REG1060/2203shapeWGSL55REG1061/2204wrappedtassets154REG1062 allregisteredunread. LastREG1063,18mandatoryextensions/sixEOFqualifications/futureproofs retained.",
+    "Newqualifiedstagedreadbacksession/role/countadmissioncandidate: publicunbrandedCopyindices canmixvalidbatches, publicfinishacceptsindependentPartSlots/Results. No nativeReadback/results/invalidcast/test/GPUexecution. Actualordinaryselfreadcorrectpair, native/caller/current/all20ownerfitpending.",
+    "PartRecipepush_grid_coord actualcheckedproduct/min2 closescoordinategridzero/rawcardinalityhypothesis, hostbuildvalidatesframe. PartLayoutstilldelegatesShellPlan beforeclaimcapacity/topologyfullychecked. Emptycomponents/hugeaggregate/Pauldronseparatedesign/lowerlameoverflow requireactualdesignvalidators/nativecaller/current beforefinding.",
+    "ComputeReadback? sourcepreserved atactualread_staged route contrastsGenericGpu Displayadapter elsewhere, exactnativeErrorrelationpending no prematureunification.",
+    "All13 populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ]
+}

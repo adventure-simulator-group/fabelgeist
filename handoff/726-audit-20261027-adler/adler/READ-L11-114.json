@@ -1,0 +1,161 @@
+{
+  "lens": 11,
+  "batch": 114,
+  "status": "Original1216 full exact1..1408 source-accounted WITH findings and explicit same-lens inherited range reuse",
+  "original_index": 1216,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+  "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+  "scope": [
+    [
+      1,
+      1408
+    ]
+  ],
+  "actual_fresh_reads": [
+    [
+      1,
+      264
+    ],
+    [
+      292,
+      400
+    ],
+    [
+      401,
+      745
+    ],
+    [
+      746,
+      1067
+    ],
+    [
+      1151,
+      1408
+    ]
+  ],
+  "inherited_same_lens_reuse": [
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-102-receipt.json",
+      "sha256": "4e87e3eb5300b6e467f587f37901d200fa66656accb00451864edf5cd1f2ad47",
+      "ranges": [
+        [
+          265,
+          291
+        ]
+      ]
+    },
+    {
+      "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-104-receipt.json",
+      "sha256": "adb3d27108be33387260ef3bdcfbe50f1911ea4f1d015bca55136e06713ae8c9",
+      "ranges": [
+        [
+          1068,
+          1150
+        ]
+      ]
+    }
+  ],
+  "reuse_qualification": "Prior same-lens auditor source proof/semantic disposition is adopted, not newly claimed root personal body coverage. No source from another lens substituted.",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-017.json",
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "roles": "Referral delivery source classification, actual local receipt versus public threat, current speaker/contact identity, authoritatively disambiguated or generated presentation and source refs.",
+      "disposition": "ReferralDeliveryAuthority sum owns LocalProblem receipt payload and PublicThreat mode. Missing and conflicting authority are explicit failures rather than two unrelated Bool fields leaking beyond classification. Current speaker and original discovery provenance are distinct roles. Generic variant is selected only for distinct source/contact IDs and case-insensitively different names; self/same-name/absent-source cases retain authoritative wording. This is required presentation semantics, not a backward-compatibility fallback. Named ReferralPresentation{fragments,sources} can retain aligned payload instead of two String tuple; JSON native codec differs actual prose. Existing tests read as source only, including quoted future startup call; actual startup caller is not credited from source selectors."
+    },
+    {
+      "ranges": [
+        [
+          180,
+          326
+        ]
+      ],
+      "roles": "Join session, gateway/catalog/session/live-presence admission, player role cardinality, action ID syntax and session member authority.",
+      "disposition": "Role/SessionId/ActionId/CatalogRevision/SessionRevision/CharacterId and timestamp differ. Player role lookup is checked against authored ParticipantKind and max cardinality; idempotent existing character row is separate from same action receipt. Existing action receipt early-return does not verify requested role; scope-qualified conflicting request association question, no ordinary reused-ID incident. Session current/closed state and lost-response receipts need actual session lifecycle/caller policy, not assumed all retries succeed after closure. Member helper265..291 retains exact inherited proof and limits. Empty/control/colon/length validation is actual ActionId admission, not a global ID bound."
+    },
+    {
+      "ranges": [
+        [
+          328,
+          866
+        ]
+      ],
+      "roles": "Exact local service representative, typed FactKey/FactValue context, role/age/sex/service/religion/org/status/clothing facts, membership/promotion/rumor/referral/prior interaction/language/time/contract conditions.",
+      "disposition": "FactContext is a projection, not another mutable source of membership/party truth. FactKey and FactValue are typed but value role can be broad (Text/Integer/Bool); key-dependent insertion owner could keep actual canonical religion/age/status/service/catalog values without a universal quantity framework. ParticipantCount is role cardinality; confidence is basis points, not interchangeable integer. Current membership, projected presentation, promotion availability and required dues are separate facts. Selecting first NPC/last belief/defaultfalse SocialCheck and unconstrained text flags retains actual source policy questions pending authored predicates/callers; no wrong classification or hidden gameplay penalty inferred. ParticipantClothingCategory currently takes actual catalog item ID; actual authored consumer determines intended category semantics.",
+      "acceptance": "All field values/native DB/authored condition grammar/canonical owner fit and privacy/ordering/absence semantics remain pending; comments about no hidden membership do not prove all runtime paths."
+    },
+    {
+      "ranges": [
+        [
+          868,
+          920
+        ]
+      ],
+      "roles": "Effective language hours/instinct -> clamped coefficient -> fluent/limited/poor and pass Bool; existing threshold fixtures.",
+      "disposition": "LanguageCompatibility is a finite qualitative policy result, coefficient and pass threshold are distinct from hours and aptitude. Named enum can derive pass status if actual consumers intend exactly these states; tuple currently returns text+Bool consistently in all branches, no actual disagreement. Existing finite/max/clamp guards narrow malformed-primitive concerns. .75/.35 and hours1000 represent authored role-specific policy, not global scalar validation. Fixtures are source-only."
+    },
+    {
+      "ranges": [
+        [
+          922,
+          1067
+        ]
+      ],
+      "roles": "Organization requirement labels, joining fee/dues/membership/role/promotion terms and typed runtime slot binding.",
+      "disposition": "Human requirement/fee/standing prose is actual presentation boundary, while role/org/skill/religion IDs must retain canonical owners before rendering. Role selection and current membership are different sources; .ok/absence produces explicit no-role wording, not proof every error is harmless. RuntimeSlot typed keys deserve reuse, no duplicate free-text slot owner. Dues interval days/money count and subjective membership minute are distinct. All organization/role/calculation/native recipients remain exact separate scopes."
+    },
+    {
+      "ranges": [
+        [
+          1068,
+          1150
+        ]
+      ],
+      "reuse": "Exact inherited104 address/role receiving proof",
+      "disposition": "Preserve directional/intimate/precedence/title roles and actual public-role selection association; no claim of fresh root body review or whole organization/relationship cleanup."
+    },
+    {
+      "ranges": [
+        [
+          1151,
+          1212
+        ]
+      ],
+      "roles": "Session-owned speaker, authored singular/group/participant addressee, parsed actor list, social precedence/intimacy and second-person/title presentation.",
+      "disposition": "Singular and group addressees are meaningful variants. Code checks raw participant nonempty/cardinality, then filter_maps dialogue_actor_id and indexes addressees[0] for singular when speaker ID exists/title. Native participant row should retain an admitted actor association so parsed recipients cannot disappear; actual coherent constructors may already prevent malformed states. Conditional representation/API precondition only, no proven ordinary panic or invalid player input. Speaker/acting actor/addressee identities must remain distinct and directed; group title/register legitimately differs singular."
+    },
+    {
+      "ranges": [
+        [
+          1214,
+          1408
+        ]
+      ],
+      "roles": "Typed RuntimeBindings, selected speaker role/actor, optional NPC description, pairwise register, time window, known lead/belief/evidence/contract and exact generated referral/testimony.",
+      "disposition": "Runtime slot rendering is a native presentation port; human safe summary and visual description are not mechanical identity. Nonresident speaker may validly return pairwise bindings only, no forced NPC fallback. Some generic lead/belief slots select first/last observer-known record while exact referral/testimony verifies generated witness identity/location; keep generic display policy separate from source-bound authoritative claim. Immutable SourceRef/TestimonyLine spoken versus challenge text are distinct; trim/filter protects nonempty spoken line but no catalog-wide proof.",
+      "trace": "Actual selected recipient/opinion/time bindings feed resolve_dialogue_turn/fragments already read1212; prompt result calls traced1215. No transfer of source-selector fixture or native runtime execution credit."
+    }
+  ],
+  "repair_dependencies": [
+    "Admitted session participant/actor and typed singular/group addressed set",
+    "Source-bound ReferralPresentation/runtime fragment and source-alignment owners",
+    "FactContext key-dependent canonical value roles and actual authored condition predicates",
+    "Native action receipt request equality across joins/topics/answers, already qualified in113",
+    "Actual source data/native DB/serde/gateway/client/session participant lifecycle and all twenty current migration families"
+  ],
+  "pending_contracts": [
+    "Actual start_dialogue/participant constructors, dialogue_actor_id/body and native schema/canonical place/cardinality semantics must be reconciled, including inherited exact reuse rather than pretending fresh coverage.",
+    "Address parse-list precondition is conditional; ordinary coherent participant producers may rule it out. Do not assert runtime panic from Option/list indexing alone.",
+    "All earlier qualified privacy/authority/clock/clinical/current/alias/SDK/other-population/extension/connected acceptance limits retained."
+  ],
+  "next_original": 1217,
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "current_reconciled": false,
+  "validated": false
+}

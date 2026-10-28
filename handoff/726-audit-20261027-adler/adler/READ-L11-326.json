@@ -1,0 +1,303 @@
+{
+  "lens": 11,
+  "batch": 326,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2083,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-931.json",
+      "registration_sha256": "b5211de0f8e29e9ab94bcbbd40357188273a45082f0a76d2a1fba4752acf0f76",
+      "source_id": "pr-working:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "scope": [
+        [
+          1,
+          344
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          344
+        ]
+      ]
+    },
+    {
+      "original_index": 2084,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-932.json",
+      "registration_sha256": "56022e1d93323732cd63f1cd7683327ac49244b468090edd4998daa66f12c32e",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "scope": [
+        [
+          1,
+          111
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "original_index": 2085,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-933.json",
+      "registration_sha256": "903e40488cb59d576b4fb6cb3f5daa26d691eecf13163e5609684bd3fcb913cf",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "sha256": "b5accc11c18f0ac90310414f5db75ca9ef76661bea923b658513fed644cea66e",
+      "scope": [
+        [
+          1,
+          170
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ]
+      ]
+    },
+    {
+      "original_index": 2086,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-934.json",
+      "registration_sha256": "aff2fda87824e1aabefe859f63b9ee08a12dff7d259a265046f0f110ca78e76e",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "scope": [
+        [
+          1,
+          230
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          230
+        ]
+      ]
+    },
+    {
+      "original_index": 2087,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-935.json",
+      "registration_sha256": "133c1d400c60a960b75534400689d054dd650f86e41145247f860cbbf32d020d",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "sha256": "660aa84bce2b4252168df40b15a47bdb710ba829c03ea76bf45584a0c6e1bc9f",
+      "scope": [
+        [
+          1,
+          318
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          318
+        ]
+      ]
+    },
+    {
+      "original_index": 2088,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-936.json",
+      "registration_sha256": "8ab88e8d8d74316c6284593628a203d7f62e97543d2bb3e9b54ddc44cda55893",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "scope": [
+        [
+          1,
+          389
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          389
+        ]
+      ]
+    },
+    {
+      "original_index": 2089,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-948.json",
+      "registration_sha256": "6a9555e7d93d8f1238f6531db9e06739cbb8dea032d0dd46ccd9ac06b4b3ec78",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "scope": [
+        [
+          1,
+          236
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          236
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2083
+      ],
+      "ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "roles": "Independent lens11 exact retained road admission and weapon codec/numerical construction owner, all metadata union and required operation closure.",
+      "disposition": "Full344 canonicalRoadPack owns typedSourcePackageDigest/privateRoadLine checkedE7points+bounds/RegionalConnectionKind, whileNativeRoadLine explicitlyofflinef64longitude/latitude adapter. Load readsbyteboundedmanifest/payloadwithlimit+1 includingTOCTOUguard, checksfinalTerrainPurpose+matchingterrain source/mask geometry/content digest, decodescheckedtotal/count/tag/trailingbytes, verifiescanonicalfullprecisionpointgeometryJSONhash beforelossyE7projection. ActualWgs84CoordinateE7::from_longitude_latitude_degrees rejectsinvalidlatitude/longitude andcoordinates_in_bounds clipsbycanonicalterrainbounds. Rawterrainboundsschema remains325dependency, butRoadLinepointadmission addsactualgeoowner andbounds invariant. Geometrydigestexcludesclassification purposefullymatchesterrainroadmask; contentdigest includeskindtag; classificationauthtrustpolicy beforeclaimsforgedkind. Writevalidatesallactualpayloadbeforedeploymentwrites, metadata+packpair nonatomic filesystem publication requiresactualpipeline staging policy. ResultenumownsIO/JSON/SourceError+capacity/source/content/geometryrejections, genericGeometrymerges severalintentionalfailurebranches butno nativecauseerasurehere; all20granularityscopebeforemorevariants. DirectNativeRoadLine atboundaryappropriate, no replacementsoldversion/fallback code. NoIO/package/test/currentexecution."
+    },
+    {
+      "source_indices": [
+        2084
+      ],
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "roles": "Independent lens11 exact retained road admission and weapon codec/numerical construction owner, all metadata union and required operation closure.",
+      "disposition": "Full111 currentweapon+holder schemaenvelopes denyunknownfields, decodecapMAX_ENCODED_RECIPE_BYTES beforeparse, explicitfound/expected schema/generator rejects, validateafterparse, CodecErrorJSONownedsource andInvalidDesignVec typederrors. encodevalidatesthenprivate serialize, privateparse intentionallysupportsinternalstagedvalidation not publiclegacybypass; actualderive/evaluationcallers next. Encodehasnoindependentbytecapbutvalidateactualmaxencodedsemantics needsreadbeforeencode/decodeasymmetryclaim. Differentweapon/holder envelopeversions purposefulsemanticdomains; no deprecatedschemaacceptance/dualpath. InvalidDesign lacks#[source]forVec buterrors retainedtyped ratherthanString, cannotrequireError::sourceforcollectionwithoutcanonicalpolicy."
+    },
+    {
+      "source_indices": [
+        2085
+      ],
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "roles": "Independent lens11 exact retained road admission and weapon codec/numerical construction owner, all metadata union and required operation closure.",
+      "disposition": "Full170 CurveQuality rawmaximumchord/deviation/defaultInfinity denotesdisabledadditionalconstraint explicitly, Detailcapturedforallrecursion. Adaptivecurve minimumsegments>=2,depth<=8 eachinterval andquarter/midpointdeviation, compactspacing guard yieldsnonempty/endpoints; no unboundedrecursion. Maxdepthpublishesrequestedapproximationeveniferrorstillabovequality, actualnativephysicalvalidatedrecipes/qualitycontract andcurve_tests laterneededbeforestrictbudgetfinding. NativePlanarPoint f64arrays/closure areprivate numericalkernelports, notallneedduplicativebespoketypes. subdivide indexespoints0 andusesceil(length/maximum_chord) usize; actualcallers/budget/nonempty/positivefinitechord required beforearbitraryzero/Infallocationcounterexample. No curveevaluation or testexecution."
+    },
+    {
+      "source_indices": [
+        2086
+      ],
+      "ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "roles": "Independent lens11 exact retained road admission and weapon codec/numerical construction owner, all metadata union and required operation closure.",
+      "disposition": "Full230 doubleprecisionmanufacturing Solid rawpositions/faces/surfacegroup parallelarrays, Detailenumexplicitbudget notglobalmutablequality. Point/PlanarPoint bothrawarraytypealiases distinguishdimensionnotframe/unit; rotateusesdegrees Point whilecoordinatesalsosamePoint, canonicalorientationvsassemblygeometry/all20migration owner comparison pending beforegranularityfinding. MODEL_FRAME_EXTENT20andfourf32roundinginterval floor explicitrenderer supportbound. construction_budget rejectsnonfinite/negative/>262144triangles usingString. Detail::samples mincountguard, radialsolve rawradius/request assumesactualvalidatedinput, radius0/negativehypothetical notnormal recipefailurewithoutowners. PrivateSolid triangle/quad synchronizearrays,appendrenumbersfaces/smoothinggroups preserving0flat vspositivegroup; volume/positive/transform arederivednumericaloperations, tiny-negativevolume threshold dependsacceptedminimumfeature beforeorientationfinding. No nativecompute/source-mesh generation."
+    },
+    {
+      "source_indices": [
+        2087
+      ],
+      "ranges": [
+        [
+          1,
+          318
+        ]
+      ],
+      "roles": "Independent lens11 exact retained road admission and weapon codec/numerical construction owner, all metadata union and required operation closure.",
+      "disposition": "Full318 Region public(crate) rawpoints/triangles/boundary created bytriangulate checkedfinite3+outline, dynamicextentdistance/areatolerance, intersects/touchesreject, condensesduplicate/collinearoption andnormalizeswinding, deterministicbestear+bounded16edgeflipquality improvement. Edgecanonicaltuple actsundirected key no conflictingorder. SeparateGroup/pointindex references internallygeneratedvalid; reject messages areString (shortoutline/noextent/touch/simple/degeneratefinal) semanticallydistinctcurrently nottypedvariants. Needactualpublicconstructionmesherror/canonical all20beforefinalstructuredfamilydedup. Region::refine rawmaxedge log2roundcount andsplit nonemptyedge threshold, malformedmaxedge sourcecouldoverflow/alloc butactual2088planar_region sets minarea-basedbudget, realrecipeheightbounds/finiteness stillneeded. Do nottransferstrictboundedrationalvariant2089 guarantees tothisdifferentplanarrefine. Fullcanonicalchecked_outline extentoverflowonlyunboundedf64internalports, futurevalidationownerframes20 likelyexclude. No triangulation/testprobe."
+    },
+    {
+      "source_indices": [
+        2088
+      ],
+      "ranges": [
+        [
+          1,
+          389
+        ]
+      ],
+      "roles": "Independent lens11 exact retained road admission and weapon codec/numerical construction owner, all metadata union and required operation closure.",
+      "disposition": "Full389 closedsolids prism/cuboid/lathe/faceted/hollow/shaped/rounded. Planar_region maxedge at leastsqrt(area/800) preventsarbitraryfineplanarrefinement; radial_profile estimatesstations*segments*2 andconstruction_budget beforecurve subdivision. Faceted/hollow socket helpers infallible andassumeactualprivatevalidatednonemptyprofile/positiveintegersegments/innerouter correspondence; no unsupportedzero/nonfinitepublicinputsclaimuntilrecipevalidation/actualcallers. Detail enumcapturednativeassemblysolverandnonparametricfaces intentionalindependentrepresentations. Nativeclosurethickness samples dependinputvalidation, notpromisetypedanyFnfinite. StringresultvariantsinheritRegionerrors/constructionbudget, nofallback. Roundedplate centerY only andXscaleabout0 requiresactualauthoredassemblyframe center invariant beforeasymmetricbevelclaim. Signedvolume normalization/closesides/annuli explicit; overallmaterialmass/inertia actualevaluationnextnotcreditedhere."
+    },
+    {
+      "source_indices": [
+        2089
+      ],
+      "ranges": [
+        [
+          1,
+          236
+        ]
+      ],
+      "roles": "Independent lens11 exact retained road admission and weapon codec/numerical construction owner, all metadata union and required operation closure.",
+      "disposition": "Full236 throughnewnecessarytail126..236 beyondraw1..125. Actualrefine_rational_surface acceptsclassify/heightclosure documentedrationalquadraticoverpositiveaffinepremise,12passes, exactsurfaceedge margin64ULP atpointscale, quarter? Actualsurface_deviation usescentroid+3edgemidpoint discrepancy, halfbudgetestablisheswholetriangleboundonlywithstatedrationalshape/preservepartitionpremise. Strictifnorequiredmids Ok; estimatesfaces+boundary constructionbudget beforefacesallocation, truncatesnewpoints onbudgeterror, permittedinternalcompactionthenretriesorreturnsErr, afterpasslimit Err ratherthanpublishunmetbudget. Thisnarrows326genericcurve8capconcern: differentrational-surfaceownercorrectlyfailsbudget, donotclaimallmeshesapproxsilent. split_edges exhaustive0/1/2/3midpointcase preservesboundaries and choosesdeterministicdiagonal, Optionunwrapscorrelatedbycount. improvecells requiresregionclassificationidentity anddeviation/edgecontract. PartialmutatingRegiononErr isprivateconstructionstate; actualcaller mustdiscardnotpublish, no visiblecorruptionclaimwithoutmeshowner. RawStringbudget/refinementerrors andbaref64tolerancesawaitcanonicalrecipe/mesh/all20typedvalidationpolicy."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-309.json",
+      "sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-319.json",
+      "sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-320.json",
+      "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-321.json",
+      "sha256": "2e9432b7679a30e7a11ef409431ec616e514bb620902fc13043834778eca3613"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-322.json",
+      "sha256": "49c7ef78eebe15793f1e55e7d6f502d702cf1bb5441e8a2966804cfb7996c4f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-323.json",
+      "sha256": "bdd4da522066f630a917409c133a91e1bfd2da7af2896c8c2fd5c54d726346fd"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-324.json",
+      "sha256": "4b5876ec29d29d47b23c0238ca20fef5448a781db7ba1a63896e8919a25bbb02"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b"
+    }
+  ],
+  "pending_contracts": [
+    "326 accounts2083..2089 next2090, REG938..947 alreadyprospectivelyregisteredsweep/path/derive/design/evaluation/hash/holders. LastnewREG948 necessityextends2089 operationtail126..236, 14extensionsmandatoryall13, originalglobal2853/later196 unchanged; fourEOFqualifications unchanged.",
+    "2089rawREG9371..125 personallyread then detectedopeningsignature, prospectivelyregistered948 before126..236body. Independentownlens full236 nowrecorded, no otherlenscredit. No registeredboundarysilentlytruncated orotherlensverdictadopted.",
+    "ActualRoadPackcanonicalE7/SourcePackageDigestprivateadmission mayresolveavailabletypeowner for325rawterrainbound/hash/frame roles; exactworldschemaowner/current/all20migration readstillrequired. Sourcegraphconstruction Pointaliasesconflateposition/degrees andStringfailures needactualpublicmesh/validation familytrace, no final acceptedrepairfamilycount.",
+    "All13original/overlay/merged/shared/extensions/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2090
+}

@@ -1,0 +1,103 @@
+{
+  "lens": 11,
+  "original_index": 4,
+  "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+  "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+  "object_path": "target\\726-audit-adler-20261027\\adler\\source-objects\\22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+  "ranges": [
+    [
+      1,
+      129
+    ]
+  ],
+  "prospective": true,
+  "purpose": "Independent lens11 fresh exact native asset failure event body, needed by1692status. Earlier original4 zeroordered/globalcredit; lockednativeEOF qualification mandatoryall13, zero130..159credit.",
+  "provenance": "Exact Cargo registry event.rs bytes equal checked Cargo.lock package archive member, copied to ignored source object before body analysis.",
+  "inherited_scope_extent_qualification": {
+    "kind": "Native package member exact-byte EOF qualification",
+    "original_index": 4,
+    "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+    "actual_EOF": 129,
+    "raw_requested_range": [
+      1,
+      159
+    ],
+    "effective_range": [
+      1,
+      129
+    ],
+    "excluded_nonexistent_ranges": [
+      [
+        130,
+        159
+      ]
+    ],
+    "native_archive": "target\\726-audit-adler-20261027\\adler\\native-packages\\bevy_asset-0.19.1.crate",
+    "native_archive_sha256": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38",
+    "native_member": "bevy_asset-0.19.1/src/event.rs",
+    "frozen_lock_locator": "6533e444fa37552927070cc8d8190907fd3b413e:Cargo.lock",
+    "frozen_lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "native_package": {
+      "name": "bevy_asset",
+      "version": "0.19.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38"
+    },
+    "inherited_owner_proofs": [
+      {
+        "supplier": "rig",
+        "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+        "row": 56,
+        "read_ranges": [
+          [
+            1,
+            159
+          ]
+        ],
+        "contract_refs": [
+          "RIG-OWNER-ASSET-CAUSE-020"
+        ],
+        "read_status": "current-lens-exact-native-error-owner-receiving-ranges-read",
+        "resolved_path": "CARGO_REGISTRY/bevy_asset-0.19.1/src/event.rs"
+      }
+    ],
+    "historical_qualification": "Original4 registry carries requested1..159 with no explicit EOF qualification in this metadata. Independently qualified here by exact locked package/member, no borrowed historical owner/lens verdict or phantom130..159 source body.",
+    "mandatory_lenses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "new_global_source": false,
+    "other_lens_coverage_transferred": false,
+    "failed_registration_helper": "Earlier helper rejected non-pr-working recovery before creating REG530 or reading any source body; REG530 now first actual prospective registration of this reinspection."
+  },
+  "mandatory_lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "new_global_source": false,
+  "other_lens_coverage_transferred": false
+}

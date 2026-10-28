@@ -1,0 +1,263 @@
+{
+  "lens": 11,
+  "batch": 250,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1716,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-551.json",
+      "registration_sha256": "d8946bbe1900ef66ade56787212509729b22e11ae840f7464285c550855331f3",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs",
+      "sha256": "1fe023253ded6f1a52e1aa88b1d0f415c6ee1ee9b9219a26f1edf1e2f122bbde",
+      "scope": [
+        [
+          1,
+          89
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "original_index": 1717,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-552.json",
+      "registration_sha256": "765fe4018a6664d457df1f79bb54ac77b4d601ac3a4781fabbf5a58c537ac0e3",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+      "sha256": "3891936e52f5d84f5970256e12a8cce2b3cf5990b15775b3512bab34ff1e21ac",
+      "scope": [
+        [
+          1,
+          438
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          438
+        ]
+      ]
+    },
+    {
+      "original_index": 1718,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-553.json",
+      "registration_sha256": "6a13dc247d9fab4b1417426e8509b41f0bf7389b84f9f4815af6e180ef5d84f1",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms/sightlines.rs",
+      "sha256": "3b246c9e91979cdd7f23a8527adef2df1dbe28bf14662cd1060b557d89c77324",
+      "scope": [
+        [
+          1,
+          288
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          288
+        ]
+      ]
+    },
+    {
+      "original_index": 1719,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-554.json",
+      "registration_sha256": "4d249aaa650e2555858f46f1f0e6b09744b0e4757a1a8213bd616bc173b05bdf",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "sha256": "90d78c0c708175d63d2b3654ce3d96a08c32444ff581cf53e94f78d5f971bb96",
+      "scope": [
+        [
+          1,
+          941
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          600
+        ],
+        [
+          601,
+          800
+        ],
+        [
+          801,
+          941
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1716
+      ],
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "roles": "Independent lens11 full registered source admission/owner/type granularity and final native acceptance contracts; sourcefixtures only.",
+      "disposition": "Full89 catalog finish staging uses canonical FinishableFurnitureKind/FurnitureWoodState/FurnitureKey enum and missing-key owned CatalogAdmissionError. Bounded separate synthetic FINISH namespace plus actual catalogue ordinal, reserved building0 capture Interior as in249; actual renderer isolation still pending before sentinel defect. Checked Position/CuboidDimensions/required terrain support, final catalog framing native arithmetic. Wood state variant does not alter canonical compact size unless actual recipe owner says otherwise; no render comparison or generatedasset execution."
+    },
+    {
+      "source_indices": [
+        1717
+      ],
+      "ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "roles": "Independent lens11 full registered source admission/owner/type granularity and final native acceptance contracts; sourcefixtures only.",
+      "disposition": "Full438 semantic room camera producer. Typed RoomSelection selects actual RoomKind/OperatingFurniture/Bedroom/upper spiral landing and canonical furnishing proof by building ID. Finite route points sorted/dedup, floor from checked placement.floor_height, blockers include collision solids, closed rendered door leaves and furniture posed cuboids. Camera transforms architectural source into checked Scene Position. Missingfixture/proof/room/landing/signature uses explicit terminal native diagnostic expect/panic; actual authored fixture/core producer before treating an invariant as general-gameplay error. Furniture blockers/subjects share same enumeration, Owner::Furniture(index) is private ordinal identity not global entity ID. Stair signature references actual ResolvedItemId. Sourcefixture closed-door/navigable-ray demonstrates intended separate render/circulation blockers, no execution."
+    },
+    {
+      "source_indices": [
+        1718
+      ],
+      "ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "roles": "Independent lens11 full registered source admission/owner/type granularity and final native acceptance contracts; sourcefixtures only.",
+      "disposition": "Full288 exact sightline kernel. Owner enum separates Architecture(ResolvedItemId) from Furniture(usize), preventing accidental cross-family identity equality. Typed Architectural CollisionCuboid admitted before prepared native quaternion/extent/slab math. Conservative world AABB with rotated padding precedes exact local segment/slab test, margin only camera clearance. Subject points generated9 or3 by1717, so private points[0]/division requires actual nonemptyproducer alreadyread, no arbitrary emptyinput panic finding. Candidate rays exempt own subject geometry intentionally, signature requires every envelopepoint in frame, >=half unobstructed plus front/workingpoint conditions; no claim everysurface visible. Final composition heuristics/scores/private Vec3 native kernel not automatically missing bespoke quantities. Source rotated/sloping/clear-door fixtures read only."
+    },
+    {
+      "source_indices": [
+        1719
+      ],
+      "ranges": [
+        [
+          1,
+          941
+        ]
+      ],
+      "roles": "Independent lens11 full registered source admission/owner/type granularity and final native acceptance contracts; sourcefixtures only.",
+      "disposition": "Full941 actual capture manifest/finalizer. PendingSceneCaptureManifest owns pre-readback snapshot, then finalize_after_screenshot copies current CaptureRecord slice and recomputes final pixel/detail/motion/hash/obstruction/vista/coldtraversal gates.246 actual loop creates lastrecord before snapshot and guards one view/readback; no simple stale-final-metric claim remains. TerrainSummary required_elevation_range propagates owned supporterror with typed extrema, no default fabricatedrange. Numeric native camera arrays/enum tonemapping/stringrender labels belong final serialized leaf where no further semantic admission needed; profile/slugs still semantic selectors in validation, global type granularity/all20 owner fit remains. All validation conjunction gates explicit, missinghashpair notready, incomplete8boundary/16coldpair/16beech sequence fails intended profile; no assertions executed. Nearfield consumer nowrequires angular<=16.1 andnoCollider for8views, actual viewer observation246 filtersVisibilityRange only; actual frustum/pose/intended conservatism pending before false-gate finding. Cold canopy metric requires absolute5bps and>=80percentpairedwarm, actualpixel-source attribution/native sequence/current pending. Screenshot finalizer makes freshrecord metrics authoritative, sourcefixtures not validation of actual GPUimages."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Existing later-material full same-lens source read, no original credit",
+      "population": "later-material",
+      "population_index": 147,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-556.json",
+      "registration_sha256": "1fdcf8e3be10fafe9f18109e6b8329014e396ca86fd6a346307931318c6c2e56",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "source_sha256": "3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "scope": [
+        [
+          1,
+          50
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          13
+        ],
+        [
+          14,
+          50
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "new_global_source": false,
+      "disposition": "Full50 actual GpuReadiness provider. Separate Arc<Mutex<ResidentAssets>> shared main/render worlds, typed AssetId<Mesh>/AssetId<Image> sets replaced from actual RenderAssets<RenderMesh>/RenderAssets<GpuImage> in RenderSystems::Cleanup; contains requires mesh and every requested texture ID. This is actual GPU resource observation, not merely CPU Assets handle existence. It is not pipeline compile/error, exact asset revision or completed rendered frame witness. Fixed capture source modification/lifetime/native synchronization semantics still pending before stale readiness defect. Existing later14714..50 read555, then1..13 native signature imports prospectively registered556 and full14..50 freshly reread under556; clean full50 proof here. Bounded prefix1..13 mandatoryall13 scope extension only, no new source identity/population ordered/other-lens credit."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-243.json",
+      "sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-244.json",
+      "sha256": "5fb5a7ba00f88d568e03a1f4c12b7bf041a85a1b764a8617ea67f545e8f6d0b0"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-245.json",
+      "sha256": "abfe870f524691806cd9dc05331066a35b40d3dad0f15f6db460b944aecabc4d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-247.json",
+      "sha256": "d708a807a9dae6f7e9b5aca74f689a1957bed6da93083c0a1c49ce0360a7abb7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-248.json",
+      "sha256": "624989266f35db42d013d11c5cb9d530a4fc7f4f592f836a0010bd1688ac357e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-249.json",
+      "sha256": "62268c42c3d7b3379934c63bf291f8920ea159290dfcf0071b28663dbb2f2df6"
+    }
+  ],
+  "pending_contracts": [
+    "250 full1716..1719 completeunion, next1720. Connected existinglater147 full50 actualGpuReadiness, zeroorderedoriginal/laterpopulation credit. New bounded eighth scopedextension prefix1..13 mandatoryall13, no new source identity/otherlens credit. All13 populations/current/all20/aliases/finaldedup incomplete.",
+    "Actual GPU residency provider connected for247building and249furniture: native RenderAssets ID sets refreshedCleanup under shared ArcMutex. Cannot describe it as CPUexistence-only; does not establish pipeline success/asset revision/completedframe. Exact native provider lifecycle/actual capture/current stillpending.",
+    "Actual PendingSceneCaptureManifest finalizer resolves246 stale-final-metric dependency: fresh CaptureRecords copied and screenshotdependentgates recomputed. Counts snapshot length consistent with246 lastrecord precreation/oneinflightguard; no stale or lengthpanic accepted without actual violatingproducer.",
+    "Native sightline/room blockers nowconnected, uses sameprivate ordinalowner namespace and checkedarchitectural solids. Optional candidate geometry/terminal authoredfixture admission not generalhidden gameplay fallback. Global semantic profile/slugs/quantities/all20 canonicalfit stillrequired.",
+    "Nearfield vista gate exactangular/collider consumer nowconnected, sourceobservationrange-only may be intentionallyconservative; actualcamera/frustum/admittedtrees/render acceptance pending before falsegatereport. Cold metric actual pixels/current remains unproven.",
+    "All earlierfindingqualifications/future2248/2249/2250/2701/nativeoriginal4EOF/partiallater129/L13 retained; L12/L13 unchanged. Nextregistration557, next1720exactmetadataunion beforebody.",
+    "No productchanges/builds/tests/lints/scanners/generators/runtime/nativeprobes/CI/newtests/commits/pushes/PR/publication/externalmessages. Goalactive/incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1720
+}

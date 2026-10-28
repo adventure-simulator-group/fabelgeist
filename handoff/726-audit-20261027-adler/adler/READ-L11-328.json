@@ -1,0 +1,547 @@
+{
+  "lens": 11,
+  "batch": 328,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2100,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-949.json",
+      "registration_sha256": "7e44ac5942ee4da02cb3f8d1702988d9c1d273f8183185ab61a5e52f12eee891",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon.rs",
+      "sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+      "scope": [
+        [
+          1,
+          521
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          521
+        ]
+      ]
+    },
+    {
+      "original_index": 2101,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-950.json",
+      "registration_sha256": "600e9ccbbe31c1b733172d2fb3306c7782b3cb2ed963e926189123fc4185931b",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/render.rs",
+      "sha256": "edff51da5c9b4c69950952e210b14a410e3b57e81af24119e35a300379796c81",
+      "scope": [
+        [
+          1,
+          199
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          199
+        ]
+      ]
+    },
+    {
+      "original_index": 2102,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-951.json",
+      "registration_sha256": "071da86364439c620492903f138856788b69462229be3ef8e1df938c514cb661",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/studio.rs",
+      "sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+      "scope": [
+        [
+          1,
+          114
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          114
+        ]
+      ]
+    },
+    {
+      "original_index": 2103,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-952.json",
+      "registration_sha256": "f66d307e023c8462b304e48b7cfd2fc3ef01a215fa1c2a6f77d2b2fcd70138a5",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "scope": [
+        [
+          1,
+          50
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "original_index": 2104,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-974.json",
+      "registration_sha256": "cb8b0218a2f12e1ca2bd6e8a0e093e4814571147866a5e97f0b625537f2c8e9a",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "scope": [
+        [
+          1,
+          145
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          145
+        ]
+      ],
+      "inherited_scope_extent_qualification": {
+        "kind": "Frozen Git exact-byte EOF qualification",
+        "original_index": 2104,
+        "registry": "handoff\\726-audit-20261027-adler\\evidence\\audit05\\original-scope-072.json",
+        "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+        "source_sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+        "actual_EOF": 145,
+        "raw_requested_range": [
+          1,
+          150
+        ],
+        "effective_range": [
+          1,
+          145
+        ],
+        "excluded_nonexistent_ranges": [
+          [
+            146,
+            150
+          ]
+        ],
+        "frozen_source_locator": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/mesh.rs",
+        "inherited_metadata": {
+          "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-weapon-model/src/mesh.rs",
+          "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+          "bytes": 4871,
+          "already_in_frozen_variants": false,
+          "evidence": [
+            {
+              "shard": "camera",
+              "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+              "ranges": [
+                [
+                  1,
+                  145
+                ]
+              ],
+              "source_read_status": null,
+              "trace_refs": []
+            },
+            {
+              "shard": "camera",
+              "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+              "ranges": [
+                [
+                  1,
+                  145
+                ]
+              ],
+              "source_read_status": null,
+              "trace_refs": [
+                "CAM-PROP-WEAPON-MODEL-001"
+              ]
+            },
+            {
+              "shard": "rig",
+              "record": "wave-01/audit-producer-propagation/rig/additional-sources-004.json",
+              "ranges": [
+                [
+                  1,
+                  150
+                ]
+              ],
+              "source_read_status": null,
+              "trace_refs": [
+                "CAM-PROP-WEAPON-MODEL-001",
+                "RIG-PHYSICAL-CATALOG-01"
+              ]
+            }
+          ],
+          "audit_owner": "camera",
+          "scope_kind": "affected_unchanged_reached_contract",
+          "owner_contract_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 123,
+              "read_ranges": [
+                [
+                  1,
+                  145
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs"
+            },
+            {
+              "supplier": "camera",
+              "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+              "row": 414,
+              "read_ranges": [
+                [
+                  1,
+                  145
+                ]
+              ],
+              "contract_refs": [
+                "CAM-OWN-WEAPON-CONSTRUCTION-058"
+              ],
+              "read_status": null,
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs"
+            },
+            {
+              "supplier": "camera",
+              "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+              "row": 431,
+              "read_ranges": [
+                [
+                  1,
+                  145
+                ]
+              ],
+              "contract_refs": [
+                "CAM-OWN-WEAPON-CONSTRUCTION-058"
+              ],
+              "read_status": "complete",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs"
+            }
+          ],
+          "current_owner_suppliers": [
+            "root",
+            "camera"
+          ],
+          "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+          "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+          "producer_reached_contract_observations": [
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+              "receipt": "ROOT-PPS-CAMERA-WEAPON-PHYSICAL-PACKET-040",
+              "json_pointer": "/source_proofs/7",
+              "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  145
+                ]
+              ],
+              "source_context": {
+                "index": 388,
+                "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs",
+                "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+                "read_ranges": [
+                  [
+                    1,
+                    145
+                  ]
+                ],
+                "evidence_mode": "fresh full body read",
+                "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+                "contract_trace": "Physical f64 -> gameplay raw32 leaves and renderer f32 arrays are different contracts. Root typed physical output and immutable shape native codecs; head extrema +/-Inf represent no striking geometry before fallback0, not a measured length; mesh bounds on empty source similarly requires later admission/state decision. Preserve exact cast/scan/filter/spear-working-section order."
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            },
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+              "receipt": "CAM-PPS-WEAPON-MODEL-031",
+              "json_pointer": "/current_sources/7",
+              "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  145
+                ]
+              ],
+              "source_context": {
+                "index": 388,
+                "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/mesh.rs",
+                "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+                "read_ranges": [
+                  [
+                    1,
+                    145
+                  ]
+                ],
+                "evidence_mode": "fresh full body read",
+                "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+                "contract_trace": "Physical f64 -> gameplay raw32 leaves and renderer f32 arrays are different contracts. Root typed physical output and immutable shape native codecs; head extrema +/-Inf represent no striking geometry before fallback0, not a measured length; mesh bounds on empty source similarly requires later admission/state decision. Preserve exact cast/scan/filter/spear-working-section order."
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            }
+          ],
+          "producer_inventory_accounting": {
+            "initial946_cell": false,
+            "frozen1650_supplement_index": 925,
+            "new158_material_role_packet": false,
+            "expanded36_context_variant": false,
+            "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+            "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+          },
+          "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+        },
+        "superseded_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-953.json",
+        "superseded_registration_sha256": "6221ad47dff20a5873a0207444cf694a63151a0bc946ffc808e403c41ab7eec1",
+        "failed_read": "No rawbodyread attempted. Registration949 metadataEOF display revealed145 before body. REG953raw1..150 retained; effective974full145 prospectively saved before firstbody.",
+        "limits": "All13 independent lenses must qualify exact same hash EOF145; no146..150 body credit/newglobalidentity/extension/otherlens verdict transfer.",
+        "mandatory_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "new_global_source": false,
+        "other_lens_coverage_transferred": false
+      }
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2100
+      ],
+      "ranges": [
+        [
+          1,
+          521
+        ]
+      ],
+      "roles": "Independent lens11 exact icon/native-render/public facade and qualifiedEOF mesh error/physical projection source.",
+      "disposition": "Scoped1..521 actual574 completeproductionfunctions, unrelated522..574testtailunread. WeaponIconSpec publicsize/supersampling actualrenderer2101 bounded16..512/1..8 beforepixelallocation, default96/4valid. Generate/designvalidate occursbeforeinvalidspec check, boundedmodelwork butno outputpublishedoninvalid. IconError ownsGenerateError whilePNGStringerasure actual2102/native26 cause. PrivateProjection bindssemanticlayout/target/mirror/axes/scale/focus fromsamecanonicalgenerateddesign. Hilt/headclassification bycomponentrole notcatalogname, principalheadfallbacksyntheticTop20percent purposefuliconfeatureforlegitimateheadlessstaff/gripstructures, notlegacycompatfallback. Headmaxzoom2andmargin safe authoredpresentationrules notcombatperformance. fit_scale checksfinitepositive andrequiresfocusextent; nativef32screen/mesh coordinates separatelocalport notmandatorypervaluewrap. Framinganchor sockettop/headbases/griptop deliberategeometryselection, exactcomponentIDstringsemantics canonicalrole familyfuture. occupiedcoverage separatefromopaqueRGBAstudio output. No renderedimage, meshgeneration or tests."
+    },
+    {
+      "source_indices": [
+        2101
+      ],
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "roles": "Independent lens11 exact icon/native-render/public facade and qualifiedEOF mesh error/physical projection source.",
+      "disposition": "Full199 privateCPUcolor/depthraster withcapturedsameprojection, boundedmax4096square allocations, numericVecnativekernel/lightingmaterialports. Indices/normals directindex assumedcanonicalGeneratedMeshPartsactual2104/nativepart and2114outputvalidation next, notpublicarbitraryMeshPartdeserializationpathintoiconrenderer. Supersamplingcoverage tracksfinite-depth fraction whileRGBAalphaalways255/blackbackground intentionallystudioopaque, notalphaaccidentfromtransparentrequest. Degenerateprojectedtriangles ignored, backfaces shadebothsides. Boundingrange clipsagainstscreen; extremeNaNsource sourcefinitechecks/nativecontract requiredbeforepixelindexpanic. Native materialwildcard usesnewcanonicalMaterialcolor/is_metal properties fornon-special artisticmaterials, notlegacycompat alias. Nearsurfaceorderfixture completeunexecuted."
+    },
+    {
+      "source_indices": [
+        2102
+      ],
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "roles": "Independent lens11 exact icon/native-render/public facade and qualifiedEOF mesh error/physical projection source.",
+      "disposition": "Full114 fixedbounded128x64LazyLock environment source and12reflectionnumericalsampler; lat/long lightmapnormalizedtexturecoordinates distinctWGSgeo despitewordnames, nativeVec3directions appropriate. Shadeusesnormal/view/material boundedinputs from2101; no arbitraryzeroVecfilter failure beforeactualcanonicalproducer. RGBEexport describesradianceformat andpositiveproceduralcolors; nativeexternalHDRdecoder/RLE rules would needexactnativeacceptance beforeformatclaim. PNGIntSize/Pixmap construction returntypedInvalidSpec/Rasterization; owned native png::EncodingError stringifiedat114. Actualnative26exactencode_png signature/bodyread independently provesownedcause exists, no nativeencodingexecuted."
+    },
+    {
+      "source_indices": [
+        2103
+      ],
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "roles": "Independent lens11 exact icon/native-render/public facade and qualifiedEOF mesh error/physical projection source.",
+      "disposition": "Full50 cratefacadeexportscanonicalprivate modules/currenttypes/functions directly. SCHEMA18GENERATOR22/HOLDER12/13 andencoded128KiB actualenvelopes2084 correspond, no oldversion path. GeneratedModel/ModelPart andprivatef64construction output exportedviafacadepurposefullysameowner, reexportsnotcompatibilityforwardingAPIs. Separatethin generate_holder reexport2104 relatesactualholdersfactory no deprecatedalias. ExactpublicValidationError/GenerateError source chain nowreached."
+    },
+    {
+      "source_indices": [
+        2104
+      ],
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "roles": "Independent lens11 exact icon/native-render/public facade and qualifiedEOF mesh error/physical projection source.",
+      "disposition": "Fullactual145 underfifthEOFqualification rawmetadata1..150, no146..150credit. ActualGenerateError Invalid(Vec<ValidationError>) hasDisplay onlygeneric invalidweapon design, Construction(String), MissingHolderGeometry staticrole. Thus327holderderive error.to_string discardsInvalidspecificvectorentirely, notmerelyerasingvariantwhilekeepingdetails. Native_part casts f64modelpositions/normals to f32rendererbuffers usingas_chunks3(ignoresmalformedremainder) andindices, actualModelPartprivatecanonicalproducer2114 mustestablishfinite20frame/normal/index/multiples3 before acceptedbrokenmeshfinding. derivedconsumesactualheadcomponentrole andspearworking-sectionbase/tip fromframes; missingworkingframes setsNone/wholepart instead ofErr butcanonicalmodel framecontract beforeunreachablefallbackclaim. Physicalmass/inertia/signedCOM f64tof32 actualvalidatedphysicalbounds pending. generate identityvalidatesrecipe, generatesHigh canonicalmodel→physical/frames/nativeparts/hash; no render-specificrecomputationdifferentphysicalauthority. No code/test/currentexecution."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 2151,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-975.json",
+      "registration_sha256": "b594c0a1636d39997c0770108fa8db1f8cbe0d51d2f3af729833de45453b7db2",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/validation.rs",
+      "source_sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "scope": [
+        [
+          1,
+          72
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          72
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Full72 actualValidationError Recipe ownsRecipeError/CatalogIdentity/Holderstaticrole/ConstructionString. Identityvalidatescataloglen+wholeRecipe.validate, notjustcatalog despitefunctionname, closing327identitydepthuncertainty exceptactualrecipeencodedcap still2132pending. holder_identity checksfitteddesign, canonicalrecommendedholder+scabbard/weapon_loop identity, boundedallintegerfitcontrols,requiredGrip/LoftedBlade. Publicvalidate_holder ALSO mapsGenerateError toConstruction(error.to_string()) at35, same327typedholderfamily. Actualbadwall0->Holder(parameters)vec->GenerateErrorInvalidgenericDisplay->Construction(\"invalid weapon design\"), pure-sourcepathnotrun. Firstordered2151mustadoptREG975full72, nootherlenscredit."
+    },
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 2605,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-976.json",
+      "registration_sha256": "c096d6dc263b178af80b9daecdb02dfcdade970cbc7bbe477c01586bfa08ab78",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/screen.rs",
+      "source_sha256": "206d3367d126c35bb42e2ae53de50be30b5638a97ea72bb6713ede026454a1fe",
+      "scope": [
+        [
+          1,
+          50
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          50
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Full50 actualprivateiconrawaxes quarterviewyaw/signperlayout, relativediagonal/mirror sameProjectionbasis. occupied_bounds consumescoveragefrom2101fixedsize>0/square-length; rawsizeusize kernelprivatecallerprotected. Includesoccupiedpixeloriginindex/size notouteredge(i+1)/size; semanticsdeclarednormalizedboundsofpixels needsfixture/UIreaderbeforeoffbyonefinding. No genericGeoPointwrapperforthesef32textureports. Firstordered2605mustadoptREG976full50."
+    },
+    {
+      "kind": "Earlier original full fresh connected reinspection, no original credit",
+      "original_index": 26,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-977.json",
+      "registration_sha256": "a8d43dc370985084c3d3cb9557c965a6dc0f82caf8d42587f81e4505ce57610d",
+      "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+      "source_sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "scope": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "fresh_reads": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Fresh exactnativePixmappackage0.11.4SHA registeredunion155..182/385..430 only, no603linewholefileclaim. NativePixmap::encode_png→PixmapRef::encode_pngreturnsownedpng::EncodingError; completewriterheader/image writecausepropagation untilactualsource2102formatsString. Allsource/tracehappenswithoutencoding/loadingassets. Earlierordered26alreadyaccounted; thisfreshconnectedreadaddsnooriginalcredit anddoesnottransferanotherlensverdict."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-309.json",
+      "sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-319.json",
+      "sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-320.json",
+      "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-321.json",
+      "sha256": "2e9432b7679a30e7a11ef409431ec616e514bb620902fc13043834778eca3613"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-322.json",
+      "sha256": "49c7ef78eebe15793f1e55e7d6f502d702cf1bb5441e8a2966804cfb7996c4f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-323.json",
+      "sha256": "bdd4da522066f630a917409c133a91e1bfd2da7af2896c8c2fd5c54d726346fd"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-324.json",
+      "sha256": "4b5876ec29d29d47b23c0238ca20fef5448a781db7ba1a63896e8919a25bbb02"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea"
+    }
+  ],
+  "pending_contracts": [
+    "328 accounts2100..2104 next2105, REG954..973 prospectivelyregistered2105..2124 unread. REG953raw150 preserved supersededREG974effective145, fifthEOFqualificationall13 no newextension. LastnewREG977, next978.14extensions/fiveEOFqualifications unchangedbyconnectedreads.",
+    "Future2151REG975full72/2605REG976full50 exactconnectedzeroorderedcredit mustadoptfirstorderedfrontier. Native26REG977freshfullregisteredunion155..182/385..430 only, notwhole603; earlieroriginalno neworderedcredit. Existingactualsourceidentitiesmetadata328match, no globalscopeexpansion/otherlenscredit.",
+    "Holdertypederrorbothderive/publicvalidate sourceclosed throughactualInvalidDisplay nowshows completelossoriginalvalidationdetails, notjustcauseclassification. NewIconPNGnativecausefinding sourceclosedtoexacttinySkiaencodingerrorproducer butnative dependency/current/all20dedup/acceptancepending. Allqualifiedfindingcounts0.",
+    "2100only1..521actual574 productionfunctionscopecomplete; unrelated522..574testtailunread. Source326surface_deviation centroid+3midpointcorrection327retained. No invalidprogramorPNG/native/modelcreationperformed.",
+    "All13 populations/current/all20/aliases/connectedacceptance/dedup ledger incompletegatefalse accepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2105
+}

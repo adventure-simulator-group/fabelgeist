@@ -1,0 +1,120 @@
+{
+  "lens": 11,
+  "batch": 170,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1299,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-110.json",
+      "registration_sha256": "d1571e54cd457b09d8869903246e363cd7d8e81308f35a52275940bb43ff4731",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/profile.rs",
+      "sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+      "scope": [
+        [
+          1,
+          789
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          600
+        ],
+        [
+          601,
+          789
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          15,
+          87
+        ]
+      ],
+      "roles": "Serializable profile schema and semantic preferences.",
+      "disposition": "Closed ActivityPreference/EquipmentStyle/BuildRole enums reused; AgentBuild independently writable role/activity_only/rationale, rationalefreeprose validexplanationbutactualdecision shouldremainenum. AgentProfile typed attributes/personality/schedule/seed butrawprobability/threshold/equipmentweight f32 andday/money/agent primitives; deny_unknown_fields enforces shape notcrossfield/range/finite invariants. Generationvalidboundsdoesnotmakeall serdepublic ingress validated; actual run_profiles/config receivers mandatory."
+    },
+    {
+      "ranges": [
+        [
+          89,
+          286
+        ]
+      ],
+      "roles": "Deterministic split-stream generation, correlatedattributes, skills and schedule.",
+      "disposition": "Bespoke Seed/StreamId namespaces isolateattributes/personality/preferences. Generator establishes boundedattributes, nonnegativeinitialskills, role specialty, activity-only quest propensity0, normalizedrisk/weights and positiveprovisiondays. All rawfloatunits still need canonical owners atreceiver. Schedule uses tenminute increments and role-specifictraining; derives fromdefaultschedule so complete/day normalization dependsactualDailySchedule default and nativeadmission. No hiddenfatigue ormovementpenalty introduced; source-only parameters notbehavioralacceptance."
+    },
+    {
+      "ranges": [
+        [
+          288,
+          460
+        ]
+      ],
+      "roles": "Closed personality axes, demographics and build derivation.",
+      "disposition": "Thirteen numeric axis tags shuffled select2..4, eachmapsclosedownertrait variants; cleanerclosedaxis identity avoids wildcardmeaningassignment but notnewenumforalreadyclosed trait values. Sex/presentation/inclination derived separately. Build decisionpriority explicitContent beforeBrave+viable/Fearful+ranged/Compassion/Zeal; activity_only agreesContentatgeneration, externallydeserialized inconsistencies stillpending. Purpose-specific rationale reason enum mayreplace internal stringidentity only ifactualreceiversconsume asprotocol; no suchclaim frompresentationtext."
+    },
+    {
+      "ranges": [
+        [
+          462,
+          493
+        ],
+        [
+          495,
+          789
+        ]
+      ],
+      "roles": "Matchedpair setup and original profile/combat source fixtures.",
+      "disposition": "Matchedpair clones profile and preservesagentid/seed; caller main401..420 explicitlyassignssecondid1 forcomparison, doesnotregenerate seed (intendedcommoncircumstances). set_activity sumsactivityminutes thenreassigns; generatedrangebounded butarbitraryu16schedules arithmetic overflow admissionpending. Existing wiretestforcesdirectPlayerAttributeValues shape notjustwrapperprohibition; cleanbespoketypecanpreserveserdecontract. Combatfixture manuallyreconstructs defaultkit/skills, useshardcodedshield/armor/load andsourcecontainsitemids; notactualnativeequipmentloader witness. Seedloop256 assertscontact, notvictorydespitetestname Safe; strongerparty chosen andsymptomatic0excluded. Tests unexecuted, no combat/sessionproof."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-138.json",
+      "sha256": "4324b2bc277cfa8d79f82034024605bc4f108d589b4550be9b0182756eb92993"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-147.json",
+      "sha256": "4725705d8c4623f09e5b697e541cdafa37100610002351d014693613491544b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-148.json",
+      "sha256": "45521a56371b519bb94567a8155b3f1884b7a4e2124a7966100914e3de9c5194"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-157.json",
+      "sha256": "8f8d2671f9d5c8303a8bebb9e4a754abf361ba7a8cc226273e490a7b2a810da4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-168.json",
+      "sha256": "e0aec9344f4b66aaa5fcb4a2585219944569ae91b78ab498e0e78835661b0fad"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-169.json",
+      "sha256": "13090732b8819714f6501230aa6eb03ea70fbaf808f9ec3aaf8e965441abd1c1"
+    }
+  ],
+  "pending_contracts": [
+    "Profilegenerator invariants differ from publicdeserialized profileadmission; canonical bound types/normalization/receiver validation remainpending.",
+    "Manual default-combat fixture/source itemstrings do not establish current authoritative kit or safety margin victory; allcurrent/populations/families/aliases/connected acceptance remainincomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1300
+}

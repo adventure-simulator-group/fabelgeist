@@ -1,0 +1,203 @@
+{
+  "lens": 11,
+  "batch": 360,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2261,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1120.json",
+      "registration_sha256": "9e00d37188a8030d82cc89aa5b15e97022a9573aff70fd83ea2d323c330a547b",
+      "source_id": "pr-working:crates/fabelgeist-garment-code/Cargo.toml",
+      "sha256": "1aea342bac056950bd088b2f0772d3765d69f3167a648d3ea32773e579986988",
+      "scope": [
+        [
+          1,
+          19
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          19
+        ]
+      ]
+    },
+    {
+      "original_index": 2262,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1121.json",
+      "registration_sha256": "f0803a1302eeb2784bdbe2f7ac4a96a69dcf2a101782bbde36e74b100b95347b",
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/design.rs",
+      "sha256": "752a641161b3427416832ced038eb618e4491be51882ee13d53c4d4e69ec373a",
+      "scope": [
+        [
+          472,
+          608
+        ]
+      ],
+      "fresh_reads": [
+        [
+          472,
+          608
+        ]
+      ]
+    },
+    {
+      "original_index": 2263,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1122.json",
+      "registration_sha256": "5320c1c41119821daa0c4d24aa2a8681fdd9d2ade3a0913b2c5526dbfb508192",
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs",
+      "sha256": "dbbbf373f7069a15074d0e348f36707aa24f9125146cc3cb60579a75fd5e3452",
+      "scope": [
+        [
+          1,
+          791
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          791
+        ]
+      ]
+    },
+    {
+      "original_index": 2264,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1123.json",
+      "registration_sha256": "10b67376e35c64575ec105c5d05ededdc1fae357e8d764215c53f228a517e2a2",
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/section.rs",
+      "sha256": "be4a376452c89f7275b6f7c4692168b16814d28e82539b5d76d13e2c0e02193f",
+      "scope": [
+        [
+          1,
+          356
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          356
+        ]
+      ]
+    },
+    {
+      "original_index": 2265,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1124.json",
+      "registration_sha256": "4bebea7f5d9d6785b0da1a4e71c79098beb272ec6ebe8f2f75758aca68f32dce",
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/Cargo.toml",
+      "sha256": "dd061849693685f8c417df0292bec4c57bcb03679ba2c6df37e3f5cbb7f8b28b",
+      "scope": [
+        [
+          1,
+          23
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          23
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2261
+      ],
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "roles": "Independent lens11 exact garment body complete-state, centimetre/degree measurement and native section geometry contracts.",
+      "disposition": "Full19 garment-code manifest native serde YAML/JSON/clap and anyhow ports, no native resolution/test execution. Native external GarmentCode schema/reference not read or inferred as current authority."
+    },
+    {
+      "source_indices": [
+        2262
+      ],
+      "ranges": [
+        [
+          472,
+          608
+        ]
+      ],
+      "roles": "Independent lens11 exact garment body complete-state, centimetre/degree measurement and native section geometry contracts.",
+      "disposition": "Exact scoped472..608of763 contains complete Body type/impl. HashMapString,f64 preserves reference measurement labels/order and derived fields; no blanket replacement of open format names without actual programs/schema. from_yaml validates mapping/key/number shape and retains YAML/native read errors with Context, then eval_dependencies unconditionally calls panicking get for required fields, new source-qualified admission gap. Public insert is explicitly staged partial-body builder while set recalculates immediately; complete vs partial Body state and final checked admission owner pending. Required physical/cm vs degree values not finite checked here; actual callers/measure output/canonical parameter schema before units/type repair. to_yaml hand-formats arbitrary string keys without YAML serializer, actual unknown label policy/consumers before injection/roundtrip finding. Unread1..471/609..763 including tests grant no credit."
+    },
+    {
+      "source_indices": [
+        2263
+      ],
+      "ranges": [
+        [
+          1,
+          791
+        ]
+      ],
+      "roles": "Independent lens11 exact garment body complete-state, centimetre/degree measurement and native section geometry contracts.",
+      "disposition": "Full791 measurement requires documented closed standing cm mesh and +yup/+xleft/+zfront plus landmark frame. Actual early validation nonempty and finite height>50 guards metres vs centimetres but not face index bounds/allvertex or landmark finite/admitted pose. Actual canonical producers/current needed before treating arbitrary malformed mesh as normal runtime failure. Every26 measurement insertion supplies all eval_dependencies required keys; closes missing-key panic in this producer while file loader2262 remains separate. Adaptive scans are height-based, but abs-coordinate/landmark finite/progress contracts pending; no giant translated mesh or nonfinite marks executed. Missing anatomical features use documented proportion/axis/zero estimates, not automatically old-code compatibility fallback. Limb flatten normal is normalized from actual bone length>1e-3; raw standalone flatten caller contract distinct. Positive height ensures nonzerostep but not arbitrary coordinate float progress proof. Fixed24limbsteps/eightshoulder samples and denominatorguards intentional geometric fitting. Native performance/meshclosure/pose claims require actual acceptance child test body; module declaration only here."
+    },
+    {
+      "source_indices": [
+        2264
+      ],
+      "ranges": [
+        [
+          1,
+          356
+        ]
+      ],
+      "roles": "Independent lens11 exact garment body complete-state, centimetre/degree measurement and native section geometry contracts.",
+      "disposition": "Full356 BodyMesh raw borrowed vertices/faces and section geometry, exact direct face indexing depends canonical valid mesh. Plane-zero sign convention consistent and bounded usedsegment assembly terminates as each segment marked once. Open segment chains>=3 deliberately kept as ring despite closed-ring type/prose, native recovery for holey bodies intentional current policy, not blanket forbidden fallback. Hull/perimeter bridges body hollows intentionally; degenerate<3 gives0. ring_at first enclosing else closest centroid explicitly actual model, no hidden numerical penalty. Projection assumes unit normal; actual2263 limb normal supplied normalized; global plane axes unit. Quantization key uses round(point*10) in cm, giving0.1cm=1mm grid while nearby comments say tenth millimetre, source-qualified unit contract mismatch. Equalgrid cells rather than allwithin-distance welding intentional round-grid semantics. Allcoordinate/native mesh admission/current/all20 acceptance pending. No geometry constructed or evaluated."
+    },
+    {
+      "source_indices": [
+        2265
+      ],
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "roles": "Independent lens11 exact garment body complete-state, centimetre/degree measurement and native section geometry contracts.",
+      "disposition": "Full23 garment-fit manifest joins shared cloth/shell/compute/math/physics/XPBD/BVH owners; imports alone grant no additional body coverage. Body material density ownership and fitting output native scope read next2266."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f"
+    }
+  ],
+  "pending_contracts": [
+    "360 accounts2261..2265 next2266garment-fit full715REG1125 registered unread. LastREG1134;2267..2275 prospective scopes registered unread.21 all13mandatoryextensions/sixEOFqualifications/futureproofs retained.",
+    "Qualified missing required Body measurement fallible-loader panic and source unit-scale mismatch in section quantization recorded; intended tolerance/current/native/all20 acceptance pending. measure fills all required dependency keys, so its staged producer closes that specific missing-key hypothesis.",
+    "BodyMesh valid topology/frame and finite landmark assumptions, floating scan progress, all26 physical/angle output admission and actual measurement test child source remain pending; no arbitrary nonfinite mesh presented as observed normal gameplay.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup incomplete gatefalse accepteduniquechange0. No product changes/builds/tests/lints/scanners/generators/runtime probes/CI/new tests/commits/publication/external messages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2266
+}

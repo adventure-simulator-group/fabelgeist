@@ -1,0 +1,282 @@
+{
+  "lens": 11,
+  "batch": 285,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1877,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-718.json",
+      "registration_sha256": "02c76cbec1c07af2aae47f6eaa85a2481457f7f37e65f2ad1243198e0759f00d",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "scope": [
+        [
+          1,
+          862
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          360
+        ],
+        [
+          361,
+          540
+        ],
+        [
+          541,
+          720
+        ],
+        [
+          721,
+          862
+        ]
+      ]
+    },
+    {
+      "original_index": 1878,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-719.json",
+      "registration_sha256": "d368f663f6722e5985c5e978efd8fb1b26e8e28de8337a0cc1895ce479a19a3e",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "scope": [
+        [
+          1,
+          53
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          53
+        ]
+      ]
+    },
+    {
+      "original_index": 1879,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-720.json",
+      "registration_sha256": "a6e99d319ac6345ffa001b4d1092ebc5033a8ead86db14b9678c819d447aae79",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+      "sha256": "bc1144d088c13835018209779eecddba0f5a94957c7987fa4b8c7be902db9fb9",
+      "scope": [
+        [
+          1,
+          76
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "original_index": 1880,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-721.json",
+      "registration_sha256": "7a1560e15ac409ceadfa793a3f8834d8f4ff1e9e9f43295229c79b9ee5e247c8",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "scope": [
+        [
+          1,
+          130
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          130
+        ]
+      ]
+    },
+    {
+      "original_index": 1881,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-722.json",
+      "registration_sha256": "f9ba72f0edd6734ce77438f2924e60d98da5baee60135e87a96f3aa50668d761",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "scope": [
+        [
+          1,
+          17
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          17
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1877
+      ],
+      "ranges": [
+        [
+          1,
+          862
+        ]
+      ],
+      "roles": "Independent lens11 exact inventory retained role, stable identity, chronology operation and actual native/authority adapter contracts.",
+      "disposition": "Full862 inventory components retain ItemOf relationship/InventoryItems mappedownerlistandholdingcache, explicitdynamic-scene bothsides restoration. WeaponItem physical/skill/precision/reach/inertia, ItemProperties stringID/f32weight, EquipmentTopology rawplacement/occupancy/attachmentIDs/u16order/index retainedroles requirecanonicalall20owner/produceradmission; separatephysical is_valid checksdimensions>0 finite/griptip>=0/headwithinlength/finiteoffset, notautomaticallyinvokedbyserde. Weapon/holderAppearance opaqueversion/hash/recipe recordsdeliberatetransport/renderboundary; actualdecoder/authorityvalidationpending. Main/offhand strikingitem mapsright/left andfindsinowninventory, actualiter/querymodule notreadhere; armorqueryfiltersactualcoveredparts/coverage. PlayerEquipment derivesunarmedabsenceauthoredtiming, physicaldimensionfallbackstoweaponreach, catalogmaterial, rawphysicalbalanceandweight/precision, quantityunweightedinventorysum dependswhetherpropertiesweight isperstack orperunit actualproducercontract. Do notcalltheselegacyfallbacksolelyfrommap_or. Shieldusesheldcache; rebuildlastmatchingentitywins ifmultiplevalidsamekind butactualequipmentconstraints neededbefore nondeterminismfinding. Hooks documentedownershipinsert/scenerestoreordering; missingcomponentreturn notownederrorbyitself. Sourcefixtures unarmed.36cycle,cacheownerrebind,armorlayerfoldonce,attachedmulti-locationprojection,topologyID/entitymapping andnonzeroquantitywire allunexecuted."
+    },
+    {
+      "source_indices": [
+        1878
+      ],
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "roles": "Independent lens11 exact inventory retained role, stable identity, chronology operation and actual native/authority adapter contracts.",
+      "disposition": "Full53 ArmorItem ownscheckedEquipmentMaterial andauthoredcoveragegeometry, rawf32ROM/coverage/resistance/padding/flexibility andlayeru8 actualprojection/folding/invariants needcanonicalownercomparison. TacticalInventoryItemId(u64) transientprojection retainsstable strategicidentity forcontactconsequence, notposition/tickpersistence. ArmorLayerContact againOptionu64 losingexistingwrapper retainedrolepotentialactualconsumer/all20required; rawStringcatalogID separatefromstableinventoryrowID. ArmorSlot arms/legsOptionSide explicitlybilateralabsence semantics, no magiczero."
+    },
+    {
+      "source_indices": [
+        1879
+      ],
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "roles": "Independent lens11 exact inventory retained role, stable identity, chronology operation and actual native/authority adapter contracts.",
+      "disposition": "Full76 EquipmentSequence(u32) completeprotocolword zero validafterwrap; defaultFIRST1, nextwrap; neweronlynonzerodistance<=u32MAX/2, initialNone admits1..half-window withoutinventedprevious. EquipmentRevision separateu32 initial0 andwrappingnext; representationnotsharedinputtick. Canonicaloperations ownprotocolmeaning, encodedexternalwordonly; actualserversequence/revisionconsumerandcurrentacceptancepending, no nonsensicalnonzero constraint."
+    },
+    {
+      "source_indices": [
+        1880
+      ],
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "roles": "Independent lens11 exact inventory retained role, stable identity, chronology operation and actual native/authority adapter contracts.",
+      "disposition": "Full130 EquipmentRootOrder privateborrowedkey Reversechannel/layer thenfitzone/catalog/placementidentity deliberatelyexcludesEntity allocationorder. root_order actualmatchingbodylocationoccupancies, derivesfitzonefromcatalogrequirement location/channel/index ifvalid; missingcatalog/placement/requirement givesNonefitzone butstillSomekey forbodyoccupancy. Actualvalidatedtopologyproducer/consumer requiredbefore classifying silentinvalidtopology. Min selectsoutermost byreverse andmetadataorder; cannotassumedurableentity tie. Reversednetworkentityremap fixturevalidcatalogroots assertsstableanatomicaldepth, notexecuted."
+    },
+    {
+      "source_indices": [
+        1881
+      ],
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "roles": "Independent lens11 exact inventory retained role, stable identity, chronology operation and actual native/authority adapter contracts.",
+      "disposition": "Full17 InventoryView melee_timing_for passesactualweaponmoment plusis_none marker intoexistingcorephysicalcadence Result andpropagatesElapsedError. Zero-inertiaunarmedabsence explicit distinctbool, notfailuredefault; armedrawinertiabounds/corekernel/current needactualproducerandcompleteconsumer. SameexistingAnimationElapsed reexport fromcore, no duplicatechronologyowner inferred."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-268.json",
+      "sha256": "b5413b9cc004828f8ac1a43b56423e9f461f20c714de6c38706c883e4c7b7e1a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-269.json",
+      "sha256": "fc8d370a5eeefdf3ea8cdd9de8173fabffc67a26fda6a1822689d33b192a8773"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-272.json",
+      "sha256": "35b60435bb78f200471ebf07c89713af991d2cb90a52b434e4bcccf6ceb7ad6f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-275.json",
+      "sha256": "a6cec4d4cfcf939d571330e3bfd99a9776ac3098891988460b184e9f3bd66450"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-276.json",
+      "sha256": "01b6e6ba6853277399a71bf77d7d6b2bbb7865022bca906ad4bc8cec8adf0aae"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-277.json",
+      "sha256": "3a59ce224639206868fc150f0ebdffc1cb18604e7c7cfad38ae403b842b47a02"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-278.json",
+      "sha256": "9d22b717fd830e3402946d343cb8d63be302ee98f292903964ffa5739a89d47a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-280.json",
+      "sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-281.json",
+      "sha256": "7df0652b431f991b40f6cb387c3d72a3028b954211bdad089b882147cd2a981b"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-284.json",
+      "sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922"
+    }
+  ],
+  "pending_contracts": [
+    "285 original1877..1881 complete,next1882 unregistered,nextregistration723. 1877full862changedfile retainsallunion; no unrecordedpartialbodyreads.",
+    "Inventoryphysical/rawstableIDs/topologystrings/indexroles andArmorLayerContact Optionu64 needall20existingcanonicalownership/caller comparison. Actualquery/quantity/inventory_armor owningmodules queuedbyregistryidentitymetadata only; no body/adoption credit. Actualquantityweightprojection/slotuniqueness beforeclaimingmassundercount/cache nondeterminism.",
+    "Allpriorqualifiedfamilies/Marketpatch282/AIoffense282/positiveprofilequalifications283/tenextensions/EOFexceptions/futurereuse/partiallater129/L12/L13 retained. All13populations/current/all20/aliases/connectedacceptance/dedup incomplete; gatefalse accepteduniquechange0. No productrepairs/execution/newtests/commits/publication/externalmessages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1882
+}

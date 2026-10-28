@@ -1,0 +1,240 @@
+{
+  "lens": 11,
+  "batch": 176,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1311,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-122.json",
+      "registration_sha256": "4a5f45ec075451b8ba0fd58d12abe74faecccf0ffcd0839d960171b9fdc2a097",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "fe34810c16d01e6e72cb6550444fb14d00245023b73d532a7bd87f5582897fc3",
+      "scope": [
+        [
+          1,
+          200
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ]
+      ]
+    },
+    {
+      "original_index": 1312,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-123.json",
+      "registration_sha256": "0b5324c87aa41d3f03f96fdacda2fa5ea38749e9282d26d680c18e20a2a8ba84",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bind_pose.rs",
+      "sha256": "18362beeb59c79ca73d1ea84c897ce75b45074c2fd0e099999cabc707f058e12",
+      "scope": [
+        [
+          1,
+          48
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          48
+        ]
+      ]
+    },
+    {
+      "original_index": 1313,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-124.json",
+      "registration_sha256": "2f37e01400f6c3fea7730b33ee9f491e034188650f062574b31786ae5442e677",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "sha256": "14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108",
+      "scope": [
+        [
+          1,
+          471
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          330
+        ],
+        [
+          331,
+          471
+        ]
+      ]
+    },
+    {
+      "original_index": 1314,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-125.json",
+      "registration_sha256": "ae38dc3e575427feb5a14b09e405adf287c22774b2243327ffbe9eaf9ecbb9ed",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/capture_ids.rs",
+      "sha256": "79611041d0a1bcee78aa63cf2241262e35d8850da9303a45d9627ba0b78bf8de",
+      "scope": [
+        [
+          1,
+          29
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "original_index": 1315,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-126.json",
+      "registration_sha256": "571733e8b96bc801a5e49db6bac7a595046f3aed1d184ba1e108eb8440f7d223",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "sha256": "4621b2ac33e53d39be4866122ba41283261d01f8d007455c5266ef88916655a0",
+      "scope": [
+        [
+          1,
+          361
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          361
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1311
+      ],
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "roles": "Authored calibration cache identities, configuration invalidation, phase/stride selection.",
+      "disposition": "ClosedCalibrationMotion mapsMotionId constants, typedNonnegativeLength andUnitInterval arithmetic returnsAnimationValueResult. Configuration mismatch yieldsNone/physicalwrappedphase; invalidate clearsderiveddata onlywhenchanged, assetsremoveexactmeasuredmotion pluscorrespondingcurve/stride. Separate optionalstride fields+phasecurves+measuredclips maps need producercoherence and CalibrationInputs currentrig/retargetsnapshotproof; currentconstructorhereonlydelegates. Ordinaryblend usescorewalk/runreference difference scalar thencheckedfraction/length; speedtypedNonnegativeSpeed whilecombatdirectionrawVec2 weights/nativeweightedmean thencheckedlengthoutputs. Actualconfigreferenceordering andfinite boundeddirectionproducer pending; no forcedwrapbeforecyclicoperationorclampvalidweightsaboveone."
+    },
+    {
+      "source_indices": [
+        1312
+      ],
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "roles": "Authored bind capture and retainedpose reset ownership.",
+      "disposition": "Capture onlyAddedTransformWithoutBind thenbounded64ancestorwalktoAnimationRigScene assignsowner/localtransform; lateparent/rootavailability canleaveuncapturedbutactualspawn/schedulerordering notyetreadso ordinaryfailurepending. Restore onlyplayback.plan.is_bind andaddsoptionalskeletaljointoffset; READMEreset-before-everyevaluation maybeimplementedelsewhere not disprovedbybind-onlysystem. NativeEntitypurpose distinguishedbycomponent/query despiteprimitiveunderlyingtype; no needunrelatedEntity wrapperswithoutactualmixedroleconsumer."
+    },
+    {
+      "source_indices": [
+        1313
+      ],
+      "ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          173,
+          238
+        ]
+      ],
+      "roles": "Cosmetic hit message, authored reactionchain and raw springstate/unit boundaries.",
+      "disposition": "BodyPart andBoneRole closedcanonicaljoin; BoneKick.owner Entity+impulse rawworldVec3 documentedm/s, Spring.offsetworldrotationvector/radians andvelocityangularrate sameVec3 representation. ReactiveBone arrayparentOptionusize separatefromrigjointindex, constchain earlierparent invariant testednotrun. Response/tuningrawfloats, dampingfloor andanalyticclosedform writeSpringwithoutfinite/checkedarithmetic atthissite. NeedactualBoneKickproducer andBouncyBonesConfigadmissionbefore ordinarynonfinite/overflowfinding. Cosmeticpresentation only no server/tacticaldamagestate persistence or fatigueeffectinferred."
+    },
+    {
+      "source_indices": [
+        1313
+      ],
+      "ranges": [
+        [
+          240,
+          471
+        ]
+      ],
+      "roles": "Cosmetic impulse propagation, renderstep coupling, live transformwalk and existingfixtures.",
+      "disposition": "Kickbodydirection try_normalize thenworldcrossimpulse updatesvelocities alongparentchain. Eachrenderstep explicitcoupling deltaSeconds usesrawvectors beforeanalytic springstep; clampmaximumangleafterstepdoesnotboundvelocityorprovefinite. Local closed-form stability comment/test isisolatedspring notallcoupledsystemvalidation. Springsdecaywhilefrozen/ragdollphysics ownsdisplay, no accumulatedgameplayupdate. Parent-beforechildworldrotationwalk refreshesliveTransform ratherthanstaleGlobalTransform, ownershipcheckedbone.owner; hierarchyacyclicnativeBevycontract pending beforeunboundedwalkfinding. Telemetryrawradians/countpresentationboundary, not gameplay authority. Existingchaincoverage/decay/largerenderdelta testsnotexecuted."
+    },
+    {
+      "source_indices": [
+        1314
+      ],
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "roles": "Native captureidentity encoding adapter.",
+      "disposition": "ExplicitAnimationTargetId(uuid) format andEntity indexv-generation plusPLACEHOLDER sentinel atcaptureStringboundary; properidentitybeforeadapter retained, no generalinternalstringIDrepairfromserializationalone. Nativegenerationbits andplaceholder semantics actualBevyproof neededonlyifidentitycollisionclaim. Fixedfixture examplesincludingcaptureboneUUID unexecuted, do notinferforeignversioncompatibility or runtimecrossrunidentity."
+    },
+    {
+      "source_indices": [
+        1315
+      ],
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "roles": "Catalog bespokeidentity/frame/path aggregation and builder erroradmission.",
+      "disposition": "AnimationPackId/SkeletonFamily/MotionId/AnimationAssetDirectory/Path/AuthoredFrame preserve semanticowners. Packmaps pose/referenceanchor toadmittedmotion. CatalogError InvalidDirectory/Stem strings maylegitretainrejectedrawinput; UnknownMotion takesvalidMotionId convertedString causing admittedidentityerasure candidate, DuplicatePose keepsenum andInvalidPacknestedtypederror. motion/variablemotion mapinsert silentlyreplacesoldsource andposeinsertreplacesoldanchorBEFOREreturnDuplicatePose; built-inconstructor/defaultmightdiscardwholebuilderonerror so noaccepted externallymutatedcatalogclaim. Actualbuiltin/register/validation mustestablishunique motion+fallbackcycle/skeletonfamily/framebounds/required_last<=last invariants."
+    },
+    {
+      "source_indices": [
+        1315
+      ],
+      "ranges": [
+        [
+          166,
+          361
+        ]
+      ],
+      "roles": "Test-onlyeditor preflight, aggregateddiagnostics and deterministicroute resolution.",
+      "disposition": "Nativeassetrootfileexistence distinctfromactualmotionGLBcontents/duration. VecStringerrors/warnings includealreadytypedpack/pose/frame identities projectedtooearlyforstructuredinternalinspection; finaltoolformattingcanremainstrings butactualreceivertypepending. Twofixturesynthesizedstates selectbaseoraction andSpanend, resolutionwalkspackfallback andmirrorposecounterpart; noavailablecontentscheckbeyondis_file andnotactualproductionavailability/similarposechain. Looprequiresvalidatedfallbackacyclic fromunreadbuiltins; no acceptedinfinitecycle. Route/nameString staticreportlabels legitimateexternalpresentation but routepolicy shouldclosedwhenactualbehavioruses it. Testonlynative codeunexecuted, nofilesystemprobes."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-173.json",
+      "sha256": "ca665c76eebbac2894f2043d2e821a8e048d8b39b86ec995ec4d2627792d2220"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-174.json",
+      "sha256": "c98afa50e8c0e5993dd3898023c9daa9609b8010551f9e87670224c4fca337f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-175.json",
+      "sha256": "50e1f92e995c36377c4d1633f60a7c055d4b170dfcbe3aa3fda7df4f7461b01e"
+    }
+  ],
+  "pending_contracts": [
+    "Actual animation consumers and producers, canonical CalibrationInputs/BouncyBonesConfig/BoneKick sources, builtin catalog/packvalidation and editor tool receivers remain exact dependencies; no hash-only bodycredit from priorlens08object transport.",
+    "Bind late-ancestry, springfinite/coupled stability, catalog duplicate rollback and fallbackcycle behavior remain qualified source observations pending ordinary admission/current proof.",
+    "All13 populations/current/all20families/aliases/connected repairacceptance remain incomplete; nextoriginal1316 requires registration."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1316
+}

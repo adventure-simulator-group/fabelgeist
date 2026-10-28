@@ -1,0 +1,790 @@
+{
+  "kind": "Ignored evidence integrity only; not product validation",
+  "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-210.json",
+  "receipt_sha256": "3bc7553ba64ad3660efcf2e54e3cb475d6ffa9bea6dd326dbc7b43b8a0a35ff4",
+  "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-210.json",
+  "state_sha256": "fd724bda3e548e591c7ccf597cdb419f4fa7a037bb7e92a5888f8e5de931aca3",
+  "previous_verification_sha256": "4fdd4d1f6e548f91a75a6c1ec6bab299e94c824e08d089daf8a3c836cf34f3e6",
+  "ledger_sha256": "54cc34e6bcaf2206bf70aa6579b2c545a47e2cb0fff6760f4df78fb5eeea66aa",
+  "checks": [
+    {
+      "original_index": 1479,
+      "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+      "lines": 437,
+      "proof_kind": "fresh full source"
+    },
+    {
+      "original_index": 1480,
+      "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "lines": 72,
+      "proof_kind": "fresh full source"
+    },
+    {
+      "original_index": 1481,
+      "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+      "lines": 234,
+      "proof_kind": "same-lens qualified adoption"
+    },
+    {
+      "original_index": 1482,
+      "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+      "lines": 143,
+      "proof_kind": "fresh full source"
+    },
+    {
+      "original_index": 1483,
+      "sha256": "fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82",
+      "lines": 229,
+      "proof_kind": "fresh full source"
+    },
+    {
+      "original_index": 1484,
+      "sha256": "ea41899e503a9d300af874feb8f230532b8e8c1b9f6994c4c89b690746dfaf29",
+      "lines": 467,
+      "proof_kind": "fresh full source"
+    },
+    {
+      "original_index": 1485,
+      "sha256": "8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+      "lines": 394,
+      "proof_kind": "fresh full source"
+    },
+    {
+      "original_index": 1493,
+      "sha256": "a45cb5eedc27be4cfec5bdd354ffbd7db75dc898d4a3f5dd1e06044c3fe47936",
+      "lines": 89,
+      "proof_kind": "fresh full source"
+    },
+    {
+      "original_index": 1495,
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "lines": 243,
+      "proof_kind": "fresh full source"
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 1486,
+      "state_sha256": "fd724bda3e548e591c7ccf597cdb419f4fa7a037bb7e92a5888f8e5de931aca3"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "worktree_status": "",
+  "next_original_metadata": [
+    {
+      "original_index": 1486,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+        "owner": "rig",
+        "sha256": "f57dcb58da364002292182c580ca197bfaa3ad85fc820f2dc6ce95d078b25dc0",
+        "base_sha256": "14906df03978b8b4a6d0abb6d3ecc5dfc581b71c6bbc6cd942a9f1b642a65c9d",
+        "state": "modified",
+        "bytes": 6210,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                193
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 116,
+            "read_ranges": [
+              [
+                1,
+                193
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1487,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+        "owner": "rig",
+        "sha256": "3ffe851b3adc14ac721684061b3d858a69bdf83e8114530b5f8c2639cda5dcdd",
+        "base_sha256": "b6ce29a96c2aae27afc93725997724a2a6803c7fe8986c4f09d0341745082c77",
+        "state": "modified",
+        "bytes": 2041,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                62
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 123,
+            "read_ranges": [
+              [
+                1,
+                62
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1488,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+        "owner": "rig",
+        "sha256": "469e30265983c8cf91c3a69cd688876287af3f9ba0efb71f2800256415e23933",
+        "base_sha256": "b32df4b141153bcd6e0f74268d505d239de3876d8af829ea4efcc62590db8e19",
+        "state": "modified",
+        "bytes": 4392,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                137
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 124,
+            "read_ranges": [
+              [
+                1,
+                137
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1489,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+        "owner": "rig",
+        "sha256": "6a50a68295abda59aac92334c8dbb8a78d1d363d9ae39dd86ca676d57754164e",
+        "base_sha256": "f3e640075942e1c9a21e23d4f3353eef3c5bdaf95e1994d6ce60ade727ba4508",
+        "state": "modified",
+        "bytes": 5389,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                160
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 117,
+            "read_ranges": [
+              [
+                1,
+                160
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1490,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/morphs.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/morphs.rs",
+        "sha256": "166a50824e9c051fa93ab7ce03790a3e36f362ad1b2326c98ce4e1da7fe7490c",
+        "bytes": 2644,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/additional-sources-009.json",
+            "ranges": [
+              [
+                1,
+                77
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-02",
+              "RIG-PP-010"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 118,
+            "read_ranges": [
+              [
+                1,
+                77
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/morphs.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 608,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1491,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig.rs",
+        "owner": "rig",
+        "sha256": "376e2b436adccb5e961cafbb25082a1e38c1cabe2e56d0d9ccbada3fa69a1a7b",
+        "base_sha256": "d4aa0c67ca104d5597b603c4353f31766dae67f26bfb96902a8de1cf20cf4eec",
+        "state": "modified",
+        "bytes": 6553,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                190
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 119,
+            "read_ranges": [
+              [
+                1,
+                190
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1492,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+        "owner": "rig",
+        "sha256": "4361cea596a62d622535d10bf3c8e217573ebb98a64ec6dee0ac5e28a95eb2da",
+        "base_sha256": "143e833a325e514bfb11ae5cf914d06f895f861a36444a3e998d0abe8665e951",
+        "state": "modified",
+        "bytes": 6350,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                161
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 125,
+            "read_ranges": [
+              [
+                1,
+                161
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1493,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+        "owner": "rig",
+        "sha256": "a45cb5eedc27be4cfec5bdd354ffbd7db75dc898d4a3f5dd1e06044c3fe47936",
+        "base_sha256": "e4ea29aeff3c491375f8b91af17143a9feb3633203887de628a5ff99ec1c9b3b",
+        "state": "modified",
+        "bytes": 3304,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                89
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 120,
+            "read_ranges": [
+              [
+                1,
+                89
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+            "json_pointer": "/additional_actual_source_proofs/24",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                89
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+              "sha256": "a45cb5eedc27be4cfec5bdd354ffbd7db75dc898d4a3f5dd1e06044c3fe47936",
+              "actual_line_count": 89,
+              "read_ranges": [
+                [
+                  1,
+                  89
+                ]
+              ],
+              "read_kind": "fresh actual bounded receiving bodies/fixtures; no whole-file inference outside explicit ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-CLOSURE-027",
+            "json_pointer": "/additional_actual_receivers/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                89
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+              "sha256": "a45cb5eedc27be4cfec5bdd354ffbd7db75dc898d4a3f5dd1e06044c3fe47936",
+              "actual_line_count": 89,
+              "read_ranges": [
+                [
+                  1,
+                  89
+                ]
+              ],
+              "read_kind": "fresh actual bounded receiving bodies/fixtures; no whole-file inference outside explicit ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 1494,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/skin.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/skin.rs",
+        "owner": "rig",
+        "sha256": "7d3de24eaaf295e510aeb41c6bd8e6f5d5204beea0b976cbc16cb617d862c7a4",
+        "base_sha256": "d07e1e06f579832c11a5ee0e7562c1e95e2a052d94048baa7201bc41e28c6dcb",
+        "state": "modified",
+        "bytes": 4028,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                111
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 122,
+            "read_ranges": [
+              [
+                1,
+                111
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/skin.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    },
+    {
+      "original_index": 1495,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+        "owner": "rig",
+        "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+        "base_sha256": "f40cd24794678726d7cde4441d6f3cdb089539541ef81a21048aab335640c87b",
+        "state": "modified",
+        "bytes": 8955,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                243
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 322,
+            "read_ranges": [
+              [
+                1,
+                243
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BROWSER-PREVIEW-051"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/slot_selection.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      }
+    }
+  ],
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "qualifications": [
+    "All13 populations/extensions/current/all20 families/aliases/connected acceptance remain incomplete; no repair or execution before exhaustive ledger.",
+    "Socket concern narrowed to belt-only generated-surface producer; ROOT/pelvis/catalogue frame invariant pending, no accepted general nonpelvis bug or atlas mismatch.",
+    "Future1493 and1495 full connected only zero ordered credit; explicit same-lens proof required at first frontier. Future1589 REG274/READ206 likewise pending.",
+    "Held missing-properties example conditional on actual replication/component invariant, server authority remains separate.",
+    "Runtime failure cause ownership requires native and actual readiness callers/current comparison and alias deduplication.",
+    "No product edits/tests/builds/lints/scanners/generators/runtime/CI work or publication."
+  ]
+}

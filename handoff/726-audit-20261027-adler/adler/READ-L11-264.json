@@ -1,0 +1,177 @@
+{
+  "lens": 11,
+  "batch": 264,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1787,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-624.json",
+      "registration_sha256": "08417ff555c8e01eec0e9720dcf6d02cd1c91083b3e240ab6d72d008d87eaeb4",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "scope": [
+        [
+          1,
+          272
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          272
+        ]
+      ]
+    },
+    {
+      "original_index": 1788,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-625.json",
+      "registration_sha256": "a3970f9cfb47292252e2dc13c72eb8c903b44ef1f1d44d78de49dd04f22e2b06",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/raised_locomotion.rs",
+      "sha256": "a2f784e17dfc1ae6b606c9688428b0a9596f4a1b0da358f5a59eacb6494bdfe9",
+      "scope": [
+        [
+          1,
+          145
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          145
+        ]
+      ]
+    },
+    {
+      "original_index": 1789,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-626.json",
+      "registration_sha256": "f8acf752a8e8b4fb521c4ef2f55bee8c141acbebf90788718a62dda64ea9c505",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "scope": [
+        [
+          1,
+          432
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          432
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1787
+      ],
+      "ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "roles": "Independent lens11 full native controller/projection/intent/facing kernels andadmission/retainederror contracts.",
+      "disposition": "Full272 typedSkeletonLocomotionInput admitsfiniteorientation/velocity withoutunitquaternionrequirement. ProjectedObservation checksoldworldvelocity/bodyrotation/transformedvelocity/localandphysicalnorm/accelerationnorm beforefirstmutation; fixedsampletickwrapsuccessor accelerationelsezero, landingimpactownernonnegativeandworldaccelerationcap80. projection161..198 writeskinematics/landing/bodybeforefalliblegroundcycle/action; no globalatomicclaimwithoutreachablelatererror. Actualgroundcycle capsdelta1, wrapsphasebeforeandafteradvance; closesstoredphasewrapclaimforthispath butnotallpublicmutators/supportweightcalls. Ordinarycadence speed*elapsed/(maxstep0.01*2) finiteforboundednorm/delta, yetcountcanexceedu32, asu32saturates thenadvance_contact_identity rawloop. Newconditionalworkboundfamily; nativeordinarycontrollerextremereachability/currentpending. Guardfootworkdt<=1 plusnormchecks narrowsnaivevelocityproductoverflow; repeatedcontacts/planning/configbounds stillneeded. Initialspeedthreshold/runtimeprofileconfig actualprovider pending, downedsyntheticvisualspeednotphysicalmovementpenalty.",
+      "context_reinspections": [
+        {
+          "original_index": 1767,
+          "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+          "receipt_sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+          "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-604.json",
+          "registration_sha256": "f834c85f455e2d33bd6ce741e9a155c113ec5998f954b827a3b9eba3e49868e4",
+          "source_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+          "fresh_reinspection_ranges": [
+            [
+              100,
+              267
+            ]
+          ],
+          "additional_original_frontier_credit": 0,
+          "scope": "Fresh100..267 underpriorfull267scope; exactcadenceandconfigprofileproducer connection, no duplicateorderedcredit."
+        }
+      ]
+    },
+    {
+      "source_indices": [
+        1788
+      ],
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "roles": "Independent lens11 full native controller/projection/intent/facing kernels andadmission/retainederror contracts.",
+      "disposition": "Full145 RaisedLocomotionIntent privatePlanted/Moving carriescanonicalNonnegativeSpeed andnativeunitdirection; customwire decoder mapsinvalidspeed/nonfinite/zero direction toPlanted explicitowningnormalization, notlegacyaliasorIOcauseloss. Observedmotionpreferred; requestednormalizationfallbackkeepsminimal0.051speed onlywhenobservedbelowthreshold, preservesintentwhilelivefootworkstep. Commentonlyobservedmotion isqualifiedbyactualheld-request fallback, no actualmisreplicationclaimuntilserver/clientauthorityflow. MINIMUM_REQUESTED_GUARD_SPEED>stationary0.05 andruntimeYAMLownership classification pending, notindependentfatigue/encumbrancepool."
+    },
+    {
+      "source_indices": [
+        1789
+      ],
+      "ranges": [
+        [
+          1,
+          432
+        ]
+      ],
+      "roles": "Independent lens11 full native controller/projection/intent/facing kernels andadmission/retainederror contracts.",
+      "disposition": "Full432 BodyFacingTurn ownsConfiguredSpeed/HalfTurnpositiveDuration/Deadlineangle+positiveDuration, noadmittednonfiniteangularspeed. Tinydeadlinequotientmayoverflowtransient, completedmultiply/minpi nativekernel intentionallycaps; zeroelapsed/tinydurationNaNminpi retainsoldscalarpolicy, explicitpauseddeadlinefor_deadline returnszeroSpeed. Actualdirectconfiguredpausedpolicy andnativecaller neededbeforezero-time-turnfinding. for_deadline absentdirection andzeroeffectiveelapsed legitimatezeroTurn, angleerrorstructured. controller_yaw geometricprojection fallbackidentityonunavailableplanarvector, finitecontrolleradmissioncallerfirst; notunitnormalizationrequirement. finalrotation_from_yaw usesexistingRadiansadmission thenQuat, invalidcomputedangle classifiedBodyOrientation. tracking_residual native measurement maynormalizevia.max0, actualreportcontractpending. Tests referencepause/deadlines/positivepi/lookvstravel/targetatcontactsourceassertionsonly, noexecution."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-257.json",
+      "sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-258.json",
+      "sha256": "91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-261.json",
+      "sha256": "fe22c536959ab05a2b96acaf9d6ec3261b022e7f8a7856cf2f90abece4676fe6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1"
+    }
+  ],
+  "pending_contracts": [
+    "264 full1787..1789 exactmetadataunioncomplete,next1790 REG627full1969 unread,1791REG628full217 unread. Fresh1767reinspection100..267 additionaloriginalcredit0.",
+    "Newcontactworkboundfamily qualifiedactualfiniteobservation/cadence/u32cast/rawloop connection. Ordinarynativephysicalbounds/current/replayinput pending, no observedstall/no inventedextremegameplayinput.",
+    "ProjectedObservation earlyadmission checks establishtransaction onlyforthosefailures; latermutatingpipeline stillfallible. Delta1andnormfinite narrowoverflowhypotheses; typedprogresswrap actualprojectionconfirmed. Wholetransactionreachablelatererror pendingconfig/provider/othercallee beforefinding.",
+    "Allpriorfinding/eightscopedextensions/nativeoriginal4EOF/future2248/2249/2250/2701/partiallater129/L12/L13qualifications retained. All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0; no productrepairs/execution/newtests/commits/publication/externalmessages."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1790
+}

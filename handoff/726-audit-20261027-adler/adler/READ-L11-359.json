@@ -1,0 +1,114 @@
+{
+  "lens": 11,
+  "batch": 359,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2259,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1118.json",
+      "registration_sha256": "69de3d2c49d75215698cbada246d70d32e0b1f0c24dcc3e29de99b7daef2684a",
+      "source_id": "pr-working:crates/fabelgeist-fs/Cargo.toml",
+      "sha256": "d2956fd40d57eb20bc9dec56699c024d7d83cd1d1b62de9a685a69352dc27aef",
+      "scope": [
+        [
+          1,
+          53
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          53
+        ]
+      ]
+    },
+    {
+      "original_index": 2260,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1119.json",
+      "registration_sha256": "b9b85e7bf46445136061e3b4b907b4a59a29b9a3a94498ca468ac365e4e4f1b6",
+      "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+      "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+      "scope": [
+        [
+          635,
+          705
+        ],
+        [
+          782,
+          884
+        ]
+      ],
+      "fresh_reads": [
+        [
+          635,
+          705
+        ],
+        [
+          782,
+          884
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2259
+      ],
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "roles": "Independent lens11 exact filesystem dependency and complete scoped native/browser loading/error operations.",
+      "disposition": "Full53 filesystem manifest native vs web dependencies keep native tokio/rfd and browser JS/file/storage types distinct current platform adapters. reqwest rustls plus base64/percent-encoding source owners; no dependency resolution or browser/network execution."
+    },
+    {
+      "source_indices": [
+        2260
+      ],
+      "ranges": [
+        [
+          635,
+          705
+        ],
+        [
+          782,
+          884
+        ]
+      ],
+      "roles": "Independent lens11 exact filesystem dependency and complete scoped native/browser loading/error operations.",
+      "disposition": "Exact scoped635..705/782..884of944 only, all requested metadata union operation bodies complete; no1..634/706..781/885..944 coverage. read_bytes dispatches data/http/blob then project/file paths, percent-decodes clean_uri for project resolution; native final load_file receives original uri and strips prefixes without decoding, so actual nonroot encoded filenames/native path policy require callers before new identity finding. starts_withhttp admits unsupported http-like prefix to reqwest/native request parser, actual URI/Request native errors expected owner not a magic gameplay selector. Project root string prefix is not path-component containment and segments include.., but actual root filesystem abstraction/get_directory semantics and project authority boundary unread; no unproven security traversal claim. Native load_file formats std::fs::read error to anyhow text and Base64 decoder formats error to text, new qualified ownership family. Native HTTP uses response.bytes without an explicit status check, while web checks !resp.ok and reports status; actual reqwest request/bytes status behavior/current/caller acceptance required before final cross-platform status finding. Web JS request/fetch/cast/array-buffer failures format debug values; JS source carrier/thread/native error representation pending. Failed blob fetch cache remembers only URI, later returns generic cached error losing original failure; exact retry/cache lifetime/caller policy pending. Data URI base64 metadata contains check is permissive parser policy, not a forbidden old-code fallback. No file/project/backend/URL/data payload read or network request executed."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+    }
+  ],
+  "pending_contracts": [
+    "359 accounts2259..2260 next2261garment-code manifest19. LastREG1119.21 mandatory all13 scoped extensions/six strict EOF qualifications/futureproofs retained. No necessary scope extension for2260 because exactrequested operationscloseat704/884; unrelated file ranges uncredited.",
+    "New qualified native file/Base64 owned error text loss. HTTP native/web explicit status admission difference, blob cached cause loss and nonroot percent-decoding policy remain actualnative/caller/current dependencies rather than claimed executed failures.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup incomplete gatefalse accepteduniquechange0. No product changes/builds/tests/lints/scanners/generators/runtime probes/CI/new tests/commits/publication/external messages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2261
+}

@@ -1,0 +1,159 @@
+{
+  "lens": 11,
+  "batch": 188,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1366,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-182.json",
+      "registration_sha256": "951a960289e753efa86d8d14903a02e79da3b8097345a48143ef55f89988b352",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/frame.rs",
+      "sha256": "30e14becdee166e5f15201b0deae415b38c6d088df46d22ff2a918a77eff9fda",
+      "scope": [
+        [
+          1,
+          54
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          54
+        ]
+      ]
+    },
+    {
+      "original_index": 1367,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-183.json",
+      "registration_sha256": "5766df969173a423a69587570830a18b328830b5a62480028c3935ad065d7c89",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs",
+      "sha256": "e62b67d40676cfd09497eaf6f5b03e923700b922059570b8c56af5b520316243",
+      "scope": [
+        [
+          1,
+          391
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          280
+        ],
+        [
+          281,
+          391
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1366
+      ],
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "roles": "Observedrigframe asrealfinite spatialwitness.",
+      "disposition": "BespokeObservedRigFrame retainsorigin+rotation admittedcomponentfinite, missingrigscene/globaltransform ->OkNone ratherthanidentityframefabrication. ExplicitcommentpermitsFINITE NONUNIT orientations withoriginalnativeprojectionsemantics: thisnarrowsearlierpendingunit-quaternionassumptions in185/187; do NOTturnthem into blanketunit-normalization/rejection requirement. A rigscene frame isnot automaticallythebodyownerreferenceframe in186BodyObservation; preservepurpose. Nativeglobalprojectionmethodchecksframecomponentsonly, notderivedcrossnorm/affineinvertibility."
+    },
+    {
+      "source_indices": [
+        1367
+      ],
+      "ranges": [
+        [
+          1,
+          184
+        ]
+      ],
+      "roles": "Explicitprimaryhand, heldweapon andderivedopposite-hand evaluation stage graph.",
+      "disposition": "NamedHandIkTarget worldtranslation/optionalworldrotation/typedweight, HandSide andcanonicalHandChain roles keptthroughownerjoin; targetsclientonlynotSkeletonState. Firstloopprimaryexplicit thenweaponpost-sockettransform thenfinalcombinedhands appliesexplicitprimaryagain, newqualifieddispatch/influencefinding. Derivedopposite target overridesexplicitotherhand, multipleweaponconstraints maylast-writeperowner targets inqueryorder; actualone-constraint/admission/priorityproof needed beforeambiguityfinding. FirstpassmemorywithoutArmIkState onlylocal andfinalpasscreatescomponent; no priorhistoryonnewowner, notautomaticallylostcontinuitybug."
+    },
+    {
+      "source_indices": [
+        1367
+      ],
+      "ranges": [
+        [
+          186,
+          391
+        ]
+      ],
+      "roles": "Measured armgeometry, rememberedpoleframe and nativeworld/localpublication.",
+      "disposition": "Target0weightinert; canonicalroles+snapshotchain, ownerobservedframe thenLimbSegments::measure beforeTwobone solve. Rememberedarmbend storedownerlocal andconvertedworldeachuse (contrast186velocitycachemissingframe); solvedvalidbend writesmemory, optionalhandrotationfullysetafterpositionsolve (weightrotationmeaning actualproducerpending). Weaponlocalgripconvertedafterfinalweaponworldtransform; heldweaponsignore socket scale bydesign. Nativeparentlookupmissing ->identity/world fallback isexplicitnative-rootpolicy, notlegacyAPI; parentframefailure/rootabsence distinction stillactualchainadmission dependency. setWorldchecksposition/rotation notscale; scopefiniteQuatnonunitpolicy fromObservedRigFrame preserved, nativeoutput/unit assumptionsqualified. Existing socket scale/arm-vs-leg reset/gripfixture assertions unexecuted; no realasset/solver/render proof."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-177.json",
+      "sha256": "83b32878f60a4e5fc21053c537efe6bd576a167ca3acdee4469e90658f1a95c7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-179.json",
+      "sha256": "592e7c3ea9002077c648bd26c1c5d2c1e44740ec15ce14c3c98c6fa2f19e43b1"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-181.json",
+      "sha256": "65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-182.json",
+      "sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-183.json",
+      "sha256": "426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-184.json",
+      "sha256": "11b67f5b3e5cdbd7c200ceaa155c1fc0d06582f2093356559de529284b7f5303"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-185.json",
+      "sha256": "1cba3a3c139f03ab267e735b1b5c519cd1d2015c012e54d5956d3922a0e08d92"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-186.json",
+      "sha256": "915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-187.json",
+      "sha256": "384f724657d2dd13432ad6a5573671a61bc6a7f39b73b02ce2b0357742e8d895"
+    }
+  ],
+  "pending_contracts": [
+    "ObservedRigFrame explicitlyallows finite nonunit orientation; earlier unit-input pending assumptions mustnotbe elevated into stronger admission/repairrequirements. Derivednativeoperations still need actualcontract proof.",
+    "Primarytarget double dispatch/influence remainsqualifiedby intendedweight semantics, solverreachability, actualnativeproducers/current; acceptedcount0, no repair.",
+    "All13 populations/current/all20families/aliases/connectedrepairacceptance remainincomplete; no productexecution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1368
+}

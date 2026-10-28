@@ -1,0 +1,355 @@
+{
+  "lens": 11,
+  "batch": 210,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1479,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-296.json",
+      "registration_sha256": "0245b3778815269ceb10e7d6819a54f850da94af9136cb603b34938f2cb33abc",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/preview.rs",
+      "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+      "scope": [
+        [
+          1,
+          437
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          437
+        ]
+      ]
+    },
+    {
+      "original_index": 1480,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-297.json",
+      "registration_sha256": "b9d755a50841471a7653b971910935ab479ac44cf4dd09697aeb71c2b69c86f9",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+      "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "scope": [
+        [
+          1,
+          72
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "original_index": 1481,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-295.json",
+      "registration_sha256": "4a25c4b1d4cc90e31987b8d1447729ea76e080dd902f538015e26fef220802d4",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+      "scope": [
+        [
+          1,
+          234
+        ]
+      ],
+      "fresh_reads": []
+    },
+    {
+      "original_index": 1482,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-298.json",
+      "registration_sha256": "f0f2728405f7b711c26ce67ad4962eb72be96d82fcab586614748dd144dd9fd8",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+      "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+      "scope": [
+        [
+          1,
+          143
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          143
+        ]
+      ]
+    },
+    {
+      "original_index": 1483,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-299.json",
+      "registration_sha256": "fe4a385c9738614f3e8c3485b78d0186f70ef26d8914949f304358918b8ba3c3",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/body.rs",
+      "sha256": "fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82",
+      "scope": [
+        [
+          1,
+          229
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          229
+        ]
+      ]
+    },
+    {
+      "original_index": 1484,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-300.json",
+      "registration_sha256": "d22967c508827a9b9c2708842a868b97cc12ed7afc0136f3e775b5d08e653789",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "sha256": "ea41899e503a9d300af874feb8f230532b8e8c1b9f6994c4c89b690746dfaf29",
+      "scope": [
+        [
+          1,
+          467
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          467
+        ]
+      ]
+    },
+    {
+      "original_index": 1485,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-301.json",
+      "registration_sha256": "4730f88a95c9a00257dc07af00cf4f582de506a51ab142780ddae8ac8cd415e8",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "sha256": "8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+      "scope": [
+        [
+          1,
+          394
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          394
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1479
+      ],
+      "ranges": [
+        [
+          1,
+          437
+        ]
+      ],
+      "roles": "Complete preview target traversal, held item admission, placement eligibility and all source fixtures.",
+      "disposition": "HeldPreviewItem distinguishes Empty/Unknown/Defined but From<Option<&ItemProperties>> maps None to Empty. Original1474 update_grab_input336 passes held.and_then(properties.get.ok), collapsing Some held entity with missing properties to Empty. Connected1495 receiver then selects outermost occupied depth for Empty while Unknown has no eligible slot. Conditional partial-component observation is a source-qualified admission gap; actual replication invariant/current/server action acceptance pending. Root order and attachment order deterministic; capacity traversal tracks visited entities and location. Do not infer cross-owner graph corruption without actual graph invariant. Full requested437 and all owner/producer roles read; fixtures source-only."
+    },
+    {
+      "source_indices": [
+        1480
+      ],
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "roles": "Full equipment root/part readiness and failure receiver.",
+      "disposition": "Checks requested item root count, visibility, runtime Resolved/Failed markers and selected part visibility. Unit Failed yields generic static error. Root count assumes unique placeholder per requested item and all(parts) assumes required parts exist; source factory and future equipment_parts constrain these, so no accepted false-ready finding from helper alone. CPU component readiness does not establish GPU completion."
+    },
+    {
+      "source_indices": [
+        1481
+      ],
+      "ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "roles": "First ordered credit by explicit qualified same-lens full connected proof adoption.",
+      "disposition": "Original full234 plus producer/owner scope already personally read in READ209 under REG295; exact source and full coverage reverified. fresh_reads empty by design. This is render binding/skinned versus unbound mesh preparation and fixtures, not a socket producer. No cross-lens evidence transfer or second count.",
+      "reuse_proof": {
+        "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-209.json",
+        "receipt_sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9",
+        "connected_registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-295.json",
+        "registration_sha256": "4a25c4b1d4cc90e31987b8d1447729ea76e080dd902f538015e26fef220802d4",
+        "source_sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+        "read_ranges": [
+          [
+            1,
+            150
+          ],
+          [
+            151,
+            234
+          ]
+        ],
+        "origin": "READ209 connected future original1481; zero frontier credit then; first ordered credit now, no fresh reread"
+      }
+    },
+    {
+      "source_indices": [
+        1482
+      ],
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "roles": "Complete prepared runtime body/design cache, fit outcomes and presentation admission.",
+      "disposition": "Canonical cache owns body/design preparation but failed bool discards native owned causes after logging; per-FitKey models Result<CachedEquipment,String> later reconstructed as anyhow. Preparation waits for assets separately from pending fitting task. Both designs intentionally dependencies of generation API; no global coupling defect inferred. placement default worn for missing topology and non-runtime None are explicit admission policies, not automatic compatibility shims."
+    },
+    {
+      "source_indices": [
+        1483
+      ],
+      "ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "roles": "Full glTF body extraction, rig/skin native boundary, generated UV chart and source fixtures.",
+      "disposition": "Finite positions, nonempty body and positive height explicitly admitted before cylindrical chart. Chart is runtime-generated and not authored MHR atlas. Attribute format/index/skin/rig construction retains anyhow causes here until cache erases them. Native inverse bind decomposition packs position/quaternion/uniform scale; exact FittingRig scale/finite/cardinality contracts still pending. No blanket invalid-normal/pose claim or atlas mismatch inferred."
+    },
+    {
+      "source_indices": [
+        1484
+      ],
+      "ranges": [
+        [
+          1,
+          467
+        ]
+      ],
+      "roles": "Complete fit key lifecycle, async preparation/cache/error outcome, socket installation and visibility producer.",
+      "disposition": "LastFit intentionally retains physical fit while held/dropped and refits when worn by a new character; source fixtures1485 establish this policy, not stale ownership. Changed key resets markers, removes parts and sockets, so attach inserting only nonempty sockets is not stale-socket evidence. Native fit errors flattened to String245, cached252 and rewrapped187..188; preparation failures also String435, fail_fit logs then retains only unit Failed/Resolved/Hidden390..405. Full producer fragments220..280 accounted with full file, including all owner/reached observations. equipment_parts validity/nonempty and actual current/native error consumers pending. LRU128 retention source only, no executed task/device test."
+    },
+    {
+      "source_indices": [
+        1485
+      ],
+      "ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "roles": "All runtime equipment readiness, physical fit, render binding and cache source fixtures.",
+      "disposition": "Fixtures explicitly preserve fit through held/dropped states, refit for new wearer, hide invalid layer selection and recover; no automatic old-schema fallback allegation. Readiness fixture manually injects Resolved, not native generation/GPU acceptance. Render fixtures strip unbound joint attributes, preserve bound source and exclude unused vertices from center. Cache eviction fixture retains recent entries. All fixture bodies read without executing World/App/update/test code."
+    }
+  ],
+  "connected_reinspection": [
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 1493,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-302.json",
+      "registration_sha256": "3b63541a31cbecc8b20fde225f532006504d6959d482e428b78062627b680236",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+      "source_sha256": "a45cb5eedc27be4cfec5bdd354ffbd7db75dc898d4a3f5dd1e06044c3fe47936",
+      "scope": [
+        [
+          1,
+          89
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          89
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Actual socket producer selects generated garment surface vertices for only Left/Right/Front/BackBelt locations, then reparented_to ROOT bind transform. No UV atlas lookup, narrowing previous atlas/frame concern. Ordinary belt ancestor resolves pelvis consumer; exact RigJointName::ROOT versus BoneRolePelvis and mixed root occupancy catalogue invariants still pending. Missing ROOT/non-normalizable tangent omits socket; actual admission/display policy pending. First future credit deferred."
+    },
+    {
+      "kind": "Future original full same-lens source read, no ordered original credit",
+      "original_index": 1495,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-303.json",
+      "registration_sha256": "af2b80a27ed339a1633d5bde2198216592e1ebfac0adfce5994e37110dfb5ed9",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "source_sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "scope": [
+        [
+          1,
+          243
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          200
+        ],
+        [
+          201,
+          243
+        ]
+      ],
+      "additional_original_frontier_credit": 0,
+      "disposition": "Actual shared keyboard/HUD eligibility: Empty selects outermost occupied depth, Unknown None, Defined eligible fit. Tests assert ineligible hand selection and deterministic layer order across reversed entity allocation; no fixture establishing held entity always has properties. Full source read now, future original first credit deferred."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-208.json",
+      "sha256": "f4ce6a807608895d189acd545424e1b52ce4a873d72b81164e478e0b55704c44"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-209.json",
+      "sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9"
+    }
+  ],
+  "pending_contracts": [
+    "All13 populations/extensions/current/all20 families/aliases/connected acceptance remain incomplete; no repair or execution before exhaustive ledger.",
+    "Socket concern narrowed to belt-only generated-surface producer; ROOT/pelvis/catalogue frame invariant pending, no accepted general nonpelvis bug or atlas mismatch.",
+    "Future1493 and1495 full connected only zero ordered credit; explicit same-lens proof required at first frontier. Future1589 REG274/READ206 likewise pending.",
+    "Held missing-properties example conditional on actual replication/component invariant, server authority remains separate.",
+    "Runtime failure cause ownership requires native and actual readiness callers/current comparison and alias deduplication.",
+    "No product edits/tests/builds/lints/scanners/generators/runtime/CI work or publication."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1486
+}

@@ -1,103 +1,136 @@
-# Audit resume points
+# Audit resume points for segovb
 
-The audit remains incomplete. Resume qualified source discovery from the saved
-frontiers; no code repairs may begin until the ledger is complete. Adler can
-return the incomplete audit to Bruno with an updated handoff branch.
+The audit is incomplete and paused locally at the user's request for return
+handoff. Continue discovery only. **No code repairs until ledger completion.**
+Original receipt bytes and count qualifications remain authoritative.
 
-## Authoritative and proposed frontiers
+## Adopted and partial frontiers
 
-All indices below are zero-based. Counts describe scoped discovery with
-findings retained, not repaired or validated code.
+| Lens | Next index | Authoritative state |
+| --- | ---: | --- |
+| 08: behavior preservation | 2853 | Inherited STATE-129; new extensions/current/families pending |
+| 11: type granularity | 2415 | adler/STATE-L11-396.json |
+| 12: magic strings | 1094 | adler/STATE-L12-234.json |
+| 13: magic numbers | 360 | inherited STATE-062-proposal, root-adopted ADOPTION-072; partial 231-232 unfinished |
 
-| Lens | Root-adopted frontier | Later evidence awaiting root review |
+Adler adoptions 070, 071, and 072 review inherited same-lens proposals without
+claiming those bodies as new personal reads. Lens 11 then continued sequential
+registered discovery through original 2414. Other lens states remain in the
+ledger; overlapping reports must not become invented unique totals.
+
+Lens 12 disease original 1093 combines inherited persisted reads 1-1200,
+checkpoint-attested reads 1201-1800, and Adler personal reads 1801-2950.
+Raw predecessor tool outputs for 1201-1800 were not separately transported.
+Preserve that limitation; do not invent personal evidence.
+
+Lens 13's current queue is 062, although an older state field still names
+058. Preserve both records and the qualification. Complete source-role
+inventories for 360-364 using READ-L13-231-232-PARTIAL and its checkpoint.
+Original 364 tail 39-44 is not credited; smoothstep 872-873 is partial.
+Do not advance based on mere staging or consumption notes.
+
+## Exact stop and next bounded work
+
+Batch 396 accounts originals 2412-2414, independently for lens 11:
+
+- Inventory helpers: 1-270 of 543; remaining owning tests unread.
+- Travel template: 1-694 of 1579; remaining helpers and acceptance unread.
+- Dialogue client: complete 825 through registration 1292 and gap extension
+  1293. Source-only lifecycle, payload, and retry limits remain explicit.
+- A truncated aggregate output was given no credit. Its four affected ranges
+  were reread in complete bounded outputs before checkpointing.
+
+The next original is 2415, belt--worn.png, SHA-256
+5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c.
+Original 2416 is deleted leather_belt--worn.png. Register the binary and actual
+owner/visual role before inspection; qualify deletion against exact base bytes
+and frozen-head absence. Text-line helpers must not decode a PNG or count an
+empty range as completed visual review. Neither source is registered yet.
+
+Next free registration: 1294. Next batch: 397, predecessor 396. Following
+roles include equipment-toggle.js (2417), party-trade.js (2418), and
+physical-evidence.js (2419). Use immutable metadata's actual range union.
+The party-trade recipient may connect the earlier loot-pair admission case.
+This navigation list grants no body coverage.
+
+## Connected unread bodies
+
+| Original | File or native contract | Still unread connected scope |
 | --- | --- | --- |
-| 08: behavior preservation | 2,853 original roles, all 701 affected frozen base comparisons, 246 overlays, 38 merged paths and 196 shared scopes accounted | New extensions, current source, twenty families, aliases and connected acceptance remain pending |
-| 11: type granularity | 1,195 original roles; next 1195; STATE-proposal-101 | Complete packets 102-107 reach 1207; packet 108 is partial at original 1207 through line 2160; next line 2161 |
-| 12: magic strings | 1,079 original roles; next 1079; STATE-proposal-228 | Complete proposals 229-233 reach 1093; original 1093 was read through 1800, but persisted read log covers through 1200; reconcile this disclosure before assigning coverage |
-| 13: magic numbers | 350 original roles; next 350; STATE-061-proposal | Complete packet 223-230 / STATE-062 proposes 360; in-flight 360-364 reads remain qualified in the checkpoint |
+| 2380 | native rest_summary producer | 378-840 |
+| 2402 | skills helpers and owning acceptance | 2356-3812 |
+| 2408 | social / LocalChatKind / owning acceptance | 41-499 and 851-1573 |
+| 2412 | inventory owning acceptance | 271-543 |
+| 2413 | travel helpers and owning acceptance | 695-1579 |
 
-The other nine lenses retain their saved states and qualifications in the
-ledger. Their original/overlay/merged/shared accounting does not clear new
-extensions, current source, family reconciliation or deduplication. In
-particular, inherited count variants and report-only rows must retain their
-existing qualifications; do not flatten them into an all-green table.
+Social fixture 849-850 is partial. LocalChatKind was anticipated in a
+registration purpose but was not in 1-40; no declaration credit exists.
+SkillTooltip was only read after its separate gap registration. Preserve the
+corrected locations in receipts 392 and 394. Earlier required native/API/
+current/acceptance dependencies remain in their ledger families; this table
+is not an exhaustive closure queue.
 
-Paused checkpoints, under `evidence/continuation-segovb/audit-resume-20261027/`:
+## Scope qualifications
 
-- `lens11/HANDOFF-paused-20261027-001.json`
-- `lens12/HANDOFF-paused-adler-001.json`
-- `lens13/HANDOFF-ADLER-20261027-001.json`
+All 36 Adler prospective extensions are listed in the ledger and
+adler/HANDOFF-SEGOVB-396.json. Each remains mandatory independently for every
+lens; coverage is never transferred. Original, overlay, merged, shared,
+extension, and current populations stay separate.
 
-Latest root adoptions are ADOPTION-066 (lens 13), ADOPTION-067 (lens 11), and
-ADOPTION-068/069 (lens 12). Lens 08's latest state is STATE-129; its
-batch-130 receipt consolidates exact same-lens evidence for the 701 original
-base comparisons. It does not complete current-source or extension discovery.
+Eight strict end-of-file qualifications affect original indices 4, 1622,
+1800, 1907, 2104, 2197, 2370, and 2376. Original metadata and superseded
+registrations remain unchanged. Exact frozen bytes justify excluded
+nonexistent lines; there is no generic clipping rule.
 
-## Scope and ledger obligations
+Future same-lens reads received zero ordered credit. At their ordered
+frontier, inspect exact receipt, SHA, registered scope, and reuse proof:
 
-The original scope is `evidence/audit05/original-scope-072.json`, SHA-256
-`d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f`.
-The 246 overlays are `evidence/audit05/raw-overlay-registration-000.jsonl`,
-SHA-256 `c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68`.
-The original shared registry is
-`evidence/shared-material-successor/source-extensions-196.json`.
-The 38 frozen merged roles and twenty migration families are separate axes.
+- 2481, 2482, 2551: physics contact count, collider, mesh; READ-L11-373.
+- 2605: icon screen; READ-L11-328.
+- 2695: surface validation 1-157 of 159; READ-L11-279.
+- 2699: generation supported helper; READ-L11-297.
+- 2701: regional protocol; READ-L11-243.
+- 2708: admission helper; READ-L11-271.
+- 2814 and 2815: mission enrollment/receipt partials; READ-L11-322.
+- 2849 and 2851: weapon extents/mounts partials; READ-L11-335.
 
-`REGISTRATION-156-extension-selector-corrections.json` fixes two stale
-historical JSON pointers without rewriting their records. Its exclusions are
-mandatory. `EXTENSION-NAVIGATION-001.json` inventories 525 registration
-authorities and 1,607 candidate source-variant locator groups. Those figures
-are navigation, not a new unique population or exhaustive qualified selector.
-Repeated identities, aliases, no-range entries, superseded scopes and
-incidental test exclusions still need reconciliation. A locator never grants
-another lens body coverage.
+Collider 2482 combines raw registration 1192 with extension 1194. A reuse
+proof selecting only 1192 does not prove the 134-211 gap. Preserve its
+separate exact extension proof.
 
-`LEDGER-CHAINS-001.json` and `LEDGER-CHAINS-002.json` add concrete chains to the
-master ledger. Recent retained source cases include elapsed training
-normalization, contact-revision time authority and wedding capacity errors
-after writes. Later pending proposals add stack-mass propagation, party
-approval scope and recruitment-rating validation concerns. Read their actual
-records and qualifications before treating them as current bugs or aliases.
-A possible personality projection-ID mismatch was rejected by actual
-normalization; tiny coefficient division does not alone prove an infinite
-pose because concrete recipients may clamp or reject it.
+## Evidence tooling and portability
 
-## Portable evidence and source access
+Read helper paths/contracts before execution. The helper root expects
+target/726-audit-adler-20261027; frozen source objects may resolve through the
+handoff subtree. SOURCE-LOCATORS.json documents both projections. Restore into
+a fresh ignored root; never overwrite newer work.
 
-See [SOURCE-LOCATORS.json](SOURCE-LOCATORS.json) for the path projection and
-exact source archive pins.
+register_original prospectively registers exact SHA/ranges but does not check
+EOF. read_registered checks SHA, scope, EOF and bounded output; it allows fewer
+than 200 lines per call. Truncation, identifier matches and hash checks grant
+no semantic coverage.
 
-`evidence/` is a byte-preserving snapshot of the ignored local
-`target/recovery-20261025/` tree. Restore that projection only into a fresh or
-appropriately preserved workspace. Do not overwrite another continuation's
-receipts. The manifest records every transported file and SHA-256.
-Historical receipt hashes remain valid because source/evidence bytes were not
-rewritten to change local provenance paths.
+record_l11 stores assessed dispositions and advances the ledger.
+verify_l11_evidence checks evidence hashes, metadata unions, extensions,
+frontier, qualifications and preservation. It does not execute product code.
+Its historical clean-branch/head checks ran before publication. Rerunning it
+unchanged on the return branch will fail its old environment pin. Preserve
+that fact; inspect the next verifier's environment assumptions explicitly.
 
-Old absolute paths are provenance, not instructions to require the original
-machine. Resolve `target/recovery-20261025/...` through this evidence tree.
-For historical worktree paths, use the original registered source hash and the
-local transported object, or retrieve only the specific object from the
-frozen archive at `f82adcabd9d89c4fa2dd7f99253a45297a0681ee`:
-`handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/<sha256>`.
-For other archived supplemental paths, preserve the exact recorded suffix and
-consult the prior handoff's SOURCE-LOCATORS and portability records. Do not
-extract or reread the entire older frozen tree. Missing base objects can be
-retrieved by exact registered commit/path and verified against the expected
-hash. Never substitute an arbitrary current file merely because its path fits.
+Full-fresh earlier-original and bounded already-full context reinspections
+have separate proof requirements. The helper does not generically support
+adding fresh ranges to an earlier scoped source. Do not label partial work a
+full reread or relax coverage checks to advance.
 
-The prior portable handoff is commit
-`90b18956a366ab38f9cd79d856abbcce10396bb3`, under
-`handoff/774-continuation-20261026/`. This new snapshot supersedes its resume
-frontiers, while keeping earlier evidence and qualifications as history.
+## Completion obligations retained
 
-The `skills/` directory preserves the thirteen focused audit instructions and
-the coordinating bespoke-audit instruction used for this work. The explicit
-no-repair gate and no-backward-compatibility instruction in PROMPT override any
-conflicting default workflow. Do not automatically begin an implementation or
-validation wave from a skill's later steps.
+All thirteen lenses, 2853 originals, 246 overlays, 38 merged paths, 196
+original shared scopes, every extension, current source, twenty migration
+families, exact aliases, and connected producer/API/state/consumer/native
+acceptance must be reconciled before implementation. A source-accounted role
+may still have findings and dependencies. No accepted-unique increase,
+runtime proof, passing test, CI result, or repaired behavior is claimed.
 
-No private conversation, environment file, credential file or stash content is
-included. Publication pattern review found no credential candidates. Transport
-verification is separate from source-body review, code validation and ledger
-completion.
+The prior AUDIT-RESUME and CURRENT are preserved in history at the incoming
+handoff commit. They document earlier states, not the resume authority. The
+updated ledger and CURRENT.json select the current state.

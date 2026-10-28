@@ -1,0 +1,285 @@
+//! Capture readiness reads the same resolved meshes and wearer skins as gameplay.
+use crate::equipment::{
+    ItemPlaceholder, ProceduralEquipmentFailed, ProceduralEquipmentPart,
+    ProceduralEquipmentResolved,
+};
+use crate::presentation::interior_lighting::InteriorMaterial;
+use bevy::{
+    ecs::system::SystemParam,
+    mesh::{morph::MeshMorphWeights, skinning::SkinnedMesh},
+    prelude::*,
+};
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(in crate::animation_viewer) enum EquipmentVisualState {
+    Missing,
+    Loading,
+    Ready,
+    Failed,
+}
+
+#[derive(Clone, Copy, Default)]
+pub(in crate::animation_viewer) struct EquipmentVisualRequirements {
+    pub names: &'static [&'static str],
+    pub morph_targets: Option<usize>,
+}
+
+type EquipmentRenderPart = (
+    &'static ProceduralEquipmentPart,
+    &'static Mesh3d,
+    &'static crate::presentation::interior_lighting::InteriorMaterialSource,
+    Option<&'static SkinnedMesh>,
+    Option<&'static MeshMorphWeights>,
+    Option<&'static Name>,
+    Option<&'static MeshMaterial3d<InteriorMaterial>>,
+);
+
+/// Readiness requires a resolved procedural mesh, its material and a bound skin.
+/// Loading cuboid proxies never qualify as captured armor.
+#[derive(SystemParam)]
+pub(in crate::animation_viewer) struct EquipmentVisualStatus<'w, 's> {
+    roots: Query<
+        'w,
+        's,
+        (
+            &'static ItemPlaceholder,
+            Has<ProceduralEquipmentResolved>,
+            Has<ProceduralEquipmentFailed>,
+        ),
+    >,
+    parts: Query<'w, 's, EquipmentRenderPart>,
+    meshes: Res<'w, Assets<Mesh>>,
+    materials: Res<'w, Assets<StandardMaterial>>,
+    images: Res<'w, Assets<Image>>,
+    render_materials: Option<Res<'w, Assets<InteriorMaterial>>>,
+}
+
+impl EquipmentVisualStatus<'_, '_> {
+    pub(in crate::animation_viewer) fn state(
+        &self,
+        item: Entity,
+        required: EquipmentVisualRequirements,
+    ) -> EquipmentVisualState {
+        let Some((_, resolved, failed)) = self.roots.iter().find(|(root, _, _)| root.0 == item)
+        else {
+            return EquipmentVisualState::Missing;
+        };
+        if failed {
+            return EquipmentVisualState::Failed;
+        }
+        if !resolved {
+            return EquipmentVisualState::Loading;
+        }
+        let mut count = 0;
+        let mut names = std::collections::BTreeSet::new();
+        for (part, mesh, material, skin, morphs, name, _) in
+            self.parts.iter().filter(|(part, ..)| part.item == item)
+        {
+            count += 1;
+            if let Some(name) = name {
+                names.insert(name.as_str());
+            }
+            let Some(mesh) = self.meshes.get(&mesh.0) else {
+                return EquipmentVisualState::Loading;
+            };
+            if super::skinning::WeightSummary::from_mesh(mesh)
+                .is_none_or(|weights| !weights.valid())
+            {
+                return EquipmentVisualState::Failed;
+            }
+            if required.morph_targets.is_some_and(|count| {
+                mesh.morph_target_names().map_or(0, <[String]>::len) != count
+                    || match morphs {
+                        None => count != 0,
+                        Some(MeshMorphWeights::Value { weights }) => {
+                            weights.len() != count
+                                || weights.iter().any(|weight| !weight.is_finite())
+                        }
+                        Some(_) => true,
+                    }
+            }) {
+                return EquipmentVisualState::Loading;
+            }
+            if self.materials.get(&material.0).is_none_or(|material| {
+                [
+                    &material.base_color_texture,
+                    &material.normal_map_texture,
+                    &material.occlusion_texture,
+                ]
+                .into_iter()
+                .flatten()
+                .any(|texture| self.images.get(texture).is_none())
+            }) || skin.is_none_or(|skin| {
+                skin.joints.is_empty() || skin.joints.len() != part.joint_names.len()
+            }) || (mesh
+                .morph_target_names()
+                .is_some_and(|names| !names.is_empty())
+                && morphs.is_none())
+            {
+                return EquipmentVisualState::Loading;
+            }
+        }
+        if count == 0
+            || (!required.names.is_empty()
+                && (count != required.names.len()
+                    || !required.names.iter().all(|name| names.contains(name))))
+        {
+            EquipmentVisualState::Loading
+        } else {
+            EquipmentVisualState::Ready
+        }
+    }
+    pub(in crate::animation_viewer) fn summary(&self, item: Entity) -> Vec<serde_json::Value> {
+        self.parts
+            .iter()
+            .filter(|(part, ..)| part.item == item)
+            .map(|(part, mesh, material, skin, morphs, name, rendered)| {
+                let mesh = self.meshes.get(&mesh.0);
+                let source = self.materials.get(&material.0);
+                let rendered = rendered.and_then(|handle| {
+                    self.render_materials.as_ref()?.get(&handle.0).map(|material| &material.base)
+                });
+                serde_json::json!({
+                    "name": name.map(Name::as_str),
+                    "mesh_loaded": mesh.is_some(),
+                    "material_loaded": source.is_some(),
+                    "source_material_textures": source.map(|material| super::material::textures(material, &self.images)),
+                    "render_material_textures": rendered.map(|material| super::material::textures(material, &self.images)),
+                    "skin_joints": skin.map(|skin| skin.joints.len()),
+                    "expected_skin_joints": part.joint_names.len(),
+                    "primary_skin_weights": mesh.and_then(super::skinning::WeightSummary::from_mesh),
+                    "morph_targets": mesh.and_then(Mesh::morph_target_names).map(<[String]>::len),
+                    "morph_weights": match morphs {
+                        Some(MeshMorphWeights::Value { weights }) => Some(weights),
+                        _ => None,
+                    },
+                })
+            })
+            .collect()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use bevy::ecs::system::RunSystemOnce;
+
+    #[test]
+    fn requested_parts_require_skins_and_reject_equipment_morphs() {
+        let mut world = World::new();
+        world.init_resource::<Assets<Mesh>>();
+        world.init_resource::<Assets<StandardMaterial>>();
+        world.init_resource::<Assets<Image>>();
+        let item = world.spawn_empty().id();
+        world.spawn((ItemPlaceholder(item), ProceduralEquipmentResolved));
+        let required = EquipmentVisualRequirements {
+            names: &["shell", "visor", "bevor"],
+            morph_targets: Some(0),
+        };
+        let mut mesh = Mesh::new(bevy::mesh::PrimitiveTopology::TriangleList, default());
+        mesh.insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[1.0, 0.0, 0.0, 0.0]]);
+        let mesh = world.resource_mut::<Assets<Mesh>>().add(mesh);
+        let material = world
+            .resource_mut::<Assets<StandardMaterial>>()
+            .add(StandardMaterial::default());
+        let mut entities = Vec::new();
+        let state = |world: &mut World| {
+            world
+                .run_system_once(move |visuals: EquipmentVisualStatus| {
+                    visuals.state(item, required)
+                })
+                .unwrap()
+        };
+        for name in required.names {
+            assert_eq!(state(&mut world), EquipmentVisualState::Loading);
+            entities.push(
+                world
+                    .spawn((
+                        ProceduralEquipmentPart::new(
+                            item,
+                            default(),
+                            vec!["c_head".into()].into(),
+                            Vec3::ZERO,
+                        ),
+                        Name::new(*name),
+                        Mesh3d(mesh.clone()),
+                        crate::presentation::interior_lighting::InteriorMaterialSource(
+                            material.clone(),
+                        ),
+                        SkinnedMesh {
+                            inverse_bindposes: default(),
+                            joints: vec![item],
+                        },
+                    ))
+                    .id(),
+            );
+        }
+        assert_eq!(state(&mut world), EquipmentVisualState::Ready);
+        world
+            .resource_mut::<Assets<Mesh>>()
+            .get_mut(&mesh)
+            .unwrap()
+            .insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[0.4, 0.3, 0.2, 0.0]]);
+        assert_eq!(state(&mut world), EquipmentVisualState::Failed);
+        world
+            .resource_mut::<Assets<Mesh>>()
+            .get_mut(&mesh)
+            .unwrap()
+            .insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[0.4, 0.3, 0.2, 0.1]]);
+        assert_eq!(state(&mut world), EquipmentVisualState::Ready);
+        let normal = world.resource_mut::<Assets<Image>>().add(Image::default());
+        world
+            .resource_mut::<Assets<StandardMaterial>>()
+            .get_mut(&material)
+            .unwrap()
+            .normal_map_texture = Some(normal.clone());
+        let pixels = world
+            .resource_mut::<Assets<Image>>()
+            .remove(normal.id())
+            .unwrap();
+        assert_eq!(state(&mut world), EquipmentVisualState::Loading);
+        world
+            .resource_mut::<Assets<Image>>()
+            .insert(normal.id(), pixels)
+            .unwrap();
+        assert_eq!(state(&mut world), EquipmentVisualState::Ready);
+        world.entity_mut(entities[2]).remove::<SkinnedMesh>();
+        assert_eq!(state(&mut world), EquipmentVisualState::Loading);
+        world.entity_mut(entities[2]).insert(SkinnedMesh {
+            inverse_bindposes: default(),
+            joints: vec![item],
+        });
+        world
+            .entity_mut(entities[2])
+            .insert(MeshMorphWeights::Value { weights: vec![0.0] });
+        assert_eq!(state(&mut world), EquipmentVisualState::Loading);
+        world.entity_mut(entities[2]).remove::<MeshMorphWeights>();
+        world
+            .entity_mut(entities[2])
+            .insert(Name::new("unrelated plate"));
+        assert_eq!(state(&mut world), EquipmentVisualState::Loading);
+    }
+
+    #[test]
+    fn missing_fallback_and_unbound_equipment_never_pass_capture_readiness() {
+        let mut world = World::new();
+        world.init_resource::<Assets<Mesh>>();
+        world.init_resource::<Assets<StandardMaterial>>();
+        world.init_resource::<Assets<Image>>();
+        let item = world.spawn_empty().id();
+        let state = |world: &mut World| {
+            world
+                .run_system_once(move |visuals: EquipmentVisualStatus| {
+                    visuals.state(item, EquipmentVisualRequirements::default())
+                })
+                .unwrap()
+        };
+        assert_eq!(state(&mut world), EquipmentVisualState::Missing);
+        let root = world.spawn(ItemPlaceholder(item)).id();
+        assert_eq!(state(&mut world), EquipmentVisualState::Loading);
+        world.entity_mut(root).insert(ProceduralEquipmentResolved);
+        assert_eq!(state(&mut world), EquipmentVisualState::Loading);
+        world.entity_mut(root).insert(ProceduralEquipmentFailed);
+        assert_eq!(state(&mut world), EquipmentVisualState::Failed);
+    }
+}

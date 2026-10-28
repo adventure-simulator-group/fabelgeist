@@ -1,0 +1,194 @@
+{
+  "lens": 11,
+  "batch": 177,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1316,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-127.json",
+      "registration_sha256": "18107961956ffeb3c95a1ef84b79c7643db6b79e83d4c449ae40d7b2c87b2c39",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/catalog/builtin.rs",
+      "sha256": "24dd229e7467ac0a4b6a11b398e06290949923b614b3deebfa972f03ab93e1d3",
+      "scope": [
+        [
+          1,
+          264
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          264
+        ]
+      ]
+    },
+    {
+      "original_index": 1317,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-128.json",
+      "registration_sha256": "aa276c6f70940aa46a1bb9b564cf759c79663ef09b06e04877fab655fb4743f7",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+      "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810",
+      "scope": [
+        [
+          1,
+          134
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          134
+        ]
+      ]
+    },
+    {
+      "original_index": 1318,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-129.json",
+      "registration_sha256": "e47d9726f276817fb8cf7451f5132b757dc2aab2dfc95dc06f1ffb87e35ab367",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/clip_revision.rs",
+      "sha256": "a5a0437f0f85693b6e9a31ae24c43d47025c035cb436d68bcc2015213703c6ec",
+      "scope": [
+        [
+          1,
+          100
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "original_index": 1319,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-130.json",
+      "registration_sha256": "d7effeea3a07fb62806ec708817cc5a5a43d19e2b6cfb6d8b85ac1bb3fa118dc",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/clip_revision/events.rs",
+      "sha256": "b9dac06a620f8567a5eeef7aaef43f241262a4a7268577eff9d3714e02445b07",
+      "scope": [
+        [
+          1,
+          78
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          78
+        ]
+      ]
+    },
+    {
+      "original_index": 1320,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-131.json",
+      "registration_sha256": "992bb0836745770727cfd518d88dd2d402205b1baf1bd430d52e57d552c8b2f2",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/continuation.rs",
+      "sha256": "8eef3d57c8ab2e84bcf5c759b08a63f26957dd3f847a4810fd6786b9f9f725ac",
+      "scope": [
+        [
+          1,
+          92
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          92
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1316
+      ],
+      "ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "roles": "Built-in catalog construction and semantic library validation caller.",
+      "disposition": "Twofixedpacks unarmedroot and2hclosechild sameHumanoidfamily; unarmedNonefallback/childroot hardcodedacyclic atordinarydefaultproducer, narrows176speculativecyclepath. Builderduplicateerror propagates ? andwholelocalbuilderdiscarded; no ordinarypublishedpartialreplacement fromthisconstructor. CallsAnimationPackLibrary.insert both andvalidate_complete(root), actualvalidatorbody stillrequired forbroadercustompack invariants. Code-authoredframestypedAuthoredAnimationFrame, requiredvsoptionalattacklastframes distinct; gaitmirrorownsnoindependentsemantic; reference frame rate conversion receiverpending. No physicalfilecontentsverifiedbysemanticconstruction."
+    },
+    {
+      "source_indices": [
+        1317
+      ],
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "roles": "Motion/path/directory admission, pack-motion compositekey and authoredframe.",
+      "disposition": "MotionId opencheckedstem+knownassociatedconstants, notclosedenumofallpossiblevalidcustommotion. Invalidrawstrings retainedCatalogError justified, UnknownMotion validparsedtypedidentity conversionprevious176unnecessaryerasure stillactual. Mirror suffixpreservesadmittedstem; noimplicitremappingoldnames. Directory rejectsabsolute/control/pathcomponent traversal/emptyinternalparts, stripstrailingseparator presentationnormalization. AnimationAssetPath derivesuncheckedFromString/from_static, safeconstructorusecurrentlymotion_path buildsfromvalidatedparts; allothercallers mustprove nativecheckedingress beforeclaimingallPathsadmitted. AuthoredFrame u16value notsampletick, abs_diffu16 meansframeinterval numericalrole; downstream rate/spanadmissionstillrequired. No upstreamfilename/platformspec inferred."
+    },
+    {
+      "source_indices": [
+        1318
+      ],
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "roles": "Revision matching and cachedavailability/derivedpose invalidation.",
+      "disposition": "RevisionCaches SystemParam explicitlygroups bank/sharedstrides/perrig/percharacter measurements. TypedAssetId<AnimationClip> distinctfromGltfsource; MotionKey preservedthroughrequested/load/clips. Collectaffectedkeys beforemutation, removeclips/unavailablemarkers, cleargripprocessed/unavailable andinvalidateexactderivedclipIDs. Rebuildloadedlibraryonlyifmotionsaffected, source-onlygriplibrarypolicy needsactualowner; no blanketmissingrebuildfinding. load.observe_source_revision sideeffects inside any needmethod/sourceassociation proof butoneobservedchangedsource maybesufficient. No gameplayclock/historyresetatthissite; sourcefailurecannotbeassumedoldclipunavailableuntilactualrevalidationownerread."
+    },
+    {
+      "source_indices": [
+        1319
+      ],
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "roles": "Native asset message/failure adapter and early contents change snapshot.",
+      "disposition": "AllnativeAssetEventvariantsandloadfailures maptypedIDs into separateclip/sourceHashSets; eventkind/detaildiscardedforinvalidationpurpose legitimate, actualdiagnosticfailurehandler remainsseparateowner. Assetsis_changed expandsallcurrent IDsplusruntime-retainedremoved handles/sources tocoverPreUpdatecontentbeforePostUpdateflush; conservativeextra rebuilddocumented172matchesactualcode. ChangedAnimationAssets isbespoke joinedresourceinputs, notbaremixedassetIDset. Actualscheduleordering andchildsourcepathassociation requireconnectedsourceproof, no nativeevent/runtimeprobe."
+    },
+    {
+      "source_indices": [
+        1320
+      ],
+      "ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "roles": "Continuation playback topology, time/coordinate semantics and appendtransaction.",
+      "disposition": "ContinuationSpan keepsfiveLoadedClip/ClipTimepairs plusdistinctAttackPoseCoordinate/IncomingAttackTangent/Readiness/progressUnitInterval/weights; no replacingsemanticcontinuationcoordinate withcyclicphase. FunctiontakesgeneralPoseSampling thendestructuresrequiredvariant withunreachable; callerbranchmustprove shape, cleanvariant-specificargumentcouldeliminateinvalidcallstate. Resolvesallendpoints thenevaluatesallcheckedframe_seconds beforepush, sofailedtimeconversioncannotpublishpartialspan. Missingcontact/end/outgoing/finish fallbackwritesexistingstart/end/outgoingweightedanchor asintentionalvisualavailabilitypolicy, notlegacycompatibilityshim; strictattackavailabilityactualsourceownerstillpending. ZeroBlendWeight endpointsretainspan whenallresolved; mirroringstart determinesmirroredweight; actualotheranchors/familyorientation andfinalplanadmission remaincontracts."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-172.json",
+      "sha256": "adc727826c6882c7df1df6c7fe63490d4c332afb4f2f62e2cb6e9d1e0a6af8b4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-176.json",
+      "sha256": "3ca593645abf7ca069cf8fb7c289c7ca1bf26900bf881324c68b3dcfea40bf3c"
+    }
+  ],
+  "pending_contracts": [
+    "Builtinordinarydefault construction narrows duplicate rollback/cycle concerns; actual AnimationPackLibrary validator and nonbuiltinadmission stillpending, no overbroadallcatalogclaim.",
+    "Asset revision concrete code matches conservative cache invalidation intent but actual scheduler/load-state failure ownership remains unread; no execution.",
+    "Allcurrent/all20families/all13 populations/aliases/connected deduplicated repairacceptance incomplete; nextoriginal1321 requires registration."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1321
+}

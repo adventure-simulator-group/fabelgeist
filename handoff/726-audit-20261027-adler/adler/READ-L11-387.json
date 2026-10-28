@@ -1,0 +1,183 @@
+{
+  "lens": 11,
+  "batch": 387,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2385,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1256.json",
+      "registration_sha256": "31e0e1a36f23729337e01f3268ad487d0cc04f0a32d59f98ad4ef51c6070fb61",
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "scope": [
+        [
+          1,
+          273
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          273
+        ]
+      ]
+    },
+    {
+      "original_index": 2386,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1257.json",
+      "registration_sha256": "4fe450fd566ccde33f15d6e32ac768ae45727d972f537e6beedb252bfea4385c",
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "scope": [
+        [
+          1,
+          540
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          540
+        ]
+      ]
+    },
+    {
+      "original_index": 2387,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1258.json",
+      "registration_sha256": "989f2837d6e84cea66d36de8484450156f1abb7d7963e85dc603b11d82778c68",
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/mod.rs",
+      "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+      "scope": [
+        [
+          1,
+          136
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          136
+        ]
+      ]
+    },
+    {
+      "original_index": 2388,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1259.json",
+      "registration_sha256": "136d4dabea2b2ba59a3441fa19ef323ad85e906d4b793c404391d009de089cbd",
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/queries.rs",
+      "sha256": "d0c3d034f86164b2ffc1acbe66095411629ed45e670ddb95938feea0c5c3e97e",
+      "scope": [
+        [
+          1,
+          45
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          45
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2385
+      ],
+      "ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "roles": "Independent lens11 strategic native database/wire/query error and type admission owner with scoped acceptance.",
+      "disposition": "Full273 HTTPclient with native reqwest/serde error variants, SATS generated rows before TryFrom projection, query_one rejects >1 rather than picksfirst, no silentpartialrow conversion because collectResult fails whole query. Fallible dynamic wrapper stages merged SpacetimeString qualifiederrorfamily, non-success bodyreadErrdefaultempty. HTTPcall accepts allsuccess statuses without readingbody, actualnativecommit/asyncaccepted/reducer semantics needed before falsecommitfinding. Native60s request/3s connecttimeouts. Query metrics processglobalshared atomicnonreset, delta saturating counters, comment controlledrequest no claim per-request isolation; elapsedmeasures sendawait(headers) not fullbody+decode, actualmetriccontract needed before latencybug. Existingowningmetrics tests readnotrun. Typed Result alias/directmoduleexports notlegacycompatibility."
+    },
+    {
+      "source_indices": [
+        2386
+      ],
+      "ranges": [
+        [
+          1,
+          540
+        ]
+      ],
+      "roles": "Independent lens11 strategic native database/wire/query error and type admission owner with scoped acceptance.",
+      "disposition": "Full540 strict SQLwire->generatedSATS conversion includingfixturetests. Arraybytehex exactevennibbles/no0x distinct from Identitynumericnormalization optional0x+trimzeros, nativewirebridge actualrequiredbeforecompatibilityclassification. Productarity/rowarity/sumarity/tag range/nonnull names checked; generatedSerde validates missing/unknown rowfields via fixtures, namedproducts/options/datacarryingsums preserved. One-keysum adaptation/capitalizedenum vs lowercaseoption is foreignwireconversion notautomaticallybackcompat. Unknown primitive/schema branch clones value for generatednativecheck; missing nestedtypeNull and absentvariantnameUnknown need native QuerySchema invariant/Serde exactowner before schemaacceptance claim. firstqueryresultonly and emptyQueryResponse->emptyVec actual endpoint one-statement contract pending; no blanket multiresultdata loss. tag asusize32-bit truncation only target32 compatibility/admission beforefailureclaim; currentWindows64 cannotinfer. Duplicatecolumn/productnames overwrite map but DBschema/actualSQL unique-nameguarantees pending. NativeIdentityU256bridge needed before overlong/significanthex admission claim. Alltests sourceonly, nofixtureexecution."
+    },
+    {
+      "source_indices": [
+        2387
+      ],
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "roles": "Independent lens11 strategic native database/wire/query error and type admission owner with scoped acceptance.",
+      "disposition": "Full136 native modules, directreexports of same types/query helpers and SATS foreignschema encode Option/unit variants. ClosedexhaustiveBodyRegion7/InterventionRoute4/SurgeryProcedure6 mappings use exactgeneratedwire names; publicHTTPslug remove-splint vs SATSremoveSplint intentionallydifferent boundaries. Existingencodefixturetestsreadnotrun. No deprecatedforwardingalias solelyfrompubuse. Actualnativegeneratedschema/SatsUnitVarianttrait implementations and clientreducerboundary preserved asdependencies; nothandeditingbindings."
+    },
+    {
+      "source_indices": [
+        2388
+      ],
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "roles": "Independent lens11 strategic native database/wire/query error and type admission owner with scoped acceptance.",
+      "disposition": "Exact1..45of466 only: SqlQuery privateString/privateconstructor with controlledtravel_edges selector, explicitas_str/Deref no automaticaliasdefect. sql_string_literal doublesapostrophe; macroStringqueriesusequotedliteral andu64queriesformattypednumeric. Actual46..466macroinvocations andcalledquery/ownerpin/effective-date acceptance remainunread neededbeforeclaimingallqueriesauthbound/safe; SQLdialect/NUL/nativeportpolicy pending before injectionclaim. No fullqueryfilecoverage."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-379.json",
+      "sha256": "3ccd79f3d8604fb29b3791a57817ca981986a981fc56ccaeaffd3673b4144059"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-380.json",
+      "sha256": "cb5832667e4116a4cb093bdd887e1f03d359d3048e699089f8ea1ab8f427db7e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-381.json",
+      "sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-382.json",
+      "sha256": "42fe1ac969c0f8db3f0ba6824e6e117bc3430ce76549e5c5d458ddc5f82d3c47"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-383.json",
+      "sha256": "ffed8895bfac2b9aac91253fa21be130516b90e4ad1b4d2535fa951ea1ea0b39"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-384.json",
+      "sha256": "87fb4c748de2613b3248c5c7332fc2b07b596d5373198caa2c3787603854cba4"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-385.json",
+      "sha256": "051770b7513c96ff3e0f8146360e3bf4a68d79485d6d2355e1d3b7712aa4985d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-386.json",
+      "sha256": "e50815edc0fbff59e61b3d609a404d3b8cdc022b914a76ad74a65acb62bc282c"
+    }
+  ],
+  "pending_contracts": [
+    "387accounts2385..2388,next2389. LastREG1259.28mandatoryall13scopedextensions/eightstrictEOFqualifications/futureproofs retained.",
+    "NewsourcequalifiedstrategicDBerrorstage/status/causeownershipfamily; native endpoint/reducer commit/body/parse/current/all20 publicerror acceptance pending. No actual HTTPfailures/secretleaks/mutations claimed.",
+    "Querymacroinvocations46..466 and SQL endpoint/SATS schema/native bridge/generated types are pending connected material dependencies. No acceptance credit from fixture presence or generated code names.",
+    "All13populations/current/all20/aliases/connectedacceptance/dedup incompletegatefalseaccepteduniquechange0. No productsourcechanges/builds/tests/lints/scans/generation/probes/CI/newtests/publication/externalmessages. Goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2389
+}

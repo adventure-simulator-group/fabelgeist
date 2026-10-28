@@ -1,0 +1,1062 @@
+{
+  "kind": "Ignored evidence integrity only; not product test/runtime verification",
+  "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-330.json",
+  "receipt_sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+  "state": "target\\726-audit-adler-20261027\\adler\\STATE-L11-330.json",
+  "state_sha256": "eff65eeec1790b27a4af8babadb774416796640705d645a593ed667cba89cabd",
+  "previous_verification_sha256": "395866e3e9d5dfcb3203b7cf4839a689d9505129c40b31cf94c35ed7e3a2a977",
+  "ledger_sha256": "2f19e7e1c5632627ffa97c0a1aa435abb8ff9fb069a13bf44994f8203ec043e0",
+  "checks": [
+    {
+      "original_index": 2115,
+      "population": "original",
+      "population_index": null,
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "lines": 156,
+      "registered_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2116,
+      "population": "original",
+      "population_index": null,
+      "sha256": "d7d808f132cf5cb9b8b7ed612cab252cbafc14dd0b690bf3ec1774c60f1bd7d6",
+      "lines": 137,
+      "registered_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    },
+    {
+      "original_index": 2117,
+      "population": "original",
+      "population_index": null,
+      "sha256": "1c4e18d75b0af80b31df9117e68879dad923acac69e5a4a34365b533be070413",
+      "lines": 141,
+      "registered_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "full_file_covered": true,
+      "all_recorded_metadata_ranges_covered": true,
+      "effective_metadata_ranges_covered": true,
+      "excluded_nonexistent_metadata_ranges": [],
+      "proof_kind": "fresh exact registered source ranges"
+    }
+  ],
+  "contextual_checks": [],
+  "extension_checks": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          99,
+          132
+        ]
+      ],
+      "registration_sha256": "e3853ffe6e3abbabeb4020e13eb51903766e9de61f1febfe0b39d537333ec89c",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "ranges": [
+        [
+          216,
+          240
+        ]
+      ],
+      "registration_sha256": "6fb3a6b3a9f0282f04359daf06a2409d710eb4ee436284c228b3ce7d994aefce",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "registration_sha256": "0e7b6088d5524760ee77210b9920a86e43f892a0911ea57a5d6c547c8a819c0d",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/materials.rs",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "registration_sha256": "b55f71b929d8a03b5da44632ccdea4730b2e05f9f68529063c6dd1ff37fbbb25",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": "unreconciled across inherited populations"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "registration_sha256": "513cc320bbeb295c27f33805d41133a3ae70fd569d6241bbddbdddc87410ea19",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "ranges": [
+        [
+          1,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "registration_sha256": "0cf8f380e9c3e6e8e8d275c256de20ed2642579c2a529e09ae229640baf5267e",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          18,
+          154
+        ]
+      ],
+      "registration_sha256": "bb31ecc94007bc997eae168738ab9171b95c1ad8ec4c364e6a8d99173a056255",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "registration_sha256": "1fdcf8e3be10fafe9f18109e6b8329014e396ca86fd6a346307931318c6c2e56",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "registration_sha256": "f072608d8b99aff4ec29c0962fdc5e5a3594cffb77fc776414277bcf75f9bbcb",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+      "ranges": [
+        [
+          45,
+          58
+        ]
+      ],
+      "registration_sha256": "1e0e429b2de643e01bf27ed5f8dfdd2d79f28c3946413f46d5e3580037cc8406",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "registration_sha256": "e16ef24c1ddcb2771ca1bacd2af8dbdc1969e13d69390dd23f228ce96ad0f366",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "ranges": [
+        [
+          159,
+          220
+        ]
+      ],
+      "registration_sha256": "7ce8a122950b0928d811bd00f59844147b718007bf8a8bbcc00c4bfd7e83a271",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "registration_sha256": "942bbfecc6805536bba33f0f9edbc45a344febbe83a88ee4501447f83272ba86",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "ranges": [
+        [
+          126,
+          236
+        ]
+      ],
+      "registration_sha256": "6a9555e7d93d8f1238f6531db9e06739cbb8dea032d0dd46ccd9ac06b4b3ec78",
+      "mandatory_lenses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "new_global_source": false
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "original_accounted": 2118,
+      "state_sha256": "eff65eeec1790b27a4af8babadb774416796640705d645a593ed667cba89cabd"
+    },
+    {
+      "lens": 12,
+      "original_accounted": 1094,
+      "state_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0"
+    },
+    {
+      "lens": 13,
+      "original_accounted": 360,
+      "state_sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+    }
+  ],
+  "head": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "branch": "handoff/726-audit-ledger-20261027-adler",
+  "worktree_status": "",
+  "next_original_metadata": [
+    {
+      "original_index": 2118,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\shapes.rs",
+        "sha256": "1bdea66bbc76b2483d53a48a954b78b725ae186d4121befd5781664c8a71e0d0",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 393,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CAMERA-WEAPON-PHYSICAL-PACKET-040",
+            "json_pointer": "/additional_fresh_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                393
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/shapes.rs",
+              "sha256": "1bdea66bbc76b2483d53a48a954b78b725ae186d4121befd5781664c8a71e0d0",
+              "read_ranges": [
+                [
+                  1,
+                  393
+                ]
+              ],
+              "read_mode": "fresh actual source/retention/receiving body, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-WEAPON-MODEL-031",
+            "json_pointer": "/related_current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                393
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/shapes.rs",
+              "sha256": "1bdea66bbc76b2483d53a48a954b78b725ae186d4121befd5781664c8a71e0d0",
+              "read_ranges": [
+                [
+                  1,
+                  393
+                ]
+              ],
+              "read_mode": "fresh actual source/retention/receiving body, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2119,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+        "sha256": "7ebda01419b989011e98bad30754c5c1fbdbebf10d1b163afcdd7ac1cf08406e",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6739,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 732,
+            "read_ranges": [
+              [
+                1,
+                211
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEAPON-VALIDATOR-116"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/assembly.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+            "json_pointer": "/source_proofs/22",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                211
+              ]
+            ],
+            "source_context": {
+              "index": 689,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+              "sha256": "7ebda01419b989011e98bad30754c5c1fbdbebf10d1b163afcdd7ac1cf08406e",
+              "read_ranges": [
+                [
+                  1,
+                  211
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "Mount/AttachmentAnchor/NodeBinding payload enums proper typed state shape; raw named component/frame/node/socket IDs retained through BTreeSet binding_order String cycle cause and lookup. Keep optional typed offset/rotation until geometric equation; immutable original labels and lexical node tie order distinguish prose label from actual identity. Rig canonical definitions retained; whole operation/codec cause owner agreed with camera before edits.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-WEAPON-SHAPE-037",
+            "json_pointer": "/current_sources/22",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                211
+              ]
+            ],
+            "source_context": {
+              "index": 689,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+              "sha256": "7ebda01419b989011e98bad30754c5c1fbdbebf10d1b163afcdd7ac1cf08406e",
+              "read_ranges": [
+                [
+                  1,
+                  211
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "Mount/AttachmentAnchor/NodeBinding payload enums proper typed state shape; raw named component/frame/node/socket IDs retained through BTreeSet binding_order String cycle cause and lookup. Keep optional typed offset/rotation until geometric equation; immutable original labels and lexical node tie order distinguish prose label from actual identity. Rig canonical definitions retained; whole operation/codec cause owner agreed with camera before edits.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1391,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2120,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+        "sha256": "2713092a69c38b46af629689c142effe251b16d0f6ebc1af5a578becb89bd236",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 7445,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 734,
+            "read_ranges": [
+              [
+                1,
+                223
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEAPON-VALIDATOR-116"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+            "json_pointer": "/source_proofs/24",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                223
+              ]
+            ],
+            "source_context": {
+              "index": 691,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+              "sha256": "2713092a69c38b46af629689c142effe251b16d0f6ebc1af5a578becb89bd236",
+              "read_ranges": [
+                [
+                  1,
+                  223
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "Clearance holds typed Fuller reference but BladeProfile already erased; features retains raw axial bounds and Cut retained raw dimensionless center/mouth/floor versus physical depth. Actual inside/lower_dimensions/tip_interval/interval recursive predicates establish unit/frame roles and budget4096/depth18/epsilon64. Carry owners through records/closures/recursive signatures to actual arithmetic. Preserve opposing-faces removal relation, max/min/tie and tiplimit branch.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-WEAPON-SHAPE-037",
+            "json_pointer": "/current_sources/24",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                223
+              ]
+            ],
+            "source_context": {
+              "index": 691,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+              "sha256": "2713092a69c38b46af629689c142effe251b16d0f6ebc1af5a578becb89bd236",
+              "read_ranges": [
+                [
+                  1,
+                  223
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "Clearance holds typed Fuller reference but BladeProfile already erased; features retains raw axial bounds and Cut retained raw dimensionless center/mouth/floor versus physical depth. Actual inside/lower_dimensions/tip_interval/interval recursive predicates establish unit/frame roles and budget4096/depth18/epsilon64. Carry owners through records/closures/recursive signatures to actual arithmetic. Preserve opposing-faces removal relation, max/min/tie and tiplimit branch.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1393,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2121,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+        "sha256": "03b18c6871c30fe26fb12471c1dbc38c0c844e483a7f0a1030edcba32bcfd400",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4028,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 735,
+            "read_ranges": [
+              [
+                1,
+                128
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEAPON-VALIDATOR-116"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_form.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+            "json_pointer": "/source_proofs/25",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                128
+              ]
+            ],
+            "source_context": {
+              "index": 692,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+              "sha256": "03b18c6871c30fe26fb12471c1dbc38c0c844e483a7f0a1030edcba32bcfd400",
+              "read_ranges": [
+                [
+                  1,
+                  128
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "PointCurve::new accepts raw y/end/width (metres), slope finite dimensionless and roundness, retains four raw axial/width control points. Actual Bernstein polynomial/52step width inversion read. Establish checked composite and return owners after actual result; preserve zero width at terminaltip and nonpositive slope versus finite input policy. FullerGroove::on_face bool is actual front/back semantic candidate; envelope physical y versus dimensionless smooth phase distinguished, later enum/granularity lenses decide.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-WEAPON-SHAPE-037",
+            "json_pointer": "/current_sources/25",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                128
+              ]
+            ],
+            "source_context": {
+              "index": 692,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+              "sha256": "03b18c6871c30fe26fb12471c1dbc38c0c844e483a7f0a1030edcba32bcfd400",
+              "read_ranges": [
+                [
+                  1,
+                  128
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "PointCurve::new accepts raw y/end/width (metres), slope finite dimensionless and roundness, retains four raw axial/width control points. Actual Bernstein polynomial/52step width inversion read. Establish checked composite and return owners after actual result; preserve zero width at terminaltip and nonpositive slope versus finite input policy. FullerGroove::on_face bool is actual front/back semantic candidate; envelope physical y versus dimensionless smooth phase distinguished, later enum/granularity lenses decide.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1394,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2122,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+        "sha256": "f3534f8ad0f7697e0d2bf20a51798c986ec64f56d8228d616dad7e2c520841c5",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5873,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 730,
+            "read_ranges": [
+              [
+                1,
+                158
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEAPON-VALIDATOR-116"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_profile.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+            "json_pointer": "/source_proofs/20",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                158
+              ]
+            ],
+            "source_context": {
+              "index": 687,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+              "sha256": "f3534f8ad0f7697e0d2bf20a51798c986ec64f56d8228d616dad7e2c520841c5",
+              "read_ranges": [
+                [
+                  1,
+                  158
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "Concrete main F016: From<&LoftedBladeParameters>/From<&SectionBladeParameters> strips Metres/Ratio into retained BladeProfile f64. body/progress/point_start/point_curve/dimensions/center/validate receive or return raw dimensional/dimensionless values before caller retains profile/stations/callback inputs. Actual trigonometric/polynomial operation needs primitive locally; carry owners across intervening first-party signatures and result records. Source f64/local sign/0/belly/curvature/ratio policy preserved.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-WEAPON-SHAPE-037",
+            "json_pointer": "/current_sources/20",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                158
+              ]
+            ],
+            "source_context": {
+              "index": 687,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+              "sha256": "f3534f8ad0f7697e0d2bf20a51798c986ec64f56d8228d616dad7e2c520841c5",
+              "read_ranges": [
+                [
+                  1,
+                  158
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "Concrete main F016: From<&LoftedBladeParameters>/From<&SectionBladeParameters> strips Metres/Ratio into retained BladeProfile f64. body/progress/point_start/point_curve/dimensions/center/validate receive or return raw dimensional/dimensionless values before caller retains profile/stations/callback inputs. Actual trigonometric/polynomial operation needs primitive locally; carry owners across intervening first-party signatures and result records. Source f64/local sign/0/belly/curvature/ratio policy preserved.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1389,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    },
+    {
+      "original_index": 2123,
+      "registry_record": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-weapon-model/src/recipe/facing.rs",
+        "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4591,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 733,
+            "read_ranges": [
+              [
+                1,
+                116
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEAPON-VALIDATOR-116"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/facing.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+            "json_pointer": "/source_proofs/23",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                116
+              ]
+            ],
+            "source_context": {
+              "index": 690,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/facing.rs",
+              "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+              "read_ranges": [
+                [
+                  1,
+                  116
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "directions returns typed Direction, source primitive extraction only inside explicit new offset abs*sign arithmetic then Metres::new for newly computed result; this is legitimate new result admission, no unchanged-value rewrap. Cause String for cycles/missing/nondirectional references before validate maps Facing and placement propagates generic requires structured source chain. Original opposite end fixture exact two signs/mounted-vs-attached equivalence stays.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-WEAPON-SHAPE-037",
+            "json_pointer": "/current_sources/23",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                116
+              ]
+            ],
+            "source_context": {
+              "index": 690,
+              "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/facing.rs",
+              "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+              "read_ranges": [
+                [
+                  1,
+                  116
+                ]
+              ],
+              "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+              "contract_trace": "directions returns typed Direction, source primitive extraction only inside explicit new offset abs*sign arithmetic then Metres::new for newly computed result; this is legitimate new result admission, no unchanged-value rewrap. Cause String for cycles/missing/nondirectional references before validate maps Facing and placement propagates generic requires structured source chain. Original opposite end fixture exact two signs/mounted-vs-attached equivalence stays.",
+              "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1392,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      }
+    }
+  ],
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "qualifications": [
+    "330 accounts2115..2117 next2118 REG967full393 alreadyregisteredunread;2119REG968full211nextactualassemblyconstants andframeconstraints. REG969..9732120..2124 alsoregisteredunread; nextnewREG978.14extensions/fiveEOFqualifications/future2151/2605proof328 plusolderadoptions retained.",
+    "New pendingconnectedposehypothesis2116: specialglobalgrip/shieldaliasframepositionregisteredfromrotatedcomponent, rotationonlystoredbyactualcomponentid, overlapdirectionlookupownerdefault0. Needactualconstantstrings2119+allowedGripIDs/rotations/aliasattachmentvalidation/current toprovevalidfixture; no newfindingoractualbadrecipeclaimyet. Canonicalbase/bottomaliases/implicitroot/shaftzero rotationintentionalitysameownertracebeforecompatibilitylabel.",
+    "ActualresolveMetres::new protectscompletecomputedoffset beforepublishedResolved, scratchgraphpartialchangesdiscardonerror. Otherderivedframe/surface/physicsvalidation/all20/sourcecurrent/acceptance stillpending, notblanketclearancefromonecheckedoffset.",
+    "All13 populations/current/all20/aliases/connectedacceptance/dedup ledger incompletegatefalse accepteduniquechange0. No productrepairs/build/tests/lint/scanner/generator/runtimeprobe/CI/newtests/commits/publication/externalmessages;goalactive."
+  ]
+}

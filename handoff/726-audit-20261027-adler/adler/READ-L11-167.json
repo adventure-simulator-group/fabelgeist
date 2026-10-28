@@ -1,0 +1,108 @@
+{
+  "lens": 11,
+  "batch": 167,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1296,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-107.json",
+      "registration_sha256": "8da36a8ff545db4bd8257eb669ed60c75bc7298d06d7c75dd04d272cb1ffdd53",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+      "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+      "scope": [
+        [
+          1,
+          343
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          343
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          5,
+          39
+        ]
+      ],
+      "roles": "Public route distance and movement-duration conversion.",
+      "disposition": "Coordinate bespoke units remain until degrees conversion, then geographic boolean switches spherical-earth versus local grid km interpretation. Returned u64 means rounded meters at least1; duration Option meanspositiveonly. Actual callers and canonical route-coordinate interpretation required before attributing mismatched travel cost; no runtime or cross-lens numerical verdict."
+    },
+    {
+      "ranges": [
+        [
+          41,
+          173
+        ]
+      ],
+      "roles": "Typed route/traveler aggregates and projected exposure interval engine.",
+      "disposition": "PublicThermalProjection joins end SurvivalState with safe bool; RoundTripThermalProjection joins route, traveler, itinerary references and action duration. Shared projector rejects truncated/zero/over-sixty-day declared total and zero movement; it iterates actual segments and casts movement offset/divisor to i64 without internally validating segment coverage/sum/order. Authoritative constructed itinerary producer must establish those invariants; malformed hypothetical object not yet admitted ordinary input. Conservative zero weatherproofing/peripheral protection explicitly documented, not missing-private-clothing proof. Unsafe earlyreturn preserves knownfalse in caller conjunction."
+    },
+    {
+      "ranges": [
+        [
+          175,
+          235
+        ]
+      ],
+      "roles": "Stationary field versus outdoor exposure projection.",
+      "disposition": "Zero duration returns unchanged state and safe true without checking initial strain; connected ordinary callers generally carry outbound safe conjunction, so not accepted unsafe-admission bug. Nonzero stationary adapter invents total_movement_minutes=1 while segment movement0 and identical endpoints; documented sentinel is representational dependency for a clean stationary/path exposure type rather than real movement or compatibility fallback. No fatigue change inferred from placeholder itinerary fatigue fields."
+    },
+    {
+      "ranges": [
+        [
+          237,
+          343
+        ]
+      ],
+      "roles": "Temporal sequencing of outbound, optional recovery, action and return projections.",
+      "disposition": "State explicitly threaded and environmentalclock advanced by declared segment totals; recovery tent allowed but action outdoor. Final boolean conjuncts every phase safety; Option None covers unavailable forecast rather than false. Proper duration/witness types and validated forecast shape remain connected producer dependencies. Entire file has no cfg(test) delimiter, but earliest delimiter in full concatenation still needs other units; no broader source-test coverage inferred."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-151.json",
+      "sha256": "cb2c307f2d1f4cd4cf35c4ef2e20dea809d892297a1297e890cba410b2c1d283"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-156.json",
+      "sha256": "8556c917fbca3350df57347fb3b05629889681c7a169ae9cb787c1dc73912728"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-160.json",
+      "sha256": "43ea7c704bbf240c697cc20e28510d69ca6a1a473406e8fed3c0cb3100d50b81"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-163.json",
+      "sha256": "34cde6921c0b1af0f87244f2089a34a116c5a14bcc13115fc6839e64e43d759e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-165.json",
+      "sha256": "b147b3914e8398fc507bb321bd7e2ee848514bad691d13cad409e3fa9a3adeae"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-166.json",
+      "sha256": "90784fa0521e1169822d6db5649e1d6bb90b54665a5ef95768cd53e9c704e87e"
+    }
+  ],
+  "pending_contracts": [
+    "Prospective registration was first saved with filename adler/107; identical contents copied to canonical REGISTRATION-ADLER-107.json before any body read. Failed missing-canonical-path read observed no body; preserved original107 for provenance.",
+    "Current-source, canonical itinerary producers/validation, stationary sentinel owner, all populations/families/aliases and connected acceptance remain pending. No execution or repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1297
+}

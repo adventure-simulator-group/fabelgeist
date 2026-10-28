@@ -1,0 +1,156 @@
+{
+  "lens": 11,
+  "batch": 125,
+  "status": "Original1228 standalone112,1229 streams46,1230 missionroster101,1231 authorityfixtures231 exact scopes source-accounted WITH findings",
+  "sources": [
+    {
+      "lens": 11,
+      "original_index": 1228,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/standalone.rs",
+      "sha256": "f8c439a961994d8cecdb92d5714dc22d3bf156311809819c89c78e0a1cbdd1a5",
+      "object_path": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\source-objects\\f8c439a961994d8cecdb92d5714dc22d3bf156311809819c89c78e0a1cbdd1a5",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Lens11 exact ordered standalone/stream/mission roster owner scope following actual bootstrap consumers.",
+      "provenance": "Transported exact registered object",
+      "fresh_reads": [
+        [
+          1,
+          112
+        ]
+      ]
+    },
+    {
+      "lens": 11,
+      "original_index": 1229,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/streams.rs",
+      "sha256": "07b827d6de030e024becdf33498ae858f561c957cef249f2bcf024566895b906",
+      "object_path": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\source-objects\\07b827d6de030e024becdf33498ae858f561c957cef249f2bcf024566895b906",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Lens11 exact ordered standalone/stream/mission roster owner scope following actual bootstrap consumers.",
+      "provenance": "Transported exact registered object",
+      "fresh_reads": [
+        [
+          1,
+          46
+        ]
+      ]
+    },
+    {
+      "lens": 11,
+      "original_index": 1230,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "object_path": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\source-objects\\f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Lens11 exact ordered standalone/stream/mission roster owner scope following actual bootstrap consumers.",
+      "provenance": "Transported exact registered object",
+      "fresh_reads": [
+        [
+          1,
+          101
+        ]
+      ]
+    },
+    {
+      "lens": 11,
+      "original_index": 1231,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+      "sha256": "b7a857a5b5c6d5ff38ff46fc5c80fb4a4bf41a4138454c7e089e6099d6f7ae7a",
+      "object_path": "target\\726-audit-adler-20261027\\adler\\source-objects\\b7a857a5b5c6d5ff38ff46fc5c80fb4a4bf41a4138454c7e089e6099d6f7ae7a",
+      "ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Lens11 exact changed mission roster authority-test source, read-only fixtures not executed.",
+      "provenance": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+      "fresh_reads": [
+        [
+          1,
+          231
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1228,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "roles": "Admitted standalone mission family, exact domain separator/prefix/nonempty coordinate and family-specific site distance/CRS conversion; existing parser/diagnostic fixtures.",
+      "disposition": "Canonical MissionId validates namespace first, then exact mission-coordinate prefixes classify Animation/Diagnostic or meaningful General; General is ordinary admitted family, not legacy fallback. Prefix special families reject empty coordinate. Current signature accepts&str and reparses existing typedMissionId upstream; carry admitted MissionId and parsed family where retained. CaseId derived rawString helper accepts arbitrary&str internally despite callers validating; make derive canonical owner operation, no alias/compatibility. Metres, latitude degree and unboundedcoord-unit conversion constants named distinct roles; booleanCRS can be canonical coordinate kind not global generic fraction. Diagnostic distance2000m while others0 legitimate, no universal positive distance. Existing tests read only."
+    },
+    {
+      "original": 1229,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "roles": "Replay-owned named random streams, generated melee/ranged/armor/rating requirements and site bearing radians.",
+      "disposition": "StreamId and Seed canonical typed owners already prevent raw hashstream constants mistaken for human text. Names immutable replay namespaces, not user-selectors. Actual role producer chooses exactly melee or ranged and one of no/quarter/half armor; core RoleRequirements flags may be independent filters elsewhere, so no universal sum forced without allproducer contract. Ratings random0..3, precision0/0.5/1/1.5 satisfy actual admission constraints but not probability. Site bearing actual unitf64*TAU is angle, not unit fraction; rawsiteID distinct seed and stream purpose. No RNG/generator invoked."
+    },
+    {
+      "original": 1230,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "roles": "Native typed MissionRosterError, live group roster capture versus immutable bound snapshot, mission state and combat/drop parameter capture.",
+      "disposition": "Actual MissionEnemyRoster canonical owner from core validates collected identities, count derived from admitted roster compared live group count once at capture; stored snapshot enemy_roster revalidates itself and actual Character existence without rereading changing group count. MissingCharacter(u64) purpose ID versus raw missingordinal; typed nested EnemyRosterError preserves structured kind until native endpoint. MissionAuthority::capture coherent named constructor owns bound state/None committed payload/snapshot, but accepts independent raw mission/party/observer/site/group/scene; body only roster validation, not party-site-group/scene authority. Caller admission from bootstrap/source122 retained; no ordinary mismatched constructor incident claimed. Raw storage enemy Vec widened from canonical roster then re-admitted at each use, DTO boundary reasonable but internal typed return preferable. Preserves base difficulty with live scale/normalized power intentionally snapshot fields, not automatic mismatch."
+    },
+    {
+      "original": 1231,
+      "ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "roles": "Guarded authority fixtures for live roster drift/emptyduplicate/missing identities, tactical launch versus autoresolve and finale exact ownership receipts.",
+      "disposition": "All are source-only fixtures behind authority-tests and compiled capability guard. Source mutates live group count then expects capture fails while stored roster stable; invalid enemyVec variants exercise launch/report absence, restores source and compares request count/IDs. Case finale fixture executes twice and rejects source/party mismatch while other finale ineligible. These specify intended acceptance but are not executed passing tests or proof of actual runtime isolation. Embedded Vec0index presumes admitted nonempty roster owner; no new arbitrary fixture-ID policy or ordinary MAX_ID mishap inferred. No DB write/reset/test/helper run."
+    }
+  ],
+  "prior_same_lens_context": {
+    "receipt": "handoff\\726-audit-20261027-adler\\evidence\\continuation-segovb\\audit-resume-20261027\\lens11\\batch-032-receipt.json",
+    "sha256": "1dd44f6a3c68698dbe73e37b15eb3605b87540976bc61d1326400284be4944ef",
+    "source_index": 1230,
+    "qualification": "Prior registration requested1..115 but actual EOF101 and actual-read1..101. Exact full101 freshly read now; no missing102..115 body invented."
+  },
+  "pending_contracts": [
+    "Every actual core roster/count/error owner, ordinary mission binding/tactical launch authority/scene/site relation and current native/SDK/client source remains separate source obligations; earlier exact same-lens proofs retained.",
+    "All13 populations/extensions/current/all20/alias/connected repair acceptance incomplete. No execution, product edits or accepted unique additions."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1232
+}

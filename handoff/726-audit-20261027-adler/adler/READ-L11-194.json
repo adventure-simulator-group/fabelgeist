@@ -1,0 +1,257 @@
+{
+  "lens": 11,
+  "batch": 194,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 1382,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-198.json",
+      "registration_sha256": "06b46801fa80f405caef423adfa004a7a5ad0d1b2e54ce02e892243f124d4884",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/target_speed.rs",
+      "sha256": "6fd2a1c9a3a33667760a393c13375e52b1d5405bc665617b8ec84f44a9430663",
+      "scope": [
+        [
+          1,
+          58
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "original_index": 1383,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-199.json",
+      "registration_sha256": "c8871ba51de71599007a3a0bf858f49c7e0098966ab8cf5fa9124522affc1020",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terminal.rs",
+      "sha256": "87307931b63413a77180b12610949cf5a3545ff101c8fa2ff2589c50b720b378",
+      "scope": [
+        [
+          1,
+          59
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          59
+        ]
+      ]
+    },
+    {
+      "original_index": 1384,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-200.json",
+      "registration_sha256": "7cdefd199c4be9e04bc1754784cc5c6d6504b36a96728383b820e17dd3cb1262",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "sha256": "bd69d05aa06177aadb3c0a7e2e2e42f1e86fccf3ae5fc389bf5755bb6911f5dc",
+      "scope": [
+        [
+          1,
+          564
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          190
+        ],
+        [
+          191,
+          380
+        ],
+        [
+          381,
+          564
+        ]
+      ]
+    },
+    {
+      "original_index": 1385,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-201.json",
+      "registration_sha256": "811eb676970c2bc7433627c6a03c723bb82503ab835fcc7c10f355145fe64b0e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/approach.rs",
+      "sha256": "2c19e2ae2a9bad27291f92cec00c346ba03f1254289e441714f84016a5e37e7e",
+      "scope": [
+        [
+          1,
+          76
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "original_index": 1386,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-202.json",
+      "registration_sha256": "96f01489612632ab5bfd7a987e837fa7e3869806c3c18bd48725ec5646355c2e",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs",
+      "sha256": "522eaadd0e7580f987c7a1d37d5687abf202baca0b78bdc2ae9247d3de39424c",
+      "scope": [
+        [
+          1,
+          256
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          256
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        1382
+      ],
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "roles": "Checked native linear budgets with explicit release/settle policies.",
+      "disposition": "FootTargetSpeeds converts configured step*samplefrequency into NonnegativeSpeed with typed error before global coordinator evaluation. Firstrelease/restart/raisedsettle distinct intended budgets, no perframeunitmix atstoredfields. Actual configbounds/hotchange ownership pending; no runtimeexecution."
+    },
+    {
+      "source_indices": [
+        1383
+      ],
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "roles": "Terminal correction ownership staged as explicit variants.",
+      "disposition": "Inactive/Seeded/Prepared(TerminalReach) separates visible seed from actual terrainprepared state. shiftInactiveZERO is defined neutraloffset, not fabricated observedmeasurement. Prepared binds baseTranslation/shift/optional targetshift; seed failure preserves no preparedownership. prepare itself accepts no witness but exact caller192 actualterrainpair precondition established; no automatic publicAPI complaint from visibility alone."
+    },
+    {
+      "source_indices": [
+        1384
+      ],
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "roles": "Contact/release ownership, resolved analytic endpoint continuation and actual owner-speed measurement.",
+      "disposition": "Logical bounded release goal explicitlymeanscurrentwaypoint ratherthan unreachablefinalcontact. Resolved end publication purpose-specific and distinct from claimed native success (apply helper193 lackswitness). Measured ownerspeed requiresprevious actualorigin and advancing/nonzero interval, otherwise None/retained explicit; checkedtypedresult beforehistorycommit. No phantomfirstvelocitydefault."
+    },
+    {
+      "source_indices": [
+        1384
+      ],
+      "ranges": [
+        [
+          209,
+          387
+        ]
+      ],
+      "roles": "Cadence lobe/plan lifecycle and owner-versus-world continuity.",
+      "disposition": "CyclePhase/CycleDelta/UnitInterval retained until scalarphasekernel; exhaustedlatch checkedraw cadence, acquisitionclear helper clearscontact/start/phase together. acquired_plan_can_clear and contact_support_weight are identity semantichelpers with comments, not proven deprecatedcompatibility APIs justfrombodyshape. Original1380release omitscontactclear despite helperavailable, actualnormal reachableplan lifecycle stillpending. Run previous owner target prioritizesactualpropagatedposition, unlikeanalyticothergait explicitpolicy."
+    },
+    {
+      "source_indices": [
+        1384
+      ],
+      "ranges": [
+        [
+          389,
+          564
+        ]
+      ],
+      "roles": "Late plan bounds, run descent readiness, scalar advance and native smoothing.",
+      "disposition": "Late plan comparesremainingphase totypedcontactphase andspeed toderivedseconds; finalVec3validatedatcallerpublication. Descent requiresrun/risinglobe/rawsupport+reachable before FootDescent FollowFloor, elseRaiseOnly; doesnotassertcurrentterraincontact. Reachhelpernativeasdocumented; semantic supportidentity deliberate. smoothstep assumesdistinctedge values, actualconfigurationadmission/callerspending beforedegenerateintervalfinding. No crosslens magicnumber verdict."
+    },
+    {
+      "source_indices": [
+        1385
+      ],
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "roles": "Dimensionless contact approach ratio with explicit collapsed-window policy.",
+      "disposition": "Typedcycles meetnative ratio; approach<=ready returns typed stepONE/ZERO ratherthandividezero. Positive tiny windows interpolate directly, existingfixture sourcecoverscollapsed/smallwidth intent. This is constantvelocity contactacquisition policy, distinctfrom182quarteranchor remapping; no crossfunctiongloballinear assertion. Tests sourceonly."
+    },
+    {
+      "source_indices": [
+        1386
+      ],
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "roles": "Joint terrain clearance and owner motion sphere search.",
+      "disposition": "No previousfiniteowner takescheckeddesired+actualoptional floor, no fakehistory. Finite nativecompletedpoints checked eachclearedsample; normaldesired acceptedinsidebudget, sampledline/disk/refinement search otherwise. Explicit overbudgetleastdiscontinuousfallback returns sameVec3Ok asbudgetvalidtarget; this is geometricfallbackpolicy, notlegacycompatibility path. Comment calls disk complete but finitegrid+chorddistance<=.04+earlyNoneforoneunknown sample cannotprove exhaustiveinfeasibility; actualterrainshape/admittedcoverage and acceptanceexceptionspending. No newaccepted continuitydefect solelyfromapproximate search."
+    },
+    {
+      "source_indices": [
+        1386
+      ],
+      "ranges": [
+        [
+          162,
+          256
+        ]
+      ],
+      "roles": "Existing captured target/uphill/offchord source fixtures.",
+      "disposition": "Fixturesassert finite/clearance/budget in selected captured or analyticterrain cases, callbacksNone intentionallyadmitted atouterprojection. No sourcefixturecoversnarrowunsampledfeasibleinterval, unknownoffchordsample aftercandidate or unavoidableoverbudgetclassification. No execution/newtests; qualifyinglimits retainedwithoutassumingneedsrepair."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-187.json",
+      "sha256": "384f724657d2dd13432ad6a5573671a61bc6a7f39b73b02ce2b0357742e8d895"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-189.json",
+      "sha256": "a68730444c62595c5321a8e762a9366f327caa5cbce6b39a3f6ce17b0b4ae462"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-190.json",
+      "sha256": "cdc7a00ed64a26af256d37d15b0e1d80c6528b74f8033576246f892f53f2d878"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-191.json",
+      "sha256": "d4a0ce1e2f009f987fc1f2f2bf7d6d9a7d0f731123a31f2252eea74dc8ac3779"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-192.json",
+      "sha256": "9051400928f7f0d626a83c40d6aec372792be967d1df026c64f7a742caab97ac"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-193.json",
+      "sha256": "2f1d3a05d04acc122015a402c21c1ade67b0a13d26ed9280feeef178e1e8257c"
+    }
+  ],
+  "pending_contracts": [
+    "Terrain projection overbudgetfallback indistinguishable from budgetvalidVec3; admitted native surfaces/acceptanceexception semantics and ordinary routing remain pending before classifying defect.",
+    "Finite sampled search not proof of full-disk infeasibility; do not claim native continuity accepted from three source fixtures.",
+    "Knee-yaw/foot orientation findings retain193 qualifications. All13 populations/current/all20families/aliases/connected acceptance incomplete, no product execution/repairs."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1387
+}

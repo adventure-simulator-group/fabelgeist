@@ -1,0 +1,104 @@
+{
+  "lens": 11,
+  "batch": 138,
+  "status": "Original1251 full741-line native schedule source accounted WITH findings, exact normalized-versus-actual interval consumer association",
+  "original_index": 1251,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+  "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+  "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-058.json",
+  "scope": [
+    [
+      1,
+      741
+    ]
+  ],
+  "fresh_reads": [
+    [
+      1,
+      250
+    ],
+    [
+      251,
+      500
+    ],
+    [
+      501,
+      741
+    ]
+  ],
+  "role_dispositions": [
+    {
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "roles": "Actual settlement/case-site/journey activity context, canonical location redistribution, saved schedule precondition and personal clock initialization.",
+      "disposition": "ActivityExecutionLocation holds policy plus optional origin settlement, with actual producer coupling settlement/case context; named admitted place/context can retain this rather than freely mixed fields. Unknown offsettlement occupancy becomes JourneyCamp policy but does not itself prove real reached camp. effective_location_schedule re-admits canonical ValidatedSchedule and expects saved-on-write validity, returns clone with selected redistributed fields. Reading_minutes is not copied from redistributed; actual core effective_at and location policy required before calling stale reading allocation a defect. Native ensure_character_time only initializes missing personal clock from official minute and default schedule, never overwrites existing chronology; this narrows clockinit-versus-advance confusion. No seeding/init called."
+    },
+    {
+      "ranges": [
+        [
+          128,
+          226
+        ]
+      ],
+      "roles": "Organization schedule admission versus interval-start eligibility projection, canonical training profile and oral real-hour training.",
+      "disposition": "Positive apprenticeship/practice requires real eligible organization and practice-permitted role. Effective saved plan can become leisure on lost eligibility without mutating saved user choice; deliberate policy, not compatibility fallback. It clears minute allocations but retains associated organization refs as inert optional metadata; final admitted schedule can encode Enabled{organization,minutes}/Inactive if appropriate, not preserve contradictory operative states. Errors to .ok/.is_err collapse invalid native membership with expected unavailable; typed cause boundary needed if diagnostic ownership material. OralLanguageHours canonical family and real hours versus excess effective hours have separate meaning."
+    },
+    {
+      "ranges": [
+        [
+          228,
+          418
+        ]
+      ],
+      "roles": "Skill-hours projection, sociability/transparency policy, canonical schedule/religion/organization training, real ambient language exposure and source copyback.",
+      "disposition": "Local SkillHours record maps actual native stored leaves into canonical core record then back. Religion/bestiary family leaves remain separate owners; typed Skill not universal single f32storage. Prayer chooses optional current OfficialReligion, personal and organization written-language training use actual governing aptitudes. Raw elapsed currently serves both normalized schedule scale and actual ambient duration. Exact immediate caller134:327..334 passes MINUTES_PER_DAY so selected allocation means one actual interval; ambient321..341 instead uses elapsed directly and grants16 real hours weighted language for any positive shorter settlement activity. Actual comment says actual elapsed; connected interval-association finding below, no executed/current/acceptedunique claim. Preserve schedule training proportional allocation while separating true interval duration. Core BPS and hours/time/rank/aptitude purpose types needed, no arbitrary caps."
+    },
+    {
+      "ranges": [
+        [
+          419,
+          639
+        ]
+      ],
+      "roles": "Social receipt total, closed terrain-to-skill map, ordinary versus family direct storage, book target rank/aptitude/medium/band and bounded skill gain.",
+      "disposition": "BookTarget already payload sum Written/Religion/Bestiary/Terrain/Skill, target_snapshot returns anonymous(rank,aptitude) with same scalar roles distinct; named TargetTrainingState improves association through kernel. Terrain raw string and ordinary Skill target need parse once into canonical supported training target; direct_skill_hours_mut excludes family Skill variants by unreachable, actual callers pre-admit through BookTarget/core ordinary_skill before use. Do not infer ordinary panic without broader core mapping. Family effective projection closure and transferred ordinary correlations deliberately differ, preserve native direct versus effective hours/bounded rank and trained-skill transfercap. Kernel numerical intermediates need not bespoke wrapper each; public retained operands must carry meaning and numeric invariant."
+    },
+    {
+      "ranges": [
+        [
+          641,
+          741
+        ]
+      ],
+      "roles": "Eligible personally owned or on-site bookstore catalog selection, bounded title handoff and unused real time, canonical DailySchedule adapter.",
+      "disposition": "Positive personal inventory quantity gives owned book; actual bookstore stock allowlist permits on-site reader. BookCandidate explicit personal flag/typed definition, stable catalog/item order, readability/target rank lower-upper/aptitude boundaries before apply; target capped midinterval reselects next eligible title. Unusable IDs and unused-real-time progress guard bound repeated zero gain, no infinite-loop assertion from while alone. excess intentionally remains0 in reading adapter (source has excess+=0); distinguish accepted gain from excess mastery rather than assume lost skill progress. Native core_schedule flattens ownorganization relation out of pure DailySchedule intentionally because organization handled separately; do not discard association in admitted native port. Existing canonical ValidatedSchedule actual source owner admission/current readers still required."
+    }
+  ],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-134.json",
+      "sha256": "127cef88ccbb3f83de2214aded9d872360030ffd68f98ad02fcebde3232e29f5"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-136.json",
+      "sha256": "ad18a29e24dbe517ae21426515bc30e0ce30226e7a53216ced3abc05269b1457"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-137.json",
+      "sha256": "c946a8d8bc5bcb60cc67b15452a559da525e640e8fda5e2fbeb54da4bf892124"
+    }
+  ],
+  "pending_contracts": [
+    "Canonical ValidatedSchedule/effective_at reading policy and native saved-write proof; real elapsed versus normalized daily scaling across training callers, current sources and aliases before distinct acceptance.",
+    "Book target/leaf storage, organization eligibility/error and native schema/client propagation; all13 populations/extensions/current/all20/aliases/connected repair acceptance incomplete."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 1252
+}

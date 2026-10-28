@@ -1,0 +1,348 @@
+{
+  "lens": 11,
+  "batch": 355,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2227,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1086.json",
+      "registration_sha256": "4859ba4d684293f90ca3fdeb28590a5d2752fcaa9a19a50e72104e0059159a97",
+      "source_id": "pr-working:crates/fabelgeist-cloth/Cargo.toml",
+      "sha256": "4d25ce0c957fc08ea17964e695728d4c47251e88e98ad2eace19233a20128a2d",
+      "scope": [
+        [
+          1,
+          21
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "original_index": 2228,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1087.json",
+      "registration_sha256": "1377ebca0c96339ecc3176546e308a48182e38cdf7ee63253af161109b00ac77",
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "scope": [
+        [
+          1,
+          93
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          93
+        ]
+      ]
+    },
+    {
+      "original_index": 2229,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1088.json",
+      "registration_sha256": "9c49a5402dae0a7096112acca797fb5a5a3ab31e4ce708786fb7568fc6a4e82e",
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "scope": [
+        [
+          1,
+          156
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          156
+        ]
+      ]
+    },
+    {
+      "original_index": 2230,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1089.json",
+      "registration_sha256": "fd3244ecbbc4d5eb34f8c23304ce7608112563bb1859b1d2561f03c45d7695e3",
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "scope": [
+        [
+          1,
+          34
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          34
+        ]
+      ]
+    },
+    {
+      "original_index": 2231,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1090.json",
+      "registration_sha256": "59fe8e2bbed53996773153d59c79d739e3c35eb7a2565bff530764b88f24f381",
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/surface_contact.rs",
+      "sha256": "fe0e9ecb46d3101535274523f58c8b35f92d8e1f4d69d6b37b5826cac9120001",
+      "scope": [
+        [
+          1,
+          1
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "original_index": 2232,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1091.json",
+      "registration_sha256": "51cd7afd4f3faf91f1e0e03b8c59af12359b1dfb7653a222ab6d8544a5b128bd",
+      "source_id": "pr-working:crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "scope": [
+        [
+          1,
+          25
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          25
+        ]
+      ]
+    },
+    {
+      "original_index": 2233,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1092.json",
+      "registration_sha256": "c8a03d478b4aeba843c4e9947dea1956295c9c34c8c44cd9c4538c58798daf80",
+      "source_id": "pr-working:crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "scope": [
+        [
+          1,
+          80
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          80
+        ]
+      ]
+    },
+    {
+      "original_index": 2234,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1094.json",
+      "registration_sha256": "eb36e56ab29cd7fe1466d8039c9c1b1e9959a0d6c77610d312e08f05fccc9a89",
+      "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+      "sha256": "1c16766feee62bbb80b38bdcc46c18cd7c732d6f2d796a4c26e228cb4eff6f1e",
+      "scope": [
+        [
+          1,
+          472
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          472
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2227
+      ],
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": "Independent lens11 exact cloth/shared-material facade and color native storage/conversion admission.",
+      "disposition": "Full21 cloth manifest current shared Shell/GPU/compute/math dependencies with feature choices, anyhow owned dynamic errors; not String erasure by dependency choice. Native shell/error/material admission and current all20 comparison remain pending."
+    },
+    {
+      "source_indices": [
+        2228
+      ],
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "roles": "Independent lens11 exact cloth/shared-material facade and color native storage/conversion admission.",
+      "disposition": "Full93 Cloth owns Shell and Fabric, explicit Deref/DerefMut exposes current shared solver facade rather than automatically deprecated compatibility forwarding. new copies GarmentMesh topology/weights into ShellMesh and calls Shell::new with converted Fabric. apply_fabric updates full shell material then apply_material. step/record_step/interleaved update only thickness and use settings with fabric damping; actual Shell material upload, density/mass construction and expected caller mutation policy pending before stale-fabric claim. anyhow preserves owned sources; exact public error owner still pending."
+    },
+    {
+      "source_indices": [
+        2229
+      ],
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "roles": "Independent lens11 exact cloth/shared-material facade and color native storage/conversion admission.",
+      "disposition": "Full156 Fabric uses typed ParticleArealDensity and raw f32 material/visual fitting controls. Six named display presets are finite positive; prose approximate compliance band is not a guaranteed bound on every chainmail preset. Particle radius half thickness; builders permit changes without local validation, actual Shell material validation/canonical mesh mass construction pending. From Fabric to ShellMaterial copies compliance/thickness/friction/damping, not density; density consumption in garment construction must be read before calling it ignored. Current physically distinct presets and display labels are not magic dispatch/legacy fallback."
+    },
+    {
+      "source_indices": [
+        2230
+      ],
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "roles": "Independent lens11 exact cloth/shared-material facade and color native storage/conversion admission.",
+      "disposition": "Full34 public cloth module and direct facade exports. Native shared geometry, contacts and garment interfaces require their actual bodies; declaration paths alone grant no child coverage or duplicated-owner finding."
+    },
+    {
+      "source_indices": [
+        2231
+      ],
+      "ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "roles": "Independent lens11 exact cloth/shared-material facade and color native storage/conversion admission.",
+      "disposition": "Full1 direct shared Shell surface_contact reexport. Current shared owner facade is not automatically a backward-compatibility alias; actual public API migration and all20 comparison required."
+    },
+    {
+      "source_indices": [
+        2232
+      ],
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "roles": "Independent lens11 exact cloth/shared-material facade and color native storage/conversion admission.",
+      "disposition": "Full25 color manifest current optional serde/bytemuck/std/default and optional wgpu29 feature set with thiserror2.0.18. No dependency build or runtime executed."
+    },
+    {
+      "source_indices": [
+        2233
+      ],
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "roles": "Independent lens11 exact cloth/shared-material facade and color native storage/conversion admission.",
+      "disposition": "Full80 Color reprC public four-f32 RGBA math/vector port with optional Serde/Pod/Zeroable. No finite/unit-range invariant promised in this file; HDR/out-of-gamut and lerp extrapolation are legitimate potential uses. Constants finite unit; default White. Do not infer a BasisPoints-style wire bypass merely from derived Deserialize on a raw color vector. Actual space/native GPU/consumer contracts and all20 owner fit pending."
+    },
+    {
+      "source_indices": [
+        2234
+      ],
+      "ranges": [
+        [
+          1,
+          472
+        ]
+      ],
+      "roles": "Independent lens11 exact cloth/shared-material facade and color native storage/conversion admission.",
+      "disposition": "Full472 conversion after raw1093 scoped1..230 cut I420 DestinationBufferTooSmall; prospective1094 adds231..472 before body read. Typed ConversionError retains source/destination format and expected/actual sizes, SingularMatrix actual inversion helper body pending. Bradford adaptation and color transfer composition use raw primaries/whitepoints; actual source validation/native math before singular/nonfinite finding. Identical ColorSpace identity is valid math, not compatibility fallback. Pixel identical-format early branch copies min buffer lengths and returns Ok ignoring width/height expected extent, new qualified admission gap. Nonidentity RGBA/BGRA branches check at least pixelcount*4 but iterate whole src/dst chunk zip rather than requested prefix; suffix mutation policy needs caller contract before separate finding. R8 branch explicitly bounds src to expected count. Native YUV calls use floor n/2 and n/4 chroma lengths; actual yuv.rs plane/index/odd-dimension admission needed before claiming panic. width*height and sizes unchecked in public usize math; actual shape/extent owners and callers pending. Full file tests only colorimetric P3 red and exact-sized BGRA to RGBA sample; no same-format short-buffer assertion here, wider acceptance inventory pending. No tests/conversion/objects/arithmetic probes executed."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-345.json",
+      "sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-346.json",
+      "sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-347.json",
+      "sha256": "b7b08ad4dad155bfcf195bcc699b9610eafab357465b16b8e4b98f8b263158b8"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-348.json",
+      "sha256": "f0d025b2140115f122f63ffb2678ab70a287add4dd21273c6b454f1fcf81c2f6"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-349.json",
+      "sha256": "0bff5939fdb73a63c5a63325ffedcec3439554381099e28875b9fbb394cd3acb"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-350.json",
+      "sha256": "4f1f0b4e94459f5aac9245aac4aea33f36f29161d85b81506cbeb21539b55a97"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-351.json",
+      "sha256": "3e294b193103b5cc026b79e866cf4d2fb60a598f6e9d78dcc51b87d393e94f78"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-352.json",
+      "sha256": "26aa4b9b61faf2cb4ad61457ec4ea4388b90e770dd87111a018abab73cc45a7e"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-353.json",
+      "sha256": "379300f02147011e3c4507c285801623bd889f810ad737b27d81529f39fd88d7"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2"
+    }
+  ],
+  "pending_contracts": [
+    "355 accounts2227..2234 next2235. Original2234 full472 closes initial raw1..230 viaREG1094;19 mandatory all13 scoped extensions and six strict EOF qualifications retained. LastREG1094; upcoming metadata2235..2255 inspected only without body credit.",
+    "New source-qualified same-format pixel storage admission gap. Current caller/native format/extent/YUV ownership and all20 acceptance pending; derived raw Color is not automatically a bounded numeric invariant violation.",
+    "Cloth Fabric/Shell density and material mutation policies require actual canonical construction/update paths. Direct shared contact reexports and Deref facade are not automatically forbidden compatibility APIs.",
+    "Future same-lens original2248/2249/2250 must adopt earliestREAD220 at ordered frontier, without duplicate identity or other-lens transfer.",
+    "All13 populations/current/all20/aliases/connected acceptance/dedup remain incomplete gatefalse accepteduniquechange0. No product changes/builds/tests/lints/scanners/generators/runtime probes/CI/new tests/commits/publication/external messages; goalactive."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2235
+}
