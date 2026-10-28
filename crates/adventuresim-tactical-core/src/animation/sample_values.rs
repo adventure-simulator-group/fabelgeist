@@ -2,8 +2,9 @@
 
 use super::{
     AnimationQuantity, AnimationValueError, AnimationValueResult, LOCOMOTION_SECOND_CONTACT_PHASE,
-    LeadFoot,
+    LeadFoot, UnitInterval,
 };
+use bevy::math::FloatExt;
 use serde::{Deserialize, Serialize};
 
 /// Finite cycles, deliberately signed and unwrapped until a periodic operation.
@@ -94,10 +95,9 @@ impl CycleDelta {
     pub fn from_unit_cycles(value: super::UnitInterval) -> Self {
         Self(value.fraction())
     }
-    /// Native interpolation of two cycle displacements, before retaining the result.
-    pub fn checked_lerp(self, other: Self, fraction: f32) -> AnimationValueResult<Self> {
-        use bevy::math::FloatExt;
-        Self::from_arithmetic(self.0.lerp(other.0, fraction))
+    /// Cycle scalars and the admitted fraction meet at Bevy's native interpolation kernel.
+    pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
+        Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
     }
 
     pub const ZERO: Self = Self(0.0);
@@ -189,6 +189,11 @@ impl TryFrom<f32> for BlendWeight {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {
         Self::from_factor(value)
+    }
+}
+impl From<UnitInterval> for BlendWeight {
+    fn from(fraction: UnitInterval) -> Self {
+        Self(fraction.fraction())
     }
 }
 impl From<bool> for ClipMirror {

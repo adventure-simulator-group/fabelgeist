@@ -20,8 +20,6 @@ use super::geometry::{
 use crate::presentation::{
     LeafTextureSet, ProceduralTextureAssets, color_vec4, ground_palette::TACTICAL_DIRT_SRGB,
 };
-#[cfg(test)]
-use adventuresim_procedural_textures::generate_procedural_textures;
 use adventuresim_procedural_textures::{FOREST_SOIL_HEIGHT_RANGE_METRES, FOREST_SOIL_TILE_METRES};
 
 const TREE_IMPOSTOR_SHADER: &str = "shaders/tactical_tree_impostor.wgsl";
@@ -353,8 +351,8 @@ mod tests {
         let mut app = App::new();
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
-        let assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
+        let assets = ProceduralTextureAssets::reserve(
+            &mut Default::default(),
             &mut app.world_mut().resource_mut::<Assets<Image>>(),
         );
         let terrain = SceneTerrain::new(2, 2, 1.0, |point| point.x * 0.1 + point.y * 0.2).unwrap();
@@ -588,8 +586,8 @@ mod tests {
         let mut app = App::new();
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
-        let assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
+        let assets = ProceduralTextureAssets::reserve(
+            &mut Default::default(),
             &mut app.world_mut().resource_mut::<Assets<Image>>(),
         );
         assert_eq!(

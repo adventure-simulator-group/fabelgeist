@@ -1,21 +1,23 @@
 use crate::animation::{
-    AngularMagnitudeDegrees, CycleDelta, KneeTargetAmplification, ResponseRate,
-    ResponseShapingTime, SignedAngleDegrees, SignedAngularSpeedDegrees,
+    AngularMagnitudeDegrees, KneeTargetAmplification, ResponseRate, ResponseShapingTime,
+    SignedAngleDegrees, SignedAngularSpeedDegrees,
 };
 use crate::animation::{
-    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, AnimationSampleRate, HeightDistance,
-    NonnegativeLength, PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
+    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, NonnegativeLength,
+    PositiveAnimationDuration, UnitInterval,
 };
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
-use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
+use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
 use adventuresim_core::{
     body::BodyPart,
     combat::{AutoresolveParameters, CombatResolutionParameters},
 };
 use bevy::prelude::Resource;
 pub use landing::AnimationLandingConfig;
+pub use locomotion::{AnimationGaitConfig, AnimationLocomotionConfig};
 pub use maneuvers::ManeuverTimingConfig;
 pub use playback::AnimationPlaybackConfig;
+pub use state_transitions::AnimationStateTransitionConfig;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use thiserror::Error;
@@ -38,12 +40,14 @@ mod ai_offense;
 mod defaults;
 mod incapacitation_forecast;
 mod landing;
+mod locomotion;
 mod maneuvers;
 mod playback;
 mod pose_buffer;
 mod procedural;
 mod ragdoll;
 mod runtime;
+mod state_transitions;
 
 pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 9;
 
@@ -78,29 +82,6 @@ pub struct TacticalAnimationConfig {
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct AnimationLocomotionConfig {
-    pub sample_hz: AnimationSampleRate,
-    pub landing: AnimationLandingConfig,
-    pub walk: AnimationGaitConfig,
-    pub run: AnimationGaitConfig,
-    pub raised_guard: AnimationGaitConfig,
-    pub prone: AnimationGaitConfig,
-    pub supine: AnimationGaitConfig,
-    pub blend_speed: PositiveSpeed,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimationGaitConfig {
-    pub reference_speed_metres_per_second: PositiveSpeed,
-    pub step_distance_metres: PositiveLength,
-    pub support_phase_radius: CycleDelta,
-    pub bounce_metres: HeightDistance,
-    pub flight_apex_metres: HeightDistance,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct GuardFootworkConfig {
     pub default_half_width_metres: f32,
     pub contact_margin_metres: f32,
@@ -109,14 +90,6 @@ pub struct GuardFootworkConfig {
     pub planning_reach_metres: f32,
     pub reference_leg_length_metres: PositiveLength,
     pub maximum_unsupported_contact_seconds: PositiveAnimationDuration,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimationStateTransitionConfig {
-    pub dive_root_handoff_start_fraction: f32,
-    pub downed_facing_sector_half_width: SignedHalfTurns,
-    pub downed_facing_edge_stickiness: SignedHalfTurns,
 }
 
 /// Additive rotational hit springs on the rendered skeleton. A hit kicks
@@ -653,31 +626,9 @@ impl TacticalCombatConfig {
         }
 
         let animation = self.animation;
-        let locomotion = animation.locomotion;
-        let gait_values = [
-            locomotion.walk,
-            locomotion.run,
-            locomotion.raised_guard,
-            locomotion.prone,
-            locomotion.supine,
-        ];
-        if gait_values.into_iter().any(|gait| {
-            ![
-                gait.step_distance_metres.metres(),
-                gait.support_phase_radius.cycles(),
-                gait.bounce_metres.metres(),
-                gait.flight_apex_metres.metres(),
-            ]
-            .into_iter()
-            .all(finite_nonnegative)
-                || gait.step_distance_metres.metres() == 0.0
-                || !(0.0..0.5).contains(&gait.support_phase_radius.cycles())
-        }) {
-            return Err(TacticalCombatConfigError::Validation(
-                "invalid animation locomotion tuning",
-            ));
-        }
-        locomotion.landing.validate()?;
+        let initial_locomotion_speed = animation.playback.initial_locomotion_speed_metres_per_second;
+        animation.locomotion.validate(initial_locomotion_speed)?;
+        animation.state_transitions.validate()?;
         let guard = animation.guard_footwork;
         if ![
             guard.default_half_width_metres,

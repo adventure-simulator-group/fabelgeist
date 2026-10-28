@@ -11,7 +11,7 @@ use raster::*;
 use super::super::super::*;
 use super::geometry::*;
 
-pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 16;
+pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 19;
 pub(in crate::presentation) const TREE_IMPOSTOR_RENDER_METHOD: &str =
     "deterministic software triangle render with species-calibrated crown coverage";
 /// Per-LOD atlas tiles, from near aggregate cards through the whole-tree
@@ -117,7 +117,8 @@ pub(in crate::presentation) const BEECH_TREE_BAKE_STYLE: TreeBakeStyle = TreeBak
     // small retained sample into a dark solid mass at the 6-8 m handoff.
     aggregate_leaf_scales: [0.82, 1.32, 1.62, 1.84],
     lod1_world_vertical: false,
-    lod1_runtime_width_scale: 1.0,
+    // Keep the flattened near crown within the source occupancy budget.
+    lod1_runtime_width_scale: 0.98,
 };
 
 pub(in crate::presentation) fn validate_tree_bake_provenance(provenance: &TreeImpostorProvenance) {
@@ -725,18 +726,19 @@ pub(in crate::presentation) fn tree_source_geometry_hash(
         hash = hash.wrapping_mul(0x100_0000_01b3);
     }
     for leaf in leaves {
-        for value in [
-            leaf.petiole_start.x,
-            leaf.petiole_start.y,
-            leaf.petiole_start.z,
-            leaf.center.x,
-            leaf.center.y,
-            leaf.center.z,
-            leaf.length,
-            leaf.width,
-            leaf.shoot_id as f32,
+        // Geometry uses native float bits; identity retains its full integer word.
+        for word in [
+            u64::from(leaf.petiole_start.x.to_bits()),
+            u64::from(leaf.petiole_start.y.to_bits()),
+            u64::from(leaf.petiole_start.z.to_bits()),
+            u64::from(leaf.center.x.to_bits()),
+            u64::from(leaf.center.y.to_bits()),
+            u64::from(leaf.center.z.to_bits()),
+            u64::from(leaf.length.to_bits()),
+            u64::from(leaf.width.to_bits()),
+            leaf.shoot_id.seed().to_u64(),
         ] {
-            hash ^= u64::from(value.to_bits());
+            hash ^= word;
             hash = hash.wrapping_mul(0x100_0000_01b3);
         }
     }

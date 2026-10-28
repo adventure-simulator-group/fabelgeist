@@ -57,8 +57,6 @@ pub(crate) use building_closures::{BuildingClosureVisibility, PresentedBuildingC
 
 use adventuresim_procedural_textures::LeafTextureSet;
 pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;
-#[cfg(test)]
-use adventuresim_procedural_textures::generate_procedural_textures;
 pub(crate) use atmosphere::AtmosphereIblCache;
 use atmosphere::*;
 pub(crate) use buildings::BuildingRenderLevel;

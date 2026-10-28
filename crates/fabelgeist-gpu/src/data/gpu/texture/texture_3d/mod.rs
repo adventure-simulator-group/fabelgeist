@@ -1,9 +1,12 @@
 use std::sync::Arc;
 
-use crate::data::gpu::texture::TextureFormat;
 use anyhow::Result;
 
-use crate::{data::vector::Vec3, globals::WgpuContext};
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::ValidationScope;
+use crate::{data::gpu::texture::TextureFormat, data::vector::Vec3, globals::WgpuContext};
+
+mod views;
 
 #[derive(Clone, Debug)]
 pub struct Texture3d {
@@ -43,8 +46,6 @@ impl Default for Texture3d {
 }
 impl Texture3d {
     pub fn new(context: &WgpuContext, size: Vec3, format: TextureFormat) -> Result<Texture3d> {
-        let _wgpu_format: wgpu::TextureFormat = format.into();
-
         if size.x.is_nan() || size.y.is_nan() || size.z.is_nan() {
             return Err(anyhow::anyhow!("Texture size contains NaN: {:?}", size));
         }
@@ -86,9 +87,7 @@ impl Texture3d {
         };
 
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context
-            .device
-            .push_error_scope(wgpu::ErrorFilter::Validation);
+        let error_scope = ValidationScope::new(context);
 
         let texture = context.device.create_texture(&texture_desc);
 
@@ -105,11 +104,8 @@ impl Texture3d {
         });
 
         #[cfg(not(target_arch = "wasm32"))]
-        {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(err) = pollster::block_on(error_scope.pop()) {
-                return Err(anyhow::anyhow!("WGPU Texture3d Creation Error: {}", err));
-            }
+        if let Some(error_scope) = error_scope {
+            error_scope.finish()?;
         }
 
         let texture_value = Texture3d {
@@ -261,51 +257,6 @@ impl Texture3d {
         );
 
         Ok(())
-    }
-    pub fn view_with_format(
-        &self,
-        _context: &WgpuContext,
-        format: TextureFormat,
-    ) -> Result<Arc<wgpu::TextureView>> {
-        if format == self.format {
-            return Ok(self.view.as_ref().unwrap().clone());
-        }
-        let texture = self
-            .texture
-            .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
-
-        let mut requested_format = format;
-
-        // WebGPU Limitation: If a texture has STORAGE_BINDING, it cannot have an sRGB view.
-        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
-            // Fallback to linear counterpart to avoid validation error.
-            requested_format = format.linear_counterpart();
-        }
-
-        #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = _context
-            .device
-            .push_error_scope(wgpu::ErrorFilter::Validation);
-
-        let view = texture.create_view(&wgpu::TextureViewDescriptor {
-            format: Some(requested_format.into()),
-            ..Default::default()
-        });
-
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            let _ = _context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(err) = pollster::block_on(error_scope.pop()) {
-                return Err(anyhow::anyhow!(
-                    "WGPU Texture3d view_with_format Error (requested {:?}): {}",
-                    format,
-                    err
-                ));
-            }
-        }
-
-        Ok(Arc::new(view))
     }
 }
 

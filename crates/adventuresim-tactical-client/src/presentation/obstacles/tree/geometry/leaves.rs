@@ -9,7 +9,7 @@ use bevy::{
     prelude::Mesh,
 };
 use fabelgeist_determinism::Seed;
-pub(in crate::presentation) use identity::shoot_identity;
+pub(in crate::presentation) use identity::TreeShootId;
 pub(in crate::presentation) use selection::detailed_flat_card_group_leaves;
 use selection::sparse_woody_far_card_leaves;
 #[cfg(test)]
@@ -30,7 +30,7 @@ pub(in crate::presentation) struct TreeLeaf {
     pub(in crate::presentation) width: f32,
     pub(in crate::presentation) primary_group: u8,
     pub(in crate::presentation) secondary_group: u16,
-    pub(in crate::presentation) shoot_id: u64,
+    pub(in crate::presentation) shoot_id: TreeShootId,
     /// Stable ordinal within the source shoot. This is deliberately stored on
     /// the leaf rather than inferred from a mesh-building iteration order so
     /// representation LODs can make deterministic per-leaf choices.
@@ -53,7 +53,7 @@ pub(in crate::presentation) fn oak_leaf_card_bounds(leaf: TreeLeaf) -> (Vec3, f3
 fn leaf_shadow_selector(leaf: TreeLeaf) -> f32 {
     let shoot_key = leaf.shoot_id;
     streams::SHOOT_THRESHOLD
-        .rng(shoot_key.into(), &[])
+        .rng(shoot_key.seed(), &[])
         .inclusive_unit_f32()
 }
 
@@ -248,10 +248,7 @@ pub(in crate::presentation) fn procedural_oak_bud_mesh(branches: &[TreeBranchSeg
     let mut indices = Vec::new();
     const SIDES: u32 = 6;
     const BUD_LENGTH: f32 = 0.008;
-    for branch in branches
-        .iter()
-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
-    {
+    for branch in branches.iter().filter(|branch| branch.foliage.is_some()) {
         let direction = (branch.end - branch.start).normalize();
         let (frame_right, frame_forward) = branch_frame(direction);
         let base = positions.len() as u32;
@@ -366,7 +363,7 @@ mod tests {
             .expect("bud mesh has float positions");
         let terminal_shoots = branches
             .iter()
-            .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
+            .filter(|branch| branch.foliage.is_some())
             .count();
         assert_eq!(terminal_shoots, leaves.len() / 16);
         assert_eq!(bud_positions.len(), terminal_shoots * 19);

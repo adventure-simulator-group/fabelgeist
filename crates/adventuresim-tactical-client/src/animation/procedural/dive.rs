@@ -7,17 +7,18 @@ use super::*;
 struct DiveInfluence(adventuresim_tactical_core::animation::UnitInterval);
 
 impl DiveInfluence {
-    fn from_factor(factor: f32) -> AnimationValueResult<Self> {
-        if !factor.is_finite() {
-            return Err(AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::DiveInfluence,
-            });
-        }
-        adventuresim_tactical_core::animation::UnitInterval::from_fraction(factor.clamp(0.0, 1.0))
-            .map(Self)
-            .map_err(|error| {
-                AnimationValueError::from(error).for_quantity(AnimationQuantity::DiveInfluence)
-            })
+    fn from_phase(phase: UnitInterval) -> AnimationValueResult<Self> {
+        let influence = if phase <= DIVE_GROUND_CONTACT_PHASE {
+            phase
+                .clamped_inverse_lerp(UnitInterval::ZERO, DIVE_GROUND_CONTACT_PHASE)?
+                .smoothstep()?
+        } else {
+            phase
+                .clamped_inverse_lerp(DIVE_GROUND_CONTACT_PHASE, UnitInterval::ONE)?
+                .smoothstep()?
+                .complement()
+        };
+        Ok(Self(influence))
     }
     fn fraction(self) -> f32 {
         self.0.fraction()
@@ -45,13 +46,7 @@ pub(in crate::animation) fn apply_procedural_dive_lower_body(
         let PostureTransitionKind::DiveToDowned { direction, .. } = transition.kind() else {
             continue;
         };
-        let phase = transition.phase().fraction().clamp(0.0, 1.0);
-        let amount = if phase <= DIVE_GROUND_CONTACT_PHASE.fraction() {
-            smoothstep(0.0, DIVE_GROUND_CONTACT_PHASE.fraction(), phase)
-        } else {
-            1.0 - smoothstep(DIVE_GROUND_CONTACT_PHASE.fraction(), 1.0, phase)
-        };
-        let amount = match DiveInfluence::from_factor(amount) {
+        let amount = match DiveInfluence::from_phase(transition.phase()) {
             Ok(amount) => amount,
             Err(error) => {
                 warn!(%error, "Rejected dive pelvis contribution");
@@ -93,22 +88,14 @@ mod tests {
 
     #[test]
     fn dive_pelvis_lean_tips_up_axis_exactly_toward_travel() {
-        let forward = dive_pelvis_lean(
-            DiveDirection::Forward,
-            DiveInfluence::from_factor(1.0).unwrap(),
-        ) * Vec3::Y;
-        let backward = dive_pelvis_lean(
-            DiveDirection::Backward,
-            DiveInfluence::from_factor(1.0).unwrap(),
-        ) * Vec3::Y;
-        let left = dive_pelvis_lean(
-            DiveDirection::Left,
-            DiveInfluence::from_factor(1.0).unwrap(),
-        ) * Vec3::Y;
-        let right = dive_pelvis_lean(
-            DiveDirection::Right,
-            DiveInfluence::from_factor(1.0).unwrap(),
-        ) * Vec3::Y;
+        let forward =
+            dive_pelvis_lean(DiveDirection::Forward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
+        let backward =
+            dive_pelvis_lean(DiveDirection::Backward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
+        let left =
+            dive_pelvis_lean(DiveDirection::Left, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
+        let right =
+            dive_pelvis_lean(DiveDirection::Right, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
         assert!(forward.z > 0.64 && forward.y > 0.76);
         assert!(backward.z < -0.64 && backward.y > 0.76);
         assert!(left.x > 0.64 && left.y > 0.76);
@@ -129,11 +116,10 @@ mod tests {
                 guard,
                 bind,
                 direction,
-                DiveInfluence::from_factor(1.0).unwrap(),
+                DiveInfluence(UnitInterval::ONE),
             );
-            let expected = (dive_pelvis_lean(direction, DiveInfluence::from_factor(1.0).unwrap())
-                * bind)
-                .normalize();
+            let expected =
+                (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE)) * bind).normalize();
             assert!(actual.angle_between(expected) < 0.0001);
         }
     }
@@ -145,7 +131,7 @@ mod tests {
             contact,
             Quat::IDENTITY,
             DiveDirection::Backward,
-            DiveInfluence::from_factor(0.0).unwrap(),
+            DiveInfluence(UnitInterval::ZERO),
         );
         assert!(actual.angle_between(contact) < 0.0001);
     }

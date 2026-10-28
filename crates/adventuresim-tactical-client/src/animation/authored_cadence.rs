@@ -62,16 +62,12 @@ impl CalibrationMotion {
 impl AuthoredStrideMeasurement {
     pub(super) fn lerp(self, other: Self, amount: UnitInterval) -> AnimationValueResult<Self> {
         Ok(Self {
-            step_distance: NonnegativeLength::from_arithmetic(
-                self.step_distance
-                    .metres()
-                    .lerp(other.step_distance.metres(), amount.fraction()),
-            )?,
-            maximum_stance_slip: NonnegativeLength::from_arithmetic(
-                self.maximum_stance_slip
-                    .metres()
-                    .lerp(other.maximum_stance_slip.metres(), amount.fraction()),
-            )?,
+            step_distance: self
+                .step_distance
+                .checked_lerp(other.step_distance, amount)?,
+            maximum_stance_slip: self
+                .maximum_stance_slip
+                .checked_lerp(other.maximum_stance_slip, amount)?,
         })
     }
 }
@@ -140,23 +136,17 @@ impl AuthoredLocomotionStrides {
         let Some(walk) = self.walk else {
             return Ok(None);
         };
-        let blend = ((speed.metres_per_second()
-            - walk_locomotion_profile()
-                .reference_speed
-                .metres_per_second())
-            / (run_locomotion_profile().reference_speed.metres_per_second()
-                - walk_locomotion_profile()
-                    .reference_speed
-                    .metres_per_second()))
-        .clamp(0.0, 1.0);
-        if blend <= 0.0 {
+        let blend = speed.clamped_inverse_lerp(
+            walk_locomotion_profile().reference_speed,
+            run_locomotion_profile().reference_speed,
+        )?;
+        if blend == UnitInterval::ZERO {
             Ok(Some(walk))
         } else {
             let Some(run) = self.run else {
                 return Ok(None);
             };
-            walk.lerp(run, UnitInterval::from_fraction(blend)?)
-                .map(Some)
+            walk.lerp(run, blend).map(Some)
         }
     }
 
