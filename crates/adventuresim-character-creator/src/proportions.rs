@@ -34,7 +34,7 @@ pub fn joint_bases(
             reference,
             translation_metres: [[0.0; 3]; BODY_PROPORTION_COUNT],
         };
-        model.num_joints()
+        model.num_joints().len()
     ]
     .into();
     for proportion in BodyProportion::ALL {

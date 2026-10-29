@@ -2,8 +2,8 @@
 
 use burn::tensor::{Device, Tensor, TensorData};
 use fabelgeist_numpy_storage::{
-    NpyArray, NpyDimension, NpyElementCount, NpyFloat32Value, NpyFloat32Values, NpyIntegerValue,
-    NpyIntegerValues, NpyLayoutError, NpyShape, NpyTensorLayout,
+    NpyArray, NpyDimension, NpyElementCount, NpyFloat32Values, NpyIntegerValues, NpyLayoutError,
+    NpyShape, NpyTensorLayout,
 };
 
 use fabelgeist_rig::RigJointCount;
@@ -31,6 +31,7 @@ pub(super) struct CorrectiveBasis {
 /// the coordinate axis is fixed by VERTEX_COORDINATES. Consumers use these named
 /// extents and never reinterpret the generic source dimensions.
 pub(super) struct CorrectiveLayout {
+    joints: RigJointCount,
     posed_joints: NpyDimension,
     vertices: MeshVertexCount,
     features: NpyDimension,
@@ -48,7 +49,7 @@ pub(super) struct SparseActivation<'layout> {
 
 struct SparseContribution {
     offset: CorrectiveDenseOffset,
-    weight: NpyFloat32Value,
+    weight: f32,
 }
 
 /// A checked native dense-buffer offset, meaningful only with the layout
@@ -110,7 +111,7 @@ impl CorrectiveLayout {
         vertices: MeshVertexCount,
     ) -> Result<Self> {
         // Rig membership count becomes an array extent here; this is not a rig ordinal.
-        let joints = NpyDimension::from(joints.len());
+        let joint_extent = NpyDimension::from(joints.len());
         let &[components, basis_vertices, coordinates] = basis.dimensions() else {
             return Err(CorrectiveImportError::BasisShape {
                 shape: basis.clone(),
@@ -129,7 +130,7 @@ impl CorrectiveLayout {
                 mesh: vertices,
             });
         }
-        let posed_joints = joints
+        let posed_joints = joint_extent
             .checked_sub(SKIPPED_JOINTS)
             .ok_or(CorrectiveImportError::JointCount { joints })?;
         let hidden = Self::scaled(
@@ -166,6 +167,7 @@ impl CorrectiveLayout {
             }
         })?;
         Ok(Self {
+            joints,
             posed_joints,
             vertices,
             features,
@@ -173,6 +175,10 @@ impl CorrectiveLayout {
             basis,
             activation,
         })
+    }
+
+    pub(super) fn joints(&self) -> RigJointCount {
+        self.joints
     }
 
     pub(super) fn posed_joints(&self) -> NpyDimension {
@@ -275,7 +281,7 @@ impl<'layout> SparseActivation<'layout> {
         let mut dense = vec![0.0f32; usize::from(self.layout.activation.element_count())];
         for contribution in self.contributions {
             // Ordered writes intentionally let the last duplicate replace earlier ones.
-            dense[contribution.offset.native_index] = f32::from(contribution.weight);
+            dense[contribution.offset.native_index] = contribution.weight;
         }
         Tensor::from_data(
             TensorData::new(dense, self.layout.activation_dimensions()),
@@ -298,19 +304,19 @@ impl CorrectiveFeatureIndex {
     }
 }
 
-impl From<NpyIntegerValue> for CorrectiveHiddenIndex {
-    fn from(value: NpyIntegerValue) -> Self {
+impl From<i64> for CorrectiveHiddenIndex {
+    fn from(value: i64) -> Self {
         // Preserve cast-before-bounds, including rejected negative diagnostics.
         Self {
-            native_index: i64::from(value) as usize,
+            native_index: value as usize,
         }
     }
 }
 
-impl From<NpyIntegerValue> for CorrectiveFeatureIndex {
-    fn from(value: NpyIntegerValue) -> Self {
+impl From<i64> for CorrectiveFeatureIndex {
+    fn from(value: i64) -> Self {
         Self {
-            native_index: i64::from(value) as usize,
+            native_index: value as usize,
         }
     }
 }

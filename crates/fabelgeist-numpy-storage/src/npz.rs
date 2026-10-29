@@ -9,7 +9,7 @@ use std::path::Path;
 use anyhow::{Context, Result};
 
 use crate::npy::NpyArray;
-use crate::zip::{ArchiveMemberName, DeclaredUncompressedByteLength, Entry, ZipArchive};
+use crate::zip::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive, ZipMember};
 pub use name::NpzArrayName;
 
 mod name;
@@ -24,8 +24,7 @@ pub struct Npz {
 /// Metadata and decoding use this exact first match. The original query is
 /// retained for parsing diagnostics; a present member may still fail to decode.
 pub struct NpzMember<'a> {
-    archive: &'a ZipArchive,
-    entry: &'a Entry,
+    member: ZipMember<'a>,
     query: NpzArrayName,
 }
 
@@ -57,9 +56,8 @@ impl Npz {
     pub fn get(&self, name: &NpzArrayName) -> Option<NpzMember<'_>> {
         self.archive
             .find(|member| name.matches(member))
-            .map(|entry| NpzMember {
-                archive: &self.archive,
-                entry,
+            .map(|member| NpzMember {
+                member,
                 query: name.clone(),
             })
     }
@@ -74,16 +72,16 @@ impl Npz {
 
 impl NpzMember<'_> {
     pub fn name(&self) -> &ArchiveMemberName {
-        &self.entry.name
+        self.member.name()
     }
 
     /// The directory's declared size, without payload verification.
     pub fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
-        self.entry.uncompressed_size()
+        self.member.uncompressed_size()
     }
 
     pub fn array(&self) -> Result<NpyArray> {
-        let bytes = self.archive.entry_bytes(self.entry)?;
+        let bytes = self.member.bytes()?;
         NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {:?}", self.query))
     }
 }

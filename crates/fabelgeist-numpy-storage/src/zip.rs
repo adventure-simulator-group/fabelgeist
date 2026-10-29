@@ -28,8 +28,8 @@ mod names;
 // Application selection policy, measured in archive bytes from the end.
 const END_DIRECTORY_SEARCH_WINDOW_BYTES: u64 = 66_000;
 
-pub(crate) struct Entry {
-    pub name: ArchiveMemberName,
+struct Entry {
+    name: ArchiveMemberName,
     compression: ZipCompression,
     uncompressed_size: DeclaredUncompressedByteLength,
     location: ZipArchiveEntryWayfinder,
@@ -39,6 +39,12 @@ pub(crate) struct Entry {
 pub struct ZipArchive {
     archive: ZipSliceArchive<ArchiveData>,
     entries: Vec<Entry>,
+}
+
+/// A member selected from, and inseparable from, its owning archive.
+pub(crate) struct ZipMember<'archive> {
+    archive: &'archive ZipArchive,
+    entry: &'archive Entry,
 }
 
 enum ArchiveData {
@@ -52,12 +58,6 @@ impl AsRef<[u8]> for ArchiveData {
             Self::Mapped(data) => data,
             Self::Owned(data) => data,
         }
-    }
-}
-
-impl Entry {
-    pub(crate) fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
-        self.uncompressed_size
     }
 }
 
@@ -123,28 +123,44 @@ impl ZipArchive {
         &self,
         name: &ArchiveMemberName,
     ) -> Option<DeclaredUncompressedByteLength> {
-        self.entries
-            .iter()
-            .find(|entry| entry.name == *name)
-            .map(|entry| entry.uncompressed_size)
+        self.find(|member| member == name)
+            .map(|member| member.uncompressed_size())
     }
 
-    pub(crate) fn find(&self, predicate: impl Fn(&ArchiveMemberName) -> bool) -> Option<&Entry> {
-        self.entries.iter().find(|entry| predicate(&entry.name))
+    pub(crate) fn find(
+        &self,
+        predicate: impl Fn(&ArchiveMemberName) -> bool,
+    ) -> Option<ZipMember<'_>> {
+        self.entries
+            .iter()
+            .find(|entry| predicate(&entry.name))
+            .map(|entry| ZipMember {
+                archive: self,
+                entry,
+            })
     }
 
     /// Decodes one member. Stored members borrow from the archive buffer.
     pub fn bytes(&self, name: &ArchiveMemberName) -> Result<Cow<'_, [u8]>> {
-        let entry = self
-            .entries
-            .iter()
-            .find(|entry| entry.name == *name)
-            .ok_or_else(|| ZipReadError::MissingMember { name: name.clone() })?;
-        self.entry_bytes(entry)
+        self.find(|member| member == name)
+            .ok_or_else(|| ZipReadError::MissingMember { name: name.clone() })?
+            .bytes()
+    }
+}
+
+impl<'archive> ZipMember<'archive> {
+    pub(crate) fn name(&self) -> &ArchiveMemberName {
+        &self.entry.name
     }
 
-    pub(crate) fn entry_bytes(&self, entry: &Entry) -> Result<Cow<'_, [u8]>> {
+    pub(crate) fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
+        self.entry.uncompressed_size
+    }
+
+    pub(crate) fn bytes(&self) -> Result<Cow<'archive, [u8]>> {
+        let entry = self.entry;
         let member = self
+            .archive
             .archive
             .get_entry(entry.location)
             .map_err(|source| ZipReadError::member(entry.name.clone(), source))?;

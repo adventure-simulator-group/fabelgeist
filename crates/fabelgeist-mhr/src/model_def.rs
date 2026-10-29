@@ -92,7 +92,7 @@ pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<Paramet
 
     // Densify once the parameter count is final.
     let columns = transform.num_parameters();
-    transform.transform = ParameterMatrix::zeros(skeleton.len(), columns);
+    transform.transform = ParameterMatrix::zeros(skeleton.names.joint_count(), columns);
     for contribution in contributions {
         if contribution.weight != 0.0 {
             transform
@@ -261,8 +261,8 @@ fn parse_expression(
 
 fn parse_parameter_transform(lines: &[String], skeleton: &Skeleton) -> Result<ParsedTransform> {
     let mut transform = ParameterTransform {
-        offsets: JointParameterTable::filled(skeleton.len(), 0.0),
-        active_joint_parameters: JointParameterTable::filled(skeleton.len(), false),
+        offsets: JointParameterTable::filled(skeleton.names.joint_count(), 0.0),
+        active_joint_parameters: JointParameterTable::filled(skeleton.names.joint_count(), false),
         ..Default::default()
     };
     let mut triplets: Vec<Contribution> = Vec::new();

@@ -7,10 +7,11 @@ use anyhow::{Context, Result, bail};
 use burn::tensor::ops::IndexingUpdateOp;
 use burn::tensor::{Device, Int, Tensor, TensorData};
 
-use crate::character::{Character, PARAMETERS_PER_JOINT};
+use crate::character::{Character, MeshVertexCount, PARAMETERS_PER_JOINT};
 use crate::correctives::{CorrectiveArchiveBytes, PoseCorrectives};
 use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
 use crate::skel_state;
+use fabelgeist_rig::RigJointCount;
 
 mod rig;
 
@@ -244,8 +245,8 @@ impl Mhr {
         correctives: Option<PoseCorrectives>,
         device: &Device,
     ) -> Result<Self> {
-        let joints = character.skeleton.len();
-        let vertices = character.mesh.vertices.len();
+        let joints = character.skeleton.names.joint_count();
+        let vertices = character.mesh.vertex_count();
 
         if character.blend_shapes.len() != NUM_BLEND_SHAPES {
             bail!(
@@ -268,7 +269,7 @@ impl Mhr {
                 Tensor::from_data(
                     TensorData::new(
                         parameter_transform.offsets.tensor_values(),
-                        [1, joints * PARAMETERS_PER_JOINT],
+                        [1, joints.len() * PARAMETERS_PER_JOINT],
                     ),
                     device,
                 )
@@ -279,15 +280,15 @@ impl Mhr {
         let basis = &character.blend_shapes.vectors;
         let identity_basis = Tensor::from_data(
             TensorData::new(
-                basis[..NUM_IDENTITY_BLEND_SHAPES * vertices * 3].to_vec(),
-                [NUM_IDENTITY_BLEND_SHAPES, vertices * 3],
+                basis[..NUM_IDENTITY_BLEND_SHAPES * vertices.len() * 3].to_vec(),
+                [NUM_IDENTITY_BLEND_SHAPES, vertices.len() * 3],
             ),
             device,
         );
         let expression_basis = Tensor::from_data(
             TensorData::new(
-                basis[NUM_IDENTITY_BLEND_SHAPES * vertices * 3..].to_vec(),
-                [NUM_FACE_EXPRESSION_BLEND_SHAPES, vertices * 3],
+                basis[NUM_IDENTITY_BLEND_SHAPES * vertices.len() * 3..].to_vec(),
+                [NUM_FACE_EXPRESSION_BLEND_SHAPES, vertices.len() * 3],
             ),
             device,
         );
@@ -327,7 +328,7 @@ impl Mhr {
             transform: Tensor::from_data(
                 TensorData::new(
                     transform,
-                    [num_model_parameters, joints * PARAMETERS_PER_JOINT],
+                    [num_model_parameters, joints.len() * PARAMETERS_PER_JOINT],
                 ),
                 device,
             ),
@@ -340,21 +341,21 @@ impl Mhr {
                         .translation_offsets
                         .as_native_slice()
                         .concat(),
-                    [1, joints, 3],
+                    [1, joints.len(), 3],
                 ),
                 device,
             ),
             joint_prerotations: Tensor::from_data(
                 TensorData::new(
                     character.skeleton.prerotations.as_native_slice().concat(),
-                    [1, joints, 4],
+                    [1, joints.len(), 4],
                 ),
                 device,
             ),
             inverse_bind_pose: Tensor::from_data(
                 TensorData::new(
                     character.inverse_bind_pose.as_native_slice().concat(),
-                    [1, joints, 8],
+                    [1, joints.len(), 8],
                 ),
                 device,
             ),
@@ -362,7 +363,7 @@ impl Mhr {
             identity_basis,
             expression_basis,
             base_shape: Tensor::from_data(
-                TensorData::new(character.mesh.vertices.concat(), [1, vertices * 3]),
+                TensorData::new(character.mesh.vertices.concat(), [1, vertices.len() * 3]),
                 device,
             ),
             face_corners: Tensor::from_data(TensorData::new(face_corners, [num_corners]), device),
@@ -384,12 +385,12 @@ impl Mhr {
         })
     }
 
-    pub fn num_joints(&self) -> usize {
-        self.character.skeleton.len()
+    pub fn num_joints(&self) -> RigJointCount {
+        self.character.skeleton.names.joint_count()
     }
 
-    pub fn num_vertices(&self) -> usize {
-        self.character.mesh.vertices.len()
+    pub fn num_vertices(&self) -> MeshVertexCount {
+        self.character.mesh.vertex_count()
     }
 
     /// Number of pose/scale parameters the model takes, excluding the blend
@@ -485,15 +486,16 @@ impl Mhr {
         let mut joint_parameters = (model_parameters.unsqueeze_dim::<3>(2)
             * self.transform.clone().unsqueeze::<3>())
         .sum_dim(1)
-        .reshape([batch, joints * PARAMETERS_PER_JOINT]);
+        .reshape([batch, joints.len() * PARAMETERS_PER_JOINT]);
         if let Some(offsets) = &self.offsets {
             joint_parameters = joint_parameters + offsets.clone();
         }
-        let joint_parameters = joint_parameters.reshape([batch, joints, PARAMETERS_PER_JOINT]);
+        let joint_parameters =
+            joint_parameters.reshape([batch, joints.len(), PARAMETERS_PER_JOINT]);
 
         let skeleton_state = self.skeleton_state(joint_parameters.clone());
 
-        let mut rest = rest.reshape([batch, vertices, 3]);
+        let mut rest = rest.reshape([batch, vertices.len(), 3]);
         if apply_correctives && let Some(correctives) = &self.correctives {
             rest = rest + correctives.forward(joint_parameters)?;
         }
@@ -567,7 +569,7 @@ impl Mhr {
             .unsqueeze_dim::<4>(2)
             .expand([batch, faces, 3, 3])
             .reshape([batch, faces * 3, 3]);
-        let accumulated = Tensor::zeros([batch, self.num_vertices(), 3], &self.device)
+        let accumulated = Tensor::zeros([batch, self.num_vertices().len(), 3], &self.device)
             .select_assign(
                 1,
                 self.face_corners.clone(),
@@ -603,6 +605,6 @@ impl Mhr {
                 deformed,
                 IndexingUpdateOp::Add,
             )
-            .reshape([batch, self.num_vertices(), 3])
+            .reshape([batch, self.num_vertices().len(), 3])
     }
 }

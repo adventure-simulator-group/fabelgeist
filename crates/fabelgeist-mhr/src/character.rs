@@ -45,7 +45,6 @@ pub struct MeshVertexCount(usize);
 pub struct BlendShapes {
     pub names: Vec<FbxObjectName>,
     pub vectors: Vec<f32>,
-    pub num_vertices: usize,
 }
 
 /// Everything the MHR forward pass needs from the rig file.
@@ -70,7 +69,7 @@ impl MeshVertexCount {
         Self(vertices)
     }
 
-    /// Projects the count at a numerical layout or allocation boundary.
+    /// Projects the count at a native numerical, allocation or text boundary.
     pub const fn len(self) -> usize {
         self.0
     }
@@ -158,8 +157,15 @@ impl Character {
         let (texcoords, texcoord_indices) = parse_uvs(geometry, polygon_vertex_index.len())?;
         let texcoord_faces = triangulate_texcoords(&polygon_vertex_index, &texcoord_indices);
 
+        let mesh = Mesh {
+            vertices,
+            faces,
+            texcoords,
+            texcoord_faces,
+        };
+        let num_vertices = mesh.vertex_count();
         let blend_shapes = if load_blend_shapes {
-            parse_blend_shapes(&scene, geometry, vertices.len())
+            parse_blend_shapes(&scene, geometry, num_vertices)
         } else {
             BlendShapes::default()
         };
@@ -168,18 +174,13 @@ impl Character {
             &scene,
             geometry,
             &joint_of_object,
-            vertices.len(),
+            num_vertices,
             &mut inverse_bind_pose,
         )?;
 
         Ok(Self {
             skeleton,
-            mesh: Mesh {
-                vertices,
-                faces,
-                texcoords,
-                texcoord_faces,
-            },
+            mesh,
             skin_weights,
             inverse_bind_pose: inverse_bind_pose
                 .iter()
@@ -275,7 +276,11 @@ fn triangulate_texcoords(polygon_vertex_index: &[i64], texcoord_indices: &[i64])
     faces
 }
 
-fn parse_blend_shapes(scene: &Scene, geometry: &Object, num_vertices: usize) -> BlendShapes {
+fn parse_blend_shapes(
+    scene: &Scene,
+    geometry: &Object,
+    num_vertices: MeshVertexCount,
+) -> BlendShapes {
     let mut names = Vec::new();
     let mut vectors: Vec<f32> = Vec::new();
 
@@ -299,11 +304,11 @@ fn parse_blend_shapes(scene: &Scene, geometry: &Object, num_vertices: usize) -> 
             let offsets = shape.node.child("Vertices").and_then(|n| n.f64_array());
             let indices = shape.node.child("Indexes").and_then(|n| n.i64_array());
             let base = vectors.len();
-            vectors.resize(base + num_vertices * 3, 0.0);
+            vectors.resize(base + num_vertices.len() * 3, 0.0);
             if let (Some(offsets), Some(indices)) = (offsets, indices) {
                 for (slot, vertex) in indices.iter().enumerate() {
                     let vertex = *vertex as usize;
-                    if vertex >= num_vertices || slot * 3 + 2 >= offsets.len() {
+                    if vertex >= num_vertices.len() || slot * 3 + 2 >= offsets.len() {
                         continue;
                     }
                     for axis in 0..3 {
@@ -315,11 +320,7 @@ fn parse_blend_shapes(scene: &Scene, geometry: &Object, num_vertices: usize) -> 
         }
     }
 
-    BlendShapes {
-        names,
-        vectors,
-        num_vertices,
-    }
+    BlendShapes { names, vectors }
 }
 
 #[cfg(test)]

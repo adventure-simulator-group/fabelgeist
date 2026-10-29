@@ -5,9 +5,7 @@ pub use metadata::{
     NpyShape,
 };
 
-pub use values::{
-    NpyByteStates, NpyFloat32Value, NpyFloat32Values, NpyIntegerValue, NpyIntegerValues,
-};
+pub use values::{NpyByteStates, NpyFloat32Values, NpyIntegerValues};
 
 use std::path::Path;
 

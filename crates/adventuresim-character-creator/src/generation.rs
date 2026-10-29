@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_rig::RigJointCount;
 
 pub(super) fn generate_character(
     model: &BodyModel,
@@ -67,7 +68,7 @@ pub(super) fn generate_character(
         ));
     }
     anyhow::ensure!(
-        skeleton_chunks.len() == model.mhr.num_joints(),
+        RigJointCount::from_native_joint_count(skeleton_chunks.len()) == model.mhr.num_joints(),
         "GPU skeleton readback differs from the admitted rig joint count"
     );
     let global_joint_states = skeleton_chunks

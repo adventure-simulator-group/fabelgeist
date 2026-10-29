@@ -188,7 +188,18 @@ membership. The layout checks every coordinate before dense allocation. The
 admitted sparse contributions retain checked offsets and a borrow of that
 layout; upload cannot substitute another layout or repeat membership admission.
 
-Corrective tensor layouts retain checked element products. The forward pass
-returns a layout error if a batch-dependent feature or output extent overflows,
-propagating through the existing model result before the corresponding tensor
-operations. This does not add a new joint-channel or mesh-identity contract.
+Model count APIs retain `MeshVertexCount` and canonical `RigJointCount` through
+construction, public queries and their consumers. Joint-indexed parameter
+storage retains the canonical count as well. Native extents are projected at
+tensor, collection, decoded-readback and text boundaries. The mesh remains the
+authority for its vertex count; blend-shape storage carries no duplicate count.
+
+Corrective evaluation admits the input tensor's exact joint count and seven
+channels before slicing or matrix operations, using the model's existing channel
+schema. The admitted input retains the network layout through native rotation
+feature extraction. Values must already use that channel order; shape admission
+does not prove rig identity or value provenance. `CorrectiveForwardError`
+distinguishes joint-count and channel-width mismatches, and retains a concrete
+`NpyLayoutError` source if a batch-dependent layout product overflows. The
+existing model result propagates those failures before the corresponding tensor
+operations. No new finite-value or positive-batch restriction is introduced.

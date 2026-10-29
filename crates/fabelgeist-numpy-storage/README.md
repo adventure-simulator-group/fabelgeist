@@ -112,18 +112,18 @@ decoding and metadata immutability.
 
 ## Decoded values
 
-`NpyFloat32Values`, `NpyIntegerValues` and `NpyByteStates` retain ordered
-decoded
-NumPy payload values in bespoke types. The first two contain storage numbers at
-f32 and i64 precision; the third classifies each individual payload byte as zero
-or nonzero, independently of element width.
+`NpyFloat32Values`, `NpyIntegerValues` and `NpyByteStates` retain ordered NumPy
+decoding results. Float and integer collections hold native `f32` and `i64`
+projections; byte states classify each individual payload byte as zero or
+nonzero, independently of element width.
 
-Construct a collection with `From<&NpyArray>` and inspect its typed slice.
-Convert explicitly to a native vector at a tensor-data or other external
-representation boundary. Decoding retains stored dtype semantics: float64-to-
-integer conversion occurs before any float32 projection, floating-to-integer
-casts saturate as Rust defines, float32 NaN bits and signed zero are preserved,
-and numeric byte values are not normalized to booleans.
+Construct a collection with `From<&NpyArray>`. Borrowed slices expose the native
+scalars, while the distinct collections retain the ordered conversion policy.
+Convert a collection to its native vector at a tensor-data or other external
+representation boundary. Float64-to-integer conversion reads the original stored
+number independently of float32 projection. Floating-to-integer casts saturate
+as Rust defines, float32 NaN bits and signed zero are preserved, and numeric
+byte values are not normalized to booleans.
 
 Native fixed-width word iterators preserve order and exclude an incomplete final
 word, as the previous decoder did. Each iterator supplies its exact allocation
@@ -135,13 +135,13 @@ mesh index or activation coefficient.
 The character importer admits corrective tensor extents together, then validates
 all sparse coordinate roles against that layout before allocating the dense
 buffer. Sparse contributions retain their checked offsets and a borrow of the
-same layout through upload. Decoded values stay typed until native indexing and
-tensor-buffer assignment. Sparse
-transposition, duplicate replacement and native narrowing before bounds checks
-are unchanged. Impossible joint subtraction and overflowing tensor extents now
-return concrete corrective-import errors before allocation. Native tensor upload
-may use a backend's integer representation, such as i32, separately from the
-decoded i64 storage number.
+same layout through upload. Native coefficients and decoded indices enter the
+numerical adapter only after collection admission. Sparse transposition,
+duplicate replacement and native narrowing before bounds checks are unchanged.
+Impossible joint subtraction and overflowing tensor extents now return concrete
+corrective-import errors before allocation. Native tensor upload may use a
+backend's integer representation, such as i32, separately from the decoded i64
+storage number.
 
 `NpyFloat32Values` explicitly projects stored numbers to float32 precision;
 float64 input bytes remain available on the admitted array. Integer decoding
@@ -179,6 +179,11 @@ member and its owning archive, and provides its full `name`, declared
 original query spelling for parsing diagnostics. An absent optional array is
 `None`; a present member with malformed bytes returns a decoding error.
 `Npz::array` requires a match and reports absence as a lookup error.
+
+ZIP selection returns an internal archive-bound member handle. Only ZIP can
+construct its archive/entry association, and decoding takes no separate archive
+argument. NPZ retains that handle with the original query for its suffix policy
+and parsing diagnostics.
 
 ## ZIP reader errors
 

@@ -4,6 +4,8 @@ use std::{error::Error, fmt};
 
 use fabelgeist_numpy_storage::{NpyDimension, NpyElementCount, NpyLayoutError, NpyShape};
 
+use fabelgeist_rig::RigJointCount;
+
 use super::{CorrectiveFeatureIndex, CorrectiveHiddenIndex};
 use crate::character::MeshVertexCount;
 
@@ -30,7 +32,7 @@ pub enum CorrectiveImportError {
         mesh: MeshVertexCount,
     },
     JointCount {
-        joints: NpyDimension,
+        joints: RigJointCount,
     },
     Components {
         actual: NpyDimension,
@@ -68,7 +70,8 @@ impl fmt::Display for CorrectiveImportError {
             ),
             Self::JointCount { joints } => write!(
                 f,
-                "corrective network has {joints} joints, fewer than the {} unposed joints",
+                "corrective network has {} joints, fewer than the {} unposed joints",
+                joints.len(),
                 super::super::SKIPPED_JOINTS
             ),
             Self::Components { actual, expected } => write!(

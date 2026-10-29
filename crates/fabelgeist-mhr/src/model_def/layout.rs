@@ -1,7 +1,7 @@
 //! Identities and dense adapters for Momentum's joint-channel transform.
 
 use crate::character::PARAMETERS_PER_JOINT;
-use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+use fabelgeist_rig::{RigJointCount, RigJointOrdinal, RigJointTable};
 use std::ops::{Index, IndexMut};
 
 /// A joint channel is a matrix row, never a model-parameter column.
@@ -35,7 +35,7 @@ pub struct ModelParameterTable<T>(Vec<T>);
 #[derive(Debug, Default, Clone)]
 pub struct ParameterMatrix {
     values: Vec<f32>,
-    joints: usize,
+    joints: RigJointCount,
     columns: usize,
 }
 
@@ -67,10 +67,11 @@ impl JointChannel {
     ];
     pub const TRANSLATIONS: [Self; 3] =
         [Self::TranslationX, Self::TranslationY, Self::TranslationZ];
+    pub const ROTATIONS: [Self; 3] = [Self::RotationX, Self::RotationY, Self::RotationZ];
     pub const ROTATION_AND_SCALE: [Self; 4] = [
-        Self::RotationX,
-        Self::RotationY,
-        Self::RotationZ,
+        Self::ROTATIONS[0],
+        Self::ROTATIONS[1],
+        Self::ROTATIONS[2],
         Self::Scale,
     ];
 
@@ -87,7 +88,8 @@ impl JointChannel {
         }
     }
 
-    fn offset(self) -> usize {
+    /// Native seven-channel tensor position.
+    pub(crate) fn native_index(self) -> usize {
         match self {
             Self::TranslationX => 0,
             Self::TranslationY => 1,
@@ -107,7 +109,7 @@ impl JointParameterRow {
 
     /// Native row-major offset, used only by the dense matrix adapter.
     fn offset(self) -> usize {
-        usize::from(self.joint) * PARAMETERS_PER_JOINT + self.channel.offset()
+        usize::from(self.joint) * PARAMETERS_PER_JOINT + self.channel.native_index()
     }
 }
 
@@ -137,9 +139,9 @@ impl From<&str> for ParameterSetName {
 }
 
 impl<T: Clone> JointParameterTable<T> {
-    pub fn filled(joints: usize, value: T) -> Self {
+    pub fn filled(joints: RigJointCount, value: T) -> Self {
         Self(
-            (0..joints)
+            (0..joints.len())
                 .map(|_| std::array::from_fn(|_| value.clone()))
                 .collect(),
         )
@@ -163,13 +165,13 @@ impl<T> Index<JointParameterRow> for JointParameterTable<T> {
     type Output = T;
 
     fn index(&self, row: JointParameterRow) -> &Self::Output {
-        &self.0[row.joint][row.channel.offset()]
+        &self.0[row.joint][row.channel.native_index()]
     }
 }
 
 impl<T> IndexMut<JointParameterRow> for JointParameterTable<T> {
     fn index_mut(&mut self, row: JointParameterRow) -> &mut Self::Output {
-        &mut self.0[row.joint][row.channel.offset()]
+        &mut self.0[row.joint][row.channel.native_index()]
     }
 }
 
@@ -228,16 +230,16 @@ impl<T> IndexMut<ModelParameterColumn> for ModelParameterTable<T> {
 }
 
 impl ParameterMatrix {
-    pub fn zeros(joints: usize, columns: usize) -> Self {
+    pub fn zeros(joints: RigJointCount, columns: usize) -> Self {
         Self {
-            values: vec![0.0; joints * PARAMETERS_PER_JOINT * columns],
+            values: vec![0.0; joints.len() * PARAMETERS_PER_JOINT * columns],
             joints,
             columns,
         }
     }
 
     pub fn rows(&self) -> impl Iterator<Item = JointParameterRow> + use<> {
-        (0..self.joints).flat_map(|joint| {
+        (0..self.joints.len()).flat_map(|joint| {
             JointChannel::ALL
                 .into_iter()
                 .map(move |channel| JointParameterRow::new(joint.into(), channel))
@@ -264,7 +266,7 @@ impl ParameterMatrix {
 
     /// Transpose the selected leading columns for native `parameters @ transform`.
     pub fn tensor_transpose(&self, columns: usize) -> Vec<f32> {
-        let rows = self.joints * PARAMETERS_PER_JOINT;
+        let rows = self.joints.len() * PARAMETERS_PER_JOINT;
         let mut transposed = vec![0.0; columns * rows];
         for row in self.rows() {
             for column in 0..columns {

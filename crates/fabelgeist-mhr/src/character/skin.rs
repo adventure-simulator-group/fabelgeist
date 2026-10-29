@@ -1,6 +1,6 @@
 //! Resolve FBX cluster identities into the admitted rig's packed influences.
 
-use super::MAX_SKIN_JOINTS;
+use super::{MAX_SKIN_JOINTS, MeshVertexCount};
 use crate::math::{Mat4, affine_inverse, mat4_from_column_major};
 use anyhow::{Result, bail};
 use fabelgeist_fbx::{Object, Scene};
@@ -24,10 +24,10 @@ pub(super) fn parse_skin(
     scene: &Scene,
     geometry: &Object,
     joint_of_object: &HashMap<i64, RigJointOrdinal>,
-    num_vertices: usize,
+    num_vertices: MeshVertexCount,
     inverse_bind_pose: &mut RigJointTable<Mat4>,
 ) -> Result<SkinWeights> {
-    let mut per_vertex: Vec<Vec<SkinInfluence>> = vec![Vec::new(); num_vertices];
+    let mut per_vertex: Vec<Vec<SkinInfluence>> = vec![Vec::new(); num_vertices.len()];
 
     let Some(skin) = scene
         .children(geometry.id)
@@ -74,7 +74,7 @@ pub(super) fn parse_skin(
 
         for (vertex, weight) in indices.iter().zip(&weights) {
             let vertex = *vertex as usize;
-            if vertex >= num_vertices {
+            if vertex >= num_vertices.len() {
                 bail!("cluster '{}' references vertex {vertex}", cluster.name);
             }
             if *weight <= 0.0 {
@@ -87,8 +87,8 @@ pub(super) fn parse_skin(
         }
     }
 
-    let mut indices = vec![[0; MAX_SKIN_JOINTS]; num_vertices];
-    let mut weights = vec![[0.0; MAX_SKIN_JOINTS]; num_vertices];
+    let mut indices = vec![[0; MAX_SKIN_JOINTS]; num_vertices.len()];
+    let mut weights = vec![[0.0; MAX_SKIN_JOINTS]; num_vertices.len()];
     for (vertex, influences) in per_vertex.iter_mut().enumerate() {
         if influences.is_empty() {
             bail!("no skinning weights for vertex {vertex}");

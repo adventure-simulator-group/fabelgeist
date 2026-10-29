@@ -28,7 +28,7 @@
 //! Reference implementation: <https://github.com/facebookresearch/MHR>.
 
 pub use character::{BlendShapes, Character, Mesh, MeshVertexCount, Skeleton, SkinWeights};
-pub use correctives::{CorrectiveArchiveBytes, PoseCorrectives};
+pub use correctives::{CorrectiveArchiveBytes, CorrectiveForwardError, PoseCorrectives};
 pub use model::{
     MAX_LOD, MIN_LOD, Mhr, MhrConfig, MhrOutput, NUM_BLEND_SHAPES,
     NUM_FACE_EXPRESSION_BLEND_SHAPES, NUM_IDENTITY_BLEND_SHAPES,

@@ -8,7 +8,7 @@ use std::path::Path;
 
 use anyhow::Result;
 use burn::tensor::{Device, Tensor, activation};
-use fabelgeist_numpy_storage::{NpyDimension, NpyLayoutError};
+use fabelgeist_numpy_storage::NpyDimension;
 use fabelgeist_rig::RigJointCount;
 
 use crate::character::MeshVertexCount;
@@ -19,9 +19,12 @@ use import::{CorrectiveBasis, CorrectiveLayout};
 pub use import::{
     CorrectiveExtent, CorrectiveFeatureIndex, CorrectiveHiddenIndex, CorrectiveImportError,
 };
+pub use input::CorrectiveForwardError;
+use input::CorrectiveInput;
 
 mod archive;
 mod import;
+mod input;
 
 /// The first two joints do not define a local pose, so they carry no feature.
 pub const SKIPPED_JOINTS: NpyDimension = NpyDimension::new(2);
@@ -32,17 +35,6 @@ pub struct PoseCorrectives {
     /// Corrective basis: `[hidden, vertices * 3]`.
     basis: Tensor<2>,
     layout: CorrectiveLayout,
-}
-
-struct AxisSinCos {
-    sine: Tensor<3>,
-    cosine: Tensor<3>,
-}
-
-enum EulerAxis {
-    X,
-    Y,
-    Z,
 }
 
 impl PoseCorrectives {
@@ -105,77 +97,18 @@ impl PoseCorrectives {
     }
 
     /// Per-vertex corrective offsets `[batch, vertices, 3]`, from joint
-    /// parameters shaped `[batch, joints, 7]`. Batch-dependent layout products
-    /// are admitted before the corresponding tensor operations.
+    /// parameters in the model's seven-channel order. Joint count and channel
+    /// width must match the admitted network before any tensor operation.
+    /// Batch-dependent products remain fallible layout admissions.
     pub fn forward(
         &self,
         joint_parameters: Tensor<3>,
-    ) -> std::result::Result<Tensor<3>, NpyLayoutError> {
-        let batch = NpyDimension::from(joint_parameters.dims()[0]);
-        let output_dimensions = self.layout.output_dimensions(batch)?;
-        let features = self.pose_features(joint_parameters)?;
+    ) -> std::result::Result<Tensor<3>, CorrectiveForwardError> {
+        let input = CorrectiveInput::new(joint_parameters, &self.layout)?;
+        let output_dimensions = input.output_dimensions()?;
+        let features = input.into_features()?;
         let hidden = activation::relu(features.matmul(self.activation.clone()));
         Ok(hidden.matmul(self.basis.clone()).reshape(output_dimensions))
-    }
-
-    /// The 6D rotation feature per posed joint, flattened to `[batch, posed * 6]`.
-    ///
-    /// A 6D feature is the first two columns of the joint's rotation matrix,
-    /// with 1 subtracted from the two diagonal entries so a rest pose is zero.
-    fn pose_features(
-        &self,
-        joint_parameters: Tensor<3>,
-    ) -> std::result::Result<Tensor<2>, NpyLayoutError> {
-        let batch = NpyDimension::from(joint_parameters.dims()[0]);
-        let feature_dimensions = self.layout.feature_dimensions(batch)?;
-        let euler = joint_parameters
-            .narrow(
-                1,
-                usize::from(SKIPPED_JOINTS),
-                usize::from(self.layout.posed_joints()),
-            )
-            .narrow(2, 3, 3);
-
-        let AxisSinCos {
-            sine: sx,
-            cosine: cx,
-        } = EulerAxis::X.sin_cos(&euler);
-        let AxisSinCos {
-            sine: sy,
-            cosine: cy,
-        } = EulerAxis::Y.sin_cos(&euler);
-        let AxisSinCos {
-            sine: sz,
-            cosine: cz,
-        } = EulerAxis::Z.sin_cos(&euler);
-
-        let feature = Tensor::cat(
-            vec![
-                (cy.clone() * cz.clone()).sub_scalar(1.0),
-                cy.clone() * sz.clone(),
-                sy.clone().neg(),
-                cx.clone().neg() * sz.clone() + sx.clone() * sy.clone() * cz.clone(),
-                (cx * cz + sx.clone() * sy * sz).sub_scalar(1.0),
-                sx * cy,
-            ],
-            2,
-        );
-        Ok(feature.reshape(feature_dimensions))
-    }
-}
-
-impl EulerAxis {
-    fn sin_cos(self, euler: &Tensor<3>) -> AxisSinCos {
-        let channel = match self {
-            Self::X => 0,
-            Self::Y => 1,
-            Self::Z => 2,
-        };
-        let angle = euler.clone().narrow(2, channel, 1);
-        AxisSinCos {
-            sine: angle.clone().sin(),
-            cosine: angle.cos(),
-        }
     }
 }
 

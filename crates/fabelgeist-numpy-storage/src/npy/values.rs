@@ -1,17 +1,7 @@
 //! Ordered decoded NumPy numbers and byte states, retained until SDK conversion.
-use derive_more::{Display, From, Into};
+use derive_more::Into;
 
 use super::{Dtype, NpyArray, NpyElementCount};
-
-/// A decoded storage number projected to f32 precision.
-/// Integer conversion uses the original stored number, independently of this
-/// projection.
-#[derive(Clone, Copy, Debug, From, Into, PartialEq)]
-pub struct NpyFloat32Value(f32);
-
-/// A decoded storage number converted directly to i64 with Rust cast semantics.
-#[derive(Clone, Copy, Debug, Display, From, Into, PartialEq, Eq)]
-pub struct NpyIntegerValue(i64);
 
 /// Ordered floating projections of an array's current payload and dtype.
 ///
@@ -29,7 +19,8 @@ pub struct NpyIntegerValue(i64);
 ///     let native_integers = Vec::<i64>::from(integers);
 /// }
 /// ```
-pub struct NpyFloat32Values(Vec<NpyFloat32Value>);
+#[derive(Into)]
+pub struct NpyFloat32Values(Vec<f32>);
 
 /// Ordered integer conversions of an array's current payload and dtype.
 ///
@@ -39,7 +30,8 @@ pub struct NpyFloat32Values(Vec<NpyFloat32Value>);
 ///     let floats: NpyFloat32Values = values;
 /// }
 /// ```
-pub struct NpyIntegerValues(Vec<NpyIntegerValue>);
+#[derive(Into)]
+pub struct NpyIntegerValues(Vec<i64>);
 
 /// Ordered zero/nonzero classifications of every payload byte.
 #[derive(Into)]
@@ -76,14 +68,8 @@ impl NpyFloat32Values {
         NpyElementCount::from(self.0.len())
     }
 
-    pub fn values(&self) -> &[NpyFloat32Value] {
+    pub fn values(&self) -> &[f32] {
         &self.0
-    }
-}
-
-impl From<NpyFloat32Values> for Vec<f32> {
-    fn from(values: NpyFloat32Values) -> Self {
-        values.0.into_iter().map(f32::from).collect()
     }
 }
 
@@ -102,14 +88,8 @@ impl NpyIntegerValues {
         NpyElementCount::from(self.0.len())
     }
 
-    pub fn values(&self) -> &[NpyIntegerValue] {
+    pub fn values(&self) -> &[i64] {
         &self.0
-    }
-}
-
-impl From<NpyIntegerValues> for Vec<i64> {
-    fn from(values: NpyIntegerValues) -> Self {
-        values.0.into_iter().map(i64::from).collect()
     }
 }
 
@@ -126,23 +106,23 @@ impl NpyByteStates {
 }
 
 impl StoredValue {
-    fn floating(self) -> NpyFloat32Value {
-        NpyFloat32Value(match self {
+    fn floating(self) -> f32 {
+        match self {
             Self::Float32(value) => value,
             Self::Float64(value) => value as f32,
             Self::Integer32(value) => value as f32,
             Self::Integer64(value) => value as f32,
             Self::Byte(value) => value as f32,
-        })
+        }
     }
-    fn integer(self) -> NpyIntegerValue {
-        NpyIntegerValue(match self {
+    fn integer(self) -> i64 {
+        match self {
             Self::Float32(value) => value as i64,
             Self::Float64(value) => value as i64,
             Self::Integer32(value) => value as i64,
             Self::Integer64(value) => value,
             Self::Byte(value) => value as i64,
-        })
+        }
     }
 }
 
