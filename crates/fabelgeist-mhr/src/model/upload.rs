@@ -125,7 +125,7 @@ impl Mhr {
 
 impl SparseSkinUpload {
     fn from_character(character: &Character) -> Result<Self> {
-        // Drop zero influences: MHR averages under three joints per vertex.
+        // Retain influences whose weight exceeds 1e-5.
         let mut skin_joint_indices = Vec::new();
         let mut skin_vertex_indices = Vec::new();
         let mut skin_weights = Vec::new();
