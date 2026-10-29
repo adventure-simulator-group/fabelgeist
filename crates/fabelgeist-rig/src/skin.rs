@@ -24,10 +24,11 @@ pub struct RigInfluences<const WIDTH: usize> {
     pub weights: [f32; WIDTH],
 }
 
+/// Rejected skin admission or encoding, retaining the supplied rig bound.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Display, Error)]
 pub enum RigSkinError {
-    #[display("skin joint {joint} is outside a rig of {joints} joints")]
-    OutsideRig { joint: u32, joints: usize },
+    #[display("skin joint {joint} is outside a rig of {} joints", joints.len())]
+    OutsideRig { joint: u32, joints: RigJointCount },
     #[display("skin joint cannot be represented by a native 32-bit word")]
     NativeWidth,
     #[display("appended skin has a different rig bound")]
@@ -108,10 +109,7 @@ impl<const WIDTH: usize> PackedRigSkin<WIDTH> {
     ) -> Result<Self, RigSkinError> {
         for &joint in words.iter().flatten() {
             if usize::try_from(joint).map_or(true, |joint| joint >= joints.0) {
-                return Err(RigSkinError::OutsideRig {
-                    joint,
-                    joints: joints.0,
-                });
+                return Err(RigSkinError::OutsideRig { joint, joints });
             }
         }
         Ok(Self { words, joints })
@@ -217,7 +215,7 @@ impl<const WIDTH: usize> PackedRigSkin<WIDTH> {
             if usize::from(joint) >= self.joints.0 {
                 return Err(RigSkinError::OutsideRig {
                     joint: *word,
-                    joints: self.joints.0,
+                    joints: self.joints,
                 });
             }
         }
