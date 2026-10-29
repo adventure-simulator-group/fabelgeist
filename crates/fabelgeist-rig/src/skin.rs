@@ -24,7 +24,8 @@ pub struct RigInfluences<const WIDTH: usize> {
     pub weights: [f32; WIDTH],
 }
 
-/// Rejected skin admission or encoding, retaining the supplied rig bound.
+/// Rejected skin admission or encoding.
+/// `OutsideRig` retains the supplied rig bound.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Display, Error)]
 pub enum RigSkinError {
     #[display("skin joint {joint} is outside a rig of {} joints", joints.len())]
