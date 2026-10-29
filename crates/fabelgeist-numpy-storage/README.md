@@ -15,8 +15,8 @@ let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Devic
 
 - Archives are memory-mapped; members may be stored or deflated, and zip64 is
   handled (NumPy switches to it past 2 GB).
-- `NpzMember::uncompressed_size` returns a bespoke `DeclaredUncompressedByteLength` from
-  archive metadata. It does not decode or verify the member's actual length.
+- `NpzMember::uncompressed_size` returns the archive metadata as a bespoke
+  `DeclaredUncompressedByteLength`. It does not decode or verify actual length.
 - Element types: `f4`, `f8`, `i4`, `i8`, `u1`, `b1`.
   Decoded numbers use `NpyFloat32Values` and `NpyIntegerValues`; `NpyByteStates`
   classifies every payload byte as zero or nonzero. Tensor upload uses
@@ -82,15 +82,17 @@ responsibilities. ZIP failures use the concrete classes described below.
 
 Native representations stay at explicit adapters: header dimension admission,
 little-endian word decoding, payload slicing, the immutable `bytes` encoding
-view, and Burn tensor construction. MHR corrective-basis admission retains its mesh vertex count, converting
-to `NpyDimension` at the numerical layout boundary. Shape queries expose nominal
+view, and Burn tensor construction. MHR corrective-basis admission retains its
+mesh vertex count, converting to `NpyDimension` at the numerical layout boundary.
+Shape queries expose nominal
 dimensions, not mutable integer vectors. Numeric value collections retain
 decoded storage numbers; general storage/transport types remain separate bespoke
 type families.
 
 The reader supports NPY versions 1.0, 2.0 and 3.0 with checked header lengths.
-One fallible `NpyHeader` admission owns framing, dictionary and exact borrowed
-payload together; consumers do not reconstruct a range against another buffer.
+One fallible `NpyHeader` admission checks framing and the dictionary, then
+retains the dtype, shape and exact borrowed payload together. Consumers do not
+reconstruct a range against another buffer.
 The scalar header dictionary accepts either quote style and any key order.
 It requires exactly `descr`, `fortran_order` and a shape tuple; duplicate or
 unknown fields, malformed separators and escaped strings are rejected.

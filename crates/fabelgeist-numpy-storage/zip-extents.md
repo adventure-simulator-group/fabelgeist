@@ -9,8 +9,8 @@ or decodes to that length.
 `Option<DeclaredUncompressedByteLength>`. NPZ selects an optional member with
 `Npz::get`; that handle's `uncompressed_size` returns the declared length
 without repeating lookup. NPZ queries retain optional `.npy` suffix matching
-and first-member selection. A stored or deflated member may
-decode successfully even when the declaration disagrees.
+and first-member selection. A stored or deflated member may decode successfully
+even when the declaration disagrees.
 
 ```rust
 use fabelgeist_numpy_storage::{DeclaredUncompressedByteLength, Npz, NpzArrayName};
