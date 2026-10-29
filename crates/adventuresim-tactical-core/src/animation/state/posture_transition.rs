@@ -123,7 +123,10 @@ pub fn dive_landing_facing_delta(
         DiveDirection::Right => -std::f32::consts::FRAC_PI_2,
     };
     Ok(Quat::from_rotation_y(
-        total_yaw * current_progress.saturating_sub(previous_progress).fraction(),
+        total_yaw
+            * current_progress
+                .saturating_sub(previous_progress)
+                .fraction(),
     ))
 }
 

@@ -153,8 +153,8 @@ pub fn input(
         faces: character.mesh.faces.clone(),
         names: character.skeleton.names.clone(),
         joints: generated.global_joint_states.clone(),
-        indices: character.skin_weights.index.clone(),
-        weights: character.skin_weights.weight.clone(),
+        indices: character.skin_weights.indices().clone(),
+        weights: character.skin_weights.weights().as_native_slice().to_vec(),
     }
 }
 

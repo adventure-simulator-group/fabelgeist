@@ -1,12 +1,18 @@
 //! Identities and dense adapters for Momentum's joint-channel transform.
 
 use crate::character::PARAMETERS_PER_JOINT;
-use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+use fabelgeist_numpy_storage::NpyDimension;
+use fabelgeist_rig::{RigJointCount, RigJointOrdinal, RigJointTable};
 use std::ops::{Index, IndexMut};
 
-/// A joint channel is a matrix row, never a model-parameter column.
+pub use matrix::ParameterLayoutError;
+pub(crate) use matrix::ParameterMatrix;
+
+mod matrix;
+
+/// Private parser row key, resolved against the same skeleton as its tables.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct JointParameterRow {
+pub(crate) struct JointParameterRow {
     joint: RigJointOrdinal,
     channel: JointChannel,
 }
@@ -25,23 +31,24 @@ pub struct ParameterSetName(String);
 
 /// Values in joint order, with the seven channels stored in authored order.
 #[derive(Debug, Clone)]
-pub struct JointParameterTable<T>(RigJointTable<[T; PARAMETERS_PER_JOINT]>);
+pub struct JointParameterTable<T>(RigJointTable<JointChannels<T>>);
+
+/// The authored channel roles own selection within one joint.
+#[derive(Debug, Clone)]
+pub struct JointChannels<T>([T; PARAMETERS_PER_JOINT]);
 
 /// Values in insertion-ordered model-parameter columns.
 #[derive(Debug, Clone)]
 pub struct ModelParameterTable<T>(Vec<T>);
 
-/// Row-major coefficients with row and column identity retained at every API.
-#[derive(Debug, Default, Clone)]
-pub struct ParameterMatrix {
-    values: Vec<f32>,
-    joints: usize,
-    columns: usize,
-}
-
 /// Borrowed coefficients selected by a joint-channel row.
-#[derive(Debug)]
-pub struct ModelParameterRow<'a>(&'a [f32]);
+#[derive(Debug, Clone, Copy)]
+pub struct ModelParameterRow<'a> {
+    pub(super) values: &'a [f32],
+    pub(super) source: &'a super::ParameterTransform,
+    pub(super) joint: RigJointOrdinal,
+    pub(super) channel: JointChannel,
+}
 
 /// The authored seven-channel order of each Momentum joint.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -67,6 +74,7 @@ impl JointChannel {
     ];
     pub const TRANSLATIONS: [Self; 3] =
         [Self::TranslationX, Self::TranslationY, Self::TranslationZ];
+    pub const ROTATIONS: [Self; 3] = [Self::RotationX, Self::RotationY, Self::RotationZ];
     pub const ROTATION_AND_SCALE: [Self; 4] = [
         Self::RotationX,
         Self::RotationY,
@@ -87,7 +95,8 @@ impl JointChannel {
         }
     }
 
-    fn offset(self) -> usize {
+    /// Native seven-channel tensor position.
+    pub(crate) fn native_index(self) -> usize {
         match self {
             Self::TranslationX => 0,
             Self::TranslationY => 1,
@@ -101,13 +110,13 @@ impl JointChannel {
 }
 
 impl JointParameterRow {
-    pub fn new(joint: RigJointOrdinal, channel: JointChannel) -> Self {
+    pub(crate) fn new(joint: RigJointOrdinal, channel: JointChannel) -> Self {
         Self { joint, channel }
     }
 
     /// Native row-major offset, used only by the dense matrix adapter.
     fn offset(self) -> usize {
-        usize::from(self.joint) * PARAMETERS_PER_JOINT + self.channel.offset()
+        usize::from(self.joint) * PARAMETERS_PER_JOINT + self.channel.native_index()
     }
 }
 
@@ -136,40 +145,61 @@ impl From<&str> for ParameterSetName {
     }
 }
 
+impl<T> JointChannels<T> {
+    pub(crate) fn from_fn(mut value: impl FnMut(JointChannel) -> T) -> Self {
+        Self(JointChannel::ALL.map(&mut value))
+    }
+}
+
+impl<T> Index<JointChannel> for JointChannels<T> {
+    type Output = T;
+
+    fn index(&self, channel: JointChannel) -> &T {
+        &self.0[channel.native_index()]
+    }
+}
+
+impl<T> IndexMut<JointChannel> for JointChannels<T> {
+    fn index_mut(&mut self, channel: JointChannel) -> &mut T {
+        &mut self.0[channel.native_index()]
+    }
+}
+
 impl<T: Clone> JointParameterTable<T> {
-    pub fn filled(joints: usize, value: T) -> Self {
+    pub fn filled(joints: RigJointCount, value: T) -> Self {
         Self(
-            (0..joints)
-                .map(|_| std::array::from_fn(|_| value.clone()))
+            joints
+                .ordinals()
+                .map(|_| JointChannels::from_fn(|_| value.clone()))
                 .collect(),
         )
     }
 }
 
 impl<T> JointParameterTable<T> {
-    pub fn iter(&self) -> impl Iterator<Item = &T> {
-        self.0.iter().flatten()
+    pub(crate) fn iter(&self) -> impl Iterator<Item = &T> {
+        self.0.iter().flat_map(|channels| channels.0.iter())
+    }
+
+    pub(crate) fn rows(&self) -> impl Iterator<Item = &JointChannels<T>> {
+        self.0.iter()
+    }
+
+    pub fn row(&self, joint: RigJointOrdinal) -> Option<&JointChannels<T>> {
+        self.0.get(joint)
+    }
+
+    pub(crate) fn get_mut(&mut self, row: JointParameterRow) -> Option<&mut T> {
+        self.0
+            .get_mut(row.joint)
+            .map(|channels| &mut channels[row.channel])
     }
 }
 
 impl JointParameterTable<f32> {
     /// Row-major upload to a native tensor, in the model's seven-channel order.
-    pub fn tensor_values(&self) -> Vec<f32> {
+    pub(crate) fn tensor_values(&self) -> Vec<f32> {
         self.iter().copied().collect()
-    }
-}
-
-impl<T> Index<JointParameterRow> for JointParameterTable<T> {
-    type Output = T;
-
-    fn index(&self, row: JointParameterRow) -> &Self::Output {
-        &self.0[row.joint][row.channel.offset()]
-    }
-}
-
-impl<T> IndexMut<JointParameterRow> for JointParameterTable<T> {
-    fn index_mut(&mut self, row: JointParameterRow) -> &mut Self::Output {
-        &mut self.0[row.joint][row.channel.offset()]
     }
 }
 
@@ -180,6 +210,11 @@ impl<T> ModelParameterTable<T> {
 
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
+    }
+
+    /// Array-axis extent at the table's actual storage owner.
+    pub fn column_count(&self) -> NpyDimension {
+        NpyDimension::from(self.0.len())
     }
 
     pub fn push(&mut self, value: T) -> ModelParameterColumn {
@@ -194,12 +229,19 @@ impl<T> ModelParameterTable<T> {
 }
 
 impl<T: Clone> ModelParameterTable<T> {
-    pub fn filled(columns: usize, value: T) -> Self {
-        Self(vec![value; columns])
+    pub fn filled(columns: NpyDimension, value: T) -> Self {
+        Self(vec![value; usize::from(columns)])
     }
 
-    pub fn resize(&mut self, columns: usize, value: T) {
-        self.0.resize(columns, value);
+    pub fn resize(&mut self, columns: NpyDimension, value: T) {
+        self.0.resize(usize::from(columns), value);
+    }
+}
+
+impl ModelParameterTable<f32> {
+    /// Consumes model-column coefficients for a native tensor upload.
+    pub fn into_tensor_values(self) -> Vec<f32> {
+        self.0
     }
 }
 
@@ -227,58 +269,22 @@ impl<T> IndexMut<ModelParameterColumn> for ModelParameterTable<T> {
     }
 }
 
-impl ParameterMatrix {
-    pub fn zeros(joints: usize, columns: usize) -> Self {
-        Self {
-            values: vec![0.0; joints * PARAMETERS_PER_JOINT * columns],
-            joints,
-            columns,
-        }
-    }
-
-    pub fn rows(&self) -> impl Iterator<Item = JointParameterRow> + use<> {
-        (0..self.joints).flat_map(|joint| {
-            JointChannel::ALL
-                .into_iter()
-                .map(move |channel| JointParameterRow::new(joint.into(), channel))
-        })
-    }
-
-    pub fn row(&self, row: JointParameterRow) -> ModelParameterRow<'_> {
-        let start = row.offset() * self.columns;
-        ModelParameterRow(&self.values[start..start + self.columns])
-    }
-
-    pub fn add(&mut self, row: JointParameterRow, column: ModelParameterColumn, value: f32) {
-        self.values[row.offset() * self.columns + column.0] += value;
-    }
-
-    pub fn append_columns(&mut self, columns: usize) {
-        let mut expanded = Self::zeros(self.joints, columns);
-        for row in self.rows() {
-            let start = row.offset() * columns;
-            expanded.values[start..start + self.columns].copy_from_slice(self.row(row).as_slice());
-        }
-        *self = expanded;
-    }
-
-    /// Transpose the selected leading columns for native `parameters @ transform`.
-    pub fn tensor_transpose(&self, columns: usize) -> Vec<f32> {
-        let rows = self.joints * PARAMETERS_PER_JOINT;
-        let mut transposed = vec![0.0; columns * rows];
-        for row in self.rows() {
-            for column in 0..columns {
-                transposed[column * rows + row.offset()] =
-                    self.row(row)[ModelParameterColumn(column)];
-            }
-        }
-        transposed
-    }
-}
-
 impl ModelParameterRow<'_> {
+    /// The source rig label at this row's actual ordered slot.
+    pub fn joint_name(&self) -> &fabelgeist_rig::RigJointName {
+        &self.source.source_joints[self.joint]
+    }
+
+    pub fn channel(&self) -> JointChannel {
+        self.channel
+    }
+
+    pub fn get(&self, column: ModelParameterColumn) -> Option<&f32> {
+        self.values.get(column.0)
+    }
+
     pub fn as_slice(&self) -> &[f32] {
-        self.0
+        self.values
     }
 }
 
@@ -286,13 +292,7 @@ impl Index<ModelParameterColumn> for ModelParameterRow<'_> {
     type Output = f32;
 
     fn index(&self, column: ModelParameterColumn) -> &Self::Output {
-        &self.0[column.0]
-    }
-}
-
-impl<T> Default for JointParameterTable<T> {
-    fn default() -> Self {
-        Self(RigJointTable::default())
+        &self.values[column.0]
     }
 }
 

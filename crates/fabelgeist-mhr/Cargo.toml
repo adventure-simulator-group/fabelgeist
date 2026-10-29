@@ -6,6 +6,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "AGPL-3.0"
 
 [dependencies]
+derive_more = { version = "2.1.1", features = ["display", "error", "from", "into_iterator"] }
 fabelgeist-rig = { path = "../fabelgeist-rig" }
 anyhow = "1"
 burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [

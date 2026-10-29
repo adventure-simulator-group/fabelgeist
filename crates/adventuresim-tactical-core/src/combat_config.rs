@@ -17,9 +17,9 @@ pub use landing::AnimationLandingConfig;
 pub use locomotion::{AnimationGaitConfig, AnimationLocomotionConfig};
 pub use maneuvers::ManeuverTimingConfig;
 pub use playback::AnimationPlaybackConfig;
-pub use state_transitions::AnimationStateTransitionConfig;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+pub use state_transitions::AnimationStateTransitionConfig;
 use thiserror::Error;
 
 pub use ai_offense::AiOffenseConfig;
@@ -626,7 +626,9 @@ impl TacticalCombatConfig {
         }
 
         let animation = self.animation;
-        let initial_locomotion_speed = animation.playback.initial_locomotion_speed_metres_per_second;
+        let initial_locomotion_speed = animation
+            .playback
+            .initial_locomotion_speed_metres_per_second;
         animation.locomotion.validate(initial_locomotion_speed)?;
         animation.state_transitions.validate()?;
         let guard = animation.guard_footwork;

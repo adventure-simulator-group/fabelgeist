@@ -16,9 +16,11 @@ pub use skeleton::Skeleton;
 use skeleton::{ParsedSkeleton, parse_skeleton};
 pub use skin::SkinWeights;
 use skin::parse_skin;
+pub use vertices::{MeshVertexCount, MeshVertexIndex, MeshVertexTable};
 
 mod skeleton;
 mod skin;
+mod vertices;
 
 /// Momentum allows at most eight joint influences per vertex.
 pub const MAX_SKIN_JOINTS: usize = 8;
@@ -29,7 +31,7 @@ pub const PARAMETERS_PER_JOINT: usize = 7;
 /// Triangulated mesh with the original polygon topology dropped.
 #[derive(Debug, Default, Clone)]
 pub struct Mesh {
-    pub vertices: Vec<[f32; 3]>,
+    pub vertices: MeshVertexTable<[f32; 3]>,
     pub faces: Vec<[u32; 3]>,
     pub texcoords: Vec<[f32; 2]>,
     pub texcoord_faces: Vec<[u32; 3]>,
@@ -40,7 +42,6 @@ pub struct Mesh {
 pub struct BlendShapes {
     pub names: Vec<FbxObjectName>,
     pub vectors: Vec<f32>,
-    pub num_vertices: usize,
 }
 
 /// Everything the MHR forward pass needs from the rig file.
@@ -51,6 +52,12 @@ pub struct Character {
     /// Inverse bind pose per joint as a skeleton state `[t, q, s]`.
     pub inverse_bind_pose: RigJointTable<[f32; 8]>,
     pub blend_shapes: BlendShapes,
+}
+
+impl Mesh {
+    pub fn vertex_count(&self) -> MeshVertexCount {
+        self.vertices.vertex_count()
+    }
 }
 
 impl BlendShapes {
@@ -117,7 +124,7 @@ impl Character {
         if !remainder.is_empty() {
             bail!("FBX vertex array contains an incomplete three-axis position");
         }
-        let vertices: Vec<[f32; 3]> = vertex_triples
+        let vertices: MeshVertexTable<[f32; 3]> = vertex_triples
             .iter()
             .map(|v| [v[0] as f32, v[1] as f32, v[2] as f32])
             .collect();
@@ -131,8 +138,15 @@ impl Character {
         let (texcoords, texcoord_indices) = parse_uvs(geometry, polygon_vertex_index.len())?;
         let texcoord_faces = triangulate_texcoords(&polygon_vertex_index, &texcoord_indices);
 
+        let mesh = Mesh {
+            vertices,
+            faces,
+            texcoords,
+            texcoord_faces,
+        };
+        let num_vertices = mesh.vertex_count();
         let blend_shapes = if load_blend_shapes {
-            parse_blend_shapes(&scene, geometry, vertices.len())
+            parse_blend_shapes(&scene, geometry, num_vertices)
         } else {
             BlendShapes::default()
         };
@@ -141,18 +155,13 @@ impl Character {
             &scene,
             geometry,
             &joint_of_object,
-            vertices.len(),
+            num_vertices,
             &mut inverse_bind_pose,
         )?;
 
         Ok(Self {
             skeleton,
-            mesh: Mesh {
-                vertices,
-                faces,
-                texcoords,
-                texcoord_faces,
-            },
+            mesh,
             skin_weights,
             inverse_bind_pose: inverse_bind_pose
                 .iter()
@@ -248,7 +257,11 @@ fn triangulate_texcoords(polygon_vertex_index: &[i64], texcoord_indices: &[i64])
     faces
 }
 
-fn parse_blend_shapes(scene: &Scene, geometry: &Object, num_vertices: usize) -> BlendShapes {
+fn parse_blend_shapes(
+    scene: &Scene,
+    geometry: &Object,
+    num_vertices: MeshVertexCount,
+) -> BlendShapes {
     let mut names = Vec::new();
     let mut vectors: Vec<f32> = Vec::new();
 
@@ -271,28 +284,28 @@ fn parse_blend_shapes(scene: &Scene, geometry: &Object, num_vertices: usize) -> 
         {
             let offsets = shape.node.child("Vertices").and_then(|n| n.f64_array());
             let indices = shape.node.child("Indexes").and_then(|n| n.i64_array());
-            let base = vectors.len();
-            vectors.resize(base + num_vertices * 3, 0.0);
+            let mut displacements = MeshVertexTable::filled(num_vertices, [0.0; 3]);
             if let (Some(offsets), Some(indices)) = (offsets, indices) {
                 for (slot, vertex) in indices.iter().enumerate() {
-                    let vertex = *vertex as usize;
-                    if vertex >= num_vertices || slot * 3 + 2 >= offsets.len() {
+                    let vertex = MeshVertexIndex::from_native_vertex_index(*vertex as usize);
+                    let Some(displacement) = displacements.get_mut(vertex) else {
+                        continue;
+                    };
+                    if slot * 3 + 2 >= offsets.len() {
                         continue;
                     }
                     for axis in 0..3 {
-                        vectors[base + vertex * 3 + axis] = offsets[slot * 3 + axis] as f32;
+                        displacement[axis] = offsets[slot * 3 + axis] as f32;
                     }
                 }
             }
+            // Dense shape-major coefficients are the numerical basis storage.
+            vectors.extend(displacements.into_iter().flatten());
             names.push(shape.name.clone());
         }
     }
 
-    BlendShapes {
-        names,
-        vectors,
-        num_vertices,
-    }
+    BlendShapes { names, vectors }
 }
 
 #[cfg(test)]
