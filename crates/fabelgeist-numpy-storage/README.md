@@ -86,11 +86,10 @@ below.
 Native representations stay at explicit adapters: header dimension admission,
 little-endian word decoding, payload slicing, the immutable `bytes` encoding
 view, and Burn tensor construction. MHR corrective-basis admission retains its
-mesh vertex count, converting to `NpyDimension` at the numerical layout boundary.
-Shape queries expose nominal
-dimensions, not mutable integer vectors. Numeric value collections retain
-decoded storage numbers; general storage/transport types remain separate bespoke
-type families.
+mesh vertex count, converting to `NpyDimension` at the numerical layout
+boundary. Shape queries expose nominal dimensions, not mutable integer vectors.
+Numeric value collections retain decoded storage numbers; general
+storage/transport types remain separate bespoke type families.
 
 The reader supports NPY versions 1.0, 2.0 and 3.0 with checked header lengths.
 One fallible `NpyHeader` admission checks framing and the dictionary, then

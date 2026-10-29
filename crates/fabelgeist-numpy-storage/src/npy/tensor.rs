@@ -41,7 +41,7 @@ impl<const D: usize> NpyTensorLayout<D> {
 impl<const D: usize> TryFrom<[NpyDimension; D]> for NpyTensorLayout<D> {
     type Error = NpyLayoutError;
 
-    fn try_from(dimensions: [NpyDimension; D]) -> Result<Self> {
+    fn try_from(dimensions: [NpyDimension; D]) -> std::result::Result<Self, NpyLayoutError> {
         let elements = NpyElementCount::from_dimensions(&dimensions)?;
         Self {
             dimensions,
@@ -54,7 +54,7 @@ impl<const D: usize> TryFrom<[NpyDimension; D]> for NpyTensorLayout<D> {
 impl<const D: usize> TryFrom<&NpyShape> for NpyTensorLayout<D> {
     type Error = NpyLayoutError;
 
-    fn try_from(shape: &NpyShape) -> Result<Self> {
+    fn try_from(shape: &NpyShape) -> std::result::Result<Self, NpyLayoutError> {
         let dimensions = shape
             .dimensions()
             .try_into()
