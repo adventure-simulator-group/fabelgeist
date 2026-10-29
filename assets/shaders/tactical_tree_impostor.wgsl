@@ -1,21 +1,11 @@
 diagnostic(off, derivative_uniformity);
 
 #import bevy_pbr::{
+    forward_io::{Vertex, VertexOutput},
     mesh_functions,
-    mesh_view_bindings::view,
+    mesh_view_bindings::{globals, view},
     view_transformations::position_world_to_clip,
 }
-
-#ifdef PREPASS_PIPELINE
-// The prepass view layout binds the globals uniform at slot 1, but ships no
-// importable WGSL module for it, so declare the binding directly.
-#import bevy_render::globals::Globals
-@group(0) @binding(1) var<uniform> globals: Globals;
-#import bevy_pbr::prepass_io::{Vertex, VertexOutput}
-#else
-#import bevy_pbr::mesh_view_bindings::globals
-#import bevy_pbr::forward_io::{Vertex, VertexOutput}
-#endif
 
 @group(#{MATERIAL_BIND_GROUP}) @binding(0)
 var baked_color: texture_2d<f32>;
@@ -39,12 +29,10 @@ fn vertex(vertex: Vertex) -> VertexOutput {
         world_from_local,
         vec4<f32>(vertex.position, 1.0),
     );
-#ifndef PREPASS_PIPELINE
     var world_normal = mesh_functions::mesh_normal_local_to_world(
         vertex.normal,
         vertex.instance_index,
     );
-#endif
     let level = i32(round(tree.parameters.x));
     if level == 4 {
         let root_world = mesh_functions::mesh_position_local_to_world(
@@ -65,9 +53,7 @@ fn vertex(vertex: Vertex) -> VertexOutput {
                 + vec3<f32>(0.0, vertex.position.y * vertical_scale, 0.0),
             1.0,
         );
-#ifndef PREPASS_PIPELINE
         world_normal = vec3<f32>(to_camera.x, 0.18, to_camera.y);
-#endif
     }
     let height_weight = smoothstep(0.05, 1.0, vertex.uv.y);
     let phase = globals.time * tree.parameters.w
@@ -83,9 +69,7 @@ fn vertex(vertex: Vertex) -> VertexOutput {
 
     out.world_position = world_position;
     out.position = position_world_to_clip(world_position.xyz);
-#ifndef PREPASS_PIPELINE
     out.world_normal = normalize(mix(world_normal, vec3<f32>(0.0, 1.0, 0.0), 0.22));
-#endif
     out.uv = vertex.uv;
 #ifdef VERTEX_OUTPUT_INSTANCE_INDEX
     out.instance_index = vertex.instance_index;
@@ -99,7 +83,8 @@ fn vertex(vertex: Vertex) -> VertexOutput {
     return out;
 }
 
-fn discard_hidden_representation(in: VertexOutput) {
+@fragment
+fn fragment(in: VertexOutput) -> @location(0) vec4<f32> {
 #ifdef VISIBILITY_RANGE_DITHER
     // Switch aggregate tree representations at the midpoint of Bevy's
     // complementary visibility interval. A translucent crossfade reads as a
@@ -110,9 +95,6 @@ fn discard_hidden_representation(in: VertexOutput) {
         discard;
     }
 #endif
-}
-
-fn atlas_uv(in: VertexOutput) -> vec2<f32> {
     var uv = in.uv;
     if i32(round(tree.parameters.x)) == 4 {
         let direction = normalize(view.world_position.xz - in.world_position.xz + vec2<f32>(0.0001, 0.0));
@@ -131,25 +113,7 @@ fn atlas_uv(in: VertexOutput) -> vec2<f32> {
             (f32(row) + uv.y) / 3.0,
         );
     }
-    return uv;
-}
-
-#ifdef PREPASS_PIPELINE
-// Impostors cast no shadows, so the only prepass is the camera's depth
-// prepass. It writes only fully opaque atlas texels, where the main pass's
-// AlphaToCoverage covers every MSAA sample, so the passes cannot disagree.
-@fragment
-fn fragment(in: VertexOutput) {
-    discard_hidden_representation(in);
-    if textureSample(baked_color, baked_color_sampler, atlas_uv(in)).a < 1.0 {
-        discard;
-    }
-}
-#else
-@fragment
-fn fragment(in: VertexOutput) -> @location(0) vec4<f32> {
-    discard_hidden_representation(in);
-    let baked = textureSample(baked_color, baked_color_sampler, atlas_uv(in));
+    let baked = textureSample(baked_color, baked_color_sampler, uv);
     if baked.a < 0.2 {
         discard;
     }
@@ -169,4 +133,3 @@ fn fragment(in: VertexOutput) -> @location(0) vec4<f32> {
         * (1.0 - tree.ambient.w);
     return vec4<f32>(baked.rgb * (ambient_irradiance + vec3<f32>(direct_irradiance)), baked.a);
 }
-#endif

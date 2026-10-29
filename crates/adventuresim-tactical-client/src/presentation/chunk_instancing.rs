@@ -7,7 +7,7 @@
 //! `draw_indexed` over its own instance buffer, uploaded once. Instances fade
 //! in and out per instance in the shader, so crossfading distance bands hand
 //! over pixel-exactly however the chunks fall. Chunks draw in the main pass
-//! and the depth prepass, never in shadow passes.
+//! only, never in prepass or shadow passes.
 mod draw;
 mod instance;
 mod material;
@@ -18,7 +18,7 @@ mod spawn;
 use std::marker::PhantomData;
 
 use bevy::{
-    core_pipeline::{core_3d::Opaque3d, prepass::Opaque3dPrepass},
+    core_pipeline::core_3d::Opaque3d,
     pbr::MeshPipelineSystems,
     prelude::*,
     render::{
@@ -73,26 +73,17 @@ impl<M: ChunkInstancedMaterial> Plugin for ChunkMaterialPlugin<M> {
         ));
         app.sub_app_mut(RenderApp)
             .add_render_command::<Opaque3d, draw::DrawChunkInstances<M>>()
-            .add_render_command::<Opaque3dPrepass, draw::DrawChunkInstancesPrepass<M>>()
             .init_resource::<SpecializedMeshPipelines<pipeline::ChunkMaterialPipeline<M>>>()
-            .init_resource::<SpecializedMeshPipelines<pipeline::ChunkPrepassPipeline<M>>>()
             .init_resource::<queue::QueuedChunks<M>>()
             .add_systems(
                 RenderStartup,
-                (
-                    init_pipeline::<pipeline::ChunkMaterialPipeline<M>>,
-                    init_pipeline::<pipeline::ChunkPrepassPipeline<M>>,
-                )
-                    .chain()
-                    .after(MeshPipelineSystems)
-                    .after(bevy::pbr::init_prepass_pipeline),
+                init_pipeline::<pipeline::ChunkMaterialPipeline<M>>.after(MeshPipelineSystems),
             )
             .add_systems(
                 Render,
                 queue::queue_chunks::<M>
                     .in_set(RenderSystems::QueueMeshes)
-                    .after(bevy::pbr::queue_material_meshes)
-                    .after(bevy::pbr::queue_prepass_material_meshes),
+                    .after(bevy::pbr::queue_material_meshes),
             );
     }
 }

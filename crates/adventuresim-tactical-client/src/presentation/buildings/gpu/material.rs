@@ -72,19 +72,8 @@ impl Material for CityMaterial {
         _: &bevy::pbr::MaterialPipeline,
         descriptor: &mut RenderPipelineDescriptor,
         _: &bevy::mesh::MeshVertexBufferLayoutRef,
-        key: bevy::pbr::MaterialPipelineKey<Self>,
+        _: bevy::pbr::MaterialPipelineKey<Self>,
     ) -> Result<(), SpecializedMeshPipelineError> {
-        if adventuresim_procedural_materials::is_camera_depth_prepass(
-            &descriptor.vertex.shader_defs,
-            key.mesh_key,
-        ) {
-            // The camera prepass must repeat the main pass's distance fade.
-            descriptor
-                .vertex
-                .shader_defs
-                .push("CAMERA_DEPTH_PREPASS".into());
-            adventuresim_procedural_materials::add_camera_depth_prepass_fragment(descriptor);
-        }
         // Geometry comes from storage; the small Mesh3d is only a phase anchor.
         // Bevy's mesh specializer caches by slot zero, even for vertex pulling.
         descriptor.layout[2] = super::scratch::geometry_layout();

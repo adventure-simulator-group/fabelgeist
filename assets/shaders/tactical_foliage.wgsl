@@ -1,43 +1,19 @@
 #import bevy_pbr::{
-    mesh_functions,
-    mesh_view_bindings::view,
-    view_transformations::position_world_to_clip,
-}
-
-#ifdef PREPASS_PIPELINE
-// The prepass view layout binds the globals uniform at slot 1, but ships no
-// importable WGSL module for it, so declare the binding directly.
-#import bevy_render::globals::Globals
-@group(0) @binding(1) var<uniform> globals: Globals;
-#import bevy_pbr::prepass_io::VertexOutput
-
-// The blade shaping below reads the authored normal, which Bevy's prepass
-// input omits without a normal prepass. The material appends it at slot 3.
-struct Vertex {
-    @builtin(instance_index) instance_index: u32,
-    @location(0) position: vec3<f32>,
-    @location(1) uv: vec2<f32>,
-#ifdef VERTEX_UVS_B
-    @location(2) uv_b: vec2<f32>,
-#endif
-    @location(3) normal: vec3<f32>,
-    @location(7) color: vec4<f32>,
-}
-#else
-#import bevy_pbr::{
     forward_io::{Vertex, VertexOutput, FragmentOutput},
-    mesh_view_bindings::globals,
+    mesh_functions,
+    mesh_view_bindings::{globals, view},
     pbr_fragment::pbr_input_from_vertex_output,
     pbr_functions::{
         apply_pbr_lighting,
         main_pass_post_lighting_processing,
+        visibility_range_dither,
     },
     pbr_types::{
         STANDARD_MATERIAL_FLAGS_DOUBLE_SIDED_BIT,
         STANDARD_MATERIAL_FLAGS_FOG_ENABLED_BIT,
     },
+    view_transformations::position_world_to_clip,
 }
-#endif
 
 struct TacticalFoliageMaterial {
     wind: vec4<f32>,
@@ -136,13 +112,11 @@ fn vertex(vertex: Vertex) -> VertexOutput {
             vertex.instance_index,
         ));
         cheap_world_normal.y = abs(cheap_world_normal.y);
-#ifndef PREPASS_PIPELINE
         out.world_normal = normalize(mix(
             cheap_world_normal,
             vec3<f32>(0.0, 1.0, 0.0),
             foliage.shading.z,
         ));
-#endif
         out.uv = vertex.uv;
 #ifdef VERTEX_UVS_B
         out.uv_b = vertex.uv_b;
@@ -406,13 +380,11 @@ fn vertex(vertex: Vertex) -> VertexOutput {
 
     out.world_position = world_position;
     out.position = position_world_to_clip(out.world_position.xyz);
-#ifndef PREPASS_PIPELINE
     out.world_normal = normalize(mix(
         shaped_world_normal,
         vec3<f32>(0.0, 1.0, 0.0),
         foliage.shading.z,
     ));
-#endif
     out.uv = vertex.uv;
 #ifdef VERTEX_UVS_B
     out.uv_b = vertex.uv_b;
@@ -430,19 +402,6 @@ fn vertex(vertex: Vertex) -> VertexOutput {
     return out;
 }
 
-#ifdef PREPASS_PIPELINE
-// Foliage casts no shadows, so the only prepass is the camera's depth prepass.
-// Blades are solid geometry whose only coverage is the LOD crossfade: write
-// depth where that is complete, so AlphaToCoverage covers every sample there.
-@fragment
-fn fragment(in: VertexOutput) {
-#ifdef VISIBILITY_RANGE_DITHER
-    if in.visibility_range_dither != 0 {
-        discard;
-    }
-#endif
-}
-#else
 @fragment
 fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> FragmentOutput {
     var lod_coverage = 1.0;
@@ -546,4 +505,3 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     out.color = main_pass_post_lighting_processing(pbr_input, out.color);
     return out;
 }
-#endif

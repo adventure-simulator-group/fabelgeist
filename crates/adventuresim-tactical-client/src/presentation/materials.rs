@@ -6,7 +6,6 @@ pub(super) struct TacticalMaterialsPlugin;
 
 impl Plugin for TacticalMaterialsPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, terrain::load_terrain_prepass_shader);
         app.add_plugins((
             MaterialPlugin::<TacticalTerrainMaterial>::default(),
             MaterialPlugin::<TacticalVistaMaterial>::default(),

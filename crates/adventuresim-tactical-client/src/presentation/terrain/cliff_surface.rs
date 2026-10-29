@@ -4,7 +4,6 @@ use super::*;
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
 
 const TERRAIN_SHADER: &str = "shaders/tactical_terrain.wgsl";
-const TERRAIN_PREPASS_SHADER: &str = "shaders/tactical_terrain_prepass.wgsl";
 
 /// Flat Bevy binding shared by ordinary terrain and the implicit cliff patch.
 /// Cliff uniforms and textures live here beside the pre-existing terrain
@@ -64,14 +63,6 @@ pub(in crate::presentation) struct TacticalTerrainExtension {
     pub(super) cliff_arm: Handle<Image>,
 }
 
-/// Loaded once at startup: `specialize` runs in the render world without an
-/// asset server, but must attach this fragment to the camera depth prepass.
-static TERRAIN_PREPASS_FRAGMENT: std::sync::OnceLock<Handle<Shader>> = std::sync::OnceLock::new();
-
-pub(in crate::presentation) fn load_terrain_prepass_shader(asset_server: Res<AssetServer>) {
-    TERRAIN_PREPASS_FRAGMENT.get_or_init(|| asset_server.load(TERRAIN_PREPASS_SHADER));
-}
-
 impl MaterialExtension for TacticalTerrainExtension {
     fn fragment_shader() -> ShaderRef {
         TERRAIN_SHADER.into()
@@ -79,38 +70,6 @@ impl MaterialExtension for TacticalTerrainExtension {
 
     fn deferred_fragment_shader() -> ShaderRef {
         TERRAIN_SHADER.into()
-    }
-
-    /// Declaring a prepass shader makes Bevy bind the terrain uniforms in the
-    /// prepass, which the detail-patch discard reads.
-    fn prepass_fragment_shader() -> ShaderRef {
-        TERRAIN_PREPASS_SHADER.into()
-    }
-
-    fn specialize(
-        _pipeline: &bevy::pbr::MaterialExtensionPipeline,
-        descriptor: &mut bevy::render::render_resource::RenderPipelineDescriptor,
-        _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
-        key: bevy::pbr::MaterialExtensionKey<Self>,
-    ) -> Result<(), bevy::render::render_resource::SpecializedMeshPipelineError> {
-        // Opaque terrain gets no prepass fragment stage, so without this the
-        // coarse surface inside the detail patch would write depth over the
-        // refined surface that replaces it.
-        if descriptor.fragment.is_none()
-            && adventuresim_procedural_materials::is_camera_depth_prepass(
-                &descriptor.vertex.shader_defs,
-                key.mesh_key,
-            )
-            && let Some(shader) = TERRAIN_PREPASS_FRAGMENT.get()
-        {
-            descriptor.fragment = Some(bevy::render::render_resource::FragmentState {
-                shader: shader.clone(),
-                shader_defs: descriptor.vertex.shader_defs.clone(),
-                entry_point: Some("fragment".into()),
-                targets: Vec::new(),
-            });
-        }
-        Ok(())
     }
 }
 

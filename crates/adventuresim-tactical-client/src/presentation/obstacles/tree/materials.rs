@@ -324,34 +324,20 @@ impl Material for TacticalTreeImpostorMaterial {
     }
 
     fn enable_prepass() -> bool {
-        true
+        false
     }
 
     fn enable_shadows() -> bool {
         false
     }
 
-    fn prepass_vertex_shader() -> ShaderRef {
-        TREE_IMPOSTOR_SHADER.into()
-    }
-
-    fn prepass_fragment_shader() -> ShaderRef {
-        TREE_IMPOSTOR_SHADER.into()
-    }
-
     fn specialize(
         _pipeline: &bevy::pbr::MaterialPipeline,
         descriptor: &mut RenderPipelineDescriptor,
         _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
-        key: bevy::pbr::MaterialPipelineKey<Self>,
+        _key: bevy::pbr::MaterialPipelineKey<Self>,
     ) -> Result<(), SpecializedMeshPipelineError> {
         descriptor.primitive.cull_mode = None;
-        if adventuresim_procedural_materials::is_camera_depth_prepass(
-            &descriptor.vertex.shader_defs,
-            key.mesh_key,
-        ) {
-            adventuresim_procedural_materials::add_camera_depth_prepass_fragment(descriptor);
-        }
         Ok(())
     }
 }

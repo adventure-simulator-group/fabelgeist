@@ -7,16 +7,11 @@
 // from a per-entity mesh uniform, and the LOD hand-off dithers each instance
 // against the chunk's band instead of Bevy's per-entity range table.
 
-#ifdef PREPASS_PIPELINE
-#import bevy_pbr::mesh_view_bindings::view
-#import bevy_pbr::view_transformations::position_world_to_clip
-#else
 #import bevy_pbr::{
     mesh_view_bindings::{lights, view},
     shadows,
     view_transformations::position_world_to_clip,
 }
-#endif
 
 #import fablegeist::chunk_instancing::{
     Vertex, chunk_band, instance_world_matrix, visibility_range_dither_level,
@@ -63,30 +58,6 @@ fn vertex(vertex: Vertex) -> PebbleVertexOutput {
     return out;
 }
 
-#ifdef PREPASS_PIPELINE
-// The camera's depth prepass: opaque geometry whose only discard is the
-// per-pixel LOD partition, repeated here exactly.
-@fragment
-fn fragment(in: PebbleVertexOutput) {
-#ifdef VISIBILITY_RANGE_DITHER
-    // Complementary per-pixel partition; see tactical_grass_instanced.wgsl.
-    if in.visibility_range_dither != 0 {
-        let magnitude = clamp(f32(abs(in.visibility_range_dither)) / 16.0, 0.0, 1.0);
-        let pixel_hash = fract(
-            52.9829189
-                * fract(dot(floor(in.clip_position.xy), vec2<f32>(0.06711056, 0.00583715))),
-        );
-        if in.visibility_range_dither > 0 {
-            if pixel_hash < magnitude {
-                discard;
-            }
-        } else if pixel_hash >= 1.0 - magnitude {
-            discard;
-        }
-    }
-#endif
-}
-#else
 @fragment
 fn fragment(
     in: PebbleVertexOutput,
@@ -138,4 +109,3 @@ fn fragment(
 
     return vec4<f32>(lit * view.exposure, 1.0);
 }
-#endif

@@ -182,12 +182,7 @@ pub(crate) struct TacticalCameraSetup {
 
 /// Identifies the one interactive tactical camera. Initialization-only
 /// atmosphere face cameras deliberately omit this marker.
-///
-/// The depth prepass lets the main pass reject hidden fragments before
-/// shading them, which matters most for layered grass and leaf cutouts. Every
-/// material that discards repeats those discards in its own prepass shader.
 #[derive(Component)]
-#[require(bevy::core_pipeline::prepass::DepthPrepass)]
 pub(crate) struct TacticalGameplayCamera;
 
 impl Default for TacticalCameraSetup {

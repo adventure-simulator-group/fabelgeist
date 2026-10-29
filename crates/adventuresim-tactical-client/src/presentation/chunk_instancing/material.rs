@@ -2,7 +2,7 @@
 //! preparation into a bind group.
 use bevy::{
     asset::AssetId,
-    core_pipeline::{core_3d::Opaque3d, prepass::Opaque3dPrepass},
+    core_pipeline::core_3d::Opaque3d,
     ecs::system::{SystemParamItem, lifetimeless::SRes},
     mesh::MeshVertexBufferLayoutRef,
     prelude::*,
@@ -18,22 +18,17 @@ use bevy::{
     shader::ShaderRef,
 };
 
-use super::{
-    draw::{DrawChunkInstances, DrawChunkInstancesPrepass},
-    pipeline::ChunkMaterialPipeline,
-};
+use super::{draw::DrawChunkInstances, pipeline::ChunkMaterialPipeline};
 
 /// A material drawn by the chunk-instanced renderer. Its shader imports
 /// `fablegeist::chunk_instancing`, binds the material at group 3, and
-/// provides `vertex` and `fragment` entry points for both the main pass and
-/// the depth prepass (`PREPASS_PIPELINE`). The prepass always runs the
-/// fragment, so it can repeat every discard the main pass makes.
+/// provides `vertex` and `fragment` entry points.
 pub(in crate::presentation) trait ChunkInstancedMaterial:
     Asset + AsBindGroup<Data: Clone + Eq + std::hash::Hash> + Clone + Sized
 {
     fn shader() -> ShaderRef;
 
-    /// Adjusts both the main-pass and prepass pipelines.
+    /// Adjusts the material's main-pass pipeline.
     fn specialize(
         _descriptor: &mut RenderPipelineDescriptor,
         _layout: &MeshVertexBufferLayoutRef,
@@ -43,12 +38,11 @@ pub(in crate::presentation) trait ChunkInstancedMaterial:
     }
 }
 
-/// A material's bind group and the draw functions that use it.
+/// A material's bind group and the draw function that uses it.
 pub(super) struct PreparedChunkMaterial<M: ChunkInstancedMaterial> {
     pub bind_group: BindGroup,
     pub key: M::Data,
     pub draw_main: DrawFunctionId,
-    pub draw_prepass: DrawFunctionId,
 }
 
 impl<M: ChunkInstancedMaterial> RenderAsset for PreparedChunkMaterial<M> {
@@ -59,13 +53,14 @@ impl<M: ChunkInstancedMaterial> RenderAsset for PreparedChunkMaterial<M> {
         SRes<PipelineCache>,
         <M as AsBindGroup>::Param,
         SRes<DrawFunctions<Opaque3d>>,
-        SRes<DrawFunctions<Opaque3dPrepass>>,
     );
 
     fn prepare_asset(
         material: Self::SourceAsset,
         _asset_id: AssetId<Self::SourceAsset>,
-        (render_device, pipeline, pipeline_cache, material_param, draw_main, draw_prepass): &mut SystemParamItem<Self::Param>,
+        (render_device, pipeline, pipeline_cache, material_param, draw_main): &mut SystemParamItem<
+            Self::Param,
+        >,
         _previous_asset: Option<&Self>,
     ) -> Result<Self, PrepareAssetError<Self::SourceAsset>> {
         let layout = pipeline_cache.get_bind_group_layout(&pipeline.material_layout);
@@ -85,10 +80,7 @@ impl<M: ChunkInstancedMaterial> RenderAsset for PreparedChunkMaterial<M> {
                 resource: resource.get_binding(),
             })
             .collect::<Vec<_>>();
-        let (Some(draw_main), Some(draw_prepass)) = (
-            draw_main.read().get_id::<DrawChunkInstances<M>>(),
-            draw_prepass.read().get_id::<DrawChunkInstancesPrepass<M>>(),
-        ) else {
+        let Some(draw_main) = draw_main.read().get_id::<DrawChunkInstances<M>>() else {
             return Err(PrepareAssetError::RetryNextUpdate(material));
         };
         Ok(Self {
@@ -99,20 +91,13 @@ impl<M: ChunkInstancedMaterial> RenderAsset for PreparedChunkMaterial<M> {
             ),
             key: material.bind_group_data(),
             draw_main,
-            draw_prepass,
         })
     }
 }
 
-/// Instanced cutouts resolve fractional alpha to MSAA sample coverage. Only
-/// the main pass has a color target; WebGPU rejects alpha-to-coverage on the
-/// depth-only prepass, whose shaders discard instead.
+/// Instanced cutouts resolve fractional alpha to MSAA sample coverage.
 pub(in crate::presentation) fn enable_alpha_to_coverage(descriptor: &mut RenderPipelineDescriptor) {
-    let has_color_target = descriptor
-        .fragment
-        .as_ref()
-        .is_some_and(|fragment| !fragment.targets.is_empty());
-    if has_color_target && descriptor.multisample.count > 1 {
+    if descriptor.multisample.count > 1 {
         descriptor.multisample.alpha_to_coverage_enabled = true;
     }
 }

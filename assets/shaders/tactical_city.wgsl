@@ -28,21 +28,6 @@ struct CityVertex {
     @location(4) @interpolate(flat) visibility: f32,
 }
 
-// Distance fade of a building's level of detail. Shadows keep full coverage;
-// the camera's depth prepass repeats the fade so it never writes depth for a
-// pixel the main pass discards.
-fn lod_visibility(object: Building) -> f32 {
-    if object.levels.y != 1u {
-        return 1.0;
-    }
-    return 1.0 - smoothstep(bitcast<f32>(object.levels.z), bitcast<f32>(object.levels.w), distance(object.bounds.xyz, view.world_position.xyz));
-}
-
-fn discard_faded(in: CityVertex) {
-    let noise = fract(52.9829189 * fract(dot(in.position.xy, vec2(0.06711056, 0.00583715))));
-    if in.visibility < noise { discard; }
-}
-
 @vertex
 fn vertex(@builtin(vertex_index) index: u32, @builtin(instance_index) instance: u32) -> CityVertex {
     let cluster = visible[instance];
@@ -67,12 +52,11 @@ fn vertex(@builtin(vertex_index) index: u32, @builtin(instance_index) instance: 
         uv_offset = component.uv_offset.xy;
     }
     out.visibility = 1.0;
-#ifdef PREPASS_PIPELINE
-#ifdef CAMERA_DEPTH_PREPASS
-    out.visibility = lod_visibility(buildings[owner]);
-#endif
-#else
-    out.visibility = lod_visibility(buildings[owner]);
+#ifndef PREPASS_PIPELINE
+    let object = buildings[owner];
+    if object.levels.y == 1u {
+        out.visibility = 1.0 - smoothstep(bitcast<f32>(object.levels.z), bitcast<f32>(object.levels.w), distance(object.bounds.xyz, view.world_position.xyz));
+    }
 #endif
     out.world_position = transform * vec4(p.xyz, 1.0);
     out.position = view.clip_from_world * out.world_position;
@@ -85,15 +69,13 @@ fn vertex(@builtin(vertex_index) index: u32, @builtin(instance_index) instance: 
 #ifdef PREPASS_PIPELINE
 @fragment
 fn fragment(in: CityVertex) {
-#ifdef CAMERA_DEPTH_PREPASS
-    discard_faded(in);
-#endif
     if textureSample(albedo, albedo_sampler, in.uv).a * surface.color.a < surface.properties.z { discard; }
 }
 #else
 @fragment
 fn fragment(in: CityVertex, @builtin(front_facing) front: bool) -> @location(0) vec4<f32> {
-    discard_faded(in);
+    let noise = fract(52.9829189 * fract(dot(in.position.xy, vec2(0.06711056, 0.00583715))));
+    if in.visibility < noise { discard; }
     let color = textureSample(albedo, albedo_sampler, in.uv) * surface.color;
     if color.a < surface.properties.z { discard; }
     var pbr = pbr_types::pbr_input_new();

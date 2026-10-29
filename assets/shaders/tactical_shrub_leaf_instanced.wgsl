@@ -7,19 +7,11 @@
 
 diagnostic(off, derivative_uniformity);
 
-#ifdef PREPASS_PIPELINE
-#import bevy_pbr::mesh_view_bindings::view
-#import bevy_pbr::view_transformations::position_world_to_clip
-#import bevy_render::globals::Globals
-// The prepass view layout binds the globals uniform at slot 1.
-@group(0) @binding(1) var<uniform> globals: Globals;
-#else
 #import bevy_pbr::{
     mesh_view_bindings::{globals, lights, view},
     shadows,
     view_transformations::position_world_to_clip,
 }
-#endif
 
 #import fablegeist::chunk_instancing::{
     Vertex, chunk_band, instance_world_matrix, visibility_range_dither_level,
@@ -120,36 +112,6 @@ fn vertex(vertex: Vertex) -> ShrubLeafVertexOutput {
     return out;
 }
 
-#ifdef PREPASS_PIPELINE
-// The camera's depth prepass: the same per-pixel LOD partition as the main
-// pass, restricted to fully opaque leaf texels.
-@fragment
-fn fragment(in: ShrubLeafVertexOutput) {
-#ifdef VISIBILITY_RANGE_DITHER
-    // Complementary per-pixel partition between the cambered and card
-    // representations; see tactical_grass_instanced.wgsl for the rationale.
-    if in.visibility_range_dither != 0 {
-        let magnitude = clamp(f32(abs(in.visibility_range_dither)) / 16.0, 0.0, 1.0);
-        let pixel_hash = fract(
-            52.9829189
-                * fract(dot(floor(in.clip_position.xy), vec2<f32>(0.06711056, 0.00583715))),
-        );
-        if in.visibility_range_dither > 0 {
-            if pixel_hash < magnitude {
-                discard;
-            }
-        } else if pixel_hash >= 1.0 - magnitude {
-            discard;
-        }
-    }
-#endif
-    // Write depth only for the opaque core, where the main pass's alpha of
-    // 1.0 covers every MSAA sample; soft edges shade as without a prepass.
-    if textureSample(leaf_opacity, leaf_opacity_sampler, in.uv).r < 1.0 {
-        discard;
-    }
-}
-#else
 @fragment
 fn fragment(
     in: ShrubLeafVertexOutput,
@@ -228,4 +190,3 @@ fn fragment(
     }
     return vec4<f32>(lit * view.exposure, opacity);
 }
-#endif

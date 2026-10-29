@@ -183,9 +183,6 @@ adventuresim-stdb-client = { path = "crates/adventuresim-stdb-client" }
 adventuresim-core = { path = "crates/adventuresim-core" }
 adventuresim-puzzles = { path = "crates/adventuresim-puzzles" }
 adventuresim-strategic-sim = { path = "crates/adventuresim-strategic-sim" }
-# Local fix: Bevy's depth prepass ignores visibility-range dithering, so a
-# crossfading mesh writes its full depth and holes the other level of detail.
-bevy_pbr = { path = "../bevy_pbr-prepass" }
 
 [profile.win-dev]
 inherits = "dev"

@@ -459,44 +459,20 @@ impl Material for TacticalFoliageMaterial {
     }
 
     fn enable_prepass() -> bool {
-        true
+        false
     }
 
     fn enable_shadows() -> bool {
         false
     }
 
-    fn prepass_vertex_shader() -> ShaderRef {
-        FOLIAGE_SHADER.into()
-    }
-
-    fn prepass_fragment_shader() -> ShaderRef {
-        FOLIAGE_SHADER.into()
-    }
-
     fn specialize(
         _pipeline: &bevy::pbr::MaterialPipeline,
         descriptor: &mut RenderPipelineDescriptor,
-        layout: &bevy::mesh::MeshVertexBufferLayoutRef,
-        key: bevy::pbr::MaterialPipelineKey<Self>,
+        _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
+        _key: bevy::pbr::MaterialPipelineKey<Self>,
     ) -> Result<(), SpecializedMeshPipelineError> {
         descriptor.primitive.cull_mode = None;
-        if adventuresim_procedural_materials::is_prepass_pipeline(&descriptor.vertex.shader_defs) {
-            // Blade shaping reads the authored normal, which Bevy's depth-only
-            // prepass does not bind. Append it at the shader's slot 3.
-            let normal = layout
-                .0
-                .get_layout(&[Mesh::ATTRIBUTE_NORMAL.at_shader_location(3)])?;
-            descriptor.vertex.buffers[0]
-                .attributes
-                .extend(normal.attributes);
-        }
-        if adventuresim_procedural_materials::is_camera_depth_prepass(
-            &descriptor.vertex.shader_defs,
-            key.mesh_key,
-        ) {
-            adventuresim_procedural_materials::add_camera_depth_prepass_fragment(descriptor);
-        }
         Ok(())
     }
 }

@@ -6,10 +6,7 @@ use bevy::{
         SystemParamItem,
         lifetimeless::{Read, SRes},
     },
-    pbr::{
-        RenderMeshInstances, SetMeshViewBindGroup, SetMeshViewBindingArrayBindGroup,
-        SetPrepassViewBindGroup, SetPrepassViewEmptyBindGroup,
-    },
+    pbr::{RenderMeshInstances, SetMeshViewBindGroup, SetMeshViewBindingArrayBindGroup},
     prelude::*,
     render::{
         mesh::{RenderMesh, RenderMeshBufferInfo, allocator::MeshAllocator},
@@ -36,16 +33,6 @@ pub(super) type DrawChunkInstances<M> = (
     SetItemPipeline,
     SetMeshViewBindGroup<0>,
     SetMeshViewBindingArrayBindGroup<1>,
-    SetChunkBandBindGroup<2>,
-    SetChunkMaterialBindGroup<M, 3>,
-    DrawChunkMesh,
-);
-
-/// Depth-prepass draw of one chunk.
-pub(super) type DrawChunkInstancesPrepass<M> = (
-    SetItemPipeline,
-    SetPrepassViewBindGroup<0>,
-    SetPrepassViewEmptyBindGroup<1>,
     SetChunkBandBindGroup<2>,
     SetChunkMaterialBindGroup<M, 3>,
     DrawChunkMesh,
