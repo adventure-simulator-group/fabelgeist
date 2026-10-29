@@ -48,13 +48,14 @@ impl RigJointCount {
         Self(table.len())
     }
 
-    /// Joint ordinals below this bound, in rig order. Equal bounds do not
-    /// establish that two columns belong to the same rig instance.
+    /// Enumerates `0..count` in ascending ordinal order.
+    ///
+    /// These ordinals satisfy this count's bounds but carry no rig-instance identity.
     pub fn ordinals(self) -> impl ExactSizeIterator<Item = RigJointOrdinal> + DoubleEndedIterator {
         (0..self.0).map(RigJointOrdinal::from)
     }
 
-    pub fn len(self) -> usize {
+    pub fn native_joint_count(self) -> usize {
         self.0
     }
 
@@ -158,6 +159,13 @@ impl<const WIDTH: usize> PackedRigSkin<WIDTH> {
 
     pub fn iter(&self) -> impl ExactSizeIterator<Item = [RigJointOrdinal; WIDTH]> + '_ {
         self.words.iter().map(|row| row.map(RigJointOrdinal::from))
+    }
+
+    /// Checked access to a native vertex-buffer ordinal.
+    pub fn get_vertex(&self, vertex: usize) -> Option<[RigJointOrdinal; WIDTH]> {
+        self.words
+            .get(vertex)
+            .map(|row| row.map(RigJointOrdinal::from))
     }
 
     /// The vertex is established by the associated surface traversal.

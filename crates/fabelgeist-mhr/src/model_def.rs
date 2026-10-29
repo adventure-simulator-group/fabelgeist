@@ -2,14 +2,16 @@
 //! (`compact_v6_1.model`), which maps model parameters onto joint parameters.
 
 use crate::character::Skeleton;
-use anyhow::{Result, bail};
-use fabelgeist_rig::RigJointName;
+use anyhow::{Context, Result, bail};
+use fabelgeist_numpy_storage::NpyDimension;
+use fabelgeist_rig::{RigJointName, RigJointTable};
 use std::collections::HashMap;
 
 pub use layout::{
-    JointChannel, JointParameterRow, JointParameterTable, ModelParameterColumn, ModelParameterName,
-    ModelParameterRow, ModelParameterTable, ParameterMatrix, ParameterSetName,
+    JointChannel, JointChannels, JointParameterTable, ModelParameterColumn, ModelParameterName,
+    ModelParameterRow, ModelParameterTable, ParameterLayoutError, ParameterSetName,
 };
+use layout::{JointParameterRow, ParameterMatrix};
 
 mod layout;
 
@@ -22,7 +24,9 @@ struct Contribution {
 }
 
 struct ParsedTransform {
-    transform: ParameterTransform,
+    names: ModelParameterTable<ModelParameterName>,
+    offsets: JointParameterTable<f32>,
+    active_joint_parameters: JointParameterTable<bool>,
     contributions: Vec<Contribution>,
 }
 
@@ -41,31 +45,93 @@ pub struct ParameterLimit {
 ///
 /// `joint_parameters = transform * model_parameters + offsets`, with
 /// `transform` stored row-major as `[num_joints * 7, names.len()]`.
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Clone)]
 pub struct ParameterTransform {
     /// Model parameter names, in the order the `.model` file introduces them.
-    pub names: ModelParameterTable<ModelParameterName>,
-    pub transform: ParameterMatrix,
-    pub offsets: JointParameterTable<f32>,
+    names: ModelParameterTable<ModelParameterName>,
+    source_joints: RigJointTable<RigJointName>,
+    pub(crate) transform: ParameterMatrix,
+    pub(crate) offsets: JointParameterTable<f32>,
     /// Joint channels that any parameter drives.
-    pub active_joint_parameters: JointParameterTable<bool>,
+    active_joint_parameters: JointParameterTable<bool>,
     /// Named parameter subsets from `[ParameterSets]`.
-    pub parameter_sets: HashMap<ParameterSetName, ModelParameterTable<bool>>,
-    pub limits: Vec<ParameterLimit>,
+    parameter_sets: HashMap<ParameterSetName, ModelParameterTable<bool>>,
+    limits: Vec<ParameterLimit>,
+}
+
+/// Joint rows borrowed from their actual transform and source rig order.
+/// A view takes no second model/table argument and preserves duplicate slots.
+pub struct JointTransform<'a> {
+    name: &'a RigJointName,
+    source: &'a ParameterTransform,
+    joint: fabelgeist_rig::RigJointOrdinal,
+    channels: JointChannels<&'a [f32]>,
+    offsets: &'a JointChannels<f32>,
+    active: &'a JointChannels<bool>,
+}
+
+impl<'a> JointTransform<'a> {
+    pub fn name(&self) -> &RigJointName {
+        self.name
+    }
+    pub fn channel(&self, channel: JointChannel) -> ModelParameterRow<'a> {
+        ModelParameterRow {
+            values: self.channels[channel],
+            source: self.source,
+            joint: self.joint,
+            channel,
+        }
+    }
+    pub fn offset(&self, channel: JointChannel) -> f32 {
+        self.offsets[channel]
+    }
+    pub fn is_active(&self, channel: JointChannel) -> bool {
+        self.active[channel]
+    }
 }
 
 impl ParameterTransform {
-    pub fn num_parameters(&self) -> usize {
-        self.names.len()
+    pub fn num_parameters(&self) -> NpyDimension {
+        self.names.column_count()
+    }
+
+    pub fn names(&self) -> &ModelParameterTable<ModelParameterName> {
+        &self.names
+    }
+    pub fn limits(&self) -> &[ParameterLimit] {
+        &self.limits
     }
 
     pub fn parameter_index(&self, name: &ModelParameterName) -> Option<ModelParameterColumn> {
         self.names.column(name)
     }
 
-    /// Coefficients for one joint channel, retaining model-column identity.
-    pub fn row(&self, joint_parameter: JointParameterRow) -> ModelParameterRow<'_> {
-        self.transform.row(joint_parameter)
+    /// Actual borrowed rows in admitted rig order, including duplicate labels.
+    pub fn joints(&self) -> impl Iterator<Item = JointTransform<'_>> {
+        self.source_joints
+            .indexed()
+            .zip(self.transform.joints())
+            .zip(self.offsets.rows())
+            .zip(self.active_joint_parameters.rows())
+            .map(
+                move |((((joint, name), channels), offsets), active)| JointTransform {
+                    name,
+                    source: self,
+                    joint,
+                    channels,
+                    offsets,
+                    active,
+                },
+            )
+    }
+
+    /// Name lookup retains the rig's first-match policy for duplicate labels.
+    pub fn joint(&self, name: &RigJointName) -> Option<JointTransform<'_>> {
+        self.joints().find(|joint| joint.name == name)
+    }
+
+    pub fn row(&self, name: &RigJointName, channel: JointChannel) -> Option<ModelParameterRow<'_>> {
+        self.joint(name).map(|joint| joint.channel(channel))
     }
 
     /// Clamps model parameters to the `[Limits]` section's `minmax` bounds.
@@ -82,24 +148,27 @@ impl ParameterTransform {
 pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<ParameterTransform> {
     let sections = split_sections(text)?;
     let empty = Vec::new();
-    let ParsedTransform {
-        mut transform,
-        contributions,
-    } = parse_parameter_transform(
+    let parsed = parse_parameter_transform(
         sections.get("ParameterTransform").unwrap_or(&empty),
         skeleton,
     )?;
-
-    // Densify once the parameter count is final.
-    let columns = transform.num_parameters();
-    transform.transform = ParameterMatrix::zeros(skeleton.names.joint_count(), columns);
-    for contribution in contributions {
+    // Publish the aggregate only after its complete dense extent is admitted.
+    let mut matrix =
+        ParameterMatrix::zeros(skeleton.names.joint_count(), parsed.names.column_count())?;
+    for contribution in parsed.contributions {
         if contribution.weight != 0.0 {
-            transform
-                .transform
-                .add(contribution.row, contribution.column, contribution.weight);
+            matrix.add(contribution.row, contribution.column, contribution.weight)?;
         }
     }
+    let mut transform = ParameterTransform {
+        names: parsed.names,
+        source_joints: skeleton.names.clone(),
+        transform: matrix,
+        offsets: parsed.offsets,
+        active_joint_parameters: parsed.active_joint_parameters,
+        parameter_sets: HashMap::new(),
+        limits: Vec::new(),
+    };
 
     if let Some(lines) = sections.get("ParameterSets") {
         parse_parameter_sets(lines, &mut transform);
@@ -113,11 +182,16 @@ pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<Paramet
 
 /// Appends one column per blend-shape coefficient, as momentum's
 /// `Character::withBlendShape` does. The new columns drive no joint.
-pub fn append_blend_shape_parameters(transform: &mut ParameterTransform, count: usize) {
+pub fn append_blend_shape_parameters(
+    transform: &mut ParameterTransform,
+    count: NpyDimension,
+) -> Result<()> {
     let old_columns = transform.num_parameters();
-    let new_columns = old_columns + count;
-    transform.transform.append_columns(new_columns);
-    for index in 0..count {
+    let new_columns = old_columns
+        .checked_add(count)
+        .ok_or(ParameterLayoutError::ColumnCount)?;
+    transform.transform.append_columns(new_columns)?;
+    for index in 0..usize::from(count) {
         transform
             .names
             .push(ModelParameterName::from(format!("blend_{index}")));
@@ -125,6 +199,7 @@ pub fn append_blend_shape_parameters(transform: &mut ParameterTransform, count: 
     for set in transform.parameter_sets.values_mut() {
         set.resize(new_columns, false);
     }
+    Ok(())
 }
 
 /// Splits on any of `delimiters`, dropping empty fragments, and trims each token.
@@ -188,7 +263,7 @@ fn split_sections(text: &str) -> Result<HashMap<String, Vec<String>>> {
 /// Parses one right-hand side, e.g. `1.0 * spine0_rx + 0.22 * spine_lean0`.
 fn parse_expression(
     triplets: &mut Vec<Contribution>,
-    transform: &mut ParameterTransform,
+    transform: &mut ParsedTransform,
     skeleton: &Skeleton,
     expression: &str,
     row: JointParameterRow,
@@ -201,7 +276,10 @@ fn parse_expression(
             let Ok(weight) = factors[0].parse::<f32>() else {
                 continue;
             };
-            transform.offsets[row] = weight;
+            *transform
+                .offsets
+                .get_mut(row)
+                .context("resolved offset row is absent")? = weight;
             continue;
         }
         if factors.len() != 2 {
@@ -216,7 +294,7 @@ fn parse_expression(
         // The right side may name either a model parameter or a joint channel
         // defined earlier in the file, in which case its terms are copied.
         let parameter_name = ModelParameterName::from(name);
-        let parameter = transform.parameter_index(&parameter_name);
+        let parameter = transform.names.column(&parameter_name);
         let reference = match name.split_once('.') {
             Some((joint_name, channel)) => {
                 let joint_name = RigJointName::from(joint_name);
@@ -260,10 +338,11 @@ fn parse_expression(
 }
 
 fn parse_parameter_transform(lines: &[String], skeleton: &Skeleton) -> Result<ParsedTransform> {
-    let mut transform = ParameterTransform {
+    let mut transform = ParsedTransform {
+        names: ModelParameterTable::default(),
+        contributions: Vec::new(),
         offsets: JointParameterTable::filled(skeleton.names.joint_count(), 0.0),
         active_joint_parameters: JointParameterTable::filled(skeleton.names.joint_count(), false),
-        ..Default::default()
     };
     let mut triplets: Vec<Contribution> = Vec::new();
 
@@ -285,14 +364,15 @@ fn parse_parameter_transform(lines: &[String], skeleton: &Skeleton) -> Result<Pa
         };
 
         let row = JointParameterRow::new(joint, channel);
-        transform.active_joint_parameters[row] = true;
+        *transform
+            .active_joint_parameters
+            .get_mut(row)
+            .context("resolved active row is absent")? = true;
         parse_expression(&mut triplets, &mut transform, skeleton, right, row, line)?;
     }
 
-    Ok(ParsedTransform {
-        transform,
-        contributions: triplets,
-    })
+    transform.contributions = triplets;
+    Ok(transform)
 }
 
 fn parse_parameter_sets(lines: &[String], transform: &mut ParameterTransform) {

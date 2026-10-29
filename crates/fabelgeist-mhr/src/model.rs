@@ -5,15 +5,17 @@ use std::path::{Path, PathBuf};
 
 use anyhow::{Context, Result, bail};
 use burn::tensor::ops::IndexingUpdateOp;
-use burn::tensor::{Device, Int, Tensor, TensorData};
+use burn::tensor::{Device, Int, Tensor};
 
 use crate::character::{Character, MeshVertexCount, PARAMETERS_PER_JOINT};
 use crate::correctives::{CorrectiveArchiveBytes, PoseCorrectives};
 use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
 use crate::skel_state;
+use fabelgeist_numpy_storage::NpyDimension;
 use fabelgeist_rig::RigJointCount;
 
 mod rig;
+mod upload;
 
 /// Shape coefficients: 20 body, 20 head, 5 hands.
 pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
@@ -72,7 +74,7 @@ pub struct Mhr {
     transform: Tensor<2>,
     /// Constant joint-parameter offsets, or `None` when the rig has none.
     offsets: Option<Tensor<2>>,
-    num_model_parameters: usize,
+    num_model_parameters: NpyDimension,
 
     /// `[1, joints, 3]` and `[1, joints, 4]`.
     joint_translation_offsets: Tensor<3>,
@@ -228,7 +230,10 @@ impl Mhr {
         let num_model_parameters = parameter_transform.num_parameters();
         // momentum appends one model parameter per identity blend shape when a
         // blend shape is attached to the character.
-        append_blend_shape_parameters(&mut parameter_transform, NUM_IDENTITY_BLEND_SHAPES);
+        append_blend_shape_parameters(
+            &mut parameter_transform,
+            NpyDimension::from(NUM_IDENTITY_BLEND_SHAPES),
+        )?;
         Self::new(
             character,
             parameter_transform,
@@ -236,153 +241,6 @@ impl Mhr {
             correctives,
             device,
         )
-    }
-
-    fn new(
-        character: Character,
-        parameter_transform: ParameterTransform,
-        num_model_parameters: usize,
-        correctives: Option<PoseCorrectives>,
-        device: &Device,
-    ) -> Result<Self> {
-        let joints = character.skeleton.names.joint_count();
-        let vertices = character.mesh.vertex_count();
-
-        if character.blend_shapes.len() != NUM_BLEND_SHAPES {
-            bail!(
-                "rig has {} blend shapes, expected {NUM_IDENTITY_BLEND_SHAPES} identity plus \
-                 {NUM_FACE_EXPRESSION_BLEND_SHAPES} expression",
-                character.blend_shapes.len()
-            );
-        }
-
-        // Transposed so a forward pass is `parameters @ transform`.
-        let transform = parameter_transform
-            .transform
-            .tensor_transpose(num_model_parameters);
-
-        let offsets = parameter_transform
-            .offsets
-            .iter()
-            .any(|offset| *offset != 0.0)
-            .then(|| {
-                Tensor::from_data(
-                    TensorData::new(
-                        parameter_transform.offsets.tensor_values(),
-                        [1, joints.len() * PARAMETERS_PER_JOINT],
-                    ),
-                    device,
-                )
-            });
-
-        let fk_levels = rig::fk_level_tensors(&character, device)?;
-
-        let basis = &character.blend_shapes.vectors;
-        let identity_basis = Tensor::from_data(
-            TensorData::new(
-                basis[..NUM_IDENTITY_BLEND_SHAPES * vertices.len() * 3].to_vec(),
-                [NUM_IDENTITY_BLEND_SHAPES, vertices.len() * 3],
-            ),
-            device,
-        );
-        let expression_basis = Tensor::from_data(
-            TensorData::new(
-                basis[NUM_IDENTITY_BLEND_SHAPES * vertices.len() * 3..].to_vec(),
-                [NUM_FACE_EXPRESSION_BLEND_SHAPES, vertices.len() * 3],
-            ),
-            device,
-        );
-
-        // Drop zero influences: MHR averages under three joints per vertex.
-        let mut skin_joint_indices = Vec::new();
-        let mut skin_vertex_indices = Vec::new();
-        let mut skin_weights = Vec::new();
-        for (vertex, (indices, weights)) in character
-            .skin_weights
-            .index
-            .iter()
-            .zip(&character.skin_weights.weight)
-            .enumerate()
-        {
-            for (joint, weight) in indices.into_iter().zip(weights) {
-                if *weight > 1e-5 {
-                    skin_joint_indices.push(i32::try_from(usize::from(joint))?);
-                    skin_vertex_indices.push(i32::try_from(vertex)?);
-                    skin_weights.push(*weight);
-                }
-            }
-        }
-        let influences = skin_weights.len();
-
-        let face_corners: Vec<i32> = character
-            .mesh
-            .faces
-            .iter()
-            .flatten()
-            .map(|corner| i32::try_from(*corner))
-            .collect::<Result<_, _>>()?;
-        let num_corners = face_corners.len();
-
-        Ok(Self {
-            device: device.clone(),
-            transform: Tensor::from_data(
-                TensorData::new(
-                    transform,
-                    [num_model_parameters, joints.len() * PARAMETERS_PER_JOINT],
-                ),
-                device,
-            ),
-            offsets,
-            num_model_parameters,
-            joint_translation_offsets: Tensor::from_data(
-                TensorData::new(
-                    character
-                        .skeleton
-                        .translation_offsets
-                        .as_native_slice()
-                        .concat(),
-                    [1, joints.len(), 3],
-                ),
-                device,
-            ),
-            joint_prerotations: Tensor::from_data(
-                TensorData::new(
-                    character.skeleton.prerotations.as_native_slice().concat(),
-                    [1, joints.len(), 4],
-                ),
-                device,
-            ),
-            inverse_bind_pose: Tensor::from_data(
-                TensorData::new(
-                    character.inverse_bind_pose.as_native_slice().concat(),
-                    [1, joints.len(), 8],
-                ),
-                device,
-            ),
-            fk_levels,
-            identity_basis,
-            expression_basis,
-            base_shape: Tensor::from_data(
-                TensorData::new(character.mesh.vertices.concat(), [1, vertices.len() * 3]),
-                device,
-            ),
-            face_corners: Tensor::from_data(TensorData::new(face_corners, [num_corners]), device),
-            skin_joint_indices: Tensor::from_data(
-                TensorData::new(skin_joint_indices, [influences]),
-                device,
-            ),
-            skin_vertex_indices: Tensor::from_data(
-                TensorData::new(skin_vertex_indices, [influences]),
-                device,
-            ),
-            skin_weights: Tensor::from_data(
-                TensorData::new(skin_weights, [1, influences, 1]),
-                device,
-            ),
-            correctives,
-            character,
-            parameter_transform,
-        })
     }
 
     pub fn num_joints(&self) -> RigJointCount {
@@ -395,7 +253,7 @@ impl Mhr {
 
     /// Number of pose/scale parameters the model takes, excluding the blend
     /// shape coefficients momentum appends to the parameter vector.
-    pub fn num_model_parameters(&self) -> usize {
+    pub fn num_model_parameters(&self) -> NpyDimension {
         self.num_model_parameters
     }
 
@@ -409,7 +267,10 @@ impl Mhr {
 
     /// Zero parameters for a batch, i.e. the rest pose.
     pub fn zero_parameters(&self, batch: usize) -> Tensor<2> {
-        Tensor::zeros([batch, self.num_model_parameters], &self.device)
+        Tensor::zeros(
+            [batch, usize::from(self.num_model_parameters)],
+            &self.device,
+        )
     }
 
     /// Runs the model.
@@ -447,7 +308,7 @@ impl Mhr {
         if identity_rows != batch && identity_rows != 1 {
             bail!("identity coefficients have {identity_rows} rows, expected {batch} or 1");
         }
-        if model_parameters.dims()[1] != self.num_model_parameters {
+        if NpyDimension::from(model_parameters.dims()[1]) != self.num_model_parameters {
             bail!(
                 "model parameters have {} columns, expected {}",
                 model_parameters.dims()[1],
@@ -486,16 +347,16 @@ impl Mhr {
         let mut joint_parameters = (model_parameters.unsqueeze_dim::<3>(2)
             * self.transform.clone().unsqueeze::<3>())
         .sum_dim(1)
-        .reshape([batch, joints.len() * PARAMETERS_PER_JOINT]);
+        .reshape([batch, joints.native_joint_count() * PARAMETERS_PER_JOINT]);
         if let Some(offsets) = &self.offsets {
             joint_parameters = joint_parameters + offsets.clone();
         }
         let joint_parameters =
-            joint_parameters.reshape([batch, joints.len(), PARAMETERS_PER_JOINT]);
+            joint_parameters.reshape([batch, joints.native_joint_count(), PARAMETERS_PER_JOINT]);
 
         let skeleton_state = self.skeleton_state(joint_parameters.clone());
 
-        let mut rest = rest.reshape([batch, vertices.len(), 3]);
+        let mut rest = rest.reshape([batch, vertices.native_vertex_count(), 3]);
         if apply_correctives && let Some(correctives) = &self.correctives {
             rest = rest + correctives.forward(joint_parameters)?;
         }
@@ -569,13 +430,16 @@ impl Mhr {
             .unsqueeze_dim::<4>(2)
             .expand([batch, faces, 3, 3])
             .reshape([batch, faces * 3, 3]);
-        let accumulated = Tensor::zeros([batch, self.num_vertices().len(), 3], &self.device)
-            .select_assign(
-                1,
-                self.face_corners.clone(),
-                contribution,
-                IndexingUpdateOp::Add,
-            );
+        let accumulated = Tensor::zeros(
+            [batch, self.num_vertices().native_vertex_count(), 3],
+            &self.device,
+        )
+        .select_assign(
+            1,
+            self.face_corners.clone(),
+            contribution,
+            IndexingUpdateOp::Add,
+        );
 
         // A vertex no triangle references keeps a zero normal, as it does in
         // three.js; nothing rasterizes it, so there is no direction to invent.
@@ -605,6 +469,6 @@ impl Mhr {
                 deformed,
                 IndexingUpdateOp::Add,
             )
-            .reshape([batch, self.num_vertices().len(), 3])
+            .reshape([batch, self.num_vertices().native_vertex_count(), 3])
     }
 }

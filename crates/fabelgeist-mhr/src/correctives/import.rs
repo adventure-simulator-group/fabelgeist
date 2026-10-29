@@ -111,7 +111,7 @@ impl CorrectiveLayout {
         vertices: MeshVertexCount,
     ) -> Result<Self> {
         // Rig membership count becomes an array extent here; this is not a rig ordinal.
-        let joint_extent = NpyDimension::from(joints.len());
+        let joint_extent = NpyDimension::from(joints.native_joint_count());
         let &[components, basis_vertices, coordinates] = basis.dimensions() else {
             return Err(CorrectiveImportError::BasisShape {
                 shape: basis.clone(),
@@ -123,7 +123,7 @@ impl CorrectiveLayout {
             });
         }
         // Mesh quantity becomes a generic axis only at this array-layout boundary.
-        let vertex_extent = NpyDimension::from(vertices.len());
+        let vertex_extent = NpyDimension::from(vertices.native_vertex_count());
         if basis_vertices != vertex_extent {
             return Err(CorrectiveImportError::VertexCount {
                 basis: basis_vertices,
@@ -195,7 +195,7 @@ impl CorrectiveLayout {
     ) -> std::result::Result<NpyTensorLayout<3>, NpyLayoutError> {
         NpyTensorLayout::try_from([
             batch,
-            NpyDimension::from(self.vertices.len()),
+            NpyDimension::from(self.vertices.native_vertex_count()),
             VERTEX_COORDINATES,
         ])
     }

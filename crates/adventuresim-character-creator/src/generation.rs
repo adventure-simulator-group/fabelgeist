@@ -25,7 +25,7 @@ pub(super) fn generate_character(
     let pose = Tensor::from_data(
         TensorData::new(
             parameters.into_tensor_values(),
-            [1, model.mhr.num_model_parameters()],
+            [1, usize::from(model.mhr.num_model_parameters())],
         ),
         &device,
     );

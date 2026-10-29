@@ -29,7 +29,7 @@ fn evaluate(
             Tensor::from_data(
                 TensorData::new(
                     parameters.into_tensor_values(),
-                    [1, model.num_model_parameters()],
+                    [1, usize::from(model.num_model_parameters())],
                 ),
                 &device,
             ),
@@ -139,10 +139,15 @@ fn skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion() {
                 for (joint, weight) in model
                     .character
                     .skin_weights
-                    .index
+                    .indices()
                     .vertex(vertex)
                     .iter()
-                    .zip(model.character.skin_weights.weight[vertex])
+                    .zip(
+                        model.character.skin_weights.weights()
+                            [fabelgeist_mhr::character::MeshVertexIndex::from_native_vertex_index(
+                                vertex,
+                            )],
+                    )
                 {
                     let transform = skin[*joint];
                     let rotated =

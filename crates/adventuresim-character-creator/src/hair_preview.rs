@@ -79,7 +79,7 @@ pub(super) struct BodyHead {
     positions: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     joint_indices: fabelgeist_rig::PackedRigSkin<8>,
-    joint_weights: Vec<[f32; 8]>,
+    joint_weights: fabelgeist_mhr::character::MeshVertexTable<[f32; 8]>,
     joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
     global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
@@ -90,8 +90,8 @@ impl BodyHead {
         Self {
             positions: generated.positions.clone(),
             faces: character.mesh.faces.clone(),
-            joint_indices: character.skin_weights.index.clone(),
-            joint_weights: character.skin_weights.weight.clone(),
+            joint_indices: character.skin_weights.indices().clone(),
+            joint_weights: character.skin_weights.weights().clone(),
             joint_names: character.skeleton.names.clone(),
             global_joint_states: generated.global_joint_states.clone(),
         }
@@ -102,7 +102,7 @@ impl BodyHead {
         let skin = HeadSkin {
             positions: &self.positions,
             joint_indices: &self.joint_indices,
-            joint_weights: &self.joint_weights,
+            joint_weights: self.joint_weights.as_native_slice(),
             joint_names: &self.joint_names,
             global_joint_states: &self.global_joint_states,
         };

@@ -23,30 +23,20 @@ fn parses_weights_and_parameter_order() {
         ["root_tx", "bend", "lean"].map(ModelParameterName::from)
     );
     assert_eq!(
-        pt.row(JointParameterRow::new(
-            0usize.into(),
-            JointChannel::TranslationX
-        ))
-        .as_slice(),
+        pt.row(&RigJointName::from("root"), JointChannel::TranslationX)
+            .unwrap()
+            .as_slice(),
         [10.0, 0.0, 0.0]
     );
     // child.rz is row 1 * 7 + 5.
     assert_eq!(
-        pt.row(JointParameterRow::new(
-            1usize.into(),
-            JointChannel::RotationZ
-        ))
-        .as_slice(),
+        pt.row(&RigJointName::from("child"), JointChannel::RotationZ)
+            .unwrap()
+            .as_slice(),
         [0.0, 1.0, 0.5]
     );
-    assert!(
-        pt.active_joint_parameters
-            [JointParameterRow::new(0usize.into(), JointChannel::TranslationX)]
-    );
-    assert!(
-        !pt.active_joint_parameters
-            [JointParameterRow::new(0usize.into(), JointChannel::TranslationY)]
-    );
+    assert!(pt.active_joint_parameters.row(0usize.into()).unwrap()[JointChannel::TranslationX]);
+    assert!(!pt.active_joint_parameters.row(0usize.into()).unwrap()[JointChannel::TranslationY]);
 }
 
 #[test]
@@ -57,19 +47,15 @@ fn a_joint_reference_copies_scaled_terms() {
         ["twist", "lean"].map(ModelParameterName::from)
     );
     assert_eq!(
-        pt.row(JointParameterRow::new(
-            0usize.into(),
-            JointChannel::RotationX
-        ))
-        .as_slice(),
+        pt.row(&RigJointName::from("root"), JointChannel::RotationX)
+            .unwrap()
+            .as_slice(),
         [1.0, 0.25]
     );
     assert_eq!(
-        pt.row(JointParameterRow::new(
-            1usize.into(),
-            JointChannel::RotationX
-        ))
-        .as_slice(),
+        pt.row(&RigJointName::from("child"), JointChannel::RotationX)
+            .unwrap()
+            .as_slice(),
         [-0.5, -0.125]
     );
 }
@@ -78,11 +64,9 @@ fn a_joint_reference_copies_scaled_terms() {
 fn duplicate_assignments_accumulate() {
     let pt = parse("root.tx = 1.0 * a\nroot.tx = 2.0 * a\n");
     assert_eq!(
-        pt.row(JointParameterRow::new(
-            0usize.into(),
-            JointChannel::TranslationX
-        ))
-        .as_slice(),
+        pt.row(&RigJointName::from("root"), JointChannel::TranslationX)
+            .unwrap()
+            .as_slice(),
         [3.0]
     );
 }
@@ -91,7 +75,7 @@ fn duplicate_assignments_accumulate() {
 fn a_bare_constant_becomes_an_offset() {
     let pt = parse("root.ty = 1.0 * a + 0.75\n");
     assert_eq!(
-        pt.offsets[JointParameterRow::new(0usize.into(), JointChannel::TranslationY)],
+        pt.offsets.row(0usize.into()).unwrap()[JointChannel::TranslationY],
         0.75
     );
 }
@@ -128,17 +112,15 @@ fn parses_sets_and_limits() {
 #[test]
 fn blend_shape_columns_are_appended_without_joint_influence() {
     let mut pt = parse("root.tx = 10.0 * root_tx\n");
-    append_blend_shape_parameters(&mut pt, 2);
+    append_blend_shape_parameters(&mut pt, NpyDimension::from(2)).unwrap();
     assert_eq!(
         pt.names.iter().cloned().collect::<Vec<_>>(),
         ["root_tx", "blend_0", "blend_1"].map(ModelParameterName::from)
     );
     assert_eq!(
-        pt.row(JointParameterRow::new(
-            0usize.into(),
-            JointChannel::TranslationX
-        ))
-        .as_slice(),
+        pt.row(&RigJointName::from("root"), JointChannel::TranslationX)
+            .unwrap()
+            .as_slice(),
         [10.0, 0.0, 0.0]
     );
 }

@@ -17,6 +17,10 @@ pub struct NpyTensorLayout<const D: usize> {
 }
 
 impl<const D: usize> NpyTensorLayout<D> {
+    pub fn dimensions(self) -> [NpyDimension; D] {
+        self.dimensions
+    }
+
     pub fn element_count(self) -> NpyElementCount {
         self.elements
     }

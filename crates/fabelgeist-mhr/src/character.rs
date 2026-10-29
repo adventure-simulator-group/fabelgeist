@@ -16,9 +16,11 @@ pub use skeleton::Skeleton;
 use skeleton::{ParsedSkeleton, parse_skeleton};
 pub use skin::SkinWeights;
 use skin::parse_skin;
+pub use vertices::{MeshVertexCount, MeshVertexIndex, MeshVertexTable};
 
 mod skeleton;
 mod skin;
+mod vertices;
 
 /// Momentum allows at most eight joint influences per vertex.
 pub const MAX_SKIN_JOINTS: usize = 8;
@@ -29,16 +31,11 @@ pub const PARAMETERS_PER_JOINT: usize = 7;
 /// Triangulated mesh with the original polygon topology dropped.
 #[derive(Debug, Default, Clone)]
 pub struct Mesh {
-    pub vertices: Vec<[f32; 3]>,
+    pub vertices: MeshVertexTable<[f32; 3]>,
     pub faces: Vec<[u32; 3]>,
     pub texcoords: Vec<[f32; 2]>,
     pub texcoord_faces: Vec<[u32; 3]>,
 }
-
-/// Number of vertices in an MHR mesh, distinct from a generic tensor axis.
-/// This quantity carries no per-mesh identity or immutability guarantee.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct MeshVertexCount(usize);
 
 /// Dense blend-shape basis, `shape-major`: `vectors[shape * n_verts * 3 + ..]`.
 #[derive(Debug, Default, Clone)]
@@ -59,29 +56,7 @@ pub struct Character {
 
 impl Mesh {
     pub fn vertex_count(&self) -> MeshVertexCount {
-        MeshVertexCount::from_native_vertex_count(self.vertices.len())
-    }
-}
-
-impl MeshVertexCount {
-    /// Admits a count at a mesh-storage or literal boundary, including zero.
-    pub const fn from_native_vertex_count(vertices: usize) -> Self {
-        Self(vertices)
-    }
-
-    /// Projects the count at a native numerical, allocation or text boundary.
-    pub const fn len(self) -> usize {
-        self.0
-    }
-
-    pub const fn is_empty(self) -> bool {
-        self.0 == 0
-    }
-}
-
-impl std::fmt::Display for MeshVertexCount {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        std::fmt::Display::fmt(&self.0, formatter)
+        self.vertices.vertex_count()
     }
 }
 
@@ -149,7 +124,7 @@ impl Character {
         if !remainder.is_empty() {
             bail!("FBX vertex array contains an incomplete three-axis position");
         }
-        let vertices: Vec<[f32; 3]> = vertex_triples
+        let vertices: MeshVertexTable<[f32; 3]> = vertex_triples
             .iter()
             .map(|v| [v[0] as f32, v[1] as f32, v[2] as f32])
             .collect();
@@ -309,19 +284,23 @@ fn parse_blend_shapes(
         {
             let offsets = shape.node.child("Vertices").and_then(|n| n.f64_array());
             let indices = shape.node.child("Indexes").and_then(|n| n.i64_array());
-            let base = vectors.len();
-            vectors.resize(base + num_vertices.len() * 3, 0.0);
+            let mut displacements = MeshVertexTable::filled(num_vertices, [0.0; 3]);
             if let (Some(offsets), Some(indices)) = (offsets, indices) {
                 for (slot, vertex) in indices.iter().enumerate() {
-                    let vertex = *vertex as usize;
-                    if vertex >= num_vertices.len() || slot * 3 + 2 >= offsets.len() {
+                    let vertex = MeshVertexIndex::from_native_vertex_index(*vertex as usize);
+                    let Some(displacement) = displacements.get_mut(vertex) else {
+                        continue;
+                    };
+                    if slot * 3 + 2 >= offsets.len() {
                         continue;
                     }
                     for axis in 0..3 {
-                        vectors[base + vertex * 3 + axis] = offsets[slot * 3 + axis] as f32;
+                        displacement[axis] = offsets[slot * 3 + axis] as f32;
                     }
                 }
             }
+            // Dense shape-major coefficients are the numerical basis storage.
+            vectors.extend(displacements.into_iter().flatten());
             names.push(shape.name.clone());
         }
     }
