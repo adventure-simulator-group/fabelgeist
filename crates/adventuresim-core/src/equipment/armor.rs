@@ -73,7 +73,7 @@ pub fn aggregate_layered_armor(
             .range_of_motion
             .min(piece.range_of_motion.clamp(0.0, 1.0));
     }
-    result.flexibility = if result.resistance > f32::EPSILON {
+    result.flexibility = if result.resistance > 0.0 {
         weighted_flexibility / result.resistance
     } else {
         0.0

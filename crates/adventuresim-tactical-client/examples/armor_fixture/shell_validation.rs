@@ -187,7 +187,7 @@ fn concave_closed_metal_does_not_require_every_offset_to_support_its_outer_face(
         surface_domain: "concave-metal-fixture".into(),
         normals: Vec::new(),
         texcoords: Vec::new(),
-        joint_indices: Vec::new(),
+        joint_indices: Default::default(),
         joint_weights: Vec::new(),
         trim: None,
         grids: Vec::new(),

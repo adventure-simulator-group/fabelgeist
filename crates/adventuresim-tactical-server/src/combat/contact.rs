@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_tactical_core::animation::AnimationSampleTick;
 
 pub(super) fn canonical_impact_surface(
     attacker_position: Vec3,
@@ -101,10 +102,13 @@ pub(super) fn attacker_has_weapon(
         .has_striking_item()
 }
 
-pub(super) fn windup_duration(contact_tick: u64, start_tick: u64) -> CombatDuration {
-    CombatDuration::from_secs_f32(
-        contact_tick.saturating_sub(start_tick) as f32 / locomotion_sample_hz(),
-    )
+pub(super) fn windup_duration(
+    contact_tick: AnimationSampleTick,
+    start_tick: AnimationSampleTick,
+) -> ElapsedResult<CombatDuration> {
+    CombatDuration::from_elapsed(AnimationElapsed::from_seconds(
+        contact_tick.saturating_sub(start_tick).samples() as f32 / locomotion_sample_rate().hertz(),
+    )?)
 }
 
 #[expect(
@@ -133,7 +137,7 @@ pub(super) fn resolve_melee_contact(
         parameters.contact,
     );
     if let Some(body_part) = forced_body_part {
-        let surface_coordinate = sample.clamp(0.0, 1.0 - f32::EPSILON);
+        let surface_coordinate = sample.clamp(0.0, 1.0_f32.next_down());
         let armor_surface = defender.armor_surface(body_part, surface_coordinate);
         contact = MeleeContactLocation::new(
             body_part,

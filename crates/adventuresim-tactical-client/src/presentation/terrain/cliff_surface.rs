@@ -40,6 +40,8 @@ pub(in crate::presentation) struct TacticalTerrainExtension {
     pub(super) cliff_structure_a: Vec4,
     #[uniform(100)]
     pub(super) cliff_structure_b: Vec4,
+    #[uniform(100)]
+    pub(super) source_from_world: Mat4,
     #[texture(101)]
     #[sampler(102)]
     pub(super) ground_map: Handle<Image>,
@@ -63,6 +65,18 @@ pub(in crate::presentation) struct TacticalTerrainExtension {
     pub(super) cliff_arm: Handle<Image>,
 }
 
+impl TacticalTerrainExtension {
+    /// Native shader adapter: material coordinates retain canonical city metres
+    /// while the map window moves. Static map ground has no camera detail cutout.
+    pub(in crate::presentation) fn set_geographic_frame(
+        &mut self,
+        frame: super::super::buildings::CityFrame,
+    ) {
+        self.source_from_world = frame.world_from_city().inverse();
+        self.detail_patch.x = 0.0;
+    }
+}
+
 impl MaterialExtension for TacticalTerrainExtension {
     fn fragment_shader() -> ShaderRef {
         TERRAIN_SHADER.into()
@@ -76,7 +90,7 @@ impl MaterialExtension for TacticalTerrainExtension {
 pub(in crate::presentation) type TacticalTerrainMaterial =
     ExtendedMaterial<StandardMaterial, TacticalTerrainExtension>;
 
-pub(super) fn enable_cliff_surface(
+pub(in crate::presentation) fn enable_cliff_surface(
     material: &mut TacticalTerrainMaterial,
     recipe: TerrainSurfaceRecipe,
 ) {
@@ -137,27 +151,30 @@ pub(super) fn enable_cliff_surface(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_procedural_textures::{BakedRecipe, MapChannel, TextureRecipeId};
     use adventuresim_world_schema::{IgneousRock, SedimentaryRock, SurfaceLithology};
 
     #[test]
     fn ordinary_terrain_disables_cliff_and_patch_recipe_enables_it() {
         let mut images = Assets::<Image>::default();
-        let procedural_assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
-            &mut images,
-        );
-        // Sharing these samplers keeps the full terrain pipeline within WebGPU's
-        // sixteen-sampler limit without changing filtering or wrap behavior.
-        for (sampled, shared) in [
+        let procedural_assets =
+            ProceduralTextureAssets::reserve(&mut Default::default(), &mut images);
+        // Inspect the committed runtime maps without rebaking the catalogue.
+        // Shared samplers keep terrain within WebGPU's sixteen-sampler limit.
+        for (recipe, sampled, shared) in [
             (
-                &procedural_assets.forest_soil.litter_normal,
-                &procedural_assets.forest_soil.litter_surface,
+                TextureRecipeId::ForestLitter,
+                MapChannel::Normal,
+                MapChannel::LitterSurface,
             ),
-            (&procedural_assets.rock.arm, &procedural_assets.rock.height),
+            (TextureRecipeId::Rock, MapChannel::Arm, MapChannel::Height),
         ] {
+            let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets");
+            let bytes = std::fs::read(root.join(recipe.runtime_asset_path())).unwrap();
+            let bake = BakedRecipe::from_compressed_bytes(&bytes).unwrap();
             assert_eq!(
-                images.get(sampled).unwrap().sampler,
-                images.get(shared).unwrap().sampler
+                bake.map(sampled).unwrap().sampler,
+                bake.map(shared).unwrap().sampler
             );
         }
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0).unwrap();
@@ -170,7 +187,8 @@ mod tests {
             &procedural_assets,
             &mut images,
             &graphics.config.grass,
-        );
+        )
+        .unwrap();
         assert_eq!(material.extension.cliff_palette_a.w, 0.0);
 
         let sandstone = TerrainSurfaceRecipe::new(

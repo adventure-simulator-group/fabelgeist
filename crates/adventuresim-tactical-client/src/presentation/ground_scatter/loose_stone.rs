@@ -1,12 +1,11 @@
-mod streams;
 use adventuresim_tactical_core::prelude::{GroundCover, RockLithology, SceneGround, SceneTerrain};
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::{
     asset::RenderAssetUsages,
-    camera::{
-        primitives::Aabb,
-        visibility::{NoFrustumCulling, VisibilityRange},
-    },
+    camera::visibility::VisibilityRange,
     color::{ColorToComponents, LinearRgba},
+    light::NotShadowCaster,
+    math::Dir3,
     mesh::{Indices, PrimitiveTopology},
     prelude::{
         Asset, Assets, Color, Commands, Component, Handle, Mesh, Mesh3d, Name, Quat, Reflect,
@@ -27,6 +26,8 @@ use crate::presentation::{
 mod batches;
 
 use super::GroundScatterLayer;
+
+mod streams;
 
 const PEBBLE_BILLBOARD_SHADER: &str = "shaders/tactical_pebble_billboard_instanced.wgsl";
 const PEBBLE_SHADER: &str = "shaders/tactical_pebble_instanced.wgsl";
@@ -164,7 +165,9 @@ fn pebble_lod_visibility(lod: PebbleMeshLod) -> VisibilityRange {
     }
 }
 
-fn scree_patch_coverage(seed: Seed, point: Vec2, normal: Vec3) -> f32 {
+/// Scene-metre dot products and dimensionless noise coordinates for the scree field.
+fn scree_patch_coverage(seed: Seed, point: ScenePlanPoint, normal: Dir3) -> f32 {
+    let point = point.metres();
     let downhill = Vec2::new(normal.x, normal.z).normalize_or_zero();
     let downhill = if downhill.length_squared() > 0.001 {
         downhill
@@ -535,12 +538,12 @@ mod tests {
         assert!(sparse > woodland, "woodland {woodland}, sparse {sparse}");
         assert!(dense > sparse, "sparse {sparse}, dense {dense}");
 
-        let normal = Vec3::new(0.25, 0.9, -0.15).normalize();
+        let normal = Dir3::new(Vec3::new(0.25, 0.9, -0.15)).unwrap();
         let samples = (0..80)
             .map(|step| {
                 scree_patch_coverage(
                     fabelgeist_determinism::Seed::from_u64(77),
-                    Vec2::new(step as f32 * 0.5, 3.0),
+                    ScenePlanPoint::from_metres(Vec2::new(step as f32 * 0.5, 3.0)).unwrap(),
                     normal,
                 )
             })

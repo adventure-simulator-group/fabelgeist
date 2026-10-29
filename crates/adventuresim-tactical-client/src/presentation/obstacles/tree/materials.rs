@@ -3,7 +3,7 @@ use adventuresim_procedural_materials::enable_leaf_transmission_shader_defs;
 pub use adventuresim_procedural_materials::{
     TacticalTreeBarkExtension, TacticalTreeBarkMaterial, TacticalTreeLeafCardMaterial,
 };
-use adventuresim_tactical_core::prelude::SceneTerrain;
+use adventuresim_tactical_core::{prelude::SceneTerrain, scene::SceneElevationRange};
 use bevy::{
     pbr::{ExtendedMaterial, Material, MaterialExtension},
     prelude::*,
@@ -18,10 +18,8 @@ use super::geometry::{
     COMMON_HAZEL_PARAMETERS, ENGLISH_OAK_PARAMETERS,
 };
 use crate::presentation::{
-    LeafTextureSet, ProceduralTextureAssets, color_vec4, terrain::TACTICAL_DIRT_SRGB,
+    LeafTextureSet, ProceduralTextureAssets, color_vec4, ground_palette::TACTICAL_DIRT_SRGB,
 };
-#[cfg(test)]
-use adventuresim_procedural_textures::generate_procedural_textures;
 use adventuresim_procedural_textures::{FOREST_SOIL_HEIGHT_RANGE_METRES, FOREST_SOIL_TILE_METRES};
 
 const TREE_IMPOSTOR_SHADER: &str = "shaders/tactical_tree_impostor.wgsl";
@@ -87,7 +85,7 @@ pub(crate) type TacticalTreeAggregateBarkMaterial =
 pub(crate) fn oak_bark_material(
     assets: &ProceduralTextureAssets,
     terrain_heightmap: Handle<Image>,
-    terrain_height_range: Vec2,
+    terrain_height_range: SceneElevationRange,
     terrain: &SceneTerrain,
 ) -> TacticalTreeBarkMaterial {
     bark_material(
@@ -104,7 +102,7 @@ pub(crate) fn oak_bark_material(
 pub(in crate::presentation) fn beech_bark_material(
     assets: &ProceduralTextureAssets,
     terrain_heightmap: Handle<Image>,
-    terrain_height_range: Vec2,
+    terrain_height_range: SceneElevationRange,
     terrain: &SceneTerrain,
 ) -> TacticalTreeBarkMaterial {
     // Beech shares the pipeline so streamed wood remains one material type,
@@ -150,7 +148,7 @@ fn aggregate_bark_material(
 fn bark_material(
     assets: &ProceduralTextureAssets,
     terrain_heightmap: Handle<Image>,
-    terrain_height_range: Vec2,
+    terrain_height_range: SceneElevationRange,
     terrain: &SceneTerrain,
     base_color: Color,
     perceptual_roughness: f32,
@@ -187,8 +185,8 @@ fn bark_material(
             terrain_surface: Vec4::new(
                 terrain.width() * 0.5,
                 terrain.depth() * 0.5,
-                terrain_height_range.x,
-                terrain_height_range.y,
+                terrain_height_range.minimum().metres(),
+                terrain_height_range.maximum().metres(),
             ),
             soil_response: Vec4::new(
                 1.0 / FOREST_SOIL_TILE_METRES,
@@ -196,6 +194,7 @@ fn bark_material(
                 1.0,
                 0.82,
             ),
+            // y is the shader's reserved zero loop bound.
             soil_optics: Vec4::new(0.35, 0.0, 0.0, 0.0),
             terrain_heightmap,
             soil_height_ao: assets.forest_soil.height_ao.clone(),
@@ -352,13 +351,23 @@ mod tests {
         let mut app = App::new();
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
-        let assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
+        let assets = ProceduralTextureAssets::reserve(
+            &mut Default::default(),
             &mut app.world_mut().resource_mut::<Assets<Image>>(),
         );
         let terrain = SceneTerrain::new(2, 2, 1.0, |point| point.x * 0.1 + point.y * 0.2).unwrap();
         let heightmap = Handle::<Image>::default();
-        let terrain_height_range = Vec2::new(-0.075, 0.705);
+        let terrain_height_range = SceneElevationRange::new(
+            adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+                -0.075,
+            )
+            .unwrap(),
+            adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+                0.705,
+            )
+            .unwrap(),
+        )
+        .unwrap();
         let bark = oak_bark_material(&assets, heightmap.clone(), terrain_height_range, &terrain);
 
         assert_eq!(bark.base.base_color, Color::srgb_u8(96, 68, 43));
@@ -483,8 +492,8 @@ mod tests {
         assert!(shader.contains("textureSampleGrad"));
         assert!(!shader.contains("textureSampleLevel"));
         assert!(shader.contains("fn directional_horizon_visibility"));
-        assert!(shader.contains("layer <= 16"));
-        assert!(shader.contains("horizon_step <= 3"));
+        assert!(shader.contains("16 + i32(bark.soil_optics.y)"));
+        assert!(shader.contains("3 + i32(bark.soil_optics.y)"));
         assert!(shader.contains("let bark_roughness = clamp"));
         assert!(shader.contains("bark.soil_surface.w"));
         assert!(shader.contains("vec3<f32>(bark.soil_optics.x)"));
@@ -561,7 +570,7 @@ mod tests {
         let oak_occlusion = canopy_ao_strength(ENGLISH_OAK_PARAMETERS.crown_radius_metres);
 
         assert!((oak_occlusion - 0.37).abs() < 0.01);
-        assert!((OAK_LEAF_DIFFUSE_TRANSMISSION - 0.46).abs() < f32::EPSILON);
+        assert_eq!(OAK_LEAF_DIFFUSE_TRANSMISSION, 0.46);
         assert!(oak_occlusion < OAK_LEAF_DIFFUSE_TRANSMISSION);
         const {
             assert!(OAK_LEAF_DIFFUSE_TRANSMISSION < 0.5);
@@ -577,8 +586,8 @@ mod tests {
         let mut app = App::new();
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
-        let assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
+        let assets = ProceduralTextureAssets::reserve(
+            &mut Default::default(),
             &mut app.world_mut().resource_mut::<Assets<Image>>(),
         );
         assert_eq!(

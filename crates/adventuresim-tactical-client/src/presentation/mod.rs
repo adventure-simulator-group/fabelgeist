@@ -28,19 +28,31 @@ mod building_closures;
 mod celestial_materials;
 pub(crate) mod chunk_instancing;
 mod environment;
+mod ground_palette;
 pub(crate) mod ground_scatter;
+#[cfg(any(target_family = "wasm", test))]
+mod regional_lighting;
+#[cfg(target_family = "wasm")]
+pub(crate) mod regional_map;
+use ground_palette::{TACTICAL_DIRT_SRGB, scene_ground_color};
 pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
 use celestial_materials::update_celestial_material_lighting;
 mod materials;
 mod obstacles;
+pub(crate) mod ownership;
+pub(crate) mod preparation;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
 pub(crate) mod recipe_mesh;
 mod sky;
+mod strategic_scene_assets;
 mod terrain;
+pub(crate) use strategic_scene_assets::PreparedStrategicScene;
 pub(crate) mod venues;
 mod vista;
+pub(crate) use buildings::queue_strategic_city;
+pub(crate) use vista::{BackdropError, PreparedBackdrop, StrategicBackdrop};
 mod volumetric;
 mod weather;
 mod windows;
@@ -48,8 +60,6 @@ pub(crate) use building_closures::{BuildingClosureVisibility, PresentedBuildingC
 
 use adventuresim_procedural_textures::LeafTextureSet;
 pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;
-#[cfg(test)]
-use adventuresim_procedural_textures::generate_procedural_textures;
 pub(crate) use atmosphere::AtmosphereIblCache;
 use atmosphere::*;
 pub(crate) use buildings::BuildingRenderLevel;
@@ -98,7 +108,7 @@ pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,
 };
-pub(crate) use environment::{TacticalCameraSetup, TacticalGameplayCamera};
+pub(crate) use environment::{RegionalMapCamera, TacticalCameraSetup, TacticalGameplayCamera};
 pub(crate) use ground_scatter::{
     GrassInteractor, GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundLitterDiagnostics,
     GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
@@ -122,8 +132,8 @@ pub(crate) use obstacles::tree::{
 pub(crate) use sky::AtmosphereIblStatus;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
 pub(crate) use terrain::{
-    DETAIL_PATCH_SPACING_METRES, TerrainDetailPatch, TerrainMaterialPresentation,
-    terrain_heightmap_image,
+    DETAIL_PATCH_SPACING_METRES, TerrainContactHeightmap, TerrainDetailPatch,
+    TerrainMaterialPresentation,
 };
 pub(crate) use vista::{CityGroundMaterial, VistaTerrain, VistaTerrainMesh, VistaTreePresentation};
 pub(crate) use weather::WeatherParticle;
@@ -212,7 +222,6 @@ fn tactical_global_ambient_light() -> GlobalAmbientLight {
 impl Plugin for TacticalPresentationPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((
-            chunk_instancing::ChunkInstancingPlugin,
             ground_scatter::InstancedGrassPlugin,
             ground_scatter::gardens::GardenPresentationPlugin,
         ));
@@ -244,6 +253,7 @@ impl Plugin for TacticalPresentationPlugin {
             .init_resource::<WoodyUnderstoryPresentationCache>()
             .init_resource::<GroundFoliagePresentationCache>()
             .init_resource::<TreePresentationCache>()
+            .init_resource::<obstacles::tree::RetainedTreePresentations>()
             .init_resource::<TreeAssetResidencyDiagnostics>()
             .init_resource::<VistaTreePresentationCache>()
             .init_resource::<PreparedTreeImpostorAssets>()

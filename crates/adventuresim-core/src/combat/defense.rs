@@ -1,7 +1,10 @@
+use super::ContactTimingOffset;
 use super::{
     DODGE_OVEREXTENSION_SCALE, DefenderResponse, MeleeContactLocation, WEAPON_DEFENSE_REBOUND_SCALE,
 };
 use crate::body::{BodyPart, BodySide};
+use crate::elapsed::AnimationElapsed;
+use crate::unit_interval::UnitInterval;
 
 /// A one kilogram-square-metre implement is the boundary between ordinary
 /// one-handed rotational commitment and high-inertia pole/impact weapons.
@@ -18,8 +21,8 @@ pub struct CommittedThreatFacts {
     /// How long after the incoming contact the defender's committed weapon
     /// would contact. Non-positive values mean the defender lands first or in
     /// the same simultaneous contact batch.
-    pub own_contact_after_incoming_seconds: f32,
-    pub own_windup_seconds: f32,
+    pub own_contact_after_incoming_seconds: ContactTimingOffset,
+    pub own_windup_seconds: AnimationElapsed,
     /// Expected geometric engagement of the attempted intercept, after skill
     /// and available reaction time, on the same zero-to-one scale used by the
     /// weapon-alignment resolver.
@@ -27,7 +30,7 @@ pub struct CommittedThreatFacts {
     /// Current medical/structural vulnerability to another contact.
     pub incapacitation: f32,
     pub weapon_moment_of_inertia_kg_m2: f32,
-    pub weapon_recovery_seconds: f32,
+    pub weapon_recovery_seconds: AnimationElapsed,
     /// Number of immediately preceding committed attacks consumed by defense.
     /// This is short-term observation of a repeated phase relationship, not a
     /// permanent combatant trait.
@@ -57,10 +60,14 @@ pub struct CommittedThreatDecision {
 /// has learned will otherwise be discarded, breaking a fixed phase cycle.
 #[must_use]
 pub fn choose_committed_threat_response(facts: CommittedThreatFacts) -> CommittedThreatDecision {
-    let windup = facts.own_windup_seconds.max(f32::EPSILON);
-    let contact_lag = facts.own_contact_after_incoming_seconds.max(0.0);
-    let completed_work_fraction = (1.0 - contact_lag / windup).clamp(0.0, 1.0);
-    if facts.own_contact_after_incoming_seconds <= 0.0 {
+    let windup = facts.own_windup_seconds.seconds().max(0.0);
+    let contact_lag = facts.own_contact_after_incoming_seconds.seconds().max(0.0);
+    let completed_work_fraction = if contact_lag == 0.0 {
+        1.0
+    } else {
+        (1.0 - contact_lag / windup).clamp(0.0, 1.0)
+    };
+    if facts.own_contact_after_incoming_seconds.seconds() <= 0.0 {
         return CommittedThreatDecision {
             choice: CommittedThreatChoice::FinishTrade,
             finish_trade_probability: 1.0,
@@ -76,13 +83,17 @@ pub fn choose_committed_threat_response(facts: CommittedThreatFacts) -> Committe
         / (f32::from(facts.consecutive_intercepts) + 1.0);
     let sunk_attack_work =
         completed_work_fraction * (1.0 + inertia_commitment) + learned_phase_commitment;
-    let recovery_exposure =
-        facts.weapon_recovery_seconds.max(0.0) / (facts.weapon_recovery_seconds.max(0.0) + windup);
+    let recovery = facts.weapon_recovery_seconds.seconds().max(0.0);
+    let recovery_exposure = if recovery == 0.0 {
+        0.0
+    } else {
+        recovery / (recovery + windup)
+    };
     let contact_vulnerability = 1.0 + facts.incapacitation.clamp(0.0, 1.0) + recovery_exposure;
     let expected_intercept_benefit =
         facts.expected_intercept_engagement.clamp(0.0, 1.0) * contact_vulnerability;
     let total = sunk_attack_work + expected_intercept_benefit;
-    let finish_trade_probability = if total <= f32::EPSILON {
+    let finish_trade_probability = if total <= 0.0 {
         0.0
     } else {
         sunk_attack_work / total
@@ -132,7 +143,7 @@ pub fn resolve_weapon_defense_alignment(
         };
     }
     let success_probability = 1.0 / (1.0 + attack_value.exp());
-    let sample = alignment_sample.clamp(f32::EPSILON, 1.0 - f32::EPSILON);
+    let sample = alignment_sample.clamp(0.0_f32.next_up(), 1.0_f32.next_down());
     // A uniform sample transformed by the inverse logistic CDF is a physical
     // alignment error on the same practical-skill scale as `attack_value`.
     // The remaining intercept margin then produces a continuous engagement:
@@ -239,8 +250,8 @@ impl DefenderResponse {
         }
     }
 
-    pub fn scaled_for_performance(self, performance: f32) -> Self {
-        let performance = performance.clamp(0.0, 1.0);
+    pub fn scaled_for_performance(self, performance: UnitInterval) -> Self {
+        let performance = performance.fraction().clamp(0.0, 1.0);
         match self {
             Self::None => Self::None,
             Self::Block { effectiveness } => Self::Block {
@@ -380,12 +391,13 @@ mod tests {
 
     fn threat_facts(contact_lag: f32, sample: f32) -> CommittedThreatFacts {
         CommittedThreatFacts {
-            own_contact_after_incoming_seconds: contact_lag,
-            own_windup_seconds: 0.65,
+            own_contact_after_incoming_seconds: ContactTimingOffset::from_seconds(contact_lag)
+                .unwrap(),
+            own_windup_seconds: crate::elapsed::AnimationElapsed::from_seconds(0.65).unwrap(),
             expected_intercept_engagement: 0.7,
             incapacitation: 0.0,
             weapon_moment_of_inertia_kg_m2: 0.4,
-            weapon_recovery_seconds: 0.5,
+            weapon_recovery_seconds: crate::elapsed::AnimationElapsed::from_seconds(0.5).unwrap(),
             consecutive_intercepts: 0,
             decision_sample: sample,
         }

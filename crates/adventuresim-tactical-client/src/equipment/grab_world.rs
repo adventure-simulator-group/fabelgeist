@@ -1,4 +1,5 @@
 //! World-space pickup and door targeting shared by grab input and outlines.
+use super::EquipmentHand;
 
 use adventuresim_tactical_core::prelude::*;
 use bevy::{ecs::system::SystemParam, prelude::*};
@@ -84,7 +85,7 @@ impl WorldGrabTargets<'_, '_> {
     fn visible(&self, origin: Vec3, position: Vec3) -> bool {
         let sight = position - origin;
         let distance = sight.length();
-        distance > f32::EPSILON
+        distance > 0.0
             && Dir3::new(sight / distance).is_ok_and(|direction| {
                 self.spatial
                     .cast_ray(
@@ -138,4 +139,14 @@ pub(super) fn grab_target_outline_selected(
                 | GrabSelection::Window(selected)
         ) if selected == target
     )
+}
+
+pub(super) fn held_item(
+    actor: Entity,
+    hand: EquipmentHand,
+    items: &Query<(Entity, &ItemOf, Option<&EquipSlot>)>,
+) -> Option<Entity> {
+    items.iter().find_map(|(entity, owner, slot)| {
+        (owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())).then_some(entity)
+    })
 }

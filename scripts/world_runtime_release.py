@@ -15,7 +15,7 @@ import zipfile
 
 import world_data_bundle
 
-SCHEMA = 1
+SCHEMA = 2
 YEAR = 1544
 CHUNK = 1024 * 1024
 MAX_ARCHIVE_BYTES = 256 * 1024 * 1024
@@ -30,8 +30,8 @@ RELEASE_PATTERN = re.compile(r"[a-z0-9][a-z0-9.-]{0,79}")
 # inputs and must not be distributed as runtime outputs.
 MEMBER_DESTINATIONS = {
     "world-1544.json": "target/world-1544.json",
-    "strategic-map/strategic-map-v1.json": "target/strategic-map/strategic-map-v1.json",
-    "strategic-map/strategic-map-tiles-v1.pack": "target/strategic-map/strategic-map-tiles-v1.pack",
+    "strategic-map/regional-roads-v1.json": "target/strategic-map/regional-roads-v1.json",
+    "strategic-map/regional-roads-v1.pack": "target/strategic-map/regional-roads-v1.pack",
     "strategic-map/terrain-routing-v3.json": "target/strategic-map/terrain-routing-v3.json",
     "strategic-map/terrain-routing-v3.pack": "target/strategic-map/terrain-routing-v3.pack",
     "strategic-map/STRATEGIC_MAP_DATA_LICENSE.md": "target/strategic-map/STRATEGIC_MAP_DATA_LICENSE.md",
@@ -109,16 +109,6 @@ def validate_runtime_sources(repository: Path) -> tuple[dict[str, object], dict[
         if not isinstance(source, dict):
             fail("compiled world contains an invalid source manifest entry")
 
-    map_manifest = load_json(repository / SOURCE_PATHS["strategic-map/strategic-map-v1.json"])
-    if map_manifest.get("schema") != 5 or map_manifest.get("year") != YEAR:
-        fail("strategic map has an unsupported schema or world year")
-    tiles = map_manifest.get("tiles")
-    if not isinstance(tiles, dict) or tiles.get("format") != "avif":
-        fail("strategic map does not contain the expected AVIF tile index")
-    tile_pack = repository / SOURCE_PATHS["strategic-map/strategic-map-tiles-v1.pack"]
-    if tiles.get("content_sha256") != sha256(tile_pack):
-        fail("strategic map tile pack does not match its manifest")
-
     terrain = load_json(repository / SOURCE_PATHS["strategic-map/terrain-routing-v3.json"])
     if terrain.get("schema") != 8 or terrain.get("purpose") != "final":
         fail("terrain routing package is not the final schema-8 runtime pack")
@@ -135,19 +125,64 @@ def validate_runtime_sources(repository: Path) -> tuple[dict[str, object], dict[
     terrain_pack = repository / SOURCE_PATHS["strategic-map/terrain-routing-v3.pack"]
     if terrain.get("content_sha256") != sha256(terrain_pack):
         fail("terrain routing pack does not match its manifest")
-    if map_manifest.get("terrain_package_sha256") != terrain.get("package_sha256"):
-        fail("strategic map and terrain routing package are incoherent")
-    cultivation = map_manifest.get("cultivation")
+    roads = load_json(repository / SOURCE_PATHS["strategic-map/regional-roads-v1.json"])
+    road_pack = repository / SOURCE_PATHS["strategic-map/regional-roads-v1.pack"]
     if (
-        not isinstance(cultivation, dict)
-        or cultivation.get("grid_crs") != terrain.get("cultivation_grid_crs")
-        or cultivation.get("grid_resolution_m") != terrain.get("cultivation_grid_resolution_m")
-        or cultivation.get("rules_version") != terrain.get("cultivation_rules_version")
-        or cultivation.get("source_sha256") != terrain.get("cultivation_source_sha256")
-        or cultivation.get("square_count") != terrain.get("cultivated_square_count")
+        set(roads) != {"schema", "source", "road_geometry_sha256", "content_sha256", "roads", "points"}
+        or roads.get("schema") != 1
+        or not valid_sha256(roads.get("source"))
+        or not valid_sha256(roads.get("road_geometry_sha256"))
+        or roads.get("source") != terrain.get("package_sha256")
+        or roads.get("road_geometry_sha256") != terrain.get("road_geometry_sha256")
     ):
-        fail("strategic map and terrain cultivation identities are incoherent")
-    return world, map_manifest
+        fail("regional roads and final terrain road-mask identities are incoherent")
+    if roads.get("content_sha256") != sha256(road_pack):
+        fail("regional road pack does not match its manifest")
+    validate_road_payload(road_pack, roads, terrain.get("bounds"))
+    return world, roads
+
+
+def validate_road_payload(path: Path, roads: dict[str, object], bounds: object) -> None:
+    # Binary source coordinates are IEEE-754 longitude/latitude degrees.
+    # Rust admission additionally checks the canonical geometry JSON digest;
+    # the release tool verifies structure, bounds, and package content identity.
+    import math
+    import struct
+
+    line_count, point_count = roads.get("roads"), roads.get("points")
+    if (
+        type(line_count) is not int or not 0 <= line_count <= 50_000
+        or type(point_count) is not int or not 0 <= point_count <= 1_000_000
+        or not isinstance(bounds, list) or len(bounds) != 4
+        or not all(type(value) in (int, float) and math.isfinite(value) for value in bounds)
+    ):
+        fail("regional road package has invalid counts or bounds")
+    west, south, east, north = bounds
+    if not -180 <= west < east <= 180 or not -90 <= south < north <= 90:
+        fail("regional road package has invalid geographic bounds")
+    total = 0
+    with path.open("rb") as stream:
+        for _ in range(line_count):
+            classification = stream.read(1)
+            if len(classification) != 1 or classification[0] > 6:
+                fail("regional road classification is invalid or truncated")
+            count_bytes = stream.read(4)
+            if len(count_bytes) != 4:
+                fail("regional road geometry is truncated")
+            count, = struct.unpack("<I", count_bytes)
+            total += count
+            if count < 2 or total > point_count:
+                fail("regional road geometry exceeds its declared count")
+            for _ in range(count):
+                point = stream.read(16)
+                if len(point) != 16:
+                    fail("regional road geometry is truncated")
+                longitude, latitude = struct.unpack("<dd", point)
+                if not west <= longitude <= east or not south <= latitude <= north:
+                    fail("regional road geometry is outside final terrain bounds")
+        if total != point_count or stream.read(1):
+            fail("regional road geometry count or trailing bytes are invalid")
+
 
 
 def runtime_notice(world: dict[str, object]) -> bytes:
@@ -193,7 +228,7 @@ def zip_info(name: str) -> zipfile.ZipInfo:
     # Runtime generation is a release-maintainer operation, but Python's
     # Windows deflater is disproportionately slow on the large generated JSON.
     # The payload is only about 60 MiB and the dominant packs are already
-    # compact binary/AVIF data, so store every member for predictable builds.
+    # compact binary terrain and road data, so store every member for predictable builds.
     info.compress_type = zipfile.ZIP_STORED
     info.external_attr = 0o100644 << 16
     return info

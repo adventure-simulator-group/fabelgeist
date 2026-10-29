@@ -1,5 +1,8 @@
 # GPU buffers
 
+Texture creation and format views share validation observation; see
+[texture validation and format views](texture-views.md).
+
 `BufferUpload` borrows the native bytes of `NoUninit` host elements through
 queue submission. `Buffer::from_upload`, `write`, and `write_at` consume that
 upload. Convert host elements once, where the owning consumer admits them:

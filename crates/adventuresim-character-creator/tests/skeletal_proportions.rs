@@ -12,19 +12,25 @@ fn evaluate(
     model: &Mhr,
     proportions: CharacterProportions,
     bent: bool,
-) -> (Vec<Transform>, Vec<[f64; 3]>) {
+) -> (fabelgeist_rig::RigJointTable<Transform>, Vec<[f64; 3]>) {
     let device = Device::default();
     let mut parameters = model_parameters(model, proportions).unwrap();
     if bent {
         for name in ["l_elbow_bend", "r_elbow_bend", "l_knee_bend", "r_knee_bend"] {
-            parameters[model.parameter_transform.parameter_index(name).unwrap()] = 0.4;
+            parameters[model
+                .parameter_transform
+                .parameter_index(&name.into())
+                .unwrap()] = 0.4;
         }
     }
     let output = model
         .forward_with(
             Tensor::from_data(TensorData::new(vec![0.15; 45], [1, 45]), &device),
             Tensor::from_data(
-                TensorData::new(parameters, [1, model.num_model_parameters()]),
+                TensorData::new(
+                    parameters.into_tensor_values(),
+                    [1, usize::from(model.num_model_parameters())],
+                ),
                 &device,
             ),
             None,
@@ -98,21 +104,19 @@ fn skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion() {
         for bent in [false, true] {
             let (source_pose, _) = evaluate(&model, reference, bent);
             let (expected, expected_vertices) = evaluate(&model, proportions, bent);
-            let mut actual: Vec<Transform> = Vec::new();
-            for (joint, source) in source_pose.iter().enumerate() {
+            let mut actual: fabelgeist_rig::RigJointTable<Transform> = Default::default();
+            for (joint, source) in source_pose.indexed() {
                 let parent = model.character.skeleton.parents[joint];
-                let mut local = if parent < 0 {
-                    *source
-                } else {
-                    source_pose[parent as usize].inverse().compose(source)
+                let mut local = match parent {
+                    None => *source,
+                    Some(parent) => source_pose[parent].inverse().compose(source),
                 };
                 for (axis, delta) in bases[joint].translation(proportions).iter().enumerate() {
                     local.translation[axis] += f64::from(*delta);
                 }
-                actual.push(if parent < 0 {
-                    local
-                } else {
-                    actual[parent as usize].compose(&local)
+                actual.push(match parent {
+                    None => local,
+                    Some(parent) => actual[parent].compose(&local),
                 });
                 for axis in 0..3 {
                     assert!(
@@ -122,7 +126,7 @@ fn skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion() {
                     );
                 }
             }
-            let skin: Vec<_> = actual
+            let skin: fabelgeist_rig::RigJointTable<_> = actual
                 .iter()
                 .zip(&neutral)
                 .map(|(pose, bind)| pose.compose(&bind.inverse()))
@@ -132,11 +136,20 @@ fn skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion() {
                 vertices.iter().zip(&expected_vertices).enumerate()
             {
                 let mut actual = [0.0; 3];
-                for (joint, weight) in model.character.skin_weights.index[vertex]
+                for (joint, weight) in model
+                    .character
+                    .skin_weights
+                    .indices()
+                    .vertex(vertex)
                     .iter()
-                    .zip(model.character.skin_weights.weight[vertex])
+                    .zip(
+                        model.character.skin_weights.weights()
+                            [fabelgeist_mhr::character::MeshVertexIndex::from_native_vertex_index(
+                                vertex,
+                            )],
+                    )
                 {
-                    let transform = skin[*joint as usize];
+                    let transform = skin[*joint];
                     let rotated =
                         rotate_vector(transform.rotation, reference.map(|v| v * transform.scale));
                     for axis in 0..3 {

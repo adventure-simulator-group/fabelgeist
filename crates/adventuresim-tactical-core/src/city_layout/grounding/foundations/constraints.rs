@@ -1,5 +1,6 @@
 //! Complete source intersections bound an affine change to occupied floor levels.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::SignedLength;
 
 #[derive(Clone, Copy, Debug)]
 struct Control {
@@ -12,7 +13,7 @@ struct Control {
 pub(super) fn floor_shift(
     plan: &CompoundSupportPlan,
     geographic: &GeographicSurface,
-) -> Result<f32, SupportDiagnostic> {
+) -> Result<SignedLength, SupportDiagnostic> {
     let surface = plan.support_surface()?;
     let original = surface.mesh();
     let basis = plan.floor_translation_basis()?.mesh()?;
@@ -43,7 +44,7 @@ pub(super) fn floor_shift(
         let mut covered = 0.0;
         for source in geographic.intersecting(&support) {
             let polygon = support.intersection(source);
-            if polygon.len() < 3 || geometry::area(&polygon) <= f64::EPSILON {
+            if polygon.len() < 3 || geometry::area(&polygon) <= 0.0 {
                 continue;
             }
             covered += geometry::area(&polygon);
@@ -79,7 +80,7 @@ impl FloorInterval {
     ) -> Result<(), SupportDiagnostic> {
         let displacement = control.support - control.source;
         let permitted = f64::from(plan.limits.maximum_displacement_metres.metres());
-        if control.coefficient.abs() <= f64::from(f32::EPSILON) {
+        if control.coefficient == 0.0 {
             if displacement.abs() > permitted {
                 return Err(rejection(plan, control, 0.0));
             }
@@ -95,7 +96,7 @@ impl FloorInterval {
         Ok(())
     }
 
-    fn choose(self, plan: &CompoundSupportPlan) -> Result<f32, SupportDiagnostic> {
+    fn choose(self, plan: &CompoundSupportPlan) -> Result<SignedLength, SupportDiagnostic> {
         if self.minimum > self.maximum {
             let control = self.upper_control.ok_or_else(|| {
                 SupportDiagnostic::new(
@@ -115,7 +116,13 @@ impl FloorInterval {
         } else {
             (self.minimum + self.maximum) * 0.5
         };
-        Ok(shift as f32)
+        SignedLength::from_metres(shift as f32).map_err(|cause| {
+            SupportDiagnostic::framed_geometry(
+                &plan.property,
+                plan.property.plot.centre_metres(),
+                cause,
+            )
+        })
     }
 }
 

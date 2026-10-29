@@ -16,6 +16,7 @@ struct CityGroundParameters {
     weather: vec4<f32>,
     texture_scale: vec4<f32>,
     traffic_transform: vec4<f32>,
+    source_from_world: mat4x4<f32>,
 }
 @group(#{MATERIAL_BIND_GROUP}) @binding(100) var<uniform> ground: CityGroundParameters;
 @group(#{MATERIAL_BIND_GROUP}) @binding(101) var soil_height_ao: texture_2d<f32>;
@@ -87,7 +88,7 @@ fn height_normal(position: vec3<f32>, normal: vec3<f32>, height: f32) -> vec3<f3
 fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> FragmentOutput {
     var pbr = pbr_input_from_standard_material(in, is_front);
     let position = in.world_position.xyz;
-    let world = position.xz;
+    let world = (ground.source_from_world * in.world_position).xz;
     let footprint = in.color;
     let local = in.uv * footprint.xy;
     let to_end = min(local.y, footprint.y - local.y);

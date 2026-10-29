@@ -36,7 +36,8 @@ pub(crate) use instance::{ChunkInstance, FadeBand, InstanceChunk};
 pub(in crate::presentation) use material::{ChunkInstancedMaterial, enable_alpha_to_coverage};
 pub(in crate::presentation) use spawn::{ChunkSize, InstanceBatch, InstanceReach};
 
-/// The renderer shared by every chunk-instanced material.
+/// The renderer shared by every chunk-instanced material; each
+/// [`ChunkMaterialPlugin`] adds it once.
 pub(in crate::presentation) struct ChunkInstancingPlugin;
 
 /// Draws chunks whose [`ChunkMaterial`] is an `M`.
@@ -67,6 +68,9 @@ impl<M> Default for ChunkMaterialPlugin<M> {
 
 impl<M: ChunkInstancedMaterial> Plugin for ChunkMaterialPlugin<M> {
     fn build(&self, app: &mut App) {
+        if !app.is_plugin_added::<ChunkInstancingPlugin>() {
+            app.add_plugins(ChunkInstancingPlugin);
+        }
         app.init_asset::<M>().add_plugins((
             ExtractComponentPlugin::<ChunkMaterial<M>>::default(),
             RenderAssetPlugin::<material::PreparedChunkMaterial<M>>::default(),

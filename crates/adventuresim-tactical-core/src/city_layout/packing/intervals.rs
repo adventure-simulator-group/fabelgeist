@@ -30,9 +30,9 @@ impl PackingClearance {
 impl FrontageInterval {
     pub(super) fn with_half_plane(self, origin: f64, rate: f64) -> Option<Self> {
         let mut interval = self;
-        if rate > f64::EPSILON {
+        if rate > 0.0 {
             interval.minimum_metres = interval.minimum_metres.max(-origin / rate);
-        } else if rate < -f64::EPSILON {
+        } else if rate < 0.0 {
             interval.maximum_metres = interval.maximum_metres.min(-origin / rate);
         } else if origin < 0.0 {
             return None;

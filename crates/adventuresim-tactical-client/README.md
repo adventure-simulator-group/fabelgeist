@@ -1,5 +1,17 @@
 # Fabelgeist tactical client
 
+[Immutable scene preparation](generation.md) describes shared worker products,
+readiness, residency and typed preparation failures.
+
+[Regional environment presentation](regional-map.md) describes the retained
+geographic camera, terrain surface and browser command boundary.
+
+The atmosphere extraction backport is required by the selected Bevy 0.19 engine.
+The build script reads the resolved version from the workspace lockfile and
+requires removing that backport and its guard when the project selects Bevy 0.20
+or later. Releasing a new upstream engine does not change the selected engine or
+make an otherwise unchanged build fail. This check does not access the network.
+
 ## Runtime equipment fitting
 
 Armor and clothing are generated locally from each wearer's evaluated, unposed
@@ -15,13 +27,11 @@ Offline exporters retain their reusable morph-equipped asset workflow.
 Compute and rendering dependencies must use the same `wgpu` release: linking
 two releases into the browser client duplicates their vendored WebGPU bindings.
 
-Initial loading exercises every authored armor placement on the canonical body,
-plus layered shoulders and alternate cuirass and tasset constructions. These
-temporary meshes are discarded; the device and compiled compute kernels stay
-alive across city travel. Strategic scene readiness waits for this preparation,
-even when the initial city has no equipped NPCs. Preparation failures surface as
-loading errors. Newly encountered wearers still receive their own fitted meshes;
-initial preparation does not cache canonical fits as substitutes for them.
+Strategic loading fits the equipment actually requested by the scene. The device
+and compiled compute kernels stay alive across city travel; loading does not fit
+and discard the entire authored catalog first. Strategic scene readiness waits
+for its requested fits, and preparation failures surface as loading errors.
+Newly encountered wearers receive their own fitted meshes.
 
 Fits are cached by item design, anatomical placement, and evaluated body shape.
 The last 128 variants remain available across travel; live entities retain their
@@ -144,6 +154,15 @@ Raised aiming resolves the center-screen camera target and the subsequent
 muzzle path separately. Debug builds use `F6` to show rig, collision, smoothing,
 occlusion classification, and aim-ray telemetry.
 
+Camera frame intervals are capped at 0.1 seconds. Collision hold time is a
+finite nonnegative interval, including zero, with the existing 0.12-second
+default. Horizontal and vertical follow, mode-transition and collision-recovery
+coefficients are finite signed shaping seconds. Profile interpolation precedes
+the damping equation's existing response floor, so finite zero and negative
+coefficients retain their behavior. Invalid authored temporal values fail
+checked admission. Blend and profile results are prepared before replacing
+their retained filter values; this does not make all camera updates atomic.
+
 The tactical workspace targets Bevy 0.19, Avian 0.7, Ahoy 0.2, Replicon
 0.41, Aeronet 0.21, Enhanced Input 0.26, and Flair 0.8. The engine upgrade does
 not move animation or movement authority: `SkeletonState` and controller state
@@ -168,7 +187,99 @@ compact deterministic field recipe, never a server-generated render mesh.
 Authored clips are sampled by the client-owned pose buffer. The semantic router
 reads presentation state, resolves weighted clip samples through the animation
 pack catalog, and applies fixed-rate FK with per-joint inertialization before
-procedural terrain, body-response, and weapon-constraint passes.
+procedural terrain, body-response, and weapon-constraint passes. The validated
+server configuration owns each sampling rate and its positive reciprocal.
+Buffered sample counts are distinct from elapsed seconds and absolute ticks;
+checked interval arithmetic precedes replacement of buffered poses. Inertial
+clocks retain checked elapsed time while their polynomial kernels keep the
+existing numerical stencil and denominator floors.
+Pose buffers distinguish inactive state from retained authored display history.
+The first plan snaps to its target; later transitions capture displayed output.
+Visibility and physics ownership remain separate: pinning a physics pose does
+not establish authored display history. Ordinary locomotion adopts its first
+vertical hip correction even at zero elapsed time, then retains that correction
+on subsequent zero-elapsed observations.
+
+Shared semantic evaluation and resolved playback carry the same core
+`BlendWeight`, `CyclePhase` and `ClipMirror` owners. Weights admit every finite
+nonnegative contribution, including values above one; checked accumulation
+rejects overflow. Cycles remain finite, signed and unwrapped until a periodic
+operation. Mirroring remains binary and serializes as a Boolean. Declared span
+endpoints remain in the playback plan even at zero weight; numerical sampling
+skips zero contributions. Continuation coordinates and their tangent operations
+remain distinct from cyclic phase.
+
+`ClipDuration` admits finite nonnegative seconds, while `ClipTime` admits signed
+finite sample positions. Baked clips and both span families retain checked times
+and weights until native interpolation or Bevy sampling. Pose interpolation
+carries a checked fraction of the fixed sample interval.
+
+The deterministic override stores an `AnimationSampleTick` with the shared
+`AnimationElapsed` interval. Repeated observations retain zero elapsed time.
+Body response carries finite signed angles, angular velocities and body-local
+velocity/acceleration; checked norms and arithmetic remain necessary after
+component admission. Failed arithmetic leaves the previous response intact.
+Retained run amplitude, authored compensation and landing compression use
+nonnegative metre distances; absorption/recovery use nonnegative metre-per-second
+rates. Displayed waves and transition offsets use the existing signed metre
+owner. Height updates commit only after their checked operations succeed.
+
+Combat YAML owns the observation cap, calibration grid and accepted foot range,
+landing tolerances, body-response caps/reference accelerations and safe-settle
+interval. Playback drift measurement blending admits only fractions in `[0, 1]`.
+Cadence retains checked nonnegative step distances and stance-slip budgets;
+selected-axis calibration positions retain signed metres. A fitted phase curve
+owns its periodic sample grid and checked seam; an empty or singleton mapping
+is explicitly identity, while missing calibration remains absent. Each motion
+prepares its fit before replacing its cache entry. Malformed arithmetic is
+rejected without marking the clip measured; a valid but unrepresentable fit is
+marked observed and uses the simulation profile until its source is invalidated.
+Calibration use also checks the relevant runtime tuning and current immutable
+rig/retarget offsets before selection. A mismatch excludes that stale entry
+until the existing post-sampling calibration pass prepares its replacement;
+actor observations, gameplay clocks and unrelated history are retained.
+Capture plans and required cadence acceptance propagate distance failures before
+publishing their owned plan/report; inspection JSON is prepared separately and
+published only after the selected plan succeeds.
+The visual root offset uses the existing signed metre owner. Capture frames
+retain scenario classification for terrain policy; text is decoded once at
+source admission and projected back to labels for authored lookup or reports.
+
+Motion filename stems and asset directories pass checked catalogue admission.
+Built-in motions and skeleton families use authored associated constants, while
+valid custom identities remain open. A playback plan is admitted after all grip
+contributions join; even zero-weight endpoints retain their declared topology.
+Clip/source revisions invalidate availability, baked poses, per-character and
+shared cadence measurements, phase curves and retained plan keys before new
+sampling. Invalid replacement durations remain unavailable until a valid asset
+revision arrives. Completed optional requests retain their admitted path even
+when no typed handle was returned, so a later managed glTF revision can recover
+the same motion by its full asset source, path and label. A failed source or
+child clip cannot republish an older asset value as available. This association
+does not create a per-frame file retry or a watcher for unrequested assets.
+Native asset-store changes invalidate asset-derived pose, stride, phase and
+cadence caches before either evaluation or presentation. This conservatively
+rebuilds unaffected entries too; native event flushing can cause one additional
+rebuild after a real change, while stable frames retain their caches. Actor
+observation history and animation clocks are unchanged.
+
+Height amplitudes and speeds share zero-permitting finite measurement leaves.
+Body angles retain their signed response-frame role; angular caps use a finite
+nonnegative magnitude. Dive, braking and interpolation retain separate roles
+over a shared finite unit interval, with each producer keeping its clamp or
+rejection policy. Body-response smoothing requires positive seconds; zero now
+fails configuration admission before the spring's division. The bake-grid and
+phase-fit floors retain their previous values in combat YAML.
+
+Absolute observations use `AnimationSampleTick`; durations use
+`AnimationSampleSpan`. Capture increments still wrap, while existing saturated
+action/posture deadlines retain their endpoint behavior. Review scenarios carry
+admitted execution and acceptance policy through analysis. Captured bones retain
+`BoneRole`, and analysis preserves the former lexical report-label order for
+floating folds and first-worst ties. Labels and scalar values project at JSON,
+HTML, seed and native numerical boundaries. Rejected capture observations write
+a failure artifact and terminate instead of retrying the same frame forever.
+
 ## Animation export contract
 
 The humanoid base rig is independent from authored motions:
@@ -459,8 +570,22 @@ Missed landing updates collapse to the latest observation rather than bursting.
 An event's sample tick is the tick where its replicated sequence was observed,
 not an invented historical contact timestamp.
 
-Terrain conformity starts off. In debug builds, press `F8` to opt into its
-height, slope, and pelvis corrections. The HUD reports whether it is on or off;
+Contact and landing counters have separate `ContactSequence` and
+`LandingSequence` owners. Event coalescing uses checked forward gaps; retained
+contact/report continuity separately permits wrapping counters. Presentation
+messages carry one contact-or-landing payload. Capture reports preserve their
+flat numeric sequence/tick fields and contact-foot labels, and audio projects
+the payload sequence only at its deterministic seed boundary.
+
+Authored catalogue frames use `AuthoredAnimationFrame`, distinct from simulation
+sample ticks. Catalogue anchors retain that frame through motion selection;
+loading converts it to checked clip seconds at the configured frame rate.
+
+Terrain conformity defaults to `TerrainIkMode::Enabled`. In debug builds,
+press `F8` to toggle its height, slope, and pelvis corrections. The animation
+viewer separately starts without terrain conformity unless its selected scenario
+requests terrain; per-frame scenario policy also permits raised tap-stop captures
+and preserves the mid-stride comparison window. The HUD reports on or off;
 authored FK, gait endpoint blending, torso stabilization, and procedural guard
 stepping remain active. Ordinary flat-ground locomotion does not run the terrain
 leg solver while the toggle is off.
@@ -483,6 +608,12 @@ l_lowarm / r_lowarm  l_wrist / r_wrist    l_weapon / r_weapon
 l_upleg / r_upleg    l_lowleg / r_lowleg  l_foot / r_foot
 l_ball / r_ball
 ```
+
+Procedural binding and pelvis masks use the same exact bone roles: `root` is
+the pelvis and `body_world` is the rig root. Other spellings, including
+`ROOT` and `Root`, remain unbound and receive no special pelvis masking or
+terrain-reference treatment. Topology rebuilds preserve the calibrated left
+and right sole axes; each axis is captured once from the authored bind pose.
 
 Finger, face, foot-articulation, and distributed twist bones retain authored FK.
 They still participate in full-pose mirroring. `l_weapon`, `r_weapon`, and
@@ -509,6 +640,9 @@ complete main-hand set, and an absent family stays unavailable; only a pack
 with neither motion inherits its parent's main-hand attacks. `offhand` resolves
 independently through the parent chain. Missing, unloaded, zero-animation,
 multiple-animation, or short motion files are unavailable.
+Absent optional motion files are logged at info level while pose lookup uses
+the available fallbacks, including mirrored poses. Other loading failures
+remain errors, and invalid motion contents retain their validation warnings.
 Every local or remote character also gets a generated T-pose safety net until
 the base scene is available. Bind locals are reset before every animation
 evaluation so partial clips cannot accumulate stale or procedural transforms.

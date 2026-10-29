@@ -90,7 +90,7 @@ fn landform_cutout_crossing_playable_boundary_retains_distant_foundation_bearing
     };
     let ring_triangles = |collar| {
         vista_meshes(
-            &terrain,
+            terrain.property_surface().unwrap(),
             &lod,
             Vec2::splat(1.0),
             None,
@@ -98,6 +98,7 @@ fn landform_cutout_crossing_playable_boundary_retains_distant_foundation_bearing
             input.environment_snapshot("owned-ring".into()).weather,
             collar,
         )
+        .unwrap()
         .iter()
         .flat_map(mesh_triangles)
         .collect::<BTreeSet<_>>()

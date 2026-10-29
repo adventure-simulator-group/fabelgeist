@@ -1,5 +1,6 @@
 //! Imported route acceptance uses the real controller and retained solid geometry.
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
 use crate::scene_input::{GeneratedBuildingRecipes, TacticalSceneInput};
 
 #[test]
@@ -138,7 +139,9 @@ pub(super) fn occupied_walker(
     input: &TacticalSceneInput,
     open_property: Option<crate::city_layout::CityPropertyId>,
 ) -> Walker {
-    let elevation = ground.height_at(start).unwrap();
+    let elevation = ground
+        .height_at(ScenePlanPoint::from_metres(start).unwrap())
+        .unwrap();
     // Bounds selection drops no geometry near an access lane. The natural
     // source body intersects this box and retains its complete original BVH.
     let inside = |position: Vec3, shape: &Collider, rotation: Quat| {
@@ -152,7 +155,7 @@ pub(super) fn occupied_walker(
             .filter(|shape| inside(Vec3::ZERO, shape, Quat::IDENTITY))
             .cloned(),
         start,
-        elevation,
+        elevation.metres(),
     );
     for building in buildings {
         let shape = &building.collider;

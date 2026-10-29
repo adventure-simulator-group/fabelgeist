@@ -1,6 +1,7 @@
 //! Extract the canonical skinned body used to generate fitted equipment.
 use super::rig::FittingRig;
 use super::*;
+use fabelgeist_rig::{PackedRigSkin, RigJointName, RigJointTable};
 
 pub(super) struct CanonicalBody {
     pub body: RuntimeBody,
@@ -29,6 +30,9 @@ pub(super) fn try_build_runtime_body(
         let gltf_mesh = gltf_meshes.get(mesh_handle)?;
         let skin = gltf_skins.get(skin_handle)?;
         let inverse_bindposes_asset = inverse_bindposes.get(&skin.inverse_bind_matrices)?;
+        for joint in &skin.joints {
+            gltf_nodes.get(joint)?;
+        }
 
         if let Some(primitive) = gltf_mesh.primitives.first() {
             let mesh = meshes.get(&primitive.mesh)?;
@@ -72,17 +76,17 @@ fn build_runtime_body(
     }
     let faces = triangles.to_vec();
 
-    let joint_names = skin
+    let joint_names: RigJointTable<RigJointName> = skin
         .joints
         .iter()
         .map(|joint| {
             gltf_nodes
                 .get(joint)
-                .map(|node| node.name.clone())
-                .unwrap_or_else(|| "joint".into())
+                .map(|node| RigJointName::from(node.name.clone()))
+                .context("runtime body joint asset is missing")
         })
-        .collect::<Vec<_>>();
-    let global_joint_states = inverse_bindposes
+        .collect::<anyhow::Result<_>>()?;
+    let global_joint_states: RigJointTable<[f32; 8]> = inverse_bindposes
         .iter()
         .map(|inverse_bindpose| {
             let (scale, rotation, position) =
@@ -92,7 +96,11 @@ fn build_runtime_body(
                 scale.x,
             ]
         })
-        .collect::<Vec<_>>();
+        .collect();
+    anyhow::ensure!(
+        joint_names.len() == global_joint_states.len(),
+        "runtime body joint names and bind poses differ in count"
+    );
 
     let body = RuntimeBody {
         domain: "runtime_body_cylindrical_v1".into(),
@@ -101,21 +109,24 @@ fn build_runtime_body(
         normals,
         texcoords,
         texcoord_faces: faces,
-        joint_indices: joint_indices
-            .into_iter()
-            .map(|joint| {
-                [
-                    u32::from(joint[0]),
-                    u32::from(joint[1]),
-                    u32::from(joint[2]),
-                    u32::from(joint[3]),
-                    0,
-                    0,
-                    0,
-                    0,
-                ]
-            })
-            .collect(),
+        joint_indices: PackedRigSkin::from_native(
+            joint_indices
+                .into_iter()
+                .map(|joint| {
+                    [
+                        u32::from(joint[0]),
+                        u32::from(joint[1]),
+                        u32::from(joint[2]),
+                        u32::from(joint[3]),
+                        0,
+                        0,
+                        0,
+                        0,
+                    ]
+                })
+                .collect(),
+            joint_names.joint_count(),
+        )?,
         joint_weights: joint_weights
             .into_iter()
             .map(|weight| {
@@ -161,7 +172,7 @@ fn body_surface_coordinates(positions: &[[f32; 3]]) -> anyhow::Result<Vec<[f32; 
         maximum = maximum.max(position[1]);
     }
     let height = maximum - minimum;
-    if !height.is_finite() || height <= f32::EPSILON {
+    if !height.is_finite() || height <= 0.0 {
         bail!("runtime body has no height");
     }
     Ok(positions

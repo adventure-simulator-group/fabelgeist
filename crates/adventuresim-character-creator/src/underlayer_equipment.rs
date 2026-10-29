@@ -10,12 +10,13 @@ use adventuresim_character_creator::{
 };
 use fabelgeist_armor::TrunkHoseDesign;
 
+use adventuresim_character_creator::armor_frames::FittingPlacement;
 /// Cut an underlayer from the wearer and fit it to every morph sample.
 pub(super) fn fitted(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
     let armor = with_body(model, generated, morphs, |body, shapes| {
@@ -37,7 +38,7 @@ pub(super) fn fitted_trunk_hose(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &TrunkHoseDesign,
-    placement: &str,
+    placement: FittingPlacement,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
     let armor = with_body(model, generated, morphs, |body, shapes| {
@@ -66,11 +67,11 @@ fn with_body(
         positions: &generated.positions,
         normals: &generated.normals,
         joints: &generated.global_joint_states,
-        joint_indices: &character.skin_weights.index,
-        joint_weights: &character.skin_weights.weight,
+        joint_indices: character.skin_weights.indices(),
+        joint_weights: character.skin_weights.weights().as_native_slice(),
         joint_names: &character.skeleton.names,
     };
-    let static_samples = proportions::samples(model, generated);
+    let static_samples = proportions::samples(model, generated)?;
     let proportions = static_samples.iter().map(shape).collect::<Vec<_>>();
     let shapes = morphs
         .iter()

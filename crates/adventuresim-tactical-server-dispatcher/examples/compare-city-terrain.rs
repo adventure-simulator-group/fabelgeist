@@ -45,7 +45,7 @@ struct Request {
 #[derive(Deserialize)]
 struct TerrainStages {
     input_digest: String,
-    source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest,
+    source_digest: adventuresim_world_schema::source_package::SourcePackageDigest,
     ungraded_vista: adventuresim_tactical_core::scene_input::VistaSample,
 }
 
@@ -211,8 +211,7 @@ fn inspect_building(
             "complete_triangle_overlay":first.compare_in_outline(second, &scene_outline)})
     })
     .collect();
-    let floor = SupportElevation::from_metres(placement.base_elevation_metres.metres())
-        .ok_or(adventuresim_building_generator::plan_geometry::PlanGeometryError::NonFinite)?;
+    let floor = placement.base_elevation_metres;
     let corner_support = contacts
         .map(|probe| probe.measure(&scene_outline, floor))
         .transpose()?;

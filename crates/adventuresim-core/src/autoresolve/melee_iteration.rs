@@ -7,9 +7,11 @@ use crate::{
 };
 use adventuresim_world_schema::{Culture, person_names::PersonalNameIdentity};
 
-mod evidence;
-
+pub use error::{MeleeIterationError, MeleeIterationResult};
 pub use evidence::*;
+
+mod error;
+mod evidence;
 
 #[derive(Clone, Debug)]
 pub struct MeleeIterationBuild {
@@ -23,12 +25,10 @@ pub struct MeleeIterationBuild {
     pub combatant: Combatant,
 }
 
-pub fn melee_iteration_roster() -> Result<(MeleeIterationBuild, Vec<MeleeIterationBuild>), String> {
+pub fn melee_iteration_roster()
+-> MeleeIterationResult<(MeleeIterationBuild, Vec<MeleeIterationBuild>)> {
     let john_spec = crate::starting_character::default_character("melee-iteration");
-    let john_name = john_spec
-        .native_everyday_name()
-        .map_err(|error| error.to_string())?
-        .into_string();
+    let john_name = john_spec.native_everyday_name()?.into_string();
     let john = build_from_spec(
         "john",
         &john_name,
@@ -119,7 +119,7 @@ fn purpose_build(
     shield: Option<&'static str>,
     description: &'static str,
     equipment_description: &'static str,
-) -> Result<MeleeIterationBuild, String> {
+) -> MeleeIterationResult<MeleeIterationBuild> {
     let hours = Skill::Sword.hours_for_rank(skill_rank);
     let attributes = StartingAttributes {
         endurance: physical,
@@ -190,7 +190,7 @@ fn build_from_spec(
     weapon_id: &'static str,
     armor_ids: &[&'static str],
     shield_id: Option<&'static str>,
-) -> Result<MeleeIterationBuild, String> {
+) -> MeleeIterationResult<MeleeIterationBuild> {
     let a = &spec.attributes;
     let mut combatant = Combatant::new(spec.id);
     combatant.attributes = PlayerAttributeValues {
@@ -258,10 +258,13 @@ fn authored_equipment(
     weapon_id: &str,
     armor_ids: &[&str],
     shield_id: Option<&str>,
-) -> Result<CombatEquipment, String> {
-    let definition = crate::item_catalog::definition(weapon_id)
-        .ok_or_else(|| format!("unknown weapon {weapon_id}"))?;
-    let weapon = authored_melee_weapon(definition)?;
+) -> MeleeIterationResult<CombatEquipment> {
+    let definition = crate::item_catalog::definition(weapon_id).ok_or_else(|| {
+        MeleeIterationError::UnknownWeapon {
+            weapon: weapon_id.to_owned(),
+        }
+    })?;
+    let weapon = CombatWeapon::from_authored_melee_definition(definition)?;
     let mut equipment = CombatEquipment {
         weapon: Some(weapon),
         melee_weapon: Some(weapon),
@@ -270,10 +273,15 @@ fn authored_equipment(
         ..CombatEquipment::default()
     };
     if let Some(shield_id) = shield_id {
-        let shield = crate::item_catalog::definition(shield_id)
-            .ok_or_else(|| format!("unknown shield {shield_id}"))?;
+        let shield = crate::item_catalog::definition(shield_id).ok_or_else(|| {
+            MeleeIterationError::UnknownShield {
+                shield: shield_id.to_owned(),
+            }
+        })?;
         let ItemKind::Shield { block, .. } = shield.kind else {
-            return Err(format!("{shield_id} is not a shield"));
+            return Err(MeleeIterationError::NotShield {
+                shield: shield_id.to_owned(),
+            });
         };
         equipment.shield_block_bonus = block;
         equipment.shield_side = Some(match equipment.melee_holding_side {
@@ -288,100 +296,16 @@ fn authored_equipment(
     Ok(equipment)
 }
 
-pub(super) fn authored_melee_weapon(
-    definition: &crate::item_catalog::ItemDefinition,
-) -> Result<CombatWeapon, String> {
-    let weapon_id = definition.id.as_str();
-    let ItemKind::Weapon {
-        preferred_attack,
-        reach_m,
-        precision,
-        melee,
-        ranged,
-        skills,
-        ..
-    } = &definition.kind
-    else {
-        return Err(format!("{weapon_id} is not a weapon"));
-    };
-    if !melee || *ranged {
-        return Err(format!("{weapon_id} is not melee-only"));
-    }
-    let moment_of_inertia_kg_m2 = match definition.kind {
-        ItemKind::Weapon {
-            moment_of_inertia_kg_m2,
-            ..
-        } => moment_of_inertia_kg_m2,
-        _ => unreachable!(),
-    };
-    let timing =
-        crate::equipment::melee_attack_timing(*preferred_attack, moment_of_inertia_kg_m2, false);
-    let grip_to_tip_m = definition
-        .equipment
-        .as_ref()
-        .map_or(0.0, |equipment| equipment.physical.grip_to_tip_m);
-    let dimensions_m = definition
-        .equipment
-        .as_ref()
-        .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);
-    let total_length_m = dimensions_m[1];
-    let recipe = adventuresim_weapon_model::default_design(weapon_id)
-        .ok_or_else(|| format!("{weapon_id} has no generated recipe"))?;
-    let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)
-        .map_err(|errors| format!("{weapon_id}: {errors:?}"))?
-        .striking_head_length_m;
-    let skill_distribution: crate::equipment::WeaponSkillDistribution = (*skills).into();
-    Ok(CombatWeapon {
-        skills: skill_distribution,
-        melee: true,
-        ranged: false,
-        preferred_melee_style: *preferred_attack,
-        weight: definition.weight_kg,
-        moment_of_inertia_kg_m2,
-        precision: *precision,
-        melee_reach: *reach_m,
-        grip_to_tip_m,
-        total_length_m,
-        striking_head_length_m,
-        distal_headed: crate::combat::has_distal_striking_surface(
-            grip_to_tip_m,
-            striking_head_length_m,
-            definition
-                .equipment
-                .as_ref()
-                .and_then(|equipment| equipment.material),
-            definition
-                .equipment
-                .as_ref()
-                .and_then(|equipment| equipment.striking_material),
-        ),
-        body_material: definition
-            .equipment
-            .as_ref()
-            .and_then(|equipment| equipment.material),
-        striking_material: definition
-            .equipment
-            .as_ref()
-            .and_then(|equipment| equipment.striking_material),
-        ranged_range: 0.0,
-        // Autoresolve advances the same complete attack cycle as the tactical
-        // bot: the authored server windup to contact plus inertia/style-based
-        // recovery before another fresh attack may begin.
-        attack_interval_seconds: EMBEDDED_AUTORESOLVE_PARAMETERS.melee_windup_seconds
-            + timing.recovery_secs,
-        balance: crate::equipment::weapon_balance_from_moment(
-            moment_of_inertia_kg_m2,
-            definition.weight_kg,
-            grip_to_tip_m,
-        ),
-        ranged_force_joules: 0.0,
-    })
-}
-
-fn apply_authored_armor(equipment: &mut CombatEquipment, armor_ids: &[&str]) -> Result<(), String> {
+fn apply_authored_armor(
+    equipment: &mut CombatEquipment,
+    armor_ids: &[&str],
+) -> MeleeIterationResult<()> {
     for (index, armor_id) in armor_ids.iter().enumerate() {
-        let armor = crate::item_catalog::definition(armor_id)
-            .ok_or_else(|| format!("unknown armor {armor_id}"))?;
+        let armor = crate::item_catalog::definition(armor_id).ok_or_else(|| {
+            MeleeIterationError::UnknownArmor {
+                armor: (*armor_id).to_owned(),
+            }
+        })?;
         let ItemKind::Armor {
             coverage,
             resistance,
@@ -393,10 +317,11 @@ fn apply_authored_armor(equipment: &mut CombatEquipment, armor_ids: &[&str]) -> 
         else {
             continue;
         };
-        let authored = armor
-            .equipment
-            .as_ref()
-            .ok_or_else(|| format!("armor {armor_id} has no equipment projection"))?;
+        let authored = armor.equipment.as_ref().ok_or_else(|| {
+            MeleeIterationError::ArmorProjectionUnavailable {
+                armor: (*armor_id).to_owned(),
+            }
+        })?;
         let occurrence = armor_ids[..index]
             .iter()
             .filter(|prior| *prior == armor_id)
@@ -404,9 +329,13 @@ fn apply_authored_armor(equipment: &mut CombatEquipment, armor_ids: &[&str]) -> 
         let placement = authored
             .placements
             .get(occurrence % authored.placements.len().max(1))
-            .ok_or_else(|| format!("armor {armor_id} has no authored placement"))?;
+            .ok_or_else(|| MeleeIterationError::ArmorPlacementUnavailable {
+                armor: (*armor_id).to_owned(),
+            })?;
         if placement.protection.is_empty() {
-            return Err(format!("armor {armor_id} placement protects no body part"));
+            return Err(MeleeIterationError::EmptyArmorProtection {
+                armor: (*armor_id).to_owned(),
+            });
         }
         for authored_part in &placement.protection {
             let part = crate::equipment::equipment_body_part(*authored_part);
@@ -486,15 +415,20 @@ mod tests {
                 preferred_attack,
                 moment_of_inertia_kg_m2,
                 false,
-            );
-            let expected_interval = EMBEDDED_AUTORESOLVE_PARAMETERS.melee_windup_seconds
-                + expected_timing.recovery_secs;
+            )
+            .unwrap();
+            let expected_interval = EMBEDDED_AUTORESOLVE_PARAMETERS
+                .melee_windup_seconds
+                .seconds()
+                + expected_timing.recovery_secs.seconds();
             let expected_balance = crate::equipment::weapon_balance_from_moment(
                 moment_of_inertia_kg_m2,
                 definition.weight_kg,
                 grip_to_tip_m,
             );
-            assert!((projected.attack_interval_seconds - expected_interval).abs() < 1.0e-6);
+            assert!(
+                (projected.attack_interval_seconds.seconds() - expected_interval).abs() < 1.0e-6
+            );
             assert!((projected.balance - expected_balance).abs() < 1.0e-6);
         }
     }
@@ -524,7 +458,8 @@ mod tests {
                 0.0,
                 response,
                 samples,
-            );
+            )
+            .unwrap();
             let high = melee_exchange(
                 &attacker.combatant,
                 &expert,
@@ -532,7 +467,8 @@ mod tests {
                 0.0,
                 response,
                 samples,
-            );
+            )
+            .unwrap();
             matches!(low.result, AttackResult::ToDefender { .. })
                 && matches!(
                     high.result,
@@ -551,14 +487,16 @@ mod tests {
         assert_eq!(terminal.terminal_resolution, Some(outcome.resolution));
         assert!(outcome.rounds <= AUTORESOLVE_MAX_COMBAT_ROUNDS);
         assert!(outcome.timeline.iter().all(|event| {
-            event.time_seconds.is_finite()
-                && event.time_seconds >= 0.0
+            event.time_seconds.seconds().is_finite()
+                && event.time_seconds >= BattleTime::ZERO
                 && event.tick == MeleeTimelineEvent::tick_at(event.time_seconds)
         }));
         assert!(
-            terminal.time_seconds
+            terminal.time_seconds.seconds()
                 <= outcome.rounds as f32
-                    * crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.combat_round_seconds
+                    * crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS
+                        .combat_round_seconds
+                        .seconds()
         );
         assert!(outcome.timeline.windows(2).all(|events| {
             events[0].sequence < events[1].sequence
@@ -599,7 +537,9 @@ mod tests {
                     .rev()
                     .filter(|event| event.combatant_id == Some(fighter.id))
                     .find_map(|event| event.readiness_after_seconds)
-                    .is_some_and(|ready| ready.is_finite() && ready > terminal.time_seconds);
+                    .is_some_and(|ready| {
+                        ready.seconds().is_finite() && ready > terminal.time_seconds
+                    });
                 ongoing_bleeding || scheduled
             });
         assert!(
@@ -621,7 +561,8 @@ mod tests {
                             vec![opponent.combatant.clone()],
                             seed,
                             BattleOpening::Normal,
-                        );
+                        )
+                        .unwrap();
                         assert_bounded_progress(&outcome);
                         outcome.resolution
                     })
@@ -642,7 +583,7 @@ mod tests {
         for opponent in opponents {
             let john_reach = john.combatant.equipment.weapon_reach();
             let opponent_reach = opponent.combatant.equipment.weapon_reach();
-            if (john_reach - opponent_reach).abs() <= f32::EPSILON {
+            if (john_reach - opponent_reach) == 0.0 {
                 continue;
             }
             let shorter_id = if john_reach < opponent_reach {
@@ -659,6 +600,7 @@ mod tests {
                         seed,
                         BattleOpening::Normal,
                     )
+                    .unwrap()
                     .log
                     .iter()
                     .any(|entry| {
@@ -685,7 +627,8 @@ mod tests {
             vec![hammer_brute.combatant.clone()],
             fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         let scheduled_contacts = outcome
             .timeline
             .iter()
@@ -717,16 +660,20 @@ mod tests {
             vec![veteran.combatant.clone()],
             fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         for movement in outcome
             .timeline
             .iter()
             .filter(|event| event.kind == MeleeTimelineKind::Movement)
         {
-            let elapsed = movement.movement_elapsed_seconds.unwrap();
+            let elapsed = movement.movement_elapsed_seconds.unwrap().seconds();
             assert!(elapsed <= 1.0 / 64.0 + 1.0e-6);
             let displacement = movement.movement_displacement_metres.unwrap().abs();
-            let speed_limit = movement.movement_speed_limit_metres_per_second.unwrap();
+            let speed_limit = movement
+                .movement_speed_limit_metres_per_second
+                .unwrap()
+                .metres_per_second();
             assert!(displacement <= speed_limit * elapsed + 1.0e-6);
         }
         let first_contact = outcome
@@ -859,8 +806,16 @@ mod tests {
         assert!(evidence.fatigue_cadence.fatigue > 0.0);
         assert!(evidence.fatigue_cadence.fatigue < 1.0);
         assert!(
-            evidence.fatigue_cadence.fatigued_recovery_seconds
-                > evidence.fatigue_cadence.fresh_recovery_seconds
+            evidence
+                .fatigue_cadence
+                .fatigued_recovery_seconds
+                .available()
+                .unwrap()
+                > evidence
+                    .fatigue_cadence
+                    .fresh_recovery_seconds
+                    .available()
+                    .unwrap()
         );
         assert!(
             evidence

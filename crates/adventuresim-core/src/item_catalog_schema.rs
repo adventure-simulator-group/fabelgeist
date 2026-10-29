@@ -146,6 +146,7 @@ pub enum EquipmentMaterial {
 #[serde(rename_all = "snake_case")]
 pub enum EquipmentChannel {
     Held,
+    /// Ordinary garments use distinct authored orders within this channel.
     BaseClothing,
     Padding,
     FlexibleArmor,
@@ -174,12 +175,7 @@ impl EquipmentChannel {
     pub const fn singleton_per_location(self) -> bool {
         matches!(
             self,
-            Self::Held
-                | Self::BaseClothing
-                | Self::Padding
-                | Self::FlexibleArmor
-                | Self::RigidArmor
-                | Self::Outerwear
+            Self::Held | Self::Padding | Self::FlexibleArmor | Self::RigidArmor | Self::Outerwear
         )
     }
 }
@@ -410,7 +406,7 @@ pub enum ItemKind {
         /// Optional specialized animation pack. Two-handed weapons without one
         /// use the shared close-grip two-handed pack.
         #[serde(default)]
-        animation_pack: Option<String>,
+        animation_pack: Option<crate::animation_pack_id::AnimationPackId>,
         /// Whether the weapon fits an authored sheath/holster or must remain
         /// in a hand (or be dropped) when not otherwise carried.
         carry: WeaponCarry,

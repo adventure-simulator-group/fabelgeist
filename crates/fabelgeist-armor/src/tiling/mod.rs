@@ -75,7 +75,7 @@ impl GeneratedArmor {
         let radius = tiling.lacing.as_ref().map(|lacing| lacing.radius);
         let layout = Layout::new(&surfaces, plate, radius, MAX_TILES)?;
         let hash = design_hash(self.design_hash, construction);
-        let plates = tiles(&layout, plate)?.armor(&self, &surfaces, hash);
+        let plates = tiles(&layout, plate)?.armor(&self, &surfaces, hash)?;
         let lacing = tiling
             .lacing
             .as_ref()
@@ -86,7 +86,7 @@ impl GeneratedArmor {
                     plate,
                     lacing,
                 };
-                Ok::<_, ConstructionError>(lacer.mesh(style)?.armor(&self, &surfaces, hash))
+                lacer.mesh(style)?.armor(&self, &surfaces, hash)
             })
             .transpose()?;
         Ok(Constructed { plates, lacing })

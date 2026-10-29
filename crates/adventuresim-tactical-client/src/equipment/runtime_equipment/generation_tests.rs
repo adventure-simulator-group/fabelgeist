@@ -1,4 +1,42 @@
 use super::*;
+use crate::equipment::readiness::EquipmentReadiness;
+use bevy::ecs::system::RunSystemOnce;
+
+#[test]
+fn readiness_waits_for_requested_equipment_and_surfaces_fit_failures() {
+    let mut world = World::new();
+    let readiness = |world: &mut World, items: Vec<Entity>| {
+        world
+            .run_system_once(move |readiness: EquipmentReadiness| {
+                readiness.check(items.iter().copied())
+            })
+            .unwrap()
+    };
+    assert_eq!(readiness(&mut world, vec![]), Ok(true));
+    let item = world.spawn_empty().id();
+    assert_eq!(readiness(&mut world, vec![item]), Ok(false));
+    let root = world
+        .spawn((
+            ItemPlaceholder(item),
+            Visibility::Hidden,
+            RuntimeEquipmentPresentation {
+                item,
+                item_id: "cuirass".into(),
+                placement_id: "worn".into(),
+            },
+        ))
+        .id();
+    assert_eq!(readiness(&mut world, vec![item]), Ok(false));
+    world
+        .entity_mut(root)
+        .insert((ProceduralEquipmentResolved, Visibility::Inherited));
+    assert_eq!(readiness(&mut world, vec![item]), Ok(true));
+    world.entity_mut(root).insert(ProceduralEquipmentFailed);
+    assert_eq!(
+        readiness(&mut world, vec![item]),
+        Err("Could not generate character equipment")
+    );
+}
 
 fn empty_body() -> RuntimeBody {
     RuntimeBody {
@@ -8,10 +46,10 @@ fn empty_body() -> RuntimeBody {
         faces: vec![],
         texcoords: vec![],
         texcoord_faces: vec![],
-        joint_indices: vec![],
+        joint_indices: Default::default(),
         joint_weights: vec![],
-        joint_names: vec!["l_lowarm".into()],
-        global_joint_states: vec![],
+        joint_names: vec!["l_lowarm".into()].into(),
+        global_joint_states: Default::default(),
         device: Default::default(),
     }
 }
@@ -38,8 +76,7 @@ fn character_key(id: u64) -> FitKey {
             CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(id)),
             Default::default(),
         ),
-        item: "vambrace".into(),
-        placement: "left".into(),
+        selection: layers::LayerSelection::admit("vambrace", "left").unwrap(),
         layers: Vec::new(),
     }
 }
@@ -48,7 +85,7 @@ fn character_key(id: u64) -> FitKey {
 fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_wearer() {
     let mut app = App::new();
     app.init_resource::<Assets<Mesh>>()
-        .insert_resource(RuntimeEquipmentWarmup::ready_for_tests())
+        .init_resource::<Assets<Image>>()
         .init_resource::<Assets<StandardMaterial>>()
         .init_resource::<Assets<SkinnedMeshInverseBindposes>>()
         .init_resource::<WeaponMeshCache>()
@@ -222,7 +259,7 @@ fn empty_armor() -> GeneratedArmor {
         positions: vec![],
         normals: vec![],
         texcoords: vec![],
-        joint_indices: vec![],
+        joint_indices: Default::default(),
         joint_weights: vec![],
         indices: vec![],
         faces: vec![],
@@ -245,6 +282,14 @@ fn actor(world: &mut World, id: u64) -> Entity {
         world.spawn((
             HumanoidBone { owner, role },
             MhrBone { owner },
+            crate::animation::AuthoredRigJoint::new(
+                if role == BoneRole::ForearmLeft {
+                    "l_lowarm"
+                } else {
+                    "hand"
+                }
+                .into(),
+            ),
             Name::new(if role == BoneRole::ForearmLeft {
                 "l_lowarm"
             } else {

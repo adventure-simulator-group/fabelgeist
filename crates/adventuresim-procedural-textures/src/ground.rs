@@ -204,9 +204,11 @@ impl SoilClusterRecipe {
                         params.ground.aggregate_angularity,
                     ) * edge_warp;
                     let rounded = 1.0 - smoothstep(params.ground.sample_lump, 1.0, distance);
-                    let faceted = ((1.0 - distance)
-                        / (1.0 - params.ground.sample_lump).max(f32::EPSILON))
-                    .clamp(0.0, 1.0);
+                    let faceted = if params.ground.sample_lump < 1.0 {
+                        ((1.0 - distance) / (1.0 - params.ground.sample_lump)).clamp(0.0, 1.0)
+                    } else {
+                        f32::from(distance < 1.0)
+                    };
                     let lump = rounded
                         .lerp(faceted, params.ground.aggregate_angularity)
                         .powf(self.sharpness)

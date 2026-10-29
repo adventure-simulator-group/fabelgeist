@@ -3,6 +3,7 @@ use super::character_morphs::{
 };
 use super::*;
 mod draped;
+mod hair;
 
 pub(super) fn export_character(
     path: &std::path::Path,
@@ -40,7 +41,7 @@ pub(super) fn export_character(
         .zip(&clothing_targets)
         .map(|(shell, targets)| rigged_clothing(shell, targets))
         .collect::<Vec<_>>();
-    let metals = catalog_metals(&armor, catalog)?;
+    let metals = catalog_metals(&armor)?;
     shells.extend(catalog_shells(
         &armor,
         CatalogGeometry {
@@ -52,7 +53,6 @@ pub(super) fn export_character(
             targets: &lacing_targets,
         },
         &metals,
-        catalog,
     )?);
     let draped_morphs = morphs.draped(&generated, &character.mesh.faces, &fitted)?;
     let draped_targets: Vec<_> = draped_morphs
@@ -63,6 +63,15 @@ pub(super) fn export_character(
     for ((garment, targets), mail) in fitted.iter().zip(&draped_targets).zip(&mail_surfaces) {
         shells.push(garment.rigged(targets, mail.as_ref()));
     }
+    let hair = recipe
+        .hair
+        .map(|design| hair::ExportedHair::grow(model, &generated, &morphs, design))
+        .transpose()?;
+    let hair_targets = hair
+        .as_ref()
+        .map(hair::ExportedHair::targets)
+        .unwrap_or_default();
+    shells.extend(hair.as_ref().map(|hair| hair.shell(&hair_targets)));
     export_rigged_glb(
         GlbOutput::Standalone(path),
         &recipe.name,
@@ -75,8 +84,8 @@ pub(super) fn export_character(
             normals: &generated.normals,
             faces: &clothed.visible_body_faces,
             export_body: true,
-            joint_indices: &character.skin_weights.index,
-            joint_weights: &character.skin_weights.weight,
+            joint_indices: character.skin_weights.indices(),
+            joint_weights: character.skin_weights.weights().as_native_slice(),
             joint_names: &character.skeleton.names,
             joint_parents: &character.skeleton.parents,
             global_joint_states: &generated.global_joint_states,
@@ -94,13 +103,10 @@ type CatalogMetals = Vec<(
 
 /// Maps for each distinct catalog steel and trim worn, engraving included,
 /// baked once.
-fn catalog_metals(
-    armor: &[parametric_equipment::SelectedArmor<'_>],
-    catalog: &EquipmentCatalog,
-) -> Result<CatalogMetals> {
+fn catalog_metals(armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<CatalogMetals> {
     let mut metals: CatalogMetals = Vec::new();
     for piece in armor {
-        let material = catalog.material(&piece.piece.piece.item.id)?;
+        let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
         let plate = adventuresim_character_creator::armor_metal::metal(
             material,
             piece.piece.decoration.engraving.as_ref(),
@@ -147,7 +153,6 @@ fn catalog_shells<'a>(
     plates: CatalogGeometry<'a>,
     lacing: CatalogGeometry<'a>,
     metals: &'a CatalogMetals,
-    catalog: &EquipmentCatalog,
 ) -> Result<Vec<RiggedShell<'a>>> {
     let mut shells = Vec::new();
     for (i, piece) in armor.iter().enumerate() {
@@ -160,7 +165,7 @@ fn catalog_shells<'a>(
             &plates.targets[i],
         );
         let mut parts = rigged.plate;
-        let material = catalog.material(&piece.piece.piece.item.id)?;
+        let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         let metal = adventuresim_character_creator::armor_metal::metal(
             material,
@@ -177,7 +182,7 @@ fn catalog_shells<'a>(
             );
             shell.surface = metal;
         }
-        crate::character_morphs::component_materials(&piece.generated, &mut parts);
+        crate::character_morphs::component_materials(&piece.generated, &mut parts)?;
         shells.extend(parts);
         if let Some(trim) = &piece.trim {
             let textures = metals

@@ -116,7 +116,7 @@ fn union_support(point: Vec2, radius: f32, clearance: impl Fn(Vec2) -> f32) -> b
     if clearance(point) >= radius {
         return true;
     }
-    if clearance(point) < -f32::EPSILON {
+    if clearance(point) < 0.0 {
         return false;
     }
     const ENVELOPE_DIRECTIONS: usize = 16;

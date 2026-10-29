@@ -8,188 +8,20 @@
 //! top of the body, one invocation orients the frame, a reduction bounds the
 //! head's own skin in it, and one invocation centres and sizes it.
 
-use fabelgeist_gpu::prelude::BufferUpload;
-use std::sync::Arc;
-
-use anyhow::{Context, Result};
-use fabelgeist_armor::gpu::{device_error, wgsl};
-use fabelgeist_compute::{Kernel, KernelBatch, host_float};
-use fabelgeist_gpu::prelude::PassParameters;
-
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer, FRAME_WORDS};
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
+use anyhow::Result;
+use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_compute::{Kernel, KernelBatch, host_float};
+use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::PassParameters;
+use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
+use std::sync::Arc;
 
 const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
+
 const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
-
-impl DeviceWearer<'_> {
-    /// Record the head's frame.
-    pub fn record_head_frame(&self, batch: &mut KernelBatch) -> Result<DeviceFrame> {
-        let gpu = self.gpu;
-        let host = self.host;
-        let joint = |name: &str| -> Result<u32> {
-            host.joint_names
-                .iter()
-                .position(|n| n == name)
-                .map(|i| i as u32)
-                .with_context(|| format!("missing armor landmark {name}"))
-        };
-        let owners = FitRegion::Head.owners();
-        let frame = DeviceFrame {
-            frame: gpu.scratch(FRAME_WORDS * 4, "head frame")?,
-            status: gpu.scratch(4, "head frame status")?,
-        };
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", self.body.vertex_count);
-        parameters.insert("head", joint("c_head")?);
-        parameters.insert("jaw", joint("c_jaw_null")?);
-        parameters.insert("left_eye", joint("l_eye")?);
-        parameters.insert("right_eye", joint("r_eye")?);
-        parameters.insert("pad0", 0u32);
-        parameters.insert("pad1", 0u32);
-        parameters.insert("pad2", 0u32);
-        parameters.insert(host_float::ZERO_FIELD, 0u32);
-        for pad in ["pad3", "pad4", "pad5"] {
-            parameters.insert(pad, 0.0f32);
-        }
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("joint_indices", self.body.joint_indices.clone());
-        parameters.insert("joint_weights", self.body.joint_weights.clone());
-        parameters.insert("joints", self.body.joints.clone());
-        parameters.insert(
-            "owned",
-            gpu.upload(BufferUpload::from_elements(&host.owned_joints(&owners)))?,
-        );
-        // The body's top, then the head's lower and upper bounds.
-        parameters.insert(
-            "reductions",
-            gpu.upload(BufferUpload::from_elements(&[
-                ORDERED_NEGATIVE_INFINITY,
-                ORDERED_POSITIVE_INFINITY,
-                ORDERED_POSITIVE_INFINITY,
-                ORDERED_POSITIVE_INFINITY,
-                ORDERED_NEGATIVE_INFINITY,
-                ORDERED_NEGATIVE_INFINITY,
-                ORDERED_NEGATIVE_INFINITY,
-            ]))?,
-        );
-        parameters.insert("frame", frame.frame.clone());
-        parameters.insert("status", frame.status.clone());
-        let vertices = self.body.vertex_count;
-        let [top, orient, bounds, finish] = kernels(gpu)?;
-        batch
-            .dispatch_items(&top, &parameters, vertices)
-            .map_err(device_error)?;
-        batch
-            .dispatch(&orient, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&bounds, &parameters, vertices)
-            .map_err(device_error)?;
-        batch
-            .dispatch(&finish, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
-        Ok(frame)
-    }
-}
-
-fn kernels(gpu: &fabelgeist_armor::ArmorGpu) -> Result<[Arc<Kernel>; 4]> {
-    let compile = |entry: &str| {
-        gpu.cache()
-            .get(gpu.context(), &source(entry))
-            .map_err(device_error)
-    };
-    Ok([
-        compile(TOP)?,
-        compile(ORIENT)?,
-        compile(BOUNDS)?,
-        compile(FINISH)?,
-    ])
-}
-
-fn source(entry: &str) -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> joint_indices: array<u32>;
-@group(0) @binding(2) var<storage, read> joint_weights: array<f32>;
-@group(0) @binding(3) var<storage, read> joints: array<f32>;
-@group(0) @binding(4) var<storage, read> owned: array<u32>;
-@group(0) @binding(5) var<storage, read_write> reductions: array<atomic<u32>>;
-@group(0) @binding(6) var<storage, read_write> frame: array<f32>;
-@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
-struct Params {{
-    count: u32,
-    head: u32,
-    jaw: u32,
-    left_eye: u32,
-    right_eye: u32,
-    pad0: u32,
-    pad1: u32,
-    pad2: u32,
-    zero: u32,
-    pad3: f32,
-    pad4: f32,
-    pad5: f32,
-}};
-@group(0) @binding(8) var<uniform> params: Params;
-{ordered}
-{zero_hook}{host_float}
-{positions}
-
-{frame_constants}// Owned skin further along the axis than this fraction of the landmark span
-// belongs to the neck or the crown's hair, not the head's envelope.
-const ENVELOPE_SPAN_FRACTION: f32 = 0.55;
-
-fn fail(bit: u32) {{
-    atomicOr(&status[0], bit);
-}}
-
-fn joint(index: u32) -> vec3<f32> {{
-    return vec3<f32>(joints[index * 8u], joints[index * 8u + 1u], joints[index * 8u + 2u]);
-}}
-
-fn axis(i: u32) -> vec3<f32> {{
-    return vec3<f32>(frame[3u + i * 3u], frame[4u + i * 3u], frame[5u + i * 3u]);
-}}
-
-fn origin() -> vec3<f32> {{
-    return vec3<f32>(frame[0], frame[1], frame[2]);
-}}
-
-fn set_vector(at: u32, v: vec3<f32>) {{
-    frame[at] = v.x;
-    frame[at + 1u] = v.y;
-    frame[at + 2u] = v.z;
-}}
-
-// The unit vector along `a`; a near-zero vector fails as coincident landmarks.
-fn normalized(a: vec3<f32>) -> vec3<f32> {{
-    let l = host_sqrt(host_dot(a, a));
-    if (!(l > 1e-6)) {{
-        fail(COINCIDENT);
-        return vec3<f32>(0.0, 1.0, 0.0);
-    }}
-    return vec3<f32>(host_div(a.x, l), host_div(a.y, l), host_div(a.z, l));
-}}
-
-fn midpoint(a: vec3<f32>, b: vec3<f32>) -> vec3<f32> {{
-    return vec3<f32>(
-        host_mul(host_add(a.x, b.x), 0.5),
-        host_mul(host_add(a.y, b.y), 0.5),
-        host_mul(host_add(a.z, b.z), 0.5),
-    );
-}}
-
-{entry}
-"#,
-        ordered = wgsl::ORDERED_FLOAT,
-        zero_hook = host_float::PARAMS_ZERO_HOOK,
-        host_float = host_float::wgsl(),
-        positions = wgsl::read_points("positions"),
-        frame_constants = crate::device_frames::frame_constants(),
-    )
-}
 
 /// The top of the body.
 const TOP: &str = r#"
@@ -321,3 +153,175 @@ fn main() {
     }
 }
 "#;
+
+impl DeviceWearer<'_> {
+    /// Record the head's frame.
+    pub fn record_head_frame(&self, batch: &mut KernelBatch) -> Result<DeviceFrame> {
+        let gpu = self.gpu;
+        let host = self.host;
+        let joint =
+            |name: &RigJointName| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+                name.require_in(host.joint_names)
+            };
+        let owners = FitRegion::Head.owners();
+        let frame = DeviceFrame {
+            frame: gpu.scratch(FRAME_WORDS * 4, "head frame")?,
+            status: gpu.scratch(4, "head frame status")?,
+        };
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", self.body.vertex_count);
+        parameters.insert_joint(RigJointParameter::Head, joint(&RigJointName::C_HEAD)?)?;
+        parameters.insert_joint(RigJointParameter::Jaw, joint(&RigJointName::C_JAW_NULL)?)?;
+        parameters.insert_joint(RigJointParameter::LeftEye, joint(&RigJointName::L_EYE)?)?;
+        parameters.insert_joint(RigJointParameter::RightEye, joint(&RigJointName::R_EYE)?)?;
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("pad2", 0u32);
+        parameters.insert(host_float::ZERO_FIELD, 0u32);
+        for pad in ["pad3", "pad4", "pad5"] {
+            parameters.insert(pad, 0.0f32);
+        }
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("joint_indices", self.body.joint_indices.clone());
+        parameters.insert("joint_weights", self.body.joint_weights.clone());
+        parameters.insert("joints", self.body.joints.clone());
+        parameters.insert(
+            "owned",
+            gpu.upload(BufferUpload::from_elements(
+                &host
+                    .owned_joints(&owners)
+                    .into_iter()
+                    .map(u32::from)
+                    .collect::<Vec<_>>(),
+            ))?,
+        );
+        // The body's top, then the head's lower and upper bounds.
+        parameters.insert(
+            "reductions",
+            gpu.upload(BufferUpload::from_elements(&[
+                ORDERED_NEGATIVE_INFINITY,
+                ORDERED_POSITIVE_INFINITY,
+                ORDERED_POSITIVE_INFINITY,
+                ORDERED_POSITIVE_INFINITY,
+                ORDERED_NEGATIVE_INFINITY,
+                ORDERED_NEGATIVE_INFINITY,
+                ORDERED_NEGATIVE_INFINITY,
+            ]))?,
+        );
+        parameters.insert("frame", frame.frame.clone());
+        parameters.insert("status", frame.status.clone());
+        let vertices = self.body.vertex_count;
+        let [top, orient, bounds, finish] = kernels(gpu)?;
+        batch
+            .dispatch_items(&top, &parameters, vertices)
+            .map_err(device_error)?;
+        batch
+            .dispatch(&orient, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&bounds, &parameters, vertices)
+            .map_err(device_error)?;
+        batch
+            .dispatch(&finish, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
+        Ok(frame)
+    }
+}
+
+fn kernels(gpu: &fabelgeist_armor::ArmorGpu) -> Result<[Arc<Kernel>; 4]> {
+    let compile = |entry: &str| {
+        gpu.cache()
+            .get(gpu.context(), &source(entry))
+            .map_err(device_error)
+    };
+    Ok([
+        compile(TOP)?,
+        compile(ORIENT)?,
+        compile(BOUNDS)?,
+        compile(FINISH)?,
+    ])
+}
+
+fn source(entry: &str) -> String {
+    format!(
+        r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> joint_indices: array<u32>;
+@group(0) @binding(2) var<storage, read> joint_weights: array<f32>;
+@group(0) @binding(3) var<storage, read> joints: array<f32>;
+@group(0) @binding(4) var<storage, read> owned: array<u32>;
+@group(0) @binding(5) var<storage, read_write> reductions: array<atomic<u32>>;
+@group(0) @binding(6) var<storage, read_write> frame: array<f32>;
+@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
+struct Params {{
+    count: u32,
+    head: u32,
+    jaw: u32,
+    left_eye: u32,
+    right_eye: u32,
+    pad0: u32,
+    pad1: u32,
+    pad2: u32,
+    zero: u32,
+    pad3: f32,
+    pad4: f32,
+    pad5: f32,
+}};
+@group(0) @binding(8) var<uniform> params: Params;
+{ordered}
+{zero_hook}{host_float}
+{positions}
+
+{frame_constants}// Owned skin further along the axis than this fraction of the landmark span
+// belongs to the neck or the crown's hair, not the head's envelope.
+const ENVELOPE_SPAN_FRACTION: f32 = 0.55;
+
+fn fail(bit: u32) {{
+    atomicOr(&status[0], bit);
+}}
+
+fn joint(index: u32) -> vec3<f32> {{
+    return vec3<f32>(joints[index * 8u], joints[index * 8u + 1u], joints[index * 8u + 2u]);
+}}
+
+fn axis(i: u32) -> vec3<f32> {{
+    return vec3<f32>(frame[3u + i * 3u], frame[4u + i * 3u], frame[5u + i * 3u]);
+}}
+
+fn origin() -> vec3<f32> {{
+    return vec3<f32>(frame[0], frame[1], frame[2]);
+}}
+
+fn set_vector(at: u32, v: vec3<f32>) {{
+    frame[at] = v.x;
+    frame[at + 1u] = v.y;
+    frame[at + 2u] = v.z;
+}}
+
+// The unit vector along `a`; a near-zero vector fails as coincident landmarks.
+fn normalized(a: vec3<f32>) -> vec3<f32> {{
+    let l = host_sqrt(host_dot(a, a));
+    if (!(l > 1e-6)) {{
+        fail(COINCIDENT);
+        return vec3<f32>(0.0, 1.0, 0.0);
+    }}
+    return vec3<f32>(host_div(a.x, l), host_div(a.y, l), host_div(a.z, l));
+}}
+
+fn midpoint(a: vec3<f32>, b: vec3<f32>) -> vec3<f32> {{
+    return vec3<f32>(
+        host_mul(host_add(a.x, b.x), 0.5),
+        host_mul(host_add(a.y, b.y), 0.5),
+        host_mul(host_add(a.z, b.z), 0.5),
+    );
+}}
+
+{entry}
+"#,
+        ordered = wgsl::ORDERED_FLOAT,
+        zero_hook = host_float::PARAMS_ZERO_HOOK,
+        host_float = host_float::wgsl(),
+        positions = wgsl::read_points("positions"),
+        frame_constants = crate::device_frames::frame_constants(),
+    )
+}

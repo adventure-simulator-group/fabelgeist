@@ -3,9 +3,9 @@
 mod buildings;
 mod cached_views;
 mod equipment;
-mod equipment_readiness;
 mod instances;
 mod lighting_diagnostics;
+mod preparation;
 pub(crate) mod protocol;
 mod render_diagnostics;
 mod shadows;
@@ -13,11 +13,15 @@ mod staging;
 pub(crate) mod status;
 mod street;
 mod views;
+#[cfg(target_family = "wasm")]
+pub(crate) use views::StrategicCamera;
 mod visibility;
 mod world;
 
 use crate::animation::StrategicModel;
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::prelude::{CharacterId, SkeletonState};
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use bevy::{camera::visibility::RenderLayers, prelude::*};
 use buildings::Venue;
 use protocol::{PlaceId, PortraitId, StrategicView};
@@ -33,7 +37,7 @@ struct SceneModel(usize);
 
 struct RetainedPerson {
     entity: Entity,
-    anchor: Vec3,
+    anchor: Position<Scene>,
     facing: Quat,
     layer: usize,
 }
@@ -51,7 +55,7 @@ struct RetainedScene {
     people: HashMap<PortraitId, RetainedPerson>,
     next_person_layer: usize,
     next_place: usize,
-    error: Option<String>,
+    error: Option<std::sync::Arc<preparation::PreparationError>>,
     pending: std::collections::VecDeque<adventuresim_tactical_core::prelude::GeneratedBuilding>,
 }
 
@@ -127,9 +131,9 @@ fn retain_people(
             })
             .position(|other| other.id == person.id)
             .unwrap_or(0);
-        let position = venue.positions[rank % venue.positions.len()];
-        let anchor = position.translation;
-        let facing = position.rotation;
+        let pose = venue.positions[rank % venue.positions.len()];
+        let anchor = pose.anchor;
+        let facing = pose.facing;
         if let Some(current) = scene.people.get_mut(&person.id) {
             if current.anchor != anchor || current.facing != facing {
                 current.anchor = anchor;
@@ -140,7 +144,13 @@ fn retain_people(
             }
             continue;
         }
-        let layer = protocol::COMPOSITOR_LAYER + 1 + scene.next_person_layer;
+        // A selected ID alone has no visible camera on map or forge pages.
+        // Keep visited actors, but only install a new rig and wardrobe when
+        // a requested stage or portrait can actually show it.
+        if !view.requires_person(person.id) {
+            continue;
+        }
+        let layer = protocol::FIRST_PERSON_LAYER + scene.next_person_layer;
         scene.next_person_layer += 1;
         let entity = commands
             .spawn((
@@ -166,11 +176,11 @@ fn retain_people(
     }
 }
 
-fn model_transform(anchor: Vec3) -> Transform {
+fn model_transform(anchor: Position<Scene>) -> Transform {
     let height = adventuresim_tactical_core::combat_config::runtime_animation_config()
         .playback
         .player_visual_y_offset_metres;
-    Transform::from_translation(anchor - Vec3::Y * height)
+    Transform::from_translation(anchor.metres() - Vec3::Y * height.metres())
 }
 
 #[expect(

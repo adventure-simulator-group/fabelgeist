@@ -135,7 +135,6 @@ const ANKLE_FAIRING_BELOW_HEM_M: f32 = 0.05;
 const ANKLE_FAIRING_ABOVE_HEM_M: f32 = 0.08;
 const ANKLE_FAIRING_PASSES: u32 = 64u;
 const RING_PLANE_TOLERANCE_M: f32 = 0.000001;
-const EPSILON: f32 = 1.1920929e-7;
 
 fn word(section: u32, slot: u32) -> f32 {{
     return float_from_ordered(sections[section * WORDS + slot]);
@@ -210,7 +209,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
             p.z = center.y + delta.y / normalized;
             carriers_set(i, frame_point(fit, p));
         }
-    } else if (normalized > EPSILON && normalized < 1.0) {
+    } else if (normalized > 0.0 && normalized < 1.0) {
         let expansion = (1.0 / normalized - 1.0) * blend * blend * (3.0 - 2.0 * blend);
         p.x = p.x + delta.x * expansion;
         p.z = p.z + delta.y * expansion;
@@ -274,7 +273,7 @@ fn main(@builtin(local_invocation_index) lane: u32) {
     for (var i = lane; i < n; i = i + LANES) {
         var p = local(fit, carriers_at(i));
         let radius = length(vec2<f32>(p.x - center.x, p.z - center.y));
-        if (radius > EPSILON && radii[i] > radius) {
+        if (radius > 0.0 && radii[i] > radius) {
             let scale = radii[i] / radius;
             p.x = center.x + (p.x - center.x) * scale;
             p.z = center.y + (p.z - center.y) * scale;

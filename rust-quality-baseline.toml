@@ -71,16 +71,12 @@ path = "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs"
 ceiling = 1171
 
 [[files]]
-path = "crates/adventuresim-character-creator/src/clothing.rs"
-ceiling = 502
-
-[[files]]
 path = "crates/adventuresim-character-creator/src/export.rs"
-ceiling = 860
+ceiling = 778
 
 [[files]]
 path = "crates/adventuresim-core/src/autoresolve.rs"
-ceiling = 1476
+ceiling = 1356
 
 [[files]]
 path = "crates/adventuresim-core/src/bestiary.rs"
@@ -100,11 +96,11 @@ ceiling = 1902
 
 [[files]]
 path = "crates/adventuresim-core/src/disease.rs"
-ceiling = 2235
+ceiling = 2219
 
 [[files]]
 path = "crates/adventuresim-core/src/equipment.rs"
-ceiling = 660
+ceiling = 613
 
 [[files]]
 path = "crates/adventuresim-core/src/foraging.rs"
@@ -120,7 +116,7 @@ ceiling = 748
 
 [[files]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-ceiling = 1474
+ceiling = 1458
 
 [[files]]
 path = "crates/adventuresim-core/src/knowledge.rs"
@@ -176,7 +172,7 @@ ceiling = 510
 
 [[files]]
 path = "crates/adventuresim-core/src/skill.rs"
-ceiling = 585
+ceiling = 584
 
 [[files]]
 path = "crates/adventuresim-core/src/social.rs"
@@ -196,7 +192,7 @@ ceiling = 628
 
 [[files]]
 path = "crates/adventuresim-core/src/strategic_schedule.rs"
-ceiling = 754
+ceiling = 610
 
 [[files]]
 path = "crates/adventuresim-core/src/weather.rs"
@@ -220,7 +216,7 @@ ceiling = 873
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/alcohol.rs"
-ceiling = 642
+ceiling = 632
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/capability.rs"
@@ -228,7 +224,7 @@ ceiling = 689
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
-ceiling = 3172
+ceiling = 3037
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/condition.rs"
@@ -340,7 +336,7 @@ ceiling = 690
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/repair.rs"
-ceiling = 661
+ceiling = 614
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/residence.rs"
@@ -349,10 +345,6 @@ ceiling = 1473
 [[files]]
 path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
 ceiling = 505
-
-[[files]]
-path = "crates/adventuresim-stdb-module/src/simulation.rs"
-ceiling = 550
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/social.rs"
@@ -369,10 +361,6 @@ ceiling = 2343
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs"
 ceiling = 1532
-
-[[files]]
-path = "crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs"
-ceiling = 651
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
@@ -508,43 +496,35 @@ ceiling = 790
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-ceiling = 1168
+ceiling = 617
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-ceiling = 1698
+ceiling = 1273
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
-ceiling = 950
+ceiling = 702
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs"
-ceiling = 2773
-
-[[files]]
-path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
-ceiling = 583
-
-[[files]]
-path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs"
-ceiling = 935
+ceiling = 2717
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-ceiling = 1193
+ceiling = 884
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-ceiling = 1296
+ceiling = 1181
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-ceiling = 777
+ceiling = 627
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-ceiling = 1231
+ceiling = 1074
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/diagnostics.rs"
@@ -552,39 +532,31 @@ ceiling = 711
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-ceiling = 1267
+ceiling = 1034
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
-ceiling = 1098
+ceiling = 712
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
-ceiling = 1014
+ceiling = 900
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs"
-ceiling = 786
-
-[[files]]
-path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs"
-ceiling = 748
-
-[[files]]
-path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs"
-ceiling = 559
+ceiling = 708
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
-ceiling = 835
+ceiling = 710
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs"
-ceiling = 567
+ceiling = 563
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs"
-ceiling = 809
+ceiling = 774
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs"
@@ -592,7 +564,7 @@ ceiling = 1003
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs"
-ceiling = 539
+ceiling = 514
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
@@ -600,19 +572,15 @@ ceiling = 676
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/ui.rs"
-ceiling = 862
-
-[[files]]
-path = "crates/adventuresim-tactical-core/src/animation/evaluation.rs"
-ceiling = 518
+ceiling = 857
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/animation/state.rs"
-ceiling = 2661
+ceiling = 2394
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
-ceiling = 1215
+ceiling = 642
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/inventory.rs"
@@ -620,19 +588,11 @@ ceiling = 551
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
-ceiling = 959
-
-[[files]]
-path = "crates/adventuresim-tactical-core/src/scene_input.rs"
-ceiling = 834
+ceiling = 940
 
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
 ceiling = 674
-
-[[files]]
-path = "crates/adventuresim-tactical-server/src/combat/ingress.rs"
-ceiling = 768
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/equipment.rs"
@@ -640,7 +600,7 @@ ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-ceiling = 2082
+ceiling = 1993
 
 [[files]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -648,15 +608,11 @@ ceiling = 524
 
 [[files]]
 path = "crates/adventuresim-terrain/src/lib.rs"
-ceiling = 1413
+ceiling = 1394
 
 [[files]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
-ceiling = 1116
-
-[[files]]
-path = "crates/adventuresim-world-import/src/bin/build-strategic-map/tiles.rs"
-ceiling = 1098
+ceiling = 827
 
 [[files]]
 path = "crates/adventuresim-world-import/src/main.rs"
@@ -680,7 +636,7 @@ ceiling = 1711
 
 [[files]]
 path = "crates/adventuresim-world-import/src/sources/land_use.rs"
-ceiling = 924
+ceiling = 923
 
 [[files]]
 path = "crates/adventuresim-world-import/src/sources/potential_vegetation.rs"
@@ -739,12 +695,52 @@ path = "crates/fabelgeist-garment-code/src/programs/skirt_paneled.rs"
 ceiling = 624
 
 [[files]]
-path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs"
-ceiling = 538
+path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
+ceiling = 812
 
 [[files]]
-path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-ceiling = 901
+path = "crates/fabelgeist-hair/src/gpu/grow.rs"
+ceiling = 810
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/lods.rs"
+ceiling = 536
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/mod.rs"
+ceiling = 520
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/sim.rs"
+ceiling = 650
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
+ceiling = 1487
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs"
+ceiling = 1001
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs"
+ceiling = 835
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs"
+ceiling = 514
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs"
+ceiling = 1444
+
+[[files]]
+path = "crates/fabelgeist-hair/src/render/mod.rs"
+ceiling = 2103
+
+[[files]]
+path = "crates/fabelgeist-hair/src/rod.rs"
+ceiling = 643
 
 [[files]]
 path = "crates/strategic-web/src/live.rs"
@@ -760,7 +756,7 @@ ceiling = 599
 
 [[files]]
 path = "crates/strategic-web/src/routes/mod.rs"
-ceiling = 844
+ceiling = 724
 
 [[files]]
 path = "crates/strategic-web/src/routes/parties.rs"
@@ -797,10 +793,6 @@ ceiling = 573
 [[files]]
 path = "crates/strategic-web/src/spacetimedb/types.rs"
 ceiling = 1738
-
-[[files]]
-path = "crates/strategic-web/src/strategic_map.rs"
-ceiling = 673
 
 [[files]]
 path = "crates/strategic-web/src/templates/layout.rs"
@@ -1073,7 +1065,7 @@ ceiling = 218
 [[functions]]
 path = "crates/adventuresim-character-creator/src/clothing.rs"
 item = "generate_clothing_shells"
-ceiling = 246
+ceiling = 234
 
 [[functions]]
 path = "crates/adventuresim-character-creator/src/export.rs"
@@ -1083,7 +1075,7 @@ ceiling = 111
 [[functions]]
 path = "crates/adventuresim-character-creator/src/export.rs"
 item = "export_rigged_glb"
-ceiling = 273
+ceiling = 247
 
 [[functions]]
 path = "crates/adventuresim-core/build.rs"
@@ -1143,7 +1135,7 @@ ceiling = 446
 [[functions]]
 path = "crates/adventuresim-core/src/disease.rs"
 item = "resolve_acquisition_timeline"
-ceiling = 313
+ceiling = 310
 
 [[functions]]
 path = "crates/adventuresim-core/src/foraging.rs"
@@ -1721,11 +1713,6 @@ item = "backend_development_quests"
 ceiling = 140
 
 [[functions]]
-path = "crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs"
-item = "materialize_gallery_item"
-ceiling = 124
-
-[[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
 item = "dialogue_objective_recipient"
 ceiling = 144
@@ -2201,29 +2188,9 @@ item = "validate_profile"
 ceiling = 107
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/catalog.rs"
-item = "AnimationPackCatalog::biped_root"
-ceiling = 141
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/diagnostics.rs"
 item = 'log_animation_diagnostics@cfg(not(target_family="wasm"))'
-ceiling = 154
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/loading.rs"
-item = "collect_loaded_packs"
-ceiling = 148
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "PoseSampleResolver<'_>::append_layer"
-ceiling = 236
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "evaluate_skeletons"
-ceiling = 152
+ceiling = 140
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
@@ -2232,38 +2199,23 @@ ceiling = 175
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-item = "measure_authored_contact_step_distance"
-ceiling = 219
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "sample_plan"
-ceiling = 323
+ceiling = 267
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "update_pose_buffers"
-ceiling = 195
+ceiling = 186
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
 item = "apply_landing_leg_compression"
-ceiling = 146
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
-item = "apply_locomotion_height"
-ceiling = 157
+ceiling = 141
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
 item = "apply_pose_mirroring"
 ceiling = 114
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs"
-item = "apply_locomotion_body_response"
-ceiling = 122
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs"
@@ -2273,62 +2225,52 @@ ceiling = 104
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs"
 item = "apply"
-ceiling = 220
+ceiling = 191
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs"
 item = "apply_terrain_leg_ik"
-ceiling = 2708
+ceiling = 2632
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs"
 item = "refresh_raised_support_after_propagation"
-ceiling = 169
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
-item = "enforce_anatomical_knee_yaw"
-ceiling = 106
+ceiling = 115
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
 item = "finalize_leg_rotation_chains"
-ceiling = 148
+ceiling = 139
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
 item = "capture_frame"
-ceiling = 319
+ceiling = 267
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
 item = "drive_sequence"
-ceiling = 319
+ceiling = 269
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
 item = "guard_step_liveness_metrics"
-ceiling = 111
+ceiling = 104
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
 item = "scenario_metrics"
-ceiling = 189
+ceiling = 147
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
 item = "build_completed_report"
-ceiling = 674
+ceiling = 523
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
 item = "capture_plan"
-ceiling = 195
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/camera.rs"
-item = "update_camera_rig"
-ceiling = 154
+ceiling = 186
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/diagnostics.rs"
@@ -2341,11 +2283,6 @@ item = "draw_slot_hud"
 ceiling = 289
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "hud_layers"
-ceiling = 104
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/main.rs"
 item = "run"
 ceiling = 155
@@ -2353,12 +2290,7 @@ ceiling = 155
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
 item = "CombatTargeting<'_,'_>::acquire"
-ceiling = 128
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/player.rs"
-item = "try_start_attack"
-ceiling = 174
+ceiling = 117
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
@@ -2393,17 +2325,17 @@ ceiling = 128
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
 item = "procedural_beech_skeleton"
-ceiling = 158
+ceiling = 150
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
 item = "procedural_multistem_shrub_skeleton"
-ceiling = 116
+ceiling = 114
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
 item = "procedural_oak_skeleton_with_gnarling"
-ceiling = 302
+ceiling = 265
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs"
@@ -2418,7 +2350,7 @@ ceiling = 174
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs"
 item = "tree_bake_cards_with_style"
-ceiling = 131
+ceiling = 130
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/lod.rs"
@@ -2434,11 +2366,6 @@ ceiling = 178
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs"
 item = "spawn_streamed_tree_children"
 ceiling = 208
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/terrain.rs"
-item = "present_pending_terrain"
-ceiling = 116
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
@@ -2462,18 +2389,13 @@ ceiling = 185
 
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
-item = "TacticalCombatConfig::default"
-ceiling = 308
-
-[[functions]]
-path = "crates/adventuresim-tactical-core/src/combat_config.rs"
 item = "TacticalCombatConfig::validate"
-ceiling = 463
+ceiling = 278
 
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
 item = "apply_character_motor"
-ceiling = 402
+ceiling = 398
 
 [[functions]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
@@ -2488,12 +2410,12 @@ ceiling = 165
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/bot/offense.rs"
 item = "drive_offensive_combat_ai"
-ceiling = 205
+ceiling = 132
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/combat/ingress.rs"
 item = "on_melee_attack_started"
-ceiling = 132
+ceiling = 118
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/combat/melee.rs"
@@ -2533,12 +2455,7 @@ ceiling = 239
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
 item = "spawn_connected_player"
-ceiling = 426
-
-[[functions]]
-path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-item = "update_skeleton_locomotion"
-ceiling = 105
+ceiling = 407
 
 [[functions]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -2552,23 +2469,13 @@ ceiling = 116
 
 [[functions]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
-item = "build"
-ceiling = 139
-
-[[functions]]
-path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
 item = "cultivated_land"
-ceiling = 222
+ceiling = 214
 
 [[functions]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
 item = "run"
-ceiling = 152
-
-[[functions]]
-path = "crates/adventuresim-world-import/src/bin/build-strategic-map/tiles.rs"
-item = "render_with_forest_field"
-ceiling = 107
+ceiling = 121
 
 [[functions]]
 path = "crates/adventuresim-world-import/src/cultivation.rs"
@@ -2798,7 +2705,7 @@ ceiling = 102
 [[functions]]
 path = "crates/fabelgeist-garment-code/src/optimize.rs"
 item = "minimize_bounded"
-ceiling = 118
+ceiling = 114
 
 [[functions]]
 path = "crates/fabelgeist-garment-code/src/pattern/spec.rs"
@@ -2851,11 +2758,6 @@ item = "ComputePass::record"
 ceiling = 410
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"
-item = "ComputePipeline::new"
-ceiling = 251
-
-[[functions]]
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
 item = "TextureCube::blit_texture_to_face"
 ceiling = 161
@@ -2876,6 +2778,146 @@ item = "Blitter::new"
 ceiling = 188
 
 [[functions]]
+path = "crates/fabelgeist-hair/src/cards.rs"
+item = "CardMesh::build"
+ceiling = 120
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/grow.rs"
+item = "GpuGroomer::grow"
+ceiling = 214
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/grow.rs"
+item = "GpuGroomer::record_ops"
+ceiling = 301
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/lods.rs"
+item = "GpuGroomer::lods_against"
+ceiling = 136
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/lods.rs"
+item = "GpuGroomer::record_cards"
+ceiling = 129
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/scalp.rs"
+item = "GpuGroomer::cut_scalp"
+ceiling = 264
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/sim.rs"
+item = "GpuGroomer::make_sim"
+ceiling = 162
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
+item = "interp_select"
+ceiling = 112
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
+item = "roots"
+ceiling = 104
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
+item = "settle_solve_few"
+ceiling = 113
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs"
+item = "guide_comb"
+ceiling = 341
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs"
+item = "guide_select"
+ceiling = 133
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs"
+item = "card_build"
+ceiling = 135
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs"
+item = "nets_quads"
+ceiling = 108
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs"
+item = "sim_collide"
+ceiling = 143
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs"
+item = "sim_step"
+ceiling = 329
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/haircut.rs"
+item = "Haircut::new"
+ceiling = 117
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/hairdo.rs"
+item = "Hairdo::comb"
+ceiling = 208
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/head.rs"
+item = "surface_nets"
+ceiling = 134
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/look.rs"
+item = "Look::new"
+ceiling = 177
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/look.rs"
+item = "Look::random"
+ceiling = 126
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/occlusion.rs"
+item = "Occlusion::bake"
+ceiling = 119
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/ops/interpolate.rs"
+item = "Interpolate::apply"
+ceiling = 150
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/presets.rs"
+item = "Preset::hairdo"
+ceiling = 182
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/render/mod.rs"
+item = "HairRenderer::new"
+ceiling = 492
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/render/mod.rs"
+item = "HairRenderer::render"
+ceiling = 478
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/render/mod.rs"
+item = "HairRenderer::resize"
+ceiling = 103
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/rod.rs"
+item = "Substep<'_>::strand"
+ceiling = 160
+
+[[functions]]
 path = "crates/fabelgeist-mesh/src/gpu.rs"
 item = "GpuMesh::box_shape"
 ceiling = 139
@@ -2886,11 +2928,6 @@ item = "GpuMesh::displacement"
 ceiling = 107
 
 [[functions]]
-path = "crates/fabelgeist-mhr/src/model.rs"
-item = "Mhr::new"
-ceiling = 140
-
-[[functions]]
 path = "crates/fabelgeist-physics/src/wgsl.rs"
 item = "mesh_source"
 ceiling = 138
@@ -2899,11 +2936,6 @@ ceiling = 138
 path = "crates/strategic-web/src/live.rs"
 item = "LiveState::connect"
 ceiling = 244
-
-[[functions]]
-path = "crates/strategic-web/src/main.rs"
-item = "main"
-ceiling = 109
 
 [[functions]]
 path = "crates/strategic-web/src/main.rs"
@@ -3069,16 +3101,6 @@ ceiling = 156
 path = "crates/strategic-web/src/spacetimedb/types.rs"
 item = "core_personality"
 ceiling = 105
-
-[[functions]]
-path = "crates/strategic-web/src/strategic_map.rs"
-item = "StrategicMap::load"
-ceiling = 106
-
-[[functions]]
-path = "crates/strategic-web/src/strategic_map.rs"
-item = "strategic_map"
-ceiling = 191
 
 [[functions]]
 path = "crates/strategic-web/src/templates/character.rs"
@@ -3261,13 +3283,6 @@ path = "crates/adventuresim-strategic-sim/src/live_core/travel.rs"
 item = "LiveRunner::travel_camps"
 fingerprint = "debug-local:result"
 occurrences = 4
-
-[[findings]]
-rule = "debug-output-branch"
-path = "crates/adventuresim-tactical-client/src/presentation/terrain.rs"
-item = "present_pending_terrain"
-fingerprint = "debug-local:presented"
-occurrences = 1
 
 [[findings]]
 rule = "debug-output-branch"
@@ -8605,1112 +8620,6 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "acquisition_warmup_frames"
-fingerprint = "string:raised-guard"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "acquisition_warmup_frames"
-fingerprint = "string:raised-guard-stationary-turn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "acquisition_warmup_frames"
-fingerprint = "string:raised-guard-transition"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "acquisition_warmup_frames"
-fingerprint = "string:tap-stop"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "contact_segment_warmup_frames"
-fingerprint = "string:raised-guard"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "contact_segment_warmup_frames"
-fingerprint = "string:release"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "contact_segment_warmup_frames"
-fingerprint = "string:tap-stop"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "thresholds_for_scenario"
-fingerprint = "string:quickstep-right"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "thresholds_for_scenario"
-fingerprint = "string:raised-guard"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "thresholds_for_scenario"
-fingerprint = "string:raised-guard-stationary-turn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "thresholds_for_scenario"
-fingerprint = "string:release"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
-item = "thresholds_for_scenario"
-fingerprint = "string:tap-stop"
-occurrences = 3
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "AuthoredLocomotionStrides::clear_motion"
-fingerprint = "string:run"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "AuthoredLocomotionStrides::clear_motion"
-fingerprint = "string:skip"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "AuthoredLocomotionStrides::clear_motion"
-fingerprint = "string:strafe"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "AuthoredLocomotionStrides::clear_motion"
-fingerprint = "string:walk"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
-item = "authored_height_compensation"
-fingerprint = "string:humanoid_unarmed"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:body_world"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_camera"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_head"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_neck"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_spine0"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_spine1"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_spine2"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_spine3"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_ball"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_clavicle"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_foot"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_lowarm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_lowleg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_uparm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_upleg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_weapon"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_wrist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_ball"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_clavicle"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_foot"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_lowarm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_lowleg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_uparm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_upleg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_weapon"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_wrist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:root"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "CaptureSequence::new"
-fingerprint = "string:flat-grid-run-5.5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "CaptureSequence::new"
-fingerprint = "string:flat-grid-sprint-no-ik"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "CaptureSequence::new"
-fingerprint = "string:flat-grid-walk-2.0"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "CaptureSequence::new"
-fingerprint = "string:flat-grid-walk-no-ik"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "CaptureSequence::new"
-fingerprint = "string:flat-grid-walk-stop"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "CaptureSequence::new"
-fingerprint = "string:full-ragdoll"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "capture_frame"
-fingerprint = "string:full-ragdoll"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "draw_flat_ground_grid"
-fingerprint = "string:flat-grid-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "drive_sequence"
-fingerprint = "string:-aimed-impact"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "drive_sequence"
-fingerprint = "string:attack-live-stationary-swing"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "drive_sequence"
-fingerprint = "string:dive-backward"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "drive_sequence"
-fingerprint = "string:downed-prone-look-at"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "drive_sequence"
-fingerprint = "string:full-ragdoll"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "drive_sequence"
-fingerprint = "string:raised-guard-tap-stop-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "jitter_frames"
-fingerprint = "string:pelvis"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:chest"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:head"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:left_elbow"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:left_foot"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:left_hand"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:left_hip"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:left_knee"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:left_shoulder"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:left_toe"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:pelvis"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:right_elbow"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:right_foot"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:right_hand"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:right_hip"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:right_knee"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:right_shoulder"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-item = "parent_bone"
-fingerprint = "string:right_toe"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "expected_visual_height"
-fingerprint = "string:flat-grid-run-5.5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "expected_visual_height"
-fingerprint = "string:flat-grid-walk-2.0"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "expected_visual_height"
-fingerprint = "string:steady-run-5.5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "expected_visual_height"
-fingerprint = "string:steady-walk-2.0"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "foot_continuity_limit"
-fingerprint = "string:-get-up"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "foot_continuity_limit"
-fingerprint = "string:attack-live-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "foot_continuity_limit"
-fingerprint = "string:dive-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "foot_continuity_limit"
-fingerprint = "string:flat-grid-run-5.5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "foot_continuity_limit"
-fingerprint = "string:raised-guard"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "foot_continuity_limit"
-fingerprint = "string:run"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "inter_foot_separation_limit"
-fingerprint = "string:quickstep-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "inter_foot_separation_limit"
-fingerprint = "string:raised-guard"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "knee_continuity_limit"
-fingerprint = "string:attack-live-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "knee_continuity_limit"
-fingerprint = "string:run"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "loop_seam"
-fingerprint = "string:_foot"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "loop_seam"
-fingerprint = "string:_hip"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "loop_seam"
-fingerprint = "string:_knee"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "loop_seam_position_limit"
-fingerprint = "string:flat-grid-run-5.5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "loop_seam_position_limit"
-fingerprint = "string:raised-guard"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "loop_seam_position_limit"
-fingerprint = "string:run"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "planted_drift_limit"
-fingerprint = "string:raised-guard"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "planted_drift_limit"
-fingerprint = "string:terrain-steady-run-5.5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "reported_support_contacts_are_valid"
-fingerprint = "string:left_foot"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "reported_support_contacts_are_valid"
-fingerprint = "string:raised-guard-stationary-turn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "supported_foot_slip_limit"
-fingerprint = "string:terrain-steady-run-5.5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "vertical_range_limit"
-fingerprint = "string:attack-live-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "vertical_range_limit"
-fingerprint = "string:hard-stop"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-item = "vertical_range_limit"
-fingerprint = "string:raised-guard-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:-get-up"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:attack-live-"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:dive-"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:downed-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:full-ragdoll"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:jump-charge-anticipation"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:ordinary-camera-pitch"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:raised-guard-tap-stop"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:speed-ramp-up-down"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:terrain-steady-run-5.5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
-item = "build_completed_report"
-fingerprint = "string:terrain-toggle-mid-stride"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "attack_live_scenario"
-fingerprint = "string:high-speed"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "attack_live_scenario"
-fingerprint = "string:yaw-only"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "dive_impact_scenario_with_aim"
-fingerprint = "string:dive-backward"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "dive_impact_scenario_with_aim"
-fingerprint = "string:dive-forward"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "dive_impact_scenario_with_aim"
-fingerprint = "string:dive-left"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "dive_impact_scenario_with_aim"
-fingerprint = "string:dive-right"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "downed_body_for_scenario"
-fingerprint = "string:downed-prone-crawl"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "downed_body_for_scenario"
-fingerprint = "string:downed-prone-look-at"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "downed_body_for_scenario"
-fingerprint = "string:downed-supine-scamper"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "downed_body_for_scenario"
-fingerprint = "string:full-ragdoll"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "required_motion_for_scenario"
-fingerprint = "string:dive-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "required_motion_for_scenario"
-fingerprint = "string:downed-prone-crawl"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "required_motion_for_scenario"
-fingerprint = "string:downed-prone-look-at"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "required_motion_for_scenario"
-fingerprint = "string:downed-supine-scamper"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "required_motion_for_scenario"
-fingerprint = "string:prone-get-up"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "required_motion_for_scenario"
-fingerprint = "string:prone-roll-left"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "required_motion_for_scenario"
-fingerprint = "string:prone-roll-right"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "required_motion_for_scenario"
-fingerprint = "string:supine-get-up"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:-get-up"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:airborne-landing"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:attack-live-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:cross-slope-walk"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:dive-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:downed-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:enter-exit"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:flat-grid-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:hard-stop"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:jump-charge-anticipation"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:prone-roll-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:raised-guard"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:ramp"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:terrain-"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:terrain-toggle-mid-stride"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:transition"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "scenario_metadata"
-fingerprint = "string:turn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "transition_for_scenario"
-fingerprint = "string:dive-backward"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "transition_for_scenario"
-fingerprint = "string:dive-forward"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "transition_for_scenario"
-fingerprint = "string:dive-left"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "transition_for_scenario"
-fingerprint = "string:dive-right"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "transition_for_scenario"
-fingerprint = "string:prone-get-up"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "transition_for_scenario"
-fingerprint = "string:prone-roll-left"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "transition_for_scenario"
-fingerprint = "string:prone-roll-right"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-item = "transition_for_scenario"
-fingerprint = "string:supine-get-up"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
 path = "crates/adventuresim-tactical-client/src/diagnostics.rs"
 item = "diagnostic_command_pace"
 fingerprint = "string:dive"
@@ -11111,14 +10020,14 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/fabelgeist-mhr/src/character.rs"
+path = "crates/fabelgeist-mhr/src/character/skeleton.rs"
 item = "SkeletonBuilder<'a>::visit"
 fingerprint = "string:col_type"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/fabelgeist-mhr/src/character.rs"
+path = "crates/fabelgeist-mhr/src/character/skin.rs"
 item = "parse_skin"
 fingerprint = "string:TransformLink"
 occurrences = 1
@@ -11422,13 +10331,6 @@ rule = "raw-string-branch"
 path = "crates/strategic-web/src/routes/local_chat.rs"
 item = "send_message"
 fingerprint = "string:send_local_chat_message"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/mod.rs"
-item = "has_same_origin"
-fingerprint = "string:/"
 occurrences = 1
 
 [[findings]]
@@ -13865,13 +12767,6 @@ rule = "semantic-family:basis-points"
 path = "crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs"
 item = "generated_action_score"
 fingerprint = "10000"
-occurrences = 1
-
-[[findings]]
-rule = "semantic-family:e7-coordinates"
-path = "crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs"
-item = "vista_sample_color"
-fingerprint = "10000000"
 occurrences = 1
 
 [[findings]]

@@ -41,7 +41,8 @@ function summarize(name) {
   const markers = trace.events.filter(event => !["readiness", "receive", "decompress", "cache-read", "renderer", "animation-frame"].includes(event.kind) && !event.kind.startsWith("gpu-"));
   const readiness = {
     textures: first(state => state.textures_ready),
-    allCharactersPosed: first(state => state.characters > 0 && state.posed_characters === state.characters),
+    requestedCharactersPosed: first(state => state.required_characters > 0 &&
+      state.posed_required_characters === state.required_characters),
     equipment: first(state => state.characters > 0 && state.equipment_ready),
     cityInstalled: first(state => state.buildings > 0 && state.city_pending === 0),
     sky: first(state => state.buildings > 0 && state.sky_ready),

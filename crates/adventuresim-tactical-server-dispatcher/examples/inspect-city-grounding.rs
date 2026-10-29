@@ -3,16 +3,22 @@ use adventuresim_building_generator::{
     BuildingLodLevel, BuildingProgram, compile_building_lod, compile_program_shell,
 };
 use adventuresim_tactical_core::{
-    prelude::*, scene_input::GeneratedBuildingRecipes, vista_surface::vista_triangle_height,
+    city_layout::grounding::SupportElevation, prelude::*, scene_coordinates::ScenePlanPoint,
+    scene_input::GeneratedBuildingRecipes,
 };
 use bevy::math::{Vec2, Vec3Swizzles};
 use clap::Parser;
 use serde_json::{Value, json};
+use source::InspectionSource;
 use std::path::PathBuf;
 #[path = "inspect_city_grounding/footprint.rs"]
 mod footprint;
 #[path = "inspect_city_grounding/solutions.rs"]
 mod solutions;
+#[path = "inspect_city_grounding/source.rs"]
+mod source;
+#[path = "inspect_city_grounding/support_observations.rs"]
+mod support_observations;
 #[path = "inspect_city_grounding/support_regions.rs"]
 mod support_regions;
 #[path = "inspect_city_grounding/terraces.rs"]
@@ -22,7 +28,7 @@ mod terraces;
 #[derive(serde::Deserialize)]
 struct TerrainStages {
     input_digest: String,
-    source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest,
+    source_digest: adventuresim_world_schema::source_package::SourcePackageDigest,
     ungraded_vista: adventuresim_tactical_core::scene_input::VistaSample,
 }
 
@@ -46,63 +52,6 @@ struct Inspection {
     terrain_stages: Option<PathBuf>,
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let request = Inspection::parse();
-    let input = TacticalSceneInput::load(&request.scene_input)?;
-    let generated = input.generate()?;
-    let mut recipes = GeneratedBuildingRecipes::default();
-    let mut records = Vec::new();
-    for building in &generated.buildings {
-        if !request.building_id.is_empty()
-            && !request.building_id.contains(&building.placement.id.0)
-        {
-            continue;
-        }
-        records.push(inspect(
-            &input,
-            &generated.terrain,
-            &mut recipes,
-            building.placement.id,
-            &building.placement.program,
-            building.placement.centre_metres.metres(),
-            building.placement.orientation,
-            building.placement.base_elevation_metres.metres(),
-            "playable",
-        )?);
-    }
-    for building in &input.distant_buildings {
-        if (!request.building_id.is_empty() && request.building_id.contains(&building.id.0))
-            || (request.building_id.is_empty()
-                && building.centre_metres.metres().length() <= request.radius_metres)
-        {
-            records.push(inspect(
-                &input,
-                &generated.terrain,
-                &mut recipes,
-                building.id,
-                &building.occupied_program(),
-                building.centre_metres.metres(),
-                building.orientation,
-                building.base_elevation_metres.metres(),
-                "distant",
-            )?);
-        }
-    }
-    let report = json!({
-        "input": request.scene_input, "scene_digest": generated.digest,
-        "source": input.source, "seed": input.seed,
-        "schema_version": input.schema_version,
-        "generation_version": input.generation_version,
-        "absolute_minute": input.absolute_minute,
-        "absolute_elevation_metres": input.absolute_elevation_metres,
-        "buildings": records,
-        "property_catalog": input.properties,
-        "terrace_comparison": request.terrace_comparison(&input, &mut recipes)?,
-    });
-    std::fs::write(request.output, serde_json::to_vec_pretty(&report)?)?;
-    Ok(())
-}
-
 impl Inspection {
     fn terrace_comparison(
         &self,
@@ -117,24 +66,7 @@ impl Inspection {
             .iter()
             .find(|c| c.id.0 == id)
             .ok_or("requested property is absent from the scene")?;
-        let stages: TerrainStages = serde_json::from_slice(&std::fs::read(
-            self.terrain_stages
-                .as_ref()
-                .ok_or("missing terrain stages")?,
-        )?)?;
-        if Some(stages.source_digest.as_str())
-            != match &input.source {
-                adventuresim_tactical_core::scene_input::SceneSource::ImportedPackage(digest) => {
-                    Some(digest.as_str())
-                }
-                _ => None,
-            }
-        {
-            return Err("terrain stages do not identify the scene source".into());
-        }
-        if stages.input_digest != input.digest()? {
-            return Err("terrain stages do not identify this exact scene input".into());
-        }
+        let stages = TerrainStages::load_verified(self, input)?;
         let vista = stages.ungraded_vista;
         let raw = SceneTerrain::from_heightmap(
             usize::from(input.playable.width),
@@ -143,13 +75,8 @@ impl Inspection {
             input.playable.heights_metres.clone(),
         )
         .ok_or("invalid ungraded playable grid")?;
-        let height = |point| {
-            raw.height_at(point).or_else(|| {
-                vista.lods.iter().enumerate().find_map(|(i, lod)| {
-                    vista_triangle_height(lod, vista.lods.get(i + 1), &raw, point)
-                })
-            })
-        };
+        let source = InspectionSource::new(&raw, &vista);
+        let height = |point| source.height_at(point);
         let main = threshold(input, recipes, compound.front_building_id, -Vec2::Y)?;
         let front = threshold(input, recipes, compound.front_building_id, Vec2::Y)?;
         let rear = threshold(input, recipes, compound.rear_building_id, -Vec2::Y)?;
@@ -193,8 +120,14 @@ impl Inspection {
         comparison["support_solution_comparison"] = solutions::compare(
             compound,
             solutions::ComparisonMembers {
-                front: solutions::ComparisonMember::from_measurement(contact, front)?,
-                rear: solutions::ComparisonMember::from_measurement(rear_contact, rear)?,
+                front: solutions::ComparisonMember {
+                    bearing: contact,
+                    threshold: front,
+                },
+                rear: solutions::ComparisonMember {
+                    bearing: rear_contact,
+                    threshold: rear,
+                },
             },
             proposed,
             &footprint::vista_triangles(lod, vista.lods.get(1), &raw, compound.plot.corners()),
@@ -206,12 +139,69 @@ impl Inspection {
     }
 }
 
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let request = Inspection::parse();
+    let input = TacticalSceneInput::load(&request.scene_input)?;
+    let generated = input.generate()?;
+    let mut recipes = GeneratedBuildingRecipes::default();
+    let mut records = Vec::new();
+    for building in &generated.buildings {
+        if !request.building_id.is_empty()
+            && !request.building_id.contains(&building.placement.id.0)
+        {
+            continue;
+        }
+        records.push(inspect(
+            &input,
+            &generated.terrain,
+            &mut recipes,
+            building.placement.id,
+            &building.placement.program,
+            building.placement.centre_metres,
+            building.placement.orientation,
+            building.placement.base_elevation_metres,
+            "playable",
+        )?);
+    }
+    for building in &input.distant_buildings {
+        if (!request.building_id.is_empty() && request.building_id.contains(&building.id.0))
+            || (request.building_id.is_empty()
+                && building.centre_metres.metres().length() <= request.radius_metres)
+        {
+            records.push(inspect(
+                &input,
+                &generated.terrain,
+                &mut recipes,
+                building.id,
+                &building.occupied_program(),
+                building.centre_metres,
+                building.orientation,
+                building.base_elevation_metres,
+                "distant",
+            )?);
+        }
+    }
+    let report = json!({
+        "input": request.scene_input, "scene_digest": generated.digest,
+        "source": input.source, "seed": input.seed,
+        "schema_version": input.schema_version,
+        "generation_version": input.generation_version,
+        "absolute_minute": input.absolute_minute,
+        "absolute_elevation_metres": input.absolute_elevation_metres,
+        "buildings": records,
+        "property_catalog": input.properties,
+        "terrace_comparison": request.terrace_comparison(&input, &mut recipes)?,
+    });
+    std::fs::write(request.output, serde_json::to_vec_pretty(&report)?)?;
+    Ok(())
+}
+
 fn threshold(
     input: &TacticalSceneInput,
     recipes: &mut GeneratedBuildingRecipes,
     id: adventuresim_tactical_core::scene_input::SceneBuildingId,
     outward: Vec2,
-) -> Result<Vec2, Box<dyn std::error::Error>> {
+) -> Result<ScenePlanPoint, Box<dyn std::error::Error>> {
     let placement = member_placement(input, id)?;
     let recipe = recipes.get_or_generate(&placement.program)?;
     let doors = adventuresim_building_generator::compile_operable_doors(&recipe.plan)?;
@@ -223,7 +213,9 @@ fn threshold(
     let local = door.hinge_centre.metres().xz()
         + door.tangent.vector() * door.size_metres.metres().x * 0.5
         - recipe.collision.bounds.centre()?.metres().xz();
-    Ok(placement.centre_metres.metres() + placement.orientation.local_to_world(local))
+    Ok(ScenePlanPoint::try_from(
+        placement.centre_metres.metres() + placement.orientation.local_to_world(local),
+    )?)
 }
 
 fn member_placement(
@@ -255,54 +247,23 @@ fn inspect(
     recipes: &mut GeneratedBuildingRecipes,
     id: adventuresim_tactical_core::scene_input::SceneBuildingId,
     program: &BuildingProgram,
-    centre: Vec2,
+    centre: ScenePlanPoint,
     orientation: BuildingOrientation,
-    elevation: f32,
+    elevation: SupportElevation,
     representation: &str,
 ) -> Result<Value, Box<dyn std::error::Error>> {
     let recipe = recipes.get_or_generate(program)?;
     let origin = recipe.collision.bounds.centre()?.metres();
-    let offset = elevation;
-    let world = |local: Vec2| centre + orientation.local_to_world(local - origin.xz());
-    let height = |point| {
-        terrain.height_at(point).or_else(|| {
-            input.vista.lods.iter().enumerate().find_map(|(i, lod)| {
-                vista_triangle_height(lod, input.vista.lods.get(i + 1), terrain, point)
-            })
-        })
+    let world = |local: Vec2| {
+        ScenePlanPoint::try_from(centre.metres() + orientation.local_to_world(local - origin.xz()))
     };
-    let supports = recipe
-        .plan
-        .resolved_geometry
-        .structural_nodes
-        .iter()
-        .filter(|node| node.grounded)
-        .map(|node| {
-            let point = world(node.position.metres().xz());
-            json!({
-                "node": node.id, "kind": node.kind, "point": point,
-                "world_elevation": node.position.metres().y + offset,
-                "terrain_elevation": height(point),
-            })
-        })
-        .collect::<Vec<_>>();
-    let thresholds = adventuresim_building_generator::compile_operable_doors(&recipe.plan)?
-        .iter()
-        .map(|door| {
-            let opening = recipe
-                .plan
-                .opening_assemblies
-                .iter()
-                .find(|opening| opening.id == door.opening)
-                .expect("compiled door identifies its source opening");
-            let point = world(door.closed_centre.metres().xz());
-            json!({"id":opening.id, "point":point,
-                "sill_elevation":opening.sill_elevation_metres + offset,
-                "terrain_elevation":height(point)})
-        })
-        .collect::<Vec<_>>();
-    let levels = lod_minima(&recipe.plan, program, offset)?;
-    let corners = [
+    let source = InspectionSource::new(terrain, &input.vista);
+    let height = |point| source.height_at(point);
+    let supports = support_observations::grounded_nodes(&recipe.plan, &world, elevation, &source)?;
+    let thresholds =
+        support_observations::exterior_thresholds(&recipe.plan, &world, elevation, &source)?;
+    let levels = lod_minima(&recipe.plan, program, elevation)?;
+    let [a, b, c, d] = [
         recipe.collision.bounds.min().metres().xz(),
         Vec2::new(
             recipe.collision.bounds.max().metres().x,
@@ -315,13 +276,14 @@ fn inspect(
         ),
     ]
     .map(world);
+    let corners = [a?, b?, c?, d?];
     Ok(json!({
         "id": id, "representation": representation, "program": program,
         "centre": centre, "base_elevation": elevation,
         "collision_minimum": recipe.collision.bounds.min().metres().y,
         "ground_floor_contact_bounds":recipe.collision.ground_floor_contact_bounds()?,
-        "collision_origin": origin, "plan_to_world_vertical_offset": offset,
-        "incorrect_collider_bottom_offset": elevation - recipe.collision.bounds.min().metres().y,
+        "collision_origin": origin, "plan_to_world_vertical_offset": elevation,
+        "incorrect_collider_bottom_offset": elevation.metres() - recipe.collision.bounds.min().metres().y,
         "centre_terrain": height(centre),
         "footprint_corners": corners.map(|p| json!({"point":p,"terrain":height(p)})),
         "playable_footprint_terrain": footprint::terrain_extrema(terrain, corners),
@@ -335,7 +297,7 @@ fn inspect(
 fn lod_minima(
     plan: &adventuresim_building_generator::BuildingPlan,
     program: &BuildingProgram,
-    offset: f32,
+    elevation: SupportElevation,
 ) -> Result<Vec<Value>, Box<dyn std::error::Error>> {
     let mut levels = Vec::new();
     for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
@@ -352,9 +314,15 @@ fn lod_minima(
             .iter()
             .flat_map(|mesh| &mesh.vertices)
             .map(|vertex| vertex.position.y)
-            .fold(f32::INFINITY, f32::min);
+            .reduce(f32::min);
+        let world_minimum = minimum
+            .map(|minimum| {
+                SupportElevation::from_metres(minimum + elevation.metres())
+                    .ok_or(support_observations::ObservationError::InvalidLodElevation { level })
+            })
+            .transpose()?;
         levels.push(json!({"level": level, "local_minimum": minimum,
-            "world_minimum": minimum + offset}));
+            "world_minimum": world_minimum}));
     }
     Ok(levels)
 }

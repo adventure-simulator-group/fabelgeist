@@ -1,0 +1,183 @@
+{
+  "bodice": {
+    "height": 650,
+    "transition": 40,
+    "front_point": 140
+  },
+  "pleats": {
+    "count": 12,
+    "depth": 115,
+    "style": "Rounded",
+    "rotation": 200,
+    "front_depth": 1000,
+    "waist_depth": 30,
+    "front_panel": 0,
+    "waist_count": 36,
+    "gather_falloff": 650,
+    "gather_retention": 650,
+    "front_style": null
+  },
+  "support": null,
+  "waist_rise": 200,
+  "length": 1110,
+  "fitted_fraction": 70,
+  "profile": {
+    "Flared": {
+      "width": 1500,
+      "depth": 1500
+    }
+  },
+  "clearance": 8,
+  "thickness": 2,
+  "puff_and_slash": null,
+  "fabric": {
+    "color": [
+      52,
+      5,
+      18
+    ],
+    "finish": "Velvet",
+    "opacity": 1000,
+    "layers": [
+      {
+        "region": {
+          "Band": {
+            "axis": "Along",
+            "start": 925,
+            "end": 982
+          }
+        },
+        "fill": "Solid",
+        "color": [
+          111,
+          77,
+          43
+        ]
+      },
+      {
+        "region": {
+          "Band": {
+            "axis": "Along",
+            "start": 934,
+            "end": 973
+          }
+        },
+        "fill": {
+          "Motifs": {
+            "motif": {
+              "Scrollwork": {
+                "branches": 2,
+                "curl": 950
+              }
+            },
+            "across": 40,
+            "along": 2,
+            "scale": 950,
+            "rotation": 0,
+            "stagger": 500,
+            "offset": {
+              "across": 0,
+              "along": 0
+            },
+            "space": "Region"
+          }
+        },
+        "color": [
+          78,
+          34,
+          18
+        ]
+      },
+      {
+        "region": {
+          "Band": {
+            "axis": "Along",
+            "start": 921,
+            "end": 928
+          }
+        },
+        "fill": "Solid",
+        "color": [
+          78,
+          34,
+          18
+        ]
+      },
+      {
+        "region": {
+          "Band": {
+            "axis": "Along",
+            "start": 980,
+            "end": 989
+          }
+        },
+        "fill": "Solid",
+        "color": [
+          78,
+          34,
+          18
+        ]
+      },
+      {
+        "region": {
+          "Panel": {
+            "across": {
+              "start": 487,
+              "end": 513
+            },
+            "along": {
+              "start": 0,
+              "end": 925
+            }
+          }
+        },
+        "fill": "Solid",
+        "color": [
+          111,
+          77,
+          43
+        ]
+      },
+      {
+        "region": {
+          "Panel": {
+            "across": {
+              "start": 490,
+              "end": 510
+            },
+            "along": {
+              "start": 0,
+              "end": 925
+            }
+          }
+        },
+        "fill": {
+          "Motifs": {
+            "motif": {
+              "Scrollwork": {
+                "branches": 2,
+                "curl": 950
+              }
+            },
+            "across": 2,
+            "along": 36,
+            "scale": 900,
+            "rotation": 0,
+            "stagger": 500,
+            "offset": {
+              "across": 0,
+              "along": 0
+            },
+            "space": "Region"
+          }
+        },
+        "color": [
+          78,
+          34,
+          18
+        ]
+      }
+    ],
+    "chart_boundary": "CyclicAcross"
+  }
+}

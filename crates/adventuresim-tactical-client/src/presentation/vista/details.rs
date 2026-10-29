@@ -1,5 +1,7 @@
 //! Distant rock and tree presentation from the admitted source terrain.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::SignedLength;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 
 #[expect(
@@ -16,6 +18,13 @@ pub(super) fn spawn_vista_rocks(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
 ) {
+    let lift = match SignedLength::from_metres(0.08) {
+        Ok(lift) => lift,
+        Err(error) => {
+            warn!(%error, "Invalid vista rock elevation offset");
+            return;
+        }
+    };
     let recipe = RockRecipe {
         seed: 0x7669_7374_615f_726f.into(),
         archetype: RockArchetype::Rounded,
@@ -43,6 +52,9 @@ pub(super) fn spawn_vista_rocks(
             {
                 continue;
             }
+            let Some(point) = ScenePlanPoint::from_metres(point) else {
+                continue;
+            };
             let Some(sample) = sample_vista_environment(lod, point) else {
                 continue;
             };
@@ -53,7 +65,6 @@ pub(super) fn spawn_vista_rocks(
             if streams::ROCK_PRESENCE.rng(hash, &[]).inclusive_unit_f32() > exposed * 0.46 {
                 continue;
             }
-            let lift = 0.08;
             let Some(mut transform) = vista_scatter_transform(
                 lod,
                 coarser_lod,
@@ -74,14 +85,17 @@ pub(super) fn spawn_vista_rocks(
     }
 }
 
-pub(super) fn sample_vista_environment(lod: &VistaLod, world: Vec2) -> Option<EnvironmentalSample> {
+pub(super) fn sample_vista_environment(
+    lod: &VistaLod,
+    world: ScenePlanPoint,
+) -> Option<EnvironmentalSample> {
     let width = usize::from(lod.width);
     let depth = usize::from(lod.depth);
     let origin = Vec2::new(
         lod.origin_east_metres as f32,
         lod.origin_north_metres as f32,
     );
-    let coordinate = (world - origin) / lod.spacing_metres
+    let coordinate = (world.metres() - origin) / lod.spacing_metres
         + Vec2::new((width - 1) as f32 * 0.5, (depth - 1) as f32 * 0.5);
     if coordinate.x < 0.0
         || coordinate.y < 0.0
@@ -198,6 +212,9 @@ pub(super) fn spawn_vista_trees(
                         lod.origin_east_metres as f32,
                         lod.origin_north_metres as f32,
                     );
+                let Some(world) = ScenePlanPoint::from_metres(world) else {
+                    continue;
+                };
                 let Some(height) = tree_root_height(terrain, lod, coarser_lod, world) else {
                     continue;
                 };
@@ -231,7 +248,7 @@ pub(super) fn spawn_vista_trees(
                     &cached.material,
                     card_height,
                     crate::presentation::chunk_instancing::ChunkInstance {
-                        position: Vec3::new(local.x, height, local.y),
+                        position: Vec3::new(local.x, height.metres(), local.y),
                         scale,
                         ..Default::default()
                     },

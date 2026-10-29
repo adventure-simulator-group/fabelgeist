@@ -16,6 +16,8 @@ pub(crate) enum Extrusion {
     CappedAxis,
     Along,
     Radial,
+    FieldNormal,
+    FieldAngleWeightedNormal,
 }
 
 impl Extrusion {
@@ -26,6 +28,8 @@ impl Extrusion {
             Self::CappedAxis => 2,
             Self::Along => 3,
             Self::Radial => 4,
+            Self::FieldNormal => 5,
+            Self::FieldAngleWeightedNormal => 6,
         }
     }
 }
@@ -137,6 +141,20 @@ impl PartLayout {
             .mount = Some(mount);
     }
 
+    /// Native mesh correspondence; shell plans place carriers before wall copies.
+    pub(crate) fn outer_aliases(&self) -> Vec<usize> {
+        self.shells
+            .iter()
+            .flat_map(|shell| {
+                shell
+                    .plan
+                    .sources
+                    .iter()
+                    .map(|source| (shell.first_final + (source.packed() & !INNER_BIT)) as usize)
+            })
+            .collect()
+    }
+
     pub(crate) fn shell_count(&self) -> usize {
         self.shells.len()
     }
@@ -160,9 +178,12 @@ impl PartLayout {
     }
 
     pub(super) fn uses_angle_normals(&self) -> bool {
-        self.shells
-            .iter()
-            .any(|shell| shell.extrusion == Extrusion::AngleWeightedNormal)
+        self.shells.iter().any(|shell| {
+            matches!(
+                shell.extrusion,
+                Extrusion::AngleWeightedNormal | Extrusion::FieldAngleWeightedNormal
+            )
+        })
     }
 
     /// The final triangles, indexed into the whole part, and the shell of
@@ -273,6 +294,7 @@ impl PartLayout {
                 let last = &self.shells[shells.end - 1];
                 (
                     ArmorComponent {
+                        textile: None,
                         role: component.role,
                         vertices: first.first_final as usize
                             ..(last.first_final as usize + last.plan.sources.len()),

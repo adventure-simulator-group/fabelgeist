@@ -1,22 +1,24 @@
 use super::*;
+use crate::animation::AuthoredRigJoint;
+use fabelgeist_rig::RigJointName;
 
 pub(super) fn sync_procedural_equipment_skins(
     mut commands: Commands,
     parts: Query<(Entity, &ProceduralEquipmentPart, Option<&SkinnedMesh>)>,
     items: Query<(Option<&ItemOf>, Option<&EquipSlot>, Has<TacticalSceneItem>)>,
-    bones: Query<(Entity, &MhrBone, &Name)>,
+    bones: Query<(Entity, &MhrBone, &AuthoredRigJoint)>,
 ) {
     if parts.is_empty() {
         return;
     }
-    // Borrow the bone names rather than owning them: this index is rebuilt every
-    // frame, and copying each `Name` cost one heap allocation per bone per rig.
-    let mut rig_bones = HashMap::<Entity, HashMap<&str, Entity>>::new();
+    // Borrow the joint names rather than owning them: this index is rebuilt every
+    // frame, and cloning each name cost one heap allocation per bone per rig.
+    let mut rig_bones = HashMap::<Entity, HashMap<&RigJointName, Entity>>::new();
     for (entity, bone, name) in &bones {
         rig_bones
             .entry(bone.owner)
             .or_default()
-            .insert(name.as_str(), entity);
+            .insert(name.name(), entity);
     }
     for (entity, part, current_skin) in &parts {
         let desired_joints = items
@@ -29,7 +31,7 @@ pub(super) fn sync_procedural_equipment_skins(
                 let bones = rig_bones.get(&owner)?;
                 part.joint_names
                     .iter()
-                    .map(|name| bones.get(name.as_str()).copied())
+                    .map(|name| bones.get(name).copied())
                     .collect::<Option<Vec<_>>>()
             });
         if let Some(joints) = desired_joints {
@@ -49,6 +51,11 @@ pub(super) fn sync_procedural_equipment_skins(
 mod tests {
     use super::*;
     use bevy::ecs::system::RunSystemOnce;
+    use fabelgeist_rig::RigJointName;
+
+    const NARROW_HIP_X_METRES: f32 = 0.05;
+    const WIDE_HIP_X_METRES: f32 = 0.15;
+    const HIP_Y_METRES: f32 = 1.0;
 
     #[test]
     fn skeletal_proportions_follow_equipment_transfer_without_rebinding_shared_assets() {
@@ -58,15 +65,17 @@ mod tests {
         let narrow = world
             .spawn((
                 MhrBone { owner: first },
-                Name::new("l_upleg"),
-                Transform::from_xyz(0.05, 1.0, 0.0),
+                Name::new(RigJointName::L_UPLEG.to_string()),
+                AuthoredRigJoint::new(RigJointName::L_UPLEG),
+                Transform::from_xyz(NARROW_HIP_X_METRES, HIP_Y_METRES, 0.0),
             ))
             .id();
         let wide = world
             .spawn((
                 MhrBone { owner: second },
-                Name::new("l_upleg"),
-                Transform::from_xyz(0.15, 1.0, 0.0),
+                Name::new(RigJointName::L_UPLEG.to_string()),
+                AuthoredRigJoint::new(RigJointName::L_UPLEG),
+                Transform::from_xyz(WIDE_HIP_X_METRES, HIP_Y_METRES, 0.0),
             ))
             .id();
         let item = world.spawn(ItemOf(first)).id();
@@ -75,7 +84,7 @@ mod tests {
             .spawn(ProceduralEquipmentPart {
                 item,
                 inverse_bindposes: bindposes.clone(),
-                joint_names: vec!["l_upleg".into()],
+                joint_names: vec![RigJointName::L_UPLEG].into(),
                 rigid_center: Vec3::ZERO,
             })
             .id();
@@ -96,7 +105,7 @@ mod tests {
                 .unwrap()
                 .translation
                 .x,
-            0.15
+            WIDE_HIP_X_METRES
         );
         world.entity_mut(item).insert(TacticalSceneItem);
         world

@@ -2,16 +2,17 @@
 
 use super::*;
 
-pub(super) fn review_html(manifest: &AnimationCaptureManifest) -> String {
-    let frame_json = serde_json::to_string(&manifest.frames).expect("review frames must serialize");
+pub(super) fn review_html(
+    manifest: &AnimationCaptureManifest,
+) -> Result<String, serde_json::Error> {
+    let frame_json = serde_json::to_string(&manifest.frames)?;
     let scenario_names_json = serde_json::to_string(
         &manifest
             .scenarios
             .iter()
-            .map(|scenario| scenario.scenario.as_str())
+            .map(|scenario| scenario.scenario.label())
             .collect::<Vec<_>>(),
-    )
-    .expect("review scenario names must serialize");
+    )?;
     let quality_summary = format!(
         "Quality score: {:.2}% ({}/31 weighted defect points); acceptance: {}",
         manifest.quality_score.quality_percent,
@@ -28,28 +29,22 @@ pub(super) fn review_html(manifest: &AnimationCaptureManifest) -> String {
         .map(|scenario| {
             format!(
                 "<button data-scenario=\"{}\">{}</button>",
-                scenario.scenario, scenario.scenario
+                scenario.scenario.label(),
+                scenario.scenario.label()
             )
         })
         .collect::<String>();
     let metrics = manifest
         .scenarios
         .iter()
-        .map(|scenario| {
-            let describe = |worst: &Option<ContinuityLocation>, unit: &str| {
-                worst.as_ref().map_or("&mdash;".to_owned(), |worst| {
-                    format!(
-                        "{} {}&rarr;{} ({:.4}{unit})",
-                        worst.bone, worst.from_frame, worst.to_frame, worst.value
-                    )
-                })
-            };
-            format!(
+        .map(|scenario| -> Result<_, serde_json::Error> {
+
+            Ok(format!(
                 "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{:.4}</td><td>{:.4}</td><td>{}</td><td>{}/{}</td><td>{:.4}</td><td>{:.4}</td><td>{:.4}</td><td>{:.4}</td><td>{:.2}</td><td>{:.3}</td><td>{:.2}</td><td>{:.2}</td><td>{:.2}</td><td>{:.2}</td><td>{:.2}</td><td>{:.2}</td><td>{:.4}</td></tr>",
-                scenario.scenario,
+                scenario.scenario.label(),
                 scenario.frame_count,
-                describe(&scenario.worst_displacement, "m"),
-                describe(&scenario.worst_rotation, "deg"),
+                describe(&scenario.worst_displacement, "m")?,
+                describe(&scenario.worst_rotation, "deg")?,
                 scenario.loop_seam_position_metres.map_or("&mdash;".into(), |value| format!("{value:.4}")),
                 scenario.loop_seam_rotation_degrees.map_or("&mdash;".into(), |value| format!("{value:.2}")),
                 scenario.maximum_supported_foot_slip_metres_per_frame,
@@ -70,10 +65,10 @@ pub(super) fn review_html(manifest: &AnimationCaptureManifest) -> String {
                 scenario.final_facing_motion_error_degrees,
                 scenario.maximum_dive_axis_motion_error_degrees,
                 scenario.minimum_foot_clearance_metres,
-            )
+            ))
         })
-        .collect::<String>();
-    format!(
+        .collect::<Result<Vec<_>, _>>()?.join("");
+    Ok(format!(
         r#"<!doctype html>
 <html><head><meta charset="utf-8"><title>Animation review</title><style>
 body{{font:15px system-ui;background:#111820;color:#e8eef5;margin:24px}}button,select{{margin:4px;padding:8px}}img{{max-width:min(960px,100%);background:#222}}table{{border-collapse:collapse;margin-top:20px}}td,th{{border:1px solid #526171;padding:6px}}.note{{max-width:960px;color:#b9c7d5}}#contact{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:20px}}#contact img{{width:100%}}
@@ -87,5 +82,18 @@ body{{font:15px system-ui;background:#111820;color:#e8eef5;margin:24px}}button,s
 function frames(){{return all.filter(x=>x.scenario===scenario)}}function show(){{const list=frames(),f=list.length?list[i%list.length]:null;if(!f){{player.removeAttribute('src');telemetry.textContent='No completed capture frames';return}}player.src=f.screenshots[view.value];telemetry.textContent=`${{f.scenario}} frame ${{f.scenario_frame}} | guard ${{f.weapon_guard}} lead ${{f.lead_foot}} | ${{f.speed_metres_per_second.toFixed(2)}} m/s | phase ${{f.gait_phase.toFixed(3)}} | world plants L ${{f.left_support_weight.toFixed(2)}} R ${{f.right_support_weight.toFixed(2)}}`;}}
 function play(){{clearInterval(timer);timer=setInterval(()=>{{i=(i+1)%frames().length;show()}},1000/64*Number(rate.value))}}function contacts(){{const f=frames(),step=Math.max(1,Math.floor(f.length/12)),box=document.querySelector('#contact');box.innerHTML='';for(let n=0;n<f.length;n+=step){{let x=document.createElement('img');x.src=f[n].screenshots[view.value];x.title=`frame ${{f[n].scenario_frame}} phase ${{f[n].gait_phase.toFixed(3)}}`;box.appendChild(x)}}}}
 document.querySelectorAll('button').forEach(b=>b.onclick=()=>{{scenario=b.dataset.scenario;i=0;show();contacts();play()}});view.onchange=()=>{{show();contacts()}};rate.onchange=play;show();contacts();play();</script></body></html>"#
-    )
+    ))
+}
+
+fn describe(worst: &Option<ContinuityLocation>, unit: &str) -> Result<String, serde_json::Error> {
+    let Some(worst) = worst else {
+        return Ok("&mdash;".to_owned());
+    };
+    let label = report_bone_label(worst.bone).ok_or_else(|| {
+        <serde_json::Error as serde::ser::Error>::custom("uncaptured semantic bone in HTML report")
+    })?;
+    Ok(format!(
+        "{} {}&rarr;{} ({:.4}{unit})",
+        label, worst.from_frame, worst.to_frame, worst.value
+    ))
 }

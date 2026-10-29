@@ -1546,7 +1546,9 @@ pub fn exposure_threshold_minute(
     if hazard <= 0.0 {
         return None;
     }
-    let unit = seed.unit_f64().clamp(f64::EPSILON, 1.0 - f64::EPSILON);
+    let unit = seed
+        .unit_f64()
+        .clamp(0.0_f64.next_up(), 1.0_f64.next_down());
     let minutes = (-unit.ln() / (hazard as f64)).ceil() as u64;
     Some(outbreak_start.saturating_add_minutes(minutes))
 }
@@ -2182,12 +2184,10 @@ pub fn private_regional_meter_state(
                     * state.severity
                     * phenotype[curve.meter.index()])
                 .clamp(-1.0, 2.0);
-                let total = curve
-                    .regional_weights
-                    .iter()
-                    .copied()
-                    .sum::<f32>()
-                    .max(f32::EPSILON);
+                let total = curve.regional_weights.iter().copied().sum::<f32>();
+                if total <= 0.0 {
+                    continue;
+                }
                 for region in BodyRegion::ALL {
                     let mut contribution = MeterVector::ZERO;
                     contribution.0[curve.meter.index()] =

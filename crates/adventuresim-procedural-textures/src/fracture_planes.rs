@@ -1,10 +1,12 @@
 //! Periodic joined fracture planes with shared corner heights.
-const RNG_TEXTURE_FRACTURE_PLANES_TRIANGULATION: fabelgeist_determinism::StreamId =
-    fabelgeist_determinism::StreamId::new("texture.fracture-planes.triangulation");
 use crate::{TextureParameters, stamps::hash};
 use bevy::math::{IVec2, Vec2};
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
+
+const RNG_TEXTURE_FRACTURE_PLANES_TRIANGULATION: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("texture.fracture-planes.triangulation");
+const TRIANGLE_WEIGHT_ROUNDOFF_ULPS: f32 = 8.0;
 crate::parameters::parameter_block! {
     pub struct Parameters {
         cells: [i32; 2] = [11, 9];
@@ -64,7 +66,21 @@ impl Parameters {
                     let v = ap.perp_dot(ac) / determinant;
                     let w = ab.perp_dot(ap) / determinant;
                     let u = 1.0 - v - w;
-                    if u >= -f32::EPSILON && v >= -f32::EPSILON && w >= -f32::EPSILON {
+                    // Bound subtraction, cross products and division at the
+                    // actual cell-coordinate scale and triangle condition.
+                    // The unit term covers forming u = 1 - v - w.
+                    let magnitude = [p, a.0, b.0, c.0]
+                        .map(|point| point.abs().max_element())
+                        .into_iter()
+                        .fold(0.0, f32::max);
+                    let roundoff = TRIANGLE_WEIGHT_ROUNDOFF_ULPS
+                        * f32::EPSILON
+                        * (magnitude * (ab.length() + ac.length() + ap.length())
+                            / determinant.abs()
+                            + 1.0
+                            + v.abs()
+                            + w.abs());
+                    if u >= -roundoff && v >= -roundoff && w >= -roundoff {
                         let weights = [u, v, w];
                         let softened = weights.map(|t| t * t * (3.0 - 2.0 * t));
                         let sum = softened.iter().sum::<f32>();
@@ -87,6 +103,32 @@ impl Parameters {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn shared_grid_edges_and_corners_remain_covered_at_each_cell_scale() {
+        let params = TextureParameters::default();
+        for cells in [[1, 1], [11, 9], [1024, 1024]] {
+            let planes = Parameters {
+                cells,
+                jitter: 0.0,
+                ..Default::default()
+            };
+            for coordinate in [
+                0.0,
+                0.5_f32.next_down(),
+                0.5,
+                0.5_f32.next_up(),
+                1.0_f32.next_down(),
+            ] {
+                for point in [Vec2::splat(coordinate), Vec2::new(coordinate, 0.0)] {
+                    assert!(
+                        planes
+                            .sample(&params, point, Seed::from_u64(17))
+                            .is_finite()
+                    );
+                }
+            }
+        }
+    }
     #[test]
     fn adjoining_planes_have_no_height_ownership_jumps() {
         let params = TextureParameters::default();

@@ -137,7 +137,7 @@ impl CitySurfaceMeshBuilder {
                         if (clipped[1] - clipped[0])
                             .cross(clipped[2] - clipped[0])
                             .length_squared()
-                            <= f64::from(f32::EPSILON)
+                            == 0.0
                         {
                             continue;
                         }
@@ -237,7 +237,7 @@ mod tests {
                     .iter()
                     .all(|triangle| {
                         let [a, b, c] = triangle.map(Vec3::from_array);
-                        (b - a).cross(c - a).length_squared() > f32::EPSILON
+                        (b - a).cross(c - a).length_squared() > 0.0
                     })
             );
         }
@@ -288,7 +288,7 @@ mod tests {
                         Vec3::new(0.6, 0.1, 0.3),
                     ] {
                         let point = a * weights.x + b * weights.y + c * weights.z;
-                        let clearance = point.y - terrain.height_at(point.xz()).unwrap();
+                        let clearance = point.y - terrain.height_at(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(point.xz()).unwrap()).unwrap().metres();
                         assert!(
                             (clearance - 0.01).abs() < 0.0001,
                             "clearance {clearance} at {point:?}"

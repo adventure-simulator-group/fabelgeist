@@ -16,6 +16,10 @@ mod inventory_armor;
 mod marching_tetrahedra;
 pub mod physics;
 pub mod player;
+pub mod regional_city;
+pub mod regional_environment;
+pub mod regional_map;
+pub mod regional_terrain;
 pub mod scene;
 pub mod scene_coordinates;
 mod scene_fault;
@@ -31,24 +35,27 @@ pub use avian3d;
 pub mod prelude {
     pub use crate::AdventureSimulatorCorePlugins;
     pub use crate::animation::{
-        ActionState, ActionTransitionError, AnimationEvaluation, AnimationPack,
-        AnimationPackLibrary, AttackAnimation, AttackAnimations, AttackCurve, AttackHand,
-        AttackLine, AttackPreparation, AttackSpec, BlockSpec, BodyState, DiveDirection,
-        DiveTrajectory, DodgeSpec, DownedFacingPose, GroundedPosture, GuardContacts,
-        GuardFootworkPlan, GuardStepPlan, JumpAnticipation, LandingProfile, LeadFoot,
-        LocomotionGait, LocomotionProfile, MeleePreparationInput, PackValidationError, PoseSample,
-        PoseSampling, Posture, PostureTransitionKind, PostureTransitionState,
-        RaisedLocomotionIntent, ResolvedPose, RollDirection, SemanticPose, SkeletonAction,
+        ActionState, ActionTransitionError, AnimationElapsed, AnimationEvaluation, AnimationPack,
+        AnimationPackLibrary, AnimationSampleRate, AnimationSampleSpan, AnimationSampleTick,
+        AttackAnimation, AttackAnimations, AttackCurve, AttackHand, AttackLine, AttackPreparation,
+        AttackSpec, BlendWeight, BlockSpec, BodyFacingTurn, BodyState, ClipMirror, ContactSequence,
+        CycleDelta, CyclePhase, DIVE_GROUND_CONTACT_PHASE, DiveDirection, DiveTrajectory,
+        DodgeSpec, DownedFacingAim, DownedFacingPose, DownedFacingStep, DownedMotion,
+        DownedRollMotion, GroundContact, GroundedPosture, GuardContacts, GuardFootworkPlan,
+        GuardStepPlan, GuardedLocomotionMode, HeightDistance, HeightSpeed, JumpAnticipation,
+        LandingImpactSpeed, LandingProfile, LeadFoot, LocomotionGait, LocomotionProfile,
+        MeleePreparationInput, PackValidationError, PoseSample, PoseSampling, Posture,
+        PostureTransitionKind, PostureTransitionState, RaisedLocomotionIntent, ResolvedPose,
+        RollDirection, SemanticPose, SignedHalfTurns, SkeletonAction, SkeletonFamily,
         SkeletonLocomotionInput, SkeletonState, StanceState, StrikeFamily, WeaponGuardState,
-        advance_body_facing, advance_body_facing_toward, advance_body_facing_with_speed,
-        advance_downed_body_facing, advance_downed_body_facing_with_speed,
-        body_turn_speed_for_deadline, body_turn_speed_radians, controller_yaw,
+        advance_body_facing, advance_body_facing_with_turn, advance_downed_body_facing,
+        advance_downed_body_facing_with_speed, body_facing_turn, controller_yaw,
         dive_landing_facing_delta, downed_camera_roll_target, downed_turn_speed_radians,
         gait_cycle_phase_delta, gait_support_weights, guard_closed_foot_separation,
         guard_contact_margin_metres, guard_contact_travel_distance, guard_maximum_foot_separation,
-        guard_maximum_lateral_foot_separation, guard_maximum_unsupported_contact_seconds,
+        guard_maximum_lateral_foot_separation, guard_maximum_unsupported_contact_duration,
         guard_movement_front_foot, guard_open_foot_separation, guard_rear_contact_separation,
-        guard_step_length, locomotion_profile, locomotion_sample_hz, ordinary_step_distance,
+        guard_step_length, locomotion_profile, locomotion_sample_rate, ordinary_step_distance,
         project_skeleton_locomotion, project_skeleton_locomotion_with_body_rotation,
         project_skeleton_locomotion_with_intent, raised_guard_locomotion_profile,
         run_locomotion_profile, set_weapon_guard, supine_get_up_counter_yaw_delta,
@@ -61,8 +68,9 @@ pub mod prelude {
         MAX_CITY_STREET_PATCHES, MAX_CITY_YARD_PATCHES,
     };
     pub use crate::combat::{
-        Attack, Dodge, MeleeLunge, conservative_forward_lunge_acceleration,
-        maximum_melee_lunge_range, melee_interaction_range, melee_lunge, melee_lunge_delay_seconds,
+        Attack, Dodge, ForwardLungeAcceleration, MeleeAttackKey, MeleeContactTiming, MeleeLunge,
+        MeleeLungeArrival, conservative_forward_lunge_acceleration, maximum_melee_lunge_range,
+        melee_interaction_range, melee_lunge, melee_lunge_arrival,
         melee_lunge_quickstep_threshold_metres, melee_lunge_range_window_metres,
     };
     pub use crate::combat_config::*;
@@ -72,12 +80,12 @@ pub mod prelude {
         can_grab_window_from_inside,
     };
     pub use crate::inventory::{
-        ArmorItem, ArmorSide, ArmorSlot, EquipSlot, EquipmentActionState, EquipmentTopology,
-        EquipmentTopologyOccupancy, InventoryItems, ItemOf, ItemProperties, ShieldItem,
-        TACTICAL_ITEM_LAYER, TACTICAL_TERRAIN_LAYER, TacticalEquipmentAnchor,
-        TacticalEquipmentPhysical, TacticalInventoryItemId, TacticalItemQuantity,
-        TacticalSceneItem, WeaponAppearance, WeaponHolderAppearance, WeaponItem,
-        rebuild_inventory_holding_cache,
+        ArmorItem, ArmorSide, ArmorSlot, EquipSlot, EquipmentActionState, EquipmentRevision,
+        EquipmentSequence, EquipmentTopology, EquipmentTopologyOccupancy, InventoryItems, ItemOf,
+        ItemProperties, ShieldItem, TACTICAL_ITEM_LAYER, TACTICAL_TERRAIN_LAYER,
+        TacticalEquipmentAnchor, TacticalEquipmentPhysical, TacticalInventoryItemId,
+        TacticalItemQuantity, TacticalSceneItem, WeaponAppearance, WeaponHolderAppearance,
+        WeaponItem, rebuild_inventory_holding_cache,
     };
     pub use crate::physics::{
         AdventureSimulatorPhysicsSet, BREATH_PER_METRE_PER_SECOND, CharacterMotionSnapshot,
@@ -86,7 +94,7 @@ pub mod prelude {
         TACTICAL_PRONE_SPEED_METRES_PER_SECOND, TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND,
         TACTICAL_ROLL_SPEED_METRES_PER_SECOND, TACTICAL_RUN_SPEED_METRES_PER_SECOND,
         TACTICAL_WALK_SPEED_METRES_PER_SECOND, quickstep_action_contact_ticks,
-        quickstep_force_curve, quickstep_peak_horizontal_force_newtons, quickstep_push_seconds,
+        quickstep_force_curve, quickstep_peak_horizontal_force_newtons, quickstep_push_duration,
         quickstep_target_displacement_metres, tactical_breath_recovery_per_second,
         tactical_character_controller, tactical_exhaustion_change_per_second, tactical_jog_speed,
         tactical_movement_exhaustion_change_per_second, tactical_movement_speed,
@@ -94,14 +102,14 @@ pub mod prelude {
     };
     pub use crate::player::{
         BestiaryCategories, CharacterDimensions, CharacterId, ControlledPlayer, Limbs, Player,
-        Skills, Stats, TacticalAttributes, TacticalCombatSide, TacticalCombatState,
-        TacticalIncapacitationSources, TacticalPlayerView, TacticalPlayerViewer,
-        attack_preparation_secs, attack_recovery_secs, configure_attack_curve,
-        default_tactical_character_id, effective_weapon_handling_skill,
+        PlayerInputTick, Skills, Stats, TacticalAttributes, TacticalCombatSide,
+        TacticalCombatState, TacticalIncapacitationSources, TacticalPlayerView,
+        TacticalPlayerViewer, attack_preparation_secs, attack_recovery_secs,
+        configure_attack_curve, default_tactical_character_id, effective_weapon_handling_skill,
     };
     pub use crate::scene::{
-        GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneId, SceneTerrain,
-        TerrainGenerator, UrbanGroundLookup,
+        GroundCover, GroundSubstrate, GroundSurface, SceneElevationRange, SceneGround, SceneId,
+        SceneTerrain, TerrainGenerator, UrbanGroundLookup,
     };
     pub use crate::scene_input::furniture::{
         FurnitureAnchor, FurnitureFootprint, FurnitureGroup, FurnitureGroupId, FurnitureGroupKind,
@@ -129,6 +137,7 @@ pub mod prelude {
     };
     pub use adventuresim_core::item_catalog;
     pub use adventuresim_core::item_catalog::{EquipmentChannel, EquipmentLocation};
+    pub use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
     pub use adventuresim_core::prelude::*;
     pub use avian3d::prelude::*;
     pub use bevy_ahoy::{

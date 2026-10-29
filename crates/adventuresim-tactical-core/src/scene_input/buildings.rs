@@ -1,28 +1,27 @@
-use super::SceneValidationError;
+use super::{SceneInputError, SceneInputResult, SceneValidationError, invalid};
+use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
 use adventuresim_building_generator::spatial_geometry::GeometryResult;
-mod window;
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingCollision, BuildingPlan, BuildingProgram,
 };
 #[cfg(test)]
 use adventuresim_building_generator::{compile_building_collision, generate};
 use bevy::{math::Vec2, prelude::Component};
-use serde::{Deserialize, Serialize};
-mod identity;
-pub use identity::SceneBuildingId;
-pub use window::{SceneWindow, SceneWindowError};
-
-use super::{GeneratedObstacle, SceneInputError, SceneInputResult, invalid};
-use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
-mod collision;
-mod exterior;
-mod placement;
 pub use collision::compile_tactical_building_collider;
 pub use exterior::DistantBuildingVariant;
+pub use identity::SceneBuildingId;
+pub(super) use reservations::{ObstacleReservation, obstacle_intersects_building};
+use serde::{Deserialize, Serialize};
+pub use window::{SceneWindow, SceneWindowError};
+
+mod collision;
+mod exterior;
+mod identity;
+mod placement;
+mod reservations;
+mod window;
 
 pub(crate) const MAX_TACTICAL_BUILDINGS: usize = 64;
-const LEVEL_MARGIN_METRES: f32 = 1.5;
-const TERRACE_APRON_METRES: f32 = 4.0;
 const PARTY_WALL_PROJECTION_ALLOWANCE_METRES: f32 = 0.4;
 
 /// Rotation of one orthogonal building grid in the settlement plane.
@@ -57,8 +56,7 @@ impl BuildingOrientation {
     }
 
     pub fn from_frontage_tangent(tangent: Vec2) -> Option<Self> {
-        (tangent.is_finite() && tangent.length_squared() > f32::EPSILON).then(|| {
-            let tangent = tangent.normalize();
+        tangent.try_normalize().map(|tangent| {
             let yaw = (-tangent.y).atan2(tangent.x);
             // Signed zero can represent the positive endpoint of atan2's
             // range. Canonicalize only that previously inadmissible endpoint.
@@ -228,35 +226,6 @@ pub struct GeneratedBuilding {
     pub collision: BuildingCollision,
 }
 
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct BuildingPad {
-    pub centre: Vec2,
-    pub half_extents: Vec2,
-    pub orientation: BuildingOrientation,
-    pub elevation_metres: crate::city_layout::grounding::SupportElevation,
-}
-
-impl BuildingPad {
-    fn local_offset(self, point: Vec2) -> Vec2 {
-        let offset = point - self.centre;
-        self.orientation.world_to_local(offset)
-    }
-
-    pub(crate) fn contains_level_ground(self, point: Vec2) -> bool {
-        let offset = self.local_offset(point).abs();
-        offset
-            .cmple(self.half_extents + Vec2::splat(LEVEL_MARGIN_METRES))
-            .all()
-    }
-
-    pub(super) fn contains_apron(self, point: Vec2) -> bool {
-        let offset = self.local_offset(point).abs();
-        offset
-            .cmple(self.half_extents + Vec2::splat(LEVEL_MARGIN_METRES + TERRACE_APRON_METRES))
-            .all()
-    }
-}
-
 pub(super) fn validate_building_placements(
     placements: &[TacticalBuildingPlacement],
 ) -> SceneInputResult<()> {
@@ -389,19 +358,6 @@ pub(crate) fn oriented_rectangles_overlap(
             + second_half_extents.y * axis.dot(second_axes[1]).abs();
         centre_delta.dot(axis).abs() < first_radius + second_radius
     })
-}
-
-pub(super) fn obstacle_intersects_building(
-    obstacle: GeneratedObstacle,
-    obstacle_spacing: f32,
-    terrain_extent: Vec2,
-    pads: &[BuildingPad],
-) -> bool {
-    let (x, z) = match obstacle {
-        GeneratedObstacle::Tree { x, z } | GeneratedObstacle::Rock { x, z, .. } => (x, z),
-    };
-    let point = Vec2::new(f32::from(x), f32::from(z)) * obstacle_spacing - terrain_extent * 0.5;
-    pads.iter().any(|pad| pad.contains_apron(point))
 }
 
 #[cfg(test)]

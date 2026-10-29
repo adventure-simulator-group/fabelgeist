@@ -3,6 +3,18 @@
 use super::*;
 use adventuresim_character_creator::clothing::ClothingShell;
 
+/// How a piece is shaded: its plate, and the band along its edges.
+pub(super) struct ArmorShading<'a> {
+    pub plate: StandardMaterial,
+    pub trim: Option<TrimPreview<'a>>,
+}
+
+/// The band along a piece's edges, as the preview shades it.
+pub(super) struct TrimPreview<'a> {
+    pub texcoords: &'a [[f32; 2]],
+    pub material: StandardMaterial,
+}
+
 pub(super) fn spawn_clothing(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -10,7 +22,7 @@ pub(super) fn spawn_clothing(
     walk: &WalkPreview,
     model: &BodyModel,
     shells: Vec<ClothingShell>,
-) {
+) -> Result<()> {
     for shell in shells {
         let specification = shell.specification;
         let indices = shell
@@ -27,14 +39,14 @@ pub(super) fn spawn_clothing(
         .with_inserted_indices(Indices::U32(indices));
         animation_preview::skin_mesh(
             &mut mesh,
-            &model.mhr.character.skin_weights.index,
-            &model.mhr.character.skin_weights.weight,
-        );
+            model.mhr.character.skin_weights.indices(),
+            model.mhr.character.skin_weights.weights().as_native_slice(),
+        )?;
         let [red, green, blue, alpha] = specification.base_color;
         commands.spawn((
             CharacterMesh,
-            animation_preview::skin(walk).expect("animation rig was just rebuilt"),
-            Name::new(specification.name.clone()),
+            animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
+            Name::new(specification.name.as_ref().to_owned()),
             Mesh3d(meshes.add(mesh)),
             MeshMaterial3d(materials.add(StandardMaterial {
                 base_color: Color::srgba(red, green, blue, alpha),
@@ -44,18 +56,7 @@ pub(super) fn spawn_clothing(
             })),
         ));
     }
-}
-
-/// How a piece is shaded: its plate, and the band along its edges.
-pub(super) struct ArmorShading<'a> {
-    pub plate: StandardMaterial,
-    pub trim: Option<TrimPreview<'a>>,
-}
-
-/// The band along a piece's edges, as the preview shades it.
-pub(super) struct TrimPreview<'a> {
-    pub texcoords: &'a [[f32; 2]],
-    pub material: StandardMaterial,
+    Ok(())
 }
 
 /// The cord lacing a piece's small plates, as the preview shades it.
@@ -70,10 +71,15 @@ pub(super) fn lacing_material(cord: &fabelgeist_armor::Lacing) -> StandardMateri
 }
 
 /// Spawn each surface of a piece, and its trim band when it has one.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy asset stores and spawn context are borrowed independently"
+)]
 pub(super) fn spawn_armor(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
+    images: &mut Assets<Image>,
     armor: &GeneratedArmor,
     name: String,
     shading: ArmorShading<'_>,
@@ -90,7 +96,7 @@ pub(super) fn spawn_armor(
         };
         // A component with its own material, such as leather straps, is not
         // shaded as the piece's plate.
-        let own = surface
+        let mut own = surface
             .component
             .and_then(|index| armor.components[index].material)
             .map(|surface| {
@@ -102,6 +108,14 @@ pub(super) fn spawn_armor(
                     ..default()
                 }
             });
+        if let Some(textile) = surface
+            .component
+            .and_then(|index| armor.components[index].textile.as_ref())
+        {
+            own = Some(adventuresim_character_creator::textile_surface::material(
+                textile, images,
+            )?);
+        }
         let mut parts = vec![(
             part_name.clone(),
             surface.plate,
@@ -140,6 +154,9 @@ pub(super) fn spawn_armor(
     Ok(())
 }
 
+/// The previewed body's skin colour, sRGB.
+pub(super) const SKIN_COLOR: Color = Color::srgb(0.64, 0.39, 0.30);
+
 pub(super) fn spawn_body(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -148,36 +165,48 @@ pub(super) fn spawn_body(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     mut mesh: Mesh,
-) {
+) -> Result<()> {
     animation_preview::skin_mesh(
         &mut mesh,
-        &model.mhr.character.skin_weights.index,
-        &model.mhr.character.skin_weights.weight,
-    );
+        model.mhr.character.skin_weights.indices(),
+        model.mhr.character.skin_weights.weights().as_native_slice(),
+    )?;
     commands.spawn((
         CharacterMesh,
         animation_preview::BodySkin {
             positions: generated.positions.clone(),
             faces: model.mhr.character.mesh.faces.clone(),
-            indices: model.mhr.character.skin_weights.index.clone(),
-            weights: model.mhr.character.skin_weights.weight.clone(),
+            indices: model.mhr.character.skin_weights.indices().clone(),
+            weights: model
+                .mhr
+                .character
+                .skin_weights
+                .weights()
+                .as_native_slice()
+                .to_vec(),
         },
-        animation_preview::skin(walk).expect("animation rig was just rebuilt"),
+        animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
         Mesh3d(meshes.add(mesh)),
-        MeshMaterial3d(materials.add(StandardMaterial {
-            // Skin is a rough dielectric with a small amount of diffuse
-            // transmission. This keeps thin features such as the nose, ears,
-            // and fingers warm instead of crushing them to black.
-            base_color: Color::srgb(0.64, 0.39, 0.30),
-            metallic: 0.0,
-            perceptual_roughness: 0.52,
-            reflectance: 0.46,
-            specular_tint: Color::srgb(1.0, 0.93, 0.89),
-            // A small back-diffuse lobe is Bevy's inexpensive approximation
-            // of the short scattering distance seen in skin. Kept subtle so
-            // the body remains opaque and shadowed rather than wax-like.
-            diffuse_transmission: 0.045,
-            ..default()
-        })),
+        MeshMaterial3d(materials.add(skin_material())),
     ));
+    Ok(())
+}
+
+/// The previewed skin: of the body, and of the scalp cap under hair.
+pub(super) fn skin_material() -> StandardMaterial {
+    StandardMaterial {
+        // Skin is a rough dielectric with a small amount of diffuse
+        // transmission. This keeps thin features such as the nose, ears,
+        // and fingers warm instead of crushing them to black.
+        base_color: SKIN_COLOR,
+        metallic: 0.0,
+        perceptual_roughness: 0.52,
+        reflectance: 0.46,
+        specular_tint: Color::srgb(1.0, 0.93, 0.89),
+        // A small back-diffuse lobe is Bevy's inexpensive approximation
+        // of the short scattering distance seen in skin. Kept subtle so
+        // the body remains opaque and shadowed rather than wax-like.
+        diffuse_transmission: 0.045,
+        ..default()
+    }
 }

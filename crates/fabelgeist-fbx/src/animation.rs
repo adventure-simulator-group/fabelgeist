@@ -16,10 +16,16 @@
 //! any pre/post-rotation — because composing those is a rig question, not a
 //! container question.
 
-use crate::{Prop, Scene};
+use crate::{FbxObjectName, FbxQualifiedName, Prop, Scene};
+use anyhow::{Context, Result};
 
 /// FBX stores times as integer ticks of this many per second.
 const TICKS_PER_SECOND: f64 = 46_186_158_000.0;
+
+/// Declared or inferred FBX take duration in source seconds, retaining f64 precision.
+#[derive(derive_more::Debug, Clone, Copy, PartialEq)]
+#[debug("{_0:?}")]
+pub struct FbxAnimationDuration(f64);
 
 /// One animated scalar channel.
 #[derive(Debug, Clone, Default)]
@@ -27,6 +33,64 @@ pub struct Curve {
     /// Key times in seconds, ascending.
     pub times: Vec<f64>,
     pub values: Vec<f64>,
+}
+
+/// One of a node's transform properties, as three channels plus the static
+/// values to use where a channel has no curve.
+#[derive(Debug, Clone, Default)]
+pub struct TransformChannel {
+    pub x: Curve,
+    pub y: Curve,
+    pub z: Curve,
+    /// The curve node's own `d|X`, `d|Y`, `d|Z` values.
+    pub default: [f64; 3],
+}
+
+/// Everything one take animates on one node.
+#[derive(Debug, Clone)]
+pub struct NodeAnimation {
+    /// Object id of the animated `Model`.
+    pub node: i64,
+    /// The model's name, namespace intact.
+    pub name: FbxQualifiedName,
+    pub translation: Option<TransformChannel>,
+    /// Euler angles in degrees, in the node's own rotation order.
+    pub rotation: Option<TransformChannel>,
+    pub scale: Option<TransformChannel>,
+}
+
+/// One `AnimationStack` — what other tools call a take or a clip.
+#[derive(Debug, Clone)]
+pub struct Take {
+    pub name: FbxObjectName,
+    /// Seconds, from the stack's declared local time span when it has one and
+    /// from the keys otherwise.
+    pub duration: FbxAnimationDuration,
+    pub nodes: Vec<NodeAnimation>,
+}
+
+/// Rejection at the source-file seconds boundary.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, derive_more::Display, derive_more::Error)]
+pub enum InvalidFbxAnimationDuration {
+    #[display("FBX take duration must be finite")]
+    NonFinite,
+    #[display("FBX take duration must be nonnegative")]
+    Negative,
+}
+
+impl FbxAnimationDuration {
+    pub fn from_seconds(seconds: f64) -> std::result::Result<Self, InvalidFbxAnimationDuration> {
+        if !seconds.is_finite() {
+            return Err(InvalidFbxAnimationDuration::NonFinite);
+        }
+        if seconds < 0.0 {
+            return Err(InvalidFbxAnimationDuration::Negative);
+        }
+        Ok(Self(seconds))
+    }
+    pub fn seconds(self) -> f64 {
+        self.0
+    }
 }
 
 impl Curve {
@@ -53,23 +117,12 @@ impl Curve {
         let upper = self.times.partition_point(|t| *t < time).min(last);
         let lower = upper.saturating_sub(1);
         let span = self.times[upper] - self.times[lower];
-        if span <= f64::EPSILON {
+        if span <= 0.0 {
             return Some(self.values[lower]);
         }
         let factor = (time - self.times[lower]) / span;
         Some(self.values[lower] + (self.values[upper] - self.values[lower]) * factor)
     }
-}
-
-/// One of a node's transform properties, as three channels plus the static
-/// values to use where a channel has no curve.
-#[derive(Debug, Clone, Default)]
-pub struct TransformChannel {
-    pub x: Curve,
-    pub y: Curve,
-    pub z: Curve,
-    /// The curve node's own `d|X`, `d|Y`, `d|Z` values.
-    pub default: [f64; 3],
 }
 
 impl TransformChannel {
@@ -94,19 +147,6 @@ impl TransformChannel {
     }
 }
 
-/// Everything one take animates on one node.
-#[derive(Debug, Clone)]
-pub struct NodeAnimation {
-    /// Object id of the animated `Model`.
-    pub node: i64,
-    /// The model's name, namespace intact.
-    pub name: String,
-    pub translation: Option<TransformChannel>,
-    /// Euler angles in degrees, in the node's own rotation order.
-    pub rotation: Option<TransformChannel>,
-    pub scale: Option<TransformChannel>,
-}
-
 impl NodeAnimation {
     pub fn key_times(&self, into: &mut Vec<f64>) {
         for channel in [&self.translation, &self.rotation, &self.scale]
@@ -116,16 +156,6 @@ impl NodeAnimation {
             channel.key_times(into);
         }
     }
-}
-
-/// One `AnimationStack` — what other tools call a take or a clip.
-#[derive(Debug, Clone)]
-pub struct Take {
-    pub name: String,
-    /// Seconds, from the stack's declared local time span when it has one and
-    /// from the keys otherwise.
-    pub duration: f64,
-    pub nodes: Vec<NodeAnimation>,
 }
 
 impl Take {
@@ -144,16 +174,12 @@ impl Take {
     }
 }
 
-fn ticks_to_seconds(ticks: i64) -> f64 {
-    ticks as f64 / TICKS_PER_SECOND
-}
-
 impl Scene {
     /// Every animation take in the file.
     ///
     /// Takes with no animated node are dropped: FBX exporters routinely emit an
     /// empty stack alongside the real one.
-    pub fn takes(&self) -> Vec<Take> {
+    pub fn takes(&self) -> Result<Vec<Take>> {
         // Curve nodes point at the model they drive, but the link is recorded
         // on the model's side, so the reverse map is built once rather than
         // rediscovered per curve node.
@@ -195,11 +221,15 @@ impl Scene {
                     times.into_iter().fold(0.0, f64::max)
                 });
 
-                Some(Take {
-                    name: stack.name.clone(),
-                    duration,
-                    nodes,
-                })
+                Some(
+                    FbxAnimationDuration::from_seconds(duration)
+                        .with_context(|| format!("Invalid duration for FBX take {}", stack.name))
+                        .map(|duration| Take {
+                            name: stack.name.clone(),
+                            duration,
+                            nodes,
+                        }),
+                )
             })
             .collect()
     }
@@ -314,5 +344,31 @@ impl Scene {
         }
 
         channel
+    }
+}
+
+fn ticks_to_seconds(ticks: i64) -> f64 {
+    ticks as f64 / TICKS_PER_SECOND
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn scalar_channels_interpolate_at_small_and_large_time_scales() {
+        for span in [1.0e-20, 1.0, 1.0e20] {
+            let curve = Curve {
+                times: vec![0.0, span],
+                values: vec![2.0, 4.0],
+            };
+            assert_eq!(curve.sample(span * 0.5), Some(3.0));
+            assert_eq!(curve.sample(0.0), Some(2.0));
+            assert_eq!(curve.sample(span), Some(4.0));
+        }
+        let repeated = Curve {
+            times: vec![0.0, 0.0, 1.0],
+            values: vec![2.0, 2.0, 4.0],
+        };
+        assert_eq!(repeated.sample(0.5), Some(3.0));
     }
 }

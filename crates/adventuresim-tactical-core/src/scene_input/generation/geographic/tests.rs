@@ -1,4 +1,5 @@
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
 
 #[test]
 fn complete_geographic_preparation_preserves_source_identity_assets_and_relief() {
@@ -20,9 +21,15 @@ fn complete_geographic_preparation_preserves_source_identity_assets_and_relief()
         assert_eq!(&building.placement, placement);
     }
     let half = prepared.terrain.width() * 0.5;
-    let left = prepared.terrain.height_at(Vec2::new(-half, 0.0)).unwrap();
-    let right = prepared.terrain.height_at(Vec2::new(half, 0.0)).unwrap();
-    assert!(right - left > prepared.terrain.width() * 0.09);
+    let left = prepared
+        .terrain
+        .height_at(ScenePlanPoint::from_metres(Vec2::new(-half, 0.0)).unwrap())
+        .unwrap();
+    let right = prepared
+        .terrain
+        .height_at(ScenePlanPoint::from_metres(Vec2::new(half, 0.0)).unwrap())
+        .unwrap();
+    assert!(right.metres() - left.metres() > prepared.terrain.width() * 0.09);
     let repeat = input
         .prepare_geographic_terrain(&mut GeneratedBuildingRecipes::default())
         .unwrap();

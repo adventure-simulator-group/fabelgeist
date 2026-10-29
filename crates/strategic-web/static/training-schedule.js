@@ -203,11 +203,12 @@
       ? Math.max(0, currentFatigue) / surplusRecoveryRate
       : Number.POSITIVE_INFINITY;
     const qualifyingDays = Math.max(0, 1 - timeToClearFatigue);
-    const dailyMoraleQuality = moraleLimit
-      * (1 - Math.exp(-surplusRecoveryRate / Math.max(moraleScale, Number.EPSILON)));
+    const dailyMoraleQuality = surplusRecoveryRate > 0 && moraleScale > 0
+      ? moraleLimit * (1 - Math.exp(-surplusRecoveryRate / moraleScale))
+      : 0;
     return {
       fatigueDelta,
-      leisureFatigue: (fatigueDelta - laborFatigue) / Math.max(fatiguePreviewDivisor, Number.EPSILON),
+      leisureFatigue: fatiguePreviewDivisor > 0 ? (fatigueDelta - laborFatigue) / fatiguePreviewDivisor : 0,
       morale: qualifyingDays * dailyMoraleQuality,
     };
   }

@@ -20,16 +20,48 @@ fn surface(meshes: &[Mesh]) -> GeographicSurface {
             .0
             .iter()
             .map(|t| t.map(|i| Vec3::from_array(positions[i])))
-            .filter(|[a, b, c]| {
-                (*b - *a).cross(*c - *a).y > 0.0
-                    && (b.xz().as_dvec2() - a.xz().as_dvec2())
-                        .perp_dot(c.xz().as_dvec2() - a.xz().as_dvec2())
-                        .abs()
-                        > f64::EPSILON
+            .filter(|triangle| {
+                let [a, b, c] = triangle.map(Vec3::as_dvec3);
+                let ab = b - a;
+                let ac = c - a;
+                // Bound interpolation, coordinate differences and the cross
+                // product at the scene-coordinate scale, in area units. Using
+                // only edge products misses a short edge created by rounding
+                // two copies of the same clipped endpoint differently.
+                let projection_roundoff = 8.0
+                    * f64::EPSILON
+                    * (a.length() + b.length() + c.length())
+                    * (ab.length() + ac.length());
+                // Retaining walls and unmeasurable graphics slivers cannot
+                // supply an affine ground height. Use geographic admission;
+                // the assertions below still require complete plot coverage.
+                ab.cross(ac).y > projection_roundoff
+                    && GeographicSurface::from_triangles([*triangle]).is_some()
             })
             .collect::<Vec<_>>()
     }))
     .unwrap()
+}
+
+#[test]
+fn ground_projection_excludes_vertical_roundoff_at_each_mesh_scale() {
+    for scale in [1.0e-8, 1.0, 1.0e8] {
+        let ground = [Vec3::ZERO, Vec3::Z, Vec3::X].map(|point| point * scale);
+        let wall = [
+            Vec3::new(-2.7755576e-17, -0.19810131, 63.133064),
+            Vec3::new(0.31322417, -0.19810131, 63.018383),
+            Vec3::new(3.081488e-33, 0.0018986965, 63.133064),
+        ]
+        .map(|point| point * scale);
+        let sliver = [
+            Vec3::new(-2.7755576e-17, 0.0018986965, 63.133064),
+            Vec3::new(0.31322417, -0.19810131, 63.018383),
+            Vec3::new(3.081488e-33, 0.0018986965, 63.133064),
+        ]
+        .map(|point| point * scale);
+        let mesh = triangle_mesh([ground, wall, sliver]);
+        assert_eq!(surface(&[mesh]).triangles().count(), 1);
+    }
 }
 
 #[test]
@@ -84,15 +116,18 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
     let mut inner = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
     let environment = input.environment_snapshot(generated.digest);
     for (i, lod) in input.vista.lods.iter().enumerate() {
-        meshes.extend(vista_lod_meshes_with_morph(
-            lod,
-            inner,
-            input.vista.lods.get(i + 1),
-            Some(terrain),
-            Some(&environment),
-            environment.weather,
-            None,
-        ));
+        meshes.extend(
+            vista_lod_meshes_with_morph(
+                lod,
+                inner,
+                input.vista.lods.get(i + 1),
+                Some(terrain),
+                Some(&environment),
+                environment.weather,
+                None,
+            )
+            .unwrap(),
+        );
         inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
             * lod.spacing_metres
             * 0.5;
@@ -116,9 +151,11 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         // single-valued comparison across that edge invents a height error.
         for route in &garden.access {
             for p in [route.start_metres(), route.end_metres()] {
+                let p = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(p)
+                    .unwrap();
                 assert!(
-                    (presented.elevation_at(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(p).unwrap()).unwrap().metres()
-                        - terrain.height_at(p).unwrap())
+                    (presented.elevation_at(p).unwrap().metres()
+                        - terrain.height_at(p).unwrap().metres())
                     .abs()
                         < 0.001
                 );
@@ -142,7 +179,7 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
                     )
                     .iter()
                     .any(|h| (h.metres() - point.y).abs() < 0.001),
-                "presented {point:?}, canonical {:?}",
+                "presented {point:?}, triangle {triangle:?}, canonical {:?}",
                 terrain.support_elevations_at(
                     adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
                         point.xz()
@@ -157,15 +194,11 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         Vec2::new(-1.0, -0.31),
         Vec2::new(1.01, 0.37),
     ] {
+        let point =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point).unwrap();
         assert!(
-            (presented
-                .elevation_at(
-                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point)
-                        .unwrap()
-                )
-                .unwrap()
-                .metres()
-                - terrain.height_at(point).unwrap())
+            (presented.elevation_at(point).unwrap().metres()
+                - terrain.height_at(point).unwrap().metres())
             .abs()
                 < 0.001
         );
@@ -216,7 +249,14 @@ fn repeated_traversal_meshes(
             }
             let values = positions
                 .iter()
-                .map(|p| colors.at(Vec2::new(p[0], p[2]), inner).unwrap())
+                .map(|p| {
+                    colors
+                        .at(
+                            PlanDisplacement::try_from(Vec2::new(p[0], p[2])).unwrap(),
+                            inner,
+                        )
+                        .unwrap()
+                })
                 .collect::<Vec<_>>();
             mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, values);
             meshes.push(mesh);
@@ -254,14 +294,15 @@ fn required_owned_partitions_preserve_ordered_mesh_bytes() {
                 environment.weather,
             );
             let actual = vista_meshes(
-                &generated.terrain,
+                generated.terrain.property_surface().unwrap(),
                 lod,
                 inner,
                 coarser,
                 playable,
                 environment.weather,
                 None,
-            );
+            )
+            .unwrap();
             assert_eq!(
                 actual.len(),
                 expected.len(),

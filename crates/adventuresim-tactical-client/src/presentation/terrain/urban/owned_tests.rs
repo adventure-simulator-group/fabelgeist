@@ -47,13 +47,7 @@ impl GroundFixture {
     fn new(terrain: SceneTerrain, landform: Option<TerrainLandformRecipe>) -> Self {
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("owned-no-streets");
         let mut images = Assets::<Image>::default();
-        let textures = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters {
-                resolution: adventuresim_procedural_textures::BakeResolution::Draft,
-                ..default()
-            },
-            &mut images,
-        );
+        let textures = ProceduralTextureAssets::reserve(&mut Default::default(), &mut images);
         let material = terrain_material(
             &terrain,
             &environment,
@@ -61,10 +55,12 @@ impl GroundFixture {
             &textures,
             &mut images,
             &TacticalGraphicsSettings::default().config.grass,
-        );
+        )
+        .unwrap();
         let mut app = App::new();
         app.init_resource::<ActiveVistaSurface>()
             .add_systems(Update, update_coverage);
+        let coverage = GroundCoverage::new(&terrain, &environment, &ActiveVistaSurface::default());
         let scene = app.world_mut().spawn((terrain.clone(), environment)).id();
         if let Some(recipe) = landform {
             app.world_mut().entity_mut(scene).insert(recipe);
@@ -83,7 +79,8 @@ impl GroundFixture {
                 &terrain,
                 material,
                 landform.as_ref(),
-                landform.map(|recipe| recipe.transition_collar()),
+                None,
+                coverage,
             );
         }
         queue.apply(app.world_mut());
@@ -97,7 +94,7 @@ impl GroundFixture {
             .spawn((
                 ScenePresentationOf(scene),
                 TerrainDetailPatch {
-                    centre: Vec2::ZERO,
+                    centre: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::ORIGIN,
                     vista_revision: 0,
                 },
                 Visibility::Inherited,
@@ -125,9 +122,31 @@ fn grounded_catalogues_without_streets_never_cover_foundations_with_sampled_deta
     for name in ["facade-review", "heating-review"] {
         let terrain = catalogue_terrain(name);
         assert!(terrain.property_surface().is_some());
+        let environment = SceneEnvironmentFixture::TemperateHills.snapshot("owned-no-streets");
+        let detail = super::super::terrain_detail_patch_mesh(
+            &terrain,
+            &environment,
+            &ActiveVistaSurface::default(),
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::ORIGIN,
+            None,
+        );
+        assert_eq!(detail.count_vertices(), 0);
+        assert_eq!(super::super::mesh_triangle_count(&detail), 0);
         let mut fixture = GroundFixture::new(terrain, None);
+        let base_handle = fixture
+            .app
+            .world()
+            .get::<Mesh3d>(fixture.base)
+            .unwrap()
+            .0
+            .clone();
         for _ in 0..2 {
             fixture.app.update();
+            assert_eq!(
+                fixture.app.world().get::<Mesh3d>(fixture.base).unwrap().0,
+                base_handle,
+                "initial canonical coverage must reuse the source mesh"
+            );
             assert_eq!(
                 *fixture
                     .app

@@ -9,30 +9,6 @@ const NEAR_CHUNK_SIZE: ChunkSize = ChunkSize(16.0);
 /// Ground cells of the sparse far tiers, which reach ~70 m.
 const FAR_CHUNK_SIZE: ChunkSize = ChunkSize(32.0);
 
-#[derive(serde::Serialize, serde::Deserialize)]
-struct PackedTufts(
-    #[serde(with = "adventuresim_tactical_core::geometry_transport::binary")] Vec<ChunkInstance>,
-);
-
-#[derive(serde::Serialize, serde::Deserialize)]
-pub(in crate::presentation) struct PreparedTufts(
-    [[PackedTufts; GrassSpecies::ALL.len()]; TIERS.len()],
-);
-
-impl From<TierSpeciesBatches> for PreparedTufts {
-    fn from(batches: TierSpeciesBatches) -> Self {
-        Self(batches.map(|tier| tier.map(PackedTufts)))
-    }
-}
-
-impl PreparedTufts {
-    pub(in crate::presentation) fn to_batches(&self) -> TierSpeciesBatches {
-        self.0
-            .each_ref()
-            .map(|tier| tier.each_ref().map(|batch| batch.0.clone()))
-    }
-}
-
 /// Turns filled instance batches into chunk entities per (tier, species),
 /// each carrying `marker` on top of the chunk-instanced draw components.
 pub(in crate::presentation) fn spawn_tuft_batches(

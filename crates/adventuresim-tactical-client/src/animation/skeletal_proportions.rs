@@ -22,6 +22,27 @@ struct NodeExtras {
     adventuresim_proportions: Option<JointProportionBasis>,
 }
 
+struct BoneReference {
+    entity: Entity,
+    parent: Option<Entity>,
+    role: Option<BoneRole>,
+    bind: Transform,
+    offset: Vec3,
+}
+
+impl BoneReference {
+    fn global(&self, nodes: &BTreeMap<Entity, Self>, deformed: bool) -> Transform {
+        let mut local = self.bind;
+        if deformed {
+            local.translation += self.offset;
+        }
+        match self.parent.and_then(|parent| nodes.get(&parent)) {
+            Some(parent) => parent.global(nodes, deformed).mul_transform(local),
+            None => local,
+        }
+    }
+}
+
 pub(super) fn load_skeletal_bases(
     mut commands: Commands,
     nodes: Query<(Entity, &GltfExtras), Added<GltfExtras>>,
@@ -37,30 +58,6 @@ pub(super) fn load_skeletal_bases(
                 adventuresim_proportions: None,
             }) => {}
             _ => error!(?entity, "invalid exported skeletal proportion basis"),
-        }
-    }
-}
-
-/// Borrows the bone name from the query rather than owning it: this table is
-/// rebuilt every frame, and copying each `Name` cost one heap allocation per
-/// bone per rig.
-struct BoneReference<'a> {
-    entity: Entity,
-    parent: Option<Entity>,
-    name: Option<&'a str>,
-    bind: Transform,
-    offset: Vec3,
-}
-
-impl BoneReference<'_> {
-    fn global(&self, nodes: &BTreeMap<Entity, Self>, deformed: bool) -> Transform {
-        let mut local = self.bind;
-        if deformed {
-            local.translation += self.offset;
-        }
-        match self.parent.and_then(|parent| nodes.get(&parent)) {
-            Some(parent) => parent.global(nodes, deformed).mul_transform(local),
-            None => local,
         }
     }
 }
@@ -81,7 +78,7 @@ pub(super) fn sync_skeletal_proportions(
         &AuthoredBindTransform,
         Option<&SkeletalJointBasis>,
         Option<&ChildOf>,
-        Option<&Name>,
+        Option<&AuthoredRigJoint>,
         Option<&SkeletalJointOffset>,
     )>,
     new_bones: Query<
@@ -97,7 +94,7 @@ pub(super) fn sync_skeletal_proportions(
         .chain(removed_proportions.read())
         .chain(removed_references.read())
         .collect();
-    let mut rigs = BTreeMap::<Entity, BTreeMap<Entity, BoneReference<'_>>>::new();
+    let mut rigs = BTreeMap::<Entity, BTreeMap<Entity, BoneReference>>::new();
     for (entity, bind, basis, parent, name, _) in &bones {
         let Ok((id, explicit, reference)) = owners.get(bind.owner) else {
             continue;
@@ -123,7 +120,7 @@ pub(super) fn sync_skeletal_proportions(
             BoneReference {
                 entity,
                 parent: parent.map(ChildOf::parent),
-                name: name.map(Name::as_str),
+                role: name.and_then(|identity| identity.role()),
                 bind: bind.local,
                 offset: basis
                     .map(|basis| Vec3::from_array(basis.0.translation(proportions)))
@@ -147,10 +144,13 @@ pub(super) fn sync_skeletal_proportions(
 
 /// Longer legs raise the pelvis instead of lowering both feet through the floor.
 /// Animation still supplies its authored root motion and contact timing.
-fn preserve_neutral_ground_height(rig: &mut BTreeMap<Entity, BoneReference<'_>>) {
-    let named = |name: &str| rig.values().find(|bone| bone.name == Some(name));
-    let (Some(left), Some(right), Some(root)) = (named("l_foot"), named("r_foot"), named("root"))
-    else {
+fn preserve_neutral_ground_height(rig: &mut BTreeMap<Entity, BoneReference>) {
+    let named = |role| rig.values().find(|bone| bone.role == Some(role));
+    let (Some(left), Some(right), Some(root)) = (
+        named(BoneRole::FootLeft),
+        named(BoneRole::FootRight),
+        named(BoneRole::Pelvis),
+    ) else {
         return;
     };
     let correction = [left, right]
@@ -198,6 +198,7 @@ mod tests {
             let root = world
                 .spawn((
                     Name::new("root"),
+                    AuthoredRigJoint::new("root".into()),
                     AuthoredBindTransform {
                         owner,
                         local: Transform::from_xyz(0.0, 1.0, 0.0),
@@ -209,6 +210,7 @@ mod tests {
                 let hip = world
                     .spawn((
                         Name::new(format!("{side}_upleg")),
+                        AuthoredRigJoint::new(format!("{side}_upleg").into()),
                         ChildOf(root),
                         AuthoredBindTransform {
                             owner,
@@ -219,6 +221,7 @@ mod tests {
                     .id();
                 world.spawn((
                     Name::new(format!("{side}_foot")),
+                    AuthoredRigJoint::new(format!("{side}_foot").into()),
                     ChildOf(hip),
                     AuthoredBindTransform {
                         owner,

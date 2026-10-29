@@ -128,7 +128,9 @@ dependencies = [
  "bevy_egui",
  "blake3",
  "burn",
+ "bytemuck",
  "clap",
+ "derive_more 2.1.1",
  "egui_extras",
  "fabelgeist-armor",
  "fabelgeist-bvh",
@@ -137,9 +139,12 @@ dependencies = [
  "fabelgeist-determinism",
  "fabelgeist-garment-code",
  "fabelgeist-garment-fit",
+ "fabelgeist-geometry",
  "fabelgeist-gpu",
+ "fabelgeist-hair",
  "fabelgeist-math",
  "fabelgeist-mhr",
+ "fabelgeist-rig",
  "fabelgeist-shell",
  "gltf",
  "image",
@@ -148,6 +153,8 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
+ "spade",
+ "thiserror 2.0.20",
  "tokio",
 ]
 
@@ -164,6 +171,8 @@ dependencies = [
  "enum-assoc",
  "enumflags2",
  "fabelgeist-determinism",
+ "fabelgeist-geometry",
+ "fabelgeist-math",
  "serde",
  "serde-saphyr",
  "serde_json",
@@ -4884,8 +4893,10 @@ dependencies = [
  "bytemuck",
  "fabelgeist-compute",
  "fabelgeist-garment-code",
+ "fabelgeist-geometry",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "fabelgeist-rig",
  "image",
  "pollster",
  "postcard",
@@ -4942,6 +4953,7 @@ dependencies = [
  "regex",
  "serde",
  "strum 0.27.2",
+ "thiserror 2.0.20",
  "wasm-bindgen-futures",
  "wgpu 29.0.4",
 ]
@@ -4961,7 +4973,10 @@ name = "fabelgeist-fbx"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "derive_more 2.1.1",
+ "fabelgeist-rig",
  "flate2",
+ "num_enum",
 ]
 
 [[package]]
@@ -5014,12 +5029,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-geometry"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "thiserror 2.0.20",
+]
+
+[[package]]
 name = "fabelgeist-gpu"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-lock",
  "bytemuck",
+ "derive_more 2.1.1",
  "fabelgeist-color",
  "fabelgeist-math",
  "fabelgeist-timer",
@@ -5033,6 +5057,29 @@ dependencies = [
  "strum 0.27.2",
  "wasm-bindgen-futures",
  "web-sys",
+ "wgpu 29.0.4",
+]
+
+[[package]]
+name = "fabelgeist-hair"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "crc32fast",
+ "fabelgeist-bvh",
+ "fabelgeist-compute",
+ "fabelgeist-determinism",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-spatial-hash",
+ "miniz_oxide 0.8.9",
+ "pollster",
+ "rayon",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.20",
+ "web-time",
  "wgpu 29.0.4",
 ]
 
@@ -5064,9 +5111,11 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "burn",
+ "derive_more 2.1.1",
  "fabelgeist-fbx",
  "fabelgeist-fs",
  "fabelgeist-numpy-storage",
+ "fabelgeist-rig",
 ]
 
 [[package]]
@@ -5075,8 +5124,10 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "burn",
+ "derive_more 2.1.1",
  "flate2",
  "memmap2",
+ "rawzip",
 ]
 
 [[package]]
@@ -5090,6 +5141,15 @@ dependencies = [
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-rig"
+version = "0.1.0"
+dependencies = [
+ "derive_more 2.1.1",
+ "serde",
+ "strum 0.27.2",
 ]
 
 [[package]]
@@ -5108,6 +5168,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-spatial-hash"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+]
+
+[[package]]
 name = "fabelgeist-timer"
 version = "0.1.0"
 dependencies = [
@@ -5121,6 +5192,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "bytemuck",
+ "derive_more 2.1.1",
  "fabelgeist-compute",
  "fabelgeist-gpu",
  "fabelgeist-math",
@@ -8648,6 +8720,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "60a357793950651c4ed0f3f52338f53b2f809f32d83a07f72909fa13e4c6c1e3"
 
 [[package]]
+name = "rawzip"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c"
+
+[[package]]
 name = "rayon"
 version = "1.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -9289,6 +9367,7 @@ version = "1.0.151"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14"
 dependencies = [
+ "indexmap",
  "itoa",
  "memchr",
  "serde",

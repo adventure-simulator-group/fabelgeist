@@ -14,5 +14,14 @@ syn = { version = "2", features = ["full", "visit"] }
 toml = "0.9"
 walkdir = "2"
 
+[dev-dependencies]
+semver = "1"
+thiserror.workspace = true
+
+# Exercise the production guard without linking the tactical client binaries.
+[[test]]
+name = "bevy_version_guard"
+path = "../adventuresim-tactical-client/build.rs"
+
 [lints]
 workspace = true

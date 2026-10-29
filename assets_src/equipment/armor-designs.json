@@ -13,7 +13,11 @@
       "kind": "ArmingDoublet",
       "clearance": 4,
       "thickness": 1,
-      "color": [117, 106, 80],
+      "color": [
+        117,
+        106,
+        80
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -359,6 +363,117 @@
       }
     }
   },
+  "linen_skirt": {
+    "Skirt": {
+      "bodice": null,
+      "puff_and_slash": null,
+      "pleats": null,
+      "support": null,
+      "waist_rise": 100,
+      "length": 850,
+      "fitted_fraction": 220,
+      "profile": {
+        "Flared": {
+          "width": 1600,
+          "depth": 1600
+        }
+      },
+      "clearance": 8,
+      "thickness": 2,
+      "fabric": {
+        "color": [
+          82,
+          57,
+          103
+        ],
+        "finish": "Linen",
+        "opacity": 1000,
+        "layers": [],
+        "chart_boundary": "CyclicAcross"
+      }
+    }
+  },
+  "linen_bodice": {
+    "Bodice": {
+      "neckline": {
+        "shape": "Square",
+        "width": 600,
+        "front_drop": 180,
+        "back_drop": 100
+      },
+      "armhole_width": 50,
+      "armhole_depth": 110,
+      "hem_rise": 100,
+      "opening": {
+        "Front": {
+          "waist": 30,
+          "chest": 35
+        }
+      },
+      "clearance": 6,
+      "thickness": 1,
+      "fabric": {
+        "color": [
+          82,
+          57,
+          103
+        ],
+        "finish": "Linen",
+        "opacity": 1000,
+        "layers": [],
+        "chart_boundary": "CyclicAcross"
+      },
+      "lining": {
+        "fabric": {
+          "color": [
+            32,
+            29,
+            28
+          ],
+          "finish": "Linen",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        },
+        "thickness": 1
+      },
+      "interlining": null
+    }
+  },
+  "linen_dress": {
+    "Skirt": {
+      "bodice": {
+        "height": 800,
+        "transition": 150,
+        "front_point": 0
+      },
+      "puff_and_slash": null,
+      "pleats": null,
+      "support": null,
+      "waist_rise": 100,
+      "length": 850,
+      "fitted_fraction": 220,
+      "profile": {
+        "Flared": {
+          "width": 1600,
+          "depth": 1600
+        }
+      },
+      "clearance": 8,
+      "thickness": 2,
+      "fabric": {
+        "color": [
+          82,
+          57,
+          103
+        ],
+        "finish": "Linen",
+        "opacity": 1000,
+        "layers": [],
+        "chart_boundary": "CyclicAcross"
+      }
+    }
+  },
   "mail_chausses": {
     "Garment": {
       "clearance": 10,
@@ -431,7 +546,11 @@
       "kind": "MailVoiders",
       "clearance": 6,
       "thickness": 1,
-      "color": [196, 198, 198],
+      "color": [
+        196,
+        198,
+        198
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -491,7 +610,11 @@
       "kind": "PaddedHose",
       "clearance": 1,
       "thickness": 2,
-      "color": [117, 106, 80],
+      "color": [
+        117,
+        106,
+        80
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -514,21 +637,43 @@
   "puffed_hose": {
     "PuffAndSlash": {
       "kind": "Hose",
-      "puff_count": 4,
-      "puff_fullness": 55,
-      "distal_fullness": 600,
-      "puff_roundness": 750,
-      "slash_count": 10,
-      "slash_width": 320,
-      "slash_length": 700,
-      "constriction_width": 110,
       "length": 960,
       "proximal_position": 750,
-      "rotation": 50,
       "clearance": 4,
       "thickness": 2,
-      "outer_color": [145, 30, 24],
-      "undercloth_color": [224, 178, 48]
+      "pattern": {
+        "puff_count": 4,
+        "puff_fullness": 55,
+        "distal_fullness": 600,
+        "puff_roundness": 750,
+        "slash_count": 10,
+        "slash_width": 320,
+        "slash_length": 700,
+        "constriction_width": 110,
+        "rotation": 50,
+        "outer_fabric": {
+          "color": [
+            145,
+            30,
+            24
+          ],
+          "finish": "Wool",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        },
+        "undercloth_fabric": {
+          "color": [
+            224,
+            178,
+            48
+          ],
+          "finish": "Silk",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        }
+      }
     }
   },
   "trunk_hose": {
@@ -537,48 +682,100 @@
       "thickness": 2,
       "length": 1000,
       "panel_count": 8,
-      "primary_color": [150, 33, 29],
-      "secondary_color": [48, 78, 35]
+      "primary_color": [
+        150,
+        33,
+        29
+      ],
+      "secondary_color": [
+        48,
+        78,
+        35
+      ]
     }
   },
   "split_hose": {
     "PuffAndSlash": {
       "kind": "Hose",
-      "puff_count": 1,
-      "puff_fullness": 5,
-      "distal_fullness": 1000,
-      "puff_roundness": 1000,
-      "slash_count": 0,
-      "slash_width": 300,
-      "slash_length": 700,
-      "constriction_width": 40,
       "length": 1000,
       "proximal_position": 0,
-      "rotation": 0,
       "clearance": 2,
       "thickness": 1,
-      "outer_color": [150, 33, 29],
-      "undercloth_color": [150, 33, 29]
+      "pattern": {
+        "puff_count": 1,
+        "puff_fullness": 5,
+        "distal_fullness": 1000,
+        "puff_roundness": 1000,
+        "slash_count": 0,
+        "slash_width": 300,
+        "slash_length": 700,
+        "constriction_width": 40,
+        "rotation": 0,
+        "outer_fabric": {
+          "color": [
+            150,
+            33,
+            29
+          ],
+          "finish": "Wool",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        },
+        "undercloth_fabric": {
+          "color": [
+            150,
+            33,
+            29
+          ],
+          "finish": "Silk",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        }
+      }
     }
   },
   "puffed_sleeve": {
     "PuffAndSlash": {
       "kind": "Sleeve",
-      "puff_count": 3,
-      "puff_fullness": 48,
-      "distal_fullness": 550,
-      "puff_roundness": 700,
-      "slash_count": 8,
-      "slash_width": 300,
-      "slash_length": 700,
-      "constriction_width": 120,
       "length": 940,
       "proximal_position": 800,
-      "rotation": 0,
       "clearance": 4,
       "thickness": 2,
-      "outer_color": [145, 30, 24],
-      "undercloth_color": [224, 178, 48]
+      "pattern": {
+        "puff_count": 3,
+        "puff_fullness": 48,
+        "distal_fullness": 550,
+        "puff_roundness": 700,
+        "slash_count": 8,
+        "slash_width": 300,
+        "slash_length": 700,
+        "constriction_width": 120,
+        "rotation": 0,
+        "outer_fabric": {
+          "color": [
+            145,
+            30,
+            24
+          ],
+          "finish": "Wool",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        },
+        "undercloth_fabric": {
+          "color": [
+            224,
+            178,
+            48
+          ],
+          "finish": "Silk",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        }
+      }
     }
   },
   "pauldron": {
@@ -862,7 +1059,11 @@
       "kind": "MailBrayette",
       "clearance": 6,
       "thickness": 1,
-      "color": [196, 198, 198],
+      "color": [
+        196,
+        198,
+        198
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -874,7 +1075,11 @@
       "kind": "MailKneeVoider",
       "clearance": 6,
       "thickness": 1,
-      "color": [196, 198, 198],
+      "color": [
+        196,
+        198,
+        198
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -886,11 +1091,95 @@
       "kind": "MailStandard",
       "clearance": 6,
       "thickness": 1,
-      "color": [196, 198, 198],
+      "color": [
+        196,
+        198,
+        198
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
       "cuts": []
+    }
+  },
+  "wool_gown": {
+    "Gown": {
+      "bodice": {
+        "neckline": {
+          "shape": "SoftSquare",
+          "width": 850,
+          "front_drop": 110,
+          "back_drop": 70
+        },
+        "armhole_width": 50,
+        "armhole_depth": 110,
+        "hem_rise": 200,
+        "opening": "Closed",
+        "clearance": 1,
+        "thickness": 1,
+        "fabric": {
+          "color": [
+            82,
+            19,
+            29
+          ],
+          "finish": "Wool",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        },
+        "lining": null,
+        "interlining": null
+      },
+      "skirt": {
+        "bodice": null,
+        "pleats": {
+          "count": 12,
+          "depth": 70,
+          "style": "Knife",
+          "front_style": null,
+          "rotation": 0,
+          "front_depth": 1000,
+          "waist_depth": 6,
+          "waist_count": 32,
+          "gather_falloff": 300,
+          "gather_retention": 350,
+          "front_panel": 0
+        },
+        "support": null,
+        "waist_rise": 200,
+        "length": 1080,
+        "fitted_fraction": 70,
+        "profile": {
+          "Flared": {
+            "width": 1050,
+            "depth": 1150
+          }
+        },
+        "clearance": 4,
+        "thickness": 1,
+        "puff_and_slash": null,
+        "fabric": {
+          "color": [
+            82,
+            19,
+            29
+          ],
+          "finish": "Wool",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        }
+      },
+      "waist_band": 15,
+      "transition": 60,
+      "body_fit": "Fitted",
+      "lacing": null,
+      "waist_support": null,
+      "dressing_slit": null,
+      "sleeves": {
+        "length": 980
+      }
     }
   }
 }

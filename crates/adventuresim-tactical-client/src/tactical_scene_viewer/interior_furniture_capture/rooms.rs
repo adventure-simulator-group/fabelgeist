@@ -1,5 +1,6 @@
 //! Semantic room views selected from proven walking routes and unobstructed sightlines.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_building_generator::{
     OpeningUse, Room, RoomKind, SolidRole, StoreyPlan,
     interior::{InteriorLayout, InteriorPlacement},
@@ -107,8 +108,8 @@ pub(super) fn camera(
     let transform = building.transform()?;
     let origin = building.collision.bounds.centre()?.metres();
     Ok(BuildingReviewCamera {
-        position: transform.transform_point(eye - origin),
-        target: transform.transform_point(target - origin),
+        position: Position::from_metres(transform.transform_point(eye - origin))?,
+        target: Position::from_metres(transform.transform_point(target - origin))?,
         plaster_raking_light: None,
     })
 }
@@ -216,7 +217,7 @@ fn furniture_subject(
     index: usize,
     selection: RoomSelection,
 ) -> Result<Subject> {
-    let size = placement.key.interior_spec().unwrap().size_metres.metres();
+    let size = placement.key.interior_spec()?.size_metres.metres();
     let rotation = Quat::from_rotation_y(placement.yaw_radians().radians());
     let translation = Vec3::new(
         placement.centre_metres.metres().x,
@@ -341,24 +342,27 @@ mod tests {
                 solid: *solid,
             })
             .collect();
-        // Exact failed keep-upper capture ray, expressed in the generated plan's frame.
-        let eye = Vec3::new(3.25, 4.95, 6.75);
-        let target = Vec3::new(6.548733, 2.697778, 6.68088);
-        let subjects = [Subject {
-            owner: Owner::Furniture(0),
-            points: vec![target],
-            importance: 1.0,
-            signature: true,
-            front_view: None,
-            working_points: Vec::new(),
-        }];
-        assert!(sightlines::choose(&[eye], &subjects, &blockers).is_some());
         let doors = closed_door_blockers(&plan).unwrap();
-        assert!(
-            doors
-                .iter()
-                .any(|door| door.solid.source.0 == 1153050796007358484)
-        );
+        let (eye, subjects) = doors
+            .iter()
+            .find_map(|door| {
+                let size = door.solid.size.metres();
+                let normal = if size.x < size.z { Vec3::X } else { Vec3::Z };
+                let offset =
+                    Quat::from_rotation_y(door.solid.yaw_radians.radians()) * normal * 0.75;
+                let centre = door.solid.centre.metres();
+                let eye = centre - offset;
+                let subjects = [Subject {
+                    owner: Owner::Furniture(0),
+                    points: vec![centre + offset],
+                    importance: 1.0,
+                    signature: true,
+                    front_view: None,
+                    working_points: Vec::new(),
+                }];
+                sightlines::choose(&[eye], &subjects, &blockers).map(|_| (eye, subjects))
+            })
+            .expect("generated keep has a doorway with a clear static-navigation sightline");
         blockers.extend(doors);
         assert!(
             sightlines::choose(&[eye], &subjects, &blockers).is_none(),

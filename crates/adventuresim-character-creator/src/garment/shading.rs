@@ -23,7 +23,7 @@ impl DrapedGarment {
             positions: Vec::new(),
             normals: Vec::new(),
             faces: mesh.triangles.clone(),
-            indices: Vec::new(),
+            indices: Default::default(),
             weights: Vec::new(),
             stage: DrapeStage::Placed,
         }
@@ -51,7 +51,7 @@ mod tests {
             faces: vec![[0, 1, 2], [3, 4, 5]],
             normals: vec![],
             texcoords: vec![],
-            indices: vec![],
+            indices: Default::default(),
             weights: vec![],
             stage: DrapeStage::Placed,
         };

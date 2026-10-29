@@ -19,6 +19,8 @@ pub(crate) enum ArmorHarness {
     Mail,
     Padded,
     Puffed,
+    GermanDress,
+    GermanDressUpper,
     Anime,
     Pauldron,
     WearerFit,
@@ -33,6 +35,7 @@ impl ArmorHarness {
             Self::CloseHelmet => &["close_helmet"],
             Self::WearerFit => &["gorget", "cuirass", "vambrace"],
             Self::Puffed => &["puffed_sleeve", "puffed_hose"],
+            Self::GermanDress | Self::GermanDressUpper => &["wool_gown"],
             Self::Anime => &["breastplate"],
             Self::Pauldron => &["cuirass", "pauldron"],
             Self::MuseumHenry => museum::HENRY_ITEMS,
@@ -174,7 +177,10 @@ impl ArmorCapture {
                 HELMET_REVIEW_DISTANCE_METRES,
                 0.0,
             )
-        } else if matches!(harness, ArmorHarness::Anime | ArmorHarness::Pauldron) {
+        } else if matches!(
+            harness,
+            ArmorHarness::Anime | ArmorHarness::Pauldron | ArmorHarness::GermanDressUpper
+        ) {
             (
                 head? - Vec3::Y * TORSO_FOCUS_BELOW_HEAD_METRES,
                 TORSO_REVIEW_DISTANCE_METRES,
@@ -258,7 +264,7 @@ pub(super) fn update_readiness(
     mut capture: ResMut<ArmorCapture>,
     armor: Query<(Entity, &ItemProperties), With<CapturedArmor>>,
     visuals: EquipmentVisualStatus,
-    warmup: Res<crate::equipment::RuntimeEquipmentWarmup>,
+    equipment: Res<crate::equipment::RuntimeEquipmentBodyCache>,
     mut exit: MessageWriter<AppExit>,
 ) {
     let Some(harness) = capture.harness else {
@@ -308,9 +314,9 @@ pub(super) fn update_readiness(
         )
         .expect("write armor readiness");
     }
-    // Initial pipeline preparation is not unresolved equipment. Its synchronous
-    // driver work can span many rendered frames; start the fit budget afterward.
-    if !capture.ready && !warmup.is_preparing() {
+    // A requested fit includes first-use device compilation. Count unresolved
+    // presentation frames after that asynchronous task completes.
+    if !capture.ready && !equipment.is_preparing() {
         capture.waited += 1;
         if capture.waited >= CAPTURE_LOAD_FRAME_LIMIT {
             capture.fail("Timed out waiting for every armor mesh, material, morph, and wearer skin to resolve", &mut exit);
@@ -459,6 +465,7 @@ mod tests {
             (ArmorHarness::PlateTassets, 22),
             (ArmorHarness::Mail, 9),
             (ArmorHarness::Padded, 6),
+            (ArmorHarness::GermanDress, 1),
             (ArmorHarness::Underlayers, 8),
             (ArmorHarness::PlateUnderlayers, 29),
             (ArmorHarness::CloseHelmet, 1),

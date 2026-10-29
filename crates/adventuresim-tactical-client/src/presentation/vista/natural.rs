@@ -1,35 +1,7 @@
 //! Existing sampled-ring presentation for unoccupied geographic scenes.
 use super::*;
-
-pub(super) fn sampled_vista_lod_meshes_with_morph(
-    lod: &VistaLod,
-    inner_half_extent: Vec2,
-    coarser_lod: Option<&VistaLod>,
-    playable_terrain: Option<&SceneTerrain>,
-    playable_environment: Option<&SceneEnvironment>,
-    weather: WeatherSnapshot,
-) -> Vec<Mesh> {
-    let width = usize::from(lod.width);
-    let depth = usize::from(lod.depth);
-    let mesher = SampledVistaMesher {
-        lod,
-        inner_half_extent,
-        coarser_lod,
-        playable_terrain,
-        colors: VistaVertexColors::new(lod, coarser_lod, playable_environment, weather),
-    };
-    // Small rings keep at least two chunks across the longer axis for culling.
-    let chunk_cells = VISTA_CHUNK_CELLS.min((width.max(depth) - 1).div_ceil(2).max(1));
-    let mut meshes = Vec::new();
-    for z in (0..depth - 1).step_by(chunk_cells) {
-        for x in (0..width - 1).step_by(chunk_cells) {
-            if let Some(mesh) = mesher.chunk(x, z, chunk_cells) {
-                meshes.push(mesh);
-            }
-        }
-    }
-    meshes
-}
+use adventuresim_building_generator::spatial_geometry::PositiveLength;
+use adventuresim_tactical_core::scene::TerrainSupportError;
 
 struct SampledVistaMesher<'a> {
     lod: &'a VistaLod,
@@ -37,10 +9,16 @@ struct SampledVistaMesher<'a> {
     coarser_lod: Option<&'a VistaLod>,
     playable_terrain: Option<&'a SceneTerrain>,
     colors: VistaVertexColors<'a>,
+    normal_sample_distance: PositiveLength,
 }
 
 impl SampledVistaMesher<'_> {
-    fn chunk(&self, chunk_x: usize, chunk_z: usize, chunk_cells: usize) -> Option<Mesh> {
+    fn chunk(
+        &self,
+        chunk_x: usize,
+        chunk_z: usize,
+        chunk_cells: usize,
+    ) -> VistaMeshResult<Option<Mesh>> {
         let width = usize::from(self.lod.width);
         let depth = usize::from(self.lod.depth);
         let center_x = (width - 1) as f32 * 0.5;
@@ -70,10 +48,18 @@ impl SampledVistaMesher<'_> {
                     {
                         let base = positions.len() as u32;
                         let vertices = [
-                            self.vertex(Vec2::new(minimum_x, minimum_z)),
-                            self.vertex(Vec2::new(maximum_x, minimum_z)),
-                            self.vertex(Vec2::new(maximum_x, maximum_z)),
-                            self.vertex(Vec2::new(minimum_x, maximum_z)),
+                            self.vertex(PlanDisplacement::try_from(Vec2::new(
+                                minimum_x, minimum_z,
+                            ))?)?,
+                            self.vertex(PlanDisplacement::try_from(Vec2::new(
+                                maximum_x, minimum_z,
+                            ))?)?,
+                            self.vertex(PlanDisplacement::try_from(Vec2::new(
+                                maximum_x, maximum_z,
+                            ))?)?,
+                            self.vertex(PlanDisplacement::try_from(Vec2::new(
+                                minimum_x, maximum_z,
+                            ))?)?,
                         ];
                         positions.extend(vertices.map(|vertex| vertex.0));
                         normals.extend(vertices.map(|vertex| vertex.1));
@@ -91,7 +77,7 @@ impl SampledVistaMesher<'_> {
             }
         }
         if positions.is_empty() {
-            return None;
+            return Ok(None);
         }
         let mut mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
@@ -101,44 +87,77 @@ impl SampledVistaMesher<'_> {
         mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, normals);
         mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, colors);
         mesh.insert_indices(Indices::U32(indices));
-        Some(mesh)
+        Ok(Some(mesh))
     }
-    fn vertex(&self, local: Vec2) -> ([f32; 3], [f32; 3], [f32; 4]) {
-        let height = presented_vista_vertex_height(
+    // The positional arrays are Bevy's native vertex attribute encodings.
+    fn vertex(&self, local: PlanDisplacement) -> VistaMeshResult<([f32; 3], [f32; 3], [f32; 4])> {
+        let point = self.lod.scene_point(local)?;
+        let geometry = VistaVertexGeometry::sample(
             self.lod,
             self.coarser_lod,
             self.playable_terrain,
             local,
             self.inner_half_extent,
+            self.normal_sample_distance,
         )
-        .expect("clipped vista vertex remains inside its source LOD");
-        let delta = self.lod.spacing_metres.min(100.0);
-        let height_offset = |offset: Vec2| {
-            presented_vista_vertex_height(
-                self.lod,
-                self.coarser_lod,
-                self.playable_terrain,
-                local + offset,
-                self.inner_half_extent,
-            )
-            .unwrap_or(height)
-        };
-        let tangent_x = Vec3::new(
-            delta * 2.0,
-            height_offset(Vec2::X * delta) - height_offset(-Vec2::X * delta),
-            0.0,
-        );
-        let tangent_z = Vec3::new(
-            0.0,
-            height_offset(Vec2::Y * delta) - height_offset(-Vec2::Y * delta),
-            delta * 2.0,
-        );
-        (
-            [local.x, height, local.y],
-            tangent_z.cross(tangent_x).normalize().to_array(),
-            self.colors
-                .at(local, self.inner_half_extent)
-                .expect("clipped vista color remains inside its source LOD"),
-        )
+        .ok_or(TerrainSupportError::MissingSupport { point })?;
+        let tangent_x = geometry.east_tangent().metres();
+        let tangent_z = geometry.north_tangent().metres();
+        let normal = tangent_z
+            .cross(tangent_x)
+            .try_normalize()
+            .ok_or(VistaMeshError::DegenerateNormal { point })?;
+        let color = self
+            .colors
+            .at(local, self.inner_half_extent)
+            .ok_or(VistaMeshError::MissingColor { point })?;
+        let local = local.metres();
+        Ok((
+            [local.x, geometry.elevation().metres(), local.y],
+            normal.to_array(),
+            color,
+        ))
     }
+}
+
+pub(super) fn sampled_vista_lod_meshes_with_morph(
+    lod: &VistaLod,
+    inner_half_extent: Vec2,
+    coarser_lod: Option<&VistaLod>,
+    playable_terrain: Option<&SceneTerrain>,
+    playable_environment: Option<&SceneEnvironment>,
+    weather: WeatherSnapshot,
+) -> VistaMeshResult<Vec<Mesh>> {
+    validate_source(lod)?;
+    if let Some(coarser) = coarser_lod {
+        validate_source(coarser)?;
+    }
+    let width = usize::from(lod.width);
+    let depth = usize::from(lod.depth);
+    let mesher = SampledVistaMesher {
+        lod,
+        inner_half_extent,
+        coarser_lod,
+        playable_terrain,
+        colors: VistaVertexColors::new(lod, coarser_lod, playable_environment, weather),
+        normal_sample_distance: PositiveLength::from_metres(lod.spacing_metres.min(100.0))?,
+    };
+    // Small rings keep at least two chunks across the longer axis for culling.
+    let chunk_cells = VISTA_CHUNK_CELLS.min((width.max(depth) - 1).div_ceil(2).max(1));
+    let mut meshes = Vec::new();
+    for z in (0..depth - 1).step_by(chunk_cells) {
+        for x in (0..width - 1).step_by(chunk_cells) {
+            if let Some(mesh) = mesher.chunk(x, z, chunk_cells)? {
+                meshes.push(mesh);
+            }
+        }
+    }
+    Ok(meshes)
+}
+
+pub(super) fn validate_source(lod: &VistaLod) -> VistaMeshResult<()> {
+    if !lod.has_height_grid() || lod.environment.len() != lod.heights_metres.len() {
+        return Err(VistaMeshError::InvalidLod { level: lod.level });
+    }
+    Ok(())
 }

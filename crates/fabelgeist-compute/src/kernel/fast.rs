@@ -61,6 +61,11 @@ pub(super) struct FastPath {
     stride: u64,
 }
 
+struct CompiledLayout {
+    layout: wgpu::BindGroupLayout,
+    pipeline: wgpu::ComputePipeline,
+}
+
 /// The uniform values of one batch's dispatches.
 ///
 /// A kernel used to own a ring of uniform slots that every batch wrote into
@@ -106,73 +111,20 @@ pub(super) struct Prepared {
     pub dynamic_offset: Option<u32>,
 }
 
-impl FastPath {
-    /// Build a fast path for this kernel, or `None` if its shape does not
-    /// suit one.
-    pub(super) fn new(
+impl CompiledLayout {
+    fn new(
         context: &WgpuContext,
-        code: &str,
+        entries: &[wgpu::BindGroupLayoutEntry],
         module: &wgpu::ShaderModule,
         entry_point: &str,
-        reflection: &fabelgeist_gpu::data::gpu::shader::ReflectionData,
-    ) -> Option<Self> {
-        // One bind group only. Everything the solver writes uses group 0, and
-        // supporting more would mean a dynamic offset per group.
-        if reflection.bind_groups.len() != 1 {
-            return None;
-        }
-        let group = &reflection.bind_groups[0];
-        if group.index != 0 {
-            return None;
-        }
-        // Textures and samplers would each need their own cache key and their
-        // own lifetime handling; nothing on the solver path uses them.
-        if !group.texture_bindings.is_empty() || !group.sampler_bindings.is_empty() {
-            return None;
-        }
-        let _ = code;
-
-        let mut entries: Vec<wgpu::BindGroupLayoutEntry> = group
-            .buffer_bindings
-            .iter()
-            .map(|binding| wgpu::BindGroupLayoutEntry {
-                binding: binding.binding,
-                visibility: wgpu::ShaderStages::COMPUTE,
-                ty: wgpu::BindingType::Buffer {
-                    ty: binding.ty,
-                    has_dynamic_offset: false,
-                    min_binding_size: None,
-                },
-                count: None,
-            })
-            .collect();
-
-        let uniform_size = group.uniform_buffer_size as u64;
-        if uniform_size as usize > MAX_UNIFORM_BYTES {
-            return None;
-        }
-        let uniform_binding = group.uniform_binding.filter(|_| uniform_size > 0);
-        if let Some(binding) = uniform_binding {
-            entries.push(wgpu::BindGroupLayoutEntry {
-                binding,
-                visibility: wgpu::ShaderStages::COMPUTE,
-                ty: wgpu::BindingType::Buffer {
-                    ty: wgpu::BufferBindingType::Uniform,
-                    // The whole point: one buffer, one bind group, and the
-                    // per-dispatch values selected by offset.
-                    has_dynamic_offset: true,
-                    min_binding_size: std::num::NonZeroU64::new(uniform_size),
-                },
-                count: None,
-            });
-        }
-        entries.sort_by_key(|entry| entry.binding);
-
+    ) -> Result<Self> {
+        #[cfg(not(target_arch = "wasm32"))]
+        let error_scope = context.validation_observation.start_scope(&context.device);
         let layout = context
             .device
             .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
                 label: Some("Kernel Bind Layout"),
-                entries: &entries,
+                entries,
             });
         let pipeline_layout =
             context
@@ -192,19 +144,91 @@ impl FastPath {
                 compilation_options: wgpu::PipelineCompilationOptions::default(),
                 cache: None,
             });
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(error_scope) = error_scope {
+            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+            if let Some(error) = pollster::block_on(error_scope.pop()) {
+                return Err(anyhow!("Kernel Pipeline Creation Error: {error}"));
+            }
+        }
+        Ok(Self { layout, pipeline })
+    }
+}
+
+impl FastPath {
+    /// Build a fast path for this kernel, or `None` if its shape does not
+    /// suit one.
+    pub(super) fn new(
+        context: &WgpuContext,
+        module: &wgpu::ShaderModule,
+        entry_point: &str,
+        reflection: &fabelgeist_gpu::data::gpu::shader::ReflectionData,
+    ) -> Result<Option<Self>> {
+        // One bind group only. Everything the solver writes uses group 0, and
+        // supporting more would mean a dynamic offset per group.
+        if reflection.bind_groups.len() != 1 {
+            return Ok(None);
+        }
+        let group = &reflection.bind_groups[0];
+        if group.index != 0 {
+            return Ok(None);
+        }
+        // Textures and samplers would each need their own cache key and their
+        // own lifetime handling; nothing on the solver path uses them.
+        if !group.texture_bindings.is_empty() || !group.sampler_bindings.is_empty() {
+            return Ok(None);
+        }
+
+        let mut entries: Vec<wgpu::BindGroupLayoutEntry> = group
+            .buffer_bindings
+            .iter()
+            .map(|binding| wgpu::BindGroupLayoutEntry {
+                binding: binding.binding,
+                visibility: wgpu::ShaderStages::COMPUTE,
+                ty: wgpu::BindingType::Buffer {
+                    ty: binding.ty,
+                    has_dynamic_offset: false,
+                    min_binding_size: None,
+                },
+                count: None,
+            })
+            .collect();
+
+        let uniform_size = group.uniform_buffer_size as u64;
+        if uniform_size as usize > MAX_UNIFORM_BYTES {
+            return Ok(None);
+        }
+        let uniform_binding = group.uniform_binding.filter(|_| uniform_size > 0);
+        if let Some(binding) = uniform_binding {
+            entries.push(wgpu::BindGroupLayoutEntry {
+                binding,
+                visibility: wgpu::ShaderStages::COMPUTE,
+                ty: wgpu::BindingType::Buffer {
+                    ty: wgpu::BufferBindingType::Uniform,
+                    // The whole point: one buffer, one bind group, and the
+                    // per-dispatch values selected by offset.
+                    has_dynamic_offset: true,
+                    min_binding_size: std::num::NonZeroU64::new(uniform_size),
+                },
+                count: None,
+            });
+        }
+        entries.sort_by_key(|entry| entry.binding);
+
+        let compiled = CompiledLayout::new(context, &entries, module, entry_point)?;
 
         let alignment = context.device.limits().min_uniform_buffer_offset_alignment as u64;
         let stride = uniform_size.div_ceil(alignment.max(1)) * alignment.max(1);
 
-        Some(Self {
-            pipeline,
-            layout,
+        Ok(Some(Self {
+            pipeline: compiled.pipeline,
+            layout: compiled.layout,
             buffers: group.buffer_bindings.clone(),
             uniform_binding,
             uniform_members: group.uniform_members.clone(),
             uniform_size,
             stride,
-        })
+        }))
     }
 
     /// Resolve the bind group and write this dispatch's uniform values.

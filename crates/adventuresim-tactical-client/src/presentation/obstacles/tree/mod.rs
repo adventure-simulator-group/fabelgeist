@@ -21,7 +21,7 @@ pub(in crate::presentation) use geometry::{
     procedural_woody_branch_mesh, procedural_woody_cambered_leaf_mesh, procedural_woody_crown_mesh,
     procedural_woody_leaf_card_mesh, procedural_woody_mid_trunk_mesh,
     procedural_woody_plant_leaves, procedural_woody_plant_skeleton,
-    procedural_woody_sparse_leaf_card_mesh, shoot_identity,
+    procedural_woody_sparse_leaf_card_mesh,
 };
 pub(crate) use impostor::TreeImpostorProvenance;
 pub(in crate::presentation) use impostor_assets::PreparedTreeImpostorLoader;
@@ -47,9 +47,9 @@ pub(in crate::presentation) use materials::{
     leaf_material,
 };
 pub(in crate::presentation) use presentation::{
-    PendingTreePresentation, StreamedTreePresentation, TreePresentationCache,
-    VistaTreePresentationCache, ensure_vista_tree_variant, present_pending_trees,
-    stream_tree_lod_children,
+    PendingTreePresentation, RetainedTreePresentations, StreamedTreePresentation,
+    TreePresentationCache, VistaTreePresentationCache, ensure_vista_tree_variant,
+    present_pending_trees, stream_tree_lod_children,
 };
 pub(crate) use presentation::{
     PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,

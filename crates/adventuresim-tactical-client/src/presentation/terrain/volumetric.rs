@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
 
 pub(super) type PendingScenes<'w, 's> = Query<
     'w,
@@ -10,6 +11,7 @@ pub(super) type PendingScenes<'w, 's> = Query<
         &'static SceneEnvironment,
         Option<&'static SceneGround>,
         Option<&'static TerrainLandformRecipe>,
+        Option<&'static SceneTerrainPatch>,
     ),
     With<PendingTerrainPresentation>,
 >;
@@ -34,9 +36,9 @@ pub(super) fn refresh_presentation(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<TacticalTerrainMaterial>,
     images: &mut Assets<Image>,
-) -> bool {
+) -> GeometryResult<bool> {
     if materials.get(&handle.0).is_none() || materials.get(&detail_handle.0).is_none() {
-        return false;
+        return Ok(false);
     }
     let material = terrain_material(
         terrain,
@@ -45,16 +47,22 @@ pub(super) fn refresh_presentation(
         procedural_assets,
         images,
         &graphics.config.grass,
-    );
-    *materials
-        .get_mut(&handle.0)
-        .expect("checked terrain material") = material.clone();
+    )?;
+    {
+        let Some(mut target) = materials.get_mut(&handle.0) else {
+            return Ok(false);
+        };
+        *target = material.clone();
+    }
     let mut detail_material = material;
     detail_material.base.depth_bias = DETAIL_PATCH_DEPTH_BIAS;
     detail_material.extension.detail_patch.x = 0.0;
-    *materials
-        .get_mut(&detail_handle.0)
-        .expect("checked detail terrain material") = detail_material;
+    {
+        let Some(mut target) = materials.get_mut(&detail_handle.0) else {
+            return Ok(false);
+        };
+        *target = detail_material;
+    }
     if let Some(mut mesh) = meshes.get_mut(&mesh_handle.0) {
         let replacement =
             terrain_detail_patch_mesh(terrain, environment, vista, patch.centre, transition_collar);
@@ -62,7 +70,70 @@ pub(super) fn refresh_presentation(
         *mesh = replacement;
         patch.vista_revision = vista.revision();
     }
-    true
+    Ok(true)
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the complete terrain presentation borrows its scene, textures and asset stores"
+)]
+pub(super) fn spawn_presentation(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<TacticalTerrainMaterial>,
+    images: &mut Assets<Image>,
+    procedural_assets: &ProceduralTextureAssets,
+    graphics: &TacticalGraphicsSettings,
+    vista: &ActiveVistaSurface,
+    entity: Entity,
+    id: &SceneId,
+    terrain: &SceneTerrain,
+    environment: &SceneEnvironment,
+    ground: Option<&SceneGround>,
+    landform: Option<&TerrainLandformRecipe>,
+    prepared: Option<&SceneTerrainPatch>,
+) -> GeometryResult<()> {
+    let transition_collar = landform.map(|recipe| recipe.transition_collar());
+    let material = terrain_material(
+        terrain,
+        environment,
+        ground,
+        procedural_assets,
+        images,
+        &graphics.config.grass,
+    )?;
+    let mut detail_material = material.clone();
+    detail_material.base.depth_bias = DETAIL_PATCH_DEPTH_BIAS;
+    detail_material.extension.detail_patch.x = 0.0;
+    let detail_material = materials.add(detail_material);
+    spawn_base_and_fault(
+        commands,
+        meshes,
+        materials,
+        entity,
+        id,
+        terrain,
+        material,
+        landform,
+        prepared,
+        urban::GroundCoverage::new(terrain, environment, vista),
+    );
+    let centre = ScenePlanPoint::ORIGIN;
+    let detail_mesh =
+        terrain_detail_patch_mesh(terrain, environment, vista, centre, transition_collar);
+    commands.spawn((
+        Name::new(format!("{} camera-local terrain detail patch", id.0)),
+        ScenePresentationOf(entity),
+        TerrainDetailPatch {
+            centre,
+            vista_revision: vista.revision(),
+        },
+        TerrainTriangleCount(mesh_triangle_count(&detail_mesh)),
+        NotShadowCaster,
+        Mesh3d(meshes.add(detail_mesh)),
+        MeshMaterial3d(detail_material),
+    ));
+    Ok(())
 }
 
 #[expect(
@@ -78,54 +149,50 @@ pub(super) fn spawn_base_and_fault(
     terrain: &SceneTerrain,
     material: TacticalTerrainMaterial,
     landform: Option<&TerrainLandformRecipe>,
-    transition_collar: Option<TerrainTransitionCollar>,
+    prepared: Option<&SceneTerrainPatch>,
+    coverage: urban::GroundCoverage,
 ) {
-    let fault_patch = landform.and_then(|recipe| terrain_landform_patch(terrain, *recipe).ok());
-    let fault_material = fault_patch.as_ref().map(|_| {
-        let mut fault_material = material.clone();
-        // The patch owns its zero-offset rim, so it uses refined-terrain
-        // presentation instead of the coarse heightfield discard path.
-        fault_material.extension.detail_patch.x = 0.0;
-        enable_cliff_surface(
-            &mut fault_material,
-            landform
-                .expect("fault patch has a required surface recipe")
-                .surface(),
-        );
-        fault_material.base.depth_bias = 1.0;
-        materials.add(fault_material)
-    });
+    // Local scene producers supply the exact patch already generated off-thread.
+    // Replicated tactical scenes deliver terrain and a recipe, without a mesh.
+    let fault_patch = prepared
+        .cloned()
+        .or_else(|| landform.and_then(|recipe| terrain_landform_patch(terrain, *recipe).ok()));
+    let mut fault_material = material.clone();
     let material = materials.add(material);
-    let playable_mesh = if terrain.property_surface().is_some() {
-        super::urban::urban_playable_mesh(terrain, landform)
-    } else {
-        transition_collar.map_or_else(
-            || terrain.coarse_mesh(),
-            |collar| terrain.coarse_mesh_with_transition(collar),
-        )
-    };
+    let playable_mesh = coverage.mesh(terrain, landform);
     let triangle_count = mesh_triangle_count(&playable_mesh);
     commands.spawn((
         Name::new(format!("{} terrain mesh", id.0)),
         ScenePresentationOf(entity),
         TerrainMaterialPresentation,
+        coverage,
         TerrainTriangleCount(triangle_count),
         Mesh3d(meshes.add(playable_mesh)),
         MeshMaterial3d(material),
     ));
-    if let Some(patch) = fault_patch {
+    if let Some(patch) = fault_patch
+        && let Some(recipe) = landform
+    {
+        // The patch owns its zero-offset rim, so it uses refined-terrain
+        // presentation instead of the coarse heightfield discard path.
+        fault_material.extension.detail_patch.x = 0.0;
+        enable_cliff_surface(&mut fault_material, recipe.surface());
+        fault_material.base.depth_bias = LANDFORM_PATCH_DEPTH_BIAS;
         let triangle_count = patch.triangle_count();
         commands.spawn((
             Name::new(format!("{} fault scarp mesh", id.0)),
             ScenePresentationOf(entity),
             TerrainTriangleCount(triangle_count),
             Mesh3d(meshes.add(terrain_patch_mesh(patch, terrain))),
-            MeshMaterial3d(fault_material.expect("fault patch has a material")),
+            MeshMaterial3d(materials.add(fault_material)),
         ));
     }
 }
 
-fn terrain_patch_mesh(patch: SceneTerrainPatch, terrain: &SceneTerrain) -> Mesh {
+pub(in crate::presentation) fn terrain_patch_mesh(
+    patch: SceneTerrainPatch,
+    terrain: &SceneTerrain,
+) -> Mesh {
     let uvs = patch
         .positions()
         .iter()
@@ -215,10 +282,8 @@ mod tests {
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("one-cliff-draw");
         let graphics = TacticalGraphicsSettings::default();
         let mut images = Assets::<Image>::default();
-        let procedural_assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
-            &mut images,
-        );
+        let procedural_assets =
+            ProceduralTextureAssets::reserve(&mut Default::default(), &mut images);
         let material = terrain_material(
             &terrain,
             &environment,
@@ -226,7 +291,8 @@ mod tests {
             &procedural_assets,
             &mut images,
             &graphics.config.grass,
-        );
+        )
+        .unwrap();
         let mut world = World::new();
         let scene = world.spawn_empty().id();
         let mut queue = CommandQueue::default();
@@ -243,7 +309,8 @@ mod tests {
                 &terrain,
                 material,
                 Some(&recipe),
-                Some(recipe.transition_collar()),
+                Some(&terrain_landform_patch(&terrain, recipe).unwrap()),
+                urban::GroundCoverage::new(&terrain, &environment, &ActiveVistaSurface::default()),
             );
         }
         queue.apply(&mut world);

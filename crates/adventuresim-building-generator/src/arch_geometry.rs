@@ -99,12 +99,13 @@ impl ArchGeometry {
         let half = self.width * 0.5;
         let mouth = (self.clear_span * 0.5).min(half);
         let mut coordinates = vec![-half];
-        coordinates.extend(
-            (0..=ARCH_SEGMENTS)
-                .map(|index| -mouth + 2.0 * mouth * index as f32 / ARCH_SEGMENTS as f32),
-        );
+        coordinates.extend((0..=ARCH_SEGMENTS).map(|index| match index {
+            0 => -mouth,
+            ARCH_SEGMENTS => mouth,
+            _ => -mouth + 2.0 * mouth * index as f32 / ARCH_SEGMENTS as f32,
+        }));
         coordinates.push(half);
-        coordinates.dedup_by(|a, b| (*a - *b).abs() < f32::EPSILON);
+        coordinates.dedup_by(|a, b| *a == *b);
         coordinates
             .windows(2)
             .map(|pair| {

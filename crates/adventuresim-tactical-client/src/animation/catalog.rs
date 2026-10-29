@@ -1,80 +1,93 @@
-use std::{collections::BTreeMap, str::FromStr};
+use adventuresim_tactical_core::animation::{AnimationPackId, SkeletonFamily};
+use std::collections::BTreeMap;
 
 #[cfg(test)]
 use std::path::{Path, PathBuf};
 
+use super::catalog_id::{
+    AnimationAssetDirectory, AnimationAssetPath, AuthoredAnimationFrame, MotionId,
+};
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
-use super::{HUMANOID_2H_CLOSE_PACK, HUMANOID_UNARMED_PACK};
+mod builtin;
+
+/// The two contact switches in the authored 24-frame combat cycle.
+pub(super) const COMBAT_FIRST_CONTACT_PHASE: f32 = 6.0 / 24.0;
+pub(super) const COMBAT_SECOND_CONTACT_PHASE: f32 = 18.0 / 24.0;
 
 /// Explicit code-owned file/frame catalog. Semantic ownership never depends on
 /// glTF animation names or scene contents.
 #[derive(Resource, Debug)]
 pub struct AnimationPackCatalog {
-    pub(super) packs: BTreeMap<String, PackCatalog>,
-}
-
-impl Default for AnimationPackCatalog {
-    fn default() -> Self {
-        Self::biped_root().expect("built-in biped animation catalog must be valid")
-    }
+    pub(super) packs: BTreeMap<AnimationPackId, PackCatalog>,
 }
 
 #[derive(Debug, Clone)]
 pub(super) struct PackCatalog {
-    pub(super) skeleton_family: String,
-    pub(super) fallback: Option<String>,
-    pub(super) motions: BTreeMap<String, MotionSource>,
+    pub(super) skeleton_family: SkeletonFamily,
+    pub(super) fallback: Option<AnimationPackId>,
+    pub(super) motions: BTreeMap<MotionId, MotionSource>,
     pub(super) poses: BTreeMap<SemanticPose, PoseAnchor>,
-    pub(super) references: BTreeMap<String, Vec<ReferenceAnchor>>,
+    pub(super) references: BTreeMap<MotionId, Vec<ReferenceAnchor>>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(super) struct MotionSource {
-    pub(super) path: String,
-    pub(super) required_last_frame: u16,
-    pub(super) last_frame: u16,
+    pub(super) path: AnimationAssetPath,
+    pub(super) required_last_frame: AuthoredAnimationFrame,
+    pub(super) last_frame: AuthoredAnimationFrame,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(super) struct PoseAnchor {
-    pub(super) motion: String,
-    pub(super) frame: u16,
+    pub(super) motion: MotionId,
+    pub(super) frame: AuthoredAnimationFrame,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(super) struct ReferenceAnchor {
     pub(super) pose: SemanticPose,
-    pub(super) frame: u16,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub(super) enum CatalogError {
-    DuplicatePose(SemanticPose),
-    UnknownMotion(String),
-    InvalidPack(PackValidationError),
+    pub(super) frame: AuthoredAnimationFrame,
 }
 
 pub(super) struct PackBuilder {
-    id: String,
-    path_prefix: String,
+    id: AnimationPackId,
+    asset_directory: AnimationAssetDirectory,
     pack: PackCatalog,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub(crate) enum CatalogError {
+    InvalidAssetDirectory(String),
+    InvalidMotionStem(String),
+    DuplicatePose(SemanticPose),
+    UnknownMotion(MotionId),
+    InvalidPack(PackValidationError),
+}
+
+impl Default for AnimationPackCatalog {
+    fn default() -> Self {
+        match Self::biped_root() {
+            Ok(catalog) => catalog,
+            Err(error) => panic!("built-in biped animation catalog must be valid: {error:?}"),
+        }
+    }
 }
 
 impl PackBuilder {
     pub(super) fn new(
-        id: &str,
-        skeleton_family: &str,
-        fallback: Option<&str>,
-        path_prefix: &str,
+        id: &AnimationPackId,
+        skeleton_family: &SkeletonFamily,
+        fallback: Option<&AnimationPackId>,
+        asset_directory: AnimationAssetDirectory,
     ) -> Self {
         Self {
             id: id.to_owned(),
-            path_prefix: path_prefix.trim_end_matches('/').to_owned(),
+            asset_directory,
             pack: PackCatalog {
                 skeleton_family: skeleton_family.to_owned(),
-                fallback: fallback.map(str::to_owned),
+                fallback: fallback.cloned(),
                 motions: BTreeMap::new(),
                 poses: BTreeMap::new(),
                 references: BTreeMap::new(),
@@ -82,15 +95,20 @@ impl PackBuilder {
         }
     }
 
-    pub(super) fn motion(&mut self, id: &str, last_frame: u16) {
+    pub(super) fn motion(&mut self, id: &MotionId, last_frame: AuthoredAnimationFrame) {
         self.variable_motion(id, last_frame, last_frame);
     }
 
-    pub(super) fn variable_motion(&mut self, id: &str, required_last_frame: u16, last_frame: u16) {
+    pub(super) fn variable_motion(
+        &mut self,
+        id: &MotionId,
+        required_last_frame: AuthoredAnimationFrame,
+        last_frame: AuthoredAnimationFrame,
+    ) {
         self.pack.motions.insert(
-            id.to_owned(),
+            id.clone(),
             MotionSource {
-                path: format!("{}/{id}.glb", self.path_prefix),
+                path: self.asset_directory.motion_path(id),
                 required_last_frame,
                 last_frame,
             },
@@ -99,12 +117,12 @@ impl PackBuilder {
 
     pub(super) fn pose(
         &mut self,
-        motion: &str,
-        frame: u16,
+        motion: &MotionId,
+        frame: AuthoredAnimationFrame,
         pose: SemanticPose,
     ) -> Result<(), CatalogError> {
         if !self.pack.motions.contains_key(motion) {
-            return Err(CatalogError::UnknownMotion(motion.to_owned()));
+            return Err(CatalogError::UnknownMotion(motion.clone()));
         }
         if self
             .pack
@@ -112,7 +130,7 @@ impl PackBuilder {
             .insert(
                 pose,
                 PoseAnchor {
-                    motion: motion.to_owned(),
+                    motion: motion.clone(),
                     frame,
                 },
             )
@@ -125,200 +143,23 @@ impl PackBuilder {
 
     pub(super) fn reference(
         &mut self,
-        motion: &str,
-        frame: u16,
-        pose: &str,
+        motion: &MotionId,
+        frame: AuthoredAnimationFrame,
+        pose: SemanticPose,
     ) -> Result<(), CatalogError> {
         if !self.pack.motions.contains_key(motion) {
-            return Err(CatalogError::UnknownMotion(motion.to_owned()));
+            return Err(CatalogError::UnknownMotion(motion.clone()));
         }
-        let pose = SemanticPose::from_str(pose)
-            .map_err(|()| CatalogError::UnknownMotion(pose.to_owned()))?;
         self.pack
             .references
-            .entry(motion.to_owned())
+            .entry(motion.clone())
             .or_default()
             .push(ReferenceAnchor { pose, frame });
         Ok(())
     }
 
-    pub(super) fn finish(self) -> (String, PackCatalog) {
+    pub(super) fn finish(self) -> (AnimationPackId, PackCatalog) {
         (self.id, self.pack)
-    }
-}
-
-fn add_attack_motions(builder: &mut PackBuilder) -> Result<(), CatalogError> {
-    builder.variable_motion("swing", 4, 12);
-    for (frame, pose) in [
-        (0, SemanticPose::GuardSwing),
-        (4, SemanticPose::AttackSwing),
-        (8, SemanticPose::RecoverSwing),
-        (12, SemanticPose::ContinueSwing),
-    ] {
-        builder.pose("swing", frame, pose)?;
-    }
-    builder.variable_motion("thrust", 4, 12);
-    for (frame, pose) in [
-        (0, SemanticPose::GuardThrust),
-        (4, SemanticPose::AttackThrust),
-        (8, SemanticPose::RecoverThrust),
-        (12, SemanticPose::ContinueThrust),
-    ] {
-        builder.pose("thrust", frame, pose)?;
-    }
-    builder.variable_motion("offhand", 0, 4);
-    builder.pose("offhand", 0, SemanticPose::GuardOffhand)?;
-    builder.pose("offhand", 0, SemanticPose::AttackOffhand)?;
-    builder.pose("offhand", 4, SemanticPose::AttackOffhandPrepared)?;
-    Ok(())
-}
-
-impl AnimationPackCatalog {
-    pub(super) fn biped_root() -> Result<Self, CatalogError> {
-        let mut builder = PackBuilder::new(
-            HUMANOID_UNARMED_PACK,
-            "humanoid",
-            None,
-            "animations/biped/unarmed",
-        );
-        for pose in ["idle_relaxed", "prone_idle", "supine_idle"] {
-            builder.motion(pose, 0);
-            builder.pose(
-                pose,
-                0,
-                SemanticPose::from_str(pose).expect("typed catalog pose"),
-            )?;
-        }
-        for (motion, last_frame, anchors) in [
-            ("walk", 64, [(0, "walk_contact"), (16, "walk_passing")]),
-            ("run", 64, [(0, "run_contact"), (16, "run_flight")]),
-        ] {
-            builder.motion(motion, last_frame);
-            for (frame, pose) in anchors {
-                builder.pose(
-                    motion,
-                    frame,
-                    SemanticPose::from_str(pose).expect("typed catalog pose"),
-                )?;
-            }
-        }
-        builder.motion("combat_stance", 0);
-        builder.pose("combat_stance", 0, SemanticPose::CombatStance)?;
-        // The authored combat locomotion files expose keys at 0/6/12/18. The
-        // publication pipeline closes each cycle by copying frame 0 to frame
-        // 24, so frames 6/18 remain the two authoritative contacts.
-        for (motion, pose) in [
-            ("strafe", SemanticPose::StrafeCycle),
-            ("skip", SemanticPose::SkipCycle),
-        ] {
-            builder.motion(motion, 24);
-            builder.pose(motion, 0, pose)?;
-        }
-        for (motion, takeoff, contact) in [
-            (
-                "quickstep_forward",
-                SemanticPose::QuickstepForwardTakeoff,
-                SemanticPose::QuickstepForwardContact,
-            ),
-            (
-                "quickstep_right",
-                SemanticPose::QuickstepRightTakeoff,
-                SemanticPose::QuickstepRightContact,
-            ),
-            (
-                "quickstep_left",
-                SemanticPose::QuickstepLeftTakeoff,
-                SemanticPose::QuickstepLeftContact,
-            ),
-            (
-                "quickstep_back",
-                SemanticPose::QuickstepBackTakeoff,
-                SemanticPose::QuickstepBackContact,
-            ),
-        ] {
-            builder.motion(motion, 12);
-            builder.pose(motion, 0, takeoff)?;
-            builder.pose(motion, 12, contact)?;
-        }
-        for (motion, pose) in [
-            ("prone_crawl", "prone_crawl_contact"),
-            ("supine_scamper", "supine_scamper_contact"),
-        ] {
-            builder.motion(motion, 0);
-            builder.pose(
-                motion,
-                0,
-                SemanticPose::from_str(pose).expect("typed catalog pose"),
-            )?;
-        }
-        // Pre-reflected copies of the sparse gait anchors are selected only
-        // as mirrored blend endpoints; they own no independent semantics.
-        builder.motion("walk_mirrored", 64);
-        builder.motion("run_mirrored", 64);
-        builder.motion("prone_crawl_mirrored", 0);
-        builder.motion("supine_scamper_mirrored", 0);
-        builder.motion("dive", 0);
-        for pose in [
-            SemanticPose::DiveForward,
-            SemanticPose::DiveBackward,
-            SemanticPose::DiveLeft,
-            SemanticPose::DiveRight,
-        ] {
-            builder.pose("dive", 0, pose)?;
-        }
-        for (motion, pose) in [
-            ("airborne_center", SemanticPose::AirborneCenter),
-            ("airborne_travel", SemanticPose::AirborneTravel),
-        ] {
-            builder.motion(motion, 0);
-            builder.pose(motion, 0, pose)?;
-        }
-        add_attack_motions(&mut builder)?;
-        for (motion, pose) in [
-            ("prone_transition", "prone_transition"),
-            ("prone_supine_roll_left", "prone_supine_roll_left"),
-            ("prone_supine_roll_right", "prone_supine_roll_right"),
-            ("supine_transition", "supine_transition"),
-        ] {
-            builder.motion(motion, 0);
-            builder.pose(
-                motion,
-                0,
-                SemanticPose::from_str(pose).expect("typed catalog pose"),
-            )?;
-        }
-        let (id, pack) = builder.finish();
-        let mut two_handed = PackBuilder::new(
-            HUMANOID_2H_CLOSE_PACK,
-            "humanoid",
-            Some(HUMANOID_UNARMED_PACK),
-            "animations/biped/2h_close",
-        );
-        add_attack_motions(&mut two_handed)?;
-        let (two_handed_id, two_handed_pack) = two_handed.finish();
-        let mut library = AnimationPackLibrary::default();
-        library
-            .insert(AnimationPack {
-                id: id.clone(),
-                skeleton_family: pack.skeleton_family.clone(),
-                fallback: pack.fallback.clone(),
-                clips: pack.poses.keys().copied().collect(),
-            })
-            .map_err(CatalogError::InvalidPack)?;
-        library
-            .insert(AnimationPack {
-                id: two_handed_id.clone(),
-                skeleton_family: two_handed_pack.skeleton_family.clone(),
-                fallback: two_handed_pack.fallback.clone(),
-                clips: two_handed_pack.poses.keys().copied().collect(),
-            })
-            .map_err(CatalogError::InvalidPack)?;
-        library
-            .validate_complete(&id)
-            .map_err(CatalogError::InvalidPack)?;
-        Ok(Self {
-            packs: BTreeMap::from([(id, pack), (two_handed_id, two_handed_pack)]),
-        })
     }
 }
 
@@ -327,11 +168,11 @@ impl AnimationPackCatalog {
 pub(crate) struct EditorRouteResolution {
     pub route: &'static str,
     pub requested: SemanticPose,
-    pub resolved_pack: String,
+    pub resolved_pack: AnimationPackId,
     pub resolved_pose: SemanticPose,
     pub mirrored: bool,
     pub motion_path: PathBuf,
-    pub frame: u16,
+    pub frame: AuthoredAnimationFrame,
 }
 
 #[cfg(test)]
@@ -361,7 +202,7 @@ pub(crate) fn validate_editor_asset_root(
     for (pack_id, pack) in &catalog.packs {
         motion_count += pack.motions.len();
         for (motion_id, motion) in &pack.motions {
-            let full_path = asset_root.join(&motion.path);
+            let full_path = asset_root.join(motion.path.as_ref());
             if !full_path.is_file() {
                 missing_motion_count += 1;
                 warnings.push(format!(
@@ -394,16 +235,22 @@ pub(crate) fn validate_editor_asset_root(
         .with_world_velocity(Vec3::NEG_Z * 2.0);
     let mut raised_attack = SkeletonState::default();
     raised_attack
-        .begin_attack(AttackSpec::default(), 10, 20)
+        .begin_attack(
+            AttackSpec::default(),
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
+        )
         .expect("catalog fixture starts from idle");
-    raised_attack.advance_action(20);
+    raised_attack
+        .advance_action(adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64))
+        .unwrap();
 
     let mut route_resolutions = Vec::new();
     for (route, state) in [
         ("ordinary_locomotion", ordinary),
         ("raised_guard_attack", raised_attack),
     ] {
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         let samples = if evaluation.action.is_empty() {
             &evaluation.base
         } else {
@@ -414,7 +261,13 @@ pub(crate) fn validate_editor_asset_root(
             continue;
         }
         for sample in samples {
-            match resolve_editor_pose(&catalog, HUMANOID_UNARMED_PACK, sample.pose, asset_root) {
+            match resolve_editor_pose(
+                route,
+                &catalog,
+                &AnimationPackId::HUMANOID_UNARMED,
+                sample.pose,
+                asset_root,
+            ) {
                 Some(resolution) => {
                     if !resolution.motion_path.is_file() {
                         errors.push(format!(
@@ -423,21 +276,21 @@ pub(crate) fn validate_editor_asset_root(
                             resolution.motion_path.display()
                         ));
                     }
-                    route_resolutions.push(EditorRouteResolution {
-                        route,
-                        requested: sample.pose,
-                        ..resolution
-                    });
+                    route_resolutions.push(resolution);
                 }
                 None => errors.push(format!(
-                    "route {route} cannot resolve semantic pose {} from pack {HUMANOID_UNARMED_PACK}",
+                    "route {route} cannot resolve semantic pose {} from pack humanoid_unarmed",
                     sample.pose.as_str()
                 )),
             }
-            if let PoseSampling::Span { end, progress } = sample.sampling
-                && progress > f32::EPSILON
-            {
-                match resolve_editor_pose(&catalog, HUMANOID_UNARMED_PACK, end, asset_root) {
+            if let PoseSampling::Span { end, .. } = sample.sampling {
+                match resolve_editor_pose(
+                    route,
+                    &catalog,
+                    &AnimationPackId::HUMANOID_UNARMED,
+                    end,
+                    asset_root,
+                ) {
                     Some(resolution) => {
                         if !resolution.motion_path.is_file() {
                             errors.push(format!(
@@ -446,14 +299,10 @@ pub(crate) fn validate_editor_asset_root(
                                 resolution.motion_path.display()
                             ));
                         }
-                        route_resolutions.push(EditorRouteResolution {
-                            route,
-                            requested: end,
-                            ..resolution
-                        });
+                        route_resolutions.push(resolution);
                     }
                     None => errors.push(format!(
-                        "route {route} cannot resolve span endpoint {} from pack {HUMANOID_UNARMED_PACK}",
+                        "route {route} cannot resolve span endpoint {} from pack humanoid_unarmed",
                         end.as_str()
                     )),
                 }
@@ -476,8 +325,9 @@ pub(crate) fn validate_editor_asset_root(
 
 #[cfg(test)]
 fn resolve_editor_pose(
+    route: &'static str,
     catalog: &AnimationPackCatalog,
-    requested_pack: &str,
+    requested_pack: &AnimationPackId,
     requested_pose: SemanticPose,
     asset_root: &Path,
 ) -> Option<EditorRouteResolution> {
@@ -497,15 +347,15 @@ fn resolve_editor_pose(
         if let Some((resolved_pose, anchor, mirrored)) = resolved {
             let motion = pack.motions.get(&anchor.motion)?;
             return Some(EditorRouteResolution {
-                route: "",
+                route,
                 requested: requested_pose,
                 resolved_pack: pack_id.to_owned(),
                 resolved_pose,
                 mirrored,
-                motion_path: asset_root.join(&motion.path),
+                motion_path: asset_root.join(motion.path.as_ref()),
                 frame: anchor.frame,
             });
         }
-        pack_id = pack.fallback.as_deref()?;
+        pack_id = pack.fallback.as_ref()?;
     }
 }

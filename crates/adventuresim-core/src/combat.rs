@@ -1,21 +1,8 @@
+use crate::elapsed::AnimationElapsed;
+pub use contact_timing::ContactTimingOffset;
 use std::{f32, ops::Mul};
 
 use serde::{Deserialize, Serialize};
-
-mod armor;
-mod capability;
-mod config;
-mod contact_geometry;
-mod coverage;
-mod defense;
-mod fatigue;
-mod fatigue_config;
-mod incapacitation;
-mod melee_resolution;
-pub(crate) mod targeting;
-mod weapon_contact;
-mod weapon_contact_config;
-mod wounds;
 
 pub use armor::{ArmorImpact, ArmorImpactOutcome};
 pub use capability::{MeleeAttackCapability, melee_attack_capability};
@@ -54,6 +41,22 @@ use crate::{
     skill::{PlayerSkills, Skill},
 };
 
+mod armor;
+mod capability;
+mod config;
+mod contact_geometry;
+mod contact_timing;
+mod coverage;
+mod defense;
+mod fatigue;
+mod fatigue_config;
+mod incapacitation;
+mod melee_resolution;
+pub(crate) mod targeting;
+mod weapon_contact;
+mod weapon_contact_config;
+mod wounds;
+
 /// Fraction of maximum balance recovered per second while combat continues.
 pub const IMBALANCE_RECOVERY_PER_SECOND: f32 = 0.25;
 
@@ -65,8 +68,8 @@ pub fn apply_clamped_limb_damage(health: &mut f32, damage: f32) -> f32 {
 }
 
 #[must_use]
-pub fn recover_combat_imbalance(imbalance: f32, seconds: f32) -> f32 {
-    (imbalance - IMBALANCE_RECOVERY_PER_SECOND * seconds.max(0.0)).max(0.0)
+pub fn recover_combat_imbalance(imbalance: f32, seconds: AnimationElapsed) -> f32 {
+    (imbalance - IMBALANCE_RECOVERY_PER_SECOND * seconds.seconds().max(0.0)).max(0.0)
 }
 
 #[must_use]
@@ -225,7 +228,10 @@ fn avoided_attack_balance_damage(
         parameters.stagger_resistance_joules_per_kg
     };
     let whole_body_mass = attacker_body.body_weight() + attacker_equip.inventory_weight();
-    let resistance = resistance_per_kg * whole_body_mass.max(f32::EPSILON);
+    if whole_body_mass <= 0.0 {
+        return 0.0;
+    }
+    let resistance = resistance_per_kg * whole_body_mass;
     let committed_impulse = attack_force(attacker_attr, attacker_body, attacker_equip, parameters)
         * accuracy.clamp(0.0, 1.0)
         * 0.5;
@@ -432,7 +438,7 @@ fn calculate_damage_from_force(
         * (defender_equip.inventory_weight() + defender_body.body_weight());
 
     let attack_force = full_force.max(0.0) * attack;
-    if attack_force <= f32::EPSILON {
+    if attack_force <= 0.0 {
         return AttackResult::ToAttacker {
             balance_damage: 0.0,
             contact_force: 0.0,
@@ -590,7 +596,7 @@ mod tests {
             &StubEssentials,
             &StubEquipment,
         );
-        assert!((low_precision - high_precision * 0.25).abs() < f32::EPSILON);
+        assert_eq!(low_precision, high_precision * 0.25);
     }
 
     #[test]
@@ -809,7 +815,11 @@ mod tests {
             };
             let wounds =
                 wounds_from_applied_health_damage(matchup.target, cut, blunt, blunt_energy);
-            let blood_loss = advance_combat_bleeding(0.0, &wounds, 60.0);
+            let blood_loss = advance_combat_bleeding(
+                0.0,
+                &wounds,
+                crate::elapsed::AnimationElapsed::from_seconds(60.0).unwrap(),
+            );
             let total_incapacitation = combat_incapacitation(
                 0.0,
                 1.0,

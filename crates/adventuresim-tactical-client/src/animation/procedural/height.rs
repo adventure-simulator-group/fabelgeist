@@ -1,0 +1,336 @@
+//! Retained run-flight and landing compression in one checked metre frame.
+
+use super::height_values::{
+    HeightDistance, HeightSpeed, add_offsets, advance_offset, subtract_offsets,
+};
+use super::*;
+use crate::animation::presentation::playback_tuning;
+use adventuresim_building_generator::spatial_geometry::SignedLength;
+use adventuresim_tactical_core::animation::CyclePhase;
+
+impl LocomotionHeightState {
+    /// Apply the landing-only metre offset in the actual pelvis parent frame.
+    pub(super) fn apply_landing_pelvis_compression(
+        &self,
+        rig: &HumanoidRig,
+        parents: &Query<&ChildOf>,
+        transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
+    ) {
+        if let Some(&pelvis) = rig.get(&BoneRole::Pelvis) {
+            let local_delta = parents
+                .get(pelvis)
+                .ok()
+                .and_then(|parent| {
+                    transforms
+                        .p0()
+                        .compute_global_transform(parent.parent())
+                        .ok()
+                })
+                .map(|parent| {
+                    parent
+                        .affine()
+                        .inverse()
+                        .transform_vector3(Vec3::NEG_Y * self.landing_compression.metres())
+                })
+                .unwrap_or(Vec3::NEG_Y * self.landing_compression.metres());
+            if local_delta.is_finite()
+                && let Ok(mut transform) = transforms.p1().get_mut(pelvis)
+            {
+                transform.translation += local_delta;
+            }
+        }
+    }
+
+    pub(super) fn advance_height(mut self, skeleton: &SkeletonState) -> AnimationValueResult<Self> {
+        if skeleton.is_quickstep() {
+            self.amplitude = HeightDistance::ZERO;
+            self.authored_rise_compensation = HeightDistance::ZERO;
+            self.displayed_wave = SignedLength::ZERO;
+            self.wave_transition_offset = SignedLength::ZERO;
+            self.landing_compression = HeightDistance::ZERO;
+            self.landing_compression_target = HeightDistance::ZERO;
+            clear_landing_foot_plants(&mut self);
+            return Ok(self);
+        }
+        let target_wave = locomotion_height_wave(skeleton)?;
+        let target_compensation = authored_height_compensation(skeleton)?;
+        let previous_tick = self.history.map(|history| history.evaluation_tick);
+        let mut history = match self.history {
+            Some(history) => history,
+            None => {
+                self.amplitude = target_wave;
+                self.authored_rise_compensation = target_compensation;
+                // First observation seeds landing identity before landing detection.
+                HeightHistory::observe(skeleton)
+            }
+        };
+        let tick_delta = presentation_tick_delta(previous_tick, skeleton.locomotion_sample_tick)
+            .unwrap_or_default();
+        history.evaluation_tick = skeleton.locomotion_sample_tick;
+        let elapsed = AnimationElapsed::from_seconds(
+            tick_delta.samples() as f32 / locomotion_sample_rate().hertz(),
+        )?;
+        self.advance_amplitude(skeleton, target_wave, target_compensation, elapsed)?;
+        self.advance_landing(skeleton, elapsed, &mut history)?;
+        self.advance_wave(skeleton, elapsed, &mut history)?;
+        self.history = Some(history);
+        Ok(self)
+    }
+
+    pub(super) fn supports_foot_plants(&self, skeleton: &SkeletonState) -> bool {
+        skeleton.is_grounded()
+            && !skeleton.is_posture_transitioning()
+            && skeleton.action_kind() == SkeletonAction::None
+            && self.landing_compression
+                > procedural_tuning().landing_plant_minimum_compression_metres
+    }
+
+    fn advance_amplitude(
+        &mut self,
+        skeleton: &SkeletonState,
+        wave: HeightDistance,
+        compensation: HeightDistance,
+        elapsed: AnimationElapsed,
+    ) -> AnimationValueResult<()> {
+        let ordinary_stop = skeleton.is_grounded()
+            && skeleton.action_kind() == SkeletonAction::None
+            && skeleton.posture() == Posture::Upright
+            && skeleton.animation_speed()?
+                <= playback_tuning().initial_locomotion_speed_metres_per_second;
+        self.amplitude = if ordinary_stop {
+            self.amplitude.advance_towards(
+                HeightDistance::ZERO,
+                procedural_tuning()
+                    .locomotion_stop_height_speed_metres_per_second
+                    .over(elapsed)?,
+            )?
+        } else {
+            wave
+        };
+        self.authored_rise_compensation = self.authored_rise_compensation.advance_towards(
+            compensation,
+            procedural_tuning()
+                .height_transition_speed_metres_per_second
+                .over(elapsed)?,
+        )?;
+        Ok(())
+    }
+
+    fn advance_landing(
+        &mut self,
+        skeleton: &SkeletonState,
+        elapsed: AnimationElapsed,
+        history: &mut HeightHistory,
+    ) -> AnimationValueResult<()> {
+        let landing_delta = skeleton
+            .landing_sequence
+            .events_since(history.landing_sequence)
+            .filter(|delta| {
+                runtime_animation_config()
+                    .playback
+                    .maximum_coalesced_events
+                    .contains(*delta)
+            });
+        let landed = landing_delta.is_some_and(|delta| !delta.is_zero());
+        if skeleton.landing_sequence != history.landing_sequence {
+            history.landing_sequence = skeleton.landing_sequence;
+        }
+        if landed {
+            self.begin_landing(skeleton, history.action)?;
+        }
+        if self.landing_compression < self.landing_compression_target {
+            self.landing_compression = self.landing_compression.advance_towards(
+                self.landing_compression_target,
+                self.landing_absorption_metres_per_second.over(elapsed)?,
+            )?;
+            if self
+                .landing_compression
+                .difference(self.landing_compression_target)?
+                .metres()
+                .abs()
+                <= procedural_tuning()
+                    .landing_compression_arrival_tolerance_metres
+                    .metres()
+            {
+                self.landing_compression_target = HeightDistance::ZERO;
+            }
+        } else if !landed {
+            self.landing_compression = self.landing_compression.advance_towards(
+                HeightDistance::ZERO,
+                self.landing_recovery_metres_per_second.over(elapsed)?,
+            )?;
+        }
+        if !self.supports_foot_plants(skeleton) {
+            clear_landing_foot_plants(self);
+        }
+        Ok(())
+    }
+
+    fn begin_landing(
+        &mut self,
+        skeleton: &SkeletonState,
+        previous_action: SkeletonAction,
+    ) -> AnimationValueResult<()> {
+        if skeleton.is_posture_transitioning() {
+            self.landing_compression = HeightDistance::ZERO;
+            self.landing_compression_target = HeightDistance::ZERO;
+            self.landing_absorption_metres_per_second = HeightSpeed::ZERO;
+            self.landing_recovery_metres_per_second = HeightSpeed::ZERO;
+        } else {
+            self.landing_compression_target = landing_compression_for_action(
+                locomotion_profile(skeleton, skeleton.animation_speed()?)?,
+                skeleton.landing_impact_speed,
+                Some(previous_action),
+            )?;
+            self.landing_absorption_metres_per_second = HeightSpeed::absorption(
+                skeleton.landing_impact_speed,
+                procedural_tuning().minimum_landing_absorption_speed_metres_per_second,
+            );
+            self.landing_recovery_metres_per_second = HeightSpeed::recovery(
+                self.landing_compression_target,
+                locomotion_profile(skeleton, skeleton.animation_speed()?)?
+                    .landing
+                    .recovery_seconds,
+            )?;
+        }
+        clear_landing_foot_plants(self);
+        Ok(())
+    }
+
+    fn advance_wave(
+        &mut self,
+        skeleton: &SkeletonState,
+        elapsed: AnimationElapsed,
+        history: &mut HeightHistory,
+    ) -> AnimationValueResult<()> {
+        let compensation =
+            grounded_height_wave(skeleton.gait_phase, self.authored_rise_compensation)?;
+        let raw_wave = self.amplitude.difference(compensation)?;
+        let state_changed = history.guard != skeleton.weapon_guard()
+            || history.posture != skeleton.posture()
+            || history.action != skeleton.action_kind()
+            || history.ground_contact != GroundContact::from(skeleton);
+        self.wave_transition_offset = if state_changed {
+            subtract_offsets(self.displayed_wave, raw_wave)?
+        } else {
+            advance_offset(
+                self.wave_transition_offset,
+                procedural_tuning()
+                    .height_transition_speed_metres_per_second
+                    .over(elapsed)?,
+            )?
+        };
+        self.displayed_wave = add_offsets(raw_wave, self.wave_transition_offset)?;
+        history.guard = skeleton.weapon_guard();
+        history.posture = skeleton.posture();
+        history.action = skeleton.action_kind();
+        history.ground_contact = GroundContact::from(skeleton);
+        Ok(())
+    }
+}
+
+/// Additive run-flight waveform with contacts at 0/.5 and flight peaks at
+/// .25/.75. Authored joint translation remains the base pose. This is
+/// presentation-only and is never applied to the authoritative owner/controller
+/// transform.
+pub(super) fn locomotion_height_wave(
+    skeleton: &SkeletonState,
+) -> AnimationValueResult<HeightDistance> {
+    if !skeleton.is_grounded()
+        || skeleton.is_posture_transitioning()
+        || skeleton.action_kind() != SkeletonAction::None
+    {
+        return Ok(HeightDistance::ZERO);
+    }
+    if skeleton.weapon_guard() == WeaponGuardState::Raised && !skeleton.is_guarded_sprinting() {
+        return Ok(HeightDistance::ZERO);
+    }
+    let speed = skeleton.animation_speed()?;
+    if speed <= playback_tuning().initial_locomotion_speed_metres_per_second {
+        return Ok(HeightDistance::ZERO);
+    }
+    let profile = locomotion_profile(skeleton, speed)?;
+    let moving_weight = speed
+        .clamped_inverse_lerp(
+            playback_tuning().initial_locomotion_speed_metres_per_second,
+            runtime_animation_config().locomotion.blend_speed,
+        )?
+        .smoothstep()?;
+    if profile.flight_apex_metres <= HeightDistance::ZERO {
+        return Ok(HeightDistance::ZERO);
+    }
+    profile
+        .flight_apex_metres
+        .flight_wave(skeleton.gait_phase, moving_weight)
+}
+pub(super) fn authored_height_compensation(
+    skeleton: &SkeletonState,
+) -> AnimationValueResult<HeightDistance> {
+    if !skeleton.is_grounded()
+        || skeleton.action_kind() != SkeletonAction::None
+        || skeleton.animation_pack != AnimationPackId::HUMANOID_UNARMED
+        || skeleton.posture() != Posture::Upright
+        || skeleton.weapon_guard() != WeaponGuardState::Lowered
+    {
+        return Ok(HeightDistance::ZERO);
+    }
+    let speed = skeleton.animation_speed()?;
+    let run_weight = speed.clamped_inverse_lerp(
+        walk_locomotion_profile().reference_speed,
+        run_locomotion_profile().reference_speed,
+    )?;
+    let moving_weight = speed
+        .clamped_inverse_lerp(
+            playback_tuning().initial_locomotion_speed_metres_per_second,
+            runtime_animation_config().locomotion.blend_speed,
+        )?
+        .smoothstep()?;
+    procedural_tuning()
+        .authored_ordinary_passing_rise_metres
+        .scaled_by(run_weight)?
+        .scaled_by(moving_weight)
+}
+pub(super) fn landing_compression_for_impact(
+    profile: LocomotionProfile,
+    impact_speed: LandingImpactSpeed,
+) -> AnimationValueResult<HeightDistance> {
+    if impact_speed.metres_per_second()
+        < profile
+            .landing
+            .minimum_impact_speed_metres_per_second
+            .metres_per_second()
+    {
+        return Ok(HeightDistance::ZERO);
+    }
+    profile
+        .landing
+        .compression_per_metre_per_second
+        .compression(
+            impact_speed,
+            profile.landing.minimum_compression_metres,
+            profile.landing.maximum_compression_metres,
+        )
+}
+pub(super) fn landing_compression_for_action(
+    profile: LocomotionProfile,
+    impact_speed: LandingImpactSpeed,
+    _previous_action: Option<SkeletonAction>,
+) -> AnimationValueResult<HeightDistance> {
+    landing_compression_for_impact(profile, impact_speed)
+}
+pub(super) fn clear_landing_foot_plants(height: &mut LocomotionHeightState) {
+    height.landing_left_foot_target = None;
+    height.landing_right_foot_target = None;
+    height.landing_plant_owner_position = None;
+    height.landing_plant_tick = None;
+    height.landing_plant_resync_tick = None;
+}
+
+fn grounded_height_wave(
+    phase: CyclePhase,
+    amplitude: HeightDistance,
+) -> AnimationValueResult<HeightDistance> {
+    // A native periodic metre-amplitude kernel; the signed offset is computed afterward.
+    let sine = (phase.wrapped().cycles() * std::f32::consts::TAU).sin();
+    HeightDistance::from_arithmetic(amplitude.metres() * sine * sine)
+}

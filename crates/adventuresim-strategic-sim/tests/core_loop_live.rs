@@ -207,7 +207,9 @@ fn authoritative_core_loop_is_isolated_and_branch_tolerant() {
         ],
     );
 
-    let reuse_error = run_core_loop(config).expect_err("a claimed database cannot be reused");
+    let reuse_error = run_core_loop(config)
+        .expect_err("a claimed database cannot be reused")
+        .to_string();
     assert!(
         reuse_error.contains("reused or populated") || reuse_error.contains("already claimed"),
         "unexpected reuse error: {reuse_error}"

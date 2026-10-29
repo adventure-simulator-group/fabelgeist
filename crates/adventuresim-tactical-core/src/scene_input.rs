@@ -5,69 +5,72 @@
 //! synthetic fixture. Short-lived servers consume the identical format and
 //! never need access to the continental source pack.
 
-mod terrain_samples;
-pub use terrain_samples::{
-    EnvironmentalSample, SceneSource, SourcePackageDigest, TacticalSurface, TerrainSampleGrid,
-    VistaLevelIndex, VistaLod, VistaSample,
-};
-mod rock_recipe;
-use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
-use rock_recipe::{rock_recipe, wrapped_angle_difference};
-mod rock_streams;
-use crate::terrain_streams as streams;
-use std::{fs, path::Path};
-
 use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
-use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, UnitBasisPoints};
+use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use bevy::prelude::Component;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+use std::{fs, path::Path};
 
+use crate::scene_ground::build_scene_ground;
+#[cfg(test)]
+use crate::scene_ground::tree_leaf_litter_probability;
+use crate::terrain_streams as streams;
 use crate::{
     city_layout::{CityStreetPatch, CityYardPatch},
     scene::{GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneTerrain},
     volumetric_terrain::TerrainLandformRecipe,
 };
 
-use crate::scene_ground::build_scene_ground;
-#[cfg(test)]
-use crate::scene_ground::tree_leaf_litter_probability;
-
-pub(crate) mod buildings;
-mod compounds;
-mod gardens;
-mod urban;
-pub use gardens::{GardenPlantSupport, GardenSupportError, SceneGarden};
-mod environment;
-mod establishments;
-mod parishes;
-mod properties;
-pub use compounds::{GeneratedBoundary, SceneBoundary};
-pub use environment::{SceneEnvironment, SceneEnvironmentFixture};
-pub use establishments::SceneEstablishment;
-mod descriptor;
-mod detail_noise;
-mod detail_obstacles;
-pub use descriptor::{
-    MAX_SCENE_INPUT_BYTES, TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
-    TacticalSceneInput,
-};
-use detail_noise::{DetailNoise, value_noise};
-use detail_obstacles::{TerrainDetailObstacles, TerrainRockInfluence};
-mod generated;
-mod generation;
-mod validation;
-pub use generation::{SupportedSceneTerrain, UngradedSceneTerrain};
-mod recipes;
-pub use generated::{GeneratedTacticalScene, SceneRepairReport};
-pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes, ProgramFurnitureSite};
-pub mod furniture;
-
 pub use buildings::{
     BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
     SceneBuilding, SceneBuildingId, SceneDoor, SceneDoorError, SceneWindow, SceneWindowError,
     TacticalBuildingPlacement, compile_tactical_building_collider,
 };
+pub use compounds::{GeneratedBoundary, SceneBoundary};
+pub use descriptor::{
+    MAX_SCENE_INPUT_BYTES, TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
+    TacticalSceneInput,
+};
+use detail_noise::value_noise;
+pub use environment::{SceneEnvironment, SceneEnvironmentFixture};
+pub use error::{SceneInputError, SceneInputResult};
+pub use establishments::SceneEstablishment;
+pub use gardens::{GardenPlantSupport, GardenSupportError, SceneGarden};
+pub use generated::{GeneratedTacticalScene, SceneRepairReport};
+pub use generation::{SupportedSceneTerrain, UngradedSceneTerrain};
+pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes, ProgramFurnitureSite};
+use rock_recipe::rock_recipe;
+pub use terrain_samples::{
+    EnvironmentalSample, SceneSource, TacticalSurface, TerrainSampleGrid, VistaLevelIndex,
+    VistaLod, VistaSample,
+};
+pub use validation_error::{SampleGridKind, SceneValidationError};
+
+mod absolute_elevation_wire;
+pub(crate) mod buildings;
+mod compounds;
+mod descriptor;
+mod detail_noise;
+mod detail_obstacles;
+mod environment;
+mod error;
+mod establishments;
+pub mod furniture;
+mod gardens;
+mod generated;
+mod generation;
+mod parishes;
+mod properties;
+mod recipes;
+mod refinement;
+mod rock_recipe;
+mod rock_streams;
+mod terrain_samples;
+mod urban;
+mod validation;
+mod validation_error;
 
 pub const TREE_TRUNK_RADIUS_METRES: f32 = 0.35;
 pub const TREE_TRUNK_HEIGHT_METRES: f32 = 5.0;
@@ -82,9 +85,21 @@ const MAX_VISTA_LEVELS: usize = 8;
 const MAX_VISTA_SAMPLES: usize = 2_000_000;
 const MAX_TEMPLATE_BYTES: usize = 128;
 const MAX_SOURCE_ID_BYTES: usize = 128;
-const AUTHORITATIVE_DETAIL_SPACING_METRES: f32 = 0.5;
-const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
-const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
+
+/// Data-only recipe for a client-generated boulder mesh.
+///
+/// Dimensions describe the full local-space bounds in centimetres. The
+/// authoritative server uses only `collision_radius_cm` for a conservative
+/// sphere proxy; it never samples the field or extracts render geometry.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct RockRecipe {
+    pub seed: fabelgeist_determinism::Seed,
+    pub archetype: RockArchetype,
+    pub lithology: RockLithology,
+    pub dimensions_cm: [u16; 3],
+    pub collision_radius_cm: u16,
+}
 
 /// Broad procedural silhouette family for a collider-bearing rock.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -104,32 +119,6 @@ pub enum RockLithology {
     Sandstone,
 }
 
-/// Data-only recipe for a client-generated boulder mesh.
-///
-/// Dimensions describe the full local-space bounds in centimetres. The
-/// authoritative server uses only `collision_radius_cm` for a conservative
-/// sphere proxy; it never samples the field or extracts render geometry.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct RockRecipe {
-    pub seed: fabelgeist_determinism::Seed,
-    pub archetype: RockArchetype,
-    pub lithology: RockLithology,
-    pub dimensions_cm: [u16; 3],
-    pub collision_radius_cm: u16,
-}
-
-impl RockRecipe {
-    pub fn collision_radius_metres(self) -> f32 {
-        f32::from(self.collision_radius_cm) / 100.0
-    }
-
-    pub fn dimensions_metres(self) -> [f32; 3] {
-        self.dimensions_cm
-            .map(|dimension| f32::from(dimension) / 100.0)
-    }
-}
-
 /// Compact replicated identity for a server-authoritative static obstacle.
 /// Its Transform locates the collider center; presentation derives matching
 /// proxy geometry from this recipe on each client.
@@ -147,11 +136,16 @@ pub enum GeneratedObstacle {
     Rock { x: u16, z: u16, recipe: RockRecipe },
 }
 
-mod absolute_elevation_wire;
-mod error;
-mod validation_error;
-pub use error::{SceneInputError, SceneInputResult};
-pub use validation_error::{SampleGridKind, SceneValidationError};
+impl RockRecipe {
+    pub fn collision_radius_metres(self) -> f32 {
+        f32::from(self.collision_radius_cm) / 100.0
+    }
+
+    pub fn dimensions_metres(self) -> [f32; 3] {
+        self.dimensions_cm
+            .map(|dimension| f32::from(dimension) / 100.0)
+    }
+}
 
 impl TacticalSceneInput {
     pub fn load(path: &Path) -> SceneInputResult<Self> {
@@ -208,388 +202,6 @@ impl TacticalSceneInput {
             hilly_bps: (sum[4] / count) as u16,
         }
     }
-}
-
-#[derive(Clone, Copy)]
-struct TerrainShapeSample {
-    downhill: bevy::math::Vec2,
-    slope: f32,
-    concavity: f32,
-}
-
-/// Builds the one high-resolution surface used by height queries, IK,
-/// rendering, and the server heightfield collider. The original grid is kept
-/// implicitly as `SceneTerrain`'s coarse render LOD.
-fn refine_authoritative_terrain(
-    seed: fabelgeist_determinism::Seed,
-    terrain: &SceneTerrain,
-    ground: &SceneGround,
-    obstacles: &[GeneratedObstacle],
-    obstacle_spacing: f32,
-    moisture_bps: u16,
-    building_pads: &[buildings::BuildingPad],
-) -> SceneInputResult<SceneTerrain> {
-    let influences = TerrainDetailObstacles::from_obstacles(terrain, obstacles, obstacle_spacing)?;
-    let detail_seed = streams::DETAIL.seed(seed, &[]);
-    let noise = DetailNoise::new(detail_seed);
-    let mut terrain = terrain
-        .refined(AUTHORITATIVE_DETAIL_SPACING_METRES, |point, base_height| {
-            if let Some(pad) = building_pads
-                .iter()
-                .find(|pad| pad.contains_level_ground(point))
-            {
-                pad.elevation_metres.metres()
-            } else if building_pads.iter().any(|pad| pad.contains_apron(point)) {
-                base_height
-            } else {
-                base_height
-                    + authoritative_surface_relief(
-                        detail_seed,
-                        point,
-                        terrain,
-                        ground,
-                        moisture_bps,
-                        &influences,
-                        &noise,
-                    )
-            }
-        })
-        .ok_or(SceneInputError::Validation(
-            SceneValidationError::DetailTerrain,
-        ))?;
-    terrain.constrain_max_grade(crate::scene::grade::TerrainGradeLimit::PLAYABLE)?;
-    terrain.rewrite_heights(|point, height| {
-        building_pads
-            .iter()
-            .find(|pad| pad.contains_level_ground(point))
-            .map_or(height, |pad| pad.elevation_metres.metres())
-    });
-    Ok(terrain)
-}
-
-fn authoritative_surface_relief(
-    seed: fabelgeist_determinism::Seed,
-    point: bevy::math::Vec2,
-    terrain: &SceneTerrain,
-    ground: &SceneGround,
-    moisture_bps: u16,
-    influences: &TerrainDetailObstacles,
-    noise: &DetailNoise,
-) -> f32 {
-    let surface = ground.ground_at(point);
-    if surface.is_some_and(|surface| surface.substrate == GroundSubstrate::Water) {
-        return 0.0;
-    }
-    if surface.is_some_and(|surface| surface.substrate == GroundSubstrate::Road) {
-        return road_surface_relief(point, ground, noise);
-    }
-
-    let broad = signed_ground_noise(noise.fields.broad, point / 3.2, noise) * 0.024;
-    let fine = signed_ground_noise(noise.fields.fine, point / 0.92, noise) * 0.009;
-    let clod_strength = match surface.map(|surface| surface.substrate) {
-        Some(GroundSubstrate::Stone) => 0.0,
-        Some(GroundSubstrate::Gravel) => 0.25,
-        Some(GroundSubstrate::Mud | GroundSubstrate::Soil) => 1.0,
-        Some(GroundSubstrate::Road | GroundSubstrate::Water) => unreachable!(),
-        None => 1.0,
-    };
-    let clods = terrain_clod_relief(point, noise) * clod_strength;
-    let shape = terrain_shape_sample(terrain, point, AUTHORITATIVE_DETAIL_SPACING_METRES * 3.0);
-    let process_relief = shape.map_or(0.0, |shape| {
-        drainage_relief(point, shape, moisture_bps, noise)
-            + soil_creep_relief(point, shape, noise)
-            + shape.concavity.clamp(-0.018, 0.024)
-    });
-    let roots = tree_root_relief(seed, point, &influences.trees);
-    let rock_contact = boulder_ground_relief(seed, point, shape, &influences.rocks, noise);
-    let rock_strata = match surface.map(|surface| surface.substrate) {
-        Some(GroundSubstrate::Stone) => rocky_substrate_relief(seed, point, shape, 1.0, noise),
-        Some(GroundSubstrate::Gravel) => rocky_substrate_relief(seed, point, shape, 0.62, noise),
-        _ => 0.0,
-    };
-    let substrate_strength = match surface.map(|surface| surface.substrate) {
-        Some(GroundSubstrate::Stone) => 0.54,
-        Some(GroundSubstrate::Gravel) => 0.68,
-        Some(GroundSubstrate::Mud) => 0.78,
-        Some(GroundSubstrate::Soil) => 1.0,
-        Some(GroundSubstrate::Road | GroundSubstrate::Water) => unreachable!(),
-        None => 0.62,
-    };
-    let cover_strength = match surface.map(|surface| surface.cover) {
-        Some(GroundCover::Reeds) => 0.35,
-        Some(GroundCover::LooseStone) => 0.78,
-        _ => 1.0,
-    };
-    ((broad + fine + clods + process_relief) * substrate_strength * cover_strength
-        + roots
-        + rock_contact
-        + rock_strata)
-        .clamp(DETAIL_RELIEF_MINIMUM_METRES, DETAIL_RELIEF_MAXIMUM_METRES)
-}
-
-fn terrain_shape_sample(
-    terrain: &SceneTerrain,
-    point: bevy::math::Vec2,
-    radius: f32,
-) -> Option<TerrainShapeSample> {
-    use bevy::math::Vec2;
-    let centre = terrain.height_at(point)?;
-    let east = terrain.height_at(point + Vec2::X * radius)?;
-    let west = terrain.height_at(point - Vec2::X * radius)?;
-    let north = terrain.height_at(point + Vec2::Y * radius)?;
-    let south = terrain.height_at(point - Vec2::Y * radius)?;
-    let gradient = Vec2::new(east - west, north - south) / (radius * 2.0);
-    let slope = gradient.length();
-    let downhill = if slope > 0.000_1 {
-        -gradient / slope
-    } else {
-        Vec2::X
-    };
-    Some(TerrainShapeSample {
-        downhill,
-        slope,
-        concavity: ((east + west + north + south) * 0.25 - centre) * 0.18,
-    })
-}
-
-fn signed_ground_noise(
-    seed: fabelgeist_determinism::Seed,
-    point: bevy::math::Vec2,
-    noise: &DetailNoise,
-) -> f32 {
-    noise.sample(seed, point) * 2.0 - 1.0
-}
-
-fn terrain_clod_relief(point: bevy::math::Vec2, noise: &DetailNoise) -> f32 {
-    let field = noise.sample(noise.fields.clod, point / 0.58);
-    detail_smoothstep(0.69, 0.91, field) * 0.022 - 0.003
-}
-
-fn drainage_relief(
-    point: bevy::math::Vec2,
-    shape: TerrainShapeSample,
-    moisture_bps: u16,
-    noise: &DetailNoise,
-) -> f32 {
-    use bevy::math::Vec2;
-    let slope_weight = detail_smoothstep(0.012, 0.16, shape.slope);
-    if slope_weight <= 0.0 {
-        return 0.0;
-    }
-    let normal = Vec2::new(-shape.downhill.y, shape.downhill.x);
-    let warp = signed_ground_noise(noise.fields.rill_warp, point / 5.5, noise) * 0.85;
-    let spacing = 2.6 + noise.sample(noise.fields.rill_spacing, point / 11.0) * 1.4;
-    let distance = periodic_distance(point.dot(normal) + warp, spacing);
-    let channel = 1.0 - detail_smoothstep(0.08, 0.34, distance);
-    let shoulder =
-        detail_smoothstep(0.18, 0.42, distance) * (1.0 - detail_smoothstep(0.42, 0.72, distance));
-    let moisture = UnitBasisPoints::saturating(moisture_bps).as_unit_f32();
-    (-channel * (0.026 + moisture * 0.012) + shoulder * 0.009) * slope_weight
-}
-
-fn soil_creep_relief(
-    point: bevy::math::Vec2,
-    shape: TerrainShapeSample,
-    noise: &DetailNoise,
-) -> f32 {
-    let slope_weight = detail_smoothstep(0.035, 0.22, shape.slope);
-    let warp = signed_ground_noise(noise.fields.creep_warp, point / 7.0, noise) * 0.55;
-    let distance = periodic_distance(point.dot(shape.downhill) + warp, 3.1);
-    (1.0 - detail_smoothstep(0.12, 0.52, distance)) * 0.019 * slope_weight
-}
-
-fn rocky_substrate_relief(
-    seed: fabelgeist_determinism::Seed,
-    point: bevy::math::Vec2,
-    shape: Option<TerrainShapeSample>,
-    strength: f32,
-    noise: &DetailNoise,
-) -> f32 {
-    use bevy::math::Vec2;
-    let fallback_angle = streams::STRATA_DIRECTION
-        .rng(seed, &[])
-        .inclusive_unit_f32()
-        * core::f32::consts::TAU;
-    let downhill = shape
-        .map(|shape| shape.downhill)
-        .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
-    let across = Vec2::new(-downhill.y, downhill.x);
-    let slope_weight = shape
-        .map(|shape| detail_smoothstep(0.018, 0.18, shape.slope))
-        .unwrap_or(0.35);
-    let contour = point.dot(downhill)
-        + signed_ground_noise(noise.fields.strata_warp, point / 6.5, noise) * 0.72;
-    let shelf = (1.0 - detail_smoothstep(0.08, 0.48, periodic_distance(contour, 2.15)))
-        * (0.019 + slope_weight * 0.029);
-    let fracture_a = periodic_distance(
-        point.dot(across) + signed_ground_noise(noise.fields.fracture_a, point / 4.8, noise) * 0.4,
-        3.7,
-    );
-    let diagonal = (across * 0.72 + downhill * 0.69).normalize_or_zero();
-    let fracture_b = periodic_distance(
-        point.dot(diagonal)
-            + signed_ground_noise(noise.fields.fracture_b, point / 5.6, noise) * 0.34,
-        5.3,
-    );
-    let crack = (1.0 - detail_smoothstep(0.035, 0.17, fracture_a))
-        .max((1.0 - detail_smoothstep(0.035, 0.15, fracture_b)) * 0.72);
-    (shelf - crack * 0.019) * strength
-}
-
-fn boulder_ground_relief(
-    seed: fabelgeist_determinism::Seed,
-    point: bevy::math::Vec2,
-    shape: Option<TerrainShapeSample>,
-    rocks: &[TerrainRockInfluence],
-    noise: &DetailNoise,
-) -> f32 {
-    use bevy::math::Vec2;
-    let mut relief = 0.0;
-    for rock in rocks {
-        let offset = point - rock.centre.metres();
-        let distance = offset.length();
-        let radius = rock.radius.metres().max(0.35);
-        if distance > radius * 5.0 {
-            continue;
-        }
-        let rock_seed = streams::ROCK_INFLUENCE.seed(
-            seed,
-            &[
-                u64::from(rock.centre.metres().x.to_bits()),
-                u64::from(rock.centre.metres().y.to_bits()),
-            ],
-        );
-        let fallback_angle = streams::ROCK_DOWNHILL
-            .rng(rock_seed, &[])
-            .inclusive_unit_f32()
-            * core::f32::consts::TAU;
-        let downhill = shape
-            .map(|shape| shape.downhill)
-            .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
-        let across_axis = Vec2::new(-downhill.y, downhill.x);
-        let socket = (1.0 - detail_smoothstep(radius * 0.48, radius * 1.08, distance)) * -0.042;
-        let apron = detail_smoothstep(radius * 0.72, radius * 1.04, distance)
-            * (1.0 - detail_smoothstep(radius * 1.04, radius * 1.72, distance))
-            * 0.033;
-        let downstream = offset.dot(downhill);
-        let across = offset.dot(across_axis).abs();
-        let tail_length =
-            radius * (3.2 + streams::ROCK_TAIL.rng(rock_seed, &[]).inclusive_unit_f32() * 1.1);
-        let longitudinal = detail_smoothstep(radius * 0.45, radius * 0.95, downstream)
-            * (1.0 - detail_smoothstep(tail_length * 0.62, tail_length, downstream));
-        let tail_width = radius * 0.42 + downstream.max(0.0) * 0.24;
-        let lateral = 1.0 - detail_smoothstep(tail_width * 0.42, tail_width, across);
-        let granular = 0.72
-            + noise.sample(
-                streams::ROCK_DEBRIS.seed(rock_seed, &[]),
-                Vec2::new(downstream / 1.7, across / 0.8),
-            ) * 0.28;
-        relief += socket + apron + longitudinal * lateral * granular * 0.034;
-    }
-    relief.clamp(-0.055, 0.07)
-}
-
-fn tree_root_relief(
-    seed: fabelgeist_determinism::Seed,
-    point: bevy::math::Vec2,
-    tree_positions: &[crate::scene_coordinates::ScenePlanPoint],
-) -> f32 {
-    let mut relief = 0.0;
-    for &tree in tree_positions {
-        let tree = tree.metres();
-        let offset = point - tree;
-        let radius = offset.length();
-        if radius > 8.0 {
-            continue;
-        }
-        let tree_seed = streams::TREE_ROOTS.seed(
-            seed,
-            &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
-        );
-        let mound = libm::expf(-(radius / 1.35).powi(2)) * 0.045;
-        let basin = detail_smoothstep(0.9, 1.8, radius)
-            * (1.0 - detail_smoothstep(5.2, 7.7, radius))
-            * -0.012;
-        let angle = offset.y.atan2(offset.x);
-        let mut ridges = 0.0_f32;
-        for root in 0..7_u64 {
-            let mut random = streams::ROOT_SHAPE.rng(tree_seed, &[root]);
-            let origin = random.inclusive_unit_f32() * core::f32::consts::TAU;
-            let phase = random.inclusive_unit_f32() * core::f32::consts::TAU;
-            let length = 4.8 + random.inclusive_unit_f32() * 2.9;
-            if radius > length || radius < 0.28 {
-                continue;
-            }
-            let curved_angle = origin + (radius * 0.9 + phase).sin() * 0.11;
-            let angular_distance = wrapped_angle_difference(angle, curved_angle).abs() * radius;
-            let width = 0.16 + radius * 0.045;
-            let ridge = 1.0 - detail_smoothstep(width * 0.3, width, angular_distance);
-            let taper = 1.0 - detail_smoothstep(length * 0.58, length, radius);
-            ridges = ridges.max(ridge * taper * (0.082 - radius * 0.007).max(0.025));
-        }
-        relief += mound + basin + ridges;
-    }
-    relief.clamp(-0.02, 0.115)
-}
-
-fn road_surface_relief(point: bevy::math::Vec2, ground: &SceneGround, noise: &DetailNoise) -> f32 {
-    use bevy::math::Vec2;
-    let is_road = |sample: Vec2| {
-        ground
-            .ground_at(sample)
-            .is_some_and(|surface| surface.substrate == GroundSubstrate::Road)
-    };
-    let mut tangent = Vec2::X;
-    let mut best_score = -1_i32;
-    for direction_index in 0..8 {
-        let angle = direction_index as f32 * core::f32::consts::PI / 8.0;
-        let candidate = Vec2::new(angle.cos(), angle.sin());
-        let score = [0.75_f32, 1.5, 2.5]
-            .into_iter()
-            .map(|distance| {
-                i32::from(is_road(point + candidate * distance))
-                    + i32::from(is_road(point - candidate * distance))
-            })
-            .sum();
-        if score > best_score {
-            best_score = score;
-            tangent = candidate;
-        }
-    }
-    let normal = Vec2::new(-tangent.y, tangent.x);
-    let edge_distance = |direction: f32| {
-        (1..=24)
-            .map(|step| step as f32 * 0.25)
-            .find(|distance| !is_road(point + normal * direction * *distance))
-            .unwrap_or(6.0)
-    };
-    let positive_edge = edge_distance(1.0);
-    let negative_edge = edge_distance(-1.0);
-    let half_width = ((positive_edge + negative_edge) * 0.5).max(0.6);
-    let across = (negative_edge - positive_edge) * 0.5;
-    let rut_offset = (half_width * 0.46).clamp(0.38, 0.82);
-    let rut_width = (half_width * 0.12).clamp(0.14, 0.27);
-    // Accepted terrain hashes require the same software exponential on all targets.
-    let gaussian = |distance: f32| libm::expf(-(distance / rut_width).powi(2) * 1.7);
-    let ruts = gaussian(across - rut_offset) + gaussian(across + rut_offset);
-    let crown = (1.0 - (across / half_width).powi(2)).max(0.0) * 0.026;
-    let travelled = point.dot(tangent);
-    let irregularity = signed_ground_noise(
-        noise.fields.road_rut,
-        Vec2::new(travelled / 2.4, across / 1.1),
-        noise,
-    ) * 0.004;
-    (crown - ruts * 0.038 + irregularity).clamp(-0.048, 0.032)
-}
-
-fn periodic_distance(value: f32, period: f32) -> f32 {
-    let wrapped = value.rem_euclid(period);
-    wrapped.min(period - wrapped)
-}
-
-fn detail_smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
-    let t = ((value - edge0) / (edge1 - edge0)).clamp(0.0, 1.0);
-    t * t * (3.0 - 2.0 * t)
 }
 
 pub(crate) fn base_ground_surface(sample: EnvironmentalSample) -> GroundSurface {
@@ -737,7 +349,7 @@ fn add_authoritative_microrelief(
                 2.25,
             );
             let offset = (broad * 0.72 + fine * 0.28) * amplitude;
-            if offset.abs() > f32::EPSILON {
+            if offset.abs() > 0.0 {
                 heights[index] += offset;
                 adjusted += 1;
             }
@@ -783,7 +395,7 @@ fn repair_playable_terrain(
         adjusted_height_samples: heights
             .iter()
             .zip(original_heights)
-            .filter(|(after, before)| (*after - before).abs() > f32::EPSILON)
+            .filter(|(after, before)| (*after - before).abs() > 0.0)
             .count() as u32,
         repaired_water_samples,
         removed_corridor_obstacles: 0,
@@ -898,8 +510,8 @@ fn invalid<T>(issue: SceneValidationError) -> SceneInputResult<T> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::scene_coordinates::ScenePlanPoint;
     mod occupied;
-    mod road;
     use crate::volumetric_terrain::TerrainSurfaceSource;
     use adventuresim_core::weather::weather_at;
     use adventuresim_world_schema::{
@@ -967,8 +579,8 @@ mod tests {
         assert_eq!(first.digest, second.digest);
         assert_eq!(first.obstacles, second.obstacles);
         assert_eq!(
-            first.terrain.height_at(bevy::math::Vec2::ZERO),
-            second.terrain.height_at(bevy::math::Vec2::ZERO)
+            first.terrain.height_at(ScenePlanPoint::ORIGIN),
+            second.terrain.height_at(ScenePlanPoint::ORIGIN)
         );
         assert_eq!(
             first.repairs.microrelief_adjusted_samples,
@@ -996,7 +608,9 @@ mod tests {
 
         let generated = input.generate().unwrap();
         assert_eq!(
-            generated.ground.ground_at(bevy::math::Vec2::new(1.0, 0.0)),
+            generated
+                .ground
+                .ground_at(ScenePlanPoint::from_metres(bevy::math::Vec2::new(1.0, 0.0)).unwrap()),
             Some(GroundSurface {
                 substrate: GroundSubstrate::Soil,
                 cover: GroundCover::Bare,
@@ -1005,7 +619,9 @@ mod tests {
             })
         );
         assert_eq!(
-            generated.ground.ground_at(bevy::math::Vec2::new(-1.0, 0.0)),
+            generated
+                .ground
+                .ground_at(ScenePlanPoint::from_metres(bevy::math::Vec2::new(-1.0, 0.0)).unwrap()),
             Some(GroundSurface {
                 substrate: GroundSubstrate::Road,
                 cover: GroundCover::Bare,
@@ -1030,7 +646,7 @@ mod tests {
 
         let generated = input.generate().unwrap();
         assert_eq!(
-            generated.ground.ground_at(bevy::math::Vec2::ZERO),
+            generated.ground.ground_at(ScenePlanPoint::ORIGIN),
             Some(GroundSurface {
                 substrate: GroundSubstrate::Soil,
                 cover: GroundCover::Bare,
@@ -1254,7 +870,7 @@ mod tests {
             .generate()
             .unwrap();
         assert!(flat.obstacles.is_empty());
-        assert!(flat.terrain.grid_scale() <= AUTHORITATIVE_DETAIL_SPACING_METRES);
+        assert!(flat.terrain.grid_scale() <= refinement::AUTHORITATIVE_DETAIL_SPACING_METRES);
         assert!(flat.terrain.coarse_grid_scale() > flat.terrain.grid_scale());
         assert!(
             sparse
@@ -1281,7 +897,11 @@ mod tests {
                 f32::from(z) * sparse_spacing - sparse.terrain.depth() * 0.5,
             );
             assert_eq!(
-                sparse.ground.ground_at(position).unwrap().cover,
+                sparse
+                    .ground
+                    .ground_at(ScenePlanPoint::from_metres(position).unwrap())
+                    .unwrap()
+                    .cover,
                 GroundCover::LeafLitter
             );
         }
@@ -1304,7 +924,7 @@ mod tests {
         let middle = tree_leaf_litter_probability(4.0);
         let edge = tree_leaf_litter_probability(TREE_CANOPY_GROUND_RADIUS_METRES);
         assert!(1.0 > inner && inner > middle && middle > edge);
-        assert!((edge - 0.12).abs() < f32::EPSILON);
+        assert_eq!(edge, 0.12);
     }
 
     #[test]
@@ -1354,23 +974,26 @@ mod tests {
         let height = |x: usize, z: usize| {
             first
                 .terrain
-                .height_at(bevy::math::Vec2::new(
-                    x as f32 * spacing - world_width * 0.5,
-                    z as f32 * spacing - world_depth * 0.5,
-                ))
+                .height_at(
+                    ScenePlanPoint::from_metres(bevy::math::Vec2::new(
+                        x as f32 * spacing - world_width * 0.5,
+                        z as f32 * spacing - world_depth * 0.5,
+                    ))
+                    .unwrap(),
+                )
                 .unwrap()
         };
         for z in 0..depth {
             for x in 0..width {
                 if x + 1 < width {
                     assert!(
-                        (height(x, z) - height(x + 1, z)).abs()
+                        (height(x, z).metres() - height(x + 1, z).metres()).abs()
                             <= spacing * crate::scene::TerrainGradeLimit::PLAYABLE.ratio() + 0.001
                     );
                 }
                 if z + 1 < depth {
                     assert!(
-                        (height(x, z) - height(x, z + 1)).abs()
+                        (height(x, z).metres() - height(x, z + 1).metres()).abs()
                             <= spacing * crate::scene::TerrainGradeLimit::PLAYABLE.ratio() + 0.001
                     );
                 }

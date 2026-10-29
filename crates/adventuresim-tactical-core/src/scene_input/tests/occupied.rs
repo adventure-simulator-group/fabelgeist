@@ -3,6 +3,7 @@ use super::*;
 use crate::city_layout::{
     CityPlotBounds, CityPropertyId, CitySceneLayout, CitySingleProperty, CompoundGradingPolicy,
 };
+use crate::scene_coordinates::ScenePlanPoint;
 use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
 use bevy::math::Vec2;
 
@@ -69,6 +70,7 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
     assert_eq!(before.centre_metres, input.buildings[0].centre_metres);
     assert_eq!(before.orientation, input.buildings[0].orientation);
     for point in [Vec2::splat(-19.0), Vec2::splat(19.0)] {
+        let point = ScenePlanPoint::from_metres(point).unwrap();
         assert_eq!(
             generated.terrain.height_at(point),
             source.terrain.height_at(point)
@@ -78,10 +80,12 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
     assert_eq!(building.placement, input.buildings[0]);
     assert!(!building.collision.cuboids.is_empty());
     assert_eq!(generated.repairs.levelled_building_samples, 0);
-    let centre_height = generated.terrain.height_at(bevy::math::Vec2::ZERO).unwrap();
-    assert!((centre_height - building.placement.base_elevation_metres.metres()).abs() < 0.0001);
+    let centre_height = generated.terrain.height_at(ScenePlanPoint::ORIGIN).unwrap();
+    assert!(
+        (centre_height.metres() - building.placement.base_elevation_metres.metres()).abs() < 0.0001
+    );
     assert_eq!(
-        generated.ground.ground_at(bevy::math::Vec2::ZERO),
+        generated.ground.ground_at(ScenePlanPoint::ORIGIN),
         Some(GroundSurface {
             substrate: GroundSubstrate::Stone,
             cover: GroundCover::Bare,
@@ -168,8 +172,8 @@ fn distant_buildings_affect_scene_identity_without_entering_tactical_generation(
             .generate()
             .unwrap()
             .terrain
-            .height_at(original.centre_metres.metres()),
-        Some(expected.base_elevation_metres.metres())
+            .height_at(original.centre_metres),
+        Some(expected.base_elevation_metres)
     );
     assert!(input.generate().unwrap().buildings.is_empty());
 }

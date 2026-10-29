@@ -34,9 +34,8 @@ pub fn record(label: &str, elapsed: Duration) {
             label,
             milliseconds: elapsed.as_secs_f64() * 1_000.0,
         };
-        eprintln!(
-            "PROFILE {}",
-            serde_json::to_string(&event).expect("timing event is serializable")
-        );
+        if let Ok(encoded) = serde_json::to_string(&event) {
+            eprintln!("PROFILE {encoded}");
+        }
     }
 }

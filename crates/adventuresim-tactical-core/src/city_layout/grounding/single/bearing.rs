@@ -29,7 +29,7 @@ impl PropertySupportSurface {
         };
         if !request.bearing.is_valid()
             || !request.property.plot.is_valid()
-            || planar::signed_area(&surface.clipping_outlines[0]) <= f64::EPSILON
+            || planar::signed_area(&surface.clipping_outlines[0]) <= 0.0
         {
             return Err(surface.rejection(
                 SupportConstraint::Reservation,

@@ -225,6 +225,13 @@ pub fn wasm_strategic_status() -> String {
     strategic_scene::status::json()
 }
 
+/// Geographic camera and terrain readiness in the existing renderer.
+#[cfg(target_family = "wasm")]
+#[wasm_bindgen]
+pub fn wasm_regional_map_status() -> String {
+    presentation::regional_map::status::json()
+}
+
 #[cfg(target_family = "wasm")]
 #[wasm_bindgen]
 pub fn wasm_weapon_catalog() -> Result<String, JsValue> {
@@ -284,7 +291,7 @@ fn run(
         .unwrap_or_else(|error| panic!("invalid tactical client asset root: {error}"));
     #[cfg(not(target_family = "wasm"))]
     app.register_asset_source(
-        "workspace",
+        crate::animation::WORKSPACE_ASSET_SOURCE,
         AssetSourceBuilder::platform_default(&asset_root.to_string_lossy(), None),
     );
     #[cfg(feature = "debug")]

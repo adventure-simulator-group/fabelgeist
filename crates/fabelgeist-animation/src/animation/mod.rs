@@ -167,11 +167,7 @@ impl JointTransform {
 }
 
 fn invert(value: f32) -> f32 {
-    if value.abs() > f32::EPSILON {
-        1.0 / value
-    } else {
-        1.0
-    }
+    if value.abs() > 0.0 { 1.0 / value } else { 1.0 }
 }
 
 /// A skeleton's local transforms in joint order, the currency of posing.
@@ -273,7 +269,7 @@ impl<T: Interpolate> Curve<T> {
         let upper = self.times.partition_point(|&t| t < time).min(last);
         let lower = upper.saturating_sub(1);
         let span = self.times[upper] - self.times[lower];
-        let factor = if span > f32::EPSILON {
+        let factor = if span > 0.0 {
             (time - self.times[lower]) / span
         } else {
             0.0

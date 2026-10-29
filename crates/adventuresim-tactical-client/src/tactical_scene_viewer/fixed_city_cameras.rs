@@ -1,5 +1,6 @@
 //! Frozen poses and presentation selection retain accepted geographic support.
 use super::{capture_state::BuildingReviewCamera, capture_state::SceneCaptureState};
+use adventuresim_building_generator::spatial_geometry::Position;
 use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
@@ -22,15 +23,15 @@ impl Camera {
         let target = Vec3::from_array(self.target_metres);
         position.is_finite()
             && target.is_finite()
-            && (target - position).cross(Vec3::Y).length_squared() > f32::EPSILON
+            && (target - position).cross(Vec3::Y).length_squared() > 0.0
     }
 
-    fn review(&self) -> BuildingReviewCamera {
-        BuildingReviewCamera {
-            position: Vec3::from_array(self.position_metres),
-            target: Vec3::from_array(self.target_metres),
+    fn review(&self) -> Result<BuildingReviewCamera> {
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(Vec3::from_array(self.position_metres))?,
+            target: Position::from_metres(Vec3::from_array(self.target_metres))?,
             plaster_raking_light: None,
-        }
+        })
     }
 }
 
@@ -75,18 +76,30 @@ impl Contract {
     }
 }
 
-pub(super) fn apply(contract: Res<Contract>, mut state: ResMut<SceneCaptureState>) {
-    let Some(document) = &contract.0 else { return };
-    state.city_exterior_cameras = document.exterior.iter().map(Camera::review).collect();
-    if let Some(camera) = &document.benchmark {
-        state.ground_eye_position = Vec3::from_array(camera.position_metres);
-        state.ground_eye_target = Vec3::from_array(camera.target_metres);
+pub(super) fn apply(contract: Res<Contract>, mut state: ResMut<SceneCaptureState>) -> Result {
+    let Some(document) = &contract.0 else {
+        return Ok(());
+    };
+    let exterior = document
+        .exterior
+        .iter()
+        .map(Camera::review)
+        .collect::<Result<Vec<_>>>()?;
+    let benchmark = document
+        .benchmark
+        .as_ref()
+        .map(Camera::review)
+        .transpose()?;
+    state.city_exterior_cameras = exterior;
+    if let Some(camera) = benchmark {
+        state.ground_eye_position = camera.position;
+        state.ground_eye_target = camera.target;
     }
     std::fs::write(
         state.output.join("fixed-camera-contract.json"),
-        serde_json::to_vec_pretty(document).unwrap(),
-    )
-    .expect("retain frozen camera contract");
+        serde_json::to_vec_pretty(document)?,
+    )?;
+    Ok(())
 }
 
 use super::{

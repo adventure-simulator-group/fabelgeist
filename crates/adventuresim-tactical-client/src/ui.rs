@@ -29,7 +29,7 @@ use combat_state::incapacitation_wheel_segments;
 use combat_state::{combat_state_label, forecast_wheel_segments};
 
 #[cfg(feature = "debug")]
-use crate::animation::TerrainIkEnabled;
+use crate::animation::TerrainIkMode;
 #[cfg(feature = "debug")]
 use crate::camera::{CameraDebugEnabled, CameraRigDebugState};
 #[cfg(feature = "debug")]
@@ -567,32 +567,32 @@ fn update_camera_ui(
     #[cfg(feature = "debug")] debug: Res<CameraRigDebugState>,
     #[cfg(feature = "debug")] mut debug_span: Single<&mut TextSpan, With<CameraDebugSpan>>,
 ) {
-    **reticle = if aim.active {
+    **reticle = if aim.0.is_some() {
         Visibility::Inherited
     } else {
         Visibility::Hidden
     };
-    **blocked = if aim.active && aim.blocked {
+    **blocked = if aim.0.is_some_and(|observation| observation.blocked()) {
         Visibility::Inherited
     } else {
         Visibility::Hidden
     };
     #[cfg(feature = "debug")]
     {
-        debug_span.0 = if enabled.0 && debug.active {
+        debug_span.0 = if let Some(debug) = debug.0.filter(|_| enabled.0) {
             format!(
                 " | F6 camera: {:.0}% | boom {:.2}/{:.2}m v{:.2} | focus v{:.2} | screen ({:.2},{:.2})/({:.2},{:.2}) | hard:{} soft:{}",
-                debug.raised_blend * 100.0,
-                debug.limited_distance,
-                debug.desired_distance,
-                debug.boom_velocity,
-                debug.focus_velocity.length(),
-                debug.screen_error.x,
-                debug.screen_error.y,
-                debug.sweet_spot.x,
-                debug.sweet_spot.y,
-                debug.collision_entity.is_some(),
-                debug.soft_occluder.is_some(),
+                debug.raised_blend.fraction() * 100.0,
+                debug.limited_distance.metres(),
+                debug.desired_distance.metres(),
+                debug.boom_velocity.metres_per_second(),
+                debug.focus_velocity.metres_per_second().length(),
+                debug.screen_error.ndc().x,
+                debug.screen_error.ndc().y,
+                debug.sweet_spot.ndc_half_extents().x,
+                debug.sweet_spot.ndc_half_extents().y,
+                debug.collision.map(|hit| hit.entity).is_some(),
+                debug.soft_occluder.map(|hit| hit.entity).is_some(),
             )
         } else {
             " | F6 camera rig: OFF".to_owned()
@@ -602,11 +602,11 @@ fn update_camera_ui(
 
 #[cfg(feature = "debug")]
 fn update_terrain_ik_debug_ui(
-    enabled: Res<TerrainIkEnabled>,
+    enabled: Res<TerrainIkMode>,
     mut span: Single<&mut TextSpan, With<TerrainIkDebugSpan>>,
 ) {
     if enabled.is_changed() {
-        span.0 = if enabled.0 {
+        span.0 = if enabled.is_enabled() {
             " | F8 terrain IK: ON".to_owned()
         } else {
             " | F8 terrain IK: OFF".to_owned()
@@ -1029,7 +1029,7 @@ mod tests {
         ));
         assert!(enemy_incapacitation_wheel_visible(
             TacticalCombatSide::Enemy,
-            f32::EPSILON
+            0.0_f32.next_up()
         ));
         assert!(!enemy_incapacitation_wheel_visible(
             TacticalCombatSide::Party,

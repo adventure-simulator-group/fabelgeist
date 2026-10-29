@@ -7,6 +7,12 @@ changes do not require a modeling or artistic-review cycle.
 
 ## Establish the target and scope
 
+- Keep runtime armor and clothing models generally below 10,000 triangles,
+  including hidden construction. Character-scale silhouettes, openings, and
+  structural shapes need geometry; fine folds, fluting, stitching, and weave
+  should use height fields and normal maps. Count the actual exported model.
+  Dense bake sources are separate from the runtime budget.
+
 - Identify the user-approved reference images, intended geometric relationships,
   adjustable features, supported bodies, and acceptance milestone. Explicit user
   requirements take precedence over ambiguous details in an image.

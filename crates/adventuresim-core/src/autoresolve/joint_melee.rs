@@ -7,13 +7,17 @@ pub(super) fn resolve_joint_melee_round(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> BattleResolutionResult<()> {
     const TACTICAL_SERVER_STEPS_PER_SECOND: f32 = 64.0;
-    let step_count = (parameters.combat_round_seconds * TACTICAL_SERVER_STEPS_PER_SECOND)
+    let step_count = (parameters.combat_round_seconds.seconds() * TACTICAL_SERVER_STEPS_PER_SECOND)
         .round()
         .max(1.0) as usize;
-    let window_seconds = parameters.combat_round_seconds / step_count as f32;
-    let round_start_seconds = round.saturating_sub(1) as f32 * parameters.combat_round_seconds;
+    let window_seconds = AnimationElapsed::from_seconds(
+        parameters.combat_round_seconds.seconds() / step_count as f32,
+    )?;
+    let round_start_seconds = BattleTime::from_seconds(
+        round.saturating_sub(1) as f32 * parameters.combat_round_seconds.seconds(),
+    )?;
     for step in 0..step_count {
         if side_defeated(allies) || side_defeated(enemies) {
             break;
@@ -22,13 +26,14 @@ pub(super) fn resolve_joint_melee_round(
             allies,
             enemies,
             round,
-            round_start_seconds + step as f32 * window_seconds,
+            round_start_seconds.checked_add(window_seconds.checked_scale(step as f32)?)?,
             window_seconds,
             random,
             recorder,
             parameters,
-        );
+        )?;
     }
+    Ok(())
 }
 
 #[expect(
@@ -39,13 +44,14 @@ fn resolve_joint_melee_window(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
     round: usize,
-    window_start_seconds: f32,
-    window_seconds: f32,
+    window_start_seconds: BattleTime,
+    window_seconds: AnimationElapsed,
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
-    let window_end_seconds = window_start_seconds + window_seconds;
+) -> BattleResolutionResult<()> {
+    let window_end_seconds = window_start_seconds.checked_add(window_seconds)?;
+    let contact_tolerance = AnimationElapsed::from_seconds(1.0e-6)?;
     let allies_first = allies
         .first()
         .zip(enemies.first())
@@ -60,47 +66,50 @@ fn resolve_joint_melee_window(
     let movement_until_seconds = attacks
         .iter()
         .map(|(_, attack)| attack.attack_timing.contact_at_seconds)
-        .min_by(f32::total_cmp)
+        .min_by(BattleTime::total_cmp)
         .unwrap_or(window_end_seconds);
     attacks.retain(|(_, attack)| {
-        (attack.attack_timing.contact_at_seconds - movement_until_seconds).abs() <= 1.0e-6
+        attack
+            .attack_timing
+            .contact_at_seconds
+            .is_within(movement_until_seconds, contact_tolerance)
     });
     advance_joint_melee_movement(
         allies,
         enemies,
         window_start_seconds,
-        (movement_until_seconds - window_start_seconds).max(0.0),
+        movement_until_seconds.saturating_elapsed_since(window_start_seconds)?,
         recorder,
         parameters,
-    );
+    )?;
     sort_contacts(&mut attacks, allies, enemies);
     resolve_contacts(
         attacks, allies, enemies, round, random, recorder, parameters,
-    );
+    )?;
     if side_defeated(allies) || side_defeated(enemies) {
-        return;
+        return Ok(());
     }
-    if movement_until_seconds + 1.0e-6 < window_end_seconds {
+    if movement_until_seconds.precedes_with_margin(window_end_seconds, contact_tolerance) {
         resolve_joint_melee_window(
             allies,
             enemies,
             round,
             movement_until_seconds,
-            window_end_seconds - movement_until_seconds,
+            window_end_seconds.elapsed_since(movement_until_seconds)?,
             random,
             recorder,
             parameters,
-        );
-        return;
+        )?;
+        return Ok(());
     }
     advance_joint_melee_movement(
         allies,
         enemies,
         movement_until_seconds,
-        (window_end_seconds - movement_until_seconds).max(0.0),
+        window_end_seconds.saturating_elapsed_since(movement_until_seconds)?,
         recorder,
         parameters,
-    );
+    )?;
     schedule_both_sides(
         allies,
         enemies,
@@ -109,14 +118,15 @@ fn resolve_joint_melee_window(
         random,
         recorder,
         parameters,
-    );
+    )?;
+    Ok(())
 }
 
 fn scheduled_contacts(
     allies: &[Combatant],
     enemies: &[Combatant],
-    start: f32,
-    end: f32,
+    start: BattleTime,
+    end: BattleTime,
     parameters: crate::combat::AutoresolveParameters,
 ) -> Vec<(ScheduledBattleSide, ScheduledMeleeAttack)> {
     scheduled_side_contacts_in_window(allies, enemies, start, end, parameters)
@@ -204,7 +214,7 @@ fn resolve_contacts(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> BattleResolutionResult<()> {
     let batches = (0..attacks.len())
         .map(|index| contact_batch(&attacks, index, allies, enemies))
         .collect::<Vec<_>>();
@@ -245,7 +255,7 @@ fn resolve_contacts(
                 attack.attack_timing,
                 batch,
             ),
-        }
+        }?;
         let attacker = match side {
             ScheduledBattleSide::Allies => &mut allies[attack.attacker_index],
             ScheduledBattleSide::Enemies => &mut enemies[attack.attacker_index],
@@ -254,38 +264,52 @@ fn resolve_contacts(
         attacker.melee_attack_contact_at_seconds = None;
         attacker.melee_attack_scheduled_measure_metres = None;
     }
+    Ok(())
 }
 
 fn schedule_both_sides(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
     allies_first: bool,
-    at_seconds: f32,
+    at_seconds: BattleTime,
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> BattleResolutionResult<()> {
     let (first, second) = if allies_first {
         (allies, enemies)
     } else {
         (enemies, allies)
     };
     schedule_side_melee_attacks_in_window(
-        first, second, at_seconds, 0.0, random, recorder, parameters,
-    );
+        first,
+        second,
+        at_seconds,
+        AnimationElapsed::ZERO,
+        random,
+        recorder,
+        parameters,
+    )?;
     schedule_side_melee_attacks_in_window(
-        second, first, at_seconds, 0.0, random, recorder, parameters,
-    );
+        second,
+        first,
+        at_seconds,
+        AnimationElapsed::ZERO,
+        random,
+        recorder,
+        parameters,
+    )?;
+    Ok(())
 }
 
 fn advance_joint_melee_movement(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
-    interval_start_seconds: f32,
-    elapsed_seconds: f32,
+    interval_start_seconds: BattleTime,
+    elapsed_seconds: AnimationElapsed,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> BattleResolutionResult<()> {
     for index in 0..allies.len().min(enemies.len()) {
         let (first, second) = if allies[index].id <= enemies[index].id {
             (&mut allies[index], &mut enemies[index])
@@ -299,6 +323,7 @@ fn advance_joint_melee_movement(
             elapsed_seconds,
             recorder,
             parameters,
-        );
+        )?;
     }
+    Ok(())
 }

@@ -185,6 +185,10 @@ pub(crate) struct TacticalCameraSetup {
 #[derive(Component)]
 pub(crate) struct TacticalGameplayCamera;
 
+/// Retained geographic camera; independent of actor-scene installation.
+#[derive(Component)]
+pub(crate) struct RegionalMapCamera;
+
 impl Default for TacticalCameraSetup {
     fn default() -> Self {
         Self {
@@ -458,8 +462,8 @@ mod tests {
         assert_eq!(moonless, 0.0);
         assert!(moonless < moonlit && moonlit < 0.2);
         assert_eq!(daylight, 1.0);
-        assert!((scene_ambient_response(-25.0, -20.0, 0.0) - 0.05).abs() < f32::EPSILON);
-        assert!((scene_ambient_response(30.0, -20.0, 0.0) - 0.28).abs() < f32::EPSILON);
+        assert_eq!(scene_ambient_response(-25.0, -20.0, 0.0), 0.05);
+        assert_eq!(scene_ambient_response(30.0, -20.0, 0.0), 0.28);
     }
 
     #[test]

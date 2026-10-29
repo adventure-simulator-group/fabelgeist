@@ -88,14 +88,33 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
     let root = app.world_mut().spawn_empty().id();
     let place = PlaceId("inn".into());
     let id = PortraitId(42);
+    let rect = protocol::CanvasRect {
+        x: 0,
+        y: 0,
+        width: 64,
+        height: 64,
+        full_width: 64,
+        full_height: 64,
+        offset_x: 0.0,
+        offset_y: 0.0,
+    };
     app.insert_resource(RetainedScene {
         root: Some(root),
         venues: [(
             place.clone(),
             Venue {
-                anchor: Vec3::ZERO,
-                approach: Vec3::ZERO,
-                positions: vec![Transform::default()],
+                anchor: Position::ORIGIN,
+                approach: Position::ORIGIN,
+                positions: vec![
+                    staging::ConversationPose {
+                        anchor: Position::ORIGIN,
+                        facing: Quat::IDENTITY,
+                    },
+                    staging::ConversationPose {
+                        anchor: Position::from_metres(Vec3::X).unwrap(),
+                        facing: Quat::IDENTITY,
+                    },
+                ],
             },
         )]
         .into(),
@@ -108,30 +127,52 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
             id: place.clone(),
             kind: PlaceKind::Inn,
         }],
-        people: vec![Person {
-            id,
-            place: place.clone(),
-            presentation: protocol::PersonPresentation::Scene,
-            equipment: vec![],
-        }],
+        people: vec![
+            Person {
+                id: PortraitId(7),
+                place: place.clone(),
+                presentation: protocol::PersonPresentation::Scene,
+                equipment: vec![],
+            },
+            Person {
+                id,
+                place: place.clone(),
+                presentation: protocol::PersonPresentation::Scene,
+                equipment: vec![],
+            },
+        ],
         active_place: Some(place),
         selected: Some(id),
         street: None,
-        stage: None,
+        stage: Some(rect),
         forge: None,
         portraits: vec![],
     });
     let outfit = serde_json::from_value(serde_json::json!({
-        "id": "9007199254740993", "item": "leather_belt", "placement": "worn",
+        "id": "9007199254740993", "item": "belt", "placement": "worn",
         "occupancies": [{"anchor": {"Character": "front_belt"}, "channel": "accessory",
             "order": 0, "requirement_index": 0, "capacity_index": 0}],
         "weapon": null, "holder": null,
     }))
     .unwrap();
-    app.world_mut().resource_mut::<StrategicView>().people[0].equipment = vec![outfit];
+    app.world_mut().resource_mut::<StrategicView>().people[1].equipment = vec![outfit];
     app.add_systems(Update, (retain_people, equipment::sync_equipment).chain());
     app.update();
     let entity = app.world().resource::<RetainedScene>().people[&id].entity;
+    let layer = app.world().resource::<RetainedScene>().people[&id].layer;
+    assert!(
+        !app.world()
+            .resource::<RetainedScene>()
+            .people
+            .contains_key(&PortraitId(7))
+    );
+    assert_eq!(
+        app.world().resource::<RetainedScene>().people[&id]
+            .anchor
+            .metres(),
+        Vec3::X,
+        "unseen earlier residents still determine the visible resident's rank"
+    );
     let item = app
         .world_mut()
         .query_filtered::<Entity, With<equipment::SceneEquipment>>()
@@ -152,11 +193,24 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
     );
     app.world_mut().resource_mut::<StrategicView>().selected = None;
     app.update();
+    assert!(
+        app.world()
+            .resource::<RetainedScene>()
+            .people
+            .contains_key(&PortraitId(7)),
+        "the stage fallback loads its first scene resident"
+    );
+    app.world_mut().resource_mut::<StrategicView>().selected = Some(id);
+    app.update();
     assert_eq!(
         app.world().resource::<RetainedScene>().people[&id].entity,
         entity
     );
     assert_eq!(app.world().get::<CharacterId>(entity).unwrap().0, 42);
+    assert_eq!(
+        app.world().resource::<RetainedScene>().people[&id].layer,
+        layer
+    );
     assert!(
         app.world().get_entity(item).is_ok(),
         "navigation retains fitted equipment"
@@ -184,11 +238,25 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
             equipment: vec![],
         });
     app.update();
+    assert!(
+        !app.world()
+            .resource::<RetainedScene>()
+            .people
+            .contains_key(&PortraitId(99))
+    );
+    app.world_mut()
+        .resource_mut::<StrategicView>()
+        .portraits
+        .push(protocol::PortraitView {
+            id: PortraitId(99),
+            rect,
+        });
+    app.update();
     let scene = app.world().resource::<RetainedScene>();
-    assert_eq!(scene.people[&id].anchor, Vec3::ZERO);
-    assert_eq!(scene.people[&PortraitId(99)].anchor, Vec3::ZERO);
+    assert_eq!(scene.people[&id].anchor.metres(), Vec3::X);
+    assert_eq!(scene.people[&PortraitId(99)].anchor.metres(), Vec3::ZERO);
     assert_ne!(scene.people[&id].layer, scene.people[&PortraitId(99)].layer);
-    app.world_mut().resource_mut::<StrategicView>().people[0]
+    app.world_mut().resource_mut::<StrategicView>().people[1]
         .equipment
         .clear();
     app.update();
@@ -210,10 +278,84 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
             presentation: protocol::PersonPresentation::Scene,
             equipment: vec![],
         }));
+    app.world_mut()
+        .resource_mut::<StrategicView>()
+        .portraits
+        .extend((200..300).map(|id| protocol::PortraitView {
+            id: PortraitId(id),
+            rect,
+        }));
     app.update();
     let scene = app.world().resource::<RetainedScene>();
-    assert_eq!(scene.people.len(), 102);
+    assert_eq!(scene.people.len(), 103);
     let layers: std::collections::HashSet<_> =
         scene.people.values().map(|person| person.layer).collect();
-    assert_eq!(layers.len(), 102);
+    assert_eq!(layers.len(), 103);
+    {
+        let mut view = app.world_mut().resource_mut::<StrategicView>();
+        view.stage = None;
+        view.portraits.clear();
+        view.forge = Some(rect);
+        view.selected = Some(PortraitId(4000));
+        view.people.push(Person {
+            id: PortraitId(4000),
+            place,
+            presentation: protocol::PersonPresentation::Scene,
+            equipment: vec![],
+        });
+    }
+    app.update();
+    assert!(
+        !app.world()
+            .resource::<RetainedScene>()
+            .people
+            .contains_key(&PortraitId(4000)),
+        "forge or map selection alone does not install an unseen character"
+    );
+    app.world_mut()
+        .resource_mut::<StrategicView>()
+        .people
+        .retain(|person| person.id != id);
+    app.update();
+    assert!(
+        app.world().get_entity(entity).is_err(),
+        "a resident removed from the roster no longer retains its presentation"
+    );
+    {
+        let mut view = app.world_mut().resource_mut::<StrategicView>();
+        view.stage = Some(rect);
+        view.selected = None;
+        view.active_place = None;
+    }
+    app.update();
+    assert!(
+        app.world()
+            .resource::<RetainedScene>()
+            .people
+            .contains_key(&PortraitId(4000)),
+        "an unfocused stage retains its existing all-resident layer policy"
+    );
+    {
+        let mut view = app.world_mut().resource_mut::<StrategicView>();
+        view.stage = None;
+        view.portraits.push(protocol::PortraitView {
+            id: PortraitId(99),
+            rect,
+        });
+        let place = view.people[0].place.clone();
+        view.people.push(Person {
+            id: PortraitId(5000),
+            place,
+            presentation: protocol::PersonPresentation::Scene,
+            equipment: vec![],
+        });
+    }
+    app.update();
+    assert!(
+        !app.world()
+            .resource::<RetainedScene>()
+            .people
+            .contains_key(&PortraitId(5000)),
+        "a portrait-only page does not install its other unseen roster members"
+    );
 }

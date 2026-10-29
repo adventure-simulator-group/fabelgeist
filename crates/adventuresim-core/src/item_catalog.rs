@@ -10,6 +10,9 @@ use std::sync::OnceLock;
 
 include!(concat!(env!("OUT_DIR"), "/item_catalog.rs"));
 
+/// Source identity of the general authored item document, admitted by build.rs.
+const AUTHORED_ITEM_DOCUMENT: &str = "content/items/catalog.yaml";
+
 static CATALOG: OnceLock<Vec<ItemDefinition>> = OnceLock::new();
 static SOURCE_MAP: OnceLock<Vec<ItemSourceRef>> = OnceLock::new();
 
@@ -104,6 +107,20 @@ pub fn catalog() -> &'static [ItemDefinition] {
         .as_slice()
 }
 
+/// Canonical records from the general item document in their authored source order.
+/// The full catalogue remains ID-sorted for lookup; callers that warm authored
+/// equipment retain the original document order without parsing a second copy.
+pub fn authored_document_items() -> Vec<&'static ItemDefinition> {
+    let mut items = catalog()
+        .iter()
+        .filter(|item| {
+            source_for_item(&item.id).is_some_and(|source| source.file == AUTHORED_ITEM_DOCUMENT)
+        })
+        .collect::<Vec<_>>();
+    items.sort_by_key(|item| source_for_item(&item.id).map(|source| (source.line, source.column)));
+    items
+}
+
 pub fn definition(id: &str) -> Option<&'static ItemDefinition> {
     catalog()
         .binary_search_by_key(&id, |definition| definition.id.as_str())
@@ -132,9 +149,11 @@ pub fn weapon_precision(id: &str) -> Option<f32> {
     }
 }
 
-pub fn weapon_animation_pack(id: &str) -> Option<&'static str> {
+pub fn weapon_animation_pack(
+    id: &str,
+) -> Option<&'static crate::animation_pack_id::AnimationPackId> {
     match &definition(id)?.kind {
-        ItemKind::Weapon { animation_pack, .. } => animation_pack.as_deref(),
+        ItemKind::Weapon { animation_pack, .. } => animation_pack.as_ref(),
         _ => None,
     }
 }
@@ -376,11 +395,7 @@ mod tests {
     fn compiled_catalog_represents_attachment_graph_examples_without_kind_inference() {
         use crate::item_catalog_schema::EquipmentChannel;
 
-        let belt = definition("leather_belt")
-            .unwrap()
-            .equipment
-            .as_ref()
-            .unwrap();
+        let belt = definition("belt").unwrap().equipment.as_ref().unwrap();
         assert!(
             belt.attachment_points
                 .iter()

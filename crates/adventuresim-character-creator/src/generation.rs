@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_rig::RigJointTable;
 
 pub(super) fn generate_character(
     model: &BodyModel,
@@ -22,7 +23,10 @@ pub(super) fn generate_character(
         recipe.proportions,
     )?;
     let pose = Tensor::from_data(
-        TensorData::new(parameters, [1, model.mhr.num_model_parameters()]),
+        TensorData::new(
+            parameters.into_tensor_values(),
+            [1, usize::from(model.mhr.num_model_parameters())],
+        ),
         &device,
     );
     let output = model.mhr.forward(identity, pose, Some(expression))?;
@@ -66,7 +70,7 @@ pub(super) fn generate_character(
             "GPU skeleton readback did not contain complete joint states"
         ));
     }
-    let global_joint_states = skeleton_chunks
+    let global_joint_states: RigJointTable<_> = skeleton_chunks
         .iter()
         .map(|joint| {
             let mut state = *joint;
@@ -76,6 +80,10 @@ pub(super) fn generate_character(
             state
         })
         .collect();
+    anyhow::ensure!(
+        global_joint_states.joint_count() == model.mhr.num_joints(),
+        "GPU skeleton readback differs from the admitted rig joint count"
+    );
     Ok(GeneratedCharacter {
         joint_proportions: adventuresim_character_creator::proportions::joint_bases(
             &model.mhr,

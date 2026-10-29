@@ -33,6 +33,13 @@ for the saved body. Use `just export-mhr-base <staging-path>` to export the cano
 body without opening the studio, then prepare its runtime copy as described
 below.
 
+GLB framing checks both padded chunk lengths and the complete container against
+the format's unsigned 32-bit lengths before opening the GLB file. Serialization,
+layout, final frame allocation and filesystem failures retain their concrete
+causes through `export::glb::GlbError`. Shared texture images may already have
+been written by the preceding export stage, and filesystem writes are not
+transactional.
+
 The zero-weight attachment joints follow MHR's side-prefix naming convention:
 `l_weapon` is parented to `l_wrist`, `r_weapon` to `r_wrist`, and `c_camera` to
 `c_head`. Each weapon joint is positioned halfway from its wrist toward the
@@ -41,8 +48,9 @@ joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
 The left panel has five tabs. **Character** edits skeletal proportions
-(**Build**), identity shape (**Body**, **Head** and **Hands**) and
-**Expression**; double-click a slider to return it to neutral. **Inventory**
+(**Build**), identity shape (**Body**, **Head** and **Hands**),
+**Expression** and **Hair** (see below); double-click a slider to return it
+to neutral. **Inventory**
 holds everything the character owns (see below). **Armory** reshapes the
 catalog's parametric equipment. **Wardrobe** drapes clothes once and saves
 them for any body. **Output** loads the body model, saves and loads recipes,
@@ -59,6 +67,219 @@ model** checkbox reloads the selected LOD with or without MHR's corrective
 network for direct comparison. Recipes contain model
 coordinates, not authoritative character state, and must be regenerated and
 validated when connected to game creation.
+
+## Hair
+
+A recipe's `hair` is a hairstyle and its pigment, or `null` for a bald head.
+The **Hair** page offers the 24 hairstyles of `fabelgeist-hair`, a strand
+hair groomer after DiffLocks (Rosu et al., CVPR 2025): crops, bobs, long and
+layered cuts, ponytails, buns, braids, afros, dreadlocks and more. Its
+**Show hair** and **Show scalp** switches draw either alone, to look at the
+painted scalp without the hair over it or the hair without the scalp; they
+are the studio's, not the recipe's. Its colour is a pigment as Blender's Principled Hair takes it: **Melanin** runs
+from white through blond and brown to black, **Redness** from ashen to red,
+and a dye tints the strands on top, linear RGB, white for none. The page
+offers the hair crate's eight named natural colours and ten dyes as
+swatches, any dye from a colour picker, and the two sliders, which keep a
+dye. A dye tints the hair's own colour, so it barely shows on dark hair;
+each dye swatch also lightens the hair, as bleaching before dyeing does.
+
+The hairstyle's `shape` varies its preset; its default grows the preset as
+it is. The **Cut**, **Arrangement** and **Growth** menus swap in another of
+the hair crate's 16 cuts, 10 arrangements (natural, parted, swept, back,
+forward, down, up, ponytail, bun, braid) or 7 growth patterns (whorls,
+cowlick, radial, forward, backward, down), or keep the preset's own. The
+sliders scale or shift the preset's values: **Length** scales every length
+of the cut by 0.3 to 2, keeping the hemline as far from the crown as the hair
+is long; **Volume** adds -1 to 4 cm of lift at the crown; **Part** moves the
+part up to 6 cm either side; **Curl** and **Clumping** add -1 to 1 to how
+much the strands curl and gather into locks, each kept within 0 to 1;
+**Waves** adds -10 to 20 mm of waves either side; and **Frizz** scales the
+stray strands' wander and their share by 0 to 4. Whether hair drapes on the
+body follows the arrangement and length the shape gives: tied, styled or
+short hair does not. A changed shape regrows the hair once its slider is let
+go; choosing another hairstyle starts it from its preset's own shape. The
+recipe stores the shape strictly, rejecting a value outside its range.
+
+A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
+bust, by the hair crate's GPU groomer on the studio's own render device: the
+scalp cut and the whole groom grown in compute kernels and its scalp textures
+baked in a twentieth to a twelfth of a second, where the CPU took half a second
+to a second and a half; no strand or texel comes back to the CPU.
+The kernels compile once, on the first hairstyle grown (about half a second); an
+export opens a device of its own for them. The hair is then placed on each
+generated body on the same thread and the same device, in a tenth of a second or
+so where the CPU took three or four. The body is first sampled as a distance
+field onto a grid round the hair, cells of 2.5 mm out to 10 cm from the skin
+(`hair/gpu/field.rs`): each triangle marks the cells near it, a jump flood
+carries every cell's nearest triangle out to it, and each cell takes its
+distance, signed by the vertex normals at the nearest point as the CPU's mesh
+collider signs it. The hair crate's kernels read the field from the same buffer
+they read the mannequin's shapes from, so every one of them that collides -- the
+drape's solves, the shrinkwrap, the levels of detail -- collides with the
+character's body instead. Placing stretches the bust's head to the character's
+width across the ears, its depth from the back of the skull to the tip of the
+nose and its crown, and turns it to face where the eyes look. The bust is only
+fitted to the head's extent, so wherever the character's skull is fuller its
+strands would lie under the skin: each strand is moved whole along its root's
+normal -- the bust scalp's, smooth -- until the root sits 0.5 mm off the skin.
+Pushing each root to the nearest point of the coarse body instead would move
+neighbouring roots apart along different facets' normals and part the hair along
+their edges, at the nape most.
+
+Hair that hangs free is then draped on the character's own body
+(`hair/gpu/place`). What a body does to a strand is how its equilibrium under
+gravity (the hair crate's `Settle`) against the body differs from its
+equilibrium against nothing; that is found on the bust, as groomed, and on the
+character, as carried, and the character's minus the bust's is added to the
+strand. Where the two bodies hold the hair alike it is nothing, and where the
+character's shoulders stand higher or wider it is how long hair falls over them,
+in front of them or down the back, rather than hanging through them. A tight
+coil answers a body unsteadily, so the drape takes hold only below the head,
+fading in from the ears to the jaw, and only as far as a strand sinks into the
+body as carried: from 3 cm deep, fully from 5 cm, as long hair runs through a
+shoulder. Tied and styled hair -- a ponytail, a bun, a braid, hair swept up --
+is not draped at all, as the hair crate drapes it on its bust only when it hangs
+free: the solve knows nothing of what ties a lock or holds it in place, and
+would slide a ponytail's tail off a thicker neck strand by strand, round both
+sides, where the tail rests two and a half centimetres into it and four at the
+deepest. About two thousand guides are draped and every strand follows the one
+whose root is nearest, so hair parts cleanly in front of and behind a shoulder.
+A last shrinkwrap keeps every strand out of the body, keeping its length, before
+the levels of detail are prepared against that body. Changing only the colour or
+the level of detail reuses the placed hair.
+
+**Level of detail** shows any of the hair crate's forms: its strands at the
+groom's own point count and at 24, 12 and 6 points each, drawn as ribbons,
+or its fine and coarse cut of hair cards (strips along the locks, each
+showing a painted bundle of strands from a shared atlas). Both are drawn
+with the standard material extended by `hair_preview/strand_shading.wgsl`,
+shaded as the hair crate shades them: each point's normal faces the eye,
+square to the strands' direction, turned a little towards the card's or
+ribbon's face, and the highlights lean towards the pigment's hue. Strands
+pointing at the eye, as an afro's do at its crown and hairline, have no
+such direction, and their card is seen edge-on: their normal turns to the
+eye instead, or they would catch the environment's reflection at a grazing
+angle and glint a cold grey. The baked sky visibility, which darkens the
+hair's colour, fades that reflection too, so hair deep in the groom is not
+dark and glinting at once. A card's
+atlas coverage becomes a share of each pixel's four samples, which ones
+hashed from the pixel and the card: the hardware's alpha to coverage would
+give every card of one coverage the same samples, so stacked half-covering
+cards would never add up, and the scalp showed through. The creator tests each
+sample against that mask instead of exporting a fragment sample mask, which
+crashes pipeline creation on the tested AMD Vulkan driver. Per-sample evaluation
+can increase hair fragment-shading work when multisampling is enabled. Shadows
+and depth cut the coverage at half. **Strands drawn** draws a share of a strand
+level, each ribbon
+wider by the inverse of the share so the head stays covered; the preview
+draws at most a million and a half ribbon vertices. The level is the
+studio's choice, not the recipe's: a game picks it from the head's size on
+screen.
+
+The scalp under the hair is painted with the hair lying on it and shaded as the
+hair is, so no level shows lit skin between its strands, even between an afro's
+open curls, and the hair painted on the scalp looks like the hair drawn over it.
+The textures are baked once per hairstyle, on the bust it grew on, on the GPU
+(`hair/gpu/bake/`; a few milliseconds): each strand, an invocation, draws its
+first 8 mm off the skin, in steps of at most 2 mm, into textures 2048 texels
+square mapped afresh to the scalp. The hair crate maps its scalp by the angle
+from the crown onto a disk inside the square, a texel at the crown covering a
+few times the skin of one at the hairline, the corners unused and much of the
+disk below the hairline. The scalp's texture instead takes Lambert's equal-area
+projection about the axis of the narrowest cone from the cranium's centre that
+holds the scalp, out to just past its edge, spread over the whole square by
+Shirley and Chiu's concentric mapping, which keeps areas too: every texel covers
+about 0.13 mm of skin a side, the crown as finely as the rest, near a hair's own
+width, and the texture has no seam. The topmost strand over each texel shows --
+kept by an atomic maximum over its height, direction and shade packed in one
+word -- from 25% of the hair's colour where it meets the skin to 90% at 8 mm off
+it, and a second texture keeps the way it runs across the texture; strands
+rooted within about 4 mm of each other share a tone, so locks show where single
+strands are far finer than a pixel. Scalp no strand lies on is at 35%, in the
+shadow of hair standing further off it -- up to 25 mm, judged over blocks of
+eight texels -- as between an afro's coils. Where no hair lies over it either,
+it is bare, as at a parting or a whorl's eye, and how bare the scalp is within
+about 0.8 mm, measured twice over so the nearest counts most, turns the texture
+clear, from a tenth bare to three quarters, so the body's own skin shows lit
+through the cap. A strand's own texel clears only half as far: hair thins into a
+parting over a couple of millimetres strand by strand, the last strands' ends
+lying over the skin, while a texel or two between coils shows no skin. So the
+gaps between cards show strands running the groom's way, its parting and its
+whorl, rather than a flat patch, and the textures are filtered anisotropically
+to keep them where the eye meets the scalp obliquely. The cap is drawn with the
+hair's own surface -- its colour, roughness and highlights leaning to its hue --
+extended by `hair_preview/scalp_shading.wgsl`: each point's normal is the strand
+normal the cards and ribbons are lit by (`hair_preview/strand.wgsl`), facing the
+eye square to the topmost strand, which the cap's tangents turn from the texture
+onto the head, and the strands' shade fades the environment's reflection as the
+baked occlusion does on cards. Where no strand runs, the cap is lit by the
+scalp's own smooth normals. The body has only a few dozen vertices over the
+skull, too few to keep a parting narrow, so the bust's own scalp, cut in
+four-millimetre cells, is carried onto the character as a cap laid 0.4 mm over
+its skin and painted there. Laid by its corners, a cap triangle spanning a ridge
+or corner of the coarse body would dip under the skin and let it show through in
+specks along the body's edges, so each triangle is sampled across and lifted
+until all of it clears the skin. The cap's edge runs in the cells' steps, so it
+is blended over the skin, fading out from 5 mm above the hair crate's hairline
+over the next 6 mm -- the hairline's own smooth curve, above the steps -- and
+over a row of cells along the rest of its edge. Only the cap is painted: the
+body's skin, the neck and the shoulders hair falls over, keeps its colour, and
+the cap comes and goes with the hair.
+
+Ribbons and cards are built on the GPU too (`hair/gpu/strips.rs`), a strip to an
+invocation, in a few milliseconds, and drawn from where they were built. The
+hair's material (`hair_preview/strand_shading.rs`) binds the four buffers a
+level was built into, and its vertex shaders, for the main pass and for the
+prepass and shadows, pull each vertex from them by its index; the mesh carries
+only the triangles and each vertex's skin, wholly to the head joint, so it is
+not frustum-culled by positions it does not hold. The scalp's baked textures are
+copied on the GPU from the buffers they were baked in into their images, every
+mip level, once the renderer has made them (`hair_preview/scalp_upload.rs`).
+Only an export reads the hair back, to write it out. Strips are straight
+between their rows, and
+over a rounded shoulder or skull a straight segment between two rows just
+outside the skin passes under it, the coarse levels' long segments most. So
+every segment is cut into pieces no longer than a centimetre -- at most sixteen
+for a card's, eight for a ribbon's -- and each row near the skin is moved whole
+0.6 mm off it -- just over the scalp cap -- more for a wide card by as much as
+it sags across a curve as tight as the neck. A row's lift spreads to its
+neighbours, tapering over four rows, so a strip bends off the skin rather than
+in a sawtooth. The hair crate turns a card to face away from the head's centre,
+right beside the head; lying on a shoulder such a card would stand on its edge,
+a fin, so within 3 cm of the skin each row turns to lie flat on it.
+
+To look at hair without the studio's window, an ignored test grows a hairstyle
+on the default body, on the device it draws with, and draws every level of
+detail as the studio draws them, from the buffers it was built in and skinned to
+one joint left in place, close over the parting, from above, from the front,
+from behind and over the shoulder, printing how long placing takes, how long
+each level takes to build and how much of it lies under the skin:
+
+```powershell
+$env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"; $env:HAIR_PRESET = "long"
+cargo test --release --manifest-path crates/adventuresim-character-creator/Cargo.toml --bin adventuresim-character-creator hair_renders -- --ignored --nocapture
+```
+
+It writes `target/hair-render/<preset>-<level>-<view>.png`, and the baked
+scalp texture as `<preset>-scalp-texture.png`, and the way its strands run as
+`<preset>-scalp-strands.png`. With
+`HAIR_ON_BUST=1` it draws the hair on the hair crate's own bust instead, as
+it grew there, to `bust-<preset>-<level>-<view>.png`: whether a fault lies in
+placing hair on a character or in drawing it. `HAIR_SHAPE` varies the preset
+as the Hair page does, taking the shape's fields that differ from its default
+-- `HAIR_SHAPE='{"length": 0.55, "curl": 0.6}'`, say -- and names the images
+`<preset>-shaped-<level>-<view>.png`. `HAIR_PIGMENT` colours it as a recipe's
+pigment does -- say
+`HAIR_PIGMENT='{"melanin": 0.1, "redness": 0.05, "dye": [0.1, 0.4, 1]}'` --
+and names the images `<preset>-coloured-...`. `HAIR_SHOW=scalp` or
+`HAIR_SHOW=hair` draws the scalp or the hair alone, as the Hair page's
+switches do, to `<preset>-scalp-only-...` or `<preset>-hair-only-...`.
+
+The hair is skinned wholly to `c_head`, so it follows the walk preview, and
+the rigged GLB exports its fine cards as a `hair` shell on the same joint,
+following the head through every body morph channel. The export carries
+neither the scalp cap nor its paint.
 
 ## Inventory
 
@@ -274,6 +495,131 @@ garments on the torso in the same layer displace each other.
 shirt, fitted shirt, tunic, doublet, gambeson, trousers, hose, braies, skirt,
 dress, kirtle, surcoat and houppelande. Everything stays editable afterwards.
 
+Sewn skirts and fitted mail or padded skirts share their skin-transfer policy.
+The waist follows the pelvis. Below the hips, vertices gradually gain motion
+from the two upper-leg joints over the hip-to-knee span. Their lateral blend
+follows the hip axis and covers the cloth's own width. This removes the abrupt
+nearest-leg ownership switch at the center and avoids narrow strips of extreme
+shear on wide hems. Surface-helper, knee and foot motion do not drive continuous
+cloth. The lower skirt uses at most three influences, so four-influence export
+retains the pelvis and both legs. Above the hips, the attachment fades to
+body-surface skin. Skinning alone does not establish clearance during movement
+or preserve a rigid skirt support's shape.
+
+The catalog's **Linen skirt** uses a fitted procedural surface, without a
+sewing or settling simulation. Its editor controls waist rise, hip-to-ankle
+reach (up to 120% for hems below the ankle), the fitted upper share, clearance
+and thickness. Choose a straight,
+flared or bell profile; flared and bell skirts have separate width and depth
+controls. The fit samples triangle bands around both legs and the actual worn
+inner garments. Its rings share connectivity across body morph realizations.
+Enable a joined upper section to turn the skirt into a dress. Upper height is
+relative to the waist-to-upper-chest span; the transition controls how much
+skirt length releases the fitted waist. The upper patch clones the reference
+body's triangles and keeps barycentric correspondence through morphs. An
+optional front waist point joins an added wedge of body surface to the upper patch;
+the skirt columns follow its cut boundary toward a level hem. A shared
+waist boundary joins it to the skirt before thickening, so it is one continuous
+surface. The catalog's **Linen dress** starts from this construction. Detailed
+necklines, sleeves and corsetry are outside this construction stage.
+
+Pleats have independent repeat count, depth, rotation and rounded or accordion
+folds. Front depth can be reduced to leave a quieter center front while keeping
+fuller side and rear folds. A quiet front panel reserves part of the
+circumference and distributes the folds over the remaining cloth. Fine waist
+gathers have their own count, depth and falloff distance, independent of the
+broader lower folds, with an adjustable share retained toward the hem.
+The fitted share and dress transition can be shortened to release these gathers
+just below the waist. A flared carrier opens continuously from the waist; its
+final surface still encloses the wearer.
+Folds repeat evenly and the hem stays level. This is the tailored construction;
+uneven settling and drape belong to future cloth simulation.
+Optional longitudinal stays (boning) and circumferential hoops sit under the
+fabric, with separate member
+counts, width, thickness and reach controls. Their exported component roles
+retain construction identity and rigid pelvis attachment. They express the
+reference construction; they do not simulate forces or constrain fabric yet.
+Enable puff-and-slash treatment to add puffed courses over a continuous lining.
+Skirts, dresses, sleeves and hose share the same pattern controls, panel
+construction and fullness profile. Edit course count, fullness and taper,
+roundness, constriction bands, slash count, opening dimensions, rotation and
+both textile appearances. Turn off open slashes for closed puffed cloth; turn
+off the treatment for plain cloth. Treatment can accompany either pleats or
+supports.
+On dresses it covers the hanging section; the fitted upper section and waist
+transition remain continuous lining. These controls describe construction, not
+forces, cloth dynamics or collision response. Skinning and movement clipping
+remain provisional until cloth physics is implemented.
+Large fullness with many courses on a short skirt can produce shelf-like
+forms. The controls permit this stylization; finite topology does not establish
+plausible fabric construction across every combination.
+
+The catalog's **Fitted linen bodice** uses a separate `BodiceDesign`. Choose a
+square or round neckline, front and back drop, and independent armhole width
+and depth. Front or back openings have separate waist and neckline widths.
+The upper width must fit within the neckline. A round neckline rejects an
+opening flare that would meet it below the requested upper endpoint.
+
+Face cloth, lining and interlining remain separate mesh components. The
+interlining can cover the whole bodice, as in a supportive underdress, or form
+opening-edge and neck facings. Each sheet has its own thickness and shared
+parametric fabric controls. Set body clearance to leave room for other garments.
+This fitted sleeveless primitive does not include sleeves, collars, lacing,
+sewn skirt attachment or cloth simulation.
+
+The **German wool gown** uses `GownDesign` to sew a fitted bodice to a hanging
+skirt. The joined face shares a physical waist boundary; material copies retain
+identical positions, skin and morph endpoints. Bodice and skirt fabrics have
+separate pattern charts. Optional lining and interlining are upper sheets behind
+the face cloth.
+
+The bodice hem and skirt waist must have the same rise and cloth thickness.
+The editor keeps those values together. An uncut waist band beneath a front or
+back opening keeps the sewn waist continuous. The skirt cannot also supply its
+minimal upper band or a puff-and-slash treatment. Lacing, waist supports and a
+dressing slit are separate controls.
+
+Optional fitted sleeves extend the same anatomical surface from the shoulders
+towards the wrists. They share the bodice fabric and clearance. Their reach is
+40 to 98 percent of the shoulder-to-wrist arm length. This mode requires a
+fitted torso and no lower equipment layers; loose bodies remain sleeveless.
+It does not offer a separate free-volume cap, expanded cuff or frill. The
+retained body chart is not an independent cylindrical sleeve pattern chart.
+
+The authored gown represents a restrained German design around 1544, rather
+than the earlier ornate reconstruction. See the
+[design and deferred-construction guide](../fabelgeist-armor/review/textiles/german1544.md)
+for sources, scope and advice on the benched experimental features. Cloth
+dynamics and refined posed skinning remain future work. Generated-pose clipping
+is a defect even though motion clipping is deferred.
+
+Fabric appearance is independent of construction. Skirts, joined dresses,
+fitted bodices, puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
+and up to twelve ordered color layers. Velvet uses a diffuse approximation
+without the default white glossy lobe. Each layer covers the whole fabric, a
+band, or a bounded panel. Fill it with a solid color, stripes, or repeating
+lozenges, rosettes, palmettes, curved foliage or nested floral damask.
+Damask combines an upright nested flower, veined leaves and a curved stem;
+leaf count and spread control its structure. Repeat count, scale, rotation
+and repeat-tile offsets control the arrangement; botanical controls change
+the leaves or scrolling branches. Choose a repeat within each region or one
+continuous garment pattern clipped through several bands and panels. The latter
+keeps ornament scale and alignment across separate pieces of the same fabric.
+These are stylized parametric ornaments, not certified reconstructions of
+historical textiles.
+
+Across runs around the garment, with a rear seam; along runs from its proximal
+edge to the hem or cuff. A joined dress charts the bodice and hanging skirt separately.
+Fitted sleeves currently retain the bodice chart. Layer intervals are percentages of that chart, so a hem band can
+be reused at a cuff. The chart is frozen across body morphs and is independent
+of anatomical correspondence used for fitting and skinning. Shading vertices
+at its wrap seam retain the same positions, skin weights and morph endpoints.
+The creator and runtime share the same sRGB color-map baker; exported GLBs
+include those maps and repeat around the garment while clamping at its ends.
+The exported material retains the finish through `KHR_materials_specular`.
+This supplies flat color ornament and surface roughness, without simulated
+weave, embroidery relief, metallic thread or velvet's directional sheen.
+
 ## Draped chainmail
 
 Choose **Chainmail** as a garment's fabric to make it mail armor. A mail shirt
@@ -351,6 +697,37 @@ before capture:
 ```powershell
 cargo run --manifest-path crates/adventuresim-character-creator/Cargo.toml --example garment_preview -- outfit.glb outfit.png
 ```
+
+## Rig identity in fitting and export
+
+Runtime clothing admission retains the validated wearer and the canonical item,
+placement and material records. Armor dispatch remains separate and precedes
+clothing admission. Region support validates every packed skin slot, including
+zero-weight slots, against the rig-order membership table before filtering the
+eight weights; unknown joints remain errors.
+
+Runtime admission reuses core's single parsed catalogue and its source metadata
+rather than parsing another embedded document. General-item warmup retains the
+authored document order. A private catalogue handle admits the actual item,
+placement and material records; clothing classification uses the authored item
+identity and kind, independently of its address in memory. Clothing design-hash
+serialization propagates its existing error path.
+
+Fitting and export retain `fabelgeist_rig::RigJointName` through joint selection,
+landmark lookup, attachment construction, and saved body metadata. Joint labels
+and rig ordinals cannot be interchanged. Export retains global transform columns
+in `RigJointTable` through attachment construction; packed source words and glTF
+node/parent arrays remain explicit native adapters. A missing landmark retains
+its exact
+label in `RigJointLookupError`; clothing admission exposes `ClothingError`
+variants for invalid body correspondence, missing landmarks, and fitted mesh
+failures. Presentation callers format these errors at their existing boundary.
+
+Exported node labels remain scalar strings. Skin words and frame landmarks keep
+their existing native packing, including unused landmark padding. The
+[shared rig guide](../fabelgeist-rig/README.md) describes exact identity,
+duplicate lookup, and skin-selection policies. This typing change does not alter
+body or armor geometry.
 
 ## Animation integration
 

@@ -1,17 +1,62 @@
 //! Data model for the standalone MHR character creator.
 
+use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
+pub use adventuresim_core::item_catalog_schema;
+pub use armor_gpu::{FittingSlot, armor_gpu, armor_gpu_async, fitting_slot};
+pub use clothing_material::pbr as equipment_pbr;
+pub use metal_gpu::metal_gpu;
+use serde::{Deserialize, Serialize};
+
 pub mod armor_design_input;
 pub mod armor_design_output;
 pub mod armor_frames;
 mod armor_gpu;
 pub mod armor_layer;
+pub mod armor_metal;
+pub mod armor_recipes;
+mod bodice_cut;
+mod bodice_lacing_plan;
+mod bodice_opening_edges;
+mod body_cloth_plan;
+pub mod bracer;
+mod cloth_chart_triangle;
+mod cloth_closure_fit;
+mod cloth_eyelet_holes;
+mod cloth_fastener_mesh;
+mod cloth_hook_mesh;
+mod cloth_lacing_fit;
+mod cloth_lacing_mesh;
+mod cloth_lacing_support;
+mod cloth_layer_seating;
+mod cloth_opening;
+pub mod cloth_panel;
+mod cloth_ribbon_plan;
+mod cloth_seating_domain;
+mod cloth_sewn_interfaces;
+mod cloth_source;
+mod cloth_tie_plan;
+mod cloth_torso_frame;
+mod cloth_triangle_budget;
+pub mod clothing;
+mod clothing_material;
+mod collar_closures;
+mod collar_oval;
+mod collar_rows;
+pub mod decoration;
+pub mod design_input;
 pub mod device_body;
+mod device_body_cloth;
 mod device_boot_layers;
 pub mod device_bracer;
 mod device_chausses;
 pub mod device_clearance;
 pub mod device_close_helmet;
+mod device_cloth_collar;
+mod device_cloth_ribbon;
+mod device_cloth_seating;
+mod device_cloth_ties;
 pub mod device_coif;
+mod device_collar_seating;
 pub mod device_extremities;
 pub mod device_fit;
 pub mod device_foot_frame;
@@ -30,60 +75,80 @@ mod device_gorget_cage;
 mod device_gorget_collar;
 mod device_gorget_projection;
 mod device_gorget_sections;
+mod device_gown_enclosure;
 pub mod device_head_frame;
 pub mod device_helmet;
 pub mod device_limb;
+mod device_partlet;
 mod device_pauldron;
 pub mod device_piece;
+mod device_piece_components;
+mod device_piece_skin;
 mod device_puff;
+mod device_recipe_plan;
 mod device_sabaton;
+mod device_skirt;
+mod device_skirt_join;
+mod device_textile_materials;
+mod device_textile_relief;
+mod device_textile_support;
 pub mod device_torso;
 mod device_torso_wgsl;
 pub mod device_underlayer;
 mod device_wrapped_tasset;
-pub mod torso_domain;
-pub use armor_gpu::{FittingSlot, armor_gpu, armor_gpu_async, fitting_slot};
-mod metal_gpu;
-pub use metal_gpu::metal_gpu;
-pub mod armor_metal;
-pub mod armor_recipes;
-pub mod bracer;
-pub mod clothing;
-mod clothing_material;
-#[cfg(feature = "offline-creator")]
-pub mod lod;
-pub mod nearest_vertex;
-pub use clothing_material::pbr as equipment_pbr;
-pub mod decoration;
-pub mod design_input;
 pub mod equipment_catalog;
 pub mod equipment_layers;
 #[cfg(feature = "offline-creator")]
 pub mod export;
+pub mod garment;
+pub mod garment_material;
+mod gown_body_fit;
+mod gown_charts;
+mod gown_dressing_opening;
+mod gown_ease;
+mod gown_materials;
+mod gown_plan;
+pub mod hair;
 pub mod inventory;
 pub mod item_design;
 pub mod library_name;
+#[cfg(feature = "offline-creator")]
+pub mod lod;
+mod metal_gpu;
+pub mod nearest_vertex;
+mod partlet_collar;
+mod partlet_cut;
+mod partlet_plan;
 pub mod profiling;
 #[cfg(feature = "offline-creator")]
 pub mod proportions;
+mod rig_parameters;
 pub mod runtime_equipment;
+mod sewn_eyelet_mesh;
+mod sewn_eyelet_plan;
+mod sewn_torso_boundaries;
 pub mod skin_rules;
+pub mod skin_transfer;
+mod skirt_clearance;
+mod skirt_join;
 pub mod studio_environment;
 pub mod surface_cut;
+pub mod textile_surface;
+pub mod torso_domain;
 pub mod underlayer;
 pub mod underlayer_armor;
+#[cfg(feature = "offline-creator")]
+pub mod underlayer_material;
+mod waist_fastener_fit;
+mod waist_fastener_sources;
+mod waist_support_mesh;
+mod waist_support_plan;
 pub mod wardrobe;
-pub use adventuresim_core::item_catalog_schema;
-pub mod garment;
-pub mod garment_material;
 
-use serde::{Deserialize, Serialize};
-
-use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
 /// Character recipes use this schema version; older recipes are not read.
-pub const RECIPE_VERSION: u8 = 13;
+pub const RECIPE_VERSION: u8 = 14;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(deny_unknown_fields)]
@@ -93,7 +158,16 @@ pub struct CharacterRecipe {
     pub proportions: adventuresim_core::character_proportions::CharacterProportions,
     pub identity: Vec<f32>,
     pub expression: Vec<f32>,
+    /// The hairstyle grown on the head; `None` is bald.
+    pub hair: Option<hair::HairDesign>,
     pub inventory: inventory::Inventory,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum IdentityGroup {
+    Body,
+    Head,
+    Hands,
 }
 
 impl Default for CharacterRecipe {
@@ -115,6 +189,7 @@ impl Default for CharacterRecipe {
             name: "New adventurer".into(),
             identity: vec![0.0; IDENTITY_MORPH_COUNT],
             expression: vec![0.0; EXPRESSION_COUNT],
+            hair: None,
             inventory,
         }
     }
@@ -153,13 +228,6 @@ impl CharacterRecipe {
     pub fn reset_face(&mut self) {
         self.expression.fill(0.0);
     }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum IdentityGroup {
-    Body,
-    Head,
-    Hands,
 }
 
 impl IdentityGroup {
@@ -229,6 +297,3 @@ mod tests {
         assert!(parsed.validate().is_ok());
     }
 }
-
-#[cfg(feature = "offline-creator")]
-pub mod underlayer_material;

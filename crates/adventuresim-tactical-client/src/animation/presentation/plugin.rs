@@ -9,6 +9,7 @@ pub(crate) type AnimatedActors = Or<(With<Player>, With<StrategicModel>)>;
 
 impl Plugin for TacticalAnimationPlugin {
     fn build(&self, app: &mut App) {
+        install_requests(app);
         app.init_resource::<AnimationPackCatalog>()
             .init_resource::<pose_buffer::PoseBufferMetrics>()
             .init_resource::<pose_buffer::RigDefinitions>()
@@ -16,14 +17,13 @@ impl Plugin for TacticalAnimationPlugin {
             .init_resource::<AuthoredLocomotionStrides>()
             .init_resource::<AnimationRuntime>()
             .init_resource::<semantic_route::SemanticRouteTelemetry>()
-            .init_resource::<TerrainIkEnabled>()
+            .init_resource::<TerrainIkMode>()
             .init_resource::<ProceduralAnimationClock>()
             .init_resource::<procedural::FixedTickPoseCache>()
             .init_resource::<bouncy_bones::BouncyBonesTelemetry>()
             .register_required_components::<procedural::HumanoidRig, bouncy_bones::BouncyBones>()
             .add_message::<LocomotionPresentationEvent>()
             .add_message::<bouncy_bones::BoneKick>()
-            .add_systems(Startup, request_animation_packs)
             .add_systems(
                 Update,
                 (
@@ -38,6 +38,7 @@ impl Plugin for TacticalAnimationPlugin {
             .add_systems(
                 Update,
                 (
+                    super::super::clip_revision::refresh_animation_revisions,
                     collect_loaded_packs,
                     attach_loaded_rig_scenes,
                     super::super::identity_morphs::sync_character_morphs,

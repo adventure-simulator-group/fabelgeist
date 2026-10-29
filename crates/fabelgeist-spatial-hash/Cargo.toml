@@ -1,0 +1,23 @@
+[package]
+name = "fabelgeist-spatial-hash"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+
+[dependencies]
+fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
+anyhow = { "version" = "1.0" }
+bytemuck = { "version" = "1.16", "features" = ["derive"] }
+fabelgeist-gpu = { "default-features" = false, "optional" = true, "path" = "../fabelgeist-gpu" }
+fabelgeist-compute = { "optional" = true, "path" = "../fabelgeist-compute" }
+
+[dev-dependencies]
+tokio = { "version" = "1", "features" = ["full"] }
+
+[features]
+default = ["gpu"]
+gpu = ["dep:fabelgeist-gpu", "dep:fabelgeist-compute"]
+
+[lints]
+workspace = true

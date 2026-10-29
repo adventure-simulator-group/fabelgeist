@@ -1,3 +1,4 @@
+use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
 use adventuresim_core::prelude::*;
 use avian3d::prelude::*;
 use bevy::prelude::*;
@@ -5,12 +6,34 @@ use bevy_ahoy::{
     CharacterController, CharacterControllerState, CharacterLook, input::AccumulatedInput,
 };
 
-use crate::{
-    animation::{SkeletonState, WeaponGuardState, locomotion_sample_hz},
-    player::{CharacterDimensions, TacticalPlayerViewer},
+use movement_speed::*;
+pub use movement_speed::{
+    BREATH_PER_METRE_PER_SECOND, TACTICAL_BREATH_RESPONSE_SCALE,
+    TACTICAL_DIVE_HORIZONTAL_SPEED_METRES_PER_SECOND, TACTICAL_GUARD_SPEED_METRES_PER_SECOND,
+    TACTICAL_PRONE_LATERAL_SPEED_SCALE, TACTICAL_PRONE_SPEED_METRES_PER_SECOND,
+    TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND, TACTICAL_QUICKSTEP_SPEED_METRES_PER_SECOND,
+    TACTICAL_ROLL_SPEED_METRES_PER_SECOND, TACTICAL_RUN_SPEED_METRES_PER_SECOND,
+    TACTICAL_WALK_SPEED_METRES_PER_SECOND, tactical_breath_recovery_per_second,
+    tactical_exhaustion_change_per_second, tactical_jog_speed,
+    tactical_movement_exhaustion_change_per_second, tactical_movement_speed,
+    tactical_movement_speed_for_guard, tactical_movement_speed_for_pace, tactical_sprint_speed,
 };
 
+use crate::{
+    animation::{
+        AnimationElapsed, AnimationQuantity, AnimationSampleSpan, AnimationValueError,
+        AnimationValueResult, DownedRollMotion, PositiveAnimationDuration, SkeletonState,
+        WeaponGuardState, locomotion_sample_rate,
+    },
+    player::{CharacterDimensions, PlayerInputTick, TacticalPlayerViewer},
+};
+
+mod controller_config;
+mod movement_speed;
 mod plugin;
+pub use quickstep::quickstep_action_contact_ticks;
+
+mod quickstep;
 pub use plugin::{AdventureSimulatorPhysicsPlugin, AdventureSimulatorPhysicsSet};
 
 #[derive(
@@ -52,135 +75,19 @@ type MovementControllerQuery<'world, 'state> = Query<
     ),
 >;
 
-pub const TACTICAL_WALK_SPEED_METRES_PER_SECOND: f32 = 1.7;
-pub const BREATH_PER_METRE_PER_SECOND: f32 = 0.0034;
-pub const TACTICAL_BREATH_RESPONSE_SCALE: f32 = 5.0;
-const REFERENCE_LEG_STRENGTH: f32 = 3.0;
-const REFERENCE_BURDEN_KG: f32 = 70.0;
-const MINIMUM_JOG_SPEED_METRES_PER_SECOND: f32 = 1.8;
-const ELITE_MARATHON_SPEED_METRES_PER_SECOND: f32 = 5.83;
-const JOG_ENDURANCE_CURVE_EXPONENT: f32 = 1.873_873;
-// Sprint attributes retain their authored calibration independently of the
-// ordinary walking pace.
-const SPRINT_CURVE_BASE_SPEED_METRES_PER_SECOND: f32 = 1.4;
-const REFERENCE_SPRINT_SPEED_METRES_PER_SECOND: f32 = 8.0;
-const ELITE_SPRINT_SPEED_METRES_PER_SECOND: f32 = 12.4;
 const MINIMUM_ORDINARY_TURN_RADIUS_METRES: f32 = 0.25;
-// A trailing-leg guard contact does not actively brake at the motor's full
-// stopping force, but it now uses most of that reserve so movement-direction
-// momentum falls promptly while the leading foot is airborne.
 
-/// Authored ordinary-run reference speed and fallback for entities without
-/// character attributes, in metres per second.
-pub const TACTICAL_RUN_SPEED_METRES_PER_SECOND: f32 = 5.5;
-
-/// Maximum server-authoritative movement speed while the weapon guard is raised.
-pub const TACTICAL_GUARD_SPEED_METRES_PER_SECOND: f32 = 2.0;
-
-/// Deliberate prone crawl speed used by the ordinary walking control mode.
-pub const TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND: f32 = 0.45;
-/// Maximum urgent unencumbered crawl speed used while sprint is held.
-pub const TACTICAL_PRONE_SPEED_METRES_PER_SECOND: f32 = 2.0;
-/// Body-local lateral crawl is intentionally slower than longitudinal travel.
-pub const TACTICAL_PRONE_LATERAL_SPEED_SCALE: f32 = 0.375;
-/// Crawling costs roughly three times the effort of upright travel at the same
-/// physical speed. Dividing the character's neutral jog by the same factor
-/// gives prone movement a breath-neutral middle pace.
-const TACTICAL_PRONE_EFFORT_SCALE: f32 = 3.0;
-pub const TACTICAL_ROLL_SPEED_METRES_PER_SECOND: f32 = 1.3;
 pub const TACTICAL_JUMP_HEIGHT_METRES: f32 = 0.30;
 pub const TACTICAL_DIVE_JUMP_HEIGHT_METRES: f32 = 0.20;
-pub const TACTICAL_DIVE_HORIZONTAL_SPEED_METRES_PER_SECOND: f32 = 7.0;
-pub const TACTICAL_QUICKSTEP_SPEED_METRES_PER_SECOND: f32 = 3.5;
 pub const TACTICAL_GRAVITY_METRES_PER_SECOND_SQUARED: f32 = 9.81;
 pub const TACTICAL_MAXIMUM_STEP_HEIGHT_METRES: f32 = 0.35;
 pub const TACTICAL_MAXIMUM_WALKABLE_SLOPE_DEGREES: f32 = 40.0;
-
-pub fn tactical_jog_speed(endurance: f32) -> f32 {
-    let endurance = endurance.clamp(0.0, 5.0);
-    if endurance <= 1.0 {
-        let smooth_endurance = endurance * endurance * (3.0 - 2.0 * endurance);
-        return TACTICAL_WALK_SPEED_METRES_PER_SECOND
-            .lerp(MINIMUM_JOG_SPEED_METRES_PER_SECOND, smooth_endurance);
-    }
-
-    let normalized = (endurance - 1.0) / 4.0;
-    MINIMUM_JOG_SPEED_METRES_PER_SECOND
-        + (ELITE_MARATHON_SPEED_METRES_PER_SECOND - MINIMUM_JOG_SPEED_METRES_PER_SECOND)
-            * normalized.powf(JOG_ENDURANCE_CURVE_EXPONENT)
-}
-
-pub fn tactical_breath_recovery_per_second(endurance: f32) -> f32 {
-    tactical_jog_speed(endurance) * BREATH_PER_METRE_PER_SECOND
-}
-
-/// Positive values accumulate tactical breath exhaustion; negative values
-/// recover it. `effort_speed` describes intentional exertion rather than
-/// physics velocity, so external impulses do not make a character winded.
-pub fn tactical_exhaustion_change_per_second(effort_speed: f32, endurance: f32) -> f32 {
-    let effort_speed = if effort_speed.is_finite() {
-        effort_speed.max(0.0)
-    } else {
-        0.0
-    };
-    (effort_speed * BREATH_PER_METRE_PER_SECOND - tactical_breath_recovery_per_second(endurance))
-        * TACTICAL_BREATH_RESPONSE_SCALE
-}
-
-/// Movement's additive contribution to tactical exhaustion. A full jog is
-/// explicitly capped at neutral, while partial jog input and walking recover
-/// exhaustion and sprinting accumulates it. Other exhaustion sources can add
-/// their own rates without being cleared by the selected movement pace.
-pub fn tactical_movement_exhaustion_change_per_second(
-    movement: Option<Vec2>,
-    pace: MovementPace,
-    weapon_guard: WeaponGuardState,
-    body: crate::animation::BodyState,
-    endurance: f32,
-    sprint_speed: f32,
-) -> f32 {
-    let jog_speed = tactical_jog_speed(endurance);
-    let effort_speed = if body == crate::animation::BodyState::Prone {
-        tactical_prone_movement_speed_for_pace(movement, pace, jog_speed)
-            * TACTICAL_PRONE_EFFORT_SCALE
-    } else {
-        tactical_movement_speed_for_pace(movement, pace, weapon_guard, jog_speed, sprint_speed)
-    };
-    let change = tactical_exhaustion_change_per_second(effort_speed, endurance);
-    if pace == MovementPace::Jog {
-        change.min(0.0)
-    } else {
-        change
-    }
-}
-
-pub fn tactical_sprint_speed(
-    left_leg_strength: f32,
-    right_leg_strength: f32,
-    left_leg_health: f32,
-    right_leg_health: f32,
-    burden_kg: f32,
-) -> f32 {
-    let effective_strength = ((left_leg_strength * left_leg_health.max(0.0)
-        + right_leg_strength * right_leg_health.max(0.0))
-        * 0.5)
-        .max(0.0);
-    let strength_ratio = effective_strength / REFERENCE_LEG_STRENGTH;
-    let burden_ratio = REFERENCE_BURDEN_KG / burden_kg.max(1.0);
-    let strength_speed = (REFERENCE_SPRINT_SPEED_METRES_PER_SECOND
-        - SPRINT_CURVE_BASE_SPEED_METRES_PER_SECOND)
-        * strength_ratio;
-    (SPRINT_CURVE_BASE_SPEED_METRES_PER_SECOND + strength_speed * burden_ratio.sqrt()).clamp(
-        TACTICAL_WALK_SPEED_METRES_PER_SECOND,
-        ELITE_SPRINT_SPEED_METRES_PER_SECOND,
-    )
-}
 
 /// Builds the shared tactical controller instead of inheriting Ahoy's much
 /// faster general-purpose default.
 pub fn tactical_character_controller() -> CharacterController {
     CharacterController {
-        speed: TACTICAL_RUN_SPEED_METRES_PER_SECOND,
+        speed: TACTICAL_RUN_SPEED_METRES_PER_SECOND.metres_per_second(),
         // Horizontal velocity is owned by the Fabelgeist motor below. Ahoy
         // remains the collision-constraint solver and must not accelerate or
         // brake the same state a second time.
@@ -200,13 +107,14 @@ pub fn tactical_character_controller() -> CharacterController {
 /// Compact rollback boundary produced after an authoritative controller step.
 /// Clients can restore this state at `acknowledged_input_tick` and replay newer
 /// locally buffered input without treating a render transform as simulation
-/// authority.
+/// authority. The acknowledgement is absent before the first accepted input;
+/// an observed input tick of zero is not an initialization sentinel.
 #[derive(
     Component, Debug, Clone, Copy, Default, PartialEq, Reflect, serde::Serialize, serde::Deserialize,
 )]
 #[reflect(Component)]
 pub struct CharacterMotionSnapshot {
-    pub acknowledged_input_tick: u32,
+    pub acknowledged_input_tick: Option<PlayerInputTick>,
     pub translation: Vec3,
     pub rotation: Quat,
     pub linear_velocity: Vec3,
@@ -226,7 +134,7 @@ pub struct CharacterMotionSnapshot {
 )]
 #[reflect(Component)]
 pub struct QuickstepPush {
-    pub start_tick: u64,
+    pub start_tick: crate::animation::AnimationSampleTick,
     pub direction: Vec2,
     pub orientation: Quat,
     pub origin: Vec3,
@@ -254,20 +162,6 @@ fn melee_lunge_has_arrived(travelled_metres: f32, planned_distance_metres: f32) 
 #[derive(Component, Debug, Clone, Copy, Default)]
 struct QuickstepMismatchLogged;
 
-impl QuickstepPush {
-    pub fn begin(&mut self, start_tick: u64, direction: Vec2, orientation: Quat, origin: Vec3) {
-        self.start_tick = start_tick;
-        self.direction = direction.normalize_or_zero();
-        self.orientation = orientation;
-        self.origin = origin;
-        self.active = self.direction != Vec2::ZERO;
-    }
-
-    pub fn cancel(&mut self) {
-        self.active = false;
-    }
-}
-
 const QUICKSTEP_FORCE_CURVE_RAMP_FRACTION: f32 = 0.31;
 /// Smooth rise, maximal mid-push force, and smooth release. Its normalized
 /// area is 0.69, matching the force-time profile used to calibrate the
@@ -283,14 +177,20 @@ pub fn quickstep_force_curve(normalized_time: f32) -> f32 {
     }
 }
 
-pub fn quickstep_push_seconds(
+pub fn quickstep_push_duration(
     leg_agility: f32,
     motor: &crate::combat_config::CharacterMotorConfig,
-) -> f32 {
-    (motor.reference_quickstep_push_seconds
+) -> AnimationValueResult<PositiveAnimationDuration> {
+    let seconds = (motor.reference_quickstep_push_seconds.seconds()
         - (leg_agility - motor.reference_leg_agility)
             * motor.quickstep_push_seconds_reduction_per_agility)
-        .max(1.0 / locomotion_sample_hz())
+        .max(locomotion_sample_rate().interval().seconds());
+    if !seconds.is_finite() {
+        return Err(AnimationValueError::Overflow {
+            quantity: AnimationQuantity::Elapsed,
+        });
+    }
+    PositiveAnimationDuration::try_from(seconds)
 }
 
 pub fn quickstep_peak_horizontal_force_newtons(
@@ -308,7 +208,7 @@ pub fn quickstep_peak_horizontal_force_newtons(
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct QuickstepMotionTarget {
     pub displacement_metres: f32,
-    pub velocity_metres_per_second: f32,
+    pub velocity_metres_per_second: SignedSpeed,
     pub acceleration_metres_per_second_squared: f32,
 }
 
@@ -317,9 +217,7 @@ pub fn quickstep_target_displacement_metres(
     leg_length_metres: f32,
     motor: &crate::combat_config::CharacterMotorConfig,
 ) -> f32 {
-    let reference_leg_length = motor
-        .reference_quickstep_leg_length_metres
-        .max(f32::EPSILON);
+    let reference_leg_length = motor.reference_quickstep_leg_length_metres;
     let leg_length = if leg_length_metres.is_finite() && leg_length_metres > 0.0 {
         leg_length_metres
     } else {
@@ -334,16 +232,16 @@ pub fn quickstep_target_displacement_metres(
 pub fn quickstep_motion_target(
     normalized_time: f32,
     target_displacement_metres: f32,
-    duration_seconds: f32,
+    duration: AnimationElapsed,
     profile: [f32; 5],
-) -> QuickstepMotionTarget {
+) -> AnimationValueResult<QuickstepMotionTarget> {
     let phase = normalized_time.clamp(0.0, 1.0);
-    if phase >= 1.0 {
-        return QuickstepMotionTarget {
+    if phase >= 1.0 || duration.is_zero() {
+        return Ok(QuickstepMotionTarget {
             displacement_metres: target_displacement_metres,
-            velocity_metres_per_second: 0.0,
+            velocity_metres_per_second: SignedSpeed::ZERO,
             acceleration_metres_per_second_squared: 0.0,
-        };
+        });
     }
     let segment = ((phase * 4.0).floor() as usize).min(3);
     let u = phase * 4.0 - segment as f32;
@@ -375,15 +273,17 @@ pub fn quickstep_motion_target(
         + (6.0 * u - 4.0) * m0
         + (-12.0 * u + 6.0) * p1
         + (6.0 * u - 2.0) * m1;
-    let duration = duration_seconds.max(f32::EPSILON);
-    QuickstepMotionTarget {
+    let duration = duration.seconds();
+    Ok(QuickstepMotionTarget {
         displacement_metres: position * target_displacement_metres,
-        velocity_metres_per_second: derivative_u * 4.0 * target_displacement_metres / duration,
+        velocity_metres_per_second: SignedSpeed::from_metres_per_second(
+            derivative_u * 4.0 * target_displacement_metres / duration,
+        )?,
         acceleration_metres_per_second_squared: second_derivative_u
             * 16.0
             * target_displacement_metres
             / (duration * duration),
-    }
+    })
 }
 
 /// Returns the bounded longitudinal ground-reaction force needed to follow the
@@ -391,12 +291,17 @@ pub fn quickstep_motion_target(
 /// integration error; neither term directly changes transform or velocity.
 pub fn quickstep_tracking_force_newtons(
     displacement_metres: f32,
-    velocity_metres_per_second: f32,
+    velocity_metres_per_second: SignedSpeed,
     target: QuickstepMotionTarget,
     mass_kg: f32,
     maximum_force_newtons: f32,
-    delta_seconds: f32,
+    elapsed: AnimationElapsed,
 ) -> f32 {
+    let delta_seconds = elapsed.seconds();
+    let velocity_metres_per_second = velocity_metres_per_second.metres_per_second();
+    if delta_seconds <= 0.0 {
+        return 0.0;
+    }
     const TRACKING_FREQUENCY_RADIANS_PER_SECOND: f32 = 12.0;
     // Ground projection can leave a few ten-thousandths of a metre per second
     // behind on an otherwise stationary character. Treat that contact noise as
@@ -404,7 +309,8 @@ pub fn quickstep_tracking_force_newtons(
     // needed to reach exactly zero velocity, suppressing the entire quickstep.
     const VELOCITY_REVERSAL_GUARD_METRES_PER_SECOND: f32 = 0.02;
     let position_error = target.displacement_metres - displacement_metres;
-    let velocity_error = target.velocity_metres_per_second - velocity_metres_per_second;
+    let velocity_error =
+        target.velocity_metres_per_second.metres_per_second() - velocity_metres_per_second;
     let acceleration = target.acceleration_metres_per_second_squared
         + TRACKING_FREQUENCY_RADIANS_PER_SECOND.powi(2) * position_error
         + 2.0 * TRACKING_FREQUENCY_RADIANS_PER_SECOND * velocity_error;
@@ -413,87 +319,13 @@ pub fn quickstep_tracking_force_newtons(
         -maximum_force_newtons.max(0.0),
         maximum_force_newtons.max(0.0),
     );
-    let stopping_force = -velocity_metres_per_second * mass / delta_seconds.max(f32::EPSILON);
+    let stopping_force = -velocity_metres_per_second * mass / delta_seconds;
     if velocity_metres_per_second > VELOCITY_REVERSAL_GUARD_METRES_PER_SECOND {
         force.max(stopping_force)
     } else if velocity_metres_per_second < -VELOCITY_REVERSAL_GUARD_METRES_PER_SECOND {
         force.min(stopping_force)
     } else {
         force
-    }
-}
-
-/// Converts the configured complete quickstep duration into the midpoint tick
-/// expected by the shared symmetric dodge timeline. Keeping this conversion
-/// in one place prevents a contact duration from accidentally being doubled.
-pub fn quickstep_action_contact_ticks(duration_seconds: f32) -> u64 {
-    let total_ticks = (duration_seconds.max(2.0 / locomotion_sample_hz()) * locomotion_sample_hz())
-        .round()
-        .max(2.0) as u64;
-    (total_ticks / 2).max(1)
-}
-
-/// Preserves the analogue movement magnitude after Ahoy normalizes its wish
-/// direction. Keyboard input has magnitude one; a half-deflected stick sets a
-/// half-speed controller target.
-pub fn tactical_movement_speed(movement: Option<Vec2>) -> f32 {
-    tactical_movement_speed_for_guard(movement, WeaponGuardState::Lowered)
-}
-
-/// Resolves the controller target speed at the server-side Ahoy seam. The
-/// radial input magnitude is retained after Ahoy normalizes its wish direction.
-pub fn tactical_movement_speed_for_guard(
-    movement: Option<Vec2>,
-    weapon_guard: WeaponGuardState,
-) -> f32 {
-    let cap = match weapon_guard {
-        WeaponGuardState::Lowered => TACTICAL_RUN_SPEED_METRES_PER_SECOND,
-        WeaponGuardState::Raised => TACTICAL_GUARD_SPEED_METRES_PER_SECOND,
-    };
-    cap * movement.map_or(0.0, |movement| movement.length().clamp(0.0, 1.0))
-}
-
-pub fn tactical_movement_speed_for_pace(
-    movement: Option<Vec2>,
-    pace: MovementPace,
-    weapon_guard: WeaponGuardState,
-    jog_speed: f32,
-    sprint_speed: f32,
-) -> f32 {
-    let requested = match pace {
-        MovementPace::Walk => TACTICAL_WALK_SPEED_METRES_PER_SECOND,
-        MovementPace::Jog => jog_speed,
-        MovementPace::Sprint => sprint_speed,
-    };
-    let cap = if weapon_guard == WeaponGuardState::Raised {
-        match pace {
-            MovementPace::Sprint => jog_speed,
-            _ => requested.min(TACTICAL_GUARD_SPEED_METRES_PER_SECOND),
-        }
-    } else {
-        requested
-    };
-    cap * movement.map_or(0.0, |movement| movement.length().clamp(0.0, 1.0))
-}
-
-fn tactical_prone_movement_speed_for_pace(
-    movement: Option<Vec2>,
-    pace: MovementPace,
-    upright_jog_speed: f32,
-) -> f32 {
-    let speed = tactical_prone_speed_for_pace(pace, upright_jog_speed);
-    let movement = movement.unwrap_or_default();
-    speed
-        * Vec2::new(movement.x * TACTICAL_PRONE_LATERAL_SPEED_SCALE, movement.y)
-            .length()
-            .clamp(0.0, 1.0)
-}
-
-fn tactical_prone_speed_for_pace(pace: MovementPace, upright_jog_speed: f32) -> f32 {
-    match pace {
-        MovementPace::Walk => TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND,
-        MovementPace::Jog => upright_jog_speed / TACTICAL_PRONE_EFFORT_SCALE,
-        MovementPace::Sprint => TACTICAL_PRONE_SPEED_METRES_PER_SECOND,
     }
 }
 
@@ -556,75 +388,40 @@ fn apply_character_motor(
             }
         });
         let motor = &movement_config.motor;
-        controller.acceleration_hz = 0.0;
-        controller.air_acceleration_hz = 0.0;
-        controller.water_acceleration_hz = 0.0;
-        controller.friction_hz = 0.0;
-        controller.stop_speed = 0.0;
-        controller.gravity = motor.gravity_metres_per_second_squared;
-        controller.step_size = motor.maximum_step_height_metres;
-        controller.min_walk_cos = motor.maximum_walkable_slope_degrees.to_radians().cos();
+        controller_config::apply_motor_config(&mut controller, motor);
         let guard = skeleton.map_or(WeaponGuardState::Lowered, SkeletonState::weapon_guard);
-        let roll_motion = skeleton.map_or(0.0, SkeletonState::downed_lateral_motion);
-        if roll_motion.abs() > f32::EPSILON {
-            controller.speed = speeds.roll * roll_motion.abs();
+        let roll_motion =
+            skeleton.map_or(DownedRollMotion::REST, SkeletonState::downed_lateral_motion);
+        if roll_motion.is_moving() {
+            controller.speed = speeds.roll.metres_per_second() * roll_motion.fraction().abs();
         } else if skeleton.is_some_and(SkeletonState::is_posture_transitioning) {
             controller.speed = 0.0;
         } else if skeleton.is_some_and(|skeleton| {
             skeleton.action_kind() == crate::animation::SkeletonAction::Dodge
                 && skeleton.action_direction() != Vec2::ZERO
         }) {
-            controller.speed = speeds.quickstep;
+            controller.speed = speeds.quickstep.metres_per_second();
         } else if let Some(lunge) = melee_lunge {
             controller.speed = if lunge.quickstep {
-                speeds.quickstep
+                speeds.quickstep.metres_per_second()
             } else {
-                speeds.run
+                speeds.run.metres_per_second()
             };
         } else {
-            let body = skeleton.map(SkeletonState::body);
-            let input_magnitude = input
-                .last_movement
-                .map_or(0.0, |movement| movement.length().clamp(0.0, 1.0));
-            let (jog, sprint) = viewer.get(entity).map_or((3.75, speeds.run), |player| {
-                let burden = player.body_weight() + player.inventory_weight();
-                (
-                    tactical_jog_speed(
-                        player.raw_single_body_part_attr(SimpleAttribute::Endurance),
-                    ),
-                    tactical_sprint_speed(
-                        player.raw_limb_attr(LimbAttribute::Strength, BodyPart::LeftLeg),
-                        player.raw_limb_attr(LimbAttribute::Strength, BodyPart::RightLeg),
-                        player.body_part_health(BodyPart::LeftLeg),
-                        player.body_part_health(BodyPart::RightLeg),
-                        burden,
-                    ),
-                )
-            });
-            let requested = pace.map_or(speeds.run, |pace| match pace {
-                MovementPace::Walk => speeds.walk,
-                MovementPace::Jog => jog,
-                MovementPace::Sprint => sprint,
-            });
-            let cap = if guard == WeaponGuardState::Raised {
-                match pace {
-                    Some(MovementPace::Sprint) => jog,
-                    _ => requested.min(speeds.raised_guard),
-                }
-            } else {
-                requested
-            };
-            controller.speed = cap * input_magnitude;
-            if matches!(
-                body,
-                Some(crate::animation::BodyState::Prone | crate::animation::BodyState::Supine)
+            controller.speed = match movement_speed::ordinary_controller_speed(
+                input.last_movement,
+                pace.copied(),
+                guard,
+                skeleton.map(SkeletonState::body),
+                viewer.get(entity).ok(),
+                movement_config,
             ) {
-                controller.speed = pace.map_or(speeds.prone_walk, |pace| match pace {
-                    MovementPace::Walk => speeds.prone_walk,
-                    MovementPace::Jog => jog / movement_config.prone_effort_scale,
-                    MovementPace::Sprint => speeds.prone,
-                }) * input_magnitude;
-            }
+                Ok(speed) => speed.metres_per_second(),
+                Err(error) => {
+                    warn!(%error, ?entity, "Rejected character movement speed");
+                    continue;
+                }
+            };
         }
 
         let (mass_kg, biological_mass_kg, leg_strength, leg_agility) = viewer.get(entity).map_or(
@@ -685,16 +482,19 @@ fn apply_character_motor(
                 * Vec3::new(push.direction.x, 0.0, -push.direction.y))
             .xz()
             .normalize_or_zero();
-            let elapsed_ticks = skeleton
-                .map_or(push.start_tick, |skeleton| skeleton.locomotion_sample_tick)
-                .saturating_sub(push.start_tick);
             let action_duration = movement_config.maneuvers.quickstep_duration_seconds;
-            let action_ticks = (action_duration * locomotion_sample_hz()).round().max(1.0) as u64;
+            let clock = push.sample_clock(skeleton, action_duration);
+            let elapsed_ticks = clock.elapsed;
             let forward_velocity = velocity.xz().dot(world_direction);
-            let bounded_recovery = !quickstep_action
-                && elapsed_ticks <= action_ticks + 2
-                && forward_velocity.abs() > 0.02;
+            let bounded_recovery = clock.bounded_recovery(quickstep_action, forward_velocity);
             if push.active && (quickstep_action || attack_quickstep || bounded_recovery) {
+                let support_duration = match quickstep_push_duration(leg_agility, motor) {
+                    Ok(duration) => duration,
+                    Err(error) => {
+                        warn!(%error, ?entity, "Rejected quickstep support duration");
+                        continue;
+                    }
+                };
                 let velocity_before = velocity.0;
                 if mismatch_logged {
                     commands.entity(entity).remove::<QuickstepMismatchLogged>();
@@ -714,7 +514,7 @@ fn apply_character_motor(
                 // Target the state produced by this integration step. Sampling
                 // the current tick leaves one full force step of momentum for
                 // ordinary locomotion to clean up after the dodge has ended.
-                let phase = (elapsed_ticks + 1) as f32 / action_ticks as f32;
+                let phase = clock.target_phase();
                 let leg_length = dimensions
                     .get(entity)
                     .map_or(motor.reference_quickstep_leg_length_metres, |dimensions| {
@@ -727,12 +527,25 @@ fn apply_character_motor(
                             .min(lunge.distance_metres)
                     },
                 );
-                let target = quickstep_motion_target(
+                let target = match quickstep_motion_target(
                     phase,
                     target_displacement,
-                    action_duration,
+                    action_duration.elapsed(),
                     motor.quickstep_authored_displacement_profile,
-                );
+                ) {
+                    Ok(target) => target,
+                    Err(error) => {
+                        warn!(%error, ?entity, "Rejected quickstep target speed");
+                        continue;
+                    }
+                };
+                let forward_speed = match SignedSpeed::from_metres_per_second(forward_velocity) {
+                    Ok(speed) => speed,
+                    Err(error) => {
+                        warn!(%error, ?entity, "Rejected quickstep observed speed");
+                        continue;
+                    }
+                };
                 let maximum_force = quickstep_peak_horizontal_force_newtons(
                     biological_mass_kg,
                     leg_strength,
@@ -740,11 +553,11 @@ fn apply_character_motor(
                 );
                 let tracking_force = quickstep_tracking_force_newtons(
                     displacement,
-                    forward_velocity,
+                    forward_speed,
                     target,
                     mass_kg,
                     maximum_force,
-                    time.delta_secs(),
+                    AnimationElapsed::from(time.delta()),
                 );
                 let planar_delta =
                     world_direction * tracking_force / mass_kg.max(1.0) * time.delta_secs();
@@ -757,13 +570,13 @@ fn apply_character_motor(
                     push.cancel();
                 }
 
-                let support_duration = quickstep_push_seconds(leg_agility, motor);
-                let support_ticks =
-                    (support_duration * locomotion_sample_hz()).ceil().max(1.0) as u64;
-                let length_scale = target_displacement
-                    / motor
-                        .reference_quickstep_target_displacement_metres
-                        .max(f32::EPSILON);
+                let support_ticks = AnimationSampleSpan::from(
+                    (support_duration.seconds() * locomotion_sample_rate().hertz())
+                        .ceil()
+                        .max(1.0) as u64,
+                );
+                let length_scale =
+                    target_displacement / motor.reference_quickstep_target_displacement_metres;
                 if elapsed_ticks < support_ticks
                     && displacement
                         < motor.quickstep_maximum_supported_root_displacement_metres * length_scale
@@ -773,7 +586,8 @@ fn apply_character_motor(
                     // not apply airborne gravity yet; only the excess vertical
                     // ground-reaction force changes vertical velocity.
                     controller.gravity = 0.0;
-                    let support_phase = (elapsed_ticks as f32 + 0.5) / support_ticks as f32;
+                    let support_phase =
+                        (elapsed_ticks.samples() as f32 + 0.5) / support_ticks.samples() as f32;
                     let force_scale = quickstep_force_curve(support_phase);
                     let horizontal_force = maximum_force * force_scale;
                     let vertical_net_force =
@@ -783,15 +597,15 @@ fn apply_character_motor(
                 info!(
                     target: "quickstep_trace",
                     ?entity,
-                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick),
-                    push_start_tick = push.start_tick,
-                    elapsed_ticks,
+                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick.encoded()),
+                    push_start_tick = push.start_tick.encoded(),
+                    elapsed_ticks = elapsed_ticks.samples(),
                     ?world_direction,
                     phase,
                     displacement,
                     forward_velocity,
                     target_displacement = target.displacement_metres,
-                    target_velocity = target.velocity_metres_per_second,
+                    target_velocity = target.velocity_metres_per_second.metres_per_second(),
                     target_acceleration = target.acceleration_metres_per_second_squared,
                     tracking_force,
                     maximum_force,
@@ -811,7 +625,7 @@ fn apply_character_motor(
                 warn!(
                     target: "quickstep_trace",
                     ?entity,
-                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick),
+                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick.encoded()),
                     action_direction = ?skeleton.map_or(Vec2::ZERO, SkeletonState::action_direction),
                     push_present = quickstep_push_present,
                     push_active = quickstep_push_active,
@@ -847,7 +661,7 @@ fn apply_character_motor(
             // The authored first half lowers the body while retaining exact
             // sprint momentum. After body contact, integrate bounded kinetic
             // drag; do not hand the slide to the ordinary target-speed motor.
-            if transition.phase() >= 0.5 && controller_state.grounded.is_some() {
+            if transition.phase().fraction() >= 0.5 && controller_state.grounded.is_some() {
                 let next = slide_drag_velocity(velocity.xz(), motor, time.delta_secs());
                 velocity.x = next.x;
                 velocity.z = next.y;
@@ -894,7 +708,15 @@ fn apply_character_motor(
                 leg_agility,
             );
             let reference_turn_radius = agility_sprint_turn_radius(leg_agility, motor);
-            let turn_radius = ordinary_turn_radius(horizontal.length(), reference_turn_radius);
+            let observed_speed = match NonnegativeSpeed::from_metres_per_second(horizontal.length())
+            {
+                Ok(speed) => speed,
+                Err(error) => {
+                    warn!(%error, ?entity, "Rejected ordinary turn speed");
+                    continue;
+                }
+            };
+            let turn_radius = ordinary_turn_radius(observed_speed, reference_turn_radius);
             approach_ground_velocity(
                 horizontal,
                 target,
@@ -971,9 +793,10 @@ fn ordinary_jump_height(
 /// `r = v^2 / a`, so running and jogging turn progressively more tightly while
 /// retaining their speed. The small floor represents the space required to
 /// redirect a standing body instead of collapsing toward a zero-radius pivot.
-fn ordinary_turn_radius(speed: f32, reference_sprint_radius: f32) -> f32 {
-    let speed_fraction =
-        (speed.max(0.0) / REFERENCE_SPRINT_SPEED_METRES_PER_SECOND).clamp(0.0, 1.0);
+fn ordinary_turn_radius(speed: NonnegativeSpeed, reference_sprint_radius: f32) -> f32 {
+    let speed_fraction = (speed.metres_per_second().max(0.0)
+        / REFERENCE_SPRINT_SPEED_METRES_PER_SECOND.metres_per_second())
+    .clamp(0.0, 1.0);
     (reference_sprint_radius * speed_fraction * speed_fraction)
         .max(MINIMUM_ORDINARY_TURN_RADIUS_METRES)
 }
@@ -1124,26 +947,32 @@ mod tests {
         let braking_acceleration = braking_force / mass;
         let traction_acceleration =
             motor.gravity_metres_per_second_squared * motor.traction_coefficient;
-        let predicted_acceleration = crate::combat::conservative_forward_lunge_acceleration(motor);
+        let predicted_acceleration =
+            crate::combat::conservative_forward_lunge_acceleration(motor).unwrap();
         let run_speed = config.movement.speeds_metres_per_second.run;
-        let dt = 1.0 / locomotion_sample_hz();
+        let dt = locomotion_sample_rate().interval().seconds();
 
         for distance in [0.101, 0.404, 0.441, 0.499] {
-            let predicted_seconds = crate::combat::melee_lunge_delay_seconds(
+            let arrival = crate::combat::melee_lunge_arrival(
                 crate::combat::MeleeLunge::Forward {
                     distance_metres: distance,
                 },
                 run_speed,
                 predicted_acceleration,
                 config.movement.maneuvers.quickstep_duration_seconds,
-            );
-            let ticks = (predicted_seconds * locomotion_sample_hz()).ceil() as usize;
+            )
+            .unwrap();
+            let predicted_seconds = match arrival {
+                crate::combat::MeleeLungeArrival::ArrivesIn(elapsed) => elapsed.seconds(),
+                other => panic!("expected lunge arrival: {other:?}"),
+            };
+            let ticks = (predicted_seconds * locomotion_sample_rate().hertz()).ceil() as usize;
             let mut velocity = Vec2::ZERO;
             let mut displacement = 0.0;
             for _ in 0..ticks {
                 velocity = approach_ground_velocity(
                     velocity,
-                    Vec2::X * run_speed,
+                    Vec2::X * run_speed.metres_per_second(),
                     GroundVelocityLimits {
                         drive_acceleration,
                         braking_acceleration,
@@ -1178,34 +1007,6 @@ mod tests {
     }
 
     #[test]
-    fn movement_speed_preserves_stick_magnitude_and_caps_diagonals() {
-        for (guard, cap) in [
-            (
-                WeaponGuardState::Lowered,
-                TACTICAL_RUN_SPEED_METRES_PER_SECOND,
-            ),
-            (
-                WeaponGuardState::Raised,
-                TACTICAL_GUARD_SPEED_METRES_PER_SECOND,
-            ),
-        ] {
-            assert_eq!(tactical_movement_speed_for_guard(None, guard), 0.0);
-            assert_eq!(
-                tactical_movement_speed_for_guard(Some(Vec2::new(0.3, 0.4)), guard),
-                cap * 0.5
-            );
-            assert_eq!(
-                tactical_movement_speed_for_guard(Some(Vec2::ONE), guard),
-                cap
-            );
-        }
-        assert_eq!(
-            tactical_movement_speed(Some(Vec2::new(0.3, 0.4))),
-            TACTICAL_RUN_SPEED_METRES_PER_SECOND * 0.5
-        );
-    }
-
-    #[test]
     fn controller_speed_system_uses_guard_state_and_lowered_fallback() {
         let mut world = World::new();
         let raised = world
@@ -1237,7 +1038,7 @@ mod tests {
 
         assert_eq!(
             world.get::<CharacterController>(raised).unwrap().speed,
-            TACTICAL_GUARD_SPEED_METRES_PER_SECOND * 0.5
+            TACTICAL_GUARD_SPEED_METRES_PER_SECOND.metres_per_second() * 0.5
         );
         assert_eq!(
             world
@@ -1248,7 +1049,7 @@ mod tests {
         );
         assert_eq!(
             world.get::<CharacterController>(generic).unwrap().speed,
-            TACTICAL_RUN_SPEED_METRES_PER_SECOND
+            TACTICAL_RUN_SPEED_METRES_PER_SECOND.metres_per_second()
         );
         let controller = world.get::<CharacterController>(generic).unwrap();
         assert_eq!(controller.acceleration_hz, 0.0);
@@ -1264,12 +1065,17 @@ mod tests {
         skeleton
             .begin_dodge(
                 crate::animation::DodgeSpec::quickstep(Vec2::Y).unwrap(),
-                0,
-                20,
+                crate::animation::AnimationSampleTick::from(0u64),
+                crate::animation::AnimationSampleTick::from(20u64),
             )
             .unwrap();
         let mut push = QuickstepPush::default();
-        push.begin(0, Vec2::Y, Quat::IDENTITY, Vec3::ZERO);
+        push.begin(
+            crate::animation::AnimationSampleTick::from(0u64),
+            Vec2::Y,
+            Quat::IDENTITY,
+            Vec3::ZERO,
+        );
         let mut world = World::new();
         let entity = world
             .spawn((
@@ -1292,7 +1098,10 @@ mod tests {
 
         let controller = world.get::<CharacterController>(entity).unwrap();
         assert_eq!(controller.gravity, 0.0);
-        assert_eq!(controller.speed, TACTICAL_QUICKSTEP_SPEED_METRES_PER_SECOND);
+        assert_eq!(
+            controller.speed,
+            TACTICAL_QUICKSTEP_SPEED_METRES_PER_SECOND.metres_per_second()
+        );
         assert!(
             world
                 .get::<AccumulatedInput>(entity)
@@ -1331,7 +1140,7 @@ mod tests {
         let defaults = crate::combat_config::TacticalCombatConfig::default();
         let movement = crate::combat_config::TacticalMovementConfig {
             speeds_metres_per_second: crate::combat_config::MovementSpeedsConfig {
-                run: speed,
+                run: NonnegativeSpeed::from_metres_per_second(speed).unwrap(),
                 ..defaults.movement.speeds_metres_per_second.clone()
             },
             ..defaults.movement.clone()
@@ -1341,7 +1150,11 @@ mod tests {
             ..defaults
         };
         let motor = &config.movement.motor;
-        let turn_radius = ordinary_turn_radius(speed, agility_sprint_turn_radius(agility, motor));
+        let turn_radius = ordinary_turn_radius(
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(speed)
+                .unwrap(),
+            agility_sprint_turn_radius(agility, motor),
+        );
         let attributes = crate::player::TacticalAttributes(PlayerAttributeValues {
             left_leg_agility: agility,
             right_leg_agility: agility,
@@ -1370,9 +1183,9 @@ mod tests {
                 attributes,
             ))
             .id();
-        let delta_seconds = 1.0 / locomotion_sample_hz();
+        let delta_seconds = locomotion_sample_rate().interval().seconds();
         world.insert_resource(config);
-        let mut fixed_time = Time::<Fixed>::from_hz(locomotion_sample_hz() as f64);
+        let mut fixed_time = Time::<Fixed>::from_hz(locomotion_sample_rate().hertz() as f64);
         fixed_time.advance_by(std::time::Duration::from_secs_f32(delta_seconds));
         world.insert_resource(fixed_time);
         let mut schedule = Schedule::default();
@@ -1420,8 +1233,8 @@ mod tests {
         }
 
         let speeds = [
-            REFERENCE_SPRINT_SPEED_METRES_PER_SECOND,
-            TACTICAL_RUN_SPEED_METRES_PER_SECOND,
+            REFERENCE_SPRINT_SPEED_METRES_PER_SECOND.metres_per_second(),
+            TACTICAL_RUN_SPEED_METRES_PER_SECOND.metres_per_second(),
             3.75,
         ];
         let agilities = [1.0, 3.0, 5.0];
@@ -1429,7 +1242,13 @@ mod tests {
         for (agility_index, agility) in agilities.into_iter().enumerate() {
             let sprint_radius = agility_sprint_turn_radius(agility, motor);
             for (speed_index, speed) in speeds.into_iter().enumerate() {
-                let expected_radius = ordinary_turn_radius(speed, sprint_radius);
+                let expected_radius = ordinary_turn_radius(
+                    adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                        speed,
+                    )
+                    .unwrap(),
+                    sprint_radius,
+                );
                 let (measured_radius, minimum_speed, maximum_radius_error) =
                     integrated_right_angle_turn(speed, agility);
                 assert!(
@@ -1441,7 +1260,7 @@ mod tests {
                     "Agility {agility:.0} at {speed:.2} m/s measured {measured_radius:.3} m instead of {expected_radius:.3} m"
                 );
                 assert!(
-                    maximum_radius_error < speed / locomotion_sample_hz() + 0.01,
+                    maximum_radius_error < speed / locomotion_sample_rate().hertz() + 0.01,
                     "Agility {agility:.0} at {speed:.2} m/s radius error was {maximum_radius_error:.3} m"
                 );
                 measured_radii[agility_index][speed_index] = measured_radius;
@@ -1464,8 +1283,8 @@ mod tests {
 
     #[test]
     fn stop_and_exact_reversal_still_brake_before_accelerating_backward() {
-        let speed = REFERENCE_SPRINT_SPEED_METRES_PER_SECOND;
-        let delta_seconds = 1.0 / locomotion_sample_hz();
+        let speed = REFERENCE_SPRINT_SPEED_METRES_PER_SECOND.metres_per_second();
+        let delta_seconds = locomotion_sample_rate().interval().seconds();
         let braking_acceleration = 9.0;
         let limits = GroundVelocityLimits {
             drive_acceleration: 9.0,
@@ -1523,15 +1342,16 @@ mod tests {
         assert!((reference_force / (70.0 * 9.81) - 4.5).abs() < 1.0e-5);
         assert!((john_force / (70.0 * 9.81) - 5.1).abs() < 1.0e-5);
         assert!((olympian_force / (70.0 * 9.81) - 5.7).abs() < 1.0e-5);
-        assert!((quickstep_push_seconds(3.0, motor) - 0.40).abs() < 1.0e-6);
-        assert!((quickstep_push_seconds(4.0, motor) - 0.38).abs() < 1.0e-6);
-        assert!((quickstep_push_seconds(5.0, motor) - 0.36).abs() < 1.0e-6);
+        assert!((quickstep_push_duration(3.0, motor).unwrap().seconds() - 0.40).abs() < 1.0e-6);
+        assert!((quickstep_push_duration(4.0, motor).unwrap().seconds() - 0.38).abs() < 1.0e-6);
+        assert!((quickstep_push_duration(5.0, motor).unwrap().seconds() - 0.36).abs() < 1.0e-6);
 
-        let duration = quickstep_push_seconds(4.0, motor);
-        let ticks = (duration * locomotion_sample_hz()).ceil() as u64;
+        let duration = quickstep_push_duration(4.0, motor).unwrap();
+        let ticks = (duration.seconds() * locomotion_sample_rate().hertz()).ceil() as u64;
         let force_time = (0..ticks)
             .map(|tick| {
-                quickstep_force_curve((tick as f32 + 0.5) / ticks as f32) / locomotion_sample_hz()
+                quickstep_force_curve((tick as f32 + 0.5) / ticks as f32)
+                    / locomotion_sample_rate().hertz()
             })
             .sum::<f32>();
         let unburdened_speed = john_force * force_time / 70.0;
@@ -1550,8 +1370,8 @@ mod tests {
             motor,
         );
         let duration = config.movement.maneuvers.quickstep_duration_seconds;
-        let ticks = (duration * locomotion_sample_hz()).round() as usize;
-        let delta_seconds = 1.0 / locomotion_sample_hz();
+        let ticks = (duration.seconds() * locomotion_sample_rate().hertz()).round() as usize;
+        let delta_seconds = locomotion_sample_rate().interval().seconds();
         let maximum_force = quickstep_peak_horizontal_force_newtons(70.0, 3.0, motor);
         let mut displacement = 0.0;
         let mut velocity = 0.0;
@@ -1563,16 +1383,18 @@ mod tests {
             let target = quickstep_motion_target(
                 (tick + 1) as f32 / ticks as f32,
                 target_distance,
-                duration,
+                duration.elapsed(),
                 motor.quickstep_authored_displacement_profile,
-            );
+            )
+            .unwrap();
             let force = quickstep_tracking_force_newtons(
                 displacement,
-                velocity,
+                adventuresim_core::linear_speed::SignedSpeed::from_metres_per_second(velocity)
+                    .unwrap(),
                 target,
                 70.0,
                 maximum_force,
-                delta_seconds,
+                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
             );
             velocity += force / 70.0 * delta_seconds;
             displacement += velocity * delta_seconds;
@@ -1597,8 +1419,8 @@ mod tests {
         let config = crate::combat_config::TacticalCombatConfig::default();
         let motor = &config.movement.motor;
         let duration = config.movement.maneuvers.quickstep_duration_seconds;
-        let ticks = (duration * locomotion_sample_hz()).round() as usize;
-        let delta_seconds = 1.0 / locomotion_sample_hz();
+        let ticks = (duration.seconds() * locomotion_sample_rate().hertz()).round() as usize;
+        let delta_seconds = locomotion_sample_rate().interval().seconds();
         let maximum_force = quickstep_peak_horizontal_force_newtons(70.0, 3.0, motor);
         let maximum_gap = quickstep_target_displacement_metres(
             motor.reference_quickstep_leg_length_metres,
@@ -1611,16 +1433,18 @@ mod tests {
                 let target = quickstep_motion_target(
                     (tick + 1) as f32 / ticks as f32,
                     gap,
-                    duration,
+                    duration.elapsed(),
                     motor.quickstep_authored_displacement_profile,
-                );
+                )
+                .unwrap();
                 let force = quickstep_tracking_force_newtons(
                     displacement,
-                    velocity,
+                    adventuresim_core::linear_speed::SignedSpeed::from_metres_per_second(velocity)
+                        .unwrap(),
                     target,
                     70.0,
                     maximum_force,
-                    delta_seconds,
+                    AnimationElapsed::from_seconds(delta_seconds).unwrap(),
                 );
                 velocity += force / 70.0 * delta_seconds;
                 displacement += velocity * delta_seconds;
@@ -1639,8 +1463,8 @@ mod tests {
         let config = crate::combat_config::TacticalCombatConfig::default();
         let motor = &config.movement.motor;
         let duration = config.movement.maneuvers.quickstep_duration_seconds;
-        let ticks = (duration * locomotion_sample_hz()).round() as usize;
-        let delta_seconds = 1.0 / locomotion_sample_hz();
+        let ticks = (duration.seconds() * locomotion_sample_rate().hertz()).round() as usize;
+        let delta_seconds = locomotion_sample_rate().interval().seconds();
         let mass_kg = 70.0;
         let maximum_force = quickstep_peak_horizontal_force_newtons(mass_kg, 3.0, motor);
         let target = quickstep_motion_target(
@@ -1649,19 +1473,21 @@ mod tests {
                 crate::player::CharacterDimensions::default().leg_length_metres,
                 motor,
             ),
-            duration,
+            duration.elapsed(),
             motor.quickstep_authored_displacement_profile,
-        );
+        )
+        .unwrap();
         // This is larger than the adverse residuals observed after Ahoy ground
         // projection, while still being physically indistinguishable from rest.
         let adverse_velocity = -0.0001;
         let force = quickstep_tracking_force_newtons(
             0.0,
-            adverse_velocity,
+            adventuresim_core::linear_speed::SignedSpeed::from_metres_per_second(adverse_velocity)
+                .unwrap(),
             target,
             mass_kg,
             maximum_force,
-            delta_seconds,
+            AnimationElapsed::from_seconds(delta_seconds).unwrap(),
         );
         let velocity_after_force = adverse_velocity + force / mass_kg * delta_seconds;
 
@@ -1752,7 +1578,7 @@ mod tests {
         }
         assert!(
             world.get::<LinearVelocity>(entity).unwrap().xz().length()
-                <= TACTICAL_RUN_SPEED_METRES_PER_SECOND
+                <= TACTICAL_RUN_SPEED_METRES_PER_SECOND.metres_per_second()
         );
 
         world
@@ -1766,178 +1592,6 @@ mod tests {
             world.get::<LinearVelocity>(entity).unwrap().xz(),
             Vec2::ZERO
         );
-    }
-
-    #[test]
-    fn character_paces_are_reference_normalized_and_guard_sprint_becomes_jog() {
-        for (endurance, expected_speed) in [
-            (0.0, TACTICAL_WALK_SPEED_METRES_PER_SECOND),
-            (1.0, 1.8),
-            (2.0, 2.10),
-            (3.0, 2.90),
-            (4.0, 4.15),
-            (5.0, ELITE_MARATHON_SPEED_METRES_PER_SECOND),
-        ] {
-            assert!(
-                (tactical_jog_speed(endurance) - expected_speed).abs() < 0.015,
-                "endurance {endurance} should jog near {expected_speed} m/s"
-            );
-        }
-        assert!(
-            (tactical_breath_recovery_per_second(3.0)
-                - tactical_jog_speed(3.0) * BREATH_PER_METRE_PER_SECOND)
-                .abs()
-                < f32::EPSILON
-        );
-        assert!(tactical_exhaustion_change_per_second(8.0, 3.0) > 0.0);
-        assert!(
-            (tactical_exhaustion_change_per_second(8.0, 3.0)
-                - (8.0 - tactical_jog_speed(3.0))
-                    * BREATH_PER_METRE_PER_SECOND
-                    * TACTICAL_BREATH_RESPONSE_SCALE)
-                .abs()
-                < f32::EPSILON
-        );
-        assert!(
-            tactical_exhaustion_change_per_second(tactical_jog_speed(3.0), 3.0).abs()
-                < f32::EPSILON
-        );
-        assert!(tactical_exhaustion_change_per_second(0.0, 3.0) < 0.0);
-        assert_eq!(
-            tactical_movement_exhaustion_change_per_second(
-                Some(Vec2::Y),
-                MovementPace::Jog,
-                WeaponGuardState::Lowered,
-                crate::animation::BodyState::default(),
-                3.0,
-                8.0,
-            ),
-            0.0
-        );
-        assert!(
-            tactical_movement_exhaustion_change_per_second(
-                Some(Vec2::splat(0.71)),
-                MovementPace::Jog,
-                WeaponGuardState::Lowered,
-                crate::animation::BodyState::default(),
-                3.0,
-                8.0,
-            ) <= 0.0
-        );
-        assert!(
-            tactical_movement_exhaustion_change_per_second(
-                Some(Vec2::Y),
-                MovementPace::Sprint,
-                WeaponGuardState::Lowered,
-                crate::animation::BodyState::default(),
-                3.0,
-                8.0,
-            ) > 0.0
-        );
-        assert_eq!(
-            tactical_sprint_speed(
-                REFERENCE_LEG_STRENGTH,
-                REFERENCE_LEG_STRENGTH,
-                1.0,
-                1.0,
-                REFERENCE_BURDEN_KG,
-            ),
-            REFERENCE_SPRINT_SPEED_METRES_PER_SECOND
-        );
-        assert_eq!(
-            tactical_sprint_speed(5.0, 5.0, 1.0, 1.0, REFERENCE_BURDEN_KG),
-            ELITE_SPRINT_SPEED_METRES_PER_SECOND
-        );
-        assert_eq!(
-            tactical_movement_speed_for_pace(
-                Some(Vec2::Y),
-                MovementPace::Sprint,
-                WeaponGuardState::Raised,
-                3.96,
-                6.5,
-            ),
-            3.96
-        );
-    }
-
-    #[test]
-    fn sprint_speed_retains_injury_and_burden_penalties() {
-        let healthy = tactical_sprint_speed(3.0, 3.0, 1.0, 1.0, REFERENCE_BURDEN_KG);
-        let injured = tactical_sprint_speed(3.0, 3.0, 0.5, 0.5, REFERENCE_BURDEN_KG);
-        let burdened = tactical_sprint_speed(3.0, 3.0, 1.0, 1.0, REFERENCE_BURDEN_KG * 2.0);
-        assert!(injured < healthy);
-        assert!(burdened < healthy);
-    }
-
-    #[test]
-    fn prone_walk_is_fixed_jog_is_neutral_and_sprint_costs_exhaustion() {
-        let body = crate::animation::BodyState::Prone;
-        for endurance in [0.0, 1.0, 2.0, 3.0, 4.0, 5.0] {
-            assert_eq!(
-                tactical_prone_movement_speed_for_pace(
-                    Some(Vec2::Y),
-                    MovementPace::Walk,
-                    tactical_jog_speed(endurance),
-                ),
-                TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND
-            );
-            assert!(
-                (tactical_prone_movement_speed_for_pace(
-                    Some(Vec2::Y),
-                    MovementPace::Jog,
-                    tactical_jog_speed(endurance),
-                ) - tactical_jog_speed(endurance) / TACTICAL_PRONE_EFFORT_SCALE)
-                    .abs()
-                    < f32::EPSILON
-            );
-            assert_eq!(
-                tactical_prone_movement_speed_for_pace(
-                    Some(Vec2::Y),
-                    MovementPace::Sprint,
-                    tactical_jog_speed(endurance),
-                ),
-                TACTICAL_PRONE_SPEED_METRES_PER_SECOND
-            );
-            assert_eq!(
-                tactical_prone_movement_speed_for_pace(
-                    Some(Vec2::X),
-                    MovementPace::Sprint,
-                    tactical_jog_speed(endurance),
-                ),
-                TACTICAL_PRONE_SPEED_METRES_PER_SECOND * TACTICAL_PRONE_LATERAL_SPEED_SCALE
-            );
-            assert_eq!(
-                tactical_movement_exhaustion_change_per_second(
-                    Some(Vec2::Y),
-                    MovementPace::Jog,
-                    WeaponGuardState::Lowered,
-                    body,
-                    endurance,
-                    REFERENCE_SPRINT_SPEED_METRES_PER_SECOND,
-                ),
-                0.0
-            );
-            assert!(
-                tactical_movement_exhaustion_change_per_second(
-                    Some(Vec2::Y),
-                    MovementPace::Walk,
-                    WeaponGuardState::Lowered,
-                    body,
-                    endurance,
-                    REFERENCE_SPRINT_SPEED_METRES_PER_SECOND,
-                ) < 0.0
-            );
-            assert!(
-                tactical_movement_exhaustion_change_per_second(
-                    Some(Vec2::Y),
-                    MovementPace::Sprint,
-                    WeaponGuardState::Lowered,
-                    body,
-                    endurance,
-                    REFERENCE_SPRINT_SPEED_METRES_PER_SECOND,
-                ) > 0.0
-            );
-        }
     }
 
     #[test]
@@ -2001,8 +1655,8 @@ mod tests {
         let mut transitioning = SkeletonState::default();
         assert!(transitioning.begin_posture_transition(
             crate::animation::PostureTransitionKind::UprightToProne,
-            0,
-            10,
+            crate::animation::AnimationSampleTick::from(0u64),
+            crate::animation::AnimationSampleSpan::from(10u64),
         ));
         let transition = world
             .spawn((
@@ -2021,8 +1675,8 @@ mod tests {
             crate::animation::PostureTransitionKind::ProneToSupine {
                 direction: crate::animation::RollDirection::Left,
             },
-            0,
-            10,
+            crate::animation::AnimationSampleTick::from(0u64),
+            crate::animation::AnimationSampleSpan::from(10u64),
         ));
         let roll = world
             .spawn((
@@ -2043,7 +1697,7 @@ mod tests {
 
         assert_eq!(
             world.get::<CharacterController>(prone).unwrap().speed,
-            TACTICAL_PRONE_SPEED_METRES_PER_SECOND
+            TACTICAL_PRONE_SPEED_METRES_PER_SECOND.metres_per_second()
         );
         assert_eq!(
             world
@@ -2055,18 +1709,18 @@ mod tests {
         );
         assert_eq!(
             world.get::<CharacterController>(supine).unwrap().speed,
-            TACTICAL_PRONE_SPEED_METRES_PER_SECOND
+            TACTICAL_PRONE_SPEED_METRES_PER_SECOND.metres_per_second()
         );
         assert_eq!(
             world.get::<CharacterController>(prone_walk).unwrap().speed,
-            TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND
+            TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND.metres_per_second()
         );
         assert_eq!(
             world
                 .get::<CharacterController>(prone_half_input)
                 .unwrap()
                 .speed,
-            TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND * 0.5
+            TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND.metres_per_second() * 0.5
         );
         assert_eq!(
             world.get::<CharacterController>(prone_jog).unwrap().speed,
@@ -2078,7 +1732,7 @@ mod tests {
         );
         assert_eq!(
             world.get::<CharacterController>(roll).unwrap().speed,
-            TACTICAL_ROLL_SPEED_METRES_PER_SECOND
+            TACTICAL_ROLL_SPEED_METRES_PER_SECOND.metres_per_second()
         );
     }
 }

@@ -86,6 +86,14 @@ fn main() {
                 combat_config_path.display()
             )
         });
+    let fixed_clock =
+        match animation_viewer::capture_fixed_clock(combat_config.animation.locomotion.sample_hz) {
+            Ok(clock) => clock,
+            Err(error) => {
+                eprintln!("animation viewer could not construct its fixed clock: {error}");
+                std::process::exit(1);
+            }
+        };
     combat_config
         .install_runtime_snapshot()
         .unwrap_or_else(|error| panic!("{}: {error}", combat_config_path.display()));
@@ -100,21 +108,23 @@ fn main() {
         let text = std::fs::read_to_string(&path).expect("read body proportions JSON");
         serde_json::from_str(&text).expect("body proportions must respect the MHR limits")
     });
-    let exit = animation_viewer::run(animation_viewer::CaptureOptions {
-        inspection: animation_viewer::CaptureInspection::new(
-            args.camera_orbit_degrees,
-            args.diffuse_armor,
-            &args.output,
-        ),
-        output: args.output,
-        asset_root,
-        settle_frames: args.frames_per_sample.max(1),
-        scenario: args.scenario,
-        combat_config,
-        body_proportions,
-        armor_harness: args.armor_harness,
-        hidden: args.hidden,
-    });
+    let exit = animation_viewer::run(
+        animation_viewer::CaptureOptions {
+            inspection: animation_viewer::CaptureInspection::new(
+                args.camera_orbit_degrees,
+                args.diffuse_armor,
+            ),
+            output: args.output,
+            asset_root,
+            settle_frames: args.frames_per_sample.max(1),
+            scenario: args.scenario,
+            combat_config,
+            body_proportions,
+            armor_harness: args.armor_harness,
+            hidden: args.hidden,
+        },
+        fixed_clock,
+    );
     if let bevy::app::AppExit::Error(code) = exit {
         std::process::exit(code.get() as i32);
     }

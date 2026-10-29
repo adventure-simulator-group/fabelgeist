@@ -5,15 +5,16 @@ use adventuresim_character_creator::{
     device_torso::{TorsoSurfaceInput, generate_breastplate_on_device},
 };
 use fabelgeist_armor::{ArmorGpu, BreastplateDesign};
+use fabelgeist_rig::RigJointName;
 
 struct TorsoFixture {
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     texcoords: Vec<[f32; 2]>,
-    joint_names: Vec<String>,
-    states: Vec<[f32; 8]>,
-    indices: Vec<[u32; 8]>,
+    joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
+    states: fabelgeist_rig::RigJointTable<[f32; 8]>,
+    indices: fabelgeist_rig::PackedRigSkin<8>,
     weights: Vec<[f32; 8]>,
     morphs: Vec<ForearmMorphSample>,
 }
@@ -51,10 +52,10 @@ impl TorsoFixture {
             ("l_eye", [0.03, 1.2, 0.05]),
             ("r_eye", [-0.03, 1.2, 0.05]),
         ];
-        let states = joints
+        let states: fabelgeist_rig::RigJointTable<_> = joints
             .iter()
             .map(|(_, [x, y, z])| [*x, *y, *z, 0.0, 0.0, 0.0, 1.0, 1.0])
-            .collect::<Vec<_>>();
+            .collect();
         let morphs = vec![ForearmMorphSample {
             name: "depth_shift".into(),
             positions: positions
@@ -73,7 +74,11 @@ impl TorsoFixture {
             device: Default::default(),
         }];
         Self {
-            indices: vec![[0; 8]; positions.len()],
+            indices: fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]; positions.len()],
+                states.joint_count(),
+            )
+            .unwrap(),
             weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; positions.len()],
             joint_names: joints.iter().map(|(name, _)| (*name).into()).collect(),
             states,
@@ -111,10 +116,10 @@ fn inconsistent_arrays_and_missing_landmarks_are_rejected() {
     let error = generate_breastplate_on_device(&gpu, &design, fixture.input()).unwrap_err();
     assert!(format!("{error:#}").contains("inconsistent"), "{error:#}");
     fixture.normals.push([0.0, 0.0, 1.0]);
-    fixture.joint_names[1] = "missing_neck".into();
+    fixture.joint_names[fabelgeist_rig::RigJointOrdinal::from(1usize)] = "missing_neck".into();
     let error = generate_breastplate_on_device(&gpu, &design, fixture.input()).unwrap_err();
     assert!(format!("{error:#}").contains("c_neck"), "{error:#}");
-    fixture.joint_names[1] = "c_neck".into();
+    fixture.joint_names[fabelgeist_rig::RigJointOrdinal::from(1usize)] = "c_neck".into();
     fixture.morphs[0].positions.pop();
     let error = generate_breastplate_on_device(&gpu, &design, fixture.input()).unwrap_err();
     assert!(format!("{error:#}").contains("inconsistent"), "{error:#}");
