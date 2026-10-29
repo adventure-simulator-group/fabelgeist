@@ -29,14 +29,14 @@ pub fn joint_bases(
     reference: CharacterProportions,
 ) -> Result<RigJointTable<JointProportionBasis>> {
     let transform = &model.parameter_transform;
-    let mut bases: RigJointTable<JointProportionBasis> = vec![
-        JointProportionBasis {
+    let mut bases = model
+        .character
+        .skeleton
+        .names
+        .map(|_| JointProportionBasis {
             reference,
             translation_metres: [[0.0; 3]; BODY_PROPORTION_COUNT],
-        };
-        model.num_joints().len()
-    ]
-    .into();
+        });
     for proportion in BodyProportion::ALL {
         let column = transform
             .parameter_index(&ModelParameterName::from(proportion.mhr_parameter()))

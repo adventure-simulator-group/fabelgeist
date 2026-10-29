@@ -5,7 +5,7 @@ use derive_more::{Display, Error};
 
 /// The ordinal bound of an admitted rig column. Equal bounds do not establish
 /// that two independently produced columns belong to the same rig instance.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Default, Display, PartialEq, Eq)]
 pub struct RigJointCount(usize);
 
 /// Packed rig influences. The width, slot order, and zero-weight slots are
@@ -24,10 +24,12 @@ pub struct RigInfluences<const WIDTH: usize> {
     pub weights: [f32; WIDTH],
 }
 
+/// Rejected skin admission or encoding.
+/// `OutsideRig` retains the supplied rig bound.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Display, Error)]
 pub enum RigSkinError {
     #[display("skin joint {joint} is outside a rig of {joints} joints")]
-    OutsideRig { joint: u32, joints: usize },
+    OutsideRig { joint: u32, joints: RigJointCount },
     #[display("skin joint cannot be represented by a native 32-bit word")]
     NativeWidth,
     #[display("appended skin has a different rig bound")]
@@ -44,6 +46,12 @@ impl RigJointCount {
 
     pub(crate) fn from_table<T>(table: &RigJointTable<T>) -> Self {
         Self(table.len())
+    }
+
+    /// Joint ordinals below this bound, in rig order. Equal bounds do not
+    /// establish that two columns belong to the same rig instance.
+    pub fn ordinals(self) -> impl ExactSizeIterator<Item = RigJointOrdinal> + DoubleEndedIterator {
+        (0..self.0).map(RigJointOrdinal::from)
     }
 
     pub fn len(self) -> usize {
@@ -108,10 +116,7 @@ impl<const WIDTH: usize> PackedRigSkin<WIDTH> {
     ) -> Result<Self, RigSkinError> {
         for &joint in words.iter().flatten() {
             if usize::try_from(joint).map_or(true, |joint| joint >= joints.0) {
-                return Err(RigSkinError::OutsideRig {
-                    joint,
-                    joints: joints.0,
-                });
+                return Err(RigSkinError::OutsideRig { joint, joints });
             }
         }
         Ok(Self { words, joints })
@@ -217,7 +222,7 @@ impl<const WIDTH: usize> PackedRigSkin<WIDTH> {
             if usize::from(joint) >= self.joints.0 {
                 return Err(RigSkinError::OutsideRig {
                     joint: *word,
-                    joints: self.joints.0,
+                    joints: self.joints,
                 });
             }
         }

@@ -65,13 +65,11 @@ impl fmt::Display for CorrectiveImportError {
             ),
             Self::VertexCount { basis, mesh } => write!(
                 f,
-                "corrective basis covers {basis} vertices but the mesh has {}",
-                mesh.len()
+                "corrective basis covers {basis} vertices but the mesh has {mesh}"
             ),
             Self::JointCount { joints } => write!(
                 f,
-                "corrective network has {} joints, fewer than the {} unposed joints",
-                joints.len(),
+                "corrective network has {joints} joints, fewer than the {} unposed joints",
                 super::super::SKIPPED_JOINTS
             ),
             Self::Components { actual, expected } => write!(

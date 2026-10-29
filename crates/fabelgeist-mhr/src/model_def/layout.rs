@@ -141,7 +141,8 @@ impl From<&str> for ParameterSetName {
 impl<T: Clone> JointParameterTable<T> {
     pub fn filled(joints: RigJointCount, value: T) -> Self {
         Self(
-            (0..joints.len())
+            joints
+                .ordinals()
                 .map(|_| std::array::from_fn(|_| value.clone()))
                 .collect(),
         )
@@ -239,10 +240,10 @@ impl ParameterMatrix {
     }
 
     pub fn rows(&self) -> impl Iterator<Item = JointParameterRow> + use<> {
-        (0..self.joints.len()).flat_map(|joint| {
+        self.joints.ordinals().flat_map(|joint| {
             JointChannel::ALL
                 .into_iter()
-                .map(move |channel| JointParameterRow::new(joint.into(), channel))
+                .map(move |channel| JointParameterRow::new(joint, channel))
         })
     }
 

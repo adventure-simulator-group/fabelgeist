@@ -79,6 +79,12 @@ impl MeshVertexCount {
     }
 }
 
+impl std::fmt::Display for MeshVertexCount {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        std::fmt::Display::fmt(&self.0, formatter)
+    }
+}
+
 impl BlendShapes {
     pub fn len(&self) -> usize {
         self.names.len()

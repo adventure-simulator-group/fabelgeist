@@ -1,5 +1,5 @@
 use super::*;
-use fabelgeist_rig::RigJointCount;
+use fabelgeist_rig::RigJointTable;
 
 pub(super) fn generate_character(
     model: &BodyModel,
@@ -67,11 +67,7 @@ pub(super) fn generate_character(
             "GPU skeleton readback did not contain complete joint states"
         ));
     }
-    anyhow::ensure!(
-        RigJointCount::from_native_joint_count(skeleton_chunks.len()) == model.mhr.num_joints(),
-        "GPU skeleton readback differs from the admitted rig joint count"
-    );
-    let global_joint_states = skeleton_chunks
+    let global_joint_states: RigJointTable<_> = skeleton_chunks
         .iter()
         .map(|joint| {
             let mut state = *joint;
@@ -81,6 +77,10 @@ pub(super) fn generate_character(
             state
         })
         .collect();
+    anyhow::ensure!(
+        global_joint_states.joint_count() == model.mhr.num_joints(),
+        "GPU skeleton readback differs from the admitted rig joint count"
+    );
     Ok(GeneratedCharacter {
         joint_proportions: adventuresim_character_creator::proportions::joint_bases(
             &model.mhr,

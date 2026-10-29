@@ -138,9 +138,7 @@ impl fmt::Display for CorrectiveForwardError {
         match self {
             Self::JointCount { expected, actual } => write!(
                 formatter,
-                "corrective input has {} joints, expected {}",
-                actual.len(),
-                expected.len()
+                "corrective input has {actual} joints, expected {expected}"
             ),
             Self::Channels { expected, actual } => write!(
                 formatter,
