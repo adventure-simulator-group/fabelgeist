@@ -4,6 +4,9 @@ use std::{error::Error, fmt};
 
 use fabelgeist_numpy_storage::{NpyDimension, NpyElementCount, NpyShape};
 
+use super::{CorrectiveFeatureIndex, CorrectiveHiddenIndex};
+use crate::character::MeshVertexCount;
+
 pub type Result<T> = std::result::Result<T, CorrectiveImportError>;
 
 /// The native tensor extent whose checked calculation overflowed.
@@ -23,7 +26,7 @@ pub enum CorrectiveImportError {
     },
     VertexCount {
         basis: NpyDimension,
-        mesh: NpyDimension,
+        mesh: MeshVertexCount,
     },
     JointCount {
         joints: NpyDimension,
@@ -40,9 +43,8 @@ pub enum CorrectiveImportError {
         weights: NpyElementCount,
     },
     SparseCoordinate {
-        /// Rejected coordinate after the native indexing cast, for diagnostics.
-        native_row: usize,
-        native_column: usize,
+        hidden: CorrectiveHiddenIndex,
+        feature: CorrectiveFeatureIndex,
     },
 }
 
@@ -56,7 +58,8 @@ impl fmt::Display for CorrectiveImportError {
             ),
             Self::VertexCount { basis, mesh } => write!(
                 f,
-                "corrective basis covers {basis} vertices but the mesh has {mesh}"
+                "corrective basis covers {basis} vertices but the mesh has {}",
+                mesh.len()
             ),
             Self::JointCount { joints } => write!(
                 f,
@@ -74,12 +77,10 @@ impl fmt::Display for CorrectiveImportError {
                 f,
                 "sparse activation has {indices} indices for {weights} weights"
             ),
-            Self::SparseCoordinate {
-                native_row,
-                native_column,
-            } => write!(
+            Self::SparseCoordinate { hidden, feature } => write!(
                 f,
-                "sparse activation index ({native_row}, {native_column}) is out of bounds"
+                "sparse activation index ({}, {}) is out of bounds",
+                hidden.native_index, feature.native_index
             ),
         }
     }

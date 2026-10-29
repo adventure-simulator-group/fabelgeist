@@ -6,7 +6,7 @@ fn scalar_and_zero_axes_have_distinct_rank_and_element_counts() {
     let scalar = NpyShape::try_from(Vec::new()).unwrap();
     assert_eq!(scalar.rank(), NpyRank::from(0));
     assert_eq!(scalar.element_count(), NpyElementCount::from(1));
-    assert_eq!(scalar.element_count().occupancy(), NpyOccupancy::Nonempty);
+    assert!(!scalar.element_count().is_empty());
     assert_eq!(
         burn::tensor::Shape::from(scalar.tensor_layout::<0>().unwrap()).as_slice(),
         &[0usize; 0]
@@ -20,7 +20,7 @@ fn scalar_and_zero_axes_have_distinct_rank_and_element_counts() {
     assert_eq!(empty.dimensions(), dimensions);
     assert_eq!(empty.rank(), NpyRank::from(3));
     assert_eq!(empty.element_count(), NpyElementCount::from(0));
-    assert_eq!(empty.element_count().occupancy(), NpyOccupancy::Empty);
+    assert!(empty.element_count().is_empty());
     assert_eq!(
         empty.element_count().payload_length(Dtype::F64).unwrap(),
         NpyPayloadLength(0)
@@ -85,7 +85,7 @@ fn array_admission_retains_checked_shape_and_payload_consistency() {
     assert_eq!(array.bytes(), &1.5f32.to_le_bytes());
     let dimensions = format!("{}, {}, 0", usize::MAX, usize::MAX);
     let empty = NpyArray::from_bytes(&encode("<f8", &dimensions, &[])).unwrap();
-    assert_eq!(empty.occupancy(), NpyOccupancy::Empty);
+    assert!(empty.is_empty());
     assert_eq!(empty.shape().rank(), NpyRank::from(3));
     assert!(Vec::<f32>::from(crate::NpyFloat32Values::from(&empty)).is_empty());
     assert!(empty.bytes().is_empty());

@@ -106,11 +106,13 @@ fn every_saturation_combination_replaces_only_requested_fields_in_order() {
         ));
         let npz = Npz::from_bytes(bytes).unwrap();
         assert_eq!(
-            npz.uncompressed_size(&NpzArrayName::new("values")),
+            npz.get(&NpzArrayName::new("values"))
+                .map(|member| member.uncompressed_size()),
             Some(expected)
         );
         assert_eq!(
-            npz.uncompressed_size(&NpzArrayName::new("values.npy")),
+            npz.get(&NpzArrayName::new("values.npy"))
+                .map(|member| member.uncompressed_size()),
             Some(expected)
         );
         assert_eq!(
@@ -223,7 +225,8 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
         1.0
     );
     assert_eq!(
-        npz.uncompressed_size(&NpzArrayName::new("values")),
+        npz.get(&NpzArrayName::new("values"))
+            .map(|member| member.uncompressed_size()),
         Some(DeclaredUncompressedByteLength::from_bytes(u64::from(
             STORED_ARRAY_BYTES
         )))

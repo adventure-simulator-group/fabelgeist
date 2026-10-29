@@ -2,8 +2,8 @@ use std::error::Error;
 
 use burn::tensor::Device;
 use fabelgeist_numpy_storage::{
-    Dtype, NpyArray, NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyOccupancy,
-    NpyRank, NpyShape,
+    Dtype, NpyArray, NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyRank,
+    NpyShape,
 };
 
 fn encoded(dtype: &str, dimensions: &str, payload: &[u8]) -> Vec<u8> {
@@ -21,7 +21,7 @@ fn decoded_queries_keep_scalar_rank_count_and_storage_width_distinct() {
     let scalar = NpyArray::from_bytes(&encoded("<f4", "", &1.5f32.to_le_bytes())).unwrap();
     assert_eq!(scalar.shape().rank(), NpyRank::from(0));
     assert_eq!(scalar.element_count(), NpyElementCount::from(1));
-    assert_eq!(scalar.occupancy(), NpyOccupancy::Nonempty);
+    assert!(!scalar.is_empty());
     assert_eq!(scalar.dtype(), Dtype::F32);
     assert_eq!(scalar.dtype().storage_width(), NpyElementWidth::Word32);
     assert_eq!(scalar.bytes(), &1.5f32.to_le_bytes());
@@ -48,7 +48,7 @@ fn zero_axes_precede_product_overflow_and_preserve_the_authored_shape() {
         assert_eq!(shape.dimensions(), dimensions);
         assert_eq!(shape.rank(), NpyRank::from(3));
         assert_eq!(shape.element_count(), NpyElementCount::from(0));
-        assert_eq!(shape.element_count().occupancy(), NpyOccupancy::Empty);
+        assert!(shape.element_count().is_empty());
         let text = format!("{}, {}, {}", axes[0], axes[1], axes[2]);
         let array = NpyArray::from_bytes(&encoded("<f8", &text, &[])).unwrap();
         assert_eq!(array.shape(), &shape);

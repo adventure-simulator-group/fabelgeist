@@ -169,9 +169,7 @@ fn directory_and_zip64_records_use_checked_admission_and_selected_counts() {
 fn wrong_local_signatures_retain_entry_errors() {
     for label in ["unknown-local-3735928559", "local-is-central"] {
         let archive = ZipArchive::from_bytes(fixture(label).to_vec()).unwrap();
-        assert!(bool::from(
-            archive.contains(&ArchiveMemberName::from("values.npy"))
-        ));
+        assert!(archive.contains(&ArchiveMemberName::from("values.npy")));
         assert_eq!(
             archive
                 .bytes(&ArchiveMemberName::from("values.npy"))

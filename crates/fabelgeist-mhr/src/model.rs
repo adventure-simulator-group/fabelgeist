@@ -7,8 +7,6 @@ use anyhow::{Context, Result, bail};
 use burn::tensor::ops::IndexingUpdateOp;
 use burn::tensor::{Device, Int, Tensor, TensorData};
 
-use fabelgeist_numpy_storage::NpyDimension;
-
 use crate::character::{Character, PARAMETERS_PER_JOINT};
 use crate::correctives::PoseCorrectives;
 use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
@@ -178,7 +176,7 @@ impl Mhr {
                 &dir.join(CORRECTIVE_ACTIVATION),
                 &dir.join(format!("corrective_blendshapes_lod{}.npz", config.lod)),
                 character.skeleton.names.joint_count(),
-                NpyDimension::from(character.mesh.vertices.len()),
+                character.mesh.vertex_count(),
                 device,
             )
             .context("loading the pose-corrective network")?
@@ -208,7 +206,7 @@ impl Mhr {
                 activation,
                 basis,
                 character.skeleton.names.joint_count(),
-                NpyDimension::from(character.mesh.vertices.len()),
+                character.mesh.vertex_count(),
                 device,
             )
             .context("loading the pose-corrective network")?

@@ -3,7 +3,6 @@
 use anyhow::{Context, Result, bail, ensure};
 
 use super::{Dtype, NpyDimension, NpyShape};
-use frame::HeaderFrame;
 
 mod frame;
 
@@ -12,11 +11,6 @@ pub(super) struct NpyHeader<'a> {
     pub(super) shape: NpyShape,
     /// Serialized element bytes borrowed until the admitted array takes ownership.
     pub(super) payload: &'a [u8],
-}
-
-struct HeaderDictionary {
-    dtype: Dtype,
-    shape: NpyShape,
 }
 
 enum HeaderField {
@@ -31,26 +25,7 @@ enum StorageOrder {
 }
 
 impl<'a> NpyHeader<'a> {
-    pub(super) fn from_bytes(bytes: &'a [u8]) -> Result<Self> {
-        let frame = HeaderFrame::from_bytes(bytes)?;
-        let header = &bytes[frame.dictionary.clone()];
-        let dictionary =
-            HeaderDictionary::parse(std::str::from_utf8(header).context("non-UTF-8 .npy header")?)?;
-        let length = dictionary
-            .shape
-            .element_count()
-            .payload_length(dictionary.dtype)?;
-        let payload = length.admit(&bytes[frame.dictionary.end..])?;
-        Ok(Self {
-            dtype: dictionary.dtype,
-            shape: dictionary.shape,
-            payload,
-        })
-    }
-}
-
-impl HeaderDictionary {
-    fn parse(header: &str) -> Result<Self> {
+    fn from_dictionary(header: &str, payload: &'a [u8]) -> Result<Self> {
         let mut cursor = header;
         take(&mut cursor, "{")?;
         // These remain lexical fields only until every required key is present.
@@ -100,9 +75,15 @@ impl HeaderDictionary {
         if let StorageOrder::Fortran = order {
             bail!("Fortran-ordered .npy arrays are not supported");
         }
+        let shape = NpyShape::from_header_tuple(dimensions)?;
+        let payload = shape
+            .element_count()
+            .payload_length(dtype)?
+            .admit(payload)?;
         Ok(Self {
             dtype,
-            shape: NpyShape::from_header_tuple(dimensions)?,
+            shape,
+            payload,
         })
     }
 }

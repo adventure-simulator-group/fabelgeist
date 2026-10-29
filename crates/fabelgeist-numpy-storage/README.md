@@ -15,7 +15,7 @@ let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Devic
 
 - Archives are memory-mapped; members may be stored or deflated, and zip64 is
   handled (NumPy switches to it past 2 GB).
-- `uncompressed_size` returns a bespoke `DeclaredUncompressedByteLength` from
+- `NpzMember::uncompressed_size` returns a bespoke `DeclaredUncompressedByteLength` from
   archive metadata. It does not decode or verify the member's actual length.
 - Element types: `f4`, `f8`, `i4`, `i8`, `u1`, `b1`.
   Decoded numbers use `NpyFloat32Values` and `NpyIntegerValues`; `NpyByteStates`
@@ -63,7 +63,7 @@ with `NpyArray::read`.
 
 The decoder checks the shape, element type, and payload length. A decoded
 `NpyArray` keeps that metadata immutable. Use `shape`, `dtype`, `element_count`,
-and `occupancy` to inspect it. Public mutation cannot reinterpret one decoded
+and `is_empty` to inspect it. Public mutation cannot reinterpret one decoded
 element as several differently sized values or replace the dimensions behind its
 checked element count.
 
@@ -82,13 +82,15 @@ responsibilities. ZIP failures use the concrete classes described below.
 
 Native representations stay at explicit adapters: header dimension admission,
 little-endian word decoding, payload slicing, the immutable `bytes` encoding
-view, and Burn tensor construction. MHR corrective-basis comparisons retain
-`NpyDimension` until the direct tensor adapter. Shape queries expose nominal
+view, and Burn tensor construction. MHR corrective-basis admission retains its mesh vertex count, converting
+to `NpyDimension` at the numerical layout boundary. Shape queries expose nominal
 dimensions, not mutable integer vectors. Numeric value collections retain
 decoded storage numbers; general storage/transport types remain separate bespoke
 type families.
 
 The reader supports NPY versions 1.0, 2.0 and 3.0 with checked header lengths.
+One fallible `NpyHeader` admission owns framing, dictionary and exact borrowed
+payload together; consumers do not reconstruct a range against another buffer.
 The scalar header dictionary accepts either quote style and any key order.
 It requires exactly `descr`, `fortran_order` and a shape tuple; duplicate or
 unknown fields, malformed separators and escaped strings are rejected.
@@ -154,11 +156,17 @@ or that filename with one trailing `.npy` removed. The first directory match
 wins, even if a later member is an exact filename match. `keys` returns typed
 keys in member order, removing one suffix without changing the stored filename.
 
-`ZipArchive::bytes` and size queries take `ArchiveMemberName`; `Npz::array` and
-its size query take `NpzArrayName`. Both `contains` methods return the shared
-`ArchiveMemberPresence::Present` or `Absent` state. Text and Boolean conversions
-are explicit presentation and native-boundary adapters. The distinct types
-prevent an array key from silently becoming an exact archive lookup.
+`ZipArchive::bytes` and size queries take `ArchiveMemberName`; `Npz::get` and
+`Npz::array` take `NpzArrayName`. The distinct types prevent an array key from
+silently becoming an exact archive lookup. ZIP `contains` is an ordinary
+predicate.
+
+`Npz::get` returns `Option<NpzMember<'_>>`. The handle borrows the selected
+member and its owning archive, and provides its full `name`, declared
+`uncompressed_size` and `array` decoder without another lookup. It retains the
+original query spelling for parsing diagnostics. An absent optional array is
+`None`; a present member with malformed bytes returns a decoding error.
+`Npz::array` requires a match and reports absence as a lookup error.
 
 ## ZIP reader errors
 

@@ -17,14 +17,12 @@
 //! ```
 
 pub use npy::{
-    Dtype, NpyArray, NpyByteState, NpyByteStates, NpyDimension, NpyElementCount, NpyElementWidth,
+    Dtype, NpyArray, NpyByteStates, NpyDimension, NpyElementCount, NpyElementWidth,
     NpyFloat32Value, NpyFloat32Values, NpyIntegerValue, NpyIntegerValues, NpyLayoutError,
-    NpyOccupancy, NpyPayloadLength, NpyRank, NpyShape, NpyTensorLayout,
+    NpyPayloadLength, NpyRank, NpyShape, NpyTensorLayout,
 };
-pub use npz::{Npz, NpzArrayName};
-pub use zip::{
-    ArchiveMemberName, ArchiveMemberPresence, DeclaredUncompressedByteLength, ZipArchive,
-};
+pub use npz::{Npz, NpzArrayName, NpzMember};
+pub use zip::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive};
 
 pub mod npy;
 pub mod npz;

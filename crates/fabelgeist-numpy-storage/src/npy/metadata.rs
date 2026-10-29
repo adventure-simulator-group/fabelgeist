@@ -27,12 +27,6 @@ pub struct NpyShape {
     elements: NpyElementCount,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum NpyOccupancy {
-    Empty,
-    Nonempty,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum NpyElementWidth {
     Byte,
     Word32,
@@ -94,12 +88,8 @@ impl NpyElementCount {
         self.0.checked_mul(other.0).map(Self)
     }
 
-    pub fn occupancy(self) -> NpyOccupancy {
-        if self.0 == 0 {
-            NpyOccupancy::Empty
-        } else {
-            NpyOccupancy::Nonempty
-        }
+    pub fn is_empty(self) -> bool {
+        self.0 == 0
     }
     pub fn payload_length(self, dtype: Dtype) -> Result<NpyPayloadLength> {
         let width = dtype.storage_width();

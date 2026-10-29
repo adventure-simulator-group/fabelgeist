@@ -9,9 +9,7 @@ use std::path::Path;
 use anyhow::{Context, Result};
 
 use crate::npy::NpyArray;
-use crate::zip::{
-    ArchiveMemberName, ArchiveMemberPresence, DeclaredUncompressedByteLength, Entry, ZipArchive,
-};
+use crate::zip::{ArchiveMemberName, DeclaredUncompressedByteLength, Entry, ZipArchive};
 pub use name::NpzArrayName;
 
 mod name;
@@ -19,6 +17,16 @@ mod name;
 /// A memory-mapped `.npz` archive.
 pub struct Npz {
     archive: ZipArchive,
+}
+
+/// A selected NPZ member tied to the archive that owns its bytes.
+///
+/// Metadata and decoding use this exact first match. The original query is
+/// retained for parsing diagnostics; a present member may still fail to decode.
+pub struct NpzMember<'a> {
+    archive: &'a ZipArchive,
+    entry: &'a Entry,
+    query: NpzArrayName,
 }
 
 impl Npz {
@@ -45,31 +53,38 @@ impl Npz {
         self.names().map(NpzArrayName::from)
     }
 
-    pub fn contains(&self, name: &NpzArrayName) -> ArchiveMemberPresence {
-        match self.entry(name) {
-            Some(_) => ArchiveMemberPresence::Present,
-            None => ArchiveMemberPresence::Absent,
-        }
-    }
-
-    /// Declared decoded byte length of the first match, without payload verification.
-    pub fn uncompressed_size(&self, name: &NpzArrayName) -> Option<DeclaredUncompressedByteLength> {
-        self.entry(name)
-            .and_then(|entry| self.archive.uncompressed_size(&entry.name))
-    }
-
-    /// Decodes the first matching member; the query spelling is unchanged.
-    pub fn array(&self, name: &NpzArrayName) -> Result<NpyArray> {
-        let entry = self
-            .entry(name)
-            .with_context(|| format!("archive has no member {name:?}"))?;
-        let bytes = self.archive.entry_bytes(entry)?;
-        NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {name:?}"))
-    }
-
-    fn entry(&self, name: &NpzArrayName) -> Option<&Entry> {
+    /// Selects the first full-name or single-suffix match in directory order.
+    pub fn get(&self, name: &NpzArrayName) -> Option<NpzMember<'_>> {
         self.archive
-            .find(|member| name.matches(member) == ArchiveMemberPresence::Present)
+            .find(|member| name.matches(member))
+            .map(|entry| NpzMember {
+                archive: &self.archive,
+                entry,
+                query: name.clone(),
+            })
+    }
+
+    /// Requires a member and decodes it, reporting absence as a lookup error.
+    pub fn array(&self, name: &NpzArrayName) -> Result<NpyArray> {
+        self.get(name)
+            .with_context(|| format!("archive has no member {name:?}"))?
+            .array()
+    }
+}
+
+impl NpzMember<'_> {
+    pub fn name(&self) -> &ArchiveMemberName {
+        &self.entry.name
+    }
+
+    /// The directory's declared size, without payload verification.
+    pub fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
+        self.entry.uncompressed_size()
+    }
+
+    pub fn array(&self) -> Result<NpyArray> {
+        let bytes = self.archive.entry_bytes(self.entry)?;
+        NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {:?}", self.query))
     }
 }
 
@@ -166,9 +181,9 @@ mod tests {
             npz.keys().map(|name| name.to_string()).collect::<Vec<_>>(),
             ["weights", "indices"]
         );
-        assert!(bool::from(npz.contains(&NpzArrayName::new("weights"))));
-        assert!(bool::from(npz.contains(&NpzArrayName::new("weights.npy"))));
-        assert!(!bool::from(npz.contains(&NpzArrayName::new("missing"))));
+        assert!(npz.get(&NpzArrayName::new("weights")).is_some());
+        assert!(npz.get(&NpzArrayName::new("weights.npy")).is_some());
+        assert!(npz.get(&NpzArrayName::new("missing")).is_none());
 
         let weights = npz.array(&NpzArrayName::new("weights")).unwrap();
         assert_eq!(

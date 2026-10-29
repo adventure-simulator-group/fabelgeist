@@ -1,4 +1,4 @@
-//! Parsed archive filenames and lookup presence share one owner.
+//! Parsed archive filenames retain wire spelling at the decoding boundary.
 
 use derive_more::{Debug, Display, From};
 
@@ -12,13 +12,6 @@ use derive_more::{Debug, Display, From};
 #[from(String, &str)]
 pub struct ArchiveMemberName(String);
 
-/// Whether a lookup found a matching central-directory member.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum ArchiveMemberPresence {
-    Present,
-    Absent,
-}
-
 impl From<&[u8]> for ArchiveMemberName {
     fn from(name: &[u8]) -> Self {
         Self(String::from_utf8_lossy(name).into_owned())
@@ -28,12 +21,6 @@ impl From<&[u8]> for ArchiveMemberName {
 impl<'a> From<&'a ArchiveMemberName> for &'a str {
     fn from(name: &'a ArchiveMemberName) -> Self {
         &name.0
-    }
-}
-
-impl From<ArchiveMemberPresence> for bool {
-    fn from(presence: ArchiveMemberPresence) -> Self {
-        presence == ArchiveMemberPresence::Present
     }
 }
 

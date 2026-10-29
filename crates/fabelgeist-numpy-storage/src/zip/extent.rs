@@ -5,7 +5,7 @@ use derive_more::{Debug, Display};
 /// Declared decoded byte length of a ZIP member, including any NPY header.
 ///
 /// This is archive metadata, not a verified decoded size or allocation limit.
-/// Both ZIP and NPZ size queries return this bespoke type.
+/// ZIP size queries and NPZ member handles return this bespoke type.
 ///
 /// ```
 /// use fabelgeist_numpy_storage::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive};

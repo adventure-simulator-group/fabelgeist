@@ -56,7 +56,7 @@ fn snapshot(zip: &ZipArchive) -> String {
     let mut out = format!(
         "names={:?};contains={};size={:?};missing={:?};",
         zip.names().map(|name| name.to_string()).collect::<Vec<_>>(),
-        bool::from(zip.contains(&ArchiveMemberName::from("entry"))),
+        zip.contains(&ArchiveMemberName::from("entry")),
         zip.uncompressed_size(&ArchiveMemberName::from("entry")),
         zip.uncompressed_size(&ArchiveMemberName::from("missing"))
     );

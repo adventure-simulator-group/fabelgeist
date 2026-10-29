@@ -131,7 +131,7 @@ fn observe_model(activation: Vec<u8>, basis: Vec<u8>) -> anyhow::Result<String> 
         activation,
         basis,
         RigJointCount::from_native_joint_count(3),
-        NpyDimension::from(1),
+        MeshVertexCount::from_native_vertex_count(1),
         &Device::default(),
     )?;
     match model {

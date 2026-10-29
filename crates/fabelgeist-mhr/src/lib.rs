@@ -34,7 +34,7 @@ pub mod model;
 pub mod model_def;
 pub mod skel_state;
 
-pub use character::{BlendShapes, Character, Mesh, Skeleton, SkinWeights};
+pub use character::{BlendShapes, Character, Mesh, MeshVertexCount, Skeleton, SkinWeights};
 pub use correctives::PoseCorrectives;
 pub use model::{
     MAX_LOD, MIN_LOD, Mhr, MhrConfig, MhrOutput, NUM_BLEND_SHAPES,

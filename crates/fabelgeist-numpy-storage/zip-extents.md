@@ -5,16 +5,19 @@ including an NPY header for NumPy array members. It retains zero and the complet
 `u64` width. It does not certify that a member exists, fits an allocation budget
 or decodes to that length.
 
-Both `ZipArchive::uncompressed_size` and `Npz::uncompressed_size` return
-`Option<DeclaredUncompressedByteLength>`. NPZ queries retain optional `.npy`
-suffix matching and first-member selection. A stored or deflated member may
+`ZipArchive::uncompressed_size` returns
+`Option<DeclaredUncompressedByteLength>`. NPZ selects an optional member with
+`Npz::get`; that handle's `uncompressed_size` returns the declared length
+without repeating lookup. NPZ queries retain optional `.npy` suffix matching
+and first-member selection. A stored or deflated member may
 decode successfully even when the declaration disagrees.
 
 ```rust
 use fabelgeist_numpy_storage::{DeclaredUncompressedByteLength, Npz, NpzArrayName};
 
 fn declared_size(archive: &Npz) -> Option<DeclaredUncompressedByteLength> {
-    archive.uncompressed_size(&NpzArrayName::new("weights"))
+    archive.get(&NpzArrayName::new("weights"))
+        .map(|member| member.uncompressed_size())
 }
 ```
 

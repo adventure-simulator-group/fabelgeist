@@ -3,9 +3,7 @@
 use std::path::Path;
 
 use anyhow::{Context, Result};
-use fabelgeist_numpy_storage::{
-    ArchiveMemberPresence, NpyArray, NpyFloat32Values, NpyIntegerValues, Npz, NpzArrayName,
-};
+use fabelgeist_numpy_storage::{NpyArray, NpyFloat32Values, NpyIntegerValues, Npz, NpzArrayName};
 
 use super::import::SparseActivation;
 
@@ -45,11 +43,11 @@ impl CorrectiveArchives {
 
     pub(super) fn basis(&self) -> Result<Option<NpyArray>> {
         let name = CorrectiveArray::Basis.name();
-        if self.basis.contains(&name) == ArchiveMemberPresence::Absent {
+        let Some(member) = self.basis.get(&name) else {
             return Ok(None);
-        }
-        self.basis
-            .array(&name)
+        };
+        member
+            .array()
             .context("reading the corrective basis")
             .map(Some)
     }

@@ -2,7 +2,7 @@
 
 use derive_more::{Debug, Display, From};
 
-use crate::zip::{ArchiveMemberName, ArchiveMemberPresence};
+use crate::zip::ArchiveMemberName;
 
 const NPY_MEMBER_SUFFIX: &str = ".npy";
 
@@ -48,13 +48,9 @@ impl NpzArrayName {
         Self::from(name)
     }
 
-    pub(crate) fn matches(&self, member: &ArchiveMemberName) -> ArchiveMemberPresence {
+    pub(crate) fn matches(&self, member: &ArchiveMemberName) -> bool {
         let member = <&str>::from(member);
-        if member == self.0 || member.strip_suffix(NPY_MEMBER_SUFFIX) == Some(self.0.as_str()) {
-            ArchiveMemberPresence::Present
-        } else {
-            ArchiveMemberPresence::Absent
-        }
+        member == self.0 || member.strip_suffix(NPY_MEMBER_SUFFIX) == Some(self.0.as_str())
     }
 }
 

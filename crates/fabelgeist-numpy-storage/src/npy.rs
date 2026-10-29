@@ -1,13 +1,12 @@
 //! `.npy` array decoding.
 
 pub use metadata::{
-    NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyOccupancy, NpyPayloadLength,
-    NpyRank, NpyShape,
+    NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyPayloadLength, NpyRank,
+    NpyShape,
 };
 
 pub use values::{
-    NpyByteState, NpyByteStates, NpyFloat32Value, NpyFloat32Values, NpyIntegerValue,
-    NpyIntegerValues,
+    NpyByteStates, NpyFloat32Value, NpyFloat32Values, NpyIntegerValue, NpyIntegerValues,
 };
 
 use std::path::Path;
@@ -87,8 +86,8 @@ impl NpyArray {
     pub fn element_count(&self) -> NpyElementCount {
         self.shape.element_count()
     }
-    pub fn occupancy(&self) -> NpyOccupancy {
-        self.element_count().occupancy()
+    pub fn is_empty(&self) -> bool {
+        self.element_count().is_empty()
     }
 
     /// Element bytes, exactly as stored.
@@ -210,7 +209,7 @@ pub(crate) mod tests {
         let array = NpyArray::from_bytes(&encode("<f4", "", &1.5f32.to_le_bytes())).unwrap();
         assert_eq!(array.shape().rank(), NpyRank::from(0));
         assert_eq!(array.element_count(), NpyElementCount::from(1));
-        assert_eq!(array.occupancy(), NpyOccupancy::Nonempty);
+        assert!(!array.is_empty());
     }
 
     #[test]

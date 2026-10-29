@@ -167,3 +167,16 @@ amplifies to visible error. The tensor is 204 x 889, so the exact form is free.
 - Momentum's non-`minmax` parameter limits (`linear`, `ellipsoid`, `halfplane`)
   are ignored. The MHR rig uses none of them.
 - Vertex normals are not computed; exports carry positions and topology.
+
+Corrective admission accepts `RigJointCount` and `MeshVertexCount` from the
+character producers. `Mesh::vertex_count` describes a mesh quantity, not the
+identity of a particular mesh. The private `CorrectiveLayout` owns the admitted
+`[components, vertices, 3]` basis shape: components equal the hidden width and
+vertices equal the supplied mesh count. `CorrectiveBasis` retains that layout
+with its array until upload, preventing an array/layout mismatch. This does not
+certify that two meshes with the same count have the same topology.
+
+Sparse coordinates retain distinct `CorrectiveHiddenIndex` and
+`CorrectiveFeatureIndex` roles after the original native-width cast. The layout
+checks membership before calculating a dense offset; the role types themselves
+do not claim that a coordinate is in bounds.

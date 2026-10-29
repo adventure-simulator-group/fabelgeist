@@ -17,7 +17,7 @@ pub use extent::DeclaredUncompressedByteLength;
 
 use compression::ZipCompression;
 use member_count::ArchiveMemberCount;
-pub use names::{ArchiveMemberName, ArchiveMemberPresence};
+pub use names::ArchiveMemberName;
 
 mod compression;
 mod error;
@@ -52,6 +52,12 @@ impl AsRef<[u8]> for ArchiveData {
             Self::Mapped(data) => data,
             Self::Owned(data) => data,
         }
+    }
+}
+
+impl Entry {
+    pub(crate) fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
+        self.uncompressed_size
     }
 }
 
@@ -108,14 +114,11 @@ impl ZipArchive {
         self.entries.iter().map(|entry| &entry.name)
     }
 
-    pub fn contains(&self, name: &ArchiveMemberName) -> ArchiveMemberPresence {
-        match self.entries.iter().find(|entry| entry.name == *name) {
-            Some(_) => ArchiveMemberPresence::Present,
-            None => ArchiveMemberPresence::Absent,
-        }
+    pub fn contains(&self, name: &ArchiveMemberName) -> bool {
+        self.entries.iter().any(|entry| entry.name == *name)
     }
 
-    /// Declared decoded byte length, without decoding or verifying the payload.
+    /// Declared decoded length of the first exact match, without verification.
     pub fn uncompressed_size(
         &self,
         name: &ArchiveMemberName,

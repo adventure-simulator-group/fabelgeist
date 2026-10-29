@@ -11,9 +11,13 @@ use burn::tensor::{Device, Tensor, activation};
 use fabelgeist_numpy_storage::NpyDimension;
 use fabelgeist_rig::RigJointCount;
 
+use crate::character::MeshVertexCount;
+
 use archive::CorrectiveArchives;
 use import::{CorrectiveBasis, CorrectiveLayout};
-pub use import::{CorrectiveExtent, CorrectiveImportError};
+pub use import::{
+    CorrectiveExtent, CorrectiveFeatureIndex, CorrectiveHiddenIndex, CorrectiveImportError,
+};
 
 mod archive;
 mod import;
@@ -50,7 +54,7 @@ impl PoseCorrectives {
         activation_path: &Path,
         basis_path: &Path,
         num_joints: RigJointCount,
-        num_vertices: NpyDimension,
+        num_vertices: MeshVertexCount,
         device: &Device,
     ) -> Result<Option<Self>> {
         Self::from_archives(
@@ -66,7 +70,7 @@ impl PoseCorrectives {
         activation: Vec<u8>,
         basis: Vec<u8>,
         num_joints: RigJointCount,
-        num_vertices: NpyDimension,
+        num_vertices: MeshVertexCount,
         device: &Device,
     ) -> Result<Option<Self>> {
         Self::from_archives(
@@ -80,7 +84,7 @@ impl PoseCorrectives {
     fn from_archives(
         archives: CorrectiveArchives,
         num_joints: RigJointCount,
-        num_vertices: NpyDimension,
+        num_vertices: MeshVertexCount,
         device: &Device,
     ) -> Result<Option<Self>> {
         let Some(array) = archives.basis()? else {
@@ -96,7 +100,7 @@ impl PoseCorrectives {
         }))
     }
 
-    pub fn num_vertices(&self) -> NpyDimension {
+    pub fn num_vertices(&self) -> MeshVertexCount {
         self.layout.vertices()
     }
 

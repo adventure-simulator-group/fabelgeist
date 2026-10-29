@@ -171,12 +171,13 @@ fn lookup_observation() -> anyhow::Result<String> {
                 .map_err(|error| format!("{error:#}"));
             out.push_str(&format!(
                 "query:{query:?};zip={:?},{:?},{data:?};npz={:?},{:?},{values:?}\n",
-                bool::from(archive.contains(&ArchiveMemberName::from(query))),
+                archive.contains(&ArchiveMemberName::from(query)),
                 archive
                     .uncompressed_size(&ArchiveMemberName::from(query))
                     .map(DeclaredUncompressedByteLength::bytes),
-                bool::from(npz.contains(&NpzArrayName::from(query))),
-                npz.uncompressed_size(&NpzArrayName::from(query))
+                npz.get(&NpzArrayName::from(query)).is_some(),
+                npz.get(&NpzArrayName::from(query))
+                    .map(|member| member.uncompressed_size())
                     .map(DeclaredUncompressedByteLength::bytes)
             ));
         }

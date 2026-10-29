@@ -42,14 +42,8 @@ pub struct NpyFloat32Values(Vec<NpyFloat32Value>);
 pub struct NpyIntegerValues(Vec<NpyIntegerValue>);
 
 /// Ordered zero/nonzero classifications of every payload byte.
-pub struct NpyByteStates(Vec<NpyByteState>);
-
-/// Classification of one payload byte, independently of logical element width.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum NpyByteState {
-    Zero,
-    Nonzero,
-}
+#[derive(Into)]
+pub struct NpyByteStates(Vec<bool>);
 
 enum StoredValue {
     Float32(f32),
@@ -65,12 +59,6 @@ enum StoredValues<'a> {
     Integer32(std::slice::Iter<'a, [u8; 4]>),
     Integer64(std::slice::Iter<'a, [u8; 8]>),
     Byte(std::slice::Iter<'a, u8>),
-}
-
-impl From<u8> for NpyByteState {
-    fn from(byte: u8) -> Self {
-        if byte == 0 { Self::Zero } else { Self::Nonzero }
-    }
 }
 
 impl From<&NpyArray> for NpyFloat32Values {
@@ -127,19 +115,12 @@ impl From<NpyIntegerValues> for Vec<i64> {
 
 impl From<&NpyArray> for NpyByteStates {
     fn from(array: &NpyArray) -> Self {
-        Self(
-            array
-                .bytes
-                .iter()
-                .copied()
-                .map(NpyByteState::from)
-                .collect(),
-        )
+        Self(array.bytes.iter().map(|byte| *byte != 0).collect())
     }
 }
 
 impl NpyByteStates {
-    pub fn states(&self) -> &[NpyByteState] {
+    pub fn states(&self) -> &[bool] {
         &self.0
     }
 }
@@ -208,16 +189,6 @@ impl Iterator for StoredValues<'_> {
 }
 
 impl ExactSizeIterator for StoredValues<'_> {}
-
-impl From<NpyByteStates> for Vec<bool> {
-    fn from(states: NpyByteStates) -> Self {
-        states
-            .0
-            .into_iter()
-            .map(|state| state == NpyByteState::Nonzero)
-            .collect()
-    }
-}
 
 #[cfg(test)]
 mod tests;

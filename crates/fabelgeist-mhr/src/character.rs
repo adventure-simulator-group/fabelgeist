@@ -35,6 +35,11 @@ pub struct Mesh {
     pub texcoord_faces: Vec<[u32; 3]>,
 }
 
+/// Number of vertices in an MHR mesh, distinct from a generic tensor axis.
+/// This quantity carries no per-mesh identity or immutability guarantee.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct MeshVertexCount(usize);
+
 /// Dense blend-shape basis, `shape-major`: `vectors[shape * n_verts * 3 + ..]`.
 #[derive(Debug, Default, Clone)]
 pub struct BlendShapes {
@@ -51,6 +56,28 @@ pub struct Character {
     /// Inverse bind pose per joint as a skeleton state `[t, q, s]`.
     pub inverse_bind_pose: RigJointTable<[f32; 8]>,
     pub blend_shapes: BlendShapes,
+}
+
+impl Mesh {
+    pub fn vertex_count(&self) -> MeshVertexCount {
+        MeshVertexCount::from_native_vertex_count(self.vertices.len())
+    }
+}
+
+impl MeshVertexCount {
+    /// Admits a count at a mesh-storage or literal boundary, including zero.
+    pub const fn from_native_vertex_count(vertices: usize) -> Self {
+        Self(vertices)
+    }
+
+    /// Projects the count at a numerical layout or allocation boundary.
+    pub const fn len(self) -> usize {
+        self.0
+    }
+
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
 }
 
 impl BlendShapes {
