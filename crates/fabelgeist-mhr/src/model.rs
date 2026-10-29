@@ -8,7 +8,7 @@ use burn::tensor::ops::IndexingUpdateOp;
 use burn::tensor::{Device, Int, Tensor, TensorData};
 
 use crate::character::{Character, PARAMETERS_PER_JOINT};
-use crate::correctives::PoseCorrectives;
+use crate::correctives::{CorrectiveArchiveBytes, PoseCorrectives};
 use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
 use crate::skel_state;
 
@@ -141,10 +141,10 @@ impl Mhr {
         let definition = String::from_utf8(read_asset(MODEL_DEFINITION.into()).await?)
             .map_err(|error| anyhow::anyhow!("MHR model definition is not UTF-8: {error}"))?;
         let corrective_archives = if config.pose_correctives {
-            Some((
-                read_asset(CORRECTIVE_ACTIVATION.into()).await?,
-                read_asset(format!("corrective_blendshapes_lod{}.npz", config.lod)).await?,
-            ))
+            Some(CorrectiveArchiveBytes {
+                activation: read_asset(CORRECTIVE_ACTIVATION.into()).await?,
+                basis: read_asset(format!("corrective_blendshapes_lod{}.npz", config.lod)).await?,
+            })
         } else {
             None
         };
@@ -191,7 +191,7 @@ impl Mhr {
     pub fn from_asset_bytes(
         fbx: &[u8],
         definition: &str,
-        corrective_archives: Option<(Vec<u8>, Vec<u8>)>,
+        corrective_archives: Option<CorrectiveArchiveBytes>,
         config: MhrConfig,
         device: &Device,
     ) -> Result<Self> {
@@ -200,11 +200,10 @@ impl Mhr {
         }
         let character = Character::from_fbx_bytes(fbx, true).context("loading the MHR FBX")?;
         let correctives = if config.pose_correctives {
-            let (activation, basis) = corrective_archives
+            let archives = corrective_archives
                 .context("pose correctives requested but their NPZ archives were not provided")?;
             PoseCorrectives::from_bytes(
-                activation,
-                basis,
+                archives,
                 character.skeleton.names.joint_count(),
                 character.mesh.vertex_count(),
                 device,

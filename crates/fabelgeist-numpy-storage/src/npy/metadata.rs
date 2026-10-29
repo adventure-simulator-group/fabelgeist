@@ -37,6 +37,8 @@ pub enum NpyElementWidth {
 pub enum NpyLayoutError {
     #[display("NumPy element count overflows the storage layout")]
     ElementCountOverflow { dimensions: Vec<NpyDimension> },
+    #[display("NumPy dimensions overflow the tensor framework shape arithmetic")]
+    NativeShapeOverflow { dimensions: Vec<NpyDimension> },
     #[display("NumPy payload length overflows the storage layout")]
     PayloadLengthOverflow {
         elements: NpyElementCount,

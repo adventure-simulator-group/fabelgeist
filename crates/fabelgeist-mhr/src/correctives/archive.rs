@@ -7,6 +7,13 @@ use fabelgeist_numpy_storage::{NpyArray, NpyFloat32Values, NpyIntegerValues, Npz
 
 use super::import::{CorrectiveLayout, SparseActivation};
 
+/// Encoded corrective archives with explicit roles before NPZ admission.
+/// Payload contents are checked when the archives and their members are read.
+pub struct CorrectiveArchiveBytes {
+    pub activation: Vec<u8>,
+    pub basis: Vec<u8>,
+}
+
 pub(super) struct CorrectiveArchives {
     activation: Npz,
     basis: Npz,
@@ -35,9 +42,9 @@ impl CorrectiveArchives {
         Ok(Self { activation, basis })
     }
 
-    pub(super) fn from_bytes(activation: Vec<u8>, basis: Vec<u8>) -> Result<Self> {
-        let activation = Npz::from_bytes(activation)?;
-        let basis = Npz::from_bytes(basis)?;
+    pub(super) fn from_bytes(archives: CorrectiveArchiveBytes) -> Result<Self> {
+        let activation = Npz::from_bytes(archives.activation)?;
+        let basis = Npz::from_bytes(archives.basis)?;
         Ok(Self { activation, basis })
     }
 

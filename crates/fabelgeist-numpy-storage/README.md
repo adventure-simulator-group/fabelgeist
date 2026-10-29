@@ -76,9 +76,12 @@ payload length separately from element cardinality.
 
 `NpyLayoutError` retains the failed dimensions, element count and width,
 expected and available payload lengths, or expected/actual ranks and the native
-rank conversion cause. Constructing a tensor with the wrong rank returns this
-concrete error. Header and standalone-file errors remain format-adapter
-responsibilities. ZIP failures use the concrete classes described below.
+rank conversion cause. Tensor layouts also reject dimension orders whose native
+framework multiplication would overflow before a later zero axis. Storage shapes
+still admit any zero axis as empty. Constructing a tensor with the wrong rank
+returns this concrete error. Header and standalone-file errors remain
+format-adapter responsibilities. ZIP failures use the concrete classes described
+below.
 
 Native representations stay at explicit adapters: header dimension admission,
 little-endian word decoding, payload slicing, the immutable `bytes` encoding
@@ -146,11 +149,13 @@ float64 input bytes remain available on the admitted array. Integer decoding
 reads the original stored number independently. `NpyTensorLayout` retains fixed
 rank, typed dimensions and their checked element product. Conversion from an
 admitted `NpyShape` reuses its product; construction from dimension literals is
-fallible. Float32 upload compares its value count with the admitted layout
-before handing Burn its native vector. Burn still owns source-cardinality and
-zero-dimension interpretation during reshape; the layout does not certify a
-particular source tensor. Corrective imports carry rig joint counts and mesh
-vertex counts through both native and streamed loading.
+fallible. Empty shapes additionally admit each native prefix product, so
+`[usize::MAX, usize::MAX, 0]` remains valid storage but returns a layout error
+before tensor construction. Float32 upload compares its value count with the
+admitted layout before handing Burn its native vector. Burn still owns
+source-cardinality and zero-dimension interpretation during reshape; the layout
+does not certify a particular source tensor. Corrective imports carry rig joint
+counts and mesh vertex counts through both native and streamed loading.
 
 ## Archive filenames and array keys
 

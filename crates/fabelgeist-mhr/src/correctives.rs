@@ -13,6 +13,7 @@ use fabelgeist_rig::RigJointCount;
 
 use crate::character::MeshVertexCount;
 
+pub use archive::CorrectiveArchiveBytes;
 use archive::CorrectiveArchives;
 use import::{CorrectiveBasis, CorrectiveLayout};
 pub use import::{
@@ -67,14 +68,13 @@ impl PoseCorrectives {
 
     /// Loads corrective archives already held in memory (for web/streamed assets).
     pub fn from_bytes(
-        activation: Vec<u8>,
-        basis: Vec<u8>,
+        archives: CorrectiveArchiveBytes,
         num_joints: RigJointCount,
         num_vertices: MeshVertexCount,
         device: &Device,
     ) -> Result<Option<Self>> {
         Self::from_archives(
-            CorrectiveArchives::from_bytes(activation, basis)?,
+            CorrectiveArchives::from_bytes(archives)?,
             num_joints,
             num_vertices,
             device,

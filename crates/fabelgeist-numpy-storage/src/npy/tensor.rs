@@ -5,7 +5,7 @@ use burn::tensor::{Device, ReshapeArgs, Shape, Tensor, TensorData};
 use super::metadata::Result;
 use super::{NpyDimension, NpyElementCount, NpyFloat32Values, NpyLayoutError, NpyRank, NpyShape};
 
-/// Fixed-rank logical dimensions and their admitted literal element product.
+/// Fixed-rank dimensions with an admitted product in native framework order.
 ///
 /// This does not certify a match with a value collection or source tensor.
 /// Burn still interprets zero dimensions and validates source cardinality when
@@ -20,6 +20,22 @@ impl<const D: usize> NpyTensorLayout<D> {
     pub fn element_count(self) -> NpyElementCount {
         self.elements
     }
+
+    fn admit_native_shape(self) -> Result<Self> {
+        // Nonempty checked products already prove every positive prefix fits.
+        // Empty storage shapes admit zero first, but Burn multiplies in order.
+        if self.elements.is_empty() {
+            self.dimensions
+                .iter()
+                .try_fold(1usize, |prefix, dimension| {
+                    prefix.checked_mul(usize::from(*dimension))
+                })
+                .ok_or_else(|| NpyLayoutError::NativeShapeOverflow {
+                    dimensions: self.dimensions.to_vec(),
+                })?;
+        }
+        Ok(self)
+    }
 }
 
 impl<const D: usize> TryFrom<[NpyDimension; D]> for NpyTensorLayout<D> {
@@ -27,10 +43,11 @@ impl<const D: usize> TryFrom<[NpyDimension; D]> for NpyTensorLayout<D> {
 
     fn try_from(dimensions: [NpyDimension; D]) -> Result<Self> {
         let elements = NpyElementCount::from_dimensions(&dimensions)?;
-        Ok(Self {
+        Self {
             dimensions,
             elements,
-        })
+        }
+        .admit_native_shape()
     }
 }
 
@@ -46,10 +63,11 @@ impl<const D: usize> TryFrom<&NpyShape> for NpyTensorLayout<D> {
                 actual: shape.rank(),
                 source,
             })?;
-        Ok(Self {
+        Self {
             dimensions,
             elements: shape.element_count(),
-        })
+        }
+        .admit_native_shape()
     }
 }
 

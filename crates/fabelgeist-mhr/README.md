@@ -168,6 +168,11 @@ amplifies to visible error. The tensor is 204 x 889, so the exact form is free.
   are ignored. The MHR rig uses none of them.
 - Vertex normals are not computed; exports carry positions and topology.
 
+Streamed corrective inputs use `CorrectiveArchiveBytes`, whose named activation
+and basis fields retain their roles from URI loading through NPZ admission.
+The record does not validate archive contents; parsing and optional member
+lookup retain their existing responsibilities.
+
 Corrective admission accepts `RigJointCount` and `MeshVertexCount` from the
 character producers. `Mesh::vertex_count` describes a mesh quantity, not the
 identity of a particular mesh. The private `CorrectiveLayout` owns the admitted

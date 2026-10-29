@@ -104,7 +104,10 @@ fn activation_case(kind: usize) -> anyhow::Result<String> {
             encode("<f4", &format!("{},", values.len()), &val),
         ),
     ]);
-    observe_model(activation, zip(&basis))
+    observe_model(CorrectiveArchiveBytes {
+        activation,
+        basis: zip(&basis),
+    })
 }
 fn tensor_observation() -> anyhow::Result<String> {
     let payload = [1.25f64, -2.5, 16_777_217.0]
@@ -126,10 +129,9 @@ fn tensor_observation() -> anyhow::Result<String> {
     ))
 }
 
-fn observe_model(activation: Vec<u8>, basis: Vec<u8>) -> anyhow::Result<String> {
+fn observe_model(archives: CorrectiveArchiveBytes) -> anyhow::Result<String> {
     let model = PoseCorrectives::from_bytes(
-        activation,
-        basis,
+        archives,
         RigJointCount::from_native_joint_count(3),
         MeshVertexCount::from_native_vertex_count(1),
         &Device::default(),
