@@ -23,7 +23,10 @@ pub(super) fn generate_character(
         recipe.proportions,
     )?;
     let pose = Tensor::from_data(
-        TensorData::new(parameters, [1, model.mhr.num_model_parameters()]),
+        TensorData::new(
+            parameters.into_tensor_values(),
+            [1, model.mhr.num_model_parameters()],
+        ),
         &device,
     );
     let output = model.mhr.forward(identity, pose, Some(expression))?;

@@ -206,6 +206,13 @@ impl<T: Clone> ModelParameterTable<T> {
     }
 }
 
+impl ModelParameterTable<f32> {
+    /// Consumes model-column coefficients for a native tensor upload.
+    pub fn into_tensor_values(self) -> Vec<f32> {
+        self.0
+    }
+}
+
 impl ModelParameterTable<ModelParameterName> {
     /// Duplicate names resolve to their first introduced column.
     pub fn column(&self, name: &ModelParameterName) -> Option<ModelParameterColumn> {

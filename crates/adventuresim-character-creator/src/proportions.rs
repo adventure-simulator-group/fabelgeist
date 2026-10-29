@@ -6,20 +6,23 @@ use adventuresim_core::character_proportions::{
 use anyhow::{Context, Result, ensure};
 use fabelgeist_mhr::{
     Mhr,
-    model_def::{JointChannel, JointParameterRow, ModelParameterName},
+    model_def::{JointChannel, JointParameterRow, ModelParameterName, ModelParameterTable},
 };
 use fabelgeist_rig::RigJointTable;
 
 const CENTIMETRES_PER_METRE: f32 = 100.0;
 
-pub fn model_parameters(model: &Mhr, proportions: CharacterProportions) -> Result<Vec<f32>> {
-    let mut parameters = vec![0.0; model.num_model_parameters()];
+pub fn model_parameters(
+    model: &Mhr,
+    proportions: CharacterProportions,
+) -> Result<ModelParameterTable<f32>> {
+    let mut parameters = ModelParameterTable::filled(model.num_model_parameters(), 0.0);
     for proportion in BodyProportion::ALL {
         let column = model
             .parameter_transform
             .parameter_index(&ModelParameterName::from(proportion.mhr_parameter()))
             .with_context(|| format!("MHR is missing {}", proportion.mhr_parameter()))?;
-        parameters[column.native_index()] = proportions.get(proportion);
+        parameters[column] = proportions.get(proportion);
     }
     Ok(parameters)
 }

@@ -20,15 +20,17 @@ fn evaluate(
             parameters[model
                 .parameter_transform
                 .parameter_index(&name.into())
-                .unwrap()
-                .native_index()] = 0.4;
+                .unwrap()] = 0.4;
         }
     }
     let output = model
         .forward_with(
             Tensor::from_data(TensorData::new(vec![0.15; 45], [1, 45]), &device),
             Tensor::from_data(
-                TensorData::new(parameters, [1, model.num_model_parameters()]),
+                TensorData::new(
+                    parameters.into_tensor_values(),
+                    [1, model.num_model_parameters()],
+                ),
                 &device,
             ),
             None,
