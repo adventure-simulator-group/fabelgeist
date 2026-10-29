@@ -100,7 +100,7 @@ impl NpyArray {
         &self,
         device: &Device,
     ) -> std::result::Result<Tensor<D>, NpyLayoutError> {
-        let layout = self.shape.tensor_layout::<D>()?;
+        let layout = NpyTensorLayout::<D>::try_from(&self.shape)?;
         NpyFloat32Values::from(self).into_tensor(layout, device)
     }
 
@@ -109,7 +109,7 @@ impl NpyArray {
         &self,
         device: &Device,
     ) -> std::result::Result<Tensor<D, Int>, NpyLayoutError> {
-        let dimensions = self.shape.tensor_layout::<D>()?;
+        let dimensions = NpyTensorLayout::<D>::try_from(&self.shape)?;
         Ok(Tensor::from_data(
             TensorData::new(Vec::<i64>::from(NpyIntegerValues::from(self)), dimensions),
             device,

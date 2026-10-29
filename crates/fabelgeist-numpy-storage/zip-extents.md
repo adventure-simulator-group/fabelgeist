@@ -1,7 +1,8 @@
 # Declared ZIP decoded lengths
 
 `DeclaredUncompressedByteLength` describes the archive's declared decoded size,
-including an NPY header for NumPy array members. It retains zero and the complete
+including an NPY header for NumPy array members. It retains zero and the
+complete
 `u64` width. It does not certify that a member exists, fits an allocation budget
 or decodes to that length.
 

@@ -5,7 +5,7 @@ use std::path::Path;
 use anyhow::{Context, Result};
 use fabelgeist_numpy_storage::{NpyArray, NpyFloat32Values, NpyIntegerValues, Npz, NpzArrayName};
 
-use super::import::SparseActivation;
+use super::import::{CorrectiveLayout, SparseActivation};
 
 pub(super) struct CorrectiveArchives {
     activation: Npz,
@@ -52,7 +52,10 @@ impl CorrectiveArchives {
             .map(Some)
     }
 
-    pub(super) fn activation(&self) -> Result<SparseActivation> {
+    pub(super) fn activation<'layout>(
+        &self,
+        layout: &'layout CorrectiveLayout,
+    ) -> Result<SparseActivation<'layout>> {
         let indices = NpyIntegerValues::from(
             &self
                 .activation
@@ -65,6 +68,6 @@ impl CorrectiveArchives {
                 .array(&CorrectiveArray::SparseWeights.name())
                 .context("reading the sparse activation weights")?,
         );
-        Ok(SparseActivation::new(indices, weights)?)
+        Ok(SparseActivation::new(indices, weights, layout)?)
     }
 }

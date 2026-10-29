@@ -8,7 +8,7 @@ use std::path::Path;
 
 use anyhow::Result;
 use burn::tensor::{Device, Tensor, activation};
-use fabelgeist_numpy_storage::NpyDimension;
+use fabelgeist_numpy_storage::{NpyDimension, NpyLayoutError};
 use fabelgeist_rig::RigJointCount;
 
 use crate::character::MeshVertexCount;
@@ -91,7 +91,7 @@ impl PoseCorrectives {
             return Ok(None);
         };
         let basis = CorrectiveBasis::new(array, num_joints, num_vertices)?;
-        let activation = archives.activation()?.into_tensor(basis.layout(), device)?;
+        let activation = archives.activation(basis.layout())?.into_tensor(device);
         let tensor = basis.to_tensor(device)?;
         Ok(Some(Self {
             activation,
@@ -105,22 +105,29 @@ impl PoseCorrectives {
     }
 
     /// Per-vertex corrective offsets `[batch, vertices, 3]`, from joint
-    /// parameters shaped `[batch, joints, 7]`.
-    pub fn forward(&self, joint_parameters: Tensor<3>) -> Tensor<3> {
+    /// parameters shaped `[batch, joints, 7]`. Batch-dependent layout products
+    /// are admitted before the corresponding tensor operations.
+    pub fn forward(
+        &self,
+        joint_parameters: Tensor<3>,
+    ) -> std::result::Result<Tensor<3>, NpyLayoutError> {
         let batch = NpyDimension::from(joint_parameters.dims()[0]);
-        let features = self.pose_features(joint_parameters);
+        let output_dimensions = self.layout.output_dimensions(batch)?;
+        let features = self.pose_features(joint_parameters)?;
         let hidden = activation::relu(features.matmul(self.activation.clone()));
-        hidden
-            .matmul(self.basis.clone())
-            .reshape(self.layout.output_dimensions(batch))
+        Ok(hidden.matmul(self.basis.clone()).reshape(output_dimensions))
     }
 
     /// The 6D rotation feature per posed joint, flattened to `[batch, posed * 6]`.
     ///
     /// A 6D feature is the first two columns of the joint's rotation matrix,
     /// with 1 subtracted from the two diagonal entries so a rest pose is zero.
-    fn pose_features(&self, joint_parameters: Tensor<3>) -> Tensor<2> {
+    fn pose_features(
+        &self,
+        joint_parameters: Tensor<3>,
+    ) -> std::result::Result<Tensor<2>, NpyLayoutError> {
         let batch = NpyDimension::from(joint_parameters.dims()[0]);
+        let feature_dimensions = self.layout.feature_dimensions(batch)?;
         let euler = joint_parameters
             .narrow(
                 1,
@@ -153,7 +160,7 @@ impl PoseCorrectives {
             ],
             2,
         );
-        feature.reshape(self.layout.feature_dimensions(batch))
+        Ok(feature.reshape(feature_dimensions))
     }
 }
 

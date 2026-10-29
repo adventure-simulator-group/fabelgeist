@@ -496,7 +496,7 @@ impl Mhr {
 
         let mut rest = rest.reshape([batch, vertices, 3]);
         if apply_correctives && let Some(correctives) = &self.correctives {
-            rest = rest + correctives.forward(joint_parameters);
+            rest = rest + correctives.forward(joint_parameters)?;
         }
 
         let vertices = self.skin(skeleton_state.clone(), rest);

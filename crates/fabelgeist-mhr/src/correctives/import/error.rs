@@ -2,7 +2,7 @@
 
 use std::{error::Error, fmt};
 
-use fabelgeist_numpy_storage::{NpyDimension, NpyElementCount, NpyShape};
+use fabelgeist_numpy_storage::{NpyDimension, NpyElementCount, NpyLayoutError, NpyShape};
 
 use super::{CorrectiveFeatureIndex, CorrectiveHiddenIndex};
 use crate::character::MeshVertexCount;
@@ -15,6 +15,7 @@ pub enum CorrectiveExtent {
     HiddenUnits,
     FeatureChannels,
     BasisColumns,
+    BasisElements,
     DenseElements,
 }
 
@@ -37,6 +38,10 @@ pub enum CorrectiveImportError {
     },
     ExtentOverflow {
         extent: CorrectiveExtent,
+    },
+    TensorLayout {
+        extent: CorrectiveExtent,
+        source: NpyLayoutError,
     },
     SparseCardinality {
         indices: NpyElementCount,
@@ -70,7 +75,7 @@ impl fmt::Display for CorrectiveImportError {
                 f,
                 "corrective basis has {actual} components, expected {expected}"
             ),
-            Self::ExtentOverflow { extent } => {
+            Self::ExtentOverflow { extent } | Self::TensorLayout { extent, .. } => {
                 write!(f, "corrective tensor extent overflows for {extent:?}")
             }
             Self::SparseCardinality { indices, weights } => write!(
@@ -80,10 +85,18 @@ impl fmt::Display for CorrectiveImportError {
             Self::SparseCoordinate { hidden, feature } => write!(
                 f,
                 "sparse activation index ({}, {}) is out of bounds",
-                hidden.native_index, feature.native_index
+                hidden.native_index(),
+                feature.native_index()
             ),
         }
     }
 }
 
-impl Error for CorrectiveImportError {}
+impl Error for CorrectiveImportError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            Self::TensorLayout { source, .. } => Some(source),
+            _ => None,
+        }
+    }
+}

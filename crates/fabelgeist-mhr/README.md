@@ -177,6 +177,13 @@ with its array until upload, preventing an array/layout mismatch. This does not
 certify that two meshes with the same count have the same topology.
 
 Sparse coordinates retain distinct `CorrectiveHiddenIndex` and
-`CorrectiveFeatureIndex` roles after the original native-width cast. The layout
-checks membership before calculating a dense offset; the role types themselves
-do not claim that a coordinate is in bounds.
+`CorrectiveFeatureIndex` roles after the original native-width cast. Their
+`native_index` accessors provide structured diagnostic readback without claiming
+membership. The layout checks every coordinate before dense allocation. The
+admitted sparse contributions retain checked offsets and a borrow of that
+layout; upload cannot substitute another layout or repeat membership admission.
+
+Corrective tensor layouts retain checked element products. The forward pass
+returns a layout error if a batch-dependent feature or output extent overflows,
+propagating through the existing model result before the corresponding tensor
+operations. This does not add a new joint-channel or mesh-identity contract.

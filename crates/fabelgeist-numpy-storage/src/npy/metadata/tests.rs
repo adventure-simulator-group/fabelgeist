@@ -1,4 +1,5 @@
 use super::*;
+use crate::NpyTensorLayout;
 use std::error::Error;
 
 #[test]
@@ -8,7 +9,7 @@ fn scalar_and_zero_axes_have_distinct_rank_and_element_counts() {
     assert_eq!(scalar.element_count(), NpyElementCount::from(1));
     assert!(!scalar.element_count().is_empty());
     assert_eq!(
-        burn::tensor::Shape::from(scalar.tensor_layout::<0>().unwrap()).as_slice(),
+        burn::tensor::Shape::from(NpyTensorLayout::<0>::try_from(&scalar).unwrap()).as_slice(),
         &[0usize; 0]
     );
     let dimensions = vec![
@@ -45,10 +46,10 @@ fn shape_payload_and_rank_failures_retain_their_distinct_context() {
     );
     let shape = NpyShape::try_from(vec![NpyDimension::from(2), NpyDimension::from(3)]).unwrap();
     assert_eq!(
-        burn::tensor::Shape::from(shape.tensor_layout::<2>().unwrap()).as_slice(),
+        burn::tensor::Shape::from(NpyTensorLayout::<2>::try_from(&shape).unwrap()).as_slice(),
         &[2, 3]
     );
-    let error = match shape.tensor_layout::<1>() {
+    let error = match NpyTensorLayout::<1>::try_from(&shape) {
         Err(error) => error,
         Ok(_) => panic!("wrong rank was admitted"),
     };

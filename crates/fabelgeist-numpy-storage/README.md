@@ -13,8 +13,8 @@ for name in archive.keys() {
 let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Device::default())?;
 ```
 
-- Archives are memory-mapped; members may be stored or deflated, and zip64 is
-  handled (NumPy switches to it past 2 GB).
+- File-backed archives use read-only mappings; in-memory archives own their
+  input bytes. Members may be stored or deflated, and ZIP64 is handled.
 - `NpzMember::uncompressed_size` returns the archive metadata as a bespoke
   `DeclaredUncompressedByteLength`. It does not decode or verify actual length.
 - Element types: `f4`, `f8`, `i4`, `i8`, `u1`, `b1`.
@@ -110,7 +110,8 @@ decoding and metadata immutability.
 
 ## Decoded values
 
-`NpyFloat32Values`, `NpyIntegerValues` and `NpyByteStates` retain ordered decoded
+`NpyFloat32Values`, `NpyIntegerValues` and `NpyByteStates` retain ordered
+decoded
 NumPy payload values in bespoke types. The first two contain storage numbers at
 f32 and i64 precision; the third classifies each individual payload byte as zero
 or nonzero, independently of element width.
@@ -129,9 +130,11 @@ lookup and parser error handling retain their existing contracts; the decoded-
 value collection does not validate an array's metadata or classify a number as a
 mesh index or activation coefficient.
 
-The character importer admits corrective tensor extents together and pairs the
-two sparse index columns with their weights before densification. Decoded values
-stay typed until native indexing and tensor-buffer assignment. Sparse
+The character importer admits corrective tensor extents together, then validates
+all sparse coordinate roles against that layout before allocating the dense
+buffer. Sparse contributions retain their checked offsets and a borrow of the
+same layout through upload. Decoded values stay typed until native indexing and
+tensor-buffer assignment. Sparse
 transposition, duplicate replacement and native narrowing before bounds checks
 are unchanged. Impossible joint subtraction and overflowing tensor extents now
 return concrete corrective-import errors before allocation. Native tensor upload
@@ -140,11 +143,14 @@ decoded i64 storage number.
 
 `NpyFloat32Values` explicitly projects stored numbers to float32 precision;
 float64 input bytes remain available on the admitted array. Integer decoding
-reads the original stored number independently. Fixed-rank `NpyTensorLayout`
-retains typed dimensions through Burn shape conversion and reshape. Float32
-upload checks its value count against the complete layout before handing Burn
-its native vector. Corrective imports carry rig joint counts and array extents
-through both native and streamed loading.
+reads the original stored number independently. `NpyTensorLayout` retains fixed
+rank, typed dimensions and their checked element product. Conversion from an
+admitted `NpyShape` reuses its product; construction from dimension literals is
+fallible. Float32 upload compares its value count with the admitted layout
+before handing Burn its native vector. Burn still owns source-cardinality and
+zero-dimension interpretation during reshape; the layout does not certify a
+particular source tensor. Corrective imports carry rig joint counts and mesh
+vertex counts through both native and streamed loading.
 
 ## Archive filenames and array keys
 

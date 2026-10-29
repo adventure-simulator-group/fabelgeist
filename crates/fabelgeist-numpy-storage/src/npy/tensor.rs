@@ -1,21 +1,55 @@
 //! Fixed-rank dimensions and decoded values at the Burn boundary.
 
 use burn::tensor::{Device, ReshapeArgs, Shape, Tensor, TensorData};
-use derive_more::From;
 
 use super::metadata::Result;
-use super::{NpyDimension, NpyElementCount, NpyFloat32Values, NpyLayoutError, NpyShape};
+use super::{NpyDimension, NpyElementCount, NpyFloat32Values, NpyLayoutError, NpyRank, NpyShape};
 
-/// A fixed number of logical dimensions. Element-product and value-cardinality
-/// admission occurs before upload; reshape retains Burn's own shape checks.
-#[derive(Clone, Copy, Debug, From)]
+/// Fixed-rank logical dimensions and their admitted literal element product.
+///
+/// This does not certify a match with a value collection or source tensor.
+/// Burn still interprets zero dimensions and validates source cardinality when
+/// this layout is used as a reshape argument.
+#[derive(Clone, Copy, Debug)]
 pub struct NpyTensorLayout<const D: usize> {
     dimensions: [NpyDimension; D],
+    elements: NpyElementCount,
 }
 
 impl<const D: usize> NpyTensorLayout<D> {
-    pub fn element_count(self) -> Result<NpyElementCount> {
-        Ok(NpyShape::try_from(self.dimensions.to_vec())?.element_count())
+    pub fn element_count(self) -> NpyElementCount {
+        self.elements
+    }
+}
+
+impl<const D: usize> TryFrom<[NpyDimension; D]> for NpyTensorLayout<D> {
+    type Error = NpyLayoutError;
+
+    fn try_from(dimensions: [NpyDimension; D]) -> Result<Self> {
+        let elements = NpyElementCount::from_dimensions(&dimensions)?;
+        Ok(Self {
+            dimensions,
+            elements,
+        })
+    }
+}
+
+impl<const D: usize> TryFrom<&NpyShape> for NpyTensorLayout<D> {
+    type Error = NpyLayoutError;
+
+    fn try_from(shape: &NpyShape) -> Result<Self> {
+        let dimensions = shape
+            .dimensions()
+            .try_into()
+            .map_err(|source| NpyLayoutError::Rank {
+                expected: NpyRank::from(D),
+                actual: shape.rank(),
+                source,
+            })?;
+        Ok(Self {
+            dimensions,
+            elements: shape.element_count(),
+        })
     }
 }
 
@@ -41,7 +75,7 @@ impl NpyFloat32Values {
         layout: NpyTensorLayout<D>,
         device: &Device,
     ) -> Result<Tensor<D>> {
-        let expected = layout.element_count()?;
+        let expected = layout.element_count();
         let actual = self.element_count();
         if expected != actual {
             return Err(NpyLayoutError::ValueCount { expected, actual });

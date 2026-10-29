@@ -1,7 +1,7 @@
 //! Array axes, checked element counts, payload length, and fixed-rank SDK layout.
 use derive_more::{Display, Error, From, Into};
 
-use super::{Dtype, tensor::NpyTensorLayout};
+use super::Dtype;
 
 pub type Result<T> = std::result::Result<T, NpyLayoutError>;
 
@@ -72,13 +72,26 @@ impl NpyDimension {
     pub fn checked_mul(self, other: Self) -> Option<Self> {
         self.0.checked_mul(other.0).map(Self)
     }
-
-    pub fn element_product(self, other: Self) -> Option<NpyElementCount> {
-        self.0.checked_mul(other.0).map(NpyElementCount)
-    }
 }
 
 impl NpyElementCount {
+    /// Admits the literal element product once, with zero axes taking priority.
+    pub(super) fn from_dimensions(dimensions: &[NpyDimension]) -> Result<Self> {
+        let mut elements = 1usize;
+        if dimensions.contains(&NpyDimension(0)) {
+            elements = 0;
+        } else {
+            for dimension in dimensions {
+                elements = elements.checked_mul(dimension.0).ok_or_else(|| {
+                    NpyLayoutError::ElementCountOverflow {
+                        dimensions: dimensions.to_vec(),
+                    }
+                })?;
+            }
+        }
+        Ok(Self(elements))
+    }
+
     /// Admits a native collection cardinality at its source boundary.
     pub const fn new(elements: usize) -> Self {
         Self(elements)
@@ -103,7 +116,7 @@ impl NpyElementCount {
     }
 }
 impl NpyElementWidth {
-    /// Native stored-word width at the little-endian decoding adapter.
+    /// Native byte width used by checked serialized-payload arithmetic.
     pub(super) fn native_width(self) -> usize {
         match self {
             Self::Byte => 1,
@@ -126,21 +139,10 @@ impl NpyPayloadLength {
 impl TryFrom<Vec<NpyDimension>> for NpyShape {
     type Error = NpyLayoutError;
     fn try_from(dimensions: Vec<NpyDimension>) -> std::result::Result<Self, NpyLayoutError> {
-        let mut elements = 1usize;
-        if dimensions.contains(&NpyDimension(0)) {
-            elements = 0;
-        } else {
-            for dimension in &dimensions {
-                elements = elements.checked_mul(dimension.0).ok_or_else(|| {
-                    NpyLayoutError::ElementCountOverflow {
-                        dimensions: dimensions.clone(),
-                    }
-                })?;
-            }
-        }
+        let elements = NpyElementCount::from_dimensions(&dimensions)?;
         Ok(Self {
             dimensions,
-            elements: NpyElementCount(elements),
+            elements,
         })
     }
 }
@@ -153,18 +155,6 @@ impl NpyShape {
     }
     pub fn element_count(&self) -> NpyElementCount {
         self.elements
-    }
-    pub(super) fn tensor_layout<const D: usize>(&self) -> Result<NpyTensorLayout<D>> {
-        let dimensions: [NpyDimension; D] =
-            self.dimensions
-                .as_slice()
-                .try_into()
-                .map_err(|source| NpyLayoutError::Rank {
-                    expected: NpyRank::from(D),
-                    actual: self.rank(),
-                    source,
-                })?;
-        Ok(NpyTensorLayout::from(dimensions))
     }
 }
 impl std::fmt::Debug for NpyShape {

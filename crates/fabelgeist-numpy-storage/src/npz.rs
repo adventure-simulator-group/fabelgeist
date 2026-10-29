@@ -14,7 +14,7 @@ pub use name::NpzArrayName;
 
 mod name;
 
-/// A memory-mapped `.npz` archive.
+/// An `.npz` archive backed by a read-only mapping or owned bytes.
 pub struct Npz {
     archive: ZipArchive,
 }

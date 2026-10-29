@@ -2,8 +2,8 @@
 
 use burn::tensor::{Device, Tensor, TensorData};
 use fabelgeist_numpy_storage::{
-    NpyArray, NpyDimension, NpyElementCount, NpyFloat32Values, NpyIntegerValue, NpyIntegerValues,
-    NpyLayoutError, NpyShape, NpyTensorLayout,
+    NpyArray, NpyDimension, NpyElementCount, NpyFloat32Value, NpyFloat32Values, NpyIntegerValue,
+    NpyIntegerValues, NpyLayoutError, NpyShape, NpyTensorLayout,
 };
 
 use fabelgeist_rig::RigJointCount;
@@ -35,26 +35,38 @@ pub(super) struct CorrectiveLayout {
     vertices: MeshVertexCount,
     features: NpyDimension,
     hidden: NpyDimension,
-    basis_columns: NpyDimension,
-    dense_elements: NpyElementCount,
+    basis: NpyTensorLayout<2>,
+    activation: NpyTensorLayout<2>,
 }
 
-/// Role coordinates decoded from two contiguous columns, paired with weights.
-pub(super) struct SparseActivation {
-    coordinates: Vec<SparseCoordinate>,
-    weights: NpyFloat32Values,
+/// Sparse contributions admitted against the layout before dense allocation.
+/// Offsets cannot be uploaded using a different layout or unchecked coordinates.
+pub(super) struct SparseActivation<'layout> {
+    layout: &'layout CorrectiveLayout,
+    contributions: Vec<SparseContribution>,
+}
+
+struct SparseContribution {
+    offset: CorrectiveDenseOffset,
+    weight: NpyFloat32Value,
+}
+
+/// A checked native dense-buffer offset, meaningful only with the layout
+/// retained by SparseActivation. It never leaves this import adapter.
+struct CorrectiveDenseOffset {
+    native_index: usize,
 }
 
 /// A hidden-unit coordinate after the storage reader's native-width cast.
 /// Its role is known; membership in a particular layout is not yet established.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct CorrectiveHiddenIndex {
     native_index: usize,
 }
 
 /// A feature-channel coordinate after the storage reader's native-width cast.
 /// Its role is known; membership in a particular layout is not yet established.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct CorrectiveFeatureIndex {
     native_index: usize,
 }
@@ -141,19 +153,25 @@ impl CorrectiveLayout {
             VERTEX_COORDINATES,
             CorrectiveExtent::BasisColumns,
         )?;
-        let dense_elements =
-            features
-                .element_product(hidden)
-                .ok_or(CorrectiveImportError::ExtentOverflow {
-                    extent: CorrectiveExtent::DenseElements,
-                })?;
+        let basis = NpyTensorLayout::try_from([hidden, basis_columns]).map_err(|source| {
+            CorrectiveImportError::TensorLayout {
+                extent: CorrectiveExtent::BasisElements,
+                source,
+            }
+        })?;
+        let activation = NpyTensorLayout::try_from([features, hidden]).map_err(|source| {
+            CorrectiveImportError::TensorLayout {
+                extent: CorrectiveExtent::DenseElements,
+                source,
+            }
+        })?;
         Ok(Self {
             posed_joints,
             vertices,
             features,
             hidden,
-            basis_columns,
-            dense_elements,
+            basis,
+            activation,
         })
     }
 
@@ -165,36 +183,44 @@ impl CorrectiveLayout {
         self.vertices
     }
 
-    pub(super) fn output_dimensions(&self, batch: NpyDimension) -> NpyTensorLayout<3> {
-        NpyTensorLayout::from([
+    pub(super) fn output_dimensions(
+        &self,
+        batch: NpyDimension,
+    ) -> std::result::Result<NpyTensorLayout<3>, NpyLayoutError> {
+        NpyTensorLayout::try_from([
             batch,
             NpyDimension::from(self.vertices.len()),
             VERTEX_COORDINATES,
         ])
     }
 
-    pub(super) fn feature_dimensions(&self, batch: NpyDimension) -> NpyTensorLayout<2> {
-        NpyTensorLayout::from([batch, self.features])
+    pub(super) fn feature_dimensions(
+        &self,
+        batch: NpyDimension,
+    ) -> std::result::Result<NpyTensorLayout<2>, NpyLayoutError> {
+        NpyTensorLayout::try_from([batch, self.features])
     }
 
     pub(super) fn basis_dimensions(&self) -> NpyTensorLayout<2> {
-        NpyTensorLayout::from([self.hidden, self.basis_columns])
+        self.basis
     }
 
     fn activation_dimensions(&self) -> NpyTensorLayout<2> {
-        NpyTensorLayout::from([self.features, self.hidden])
+        self.activation
     }
 
     /// Converts role coordinates to a native dense offset only after membership
     /// in this layout. The admitted dense product proves the arithmetic fits.
-    fn dense_offset(&self, coordinate: SparseCoordinate) -> Result<usize> {
+    fn dense_offset(&self, coordinate: SparseCoordinate) -> Result<CorrectiveDenseOffset> {
         let SparseCoordinate { hidden, feature } = coordinate;
         let hidden_width = usize::from(self.hidden);
         if hidden.native_index >= hidden_width || feature.native_index >= usize::from(self.features)
         {
             return Err(CorrectiveImportError::SparseCoordinate { hidden, feature });
         }
-        Ok(feature.native_index * hidden_width + hidden.native_index)
+        Ok(CorrectiveDenseOffset {
+            native_index: feature.native_index * hidden_width + hidden.native_index,
+        })
     }
 
     fn scaled(
@@ -208,8 +234,12 @@ impl CorrectiveLayout {
     }
 }
 
-impl SparseActivation {
-    pub(super) fn new(indices: NpyIntegerValues, weights: NpyFloat32Values) -> Result<Self> {
+impl<'layout> SparseActivation<'layout> {
+    pub(super) fn new(
+        indices: NpyIntegerValues,
+        weights: NpyFloat32Values,
+        layout: &'layout CorrectiveLayout,
+    ) -> Result<Self> {
         if weights.element_count().checked_mul(SPARSE_COLUMNS) != Some(indices.element_count()) {
             return Err(CorrectiveImportError::SparseCardinality {
                 indices: indices.element_count(),
@@ -217,38 +247,54 @@ impl SparseActivation {
             });
         }
         let (rows, columns) = indices.values().split_at(weights.values().len());
-        let coordinates = rows
+        let contributions = rows
             .iter()
             .zip(columns)
-            .map(|(hidden, feature)| SparseCoordinate {
-                hidden: CorrectiveHiddenIndex::from(*hidden),
-                feature: CorrectiveFeatureIndex::from(*feature),
+            .zip(weights.values())
+            .map(|((hidden, feature), weight)| {
+                let coordinate = SparseCoordinate {
+                    hidden: CorrectiveHiddenIndex::from(*hidden),
+                    feature: CorrectiveFeatureIndex::from(*feature),
+                };
+                Ok(SparseContribution {
+                    offset: layout.dense_offset(coordinate)?,
+                    weight: *weight,
+                })
             })
-            .collect();
+            .collect::<Result<_>>()?;
         Ok(Self {
-            coordinates,
-            weights,
+            layout,
+            contributions,
         })
     }
 
     /// Densifies in Burn's transposed `[features, hidden]` order. Only the
     /// checked dense offset, allocation length and coefficient reach native storage.
-    pub(super) fn into_tensor(
-        self,
-        layout: &CorrectiveLayout,
-        device: &Device,
-    ) -> Result<Tensor<2>> {
-        // Cardinality comes from the admitted shape, not a second multiplication.
-        let mut dense = vec![0.0f32; usize::from(layout.dense_elements)];
-        for (coordinate, value) in self.coordinates.into_iter().zip(self.weights.values()) {
-            let offset = layout.dense_offset(coordinate)?;
+    pub(super) fn into_tensor(self, device: &Device) -> Tensor<2> {
+        // Every offset and the allocation extent were admitted together.
+        let mut dense = vec![0.0f32; usize::from(self.layout.activation.element_count())];
+        for contribution in self.contributions {
             // Ordered writes intentionally let the last duplicate replace earlier ones.
-            dense[offset] = f32::from(*value);
+            dense[contribution.offset.native_index] = f32::from(contribution.weight);
         }
-        Ok(Tensor::from_data(
-            TensorData::new(dense, layout.activation_dimensions()),
+        Tensor::from_data(
+            TensorData::new(dense, self.layout.activation_dimensions()),
             device,
-        ))
+        )
+    }
+}
+
+impl CorrectiveHiddenIndex {
+    /// Native-width coordinate for structured diagnostics, not layout membership.
+    pub const fn native_index(self) -> usize {
+        self.native_index
+    }
+}
+
+impl CorrectiveFeatureIndex {
+    /// Native-width coordinate for structured diagnostics, not layout membership.
+    pub const fn native_index(self) -> usize {
+        self.native_index
     }
 }
 
