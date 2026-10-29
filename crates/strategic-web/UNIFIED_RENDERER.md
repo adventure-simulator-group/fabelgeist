@@ -382,7 +382,7 @@ its instances. Bevy's CPU frustum and range culling picks the visible cells for
 every camera, and each visible cell is one instanced draw over an instance
 buffer uploaded once. Instances fade per instance in the shader, so crossfading
 distance bands hand over exactly however the cells fall. Chunks draw in the main
-pass and the depth prepass, never in shadow passes.
+pass only, never in prepass or shadow passes.
 CPU scatter preparation caches habitat-cell positions and random fields for
 the duration of the pass. Each tuft still evaluates its exact nearest site and
 local environmental weights, preserving species boundaries and seeded output.
