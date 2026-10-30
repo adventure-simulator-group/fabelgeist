@@ -1,5 +1,5 @@
 // Instanced shrub foliage: the texture set and calibration of
-// `tactical_tree_leaf_card.wgsl` on eidolon's instanced vertex path. Every
+// `tactical_tree_leaf_card.wgsl` on the chunk-instanced vertex path. Every
 // representation - cambered near leaves and distant alpha cards alike - shades
 // with the fast foliage model; the former full-PBR cambered path was pure
 // per-fragment cost. The front/back normal maps are now unused (kept bound for
@@ -13,9 +13,9 @@ diagnostic(off, derivative_uniformity);
     view_transformations::position_world_to_clip,
 }
 
-#import bevy_eidolon::render::utils
-#import bevy_eidolon::render::bindings::instance_uniforms
-#import bevy_eidolon::render::io_types::Vertex
+#import fablegeist::chunk_instancing::{
+    Vertex, chunk_band, instance_world_matrix, visibility_range_dither_level,
+}
 
 @group(3) @binding(0) var leaf_opacity: texture_2d<f32>;
 @group(3) @binding(1) var leaf_opacity_sampler: sampler;
@@ -57,12 +57,7 @@ struct ShrubLeafVertexOutput {
 @vertex
 fn vertex(vertex: Vertex) -> ShrubLeafVertexOutput {
     var out: ShrubLeafVertexOutput;
-    let batch = instance_uniforms[vertex.i_batch_id];
-    let instance_matrix = utils::calc_instance_world_matrix(
-        vertex.i_pos_scale,
-        vertex.i_rotation,
-        batch.world_from_local,
-    );
+    let instance_matrix = instance_world_matrix(vertex.i_pos_scale, vertex.i_rotation);
     var world_position = instance_matrix * vec4<f32>(vertex.position, 1.0);
 
     var uv = vec2<f32>(0.0);
@@ -112,7 +107,7 @@ fn vertex(vertex: Vertex) -> ShrubLeafVertexOutput {
 #ifdef VISIBILITY_RANGE_DITHER
     let instance_origin = instance_matrix * vec4<f32>(0.0, 0.0, 0.0, 1.0);
     out.visibility_range_dither =
-        utils::get_visibility_range_dither_level(batch.visibility_range, instance_origin);
+        visibility_range_dither_level(chunk_band.visibility_range, instance_origin.xyz);
 #endif
     return out;
 }

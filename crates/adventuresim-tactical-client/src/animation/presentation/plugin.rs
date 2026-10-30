@@ -91,7 +91,16 @@ impl Plugin for TacticalAnimationPlugin {
                     procedural::stabilize_repeated_fixed_tick_pose,
                 )
                     .chain()
-                    .before(TransformSystems::Propagate),
+                    .before(TransformSystems::Propagate)
+                    // Every pass in this chain refines a presented character's
+                    // pose. The browser client boots into the strategic scene
+                    // with no characters at all, where these otherwise run in
+                    // full each frame to iterate empty queries.
+                    .run_if(
+                        bevy::ecs::schedule::common_conditions::any_with_component::<
+                            PresentedSkeleton,
+                        >,
+                    ),
             )
             .add_systems(
                 PostUpdate,

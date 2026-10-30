@@ -8,10 +8,10 @@ use bevy::{
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
 };
-use bevy_eidolon::prelude::InstanceMaterialData;
 use serde::Serialize;
 
 use super::{capture_resolution, capture_state::SceneCaptureState};
+use crate::presentation::chunk_instancing::InstanceChunk;
 use crate::presentation::ground_scatter::instanced_grass::GrassTriangleCount;
 use crate::presentation::{
     GroundScatterLayer, PresentedBuildingMesh, TacticalGameplayCamera, TerrainDetailPatch,
@@ -302,11 +302,11 @@ struct MeshTierCensus {
 
 #[derive(Default, Serialize)]
 struct GrassTierCensus {
-    resident_batches: usize,
+    resident_chunks: usize,
     resident_tufts: usize,
-    gpu_distance_eligible_tufts: usize,
+    drawn_tufts: usize,
     resident_triangles: usize,
-    gpu_distance_eligible_triangles: usize,
+    drawn_triangles: usize,
 }
 
 #[derive(Serialize)]
@@ -322,7 +322,7 @@ struct TriangleCensusReport {
     buildings: BTreeMap<String, MeshTierCensus>,
     grass: BTreeMap<String, GrassTierCensus>,
     total_view_visible_mesh_triangles: usize,
-    total_gpu_distance_eligible_grass_triangles: usize,
+    total_drawn_grass_triangles: usize,
 }
 
 #[expect(
@@ -347,11 +347,11 @@ pub(super) fn capture_triangle_census(
         With<Mesh3d>,
     >,
     building_meshes: Query<(&ViewVisibility, &PresentedBuildingMesh), With<Mesh3d>>,
-    grass_batches: Query<
+    grass_chunks: Query<
         (
             &GroundScatterLayer,
-            &InstanceMaterialData,
-            &GlobalTransform,
+            &InstanceChunk,
+            &ViewVisibility,
             &GrassTriangleCount,
         ),
         Without<TacticalGameplayCamera>,
@@ -377,17 +377,14 @@ pub(super) fn capture_triangle_census(
     let camera_position = camera.1.translation();
     let terrain = census_terrain(&terrain_meshes);
     let buildings = census_buildings(&building_meshes);
-    let grass = census_grass(&grass_batches, camera_position);
+    let grass = census_grass(&grass_chunks, camera_position);
 
     let total_view_visible_mesh_triangles = terrain
         .values()
         .chain(buildings.values())
         .map(|tier| tier.view_visible_triangles)
         .sum();
-    let total_gpu_distance_eligible_grass_triangles = grass
-        .values()
-        .map(|tier| tier.gpu_distance_eligible_triangles)
-        .sum();
+    let total_drawn_grass_triangles = grass.values().map(|tier| tier.drawn_triangles).sum();
     let report = TriangleCensusReport {
         pipeline: "tactical_triangle_census_v1",
         fixture: capture.fixture.clone(),
@@ -395,12 +392,12 @@ pub(super) fn capture_triangle_census(
         camera_target: capture.ground_eye_target.metres().to_array(),
         vertical_fov_degrees: 80.0,
         mesh_count_semantics: "Triangles in terrain and building mesh entities whose Bevy ViewVisibility is true. Partial clipping within a visible mesh is not counted.",
-        grass_count_semantics: "Tufts whose world-space camera distance passes Eidolon's configured per-instance range. Eidolon frustum-culls only each scene-wide species/LOD batch, so this is the submitted population whenever that batch intersects the frustum; it intentionally includes off-screen tufts within the distance ring.",
+        grass_count_semantics: "Tufts in grass chunks whose Bevy ViewVisibility is true and whose camera distance lies within their tier's band. Chunks are frustum-culled whole, so this is the submitted population; it includes off-screen tufts of partially visible chunks.",
         terrain,
         buildings,
         grass,
         total_view_visible_mesh_triangles,
-        total_gpu_distance_eligible_grass_triangles,
+        total_drawn_grass_triangles,
     };
     fs::write(
         capture.output.join("triangle-census.json"),
@@ -455,11 +452,11 @@ fn census_buildings(
 }
 
 fn census_grass(
-    batches: &Query<
+    chunks: &Query<
         (
             &GroundScatterLayer,
-            &InstanceMaterialData,
-            &GlobalTransform,
+            &InstanceChunk,
+            &ViewVisibility,
             &GrassTriangleCount,
         ),
         Without<TacticalGameplayCamera>,
@@ -467,32 +464,33 @@ fn census_grass(
     camera_position: Vec3,
 ) -> BTreeMap<String, GrassTierCensus> {
     let mut result = BTreeMap::<String, GrassTierCensus>::new();
-    for (layer, instances, transform, triangle_count) in batches {
+    for (layer, chunk, visibility, triangle_count) in chunks {
         if *layer != GroundScatterLayer::Grass {
             continue;
         }
         let triangles_per_tuft = triangle_count.0;
-        let tier_name = format!(
-            "{:.3}-{:.3} metres",
-            instances.visibility_range.x, instances.visibility_range.w
-        );
-        let tier = result.entry(tier_name).or_default();
-        let resident_tufts = instances.instances.len();
-        let distance_eligible_tufts = instances
-            .instances
-            .iter()
-            .filter(|instance| {
-                let distance = transform
-                    .transform_point(instance.position)
-                    .distance(camera_position);
-                distance >= instances.visibility_range.x && distance <= instances.visibility_range.w
-            })
-            .count();
-        tier.resident_batches += 1;
+        let band = chunk.band.shader_range();
+        let tier = result
+            .entry(format!("{:.3}-{:.3} metres", band.x, band.w))
+            .or_default();
+        let resident_tufts = chunk.instances.len();
+        let drawn_tufts = if visibility.get() {
+            chunk
+                .instances
+                .iter()
+                .filter(|instance| {
+                    let distance = instance.position.distance(camera_position);
+                    distance >= band.x && distance <= band.w
+                })
+                .count()
+        } else {
+            0
+        };
+        tier.resident_chunks += 1;
         tier.resident_tufts += resident_tufts;
-        tier.gpu_distance_eligible_tufts += distance_eligible_tufts;
+        tier.drawn_tufts += drawn_tufts;
         tier.resident_triangles += resident_tufts * triangles_per_tuft;
-        tier.gpu_distance_eligible_triangles += distance_eligible_tufts * triangles_per_tuft;
+        tier.drawn_triangles += drawn_tufts * triangles_per_tuft;
     }
     result
 }

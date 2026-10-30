@@ -150,13 +150,7 @@ pub(super) fn spawn_near_vista_scatter(
         },
         &mut batches,
         "Vista grass",
-        // Shadow casting out here costs cascade budget for contact detail
-        // nobody can resolve, so no vista ring tier ever casts.
-        (
-            VistaTerrain(lod.level),
-            VistaGrassPresentation,
-            NotShadowCaster,
-        ),
+        (VistaTerrain(lod.level), VistaGrassPresentation),
         grass_seed,
         pigment,
         grass,

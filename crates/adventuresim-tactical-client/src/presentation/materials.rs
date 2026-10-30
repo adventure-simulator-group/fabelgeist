@@ -11,8 +11,6 @@ impl Plugin for TacticalMaterialsPlugin {
             MaterialPlugin::<TacticalVistaMaterial>::default(),
             MaterialPlugin::<TacticalRockMaterial>::default(),
             MaterialPlugin::<TacticalFoliageMaterial>::default(),
-            MaterialPlugin::<TacticalPebbleMaterial>::default(),
-            MaterialPlugin::<TacticalPebbleBillboardMaterial>::default(),
             adventuresim_procedural_materials::ProceduralMaterialsPlugin,
             MaterialPlugin::<TacticalTreeAggregateBarkMaterial>::default(),
             MaterialPlugin::<TacticalTreeImpostorMaterial>::default(),
@@ -24,6 +22,13 @@ impl Plugin for TacticalMaterialsPlugin {
         // Split from the tuple above so the material-plugin group stays within
         // Bevy's 15-element `Plugins` tuple arity limit.
         .add_plugins((
+            // Loose stone draws chunk-instanced: one entity per patch mesh, LOD
+            // and ground cell instead of two or three per square metre.
+            chunk_instancing::ChunkMaterialPlugin::<TacticalPebbleMaterial>::default(),
+            chunk_instancing::ChunkMaterialPlugin::<TacticalPebbleBillboardMaterial>::default(),
+            chunk_instancing::ChunkMaterialPlugin::<
+                crate::presentation::vista::tree_cards::TacticalVistaTreeInstancedMaterial,
+            >::default(),
             MaterialPlugin::<CityGroundMaterial>::default(),
             MaterialPlugin::<TacticalWeatherMaterial>::default(),
             DoorPresentationPlugin,

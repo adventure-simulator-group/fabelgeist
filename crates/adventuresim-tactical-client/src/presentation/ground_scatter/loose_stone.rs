@@ -3,14 +3,13 @@ use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::{
     asset::RenderAssetUsages,
     camera::visibility::VisibilityRange,
-    color::ColorToComponents,
+    color::{ColorToComponents, LinearRgba},
     light::NotShadowCaster,
     math::Dir3,
     mesh::{Indices, PrimitiveTopology},
-    pbr::Material,
     prelude::{
-        Asset, Assets, Color, Commands, Component, Mesh, Mesh3d, MeshMaterial3d, Name, Quat,
-        Reflect, Transform, Vec2, Vec3, Vec4,
+        Asset, Assets, Color, Commands, Component, Handle, Mesh, Mesh3d, Name, Quat, Reflect,
+        Transform, Vec2, Vec3, Vec4, Visibility,
     },
     render::render_resource::{
         AsBindGroup, RenderPipelineDescriptor, SpecializedMeshPipelineError,
@@ -19,14 +18,19 @@ use bevy::{
 };
 use fabelgeist_determinism::Seed;
 
-use crate::presentation::obstacles::rock::rock_color;
+use crate::presentation::{
+    chunk_instancing::{ChunkInstance, ChunkInstancedMaterial},
+    obstacles::rock::rock_color,
+};
+
+mod batches;
 
 use super::GroundScatterLayer;
 
 mod streams;
 
-const PEBBLE_BILLBOARD_SHADER: &str = "shaders/tactical_pebble_billboard.wgsl";
-const PEBBLE_SHADER: &str = "shaders/tactical_pebble.wgsl";
+const PEBBLE_BILLBOARD_SHADER: &str = "shaders/tactical_pebble_billboard_instanced.wgsl";
+const PEBBLE_SHADER: &str = "shaders/tactical_pebble_instanced.wgsl";
 // Flat-ambient scale standing in for the sky IBL the old StandardMaterial path
 // evaluated. Solid rock carries no diffuse transmission, so the lit face is
 // energy-neutral with PBR; only this ambient term is an approximation.
@@ -47,6 +51,8 @@ const HERO_PEBBLE_VERTICES: usize = HERO_PEBBLE_RADIAL_SEGMENTS * HERO_PEBBLE_RI
 const HERO_PEBBLE_TRIANGLES: usize = HERO_PEBBLE_RADIAL_SEGMENTS * HERO_PEBBLE_RING_COUNT * 2;
 const BILLBOARD_VERTICES: usize = 4;
 const BILLBOARD_TRIANGLES: usize = 2;
+/// Batch AABB headroom: a patch covers one ground cell about its origin.
+const PEBBLE_BATCH_FOOTPRINT_METRES: f32 = 1.0;
 const MIN_PEBBLE_RADIUS_METRES: f32 = 0.03;
 const MAX_PEBBLE_RADIUS_METRES: f32 = 0.08;
 
@@ -55,33 +61,20 @@ pub(crate) struct TacticalPebbleBillboardMaterial {
     #[uniform(0)]
     color: Vec4,
     #[uniform(0)]
-    pub(super) lighting: Vec4,
+    pub(in crate::presentation) lighting: Vec4,
     #[uniform(0)]
-    pub(super) ambient: Vec4,
+    pub(in crate::presentation) ambient: Vec4,
 }
 
-impl Material for TacticalPebbleBillboardMaterial {
-    fn vertex_shader() -> ShaderRef {
+impl ChunkInstancedMaterial for TacticalPebbleBillboardMaterial {
+    fn shader() -> ShaderRef {
         PEBBLE_BILLBOARD_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
-        PEBBLE_BILLBOARD_SHADER.into()
-    }
-
-    fn enable_prepass() -> bool {
-        false
-    }
-
-    fn enable_shadows() -> bool {
-        false
     }
 
     fn specialize(
-        _pipeline: &bevy::pbr::MaterialPipeline,
         descriptor: &mut RenderPipelineDescriptor,
         _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
-        _key: bevy::pbr::MaterialPipelineKey<Self>,
+        _key: Self::Data,
     ) -> Result<(), SpecializedMeshPipelineError> {
         descriptor.primitive.cull_mode = None;
         Ok(())
@@ -108,35 +101,15 @@ impl TacticalPebbleMaterial {
     }
 }
 
-impl Material for TacticalPebbleMaterial {
-    fn vertex_shader() -> ShaderRef {
+impl ChunkInstancedMaterial for TacticalPebbleMaterial {
+    fn shader() -> ShaderRef {
         PEBBLE_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
-        PEBBLE_SHADER.into()
-    }
-
-    fn enable_prepass() -> bool {
-        false
-    }
-
-    fn enable_shadows() -> bool {
-        false
     }
 }
 
 #[derive(Component)]
 pub(crate) struct LooseStonePebblePatch {
     pub(crate) physical_pebbles: usize,
-}
-
-impl LooseStonePebblePatch {
-    fn hero(physical_pebbles: usize) -> Self {
-        let patch = Self { physical_pebbles };
-        debug_assert!((1..=PEBBLE_CANDIDATES_PER_PATCH).contains(&patch.physical_pebbles));
-        patch
-    }
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -645,7 +618,7 @@ mod tests {
     fn hero_and_near_pebbles_use_the_cheap_lit_material() {
         let shader = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/shaders/tactical_pebble.wgsl"
+            "/../../assets/shaders/tactical_pebble_instanced.wgsl"
         ));
         // Fast model: flat ambient plus a single clamped cascade fetch, the
         // same shape the distant grass tiers use.
@@ -659,6 +632,9 @@ mod tests {
 
         // Foreground LODs render on the cheap material; only the distant
         // stochastic billboard keeps its dedicated camera-facing shader.
+        // Instances dither against their chunk's band rather than Bevy's
+        // per-entity visibility-range table.
+        assert!(shader.contains("chunk_band.visibility_range"));
         let granite = TacticalPebbleMaterial::new(rock_color(RockLithology::Granite));
         assert_eq!(granite.surface.w, PEBBLE_AMBIENT_SCALE);
     }
@@ -667,7 +643,7 @@ mod tests {
     fn billboard_shader_faces_the_camera_and_screen_fades_at_one_pixel() {
         let shader = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/shaders/tactical_pebble_billboard.wgsl"
+            "/../../assets/shaders/tactical_pebble_billboard_instanced.wgsl"
         ));
         assert!(shader.contains("view.world_position.xz - centre_world.xz"));
         assert!(shader.contains("smoothstep(0.75, 1.5, diameter_pixels)"));

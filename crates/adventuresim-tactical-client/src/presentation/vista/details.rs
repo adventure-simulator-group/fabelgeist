@@ -170,7 +170,7 @@ pub(super) fn spawn_vista_trees(
     environment: Option<&SceneEnvironment>,
     terrain: &SceneTerrain,
     meshes: &mut Assets<Mesh>,
-    tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
+    materials: &mut tree_cards::VistaTreeMaterials<'_>,
     images: &mut Assets<Image>,
     cache: &mut VistaTreePresentationCache,
     prepared: Option<&PreparedTreeImpostorAsset>,
@@ -179,6 +179,7 @@ pub(super) fn spawn_vista_trees(
     let depth = usize::from(lod.depth);
     let center = Vec2::new((width - 1) as f32, (depth - 1) as f32) * 0.5;
     let scene_seed = stable_text_seed(scene_digest);
+    let mut batches = tree_cards::VistaCardBatches::default();
     for z in 0..depth - 1 {
         for x in 0..width - 1 {
             let sample = lod.environment[z * width + x];
@@ -226,7 +227,7 @@ pub(super) fn spawn_vista_trees(
                     0.5,
                     species,
                     meshes,
-                    tree_materials,
+                    &mut materials.impostor,
                     images,
                     cache,
                     prepared,
@@ -242,27 +243,20 @@ pub(super) fn spawn_vista_trees(
                     .records
                     .first()
                     .map_or(12.0, |record| record.projected_bounds.w);
-                commands.spawn((
-                    Name::new(format!("Distant vista {} billboard", species.name())),
-                    VistaTerrain(lod.level),
-                    VistaTreePresentation,
-                    // The impostor shader yaws the card toward the camera, so
-                    // the mesh's static bounds would mis-cull near screen
-                    // edges. This rotation-safe box restores frustum culling:
-                    // off-screen stands previously always rendered through
-                    // `NoFrustumCulling`, roughly half the vista vertex cost.
-                    billboard_bounds(card_height),
-                    NotShadowCaster,
-                    Mesh3d(cached.mesh.clone()),
-                    MeshMaterial3d(cached.material.clone()),
-                    cached.provenance.clone(),
-                    vista_tree_visibility(lod.spacing_metres, card_height, scale),
-                    Transform::from_xyz(local.x, height.metres(), local.y)
-                        .with_scale(Vec3::splat(scale)),
-                ));
+                batches.push(
+                    &cached.mesh,
+                    &cached.material,
+                    card_height,
+                    crate::presentation::chunk_instancing::ChunkInstance {
+                        position: Vec3::new(local.x, height.metres(), local.y),
+                        scale,
+                        ..Default::default()
+                    },
+                );
             }
         }
     }
+    batches.spawn(commands, lod, materials);
 }
 
 pub(super) const VISTA_TREE_MAX_ANGULAR_HEIGHT_RADIANS: f32 = 16.0_f32.to_radians();
@@ -347,16 +341,5 @@ fn spawn_rock_bands(
             visibility,
             transform,
         ));
-    }
-}
-
-fn billboard_bounds(card_height: f32) -> bevy::camera::primitives::Aabb {
-    bevy::camera::primitives::Aabb {
-        center: bevy::math::Vec3A::new(0.0, card_height * 0.5, 0.0),
-        half_extents: bevy::math::Vec3A::new(
-            card_height * 0.8,
-            card_height * 0.6,
-            card_height * 0.8,
-        ),
     }
 }

@@ -27,9 +27,9 @@ pub use incapacitation_forecast::IncapacitationForecastConfig;
 pub use ragdoll::{
     MuscleRelease, RagdollCapsuleConfig, RagdollCapsulesConfig, RagdollConfig, RagdollMusclesConfig,
 };
-pub use runtime::{
-    runtime_animation_config, runtime_combat_presentation_config, runtime_melee_authority_config,
-};
+// `runtime` exists to own the process-lifetime snapshot and its caches; every
+// public item in it is part of this module's surface.
+pub use runtime::*;
 
 pub use pose_buffer::PoseBufferConfig;
 pub use procedural::{

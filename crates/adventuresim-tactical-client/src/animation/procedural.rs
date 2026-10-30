@@ -547,10 +547,9 @@ pub(super) fn apply_landing_leg_compression(
     mut transforms: ParamSet<(TransformHelper, Query<&mut Transform>)>,
 ) {
     let _spike = crate::animation::diagnostics::SpikeGuard::new("apply_landing_leg_compression");
-    let mut previous_world_positions = BTreeMap::<Entity, Vec3>::new();
-    for (entity, global) in &bones {
-        previous_world_positions.insert(entity, global.translation());
-    }
+    // Built on first use: the guards below reject every rig on frames where
+    // nobody is landing, and `GlobalTransform` is stable until propagation.
+    let mut previous_world_positions: Option<BTreeMap<Entity, Vec3>> = None;
     for (owner, rig) in &rigs {
         let Ok((skeleton, mut height, owner_transform)) = owners.get_mut(owner) else {
             continue;
@@ -624,8 +623,9 @@ pub(super) fn apply_landing_leg_compression(
                 LeadFoot::Left => &mut height.landing_left_foot_target,
                 LeadFoot::Right => &mut height.landing_right_foot_target,
             };
-            let target =
-                retain_landing_foot_target(retained_target, previous_world_positions[&foot]);
+            let landing_snapshot = previous_world_positions
+                .get_or_insert_with(|| bones.iter().map(|(e, g)| (e, g.translation())).collect());
+            let target = retain_landing_foot_target(retained_target, landing_snapshot[&foot]);
             let side = match foot_side {
                 LeadFoot::Left => FootTrackSide::NegativeX,
                 LeadFoot::Right => FootTrackSide::PositiveX,

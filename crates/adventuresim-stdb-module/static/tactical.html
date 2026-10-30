@@ -11,7 +11,19 @@
         if (navigator.gpu && navigator.gpu.requestAdapter) {
             const orig = navigator.gpu.requestAdapter.bind(navigator.gpu);
             navigator.gpu.requestAdapter = (opts) =>
-                orig({ ...(opts || {}), powerPreference: "high-performance" });
+                orig({ ...(opts || {}), powerPreference: "high-performance" })
+                    .then((adapter) => {
+                        // Whether the request was honoured is not observable
+                        // from the page otherwise, and running on the iGPU
+                        // looks exactly like a slow build.
+                        const info = (adapter && adapter.info) || {};
+                        console.info(
+                            "[fablegeist] WebGPU adapter:",
+                            [info.vendor, info.architecture, info.device, info.description]
+                                .filter(Boolean).join(" / ") || "(no adapter info)",
+                        );
+                        return adapter;
+                    });
         }
     })();
     </script>

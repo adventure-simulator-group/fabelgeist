@@ -25,6 +25,8 @@ mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
 mod building_closures;
+mod celestial_materials;
+pub(crate) mod chunk_instancing;
 mod environment;
 mod ground_palette;
 pub(crate) mod ground_scatter;
@@ -35,6 +37,7 @@ pub(crate) mod regional_map;
 use ground_palette::{TACTICAL_DIRT_SRGB, scene_ground_color};
 pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
+use celestial_materials::update_celestial_material_lighting;
 mod materials;
 mod obstacles;
 pub(crate) mod ownership;
@@ -218,9 +221,6 @@ fn tactical_global_ambient_light() -> GlobalAmbientLight {
 
 impl Plugin for TacticalPresentationPlugin {
     fn build(&self, app: &mut App) {
-        // GPU-instanced grass renders through bevy_eidolon on native and wasm
-        // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
-        // multi-draw-indirect on the browser backend).
         app.add_plugins((
             ground_scatter::InstancedGrassPlugin,
             ground_scatter::gardens::GardenPresentationPlugin,
@@ -293,6 +293,7 @@ impl Plugin for TacticalPresentationPlugin {
                         present_pending_trees,
                         stream_tree_lod_children,
                         update_tree_projected_lod_ranges,
+                        cull_tree_roots,
                     )
                         .chain(),
                     keep_celestial_visuals_centered.after(update_presented_celestial_lighting),

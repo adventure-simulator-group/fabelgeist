@@ -35,6 +35,7 @@ use inertialization::{
 use interpolation::PoseInterpolation;
 use locomotion_sampling::sample_locomotion_at_time;
 pub(in crate::animation) use phase_calibration::AuthoredPhaseCurve;
+pub(in crate::animation) use pose_cull::PoseCulled;
 use proportions::sample_character_plan;
 use rig::{RigDefinition, RigJoint};
 use spline::clamped_cubic_spline_vec3;
@@ -55,6 +56,7 @@ mod interpolation;
 mod locomotion_sampling;
 mod phase_calibration;
 mod physics_pose;
+mod pose_cull;
 mod proportions;
 mod rig;
 mod sampling_clock;
@@ -468,20 +470,20 @@ pub(super) fn update_pose_buffers(
             // The ragdoll readback owns `previous`/`next`; a culled or
             // resampled buffer here would drag driven bones off their
             // bodies.
+            if rig.visibility == PoseVisibility::Frozen {
+                commands.entity(owner).remove::<pose_cull::PoseCulled>();
+            }
             rig.visibility = PoseVisibility::Visible;
             continue;
         }
 
         let position = owner_transform.translation();
         // Initialize retained models before culling so first selection has a pose.
-        let frozen =
+        let culled =
             rig.has_presented_pose() && visibility::outside_views(position, layers, &cameras);
-        if frozen {
-            rig.visibility = PoseVisibility::Frozen;
-            metrics.culled_character_count += 1;
+        if pose_cull::cull_pose_rig(&mut rig, owner, culled, &mut commands, &mut metrics) {
             continue;
         }
-        rig.resume_visible_sampling();
 
         let key = PosePlanKey::from_playback(playback);
         let transition = !rig.has_presented_pose() || rig.plan.as_ref() != Some(&key);

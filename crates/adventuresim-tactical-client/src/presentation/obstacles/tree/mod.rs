@@ -4,6 +4,7 @@ mod impostor_assets;
 mod lod;
 mod materials;
 mod presentation;
+mod root_cull;
 mod source;
 pub(in crate::presentation) mod specimen;
 
@@ -53,5 +54,6 @@ pub(in crate::presentation) use presentation::{
 pub(crate) use presentation::{
     PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,
 };
+pub(in crate::presentation) use root_cull::cull_tree_roots;
 pub(crate) use source::{TreePresentationSpecies, tree_species_for_site};
 pub(in crate::presentation) use source::{canopy_competition, vista_tree_species};

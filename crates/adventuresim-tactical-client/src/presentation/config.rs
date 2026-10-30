@@ -159,16 +159,6 @@ pub struct GrassLightingConfig {
     pub reduced_lighting_scale: f32,
     pub root_occlusion: f32,
     pub ambient_scale: f32,
-    pub casts_shadows: GrassShadowTiers,
-}
-
-#[derive(Debug, Clone, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct GrassShadowTiers {
-    pub near: bool,
-    pub near_edge: bool,
-    pub far: bool,
-    pub vista: bool,
 }
 
 #[derive(Debug, Clone, Deserialize)]
