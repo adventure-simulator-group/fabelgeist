@@ -1,0 +1,14 @@
+{
+  "kind": "Root remediation of independently reviewed transport path guards",
+  "review": {
+    "path": "reports/restore-review.json",
+    "sha256": "a71e77f331c0526cbe37b9b201af98e876e3743319b078aeaf7c15ae63af562e"
+  },
+  "changes": [
+    "Reject symlinked repository target/ before any temporary transport work",
+    "Reject an existing lexical destination including dangling symlink before resolve; still refuse any resolved existing destination"
+  ],
+  "restore_sha256_after_correction": "218fefabe6985cc847ab0c899dce262d091bdd0a1c64ccf00767d096db169ba7",
+  "historical_evidence_helpers_modified": false,
+  "body_credit": 0
+}

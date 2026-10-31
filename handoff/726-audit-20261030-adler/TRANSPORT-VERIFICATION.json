@@ -1,0 +1,18 @@
+{
+  "kind": "Completed lossless full restoration and preservation verification; not product validation",
+  "at_utc": "2026-10-31T02:04:12.840912+00:00",
+  "script_sha256": "218fefabe6985cc847ab0c899dce262d091bdd0a1c64ccf00767d096db169ba7",
+  "manifest_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858",
+  "command": "python3 handoff/726-audit-20261030-adler/restore.py --destination target/726-handoff-20261030-restore-verification",
+  "exit_code": 0,
+  "files_restored_and_SHA256_verified": 36487,
+  "logical_bytes_verified": 12136674821,
+  "bundle_parts_verified": 40,
+  "restoration_incomplete_marker_absent": true,
+  "existing_continuation_refusal_verified": true,
+  "checkout_and_four_stashes_preserved": true,
+  "authoritative_ledger_selector_queue_unchanged": true,
+  "source_body_read_credit": 0,
+  "product_execution": false,
+  "proposals_adopted": 0
+}

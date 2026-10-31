@@ -1,0 +1,97 @@
+{
+  "kind": "Read-only bounded evidence transport and helper portability review; no new audit discovery",
+  "author": "/root/handoff_portability_review",
+  "audit_paused": true,
+  "authority_writes": false,
+  "product_body_reads": false,
+  "evidence_helpers_executed": false,
+  "prior_handoff_commit": "3b9728c1a9b266bba4b5481add6f96c2119c2ed2",
+  "restore_requirements": [
+    "Preserve every current evidence-root file byte-for-byte, including immutable receipts, corrections, helpers, source objects, manifests, partial proposals and failed/unexecuted versions. New central documents must distinguish selected authority from later unadopted proposals.",
+    "Restore only to a fresh ignored target/726-audit-adler-20261027 under repository cwd. Refuse any existing destination. Most current helpers hardcode this exact repo-relative root. Do not silently overwrite, repoint immutable receipt bytes, or imply arbitrary renamed-root helper compatibility.",
+    "Prior restore.py copies only evidence/adler/checkpoint-history and four selector files; reusing it unchanged would omit every new segovb/parallel/workflow/root-helper/root-lens subtree. New transport restoration must copy complete newly manifested payload.",
+    "Validate all manifest paths before writes, refuse escapes/symlinks, verify byte counts and SHA256, and keep destination fresh/nonexistent; restoration provides no body coverage.",
+    "Preserve historical target/recovery-20261025 prefix projection into evidence/ and relative paths resolved from declaring receipt/base. Normalize Windows separators only in resolution, never by rewriting immutable records.",
+    "Keep historical two lens-state bases: lenses1..7/9..10 commonly evidence/<path>, lenses8/11..13 evidence/continuation-segovb/<path>; current selector/ledger successor references may use ../../ into root. Resolve exact recorded path and hash, not a global basename rule."
+  ],
+  "fixed_environment_assumptions": [
+    {
+      "helper": "root-evidence-helper-history-20261029/root_progress_checkpoint.py",
+      "constraint": "Checks exact HEAD 7a9d92ad7357779e9280146c521bd8588b86fcdb, clean git status, and exact four original local stash SHAs. It is historical recovery provenance, not runnable unchanged in a new Adler checkout or handoff branch. Do not remove/relax checks to claim old verification; a separately reviewed new environment-specific checkpoint must preserve historical evidence and explicitly record new checkout/stash facts."
+    },
+    {
+      "helper": "root-evidence-helper-history-20261029/root_l1_native_packet_writer_v4_rust090.py",
+      "constraint": "Authenticates exact absolute /home/brunosegovia/.cargo registry cache/source roots and nightly-2026-07-13 rustup path. Native source bytes/authentication receipts may be portable while this implementation remains environment-specific. Inspect before use; do not inherit obsolete absolute paths or weaken package/archive/member/toolchain checks."
+    },
+    {
+      "helper": "root-evidence-helper-history-20261029/root_l3_ext057077_current007008_adopt.py",
+      "constraint": "Uses git show at frozen6533e444... and currente2755a7... as well as restored exact source_object bytes. Evidence tree alone does not guarantee required Git objects. Default readonly / expected ledger+selector hashes / exclusive outputs / full packet checks remain required."
+    },
+    {
+      "helper": "parallel-l13-20261029/ROOT-ADOPTION-303-310-PROPOSAL.py",
+      "constraint": "Loads hash-pinned historical adopter chain and exact proposal manifests/partial specifications from fixed evidence root. Copy full chain, not just newest helper. Presence of a proposal helper does not mean root adoption."
+    }
+  ],
+  "external_locator_constraints": [
+    {
+      "locator": "target/726-return-transport-3b9728c/handoff/726-audit-20261027-adler/SOURCE-LOCATORS.json",
+      "role": "Referenced by newer native/frozen registrations as original locator authority. Preserve its exact bytes in supplemental transport or provide explicit nonmutating mapping to git show at3b9728c1...; do not rewrite registered path. Eg parallel-l12-20261029/REGISTRATION-PAR-L12-501.json."
+    },
+    {
+      "locator": "target/bespoke-audit-774-merged-20261022 and absolute /home/brunosegovia/.codex/worktrees/ae46/...",
+      "role": "Historical inherited source_object provenance remains in shared inventory/registration nested records; this path is already absent locally. New registrations often stage real source_object inside current segovb/. Resolve exact hash-named archived objects instead of treating old absolute checkout as current authoritative source. Eg REGISTRATION-SEGOVB-2010.json has current segovb object plus historical absent nested object."
+    },
+    {
+      "locator": "/home/brunosegovia/.cargo registry/cache and registry/src; /home/brunosegovia/.rustup",
+      "role": "Local native archive/source/toolchain provenance. Hash-named staged source exists in evidence for many contracts (e.g URL2.5.8 registration328). If a future helper requires archive/member/package chain, restore exact pinned archive from portable payload or authenticated upstream, and verify recorded checksums/member identities. Do not assume source-only staging satisfies native archive chain."
+    },
+    {
+      "locator": "/home/brunosegovia/.codex/worktrees/3114/.../target/merged-pr-895-evidence",
+      "role": "External #895 assessment is metadata leads only, not adopted body/runtime proof. rawzip0.5.2 actual archive and exact members were copied within parallel-l11-20261029/native-childlock-rawzip-192-20261030; preserve them. MATERIAL-PROVENANCE names archive checksum ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c. No need to copy unrelated external worktree or inherit assessment coverage."
+    },
+    {
+      "locator": "/tmp/build-l11-sourcebundle014.py and /tmp/build-l11-cellclosure007.py",
+      "role": "Historical failed/correction prose only in additive qualification records observed; do not recreate these temp scripts as adopted authority. Preserve qualifications and transported reviewed helpers."
+    }
+  ],
+  "git_material_dependencies": [
+    {
+      "commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "branch": "codex/774-audit-handoff-20261025",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/<SHA256>",
+      "constraint": "Exact hash source authority for frozen/dirty physical/report/native objects. Git object archive ~2.46GB/24000files: bounded git show of required hash objects; do not fully extract by default."
+    },
+    {
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "role": "Frozen original clean PR source Git revision; sha256/registered scope still governs."
+    },
+    {
+      "commit": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "role": "Original base/deletion contracts; no current-main equivalence."
+    },
+    {
+      "commit": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+      "role": "Inherited main/current historical proof and product checkout base."
+    },
+    {
+      "commit": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "role": "Selected current-main target; explicit fetch --no-tags --no-write-fetch-head origin exactSHA needed if absent. A handoff branch based on7a9 does not make this descendant reachable. Preserve source proof/raw remote response and154path/2002cell delta queue; do not update target or close cells merely while packaging."
+    },
+    {
+      "commit": "7d3863f3dbea03908c18a9ce11d86804783ddd28",
+      "branch": "codex/780-recovery-handoff-20261025",
+      "role": "Original780 ledger/skills provenance retained prior locator."
+    },
+    {
+      "commit": "87cb9c9495c4ffea528e5997176442c3ac496d71",
+      "branch": "codex/826-recovery-handoff-20261025",
+      "role": "Original826 ledger/skills provenance retained prior locator."
+    },
+    {
+      "commit": "90b18956a366ab38f9cd79d856abbcce10396bb3",
+      "role": "Prior portable handoff historical provenance; do not select obsolete frontiers."
+    }
+  ],
+  "qualification": "This bounded review read existing evidence/helpers/central Git handoff documents only. Some broad path-text searches contain prose false positives and were truncated; no exhaustive external-reference validation or body-read credit is claimed. python command absent locally; python3 was available. No product operation, ledger mutation, helper execution, source discovery, or publication was performed.",
+  "publication_recommendation": "Central README/CURRENT/AUDIT-RESUME/SOURCE-LOCATORS plus exact manifests and fresh-root restore, explicitly documenting helper environmental constraints and supplemental old-source-locator mapping. Keep all prior histories and newest unadopted proposals; current selector hashes alone determine authority."
+}

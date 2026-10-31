@@ -1,0 +1,43 @@
+{
+  "kind": "Independent bounded read-only review of new handoff transport restoration tooling",
+  "reviewer": "/root/handoff_portability_review",
+  "script": "target/726-handoff-20261030-prep/package/handoff/726-audit-20261030-adler/restore.py",
+  "script_sha256": "8095226f3a11d3350c0936e1d9ca9dcd5fd73b4879ffc504f7519b418f109360",
+  "executed": false,
+  "product_files_read": false,
+  "historical_helpers_executed_or_changed": false,
+  "verdict": "Core lossless transport checks satisfactory; recommend fixing two symlink destination guards before publication. Package manifests were not yet present, so concrete generated manifest/payload verification remains root responsibility.",
+  "findings": [
+    {
+      "id": "RESTORE-FRESH-DEST-SYMLINK",
+      "severity": "low",
+      "location": "main destination resolution before existing-directory guard",
+      "problem": "dest=(repo/args.destination).resolve() occurs before dest.exists(). A preexisting dangling symlink at the lexical requested destination resolves to an absent target and escapes refusal. The script will create that target and proceed through the already existing symlink, contrary to fresh-destination semantics.",
+      "required_change": "Form lexical requested path first and reject if exists() OR is_symlink(), before resolving it. Preserve independent containment checks and alternate-destination behavior.",
+      "acceptance": "An existing directory, existing file, valid symlink, and dangling symlink at requested destination are all refused before destination mutation. A fresh ordinary ignored target child remains admissible."
+    },
+    {
+      "id": "RESTORE-TARGET-SYMLINK-CONTAINMENT",
+      "severity": "medium",
+      "location": "target=repo/target; target.mkdir(exist_ok=True); containment against target.resolve()",
+      "problem": "A target/ symlink to another filesystem directory passes mkdir and moves the effective containment root outside intended repository. Subsequent temp Git clone and restoration can write outside repository target/ even though nominal relative path appears ignored.",
+      "required_change": "Reject symlink target/, establish target as ordinary repository-local directory, and compare resolved target against lexical repo/target before temporary store or destination creation. Keep --verify-only explicit about its ignored temporary writes.",
+      "acceptance": "A symlinked target/ is refused before any temp Git store or evidence destination is created; a normal target/ works. No source/provenance receipt or historical helper changes are needed."
+    }
+  ],
+  "positive_checks": [
+    "Reads and verifies publication-manifest entries before payload operations.",
+    "Safe POSIX manifest paths reject absolute paths, parent traversal, backslashes, colons, and noncanonical path normalization; direct files verify SHA256/length and resolved containment.",
+    "Payload rejects duplicate paths and invalid blob/hash/length metadata, validates file_count and exact reassembled bundle SHA256.",
+    "Bare clone operates in newly allocated ignored temporary directory; no existing repository refs/index/checkout/Git DB changes are requested. Audit helpers are never invoked.",
+    "Exact payload evidence-only commit is pinned; each git blob verifies type, byte count and independent SHA256 before writing. All same-blob entries require identical hashes/lengths.",
+    "Destination files use exclusive xb and independent copies, preserving exact source bytes and avoiding hard-link authority/history mutation. Existing path collisions fail rather than overwrite.",
+    "Incomplete restoration marker remains on normal payload errors; success removes it only after count/process checks.",
+    "All transport verification/restoration explicitly grants zero audit body-read credit; alternate-destination warning retains fixed historical helper path qualification."
+  ],
+  "not_verified": [
+    "No restore execution or simulated product/repository operation performed.",
+    "MANIFEST.json, PUBLICATION-MANIFEST.json, and payload bundle parts were not present when initial read-only review ran. Root must verify generated package and a safe fresh restoration separately.",
+    "No exhaustive adversarial concurrency/race analysis or environment-wide Git configuration audit; findings above concern direct static control flow."
+  ]
+}

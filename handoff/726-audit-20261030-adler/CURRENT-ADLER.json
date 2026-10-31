@@ -1,0 +1,213 @@
+{
+  "kind": "Authoritative local Adler continuation checkpoint; supersedes copied inherited CURRENT.json for local resume",
+  "at": "2026-10-30T05:28:10.631819+00:00",
+  "status": "Segovb audit discovery active; incomplete",
+  "handoff_commit": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+  "handoff_branch": "handoff/726-audit-ledger-20261027-adler",
+  "current_main_pin": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "product_qualification": "Actual checkout remains7a9d92a. Remote main verifiede2755a7 (#895) and exact Git objects fetched; new154path metadata inventory grants zero source reads. Existing7a9d92a receipts remain exact historical current-snapshot proofs, requiring qualified same-lens exact unchanged-source reuse or fresh changed-body reconciliation at e2755a7 for all13/all20. Frozen evidence never current-main proof.",
+  "ledger": "evidence/continuation-segovb/ledger.json",
+  "ledger_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+  "evidence_projection": {
+    "historical": "target/recovery-20261025/",
+    "local": "target/726-audit-adler-20261027/evidence/",
+    "restored_files": 15004,
+    "rule": "Historical receipts unchanged. Local ledger deliberately updated; its original bytes remain in published handoff. Copied MANIFEST and CURRENT describe inherited snapshot, not new local ledger. New receipts in adler/."
+  },
+  "adoptions": [
+    {
+      "path": "adler\\ADOPTION-070-lens11.json",
+      "sha256": "60dd9cb2f05cea4e9f8334334b7096c9a72b6d1ad4bc9d59c737ed3acd6916ee"
+    },
+    {
+      "path": "adler\\ADOPTION-071-lens12.json",
+      "sha256": "adc5e0cb2c0a8c832ab21ae3a168dc5e624ef5c8b3599c228f5334aecfc68aa2"
+    },
+    {
+      "path": "adler\\ADOPTION-072-lens13.json",
+      "sha256": "d359ea9f878363270a513c70ee5741a1805845e53a3939fcfb8a96ac175712b4"
+    }
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "name": "type-granularity",
+      "original_accounted": 2853,
+      "next_original": 2853,
+      "state": "segovb/STATE-L11-733.json",
+      "next_action": "Continue delegated registered unread bodies and e2755a7 delta/current all20/exact aliases;7a9d92a scoped receipts historical current snapshot only. No implementation.",
+      "state_sha256": "6866a59e6158090421fd350b20c970dd552768e1989423902cb778cf5e1d7004",
+      "original_total": 2853,
+      "latest_receipt": "segovb/READ-L11-733.json",
+      "partial_receipt": null,
+      "latest_qualification": {
+        "path": "segovb/QUALIFICATION-L11-511-001.json",
+        "sha256": "2ea34a42de765d8d7ed4f9f93b1d7abfb07fd5b05261073ec18d4e4bf7d83c3d"
+      }
+    },
+    {
+      "lens": 12,
+      "name": "magic-strings",
+      "original_accounted": 2689,
+      "next_original": 2689,
+      "state": "segovb/STATE-L12-932.json",
+      "latest_receipt": "segovb/READ-L12-932.json",
+      "qualification": "Disease1093 combines inherited1..1200 persisted roles, checkpoint attestation1201..1800 and new personal1801..2950. Raw predecessor tool outputs1201..1800 not separately transported; not invented personal evidence.",
+      "next_action": [
+        "Physical native lock checksum/member/source proof preserved separately in TEAM024, no feature/runtime/current credit.",
+        "Organization identity retained String requires exact existing owner/caller/policy; typed ScheduleParseError and native Serde/Cargo final ports not duplicate cause-erasure findings.",
+        "All registered connected unread scopes and actual current deltas remain explicit; completed original roles do not close them."
+      ],
+      "state_sha256": "8673acaaa0e69a3c749aadbc0624d16846edf5905473d70b9f937a7529469eff",
+      "original_total": 2853,
+      "partial_receipt": null,
+      "partial_receipt_sha256": null,
+      "partial_next_line": null,
+      "partial_closed_by": "segovb/READ-L12-564.json",
+      "latest_connected_qualification": {
+        "path": "segovb/SUPPORT-READ-L12-466-001.json",
+        "sha256": "13a114294d4a776911a6ebda5a1b0ef432c82662bb59df2e4ceacd6722b9ee57",
+        "scope": "Frozen art-demo !finished guard, no original counter/current/native closure"
+      },
+      "latest_native_receipt": "segovb/READ-NATIVE-L12-634-003.json",
+      "latest_connected_shared_receipt": "segovb/READ-SHARED-L12-562-014.json",
+      "latest_connected_receipt": "segovb/READ-EXT-L12-672-001.json",
+      "latest_connected_body_receipt": "segovb/READ-L12-CONNECTED-TEAM-024.json",
+      "latest_connected_body_receipt_sha256": "42423839d3489b813e81e7344627dbdfc460a985ae0cc8347d614d7e85c5feec"
+    },
+    {
+      "lens": 13,
+      "name": "magic-numbers",
+      "original_accounted": 1221,
+      "next_original": 1221,
+      "state": "segovb/STATE-L13-PARALLEL-300.json",
+      "partial_receipt": null,
+      "next_action": "Continue every ordered/connected/extension/current/all20/exact-alias contract; no repairs.",
+      "state_sha256": "ab0b436bdaeffa6918d226136c08f582f0fa06896fc4504f744cbd8847cf6d7e",
+      "original_total": 2853,
+      "latest_receipt": "segovb/READ-L13-PARALLEL-300.json",
+      "partial_receipt_closed_by": "segovb/READ-L13-PARALLEL-001.json"
+    }
+  ],
+  "all_other_lenses": "Saved states and count qualifications preserved; extensions/current/all20/aliases/connected acceptance remain mandatory for every lens. No all-green summary.",
+  "implementation_gate_complete": false,
+  "accepted_unique_count_change": 0,
+  "project_execution": "No product changes/builds/tests/lints/scanners/generators/runtime probes/CI fixes/new tests/helpers/assertions/doctests. Only Git/source/evidence bookkeeping.",
+  "preservation": {
+    "new_stash": "37425931d1bd5c5fa104900d2f5f6a3a40e06afd",
+    "stash_name": "codex-preserve-before-726-audit-20261027",
+    "stashed_files": 6020,
+    "prior_local_stashes": [
+      "5f6624e22fc5b56132a3396dd4fa936d65c09d0d",
+      "bc59ca7bf0aa017ae5cad7d65bd4a4b52834ffbd"
+    ],
+    "segovb_four_stashes": "Not transported; no attempt to recreate or alter them."
+  },
+  "publication": "Requested return handoff snapshot; no product changes, PR, merge, issue update, conversation publication or external message.",
+  "previous_checkpoint_archive": "checkpoint-history/1dd1117ea26d57cef4dc5e2ad75f28012fbe3e3001ef2303fb0ad8c1d267746e.json",
+  "audit_goal_status": "active",
+  "segovb_environment": {
+    "actual_checkout_HEAD": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+    "qualification": "Inherited handoff checkout descriptions/preservation fields above describe historical Adler environment. Current Segovb checkout is pinned current main; no current semantic reconciliation from mere HEAD or frozen proof. Own stashes/preservation receipt RESUME-001.json."
+  },
+  "historical_product_qualifications": [
+    {
+      "before_batch": 536,
+      "qualification": "Checked-out handoff product code predates main; exact registered source hashes are the frozen source authority. No newly claimed current-source comparison."
+    }
+  ],
+  "active_lens": 12,
+  "active_lens_transition": {
+    "path": "segovb/TRANSITION-L11-L12-001.json",
+    "sha256": "66538bc359b7bd0066298a8a53740fa64a8a97a1907f30f49021ed8d4963db1b"
+  },
+  "current_main_target_history": [
+    {
+      "path": "segovb/CURRENT-TARGET-TRANSITION-20261029-E2755A7.json",
+      "sha256": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+      "scope": "Target metadata154paths, bodycoverage0"
+    }
+  ],
+  "latest_team_preservation": {
+    "path": "segovb/PRESERVATION-TEAM-20261029-059.json",
+    "sha256": "6b1da6802e9ce3fc45891d1d9971417cd41227d5d6e2caf8480e3911dda1ce18"
+  },
+  "other_lens_current_continuations": {
+    "1": {
+      "state": "segovb/STATE-L1-CURRENT-094.json",
+      "sha256": "e12baab594faf62c1e8fcd482d5280f688ac94f91a069781d7cf21399dcdb95b",
+      "latest_receipt": {
+        "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-094.json",
+        "sha256": "6cc5658053e31f714cd3fe79b856cf9a3fd954a9d7a9762dd7656434887e21bb",
+        "verification": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-094.json",
+        "verification_sha256": "457c3fccac41af958c6c8f89b1402122efec541a80d0023e197d64fea2d668bd"
+      },
+      "qualification": "Inheritedoriginal/overlay/merged/shared states and counts untouched; currentP01narrowexit only, all20/other13/native/currentextension contracts stillopen.",
+      "partial_current_receipt": null
+    },
+    "2": {
+      "state": "segovb/STATE-L2-EXT-CURRENT-015.json",
+      "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8",
+      "latest_receipt": {
+        "path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-013.json",
+        "sha256": "94db3cca4ab1240e4a669b16c565fb6ecf540b6454c3db7aca89b7529ca7ea24"
+      },
+      "qualification": "Frozen/current exact scoped evidence only; original populations and attribution retained, all connected/all20/all13 closure incomplete."
+    },
+    "3": {
+      "state": "segovb/STATE-L3-EXT-CURRENT-007.json",
+      "sha256": "2e13471196002bf97e9997953c391706fc1a016253427b3d3ebe3c51e5481ce6",
+      "latest_receipts": [
+        {
+          "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-057-061.json",
+          "sha256": "9286f481e83dccc50c354af2d456e510c3b03325a921499b0092a20d67a103b4"
+        },
+        {
+          "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-062-066.json",
+          "sha256": "068fd4a370ae962e4d1799e59edd325d0676d6ced2a45cf7b7df8e2c0c08284e"
+        },
+        {
+          "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-067-070.json",
+          "sha256": "1b42ba573704171771cdfbe2ef158dd09d429bcaaa1598196ae8ae7467e753ea"
+        },
+        {
+          "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-071-077.json",
+          "sha256": "9ef583702c753203f78a84948d2cc2ab9ef00408e935b45babff2d122a2c402a"
+        }
+      ],
+      "qualification": "Original/overlay/merged/shared selected baseline and read attribution retained;17exact frozen source views/first8mandatory scoped WITH questions, current/all20/all13/global aliases incomplete.",
+      "latest_current_receipt": {
+        "path": "root-l3-extension-20261030/READ-ROOT-L3-CURRENT-002.json",
+        "sha256": "ec1ed3123f364a2db3c7267e3d31da590e21a6f794058da9a38ce2532a73ab52"
+      },
+      "latest_current_receipts": [
+        {
+          "path": "root-l3-extension-20261030/READ-ROOT-L3-CURRENT-007.json",
+          "sha256": "ddadb5ba8477c3d80da4cbf01a5640a87185599715a3301bcfd90696a45538ef"
+        },
+        {
+          "path": "root-l3-extension-20261030/READ-ROOT-L3-CURRENT-008.json",
+          "sha256": "104e2e5faad0592a8de2ccb739ef3b29a7a644928e0d93d22063a601da7ae10d"
+        }
+      ]
+    }
+  },
+  "audit_workflow": {
+    "assessment": {
+      "path": "workflow-20261030/ASSESSMENT-001.json",
+      "sha256": "159309eabb93f739700f1cb32dd56091532a0c5262604f6b5a5519d52ca96122"
+    },
+    "proposal_protocol": {
+      "path": "workflow-20261030/PROPOSAL-PROTOCOL-001.json",
+      "sha256": "8fa2ba016a32b9e4b9624cdd0c1ae02d61a956f7dda4948f30fd89d8387b34ed"
+    },
+    "closure_queue": {
+      "path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08"
+    },
+    "progress": {
+      "path": "workflow-20261030/PROGRESS-001.json",
+      "sha256": "9363259b2faccad75121bbe4f5b904da1ebe45d21008991a7b158ac5e4f18a1b"
+    }
+  }
+}

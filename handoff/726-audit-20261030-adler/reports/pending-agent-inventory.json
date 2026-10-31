@@ -1,0 +1,1652 @@
+{
+  "schema": "726-handoff-pending-agent-inventory-v1",
+  "created_at_utc": "2026-10-31T01:47:29.261101+00:00",
+  "scope": "Read-only evidence metadata inventory for Adler handoff. No product bodies read; no evidence helpers executed; no discovery, adoption or authority mutation. Hashing metadata does not grant coverage.",
+  "authority_checkpoint": {
+    "path": "target/726-audit-adler-20261027/segovb/PROGRESS-TEAM-20261029-059.json",
+    "sha256": "29a446ce5132d525f6046dc0f868d77eaf071c3d4ca260281e822ee2af835373",
+    "bytes": 28415
+  },
+  "all_listed_proposals_unadopted": true,
+  "authoritative_frontiers": {
+    "L11": {
+      "state": "segovb/STATE-L11-733.json",
+      "next_batch": 734,
+      "original_roles_accounted": 2853,
+      "next_registration": 3448,
+      "source_bundle_adopted_through": "SOURCE022 / own READ197",
+      "explicit_current_delta_cells_closed": 84
+    },
+    "L12": {
+      "state": "segovb/STATE-L12-932.json",
+      "next_batch": 933,
+      "next_original": 2689,
+      "next_registration": 1725,
+      "latest_connected_adoption": "TEAM024"
+    },
+    "L13": {
+      "state": "segovb/STATE-L13-PARALLEL-300.json",
+      "own_receipt_adopted_through": 302,
+      "next_original": 1221
+    }
+  },
+  "lenses": {
+    "11": {
+      "completed_proposal_bundles": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-023.json",
+          "sha256": "2be0c089850a4a94e9bb8d6031da9ff7c4b6a1fcb12f624f0fd4b16024d760be",
+          "bytes": 159810
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-024.json",
+          "sha256": "82b33d0e11ed91938a6a66fbdd073fed67c197a53cfd62145e6f0edda8a5ac0a",
+          "bytes": 168439
+        }
+      ],
+      "source023": {
+        "receipt": {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-198.json",
+          "sha256": "24c0e85ac89ab7d9d3ebb46134aba4e4e2e79bbc82fee94fb260fb81a6422ce7",
+          "bytes": 65853
+        },
+        "verification": {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/VERIFY-198.json",
+          "sha256": "73506893dff366ac0c03b23750716fa5f1cf9d8a7beb7413981c5e930d488f3c",
+          "bytes": 49068
+        },
+        "status": "Proposal only: two target childlock registered remainders; distinct target context assessed plus exact complete-table reuse proposed from own source197/root733. Target read adoption and all current-cell decisions remain pending.",
+        "assessed_target_rows": [
+          {
+            "path": "crates/fabelgeist-mhr/Cargo.lock",
+            "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-mhr/Cargo.lock:P09-P11-required-current-policy-or-catalogue-scope",
+            "sha256": "74e0c31df7a087fda809c487cdb7ce84ca5d0831e6c9274b7eed3fce2b1bb25c",
+            "assessed_ranges": [
+              [
+                166,
+                587
+              ],
+              [
+                603,
+                6339
+              ],
+              [
+                6370,
+                7102
+              ]
+            ]
+          },
+          {
+            "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+            "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.lock:P09-P11-required-current-policy-or-catalogue-scope",
+            "sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+            "assessed_ranges": [
+              [
+                151,
+                2158
+              ],
+              [
+                2169,
+                3262
+              ],
+              [
+                3271,
+                4303
+              ],
+              [
+                4309,
+                6257
+              ]
+            ]
+          }
+        ],
+        "authority_obligations_preserved_until_adoption": [
+          {
+            "registration": "PL11-1253",
+            "ranges": [
+              [
+                166,
+                587
+              ],
+              [
+                603,
+                6339
+              ],
+              [
+                6370,
+                7102
+              ]
+            ]
+          },
+          {
+            "registration": "PL11-1254",
+            "ranges": [
+              [
+                151,
+                2158
+              ],
+              [
+                2169,
+                3262
+              ],
+              [
+                3271,
+                4303
+              ],
+              [
+                4309,
+                6257
+              ]
+            ]
+          }
+        ]
+      },
+      "source024": {
+        "receipt": {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-199.json",
+          "sha256": "74389d0b1f1d8809c8b549ee8dd789ea423df968b26099eb9c20c40c0f1fa731",
+          "bytes": 56033
+        },
+        "verification": {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/VERIFY-199.json",
+          "sha256": "1866133adb2612f1bb3ac257f393db1e30ee3c7da02482f3edeccedb0228d97e",
+          "bytes": 2476
+        },
+        "status": "Proposal only: flate2@1.1.10 exact childlock native archive, ten initial scoped views plus Status supplement = eleven registration rows. Eight scoped source-supported conditional/policy/rejected dispositions, no C-backend or dependency body blanket coverage.",
+        "prospective_plans": [
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-215.json",
+            "sha256": "558fa3d8127683c6db91c4d51bb50673ea3c51ae9952dc103b8312c93a46f388",
+            "bytes": 18694
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-216.json",
+            "sha256": "00e89a66ea2e379768357f8ddedbdfa9c12609e00d83a5bd0d1516321307e8fd",
+            "bytes": 2037
+          }
+        ],
+        "source_rows": [
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/Cargo.toml",
+            "sha256": "1365f28dd7ad9f83ebcc9afd545d7cdcedb284bf6e059081b0e1d1847ce6a94e",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:Cargo.toml",
+            "assessed_ranges": [
+              [
+                1,
+                108
+              ],
+              [
+                221,
+                264
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/lib.rs",
+            "sha256": "94302ac67bb05639da9eefd2f7fc715be35aed602cc4c672132129def26ecf07",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/lib.rs",
+            "assessed_ranges": [
+              [
+                1,
+                280
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/deflate/read.rs",
+            "sha256": "62768dea99067f3ffd76f08c99b502eef239fdf818c7a0a4c653fbc278106c0a",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/deflate/read.rs",
+            "assessed_ranges": [
+              [
+                1,
+                8
+              ],
+              [
+                143,
+                245
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/deflate/bufread.rs",
+            "sha256": "11d568b35dcdf403c139fcef4be814fc96abf01d3d1411ff8e0a53c35143ec89",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/deflate/bufread.rs",
+            "assessed_ranges": [
+              [
+                1,
+                8
+              ],
+              [
+                143,
+                247
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/bufreader.rs",
+            "sha256": "20ffc9cb16f0b01ae50be49aaf33f3592e2805b7d6bd76b7ea04da72c428d281",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/bufreader.rs",
+            "assessed_ranges": [
+              [
+                1,
+                106
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/zio.rs",
+            "sha256": "7534bdd7cc2fcfc1ba976c9ad5f1780df3ece2c66aeaee201b1112ea7240c182",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/zio.rs",
+            "assessed_ranges": [
+              [
+                1,
+                172
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/mem.rs",
+            "sha256": "96d29977a5cbd84d820c07406405fc6f7ad917a073de8c293493358bf58e8a44",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/mem.rs",
+            "assessed_ranges": [
+              [
+                1,
+                190
+              ],
+              [
+                399,
+                610
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/ffi/mod.rs",
+            "sha256": "5b82d9100a238356200886d986ecc9dd3d50994010e1dc3367c85ddad8072caa",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/ffi/mod.rs",
+            "assessed_ranges": [
+              [
+                1,
+                88
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/ffi/miniz_oxide.rs",
+            "sha256": "127a669987b36b435ccee0d02ad4aaeb3aa05d8328bfd1d0384cc42364973d2e",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/ffi/miniz_oxide.rs",
+            "assessed_ranges": [
+              [
+                1,
+                119
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/ffi/zlib_rs.rs",
+            "sha256": "d6b912d9dcfaffb320c556b96d4ccfe2e2a03fa04939c36824298207bb764450",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/ffi/zlib_rs.rs",
+            "assessed_ranges": [
+              [
+                1,
+                149
+              ]
+            ]
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-deflate-215-20261030/flate2-1.1.10/src/mem.rs",
+            "sha256": "96d29977a5cbd84d820c07406405fc6f7ad917a073de8c293493358bf58e8a44",
+            "source_id": "native-own-childlock:flate2@1.1.10:6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb:src/mem.rs",
+            "assessed_ranges": [
+              [
+                191,
+                192
+              ]
+            ]
+          }
+        ]
+      },
+      "highest_local_complete": {
+        "at": "2026-10-30T05:55:08.601139+00:00",
+        "complete_own_receipts_through": 199,
+        "next_own_receipt": 200,
+        "next_own_plan": 217,
+        "next_own_registration": "PL11-1267",
+        "registered_unread_valid_text_ranges": [],
+        "registered_unread_valid_byte_ranges": [],
+        "unreceipted_personal_material_ranges": [],
+        "qualification": "Source199 rootadoption/fullpacketpreflight pending. Source023 rootpending andCELL009 builderdeferredactual734reference. Allnativebackend/current/all20/aliases scope qualifiers preserved; no productexecution/authoritymutation."
+      },
+      "artifacts": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-215.json",
+          "sha256": "558fa3d8127683c6db91c4d51bb50673ea3c51ae9952dc103b8312c93a46f388",
+          "bytes": 18694
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-216.json",
+          "sha256": "00e89a66ea2e379768357f8ddedbdfa9c12609e00d83a5bd0d1516321307e8fd",
+          "bytes": 2037
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-023.json",
+          "sha256": "2be0c089850a4a94e9bb8d6031da9ff7c4b6a1fcb12f624f0fd4b16024d760be",
+          "bytes": 159810
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-024.json",
+          "sha256": "82b33d0e11ed91938a6a66fbdd073fed67c197a53cfd62145e6f0edda8a5ac0a",
+          "bytes": 168439
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/QUALIFICATION-SOURCE024-PREFLIGHT-SYNTAX-001.json",
+          "sha256": "856c5859c72a9c4fc975538d5680563475874b9643191505c3b36f1d228f55f4",
+          "bytes": 927
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-198.json",
+          "sha256": "24c0e85ac89ab7d9d3ebb46134aba4e4e2e79bbc82fee94fb260fb81a6422ce7",
+          "bytes": 65853
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-199.json",
+          "sha256": "74389d0b1f1d8809c8b549ee8dd789ea423df968b26099eb9c20c40c0f1fa731",
+          "bytes": 56033
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/SOURCE023-ADOPTER-BASE022.diff",
+          "sha256": "3d21370ade746df94ef6bd08a4ecf534d7c8c334cdb543795be3a7e44dae4e94",
+          "bytes": 7339
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/SOURCE023-WRITER-BASE005.diff",
+          "sha256": "9e3a69a7b1eb72c929ad63ce283662d8162c03193b4b0a849128ddba169d4224",
+          "bytes": 6537
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/SOURCE023-WRITER-EXACT-PATCH.json",
+          "sha256": "845bf36606f026811642057bbf2ac6e9e5f539b33c9fc761a3ee0c24c6ff338f",
+          "bytes": 1743
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/SOURCE024-ADOPTER-BASE023.diff",
+          "sha256": "8d6b1081e8d12dc908583d2cf93f1124c6d06ecea62444c56756e62dd356e9e2",
+          "bytes": 7340
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/SOURCE024-PREFLIGHT-V1-V2.diff",
+          "sha256": "628049b5bf83f09e1428e756af6b9c65ab3319ceeb976f233b49ff780b35b92c",
+          "bytes": 6959
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/SOURCE024-WRITER-BASE005.diff",
+          "sha256": "b7bd59b5bfc7ec38d887d2b45c4f04de0970766bde95201d6deb5aaacbfe1041",
+          "bytes": 2920
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/SOURCE024-WRITER-EXACT-PATCH.json",
+          "sha256": "92ba11ca83cc9846267461cd12ac3ea578c2052be1abdbbd7426e8ebf64b8459",
+          "bytes": 1384
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/VERIFY-198.json",
+          "sha256": "73506893dff366ac0c03b23750716fa5f1cf9d8a7beb7413981c5e930d488f3c",
+          "bytes": 49068
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/VERIFY-199.json",
+          "sha256": "1866133adb2612f1bb3ac257f393db1e30ee3c7da02482f3edeccedb0228d97e",
+          "bytes": 2476
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/l11_deflate_bundle024_preflight_PROPOSAL_UNEXECUTED.py",
+          "sha256": "2d16ed8fb5a1c6640a5c2ba8fa2a64d0033fd12ee51473210eac46423ae48c29",
+          "bytes": 12006
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/l11_deflate_bundle024_preflight_v2_PROPOSAL_UNEXECUTED.py",
+          "sha256": "f4ed541827464b76d206b0385c177093530711baba783e4359b733eb531b3482",
+          "bytes": 12008
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/l11_target_lock_reuse_bundle023_preflight_PROPOSAL_UNEXECUTED.py",
+          "sha256": "8c13fbfffd495b2266768f074c778ac1ac2f35281b6800c5b7acd1d76af2aaf9",
+          "bytes": 21069
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/root_source023_adopter_v1_PROPOSAL_UNEXECUTED.py",
+          "sha256": "dcb799f55ad57263432cc65c7992a9d00634ac9fc23c09962d5aae4a0fcc7703",
+          "bytes": 4459
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l11-20261029/root_source024_adopter_v1_PROPOSAL_UNEXECUTED.py",
+          "sha256": "efbb4412cf64797902b54d2bd9c56300e420663f0c40079b203f1f99e106d241",
+          "bytes": 4460
+        }
+      ],
+      "next_actions": [
+        "Root inspect immutable proposed rulesets/adopter diffs and exact context/reuse proofs; do not infer target identity from equality or package hash alone.",
+        "Validate/adopt SOURCE023 first, then SOURCE024 if accepted. Expected root receipt numbers734 then735 are contingent on sole-writer validation. Existing raw receipts and unread registrations remain unchanged until adoption.",
+        "CELL009 builder was deferred pending actual root734 adoption reference; no CELL009 proposal/closure exists in listed metadata. Baseline, Creator, MHR and NumPy explicit current cells remain pending.",
+        "Retain all other lens/native/all20/exact-alias/current/global obligations; original frontier2853 is not reconciliation closure."
+      ]
+    },
+    "12": {
+      "completed_proposal_bundles": [
+        {
+          "bundle": {
+            "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-933-940.json",
+            "sha256": "c76f4c78fd971b271fb1f956f2fc39bd7df6666d1e7389dd56ae2fa6254633f6",
+            "bytes": 129858
+          },
+          "frontier_before": {
+            "original": 2689,
+            "batch": 933
+          },
+          "frontier_after": {
+            "original": 2706,
+            "batch": 941
+          },
+          "population_deltas_separate": {
+            "original_roles": 17,
+            "overlays": 0,
+            "frozen_merged_paths": 0,
+            "original_shared_scopes": 0,
+            "registered_extensions": 0,
+            "global_source_identities": 0,
+            "accepted_unique_findings": 0
+          },
+          "fresh_lines_claimed_by_agent_not_rootvalidated": 2638,
+          "qualified_reuse_lines_claimed": 0,
+          "next_isolated_registration": 771,
+          "recovery_state": {
+            "path": "parallel-l12-20261029/STATE-PAR-L12-940.json",
+            "sha256": "07be0e9b23254291f7c04f3630764a3af3f678a76933ea5ab3460eb372fb63c9"
+          },
+          "caveat": "Bundle.validation_ruleset still references historical generic bundle001; candidate exact preflight011/012/013 and adopter files must be inspected and selected by root before execution. No current cell closure or accepted-unique finding change."
+        },
+        {
+          "bundle": {
+            "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-941-948.json",
+            "sha256": "695b5541797600cc611c423aa4b215e49850a564d1791b0ed292cc5e2527408e",
+            "bytes": 104560
+          },
+          "frontier_before": {
+            "original": 2706,
+            "batch": 941
+          },
+          "frontier_after": {
+            "original": 2720,
+            "batch": 949
+          },
+          "population_deltas_separate": {
+            "original_roles": 14,
+            "overlays": 0,
+            "frozen_merged_paths": 0,
+            "original_shared_scopes": 0,
+            "registered_extensions": 0,
+            "global_source_identities": 0,
+            "accepted_unique_findings": 0
+          },
+          "fresh_lines_claimed_by_agent_not_rootvalidated": 1670,
+          "qualified_reuse_lines_claimed": 0,
+          "next_isolated_registration": 786,
+          "recovery_state": {
+            "path": "parallel-l12-20261029/STATE-PAR-L12-948.json",
+            "sha256": "daf1e9eb778e5d776cdec615ac01e7cacc942ae7352eeb1ee64e014797c44cfb"
+          },
+          "caveat": "Bundle.validation_ruleset still references historical generic bundle001; candidate exact preflight011/012/013 and adopter files must be inspected and selected by root before execution. No current cell closure or accepted-unique finding change."
+        },
+        {
+          "bundle": {
+            "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-949-956.json",
+            "sha256": "653126de0dc4073ef136a4db44dfa2ff19b41bd63b6c4991ce1818c6da5c5f6b",
+            "bytes": 114170
+          },
+          "frontier_before": {
+            "original": 2720,
+            "batch": 949
+          },
+          "frontier_after": {
+            "original": 2736,
+            "batch": 957
+          },
+          "population_deltas_separate": {
+            "original_roles": 16,
+            "overlays": 0,
+            "frozen_merged_paths": 0,
+            "original_shared_scopes": 0,
+            "registered_extensions": 0,
+            "global_source_identities": 0,
+            "accepted_unique_findings": 0
+          },
+          "fresh_lines_claimed_by_agent_not_rootvalidated": 2340,
+          "qualified_reuse_lines_claimed": 0,
+          "next_isolated_registration": 802,
+          "recovery_state": {
+            "path": "parallel-l12-20261029/STATE-PAR-L12-956.json",
+            "sha256": "743628f676f74abcbd54185bdcb823b7cd6fb0d5a06430d2f8ad1d50dc18e225"
+          },
+          "caveat": "Bundle.validation_ruleset still references historical generic bundle001; candidate exact preflight011/012/013 and adopter files must be inspected and selected by root before execution. No current cell closure or accepted-unique finding change."
+        }
+      ],
+      "highest_local_complete_state": {
+        "ref": {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/STATE-PAR-L12-956.json",
+          "sha256": "743628f676f74abcbd54185bdcb823b7cd6fb0d5a06430d2f8ad1d50dc18e225",
+          "bytes": 370
+        },
+        "value": {
+          "lens": 12,
+          "next_original": 2736,
+          "next_batch": 957,
+          "next_isolated_registration": 802,
+          "last_proposal": "PROPOSAL-L12-956.json",
+          "last_proposal_sha256": "f581cf259e71a11130db5b3e9eb8208000947ff826d3b5e715c80f9bba12683f",
+          "authoritative_ledger_written": false,
+          "separate_connected_material_qualification_pending": true,
+          "product_execution": false
+        }
+      },
+      "latest_partials": [
+        {
+          "ref": {
+            "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PARTIAL-PAR-L12-957-001.json",
+            "sha256": "f8cee113c0af438ddede8bb4852b4f17b18c2919fef84fc8bf8ed86a62211bad",
+            "bytes": 2040
+          },
+          "rows": [
+            {
+              "original_index": 2736,
+              "source_id": "physical-p16:crates/adventuresim-world-schema/build.rs",
+              "source_sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+              "actual_EOF": 121,
+              "source_object": "parallel-l12-20261029/source-957-names-material-20261030/1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+              "registered_at": "2026-10-30T05:58:17.272768+00:00",
+              "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+              "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+              "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-802.json",
+              "registration_sha256": "772ece96b79021240bbcba96fca91503c500937e4debec3565673506e239c4a8",
+              "requested_ranges": [
+                [
+                  1,
+                  121
+                ]
+              ],
+              "assessed_ranges": [
+                [
+                  1,
+                  121
+                ]
+              ],
+              "fresh_personal_body_reads": [
+                [
+                  1,
+                  121
+                ]
+              ],
+              "unread_registered_ranges": [],
+              "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "body_output_truncation_status": "untruncated"
+            }
+          ]
+        },
+        {
+          "ref": {
+            "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PARTIAL-PAR-L12-957-002.json",
+            "sha256": "2e859770ef80105f34ce273964b4c9e82729feabe0140ba65dbda9ecc6c313c6",
+            "bytes": 2336
+          },
+          "rows": [
+            {
+              "original_index": 2737,
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+              "source_sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+              "actual_EOF": 199,
+              "source_object": "parallel-l12-20261029/source-957-names-material-20261030/c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+              "registered_at": "2026-10-30T05:58:17.274988+00:00",
+              "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+              "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+              "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-803.json",
+              "registration_sha256": "9e2c930d035404e10bf1ccc199cde57528be532b1f9464c386e84d48e605ca4d",
+              "requested_ranges": [
+                [
+                  1,
+                  199
+                ]
+              ],
+              "assessed_ranges": [
+                [
+                  1,
+                  199
+                ]
+              ],
+              "fresh_personal_body_reads": [
+                [
+                  1,
+                  199
+                ]
+              ],
+              "unread_registered_ranges": [],
+              "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "body_output_truncation_status": "untruncated"
+            }
+          ]
+        },
+        {
+          "ref": {
+            "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PARTIAL-PAR-L12-958-001.json",
+            "sha256": "b91ce8d9d856d0273f1f9dd6f7b086fecc35ee4015d58b809da057303c47c26b",
+            "bytes": 2435
+          },
+          "rows": [
+            {
+              "original_index": 2738,
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+              "source_sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+              "actual_EOF": 576,
+              "source_object": "parallel-l12-20261029/source-957-names-material-20261030/555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+              "registered_at": "2026-10-30T05:58:17.277587+00:00",
+              "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+              "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+              "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-804.json",
+              "registration_sha256": "fc055514f9be846768f9a48e049084a50c481959633052d18a226feee0ca15ce",
+              "requested_ranges": [
+                [
+                  1,
+                  411
+                ]
+              ],
+              "assessed_ranges": [
+                [
+                  1,
+                  180
+                ]
+              ],
+              "fresh_personal_body_reads": [
+                [
+                  1,
+                  180
+                ]
+              ],
+              "unread_registered_ranges": [
+                [
+                  181,
+                  411
+                ]
+              ],
+              "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "body_output_truncation_status": "untruncated"
+            }
+          ]
+        }
+      ],
+      "prospective_unfinished_batch_registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-802.json",
+          "sha256": "772ece96b79021240bbcba96fca91503c500937e4debec3565673506e239c4a8",
+          "bytes": 6702
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-803.json",
+          "sha256": "9e2c930d035404e10bf1ccc199cde57528be532b1f9464c386e84d48e605ca4d",
+          "bytes": 6852
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-804.json",
+          "sha256": "fc055514f9be846768f9a48e049084a50c481959633052d18a226feee0ca15ce",
+          "bytes": 7035
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-805.json",
+          "sha256": "a93cd04e603846284825b39c66a9d7d571eb177b33275d35f431da6ced9f914e",
+          "bytes": 7000
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-806.json",
+          "sha256": "62b3a21b7a8113ef6297fcdb1623b7ab19b01ba0c4ee8975c10e3e181714c17b",
+          "bytes": 5487
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-807.json",
+          "sha256": "432bfe0aad6e42189287de947db215b22c67d1cfe9eba4c81e5f60d97e28f524",
+          "bytes": 5581
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-808.json",
+          "sha256": "1225960545423ad0f79cf2bce142f8108818921f4d1c9e7c5e428a62f6147e2d",
+          "bytes": 8956
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-809.json",
+          "sha256": "fff514e59b238363a655a238ff355465b0dd988ffdbafd10d42e2d3f8d93fdb6",
+          "bytes": 5264
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-810.json",
+          "sha256": "b73dc96c5e4f2a7845c40fcaeab85f803ade7d15e71de777a52b691f86d3be59",
+          "bytes": 8185
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-811.json",
+          "sha256": "123c8f36db07759f35a99dd012e162b65b03ee8e48ec0464b0a426d3872c4962",
+          "bytes": 5693
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-812.json",
+          "sha256": "0a602f02138fdd3bbeb25bc9fe96376960c9e3e7eaae7b39c76aa95520ee51f1",
+          "bytes": 10496
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-813.json",
+          "sha256": "8185ad697256629b4931946475a7b8d1b3a68d0962cf7eb90fdfa2950e6db133",
+          "bytes": 5490
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-814.json",
+          "sha256": "73b66721efbe439a787ea0fa5dad5bfdcbf9d253c83aec7b685d0d7573670936",
+          "bytes": 4240
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-815.json",
+          "sha256": "69f812c8dd79e0a824e0b048f9fbd89dbc69509c282741d875d2d4a9d125c244",
+          "bytes": 3635
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-816.json",
+          "sha256": "607a13469e7297ccc0ab701850b768b532980586984d6162702f6f38b2f7336b",
+          "bytes": 4053
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/REGISTRATION-PAR-L12-817.json",
+          "sha256": "880b4f0d8a780abc08f65fc9afb617eea8b3e18ff362dbd027ae24d1a1caf6d2",
+          "bytes": 3796
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-933-940.json",
+          "sha256": "c76f4c78fd971b271fb1f956f2fc39bd7df6666d1e7389dd56ae2fa6254633f6",
+          "bytes": 129858
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-941-948.json",
+          "sha256": "695b5541797600cc611c423aa4b215e49850a564d1791b0ed292cc5e2527408e",
+          "bytes": 104560
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-949-956.json",
+          "sha256": "653126de0dc4073ef136a4db44dfa2ff19b41bd63b6c4991ce1818c6da5c5f6b",
+          "bytes": 114170
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/preflight-l12-bundle-011-PROPOSAL.py",
+          "sha256": "73c8472980411564d7710894313e6d753a5ecd375c8afbd81ac6a57b7dfa76c9",
+          "bytes": 10212
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/preflight-l12-bundle-012-PROPOSAL.py",
+          "sha256": "53d05d8e9235159915d514d6db4741038680cd594468431b86f9764329061c5a",
+          "bytes": 13074
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/preflight-l12-bundle-013-PROPOSAL.py",
+          "sha256": "f40a7bcc6a9077fbc0bc53e4b67654476167dc2aad744340df7a525be864d89d",
+          "bytes": 11836
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/preflight-l12-bundle-013-v2-PROPOSAL.py",
+          "sha256": "802a03a2564a479bdf485977f5f9fe4ea05f0c5b2199cc990d33a74278645583",
+          "bytes": 12322
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/root-l12-bundle933-940-adopt-v1-PROPOSAL.py",
+          "sha256": "95e8007c63dbf4e98abdc3aa197c9a882db2de3b7032b9f1b488c981df171432",
+          "bytes": 17774
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/root-l12-bundle933-940-vs925-932v1.diff",
+          "sha256": "ad66aaa8c7186ea840f7f4428b2015400698b719802d636a671e76c57d0f671a",
+          "bytes": 7909
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/root-l12-bundle941-948-adopt-v1-PROPOSAL.py",
+          "sha256": "dbdbc50c3f249dd6bbbc3a78a2f45dd4265732e23aea16131b5be8ea3ce67671",
+          "bytes": 18705
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/root-l12-bundle941-948-vs933-940v1.diff",
+          "sha256": "484540b349fb1c1e5b3ecf2b524bd9639ace4aa022ab32d2c5bb92a38281ff4d",
+          "bytes": 8660
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/root-l12-bundle949-956-adopt-v1-PROPOSAL.py",
+          "sha256": "2bbf9b7c06645bcc1f9b3010d862edad00cfd3e6935143c6e54ae46d1f5de3fd",
+          "bytes": 18119
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/root-l12-bundle949-956-adopt-v2-PROPOSAL.py",
+          "sha256": "3d07eb876b177c7b989a69cb17c33b3ec9942ebf3d17d12390f02180eada9994",
+          "bytes": 18122
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/root-l12-bundle949-956-v2-vs-v1.diff",
+          "sha256": "702368a707a84735948f044ce76736c48ad098e48220746785dfd08f8564c6fa",
+          "bytes": 830
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l12-20261029/root-l12-bundle949-956-vs941-948v1.diff",
+          "sha256": "0fb39625b1aa283a282e16b5b24f3f95af14a15989d73b787d6d5081b0f789f5",
+          "bytes": 9009
+        }
+      ],
+      "proposed_not_authoritative_totals": {
+        "completed_roles": 47,
+        "fresh_lines": 6648,
+        "next_original_after_all_three_validated_adoptions": 2736,
+        "authority_original_still": 2689
+      },
+      "next_actions": [
+        "Inspect/validate/adopt completed bundles933–940,941–948,949–956 in order; no ledger/frontier counts change until root adoption. Preserve all historical partials and source-qualified nested-context expansions.",
+        "Latest local completed956 nextoriginal2736/batch957. Inunfinishedbatch957 buildscript2736 full121 and schema2737 full199 exist only as partial receipts; no ordered role credit. Partial958 validator2738 assesses1..180 of required1..411(actualEOF576), leaving181..411 registered unread and412..576 outside requested scope.",
+        "Registrations802–817 prospectively cover next material; preserve all requested unread obligations. Do not skip fully read partial source rows or fabricate proposal957 completion.",
+        "Preserve disease1093 inherited-attestation limitation, exact future reuse and historical counts; frozen original scopes do not close native/current graph contracts."
+      ]
+    },
+    "13": {
+      "completed_bundle": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-303-310.json",
+        "sha256": "9fc796d3441a606501e44000b1e0b44732db347b0748f4048a2df18332c37d3b",
+        "bytes": 131427
+      },
+      "completed_bundle_frontiers": {
+        "before": 1221,
+        "after": 1235,
+        "original_role_delta_proposed": 14
+      },
+      "completed_local_receipts": [
+        {
+          "own_receipt": 303,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303.json",
+            "sha256": "f6f34673078c7e48c4694397982bc57a2cbbe59974aa9c22df63c26aee5b03f9",
+            "bytes": 18384
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-303.json",
+            "sha256": "a14260df0b7d789acd5d67b61b332eb93c62d56076cd09d2779bba79699e8a81",
+            "bytes": 1438
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-303-PROPOSAL.json",
+            "sha256": "e43be5c75b28201709d1ad9599391b785da067e0ad2ccbfd9b9af592d4e2ecf3",
+            "bytes": 12943
+          },
+          "proposed_next_original": 1222,
+          "original_delta_proposed": 1,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 304,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-304.json",
+            "sha256": "75c65a17a6bcbe6aaabc1ec7bb1dee58f2035db17db5e4361e837980d71781d9",
+            "bytes": 4880
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-304.json",
+            "sha256": "601366cc3123acd955d5b3ff0ed5de629946bd0dd2ed4fbee147df8a755d0f0f",
+            "bytes": 1134
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-304-PROPOSAL.json",
+            "sha256": "d62b007e8e52b21e426209bb7f04ac1b5337577f9e57bda8a34dc938312ae6fa",
+            "bytes": 12649
+          },
+          "proposed_next_original": 1224,
+          "original_delta_proposed": 2,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 305,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-305.json",
+            "sha256": "e338b6d018195e7a219da726d69e7b90655370b3596709ab12ae820174554f5c",
+            "bytes": 6541
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-305.json",
+            "sha256": "83c39d1b0ca99d8c8d382de8fcbc993ac028fd1fd1c9c70f15b8906d17b8a5f4",
+            "bytes": 1020
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-305-PROPOSAL.json",
+            "sha256": "9ebfd0b27dcc70abdd01ca750e6e24133580e95181616077c312be08c080a280",
+            "bytes": 12555
+          },
+          "proposed_next_original": 1225,
+          "original_delta_proposed": 1,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 306,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306.json",
+            "sha256": "d269436ed0cbc6393c1ae438fc64090be1d80329b84b2e7c970a56eed1160225",
+            "bytes": 26349
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-306.json",
+            "sha256": "e92a4886b78500e2f9334936b086a930a81ea6b5980999be78d283f0aa6ce832",
+            "bytes": 1520
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-306-PROPOSAL.json",
+            "sha256": "33784f00b23784ec2a91f44430051ccfac020658e981786f9f4cc0b6faa81d84",
+            "bytes": 13065
+          },
+          "proposed_next_original": 1226,
+          "original_delta_proposed": 1,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 307,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-307.json",
+            "sha256": "96013f2e641378607a8e937e3a2414f8729ade6a7460c5faba08b5147692c19a",
+            "bytes": 12098
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-307.json",
+            "sha256": "2803268c03ca61db65be08d774da5af9503d4fe0d4ffbb3bed9945332592370c",
+            "bytes": 1374
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-307-PROPOSAL.json",
+            "sha256": "c7c15e625b6e3007226a39e1797c909f150b6c28034c0c432d3193c06ca57dd8",
+            "bytes": 12929
+          },
+          "proposed_next_original": 1227,
+          "original_delta_proposed": 1,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 308,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-308.json",
+            "sha256": "0edc31272335267e6c8ba2e4e785502ab11e45be9a7736cf92f1fef246c7a8b5",
+            "bytes": 7068
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-308.json",
+            "sha256": "9f52216bba5a4cc3346e5ca17d25c074ddbc55685f50035c00b25e4452fa1e90",
+            "bytes": 1221
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-308-PROPOSAL.json",
+            "sha256": "d2b1f44f7bbf4ca066ad730daa612ab6add5c80131b2b35234a9df69647cd976",
+            "bytes": 12784
+          },
+          "proposed_next_original": 1231,
+          "original_delta_proposed": 4,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 309,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-309.json",
+            "sha256": "7885e2c378a47f15605db7e10cf0c3956dc759af14140cdbf02418fbeb0369c4",
+            "bytes": 13605
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-309.json",
+            "sha256": "49108917305ec86b58dc866091b88849d492835bcbcd418ee31cd69ecda904f9",
+            "bytes": 1314
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-309-PROPOSAL.json",
+            "sha256": "9262bfd23957856672a2c4e00202f16ac6ca6651407d81dd1d7f4f4c4a7e27c2",
+            "bytes": 12919
+          },
+          "proposed_next_original": 1232,
+          "original_delta_proposed": 1,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 310,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-310.json",
+            "sha256": "c05b6ef9734b859674bc8212e5ccccd28157d37871162ef0297de6623b3cdd98",
+            "bytes": 5853
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-310.json",
+            "sha256": "ea69428b6bfd202e763a1a0ed0e4112a5489744519c071cad23dc2e7fd71cfd5",
+            "bytes": 1316
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-310-PROPOSAL.json",
+            "sha256": "137a6d72edc481f4b993d03d0cf5917891a74ac415d9999b661fc8353c54ea6c",
+            "bytes": 12931
+          },
+          "proposed_next_original": 1235,
+          "original_delta_proposed": 3,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 311,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-311.json",
+            "sha256": "50413d54b1a718cde012a6c8f526aadefd8c1fafb4ca0c003901ce67928d7fa0",
+            "bytes": 4227
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-311.json",
+            "sha256": "1a00fedd2fd3bfb60864f75b493b90312ed34ec59d78ba8a9802da8f087ab4ed",
+            "bytes": 1189
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-311-PROPOSAL.json",
+            "sha256": "857647b5c94798db5cb6ddaae98404fd4a65c572e452c4e3ed5703623d3e3b1a",
+            "bytes": 12834
+          },
+          "proposed_next_original": 1236,
+          "original_delta_proposed": 1,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 312,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-312.json",
+            "sha256": "e2f2f358e9d8ecec3d6615ffe5b01302548043f8c9a06a89c9b7ef14e9519dd3",
+            "bytes": 4772
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-312.json",
+            "sha256": "bde3b1a3c39c22d687397a3b53bf744f0f88fe5429261bc8b1c4cb8c9afc21b5",
+            "bytes": 1233
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-312-PROPOSAL.json",
+            "sha256": "f11a516680a914ddff0d5f1e1be8b5bbeb07d953b0a214a1c1ba5e6bc08e240c",
+            "bytes": 12888
+          },
+          "proposed_next_original": 1237,
+          "original_delta_proposed": 1,
+          "status": "Completed local proposal, unadopted"
+        },
+        {
+          "own_receipt": 313,
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-313.json",
+            "sha256": "588cba90e156c01007ce5f7f2aa0f56201252b0bcbcaebea79e38b0591d2c6c5",
+            "bytes": 15821
+          },
+          "verify": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-313.json",
+            "sha256": "d691d26c155bd72dc8d2722922d6121ca48ff12fd5ad2e02b506feb99ae9d657",
+            "bytes": 1494
+          },
+          "state": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-313-PROPOSAL.json",
+            "sha256": "9383ada899104467a43b27bd1a83338be7985c285b13a1ca1f35ffc1ab7d7034",
+            "bytes": 13159
+          },
+          "proposed_next_original": 1238,
+          "original_delta_proposed": 1,
+          "status": "Completed local proposal, unadopted"
+        }
+      ],
+      "highest_local_complete": {
+        "own_receipt": 313,
+        "next_own_receipt": 314,
+        "proposed_next_original": 1238,
+        "authority_next_original_still": 1221
+      },
+      "latest_partial": {
+        "ref": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-314-PARTIAL-002.json",
+          "sha256": "565dbdfd986d78056ff001a4480bcd6e33c5be0c5cbcd18251b623a5cd755f22",
+          "bytes": 2700
+        },
+        "value": {
+          "lens": 13,
+          "status": "Own314 native surgery prefix920; tail unread",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-314.json",
+            "sha256": "cef4f30b0582de280bfc92fb6d4b75e704e908b890f9b14a37dba0352bb2e846"
+          },
+          "registered_before_read_attestation": true,
+          "original": 1238,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+          "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+          "actual_eof": 1435,
+          "assessed_ranges": [
+            [
+              1,
+              920
+            ]
+          ],
+          "next_unread_range": [
+            921,
+            1435
+          ],
+          "original_delta": 0,
+          "proposed_next_original_unchanged": 1238,
+          "product_execution": false,
+          "untruncated_body_outputs": true,
+          "partial_observations": [
+            "Committed durable wound categories are strategic outcome state, not persisted tactical ticks/positions. Fullu64 actor/patient/projectile IDs and u32 membershiprevision bind all exact replay fields.",
+            "Fracture is subset within bruising; projected cut+maxbruise/fracture+cold damage clamps0..1, so fracture is not independently added again. Valid normalized units and explicit peripheral-only frostbite policy retained.",
+            "RecoveryMinute wrapper distinguishes restorative interval from elapsed wall/personal time; requested0 denominator max1 guard and minrecovery supports no recovery. Actual core simulate_blood_interval remains independently qualified body before any new failure conclusion.",
+            "Actual injury settlement owns wound/blood projections but never writes CharacterTime; caller commits returned elapsed once. This rejects a double-clock-write suspicion for the native surgery body. Fracture projection stays within bruising, splint provenance quantity1 and exactinventoryrow retained.",
+            "Treatment align824..883 previews common disease/injury boundary and executes every participant via non-short-circuit &= over common safe duration, self treatment one participant; unlike separatelydiscarded-advance callers, this path explicitly returns completion bool. Do not alias by shared Result/bool remedy.",
+            "Stored infection exposure/checksu32 yields one exposurecheck per.05 cut-days and origin+checkordinal eventminute; actual disease producer/temporal semantics still need own source qualification before asserting artificial interval coverage or ordinary threshold overflow."
+          ],
+          "previous_partial": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-314-PARTIAL-001.json",
+            "sha256": "856888af3abbc852d52977939b0470f42314a3898776d289ed2c7beca95dd7a0"
+          },
+          "fresh_personal_ranges_this_checkpoint": [
+            [
+              461,
+              920
+            ]
+          ]
+        }
+      },
+      "separate_current_component": {
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-STABLE-ROW-001.json",
+          "sha256": "c6b06db74f7c5fd50e1869b771c5b869c5c21ee2c18d88a17f58534bfb4d2ebf",
+          "bytes": 15275
+        },
+        "verify": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-CURRENT-STABLE-ROW-001.json",
+          "sha256": "f0214cb00245f826f72c1a1af50deb5edc858ec6894f3636dddc7d8e321ae938",
+          "bytes": 984
+        },
+        "status": "Seven exact prospectively registered current source scopes, unadopted, separate from frozen original-role credit; current inventory merge conditional contract proposed, no runtime proof."
+      },
+      "artifacts": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/EXTENSION-QUEUE-PL13-309.json",
+          "sha256": "0c1efa98ab98cd956a0a07e1ae303029e89bb63a4b0b9a295f47ddb031fefc90",
+          "bytes": 1688
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/EXTENSION-QUEUE-PL13-CURRENT-STABLE-ROW-001.json",
+          "sha256": "71f4a77b9f510e835b0d984d2a53bcbdc46a138b938c35a3818eada7263a76a2",
+          "bytes": 9517
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PARTIAL-INTERVAL-SPECIFICATION-PL13-303-310.json",
+          "sha256": "3333f70bf3e78fadbf522cebbfa7213bbc9835971a3bad6243b47a75ee2ecd78",
+          "bytes": 35988
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-303-OWN295-276-274-RECRUITMENT-CLOCK-001.json",
+          "sha256": "0caf99459a58ba2e227f6388a70d89db62d83a3902b6b6a8d34b32de75bf0e36",
+          "bytes": 4517
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-304-OWN207-SURRENDER-FOCUS-001.json",
+          "sha256": "9de48eba94245aebb11692a69eea22482e6337688b23715e5745429fdebf0a8c",
+          "bytes": 1431
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-305-OWN181-FERVOR-FOCUS-001.json",
+          "sha256": "4368786bb6adb1b846b689888a53da5b26bc111e79a823e0f0efc200bc42b00b",
+          "bytes": 1307
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-306-OWN160-255-201-175-030-STABLE-ROW-001.json",
+          "sha256": "0938b30a3c66006100570adf4ef0bfcc8c5b3f60c8930e91fd410ab7e6474faf",
+          "bytes": 7212
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-307-OWN272-273-212-CLOCK-FLOOR-001.json",
+          "sha256": "710f23b508529bebafc9672592d568569be68de1890cd05db6b66c060fa7e497",
+          "bytes": 4485
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-309-OWN197-274-NPC-ACCEPTANCE-001.json",
+          "sha256": "9a589222f860e0944097c987f2568ddd661acaa582b2e5ec6df773f63d5937cd",
+          "bytes": 3149
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-313-OWN307-CALENDAR-DAY-001.json",
+          "sha256": "a3e6eb30679aeba27d1152bf9ad5411f061604030941bd6469f36f8db81c98fb",
+          "bytes": 1631
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-303-310-MATERIAL-RANGE-INVENTORY-001.json",
+          "sha256": "359964c1abcad21759d286a2e7ca8ab356e0894a428f9b3c0aa80714ec53e518",
+          "bytes": 1845
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-306-CONTRACT-SOURCE-ORIGINALS-001.json",
+          "sha256": "61c2150b8888f715b081387e20d4a0f9b5efa0f6dd224502aaf15c860b2e32a3",
+          "bytes": 2421
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-CURRENT-STABLE-ROW-REGISTRATION-FIELDS-001.json",
+          "sha256": "478ba0b3b64a4cfe0cac9f1c5a7c31f1dc48078c2e8f7edd111fb7297991cf93",
+          "bytes": 5540
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-001.json",
+          "sha256": "927fd1a041d0197f7576094ca35c1567c0758299ca6c79d756f9100c05a8dce9",
+          "bytes": 2912
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-002.json",
+          "sha256": "33d5fc1658e4b1f0ddcbdc8fa8023140c8316027d5b4a0af7bd0b5f3d2fc0d4e",
+          "bytes": 4824
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-003.json",
+          "sha256": "e86a06efa74c1d8159e4cb0cf4922dfc0b2b91640611482813218665bc3a7858",
+          "bytes": 5754
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-004.json",
+          "sha256": "10bf6a82cd085edafd1744df988f77e08d44194bcdd7bf53c7a55ef491361dae",
+          "bytes": 6148
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-005.json",
+          "sha256": "7fcee32ac4eaa6f256b67b1c12d727e3c821d36b0f4b2f1190210e334e55ac2d",
+          "bytes": 6938
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-006.json",
+          "sha256": "0318a69a1286e66f703acceecab8cc65d9cd6c52bac8d906401946f5e3856973",
+          "bytes": 7801
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-007.json",
+          "sha256": "5d6dcfc76e29f47f197b3c4492e26c5ab4f15faa4459b6b7ece41f83c4510e1e",
+          "bytes": 8479
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303.json",
+          "sha256": "f6f34673078c7e48c4694397982bc57a2cbbe59974aa9c22df63c26aee5b03f9",
+          "bytes": 18384
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-304.json",
+          "sha256": "75c65a17a6bcbe6aaabc1ec7bb1dee58f2035db17db5e4361e837980d71781d9",
+          "bytes": 4880
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-305-PARTIAL-001.json",
+          "sha256": "7adc8547b8b1d76fe3b6d176f9640cf442c4b4a77f2ed744d7495328d8cab6d0",
+          "bytes": 1629
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-305.json",
+          "sha256": "e338b6d018195e7a219da726d69e7b90655370b3596709ab12ae820174554f5c",
+          "bytes": 6541
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-001.json",
+          "sha256": "97ea6072b9bb4b055b305d7943aa6500d57481497b812fcc962d08785046b9f3",
+          "bytes": 1639
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-002.json",
+          "sha256": "4b07c818831ed526b40a75b84b9619ac3a5b9745c2fffd7d5f859023e0aba80e",
+          "bytes": 2777
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-003.json",
+          "sha256": "bda748de797137be0aefd40463d1dca0b7f242b1cc014feeea5019abfca90231",
+          "bytes": 3546
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-004.json",
+          "sha256": "e4caca6de7bfa07e3789524d385f72cddca9900749b3d858689b5bf8d24a0bf6",
+          "bytes": 4331
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-005.json",
+          "sha256": "36dee4d8a468cf057f140ffe8ab500b6c178a7e6a7424606c73e4768e397cdca",
+          "bytes": 5233
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-006.json",
+          "sha256": "60c066d06b8c885eafbd37e09aa5865fb9a53b2e3e7616b86a744adacfeb08b6",
+          "bytes": 6116
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-007.json",
+          "sha256": "89841ab4073ed1a714515313013d1ff8f889cc2b78615cf34c6a6b7124fee5ba",
+          "bytes": 6921
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306.json",
+          "sha256": "d269436ed0cbc6393c1ae438fc64090be1d80329b84b2e7c970a56eed1160225",
+          "bytes": 26349
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-307-PARTIAL-001.json",
+          "sha256": "0a7c3b9d0673d493e5f9bb880a7c8f3e7b2b35d252f9f7b247502d5dd59d687d",
+          "bytes": 1528
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-307.json",
+          "sha256": "96013f2e641378607a8e937e3a2414f8729ade6a7460c5faba08b5147692c19a",
+          "bytes": 12098
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-308.json",
+          "sha256": "0edc31272335267e6c8ba2e4e785502ab11e45be9a7736cf92f1fef246c7a8b5",
+          "bytes": 7068
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-309-PARTIAL-001.json",
+          "sha256": "c9ef7e052907ac7e6f485ab843a0112e1507b21b59c1fcace2a633035e184ea7",
+          "bytes": 2577
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-309.json",
+          "sha256": "7885e2c378a47f15605db7e10cf0c3956dc759af14140cdbf02418fbeb0369c4",
+          "bytes": 13605
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-310.json",
+          "sha256": "c05b6ef9734b859674bc8212e5ccccd28157d37871162ef0297de6623b3cdd98",
+          "bytes": 5853
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-311-PARTIAL-001.json",
+          "sha256": "7423cb9734006947220af5ca62de58a610033fdfd68c679b70547b3953dc6857",
+          "bytes": 1475
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-311.json",
+          "sha256": "50413d54b1a718cde012a6c8f526aadefd8c1fafb4ca0c003901ce67928d7fa0",
+          "bytes": 4227
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-312.json",
+          "sha256": "e2f2f358e9d8ecec3d6615ffe5b01302548043f8c9a06a89c9b7ef14e9519dd3",
+          "bytes": 4772
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-313-PARTIAL-001.json",
+          "sha256": "64d876e280ea9555e9480a8b83beccaf3b8299b129bd404b014268b9dcb1dd7d",
+          "bytes": 1618
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-313-PARTIAL-002.json",
+          "sha256": "d6fdf2d93a1691fbcfde27a259c7a5b4efa9d816f3910b46d26d0b552a2472a9",
+          "bytes": 3008
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-313.json",
+          "sha256": "588cba90e156c01007ce5f7f2aa0f56201252b0bcbcaebea79e38b0591d2c6c5",
+          "bytes": 15821
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-314-PARTIAL-001.json",
+          "sha256": "856888af3abbc852d52977939b0470f42314a3898776d289ed2c7beca95dd7a0",
+          "bytes": 1517
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-314-PARTIAL-002.json",
+          "sha256": "565dbdfd986d78056ff001a4480bcd6e33c5be0c5cbcd18251b623a5cd755f22",
+          "bytes": 2700
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-STABLE-ROW-001.json",
+          "sha256": "c6b06db74f7c5fd50e1869b771c5b869c5c21ee2c18d88a17f58534bfb4d2ebf",
+          "bytes": 15275
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-STABLE-ROW-PARTIAL-001.json",
+          "sha256": "c2e022beff0674e9919e07df1bd59ac55a1c6395b6a0b6d1cadce6a37a25f005",
+          "bytes": 8149
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+          "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720",
+          "bytes": 1819
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-304.json",
+          "sha256": "d925e4dd5f71a79f3ef9f4480e033b2647384ef8d4888438a0799406f8b051ab",
+          "bytes": 1701
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-305.json",
+          "sha256": "96ae802f8fddc3eaa0cfa4b9d1807dac1e8fccf159c9418b94b54d587f4bea09",
+          "bytes": 909
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-306.json",
+          "sha256": "6f1cbe6a2a3d840721c37a9619f0b7486f0a14aadc47ea5d4e796b933d326438",
+          "bytes": 926
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-307-SUPPLEMENT-001.json",
+          "sha256": "a771d975fb488687a3a5860b76250e07dcf892b054e3a9da3575b02f23d4d783",
+          "bytes": 961
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-307.json",
+          "sha256": "9b6650cc44a0830d77571318048cabea4cf2162ca24c3b215fcf2b15aee04273",
+          "bytes": 926
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-308.json",
+          "sha256": "c76ae0997a0e215d7afde4f67faff2b8261cc62cc555fed2083ab0087e81d571",
+          "bytes": 2579
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-309.json",
+          "sha256": "e101abe9aa6ee61738cd2d75ce93d33612582169f63cb944ab01d0dbd675508b",
+          "bytes": 1773
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-310.json",
+          "sha256": "757b7191092c90d85be5aa072233e94f15eaf2cc0fad6fb8ed5a27df7a0f8a1a",
+          "bytes": 2441
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-311.json",
+          "sha256": "076f7b9c0426233c0645a1c1265e18c3114d2fa14ea43f7aeeb9b5b869c16629",
+          "bytes": 943
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-312.json",
+          "sha256": "d92bdad02bff67f1094359c8fceaad91d7254b43c6346d45d60aef40b7531914",
+          "bytes": 943
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-313-SUPPLEMENT-001.json",
+          "sha256": "0fff2ee75bb035ab8facd800efbda4fc07547bc3eb3244d78345de73ac684c57",
+          "bytes": 1031
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-313.json",
+          "sha256": "70685d781e647eee114517f67356fe5bdaed9eb167351c1e29ccd6e7ceeeb19a",
+          "bytes": 940
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-314.json",
+          "sha256": "cef4f30b0582de280bfc92fb6d4b75e704e908b890f9b14a37dba0352bb2e846",
+          "bytes": 923
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-STABLE-ROW-001.json",
+          "sha256": "5f4ff1b817e7067d92d60eec3d422008e05fb81e394368861df9c32a3a90183f",
+          "bytes": 5818
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-STABLE-ROW-SUPPLEMENT-001.json",
+          "sha256": "8cd3f7949dccfa126def0cd29062c03a83c5e3e15cf89e01cde2838b0dbd8ca3",
+          "bytes": 1117
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/ROOT-ADOPTION-303-310-DIFF-QUALIFICATION.json",
+          "sha256": "c8eb1c4aa64575d3b6db629310cbad816dcb7a01670d4677de7754361ac452a4",
+          "bytes": 1525
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/ROOT-ADOPTION-303-310-PROPOSAL.py",
+          "sha256": "74d79763933be4ccec1b38c707a8b480d29e709aca1dd4640f6902da919e89ca",
+          "bytes": 17876
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/ROOT-QUEUE-ADOPTION-303-310-PROPOSAL.py",
+          "sha256": "6170a2a21b7b201055de85239e2bdb496f51fdb8a6ae7d35859b2f359eb02ecb",
+          "bytes": 10474
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-303-PROPOSAL.json",
+          "sha256": "e43be5c75b28201709d1ad9599391b785da067e0ad2ccbfd9b9af592d4e2ecf3",
+          "bytes": 12943
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-304-PROPOSAL.json",
+          "sha256": "d62b007e8e52b21e426209bb7f04ac1b5337577f9e57bda8a34dc938312ae6fa",
+          "bytes": 12649
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-305-PROPOSAL.json",
+          "sha256": "9ebfd0b27dcc70abdd01ca750e6e24133580e95181616077c312be08c080a280",
+          "bytes": 12555
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-306-PROPOSAL.json",
+          "sha256": "33784f00b23784ec2a91f44430051ccfac020658e981786f9f4cc0b6faa81d84",
+          "bytes": 13065
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-307-PROPOSAL.json",
+          "sha256": "c7c15e625b6e3007226a39e1797c909f150b6c28034c0c432d3193c06ca57dd8",
+          "bytes": 12929
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-308-PROPOSAL.json",
+          "sha256": "d2b1f44f7bbf4ca066ad730daa612ab6add5c80131b2b35234a9df69647cd976",
+          "bytes": 12784
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-309-PROPOSAL.json",
+          "sha256": "9262bfd23957856672a2c4e00202f16ac6ca6651407d81dd1d7f4f4c4a7e27c2",
+          "bytes": 12919
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-310-PROPOSAL.json",
+          "sha256": "137a6d72edc481f4b993d03d0cf5917891a74ac415d9999b661fc8353c54ea6c",
+          "bytes": 12931
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-311-PROPOSAL.json",
+          "sha256": "857647b5c94798db5cb6ddaae98404fd4a65c572e452c4e3ed5703623d3e3b1a",
+          "bytes": 12834
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-312-PROPOSAL.json",
+          "sha256": "f11a516680a914ddff0d5f1e1be8b5bbeb07d953b0a214a1c1ba5e6bc08e240c",
+          "bytes": 12888
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-313-PROPOSAL.json",
+          "sha256": "9383ada899104467a43b27bd1a83338be7985c285b13a1ca1f35ffc1ab7d7034",
+          "bytes": 13159
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PL13-303-310-ALL-NESTED-RANGES-001.json",
+          "sha256": "db102ea0e71a7ff9525f3f424f92e97b4d56fc89c84b2fd71f39d2c0f0e713d9",
+          "bytes": 20640
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-303-310.json",
+          "sha256": "9fc796d3441a606501e44000b1e0b44732db347b0748f4048a2df18332c37d3b",
+          "bytes": 131427
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-303.json",
+          "sha256": "a14260df0b7d789acd5d67b61b332eb93c62d56076cd09d2779bba79699e8a81",
+          "bytes": 1438
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-304.json",
+          "sha256": "601366cc3123acd955d5b3ff0ed5de629946bd0dd2ed4fbee147df8a755d0f0f",
+          "bytes": 1134
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-305.json",
+          "sha256": "83c39d1b0ca99d8c8d382de8fcbc993ac028fd1fd1c9c70f15b8906d17b8a5f4",
+          "bytes": 1020
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-306.json",
+          "sha256": "e92a4886b78500e2f9334936b086a930a81ea6b5980999be78d283f0aa6ce832",
+          "bytes": 1520
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-307.json",
+          "sha256": "2803268c03ca61db65be08d774da5af9503d4fe0d4ffbb3bed9945332592370c",
+          "bytes": 1374
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-308.json",
+          "sha256": "9f52216bba5a4cc3346e5ca17d25c074ddbc55685f50035c00b25e4452fa1e90",
+          "bytes": 1221
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-309.json",
+          "sha256": "49108917305ec86b58dc866091b88849d492835bcbcd418ee31cd69ecda904f9",
+          "bytes": 1314
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-310.json",
+          "sha256": "ea69428b6bfd202e763a1a0ed0e4112a5489744519c071cad23dc2e7fd71cfd5",
+          "bytes": 1316
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-311.json",
+          "sha256": "1a00fedd2fd3bfb60864f75b493b90312ed34ec59d78ba8a9802da8f087ab4ed",
+          "bytes": 1189
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-312.json",
+          "sha256": "bde3b1a3c39c22d687397a3b53bf744f0f88fe5429261bc8b1c4cb8c9afc21b5",
+          "bytes": 1233
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-313.json",
+          "sha256": "d691d26c155bd72dc8d2722922d6121ca48ff12fd5ad2e02b506feb99ae9d657",
+          "bytes": 1494
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-CURRENT-STABLE-ROW-001.json",
+          "sha256": "f0214cb00245f826f72c1a1af50deb5edc858ec6894f3636dddc7d8e321ae938",
+          "bytes": 984
+        }
+      ],
+      "next_actions": [
+        "Inspect strict ROOT-ADOPTION-303-310-PROPOSAL.py plus queue adopter and additive exact-range/material-key/source-original qualifications, then read-only validate whole bundle before root adoption. Helpers only proposals, not executed by this inventory.",
+        "Adopt separate seven-scope current stable-row component only after root validation; do not mix with frozen body/original credit.",
+        "Local311–313 are completed source proposals but not a completed second eight-batch bundle. Preserve individually or finish bundle after pause is lifted.",
+        "Own314 surgery original1238 is partial1..920 of1435; nextunread921..1435. No role/frontier credit from prefix.",
+        "Own303 futuremission_bootstrap1227 full2973 is counted once on ordered308 reuse; own307calendar2158 full698 and own313 future settlement_rest1252 full651 remain exact same-lens future reuse proofs, no early original credit.",
+        "Preserve conditional measured-row merge vs route-private-readmission separate first cuts, temporary-stake proof scope, and scoped rejected suspicions; proposed remedy never establishes alias."
+      ]
+    }
+  },
+  "universal_caveats": [
+    "Audit remains paused. This handoff inventory does not resume discovery.",
+    "All listed agent packets are proposals, even when locally complete and verified. The authoritative ledger/selector/closure queue and source populations remain at checkpoint059.",
+    "Historical receipts, helper checks, registrations and unread scopes must not be overwritten, narrowed, relabelled as personal reads, or clipped to manufacture completion.",
+    "Each receiving writer must inspect proposed helpers/diffs, validate exact paths/revisions/hash/ranges/registration chronology/attribution and perform readonly whole-bundle validation before adopting. No source or product execution is authorized by this inventory.",
+    "Keep original2853/overlay246/frozenmerged38/originalshared196/extensions/current separate; no global dedup or accepted-unique count is established here."
+  ]
+}

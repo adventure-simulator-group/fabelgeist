@@ -1,0 +1,87 @@
+{
+  "kind": "Audit-only recovery checkpoint",
+  "at": "2026-10-30T05:28:10.631819+00:00",
+  "ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "1dd1117ea26d57cef4dc5e2ad75f28012fbe3e3001ef2303fb0ad8c1d267746e"
+  },
+  "selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "269a232ea08b20ff5418a16ab547dea13fb4dc438f5e1743b67353a95925d6cb"
+  },
+  "head": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+  "clean": true,
+  "stashes": [
+    "6c109560050d97dd6deeb842b1d71ec8a280949b",
+    "5d123a896914dae269833c473330d63d454aff7b",
+    "b6da4b4bdb70def66126f540ea8bb828e4c80d49",
+    "c0b78fa61cc4a893ce66ad4aa54850621c73aee4"
+  ],
+  "frontiers": [
+    {
+      "lens": 11,
+      "name": "type-granularity",
+      "original_accounted": 2853,
+      "next_original": 2853,
+      "state": "segovb/STATE-L11-733.json",
+      "next_action": "Continue delegated registered unread bodies and e2755a7 delta/current all20/exact aliases;7a9d92a scoped receipts historical current snapshot only. No implementation.",
+      "state_sha256": "6866a59e6158090421fd350b20c970dd552768e1989423902cb778cf5e1d7004",
+      "original_total": 2853,
+      "latest_receipt": "segovb/READ-L11-733.json",
+      "partial_receipt": null,
+      "latest_qualification": {
+        "path": "segovb/QUALIFICATION-L11-511-001.json",
+        "sha256": "2ea34a42de765d8d7ed4f9f93b1d7abfb07fd5b05261073ec18d4e4bf7d83c3d"
+      }
+    },
+    {
+      "lens": 12,
+      "name": "magic-strings",
+      "original_accounted": 2689,
+      "next_original": 2689,
+      "state": "segovb/STATE-L12-932.json",
+      "latest_receipt": "segovb/READ-L12-932.json",
+      "qualification": "Disease1093 combines inherited1..1200 persisted roles, checkpoint attestation1201..1800 and new personal1801..2950. Raw predecessor tool outputs1201..1800 not separately transported; not invented personal evidence.",
+      "next_action": [
+        "Physical native lock checksum/member/source proof preserved separately in TEAM024, no feature/runtime/current credit.",
+        "Organization identity retained String requires exact existing owner/caller/policy; typed ScheduleParseError and native Serde/Cargo final ports not duplicate cause-erasure findings.",
+        "All registered connected unread scopes and actual current deltas remain explicit; completed original roles do not close them."
+      ],
+      "state_sha256": "8673acaaa0e69a3c749aadbc0624d16846edf5905473d70b9f937a7529469eff",
+      "original_total": 2853,
+      "partial_receipt": null,
+      "partial_receipt_sha256": null,
+      "partial_next_line": null,
+      "partial_closed_by": "segovb/READ-L12-564.json",
+      "latest_connected_qualification": {
+        "path": "segovb/SUPPORT-READ-L12-466-001.json",
+        "sha256": "13a114294d4a776911a6ebda5a1b0ef432c82662bb59df2e4ceacd6722b9ee57",
+        "scope": "Frozen art-demo !finished guard, no original counter/current/native closure"
+      },
+      "latest_native_receipt": "segovb/READ-NATIVE-L12-634-003.json",
+      "latest_connected_shared_receipt": "segovb/READ-SHARED-L12-562-014.json",
+      "latest_connected_receipt": "segovb/READ-EXT-L12-672-001.json",
+      "latest_connected_body_receipt": "segovb/READ-L12-CONNECTED-TEAM-024.json",
+      "latest_connected_body_receipt_sha256": "42423839d3489b813e81e7344627dbdfc460a985ae0cc8347d614d7e85c5feec"
+    },
+    {
+      "lens": 13,
+      "name": "magic-numbers",
+      "original_accounted": 1221,
+      "next_original": 1221,
+      "state": "segovb/STATE-L13-PARALLEL-300.json",
+      "partial_receipt": null,
+      "next_action": "Continue every ordered/connected/extension/current/all20/exact-alias contract; no repairs.",
+      "state_sha256": "ab0b436bdaeffa6918d226136c08f582f0fa06896fc4504f744cbd8847cf6d7e",
+      "original_total": 2853,
+      "latest_receipt": "segovb/READ-L13-PARALLEL-300.json",
+      "partial_receipt_closed_by": "segovb/READ-L13-PARALLEL-001.json"
+    }
+  ],
+  "previous_preservation": {
+    "path": "segovb/PRESERVATION-TEAM-20261029-058.json",
+    "sha256": "413605e1ab06ada13e18a7abd1014b2c8d4dd26d4babfe73cf9f9f4d38030004"
+  },
+  "product_execution": false,
+  "body_credit": 0
+}

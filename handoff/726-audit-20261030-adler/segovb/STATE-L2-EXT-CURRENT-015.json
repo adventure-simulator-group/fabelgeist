@@ -1,0 +1,89 @@
+{
+  "lens": 2,
+  "at": "2026-10-30T04:08:21.158536+00:00",
+  "predecessor": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-014.json",
+    "sha256": "3f01572940550714d61e18e850fd96b3fb2c4519410b0846c0706edc54282f13"
+  },
+  "current_receipt": {
+    "path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-013.json",
+    "sha256": "94db3cca4ab1240e4a669b16c565fb6ecf540b6454c3db7aca89b7529ca7ea24"
+  },
+  "registration": {
+    "path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-CURRENT-013.json",
+    "sha256": "92248b9711e94717e9bbb5dce1f431514465093b8d6b0ed161bc39f24b463e65"
+  },
+  "proofs": [
+    {
+      "lens": 2,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "actual_EOF": 986,
+      "assessed_ranges": [
+        [
+          1,
+          723
+        ]
+      ],
+      "attribution": "Root personal Lens2 prospective bounded untruncated current body read",
+      "receipt": {
+        "path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-013.json",
+        "sha256": "94db3cca4ab1240e4a669b16c565fb6ecf540b6454c3db7aca89b7529ca7ea24"
+      },
+      "row_pointer": "/rows/0",
+      "registration": {
+        "path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-CURRENT-013.json",
+        "sha256": "92248b9711e94717e9bbb5dce1f431514465093b8d6b0ed161bc39f24b463e65"
+      },
+      "registration_pointer": "/rows/0",
+      "body_or_population_credit_from_adoption": 0
+    },
+    {
+      "lens": 2,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "actual_EOF": 2059,
+      "assessed_ranges": [
+        [
+          1,
+          545
+        ],
+        [
+          1148,
+          1493
+        ]
+      ],
+      "attribution": "Root personal Lens2 prospective bounded untruncated current body read",
+      "receipt": {
+        "path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-013.json",
+        "sha256": "94db3cca4ab1240e4a669b16c565fb6ecf540b6454c3db7aca89b7529ca7ea24"
+      },
+      "row_pointer": "/rows/1",
+      "registration": {
+        "path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-CURRENT-013.json",
+        "sha256": "92248b9711e94717e9bbb5dce1f431514465093b8d6b0ed161bc39f24b463e65"
+      },
+      "registration_pointer": "/rows/1",
+      "body_or_population_credit_from_adoption": 0
+    }
+  ],
+  "additive_prose_locator_qualification": {
+    "path": "root-l2-extension-20261030/QUALIFICATION-ROOT-L2-CURRENT-012-013-LOCATORS-001.json",
+    "sha256": "788001477a991d3e8fea21e66d2b15b0fde682448bc3cc9f1bf3ef9f062aa8ef"
+  },
+  "registered_unread_ranges": [],
+  "unassessed_item_bodies": [
+    [
+      546,
+      1147
+    ],
+    [
+      1494,
+      2059
+    ]
+  ],
+  "current_source_complete": false,
+  "implementation_gate_complete": false
+}

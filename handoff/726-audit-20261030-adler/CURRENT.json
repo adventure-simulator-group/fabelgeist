@@ -1,0 +1,188 @@
+{
+  "schema": "726-return-to-adler-20261030-v1",
+  "status": "Paused incomplete audit; requested remote handoff only",
+  "audit_goal_status": "paused",
+  "recipient": "Adler Halbe",
+  "branch": "codex/726-audit-handoff-20261030-adler",
+  "root": "handoff/726-audit-20261030-adler",
+  "incoming_handoff_commit": "3b9728c1a9b266bba4b5481add6f96c2119c2ed2",
+  "parent_product_tree_warning": "Publication uses incoming handoff commit as parent. Its product tree predates the inherited main pin and is not the current-source authority. No product tree change is included.",
+  "last_audit_checkpoint": {
+    "path": "segovb/PROGRESS-TEAM-20261029-059.json",
+    "sha256": "29a446ce5132d525f6046dc0f868d77eaf071c3d4ca260281e822ee2af835373",
+    "bytes": 28415
+  },
+  "checkpoint_detail": {
+    "path": "segovb/PROGRESS059-DETAIL.json",
+    "sha256": "e983fc3ac96680d65392db737599e7e141958be8af32f5fd1a1f91800888cc5f",
+    "bytes": 20175
+  },
+  "frozen_local_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "5fbb66fcc7789b337d3c14bc4c7bd3018095f4ac17f64f48df5ff4d859e9dc04",
+    "bytes": 11340
+  },
+  "frozen_selector_status_qualification": "The unchanged CURRENT-ADLER and historical checkpoint say active at their original timestamps. This central selector records the subsequent user pause and handoff. Do not rewrite historical bytes.",
+  "authoritative_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+    "bytes": 9417609
+  },
+  "closure_queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+    "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "bytes": 21632843
+  },
+  "closure_queue_entries_not_unique_findings": 3713,
+  "primary_records_not_unique_findings": 551,
+  "accepted_unique_count_change_claimed": 0,
+  "selected_lenses": "SELECTED-LENSES.json",
+  "original_inventory_frontiers": [
+    {
+      "lens": 11,
+      "name": "type-granularity",
+      "original_accounted": 2853,
+      "next_original": 2853,
+      "state": "segovb/STATE-L11-733.json",
+      "next_action": "Continue delegated registered unread bodies and e2755a7 delta/current all20/exact aliases;7a9d92a scoped receipts historical current snapshot only. No implementation.",
+      "state_sha256": "6866a59e6158090421fd350b20c970dd552768e1989423902cb778cf5e1d7004",
+      "original_total": 2853,
+      "latest_receipt": "segovb/READ-L11-733.json",
+      "partial_receipt": null,
+      "latest_qualification": {
+        "path": "segovb/QUALIFICATION-L11-511-001.json",
+        "sha256": "2ea34a42de765d8d7ed4f9f93b1d7abfb07fd5b05261073ec18d4e4bf7d83c3d"
+      }
+    },
+    {
+      "lens": 12,
+      "name": "magic-strings",
+      "original_accounted": 2689,
+      "next_original": 2689,
+      "state": "segovb/STATE-L12-932.json",
+      "latest_receipt": "segovb/READ-L12-932.json",
+      "qualification": "Disease1093 combines inherited1..1200 persisted roles, checkpoint attestation1201..1800 and new personal1801..2950. Raw predecessor tool outputs1201..1800 not separately transported; not invented personal evidence.",
+      "next_action": [
+        "Physical native lock checksum/member/source proof preserved separately in TEAM024, no feature/runtime/current credit.",
+        "Organization identity retained String requires exact existing owner/caller/policy; typed ScheduleParseError and native Serde/Cargo final ports not duplicate cause-erasure findings.",
+        "All registered connected unread scopes and actual current deltas remain explicit; completed original roles do not close them."
+      ],
+      "state_sha256": "8673acaaa0e69a3c749aadbc0624d16846edf5905473d70b9f937a7529469eff",
+      "original_total": 2853,
+      "partial_receipt": null,
+      "partial_receipt_sha256": null,
+      "partial_next_line": null,
+      "partial_closed_by": "segovb/READ-L12-564.json",
+      "latest_connected_qualification": {
+        "path": "segovb/SUPPORT-READ-L12-466-001.json",
+        "sha256": "13a114294d4a776911a6ebda5a1b0ef432c82662bb59df2e4ceacd6722b9ee57",
+        "scope": "Frozen art-demo !finished guard, no original counter/current/native closure"
+      },
+      "latest_native_receipt": "segovb/READ-NATIVE-L12-634-003.json",
+      "latest_connected_shared_receipt": "segovb/READ-SHARED-L12-562-014.json",
+      "latest_connected_receipt": "segovb/READ-EXT-L12-672-001.json",
+      "latest_connected_body_receipt": "segovb/READ-L12-CONNECTED-TEAM-024.json",
+      "latest_connected_body_receipt_sha256": "42423839d3489b813e81e7344627dbdfc460a985ae0cc8347d614d7e85c5feec"
+    },
+    {
+      "lens": 13,
+      "name": "magic-numbers",
+      "original_accounted": 1221,
+      "next_original": 1221,
+      "state": "segovb/STATE-L13-PARALLEL-300.json",
+      "partial_receipt": null,
+      "next_action": "Continue every ordered/connected/extension/current/all20/exact-alias contract; no repairs.",
+      "state_sha256": "ab0b436bdaeffa6918d226136c08f582f0fa06896fc4504f744cbd8847cf6d7e",
+      "original_total": 2853,
+      "latest_receipt": "segovb/READ-L13-PARALLEL-300.json",
+      "partial_receipt_closed_by": "segovb/READ-L13-PARALLEL-001.json"
+    }
+  ],
+  "next_steps_by_lens": {
+    "11": {
+      "next_batch": 734,
+      "next_registration": 3448,
+      "original_roles_accounted": 2853,
+      "source_bundles_adopted_through": "SOURCE022 / own197",
+      "proposal_only": "SOURCE023 / own198 and SOURCE024 / own199; CELL009 is deferred, not closed"
+    },
+    "12": {
+      "next_original": 2689,
+      "remaining_original_roles": 164,
+      "next_batch": 933,
+      "next_registration": 1725,
+      "latest_connected_adoption": "TEAM024",
+      "proposal_only": "Own933..956 complete locally; partial957..958. Do not use local next2736 as authority."
+    },
+    "13": {
+      "next_original": 1221,
+      "remaining_original_roles": 1632,
+      "next_root_batch": 301,
+      "own_receipt_adopted_through": 302,
+      "proposal_only": "Own303..310 bundle, separate current stable-row component, own311..313, partial314. Do not use local next1238 as authority."
+    }
+  },
+  "populations_kept_separate": {
+    "original_roles_per_lens": 2853,
+    "overlays": 246,
+    "frozen_merged_paths": 38,
+    "original_shared_scopes": 196,
+    "extensions": "Every registered extension plus all36 mandatory scopes independently per lens; no single total substitutes for exact registrations",
+    "current_source": "Distinct exact revision and lens-qualified scopes plus explicit delta cells"
+  },
+  "current_source": {
+    "selected_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "prior_main_pin": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+    "frozen_original_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "last_remote_check": {
+      "path": "segovb/CURRENT-MAIN-RECHECK-20261030-PROGRESS057.json",
+      "sha256": "c4b390458034210cf25e0e94d234b6f44ad0a30d95747c071822af1c4b322811",
+      "bytes": 631
+    },
+    "no_remote_main_refresh_during_handoff": true,
+    "delta_paths": 154,
+    "per_lens_delta_cells": 2002,
+    "explicit_cells_closed_by_lens": {
+      "11": 84,
+      "all_other_lenses": 0
+    },
+    "qualification": "Named source qualifications do not automatically close explicit delta cells. Earlier revision proofs remain valid only at their own exact identities/ranges/lens/attribution."
+  },
+  "subagent_pending_inventory": "reports/pending-agent-inventory.json",
+  "portability_review": "reports/portability-review.json",
+  "one_authoritative_writer": true,
+  "workflow_protocol": {
+    "path": "workflow-20261030/PROPOSAL-PROTOCOL-001.json",
+    "sha256": "8fa2ba016a32b9e4b9624cdd0c1ae02d61a956f7dda4948f30fd89d8387b34ed",
+    "bytes": 4914
+  },
+  "restore": {
+    "script": "restore.py",
+    "default_destination": "target/726-audit-adler-20261027",
+    "existing_destination": "Refuse; preserve it, never overwrite. Alternate fresh ignored target destination is preservation/review only; historical helper fixed paths remain.",
+    "whole_tree_byte_preserved": true,
+    "transport_checks_grant_body_credit": false
+  },
+  "preservation": {
+    "checkout_HEAD": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+    "detached_clean_checkout_preserved": true,
+    "stashes_preserved": [
+      "6c109560050d97dd6deeb842b1d71ec8a280949b",
+      "5d123a896914dae269833c473330d63d454aff7b",
+      "b6da4b4bdb70def66126f540ea8bb828e4c80d49",
+      "c0b78fa61cc4a893ce66ad4aa54850621c73aee4"
+    ],
+    "stash_contents_published": false
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "publication_scope": "Audit evidence and requested handoff branch only; no PR, issue, merge, or direct message to recipient",
+  "payload_manifest": {
+    "path": "MANIFEST.json",
+    "sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858"
+  },
+  "payload_files": 36487,
+  "payload_logical_bytes": 12136674821
+}

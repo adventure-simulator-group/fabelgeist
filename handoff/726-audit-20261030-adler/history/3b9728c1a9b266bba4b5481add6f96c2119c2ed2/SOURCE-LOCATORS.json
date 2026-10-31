@@ -1,0 +1,106 @@
+{
+  "path_projection": {
+    "transported_evidence": "handoff/726-audit-20261027-adler/evidence/",
+    "original_ignored_root": "target/recovery-20261025/",
+    "rule": "Normalize Windows separators. For original workspace-relative target/recovery-20261025/... paths, strip that prefix and resolve beneath evidence/. For receipt-relative paths (including ../ or local filenames), resolve from that receipt's own directory, then apply the evidence-root projection. Some inventories explicitly declare root-relative paths; follow their declared base. Absolute old source/worktree/tmp paths remain provenance or require the explicit old handoff portability mapping. Never rerun historical helper scripts without checking their paths."
+  },
+  "frozen_774": {
+    "branch": "codex/774-audit-handoff-20261025",
+    "commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "root": "handoff/774/",
+    "original_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "original_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "objects": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/<SHA256>",
+    "catalog": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+    "external_paths": "handoff/774/EXTERNAL-PATHS.json",
+    "warning": "About2460000000bytes across24000files; fetch Git objects and inspect only required paths/ranges, no full extraction."
+  },
+  "original_recovery_branches": [
+    {
+      "branch": "codex/780-recovery-handoff-20261025",
+      "commit": "7d3863f3dbea03908c18a9ce11d86804783ddd28",
+      "root": "handoff/780/",
+      "ledger": "handoff/780/evidence/ledger.json",
+      "skills": "handoff/780/skills/",
+      "source_snapshot": "14ab6617658ae3a94670db0e31b5d04531f1c7cc"
+    },
+    {
+      "branch": "codex/826-recovery-handoff-20261025",
+      "commit": "87cb9c9495c4ffea528e5997176442c3ac496d71",
+      "root": "handoff/826/",
+      "ledger": "handoff/826/evidence/ledger.json",
+      "skills": "handoff/826/skills/"
+    }
+  ],
+  "historical_repair_refs": [
+    {
+      "branch": "codex/774-handoff-20261021-p16",
+      "commit": "039329518e264f19206cf5b0b98d177433f40c17"
+    },
+    {
+      "branch": "codex/774-handoff-20261021-p17",
+      "commit": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696"
+    }
+  ],
+  "source_recovery": "Use transported hash-named objects where present; otherwise use the exact archived source locator or registered commit/path and verify its expected SHA-256 before the bounded read. Metadata/hash validation is not source-body coverage.",
+  "retrieval_example": "git show f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/<SHA256>",
+  "not_transported": [
+    "Old source clone and unrelated untracked compute files",
+    "Original780/826 ledgers and skill trees already published on pinned recovery branches",
+    "Duplicate large CI diffs and generated assets; retrieve source from exact commits and hosted artifacts by run/artifact IDs",
+    "Full public conversation snapshots; none published"
+  ],
+  "ci986": {
+    "merged_main": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+    "source": "f7305d139126e3f0a07a5df8869152b772947007",
+    "final_quality_run": 40266453178,
+    "exporter_source": "c94b96d9a",
+    "exporter_run": 40262692854,
+    "exporter_artifact": 12626297265,
+    "authoritative_export_comparison": "evidence/ci-recovery/math-export-output-review-002.json;001has an explicit erratum"
+  },
+  "ci987": {
+    "head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+    "run": 40339807509,
+    "linux_job": 121631099743,
+    "windows_job": 121631099954,
+    "linux_artifact": 12664610481,
+    "windows_artifact": 12659234694,
+    "constraint_artifact": 12659837196
+  },
+  "prior_portable_handoff": {
+    "commit": "90b18956a366ab38f9cd79d856abbcce10396bb3",
+    "root": "handoff/774-continuation-20261026/",
+    "status": "Historical evidence and provenance only; use current handoff frontiers."
+  },
+  "current_product": {
+    "main_at_handoff": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+    "tree": "9ad4f2300a9255bebc06f3aa1b15e58f69382130",
+    "last_pr": 992,
+    "status": "Merged; CI and baseline follow-up deferred, not passing acceptance."
+  },
+  "authoritative_ledger": "evidence/continuation-segovb/ledger.json",
+  "lens_state_resolution": {
+    "rule": "Lens state fields in the master ledger have two historical bases. Resolve the exact path and verify the recorded hash; do not assume all states share one base.",
+    "lenses1_to7_and9_to10": "evidence/<ledger state path>",
+    "lenses8_and11_to13": "evidence/continuation-segovb/<ledger state path>"
+  },
+  "return_handoff": {
+    "branch": "codex/726-audit-handoff-20261028-segovb",
+    "prior_commit": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+    "root": "handoff/726-audit-20261027-adler",
+    "ignored_root": "target/726-audit-adler-20261027",
+    "authoritative_current": "CURRENT.json",
+    "local_current": "CURRENT-ADLER.json",
+    "restore": "restore.py",
+    "projections": {
+      "target/726-audit-adler-20261027/adler/": "adler/",
+      "target/726-audit-adler-20261027/checkpoint-history/": "checkpoint-history/",
+      "target/726-audit-adler-20261027/evidence/": "evidence/",
+      "target/recovery-20261025/": "evidence/"
+    },
+    "rule": "Normalize Windows separators without rewriting immutable receipt bytes. Resolve relative paths from their declaring receipt and declared base. Restore into a new ignored root only; never overwrite an existing continuation. Handed-off adler helpers expect repository cwd, this handoff subtree and the fixed target root. Review them before execution. Helpers are evidence bookkeeping only, not coverage or product validation.",
+    "source_authority": "6533e444fa37552927070cc8d8190907fd3b413e frozen original head; exact registered SHA-256 rules over arbitrary path/current version.",
+    "current_main_qualification": "7a9d92ad7357779e9280146c521bd8588b86fcdb is the inherited main pin; Adler did not fetch or reconcile later main. Handoff product checkout predates that main pin."
+  }
+}

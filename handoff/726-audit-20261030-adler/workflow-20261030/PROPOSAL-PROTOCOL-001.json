@@ -1,0 +1,81 @@
+{
+  "schema": "726-proposal-bundle-v1",
+  "at": "2026-10-30T00:30:50.014991+00:00",
+  "authority": "Root is sole ledger/selector/closure-queue writer; subagents publish immutable proposals only.",
+  "preferred_completed_proposals_per_bundle": {
+    "minimum": 8,
+    "maximum": 12,
+    "exception": "Send a smaller bundle for a blocker, source-identity qualification, or a recovery boundary; do not defer saving partial reads to fill a bundle."
+  },
+  "required_bundle_fields": [
+    "schema",
+    "lens",
+    "created_at",
+    "base_authority_snapshot",
+    "ordered_frontier_before",
+    "ordered_frontier_after",
+    "population_deltas_separate",
+    "immutable_proposals",
+    "prospective_registration_proofs",
+    "exact_source_read_rows",
+    "semantic_dispositions",
+    "contract_updates",
+    "current_delta_updates",
+    "qualifications",
+    "recovery_checkpoint",
+    "validation_ruleset",
+    "new_ruleset_delta",
+    "product_execution",
+    "implementation_gate_complete"
+  ],
+  "source_row_required_fields": [
+    "source_id",
+    "revision_or_explicit_transport_qualification",
+    "source_sha256",
+    "actual_EOF_or_visual_contract",
+    "registration_ref_and_sha256",
+    "requested_ranges",
+    "fresh_personal_ranges",
+    "qualified_same_lens_reuse_ranges_and_exact_proofs",
+    "assessed_ranges",
+    "read_attribution",
+    "unread_ranges",
+    "complete_relevant_functions_and_dependencies",
+    "body_output_truncation_status"
+  ],
+  "contract_update_required_fields": [
+    "contract_id_or_proposed_new_id",
+    "lens",
+    "canonical_owner_or_explicit_unresolved_owner_question",
+    "first_failed_contract_or_unresolved_question",
+    "exact_source_identities_and_assessed_ranges",
+    "remaining_evidence",
+    "dependencies",
+    "closure_condition",
+    "existing_contract_revisit_identity_proof_if_any"
+  ],
+  "preflight": [
+    "Require a read-only whole-bundle preflight mode; mutation follows only after every proposal passes, with exact ledger/selector hashes checked again by the sole writer.",
+    "Authenticate all immutable refs and exact prospective registration/source bytes/revision/hash/EOF/ranges/attribution before any authority mutation.",
+    "Inspect every nested range and qualification, including complete relevant functions, signature dependencies, unread tails and special visual/deletion contracts; no generic clipping or retrospective narrowing.",
+    "Qualify native packages against the source snapshot own lock/archive/member, not installed-version or current-main assumptions.",
+    "Preserve local finding IDs and explicit authoritative ID mappings; compare first contract and operation for aliases, not title or proposed remedy.",
+    "Fail before writes when any required check fails; preserve the failed proposal and additive correction.",
+    "Reuse inspected immutable rulesets at exact hashes. Avoid copying a historical validator just to select a different batch; exact new schema cases still require separate inspected checks."
+  ],
+  "adoption": [
+    "Root reviews complete semantic projections and new strict ruleset delta once per larger bundle.",
+    "Root validates the entire bundle first, then adopts completed proposals in exact order; existing per-proposal receipts and hash checkpoints remain, even inside one orchestration call.",
+    "Apply contract revisits/closures and current-main delta dispositions to the one closure queue; no implied closure from body counts.",
+    "Recovery metadata records precise partial ranges/unread registrations after every bounded read packet, with broader preservation checkpoints at least every 10\u201315 minutes or major scope boundary."
+  ],
+  "current_main_delta": [
+    "Reverify remote main at bounded reconciliation boundaries and before declaring current reconciliation complete.",
+    "On advance, append exact from/to revision, verified path/blob deltas and deletion/visual contracts to closure queue current_main_deltas. Preserve old proofs.",
+    "Give each affected path a separate disposition for every lens. Exact same-lens source identity/hash/range/attribution reuse needs an explicit proof; changed or extended scope requires prospective registration and body assessment.",
+    "Unchanged bytes, searches, staged files and another lens verdict do not close a delta or connected contract."
+  ],
+  "audit_closure_distinct_from_repair": "Fully documented findings, policy questions, conditional cases and rejected suspicions can complete audit discovery after all required source/current/alias qualifications. Later repair acceptance and runtime checks are separately recorded, never required to be run under this audit-only goal.",
+  "protected_files": "No product source/manifests/bindings/tests/fixtures/helpers/assertions/doctests edited; no product execution. Existing evidence validators and historical receipts remain immutable.",
+  "implementation_gate_complete": false
+}
