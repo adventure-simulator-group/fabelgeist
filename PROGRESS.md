@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T18:37:23.599001+00:00
+Updated: 2026-11-02T18:48:57.102519+00:00
 
-Latest verified checkpoint: **488**. Goal: **active**.
+Latest verified checkpoint: **489**. Goal: **active**.
 
 The refactor remains in the source-audit phase. The required implementation gate
 is incomplete. L2 is the audit perspective that checks reuse of existing types;
@@ -18,19 +18,20 @@ perspectives or the refactor.
 
 ## Latest checkpoint
 
-Published and replay-verified the conditional profession-fame preview source
-disposition. The native scaling path is preserved, and the separate L12 reward-
-enum erasure record remains open.
+Selected an explicit unbound/bound camp binding carrier. Bound values reuse the
+existing canonical journey-camp place through a checked narrow owner; elapsed
+time stays separate. Requalified 21 earlier L2 source rows at the selected
+revision without new read credit.
 
-One named L2 source view completed. No whole mixed-lens canonical case, current-
-delta cell, repair, or runtime acceptance was closed.
+One named carrier policy selected. The parent frame/trial/challenge identity
+question, exact global aliases, coordinate ownership and all broader gates
+remain open.
 
 ## Working on now
 
-Reconciling the earlier journey-coordinate and frame-identity evidence. Several
-native constructors, zero-value rules, and camp-binding consumers were already
-assessed; the remaining questions concern shared minute quantities, identity
-state, and precise canonical mappings.
+Finishing errantry coordinate and distinct identity owner reconciliation after
+selecting the explicit camp binding carrier. Existing evidence now has exact
+current-revision qualification; no implementation has begun.
 
 - Qualify the existing L2 evidence at the selected source revision before
   reading additional journey or challenge code.
@@ -68,6 +69,11 @@ state, and precise canonical mappings.
   booking, supplies and recruitment, filth and soap, food exposure, world-event
   identity, and consequence keys. These source investigations do not constitute
   completed repairs.
+
+- Selected the camp binding carrier: explicit unbound/bound state, reuse of the
+  canonical journey-camp identity and codec, and a separate elapsed availability
+  stamp. Requalified 21 earlier source rows without new body credit; parent
+  identity and global alias obligations remain open.
 
 ## What remains
 
@@ -107,8 +113,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 488 publication record](CHECKPOINT-488.json)
-- [Saved report for checkpoint 488](PROGRESS-488.md)
+- [Checkpoint 489 publication record](CHECKPOINT-489.json)
+- [Saved report for checkpoint 489](PROGRESS-489.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
