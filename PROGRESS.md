@@ -58,6 +58,13 @@ test. Existing audit entries still track terminal load failure and recipe-channe
 admission. The inspected tests have not been run, and all 13 perspectives on
 this changed path remain open.
 
+Bevy retains a failed asset state with its error and emits a failure event with
+asset identity, path and error. The loading screen uses the path while loading.
+Texture requests begin at presentation startup, and retry creates a new client
+without itself resetting texture residency. The retained request map does not
+call the asset server again for an existing recipe. Early failure and retry
+behavior still need runtime verification and a complete lifecycle assessment.
+
 ## Working on now
 
 Trace scene-readiness marker populations against admitted scene input and
