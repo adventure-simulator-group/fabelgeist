@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 508,
+  "at": "2026-11-02T20:54:25.446705+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "7281583814d7797506017d3500006e74868515311dac4304aa4528bdc9ec9603",
+    "verification": "e84cd124c379bca5ebe5faa5db587882f2fffd77ea10df719a9ca8cc3a0dd257",
+    "canonical_current": "796a7e256148158c25dd338526a0de86f1eca662f535f75ca44d76290e2fc3e5"
+  },
+  "scope": {
+    "summary": "Authenticated locked YAML/Serde source and traced typed f32 decoding. The parser accepts YAML.nan for concrete floats; its default generic-value rejection does not protect those fields. Updated existing config/interaction journals with the NaN comparison gap and documented clamp-bound failure condition, plus the known graphics-error chain.",
+    "scope_limit": "Native source/documentation qualification only. No YAML parser, clamp call, renderer or product test was executed; shipped values are finite. No new accepted unique finding or checklist-cell closure:62of767 newest cells remain closed,705 open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "c29385160d36ad90276b507fcaa0bc900b947ed6d7e317b4673f3a06330b2910",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

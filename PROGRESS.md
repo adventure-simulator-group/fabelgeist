@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:45:26.377992+00:00
+Updated: 2026-11-02T21:00:18.768299+00:00
 
-Latest verified checkpoint: **507**. Goal: **active**.
+Latest verified checkpoint: **508**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,21 +18,22 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced native/browser configuration through validation and retained renderer
-settings. The validator admits finite equal-endpoint fade-out, which reaches a
-zero-width shader divisor; shipped bands have positive widths. Updated the
-existing fade question and linked parse/I/O formatting to the existing graphics-
-error ownership record.
+Authenticated locked YAML/Serde source and traced typed f32 decoding. The parser
+accepts YAML.nan for concrete floats; its default generic-value rejection does
+not protect those fields. Updated existing config/interaction journals with the
+NaN comparison gap and documented clamp-bound failure condition, plus the known
+graphics-error chain.
 
-Two magic-string cells closed:62of767 newest cells complete,705 remain. No Rust
-validator, parser-special-float probe, shader/GPU run or new unique bug was
-claimed. Other perspective and native dependencies remain open.
+Native source/documentation qualification only. No YAML parser, clamp call,
+renderer or product test was executed; shipped values are finite. No new
+accepted unique finding or checklist-cell closure:62of767 newest cells remain
+closed,705 open.
 
 ## Working on now
 
-Resolving graphics admission and native parser/layout dependencies. The ordinary
-configuration route now provides a source witness for equal-endpoint fade-out;
-shipped bands remain positive-width.
+The locked typed-float parser path is qualified. Continuing exact config field
+owners, shader units and native renderer lifetime/layout contracts; source-
+backed failure conditions remain distinct from executed incidents.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -161,6 +162,11 @@ shipped bands remain positive-width.
   shader packing. Distinguished shipped positive-width bands and linked current
   diagnostic formatting to the existing graphics-error repair.
 
+- Qualified exact locked typed-float decoding through serde-saphyr1.2.0 and
+  serde_core1.0.229. Distinguished generic-value rejection from concrete f32
+  admission and linked NaN bounds to existing config/interaction questions
+  without claiming a live crash.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -199,8 +205,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 507 publication record](CHECKPOINT-507.json)
-- [Saved report for checkpoint 507](PROGRESS-507.md)
+- [Checkpoint 508 publication record](CHECKPOINT-508.json)
+- [Saved report for checkpoint 508](PROGRESS-508.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
