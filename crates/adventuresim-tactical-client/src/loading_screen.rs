@@ -6,7 +6,7 @@
 //! control it. Losing the connection, a failed required asset and a stage that
 //! stops advancing all end in a failure panel with retry and exit actions.
 use crate::{
-    equipment::{EquipmentHudSet, readiness::EquipmentReadiness},
+    equipment::{EquipmentHudSet, settlement::EquipmentSettlement},
     player::ClientPlayer,
     presentation::{
         ClientStartupTiming, is_required_scene_asset,
@@ -158,7 +158,7 @@ fn advance_load(
     mut commands: Commands,
     mut screen: ResMut<LoadingScreen>,
     sources: LoadingSources,
-    equipment: EquipmentReadiness,
+    equipment: EquipmentSettlement,
     players: Query<Entity, With<ClientPlayer>>,
     startup: Res<ClientStartupTiming>,
     time: Res<Time>,
@@ -173,7 +173,7 @@ fn advance_load(
         }
         LoadingPhase::Idle | LoadingPhase::Failed(_) => return,
     };
-    let progress = sources.progress(run, equipment.settled(), waiting_pipelines());
+    let progress = sources.progress(run, equipment.is_settled(), waiting_pipelines());
     match run.observe(progress, time.elapsed()) {
         RunVerdict::Stalled(stage) => screen.fail(LoadingFailure::Stalled(stage)),
         RunVerdict::Ready => {

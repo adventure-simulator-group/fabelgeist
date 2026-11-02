@@ -54,9 +54,11 @@ mod icons;
 mod placeholder_update;
 mod placeholder_visual;
 mod preview;
+#[cfg(any(target_family = "wasm", test))]
 pub(crate) mod readiness;
 mod render_binding;
 pub(crate) mod runtime_equipment;
+pub(crate) mod settlement;
 mod skin;
 mod slot_selection;
 pub(crate) mod visuals;
