@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T23:05:20.229953+00:00
+Updated: 2026-11-02T23:12:32.044858+00:00
 
-Latest verified checkpoint: **532**. Goal: **active**.
+Latest verified checkpoint: **533**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,26 +18,25 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all13 scoped assessments for equipment settlement by adding eleven
-independent dispositions and preserving two earlier ones. Qualified its existing
-relationship owners and generation marker producers. Retained success-or-failure
-gameplay settlement, rejected a count-substitution concern for this predicate,
-and recorded its current-world population limits in three existing journal
-views.
+Completed all13 scoped assessments for gameplay-camera UI binding, adding eleven
+dispositions while preserving its earlier enum/string assessments. Authenticated
+the locked native Egui/UI selection and required-component APIs, traced the
+ordinary camera producer and tactical root, and refined two existing journal
+views with explicit uniqueness and initialization limits.
 
-The newest revision now has 40 of 403 checks complete, with 363 open; the
-preceding revision retains 189 of 767. These closures do not prove complete
-expected inventory, replication timing, successful preview/capture or native
-rendering. Broader current-source graphs, all20 families, exact aliases and the
-ordered repair ledger remain unfinished. No product implementation, independent
-review, builds, tests or runtime validation has begun.
+The newest revision now has 51 of 403 checks complete, with 352 open; the
+preceding revision retains 189 of 767. These source closures do not certify full
+native plugin behavior, camera replacement/multi-window/first-pass timing or
+actual rendering. Broader source graphs, all20 families, exact aliases and the
+repair ledger remain unfinished. Implementation, independent review, product
+builds/tests and runtime validation have not begun.
 
 ## Working on now
 
-Continue the remaining current-source paths and connected audit contracts after
-completing the small equipment-settlement path under all13 perspectives.
-Preserve generation-settled versus successful preview/capture behavior and
-expected-item population limits while reconciling the repair ledger.
+Continue the remaining current-source audit after completing gameplay-camera
+binding under all13 perspectives. Keep native UI ownership,
+singleton/initialization assumptions and actual render acceptance distinct while
+reconciling the ordered repair ledger.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -271,6 +270,13 @@ expected-item population limits while reconciling the repair ledger.
   preview/capture contracts separate. No new equipment wrapper or success-
   required gameplay policy was selected.
 
+- Completed the eleven remaining gameplay-camera binding perspectives using
+  authenticated native Egui/UI APIs and the actual camera producer. Confirmed
+  primary-context required components and inactive-camera fallback selection;
+  retained existing typed marker owners. Recorded uniqueness, existing-context,
+  replacement and first-pass scheduling limits without claiming a live camera or
+  format failure. The authored one-camera test was read, not executed.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -291,7 +297,7 @@ expected-item population limits while reconciling the repair ledger.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 40 of those checks are closed. These are audit coverage obligations, not
+checks; 51 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -309,8 +315,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 532 publication record](CHECKPOINT-532.json)
-- [Saved report for checkpoint 532](PROGRESS-532.md)
+- [Checkpoint 533 publication record](CHECKPOINT-533.json)
+- [Saved report for checkpoint 533](PROGRESS-533.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
