@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T18:48:57.102519+00:00
+Updated: 2026-11-02T18:51:54.955106+00:00
 
-Latest verified checkpoint: **489**. Goal: **active**.
+Latest verified checkpoint: **490**. Goal: **active**.
 
 The refactor remains in the source-audit phase. The required implementation gate
 is incomplete. L2 is the audit perspective that checks reuse of existing types;
@@ -18,30 +18,29 @@ perspectives or the refactor.
 
 ## Latest checkpoint
 
-Selected an explicit unbound/bound camp binding carrier. Bound values reuse the
-existing canonical journey-camp place through a checked narrow owner; elapsed
-time stays separate. Requalified 21 earlier L2 source rows at the selected
-revision without new read credit.
+Selected distinct zero-valid integer-minute quantities for journey movement and
+elapsed time. Existing absolute departure remains unchanged. Rejected seconds
+and quantized schedule types for these roles; identified existing challenge-ID
+parsers as partial projections.
 
-One named carrier policy selected. The parent frame/trial/challenge identity
-question, exact global aliases, coordinate ownership and all broader gates
-remain open.
+One scoped quantity-carrier policy selected. Global aliases, broader current
+scope, full identity owners, implementation and acceptance remain open.
 
 ## Working on now
 
-Finishing errantry coordinate and distinct identity owner reconciliation after
-selecting the explicit camp binding carrier. Existing evidence now has exact
-current-revision qualification; no implementation has begun.
+Reconciling shared frame, trial and challenge identity ownership. Newly
+inspected server and web parsers retain different identity projections; their
+actual selection predicates are now documented without claiming a runtime
+defect.
 
-- Qualify the existing L2 evidence at the selected source revision before
-  reading additional journey or challenge code.
+- Resolve shared full identity ownership and native admission while preserving
+  legitimate namespaces and optional trials.
 
-- Resolve the remaining coordinate and identity owner questions while preserving
-  legitimate zero coordinates, unbound camp state, and the distinction between
-  absolute clocks and elapsed time.
+- Complete exact first-operation alias/current and migration-family
+  reconciliation for these retained records.
 
-- Record the resulting source dispositions and repair requirements in the
-  canonical audit queue.
+- Continue outstanding source obligations across all audit perspectives before
+  implementation.
 
 ## Work completed since the handoff
 
@@ -74,6 +73,11 @@ current-revision qualification; no implementation has begun.
   canonical journey-camp identity and codec, and a separate elapsed availability
   stamp. Requalified 21 earlier source rows without new body credit; parent
   identity and global alias obligations remain open.
+
+- Selected distinct zero-valid journey movement/elapsed minute quantities and
+  rejected f32 seconds for exact integer-minute roles. Inspected native/web
+  challenge ID projection parsers and relevant demo filters; no incorrect-
+  selection runtime incident claimed.
 
 ## What remains
 
@@ -113,8 +117,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 489 publication record](CHECKPOINT-489.json)
-- [Saved report for checkpoint 489](PROGRESS-489.md)
+- [Checkpoint 490 publication record](CHECKPOINT-490.json)
+- [Saved report for checkpoint 490](PROGRESS-490.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
