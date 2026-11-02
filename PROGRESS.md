@@ -31,6 +31,19 @@ outcomes and scene-specific native readiness still need evidence. No loading
 stall or GPU incident was executed. Product implementation, independent review,
 builds, tests and runtime validation have not begun.
 
+## Investigation since checkpoint 534
+
+The debug world-dump writer includes scene identity and terrain but omits ground
+and environment. Debug startup skips fresh terrain generation when loading a
+dump, and the terrain restore observer rebuilds collision and replication. The
+existing round-trip test exercises a player and inventory, not scene inputs.
+
+Client loading expects terrain and two ground-cover markers per scene. SceneId
+addition creates pending terrain work. A persistent incomplete stage produces a
+stall verdict after 90 seconds of unchanged game-time progress. The runtime
+impact, component delivery and other insertion paths remain to be verified.
+These source observations are exploratory and have not closed audit cells.
+
 ## Working on now
 
 Trace scene-readiness marker populations against admitted scene input and
