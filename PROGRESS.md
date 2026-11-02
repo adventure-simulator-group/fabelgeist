@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:44:15.383889+00:00
+Updated: 2026-11-02T21:51:13.847262+00:00
 
-Latest verified checkpoint: **517**. Goal: **active**.
+Latest verified checkpoint: **518**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,22 +18,21 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed 12 existing-type, ownership, enum-choice and native-string checks for the
-cull helper, presentation plugin and equipment skin. Traced first-pose
-admission, camera/layer decisions, resume resets, ragdoll exemption and typed
-skin-name borrowing. Locked Bevy source establishes the collective predicate and
-default deferred-flush settings and calls.
+Closed three source checks for procedural animation after reading its full
+current body and qualifying the exact earlier-source partition. Locked native
+transform source supports equivalence of delayed stored-global snapshots within
+the synchronous system. Recorded the unchanged rig-foot membership precondition
+and remaining raw anticipation-amplitude owner comparison.
 
-152 of 767 newer cells are closed, with 615 open. No schedule, reappearance,
-ragdoll, transfer, solver or rendering test ran. Full pose/IK bodies, all-writer
-lifecycle, native behavior, exact aliases and broader audit gates remain open.
+155 of 767 newer cells are closed, with 612 open. No product or runtime test
+ran. Numerical owner selection, rig admission, all-writer lifecycle, nested
+solver bodies, exact aliases and broader audit gates remain open.
 
 ## Working on now
 
-Continue full pose/IK/procedural and remaining current-source reconciliation.
-The small cull helper, plugin and skin changes have explicit shared-owner and
-native query/schedule dispositions; lifecycle and visual behavior remain
-unvalidated.
+Continue full pose/IK source reconciliation. Procedural animation now has full
+current-body source review and explicit ownership, enum-choice and native-string
+dispositions; numerical owners, native rig membership and behavior remain open.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -234,7 +233,7 @@ unvalidated.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 152 of those checks are closed. These are audit coverage obligations,
+checks; 155 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3845 entries. Entries and views overlap, so this is
@@ -252,8 +251,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 517 publication record](CHECKPOINT-517.json)
-- [Saved report for checkpoint 517](PROGRESS-517.md)
+- [Checkpoint 518 publication record](CHECKPOINT-518.json)
+- [Saved report for checkpoint 518](PROGRESS-518.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
