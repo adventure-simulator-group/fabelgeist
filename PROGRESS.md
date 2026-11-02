@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:57:31.397674+00:00
+Updated: 2026-11-02T22:02:31.101334+00:00
 
-Latest verified checkpoint: **520**. Goal: **active**.
+Latest verified checkpoint: **521**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,23 +18,23 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared existing bounded-value and foot-side owners. UnitInterval fits the
-retained anticipation amounts; BlendWeight intentionally allows contributions
-above one. LeadFoot fits anatomical terrain-leg selection; the X-corridor enum
-has a different projection. Recorded two provisional repairs and closed the
-pose-buffer enum-choice source check.
+Completed the full inverse-kinematics coordinator review and read retained
+state, target publication and final observation support. Closed ownership and
+native-string checks. Qualified that culling skips the solve but not the later
+observer, and that target validation before retained publication does not roll
+back earlier local-pose writes. Updated five existing source journals.
 
-158 of 767 newer cells are closed, with 609 open. Queue entries rose to 3847,
-which is not a count of accepted unique bugs. Exact aliases, other procedural
-type roles, solver/native/lifecycle guarantees, implementation and product
-validation remain open.
+160 of 767 newer cells are closed, with 607 open. No solver, schedule, rendering
+or product test ran. Current capture dispatch, supported error scenarios, nested
+helpers, all-writer lifecycle, numerical owners and exact global reconciliation
+remain open.
 
 ## Working on now
 
-Continue nested inverse-kinematics source reconciliation and exact canonical
-owner/alias mapping. Existing UnitInterval is selected for retained anticipation
-fractions and LeadFoot for terrain foot selection; repairs remain provisional
-until reconciliation and implementation gate completion.
+Continue current-source reconciliation and connect final support observations to
+capture/report consumers. Full pose-buffer, procedural and IK coordinator
+parents are now reviewed; numerical/native helper admission, state lifetimes and
+exact canonical aliases remain independent.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -235,7 +235,7 @@ until reconciliation and implementation gate completion.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 158 of those checks are closed. These are audit coverage obligations,
+checks; 160 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3847 entries. Entries and views overlap, so this is
@@ -253,8 +253,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 520 publication record](CHECKPOINT-520.json)
-- [Saved report for checkpoint 520](PROGRESS-520.md)
+- [Checkpoint 521 publication record](CHECKPOINT-521.json)
+- [Saved report for checkpoint 521](PROGRESS-521.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

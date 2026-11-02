@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 521,
+  "at": "2026-11-02T22:01:57.584923+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "be45f01e80d8c4fc13e6922e1c33cf66ac742e23cfbea20a4dab557ea2a4ef9d",
+    "verification": "419560edf54313e0ec4a9f4433da0ea7f828041645d1126960fc3375645d685f",
+    "canonical_current": "e03dab6b709b466716edf9cafeddf3c49da2332de9f543fb6560582a16e49ad2"
+  },
+  "scope": {
+    "summary": "Completed the full inverse-kinematics coordinator review and read retained state, target publication and final observation support. Closed ownership and native-string checks. Qualified that culling skips the solve but not the later observer, and that target validation before retained publication does not roll back earlier local-pose writes. Updated five existing source journals.",
+    "scope_limit": "160 of 767 newer cells are closed, with 607 open. No solver, schedule, rendering or product test ran. Current capture dispatch, supported error scenarios, nested helpers, all-writer lifecycle, numerical owners and exact global reconciliation remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "8a9e59a316b44844423b5969afd82fbdd8fad7f19a24c47e5c8dac2f5b38fe7f",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
