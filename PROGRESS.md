@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:38:02.250525+00:00
+Updated: 2026-11-02T20:45:26.377992+00:00
 
-Latest verified checkpoint: **506**. Goal: **active**.
+Latest verified checkpoint: **507**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,21 +18,21 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Read eight renderer-core files and five producer files. Traced instance packing,
-buffer preparation, material/pipeline queueing and indexed draws. Closed eight
-magic-string cells and retained five provisional questions about fade/grid
-admission, empty GPU updates, view retirement and material bin keys. Current
-positive constants and nonempty spawn narrow the suspected failures.
+Traced native/browser configuration through validation and retained renderer
+settings. The validator admits finite equal-endpoint fade-out, which reaches a
+zero-width shader divisor; shipped bands have positive widths. Updated the
+existing fade question and linked parse/I/O formatting to the existing graphics-
+error ownership record.
 
-60of767 newest cells closed;707 remain. Other perspectives have source
-assessments without closure. Five questions are not five accepted bugs; no
-malformed input, GPU draw, leak, compiler or runtime test was executed.
+Two magic-string cells closed:62of767 newest cells complete,705 remain. No Rust
+validator, parser-special-float probe, shader/GPU run or new unique bug was
+claimed. Other perspective and native dependencies remain open.
 
 ## Working on now
 
-Tracing configured fade admission and exact native renderer lifecycle/layout
-contracts. The eight core renderer files and five producer files have bounded
-source evidence; other perspectives retain specific questions.
+Resolving graphics admission and native parser/layout dependencies. The ordinary
+configuration route now provides a source witness for equal-endpoint fade-out;
+shipped bands remain positive-width.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -156,6 +156,11 @@ source evidence; other perspectives retain specific questions.
   while distinguishing valid current constants and nonempty spawning from
   unproved failure paths.
 
+- Qualified a normal configuration-source path for the existing fade-band
+  question: finite equal fade-out endpoints pass validation and remain equal at
+  shader packing. Distinguished shipped positive-width bands and linked current
+  diagnostic formatting to the existing graphics-error repair.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -176,7 +181,7 @@ source evidence; other perspectives retain specific questions.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 60 of those checks are closed. These are audit coverage obligations, not
+checks; 62 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3844 entries. Entries and views overlap, so this is
@@ -194,8 +199,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 506 publication record](CHECKPOINT-506.json)
-- [Saved report for checkpoint 506](PROGRESS-506.md)
+- [Checkpoint 507 publication record](CHECKPOINT-507.json)
+- [Saved report for checkpoint 507](PROGRESS-507.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
