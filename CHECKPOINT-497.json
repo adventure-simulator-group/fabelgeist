@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 497,
+  "at": "2026-11-02T19:49:06.669425+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "9195fce3c19c8e17fa0e7d17ce1327c6bf52454674e736b766901ac540071953",
+    "verification": "8c9d892dbcec32eb9e98e5103a1801ffc391fb6b14cd54f1a9bdaafac54ee4e4",
+    "canonical_current": "9adc8e5946314b62c6125cded426782c571baee97c49e05671e2c59218a67aeb"
+  },
+  "scope": {
+    "summary": "Inspected ignore-choice fields in all14 current encounter documents and their compiler/schema path. Every ignore choice declares shared IgnoreTravel, with four bounded travel delays and no Blocked backing. Recorded the separate permissive-admission issue as a provisional question with no accepted-unique increase.",
+    "scope_limit": "Authored-field/source evidence only; no Rust validation, generation or gameplay run. The admission question still needs final canonical/policy reconciliation, and broader audit gates remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "1f7cf0e7941fb8c1054530edeb290b167c4d052bfd2fb9ee64066b95aa8060d3",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
