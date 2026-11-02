@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:41:04.200165+00:00
+Updated: 2026-11-02T22:45:42.556823+00:00
 
-Latest verified checkpoint: **528**. Goal: **active**.
+Latest verified checkpoint: **529**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,26 +18,25 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Refined five existing equipment audit records with current
-producer/cache/readiness evidence. Located actual owned-error-to-string
-conversions and preparation failures retained only as a flag. Confirmed that
-successful and failed generation both settle for gameplay, while capture has
-stricter mesh/skin requirements. The historical support-selection accessor
-inconsistency is already corrected in current source.
+Closed four enum/string assessments for the strategic-view and map protocols.
+Qualified browser rectangle production/consumers and locked native viewport/crop
+projection math. Updated five existing journals with the subpixel rounding path,
+existing map validation and acknowledgement safeguards, distinct native clipping
+policy and corrected historical street-position test.
 
-No new matrix cells or accepted unique findings are added: the newest revision
-remains 10 of 403 checks complete, with 393 open; the preceding revision retains
-189 of 767. Native device/generated-geometry guarantees, complete ownership
-APIs, supported readiness populations, aliases and global audit reconciliation
-remain open. No product implementation, independent review, builds, tests or
-runtime validation has begun.
+The newest revision now has 14 of 403 checks complete, with 389 open; the
+preceding revision retains 189 of 767. The subpixel example is source
+arithmetic, not an executed DOM or GPU incident. Shared retained crop admission,
+resize/cache lifetimes, native status and all broader audit/alias/repair
+reconciliation remain incomplete. Product implementation, review and runtime
+validation have not begun.
 
 ## Working on now
 
-Reconcile current equipment preparation, fit-cache failures, catalogue
-selections and the distinct gameplay/preview/capture readiness contracts.
-Continue the broader current-source audit and ordered repair ledger before
-product implementation.
+Continue canvas/native view admission and the remaining changed-path audit at
+pinned main ff9c1d7. Preserve distinct CSS/physical pixels, full crop
+projection, map acknowledgement and optional-view policies while reconciling
+existing findings.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -241,6 +240,13 @@ product implementation.
   distinguished preview counts from stricter capture readiness; generated-
   geometry admission remains open.
 
+- Traced DOM rectangle rounding through strategic/map protocols into locked
+  native viewport and crop projection APIs. Strengthened the existing subpixel
+  question with a source arithmetic example and actual unfiltered consumers,
+  without claiming a browser incident. Preserved existing map admission and
+  acknowledgement checks, native crop policy and the corrected current street-
+  position test. Closed four protocol enum/string assessments.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -261,7 +267,7 @@ product implementation.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 10 of those checks are closed. These are audit coverage obligations, not
+checks; 14 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -279,8 +285,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 528 publication record](CHECKPOINT-528.json)
-- [Saved report for checkpoint 528](PROGRESS-528.md)
+- [Checkpoint 529 publication record](CHECKPOINT-529.json)
+- [Saved report for checkpoint 529](PROGRESS-529.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
