@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:58:50.570329+00:00
+Updated: 2026-11-02T23:05:20.229953+00:00
 
-Latest verified checkpoint: **531**. Goal: **active**.
+Latest verified checkpoint: **532**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,27 +18,26 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all13 scoped source assessments for the pipeline-readiness module,
-including existing-owner reuse, admission, operations, aggregates, ownership,
-redundancy, behavior, enum choice, derivation, native boundaries, strings and
-numbers. Selected explicit observed/unobserved App-owned telemetry and retained
-the native pipeline-state owner. Recorded native schedule and platform limits in
-four existing journals.
+Completed all13 scoped assessments for equipment settlement by adding eleven
+independent dispositions and preserving two earlier ones. Qualified its existing
+relationship owners and generation marker producers. Retained success-or-failure
+gameplay settlement, rejected a count-substitution concern for this predicate,
+and recorded its current-world population limits in three existing journal
+views.
 
-The newest revision now has 29 of 403 checks complete, with 374 open; the
-preceding revision retains 189 of 767. These13 closures cover one exact path
-with documented findings and repair requirements, not the broad readiness
-records or whole audit. Required native outcome/generation, actual
-queue/device/draw/recovery behavior, aliases and the repair ledger remain
-incomplete. Implementation, independent review, product builds/tests and runtime
-validation have not begun.
+The newest revision now has 40 of 403 checks complete, with 363 open; the
+preceding revision retains 189 of 767. These closures do not prove complete
+expected inventory, replication timing, successful preview/capture or native
+rendering. Broader current-source graphs, all20 families, exact aliases and the
+ordered repair ledger remain unfinished. No product implementation, independent
+review, builds, tests or runtime validation has begun.
 
 ## Working on now
 
-Continue the remaining current-source audit after independently assessing all13
-perspectives of the bounded pipeline-telemetry path. Reconcile App-owned
-observed backlog and declared readiness stages with existing native resource
-outcomes and exact aliases before implementation.
+Continue the remaining current-source paths and connected audit contracts after
+completing the small equipment-settlement path under all13 perspectives.
+Preserve generation-settled versus successful preview/capture behavior and
+expected-item population limits while reconciling the repair ledger.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -264,6 +263,14 @@ outcomes and exact aliases before implementation.
   rendering is excluded on WebAssembly. Broader readiness and runtime contracts
   remain open.
 
+- Completed the eleven remaining source perspectives for equipment settlement,
+  preserving its earlier enum/string assessments. Reused actual ECS
+  relationship/character owners and retained the existing pure predicate.
+  Rejected transferring the preview count-substitution suspicion to its all-rows
+  check, while keeping expected inventory/replication membership and stricter
+  preview/capture contracts separate. No new equipment wrapper or success-
+  required gameplay policy was selected.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -284,7 +291,7 @@ outcomes and exact aliases before implementation.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 29 of those checks are closed. These are audit coverage obligations, not
+checks; 40 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -302,8 +309,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 531 publication record](CHECKPOINT-531.json)
-- [Saved report for checkpoint 531](PROGRESS-531.md)
+- [Checkpoint 532 publication record](CHECKPOINT-532.json)
+- [Saved report for checkpoint 532](PROGRESS-532.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
