@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:06:46.113367+00:00
+Updated: 2026-11-02T22:12:24.951554+00:00
 
-Latest verified checkpoint: **522**. Goal: **active**.
+Latest verified checkpoint: **523**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,23 +18,23 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced final support through capture admission and actual report readers.
-Capture admits current IK observations, then initialized raised-footwork state
-overrides the general pair. General weights drive slip/drift/liveness/flight
-metrics; several contact-validity gates use the separate IK pair. Qualified the
-default native schedule order and refined four existing journal dispositions.
+Closed 18 source checks across seven material/tree paths. Reviewed full current
+modules and qualified earlier bytes. Traced the moved celestial updater, typed
+chunk material registration, widened impostor fields and new tree-root
+visibility pass. New vista cards copy source lighting, narrowing the existing
+initialization question; three earlier journals received current views.
 
-Source routing is established; actual cache divergence or an incorrect runtime
-report was not demonstrated. No product tests or builds ran. Checklist remains
-160 of 767 newer cells complete, with 607 open. Exact aliases, other
-readers/native guarantees, implementation and runtime acceptance remain pending.
+178 of 767 newer cells are closed, with 589 open. No shader, compiler,
+rendering, culling or product test ran. Material freshness, uniform modes,
+native view/timing and tree bounds, exact aliases and broader audit gates remain
+open.
 
 ## Working on now
 
-Continue current-source reconciliation with the capture support roles now traced
-through admission, sample dispatch and report readers. Repair scope preserves
-final measured contact separately from authored cadence/loading; actual native
-divergence and exact aliases remain qualified.
+Continue remaining renderer/current-source reconciliation. Seven material/tree
+paths now have explicit ownership/string dispositions and four structural/native
+enum checks. Existing celestial cache lifecycle remains qualified; new tree-root
+bounds/view/timing behavior needs source and native evidence.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -235,7 +235,7 @@ divergence and exact aliases remain qualified.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 160 of those checks are closed. These are audit coverage obligations,
+checks; 178 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3847 entries. Entries and views overlap, so this is
@@ -253,8 +253,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 522 publication record](CHECKPOINT-522.json)
-- [Saved report for checkpoint 522](PROGRESS-522.md)
+- [Checkpoint 523 publication record](CHECKPOINT-523.json)
+- [Saved report for checkpoint 523](PROGRESS-523.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
