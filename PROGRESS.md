@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:35:52.306701+00:00
+Updated: 2026-11-02T21:44:15.383889+00:00
 
-Latest verified checkpoint: **516**. Goal: **active**.
+Latest verified checkpoint: **517**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,22 +18,22 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed one existing-type check for the runtime configuration cache after tracing
-the checked inverse-kinematics owner and inspected startup callers. Both CLI
-paths install before app construction. Expanded the existing configuration error
-journal with the actual loader, digest and final native formatting boundaries.
+Closed 12 existing-type, ownership, enum-choice and native-string checks for the
+cull helper, presentation plugin and equipment skin. Traced first-pose
+admission, camera/layer decisions, resume resets, ragdoll exemption and typed
+skin-name borrowing. Locked Bevy source establishes the collective predicate and
+default deferred-flush settings and calls.
 
-140 of 767 newer cells are closed, with 627 open. Full solver and normal-client
-initialization, frame-wide cache coherence, concurrent replacement, native error
-ownership and global reconciliation remain open. No app, configuration parser,
-solver or product test ran.
+152 of 767 newer cells are closed, with 615 open. No schedule, reappearance,
+ragdoll, transfer, solver or rendering test ran. Full pose/IK bodies, all-writer
+lifecycle, native behavior, exact aliases and broader audit gates remain open.
 
 ## Working on now
 
-Continue full inverse-kinematics consumers, cache lifetime and remaining
-current-source reconciliation. Existing checked tuning owners survive the cache;
-inspected server/viewer startup order and internal/final error boundaries are
-now qualified.
+Continue full pose/IK/procedural and remaining current-source reconciliation.
+The small cull helper, plugin and skin changes have explicit shared-owner and
+native query/schedule dispositions; lifecycle and visual behavior remain
+unvalidated.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -208,6 +208,12 @@ now qualified.
   early server loader cause formatting from direct viewer final panic
   formatting.
 
+- Traced pose culling through canonical visibility, the derived ECS marker,
+  visible resume and ragdoll exemption, plus its inverse-kinematics query
+  consumer. Qualified default native schedule behavior and inspected equipment
+  skin borrowing through shared rig-name owners. Preserved lifecycle, membership
+  and pose-continuity duties.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -228,7 +234,7 @@ now qualified.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 140 of those checks are closed. These are audit coverage obligations,
+checks; 152 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3845 entries. Entries and views overlap, so this is
@@ -246,8 +252,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 516 publication record](CHECKPOINT-516.json)
-- [Saved report for checkpoint 516](PROGRESS-516.md)
+- [Checkpoint 517 publication record](CHECKPOINT-517.json)
+- [Saved report for checkpoint 517](PROGRESS-517.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
