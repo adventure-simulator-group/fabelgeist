@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:09:12.562015+00:00
+Updated: 2026-11-02T20:14:30.973769+00:00
 
-Latest verified checkpoint: **501**. Goal: **active**.
+Latest verified checkpoint: **502**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,21 +18,20 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified all9 direct injury-settlement call sites at the selected revision.
-Each settles injuries before personal-clock publication and finishes disease
-afterward. Expanded the existing repair scope across activity, travel/wait
-modes, both rest modes, stationary advancement and the illness fixture; retained
-their different recovery and terminal-control-flow roles.
+Closed the magic-string perspective for the newer Cargo configuration change
+after reading complete before/after files. The added WebAssembly SIMD tokens are
+external compiler configuration, with no internal gameplay string owner to
+repair. This is the first explicit closure among the newest767 checklist cells.
 
-Direct source coverage only, with no new read credit or unique finding. Indirect
-callers, admitted terminal scenarios, native side effects, exact global
-reconciliation and runtime acceptance remain open.
+Exactly1 Lens12 cell closed; other766 newer cells remain. Older delta progress
+is preserved. No product build, compiler/browser validation, implementation or
+unique finding claimed.
 
 ## Working on now
 
-The9 direct injury-settlement call sites are source-accounted. Remaining work
-concerns enclosing caller outcomes, exact native death side effects, competing
-terminal causes and broader audit gates.
+Closing exact current-source checklist cells independently. The Cargo
+configuration magic-string cell is complete; the other12 perspectives and58
+newer changed paths retain their own duties.
 
 - Resolve the provisional admission question against exact historical predicates
   and the intended escape-choice contract.
@@ -133,6 +132,10 @@ terminal causes and broader audit gates.
   existing injury-clock repair, preserving each recovery role and terminal-
   control-flow policy. No product code or runtime check was performed.
 
+- Closed the newer Cargo configuration cell under the magic-string perspective
+  using complete before/after source. Recorded external compiler option
+  ownership and left the other12 perspectives independent.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -153,7 +156,7 @@ terminal causes and broader audit gates.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 0 of those checks are closed. These are audit coverage obligations, not
+checks; 1 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3838 entries. Entries and views overlap, so this is
@@ -171,8 +174,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 501 publication record](CHECKPOINT-501.json)
-- [Saved report for checkpoint 501](PROGRESS-501.md)
+- [Checkpoint 502 publication record](CHECKPOINT-502.json)
+- [Saved report for checkpoint 502](PROGRESS-502.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
