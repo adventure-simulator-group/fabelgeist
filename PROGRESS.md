@@ -51,6 +51,13 @@ furniture restore test uses the same input on both sides and does not test that
 case. Ground derives reflection, while environment does not at its declaration,
 so the snapshot representation needs further design analysis.
 
+The next current-source audit scope is texture residency. The new count reads
+an existing installed-ID set, and the loading screen uses the same catalogue
+for its count and total. The catalogue lists distinct IDs and has a uniqueness
+test. Existing audit entries still track terminal load failure and recipe-channel
+admission. The inspected tests have not been run, and all 13 perspectives on
+this changed path remain open.
+
 ## Working on now
 
 Trace scene-readiness marker populations against admitted scene input and
