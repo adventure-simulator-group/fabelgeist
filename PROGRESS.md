@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:03:59.788651+00:00
+Updated: 2026-11-02T20:06:30.786037+00:00
 
-Latest verified checkpoint: **499**. Goal: **active**.
+Latest verified checkpoint: **500**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,20 +18,19 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified injury/disease terminal handling and lifecycle splits. Current blood
-simulation emits no terminal at zero requested minutes; every lifecycle split is
-strictly interior. Retired those two speculative premises while preserving
-positive-time terminal, caller-policy and actual admission questions.
+Traced the native death transition and linked current injury settlement order to
+the existing injury terminal-clock finding. Injury death can read the old
+personal clock before elapsed time is written; ordinary disease finish reads
+after the clock update. Kept delayed-choice rollback separate.
 
-Named source dispositions only. Journal1018 weather clauses and the whole road-
-delay case remain open. No product implementation, runtime validation, accepted-
-unique increase or current-source cell closure.
+One named current-source dependency qualified, no new unique finding or whole-
+case closure. All callers, supported terminal admission and runtime acceptance
+remain open; implementation has not started.
 
 ## Working on now
 
-Reconciling physiological terminal outcomes across delay callers; current zero-
-time terminal and lifecycle zero-progress suspicions have been rejected by exact
-source.
+Reconciling the existing injury terminal-clock repair across all time callers,
+preserving separate disease timing and delayed-choice rollback semantics.
 
 - Resolve the provisional admission question against exact historical predicates
   and the intended escape-choice contract.
@@ -124,6 +123,10 @@ source.
   disease terminal causes and positive-time blood settlement without claiming a
   live incident.
 
+- Linked the current native injury death timestamp chain to the existing
+  canonical injury-clock finding. Retained the single clock owner and existing
+  death types; distinguished disease-after-clock timing and road-delay rollback.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -162,8 +165,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 499 publication record](CHECKPOINT-499.json)
-- [Saved report for checkpoint 499](PROGRESS-499.md)
+- [Checkpoint 500 publication record](CHECKPOINT-500.json)
+- [Saved report for checkpoint 500](PROGRESS-500.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

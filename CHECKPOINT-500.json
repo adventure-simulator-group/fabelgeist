@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 500,
+  "at": "2026-11-02T20:06:10.955484+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "b5e44aafb8c22e9cd1d5c05bd51f055037a62250c700c8b3206e024ac0fae043",
+    "verification": "80ee9b3bdb000feb9d704502027924e80aaa514ae56cdd413d203a4fa0ec6571",
+    "canonical_current": "b641f10e7c51768a99eaaecdf085275a3115dcc924b0a0449d1c147a87fba215"
+  },
+  "scope": {
+    "summary": "Traced the native death transition and linked current injury settlement order to the existing injury terminal-clock finding. Injury death can read the old personal clock before elapsed time is written; ordinary disease finish reads after the clock update. Kept delayed-choice rollback separate.",
+    "scope_limit": "One named current-source dependency qualified, no new unique finding or whole-case closure. All callers, supported terminal admission and runtime acceptance remain open; implementation has not started."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "0df836e056a41e619cffd7e29536b6292b8beac0c37b995c59e6e000d5aedd80",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
