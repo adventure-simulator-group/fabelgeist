@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:04:51.351842+00:00
+Updated: 2026-11-02T21:10:36.713131+00:00
 
-Latest verified checkpoint: **509**. Goal: **active**.
+Latest verified checkpoint: **510**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,21 +18,21 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed25 scoped current-source dispositions: ownership and enum choices for
-eight chunk-core files and three grass consumers, plus native strings for those
-three consumers. Traced root lighting and interaction displacement to shader
-consumers, and recorded correlated topology/cardinality admission and currently
-unused authored width/root knobs in existing journals.
+Qualified the locked native chunk-instance representation and byte-cast source.
+Ordinary scalar Vec3 and declared vertex format sizes support the expected
+24-byte record on the supported alignment basis. Kept raw GPU payload validity
+separate from checked semantic admission.
 
-87of767 newest cells closed;680 remain. Other lenses, actual native bounds,
-visual/runtime acceptance and global reconciliation remain open. No new accepted
-unique finding, product implementation or test run.
+Source and language-contract evidence only; no target compilation, byte-cast
+execution or GPU validation. No additional checklist closure: 87 of 767 newer
+cells are closed, with 680 open. Native bounds, lifecycle, global reconciliation
+and implementation remain pending.
 
 ## Working on now
 
-Current renderer ownership and enum choices are source-accounted for eleven
-paths. Continue admission, native bounds/layout, cache lifetime, visual and
-broader current-source reconciliation.
+Continue current renderer admission, native buffer/index bounds, cache lifetime,
+visual and broader source reconciliation. Locked scalar Vec3 and raw GPU payload
+layout are now source-qualified.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -171,6 +171,11 @@ broader current-source reconciliation.
   perspectives for eleven renderer paths plus three native-string perspectives;
   retained independent numeric, cache, native and visual duties.
 
+- Authenticated the locked Bevy, glam, WGPU and bytemuck source chain for chunk
+  instance layout. Distinguished scalar Vec3 from Vec3A, checked declared native
+  vertex sizes, and recorded why finite-only bespoke values must be lowered into
+  a separate raw Pod payload.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -209,8 +214,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 509 publication record](CHECKPOINT-509.json)
-- [Saved report for checkpoint 509](PROGRESS-509.md)
+- [Checkpoint 510 publication record](CHECKPOINT-510.json)
+- [Saved report for checkpoint 510](PROGRESS-510.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
