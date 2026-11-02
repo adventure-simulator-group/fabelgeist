@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T19:50:10.370968+00:00
+Updated: 2026-11-02T20:00:16.500913+00:00
 
-Latest verified checkpoint: **497**. Goal: **active**.
+Latest verified checkpoint: **498**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,22 +18,20 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected ignore-choice fields in all14 current encounter documents and their
-compiler/schema path. Every ignore choice declares shared IgnoreTravel, with
-four bounded travel delays and no Blocked backing. Recorded the separate
-permissive-admission issue as a provisional question with no accepted-unique
-increase.
+Traced delayed road choices through living-party time advancement, choice
+resolution and forecast refresh. A terminal or short advance can become a
+reducer error before choice completion. Official transaction documentation
+qualifies rollback; no partial durable write or live deadlock was demonstrated.
 
-Authored-field/source evidence only; no Rust validation, generation or gameplay
-run. The admission question still needs final canonical/policy reconciliation,
-and broader audit gates remain open.
+One named source dependency qualified using prior same-lens evidence. Policy,
+actual supported witness, exact aliases and runtime acceptance remain open. No
+product code, new accepted unique finding or current-source cell closure.
 
 ## Working on now
 
-Reconciling the dedicated blocked-ignore admission question with the complete
-repair ledger. Current authored choices are now distinguished from the
-conditional validation gap; explicit-choice and time-delay semantics remain
-separate obligations.
+Qualifying legitimate terminal and short time-advance outcomes in delayed road
+choices, while retaining separate admission, readiness and Continue-policy
+questions.
 
 - Resolve the provisional admission question against exact historical predicates
   and the intended escape-choice contract.
@@ -116,6 +114,11 @@ separate obligations.
   provisional admission question, preserving the distinction between current
   content, possible invalid admission and runtime acceptance.
 
+- Qualified time-delay failure propagation and forecast refresh for road
+  choices. Distinguished documented database rollback from untested terminal-
+  outcome availability; retained the gameplay policy and supported witness as
+  open obligations.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -154,8 +157,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 497 publication record](CHECKPOINT-497.json)
-- [Saved report for checkpoint 497](PROGRESS-497.md)
+- [Checkpoint 498 publication record](CHECKPOINT-498.json)
+- [Saved report for checkpoint 498](PROGRESS-498.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
