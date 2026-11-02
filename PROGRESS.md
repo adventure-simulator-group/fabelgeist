@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:12:24.951554+00:00
+Updated: 2026-11-02T22:17:52.555889+00:00
 
-Latest verified checkpoint: **523**. Goal: **active**.
+Latest verified checkpoint: **524**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,23 +18,24 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed 18 source checks across seven material/tree paths. Reviewed full current
-modules and qualified earlier bytes. Traced the moved celestial updater, typed
-chunk material registration, widened impostor fields and new tree-root
-visibility pass. New vista cards copy source lighting, narrowing the existing
-initialization question; three earlier journals received current views.
+Closed 11 source checks across vista details, grass, tree-card batching and
+triangle census. Verified that shared chunk spawning supplies the removed shadow
+marker. Traced full-chunk draw submission and native any-view visibility against
+the census distance-filtered count; recorded one provisional measurement-role
+question and updated three existing vista-frame journals.
 
-178 of 767 newer cells are closed, with 589 open. No shader, compiler,
-rendering, culling or product test ran. Material freshness, uniform modes,
-native view/timing and tree bounds, exact aliases and broader audit gates remain
-open.
+189 of 767 newer cells are closed, with 578 open. No renderer, census, multi-
+view, shader or product test ran. The new question is not an accepted unique
+bug. Formatted census group identity, full vista source, supported origins,
+material/native behavior and exact global reconciliation remain open.
 
 ## Working on now
 
-Continue remaining renderer/current-source reconciliation. Seven material/tree
-paths now have explicit ownership/string dispositions and four structural/native
-enum checks. Existing celestial cache lifecycle remains qualified; new tree-root
-bounds/view/timing behavior needs source and native evidence.
+Continue renderer/current-source reconciliation and exact repair mapping. Vista
+batching and census have scoped ownership/enum/string dispositions. Census
+count-stage/view identity is now a provisional native-measurement question; full
+vista parent, formatted tier identity and native visual/lifecycle guarantees
+remain open.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -235,10 +236,10 @@ bounds/view/timing behavior needs source and native evidence.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 178 of those checks are closed. These are audit coverage obligations,
+checks; 189 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3847 entries. Entries and views overlap, so this is
+The canonical queue contains 3848 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -253,8 +254,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 523 publication record](CHECKPOINT-523.json)
-- [Saved report for checkpoint 523](PROGRESS-523.md)
+- [Checkpoint 524 publication record](CHECKPOINT-524.json)
+- [Saved report for checkpoint 524](PROGRESS-524.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
