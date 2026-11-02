@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T19:05:35.007458+00:00
+Updated: 2026-11-02T19:07:42.917453+00:00
 
 Latest verified checkpoint: **493**. Goal: **active**.
 
@@ -30,18 +30,21 @@ runtime witness or new unique bug claimed.
 
 ## Working on now
 
-Reconciling contract all-producer admission and the remaining current/global
-owner records, with the existing active-contract relation repair preserved as a
-separate contract.
+Comparing the journey and identity questions against retained canonical records.
+A metadata index covers all 551 primary records and 3837 queue entries and
+identifies 73 candidate references; these are references to inspect, not new
+bugs. Five first-contract comparisons are saved, with no aliases or other audit
+perspectives closed.
 
-- Trace canonical contract-key ownership and actual native/view/URL identity
-  admission dependencies.
+- Finish the candidate comparisons and inspect linked inherited/historical
+  authorities before claiming a complete alias reconciliation.
 
-- Reconcile exact first-operation aliases and current migration-family records
-  without transferring other audit perspectives.
+- Keep native active-link admission, HTTP outcome handling, zero-departure
+  binding, spatial encounter coordinates and post-rest observation identity as
+  distinct first-failure scopes where their evidence differs.
 
-- Continue required source obligations before product implementation and
-  acceptance.
+- Reconcile current-source and migration-family obligations, including all-
+  producer key admission, before implementation.
 
 ## Work completed since the handoff
 
