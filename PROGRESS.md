@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:36:12.140178+00:00
+Updated: 2026-11-02T22:41:04.200165+00:00
 
-Latest verified checkpoint: **527**. Goal: **active**.
+Latest verified checkpoint: **528**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,25 +18,26 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed enum-choice and native-string assessments for equipment settlement,
-canvas rectangles, scene-readiness observations, gameplay-camera binding and
-netcode exports. Traced parent/browser wiring and qualified the native
-disconnect carrier and event-borrow API. Updated two existing journal questions
-rather than accepting duplicate findings.
+Refined five existing equipment audit records with current
+producer/cache/readiness evidence. Located actual owned-error-to-string
+conversions and preparation failures retained only as a flag. Confirmed that
+successful and failed generation both settle for gameplay, while capture has
+stricter mesh/skin requirements. The historical support-selection accessor
+inconsistency is already corrected in current source.
 
-The newest revision now has 10 of 403 checks complete, with 393 open. The
-preceding revision retains 189 of 767 complete, with 578 open. Required-work
-policy, non-cloneable error retention, client cleanup/re-entry, view provenance,
-all other perspectives and global reconciliation remain incomplete. Tests were
-read, not run; product implementation, review and runtime validation have not
-begun.
+No new matrix cells or accepted unique findings are added: the newest revision
+remains 10 of 403 checks complete, with 393 open; the preceding revision retains
+189 of 767. Native device/generated-geometry guarantees, complete ownership
+APIs, supported readiness populations, aliases and global audit reconciliation
+remain open. No product implementation, independent review, builds, tests or
+runtime validation has begun.
 
 ## Working on now
 
-Continue the new loading/browser audit at pinned main ff9c1d7: required work
-versus optional failures, connection-error ownership, client identity and
-retry/exit lifetime. Ten small enum/string checks are complete; broader source
-and repair reconciliation remains open.
+Reconcile current equipment preparation, fit-cache failures, catalogue
+selections and the distinct gameplay/preview/capture readiness contracts.
+Continue the broader current-source audit and ordered repair ledger before
+product implementation.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -232,6 +233,14 @@ and repair reconciliation remains open.
   ten enum/string checks across five small paths without claiming lifecycle or
   runtime success.
 
+- Traced equipment body/design preparation, asynchronous fit completion, support
+  failures, reset markers and rendering-stage wiring. Selected retention of
+  owned failure causes under the existing equipment-failure record while
+  preserving optional-equipment settlement. Reconciled the older support-
+  selection accessor inconsistency as corrected in current source and
+  distinguished preview counts from stricter capture readiness; generated-
+  geometry admission remains open.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -270,8 +279,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 527 publication record](CHECKPOINT-527.json)
-- [Saved report for checkpoint 527](PROGRESS-527.md)
+- [Checkpoint 528 publication record](CHECKPOINT-528.json)
+- [Saved report for checkpoint 528](PROGRESS-528.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
