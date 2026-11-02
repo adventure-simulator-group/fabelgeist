@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:20:13.020518+00:00
+Updated: 2026-11-02T20:27:01.564893+00:00
 
-Latest verified checkpoint: **503**. Goal: **active**.
+Latest verified checkpoint: **504**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,29 +18,29 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed twelve separate current-source dispositions for Cargo configuration,
-joining the earlier magic-string disposition. The whole path is now accounted
-for under all13 perspectives. Preserved the distinction between authored
-compiler policy and untested build/browser behavior.
+Completed13 source dispositions for the WebAssembly build script and inspected
+its binary/profile/tool-pin support. Confirmed the new Cargo-reported output
+directory source. Retained a separate provisional question about binary-name
+strings selecting correlated build and optimizer policy.
 
-12 additional cells closed,13of767 newest cells total;754 remain. Earlier delta
-closures and all original lens frontiers are preserved. No product code, build,
-runtime pass or new unique finding.
+13 additional current cells closed with a documented question:26of767 newest
+cells closed,741 remain. No build or browser run, whole-lockfile closure,
+accepted unique finding or product implementation.
 
 ## Working on now
 
-The newer Cargo configuration change is source-accounted under all13
-perspectives. Continuing to the other58 newer changed paths and the remaining
-connected/global obligations.
+The WebAssembly build script is source-accounted with a retained build-target
+specification question. Continuing the other57 newer changed paths, starting
+with their manifests and renderer changes.
 
-- Resolve the provisional admission question against exact historical predicates
-  and the intended escape-choice contract.
+- Continue independent current-source assessments for the remaining changed
+  paths; preserve native boundaries and exact source scope.
 
-- Qualify remaining time/delay, native transaction and optional-trial policy
-  dependencies without inventing a current blocked-content incident.
+- Reconcile the retained build-target specification question and other connected
+  findings against exact canonical owners and aliases.
 
-- Continue global alias, current-source/all13 and migration-family
-  reconciliation before implementation.
+- Complete all13 perspectives, all20 families, older source deltas and the
+  ordered repair ledger before implementation.
 
 ## Work completed since the handoff
 
@@ -141,6 +141,11 @@ connected/global obligations.
   admission, aggregate modes, derivability and numeric/native option roles
   without claiming compiler/browser validation.
 
+- Source-accounted the WebAssembly build workflow under all13 perspectives.
+  Traced Cargo-reported output paths and actual bin/profile/version
+  declarations; retained internal binary-mode string classification as a
+  distinct provisional owner-fit question.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -161,10 +166,10 @@ connected/global obligations.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 13 of those checks are closed. These are audit coverage obligations, not
+checks; 26 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3838 entries. Entries and views overlap, so this is
+The canonical queue contains 3839 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -179,8 +184,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 503 publication record](CHECKPOINT-503.json)
-- [Saved report for checkpoint 503](PROGRESS-503.md)
+- [Checkpoint 504 publication record](CHECKPOINT-504.json)
+- [Saved report for checkpoint 504](PROGRESS-504.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 504,
+  "at": "2026-11-02T20:25:19.094941+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "4a7a9bfd7726db8914e32a033df987d5cb02120b376352b5b5498cc1e2e90654",
+    "verification": "2cdfe94645604eb50f43483ea2dc6b06d09cfc152f0baa6037decaca3a486001",
+    "canonical_current": "edbf5f82697aae562ed3c65e714b53ba22941c00ea66bd5ecc533a171514cd17"
+  },
+  "scope": {
+    "summary": "Completed13 source dispositions for the WebAssembly build script and inspected its binary/profile/tool-pin support. Confirmed the new Cargo-reported output directory source. Retained a separate provisional question about binary-name strings selecting correlated build and optimizer policy.",
+    "scope_limit": "13 additional current cells closed with a documented question:26of767 newest cells closed,741 remain. No build or browser run, whole-lockfile closure, accepted unique finding or product implementation."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "ba2c62ebe4d069bee814bbc9dfbf860acc7d21849fd65ca8a051ca24cc439430",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
