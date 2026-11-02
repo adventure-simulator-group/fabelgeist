@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 505,
+  "at": "2026-11-02T20:30:07.467519+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "bb6723929483a3c731ffba33dbb7c7250979a40a94b65f554a34564da7c639d0",
+    "verification": "98af79c7d87cc9065897fb80c57f16e7b4a11187436d31dd8941cfceb3f39f43",
+    "canonical_current": "50c65958c9abf51296cacd32d2bc69c4f3dba65b31c730e0c6416adf885bd156"
+  },
+  "scope": {
+    "summary": "Completed26 current-source dispositions for the workspace and tactical-client manifests. The only parsed changes remove the bevy_eidolon dependency, its inherited use and fork patch. Preserved the separate renderer implementation and full lock-resolution duties.",
+    "scope_limit": "26 additional cells closed:52of767 newest cells complete,715 remain. No renderer/build pass, full lockfile closure, new unique finding or implementation claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "cbb6c93f93fc240469551bddb536f902a46b8d453826ba65f8803d3c1cf9a2ec",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

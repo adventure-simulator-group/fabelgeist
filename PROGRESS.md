@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:27:01.564893+00:00
+Updated: 2026-11-02T20:30:25.444495+00:00
 
-Latest verified checkpoint: **504**. Goal: **active**.
+Latest verified checkpoint: **505**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,20 +18,20 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed13 source dispositions for the WebAssembly build script and inspected
-its binary/profile/tool-pin support. Confirmed the new Cargo-reported output
-directory source. Retained a separate provisional question about binary-name
-strings selecting correlated build and optimizer policy.
+Completed26 current-source dispositions for the workspace and tactical-client
+manifests. The only parsed changes remove the bevy_eidolon dependency, its
+inherited use and fork patch. Preserved the separate renderer implementation and
+full lock-resolution duties.
 
-13 additional current cells closed with a documented question:26of767 newest
-cells closed,741 remain. No build or browser run, whole-lockfile closure,
-accepted unique finding or product implementation.
+26 additional cells closed:52of767 newest cells complete,715 remain. No
+renderer/build pass, full lockfile closure, new unique finding or implementation
+claimed.
 
 ## Working on now
 
-The WebAssembly build script is source-accounted with a retained build-target
-specification question. Continuing the other57 newer changed paths, starting
-with their manifests and renderer changes.
+Both manifests are source-accounted at their native declaration boundary. Next
+are the actual renderer changes and lock resolution, which retain independent
+obligations.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -146,6 +146,10 @@ with their manifests and renderer changes.
   declarations; retained internal binary-mode string classification as a
   distinct provisional owner-fit question.
 
+- Completed both newer manifest paths under all13 perspectives at the native
+  Cargo declaration boundary. Verified exact dependency/patch removal while
+  leaving renderer code, shaders and lock resolution independently pending.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -166,7 +170,7 @@ with their manifests and renderer changes.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 26 of those checks are closed. These are audit coverage obligations, not
+checks; 52 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3839 entries. Entries and views overlap, so this is
@@ -184,8 +188,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 504 publication record](CHECKPOINT-504.json)
-- [Saved report for checkpoint 504](PROGRESS-504.md)
+- [Checkpoint 505 publication record](CHECKPOINT-505.json)
+- [Saved report for checkpoint 505](PROGRESS-505.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
