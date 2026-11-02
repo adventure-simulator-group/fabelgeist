@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:17:52.555889+00:00
+Updated: 2026-11-02T22:24:03.348714+00:00
 
-Latest verified checkpoint: **524**. Goal: **active**.
+Latest verified checkpoint: **525**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,24 +18,25 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed 11 source checks across vista details, grass, tree-card batching and
-triangle census. Verified that shared chunk spawning supplies the removed shadow
-marker. Traced full-chunk draw submission and native any-view visibility against
-the census distance-filtered count; recorded one provisional measurement-role
-question and updated three existing vista-frame journals.
+Observed main advancing to ff9c1d7 and registered its complete 31-path change
+inventory, adding 403 pending perspective checks. Four paths overlap the
+previous 59-path delta. Selected the new pinned source while preserving every
+earlier path disposition, journal and read attribution.
 
-189 of 767 newer cells are closed, with 578 open. No renderer, census, multi-
-view, shader or product test ran. The new question is not an accepted unique
-bug. Formatted census group identity, full vista source, supported origins,
-material/native behavior and exact global reconciliation remain open.
+The newly selected delta has 0 of 403 checks complete. The preceding delta
+retains 189 of 767 complete, with 578 open; these are separate revision-specific
+counts. Metadata registration grants no source coverage. The fetch session
+remains unconfirmed terminal although pinned objects are available and verified.
+Implementation, review, product validation and broader reconciliation remain
+pending.
 
 ## Working on now
 
-Continue renderer/current-source reconciliation and exact repair mapping. Vista
-batching and census have scoped ownership/enum/string dispositions. Census
-count-stage/view identity is now a provisional native-measurement question; full
-vista parent, formatted tier identity and native visual/lifecycle guarantees
-remain open.
+Reconcile the newly observed main revision ff9c1d7 alongside unfinished earlier
+deltas. Its 31 changed paths add 403 independent checks, including
+loading/readiness/browser changes. Earlier 3371425 source proofs remain
+preserved with 189 of 767 checks complete; no verdict automatically transfers to
+changed new source.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -235,9 +236,9 @@ remain open.
 
 ## Coverage and verification limits
 
-The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 189 of those checks are closed. These are audit coverage obligations,
-not bug counts. Earlier revision evidence remains separately qualified.
+The newest source-revision batch contains 31 changed paths and 403 lens/path
+checks; 0 of those checks are closed. These are audit coverage obligations, not
+bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
@@ -252,10 +253,10 @@ independent review.
 
 ## Evidence and report updates
 
-Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
+Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 524 publication record](CHECKPOINT-524.json)
-- [Saved report for checkpoint 524](PROGRESS-524.md)
+- [Checkpoint 525 publication record](CHECKPOINT-525.json)
+- [Saved report for checkpoint 525](PROGRESS-525.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

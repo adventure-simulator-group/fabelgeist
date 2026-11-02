@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 525,
+  "at": "2026-11-02T22:22:26.345976+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "17e6c71f6f68b60cfa647e49899f8c99d0675f622bb9f19a51e7fd30b5fe6d90",
+    "verification": "290ed623ce0106097b3551ab7c0278987976a5151dc9350b619c32a879268dbe",
+    "canonical_current": "c2c12bdc39d3a5ddf7631c35470d7299dca7e869261ff1ece68e95254f9a11ad"
+  },
+  "scope": {
+    "summary": "Observed main advancing to ff9c1d7 and registered its complete 31-path change inventory, adding 403 pending perspective checks. Four paths overlap the previous 59-path delta. Selected the new pinned source while preserving every earlier path disposition, journal and read attribution.",
+    "scope_limit": "The newly selected delta has 0 of 403 checks complete. The preceding delta retains 189 of 767 complete, with 578 open; these are separate revision-specific counts. Metadata registration grants no source coverage. The fetch session remains unconfirmed terminal although pinned objects are available and verified. Implementation, review, product validation and broader reconciliation remain pending."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "7bf48fbcd216cdf6abb77d1680dace2d4f23f68528e56ed4539d663d79368aaa",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
