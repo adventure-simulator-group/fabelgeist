@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T19:07:42.917453+00:00
+Updated: 2026-11-02T19:15:03.415579+00:00
 
-Latest verified checkpoint: **493**. Goal: **active**.
+Latest verified checkpoint: **494**. Goal: **active**.
 
 The refactor remains in the source-audit phase. The required implementation gate
 is incomplete. L2 is the audit perspective that checks reuse of existing types;
@@ -18,33 +18,29 @@ perspectives or the refactor.
 
 ## Latest checkpoint
 
-Traced contract keys through native lifecycle handling, the trusted backend
-view, web party conversion and command projection. Retained the existing
-ContractState lifecycle owner and mapped stale abandonment to its existing
-canonical repair record; typed keys alone do not establish the active-party
-relation.
+Mapped the named explicit camp-binding repair to inherited canonical record M40.
+Compared all73 indexed references and6 relevant inherited records, preserving
+distinct repair scopes and unresolved journal questions. Verified all5 M40
+source locations are covered by current qualified L2 evidence.
 
-One named contract identity dependency qualified. All-producer admission, exact
-global/current reconciliation and direct/HTTP/queued acceptance remain open; no
-runtime witness or new unique bug claimed.
+One named canonical repair linkage completed. The mixed identity parent,
+unresolved journal/native bridge questions, standalone historical aliases and
+broader gates remain open; no new unique bug or source-read credit.
 
 ## Working on now
 
-Comparing the journey and identity questions against retained canonical records.
-A metadata index covers all 551 primary records and 3837 queue entries and
-identifies 73 candidate references; these are references to inspect, not new
-bugs. Five first-contract comparisons are saved, with no aliases or other audit
-perspectives closed.
+Following the remaining journal and historical alias authorities after linking
+camp binding to inherited M40. The candidate comparisons preserve the lens12
+journal scopes and independent lens-specific source obligations.
 
-- Finish the candidate comparisons and inspect linked inherited/historical
-  authorities before claiming a complete alias reconciliation.
+- Resolve the exact linked native SQL/SATS malformed-wire question and the mixed
+  camp/optional-continuation journal scope.
 
-- Keep native active-link admission, HTTP outcome handling, zero-departure
-  binding, spatial encounter coordinates and post-rest observation identity as
-  distinct first-failure scopes where their evidence differs.
+- Inspect standalone historical/accepted alias authorities and reconcile
+  current-source and migration-family records.
 
-- Reconcile current-source and migration-family obligations, including all-
-  producer key admission, before implementation.
+- Complete remaining required audit obligations before product implementation
+  and validation.
 
 ## Work completed since the handoff
 
@@ -98,6 +94,11 @@ perspectives closed.
   shared key from existing ContractState lifecycle ownership and retained
   direct/HTTP/queued acceptance requirements.
 
+- Linked the camp binding repair to inherited M40 using current qualified source
+  coverage. Compared73 candidate references and6 inherited records while
+  preserving separate chronology, spatial coordinate, outcome/error and
+  lifecycle obligations.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -136,8 +137,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 493 publication record](CHECKPOINT-493.json)
-- [Saved report for checkpoint 493](PROGRESS-493.md)
+- [Checkpoint 494 publication record](CHECKPOINT-494.json)
+- [Saved report for checkpoint 494](PROGRESS-494.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
