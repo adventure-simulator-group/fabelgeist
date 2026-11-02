@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:00:18.768299+00:00
+Updated: 2026-11-02T21:04:51.351842+00:00
 
-Latest verified checkpoint: **508**. Goal: **active**.
+Latest verified checkpoint: **509**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,22 +18,21 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Authenticated locked YAML/Serde source and traced typed f32 decoding. The parser
-accepts YAML.nan for concrete floats; its default generic-value rejection does
-not protect those fields. Updated existing config/interaction journals with the
-NaN comparison gap and documented clamp-bound failure condition, plus the known
-graphics-error chain.
+Completed25 scoped current-source dispositions: ownership and enum choices for
+eight chunk-core files and three grass consumers, plus native strings for those
+three consumers. Traced root lighting and interaction displacement to shader
+consumers, and recorded correlated topology/cardinality admission and currently
+unused authored width/root knobs in existing journals.
 
-Native source/documentation qualification only. No YAML parser, clamp call,
-renderer or product test was executed; shipped values are finite. No new
-accepted unique finding or checklist-cell closure:62of767 newest cells remain
-closed,705 open.
+87of767 newest cells closed;680 remain. Other lenses, actual native bounds,
+visual/runtime acceptance and global reconciliation remain open. No new accepted
+unique finding, product implementation or test run.
 
 ## Working on now
 
-The locked typed-float parser path is qualified. Continuing exact config field
-owners, shader units and native renderer lifetime/layout contracts; source-
-backed failure conditions remain distinct from executed incidents.
+Current renderer ownership and enum choices are source-accounted for eleven
+paths. Continue admission, native bounds/layout, cache lifetime, visual and
+broader current-source reconciliation.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -167,6 +166,11 @@ backed failure conditions remain distinct from executed incidents.
   admission and linked NaN bounds to existing config/interaction questions
   without claiming a live crash.
 
+- Traced grass material uniforms into the current shader and inspected
+  configured mesh cardinality arithmetic. Closed ownership and enum-choice
+  perspectives for eleven renderer paths plus three native-string perspectives;
+  retained independent numeric, cache, native and visual duties.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -187,7 +191,7 @@ backed failure conditions remain distinct from executed incidents.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 62 of those checks are closed. These are audit coverage obligations, not
+checks; 87 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3844 entries. Entries and views overlap, so this is
@@ -205,8 +209,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 508 publication record](CHECKPOINT-508.json)
-- [Saved report for checkpoint 508](PROGRESS-508.md)
+- [Checkpoint 509 publication record](CHECKPOINT-509.json)
+- [Saved report for checkpoint 509](PROGRESS-509.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
