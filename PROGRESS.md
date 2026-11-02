@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:31:21.840045+00:00
+Updated: 2026-11-02T21:35:52.306701+00:00
 
-Latest verified checkpoint: **515**. Goal: **active**.
+Latest verified checkpoint: **516**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,23 +18,22 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed six ownership, enum-choice and native-string checks for combat
-configuration and runtime snapshots. Read the full current configuration and
-both runtime implementations; qualified unchanged old-source ranges by exact
-bytes. The new inverse-kinematics cache returns the existing checked type.
-Current serialization error formatting remains linked to the earlier error-owner
-journal.
+Closed one existing-type check for the runtime configuration cache after tracing
+the checked inverse-kinematics owner and inspected startup callers. Both CLI
+paths install before app construction. Expanded the existing configuration error
+journal with the actual loader, digest and final native formatting boundaries.
 
-139 of 767 newer cells are closed, with 628 open. No configuration, concurrency,
-parser, solver or product test ran. Full cache/consumer behavior, native cause
-ownership, exact aliases and broader audit gates remain open.
+140 of 767 newer cells are closed, with 627 open. Full solver and normal-client
+initialization, frame-wide cache coherence, concurrent replacement, native error
+ownership and global reconciliation remain open. No app, configuration parser,
+solver or product test ran.
 
 ## Working on now
 
-Continue combat configuration cache/consumer and remaining current-source
-reconciliation. The new inverse-kinematics cache preserves its existing checked
-config type; broader admission, generation coherence and native/runtime behavior
-remain open.
+Continue full inverse-kinematics consumers, cache lifetime and remaining
+current-source reconciliation. Existing checked tuning owners survive the cache;
+inspected server/viewer startup order and internal/final error boundaries are
+now qualified.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -203,6 +202,12 @@ remain open.
   public export list. Linked current digest cause formatting to its existing
   journal without accepting a duplicate finding.
 
+- Traced server and animation-viewer configuration loading through validation,
+  runtime installation and Bevy resource insertion. Confirmed the inverse-
+  kinematics helper uses the existing checked configuration type. Distinguished
+  early server loader cause formatting from direct viewer final panic
+  formatting.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -223,7 +228,7 @@ remain open.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 139 of those checks are closed. These are audit coverage obligations,
+checks; 140 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3845 entries. Entries and views overlap, so this is
@@ -241,8 +246,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 515 publication record](CHECKPOINT-515.json)
-- [Saved report for checkpoint 515](PROGRESS-515.md)
+- [Checkpoint 516 publication record](CHECKPOINT-516.json)
+- [Saved report for checkpoint 516](PROGRESS-516.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
