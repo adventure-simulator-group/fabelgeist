@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T23:12:32.044858+00:00
+Updated: 2026-11-02T23:18:32.870733+00:00
 
-Latest verified checkpoint: **533**. Goal: **active**.
+Latest verified checkpoint: **534**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,25 +18,26 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all13 scoped assessments for gameplay-camera UI binding, adding eleven
-dispositions while preserving its earlier enum/string assessments. Authenticated
-the locked native Egui/UI selection and required-component APIs, traced the
-ordinary camera producer and tactical root, and refined two existing journal
-views with explicit uniqueness and initialization limits.
+Qualified current scene-readiness marker producers and their input queries.
+Confirmed disabled grass explicitly settles, while enabled grass/terrain/tree
+preparation failures retain pending work. Recorded that terrain accepts optional
+ground but both scatter queries require it, and refined four existing journals
+with exact current caller evidence.
 
-The newest revision now has 51 of 403 checks complete, with 352 open; the
-preceding revision retains 189 of 767. These source closures do not certify full
-native plugin behavior, camera replacement/multi-window/first-pass timing or
-actual rendering. Broader source graphs, all20 families, exact aliases and the
-repair ledger remain unfinished. Implementation, independent review, product
-builds/tests and runtime validation have not begun.
+This checkpoint closes no additional matrix cells: the newest revision remains
+51 of 403 complete, with 352 open; the preceding revision retains 189 of 767.
+Actual scene input/replication completeness, nested cache/material/geometry
+outcomes and scene-specific native readiness still need evidence. No loading
+stall or GPU incident was executed. Product implementation, independent review,
+builds, tests and runtime validation have not begun.
 
 ## Working on now
 
-Continue the remaining current-source audit after completing gameplay-camera
-binding under all13 perspectives. Keep native UI ownership,
-singleton/initialization assumptions and actual render acceptance distinct while
-reconciling the ordered repair ledger.
+Trace scene-readiness marker populations against admitted scene input and
+spawning/replication lifecycle. Disabled grass explicitly settles; terrain
+accepts optional ground while both scatter queries require it. Keep missing
+input and native preparation outcomes distinct before completing the remaining
+source perspectives.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -277,6 +278,14 @@ reconciling the ordered repair ledger.
   replacement and first-pass scheduling limits without claiming a live camera or
   format failure. The authored one-camera test was read, not executed.
 
+- Traced current terrain, grass, scatter and tree pending/presented marker
+  producers. Rejected the specific disabled-grass stall suspicion because its
+  producer explicitly settles that stage. Located the optional-ground versus
+  required-ground query difference and linked current scatter caller edges to
+  existing understory/litter publication records without transferring older
+  child verdicts. Scene population and native failure/readiness guarantees
+  remain open.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -315,8 +324,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 533 publication record](CHECKPOINT-533.json)
-- [Saved report for checkpoint 533](PROGRESS-533.md)
+- [Checkpoint 534 publication record](CHECKPOINT-534.json)
+- [Saved report for checkpoint 534](PROGRESS-534.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
