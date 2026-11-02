@@ -230,7 +230,6 @@ impl Plugin for TacticalPresentationPlugin {
             ground_scatter::InstancedGrassPlugin,
             ground_scatter::gardens::GardenPresentationPlugin,
         ));
-        pipeline_readiness::install(app);
         app.add_plugins(materials::TacticalMaterialsPlugin)
             .add_plugins(interior_lighting::InteriorLightingPlugin)
             // Tactical play uses one compact close-range cascade for whichever

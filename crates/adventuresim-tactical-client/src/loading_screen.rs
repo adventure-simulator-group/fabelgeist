@@ -9,7 +9,8 @@ use crate::{
     equipment::{EquipmentHudSet, readiness::EquipmentReadiness},
     player::ClientPlayer,
     presentation::{
-        ClientStartupTiming, is_required_scene_asset, pipeline_readiness::waiting_pipelines,
+        ClientStartupTiming, is_required_scene_asset,
+        pipeline_readiness::{self, waiting_pipelines},
     },
 };
 use adventuresim_tactical_core::prelude::{ContextActivity, Player};
@@ -91,6 +92,7 @@ impl Plugin for LoadingScreenPlugin {
 /// Adds the loading gate to a client. Headless automation has no one to show
 /// it to and drives input itself, so it runs without one.
 pub(crate) fn install(app: &mut App, headless: bool) {
+    pipeline_readiness::install(app);
     if !headless {
         app.add_plugins(LoadingScreenPlugin);
     }

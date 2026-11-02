@@ -10,7 +10,7 @@ static WAITING_PIPELINES: AtomicUsize = AtomicUsize::new(0);
 /// Consecutive ready frames required before a loading gate trusts readiness.
 pub(crate) const SETTLED_RENDER_FRAMES: usize = 4;
 
-pub(super) fn install(app: &mut App) {
+pub(crate) fn install(app: &mut App) {
     if let Some(render) = app.get_sub_app_mut(RenderApp) {
         render.add_systems(Render, pipeline_status.after(RenderSystems::Prepare));
     }
