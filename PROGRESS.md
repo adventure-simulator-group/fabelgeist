@@ -71,6 +71,13 @@ and separately retains a path-based asset error. Failure reset, missing-resource
 modes and native retry behavior remain open. These are source observations,
 with no runtime failure reproduced or audit cell closed.
 
+The texture admission audit also traces recipe channels from generation through
+reserved image handles. The parser accepts nonempty channel subsets, while the
+installer counts a recipe after processing supplied maps. The existing ledger
+keeps required versus allowed channel policy open. Art-demo empty recipe sets
+are legitimate, and the host displays unavailable status. These findings remain
+source assessments awaiting formal adoption and runtime validation.
+
 ## Working on now
 
 Trace scene-readiness marker populations against admitted scene input and
