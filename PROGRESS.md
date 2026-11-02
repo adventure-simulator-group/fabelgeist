@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:00:16.500913+00:00
+Updated: 2026-11-02T20:03:59.788651+00:00
 
-Latest verified checkpoint: **498**. Goal: **active**.
+Latest verified checkpoint: **499**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,20 +18,20 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced delayed road choices through living-party time advancement, choice
-resolution and forecast refresh. A terminal or short advance can become a
-reducer error before choice completion. Official transaction documentation
-qualifies rollback; no partial durable write or live deadlock was demonstrated.
+Qualified injury/disease terminal handling and lifecycle splits. Current blood
+simulation emits no terminal at zero requested minutes; every lifecycle split is
+strictly interior. Retired those two speculative premises while preserving
+positive-time terminal, caller-policy and actual admission questions.
 
-One named source dependency qualified using prior same-lens evidence. Policy,
-actual supported witness, exact aliases and runtime acceptance remain open. No
-product code, new accepted unique finding or current-source cell closure.
+Named source dispositions only. Journal1018 weather clauses and the whole road-
+delay case remain open. No product implementation, runtime validation, accepted-
+unique increase or current-source cell closure.
 
 ## Working on now
 
-Qualifying legitimate terminal and short time-advance outcomes in delayed road
-choices, while retaining separate admission, readiness and Continue-policy
-questions.
+Reconciling physiological terminal outcomes across delay callers; current zero-
+time terminal and lifecycle zero-progress suspicions have been rejected by exact
+source.
 
 - Resolve the provisional admission question against exact historical predicates
   and the intended escape-choice contract.
@@ -119,6 +119,11 @@ questions.
   outcome availability; retained the gameplay policy and supported witness as
   open obligations.
 
+- Rejected stale zero-time blood-terminal and zero-length lifecycle recursion
+  suspicions using current core/native/calendar source. Traced existing typed
+  disease terminal causes and positive-time blood settlement without claiming a
+  live incident.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -157,8 +162,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 498 publication record](CHECKPOINT-498.json)
-- [Saved report for checkpoint 498](PROGRESS-498.md)
+- [Checkpoint 499 publication record](CHECKPOINT-499.json)
+- [Saved report for checkpoint 499](PROGRESS-499.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
