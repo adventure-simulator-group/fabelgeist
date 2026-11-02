@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:14:29.065133+00:00
+Updated: 2026-11-02T21:18:34.747462+00:00
 
-Latest verified checkpoint: **511**. Goal: **active**.
+Latest verified checkpoint: **512**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,21 +18,21 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the specific material-bin collision premise against the locked native
-source. Shared unbatchable keys retain separate entities, and each draw fetches
-its entity material; bind caching uses actual bind-group identity. Preserved the
-rejected suspicion without adding an unnecessary identity repair.
+Completed 24 scoped checks across eight scatter shader paths. Traced the removed
+grass compute-cull entry point, replaced pebble programs, shrub interface
+changes and dedicated vista-card shader to current material owners. Preserved
+external shader literals and native numeric encodings without inventing internal
+string enums.
 
-No forced collision, renderer, pixel or performance run. This qualification
-applies to the current unbatchable path; broader native, lifecycle, alias and
-current-source checks remain open. Checklist stays at 87 of 767 closed, with 680
-open.
+111 of 767 newer cells are closed, with 656 open. Visual parity, culling, native
+compilation, geometry admission, unused shader fields/bindings and global
+reconciliation remain open. No product code or runtime validation.
 
 ## Working on now
 
-Continue renderer cache lifetime, native bounds and current-source
-reconciliation. The specific truncated-key wrong-material suspicion is rejected
-for the current unbatchable draw path.
+Continue remaining current-source perspectives and renderer admission, culling,
+texture, native and visual contracts. Eight scatter shader paths now have
+explicit ownership, enum-choice and native-string dispositions.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -181,6 +181,11 @@ for the current unbatchable draw path.
   suspicion from hash collisions, preserving the source conditions and future
   batching reassessment duty.
 
+- Compared eight changed scatter shader paths, including three deletions and
+  three additions, with their material owners. Recorded explicit retirement or
+  replacement and closed 24 ownership, enum-choice and native-string checks
+  while preserving visual and native validation duties.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -201,8 +206,8 @@ for the current unbatchable draw path.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 87 of those checks are closed. These are audit coverage obligations, not
-bug counts. Earlier revision evidence remains separately qualified.
+checks; 111 of those checks are closed. These are audit coverage obligations,
+not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3844 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
@@ -219,8 +224,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 511 publication record](CHECKPOINT-511.json)
-- [Saved report for checkpoint 511](PROGRESS-511.md)
+- [Checkpoint 512 publication record](CHECKPOINT-512.json)
+- [Saved report for checkpoint 512](PROGRESS-512.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
