@@ -1,0 +1,15 @@
+[package]
+name = "fabelgeist-buildings"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+
+[dependencies]
+bytemuck = { "version" = "1.16", "features" = ["derive"] }
+
+[dev-dependencies]
+naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
+
+[lints]
+workspace = true
