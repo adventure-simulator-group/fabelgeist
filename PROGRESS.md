@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:14:30.973769+00:00
+Updated: 2026-11-02T20:20:13.020518+00:00
 
-Latest verified checkpoint: **502**. Goal: **active**.
+Latest verified checkpoint: **503**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,20 +18,20 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed the magic-string perspective for the newer Cargo configuration change
-after reading complete before/after files. The added WebAssembly SIMD tokens are
-external compiler configuration, with no internal gameplay string owner to
-repair. This is the first explicit closure among the newest767 checklist cells.
+Completed twelve separate current-source dispositions for Cargo configuration,
+joining the earlier magic-string disposition. The whole path is now accounted
+for under all13 perspectives. Preserved the distinction between authored
+compiler policy and untested build/browser behavior.
 
-Exactly1 Lens12 cell closed; other766 newer cells remain. Older delta progress
-is preserved. No product build, compiler/browser validation, implementation or
-unique finding claimed.
+12 additional cells closed,13of767 newest cells total;754 remain. Earlier delta
+closures and all original lens frontiers are preserved. No product code, build,
+runtime pass or new unique finding.
 
 ## Working on now
 
-Closing exact current-source checklist cells independently. The Cargo
-configuration magic-string cell is complete; the other12 perspectives and58
-newer changed paths retain their own duties.
+The newer Cargo configuration change is source-accounted under all13
+perspectives. Continuing to the other58 newer changed paths and the remaining
+connected/global obligations.
 
 - Resolve the provisional admission question against exact historical predicates
   and the intended escape-choice contract.
@@ -136,6 +136,11 @@ newer changed paths retain their own duties.
   using complete before/after source. Recorded external compiler option
   ownership and left the other12 perspectives independent.
 
+- Completed the newer Cargo configuration path under all13 perspectives using
+  independent source assessments. Accounted for build policy, type ownership,
+  admission, aggregate modes, derivability and numeric/native option roles
+  without claiming compiler/browser validation.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -156,7 +161,7 @@ newer changed paths retain their own duties.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 1 of those checks are closed. These are audit coverage obligations, not
+checks; 13 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3838 entries. Entries and views overlap, so this is
@@ -174,8 +179,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 502 publication record](CHECKPOINT-502.json)
-- [Saved report for checkpoint 502](PROGRESS-502.md)
+- [Checkpoint 503 publication record](CHECKPOINT-503.json)
+- [Saved report for checkpoint 503](PROGRESS-503.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
