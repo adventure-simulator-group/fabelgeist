@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:02:31.101334+00:00
+Updated: 2026-11-02T22:06:46.113367+00:00
 
-Latest verified checkpoint: **521**. Goal: **active**.
+Latest verified checkpoint: **522**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,23 +18,23 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed the full inverse-kinematics coordinator review and read retained
-state, target publication and final observation support. Closed ownership and
-native-string checks. Qualified that culling skips the solve but not the later
-observer, and that target validation before retained publication does not roll
-back earlier local-pose writes. Updated five existing source journals.
+Traced final support through capture admission and actual report readers.
+Capture admits current IK observations, then initialized raised-footwork state
+overrides the general pair. General weights drive slip/drift/liveness/flight
+metrics; several contact-validity gates use the separate IK pair. Qualified the
+default native schedule order and refined four existing journal dispositions.
 
-160 of 767 newer cells are closed, with 607 open. No solver, schedule, rendering
-or product test ran. Current capture dispatch, supported error scenarios, nested
-helpers, all-writer lifecycle, numerical owners and exact global reconciliation
-remain open.
+Source routing is established; actual cache divergence or an incorrect runtime
+report was not demonstrated. No product tests or builds ran. Checklist remains
+160 of 767 newer cells complete, with 607 open. Exact aliases, other
+readers/native guarantees, implementation and runtime acceptance remain pending.
 
 ## Working on now
 
-Continue current-source reconciliation and connect final support observations to
-capture/report consumers. Full pose-buffer, procedural and IK coordinator
-parents are now reviewed; numerical/native helper admission, state lifetimes and
-exact canonical aliases remain independent.
+Continue current-source reconciliation with the capture support roles now traced
+through admission, sample dispatch and report readers. Repair scope preserves
+final measured contact separately from authored cadence/loading; actual native
+divergence and exact aliases remain qualified.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -253,8 +253,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 521 publication record](CHECKPOINT-521.json)
-- [Saved report for checkpoint 521](PROGRESS-521.md)
+- [Checkpoint 522 publication record](CHECKPOINT-522.json)
+- [Saved report for checkpoint 522](PROGRESS-522.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
