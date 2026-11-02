@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T19:15:03.415579+00:00
+Updated: 2026-11-02T19:22:33.678650+00:00
 
-Latest verified checkpoint: **494**. Goal: **active**.
+Latest verified checkpoint: **495**. Goal: **active**.
 
-The refactor remains in the source-audit phase. The required implementation gate
-is incomplete. L2 is the audit perspective that checks reuse of existing types;
-completing one of its named source questions does not complete the other audit
-perspectives or the refactor.
+The refactor remains in the required source audit. Its 13 perspectives include
+reuse of existing types and preservation of semantic values through native
+boundaries. Completing a scoped question or correcting an old status note does
+not complete the audit or authorize implementation.
 
 | Phase | Status |
 | --- | --- |
@@ -18,29 +18,30 @@ perspectives or the refactor.
 
 ## Latest checkpoint
 
-Mapped the named explicit camp-binding repair to inherited canonical record M40.
-Compared all73 indexed references and6 relevant inherited records, preserving
-distinct repair scopes and unresolved journal questions. Verified all5 M40
-source locations are covered by current qualified L2 evidence.
+Resolved stale adoption and partial-read notes in the SQL/SATS journal. The
+malformed-wire diagnostic finding was already adopted as canonical record 538,
+and the web type-adapter read was completed at READ-L12-798. Authenticated the
+existing lens-12 source evidence at the selected revision without new read
+credit.
 
-One named canonical repair linkage completed. The mixed identity parent,
-unresolved journal/native bridge questions, standalone historical aliases and
-broader gates remain open; no new unique bug or source-read credit.
+Only historical status clauses superseded. Native normalization, caller
+semantics, exact aliases and the whole journal remain open; no product code or
+runtime validation.
 
 ## Working on now
 
-Following the remaining journal and historical alias authorities after linking
-camp binding to inherited M40. The candidate comparisons preserve the lens12
-journal scopes and independent lens-specific source obligations.
+Following the remaining camp/optional-continuation journal scope and standalone
+historical aliases. The SQL/SATS diagnostic erasure and checked-constructor
+bypass now have explicitly separate repair references.
 
-- Resolve the exact linked native SQL/SATS malformed-wire question and the mixed
-  camp/optional-continuation journal scope.
+- Resolve the remaining mixed camp/local-trial and optional-continuation
+  source/policy scope without transferring other lens evidence.
 
-- Inspect standalone historical/accepted alias authorities and reconcile
-  current-source and migration-family records.
+- Qualify actual native SQL/SATS normalization and caller contracts that remain
+  after the source-adoption status correction.
 
-- Complete remaining required audit obligations before product implementation
-  and validation.
+- Continue standalone alias, current-source and migration-family reconciliation
+  before implementation.
 
 ## Work completed since the handoff
 
@@ -99,6 +100,11 @@ journal scopes and independent lens-specific source obligations.
   preserving separate chronology, spatial coordinate, outcome/error and
   lifecycle obligations.
 
+- Corrected stale SQL/SATS journal status using authenticated existing lens-12
+  adoption and completed adapter-read evidence. Kept malformed-wire diagnostic
+  erasure separate from the native checked-constructor bypass and awarded no new
+  read credit.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -137,8 +143,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 494 publication record](CHECKPOINT-494.json)
-- [Saved report for checkpoint 494](PROGRESS-494.md)
+- [Checkpoint 495 publication record](CHECKPOINT-495.json)
+- [Saved report for checkpoint 495](PROGRESS-495.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

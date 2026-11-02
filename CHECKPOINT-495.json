@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 495,
+  "at": "2026-11-02T19:22:09.374603+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "fff5c85432e179951550d197cd62bb6e2dd82fe4fb2cd9ca8c392713be834ad7",
+    "verification": "267af63fd9d4688459096854c3a622d94052d0b08edb2b2964cc823560d18943",
+    "canonical_current": "ad877c0e8371e874b8358a8ae41a23d2dba1e4754b47cb7e54195eb7cabb8616"
+  },
+  "scope": {
+    "summary": "Resolved stale adoption and partial-read notes in the SQL/SATS journal. The malformed-wire diagnostic finding was already adopted as canonical record 538, and the web type-adapter read was completed at READ-L12-798. Authenticated the existing lens-12 source evidence at the selected revision without new read credit.",
+    "scope_limit": "Only historical status clauses superseded. Native normalization, caller semantics, exact aliases and the whole journal remain open; no product code or runtime validation."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "12322427310dd310e0cd30b79ad11b91a15ffcdb3c8c4c6c8bb35f7a07bb1b76",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
