@@ -151,6 +151,9 @@
 
         let started = false;
 
+        // The game's loading screen calls this from its Exit button.
+        window.exitTactical = () => history.back();
+
         function setCollapsed(collapsed) {
             overlayEl.classList.toggle('collapsed', collapsed);
             toggleBtn.textContent = collapsed ? '▸' : '▾';

@@ -234,7 +234,7 @@ pub(super) fn sync(world: &mut World) {
         if draw_city
             && state.city.pending.is_none()
             && state.city.installed.is_some()
-            && crate::strategic_scene::status::waiting_pipelines() == 0
+            && crate::presentation::pipeline_readiness::waiting_pipelines() == 0
         {
             state.city.settled_frames = state
                 .city

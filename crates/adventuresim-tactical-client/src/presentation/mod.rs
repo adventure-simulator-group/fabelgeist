@@ -11,6 +11,8 @@
 
 mod atmosphere;
 mod buildings;
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod canvas_view;
 mod cloud_bake_assets;
 mod clouds;
 mod config;
@@ -41,10 +43,12 @@ use celestial_materials::update_celestial_material_lighting;
 mod materials;
 mod obstacles;
 pub(crate) mod ownership;
+pub(crate) mod pipeline_readiness;
 pub(crate) mod preparation;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
 pub(crate) mod recipe_mesh;
+pub(crate) mod scene_readiness;
 mod sky;
 mod strategic_scene_assets;
 mod terrain;
@@ -74,6 +78,7 @@ use obstacles::rock::TacticalRockMaterial;
 use obstacles::tree::*;
 use procedural::*;
 use procedural_texture_setup::setup_procedural_texture_assets;
+pub(crate) use scene_readiness::is_required_scene_asset;
 use sky::*;
 pub(crate) use terrain::PendingTerrainPresentation;
 use terrain::*;
