@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 506,
+  "at": "2026-11-02T20:37:00.666942+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "169a47163810fae8cd27bc06d905734532178df3fb23b664f5f774bc67b504c5",
+    "verification": "c7086af5a185ae0345c800ea07b8557994a953653fe9d2319bc1f7043a811e82",
+    "canonical_current": "d0e2d4cb2c6ff069736f373f6d503b04cbcceb948b6d1b23cf3c489e7beae081"
+  },
+  "scope": {
+    "summary": "Read eight renderer-core files and five producer files. Traced instance packing, buffer preparation, material/pipeline queueing and indexed draws. Closed eight magic-string cells and retained five provisional questions about fade/grid admission, empty GPU updates, view retirement and material bin keys. Current positive constants and nonempty spawn narrow the suspected failures.",
+    "scope_limit": "60of767 newest cells closed;707 remain. Other perspectives have source assessments without closure. Five questions are not five accepted bugs; no malformed input, GPU draw, leak, compiler or runtime test was executed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d7fe2a08ea7e4114863252018297d9441bd3ed59c503c5e62bf3ccfc911add89",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

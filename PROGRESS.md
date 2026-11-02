@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:30:25.444495+00:00
+Updated: 2026-11-02T20:38:02.250525+00:00
 
-Latest verified checkpoint: **505**. Goal: **active**.
+Latest verified checkpoint: **506**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,20 +18,21 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed26 current-source dispositions for the workspace and tactical-client
-manifests. The only parsed changes remove the bevy_eidolon dependency, its
-inherited use and fork patch. Preserved the separate renderer implementation and
-full lock-resolution duties.
+Read eight renderer-core files and five producer files. Traced instance packing,
+buffer preparation, material/pipeline queueing and indexed draws. Closed eight
+magic-string cells and retained five provisional questions about fade/grid
+admission, empty GPU updates, view retirement and material bin keys. Current
+positive constants and nonempty spawn narrow the suspected failures.
 
-26 additional cells closed:52of767 newest cells complete,715 remain. No
-renderer/build pass, full lockfile closure, new unique finding or implementation
-claimed.
+60of767 newest cells closed;707 remain. Other perspectives have source
+assessments without closure. Five questions are not five accepted bugs; no
+malformed input, GPU draw, leak, compiler or runtime test was executed.
 
 ## Working on now
 
-Both manifests are source-accounted at their native declaration boundary. Next
-are the actual renderer changes and lock resolution, which retain independent
-obligations.
+Tracing configured fade admission and exact native renderer lifecycle/layout
+contracts. The eight core renderer files and five producer files have bounded
+source evidence; other perspectives retain specific questions.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -150,6 +151,11 @@ obligations.
   Cargo declaration boundary. Verified exact dependency/patch removal while
   leaving renderer code, shaders and lock resolution independently pending.
 
+- Traced the new chunk renderer through five foliage producers. Recorded
+  CPU/shader declaration agreement and concrete admission/lifecycle questions
+  while distinguishing valid current constants and nonempty spawning from
+  unproved failure paths.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -170,10 +176,10 @@ obligations.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 52 of those checks are closed. These are audit coverage obligations, not
+checks; 60 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3839 entries. Entries and views overlap, so this is
+The canonical queue contains 3844 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -188,8 +194,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 505 publication record](CHECKPOINT-505.json)
-- [Saved report for checkpoint 505](PROGRESS-505.md)
+- [Checkpoint 506 publication record](CHECKPOINT-506.json)
+- [Saved report for checkpoint 506](PROGRESS-506.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
