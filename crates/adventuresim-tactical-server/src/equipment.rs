@@ -14,14 +14,14 @@ use attachment::attachment_topology;
 mod environment;
 mod fit;
 mod lifecycle;
+mod scene_items;
 mod transfer;
 
+use scene_items::{drop_hand, pickup};
 use transfer::transfer_slot;
 
 use environment::EquipmentEnvironment;
 pub(crate) use lifecycle::{purge_equipment_lifecycle, reconnect_equipment_lifecycle};
-
-const PICKUP_RANGE_M: f32 = 2.0;
 
 pub(crate) struct TacticalEquipmentPlugin;
 
@@ -501,130 +501,6 @@ fn transfer_hand(
     moving.is_some() || swapped.is_some()
 }
 
-fn drop_hand(
-    commands: &mut Commands,
-    actor: Entity,
-    hand: EquipmentHand,
-    players: &Query<(&Transform, &CharacterLook), With<Player>>,
-    items: &Query<ItemView<'_>>,
-    spatial: &SpatialQuery,
-) -> bool {
-    let Some(item) = hand_item(actor, hand, items) else {
-        return false;
-    };
-    if has_children(item, items) {
-        return false;
-    }
-    let Ok((_, _, _, _, _, physical, _, _)) = items.get(item) else {
-        return false;
-    };
-    let Some(physical) = physical.copied().filter(|physical| physical.is_valid()) else {
-        return false;
-    };
-    let Ok((actor_transform, _)) = players.get(actor) else {
-        return false;
-    };
-    let shape = Collider::cuboid(
-        physical.dimensions_m.x,
-        physical.dimensions_m.y,
-        physical.dimensions_m.z,
-    );
-    let Some(position) = [0.9_f32, 1.2, 1.5].into_iter().find_map(|distance| {
-        let grip =
-            actor_transform.translation + *actor_transform.forward() * distance + Vec3::Y * 0.65;
-        let centre = item_box_center(grip, &physical);
-        spatial
-            .shape_intersections(
-                &shape,
-                centre,
-                Quat::IDENTITY,
-                &SpatialQueryFilter::from_excluded_entities([item]),
-            )
-            .is_empty()
-            .then_some(grip)
-    }) else {
-        return false;
-    };
-    let collider = Collider::compound(vec![(-physical.anchor_offset_m, Quat::IDENTITY, shape)]);
-    commands
-        .entity(item)
-        .remove::<ItemOf>()
-        .remove::<EquipSlot>()
-        .insert((
-            EquipmentTopology::default(),
-            TacticalSceneItem,
-            Transform::from_translation(position),
-            RigidBody::Dynamic,
-            collider,
-            CollisionLayers::new(TACTICAL_ITEM_LAYER, TACTICAL_TERRAIN_LAYER),
-        ));
-    true
-}
-
-fn item_box_center(grip: Vec3, physical: &TacticalEquipmentPhysical) -> Vec3 {
-    grip - physical.anchor_offset_m
-}
-
-fn pickup(
-    commands: &mut Commands,
-    actor: Entity,
-    hand: EquipmentHand,
-    requested: Entity,
-    players: &Query<(&Transform, &CharacterLook), With<Player>>,
-    items: &Query<ItemView<'_>>,
-    spatial: &SpatialQuery,
-) -> bool {
-    if hand_item(actor, hand, items).is_some() {
-        return false;
-    }
-    let Ok((actor_transform, _)) = players.get(actor) else {
-        return false;
-    };
-    let Ok((_, _, _, _, _, physical, scene, item_transform)) = items.get(requested) else {
-        return false;
-    };
-    let Some((physical, item_transform)) = physical
-        .filter(|physical| physical.is_valid())
-        .zip(item_transform)
-        .filter(|_| scene)
-    else {
-        return false;
-    };
-    let item_position = item_box_center(item_transform.translation, physical);
-    if item_position.distance_squared(actor_transform.translation) > PICKUP_RANGE_M * PICKUP_RANGE_M
-    {
-        return false;
-    }
-    let origin = actor_transform.translation + Vec3::Y * 0.6;
-    let sight = item_position - origin;
-    let distance = sight.length();
-    let Ok(direction) = Dir3::new(sight) else {
-        return false;
-    };
-    // Terrain/support LOS is evaluated separately from item pointing; item
-    // boxes therefore do not become combat/visibility blockers.
-    let blocker_filter = SpatialQueryFilter::from_mask(TACTICAL_TERRAIN_LAYER);
-    if spatial
-        .cast_ray(origin, direction, distance, true, &blocker_filter)
-        .is_some()
-    {
-        return false;
-    }
-    commands
-        .entity(requested)
-        .remove::<TacticalSceneItem>()
-        .remove::<RigidBody>()
-        .remove::<Collider>()
-        .remove::<CollisionLayers>()
-        .insert((
-            ItemOf(actor),
-            hand_topology(hand),
-            hand.slot(),
-            Transform::default(),
-        ));
-    true
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -791,20 +667,6 @@ mod tests {
             &occupancy(0),
             &occupancy(1)
         ));
-    }
-
-    #[test]
-    fn pickup_box_center_accounts_for_nonzero_anchor_offset() {
-        let physical = TacticalEquipmentPhysical {
-            dimensions_m: Vec3::splat(0.2),
-            grip_to_tip_m: 0.4,
-            striking_head_length_m: 0.2,
-            anchor_offset_m: Vec3::new(0.15, -0.05, 0.1),
-        };
-        assert_eq!(
-            item_box_center(Vec3::new(2.0, 1.0, -3.0), &physical),
-            Vec3::new(1.85, 1.05, -3.1)
-        );
     }
 
     fn spawn_test_item(
