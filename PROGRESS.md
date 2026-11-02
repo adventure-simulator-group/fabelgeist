@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T18:55:17.338653+00:00
+Updated: 2026-11-02T19:00:34.755788+00:00
 
-Latest verified checkpoint: **491**. Goal: **active**.
+Latest verified checkpoint: **492**. Goal: **active**.
 
 The refactor remains in the source-audit phase. The required implementation gate
 is incomplete. L2 is the audit perspective that checks reuse of existing types;
@@ -18,20 +18,19 @@ perspectives or the refactor.
 
 ## Latest checkpoint
 
-Selected distinct complete frame, trial and challenge key owners and one shared
-errantry identity decoder retaining kind, namespace, character and ordinal.
-Included both puzzle and road-encounter keys; preserved generic opaque key
-admission and existing scoped selection guards.
+Qualified the native identity-validation boundary against locked
+SpacetimeDB2.6.1 source. CaseSiteId validates through Serde, while its active
+native derive constructs the string field directly. Selected a checked native
+adapter repair and recorded actual reducer/feature evidence.
 
-Named owner policy selected using prior source evidence. Native/all-route
-admission, canonical contract ownership, exact global aliases and broader audit
-gates remain incomplete.
+One named native admission dependency qualified. No malformed payload was run;
+repair, generator, native runtime acceptance and global reconciliation remain
+open.
 
 ## Working on now
 
-Reconciling the native admission, contract ownership and exact alias
-dependencies that remain after the journey carrier and full identity policies
-were recorded.
+Reconciling canonical contract identity and remaining native/view/URL boundaries
+after documenting the checked native decoding requirement.
 
 - Trace canonical contract-key ownership and actual native/view/URL identity
   admission dependencies.
@@ -84,6 +83,11 @@ were recorded.
   distinctions. Recorded actual native/web filter behavior and later acceptance
   requirements; no runtime incident or global closure claimed.
 
+- Traced the active native identity codec against exact locked SDK sources.
+  Recorded that Serde validation does not govern the independent SATS decoder
+  and selected checked native construction; no bad payload or live incident was
+  executed.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -122,8 +126,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 491 publication record](CHECKPOINT-491.json)
-- [Saved report for checkpoint 491](PROGRESS-491.md)
+- [Checkpoint 492 publication record](CHECKPOINT-492.json)
+- [Saved report for checkpoint 492](PROGRESS-492.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
