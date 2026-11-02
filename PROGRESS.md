@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:10:36.713131+00:00
+Updated: 2026-11-02T21:14:29.065133+00:00
 
-Latest verified checkpoint: **510**. Goal: **active**.
+Latest verified checkpoint: **511**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,21 +18,21 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the locked native chunk-instance representation and byte-cast source.
-Ordinary scalar Vec3 and declared vertex format sizes support the expected
-24-byte record on the supported alignment basis. Kept raw GPU payload validity
-separate from checked semantic admission.
+Resolved the specific material-bin collision premise against the locked native
+source. Shared unbatchable keys retain separate entities, and each draw fetches
+its entity material; bind caching uses actual bind-group identity. Preserved the
+rejected suspicion without adding an unnecessary identity repair.
 
-Source and language-contract evidence only; no target compilation, byte-cast
-execution or GPU validation. No additional checklist closure: 87 of 767 newer
-cells are closed, with 680 open. Native bounds, lifecycle, global reconciliation
-and implementation remain pending.
+No forced collision, renderer, pixel or performance run. This qualification
+applies to the current unbatchable path; broader native, lifecycle, alias and
+current-source checks remain open. Checklist stays at 87 of 767 closed, with 680
+open.
 
 ## Working on now
 
-Continue current renderer admission, native buffer/index bounds, cache lifetime,
-visual and broader source reconciliation. Locked scalar Vec3 and raw GPU payload
-layout are now source-qualified.
+Continue renderer cache lifetime, native bounds and current-source
+reconciliation. The specific truncated-key wrong-material suspicion is rejected
+for the current unbatchable draw path.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -176,6 +176,11 @@ layout are now source-qualified.
   vertex sizes, and recorded why finite-only bespoke values must be lowered into
   a separate raw Pod payload.
 
+- Traced locked Bevy unbatchable storage, CPU/GPU preparation, per-entity draw
+  queries and bind caching. Rejected the specific wrong-material substitution
+  suspicion from hash collisions, preserving the source conditions and future
+  batching reassessment duty.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -214,8 +219,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 510 publication record](CHECKPOINT-510.json)
-- [Saved report for checkpoint 510](PROGRESS-510.md)
+- [Checkpoint 511 publication record](CHECKPOINT-511.json)
+- [Saved report for checkpoint 511](PROGRESS-511.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
