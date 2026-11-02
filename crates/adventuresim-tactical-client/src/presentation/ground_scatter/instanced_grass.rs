@@ -71,7 +71,7 @@ pub(crate) struct InstancedGrassPlugin;
 
 /// Marks scenes whose instanced sward has been generated.
 #[derive(Component)]
-pub(super) struct InstancedGrassPresented;
+pub(in crate::presentation) struct InstancedGrassPresented;
 
 /// Smoothing state for the grass interaction uniforms.
 #[derive(Resource, Default)]

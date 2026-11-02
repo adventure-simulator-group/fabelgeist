@@ -251,11 +251,14 @@ if (surface && canvas) {
       character_id: Number(link.dataset.characterId),
     });
   });
-  window.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !document.body.hasAttribute("data-tactical-active")) return;
+  window.exitTactical = () => {
+    if (!document.body.hasAttribute("data-tactical-active")) return;
     document.body.removeAttribute("data-tactical-active");
     command({ type: "exit-tactical" });
     mount();
     document.dispatchEvent(new Event("strategic-tactical-ended"));
+  };
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") window.exitTactical();
   });
 }

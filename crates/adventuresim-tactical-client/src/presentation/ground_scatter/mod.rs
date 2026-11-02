@@ -33,7 +33,7 @@ use super::{
     stable_text_seed,
 };
 
-use layers::GroundScatterPresented;
+pub(in crate::presentation) use layers::GroundScatterPresented;
 pub(crate) use layers::{GrassInteractor, GroundScatterLayer};
 pub(crate) use plants::{PlantCaptureAnchors, PlantLodInstance};
 
@@ -43,8 +43,9 @@ use specimens::ensure_understory_presentations;
 use scene_mask::{GroundScatterSceneQuery, scatter_ground_without_patch};
 
 pub(in crate::presentation) use instanced_grass::{
-    GrassWorld, InstancedGrassPlugin, MINIMUM_GRASS_SLOPE_NORMAL_Y, TacticalGrassInstancedMaterial,
-    TierSpeciesBatches, TuftPigment, TuftPlacement, scatter_cell_tufts, spawn_tuft_batches,
+    GrassWorld, InstancedGrassPlugin, InstancedGrassPresented, MINIMUM_GRASS_SLOPE_NORMAL_Y,
+    TacticalGrassInstancedMaterial, TierSpeciesBatches, TuftPigment, TuftPlacement,
+    scatter_cell_tufts, spawn_tuft_batches,
 };
 pub(in crate::presentation) use instanced_understory::{
     TacticalShrubBarkInstancedMaterial, TacticalShrubLeafInstancedMaterial,

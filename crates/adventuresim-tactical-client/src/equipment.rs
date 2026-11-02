@@ -54,7 +54,6 @@ mod icons;
 mod placeholder_update;
 mod placeholder_visual;
 mod preview;
-#[cfg(any(target_family = "wasm", test))]
 pub(crate) mod readiness;
 mod render_binding;
 pub(crate) mod runtime_equipment;
@@ -195,6 +194,10 @@ struct WeaponIconCacheKey {
     supersampling: u8,
 }
 
+/// Equipment overlays, which the game holds back while a scene is loading.
+#[derive(SystemSet, Clone, Copy, Debug, Eq, Hash, PartialEq)]
+pub(crate) struct EquipmentHudSet;
+
 #[derive(Component)]
 pub(crate) struct ItemPlaceholder(pub(crate) Entity);
 
@@ -238,7 +241,10 @@ impl Plugin for TacticalEquipmentPlugin {
                 update_grab_input.after(bevy::input::InputSystems),
             )
             .add_systems(Update, update_pickup_outlines)
-            .add_systems(EguiPrimaryContextPass, draw_slot_hud);
+            .add_systems(
+                EguiPrimaryContextPass,
+                draw_slot_hud.in_set(EquipmentHudSet),
+            );
     }
 }
 

@@ -75,6 +75,36 @@ generation path. Generation-time layer fitting and closed-shell validation do
 not establish collision-free animation. Independent plate articulation and
 contact correction are separate work.
 
+## Tactical loading screen
+
+Spawning a tactical client, on native startup or browser `enter-tactical`,
+starts a load. An opaque overlay with one progress bar per stage covers the
+scene while it builds behind it, because render pipelines only compile for
+what is actually drawn. Player input, cursor capture and the egui overlays stay
+held until the reveal.
+
+The stages are connection, joining the scene, textures, terrain, distant
+landscape, trees, ground cover, sky, equipment, the local character's pose and
+shaders. Each reads the marker left by the system doing that work. Trees and
+shaders have no known total, so their largest observed backlog stands in for
+one. Tree, vista and ground-cover generation run inside a single frame, so
+those bars jump from empty to full while that frame blocks.
+
+When every stage has been finished for four consecutive frames the overlay
+fades out over 0.6 seconds. A load fails if the connection ends, a required
+asset cannot be loaded, or no stage changes for 90 seconds of game time, which
+stops while a browser tab is in the background. The equipment stage finishes
+once generation has fitted or failed everything characters carry, so an item
+that cannot be generated is logged and left out rather than ending the load.
+Failure shows the reason with Retry, which spawns a new client for the same
+server and character, and Exit, which quits the native client or calls the host
+page's `window.exitTactical()` in the browser.
+
+Pipelines first used after the reveal, such as those for objects outside the
+initial view, can still compile during play. A connection lost after the reveal
+keeps the HUD's existing "Disconnected" status. Headless clients run without
+the screen, so automation controls input from the first frame.
+
 ## Browser release builds
 
 `just build-wasm` keeps the gameplay client on the workspace `release` profile

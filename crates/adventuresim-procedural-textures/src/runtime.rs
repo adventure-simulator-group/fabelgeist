@@ -57,6 +57,13 @@ impl ProceduralTextureResidency {
             .all(|recipe| self.installed.contains(&recipe))
     }
 
+    pub fn installed_count(&self, recipes: impl IntoIterator<Item = TextureRecipeId>) -> usize {
+        recipes
+            .into_iter()
+            .filter(|recipe| self.installed.contains(recipe))
+            .count()
+    }
+
     pub fn requested_container_count(&self) -> usize {
         self.requested.len()
     }

@@ -16,17 +16,18 @@ use bevy::{
     prelude::*,
 };
 use bevy_egui::{
-    EguiContext, EguiContexts, EguiGlobalSettings, EguiPlugin, EguiPrimaryContextPass,
-    PrimaryEguiContext,
+    EguiContexts, EguiGlobalSettings, EguiPlugin, EguiPrimaryContextPass,
     egui::{self, Color32, Pos2, Stroke},
 };
 use bevy_flair::prelude::*;
 
 mod combat_state;
+mod gameplay_camera;
 
 #[cfg(test)]
 use combat_state::incapacitation_wheel_segments;
 use combat_state::{combat_state_label, forecast_wheel_segments};
+use gameplay_camera::pin_ui_to_gameplay_camera;
 
 #[cfg(feature = "debug")]
 use crate::animation::TerrainIkMode;
@@ -49,24 +50,6 @@ pub struct UiPlugin;
 #[derive(Component)]
 pub(crate) struct TacticalUiRoot;
 
-/// Pins the primary egui context to the gameplay camera. The automatic
-/// first-camera adoption is disabled in `UiPlugin::build`, so cameras that
-/// render offscreen never receive UI passes.
-fn attach_primary_egui_context(
-    mut commands: Commands,
-    cameras: Query<
-        Entity,
-        (
-            Added<crate::presentation::TacticalGameplayCamera>,
-            Without<EguiContext>,
-        ),
-    >,
-) {
-    for camera in &cameras {
-        commands.entity(camera).insert(PrimaryEguiContext);
-    }
-}
-
 impl Plugin for UiPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((FlairPlugin, EguiPlugin::default()));
@@ -77,10 +60,10 @@ impl Plugin for UiPlugin {
             // bevy_egui would otherwise adopt the first camera it sees as
             // the primary context, which can be the offscreen cloud camera
             // whose Rgba16Float target the egui pipeline cannot render to.
-            .add_systems(PreUpdate, attach_primary_egui_context)
+            .add_systems(PreUpdate, pin_ui_to_gameplay_camera)
             .add_systems(
                 EguiPrimaryContextPass,
-                draw_incapacitation_wheel.run_if(any_with_component::<ClientPlayer>),
+                draw_incapacitation_wheel.run_if(crate::loading_screen::local_player_revealed),
             )
             .add_systems(
                 Update,
@@ -941,11 +924,12 @@ fn on_new_player_added_hook(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use bevy_egui::{EguiContext, PrimaryEguiContext};
 
     #[test]
     fn strategic_scene_cameras_do_not_receive_tactical_egui_contexts() {
         let mut app = App::new();
-        app.add_systems(Update, attach_primary_egui_context);
+        app.add_systems(Update, pin_ui_to_gameplay_camera);
         let gameplay = app
             .world_mut()
             .spawn((

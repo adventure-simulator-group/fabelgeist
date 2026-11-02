@@ -3,6 +3,7 @@ use crate::equipment::{
     ItemPlaceholder, ProceduralEquipmentFailed, ProceduralEquipmentPart,
     ProceduralEquipmentResolved, runtime_equipment::RuntimeEquipmentPresentation,
 };
+use adventuresim_tactical_core::prelude::{CharacterId, ItemOf};
 use bevy::ecs::system::SystemParam;
 use bevy::prelude::*;
 
@@ -18,9 +19,20 @@ type EquipmentRootState = (
 pub(crate) struct EquipmentReadiness<'w, 's> {
     roots: Query<'w, 's, EquipmentRootState>,
     parts: Query<'w, 's, (&'static ProceduralEquipmentPart, &'static Visibility)>,
+    generated: Query<
+        'w,
+        's,
+        (
+            &'static RuntimeEquipmentPresentation,
+            Has<ProceduralEquipmentResolved>,
+        ),
+    >,
+    owners: Query<'w, 's, &'static ItemOf>,
+    characters: Query<'w, 's, (), With<CharacterId>>,
 }
 
 impl EquipmentReadiness<'_, '_> {
+    #[cfg(any(target_family = "wasm", test))]
     pub(crate) fn pending_summary(&self, items: impl Iterator<Item = Entity>) -> String {
         let items: std::collections::HashSet<_> = items.collect();
         let roots = self
@@ -50,6 +62,20 @@ impl EquipmentReadiness<'_, '_> {
         )
     }
 
+    /// Whether generation has finished, successfully or not, for everything
+    /// characters carry. Play goes on without an item that cannot be generated,
+    /// and attaching the result is up to the rig, which may hide it on purpose.
+    pub(crate) fn settled(&self) -> bool {
+        self.generated.iter().all(|(presentation, resolved)| {
+            let carried = self
+                .owners
+                .get(presentation.item)
+                .is_ok_and(|owner| self.characters.contains(owner.0));
+            resolved || !carried
+        })
+    }
+
+    #[cfg(any(target_family = "wasm", test))]
     pub(crate) fn check(&self, items: impl Iterator<Item = Entity>) -> Result<bool, &'static str> {
         let items: std::collections::HashSet<_> = items.collect();
         let mut ready = 0;
