@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T20:06:30.786037+00:00
+Updated: 2026-11-02T20:09:12.562015+00:00
 
-Latest verified checkpoint: **500**. Goal: **active**.
+Latest verified checkpoint: **501**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,19 +18,21 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the native death transition and linked current injury settlement order to
-the existing injury terminal-clock finding. Injury death can read the old
-personal clock before elapsed time is written; ordinary disease finish reads
-after the clock update. Kept delayed-choice rollback separate.
+Qualified all9 direct injury-settlement call sites at the selected revision.
+Each settles injuries before personal-clock publication and finishes disease
+afterward. Expanded the existing repair scope across activity, travel/wait
+modes, both rest modes, stationary advancement and the illness fixture; retained
+their different recovery and terminal-control-flow roles.
 
-One named current-source dependency qualified, no new unique finding or whole-
-case closure. All callers, supported terminal admission and runtime acceptance
-remain open; implementation has not started.
+Direct source coverage only, with no new read credit or unique finding. Indirect
+callers, admitted terminal scenarios, native side effects, exact global
+reconciliation and runtime acceptance remain open.
 
 ## Working on now
 
-Reconciling the existing injury terminal-clock repair across all time callers,
-preserving separate disease timing and delayed-choice rollback semantics.
+The9 direct injury-settlement call sites are source-accounted. Remaining work
+concerns enclosing caller outcomes, exact native death side effects, competing
+terminal causes and broader audit gates.
 
 - Resolve the provisional admission question against exact historical predicates
   and the intended escape-choice contract.
@@ -127,6 +129,10 @@ preserving separate disease timing and delayed-choice rollback semantics.
   canonical injury-clock finding. Retained the single clock owner and existing
   death types; distinguished disease-after-clock timing and road-delay rollback.
 
+- Accounted for all9 exact direct injury-settlement call sites under the
+  existing injury-clock repair, preserving each recovery role and terminal-
+  control-flow policy. No product code or runtime check was performed.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -165,8 +171,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 500 publication record](CHECKPOINT-500.json)
-- [Saved report for checkpoint 500](PROGRESS-500.md)
+- [Checkpoint 501 publication record](CHECKPOINT-501.json)
+- [Saved report for checkpoint 501](PROGRESS-501.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
