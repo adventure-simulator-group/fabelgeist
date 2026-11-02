@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:30:54.487480+00:00
+Updated: 2026-11-02T22:36:12.140178+00:00
 
-Latest verified checkpoint: **526**. Goal: **active**.
+Latest verified checkpoint: **527**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,23 +18,25 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified ten current loading/readiness source bodies and the locked native
-asset-failure and pipeline-waiting boundaries. Refined the existing
-error/readiness journal with concrete ownership and state distinctions; retained
-intentional equipment failure policy. The source fetch recorded as pending in
-checkpoint525 has since completed successfully.
+Closed enum-choice and native-string assessments for equipment settlement,
+canvas rectangles, scene-readiness observations, gameplay-camera binding and
+netcode exports. Traced parent/browser wiring and qualified the native
+disconnect carrier and event-borrow API. Updated two existing journal questions
+rather than accepting duplicate findings.
 
-This checkpoint closes no matrix cells: the newest revision remains 0 of 403
-checks complete; the previous revision retains 189 of 767. Parent/browser
-wiring, required pipeline identity, retry/view scope, exact aliases and broader
-audit reconciliation remain open. No product implementation, independent review
-or runtime validation has begun.
+The newest revision now has 10 of 403 checks complete, with 393 open. The
+preceding revision retains 189 of 767 complete, with 578 open. Required-work
+policy, non-cloneable error retention, client cleanup/re-entry, view provenance,
+all other perspectives and global reconciliation remain incomplete. Tests were
+read, not run; product implementation, review and runtime validation have not
+begun.
 
 ## Working on now
 
-Trace the new loading and readiness paths at pinned main ff9c1d7, including
-typed failure ownership, required render work, retry lifetimes, and
-browser/camera wiring. Earlier revision evidence remains separate.
+Continue the new loading/browser audit at pinned main ff9c1d7: required work
+versus optional failures, connection-error ownership, client identity and
+retry/exit lifetime. Ten small enum/string checks are complete; broader source
+and repair reconciliation remains open.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -222,6 +224,14 @@ browser/camera wiring. Earlier revision evidence remains separate.
   loading screen currently drops. Preserved the explicit policy allowing play
   after failed equipment generation settles.
 
+- Traced full current parent setup, browser command drain, presentation facade
+  and netcode exports, with bounded UI and join/reconnect support. Authenticated
+  the native disconnect enum and observer borrow API. Distinguished cloneable
+  asset failures from non-cloneable connection errors, preserved optional render
+  failures, and linked re-entry identity behavior to an existing journal. Closed
+  ten enum/string checks across five small paths without claiming lifecycle or
+  runtime success.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -242,7 +252,7 @@ browser/camera wiring. Earlier revision evidence remains separate.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 0 of those checks are closed. These are audit coverage obligations, not
+checks; 10 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -260,8 +270,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 526 publication record](CHECKPOINT-526.json)
-- [Saved report for checkpoint 526](PROGRESS-526.md)
+- [Checkpoint 527 publication record](CHECKPOINT-527.json)
+- [Saved report for checkpoint 527](PROGRESS-527.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
