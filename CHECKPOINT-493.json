@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 493,
+  "at": "2026-11-02T19:04:53.712786+00:00",
+  "selected_source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "local_evidence_sha256": {
+    "checkpoint": "9a8f7e1285bc3292edbcddf8e978b65fa7b24a168e8fa577deba997854fc2254",
+    "verification": "c47e1c987054ce57c0a7ede6cd4aa653e2e1848e9cf8818b448ca493d61d7e97",
+    "canonical_current": "01f8cfb78ced72f44d95b94f8dc7cfd37b067c613b7e03eff7bd701d23c65149"
+  },
+  "scope": {
+    "summary": "Traced contract keys through native lifecycle handling, the trusted backend view, web party conversion and command projection. Retained the existing ContractState lifecycle owner and mapped stale abandonment to its existing canonical repair record; typed keys alone do not establish the active-party relation.",
+    "scope_limit": "One named contract identity dependency qualified. All-producer admission, exact global/current reconciliation and direct/HTTP/queued acceptance remain open; no runtime witness or new unique bug claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "7dfaae0a6806541e311f6a4a3372728ea26345f7cf6336e06be6d25a40d1e8fc",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

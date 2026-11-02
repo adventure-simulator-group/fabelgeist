@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T19:00:34.755788+00:00
+Updated: 2026-11-02T19:05:35.007458+00:00
 
-Latest verified checkpoint: **492**. Goal: **active**.
+Latest verified checkpoint: **493**. Goal: **active**.
 
 The refactor remains in the source-audit phase. The required implementation gate
 is incomplete. L2 is the audit perspective that checks reuse of existing types;
@@ -18,19 +18,21 @@ perspectives or the refactor.
 
 ## Latest checkpoint
 
-Qualified the native identity-validation boundary against locked
-SpacetimeDB2.6.1 source. CaseSiteId validates through Serde, while its active
-native derive constructs the string field directly. Selected a checked native
-adapter repair and recorded actual reducer/feature evidence.
+Traced contract keys through native lifecycle handling, the trusted backend
+view, web party conversion and command projection. Retained the existing
+ContractState lifecycle owner and mapped stale abandonment to its existing
+canonical repair record; typed keys alone do not establish the active-party
+relation.
 
-One named native admission dependency qualified. No malformed payload was run;
-repair, generator, native runtime acceptance and global reconciliation remain
-open.
+One named contract identity dependency qualified. All-producer admission, exact
+global/current reconciliation and direct/HTTP/queued acceptance remain open; no
+runtime witness or new unique bug claimed.
 
 ## Working on now
 
-Reconciling canonical contract identity and remaining native/view/URL boundaries
-after documenting the checked native decoding requirement.
+Reconciling contract all-producer admission and the remaining current/global
+owner records, with the existing active-contract relation repair preserved as a
+separate contract.
 
 - Trace canonical contract-key ownership and actual native/view/URL identity
   admission dependencies.
@@ -88,6 +90,11 @@ after documenting the checked native decoding requirement.
   and selected checked native construction; no bad payload or live incident was
   executed.
 
+- Traced the connected contract identity/lifecycle path and mapped stale
+  abandonment to the existing active-party relation record. Distinguished the
+  shared key from existing ContractState lifecycle ownership and retained
+  direct/HTTP/queued acceptance requirements.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -126,8 +133,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 492 publication record](CHECKPOINT-492.json)
-- [Saved report for checkpoint 492](PROGRESS-492.md)
+- [Checkpoint 493 publication record](CHECKPOINT-493.json)
+- [Saved report for checkpoint 493](PROGRESS-493.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
