@@ -65,6 +65,12 @@ without itself resetting texture residency. The retained request map does not
 call the asset server again for an existing recipe. Early failure and retry
 behavior still need runtime verification and a complete lifecycle assessment.
 
+The art demo also requests selected textures and checks their readiness before
+checking an oak impostor failure. Strategic scene setup waits for the catalogue
+and separately retains a path-based asset error. Failure reset, missing-resource
+modes and native retry behavior remain open. These are source observations,
+with no runtime failure reproduced or audit cell closed.
+
 ## Working on now
 
 Trace scene-readiness marker populations against admitted scene input and
