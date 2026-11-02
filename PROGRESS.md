@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T22:24:03.348714+00:00
+Updated: 2026-11-02T22:30:54.487480+00:00
 
-Latest verified checkpoint: **525**. Goal: **active**.
+Latest verified checkpoint: **526**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,25 +18,23 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Observed main advancing to ff9c1d7 and registered its complete 31-path change
-inventory, adding 403 pending perspective checks. Four paths overlap the
-previous 59-path delta. Selected the new pinned source while preserving every
-earlier path disposition, journal and read attribution.
+Qualified ten current loading/readiness source bodies and the locked native
+asset-failure and pipeline-waiting boundaries. Refined the existing
+error/readiness journal with concrete ownership and state distinctions; retained
+intentional equipment failure policy. The source fetch recorded as pending in
+checkpoint525 has since completed successfully.
 
-The newly selected delta has 0 of 403 checks complete. The preceding delta
-retains 189 of 767 complete, with 578 open; these are separate revision-specific
-counts. Metadata registration grants no source coverage. The fetch session
-remains unconfirmed terminal although pinned objects are available and verified.
-Implementation, review, product validation and broader reconciliation remain
-pending.
+This checkpoint closes no matrix cells: the newest revision remains 0 of 403
+checks complete; the previous revision retains 189 of 767. Parent/browser
+wiring, required pipeline identity, retry/view scope, exact aliases and broader
+audit reconciliation remain open. No product implementation, independent review
+or runtime validation has begun.
 
 ## Working on now
 
-Reconcile the newly observed main revision ff9c1d7 alongside unfinished earlier
-deltas. Its 31 changed paths add 403 independent checks, including
-loading/readiness/browser changes. Earlier 3371425 source proofs remain
-preserved with 189 of 767 checks complete; no verdict automatically transfers to
-changed new source.
+Trace the new loading and readiness paths at pinned main ff9c1d7, including
+typed failure ownership, required render work, retry lifetimes, and
+browser/camera wiring. Earlier revision evidence remains separate.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -217,6 +215,13 @@ changed new source.
   skin borrowing through shared rig-name owners. Preserved lifecycle, membership
   and pose-continuity duties.
 
+- Read the new loading, progress, view, readiness and equipment-settlement
+  modules plus changed texture installation support. Authenticated the locked
+  native pipeline and asset-event boundaries: an empty waiting set does not
+  certify successful pipelines, and asset events retain typed causes that the
+  loading screen currently drops. Preserved the explicit policy allowing play
+  after failed equipment generation settles.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -255,8 +260,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 525 publication record](CHECKPOINT-525.json)
-- [Saved report for checkpoint 525](PROGRESS-525.md)
+- [Checkpoint 526 publication record](CHECKPOINT-526.json)
+- [Saved report for checkpoint 526](PROGRESS-526.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
