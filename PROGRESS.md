@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T18:51:54.955106+00:00
+Updated: 2026-11-02T18:55:17.338653+00:00
 
-Latest verified checkpoint: **490**. Goal: **active**.
+Latest verified checkpoint: **491**. Goal: **active**.
 
 The refactor remains in the source-audit phase. The required implementation gate
 is incomplete. L2 is the audit perspective that checks reuse of existing types;
@@ -18,29 +18,29 @@ perspectives or the refactor.
 
 ## Latest checkpoint
 
-Selected distinct zero-valid integer-minute quantities for journey movement and
-elapsed time. Existing absolute departure remains unchanged. Rejected seconds
-and quantized schedule types for these roles; identified existing challenge-ID
-parsers as partial projections.
+Selected distinct complete frame, trial and challenge key owners and one shared
+errantry identity decoder retaining kind, namespace, character and ordinal.
+Included both puzzle and road-encounter keys; preserved generic opaque key
+admission and existing scoped selection guards.
 
-One scoped quantity-carrier policy selected. Global aliases, broader current
-scope, full identity owners, implementation and acceptance remain open.
+Named owner policy selected using prior source evidence. Native/all-route
+admission, canonical contract ownership, exact global aliases and broader audit
+gates remain incomplete.
 
 ## Working on now
 
-Reconciling shared frame, trial and challenge identity ownership. Newly
-inspected server and web parsers retain different identity projections; their
-actual selection predicates are now documented without claiming a runtime
-defect.
+Reconciling the native admission, contract ownership and exact alias
+dependencies that remain after the journey carrier and full identity policies
+were recorded.
 
-- Resolve shared full identity ownership and native admission while preserving
-  legitimate namespaces and optional trials.
+- Trace canonical contract-key ownership and actual native/view/URL identity
+  admission dependencies.
 
-- Complete exact first-operation alias/current and migration-family
-  reconciliation for these retained records.
+- Reconcile exact first-operation aliases and current migration-family records
+  without transferring other audit perspectives.
 
-- Continue outstanding source obligations across all audit perspectives before
-  implementation.
+- Continue required source obligations before product implementation and
+  acceptance.
 
 ## Work completed since the handoff
 
@@ -78,6 +78,11 @@ defect.
   rejected f32 seconds for exact integer-minute roles. Inspected native/web
   challenge ID projection parsers and relevant demo filters; no incorrect-
   selection runtime incident claimed.
+
+- Selected distinct frame/trial/challenge full key owners and a shared complete
+  errantry decoder, retaining road encounters, ordinals and namespace
+  distinctions. Recorded actual native/web filter behavior and later acceptance
+  requirements; no runtime incident or global closure claimed.
 
 ## What remains
 
@@ -117,8 +122,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 490 publication record](CHECKPOINT-490.json)
-- [Saved report for checkpoint 490](PROGRESS-490.md)
+- [Checkpoint 491 publication record](CHECKPOINT-491.json)
+- [Saved report for checkpoint 491](PROGRESS-491.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
