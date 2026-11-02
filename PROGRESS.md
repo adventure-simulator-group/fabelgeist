@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T21:18:34.747462+00:00
+Updated: 2026-11-02T21:21:44.546296+00:00
 
-Latest verified checkpoint: **512**. Goal: **active**.
+Latest verified checkpoint: **513**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,21 +18,22 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed 24 scoped checks across eight scatter shader paths. Traced the removed
-grass compute-cull entry point, replaced pebble programs, shrub interface
-changes and dedicated vista-card shader to current material owners. Preserved
-external shader literals and native numeric encodings without inventing internal
-string enums.
+Completed 12 scoped checks across four loose-stone files, using complete
+before/after bodies and current shader support. Existing typed density and
+detail-level choices remain; new batching recovers woodland policy from a
+combined integer asset index. Recorded that owner/correlation question
+separately from native draw identity.
 
-111 of 767 newer cells are closed, with 656 open. Visual parity, culling, native
-compilation, geometry admission, unused shader fields/bindings and global
-reconciliation remain open. No product code or runtime validation.
+123 of 767 newer cells are closed, with 644 open. The new queue question is
+provisional, not an accepted unique bug. Numerical scene/native bounds,
+slope/yaw behavior, visual validation, exact aliases and broader audit gates
+remain open. Existing tests were read, not run.
 
 ## Working on now
 
-Continue remaining current-source perspectives and renderer admission, culling,
-texture, native and visual contracts. Eight scatter shader paths now have
-explicit ownership, enum-choice and native-string dispositions.
+Continue current producer and renderer reconciliation. Loose-stone ownership,
+enum-choice and native-string source discovery is complete for four paths, with
+density/variant asset correlation retained as a provisional repair question.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -186,6 +187,11 @@ explicit ownership, enum-choice and native-string dispositions.
   replacement and closed 24 ownership, enum-choice and native-string checks
   while preserving visual and native validation duties.
 
+- Completed loose-stone owner, batch, spawn and random-purpose source
+  comparisons. Traced density, mesh variant, material and physical-count
+  propagation. Retained a provisional question about recovering density from an
+  integer asset index and keeping parallel asset arrays correlated.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -206,10 +212,10 @@ explicit ownership, enum-choice and native-string dispositions.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 59 changed paths and 767 lens/path
-checks; 111 of those checks are closed. These are audit coverage obligations,
+checks; 123 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3844 entries. Entries and views overlap, so this is
+The canonical queue contains 3845 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -224,8 +230,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 512 publication record](CHECKPOINT-512.json)
-- [Saved report for checkpoint 512](PROGRESS-512.md)
+- [Checkpoint 513 publication record](CHECKPOINT-513.json)
+- [Saved report for checkpoint 513](PROGRESS-513.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
