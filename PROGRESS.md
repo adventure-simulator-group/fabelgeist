@@ -44,6 +44,13 @@ stall verdict after 90 seconds of unchanged game-time progress. The runtime
 impact, component delivery and other insertion paths remain to be verified.
 These source observations are exploratory and have not closed audit cells.
 
+The separately loaded scene input supplies the vista and world bounds. The
+inspected input loader and dump loader do not compare its identity with the
+dump. A different input could therefore produce inconsistent scene data. The
+furniture restore test uses the same input on both sides and does not test that
+case. Ground derives reflection, while environment does not at its declaration,
+so the snapshot representation needs further design analysis.
+
 ## Working on now
 
 Trace scene-readiness marker populations against admitted scene input and
