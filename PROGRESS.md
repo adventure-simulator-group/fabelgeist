@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T19:22:33.678650+00:00
+Updated: 2026-11-02T19:36:25.892081+00:00
 
-Latest verified checkpoint: **495**. Goal: **active**.
+Latest verified checkpoint: **496**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,30 +18,31 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved stale adoption and partial-read notes in the SQL/SATS journal. The
-malformed-wire diagnostic finding was already adopted as canonical record 538,
-and the web type-adapter read was completed at READ-L12-798. Authenticated the
-existing lens-12 source evidence at the selected revision without new read
-credit.
+Traced native camp continuation and explicit road choices through core binding,
+openness, web forms and the browser submit handler. Continue rejects an
+unresolved bound road trial; successful choice resolution closes it. Recorded
+the mismatch with the automatic-ignore comment, incomplete web readiness, and a
+separate conditional blocked-ignore admission question.
 
-Only historical status clauses superseded. Native normalization, caller
-semantics, exact aliases and the whole journal remain open; no product code or
-runtime validation.
+One named source path qualified. No policy change, authored-content incident or
+runtime result claimed. The new admission question requires canonical
+reconciliation; broader audit and implementation gates remain open.
 
 ## Working on now
 
-Following the remaining camp/optional-continuation journal scope and standalone
-historical aliases. The SQL/SATS diagnostic erasure and checked-constructor
-bypass now have explicitly separate repair references.
+Reconciling the intended optional-trial policy and the independently tracked
+catalogue question: requiring an ignore key does not guarantee it is usable when
+a Blocked backing is admitted.
 
-- Resolve the remaining mixed camp/local-trial and optional-continuation
-  source/policy scope without transferring other lens evidence.
+- Reconcile the blocked-ignore admission question against inherited M39 and
+  exact existing predicates, retaining it as a distinct question until canonical
+  identity is established.
 
-- Qualify actual native SQL/SATS normalization and caller contracts that remain
-  after the source-adoption status correction.
+- Find authoritative optional-trial policy and qualify remaining time/delay,
+  caller and actual authored-content semantics.
 
-- Continue standalone alias, current-source and migration-family reconciliation
-  before implementation.
+- Continue standalone aliases, current-source/all13 and migration-family
+  reconciliation before implementation.
 
 ## Work completed since the handoff
 
@@ -105,6 +106,11 @@ bypass now have explicitly separate repair references.
   erasure separate from the native checked-constructor bypass and awarded no new
   read credit.
 
+- Traced the camp/road choice path with own lens-12 source evidence. Recorded
+  explicit-choice versus automatic-ignore behavior, web/native readiness
+  mismatch and the conditional blocked-ignore admission question without
+  claiming a live gameplay incident.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -143,8 +149,8 @@ independent review.
 
 Selected source revision: `33714256b6313ce86fdfbb534c54d92d024d7726`.
 
-- [Checkpoint 495 publication record](CHECKPOINT-495.json)
-- [Saved report for checkpoint 495](PROGRESS-495.md)
+- [Checkpoint 496 publication record](CHECKPOINT-496.json)
+- [Saved report for checkpoint 496](PROGRESS-496.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
