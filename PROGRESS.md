@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:36:25.698664+00:00
+Updated: 2026-11-03T10:37:26.896552+00:00
 
-Latest verified checkpoint: **862**. Goal: **active**.
+Latest verified checkpoint: **863**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared existing strategic and tactical character ID wrappers and the core
-battle clock as potential attack-identity dependencies.
+Qualified the non-injective 64 Hz timeline quantizer and the scheduling interval
+dependency for attack-instance identity.
 
-Canonical shared ownership and attack-instance uniqueness remain unresolved; a
-clock coordinate is not assumed to equal a tick.
+No same-participant collision is established; cancellation and supported
+interval bounds require reconciliation.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 862 publication record](CHECKPOINT-862.json)
-- [Saved report for checkpoint 862](PROGRESS-862.md)
+- [Checkpoint 863 publication record](CHECKPOINT-863.json)
+- [Saved report for checkpoint 863](PROGRESS-863.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
