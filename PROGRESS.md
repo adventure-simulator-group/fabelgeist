@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:31:16.767809+00:00
+Updated: 2026-11-03T12:32:47.184110+00:00
 
-Latest verified checkpoint: **947**. Goal: **active**.
+Latest verified checkpoint: **948**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified P20 continuation type retention from action evaluation through client
-span and transition.
+Traced queued continuation values into the spline and invalid-pose fallback.
 
-Original followup, upstream producer, spline boundary, fallback policy, exact
-aliases and native acceptance remain open.
+Original followup, spline arithmetic, fallback policy, aliases and native
+acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +113,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 947 publication record](CHECKPOINT-947.json)
-- [Saved report for checkpoint 947](PROGRESS-947.md)
+- [Checkpoint 948 publication record](CHECKPOINT-948.json)
+- [Saved report for checkpoint 948](PROGRESS-948.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
