@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:40:27.496973+00:00
+Updated: 2026-11-03T20:42:22.073079+00:00
 
-Latest verified checkpoint: **1191**. Goal: **active**.
+Latest verified checkpoint: **1192**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected the saved skin reminder to the MHR admission and shared reduction
-owners, preserving separate fixture and armor evidence.
+A synthetic missing cluster weights array produced a generic vertex-weight error
+in an isolated selected-source module test.
 
-Unweighted policy, full family reconciliation and production validation remain
-open.
+One constructed single-cluster test passed; multiple-cluster behavior and
+production reachability remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1191 publication record](CHECKPOINT-1191.json)
-- [Saved report for checkpoint 1191](PROGRESS-1191.md)
+- [Checkpoint 1192 publication record](CHECKPOINT-1192.json)
+- [Saved report for checkpoint 1192](PROGRESS-1192.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

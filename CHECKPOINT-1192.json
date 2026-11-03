@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1192,
+  "at": "2026-11-03T20:42:11.562865+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "73604230ebd718465c1c90ea9ddf9d26178b069a124293b9882c3bcee01ac32b",
+    "verification": "95a6b4726f603bda0bf8d8f487c65aea896c63419e47c85d128e024526c75d5d",
+    "canonical_current": "df7b53d04d5fd39b8267149826ab3b3cfca198b65022be16c010f5491258171e"
+  },
+  "scope": {
+    "summary": "A synthetic missing cluster weights array produced a generic vertex-weight error in an isolated selected-source module test.",
+    "scope_limit": "One constructed single-cluster test passed; multiple-cluster behavior and production reachability remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "b44a0f710f509ed9d07aeacf1b38c0fc3a9fe9f3f1b4c791c0b7cc4a9e28a453",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
