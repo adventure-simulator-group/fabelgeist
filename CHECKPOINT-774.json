@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 774,
+  "at": "2026-11-03T08:32:28.069362+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "5434980ebe57e255bc8aa5c621ec95aea7d9266f6130844bbe097671427d8e7e",
+    "verification": "deeacee8852fbdb473ded49cc0133966b05d0209715ff26fb192a5acef328dff",
+    "canonical_current": "8ebaac2d52b077651df3439a179f8ac2e0c11cf9f6db546cb725e292a7399883"
+  },
+  "scope": {
+    "summary": "Linked the corrective sparse-index native-width question to the existing extent admission record. A 32-bit cast can turn certain out-of-range signed indices into small coordinates before the bounds check.",
+    "scope_limit": "This is a conditional source analysis, not a demonstrated supported-input failure. Target support, producer constraints, policy, exact aliases and runtime acceptance remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "48b5b3ad69b4f6cb53ba0b8ee4133a5277cabed79b33ba98badccd84629ecb0a",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

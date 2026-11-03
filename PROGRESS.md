@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:31:15.656608+00:00
+Updated: 2026-11-03T08:32:46.540655+00:00
 
-Latest verified checkpoint: **773**. Goal: **active**.
+Latest verified checkpoint: **774**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the corrective importer from typed archive roles through checked layouts,
-sparse-coordinate admission and forward-input shape checks.
+Linked the corrective sparse-index native-width question to the existing extent
+admission record. A 32-bit cast can turn certain out-of-range signed indices
+into small coordinates before the bounds check.
 
-Target-width cast consequences, producer constraints, native Burn behavior,
-tests, alias reconciliation and the broader audit remain open.
+This is a conditional source analysis, not a demonstrated supported-input
+failure. Target support, producer constraints, policy, exact aliases and runtime
+acceptance remain open.
 
 ## Working on now
 
@@ -107,8 +109,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 773 publication record](CHECKPOINT-773.json)
-- [Saved report for checkpoint 773](PROGRESS-773.md)
+- [Checkpoint 774 publication record](CHECKPOINT-774.json)
+- [Saved report for checkpoint 774](PROGRESS-774.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
