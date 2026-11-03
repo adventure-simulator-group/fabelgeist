@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:14:05.251026+00:00
+Updated: 2026-11-03T11:15:57.014084+00:00
 
-Latest verified checkpoint: **898**. Goal: **active**.
+Latest verified checkpoint: **899**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled public DrapeInput and BVH admission with the inherited MHR importer
-and Lens 13 garment contracts.
+Compared existing rendering mesh, cloth shell and garment intersection
+validators for public drape geometry.
 
-Related boundaries remain distinct; exact aliases and canonical public-input
-ownership are unresolved.
+No canonical validator was selected; dependency direction and supported geometry
+policies remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 898 publication record](CHECKPOINT-898.json)
-- [Saved report for checkpoint 898](PROGRESS-898.md)
+- [Checkpoint 899 publication record](CHECKPOINT-899.json)
+- [Saved report for checkpoint 899](PROGRESS-899.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
