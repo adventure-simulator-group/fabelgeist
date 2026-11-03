@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 656,
+  "at": "2026-11-03T05:28:31.622680+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "3e08bb1b6f78b834d324ba98220619037f590327cb0b94768c2a0ccbfc2bcb87",
+    "verification": "8b5df1aa9bd344d9a70900c2eb57a4210d512ac5379fa5143d761242cb2f2f32",
+    "canonical_current": "c9f71ebabc1533ef2cd7294d9dd89a5b381a6d49acd656b592b87305d9b4f1c2"
+  },
+  "scope": {
+    "summary": "Traced the historical renderer\u2019s allocation failure to expect calls: an allocation rejected by the default page limit would panic.",
+    "scope_limit": "No shipped scene is shown to reach that limit. The dependency has been removed, and current chunk admission and renderer contracts remain separately open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "933b066bd8d133ca0604bef5bb937ea51f90519bac49d8f3310446b8158008ac",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

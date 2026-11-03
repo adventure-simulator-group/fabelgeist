@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:27:13.628005+00:00
+Updated: 2026-11-03T05:29:06.172081+00:00
 
-Latest verified checkpoint: **655**. Goal: **active**.
+Latest verified checkpoint: **656**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the removed renderer’s preparation sequence and default paged allocator,
-including its one-million-instance per-allocation limit and freed-slot handling.
+Traced the historical renderer’s allocation failure to expect calls: an
+allocation rejected by the default page limit would panic.
 
-Actual allocation failure handling, rendering and culling remain open. Authored
-allocator tests were read, not run; no lens cells were closed.
+No shipped scene is shown to reach that limit. The dependency has been removed,
+and current chunk admission and renderer contracts remain separately open.
 
 ## Working on now
 
@@ -371,8 +371,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 655 publication record](CHECKPOINT-655.json)
-- [Saved report for checkpoint 655](PROGRESS-655.md)
+- [Checkpoint 656 publication record](CHECKPOINT-656.json)
+- [Saved report for checkpoint 656](PROGRESS-656.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
