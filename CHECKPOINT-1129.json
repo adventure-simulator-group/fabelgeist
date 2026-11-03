@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1129,
+  "at": "2026-11-03T19:02:12.330971+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "02dde641f250b483aa763ad09114faaf23ac94998bfac39e5465128688f8807e",
+    "verification": "e955ecbe6683cbc12ef723d71951c94e07965fb6aeb214e607d9c4614f1a4348",
+    "canonical_current": "3dfe6b2bd26c0f345881d52e2142df45cfdd32652d0560606afdb1d58e7e6707"
+  },
+  "scope": {
+    "summary": "A controlled delayed evidence load changed its captured strip after unmount; soft navigation can keep that page visible until replacement.",
+    "scope_limit": "The probe uses a stub DOM; actual browser navigation, retry integration and aliases remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "c5d28aa41fa65d0731c50a41fa5e87a8ae3c9befd0df3543d75e120cfd4868fd",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
