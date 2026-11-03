@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1124,
+  "at": "2026-11-03T18:53:11.197810+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "931e473212a943ae3766a0dd95790a34c33e050698ae9782b8bf8ed158a042fd",
+    "verification": "78b395381a46ef518537dbf03e04cc8d90933a5b36dcc7313e3aa3971f80cf53",
+    "canonical_current": "6873ad73cd411e74831929e0db3ac9d37be045df3a54013cd3ea47acebb64f40"
+  },
+  "scope": {
+    "summary": "Traced disconnected participant retention, leave dispatch and terminal receipt ordering.",
+    "scope_limit": "Ordering and reducer callback outcomes are source-derived; no disconnected integration scenario was executed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "32a9491c6f77b75e5da0b8ec5c7b917c46c1e0489567e26e4cc708ccabd5a360",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
