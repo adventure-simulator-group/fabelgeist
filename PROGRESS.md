@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:18:27.407018+00:00
+Updated: 2026-11-03T14:20:14.338191+00:00
 
-Latest verified checkpoint: **1006**. Goal: **active**.
+Latest verified checkpoint: **1007**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified locked Bevy normal admission and traced required terrain support
-errors into volumetric height-field construction.
+Traced typed terrain-support errors through recipe and scene-generation wrappers
+and connected the broader terrain arithmetic record.
 
-Actual product witness, full scene consumers, aliases and supported policy
-remain open.
+Scene input reachability, full aliases and mesh/collider consistency remain
+open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1006 publication record](CHECKPOINT-1006.json)
-- [Saved report for checkpoint 1006](PROGRESS-1006.md)
+- [Checkpoint 1007 publication record](CHECKPOINT-1007.json)
+- [Saved report for checkpoint 1007](PROGRESS-1007.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
