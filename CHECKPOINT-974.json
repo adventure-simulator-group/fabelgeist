@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 974,
+  "at": "2026-11-03T13:22:22.624787+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "a65ff52033c86b37145d35766a9279d67ce7b213efa9e8bdd7a3af954ea4e002",
+    "verification": "25569dc4a2bf06c9efa7888e79b01cc26ee7f2cac6e7d803807f421a37590545",
+    "canonical_current": "d0df9f32835d3ff267dbce663ad38ac78e644277ca3c243903b06c20681e7c8b"
+  },
+  "scope": {
+    "summary": "Qualified current interior installation failure mutation: completed instance prefixes can remain without the interior record, and earlier buildings can remain after a later failure.",
+    "scope_limit": "Reachability, caller error handling, intended atomicity, aliases and native acceptance remain open; no runtime incident was established."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "68ac48b2da591fdf7e02906297d5ec8e84607a63397198bd8c6ab734420588c6",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
