@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:09:35.411302+00:00
+Updated: 2026-11-03T09:10:50.619307+00:00
 
-Latest verified checkpoint: **798**. Goal: **active**.
+Latest verified checkpoint: **799**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the animation preview source change across thirteen perspectives.
+Compared the MHR crate manifest, public exports and guide across revisions.
 
-The older batch retains 1094 pending checks. Rig identity, binding, native
-scheduling, cloth and runtime acceptance remain open.
+Public callers, lock resolution, native behavior, identity and the broader audit
+remain open; examples were not run.
 
 ## Working on now
 
@@ -106,8 +106,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 798 publication record](CHECKPOINT-798.json)
-- [Saved report for checkpoint 798](PROGRESS-798.md)
+- [Checkpoint 799 publication record](CHECKPOINT-799.json)
+- [Saved report for checkpoint 799](PROGRESS-799.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
