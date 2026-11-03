@@ -22,6 +22,7 @@ pub mod combat;
 #[cfg(test)]
 mod compound_review_fixture;
 pub mod equipment;
+pub mod furniture;
 #[cfg(feature = "iteration")]
 pub mod iteration;
 pub mod mission;

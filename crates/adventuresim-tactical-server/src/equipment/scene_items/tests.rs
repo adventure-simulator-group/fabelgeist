@@ -49,6 +49,24 @@ impl Scene {
         feet_xz: Vec2,
         facing: Vec3,
     ) -> Self {
+        Self::assemble(
+            |app| spawn_colliders(app.world_mut(), colliders),
+            heights,
+            item_id,
+            feet_xz,
+            facing,
+        )
+    }
+
+    /// Builds the physics app, lets `populate` add the static scene, then
+    /// spawns the actor holding `item_id`.
+    fn assemble(
+        populate: impl FnOnce(&mut App),
+        heights: Box<dyn Fn(f32, f32) -> f32>,
+        item_id: &str,
+        feet_xz: Vec2,
+        facing: Vec3,
+    ) -> Self {
         let mut app = App::new();
         app.add_plugins((MinimalPlugins, PhysicsPlugins::default(), TransformPlugin));
         app.insert_resource(Time::<Fixed>::from_hz(TICK_HZ));
@@ -57,7 +75,7 @@ impl Scene {
         )));
         app.finish();
         app.cleanup();
-        spawn_colliders(app.world_mut(), colliders);
+        populate(&mut app);
         let mut scene = Self {
             app,
             heights,
@@ -368,4 +386,5 @@ fn dropping_against_a_wall_keeps_the_item_on_the_players_side() {
     }
 }
 
+mod buildings;
 mod settlement;
