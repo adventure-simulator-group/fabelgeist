@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:58:08.047908+00:00
+Updated: 2026-11-03T17:59:35.668984+00:00
 
-Latest verified checkpoint: **1093**. Goal: **active**.
+Latest verified checkpoint: **1094**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Corrected the prior service-quest HTTP fallback assessment: the shared fetch
-helper throws before that branch.
+Traced service recruitment query fallbacks, including the conditional effect of
+a failed membership read on remaining slots.
 
-Backend query failures may still become empty data; browser behavior and the
-service family require further validation.
+This is a source-derived conditional case; no live database failure or runtime
+incident was observed.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1093 publication record](CHECKPOINT-1093.json)
-- [Saved report for checkpoint 1093](PROGRESS-1093.md)
+- [Checkpoint 1094 publication record](CHECKPOINT-1094.json)
+- [Saved report for checkpoint 1094](PROGRESS-1094.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

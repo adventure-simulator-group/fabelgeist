@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1094,
+  "at": "2026-11-03T17:59:26.683438+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "f06514e8ab3a2234481c6588b0c20fbb7f2ff879041e8962a784c330bc019725",
+    "verification": "1843981b58674e774bffa0096998b38fe05c6730aaeb32b7cb4116fc6e1805dd",
+    "canonical_current": "3277e70b8e534712d950466bcf6bf0f3b41391e791f4e9fad52b7fce1cf37863"
+  },
+  "scope": {
+    "summary": "Traced service recruitment query fallbacks, including the conditional effect of a failed membership read on remaining slots.",
+    "scope_limit": "This is a source-derived conditional case; no live database failure or runtime incident was observed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "0547afda86c5b515463acdb7f580e7a8f22a2d778d4383400a95bdbf632739cb",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
