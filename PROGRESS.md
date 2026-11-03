@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:14:03.009123+00:00
+Updated: 2026-11-03T19:15:11.571839+00:00
 
-Latest verified checkpoint: **1136**. Goal: **active**.
+Latest verified checkpoint: **1137**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced catalog-based stock eligibility and confirmed that scope reset replaces
-shared draft state.
+Dispositioned the exact merchant preview and draft source question with an owned
+repair and explicit policy questions.
 
-The reset probe is controlled; supported draft coexistence and transaction
-behavior remain open.
+Live trade, draft policy, independent lenses and the full audit remain open.
 
 ## Working on now
 
@@ -125,8 +124,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1136 publication record](CHECKPOINT-1136.json)
-- [Saved report for checkpoint 1136](PROGRESS-1136.md)
+- [Checkpoint 1137 publication record](CHECKPOINT-1137.json)
+- [Saved report for checkpoint 1137](PROGRESS-1137.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
