@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1109,
+  "at": "2026-11-03T18:26:49.991662+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "3f392dc38322d26a82d6ddc8355f0cf690f9a50b142e9134ba0f7db207129210",
+    "verification": "bf02f9073e0eb1cafebe76ffcba4ccc798f9012dc1813c6d88cbeefd03be0462",
+    "canonical_current": "9a94cc2e8eddd46a10db811e66ba0f892449723c3b40c3eb4df75624184c4f56"
+  },
+  "scope": {
+    "summary": "Passed 24 focused Node tests for mocked worker dispatch, cancellation and ticket-matched city acknowledgement.",
+    "scope_limit": "The tests mock workers and native status; actual native rollback and browser integration remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "cbfe061c858f976c9cf91342f5237f279696d1ddc7f0d94559f47a192b2a46fe",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
