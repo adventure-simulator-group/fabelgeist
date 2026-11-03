@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:50:34.322422+00:00
+Updated: 2026-11-03T13:52:08.705397+00:00
 
-Latest verified checkpoint: **992**. Goal: **active**.
+Latest verified checkpoint: **993**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced duration and sample-clock conversion: one-sample quicksteps take the end-
-phase return before acceleration division.
+Qualified sample-rate type admission and traced target acceleration through
+tracking force into velocity.
 
-Runtime sample-rate bounds, multi-sample scales, direct helper use and native
-force effects remain open.
+Supported extreme tuning, concrete multi-sample failure and native outcomes
+remain open; no runtime failure was established.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 992 publication record](CHECKPOINT-992.json)
-- [Saved report for checkpoint 992](PROGRESS-992.md)
+- [Checkpoint 993 publication record](CHECKPOINT-993.json)
+- [Saved report for checkpoint 993](PROGRESS-993.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
