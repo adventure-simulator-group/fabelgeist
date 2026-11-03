@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1209,
+  "at": "2026-11-03T21:16:41.677279+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "8790ecf8c79fb5ff5d0c65836cd49bd99b792b79a6d362a7be0e471e90ae8f17",
+    "verification": "23b066291f8d8415401fca168290c02c1752a10dc55939743dfbf4ba8c918aa7",
+    "canonical_current": "e417ae0b7e2abf4f128d3e8cf3b5b43c702a3e26697dec2c949727244fb20c00"
+  },
+  "scope": {
+    "summary": "A controlled remount selected the new resident, then dispatched the old resident while the active chat remained on the new one.",
+    "scope_limit": "The scene command path is source-traced; full browser, native command and rendering remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d47d4d34704e92d12e2600673881041a29f173d96c91df0201db13921b2af27a",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
