@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:08:41.416536+00:00
+Updated: 2026-11-03T19:10:40.156926+00:00
 
-Latest verified checkpoint: **1133**. Goal: **active**.
+Latest verified checkpoint: **1134**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned the exact equipment placement source question with a conditional
-full-width identity finding and owned repair.
+A synthetic same-item sale preview used one price for both rows, while native
+settlement prices rows separately.
 
-No high-ID production incident is claimed; ID admission policy, independent
-Lens13 work and repair remain open.
+Actual staging reachability, stock policy, draft coexistence and transaction
+integration remain open.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1133 publication record](CHECKPOINT-1133.json)
-- [Saved report for checkpoint 1133](PROGRESS-1133.md)
+- [Checkpoint 1134 publication record](CHECKPOINT-1134.json)
+- [Saved report for checkpoint 1134](PROGRESS-1134.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
