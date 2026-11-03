@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:53:04.906373+00:00
+Updated: 2026-11-03T15:55:21.889152+00:00
 
-Latest verified checkpoint: **1048**. Goal: **active**.
+Latest verified checkpoint: **1049**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,16 +18,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A module-level selected-source character loader probe accepted a synthetic FBX
-rig and retained a NaN skin weight.
+Qualified sparse threshold implications and the GLB body export guard for a
+retained NaN skin row.
 
-The harness resolved dependencies separately; the full MHR crate, downstream
-consumers and runtime were not tested.
+Threshold was reproduced in the module harness; actual uploader and GLB exporter
+were not run.
 
 ## Working on now
 
-Reconciling confirmed nonfinite skin admission and typed P09 skin producer and
-receiver contracts.
+Reconciling confirmed nonfinite skin admission, sparse and export boundaries,
+and remaining P09 receivers.
 
 - Resolve saved garment topology identity, public fitting admission and
   supported asset policy.
@@ -115,8 +115,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1048 publication record](CHECKPOINT-1048.json)
-- [Saved report for checkpoint 1048](PROGRESS-1048.md)
+- [Checkpoint 1049 publication record](CHECKPOINT-1049.json)
+- [Saved report for checkpoint 1049](PROGRESS-1049.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
