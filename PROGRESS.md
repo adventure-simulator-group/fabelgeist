@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T03:12:10.862066+00:00
+Updated: 2026-11-03T03:14:10.244192+00:00
 
-Latest verified checkpoint: **617**. Goal: **active**.
+Latest verified checkpoint: **618**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Confirmed authored dialogue prompts whose respondent role permits up to four
-players, including the organization conversation and a majority-vote example.
+Traced dialogue session creation and owning-party admission, and recorded a
+repair contract that binds answer retries to respondent, prompt and ballot while
+preserving authority checks.
 
 Earlier revision source checks remain 741 of 767; newest revision remains 403 of
-403. Actual joined participants, reused IDs, ballot-order policy and runtime
-acceptance remain open; no collision was observed.
+403. Exact ballot ordering, complete native consumers and runtime collision
+acceptance remain open; no product code or tests changed.
 
 ## Working on now
 
@@ -372,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 617 publication record](CHECKPOINT-617.json)
-- [Saved report for checkpoint 617](PROGRESS-617.md)
+- [Checkpoint 618 publication record](CHECKPOINT-618.json)
+- [Saved report for checkpoint 618](PROGRESS-618.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
