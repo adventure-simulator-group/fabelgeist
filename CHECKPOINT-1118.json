@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1118,
+  "at": "2026-11-03T18:44:12.983718+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "31cc6d9193834fefc6d5c1da90ede5e24ae3e204e3b83e51346ffcae9112656f",
+    "verification": "98c2eedfccb9228832569b1b0da267410be7620dfd3b088550fae457857492c7",
+    "canonical_current": "a4fb213d3af2dc2e33fc597dee3600ed354c9d40ada4beb1b2ccc6048ac2b3ab"
+  },
+  "scope": {
+    "summary": "A mocked rejected inventory-target save left the optimistic value displayed and the rejection unhandled; a scoped repair plan records outcome and readback requirements.",
+    "scope_limit": "The probe uses mocked request and DOM; real browser, server and request-ordering integration remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "5d4a92de74e14d4afdf0db488a233fa3e9729126cbef705432ac2d4cab0eeddc",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
