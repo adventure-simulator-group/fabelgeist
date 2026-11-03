@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:33:50.145447+00:00
+Updated: 2026-11-03T22:35:57.617395+00:00
 
-Latest verified checkpoint: **1249**. Goal: **active**.
+Latest verified checkpoint: **1250**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected native and browser mapping-cause entries to the armor readback and
-fit-cache consumers.
+Qualified the pinned wgpu mapping error as a unit type and narrowed cause-
+preservation expectations.
 
-Native and browser mapping and native polling remain distinct; no failure or
-hang was observed.
+Native and browser mapping and polling remain distinct; detailed backend reason
+is not carried by the API error.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1249 publication record](CHECKPOINT-1249.json)
-- [Saved report for checkpoint 1249](PROGRESS-1249.md)
+- [Checkpoint 1250 publication record](CHECKPOINT-1250.json)
+- [Saved report for checkpoint 1250](PROGRESS-1250.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1250,
+  "at": "2026-11-03T22:35:44.890182+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "0f8a091460503a37d657bbe951c29c9d51571afd669acab6595569dc5e1b2f98",
+    "verification": "6e0ca9a6975a80cf4a703a7607a4b68ed2868b8278f2d62f06f4d3f3f5c6871c",
+    "canonical_current": "5a1316b86a82f592e1db1316f0be68f2cabcd6e4fe17885f8d8dc47650754987"
+  },
+  "scope": {
+    "summary": "Qualified the pinned wgpu mapping error as a unit type and narrowed cause-preservation expectations.",
+    "scope_limit": "Native and browser mapping and polling remain distinct; detailed backend reason is not carried by the API error."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "6ee1add224faf5c83214771cd1d8c69b40aea47768fc4e504e8cf8660d0feefa",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
