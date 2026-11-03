@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:36:50.866066+00:00
+Updated: 2026-11-03T05:38:18.069498+00:00
 
-Latest verified checkpoint: **660**. Goal: **active**.
+Latest verified checkpoint: **661**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced understory placement to its 3.2-metre candidate lattice and the ground
-and slope filters that precede chunking.
+Traced the understory jitter draw to its inclusive unit interval and inspected
+terrain width and depth construction.
 
-A numerical per-chunk bound still depends on terrain admission, floating-point
-behavior and RNG range. Other producers and device failure handling remain open;
-no product tests ran.
+Terrain dimension admission and finite-precision effects remain unqualified, so
+no numerical per-chunk bound or runtime success is claimed.
 
 ## Working on now
 
@@ -372,8 +371,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 660 publication record](CHECKPOINT-660.json)
-- [Saved report for checkpoint 660](PROGRESS-660.md)
+- [Checkpoint 661 publication record](CHECKPOINT-661.json)
+- [Saved report for checkpoint 661](PROGRESS-661.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
