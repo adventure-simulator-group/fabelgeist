@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 712,
+  "at": "2026-11-03T06:49:33.094546+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "52d395b687a0ffda38661a84df41ec5b2df7626a0bd670ba5e6b04f989173278",
+    "verification": "a641098446183d70588efc09fff8d9a758b32a094e62b96d922f93de6d583451",
+    "canonical_current": "2e12c4b8edf28dd81f47efccb5825215b99e9c600b5fd875cc0f7b88d9e9583b"
+  },
+  "scope": {
+    "summary": "Read the debug dump allowlist and identified that it includes terrain but does not list SceneGround.",
+    "scope_limit": "Ground reconstruction, other dump sources, trust and broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "8f51fb94a3eb6229b356905302e75c2c41c6e7101f1120f31bfae7e7fd8d5ffc",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
