@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:31:06.265576+00:00
+Updated: 2026-11-03T09:32:12.771055+00:00
 
-Latest verified checkpoint: **814**. Goal: **active**.
+Latest verified checkpoint: **815**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced drape worker tags and sequential outfit previews to the completed-prefix
-failure behavior.
+Reconciled drape preview source across thirteen perspectives, incorporating the
+ordered-prefix worker trace.
 
-Saved-garment behavior, checkpoint reuse, cancellation scheduling, GPU execution
-and visual acceptance remain open; no product tests were run.
+The older batch retains 978 pending checks. Body identity, saved garments,
+checkpoint reuse, cancellation and native acceptance remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 814 publication record](CHECKPOINT-814.json)
-- [Saved report for checkpoint 814](PROGRESS-814.md)
+- [Checkpoint 815 publication record](CHECKPOINT-815.json)
+- [Saved report for checkpoint 815](PROGRESS-815.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
