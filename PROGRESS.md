@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:30:30.582740+00:00
+Updated: 2026-11-03T23:32:25.411901+00:00
 
-Latest verified checkpoint: **1282**. Goal: **active**.
+Latest verified checkpoint: **1283**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced retained drape state through early preview failure and independent export
-preparation.
+Traced retained garment data, body morph sampling and positional loadout
+association in export.
 
-Drape association, retry scheduling, output semantics and aliases remain open;
-no product execution is claimed.
+Reachable mutation sequences, complete export validation and aliases remain
+open; no product execution is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1282 publication record](CHECKPOINT-1282.json)
-- [Saved report for checkpoint 1282](PROGRESS-1282.md)
+- [Checkpoint 1283 publication record](CHECKPOINT-1283.json)
+- [Saved report for checkpoint 1283](PROGRESS-1283.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
