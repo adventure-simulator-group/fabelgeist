@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:42:04.307606+00:00
+Updated: 2026-11-03T02:44:51.544893+00:00
 
-Latest verified checkpoint: **603**. Goal: **active**.
+Latest verified checkpoint: **604**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled procedural animation across ten remaining perspectives, including
-lazy landing-position snapshots and retained world-space foot targets.
+Reconciled pose-buffer culling across ten remaining perspectives, including the
+deferred marker and the physics ownership transition.
 
-Earlier revision source checks: 681 of 767; newest revision remains 403 of 403.
-Rig-foot membership, scheduling, numerical equivalence and runtime acceptance
-remain open; tests were inspected but not run, and counts do not represent
-whole-audit completion.
+Earlier revision source checks: 691 of 767; newest revision remains 403 of 403.
+Marker freshness, scheduling, numerical admission and runtime acceptance remain
+open; tests were inspected but not run, and counts do not represent whole-audit
+completion.
 
 ## Working on now
 
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 603 publication record](CHECKPOINT-603.json)
-- [Saved report for checkpoint 603](PROGRESS-603.md)
+- [Checkpoint 604 publication record](CHECKPOINT-604.json)
+- [Saved report for checkpoint 604](PROGRESS-604.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
