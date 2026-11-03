@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1193,
+  "at": "2026-11-03T20:44:41.781757+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ad3a63a693189997a38eca659e7f9ac358a68285974871d4fb50b6e7fee4a6ea",
+    "verification": "c47fe3a1b2452a78d1f5f118b92e1c98356f03976d986752aacc3e606b338099",
+    "canonical_current": "ea078faa227bc8bb58c2b32ed4c159d2c4dd85616fd133c3be45fad950c09c9d"
+  },
+  "scope": {
+    "summary": "A selected-source in-memory parser test accepted a missing-weight cluster when another cluster covered all vertices.",
+    "scope_limit": "The test uses a synthetic in-memory scene with the same joint for both clusters; production reachability remains untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "504261f9b0bc0701df2ee4335ee1275bae7de7308f99ca607f9f75dfdf5e69de",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
