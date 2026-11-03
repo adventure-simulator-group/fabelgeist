@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:27:21.421789+00:00
+Updated: 2026-11-03T13:28:40.305977+00:00
 
-Latest verified checkpoint: **977**. Goal: **active**.
+Latest verified checkpoint: **978**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified finite point admission and normal candidate floor checks: public off-
-floor points are representable, while accepted candidate centres have qualifying
-floor support at validation.
+Confirmed finishing preserves validated placement centre and storey; identified
+separate scene-transform finite-result obligations during installation.
 
-Later changes, other conversion failures, API policy, aliases and native
+Supported extreme inputs, public error atomicity, exact aliases and native
 validation remain open; no runtime incident was established.
 
 ## Working on now
@@ -115,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 977 publication record](CHECKPOINT-977.json)
-- [Saved report for checkpoint 977](PROGRESS-977.md)
+- [Checkpoint 978 publication record](CHECKPOINT-978.json)
+- [Saved report for checkpoint 978](PROGRESS-978.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
