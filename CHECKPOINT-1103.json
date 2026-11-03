@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1103,
+  "at": "2026-11-03T18:14:24.609078+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "5b32ee45c06ca892de23997e52c70acb05de6e123560597764d99f1284aa850d",
+    "verification": "5cdd66009604cbf8f9b27d49132cd768ca4c0e9a60cd7be9aa59f05d00e9003c",
+    "canonical_current": "4bce01d4973cd15f7b1612e5511426a4573c9c8798ef5c23f404335efdb3726e"
+  },
+  "scope": {
+    "summary": "Traced readiness gates through per-view configuration, settling and readback transitions.",
+    "scope_limit": "Same-view readiness regression and successful screenshot persistence have not been established at runtime."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "947d0c5a490b3736968ebfe9d9ed6582d8881975378daf1421955f1f8c4ef8b3",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
