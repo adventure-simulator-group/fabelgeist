@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 998,
+  "at": "2026-11-03T14:02:26.032486+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "97c44367f8cb640316cb1d169fd0ba3ab9dc37c22674254d7feddd5e4a34d27c",
+    "verification": "21d5f338df20803a708e9b4b3df31ea9bf5408f55dd821338caa53e312c1094e",
+    "canonical_current": "d9dff61ef48a2d16de23f6738fdca429ec908788f426c1a5fb42de2a673766a5"
+  },
+  "scope": {
+    "summary": "Traced server fixed clock setup: replication installs 64 Hz independently of the configurable animation sample rate.",
+    "scope_limit": "Later clock overrides, skeleton tick advancement and extreme runtime reachability remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e31f845092f6ef81ae344018ee0c38736e3aa82186796a8badeef019c5ae0709",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:59:17.804132+00:00
+Updated: 2026-11-03T14:02:40.361648+00:00
 
-Latest verified checkpoint: **997**. Goal: **active**.
+Latest verified checkpoint: **998**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced player quickstep activation through tick-based dodge admission into the
-actuator; no native timer conversion occurs in the inspected activation body.
+Traced server fixed clock setup: replication installs 64 Hz independently of the
+configurable animation sample rate.
 
-Whole-config interaction, tick scheduling and a real extreme motor execution
-remain unverified.
+Later clock overrides, skeleton tick advancement and extreme runtime
+reachability remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 997 publication record](CHECKPOINT-997.json)
-- [Saved report for checkpoint 997](PROGRESS-997.md)
+- [Checkpoint 998 publication record](CHECKPOINT-998.json)
+- [Saved report for checkpoint 998](PROGRESS-998.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
