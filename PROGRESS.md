@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:11:12.186662+00:00
+Updated: 2026-11-03T10:12:55.849612+00:00
 
-Latest verified checkpoint: **842**. Goal: **active**.
+Latest verified checkpoint: **843**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Assessed the tactical animation line-wrap delta across thirteen source
-perspectives.
+Registered the quality workflow revisions and identified its added ZIP and
+cumulative validation steps.
 
-The older batch retains 12 pending checks. Unchanged state bodies, transition
-lifecycle, callers and gameplay acceptance remain open.
+The large diff output was truncated; other-lens review and actual CI execution
+remain open. Prior Lens 11 attribution is preserved.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 842 publication record](CHECKPOINT-842.json)
-- [Saved report for checkpoint 842](PROGRESS-842.md)
+- [Checkpoint 843 publication record](CHECKPOINT-843.json)
+- [Saved report for checkpoint 843](PROGRESS-843.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
