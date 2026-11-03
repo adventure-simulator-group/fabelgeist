@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:30:11.788463+00:00
+Updated: 2026-11-03T21:33:33.678479+00:00
 
-Latest verified checkpoint: **1215**. Goal: **active**.
+Latest verified checkpoint: **1216**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced settlement profile into navigation places and identified tactical-entry
-scene release.
+Connected observer-time resident filtering and live roster refresh to venue
+selection.
 
-Same-location profile changes and rendered impact remain unproven.
+A specific operator change, end-to-end event delivery and rendered impact remain
+unproven.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1215 publication record](CHECKPOINT-1215.json)
-- [Saved report for checkpoint 1215](PROGRESS-1215.md)
+- [Checkpoint 1216 publication record](CHECKPOINT-1216.json)
+- [Saved report for checkpoint 1216](PROGRESS-1216.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
