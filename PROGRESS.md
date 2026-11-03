@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:05:49.712185+00:00
+Updated: 2026-11-03T19:07:24.316632+00:00
 
-Latest verified checkpoint: **1131**. Goal: **active**.
+Latest verified checkpoint: **1132**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reproduced precision loss in equipment attachment parent IDs with a synthetic
-u64 beyond JavaScript safe-integer range.
+Traced native attachment validation and conditional graph read failures;
+recorded a provisional repair plan.
 
-No production ID at that magnitude or wrong native attachment was demonstrated;
-native graph and alias reconciliation remain open.
+No high-ID native misattachment or graph failure incident was demonstrated;
+aliases and integration remain open.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1131 publication record](CHECKPOINT-1131.json)
-- [Saved report for checkpoint 1131](PROGRESS-1131.md)
+- [Checkpoint 1132 publication record](CHECKPOINT-1132.json)
+- [Saved report for checkpoint 1132](PROGRESS-1132.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
