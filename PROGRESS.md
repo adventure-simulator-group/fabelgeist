@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:06:04.427336+00:00
+Updated: 2026-11-03T22:07:29.532453+00:00
 
-Latest verified checkpoint: **1233**. Goal: **active**.
+Latest verified checkpoint: **1234**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the single NPC role in the local-resident conversation and recorded a
-provisional retry-identity plan.
+Traced authored dialogue catalogue inclusion, validation and revision hashing in
+source.
 
-Live co-presence, session-ID collisions, catalogue build inclusion and policy
-remain unverified.
+No build was run; live co-presence, session-ID collisions and policy remain
+unverified.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1233 publication record](CHECKPOINT-1233.json)
-- [Saved report for checkpoint 1233](PROGRESS-1233.md)
+- [Checkpoint 1234 publication record](CHECKPOINT-1234.json)
+- [Saved report for checkpoint 1234](PROGRESS-1234.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
