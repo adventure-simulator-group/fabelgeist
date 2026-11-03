@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:39:17.299863+00:00
+Updated: 2026-11-03T15:42:39.357645+00:00
 
-Latest verified checkpoint: **1042**. Goal: **active**.
+Latest verified checkpoint: **1043**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced support surfaces into grounded layout and compact projection, including
-digest, owner and placement checks.
+The constructed underflow surface compiled to bounded terrain and returned two
+colliders against a simple flat geographic source.
 
-The constructed underflow case has not been tested through projection
-reconstruction or generated gameplay.
+No bound projection, normal generation or physics simulation was exercised.
 
 ## Working on now
 
@@ -104,9 +103,9 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-Two isolated selected-revision product probes passed: public mesh and complete
-surface decoding (one test each). Broad product tests, lints, generators and
-runtime acceptance remain outstanding.
+Isolated selected-revision mesh, surface and terrain/collider probes passed;
+broad product tests, lints, generators and runtime acceptance remain
+outstanding.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -115,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1042 publication record](CHECKPOINT-1042.json)
-- [Saved report for checkpoint 1042](PROGRESS-1042.md)
+- [Checkpoint 1043 publication record](CHECKPOINT-1043.json)
+- [Saved report for checkpoint 1043](PROGRESS-1043.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
