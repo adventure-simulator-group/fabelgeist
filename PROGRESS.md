@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:28:51.500584+00:00
+Updated: 2026-11-03T02:30:46.532973+00:00
 
-Latest verified checkpoint: **597**. Goal: **active**.
+Latest verified checkpoint: **598**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the triangle census across eleven remaining perspectives. Its
-distance-filtered grass estimate is labeled submitted, while the inspected chunk
-draw submits the full instance count for a queued chunk.
+Reconciled the combat configuration module across ten remaining perspectives,
+including the expanded runtime exports and validated snapshot installation.
 
-Earlier revision source checks: 619 of 767; newest revision remains 403 of 403.
-Native visibility, report consumers and actual draw-count acceptance remain
-open; counts do not represent whole-audit completion.
+Earlier revision source checks: 629 of 767; newest revision remains 403 of 403.
+Field-level consumers, concurrency and runtime acceptance remain open; counts do
+not represent whole-audit completion.
 
 ## Working on now
 
@@ -373,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 597 publication record](CHECKPOINT-597.json)
-- [Saved report for checkpoint 597](PROGRESS-597.md)
+- [Checkpoint 598 publication record](CHECKPOINT-598.json)
+- [Saved report for checkpoint 598](PROGRESS-598.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
