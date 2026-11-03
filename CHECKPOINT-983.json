@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 983,
+  "at": "2026-11-03T13:36:09.715408+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "4ab3a84633a9b74b14ad521fee61194efe3a2cc684334abaed35e374863ee8b7",
+    "verification": "930e37685430aeadd4a35369166e1f1c07e09e665ab6899997631457a570d3b6",
+    "canonical_current": "5f4c8f836ecf9ff9cf88fc4d3e0f490abc12e2d0d1a72a68538cc2a367057633"
+  },
+  "scope": {
+    "summary": "Inspected existing interior and worker tests: successful transforms and facade admission errors are covered, while the inspected cases do not exercise late install failure or venue-plan mismatch.",
+    "scope_limit": "Tests were read, not run; broader test inventory, policy and runtime acceptance remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "c7b7ff5482c4143b2e3ae27ce38ee596a19b47198e2ff38605cdb9647ccd3db6",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
