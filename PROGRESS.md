@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:35:04.054259+00:00
+Updated: 2026-11-03T20:37:20.016838+00:00
 
-Latest verified checkpoint: **1188**. Goal: **active**.
+Latest verified checkpoint: **1189**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced MHR body weights into armor GPU upload and gather readback; linked
-admission requirements to the existing skin owner.
+Traced fitted-piece correspondence and skin readback into generated armor,
+including flexible and rigid attachment distinctions.
 
-The bridge is source-derived; GPU NaN propagation and malformed production-asset
-reachability remain untested.
+The path is source-derived; malformed assets and full device-to-render execution
+remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1188 publication record](CHECKPOINT-1188.json)
-- [Saved report for checkpoint 1188](PROGRESS-1188.md)
+- [Checkpoint 1189 publication record](CHECKPOINT-1189.json)
+- [Saved report for checkpoint 1189](PROGRESS-1189.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
