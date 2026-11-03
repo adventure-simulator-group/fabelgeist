@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:03:04.100246+00:00
+Updated: 2026-11-03T11:04:33.349831+00:00
 
-Latest verified checkpoint: **888**. Goal: **active**.
+Latest verified checkpoint: **889**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,19 +18,19 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Consolidated the attack-identity producer, consumers, existing owner comparisons
-and concrete repair acceptance requirements.
+Traced saved garment editing and wardrobe fitting against the current generated
+body.
 
-Exact identity representation, duplicate-participant policy, global aliases and
-the full audit remain open; no runtime collision was demonstrated.
+No supported equal-count reordered asset or runtime misfit established; topology
+policy and rendering acceptance remain open.
 
 ## Working on now
 
-Reconciling connected identity, renderer, native boundary and canonical repair
-obligations after completing the scoped source-delta assessments.
+Reconciling saved garment topology and connected audit obligations after
+consolidating the attack identity evidence.
 
-- Trace packed attack identity through producers, scheduling and readers,
-  preserving the unresolved collision witness.
+- Resolve saved garment topology identity, public fitting admission and
+  supported asset policy.
 
 - Resolve connected renderer and native boundary obligations, including producer
   completeness, bounds and visual acceptance.
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 888 publication record](CHECKPOINT-888.json)
-- [Saved report for checkpoint 888](PROGRESS-888.md)
+- [Checkpoint 889 publication record](CHECKPOINT-889.json)
+- [Saved report for checkpoint 889](PROGRESS-889.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
