@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T00:36:37.233833+00:00
+Updated: 2026-11-03T00:39:54.069437+00:00
 
-Latest verified checkpoint: **545**. Goal: **active**.
+Latest verified checkpoint: **546**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all thirteen source perspectives for the loading progress controller,
-including virtual-time stall behavior, backlog peaks and the UI consumer.
+Completed all thirteen source perspectives for the loading overlay, tracing
+typed actions through native UI interaction and the separate browser host exit
+paths.
 
-Thirteen current-source checks closed: 101 of 403 for this revision. Oscillation
-policy, render-frame acknowledgment, error causes, scene population and runtime
-acceptance remain open.
+Thirteen current-source checks closed: 114 of 403 for this revision. Actual UI
+interaction, retry and asset lifetime, host navigation, failure causes and
+runtime acceptance remain open.
 
 ## Working on now
 
@@ -326,6 +327,10 @@ connected owners and remaining source perspectives.
   virtual time and resets on any stage snapshot change; consecutive loading
   updates do not by themselves acknowledge rendered frames.
 
+- Completed the loading overlay source perspectives, including native press
+  handling and distinct persistent-host versus standalone exit routes. Retry, UI
+  and host behavior remain untested.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -346,7 +351,7 @@ connected owners and remaining source perspectives.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 101 of those checks are closed. These are audit coverage obligations,
+checks; 114 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -364,8 +369,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 545 publication record](CHECKPOINT-545.json)
-- [Saved report for checkpoint 545](PROGRESS-545.md)
+- [Checkpoint 546 publication record](CHECKPOINT-546.json)
+- [Saved report for checkpoint 546](PROGRESS-546.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
