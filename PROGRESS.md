@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:14:53.080596+00:00
+Updated: 2026-11-03T17:17:29.412323+00:00
 
-Latest verified checkpoint: **1074**. Goal: **active**.
+Latest verified checkpoint: **1075**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced corrective archive loading, existing structured import errors and the
-checked tensor adapter.
+Traced NumPy numeric projection into corrective sparse indices and identified an
+input-admission policy question.
 
-This is source-level evidence; NumPy admission, native presentation and full
+This is source-level evidence; producer guarantees, native presentation and full
 family reconciliation remain open.
 
 ## Working on now
@@ -122,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1074 publication record](CHECKPOINT-1074.json)
-- [Saved report for checkpoint 1074](PROGRESS-1074.md)
+- [Checkpoint 1075 publication record](CHECKPOINT-1075.json)
+- [Saved report for checkpoint 1075](PROGRESS-1075.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
