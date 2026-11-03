@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:49:27.673157+00:00
+Updated: 2026-11-03T02:51:19.228230+00:00
 
-Latest verified checkpoint: **606**. Goal: **active**.
+Latest verified checkpoint: **607**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the vista observer across all thirteen perspectives, including paired
-tree-material stores and the scene replacement sequence.
+Reconciled the grass placement and renderer facade across all thirteen
+perspectives, including chunk-instance migration, coverage packing and scene
+marker production.
 
-Earlier revision source checks: 715 of 767; newest revision remains 403 of 403.
-Asset readiness, terrain seams, scheduling and visual acceptance remain open;
-tests were inspected but not run, and counts do not represent whole-audit
-completion.
+Earlier revision source checks: 728 of 767; newest revision remains 403 of 403.
+Chunk bounds, equal fade endpoints, material initialization and runtime
+acceptance remain open; tests were inspected but not run, and counts do not
+represent whole-audit completion.
 
 ## Working on now
 
@@ -373,8 +374,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 606 publication record](CHECKPOINT-606.json)
-- [Saved report for checkpoint 606](PROGRESS-606.md)
+- [Checkpoint 607 publication record](CHECKPOINT-607.json)
+- [Saved report for checkpoint 607](PROGRESS-607.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

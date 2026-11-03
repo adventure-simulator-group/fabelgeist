@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 607,
+  "at": "2026-11-03T02:51:06.398683+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "00dc3a8f87c55914a1396c83bd0cd28a577e38470bf9b0ccff1d562a6dbf398c",
+    "verification": "22c50055f4684530c12654b39d8dce8e16a7106d95428f52631a2a3bbb04d194",
+    "canonical_current": "b0313eb8e69986f9feb32a928e162908f33498ce53b8eed12eed50e5ecdcb62a"
+  },
+  "scope": {
+    "summary": "Reconciled the grass placement and renderer facade across all thirteen perspectives, including chunk-instance migration, coverage packing and scene marker production.",
+    "scope_limit": "Earlier revision source checks: 728 of 767; newest revision remains 403 of 403. Chunk bounds, equal fade endpoints, material initialization and runtime acceptance remain open; tests were inspected but not run, and counts do not represent whole-audit completion."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "4d874b9aa6b7819fee50da339ddb7a1d49a5f553ef9aca07d2fb3c5dca1e1cde",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
