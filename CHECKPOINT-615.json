@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 615,
+  "at": "2026-11-03T03:09:13.315883+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "c9bd58c03a4e017fe157add3fb17c228748c134bf9bffc6e0f5ff40c57d54c9f",
+    "verification": "65732b240c52484df1ab3e0683c0716267cf2dfd1711c28d67f3df1e05b70aeb",
+    "canonical_current": "ac252ba665f6f16607cff48d737c208ec2a53ea3c8dc3d4c58ec21494c257dda"
+  },
+  "scope": {
+    "summary": "Traced the dialogue answer route and shared browser fetch wrapper: the wrapper calls fetch once, while each new answer submission constructs an action ID.",
+    "scope_limit": "Earlier revision source checks remain 741 of 767; newest revision remains 403 of 403. Other clients, network retries, ballot ordering and runtime acceptance remain open; no retry test was run."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d7a305e3eeebd91b957d892a438f634cb6602f11b906cc9a08185985a01e77f5",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
