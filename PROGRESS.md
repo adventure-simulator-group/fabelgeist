@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:49:50.822379+00:00
+Updated: 2026-11-03T17:52:32.822309+00:00
 
-Latest verified checkpoint: **1089**. Goal: **active**.
+Latest verified checkpoint: **1090**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified procedural texture setup under twelve lenses and distinguished
-reservation, request and installation.
+Traced art-demo lazy texture demand into installed readiness and the existing
+terminal-failure audit entry.
 
-Lazy loading, readiness, native image installation and the renderer family
-remain open.
+Failure behavior is inferred from source and still needs a targeted runtime
+scenario.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1089 publication record](CHECKPOINT-1089.json)
-- [Saved report for checkpoint 1089](PROGRESS-1089.md)
+- [Checkpoint 1090 publication record](CHECKPOINT-1090.json)
+- [Saved report for checkpoint 1090](PROGRESS-1090.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
