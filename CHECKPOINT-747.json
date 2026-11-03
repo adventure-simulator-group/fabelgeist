@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 747,
+  "at": "2026-11-03T07:47:14.991729+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "3d0ff65e2be9e2bff41dcd84482b662a4e64f06c06309fcc019ef314d3519de5",
+    "verification": "56d7ad60d88b2e2319c98f1680d70af4436995a4c45c3624cac194b40bd7401b",
+    "canonical_current": "46a09e9e737f319e8b5e98e59869e8d61fff6c6441e5c7a08befb30e4dbb1031"
+  },
+  "scope": {
+    "summary": "Reconciled the earlier Cargo.lock change under operations, aggregate states, redundant authority and granularity lenses.",
+    "scope_limit": "Four lockfile lens cells and the broader audit remain open; no runtime acceptance is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "b3bba2fff78c2838902d90461ee9a6acb4c1d0c641b4cb5d7a30971ba068024e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
