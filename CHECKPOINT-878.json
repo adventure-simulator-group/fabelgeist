@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 878,
+  "at": "2026-11-03T10:52:54.208243+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "6d7bae413ac8e4597d49fb1f6bc7467d156418b3d5a1dd3ea19d8701766f9b2b",
+    "verification": "9d5f9407b9c77aa3fc7b1652809c850d6a45fe0ba65951d8cb98cc59f54b1e55",
+    "canonical_current": "304c59b1199134035ae44c62d537cb6a23aace2d875dea268fbaad5a7f9f45c7"
+  },
+  "scope": {
+    "summary": "Qualified successful merge cleanup: requests for transferred members and source recruitment roles are deleted.",
+    "scope_limit": "This disposes only the successful-merge stale-request route; other party changes and transaction outcomes remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "ec8b72e36e5e58b4624a77b778231b308a449f410624f90f942d0d57a9c316cf",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

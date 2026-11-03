@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:52:15.652006+00:00
+Updated: 2026-11-03T10:53:05.807853+00:00
 
-Latest verified checkpoint: **877**. Goal: **active**.
+Latest verified checkpoint: **878**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared party-join request and acceptance checks before membership transfer.
+Qualified successful merge cleanup: requests for transferred members and source
+recruitment roles are deleted.
 
-A stale overlap is only a conditional question; request lifecycle, transaction
-behavior and exact aliases remain unverified.
+This disposes only the successful-merge stale-request route; other party changes
+and transaction outcomes remain open.
 
 ## Working on now
 
@@ -109,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 877 publication record](CHECKPOINT-877.json)
-- [Saved report for checkpoint 877](PROGRESS-877.md)
+- [Checkpoint 878 publication record](CHECKPOINT-878.json)
+- [Saved report for checkpoint 878](PROGRESS-878.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
