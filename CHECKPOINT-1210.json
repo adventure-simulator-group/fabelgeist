@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1210,
+  "at": "2026-11-03T21:18:37.276486+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "3e5325c2a921a2736a6a07fbe8de315514888f90c462fee6cd40c9236a0e918c",
+    "verification": "99fe83cf3636605512cb69b30beb4068ab725c3b046d4b70e4b467e2f5b32151",
+    "canonical_current": "9503b2ff926924bc4e28fb1eb805a35e9b1f2f5db365e2e92b9363617bd87e2a"
+  },
+  "scope": {
+    "summary": "Linked remount evidence to its retained owner and compared relevant sources with the locally recorded origin/main.",
+    "scope_limit": "The comparison uses a local remote-tracking ref, not a fresh fetch; native rendering remains untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "b41765f1cc20039d3761a79ea8454bd37cafc5f419608811fd2409eda7b5fc53",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
