@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:16:15.324171+00:00
+Updated: 2026-11-03T09:17:27.841103+00:00
 
-Latest verified checkpoint: **803**. Goal: **active**.
+Latest verified checkpoint: **804**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected selected combat configuration and runtime snapshot exports, including
-the separately cached inverse-kinematics accessor.
+Read both earlier combat configuration bodies and qualified their formatting-
+only delta against the separately inspected selected revision.
 
-Earlier configuration bodies, child validators, consumer and concurrency
-semantics and gameplay/visual acceptance remain open.
+Child validators, runtime export and cache semantics, broader type ownership and
+gameplay acceptance remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 803 publication record](CHECKPOINT-803.json)
-- [Saved report for checkpoint 803](PROGRESS-803.md)
+- [Checkpoint 804 publication record](CHECKPOINT-804.json)
+- [Saved report for checkpoint 804](PROGRESS-804.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
