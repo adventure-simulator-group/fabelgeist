@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:36:22.398281+00:00
+Updated: 2026-11-03T13:37:55.950489+00:00
 
-Latest verified checkpoint: **983**. Goal: **active**.
+Latest verified checkpoint: **984**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected existing interior and worker tests: successful transforms and facade
-admission errors are covered, while the inspected cases do not exercise late
-install failure or venue-plan mismatch.
+Found an existing positive venue worker round-trip test comparing the received
+interior with freshly furnished output; remote main still matches the audit
+source pin.
 
-Tests were read, not run; broader test inventory, policy and runtime acceptance
-remain open.
+The test was read, not run; it does not test mismatched interior admission or
+late-install error atomicity.
 
 ## Working on now
 
@@ -115,8 +115,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 983 publication record](CHECKPOINT-983.json)
-- [Saved report for checkpoint 983](PROGRESS-983.md)
+- [Checkpoint 984 publication record](CHECKPOINT-984.json)
+- [Saved report for checkpoint 984](PROGRESS-984.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 984,
+  "at": "2026-11-03T13:37:46.609928+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "0fed5d6e92b703c1335faf91217153b740634aaaac1fb6fca6bc907547f7da59",
+    "verification": "99e93a546c28b81342add25ba5f4b4044b1b0dceeb066ba69db8f99c3e3d604b",
+    "canonical_current": "1eb6c2a80964796c0ebe60ab13325f843eb8eb3df1e703da5fcdf316ea092a07"
+  },
+  "scope": {
+    "summary": "Found an existing positive venue worker round-trip test comparing the received interior with freshly furnished output; remote main still matches the audit source pin.",
+    "scope_limit": "The test was read, not run; it does not test mismatched interior admission or late-install error atomicity."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "ee25124e0a66d4c3ae9defc2a5b8721cb831936b8f1452bba89863abfb28a9fc",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
