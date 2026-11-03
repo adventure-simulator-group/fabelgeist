@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T03:04:44.796936+00:00
+Updated: 2026-11-03T03:06:41.996817+00:00
 
-Latest verified checkpoint: **612**. Goal: **active**.
+Latest verified checkpoint: **613**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pending vista presentation and browser tactical transitions. Vista grass
-can be prepared through a later trigger, but the inspected source does not prove
-the ordering relative to the interaction updater.
+Traced dialogue answer receipts from the web route to the reducer and stored
+ballot. A matching receipt returns before retry choices are parsed, while
+unanimous resolution compares ballot order.
 
 Earlier revision source checks remain 741 of 767; newest revision remains 403 of
-403. Player lifetime, event ordering and first-visible rendering remain
-unverified; no runtime regression is claimed.
+403. Client action IDs, actor cardinality, intended ballot order and runtime
+acceptance remain open; no retry execution was performed.
 
 ## Working on now
 
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 612 publication record](CHECKPOINT-612.json)
-- [Saved report for checkpoint 612](PROGRESS-612.md)
+- [Checkpoint 613 publication record](CHECKPOINT-613.json)
+- [Saved report for checkpoint 613](PROGRESS-613.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

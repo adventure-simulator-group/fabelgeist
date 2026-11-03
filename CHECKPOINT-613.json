@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 613,
+  "at": "2026-11-03T03:06:28.082851+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "6a9d39c637853b84516f9bb92101f6c4fcd38cc2460204ea09aea91c9b01655c",
+    "verification": "36a6b6aa6c3a0bafb4c6a3dec5234858d66cbe1aac1e5ede3294c7ed321fbe42",
+    "canonical_current": "d843b5d2c3dcea123f740b44c1736689340fd2618fa28092c31b03c7fd1157c1"
+  },
+  "scope": {
+    "summary": "Traced dialogue answer receipts from the web route to the reducer and stored ballot. A matching receipt returns before retry choices are parsed, while unanimous resolution compares ballot order.",
+    "scope_limit": "Earlier revision source checks remain 741 of 767; newest revision remains 403 of 403. Client action IDs, actor cardinality, intended ballot order and runtime acceptance remain open; no retry execution was performed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "40b4ff6da7c184c02da8d2c6d6917f45a57834e5b01dd685e10dd60f29437f20",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
