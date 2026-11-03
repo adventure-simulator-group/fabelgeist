@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 995,
+  "at": "2026-11-03T13:55:09.265247+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "5c97d24444815335c840783e896e9b7a3c58a0a76a7cee8520d9dc46a590601a",
+    "verification": "ee58223130f5ed46d68ea7a3e4a3bcb0048b55bbb135a8990cc3d7c478528d7e",
+    "canonical_current": "cba02c4e1ebd2ede10c25fba87b26ba16f83751b8133446d2a26d15a55db0b62"
+  },
+  "scope": {
+    "summary": "A standalone Rust f32 reproduction found an extreme two-sample trajectory with finite speed and infinite acceleration.",
+    "scope_limit": "The calculation reproduces formulas only; full validated configuration, actual motor execution and supported tuning remain unproved."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d2b371816b30f307fce38955ba8b6dab029d57ee4a8014fbf56f046e4b71b08c",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

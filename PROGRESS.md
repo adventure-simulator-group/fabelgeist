@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:53:40.132334+00:00
+Updated: 2026-11-03T13:55:20.070509+00:00
 
-Latest verified checkpoint: **994**. Goal: **active**.
+Latest verified checkpoint: **995**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced server runtime YAML loading and confirmed locomotion validation adds no
-separate sample-rate range beyond the checked type.
+A standalone Rust f32 reproduction found an extreme two-sample trajectory with
+finite speed and infinite acceleration.
 
-Whole-config interactions, intended supported tuning and an actual multi-sample
-failure remain unverified.
+The calculation reproduces formulas only; full validated configuration, actual
+motor execution and supported tuning remain unproved.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 994 publication record](CHECKPOINT-994.json)
-- [Saved report for checkpoint 994](PROGRESS-994.md)
+- [Checkpoint 995 publication record](CHECKPOINT-995.json)
+- [Saved report for checkpoint 995](PROGRESS-995.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
