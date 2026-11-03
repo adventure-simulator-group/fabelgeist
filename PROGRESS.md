@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:11:46.116113+00:00
+Updated: 2026-11-03T11:12:58.510469+00:00
 
-Latest verified checkpoint: **896**. Goal: **active**.
+Latest verified checkpoint: **897**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the pre-validation loadout path: settled drapes are retained as
-references without evaluating binding triangles.
+Traced public body faces into indexed BVH construction, separately from saved
+binding ordinal admission.
 
-Other malformed selection or graph behavior is not resolved; direct public
-fitting and topology policy remain open.
+No malformed input was executed or ordinary MHR violation established; upstream
+and canonical topology reconciliation remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 896 publication record](CHECKPOINT-896.json)
-- [Saved report for checkpoint 896](PROGRESS-896.md)
+- [Checkpoint 897 publication record](CHECKPOINT-897.json)
+- [Saved report for checkpoint 897](PROGRESS-897.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
