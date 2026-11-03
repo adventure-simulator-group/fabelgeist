@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1205,
+  "at": "2026-11-03T21:09:29.763807+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "1793f0483508c097ed4ea8f4c9114c1923620e45e17be97116c658d7ceaba1b0",
+    "verification": "44399edac551f09c142ca0045af98a36acbc79aef114a46c95bd2e3f7a839f27",
+    "canonical_current": "270c74bec0aa48a49c46df5c5983cd3380ad19df9090599521f4ad07536cff5b"
+  },
+  "scope": {
+    "summary": "A selected-source report-function probe confirmed old screenshots can satisfy the presence check after simulated save failure.",
+    "scope_limit": "The save failure was simulated; Bevy callback and complete report gates were not executed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "9d414ca4be0dbac016195f75407b2214a7f157bc04e0fc01f64458cff3809b84",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

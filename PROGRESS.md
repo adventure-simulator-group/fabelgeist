@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:08:05.010798+00:00
+Updated: 2026-11-03T21:09:38.831028+00:00
 
-Latest verified checkpoint: **1204**. Goal: **active**.
+Latest verified checkpoint: **1205**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced standard capture recipes and pinned Bevy screenshot completion behavior
-for dropped requests.
+A selected-source report-function probe confirmed old screenshots can satisfy
+the presence check after simulated save failure.
 
-Viewer-specific dropped requests and actual hangs remain unproven; callers may
-add their own deadlines.
+The save failure was simulated; Bevy callback and complete report gates were not
+executed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1204 publication record](CHECKPOINT-1204.json)
-- [Saved report for checkpoint 1204](PROGRESS-1204.md)
+- [Checkpoint 1205 publication record](CHECKPOINT-1205.json)
+- [Saved report for checkpoint 1205](PROGRESS-1205.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
