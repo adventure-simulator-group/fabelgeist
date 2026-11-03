@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:00:43.123102+00:00
+Updated: 2026-11-03T10:01:59.646169+00:00
 
-Latest verified checkpoint: **835**. Goal: **active**.
+Latest verified checkpoint: **836**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the three child Cargo.lock deltas and their selected-revision
-identities.
+Traced child lockfiles to separate workspace manifests and the pinned rawzip
+dependency.
 
-Individual perspectives, actual manifest and target resolution, and native
-archive behavior remain open; no product checks were run.
+Individual lock perspectives, target-specific resolution and native archive
+behavior remain open; no product checks were run.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 835 publication record](CHECKPOINT-835.json)
-- [Saved report for checkpoint 835](PROGRESS-835.md)
+- [Checkpoint 836 publication record](CHECKPOINT-836.json)
+- [Saved report for checkpoint 836](PROGRESS-836.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
