@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T06:11:54.014023+00:00
+Updated: 2026-11-03T06:12:47.691641+00:00
 
-Latest verified checkpoint: **685**. Goal: **active**.
+Latest verified checkpoint: **686**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,8 +18,8 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Continued the registered earlier lockfile review through line 4000, including
-rendering, mesh and shader dependency records.
+Continued the registered earlier lockfile review through line 5600, including
+workspace package records.
 
 Both lockfile reviews, independent lens dispositions and renderer acceptance
 remain open.
@@ -103,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 685 publication record](CHECKPOINT-685.json)
-- [Saved report for checkpoint 685](PROGRESS-685.md)
+- [Checkpoint 686 publication record](CHECKPOINT-686.json)
+- [Saved report for checkpoint 686](PROGRESS-686.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
