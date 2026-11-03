@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:21:49.744243+00:00
+Updated: 2026-11-03T12:23:22.267881+00:00
 
-Latest verified checkpoint: **941**. Goal: **active**.
+Latest verified checkpoint: **942**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the inherited P17 repeated-evaluation sample-tick omission against
-current source.
+Traced P17 repeated-evaluation result through capture scheduling, validation and
+process exit.
 
-Source-level qualification only; scheduler, final report acceptance, exact
-aliases and native execution remain open.
+Tick mutation reachability, full scheduling, exact aliases and native execution
+remain unverified; artifact publication is a separate open obligation.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 941 publication record](CHECKPOINT-941.json)
-- [Saved report for checkpoint 941](PROGRESS-941.md)
+- [Checkpoint 942 publication record](CHECKPOINT-942.json)
+- [Saved report for checkpoint 942](PROGRESS-942.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
