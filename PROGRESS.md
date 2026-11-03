@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:20:46.751554+00:00
+Updated: 2026-11-03T17:22:12.590400+00:00
 
-Latest verified checkpoint: **1077**. Goal: **active**.
+Latest verified checkpoint: **1078**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified the pinned MHR release and inspected its actual corrective index and
-weight arrays.
+Tested skin output from all three pinned MHR release FBX rigs in the selected-
+source importer harness.
 
-One pinned release was inspected with NumPy; Rust model execution and general
-external-input guarantees remain unverified.
+This isolated module harness does not test the full MHR crate, rendering or
+arbitrary external assets.
 
 ## Working on now
 
@@ -122,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1077 publication record](CHECKPOINT-1077.json)
-- [Saved report for checkpoint 1077](PROGRESS-1077.md)
+- [Checkpoint 1078 publication record](CHECKPOINT-1078.json)
+- [Saved report for checkpoint 1078](PROGRESS-1078.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
