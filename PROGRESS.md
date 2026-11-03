@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:18:38.466245+00:00
+Updated: 2026-11-03T01:22:02.133491+00:00
 
-Latest verified checkpoint: **566**. Goal: **active**.
+Latest verified checkpoint: **567**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all thirteen source perspectives for the client entrypoint, tracing
-loading installation across native and browser startup and the cursor capture
-gate.
+Completed all thirteen source perspectives for the tactical UI, tracing its
+camera binding and loading gate while preserving the incapacitation wheel
+display cutoff.
 
-Thirteen current-source checks closed: 364 of 403 for this revision. Other
-binaries, input and scheduling, native render failures and runtime acceptance
-remain open; no complete case is claimed.
+Thirteen current-source checks closed: 377 of 403 for this revision.
+Camera/context lifecycle, wheel source semantics, other HUD visibility and
+runtime acceptance remain open; no complete case is claimed.
 
 ## Working on now
 
@@ -355,7 +355,7 @@ connected owners and remaining source perspectives.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 364 of those checks are closed. These are audit coverage obligations,
+checks; 377 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 566 publication record](CHECKPOINT-566.json)
-- [Saved report for checkpoint 566](PROGRESS-566.md)
+- [Checkpoint 567 publication record](CHECKPOINT-567.json)
+- [Saved report for checkpoint 567](PROGRESS-567.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
