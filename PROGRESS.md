@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:46:35.231166+00:00
+Updated: 2026-11-03T10:47:34.812018+00:00
 
-Latest verified checkpoint: **872**. Goal: **active**.
+Latest verified checkpoint: **873**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared timeline event sequence with attack-instance lifecycle and recorded the
-propagation and overflow requirements for any allocated identity.
+Identified participant uniqueness as an explicit public battle admission
+question and traced first-match target lookup.
 
-No final identity owner or allocation policy selected; full audit and runtime
-validation remain open.
+Duplicate-ID intended admissibility and full downstream effects remain
+unresolved; no gameplay incident or runtime result is claimed.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 872 publication record](CHECKPOINT-872.json)
-- [Saved report for checkpoint 872](PROGRESS-872.md)
+- [Checkpoint 873 publication record](CHECKPOINT-873.json)
+- [Saved report for checkpoint 873](PROGRESS-873.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
