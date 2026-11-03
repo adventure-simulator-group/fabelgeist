@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:33:42.270555+00:00
+Updated: 2026-11-03T11:35:27.634215+00:00
 
-Latest verified checkpoint: **913**. Goal: **active**.
+Latest verified checkpoint: **914**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Refined saved-drape correspondence requirements from triangle ordinal, ordered
-corners, barycentric weights and local-frame reconstruction.
+Linked the current saved-drape correspondence trace to the inherited conditional
+Lens 13 finding and distinguished adjacent admission boundaries.
 
-Identity representation and alternate-asset policy remain unresolved; no runtime
-mismatch or implementation is claimed.
+Inherited attribution and global alias/provenance work remain open; no runtime
+incident, product change or unique-count increase.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 913 publication record](CHECKPOINT-913.json)
-- [Saved report for checkpoint 913](PROGRESS-913.md)
+- [Checkpoint 914 publication record](CHECKPOINT-914.json)
+- [Saved report for checkpoint 914](PROGRESS-914.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
