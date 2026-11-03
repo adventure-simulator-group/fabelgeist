@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:41:30.541961+00:00
+Updated: 2026-11-03T22:43:26.416206+00:00
 
-Latest verified checkpoint: **1253**. Goal: **active**.
+Latest verified checkpoint: **1254**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified readback crate dependency direction and a provisional shared-error
-ownership constraint.
+Traced typed staged armor errors and generic hair readback conversion.
 
-The final shared error design, remaining consumers and target-specific policies
-remain open; no new coverage is claimed.
+The remaining consumers and shared error design remain open; no new coverage is
+claimed.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1253 publication record](CHECKPOINT-1253.json)
-- [Saved report for checkpoint 1253](PROGRESS-1253.md)
+- [Checkpoint 1254 publication record](CHECKPOINT-1254.json)
+- [Saved report for checkpoint 1254](PROGRESS-1254.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
