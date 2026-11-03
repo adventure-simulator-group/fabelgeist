@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 611,
+  "at": "2026-11-03T03:02:12.114012+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "11eaff1220c8497fff788efc3fe08b3fa6839d574ed15cb17917f9dca5c25899",
+    "verification": "0cca91d0dc98647d72e331ddf57345c7fcdcff56807c30189afb14f873629d10",
+    "canonical_current": "bddae705af20f6a3c6208a91197b32aa591849af0174752ff40fac6b46c9099b"
+  },
+  "scope": {
+    "summary": "Traced grass scene cleanup and vista material creation: the inspected cleanup retains the interaction cache, while vista grass uses the same new-material constructor.",
+    "scope_limit": "Earlier revision source checks remain 741 of 767; newest revision remains 403 of 403. Player retention, scheduling and first-visible rendering remain unverified; no runtime regression is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "aa532badae903138243fb5ae05c3e3066875948f45d6583cdc9fa4949524a4ff",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
