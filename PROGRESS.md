@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:46:45.456303+00:00
+Updated: 2026-11-03T05:48:45.833814+00:00
 
-Latest verified checkpoint: **668**. Goal: **active**.
+Latest verified checkpoint: **669**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced native wgpu buffer creation error reporting and mapped-range validation
-alongside the client’s render error policy.
+Traced a native wgpu-core buffer-creation failure through the invalid resource
+to a fatal mapped-range error.
 
-Underlying invalid-buffer mapping and browser behavior remain unverified; no
-actual allocation failure or rendering incident is claimed.
+This is conditional source evidence; an actual oversized chunk, allocation
+failure and browser behavior remain unverified.
 
 ## Working on now
 
@@ -371,8 +371,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 668 publication record](CHECKPOINT-668.json)
-- [Saved report for checkpoint 668](PROGRESS-668.md)
+- [Checkpoint 669 publication record](CHECKPOINT-669.json)
+- [Saved report for checkpoint 669](PROGRESS-669.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

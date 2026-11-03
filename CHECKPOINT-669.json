@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 669,
+  "at": "2026-11-03T05:48:09.689790+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "7f63a959f584b0f48fb2931a5efc332935f548144362f4d8da301fe7b4d98ffd",
+    "verification": "95f67a9c2ce386980d6e1067825c05011aae757990c394a125987695f8cd8617",
+    "canonical_current": "bb88195f2c310d5762d350d0a0e0810a638f5c5d0ff8c11c7b03a2bdda317354"
+  },
+  "scope": {
+    "summary": "Traced a native wgpu-core buffer-creation failure through the invalid resource to a fatal mapped-range error.",
+    "scope_limit": "This is conditional source evidence; an actual oversized chunk, allocation failure and browser behavior remain unverified."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "be0714e2f2979e0161eaa938e8574357ada01b8b5f3380bd12181976441d28f3",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
