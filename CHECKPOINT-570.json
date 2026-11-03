@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 570,
+  "at": "2026-11-03T01:29:52.797775+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "365ec456adac8dc53d66d0e05e98c7a5e16a97a8de69240e9cce4e22516b80ec",
+    "verification": "9ddd6382f9e58fab730b07a7fe9c2da58edb41d27b3c45527edfba9c8996a0ad",
+    "canonical_current": "cef3076db1729c82390e784864a0b59efafff471d4a72af4810ab12b9ea1f017"
+  },
+  "scope": {
+    "summary": "Traced the loading gate through raw equipment input and the server request validator. The HUD is gated, while the inspected grab system does not directly consult the loading phase or player input context.",
+    "scope_limit": "No additional source-matrix cells or complete cases closed: newest revision remains 403 of 403, earlier revision 189 of 767. Actual input delivery and server action acceptance during loading remain untested; the implementation gate remains closed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "31d7da6b708b75e2417050b49abb690776c6201a5b9d21239bfe5ceca8a25e39",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
