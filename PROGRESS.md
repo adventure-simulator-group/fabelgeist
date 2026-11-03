@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:49:55.613196+00:00
+Updated: 2026-11-03T15:53:04.906373+00:00
 
-Latest verified checkpoint: **1047**. Goal: **active**.
+Latest verified checkpoint: **1048**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,15 +18,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A focused product probe confirmed binary FBX parsing and numeric array access
-preserve a NaN value.
+A module-level selected-source character loader probe accepted a synthetic FBX
+rig and retained a NaN skin weight.
 
-A complete nonfinite skin asset and downstream effects remain unverified.
+The harness resolved dependencies separately; the full MHR crate, downstream
+consumers and runtime were not tested.
 
 ## Working on now
 
-Reconciling nonfinite FBX weight admission and the P09 skin producer and
-receiver graph.
+Reconciling confirmed nonfinite skin admission and typed P09 skin producer and
+receiver contracts.
 
 - Resolve saved garment topology identity, public fitting admission and
   supported asset policy.
@@ -103,9 +104,9 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-Isolated selected-revision mesh, surface, terrain/collider and FBX array probes
-passed; broad tests, lints, generators and runtime acceptance remain
-outstanding.
+Isolated selected-revision terrain and FBX probes passed; a copied-source MHR
+module harness confirmed NaN skin admission. Full MHR and broad product tests,
+lints, generators and runtime acceptance remain outstanding.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -114,8 +115,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1047 publication record](CHECKPOINT-1047.json)
-- [Saved report for checkpoint 1047](PROGRESS-1047.md)
+- [Checkpoint 1048 publication record](CHECKPOINT-1048.json)
+- [Saved report for checkpoint 1048](PROGRESS-1048.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
