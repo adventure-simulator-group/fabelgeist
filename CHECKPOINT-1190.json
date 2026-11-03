@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1190,
+  "at": "2026-11-03T20:38:45.815695+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "913182bafc8e7f32a593355cbff67d2832cdd13e1e2efb0a2712cfda7b0465d5",
+    "verification": "299faaead34b65881352b50accd271685db74ddc4a4d01cb64811e4815ff37b7",
+    "canonical_current": "113818bdedfdcef8f56d49721cca0135474e3cf10835197249a51bd52bd1159a"
+  },
+  "scope": {
+    "summary": "Verified zero fallback and NaN propagation in an isolated selected-source armor blend probe.",
+    "scope_limit": "Four isolated tests passed with stand-in rig types; production reachability and GPU behavior remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "723b7fdbeb74f9cb52ec2b32c8ab6bbac96ed0cc7c7f8fb6989bf59316f612f3",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
