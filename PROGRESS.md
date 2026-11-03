@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:36:45.998987+00:00
+Updated: 2026-11-03T12:39:25.555594+00:00
 
-Latest verified checkpoint: **950**. Goal: **active**.
+Latest verified checkpoint: **951**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,14 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recovered the [P19 per-foot scope](https://github.com/adventure-simulator-
-group/fabelgeist/pull/774#issuecomment-6255385668) and [P20 continuation
-followup](https://github.com/adventure-simulator-
-group/fabelgeist/pull/774#issuecomment-6255298111) decisions from the original
-PR discussion.
+Reconciled current durability catalogue validation and catastrophic tier
+arithmetic.
 
-Historical decisions do not establish current full-family acceptance; missing
-original closure artifacts, aliases and final native validation remain open.
+Supported stress reachability, catalog conversion detail, exact aliases and
+native acceptance remain open.
 
 ## Working on now
 
@@ -117,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 950 publication record](CHECKPOINT-950.json)
-- [Saved report for checkpoint 950](PROGRESS-950.md)
+- [Checkpoint 951 publication record](CHECKPOINT-951.json)
+- [Saved report for checkpoint 951](PROGRESS-951.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
