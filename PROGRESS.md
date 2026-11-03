@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:44:49.968254+00:00
+Updated: 2026-11-03T08:46:40.950776+00:00
 
-Latest verified checkpoint: **782**. Goal: **active**.
+Latest verified checkpoint: **783**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected current model limit parsing and clamp admission to three existing
-audit records, including delimiter order and interval validity.
+Reconciled model definition, typed layout, matrix and parser test sources across
+thirteen perspectives.
 
-Supported inputs, intended policy, native float behavior, exact aliases and
-acceptance remain open. No new unique finding or runtime execution is claimed.
+The older batch retains 1302 pending checks. Limit admission, source identity,
+native behavior, aliases and acceptance remain open; tests were not run.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 782 publication record](CHECKPOINT-782.json)
-- [Saved report for checkpoint 782](PROGRESS-782.md)
+- [Checkpoint 783 publication record](CHECKPOINT-783.json)
+- [Saved report for checkpoint 783](PROGRESS-783.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
