@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:50:29.719160+00:00
+Updated: 2026-11-03T07:51:56.296120+00:00
 
-Latest verified checkpoint: **749**. Goal: **active**.
+Latest verified checkpoint: **750**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Read the earlier third-party notice delta and identified its rawzip attribution
-addition.
+Inspected the rawzip-backed archive reader and its unchanged current source
+identity.
 
-The older revision batch still has 1918 pending lens/path checks; rawzip
-connections and all broader audit obligations remain open.
+Native parser and decompressor boundaries, helper bodies and same-lens notice
+dispositions remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 749 publication record](CHECKPOINT-749.json)
-- [Saved report for checkpoint 749](PROGRESS-749.md)
+- [Checkpoint 750 publication record](CHECKPOINT-750.json)
+- [Saved report for checkpoint 750](PROGRESS-750.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
