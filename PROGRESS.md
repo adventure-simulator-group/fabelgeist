@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:40:34.943996+00:00
+Updated: 2026-11-03T17:42:01.997089+00:00
 
-Latest verified checkpoint: **1084**. Goal: **active**.
+Latest verified checkpoint: **1085**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,27 +18,30 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Drafted an evidence-linked P09 repair order spanning skin admission, rig
-reduction, corrective coordinates and garment consumers.
+Traced shared skin reduction into GLB export, creator geometry probes and
+runtime equipment mesh attributes.
 
-The proposed order remains provisional; full family and repository-wide audit
-gates still prohibit implementation.
+The correct handling of unweighted input and flexible equipment provenance
+remains unresolved.
 
 ## Working on now
 
 Reconciling P09 skin admission, reduction and equipment consumers across the
 remaining audit ledger.
 
-- Reconcile the proposed P09 repair order with remaining aliases, consumers and
-  supported-input policy.
+- Reconcile MHR skin admission and typed cluster failures against the pinned
+  rigs and malformed inputs.
 
-- Complete garment topology, renderer and cancellation obligations.
+- Define shared zero-total influence handling across export, geometry probes,
+  GLB fixtures and equipment.
 
-- Complete all 13 perspectives, all 20 families and the ordered repair ledger
-  before implementation.
+- Resolve corrective index conversion policy, preserving existing typed errors
+  and the pinned release baseline.
 
-- Implement the clean final types, then complete independent review and final
-  validation.
+- Reconcile garment previews, cancellation, all 13 perspectives and all 20
+  families before implementation.
+
+- Implement the final types and complete independent review and validation.
 
 ## Work completed since the handoff
 
@@ -122,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1084 publication record](CHECKPOINT-1084.json)
-- [Saved report for checkpoint 1084](PROGRESS-1084.md)
+- [Checkpoint 1085 publication record](CHECKPOINT-1085.json)
+- [Saved report for checkpoint 1085](PROGRESS-1085.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
