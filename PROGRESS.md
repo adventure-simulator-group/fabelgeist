@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:47:22.130734+00:00
+Updated: 2026-11-03T13:48:47.067629+00:00
 
-Latest verified checkpoint: **990**. Goal: **active**.
+Latest verified checkpoint: **991**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected motor rejection ordering to related quickstep acceleration, physical
-sampling and native actuator records without merging distinct predicates.
+Qualified quickstep profile and scale validation alongside checked speed and raw
+acceleration arithmetic.
 
-Broader aliases, supported failures, native timing and final repair policy
-remain open.
+Supported duration, clock sampling, extremal reachability and native force
+effects remain open; no runtime overflow was established.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 990 publication record](CHECKPOINT-990.json)
-- [Saved report for checkpoint 990](PROGRESS-990.md)
+- [Checkpoint 991 publication record](CHECKPOINT-991.json)
+- [Saved report for checkpoint 991](PROGRESS-991.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
