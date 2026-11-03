@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:25:15.269416+00:00
+Updated: 2026-11-03T11:26:44.303807+00:00
 
-Latest verified checkpoint: **907**. Goal: **active**.
+Latest verified checkpoint: **908**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced selected MHR face and UV consumers and their distinct validation
-behavior.
+Traced binary FBX signed integer arrays into MHR topology parsing and the full-
+width narrowing boundary.
 
-Selected source paths only; full caller preconditions, native decoding, aliases
-and runtime acceptance remain open.
+Source evidence only; mapping grammar, exact aliases, malformed asset execution
+and broader audit remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 907 publication record](CHECKPOINT-907.json)
-- [Saved report for checkpoint 907](PROGRESS-907.md)
+- [Checkpoint 908 publication record](CHECKPOINT-908.json)
+- [Saved report for checkpoint 908](PROGRESS-908.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
