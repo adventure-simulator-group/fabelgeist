@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:53:26.867094+00:00
+Updated: 2026-11-03T12:55:43.178870+00:00
 
-Latest verified checkpoint: **959**. Goal: **active**.
+Latest verified checkpoint: **960**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified tactical enemy escalation bounds and distinct autoresolve threat and
-weapon producers.
+Traced strategic autoresolve difficulty from mission and random encounter
+authorities.
 
-Autoresolve difficulty admission, player equipment construction, semantic
-aliases and native acceptance remain open.
+Authority admission, player equipment, semantic aliases and native acceptance
+remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 959 publication record](CHECKPOINT-959.json)
-- [Saved report for checkpoint 959](PROGRESS-959.md)
+- [Checkpoint 960 publication record](CHECKPOINT-960.json)
+- [Saved report for checkpoint 960](PROGRESS-960.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
