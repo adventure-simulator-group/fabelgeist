@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:42:30.663511+00:00
+Updated: 2026-11-03T19:43:38.194385+00:00
 
-Latest verified checkpoint: **1155**. Goal: **active**.
+Latest verified checkpoint: **1156**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected mission binding and roster capture for direct fatigue admission
-checks.
+Tested selected condition wheel refresh with successful, rejected and non-
+success HTTP stubs.
 
-Real mission reachability, finite input and condition refresh behavior remain
-unproven.
+The probe uses a stub DOM and fetch; real browser and multi-wheel behavior
+remain open.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1155 publication record](CHECKPOINT-1155.json)
-- [Saved report for checkpoint 1155](PROGRESS-1155.md)
+- [Checkpoint 1156 publication record](CHECKPOINT-1156.json)
+- [Saved report for checkpoint 1156](PROGRESS-1156.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

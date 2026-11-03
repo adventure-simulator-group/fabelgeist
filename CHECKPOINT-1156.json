@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1156,
+  "at": "2026-11-03T19:43:28.633729+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "7fea3375c01ffe5f10eba029c1e5acd08fda4ec59b5f86ca516b46b864fcecf6",
+    "verification": "9d774e006892d2a653823ab78ee7a95748f6bad0b24e4d66b96232ee567e1910",
+    "canonical_current": "044944fb737e95121f7e3b9b2d740c5632d1b0a63144d9b4e35ac1fa8e44fbdf"
+  },
+  "scope": {
+    "summary": "Tested selected condition wheel refresh with successful, rejected and non-success HTTP stubs.",
+    "scope_limit": "The probe uses a stub DOM and fetch; real browser and multi-wheel behavior remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d90ecb6f18712aedc61a844b2f76d5b41eb58f12877d5622a72de256fd0cbde0",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
