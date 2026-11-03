@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:04:41.085810+00:00
+Updated: 2026-11-03T17:06:11.820947+00:00
 
-Latest verified checkpoint: **1069**. Goal: **active**.
+Latest verified checkpoint: **1070**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced weighted versus unweighted cloth binding, playback rig checks and seam
-selection.
+Traced staged garment previews from empty skin rows to conditional weighted
+ClothSkin creation.
 
-Invalid-row runtime and the complete caller graph remain unverified.
+Direct callers and invalid-weight preview behavior were not run.
 
 ## Working on now
 
@@ -121,8 +121,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1069 publication record](CHECKPOINT-1069.json)
-- [Saved report for checkpoint 1069](PROGRESS-1069.md)
+- [Checkpoint 1070 publication record](CHECKPOINT-1070.json)
+- [Saved report for checkpoint 1070](PROGRESS-1070.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
