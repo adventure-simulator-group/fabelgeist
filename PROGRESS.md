@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:30:46.532973+00:00
+Updated: 2026-11-03T02:32:33.725266+00:00
 
-Latest verified checkpoint: **598**. Goal: **active**.
+Latest verified checkpoint: **599**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the combat configuration module across ten remaining perspectives,
-including the expanded runtime exports and validated snapshot installation.
+Reconciled the presentation plugin across ten remaining perspectives, including
+the tree root-culling schedule and relocated celestial material updater.
 
-Earlier revision source checks: 629 of 767; newest revision remains 403 of 403.
-Field-level consumers, concurrency and runtime acceptance remain open; counts do
-not represent whole-audit completion.
+Earlier revision source checks: 639 of 767; newest revision remains 403 of 403.
+Camera coverage, scheduling, material initialization and visual acceptance
+remain open; counts do not represent whole-audit completion.
 
 ## Working on now
 
@@ -372,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 598 publication record](CHECKPOINT-598.json)
-- [Saved report for checkpoint 598](PROGRESS-598.md)
+- [Checkpoint 599 publication record](CHECKPOINT-599.json)
+- [Saved report for checkpoint 599](PROGRESS-599.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
