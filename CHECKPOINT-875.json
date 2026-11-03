@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 875,
+  "at": "2026-11-03T10:49:56.898210+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "204f90674925ef6e59158a52a73c36f84531104d9d4b590a0a961f18cb529b74",
+    "verification": "f60a20b8eee088247385a67385964dfbf91f12b6b6562d9fd74feb4ad189c368",
+    "canonical_current": "0534fe06681349960a444c2a2a46b6821e6fadb3bee82d657cf4adffc70e14eb"
+  },
+  "scope": {
+    "summary": "Traced allied membership selection and its schema: selection sorts without local deduplication, while the row key is separate from character ID.",
+    "scope_limit": "Authorized membership writers and cross-side overlap remain untraced; no supported duplicate roster or runtime incident is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "be8a1ad64cc7e0a016fa16ac1bfd35e0a3c6d582f121c87fb4b3e692357f3db5",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

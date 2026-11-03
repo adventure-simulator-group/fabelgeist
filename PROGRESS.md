@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:48:57.868108+00:00
+Updated: 2026-11-03T10:50:10.119090+00:00
 
-Latest verified checkpoint: **874**. Goal: **active**.
+Latest verified checkpoint: **875**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced mission autoresolve through captured enemy roster validation, which
-rejects duplicate full IDs and missing characters.
+Traced allied membership selection and its schema: selection sorts without local
+deduplication, while the row key is separate from character ID.
 
-That guarantee is within the enemy roster; cross-side and low-bit uniqueness
-remain unproven, and tests were not run.
+Authorized membership writers and cross-side overlap remain untraced; no
+supported duplicate roster or runtime incident is claimed.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 874 publication record](CHECKPOINT-874.json)
-- [Saved report for checkpoint 874](PROGRESS-874.md)
+- [Checkpoint 875 publication record](CHECKPOINT-875.json)
+- [Saved report for checkpoint 875](PROGRESS-875.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
