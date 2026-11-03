@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:43:21.698641+00:00
+Updated: 2026-11-03T12:44:50.450262+00:00
 
-Latest verified checkpoint: **953**. Goal: **active**.
+Latest verified checkpoint: **954**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical contact force accumulation and strategic receipt authorization
-for the durability tier finding.
+Traced separate autoresolve per-exchange stress into strategic equipment impact.
 
-Feasible encounter reachability, autoresolve source, exact aliases and native
-execution remain open.
+Supported per-exchange force reachability, exact aliases and native acceptance
+remain open.
 
 ## Working on now
 
@@ -114,8 +113,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 953 publication record](CHECKPOINT-953.json)
-- [Saved report for checkpoint 953](PROGRESS-953.md)
+- [Checkpoint 954 publication record](CHECKPOINT-954.json)
+- [Saved report for checkpoint 954](PROGRESS-954.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
