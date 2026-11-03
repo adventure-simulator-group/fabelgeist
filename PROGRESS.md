@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:22:43.678518+00:00
+Updated: 2026-11-03T14:26:22.752608+00:00
 
-Latest verified checkpoint: **1008**. Goal: **active**.
+Latest verified checkpoint: **1009**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Established that scene-input grid validation excludes the inherited subnormal
-terrain-scale example.
+Traced validated scene samples through upsampling, refinement and optional owned
+support; refinement maps optional base-height failure to DetailTerrain.
 
-Direct terrain construction is more permissive; post-validation transformations,
-other producers and native consistency remain open.
+Post-repair numeric bounds, owned support and mesh/collider consistency remain
+open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1008 publication record](CHECKPOINT-1008.json)
-- [Saved report for checkpoint 1008](PROGRESS-1008.md)
+- [Checkpoint 1009 publication record](CHECKPOINT-1009.json)
+- [Saved report for checkpoint 1009](PROGRESS-1009.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
