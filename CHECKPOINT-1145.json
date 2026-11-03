@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1145,
+  "at": "2026-11-03T19:29:13.390829+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "137d87aff18e9c9c6ad1cb83a032898aebf0fe9d12e2682424088ce984d5f14a",
+    "verification": "ae939e7489a7ef84a7b9cde29e7b89c4a6b608f3e228e538bbb657f456ccb347",
+    "canonical_current": "9f73c38235c3a07f51d087df45593db1ab1be1387679a573515d263afd3e35ab"
+  },
+  "scope": {
+    "summary": "Traced native error classification through wasm, worker messages and pool errors.",
+    "scope_limit": "Source trace and mocked tests do not prove browser and wasm integration; cache and renderer obligations remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "07d1cc83016ea337752ab83ae2b20d0925fcef9176c0cff03b136878ecef9208",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:27:54.808258+00:00
+Updated: 2026-11-03T19:29:24.347659+00:00
 
-Latest verified checkpoint: **1144**. Goal: **active**.
+Latest verified checkpoint: **1145**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced venue program deduplication, receipt append and first-match selection.
+Traced native error classification through wasm, worker messages and pool
+errors.
 
-Differing duplicate products and their normal delivery were not demonstrated;
-policy and independent Lens 12 evidence remain open.
+Source trace and mocked tests do not prove browser and wasm integration; cache
+and renderer obligations remain open.
 
 ## Working on now
 
@@ -124,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1144 publication record](CHECKPOINT-1144.json)
-- [Saved report for checkpoint 1144](PROGRESS-1144.md)
+- [Checkpoint 1145 publication record](CHECKPOINT-1145.json)
+- [Saved report for checkpoint 1145](PROGRESS-1145.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
