@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 547,
+  "at": "2026-11-03T00:44:17.980681+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "8e374978b4bcbb9d1b2efda3cdaf1eac43dbc1e0fab40c8f788edd2e02feca60",
+    "verification": "43053ba0d1aed9479d74fa9f0194634e164f37f74ffdc34be017798c900c6e00",
+    "canonical_current": "9057da7b6b8e5bc8a7fd4a7675ef6870645cbb91ef65b9ca0ea4412e4cd1dd12"
+  },
+  "scope": {
+    "summary": "Completed all thirteen source perspectives for the loading gate, including native disconnect identity and the reconnect producer.",
+    "scope_limit": "Thirteen current-source checks closed: 127 of 403 for this revision. Observer ordering, retry and cleanup, native failure causes, rendering and runtime acceptance remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "8d190a05d42d86db6918d7ce9e36b77cd6822934011f7175dac952d685b37299",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
