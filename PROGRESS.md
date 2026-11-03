@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:00:34.068759+00:00
+Updated: 2026-11-03T08:02:32.876075+00:00
 
-Latest verified checkpoint: **755**. Goal: **active**.
+Latest verified checkpoint: **756**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled four ownership and representation perspectives across four added ZIP
-helpers.
+Reconciled producer, operations, retained state and derivability perspectives
+across four ZIP helpers.
 
-The older batch retains 1890 pending checks; other helper lenses, native
-behavior, resource policy and broader audit remain open.
+The older batch retains 1874 pending checks; remaining helper lenses, native and
+resource policy remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 755 publication record](CHECKPOINT-755.json)
-- [Saved report for checkpoint 755](PROGRESS-755.md)
+- [Checkpoint 756 publication record](CHECKPOINT-756.json)
+- [Saved report for checkpoint 756](PROGRESS-756.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
