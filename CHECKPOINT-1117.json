@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1117,
+  "at": "2026-11-03T18:43:02.966900+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ba626d1f5d9809040c2d0f7a0fe56a121f0a09551779f4f59e9e44b54c99e46d",
+    "verification": "b4b975d36773a2b875d8054e274c23f01af8625a5dd0ff7f4858d9034abadcce",
+    "canonical_current": "c87b7067ed23c077ba2e7b0f4457da71752780f669a6d1f5e9ce32c123e2cf0d"
+  },
+  "scope": {
+    "summary": "Repeated the fatal receipt inconsistency, confirmed early invalid-receipt rejection, and recorded a scoped repair plan.",
+    "scope_limit": "The probes use checkout HEAD; early rejection does not prove rollback after mutation, and the full audit gate remains open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "2c4fdd8f84a1b0dd3d1e695c5c2442d1d9c10b2c949a1d40054a95bcff098e77",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
