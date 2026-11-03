@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:41:27.990075+00:00
+Updated: 2026-11-03T07:43:31.224352+00:00
 
-Latest verified checkpoint: **743**. Goal: **active**.
+Latest verified checkpoint: **744**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,18 +18,18 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified Bevy camera and LOD position preparation for direct camera views under
-lens 12.
+Reconciled the earlier Cargo.lock change under lens 12, preserving separate
+renderer and other-lens duties.
 
-Queue view prerequisites, cache mutation and connected lockfile disposition
-remain open; runtime rendering was not tested.
+Twelve lockfile lens cells and the broader audit remain open; no runtime
+acceptance is claimed.
 
 ## Working on now
 
 Reconciling the remaining lockfile lens checks, renderer capacity and connected
 terrain admission.
 
-- Complete independent assessments for the 13 remaining earlier lockfile lens
+- Complete independent assessments for the 12 remaining earlier lockfile lens
   checks; preserve connected renderer and native boundary obligations.
 
 - Reconcile the retained build-target specification question and other connected
@@ -47,7 +47,7 @@ terrain admission.
   identity codecs, injury clocks and strategic-to-tactical boundaries.
 
 - Assessed all 403 lens/path checks in the latest 31-path source delta. The
-  preceding 59-path delta has 754 of 767 checks closed; its remaining 13 are
+  preceding 59-path delta has 755 of 767 checks closed; its remaining 12 are
   Cargo.lock lens checks. Earlier populations and connected work remain
   separate.
 
@@ -104,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 743 publication record](CHECKPOINT-743.json)
-- [Saved report for checkpoint 743](PROGRESS-743.md)
+- [Checkpoint 744 publication record](CHECKPOINT-744.json)
+- [Saved report for checkpoint 744](PROGRESS-744.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
