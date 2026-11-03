@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:45:15.183112+00:00
+Updated: 2026-11-03T22:47:03.792068+00:00
 
-Latest verified checkpoint: **1255**. Goal: **active**.
+Latest verified checkpoint: **1256**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced projectile name classification, ammunition counting and combat log
-fallback.
+Traced projectile schema, arrow-stack consumption and typed injury commitment.
 
-Catalog admission, ammunition compatibility, injury commitment and aliases
+Catalog projection, other attack routes, inventory eligibility and aliases
 remain open; no new coverage is claimed.
 
 ## Working on now
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1255 publication record](CHECKPOINT-1255.json)
-- [Saved report for checkpoint 1255](PROGRESS-1255.md)
+- [Checkpoint 1256 publication record](CHECKPOINT-1256.json)
+- [Saved report for checkpoint 1256](PROGRESS-1256.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
