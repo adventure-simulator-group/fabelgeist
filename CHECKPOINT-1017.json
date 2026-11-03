@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1017,
+  "at": "2026-11-03T14:42:43.635556+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "b9970d57f9848290398559b45f8c3371413aee09e149b8729fbfa648891e0b7f",
+    "verification": "9c3967cb15a8c7c837ba848a670c7c04e577f6751db6065ff61a81558b153a39",
+    "canonical_current": "75f17689de16c1d7051d783dc841182b3a6e554fcf870883a33e65456a5b8619"
+  },
+  "scope": {
+    "summary": "A standalone calculation found an extreme finite owned triangle that passes the planar determinant criterion while its f32 normal overflows.",
+    "scope_limit": "Arithmetic reproduction only; actual owned-terrain producer reachability and runtime behavior remain unproved."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "9271fdbc1b65f0e0490d9f35df261f0fdc0f1ab586ddc3f63af720761b84e2bf",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
