@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:55:14.146224+00:00
+Updated: 2026-11-03T19:56:32.009813+00:00
 
-Latest verified checkpoint: **1167**. Goal: **active**.
+Latest verified checkpoint: **1168**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced focused city request, ticket acknowledgment, native admission and
-reanchoring.
+Traced city capture source, settlement and geographic document validation.
 
-A stale-window race, failed replacement behavior and real renderer integration
-remain unproven.
+Real capture, authorization scope and renderer integration remain unproven.
 
 ## Working on now
 
@@ -125,8 +123,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1167 publication record](CHECKPOINT-1167.json)
-- [Saved report for checkpoint 1167](PROGRESS-1167.md)
+- [Checkpoint 1168 publication record](CHECKPOINT-1168.json)
+- [Saved report for checkpoint 1168](PROGRESS-1168.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
