@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:02:03.224762+00:00
+Updated: 2026-11-03T11:03:04.100246+00:00
 
-Latest verified checkpoint: **887**. Goal: **active**.
+Latest verified checkpoint: **888**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the autopsy demo caller: each fixed victim and attacker pair has
-distinct low 32-bit IDs.
+Consolidated the attack-identity producer, consumers, existing owner comparisons
+and concrete repair acceptance requirements.
 
-This fixture does not cover the collision; public helper inputs and runtime
-behavior remain unvalidated.
+Exact identity representation, duplicate-participant policy, global aliases and
+the full audit remain open; no runtime collision was demonstrated.
 
 ## Working on now
 
@@ -72,6 +72,10 @@ obligations after completing the scoped source-delta assessments.
 - Assessed all 2,002 path-and-lens cells in the older source delta; connected
   and unchanged-source obligations remain open.
 
+- Consolidated a source-backed attack-identity repair constraint: retain full
+  participant and distinct attack instances through scheduling, cancellation,
+  batching and diagnostic output.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -110,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 887 publication record](CHECKPOINT-887.json)
-- [Saved report for checkpoint 887](PROGRESS-887.md)
+- [Checkpoint 888 publication record](CHECKPOINT-888.json)
+- [Saved report for checkpoint 888](PROGRESS-888.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
