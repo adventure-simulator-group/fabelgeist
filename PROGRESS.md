@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T06:42:28.226583+00:00
+Updated: 2026-11-03T06:44:04.953498+00:00
 
-Latest verified checkpoint: **708**. Goal: **active**.
+Latest verified checkpoint: **709**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected SceneGround replication registration and identified the native default
-decode and sender trust boundary.
+Traced locked default replication decoding and distinguished it from explicit
+SceneGround constructor validation.
 
-Native decoding, authoritative senders, device limits and the broader audit
+Sender trust, malformed-input reachability, device limits and broader audit
 remain open.
 
 ## Working on now
@@ -103,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 708 publication record](CHECKPOINT-708.json)
-- [Saved report for checkpoint 708](PROGRESS-708.md)
+- [Checkpoint 709 publication record](CHECKPOINT-709.json)
+- [Saved report for checkpoint 709](PROGRESS-709.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
