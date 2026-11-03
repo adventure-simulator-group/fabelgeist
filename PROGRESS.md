@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:04:31.551531+00:00
+Updated: 2026-11-03T07:05:50.613385+00:00
 
-Latest verified checkpoint: **721**. Goal: **active**.
+Latest verified checkpoint: **722**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced strategic live and snapshot camera deactivation and reuse for the
-retained-view inquiry.
+Connected strategic camera deactivation and reuse to locked Bevy retained-view
+extraction.
 
-Scene-change helper, native retained-view lifecycle, chunk visibility and
-broader audit remain open.
+Actual chunk visibility, native phase lifecycle and broader audit remain open;
+no runtime leak is claimed.
 
 ## Working on now
 
@@ -104,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 721 publication record](CHECKPOINT-721.json)
-- [Saved report for checkpoint 721](PROGRESS-721.md)
+- [Checkpoint 722 publication record](CHECKPOINT-722.json)
+- [Saved report for checkpoint 722](PROGRESS-722.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
