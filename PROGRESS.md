@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T18:03:36.914050+00:00
+Updated: 2026-11-03T18:05:01.587489+00:00
 
-Latest verified checkpoint: **1097**. Goal: **active**.
+Latest verified checkpoint: **1098**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the separate general-join form, purpose-owned unlimited role and existing
-source test.
+Compared the best-party service recommendation with the requesting leader fit
+recorded by the join reducer.
 
-A separate entry point exists, but service-list policy and actual runtime
-outcomes remain unverified.
+The two calculations have different subjects; product policy and failure
+behavior remain unverified.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1097 publication record](CHECKPOINT-1097.json)
-- [Saved report for checkpoint 1097](PROGRESS-1097.md)
+- [Checkpoint 1098 publication record](CHECKPOINT-1098.json)
+- [Saved report for checkpoint 1098](PROGRESS-1098.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
