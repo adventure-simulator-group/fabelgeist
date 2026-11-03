@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 681,
+  "at": "2026-11-03T06:06:39.584316+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "52f6d9bd5c559870774f5b5ce6ee684f47522688f0e4c2be95da66668e1ad9fa",
+    "verification": "5b1caecaa0d3ee0193be81df58f5bd63edabd087808f2bc932ce51fe78e3ce7c",
+    "canonical_current": "5ef165d0eafb68ae017c931fddc7ab9a59d250cbe8f399b58c41c7aa4e148060"
+  },
+  "scope": {
+    "summary": "Reconciled the old quality-baseline revision delta across all 13 lenses using full registered before-and-after source reads; the one change tightens an understory function-length ceiling.",
+    "scope_limit": "This closes only 13 revision-delta source cells; it does not prove the quality check passes, resolve the underlying function or finish the audit."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "47d47a03ecb01f30fbf1a58e086eed22c3cb9b66ac422fb9a6d53cd114d49853",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
