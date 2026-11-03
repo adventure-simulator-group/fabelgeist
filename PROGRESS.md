@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:09:21.864325+00:00
+Updated: 2026-11-03T02:10:51.508868+00:00
 
-Latest verified checkpoint: **586**. Goal: **active**.
+Latest verified checkpoint: **587**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the material-plugin migration across ten remaining perspectives,
-connecting pebble and vista-card registrations to the chunk renderer.
+Reconciled four retired and replacement loose-stone shaders across ten remaining
+perspectives each, including transforms, scale, lighting, distance dithering and
+per-pixel coverage.
 
-Earlier revision source checks: 440 of 767; newest revision remains 403 of 403.
-Native material preparation, shader and visual acceptance remain open; counts do
+Earlier revision source checks: 480 of 767; newest revision remains 403 of 403.
+Shader execution, placement admission and visual parity remain open; counts do
 not represent whole-audit completion.
 
 ## Working on now
@@ -372,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 586 publication record](CHECKPOINT-586.json)
-- [Saved report for checkpoint 586](PROGRESS-586.md)
+- [Checkpoint 587 publication record](CHECKPOINT-587.json)
+- [Saved report for checkpoint 587](PROGRESS-587.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
