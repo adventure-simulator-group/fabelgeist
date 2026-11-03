@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:56:58.599640+00:00
+Updated: 2026-11-03T20:58:56.290588+00:00
 
-Latest verified checkpoint: **1199**. Goal: **active**.
+Latest verified checkpoint: **1200**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Read back the actual corrective activation tensor and confirmed the synthetic
-fractional-coordinate collision changes two cells.
+A controlled device-backed corrective forward pass measured changed offsets from
+a synthetic fractional-coordinate archive.
 
-The input is synthetic and the crate isolated; production archive reachability
-and visible animation effects remain untested.
+The archive and pose are synthetic; full character output and visible effects
+remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1199 publication record](CHECKPOINT-1199.json)
-- [Saved report for checkpoint 1199](PROGRESS-1199.md)
+- [Checkpoint 1200 publication record](CHECKPOINT-1200.json)
+- [Saved report for checkpoint 1200](PROGRESS-1200.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
