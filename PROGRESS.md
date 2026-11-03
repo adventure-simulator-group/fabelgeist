@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:26:51.867301+00:00
+Updated: 2026-11-03T22:28:25.834494+00:00
 
-Latest verified checkpoint: **1245**. Goal: **active**.
+Latest verified checkpoint: **1246**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced runtime catalog placement retention, deterministic outfit order and layer
-error flattening.
+Inspected layer and cache fixtures and recorded a provisional typed-cause plan.
 
-Native error causes, cache consumers and full P14 reconciliation remain open.
+Native causes and final runtime validation remain open; no product test was run.
 
 ## Working on now
 
@@ -140,8 +139,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1245 publication record](CHECKPOINT-1245.json)
-- [Saved report for checkpoint 1245](PROGRESS-1245.md)
+- [Checkpoint 1246 publication record](CHECKPOINT-1246.json)
+- [Saved report for checkpoint 1246](PROGRESS-1246.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
