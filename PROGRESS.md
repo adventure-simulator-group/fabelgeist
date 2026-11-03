@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:50:18.710075+00:00
+Updated: 2026-11-03T23:52:13.506107+00:00
 
-Latest verified checkpoint: **1292**. Goal: **active**.
+Latest verified checkpoint: **1293**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared seven religion and thirteen bestiary leaf mappings across validator,
-starting simulation and strategic checks.
+Traced initial persistence of 30 fixed skill values and two composite structures
+from supplied starting specs to strategic requirement checks.
 
-Public admission, persistence and aliases remain open; no population credit is
+Later updates, public admission and aliases remain open; no population credit is
 claimed.
 
 ## Working on now
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1292 publication record](CHECKPOINT-1292.json)
-- [Saved report for checkpoint 1292](PROGRESS-1292.md)
+- [Checkpoint 1293 publication record](CHECKPOINT-1293.json)
+- [Saved report for checkpoint 1293](PROGRESS-1293.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
