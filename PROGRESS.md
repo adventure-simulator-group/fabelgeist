@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:44:29.221226+00:00
+Updated: 2026-11-03T11:45:43.060368+00:00
 
-Latest verified checkpoint: **919**. Goal: **active**.
+Latest verified checkpoint: **920**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Requalified reopened P12 skirt offset producers and underlayer retained offsets
-through the device packing boundary.
+Traced validated gorget design padding through section, collar and bib fitting
+to native device words.
 
-Gorget producer, remaining P12 paths, aliases and executable GPU acceptance
-remain open.
+Other callers, family-wide reconciliation and GPU acceptance remain open; no
+numerical defect is claimed.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 919 publication record](CHECKPOINT-919.json)
-- [Saved report for checkpoint 919](PROGRESS-919.md)
+- [Checkpoint 920 publication record](CHECKPOINT-920.json)
+- [Saved report for checkpoint 920](PROGRESS-920.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
