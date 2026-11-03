@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:44:07.308566+00:00
+Updated: 2026-11-03T17:45:59.160956+00:00
 
-Latest verified checkpoint: **1086**. Goal: **active**.
+Latest verified checkpoint: **1087**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the same three-line bot observer import separately under twelve audit
-lenses and retained the connected observer obligations.
+Traced committed-parry event production into bot counterattack initiative and
+connected the existing P16 audit entry.
 
-Only the exact registered source range is qualified; observer behavior, broader
-bot contracts and all family gates remain open.
+This is source-level evidence; the initiative policy, event aliases and runtime
+behavior remain open.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1086 publication record](CHECKPOINT-1086.json)
-- [Saved report for checkpoint 1086](PROGRESS-1086.md)
+- [Checkpoint 1087 publication record](CHECKPOINT-1087.json)
+- [Saved report for checkpoint 1087](PROGRESS-1087.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
