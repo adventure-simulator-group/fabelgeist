@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:41:19.246147+00:00
+Updated: 2026-11-03T09:43:18.708813+00:00
 
-Latest verified checkpoint: **822**. Goal: **active**.
+Latest verified checkpoint: **823**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Assessed authored saved-garment tests and recorded missing equal-count topology
-acceptance.
+Assessed archive member-count and record-kind test contracts, including the
+4097-member capacity boundary.
 
-Tests were read, not run; supported topology policy, native asset acceptance and
-direct API behavior remain open.
+Fixture-specific perspectives, native archive policy, actual execution and
+broader audit remain open; the tests were not run.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 822 publication record](CHECKPOINT-822.json)
-- [Saved report for checkpoint 822](PROGRESS-822.md)
+- [Checkpoint 823 publication record](CHECKPOINT-823.json)
+- [Saved report for checkpoint 823](PROGRESS-823.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
