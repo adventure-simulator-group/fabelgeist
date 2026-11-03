@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:11:55.825200+00:00
+Updated: 2026-11-03T08:13:24.221374+00:00
 
-Latest verified checkpoint: **762**. Goal: **active**.
+Latest verified checkpoint: **763**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected NumPy storage manifest and public type boundary before and after the
-earlier revision.
+Reconciled the NumPy storage manifest and public boundary across thirteen
+perspectives.
 
-Parser and value helpers, Burn native semantics, file dispositions and broader
-audit remain open.
+The older batch retains 1776 pending checks; parser, native, policy, alias and
+acceptance work remains open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 762 publication record](CHECKPOINT-762.json)
-- [Saved report for checkpoint 762](PROGRESS-762.md)
+- [Checkpoint 763 publication record](CHECKPOINT-763.json)
+- [Saved report for checkpoint 763](PROGRESS-763.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
