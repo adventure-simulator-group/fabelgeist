@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:18:21.582718+00:00
+Updated: 2026-11-03T07:19:30.255614+00:00
 
-Latest verified checkpoint: **730**. Goal: **active**.
+Latest verified checkpoint: **731**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected vista tree chunk creation and tagged scene cleanup to the retention
-investigation.
+Distinguished strategic backdrop mesh construction from conditional vista-tree
+chunk spawning.
 
-Actual visibility, camera destruction, render-resource lifetime and the broader
-audit remain open.
+Observer triggers, actual camera visibility, resource lifetime and the broader
+audit remain open; part of the registered vista file remains unread.
 
 ## Working on now
 
@@ -104,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 730 publication record](CHECKPOINT-730.json)
-- [Saved report for checkpoint 730](PROGRESS-730.md)
+- [Checkpoint 731 publication record](CHECKPOINT-731.json)
+- [Saved report for checkpoint 731](PROGRESS-731.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
