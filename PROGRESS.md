@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:56:29.745021+00:00
+Updated: 2026-11-03T15:58:18.688192+00:00
 
-Latest verified checkpoint: **1050**. Goal: **active**.
+Latest verified checkpoint: **1051**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced sparse skin indices and weights into additive deformation on zero-
-initialized vertex output.
+Traced creator preview, drape and morph skin consumers and confirmed remote main
+still matches the audit revision.
 
-The effect of a row with no selected influences is inferred; Burn backend
-execution remains unverified.
+NaN preview effects are source-inferred; no preview or GPU execution was run.
 
 ## Working on now
 
@@ -115,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1050 publication record](CHECKPOINT-1050.json)
-- [Saved report for checkpoint 1050](PROGRESS-1050.md)
+- [Checkpoint 1051 publication record](CHECKPOINT-1051.json)
+- [Saved report for checkpoint 1051](PROGRESS-1051.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
