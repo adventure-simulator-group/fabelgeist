@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:11:38.790898+00:00
+Updated: 2026-11-03T22:13:06.383578+00:00
 
-Latest verified checkpoint: **1236**. Goal: **active**.
+Latest verified checkpoint: **1237**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced authored breastplate recipe through generated hash and selected-item
-export labels.
+Traced catalog default selection, fit dispatch, save validation and review
+output for breastplate designs.
 
-Mismatch policy, remaining device and writer consumers, and exact P14 aliases
-remain unresolved.
+Recipe identity policy, remaining device consumers and exact P14 aliases remain
+unresolved.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1236 publication record](CHECKPOINT-1236.json)
-- [Saved report for checkpoint 1236](PROGRESS-1236.md)
+- [Checkpoint 1237 publication record](CHECKPOINT-1237.json)
+- [Saved report for checkpoint 1237](PROGRESS-1237.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
