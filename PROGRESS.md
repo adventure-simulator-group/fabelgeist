@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:43:26.416206+00:00
+Updated: 2026-11-03T22:45:15.183112+00:00
 
-Latest verified checkpoint: **1254**. Goal: **active**.
+Latest verified checkpoint: **1255**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced typed staged armor errors and generic hair readback conversion.
+Traced projectile name classification, ammunition counting and combat log
+fallback.
 
-The remaining consumers and shared error design remain open; no new coverage is
-claimed.
+Catalog admission, ammunition compatibility, injury commitment and aliases
+remain open; no new coverage is claimed.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1254 publication record](CHECKPOINT-1254.json)
-- [Saved report for checkpoint 1254](PROGRESS-1254.md)
+- [Checkpoint 1255 publication record](CHECKPOINT-1255.json)
+- [Saved report for checkpoint 1255](PROGRESS-1255.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
