@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:11:23.294555+00:00
+Updated: 2026-11-03T23:12:53.600120+00:00
 
-Latest verified checkpoint: **1271**. Goal: **active**.
+Latest verified checkpoint: **1272**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,9 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced connected-player spawn admission and initial tactical item quantities.
+Recorded tactical quantity writer evidence and a provisional ammunition boundary
+repair plan.
 
-Other synchronization, view delivery, authorization and aliases remain open; no
+Update semantics, authorization, final policy and aliases remain open; no
 product execution is claimed.
 
 ## Working on now
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1271 publication record](CHECKPOINT-1271.json)
-- [Saved report for checkpoint 1271](PROGRESS-1271.md)
+- [Checkpoint 1272 publication record](CHECKPOINT-1272.json)
+- [Saved report for checkpoint 1272](PROGRESS-1272.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
