@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:53:48.875523+00:00
+Updated: 2026-11-03T11:56:10.440027+00:00
 
-Latest verified checkpoint: **925**. Goal: **active**.
+Latest verified checkpoint: **926**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced FBX graph connections into recursive skeleton construction and
-distinguished that boundary from public FK parent traversal.
+Qualified selected P13 shader candidate presence paths and breastplate host
+nonempty admission.
 
-A malformed self-link is source reasoning only; exact aliases and runtime
+Count conversion, buffer validity, other candidate and cursor paths and GPU
 acceptance remain open.
 
 ## Working on now
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 925 publication record](CHECKPOINT-925.json)
-- [Saved report for checkpoint 925](PROGRESS-925.md)
+- [Checkpoint 926 publication record](CHECKPOINT-926.json)
+- [Saved report for checkpoint 926](PROGRESS-926.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
