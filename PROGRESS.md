@@ -78,6 +78,13 @@ keeps required versus allowed channel policy open. Art-demo empty recipe sets
 are legitimate, and the host displays unavailable status. These findings remain
 source assessments awaiting formal adoption and runtime validation.
 
+The strategic renderer retains a path-based required-asset failure and excludes
+readiness while it is present. The inspected mode transition and direct scene
+release do not clear that resource. The host displays a generic unavailable
+message and logs the status error. App recreation, other failure writers and
+runtime timing remain open. These observations are not yet adopted into the
+checkpoint ledger.
+
 ## Working on now
 
 Trace scene-readiness marker populations against admitted scene input and
