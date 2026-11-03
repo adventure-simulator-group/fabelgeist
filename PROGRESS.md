@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:28:00.928934+00:00
+Updated: 2026-11-03T11:29:21.425614+00:00
 
-Latest verified checkpoint: **909**. Goal: **active**.
+Latest verified checkpoint: **910**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared MHR topology admission with selected FBX extent, decode-budget, typed-
-error and shell-geometry queue contracts.
+Compared MHR UV parsing and existing tests with Autodesk mapping and reference
+mode semantics.
 
-The selected first-failure boundaries remain distinct; this is not an exhaustive
-alias inventory or runtime validation.
+The actual pinned asset mode and supported-mode policy remain unverified; no
+product execution or global alias closure.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 909 publication record](CHECKPOINT-909.json)
-- [Saved report for checkpoint 909](PROGRESS-909.md)
+- [Checkpoint 910 publication record](CHECKPOINT-910.json)
+- [Saved report for checkpoint 910](PROGRESS-910.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
