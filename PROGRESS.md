@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T00:08:56.365003+00:00
+Updated: 2026-11-03T00:15:50.467218+00:00
 
-Latest verified checkpoint: **536**. Goal: **active**.
+Latest verified checkpoint: **537**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,27 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified strategic scene texture gating and status error ordering, linking the
-evidence to the existing texture failure and status obligations. A stored scene-
-document error can be deferred while catalogue textures remain pending.
+Qualified the selected bake-scale producer, wire and terrain consumer path. The
+three inspected soil, litter and rock asset headers match their terrain
+constants; runtime does not retain the header scale.
 
-No matrix cells or complete cases closed. Simultaneous failure behavior, error
-ownership, recovery and runtime effects remain open; no product execution was
-performed.
-
-## Investigation still in progress
-
-The committed texture test searches image assets by pixel bytes and compares
-the number of maps with the number of intended handles. It does not directly
-check each recipe channel against its intended handle. This is a test coverage
-limitation, not an observed misbinding; the test has not been run.
-
-A new source trace follows baked texture scale through generation, admission,
-and terrain materials. Runtime keeps the maps but discards the baked scale;
-terrain uses compiled constants. The normal authoring command uses default
-parameters. The inspected soil, litter and rock asset headers match their
-terrain constants. Asset provenance, pixel content and other consumers remain
-unverified, so no current mismatch is asserted. This trace is not yet adopted.
+This is a scoped header and source comparison, not proof of asset provenance,
+pixel correctness or global scale policy. No matrix cells or whole cases closed;
+product execution remains unperformed.
 
 ## Working on now
 
@@ -302,6 +288,11 @@ connected owners and remaining source perspectives.
   can be delayed while required textures are pending; runtime behavior remains
   unverified.
 
+- Traced selected texture physical scale from authoring defaults through the
+  bake header and runtime projection to terrain materials. Three committed
+  headers match the current terrain constants; alternate asset policy and other
+  consumers remain open.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -340,8 +331,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 536 publication record](CHECKPOINT-536.json)
-- [Saved report for checkpoint 536](PROGRESS-536.md)
+- [Checkpoint 537 publication record](CHECKPOINT-537.json)
+- [Saved report for checkpoint 537](PROGRESS-537.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
