@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:23:35.449247+00:00
+Updated: 2026-11-03T10:24:38.271550+00:00
 
-Latest verified checkpoint: **850**. Goal: **active**.
+Latest verified checkpoint: **851**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced persistent field-character creation and road-to-combat rebinding. Full
-u64 collision checks do not establish low-32-bit uniqueness.
+Traced authored-threat IDs into combat and recorded how contact, response and
+transformation events reference packed attack IDs.
 
-No actual packed collision or runtime result established. Other producers,
-scheduling, readers and aliases remain open.
+No actual supported packed collision or runtime result established. Other
+producers, scheduling, readers and aliases remain open.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 850 publication record](CHECKPOINT-850.json)
-- [Saved report for checkpoint 850](PROGRESS-850.md)
+- [Checkpoint 851 publication record](CHECKPOINT-851.json)
+- [Saved report for checkpoint 851](PROGRESS-851.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
