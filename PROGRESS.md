@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:32:43.309170+00:00
+Updated: 2026-11-03T10:33:52.265001+00:00
 
-Latest verified checkpoint: **859**. Goal: **active**.
+Latest verified checkpoint: **860**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified two broader Lens 1 revisits connected to attack identity and
-preserved their separate timing, geometry and report-schema scopes.
+Reconciled the combat timeline connection with the broader historical P17 report
+family and preserved its earlier scoped review and outstanding dependencies.
 
-Shared topic does not establish exact aliases or close the broader obligations;
-fixture and collision witnesses remain unresolved.
+This does not close P17 or prove an exact alias; collision witness, canonical
+ownership and integration remain open.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 859 publication record](CHECKPOINT-859.json)
-- [Saved report for checkpoint 859](PROGRESS-859.md)
+- [Checkpoint 860 publication record](CHECKPOINT-860.json)
+- [Saved report for checkpoint 860](PROGRESS-860.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
