@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1279,
+  "at": "2026-11-03T23:25:38.260405+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "a94cb03ac444fd1e661cbacce53d4d9176f53db27da4a7d9fa66dda4c2fad211",
+    "verification": "c67d188f5f18aac33cffa2471d86ff1213c397768a07442f02acf03e7d510e4d",
+    "canonical_current": "e1c227dbf1b460577cfc44c44703d87decb41e855bdde0f8772f6ec94abb46d7"
+  },
+  "scope": {
+    "summary": "Traced fit failures into export, armory presentation and studio cache boundaries.",
+    "scope_limit": "Presentation, cache recovery, output atomicity and aliases remain open; no product execution is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "180fbaf4595711179c83a291d298f95d69e2a463429b4f79948690e19f064399",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
