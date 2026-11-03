@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T06:46:54.356813+00:00
+Updated: 2026-11-03T06:48:15.762745+00:00
 
-Latest verified checkpoint: **710**. Goal: **active**.
+Latest verified checkpoint: **711**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,9 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fresh server scene generation into the replicated ground entity.
+Inspected the debug world dump restoration path as a separate potential ground
+source.
 
-Debug restoration, other writers, sender trust, device limits and broader audit
+Reflected ground admission, sender trust, resource limits and broader audit
 remain open.
 
 ## Working on now
@@ -102,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 710 publication record](CHECKPOINT-710.json)
-- [Saved report for checkpoint 710](PROGRESS-710.md)
+- [Checkpoint 711 publication record](CHECKPOINT-711.json)
+- [Saved report for checkpoint 711](PROGRESS-711.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
