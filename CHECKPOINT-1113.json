@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1113,
+  "at": "2026-11-03T18:33:24.501190+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "0f8506dd7e216749dbc3265670029564d52919edef9006c5284b9fcca8be02f4",
+    "verification": "6da553b1d75925ec1c35988d33d2bb93c6422647e273665fa90e19d6e4ff81cc",
+    "canonical_current": "1562536317ad13616b15c641b73f380fd3df099e0c09870c3254c4e8de094d6b"
+  },
+  "scope": {
+    "summary": "Diagnosed the tactical test failure as a stale source assertion for the removed in_server field; a scoped source probe passed.",
+    "scope_limit": "The checked-in test still fails, and source probing does not validate tactical runtime or teardown concurrency."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "b0d78e3b117f37c1ae3fe1b343f9a6f38ff2aea86be18c9ad76ae46aac8256a0",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
