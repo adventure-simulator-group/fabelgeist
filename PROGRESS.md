@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:31:58.333399+00:00
+Updated: 2026-11-03T05:33:29.296087+00:00
 
-Latest verified checkpoint: **657**. Goal: **active**.
+Latest verified checkpoint: **658**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the replacement understory’s 32-metre spatial chunks with the
-historical whole-scene allocation path. Chunk grouping has no explicit per-cell
-count cap.
+Traced chunk upload, queue and draw: the full instance slice is uploaded while
+the draw count saturates at the u32 maximum. Verified the inspected paths are
+unchanged at the selected revision.
 
-This source observation is at revision 3371425; selected-head identity, actual
-buffer/device limits and runtime behavior still need qualification. No lens
-cells were closed.
+Reachable chunk sizes and native GPU buffer limits remain unqualified; no live
+failure or new lens closure is claimed.
 
 ## Working on now
 
@@ -373,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 657 publication record](CHECKPOINT-657.json)
-- [Saved report for checkpoint 657](PROGRESS-657.md)
+- [Checkpoint 658 publication record](CHECKPOINT-658.json)
+- [Saved report for checkpoint 658](PROGRESS-658.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

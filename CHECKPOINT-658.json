@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 658,
+  "at": "2026-11-03T05:33:07.316876+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "aa5223c27d7c0bee0706e4011d0287860dfb09c47c431777ed7de926c41fd335",
+    "verification": "585bc74c8805147933f8e77663d6664c6c6b4669247af9f92221f67a47212a24",
+    "canonical_current": "a07cc1d027a9967861ddf439d628df825d8715feb947dd31a7dbcde2c82be1e6"
+  },
+  "scope": {
+    "summary": "Traced chunk upload, queue and draw: the full instance slice is uploaded while the draw count saturates at the u32 maximum. Verified the inspected paths are unchanged at the selected revision.",
+    "scope_limit": "Reachable chunk sizes and native GPU buffer limits remain unqualified; no live failure or new lens closure is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "7b76591dd3f7e70c5be5689d747ce6d581e06d28ecd9c439dc0be65d34180518",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
