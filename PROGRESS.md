@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:28:27.829791+00:00
+Updated: 2026-11-03T10:29:25.510810+00:00
 
-Latest verified checkpoint: **855**. Goal: **active**.
+Latest verified checkpoint: **856**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the tactical iteration simultaneous-contact counter: it uses member
-count rather than IDs or ordering.
+Traced cancellation ID comparisons into the tactical acceptance audit; a
+collision could conditionally produce a false ghost-contact result.
 
-Collision effects in the separate ID-based diagnostic remain conditional;
-indirect consumers and a supported witness remain open.
+No collision has been shown in the existing fixture or a supported battle; no
+runtime evidence was produced.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 855 publication record](CHECKPOINT-855.json)
-- [Saved report for checkpoint 855](PROGRESS-855.md)
+- [Checkpoint 856 publication record](CHECKPOINT-856.json)
+- [Saved report for checkpoint 856](PROGRESS-856.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
