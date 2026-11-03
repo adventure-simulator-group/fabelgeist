@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:51:06.615174+00:00
+Updated: 2026-11-03T05:52:09.761547+00:00
 
-Latest verified checkpoint: **671**. Goal: **active**.
+Latest verified checkpoint: **672**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the browser buffer bindings: synchronous JavaScript exceptions become
-Result errors that the wrapper unwraps.
+Traced grass, loose-stone and vista tree-card batch constructors into the shared
+chunk uploader; their cell sizes and grouping differ.
 
-Actual browser allocation error timing and reachable capacity remain unverified.
-No audit cells were closed.
+Their upstream placement loops and actual per-cell counts remain open; no shared
+producer bound or runtime failure is inferred.
 
 ## Working on now
 
@@ -103,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 671 publication record](CHECKPOINT-671.json)
-- [Saved report for checkpoint 671](PROGRESS-671.md)
+- [Checkpoint 672 publication record](CHECKPOINT-672.json)
+- [Saved report for checkpoint 672](PROGRESS-672.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
