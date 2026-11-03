@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:24:32.271151+00:00
+Updated: 2026-11-03T12:26:01.822352+00:00
 
-Latest verified checkpoint: **943**. Goal: **active**.
+Latest verified checkpoint: **944**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the P17 driver admission and typed sample-tick projection across
-capture views.
+Reconciled P18 optional contact extrema and typed f64 reduction against current
+source.
 
-The driver itself holds an applied frame across views; competing writers, exact
-aliases and native acceptance remain unverified.
+Producer, error propagation, final serialization, other family obligations and
+native acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 943 publication record](CHECKPOINT-943.json)
-- [Saved report for checkpoint 943](PROGRESS-943.md)
+- [Checkpoint 944 publication record](CHECKPOINT-944.json)
+- [Saved report for checkpoint 944](PROGRESS-944.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
