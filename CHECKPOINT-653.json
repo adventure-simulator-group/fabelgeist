@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 653,
+  "at": "2026-11-03T05:21:02.205528+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "30811aeb2755550b72edda8553c8cb6ff3c7bfabd645f0b81db7a9a2de91116f",
+    "verification": "4ea99bb32ebd7fb3d456b78b833132f36c123374585947fc0d0562c569fae52f",
+    "canonical_current": "909d62c6a7d51da90e234f72258fcd5da6760bb71af76b1a631dab881b40df20"
+  },
+  "scope": {
+    "summary": "Authenticated and read the removed renderer dependency\u2019s locked instance and material interfaces. Recorded raw GPU payload, extraction prerequisites and material ownership.",
+    "scope_limit": "Native allocator, culling and render behavior remain open, as do the full lockfile and baseline lens checks. No runtime or visual test has run."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d9ae0cf80cee2d2bae3626ceeb336af1a8d8109de45d9f94239a7dc9395b212c",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
