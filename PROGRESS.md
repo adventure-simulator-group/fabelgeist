@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:49:23.728637+00:00
+Updated: 2026-11-03T21:51:18.585289+00:00
 
-Latest verified checkpoint: **1223**. Goal: **active**.
+Latest verified checkpoint: **1224**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fit completion and strategic equipment production; qualified the existing
-hold/drop test scope.
+Traced tactical inventory projection and identity-preserving equipment
+transfers.
 
-Tactical producers, cancellation, native lifecycle, policy and exact aliases
-remain open; no runtime failure is established.
+Other producers, replication, asynchronous lifecycle and exact aliases remain
+open; no global immutability claim is made.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1223 publication record](CHECKPOINT-1223.json)
-- [Saved report for checkpoint 1223](PROGRESS-1223.md)
+- [Checkpoint 1224 publication record](CHECKPOINT-1224.json)
+- [Saved report for checkpoint 1224](PROGRESS-1224.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
