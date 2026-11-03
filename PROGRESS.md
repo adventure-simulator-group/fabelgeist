@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:07:47.523032+00:00
+Updated: 2026-11-03T17:10:55.220721+00:00
 
-Latest verified checkpoint: **1071**. Goal: **active**.
+Latest verified checkpoint: **1072**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced outfit failure, completed checkpoints and noncancelled completed-prefix
-publication.
+Traced importer diagnostics and confirmed a negative FBX vertex is displayed as
+its converted unsigned value in a focused selected-source harness.
 
-Failure and cancellation behavior was inspected in source but not executed.
+The constructed fixture and separately resolved module harness do not establish
+production asset reachability or full importer coverage.
 
 ## Working on now
 
@@ -121,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1071 publication record](CHECKPOINT-1071.json)
-- [Saved report for checkpoint 1071](PROGRESS-1071.md)
+- [Checkpoint 1072 publication record](CHECKPOINT-1072.json)
+- [Saved report for checkpoint 1072](PROGRESS-1072.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
