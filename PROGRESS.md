@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:42:06.592946+00:00
+Updated: 2026-11-03T23:44:19.823121+00:00
 
-Latest verified checkpoint: **1288**. Goal: **active**.
+Latest verified checkpoint: **1289**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared validated target vocabularies with runtime dispatch and traced life-
-simulation curriculum construction.
+Traced catalog requirement validation and life-simulation requirement producers.
 
-Requirement provenance, numerical normalization, persistence and aliases remain
-open; no population credit is claimed.
+Requirement satisfaction, numerical normalization, other callers and aliases
+remain open; no population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1288 publication record](CHECKPOINT-1288.json)
-- [Saved report for checkpoint 1288](PROGRESS-1288.md)
+- [Checkpoint 1289 publication record](CHECKPOINT-1289.json)
+- [Saved report for checkpoint 1289](PROGRESS-1289.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
