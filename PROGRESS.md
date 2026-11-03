@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:42:13.550566+00:00
+Updated: 2026-11-03T21:45:36.963505+00:00
 
-Latest verified checkpoint: **1220**. Goal: **active**.
+Latest verified checkpoint: **1221**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced strategic scene operator capture and the existing stable assignment
-check.
+Traced operator death, observer-scoped roster filtering and one-time import
+boundaries.
 
-No normal operator reassignment was demonstrated; death, import and scene
-revision paths remain open.
+No live death or scene refresh was executed; import cleanup and other lifecycle
+paths remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1220 publication record](CHECKPOINT-1220.json)
-- [Saved report for checkpoint 1220](PROGRESS-1220.md)
+- [Checkpoint 1221 publication record](CHECKPOINT-1221.json)
+- [Saved report for checkpoint 1221](PROGRESS-1221.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
