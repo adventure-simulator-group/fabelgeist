@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:39:53.314097+00:00
+Updated: 2026-11-03T09:41:19.246147+00:00
 
-Latest verified checkpoint: **821**. Goal: **active**.
+Latest verified checkpoint: **822**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the documented pinned MHR installation and its archive verification for
-the topology identity question.
+Assessed authored saved-garment tests and recorded missing equal-count topology
+acceptance.
 
-Location overrides, runtime provenance, external API policy and saved topology
-acceptance remain open; no supported mismatch is established.
+Tests were read, not run; supported topology policy, native asset acceptance and
+direct API behavior remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 821 publication record](CHECKPOINT-821.json)
-- [Saved report for checkpoint 821](PROGRESS-821.md)
+- [Checkpoint 822 publication record](CHECKPOINT-822.json)
+- [Saved report for checkpoint 822](PROGRESS-822.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
