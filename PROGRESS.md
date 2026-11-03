@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:12:25.996386+00:00
+Updated: 2026-11-03T02:15:30.589363+00:00
 
-Latest verified checkpoint: **588**. Goal: **active**.
+Latest verified checkpoint: **589**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled loose-stone placement and batching across ten remaining perspectives
-each, including deterministic selection, per-LOD counting and the removal of
-terrain tilt in chunk instances.
+Reconciled shrub bark and leaf shader migrations across ten remaining
+perspectives each. The leaf shader retains bound normal textures it does not
+sample in the inspected path.
 
-Earlier revision source checks: 500 of 767; newest revision remains 403 of 403.
-Ground-grid admission, chunk bounds and visual parity remain open; counts do not
+Earlier revision source checks: 520 of 767; newest revision remains 403 of 403.
+Binding cleanup, animated bounds and visual parity remain open; counts do not
 represent whole-audit completion.
 
 ## Working on now
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 588 publication record](CHECKPOINT-588.json)
-- [Saved report for checkpoint 588](PROGRESS-588.md)
+- [Checkpoint 589 publication record](CHECKPOINT-589.json)
+- [Saved report for checkpoint 589](PROGRESS-589.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
