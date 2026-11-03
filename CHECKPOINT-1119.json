@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1119,
+  "at": "2026-11-03T18:45:28.893862+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "24e1fa91d45c0559ed795263d01c26347b220cf00f0430bc68a607d2dc7e7441",
+    "verification": "ed2bbbbf3682a4a750ee216273c32795fe8c18d08519e060173d401c161f5504",
+    "canonical_current": "c296a17704f763d7d3af6b6e81b16e1923ef0900d2ff9a602a3d90fd98bc2a85"
+  },
+  "scope": {
+    "summary": "Traced live refresh around target editing; six existing live-refresh tests passed.",
+    "scope_limit": "Those tests do not exercise the target-save race; browser and request-ordering integration remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "a3252de0d7757658dfb53ab409c682ef5f1cd9df8a5d4e9d1cb8f28f308c5f3a",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
