@@ -1,8 +1,24 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:06:01.260892+00:00
+Updated: 2026-11-03T20:07:08.232376+00:00
 
 Latest verified checkpoint: **1175**. Goal: **active**.
+
+## Quantitative summary
+
+| Category | Done or recorded | Remaining or status |
+| --- | --- | --- |
+| Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
+| Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
+| Queue entries explicitly marked source-discovery closed | 31 / 3,849 marked | 3,818 other entries |
+| Entries flagged for repair after the audit gate | 25 recorded | Implementation gate open |
+
+These categories overlap and have different meanings. Original roles and
+registered delta checks are not findings or completed repairs. Queue entries
+include reminders and independent obligations; the other entries are not a count
+of unique unfinished bugs. The source-closed count includes only explicit flags,
+not every assessed scope. The full audit, implementation, review and validation
+remain incomplete.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
