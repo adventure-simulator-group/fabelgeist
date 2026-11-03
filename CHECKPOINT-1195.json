@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1195,
+  "at": "2026-11-03T20:48:32.440897+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "558a1e21b3c36ab5d4463588ae36c0bf6b1c36a884a56e871ca8662c417e39dc",
+    "verification": "d384f7944a19d541b83adf23dd20217bac5de854fa582f853ed79ff5ac2f22f3",
+    "canonical_current": "b2eba21e0b00900acfe388b4ff5366ae468edb513e647ce72e953430a02dc5f3"
+  },
+  "scope": {
+    "summary": "A serialized synthetic two-joint FBX byte-loader probe reproduced the silently changed influence weights.",
+    "scope_limit": "The test uses synthetic fixtures with duplicate joint names; production assets, full model and rendering remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "bb7cdb292ca268412a6885de887448e38f2e5388fe12aa18d045d6a083b26b89",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:46:33.704440+00:00
+Updated: 2026-11-03T20:48:41.895879+00:00
 
-Latest verified checkpoint: **1194**. Goal: **active**.
+Latest verified checkpoint: **1195**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A two-joint parser probe showed a missing cluster silently changes weights from
-[0.5, 0.5] to [1.0, 0.0].
+A serialized synthetic two-joint FBX byte-loader probe reproduced the silently
+changed influence weights.
 
-The test uses a synthetic in-memory scene; serialized input, production
-reachability and rendering remain untested.
+The test uses synthetic fixtures with duplicate joint names; production assets,
+full model and rendering remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1194 publication record](CHECKPOINT-1194.json)
-- [Saved report for checkpoint 1194](PROGRESS-1194.md)
+- [Checkpoint 1195 publication record](CHECKPOINT-1195.json)
+- [Saved report for checkpoint 1195](PROGRESS-1195.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
