@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:14:31.426623+00:00
+Updated: 2026-11-03T22:16:00.338910+00:00
 
-Latest verified checkpoint: **1238**. Goal: **active**.
+Latest verified checkpoint: **1239**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the shared breastplate/cuirass generator and article design-family
-admission.
+Qualified distinct breastplate and cuirass catalog properties and the shader
+shape input boundary.
 
-Universal item-to-recipe ID equality would reject a supported shared design; the
-canonical field policy remains open.
+The recipe ID and hash provenance policy and remaining native consumers remain
+open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1238 publication record](CHECKPOINT-1238.json)
-- [Saved report for checkpoint 1238](PROGRESS-1238.md)
+- [Checkpoint 1239 publication record](CHECKPOINT-1239.json)
+- [Saved report for checkpoint 1239](PROGRESS-1239.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
