@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T06:00:27.827258+00:00
+Updated: 2026-11-03T06:01:46.073147+00:00
 
-Latest verified checkpoint: **677**. Goal: **active**.
+Latest verified checkpoint: **678**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced playable and vista grass placement callers through shared lattice and
-batching, including reuse of near placements for the near-edge crossfade.
+Traced external native and browser graphics YAML entry points, headless grass
+disabling, and playable grass mask admission.
 
-No modified configuration or grass placement executed; mask admission, producer
+The oversized modified YAML and a scene have not been executed; actual
 reachability, capacity limits and independent lens dispositions remain open.
 
 ## Working on now
@@ -103,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 677 publication record](CHECKPOINT-677.json)
-- [Saved report for checkpoint 677](PROGRESS-677.md)
+- [Checkpoint 678 publication record](CHECKPOINT-678.json)
+- [Saved report for checkpoint 678](PROGRESS-678.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
