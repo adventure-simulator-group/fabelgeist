@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:16:00.338910+00:00
+Updated: 2026-11-03T22:17:42.230665+00:00
 
-Latest verified checkpoint: **1239**. Goal: **active**.
+Latest verified checkpoint: **1240**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified distinct breastplate and cuirass catalog properties and the shader
-shape input boundary.
+Qualified the shared design-file and hash contract and recorded a provisional
+clean-schema option.
 
-The recipe ID and hash provenance policy and remaining native consumers remain
-open.
+The recipe ID policy and remaining consumers remain open; no schema change has
+been made.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1239 publication record](CHECKPOINT-1239.json)
-- [Saved report for checkpoint 1239](PROGRESS-1239.md)
+- [Checkpoint 1240 publication record](CHECKPOINT-1240.json)
+- [Saved report for checkpoint 1240](PROGRESS-1240.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
