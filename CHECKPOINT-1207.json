@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1207,
+  "at": "2026-11-03T21:12:46.285989+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "2a1ced0ecf285355f060dfe7c23382c4d70142869c37099a543842282f8c05ec",
+    "verification": "d7a7fca4e04dc84ccbd6780ac5fecd7e34b488ec90d1c103588bfbf0ced0c32c",
+    "canonical_current": "b75df8633cb2a0d5191dddd676942ed2aee33d11c50881c2a80b689e86eaf8c9"
+  },
+  "scope": {
+    "summary": "A controlled selected-function probe dispatched an old resident selection after a simulated abort and delayed response.",
+    "scope_limit": "The test uses an injected loader and stub DOM; full browser lifecycle and rendering remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "8e98dfb31a34a75365b93c276f622a84d3d0cd1e686656d6d92a82169059254d",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

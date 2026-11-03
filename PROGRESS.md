@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:11:29.680631+00:00
+Updated: 2026-11-03T21:12:55.539569+00:00
 
-Latest verified checkpoint: **1206**. Goal: **active**.
+Latest verified checkpoint: **1207**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected the saved stale-selection reminder to the resident-load finding and
-traced the global scene consumer.
+A controlled selected-function probe dispatched an old resident selection after
+a simulated abort and delayed response.
 
-The late-response path is source-derived; browser timing and native rendering
-remain untested.
+The test uses an injected loader and stub DOM; full browser lifecycle and
+rendering remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1206 publication record](CHECKPOINT-1206.json)
-- [Saved report for checkpoint 1206](PROGRESS-1206.md)
+- [Checkpoint 1207 publication record](CHECKPOINT-1207.json)
+- [Saved report for checkpoint 1207](PROGRESS-1207.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
