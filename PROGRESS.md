@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:42:39.357645+00:00
+Updated: 2026-11-03T15:45:14.940303+00:00
 
-Latest verified checkpoint: **1043**. Goal: **active**.
+Latest verified checkpoint: **1044**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,15 +18,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-The constructed underflow surface compiled to bounded terrain and returned two
-colliders against a simple flat geographic source.
+Reconciled the P09 skin producer with checked typed packed-skin insertion and
+its rig-bound semantics.
 
-No bound projection, normal generation or physics simulation was exercised.
+The wider P09 receiver, fixture and weight contracts remain open; no family
+closure claimed.
 
 ## Working on now
 
-Reconcile confirmed mesh and surface grade underflow with generated geometry and
-connected audit obligations.
+Reconciling the P09 typed skin producer and receivers alongside the remaining
+audit ledger.
 
 - Resolve saved garment topology identity, public fitting admission and
   supported asset policy.
@@ -114,8 +115,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1043 publication record](CHECKPOINT-1043.json)
-- [Saved report for checkpoint 1043](PROGRESS-1043.md)
+- [Checkpoint 1044 publication record](CHECKPOINT-1044.json)
+- [Saved report for checkpoint 1044](PROGRESS-1044.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
