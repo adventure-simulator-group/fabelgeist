@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:58:54.348277+00:00
+Updated: 2026-11-03T23:00:40.030668+00:00
 
-Latest verified checkpoint: **1263**. Goal: **active**.
+Latest verified checkpoint: **1264**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,9 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Narrowed the conditional arrow containment mismatch against stable-object rules.
+Qualified capability-derived food classification and additional inventory object
+insertions.
 
-Arrow object creation, receipt policy, other inventory sources and aliases
+Object-helper callers, receipt policy, other inventory sources and aliases
 remain open; no new coverage is claimed.
 
 ## Working on now
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1263 publication record](CHECKPOINT-1263.json)
-- [Saved report for checkpoint 1263](PROGRESS-1263.md)
+- [Checkpoint 1264 publication record](CHECKPOINT-1264.json)
+- [Saved report for checkpoint 1264](PROGRESS-1264.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
