@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T16:54:26.977160+00:00
+Updated: 2026-11-03T16:57:43.810518+00:00
 
-Latest verified checkpoint: **1065**. Goal: **active**.
+Latest verified checkpoint: **1066**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced browser and native equipment probe entry points into the shared GLB
-fixture loader.
+An unchanged fixture-loader module accepted a canonical-derived GLB with a
+synthetic zero weight row; shared reduction produced NaN.
 
-These examples do not establish arbitrary-asset support or complete zero-row
-fixture admission.
+The loader ran in a stubbed harness; the unmodified canonical asset, full client
+and runtime effects were not shown to fail.
 
 ## Working on now
 
@@ -111,8 +111,9 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-Isolated terrain, FBX and selected-source rig probes passed; broad product
-tests, lints, generators and runtime acceptance remain outstanding.
+Isolated terrain and FBX probes and selected-source GLB/rig harnesses passed;
+broad product tests, lints, generators and runtime acceptance remain
+outstanding.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -121,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1065 publication record](CHECKPOINT-1065.json)
-- [Saved report for checkpoint 1065](PROGRESS-1065.md)
+- [Checkpoint 1066 publication record](CHECKPOINT-1066.json)
+- [Saved report for checkpoint 1066](PROGRESS-1066.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
