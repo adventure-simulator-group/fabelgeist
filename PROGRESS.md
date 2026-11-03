@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:30:38.820570+00:00
+Updated: 2026-11-03T20:32:41.771787+00:00
 
-Latest verified checkpoint: **1186**. Goal: **active**.
+Latest verified checkpoint: **1187**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced clock-view visibility, daily presence bounds and native suppression
-requirements.
+Traced armor skin interpolation and fallback into runtime four-weight reduction;
+connected the existing normalization owner.
 
-The noon-versus-midnight effect is conditional source analysis; no live query
-failure or gameplay incident was reproduced.
+Nonfinite and invalid fallback cases are source-derived; malformed armor
+reachability and runtime behavior remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1186 publication record](CHECKPOINT-1186.json)
-- [Saved report for checkpoint 1186](PROGRESS-1186.md)
+- [Checkpoint 1187 publication record](CHECKPOINT-1187.json)
+- [Saved report for checkpoint 1187](PROGRESS-1187.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
