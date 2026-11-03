@@ -1,0 +1,134 @@
+# Bespoke type refactor: progress
+
+Updated: 2026-11-03T18:52:22.240616+00:00
+
+Latest verified checkpoint: **1123**. Goal: **active**.
+
+The refactor remains in the required source audit. Its 13 perspectives include
+reuse of existing types and preservation of semantic values through native
+boundaries. Completing a scoped question or correcting an old status note does
+not complete the audit or authorize implementation.
+
+| Phase | Status |
+| --- | --- |
+| Required audit | In progress |
+| Product implementation | Not started |
+| Independent review | Not started |
+| Product and runtime validation | Focused probes only; final validation not started |
+
+## Latest checkpoint
+
+Traced transient party blood loss through frozen terminal receipt and reducer
+acknowledgement.
+
+The fatal database witness submitted directly; gameplay reachability,
+disconnected cases and broader audit remain open.
+
+## Working on now
+
+Completing the 13-lens audit and evidence-linked repair ledger, including city
+preparation, MHR and remaining connected contracts.
+
+- Reconcile MHR skin admission and typed cluster failures against the pinned
+  rigs and malformed inputs.
+
+- Define shared zero-total influence handling across export, geometry probes,
+  GLB fixtures and equipment.
+
+- Resolve corrective index conversion policy, preserving existing typed errors
+  and the pinned release baseline.
+
+- Reconcile garment previews, cancellation, all 13 perspectives and all 20
+  families before implementation.
+
+- Implement the final types and complete independent review and validation.
+
+## Work completed since the handoff
+
+- Confirmed in isolated product probes that a constructed finite sloped support
+  triangle can report zero grade and pass surface, bounded-terrain and collider
+  construction; normal generation remains unverified.
+
+- Confirmed in a selected-source module harness that a synthetic FBX rig retains
+  a NaN skin weight, and that zero influence reduction yields NaN; downstream
+  GPU behavior remains unverified.
+
+- Completed original inventories for lenses 11, 12 and 13 while preserving
+  historical attribution and separate connected obligations.
+
+- Recorded source investigations across skill and book targets, rest and travel,
+  identity codecs, injury clocks and strategic-to-tactical boundaries.
+
+- Assessed all 403 lens/path checks in the latest 31-path source delta. The
+  preceding 59-path delta has 767 of 767 checks assessed; connected source and
+  acceptance obligations remain open. Earlier populations and connected work
+  remain separate.
+
+- Traced the replacement foliage renderer, shader layouts, material and loading
+  readiness paths; retained admission, failure, lifecycle and visual acceptance
+  questions.
+
+- Read both registered lockfile revisions and both quality baseline revisions;
+  reconciled the lockfile deletion and traced the quality baseline change to a
+  function-length ceiling.
+
+- Connected terrain admission, selected geographic input bounds, GPU limit
+  selection and native/browser buffer error evidence to an existing open terrain
+  allocation obligation.
+
+- Preserved exact checkpoint history and published progress snapshots; the full
+  audit evidence graph remains local.
+
+- Assessed all 2,002 path-and-lens cells in the older source delta; connected
+  and unchanged-source obligations remain open.
+
+- Consolidated a source-backed attack-identity repair constraint: retain full
+  participant and distinct attack instances through scheduling, cancellation,
+  batching and diagnostic output.
+
+## What remains
+
+- Finish the required audit across all 13 lenses, the 20 migration families,
+  connected source dependencies, exact canonical mappings, and current-source
+  changes. The implementation gate is still incomplete.
+
+- Resolve or explicitly disposition the remaining type ownership, bounds, units,
+  frames, authority, construction, and policy questions. Preserve existing
+  evidence without treating a narrow source result as whole-family completion.
+
+- Implement the clean final bespoke types and APIs, update generated bindings
+  through the prescribed generator where required, and synchronize the owning
+  documentation.
+
+- Complete independent review, remediation, required formatting and lint checks,
+  applicable product tests, and isolated observable acceptance.
+
+## Coverage and verification limits
+
+The newest source-revision batch contains 31 changed paths and 403 lens/path
+checks; 403 of those checks are closed. These are audit coverage obligations,
+not bug counts. Earlier revision evidence remains separately qualified.
+
+The canonical queue contains 3849 entries. Entries and views overlap, so this is
+not a count of unique bugs or a meaningful completion percentage.
+
+No product files have been changed in this continuation.
+
+Focused terrain, FBX, GLB and rig probes plus a pinned corrective-enabled
+neutral MHR GPU forward passed in isolated selected-source builds; broad product
+tests, lints, generators and final runtime acceptance remain outstanding.
+
+No subagents have been used in this continuation. Checkpoint verification is not
+independent review.
+
+## Evidence and report updates
+
+Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
+
+- [Checkpoint 1123 publication record](CHECKPOINT-1123.json)
+- [Saved report for checkpoint 1123](PROGRESS-1123.md)
+
+PROGRESS.md is the latest working report. It is updated during ongoing work and
+whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
+for checkpoint N; later work updates the latest report without rewriting that
+snapshot.
