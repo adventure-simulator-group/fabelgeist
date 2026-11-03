@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 539,
+  "at": "2026-11-03T00:20:46.758916+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "b0e07daa253e820c1c06688a813ac02cd2e526afdb0d8966dc090deb5e81c1ba",
+    "verification": "ea170b3ec5424ae19621224ce9432b47e909ef3f9ee5c56561c6688e0488411d",
+    "canonical_current": "c98243412eba74dceda883d2a7f050745fd2b00dfdc80beb711fae12a1173cb5"
+  },
+  "scope": {
+    "summary": "Completed the enum-shape source perspective for the changed texture runtime path, including the pinned native image and sampler construction. The added installed count introduces no new enum variant.",
+    "scope_limit": "One current-source lens/path check closed: 52 of 403 for this revision. Failure state, channel admission, native lifetime, runtime validation and all broader audit gates remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d78219aa3dd74edfb17376db63dfd75f384b0b0dee6bd9f07e4babf07be4ff17",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
