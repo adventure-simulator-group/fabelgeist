@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T16:57:43.810518+00:00
+Updated: 2026-11-03T17:00:33.934768+00:00
 
-Latest verified checkpoint: **1066**. Goal: **active**.
+Latest verified checkpoint: **1067**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-An unchanged fixture-loader module accepted a canonical-derived GLB with a
-synthetic zero weight row; shared reduction produced NaN.
+The unmodified canonical GLB passed a focused fixture-loader check: all 2,461
+skin rows were finite, nonnegative, nonzero and normalized within 1e-4.
 
-The loader ran in a stubbed harness; the unmodified canonical asset, full client
-and runtime effects were not shown to fail.
+This covers one selected asset in a stubbed harness; other supplied GLBs and
+full runtime remain unverified.
 
 ## Working on now
 
@@ -122,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1066 publication record](CHECKPOINT-1066.json)
-- [Saved report for checkpoint 1066](PROGRESS-1066.md)
+- [Checkpoint 1067 publication record](CHECKPOINT-1067.json)
+- [Saved report for checkpoint 1067](PROGRESS-1067.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
