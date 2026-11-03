@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:09:15.578450+00:00
+Updated: 2026-11-03T20:11:04.866766+00:00
 
-Latest verified checkpoint: **1176**. Goal: **active**.
+Latest verified checkpoint: **1177**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,9 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced build-time organization validation and embedded runtime catalog use.
+Compared religion IDs and traced schedule and immediate prayer HTTP admission;
+scoped the label-dispatch repair.
 
-Native parser parity, other writers and runtime preview tests remain open.
+No incorrect current preview was observed; other writers, aliases and runtime
+tests remain open.
 
 ## Working on now
 
@@ -139,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1176 publication record](CHECKPOINT-1176.json)
-- [Saved report for checkpoint 1176](PROGRESS-1176.md)
+- [Checkpoint 1177 publication record](CHECKPOINT-1177.json)
+- [Saved report for checkpoint 1177](PROGRESS-1177.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
