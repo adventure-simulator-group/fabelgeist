@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 670,
+  "at": "2026-11-03T05:49:29.954009+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "01b5af8dba38a661bec27c8de8455ea2ea7acd7a9bfe948a11f57851cfed4295",
+    "verification": "8f99976873abde4933c31cd274959e0c268817323d1fb8a8824ef70872815995",
+    "canonical_current": "4cb9ab0e667551bac6ea3b34d05174afe25a95368af11e74c4087f87d61d04f8"
+  },
+  "scope": {
+    "summary": "Traced the browser GPU buffer creation and mapped-range wrappers, including their explicit unwraps.",
+    "scope_limit": "The browser\u2019s actual error timing and failure outcome remain unverified; the native invalid-buffer result is not transferred to it."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "208f5c5becce5af50ecdb4f48ff3ebde892b2b962fc0e45a3e50c5684b65bbdd",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
