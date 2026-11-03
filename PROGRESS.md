@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:29:25.510810+00:00
+Updated: 2026-11-03T10:30:27.227133+00:00
 
-Latest verified checkpoint: **856**. Goal: **active**.
+Latest verified checkpoint: **857**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced cancellation ID comparisons into the tactical acceptance audit; a
-collision could conditionally produce a false ghost-contact result.
+Traced the existing cancellation fixture to its default-character ID and
+deterministic hammer opponent ID.
 
-No collision has been shown in the existing fixture or a supported battle; no
-runtime evidence was produced.
+Their low bits have not yet been compared; no collision or runtime result is
+claimed.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 856 publication record](CHECKPOINT-856.json)
-- [Saved report for checkpoint 856](PROGRESS-856.md)
+- [Checkpoint 857 publication record](CHECKPOINT-857.json)
+- [Saved report for checkpoint 857](PROGRESS-857.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
