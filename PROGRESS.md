@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T03:38:05.720826+00:00
+Updated: 2026-11-03T03:38:59.940206+00:00
 
-Latest verified checkpoint: **636**. Goal: **active**.
+Latest verified checkpoint: **637**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,8 +18,8 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Advanced the registered later baseline read through line 9200, including
-strategic and tactical checker records.
+Advanced the registered later baseline read through line 10400, including format
+and web boundary checker records.
 
 Earlier revision source checks remain 741 of 767; newest revision remains 403 of
 403. Remaining registered ranges, lens dispositions and runtime acceptance
@@ -372,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 636 publication record](CHECKPOINT-636.json)
-- [Saved report for checkpoint 636](PROGRESS-636.md)
+- [Checkpoint 637 publication record](CHECKPOINT-637.json)
+- [Saved report for checkpoint 637](PROGRESS-637.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
