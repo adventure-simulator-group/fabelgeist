@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 566,
+  "at": "2026-11-03T01:17:58.924599+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "bda1ca7c0c03f111d448641f70078f6c03ca48336dcd422b179d42bed74e3f42",
+    "verification": "842702c5ba8ecc3d9ca37d9a49ebbe501ecad1cfc4148539c7483843d6953cab",
+    "canonical_current": "9f54c0601fc9bcc4f5e0d86949f5e84f6c63cc17c48138459278bcd1db2f82ed"
+  },
+  "scope": {
+    "summary": "Completed all thirteen source perspectives for the client entrypoint, tracing loading installation across native and browser startup and the cursor capture gate.",
+    "scope_limit": "Thirteen current-source checks closed: 364 of 403 for this revision. Other binaries, input and scheduling, native render failures and runtime acceptance remain open; no complete case is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "a8d6f93ebaa3957643ca9f2110bf329b108347c9cd10b495ce27c03deaac6cc1",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
