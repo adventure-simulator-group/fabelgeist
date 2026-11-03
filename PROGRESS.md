@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T16:16:32.212402+00:00
+Updated: 2026-11-03T16:17:42.158135+00:00
 
-Latest verified checkpoint: **1062**. Goal: **active**.
+Latest verified checkpoint: **1063**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -14,33 +14,40 @@ not complete the audit or authorize implementation.
 | Required audit | In progress |
 | Product implementation | Not started |
 | Independent review | Not started |
-| Product and runtime validation | Not started |
+| Product and runtime validation | Focused probes only; final validation not started |
 
 ## Latest checkpoint
 
-Traced generic fitted equipment skin correspondence from body upload through GPU
-gather and readback.
+Traced GLB fixture joint and weight admission into runtime body skin rows.
 
-No invalid-weight GPU execution or complete flexible-design path was tested.
+Native GLB guarantees, supported asset policy and actual zero-row reachability
+remain unverified.
 
 ## Working on now
 
-Reconciling confirmed nonfinite skin admission, sparse and export boundaries,
-and remaining P09 receivers.
+Reconciling P09 skin admission, reduction and equipment consumers across the
+remaining audit ledger.
 
-- Resolve saved garment topology identity, public fitting admission and
-  supported asset policy.
+- Complete P09 skin producer, GLB fixture and flexible equipment receiver
+  contracts and exact aliases.
 
-- Resolve connected renderer and native boundary obligations, including producer
-  completeness, bounds and visual acceptance.
+- Resolve saved garment topology, renderer and native boundary obligations.
 
-- Reconcile the retained build-target specification question and other connected
-  findings against exact canonical owners and aliases.
+- Reconcile all 13 perspectives, all 20 families and the ordered repair ledger
+  before implementation.
 
-- Complete all13 perspectives, all20 families, older source deltas and the
-  ordered repair ledger before implementation.
+- Implement the clean final types, then complete independent review and final
+  validation.
 
 ## Work completed since the handoff
+
+- Confirmed in isolated product probes that a constructed finite sloped support
+  triangle can report zero grade and pass surface, bounded-terrain and collider
+  construction; normal generation remains unverified.
+
+- Confirmed in a selected-source module harness that a synthetic FBX rig retains
+  a NaN skin weight, and that zero influence reduction yields NaN; downstream
+  GPU behavior remains unverified.
 
 - Completed original inventories for lenses 11, 12 and 13 while preserving
   historical attribution and separate connected obligations.
@@ -113,8 +120,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1062 publication record](CHECKPOINT-1062.json)
-- [Saved report for checkpoint 1062](PROGRESS-1062.md)
+- [Checkpoint 1063 publication record](CHECKPOINT-1063.json)
+- [Saved report for checkpoint 1063](PROGRESS-1063.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
