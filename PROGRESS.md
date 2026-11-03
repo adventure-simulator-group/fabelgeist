@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:13:40.912742+00:00
+Updated: 2026-11-03T15:18:35.021295+00:00
 
-Latest verified checkpoint: **1032**. Goal: **active**.
+Latest verified checkpoint: **1033**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,16 +18,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Prepared a candidate public mesh wire fixture and qualified its owner identity
-and local admission predicates.
+Qualified pinned Vec3 sequence serialization and started an isolated product-
+level mesh probe.
 
-Product decoding, native vector encoding, full surface admission and runtime
-behavior remain unverified.
+Probe is still building; no test outcome or complete surface admission is
+established.
 
 ## Working on now
 
-Reconciling terrain and support-grade numeric admission with connected audit
-obligations.
+Running the isolated mesh admission probe and reconciling connected terrain and
+support-grade obligations.
 
 - Resolve saved garment topology identity, public fitting admission and
   supported asset policy.
@@ -104,8 +104,8 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-Source and checkpoint verification only. No product builds, tests, lints,
-generators, or runtime acceptance have run.
+Source and checkpoint verification; an isolated two-job offline product probe is
+building. No product test outcome, lints, generators or runtime acceptance yet.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1032 publication record](CHECKPOINT-1032.json)
-- [Saved report for checkpoint 1032](PROGRESS-1032.md)
+- [Checkpoint 1033 publication record](CHECKPOINT-1033.json)
+- [Saved report for checkpoint 1033](PROGRESS-1033.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
