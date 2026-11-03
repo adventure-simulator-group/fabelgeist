@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:14:24.940111+00:00
+Updated: 2026-11-03T01:16:35.431001+00:00
 
-Latest verified checkpoint: **564**. Goal: **active**.
+Latest verified checkpoint: **565**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all thirteen source perspectives for the ground-scatter module,
-tracing exposed completion markers and fallible construction into readiness.
+Completed all thirteen source perspectives for instanced grass, tracing disabled
+and failed preparation paths to the shared completion marker.
 
-Thirteen current-source checks closed: 338 of 403 for this revision. Partial
-failure, marker lifecycle, native rendering and runtime acceptance remain open;
-no complete case is claimed.
+Thirteen current-source checks closed: 351 of 403 for this revision. Marker
+invalidation, error retries, GPU presentation and runtime acceptance remain
+open; no complete case is claimed.
 
 ## Working on now
 
@@ -354,7 +354,7 @@ connected owners and remaining source perspectives.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 338 of those checks are closed. These are audit coverage obligations,
+checks; 351 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -372,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 564 publication record](CHECKPOINT-564.json)
-- [Saved report for checkpoint 564](PROGRESS-564.md)
+- [Checkpoint 565 publication record](CHECKPOINT-565.json)
+- [Saved report for checkpoint 565](PROGRESS-565.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
