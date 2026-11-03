@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:40:40.808810+00:00
+Updated: 2026-11-03T05:42:02.002734+00:00
 
-Latest verified checkpoint: **663**. Goal: **active**.
+Latest verified checkpoint: **664**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected current terrain admission and chunk upload evidence to the existing
-terrain allocation question, preserving the separate historical and current
-consumer paths.
+Traced selected geographic and landform terrain producers into the existing
+terrain admission obligation. Remote main still matches the selected source
+revision.
 
-The connection is not an alias or a closed finding. Actual producer bounds,
-device failure behavior and canonical repair ownership remain open.
+Upstream grid validation, upsampling and refinement bounds remain open; these
+selected producers do not prove all terrain input paths or runtime behavior.
 
 ## Working on now
 
@@ -372,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 663 publication record](CHECKPOINT-663.json)
-- [Saved report for checkpoint 663](PROGRESS-663.md)
+- [Checkpoint 664 publication record](CHECKPOINT-664.json)
+- [Saved report for checkpoint 664](PROGRESS-664.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
