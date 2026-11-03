@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:39:16.363640+00:00
+Updated: 2026-11-03T10:40:20.152910+00:00
 
-Latest verified checkpoint: **865**. Goal: **active**.
+Latest verified checkpoint: **866**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced authored timing into generated autoresolve parameters and identified the
-256-round public battle loop bound.
+Traced joint melee scheduling to a shared zero-length endpoint, establishing a
+conditional source route to aligned attack starts.
 
-No build was run; this alone does not prove all scheduled-time bounds or tick
-uniqueness.
+Actual equal-low-bit battle reachability and same-participant uniqueness remain
+unproven; no runtime test was run.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 865 publication record](CHECKPOINT-865.json)
-- [Saved report for checkpoint 865](PROGRESS-865.md)
+- [Checkpoint 866 publication record](CHECKPOINT-866.json)
+- [Saved report for checkpoint 866](PROGRESS-866.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
