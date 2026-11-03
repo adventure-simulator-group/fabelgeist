@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 782,
+  "at": "2026-11-03T08:44:33.253443+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "f0627f802241c3e5418d2e4fc843ff85e80f480c70da9a64574243ad0424d530",
+    "verification": "65fedacc21f8be47e6883748cdee266901f0c4de6eab4c0fb7c9111b6e7aadf9",
+    "canonical_current": "887e3c718e24ea5085eb9f5b64a67939ab78aee430b3c7b85239d64b6bc629c7"
+  },
+  "scope": {
+    "summary": "Connected current model limit parsing and clamp admission to three existing audit records, including delimiter order and interval validity.",
+    "scope_limit": "Supported inputs, intended policy, native float behavior, exact aliases and acceptance remain open. No new unique finding or runtime execution is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "44abbed2e75822a86a81727e642d925a27295ea706a631fc95cba608681aa173",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
