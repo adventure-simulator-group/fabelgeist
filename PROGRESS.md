@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-02T23:18:32.870733+00:00
+Updated: 2026-11-03T00:04:57.117424+00:00
 
-Latest verified checkpoint: **534**. Goal: **active**.
+Latest verified checkpoint: **535**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,80 +18,18 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified current scene-readiness marker producers and their input queries.
-Confirmed disabled grass explicitly settles, while enabled grass/terrain/tree
-preparation failures retain pending work. Recorded that terrain accepts optional
-ground but both scatter queries require it, and refined four existing journals
-with exact current caller evidence.
+Recorded scoped source evidence that debug world dumps omit scene ground and
+environment while restoring terrain and skipping fresh terrain generation.
+Linked the finding to the existing scene population and readiness obligation.
 
-This checkpoint closes no additional matrix cells: the newest revision remains
-51 of 403 complete, with 352 open; the preceding revision retains 189 of 767.
-Actual scene input/replication completeness, nested cache/material/geometry
-outcomes and scene-specific native readiness still need evidence. No loading
-stall or GPU incident was executed. Product implementation, independent review,
-builds, tests and runtime validation have not begun.
-
-## Investigation since checkpoint 534
-
-The debug world-dump writer includes scene identity and terrain but omits ground
-and environment. Debug startup skips fresh terrain generation when loading a
-dump, and the terrain restore observer rebuilds collision and replication. The
-existing round-trip test exercises a player and inventory, not scene inputs.
-
-Client loading expects terrain and two ground-cover markers per scene. SceneId
-addition creates pending terrain work. A persistent incomplete stage produces a
-stall verdict after 90 seconds of unchanged game-time progress. The runtime
-impact, component delivery and other insertion paths remain to be verified.
-These source observations are exploratory and have not closed audit cells.
-
-The separately loaded scene input supplies the vista and world bounds. The
-inspected input loader and dump loader do not compare its identity with the
-dump. A different input could therefore produce inconsistent scene data. The
-furniture restore test uses the same input on both sides and does not test that
-case. Ground derives reflection, while environment does not at its declaration,
-so the snapshot representation needs further design analysis.
-
-The next current-source audit scope is texture residency. The new count reads
-an existing installed-ID set, and the loading screen uses the same catalogue
-for its count and total. The catalogue lists distinct IDs and has a uniqueness
-test. Existing audit entries still track terminal load failure and recipe-channel
-admission. The inspected tests have not been run, and all 13 perspectives on
-this changed path remain open.
-
-Bevy retains a failed asset state with its error and emits a failure event with
-asset identity, path and error. The loading screen uses the path while loading.
-Texture requests begin at presentation startup, and retry creates a new client
-without itself resetting texture residency. The retained request map does not
-call the asset server again for an existing recipe. Early failure and retry
-behavior still need runtime verification and a complete lifecycle assessment.
-
-The art demo also requests selected textures and checks their readiness before
-checking an oak impostor failure. Strategic scene setup waits for the catalogue
-and separately retains a path-based asset error. Failure reset, missing-resource
-modes and native retry behavior remain open. These are source observations,
-with no runtime failure reproduced or audit cell closed.
-
-The texture admission audit also traces recipe channels from generation through
-reserved image handles. The parser accepts nonempty channel subsets, while the
-installer counts a recipe after processing supplied maps. The existing ledger
-keeps required versus allowed channel policy open. Art-demo empty recipe sets
-are legitimate, and the host displays unavailable status. These findings remain
-source assessments awaiting formal adoption and runtime validation.
-
-The strategic renderer retains a path-based required-asset failure and excludes
-readiness while it is present. The inspected mode transition and direct scene
-release do not clear that resource. The host displays a generic unavailable
-message and logs the status error. App recreation, other failure writers and
-runtime timing remain open. These observations are not yet adopted into the
-checkpoint ledger.
+No current-source cells or complete cases closed. Component delivery, other
+insertion paths, dump provenance and runtime effects remain open; no product
+execution was performed.
 
 ## Working on now
 
-Trace scene-readiness marker populations against admitted scene input and
-spawning/replication lifecycle. Disabled grass explicitly settles; terrain
-accepts optional ground while both scatter queries require it. Keep missing
-input and native preparation outcomes distinct before completing the remaining
-source perspectives.
+Qualify texture residency, asset failures and scene restoration against
+connected owners and remaining source perspectives.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -340,6 +278,11 @@ source perspectives.
   child verdicts. Scene population and native failure/readiness guarantees
   remain open.
 
+- Recorded the debug dump scene input restoration source scope against the
+  existing scene population obligation. Ground and environment omission, terrain
+  reconstruction and the loading marker requirements remain conditional pending
+  component lifecycle and runtime evidence.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -378,8 +321,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 534 publication record](CHECKPOINT-534.json)
-- [Saved report for checkpoint 534](PROGRESS-534.md)
+- [Checkpoint 535 publication record](CHECKPOINT-535.json)
+- [Saved report for checkpoint 535](PROGRESS-535.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

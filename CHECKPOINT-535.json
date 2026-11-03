@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 535,
+  "at": "2026-11-03T00:04:36.895462+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "1298be1e13d554a3f0a6e66d72bd39f080f3b31dac9f8517d43ddf69c8822120",
+    "verification": "19f5e861b945406885e9c94f0cd0cb3dbfee681036da3a467eb48ff1abfeee40",
+    "canonical_current": "0aff6253b9ce38957d877fe7e9215fbada7c7607c4a6ae80245cda3064d8ac30"
+  },
+  "scope": {
+    "summary": "Recorded scoped source evidence that debug world dumps omit scene ground and environment while restoring terrain and skipping fresh terrain generation. Linked the finding to the existing scene population and readiness obligation.",
+    "scope_limit": "No current-source cells or complete cases closed. Component delivery, other insertion paths, dump provenance and runtime effects remain open; no product execution was performed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "b93aad10a058d4752f22c35ef7d87d1bd67ec9c5afb232dd39e48ba17438b7a4",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
