@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T03:02:28.477524+00:00
+Updated: 2026-11-03T03:04:44.796936+00:00
 
-Latest verified checkpoint: **611**. Goal: **active**.
+Latest verified checkpoint: **612**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced grass scene cleanup and vista material creation: the inspected cleanup
-retains the interaction cache, while vista grass uses the same new-material
-constructor.
+Traced pending vista presentation and browser tactical transitions. Vista grass
+can be prepared through a later trigger, but the inspected source does not prove
+the ordering relative to the interaction updater.
 
 Earlier revision source checks remain 741 of 767; newest revision remains 403 of
-403. Player retention, scheduling and first-visible rendering remain unverified;
-no runtime regression is claimed.
+403. Player lifetime, event ordering and first-visible rendering remain
+unverified; no runtime regression is claimed.
 
 ## Working on now
 
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 611 publication record](CHECKPOINT-611.json)
-- [Saved report for checkpoint 611](PROGRESS-611.md)
+- [Checkpoint 612 publication record](CHECKPOINT-612.json)
+- [Saved report for checkpoint 612](PROGRESS-612.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
