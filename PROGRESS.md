@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:07:28.567757+00:00
+Updated: 2026-11-03T23:08:44.676119+00:00
 
-Latest verified checkpoint: **1268**. Goal: **active**.
+Latest verified checkpoint: **1269**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical receipt authorization and its ammunition bounds.
+Traced inventory reducer liveness and ordinary-arrow removal during a possible
+active session.
 
-Inventory mutation authority, shortage reachability and aliases remain open; no
-new coverage or full contract closure is claimed.
+Reducer exposure, session sequencing and exact aliases remain open; no execution
+or full contract closure is claimed.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1268 publication record](CHECKPOINT-1268.json)
-- [Saved report for checkpoint 1268](PROGRESS-1268.md)
+- [Checkpoint 1269 publication record](CHECKPOINT-1269.json)
+- [Saved report for checkpoint 1269](PROGRESS-1269.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
