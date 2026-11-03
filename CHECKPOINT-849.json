@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 849,
+  "at": "2026-11-03T10:21:52.884065+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "63de8e6e625f538484cf705a48076334eff44336e8d8ffed6949e6e2e78f9744",
+    "verification": "40e7f8e1735d9a3e48ed74c6ef464009a625c0bbb34f864b5e32aaf01edcc81c",
+    "canonical_current": "6eeea326a9610e6db4830c0062bf002f325f2888423cb0e36d0c00fadae492d4"
+  },
+  "scope": {
+    "summary": "Traced random encounter participants to u64 character IDs, including high-bit field-character IDs.",
+    "scope_limit": "No particular equal-low-bit collision is established. Other producers, scheduling, external readers and aliases remain open; tests were not run."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "2b48c71aae62e8609845af9caae258157775c5e95d13b30652452d65492f3ed9",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
