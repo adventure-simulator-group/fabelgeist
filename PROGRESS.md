@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:26:46.278085+00:00
+Updated: 2026-11-03T21:28:18.505003+00:00
 
-Latest verified checkpoint: **1213**. Goal: **active**.
+Latest verified checkpoint: **1214**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced native venue selection dependencies and verified manager publication
-precedes delayed installation completion.
+Traced how native scene creation retains venue mappings and how later people
+depend on those mappings.
 
-The delayed installation is stubbed; actual same-location changes and visual
-effects remain untested.
+Same-location venue changes and rendered impact remain conditional source
+analysis.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1213 publication record](CHECKPOINT-1213.json)
-- [Saved report for checkpoint 1213](PROGRESS-1213.md)
+- [Checkpoint 1214 publication record](CHECKPOINT-1214.json)
+- [Saved report for checkpoint 1214](PROGRESS-1214.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
