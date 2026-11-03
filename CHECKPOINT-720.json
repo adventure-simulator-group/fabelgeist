@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 720,
+  "at": "2026-11-03T07:02:49.676386+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "3b444dd48cc99a682c2b6660d893c28532cde3f59a2314be25e77aa7eb850311",
+    "verification": "21789a5bd59ec0818762ff0be5ad0d47d422b4542de330b884ac8e1687f093b9",
+    "canonical_current": "a506fac6059ccadf13d900b36190dd5e5131a6fd5b1c1cb215637fb0fdaa0c09"
+  },
+  "scope": {
+    "summary": "Traced the per-material chunk view map and distinguished skipped-view retention from removal of departed chunks.",
+    "scope_limit": "Camera retirement, native view identity and lifecycle acceptance remain open; no runtime leak is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "5e05b56b950d96253c849856c9586c01e21a19b4da8ce2416a5477ae479a96fd",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

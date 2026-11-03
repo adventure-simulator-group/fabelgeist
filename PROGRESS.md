@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:01:31.467984+00:00
+Updated: 2026-11-03T07:03:09.915237+00:00
 
-Latest verified checkpoint: **719**. Goal: **active**.
+Latest verified checkpoint: **720**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Corrected the live report to match the authoritative earlier source-delta count:
-754 of 767 checks closed.
+Traced the per-material chunk view map and distinguished skipped-view retention
+from removal of departed chunks.
 
-The 13 remaining lockfile lens checks and all broader connected audit
-obligations remain open.
+Camera retirement, native view identity and lifecycle acceptance remain open; no
+runtime leak is claimed.
 
 ## Working on now
 
@@ -104,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 719 publication record](CHECKPOINT-719.json)
-- [Saved report for checkpoint 719](PROGRESS-719.md)
+- [Checkpoint 720 publication record](CHECKPOINT-720.json)
+- [Saved report for checkpoint 720](PROGRESS-720.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
