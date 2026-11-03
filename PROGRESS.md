@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:25:30.453859+00:00
+Updated: 2026-11-03T07:26:41.511015+00:00
 
-Latest verified checkpoint: **735**. Goal: **active**.
+Latest verified checkpoint: **736**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Independently inspected replacement renderer material and pipeline strings under
-lens 12.
+Inspected shared chunk shader interface and six material shader symbol consumers
+under lens 12.
 
-Shader/native contract and the lockfile lens cell remain open; no cross-lens
-closure is claimed.
+Native preprocessing and connected lockfile disposition remain open; no cells
+closed.
 
 ## Working on now
 
@@ -104,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 735 publication record](CHECKPOINT-735.json)
-- [Saved report for checkpoint 735](PROGRESS-735.md)
+- [Checkpoint 736 publication record](CHECKPOINT-736.json)
+- [Saved report for checkpoint 736](PROGRESS-736.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
