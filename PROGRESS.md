@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:46:40.950776+00:00
+Updated: 2026-11-03T08:48:28.828999+00:00
 
-Latest verified checkpoint: **783**. Goal: **active**.
+Latest verified checkpoint: **784**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled model definition, typed layout, matrix and parser test sources across
-thirteen perspectives.
+Traced MHR host aggregates through tensor upload and connected mutable host
+versus uploaded tensor dimensions to an existing model-state record.
 
-The older batch retains 1302 pending checks. Limit admission, source identity,
-native behavior, aliases and acceptance remain open; tests were not run.
+Actual mutation callers, source identity, mesh membership, native backend
+behavior and acceptance remain open; no runtime failure is claimed.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 783 publication record](CHECKPOINT-783.json)
-- [Saved report for checkpoint 783](PROGRESS-783.md)
+- [Checkpoint 784 publication record](CHECKPOINT-784.json)
+- [Saved report for checkpoint 784](PROGRESS-784.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

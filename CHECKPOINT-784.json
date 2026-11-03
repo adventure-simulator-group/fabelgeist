@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 784,
+  "at": "2026-11-03T08:48:09.812713+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "517958e603bb632035a90a4e8b78f667b1058a4c32b12277c7326c1c456c7dc2",
+    "verification": "9e45feda7298bcf23fca1d48f526198e19183bbac3cf7f557bfefe7ce9e951e4",
+    "canonical_current": "cf4a9c9f8cd9560b031e826c74a026ed75c95dd29447f6bd4bae78a9e9046fc5"
+  },
+  "scope": {
+    "summary": "Traced MHR host aggregates through tensor upload and connected mutable host versus uploaded tensor dimensions to an existing model-state record.",
+    "scope_limit": "Actual mutation callers, source identity, mesh membership, native backend behavior and acceptance remain open; no runtime failure is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "58eae5ac30def1b17bbe7c557043505ff57c9b191495bb634b2338b8d61c0c3a",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
