@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T06:38:03.520173+00:00
+Updated: 2026-11-03T06:39:10.554573+00:00
 
-Latest verified checkpoint: **704**. Goal: **active**.
+Latest verified checkpoint: **705**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Read the loose-stone placement producer and linked its one-candidate-per-ground-
-sample bound to the capacity inquiry.
+Read SceneGround construction and qualified the loose-stone candidate bound
+against its actual grid checks.
 
-Ground grid admission, per-cell bounds, device limits and broader audit remain
-open.
+Construction and deserialization callers, per-cell bounds, device limits and the
+broader audit remain open.
 
 ## Working on now
 
@@ -103,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 704 publication record](CHECKPOINT-704.json)
-- [Saved report for checkpoint 704](PROGRESS-704.md)
+- [Checkpoint 705 publication record](CHECKPOINT-705.json)
+- [Saved report for checkpoint 705](PROGRESS-705.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
