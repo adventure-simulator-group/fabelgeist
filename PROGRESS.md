@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:14:31.356711+00:00
+Updated: 2026-11-03T20:17:00.181858+00:00
 
-Latest verified checkpoint: **1179**. Goal: **active**.
+Latest verified checkpoint: **1180**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Linked the retained prayer preview finding to its scoped repair while preserving
-open family and lens duties.
+Traced casual chat action ID, native replay checks and HTTP receipt readback.
 
-No incorrect current preview or runtime repair was demonstrated; global aliases
-and other lenses remain open.
+Readback failure is conditional; actual browser retries and independent terminal
+contracts remain open.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1179 publication record](CHECKPOINT-1179.json)
-- [Saved report for checkpoint 1179](PROGRESS-1179.md)
+- [Checkpoint 1180 publication record](CHECKPOINT-1180.json)
+- [Saved report for checkpoint 1180](PROGRESS-1180.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
