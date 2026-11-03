@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:15:18.663685+00:00
+Updated: 2026-11-03T23:17:03.668174+00:00
 
-Latest verified checkpoint: **1273**. Goal: **active**.
+Latest verified checkpoint: **1274**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified generated connected-player callbacks and pinned SDK diff dispatch;
-verified remote main unchanged.
+Traced generated connected-player diff dispatch through the pinned SDK cache.
 
-Generated dispatch, server deltas, authorization and final policy remain open;
-no product execution is claimed.
+Server deltas, cache membership, authorization and final policy remain open; no
+product execution is claimed.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1273 publication record](CHECKPOINT-1273.json)
-- [Saved report for checkpoint 1273](PROGRESS-1273.md)
+- [Checkpoint 1274 publication record](CHECKPOINT-1274.json)
+- [Saved report for checkpoint 1274](PROGRESS-1274.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
