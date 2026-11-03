@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:06:10.556046+00:00
+Updated: 2026-11-03T02:07:55.235800+00:00
 
-Latest verified checkpoint: **584**. Goal: **active**.
+Latest verified checkpoint: **585**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the inverse-kinematics runtime configuration cache across nine
-remaining perspectives, tracing validated server/client installation and per-
-thread versioned copies.
+Reconciled celestial material updates across eleven remaining perspectives.
+Newly created materials may retain constructor lighting while the snapshot is
+unchanged or below the write threshold; the actual scene impact is unverified.
 
-Earlier revision source checks: 419 of 767; newest revision remains 403 of 403.
-Concurrent refresh, full validation and runtime acceptance remain open; counts
-do not represent whole-audit completion.
+Earlier revision source checks: 430 of 767; newest revision remains 403 of 403.
+Material creation timing, change detection and visual acceptance remain open;
+counts do not represent whole-audit completion.
 
 ## Working on now
 
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 584 publication record](CHECKPOINT-584.json)
-- [Saved report for checkpoint 584](PROGRESS-584.md)
+- [Checkpoint 585 publication record](CHECKPOINT-585.json)
+- [Saved report for checkpoint 585](PROGRESS-585.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
