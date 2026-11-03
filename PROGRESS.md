@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:17:50.335314+00:00
+Updated: 2026-11-03T05:19:33.883764+00:00
 
-Latest verified checkpoint: **651**. Goal: **active**.
+Latest verified checkpoint: **652**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded scoped notes for all 13 audit perspectives on the changed function-
-length ceiling, tracing the measurement, comparison and diagnostic path.
+Compared the old and new tactical-client lockfile package records: the sole
+dependency-list change removes the Git-pinned bevy_eidolon renderer package.
 
-These notes concern one baseline record and do not close full-path lens cells or
-connected renderer contracts. The older lockfile and baseline delta remain open.
+This focused comparison does not establish full lockfile lens coverage or
+renderer equivalence. No audit cells or implementation gate were closed.
 
 ## Working on now
 
@@ -371,8 +371,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 651 publication record](CHECKPOINT-651.json)
-- [Saved report for checkpoint 651](PROGRESS-651.md)
+- [Checkpoint 652 publication record](CHECKPOINT-652.json)
+- [Saved report for checkpoint 652](PROGRESS-652.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 652,
+  "at": "2026-11-03T05:18:59.746518+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "2903f4cc46b7f8d72bd64c29c4814463168ae1f7cdce6d44cf6eed0802e07fec",
+    "verification": "dc9e5d9fea5c0d76ed7b2ecf436b2f4978a0809d46fe31f80c8fb526dc67895c",
+    "canonical_current": "1b343d861fe9721472796e3ef4d4c0333c4d0e1d48867e61f27fa005b9730d9e"
+  },
+  "scope": {
+    "summary": "Compared the old and new tactical-client lockfile package records: the sole dependency-list change removes the Git-pinned bevy_eidolon renderer package.",
+    "scope_limit": "This focused comparison does not establish full lockfile lens coverage or renderer equivalence. No audit cells or implementation gate were closed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "3c864787592c166ccaca677543db03a3ed7d86ccf84c05e1ef37c6fb18d85832",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
