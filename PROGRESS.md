@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:36:53.092715+00:00
+Updated: 2026-11-03T08:38:14.506171+00:00
 
-Latest verified checkpoint: **777**. Goal: **active**.
+Latest verified checkpoint: **778**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Read the corrective numeric test and expected output, and linked its index-
-coverage limits to the existing extent admission record.
+Reconciled the corrective numeric test and fixture across thirteen perspectives,
+retaining missing 32-bit index coverage.
 
-The authored test excludes wasm32 and does not cover values that truncate into
-range on 32-bit. It was not run; target support and policy remain open.
+The older batch retains 1406 pending checks. Tests were not run; supported
+targets, input policy, native behavior, aliases and broader audit remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 777 publication record](CHECKPOINT-777.json)
-- [Saved report for checkpoint 777](PROGRESS-777.md)
+- [Checkpoint 778 publication record](CHECKPOINT-778.json)
+- [Saved report for checkpoint 778](PROGRESS-778.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
