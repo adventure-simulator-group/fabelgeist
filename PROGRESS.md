@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:05:37.988812+00:00
+Updated: 2026-11-03T11:06:40.778623+00:00
 
-Latest verified checkpoint: **890**. Goal: **active**.
+Latest verified checkpoint: **891**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced direct saved-drape deserialization to indexed fitting and identified a
-source-level malformed-binding panic path.
+Reconciled the inherited Lens 13 topology finding with the current direct-wear
+admission evidence.
 
-Wardrobe and inventory already validate; no product execution, actual incident
-or global alias determination is claimed.
+Shared repair scope does not prove the malformed-binding path is an exact alias;
+canonical ownership and runtime acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 890 publication record](CHECKPOINT-890.json)
-- [Saved report for checkpoint 890](PROGRESS-890.md)
+- [Checkpoint 891 publication record](CHECKPOINT-891.json)
+- [Saved report for checkpoint 891](PROGRESS-891.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
