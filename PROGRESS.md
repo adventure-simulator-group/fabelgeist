@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:03:49.763095+00:00
+Updated: 2026-11-03T15:06:17.673557+00:00
 
-Latest verified checkpoint: **1028**. Goal: **active**.
+Latest verified checkpoint: **1029**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,15 +18,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned vector length arithmetic and finite GeographicGrade conversion;
-infinite grade is rejected by encoded surface validation.
+Qualified finite positive support-grade limits and reproduced a finite-normal
+grade underflow in standalone arithmetic.
 
-Product-level reachability and other mesh consumers remain unverified.
+Full surface admission, generated geometry bounds and product execution remain
+unverified.
 
 ## Working on now
 
-Reconciling saved garment topology and connected audit obligations after
-consolidating the attack identity evidence.
+Reconciling terrain and support-grade numeric admission with connected audit
+obligations.
 
 - Resolve saved garment topology identity, public fitting admission and
   supported asset policy.
@@ -113,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1028 publication record](CHECKPOINT-1028.json)
-- [Saved report for checkpoint 1028](PROGRESS-1028.md)
+- [Checkpoint 1029 publication record](CHECKPOINT-1029.json)
+- [Saved report for checkpoint 1029](PROGRESS-1029.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
