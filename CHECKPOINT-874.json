@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 874,
+  "at": "2026-11-03T10:48:45.284100+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "d6c6cbdddf29d333b14c2dc453ed086c275b127cec65fe2e623759b8c8037e84",
+    "verification": "f3e3017882995f835f70e0e988ac3f8d0468c0a4fdd6973f57531780e5d94fd6",
+    "canonical_current": "a02c86a93f4aa81fe76caae14985955e1e025535653c4b8d61b818d899db11d3"
+  },
+  "scope": {
+    "summary": "Traced mission autoresolve through captured enemy roster validation, which rejects duplicate full IDs and missing characters.",
+    "scope_limit": "That guarantee is within the enemy roster; cross-side and low-bit uniqueness remain unproven, and tests were not run."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "0a8c5686b64dc184a31b1b8bcabc6b66fd8655599e0600a78882b1101a9837c8",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
