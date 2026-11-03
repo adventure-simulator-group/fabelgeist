@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:44:50.433164+00:00
+Updated: 2026-11-03T01:47:10.527722+00:00
 
-Latest verified checkpoint: **574**. Goal: **active**.
+Latest verified checkpoint: **575**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,14 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced graphics configuration from native and browser startup through grass
-batches and shader specialization. Validation accepts equal fade-out endpoints,
-which reach a shader division by the fade width. Shipped ranges have nonzero
-widths; custom-setting runtime behavior is unverified.
+Reconciled the changed grass diagnostics helper across ten remaining
+perspectives, including per-tuft counts, chunk census use, and the change from
+configurable tier shadows to non-shadow-casting chunks.
 
-No additional source-matrix cells or complete cases closed: newest revision
-remains 403 of 403, earlier revision 225 of 767. The implementation gate remains
-closed pending the full audit.
+Earlier revision source checks: 235 of 767; newest revision remains 403 of 403.
+Shadow policy and visual acceptance remain open; these counts do not represent
+whole-audit completion.
 
 ## Working on now
 
@@ -374,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 574 publication record](CHECKPOINT-574.json)
-- [Saved report for checkpoint 574](PROGRESS-574.md)
+- [Checkpoint 575 publication record](CHECKPOINT-575.json)
+- [Saved report for checkpoint 575](PROGRESS-575.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
