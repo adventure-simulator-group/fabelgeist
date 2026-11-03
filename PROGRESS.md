@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:13:20.307143+00:00
+Updated: 2026-11-03T17:14:53.080596+00:00
 
-Latest verified checkpoint: **1073**. Goal: **active**.
+Latest verified checkpoint: **1074**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Confirmed a constructed mismatched skin array is rejected with cluster context
-and traced how model loaders retain its cause.
+Traced corrective archive loading, existing structured import errors and the
+checked tensor adapter.
 
-The synthetic fixture has an inconsistent array payload; the separately resolved
-module harness does not establish production asset reachability or full importer
-coverage.
+This is source-level evidence; NumPy admission, native presentation and full
+family reconciliation remain open.
 
 ## Working on now
 
@@ -123,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1073 publication record](CHECKPOINT-1073.json)
-- [Saved report for checkpoint 1073](PROGRESS-1073.md)
+- [Checkpoint 1074 publication record](CHECKPOINT-1074.json)
+- [Saved report for checkpoint 1074](PROGRESS-1074.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
