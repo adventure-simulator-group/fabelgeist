@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:30:21.249613+00:00
+Updated: 2026-11-03T01:35:16.281389+00:00
 
-Latest verified checkpoint: **570**. Goal: **active**.
+Latest verified checkpoint: **571**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,14 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the loading gate through raw equipment input and the server request
-validator. The HUD is gated, while the inspected grab system does not directly
-consult the loading phase or player input context.
+Completed ten remaining source perspectives for the retired grass GPU culling
+shader, tracing its replacement by CPU-visible chunks and per-instance distance
+fading.
 
-No additional source-matrix cells or complete cases closed: newest revision
-remains 403 of 403, earlier revision 189 of 767. Actual input delivery and
-server action acceptance during loading remain untested; the implementation gate
-remains closed.
+Earlier revision checks: 199 of 767; newest revision remains 403 of 403.
+Animated bounds, native visibility, visual equivalence, performance and runtime
+acceptance remain open; no complete case is claimed.
 
 ## Working on now
 
@@ -374,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 570 publication record](CHECKPOINT-570.json)
-- [Saved report for checkpoint 570](PROGRESS-570.md)
+- [Checkpoint 571 publication record](CHECKPOINT-571.json)
+- [Saved report for checkpoint 571](PROGRESS-571.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
