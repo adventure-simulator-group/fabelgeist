@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1008,
+  "at": "2026-11-03T14:22:30.199043+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "0c4b6dacd085d6955378ce93e9000766ee28792ecaeb44ddcd96210995d92e30",
+    "verification": "95896044ed5d86aa30ea9c4d7d861a784192a0a537d27f7d9292713f54da33b5",
+    "canonical_current": "070effc0a4afdf81c43d169e6f36d835baf6288712705aca23a72ad162c39578"
+  },
+  "scope": {
+    "summary": "Established that scene-input grid validation excludes the inherited subnormal terrain-scale example.",
+    "scope_limit": "Direct terrain construction is more permissive; post-validation transformations, other producers and native consistency remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "0d46873fa760f9e60698ac38b294d1cf1c9f64cb5933e3b063ef76b58585f8b8",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
