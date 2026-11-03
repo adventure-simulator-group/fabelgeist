@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:33:34.420010+00:00
+Updated: 2026-11-03T13:35:01.777620+00:00
 
-Latest verified checkpoint: **981**. Goal: **active**.
+Latest verified checkpoint: **982**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fresh worker and cached bytes into the same Rust product admission;
-decode and program mismatches evict cached products.
+Qualified cache revision/job keys, bounded decompression and checksum checks,
+plus worker dispatch and job-address matching.
 
-Cache integrity and dispatch matching, worker trust, API policy and native
-validation remain open; no corrupted product was observed.
+These checks do not establish semantic plan association; trust policy, supported
+failures and native validation remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 981 publication record](CHECKPOINT-981.json)
-- [Saved report for checkpoint 981](PROGRESS-981.md)
+- [Checkpoint 982 publication record](CHECKPOINT-982.json)
+- [Saved report for checkpoint 982](PROGRESS-982.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
