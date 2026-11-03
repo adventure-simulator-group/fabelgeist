@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 662,
+  "at": "2026-11-03T05:39:08.207021+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "078068fa4f9acc240aa0ac274e9084e797dd6d362ce220c682c96c6e69e7d487",
+    "verification": "4e237175e40d1156b576e5b2e9514183449ca5a628ec822314036b50cffabb04",
+    "canonical_current": "e6dc4cc8e1bf390b4204cdb0a6116a6298816ea4041e4d0209babd64e0597445"
+  },
+  "scope": {
+    "summary": "Traced terrain dimension admission: mesh cardinality and finite positive extents are checked, but no explicit maximum metre extent is imposed.",
+    "scope_limit": "Extreme terrain reachability, finite-precision chunk cardinality and GPU failure handling remain unverified; no runtime incident or lens closure is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "32265e0a5e282ad4ecc1770b7bd9f99d5e6137144cdbfd162c18eccbd8a7f24e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
