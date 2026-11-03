@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:43:33.509060+00:00
+Updated: 2026-11-03T10:44:32.748812+00:00
 
-Latest verified checkpoint: **869**. Goal: **active**.
+Latest verified checkpoint: **870**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Found an ID-keyed contact-tick map in the iteration runner and traced the
-inspected strategic report to summary and log fields.
+Qualified public combatant IDs versus private transient scheduling state and
+fresh strategic conversion.
 
-Map overwrite effects require a supported collision and differing ticks; other
-consumers and runtime evidence remain open.
+The internal simultaneous fixture is not evidence that external callers directly
+construct that state or that a strategic collision occurred.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 869 publication record](CHECKPOINT-869.json)
-- [Saved report for checkpoint 869](PROGRESS-869.md)
+- [Checkpoint 870 publication record](CHECKPOINT-870.json)
+- [Saved report for checkpoint 870](PROGRESS-870.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
