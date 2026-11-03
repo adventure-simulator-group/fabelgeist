@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:25:42.787221+00:00
+Updated: 2026-11-03T02:27:32.670250+00:00
 
-Latest verified checkpoint: **595**. Goal: **active**.
+Latest verified checkpoint: **596**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled vista grass placement across ten remaining perspectives, including
-the relocated shadow exclusion and the playable-boundary scatter collar.
+Reconciled the tactical browser bootstrap across thirteen perspectives,
+including WebGPU adapter reporting and the later exit callback.
 
-Earlier revision source checks: 595 of 767; newest revision remains 403 of 403.
-Terrain admission, camera extent, seam and visual acceptance remain open; counts
-do not represent whole-audit completion.
+Earlier revision source checks: 608 of 767; newest revision remains 403 of 403.
+Browser adapter behavior, startup failure handling and exit navigation remain
+untested; counts do not represent whole-audit completion.
 
 ## Working on now
 
@@ -372,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 595 publication record](CHECKPOINT-595.json)
-- [Saved report for checkpoint 595](PROGRESS-595.md)
+- [Checkpoint 596 publication record](CHECKPOINT-596.json)
+- [Saved report for checkpoint 596](PROGRESS-596.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
