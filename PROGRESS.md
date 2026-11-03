@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T00:04:57.117424+00:00
+Updated: 2026-11-03T00:08:56.365003+00:00
 
-Latest verified checkpoint: **535**. Goal: **active**.
+Latest verified checkpoint: **536**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,26 +18,20 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded scoped source evidence that debug world dumps omit scene ground and
-environment while restoring terrain and skipping fresh terrain generation.
-Linked the finding to the existing scene population and readiness obligation.
+Qualified strategic scene texture gating and status error ordering, linking the
+evidence to the existing texture failure and status obligations. A stored scene-
+document error can be deferred while catalogue textures remain pending.
 
-No current-source cells or complete cases closed. Component delivery, other
-insertion paths, dump provenance and runtime effects remain open; no product
-execution was performed.
+No matrix cells or complete cases closed. Simultaneous failure behavior, error
+ownership, recovery and runtime effects remain open; no product execution was
+performed.
 
-## Investigation since checkpoint 535
+## Investigation still in progress
 
-The committed texture collection test searches all image assets by pixel bytes
-and compares the number of maps with the number of intended handles. It does
-not directly check that each recipe channel reached its intended handle. This
-is a test coverage limitation, not an observed misbinding; the test has not
-been run. Recipe-channel admission and failure handling remain open.
-
-Strategic scene generation waits for catalogue textures before copying a stored
-scene-document error into retained scene status. That can defer this error while
-textures remain pending; another failure may still be reported. This is an
-unadopted source observation, with no runtime reproduction.
+The committed texture test searches image assets by pixel bytes and compares
+the number of maps with the number of intended handles. It does not directly
+check each recipe channel against its intended handle. This is a test coverage
+limitation, not an observed misbinding; the test has not been run.
 
 ## Working on now
 
@@ -296,6 +290,11 @@ connected owners and remaining source perspectives.
   reconstruction and the loading marker requirements remain conditional pending
   component lifecycle and runtime evidence.
 
+- Qualified strategic scene texture gating and status error precedence against
+  the existing texture failure and status obligations. A stored document error
+  can be delayed while required textures are pending; runtime behavior remains
+  unverified.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -334,8 +333,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 535 publication record](CHECKPOINT-535.json)
-- [Saved report for checkpoint 535](PROGRESS-535.md)
+- [Checkpoint 536 publication record](CHECKPOINT-536.json)
+- [Saved report for checkpoint 536](PROGRESS-536.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
