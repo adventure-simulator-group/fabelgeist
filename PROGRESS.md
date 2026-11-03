@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:47:28.958648+00:00
+Updated: 2026-11-03T07:48:37.162004+00:00
 
-Latest verified checkpoint: **747**. Goal: **active**.
+Latest verified checkpoint: **748**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,19 +18,19 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the earlier Cargo.lock change under operations, aggregate states,
-redundant authority and granularity lenses.
+Reconciled the remaining earlier Cargo.lock lens cells for producer propagation,
+admission, behavior and numeric policy.
 
-Four lockfile lens cells and the broader audit remain open; no runtime
-acceptance is claimed.
+All 767 checks in that batch are assessed, but connected producer, renderer,
+alias, native and acceptance obligations and the broader audit remain open.
 
 ## Working on now
 
-Reconciling the remaining lockfile lens checks, renderer capacity and connected
-terrain admission.
+Reconciling renderer capacity, connected terrain admission and outstanding
+canonical contracts.
 
-- Complete independent assessments for the 4 remaining earlier lockfile lens
-  checks; preserve connected renderer and native boundary obligations.
+- Resolve connected renderer and native boundary obligations, including producer
+  completeness, bounds and visual acceptance.
 
 - Reconcile the retained build-target specification question and other connected
   findings against exact canonical owners and aliases.
@@ -47,9 +47,9 @@ terrain admission.
   identity codecs, injury clocks and strategic-to-tactical boundaries.
 
 - Assessed all 403 lens/path checks in the latest 31-path source delta. The
-  preceding 59-path delta has 763 of 767 checks closed; its remaining 4 are
-  Cargo.lock lens checks. Earlier populations and connected work remain
-  separate.
+  preceding 59-path delta has 767 of 767 checks assessed; connected source and
+  acceptance obligations remain open. Earlier populations and connected work
+  remain separate.
 
 - Traced the replacement foliage renderer, shader layouts, material and loading
   readiness paths; retained admission, failure, lifecycle and visual acceptance
@@ -104,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 747 publication record](CHECKPOINT-747.json)
-- [Saved report for checkpoint 747](PROGRESS-747.md)
+- [Checkpoint 748 publication record](CHECKPOINT-748.json)
+- [Saved report for checkpoint 748](PROGRESS-748.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
