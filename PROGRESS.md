@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:10:56.603709+00:00
+Updated: 2026-11-03T15:13:40.912742+00:00
 
-Latest verified checkpoint: **1031**. Goal: **active**.
+Latest verified checkpoint: **1032**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reproduced grade underflow from concrete small triangle vertices and checked the
-isolated determinant formula.
+Prepared a candidate public mesh wire fixture and qualified its owner identity
+and local admission predicates.
 
-Standalone arithmetic only; complete product admission and generated geometry
-remain unverified.
+Product decoding, native vector encoding, full surface admission and runtime
+behavior remain unverified.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1031 publication record](CHECKPOINT-1031.json)
-- [Saved report for checkpoint 1031](PROGRESS-1031.md)
+- [Checkpoint 1032 publication record](CHECKPOINT-1032.json)
+- [Saved report for checkpoint 1032](PROGRESS-1032.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
