@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:27:48.814661+00:00
+Updated: 2026-11-03T12:29:36.667665+00:00
 
-Latest verified checkpoint: **945**. Goal: **active**.
+Latest verified checkpoint: **946**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical contact separation from resolved-event logging through typed
-errors and summary serialization.
+Qualified typed per-foot influence through selected current resolver, playback
+and IK paths.
 
-Missing player lookup skips an event; lifecycle reachability, exact aliases,
-output atomicity and native acceptance remain unverified.
+Original scope decision, remaining consumers, exact aliases and native
+acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 945 publication record](CHECKPOINT-945.json)
-- [Saved report for checkpoint 945](PROGRESS-945.md)
+- [Checkpoint 946 publication record](CHECKPOINT-946.json)
+- [Saved report for checkpoint 946](PROGRESS-946.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
