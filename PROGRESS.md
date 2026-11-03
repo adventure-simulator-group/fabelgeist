@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:46:56.464049+00:00
+Updated: 2026-11-03T19:47:57.034850+00:00
 
-Latest verified checkpoint: **1159**. Goal: **active**.
+Latest verified checkpoint: **1160**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,9 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced injury and disease travel boundaries and shared party movement.
+Traced case-site departure and investigation readiness checks and withdrawal
+exceptions.
 
-Upstream travel eligibility and a complete permitted mission sequence remain
+Mid-interval crossing, arrival behavior and actual runtime reachability remain
 unproven.
 
 ## Working on now
@@ -124,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1159 publication record](CHECKPOINT-1159.json)
-- [Saved report for checkpoint 1159](PROGRESS-1159.md)
+- [Checkpoint 1160 publication record](CHECKPOINT-1160.json)
+- [Saved report for checkpoint 1160](PROGRESS-1160.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
