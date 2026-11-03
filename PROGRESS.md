@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:52:18.779865+00:00
+Updated: 2026-11-03T19:53:10.256865+00:00
 
-Latest verified checkpoint: **1164**. Goal: **active**.
+Latest verified checkpoint: **1165**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced camera window selection, source-checked endpoint and typed terrain
-capture.
+Traced connection clipping, simplification and road source digest ownership.
 
-Geographic edge coverage, connection capture and actual renderer integration
-remain open.
+World-edge coverage and actual renderer integration remain untested.
 
 ## Working on now
 
@@ -125,8 +123,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1164 publication record](CHECKPOINT-1164.json)
-- [Saved report for checkpoint 1164](PROGRESS-1164.md)
+- [Checkpoint 1165 publication record](CHECKPOINT-1165.json)
+- [Saved report for checkpoint 1165](PROGRESS-1165.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
