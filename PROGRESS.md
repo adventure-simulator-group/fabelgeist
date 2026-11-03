@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:36:24.657920+00:00
+Updated: 2026-11-03T19:37:41.760306+00:00
 
-Latest verified checkpoint: **1150**. Goal: **active**.
+Latest verified checkpoint: **1151**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,9 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the strategic condition projection, API and seven-component wheel.
+Compared strategic total, tactical encumbrance calculation and combat wheel
+sources.
 
-Strategic versus combat encumbrance, finite inputs and refresh failure policy
+Actual enrollment inputs, finite values, refresh failures and independent lenses
 remain open.
 
 ## Working on now
@@ -124,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1150 publication record](CHECKPOINT-1150.json)
-- [Saved report for checkpoint 1150](PROGRESS-1150.md)
+- [Checkpoint 1151 publication record](CHECKPOINT-1151.json)
+- [Saved report for checkpoint 1151](PROGRESS-1151.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
