@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1077,
+  "at": "2026-11-03T17:20:34.693660+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "b172010bd8d4c77336985c58320f2fe2211409fff7f825c34d81018774ac2c8d",
+    "verification": "985d22cd98ce8434bd846ebb0c5aacaf0066d50434c5fd2ee145818c88096238",
+    "canonical_current": "b5b294f008874347bfaf09885c47dbab41c08a77c164e834a65ef9a80b43ceb9"
+  },
+  "scope": {
+    "summary": "Verified the pinned MHR release and inspected its actual corrective index and weight arrays.",
+    "scope_limit": "One pinned release was inspected with NumPy; Rust model execution and general external-input guarantees remain unverified."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "f9aea93827a59968afc6f40e6b4daa8fc977636d68d06399c1a3c181e0d1bcea",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

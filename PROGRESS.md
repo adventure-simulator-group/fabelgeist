@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:18:50.233577+00:00
+Updated: 2026-11-03T17:20:46.751554+00:00
 
-Latest verified checkpoint: **1076**. Goal: **active**.
+Latest verified checkpoint: **1077**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified the synthetic corrective index and weight dtypes and the pinned
-upstream source.
+Verified the pinned MHR release and inspected its actual corrective index and
+weight arrays.
 
-The pinned upstream archive is not installed locally; its actual dtype and value
-guarantees remain unverified.
+One pinned release was inspected with NumPy; Rust model execution and general
+external-input guarantees remain unverified.
 
 ## Working on now
 
@@ -122,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1076 publication record](CHECKPOINT-1076.json)
-- [Saved report for checkpoint 1076](PROGRESS-1076.md)
+- [Checkpoint 1077 publication record](CHECKPOINT-1077.json)
+- [Saved report for checkpoint 1077](PROGRESS-1077.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
