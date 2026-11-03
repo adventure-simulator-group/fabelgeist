@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T16:17:42.158135+00:00
+Updated: 2026-11-03T16:22:08.425486+00:00
 
-Latest verified checkpoint: **1063**. Goal: **active**.
+Latest verified checkpoint: **1064**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced GLB fixture joint and weight admission into runtime body skin rows.
+A focused pinned glTF reader probe accepted a constructed GLB and returned its
+all-zero float weight row.
 
-Native GLB guarantees, supported asset policy and actual zero-row reachability
-remain unverified.
+Complete fixture loading and supported production-asset reachability remain
+unverified.
 
 ## Working on now
 
@@ -120,8 +121,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1063 publication record](CHECKPOINT-1063.json)
-- [Saved report for checkpoint 1063](PROGRESS-1063.md)
+- [Checkpoint 1064 publication record](CHECKPOINT-1064.json)
+- [Saved report for checkpoint 1064](PROGRESS-1064.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
