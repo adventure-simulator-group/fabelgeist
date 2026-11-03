@@ -26,6 +26,14 @@ No current-source cells or complete cases closed. Component delivery, other
 insertion paths, dump provenance and runtime effects remain open; no product
 execution was performed.
 
+## Investigation since checkpoint 535
+
+The committed texture collection test searches all image assets by pixel bytes
+and compares the number of maps with the number of intended handles. It does
+not directly check that each recipe channel reached its intended handle. This
+is a test coverage limitation, not an observed misbinding; the test has not
+been run. Recipe-channel admission and failure handling remain open.
+
 ## Working on now
 
 Qualify texture residency, asset failures and scene restoration against
