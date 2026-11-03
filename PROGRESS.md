@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:26:37.768724+00:00
+Updated: 2026-11-03T09:27:34.579621+00:00
 
-Latest verified checkpoint: **810**. Goal: **active**.
+Latest verified checkpoint: **811**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the formatting-only tactical dive transition delta and read its
-immediate phase logic.
+Compared hair preview source across revisions and traced typed vertex weights
+into head placement.
 
-Only lines 1500–1571 were reviewed; the rest of the module, duration admission,
-consumers and gameplay acceptance remain open.
+Body and rig correspondence, placement admission, child modules, worker
+lifecycle and GPU rendering acceptance remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 810 publication record](CHECKPOINT-810.json)
-- [Saved report for checkpoint 810](PROGRESS-810.md)
+- [Checkpoint 811 publication record](CHECKPOINT-811.json)
+- [Saved report for checkpoint 811](PROGRESS-811.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
