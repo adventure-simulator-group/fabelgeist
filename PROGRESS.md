@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T18:39:45.459359+00:00
+Updated: 2026-11-03T18:41:24.185854+00:00
 
-Latest verified checkpoint: **1115**. Goal: **active**.
+Latest verified checkpoint: **1116**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced dead-character projection and temporary cleanup; started a guarded
-isolated fatal-receipt probe.
+A successful isolated fatal receipt left the character alive while retaining its
+death record after server assignment was cleared.
 
-The isolated probe is still in setup; no fatal receipt result has been observed.
+The build used checkout HEAD; key source files match the selected audit revision
+but other workspace dependencies differ.
 
 ## Working on now
 
@@ -124,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1115 publication record](CHECKPOINT-1115.json)
-- [Saved report for checkpoint 1115](PROGRESS-1115.md)
+- [Checkpoint 1116 publication record](CHECKPOINT-1116.json)
+- [Saved report for checkpoint 1116](PROGRESS-1116.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
