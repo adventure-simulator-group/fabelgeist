@@ -33,6 +33,12 @@ the number of maps with the number of intended handles. It does not directly
 check each recipe channel against its intended handle. This is a test coverage
 limitation, not an observed misbinding; the test has not been run.
 
+A new source trace follows baked texture scale through generation, admission,
+and terrain materials. Runtime keeps the maps but discards the baked scale;
+terrain uses compiled constants. The normal authoring command uses default
+parameters. Asset provenance and other consumers remain unverified, so no
+current scale mismatch is asserted. This trace is not yet adopted.
+
 ## Working on now
 
 Qualify texture residency, asset failures and scene restoration against
