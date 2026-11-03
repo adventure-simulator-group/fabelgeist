@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:34:01.321182+00:00
+Updated: 2026-11-03T08:35:31.944640+00:00
 
-Latest verified checkpoint: **775**. Goal: **active**.
+Latest verified checkpoint: **776**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced file, URI and byte-loading paths to corrective import and identified the
-character creator’s feature-gated file caller.
+Reconciled the corrective importer and four helper files across thirteen
+perspectives, retaining the index-width issue in the existing corrective extent
+record.
 
-The byte API describes browser support, but actual 32-bit deployment and asset
-reachability are not established; sparse-index policy, tests and the broader
-audit remain open.
+The older batch retains 1432 pending checks. Producer constraints, 32-bit
+reachability, index policy, native Burn behavior, aliases and acceptance remain
+open.
 
 ## Working on now
 
@@ -108,8 +109,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 775 publication record](CHECKPOINT-775.json)
-- [Saved report for checkpoint 775](PROGRESS-775.md)
+- [Checkpoint 776 publication record](CHECKPOINT-776.json)
+- [Saved report for checkpoint 776](PROGRESS-776.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
