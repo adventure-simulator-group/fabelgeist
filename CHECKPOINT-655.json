@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 655,
+  "at": "2026-11-03T05:26:42.244741+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ed959e734621155950838638ad18d0d85087a088d8a1e503d580efb7f28cb46a",
+    "verification": "d62c7da04f08107f127d2e58df50620da4af85794417e38c5d7af2dae5697585",
+    "canonical_current": "f6696f29ffdd15dc3601198164d697b0d4e3fae475cd4657cd3733da88ae1b2c"
+  },
+  "scope": {
+    "summary": "Traced the removed renderer\u2019s preparation sequence and default paged allocator, including its one-million-instance per-allocation limit and freed-slot handling.",
+    "scope_limit": "Actual allocation failure handling, rendering and culling remain open. Authored allocator tests were read, not run; no lens cells were closed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e88631b7c2b75d83c5079ea9b4893a67a064b71f17de3d1b9f7ef7dec4e351c0",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
