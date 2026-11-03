@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T16:11:17.389971+00:00
+Updated: 2026-11-03T16:12:31.986304+00:00
 
-Latest verified checkpoint: **1058**. Goal: **active**.
+Latest verified checkpoint: **1059**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected five existing skin admission, normalization, diagnostic and preview
-obligations without merging their distinct failures.
+A focused selected-rig test confirmed all-zero influence reduction produces a
+NaN weight.
 
-No obligation was closed; full P09 family, aliases and validation remain open.
+Supported zero-row producer reachability and unweighted policy remain
+unverified.
 
 ## Working on now
 
@@ -103,9 +104,8 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-Isolated selected-revision terrain and FBX probes passed; a copied-source MHR
-module harness confirmed NaN skin admission. Full MHR and broad product tests,
-lints, generators and runtime acceptance remain outstanding.
+Isolated terrain, FBX and selected-source rig probes passed; broad product
+tests, lints, generators and runtime acceptance remain outstanding.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1058 publication record](CHECKPOINT-1058.json)
-- [Saved report for checkpoint 1058](PROGRESS-1058.md)
+- [Checkpoint 1059 publication record](CHECKPOINT-1059.json)
+- [Saved report for checkpoint 1059](PROGRESS-1059.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
