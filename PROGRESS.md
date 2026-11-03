@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:36:00.086732+00:00
+Updated: 2026-11-03T09:37:15.186651+00:00
 
-Latest verified checkpoint: **818**. Goal: **active**.
+Latest verified checkpoint: **819**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced recipe validation and body-model loading for the saved-drape topology
-question.
+Traced creator asset-directory selection and MHR filesystem loading for saved-
+drape topology identity.
 
-Supported asset version and topology guarantees, direct API paths and native
-acceptance remain open; no equal-count mismatched supported model is
-established.
+Supported asset policy, FBX admission, topology order and direct APIs remain
+open; no supported mismatched asset is established.
 
 ## Working on now
 
@@ -108,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 818 publication record](CHECKPOINT-818.json)
-- [Saved report for checkpoint 818](PROGRESS-818.md)
+- [Checkpoint 819 publication record](CHECKPOINT-819.json)
+- [Saved report for checkpoint 819](PROGRESS-819.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
