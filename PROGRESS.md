@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:58:18.688192+00:00
+Updated: 2026-11-03T16:00:58.535206+00:00
 
-Latest verified checkpoint: **1051**. Goal: **active**.
+Latest verified checkpoint: **1052**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced creator preview, drape and morph skin consumers and confirmed remote main
-still matches the audit revision.
+Qualified garment skin transfer checks for finite nonnegative weights and traced
+separate dressing and fitted inputs.
 
-NaN preview effects are source-inferred; no preview or GPU execution was run.
+Drape entry ordering, fitted wearer admission and runtime behavior remain
+unverified.
 
 ## Working on now
 
@@ -114,8 +115,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1051 publication record](CHECKPOINT-1051.json)
-- [Saved report for checkpoint 1051](PROGRESS-1051.md)
+- [Checkpoint 1052 publication record](CHECKPOINT-1052.json)
+- [Saved report for checkpoint 1052](PROGRESS-1052.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
