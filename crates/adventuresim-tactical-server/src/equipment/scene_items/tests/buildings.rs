@@ -22,6 +22,10 @@ const SITE_SPREAD_M: f32 = 2.0;
 const SITES_PER_BLOCKER: usize = 6;
 /// A resting item may touch its support, so only a shrunken box must be clear.
 const RESTING_BOX_SCALE: f32 = 0.8;
+/// Distances from a hidden item at which the actor looks for somewhere to
+/// stand, each tried in `RECOVERY_DIRECTIONS` directions.
+const RECOVERY_REACHES_M: [f32; 4] = [0.5, 0.7, 0.9, 1.2];
+const RECOVERY_DIRECTIONS: usize = 16;
 
 /// Building, opening, enclosure and furniture bodies, but not terrain.
 type SceneSolid = Or<(
@@ -112,6 +116,48 @@ fn classify(world: &World, entity: Entity) -> Option<Blocker> {
     }
 }
 
+/// The first surface within `depth` below `start` at `position`.
+fn floor_below(
+    spatial: &SpatialQuery,
+    filter: &SpatialQueryFilter,
+    position: Vec2,
+    start: f32,
+    depth: f32,
+) -> Option<f32> {
+    spatial
+        .cast_ray(
+            Vec3::new(position.x, start, position.y),
+            Dir3::NEG_Y,
+            depth,
+            true,
+            filter,
+        )
+        .map(|hit| start - hit.distance)
+}
+
+/// The actor's body fits above `feet` and the floor stays within a step of
+/// it all around the cylinder.
+fn standable(spatial: &SpatialQuery, filter: &SpatialQueryFilter, feet: Vec3) -> bool {
+    let supported = [Vec2::X, Vec2::NEG_X, Vec2::Y, Vec2::NEG_Y]
+        .into_iter()
+        .all(|side| {
+            floor_below(
+                spatial,
+                filter,
+                feet.xz() + side * STANDING_CLEARANCE_M,
+                feet.y + 0.5,
+                FLOOR_PROBE_DEPTH_M,
+            )
+            .is_some_and(|ground| (ground - feet.y).abs() <= TACTICAL_MAXIMUM_STEP_HEIGHT_METRES)
+        });
+    let body = Collider::cylinder(0.4, 1.9 - 2.0 * TACTICAL_MAXIMUM_STEP_HEIGHT_METRES);
+    let body_centre = feet + Vec3::Y * (TACTICAL_MAXIMUM_STEP_HEIGHT_METRES + 0.6);
+    supported
+        && spatial
+            .shape_intersections(&body, body_centre, Quat::IDENTITY, filter)
+            .is_empty()
+}
+
 /// Places where the actor could stand on a floor or the ground while facing a
 /// nearby wall, opening, enclosure or furnishing, spread across the scene.
 fn blocked_sites(scene: &mut Scene) -> Vec<BlockedSite> {
@@ -131,20 +177,8 @@ fn blocked_sites(scene: &mut Scene) -> Vec<BlockedSite> {
         });
     let probes = world
         .run_system_once(move |spatial: SpatialQuery| {
-            let floor = |position: Vec2, start: f32, depth: f32| {
-                spatial
-                    .cast_ray(
-                        Vec3::new(position.x, start, position.y),
-                        Dir3::NEG_Y,
-                        depth,
-                        true,
-                        &filter,
-                    )
-                    .map(|hit| start - hit.distance)
-            };
             let lowest = bases.iter().copied().fold(f32::MAX, f32::min) - FLOOR_LATTICE_MARGIN_M;
             let highest = bases.iter().copied().fold(f32::MIN, f32::max) + FLOOR_LATTICE_MARGIN_M;
-            let body = Collider::cylinder(0.4, 1.9 - 2.0 * TACTICAL_MAXIMUM_STEP_HEIGHT_METRES);
             let mut sites = Vec::new();
             let margin = Vec2::splat(6.0);
             let (low, high) = (low - margin, high + margin);
@@ -156,7 +190,8 @@ fn blocked_sites(scene: &mut Scene) -> Vec<BlockedSite> {
                     let mut floors: Vec<f32> = Vec::new();
                     let mut start = highest;
                     while start >= lowest {
-                        if let Some(height) = floor(position, start, FLOOR_LATTICE_STEP_M)
+                        if let Some(height) =
+                            floor_below(&spatial, &filter, position, start, FLOOR_LATTICE_STEP_M)
                             && floors.iter().all(|kept| (kept - height).abs() > 0.1)
                         {
                             floors.push(height);
@@ -165,24 +200,7 @@ fn blocked_sites(scene: &mut Scene) -> Vec<BlockedSite> {
                     }
                     for height in floors {
                         let feet = Vec3::new(x, height, z);
-                        let supported = [Vec2::X, Vec2::NEG_X, Vec2::Y, Vec2::NEG_Y]
-                            .into_iter()
-                            .all(|side| {
-                                floor(
-                                    position + side * STANDING_CLEARANCE_M,
-                                    height + 0.5,
-                                    FLOOR_PROBE_DEPTH_M,
-                                )
-                                .is_some_and(|ground| {
-                                    (ground - height).abs() <= TACTICAL_MAXIMUM_STEP_HEIGHT_METRES
-                                })
-                            });
-                        let body_centre =
-                            feet + Vec3::Y * (TACTICAL_MAXIMUM_STEP_HEIGHT_METRES + 0.6);
-                        let clear = spatial
-                            .shape_intersections(&body, body_centre, Quat::IDENTITY, &filter)
-                            .is_empty();
-                        if !(supported && clear) {
+                        if !standable(&spatial, &filter, feet) {
                             continue;
                         }
                         for step in 0..8 {
@@ -243,6 +261,40 @@ fn blocked_sites(scene: &mut Scene) -> Vec<BlockedSite> {
 }
 
 impl Scene {
+    /// Walks to a clear, supported spot beside the resting item on the
+    /// floor at `floor_height` and picks it up from there.
+    fn pick_up_from_nearby(&mut self, floor_height: f32) -> bool {
+        let filter = scene_filter(self);
+        let rest = self.item_translation().xz();
+        let spots = self
+            .app
+            .world_mut()
+            .run_system_once(move |spatial: SpatialQuery| {
+                RECOVERY_REACHES_M
+                    .into_iter()
+                    .flat_map(|reach| (0..RECOVERY_DIRECTIONS).map(move |step| (reach, step)))
+                    .filter_map(|(reach, step)| {
+                        let turn = std::f32::consts::TAU / RECOVERY_DIRECTIONS as f32;
+                        let position = rest + Vec2::from_angle(step as f32 * turn) * reach;
+                        let height = floor_below(
+                            &spatial,
+                            &filter,
+                            position,
+                            floor_height + 0.5,
+                            FLOOR_PROBE_DEPTH_M,
+                        )?;
+                        let feet = position.extend(height).xzy();
+                        standable(&spatial, &filter, feet).then_some(feet)
+                    })
+                    .collect::<Vec<_>>()
+            })
+            .unwrap();
+        spots.into_iter().any(|feet| {
+            self.stand(feet, Vec3::NEG_Z);
+            self.pick_up_item()
+        })
+    }
+
     fn stand(&mut self, feet: Vec3, facing: Vec3) {
         let actor = self.actor;
         *self.app.world_mut().get_mut::<Transform>(actor).unwrap() =
@@ -250,7 +302,9 @@ impl Scene {
         self.settle(2);
     }
 
-    /// The resting item box is visible from the actor and not inside anything.
+    /// The resting item box is on the actor's side of every wall, door and
+    /// window and not inside anything. Furniture may hide it: an item can
+    /// slide off a chest, and the player then walks round to reach it.
     fn item_placement_fault(&mut self) -> Option<String> {
         let filter = scene_filter(self);
         let (actor, item) = (self.actor, self.item);
@@ -261,7 +315,8 @@ impl Scene {
                       transforms: Query<&Transform>,
                       physical: Query<&TacticalEquipmentPhysical>,
                       names: Query<&Name>,
-                      solids: Query<(), SceneSolid>| {
+                      solids: Query<(), SceneSolid>,
+                      furniture: Query<Entity, With<SceneFurniture>>| {
                     let name = |entity: Entity| {
                         names
                             .get(entity)
@@ -273,8 +328,13 @@ impl Scene {
                     let centre = pose.translation - pose.rotation * physical.anchor_offset_m;
                     let origin = actor + Vec3::Y * ITEM_SIGHT_HEIGHT_M;
                     let sight = centre - origin;
+                    // `with_excluded_entities` replaces the set, so the
+                    // actor and item are named again alongside furniture.
+                    let separating = SpatialQueryFilter::from_excluded_entities(
+                        filter.excluded_entities.iter().copied().chain(&furniture),
+                    );
                     if let Some(hit) = Dir3::new(sight).ok().and_then(|direction| {
-                        spatial.cast_ray(origin, direction, sight.length(), true, &filter)
+                        spatial.cast_ray(origin, direction, sight.length(), true, &separating)
                     }) {
                         return Some(format!(
                             "item box at {centre} is behind {} {:.2} m from the actor's eyes",
@@ -343,7 +403,7 @@ fn drops_against_walls_openings_and_furniture_stay_on_the_players_side() {
             if let Some(fault) = scene.item_placement_fault() {
                 faults.push(format!("{context}: released at {released}, {fault}"));
             }
-            if !scene.pick_up_item() {
+            if !scene.pick_up_item() && !scene.pick_up_from_nearby(site.feet.y) {
                 let rest = scene.item_translation();
                 faults.push(format!("{context}: item at {rest} cannot be picked up"));
                 // Recover the item so the remaining sites still run.
