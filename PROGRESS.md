@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:24:14.531366+00:00
+Updated: 2026-11-03T07:25:30.453859+00:00
 
-Latest verified checkpoint: **734**. Goal: **active**.
+Latest verified checkpoint: **735**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected scene viewer terrain construction with its vista trigger.
+Independently inspected replacement renderer material and pipeline strings under
+lens 12.
 
-Replication timing, missing-ground reachability, actual camera visibility and
-broader audit remain open.
+Shader/native contract and the lockfile lens cell remain open; no cross-lens
+closure is claimed.
 
 ## Working on now
 
@@ -103,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 734 publication record](CHECKPOINT-734.json)
-- [Saved report for checkpoint 734](PROGRESS-734.md)
+- [Checkpoint 735 publication record](CHECKPOINT-735.json)
+- [Saved report for checkpoint 735](PROGRESS-735.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
