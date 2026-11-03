@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:26:43.831735+00:00
+Updated: 2026-11-03T10:27:34.674374+00:00
 
-Latest verified checkpoint: **853**. Goal: **active**.
+Latest verified checkpoint: **854**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced melee initialization and attack scheduling: full IDs order participants,
-while sampled delays and readiness determine attack timing.
+Established the conditional route from shared ready-window starts to equal
+contact times and duplicate batch order when packed IDs collide.
 
-An equal-tick collision is not established; window logic, supported reachability
-and consumers remain open.
+No concrete supported battle witness or runtime result established; participant
+admission and consumers remain open.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 853 publication record](CHECKPOINT-853.json)
-- [Saved report for checkpoint 853](PROGRESS-853.md)
+- [Checkpoint 854 publication record](CHECKPOINT-854.json)
+- [Saved report for checkpoint 854](PROGRESS-854.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
