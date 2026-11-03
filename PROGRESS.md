@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:33:33.678479+00:00
+Updated: 2026-11-03T21:36:03.815507+00:00
 
-Latest verified checkpoint: **1216**. Goal: **active**.
+Latest verified checkpoint: **1217**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected observer-time resident filtering and live roster refresh to venue
-selection.
+An isolated selected-function probe selected different inn buildings for two
+operators in the city fixture.
 
-A specific operator change, end-to-end event delivery and rendered impact remain
-unproven.
+The probe uses stand-in types; actual operator schedules, full generation and
+rendering remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1216 publication record](CHECKPOINT-1216.json)
-- [Saved report for checkpoint 1216](PROGRESS-1216.md)
+- [Checkpoint 1217 publication record](CHECKPOINT-1217.json)
+- [Saved report for checkpoint 1217](PROGRESS-1217.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
