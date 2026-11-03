@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:38:28.077936+00:00
+Updated: 2026-11-03T01:42:36.017327+00:00
 
-Latest verified checkpoint: **572**. Goal: **active**.
+Latest verified checkpoint: **573**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all thirteen source perspectives for both retired grass culling host
-files, tracing their animated bounds and per-view compute dispatch to the chunk
-renderer.
+Traced chunk fade bands from configured grass and other callers into the shader.
+Grass validation permits equal fade-out endpoints, while the shader divides by
+fade width; this remains a source-level concern, not a reproduced defect.
 
-Earlier revision checks: 225 of 767; newest revision remains 403 of 403.
-Animated bounds, native visibility, multi-camera behavior and runtime acceptance
-remain open; no complete case is claimed.
+No additional source-matrix cells or complete cases closed: newest revision
+remains 403 of 403, earlier revision 225 of 767. Configuration reachability and
+runtime behavior remain open; implementation gate remains closed.
 
 ## Working on now
 
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 572 publication record](CHECKPOINT-572.json)
-- [Saved report for checkpoint 572](PROGRESS-572.md)
+- [Checkpoint 573 publication record](CHECKPOINT-573.json)
+- [Saved report for checkpoint 573](PROGRESS-573.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
