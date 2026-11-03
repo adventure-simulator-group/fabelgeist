@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:53:54.312853+00:00
+Updated: 2026-11-03T08:55:17.025451+00:00
 
-Latest verified checkpoint: **788**. Goal: **active**.
+Latest verified checkpoint: **789**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled creator morph, preview and proportion source changes across thirteen
-perspectives.
+Compared creator generation, fitting, outfit and underlayer paths and traced
+their generated geometry and skin inputs.
 
-The older batch retains 1237 pending checks. Vertex correspondence, native
-rendering, aliases and acceptance remain open; tests were not run.
+Surface correspondence, underlayer sample admission, native readback and visual
+acceptance remain open; no product execution occurred.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 788 publication record](CHECKPOINT-788.json)
-- [Saved report for checkpoint 788](PROGRESS-788.md)
+- [Checkpoint 789 publication record](CHECKPOINT-789.json)
+- [Saved report for checkpoint 789](PROGRESS-789.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
