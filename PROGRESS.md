@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:00:44.679029+00:00
+Updated: 2026-11-03T02:04:07.365954+00:00
 
-Latest verified checkpoint: **582**. Goal: **active**.
+Latest verified checkpoint: **583**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the animation plugin scheduling change across nine remaining
-perspectives. The new global presented-skeleton condition gates the full post-
-update pose chain, including systems querying other components.
+Reconciled the added tree-root culler and its module export across ten remaining
+perspectives each. The culler writes whole-tree visibility using one gameplay
+frustum and a fixed 24-metre sphere.
 
-Earlier revision source checks: 390 of 767; newest revision remains 403 of 403.
-Component lifetime assumptions, scheduler behavior, spawn/despawn and ragdoll
-acceptance remain open; counts do not represent whole-audit completion.
+Earlier revision source checks: 410 of 767; newest revision remains 403 of 403.
+Other cameras, missing-camera transitions, tree scaling and native visibility
+propagation need acceptance; counts do not represent whole-audit completion.
 
 ## Working on now
 
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 582 publication record](CHECKPOINT-582.json)
-- [Saved report for checkpoint 582](PROGRESS-582.md)
+- [Checkpoint 583 publication record](CHECKPOINT-583.json)
+- [Saved report for checkpoint 583](PROGRESS-583.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
