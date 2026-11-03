@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 906,
+  "at": "2026-11-03T11:23:25.927566+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "13a7f6dda5fcfe5a51627b5f924528508865c22c10fb7e651cd407fb378b060c",
+    "verification": "f0119e8e99186ce1cb7a9bb590170f187effff817060b1590d390c21724d2cef",
+    "canonical_current": "17c7401dc09063b34bf2b8c800a8d25ca9ef8abed658d1fe924f707c7d29fd50"
+  },
+  "scope": {
+    "summary": "Traced FBX character construction and polygon and UV index handling to the returned mesh.",
+    "scope_limit": "Index bounds were not checked in the inspected constructor path; malformed assets and downstream runtime behavior were not executed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "c29339e09c77e51606b0350122903e74a2ab451af8a85be2c5ff4d80f1d7939f",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
