@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:02:23.389431+00:00
+Updated: 2026-11-03T19:03:47.676555+00:00
 
-Latest verified checkpoint: **1129**. Goal: **active**.
+Latest verified checkpoint: **1130**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A controlled delayed evidence load changed its captured strip after unmount;
-soft navigation can keep that page visible until replacement.
+Dispositioned the exact physical-evidence request and receipt source question
+with an owned repair and selection policy question.
 
-The probe uses a stub DOM; actual browser navigation, retry integration and
+The repair, actual browser and native integration, other lenses and global
 aliases remain open.
 
 ## Working on now
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1129 publication record](CHECKPOINT-1129.json)
-- [Saved report for checkpoint 1129](PROGRESS-1129.md)
+- [Checkpoint 1130 publication record](CHECKPOINT-1130.json)
+- [Saved report for checkpoint 1130](PROGRESS-1130.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
