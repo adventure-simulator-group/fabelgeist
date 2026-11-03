@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1131,
+  "at": "2026-11-03T19:05:39.257160+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "4bc65c1ffaab2e9ef7ad763801da9fa8c43a5fef7a2ab1e409d7f150418bb3be",
+    "verification": "f84d2699da5669161a9130a59c5d7b69c2a315aee33a95da58291403afb0b631",
+    "canonical_current": "9b0ea6dd3922c8cd5c464b400812cffd8610924e607125f8684de0071ee0de0b"
+  },
+  "scope": {
+    "summary": "Reproduced precision loss in equipment attachment parent IDs with a synthetic u64 beyond JavaScript safe-integer range.",
+    "scope_limit": "No production ID at that magnitude or wrong native attachment was demonstrated; native graph and alias reconciliation remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "4051ae6bd83fcfa0c8f2112d26e3b5d6b679520e4a50fb50fbeff8132b1ae0d0",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
