@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1203,
+  "at": "2026-11-03T21:06:05.114372+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ae87baa2f94e53f71b51064d0fb9abfd5adadc2a34b7397bd3d4fa05125e5c7d",
+    "verification": "d1805e045408479bab6965f668213211894dd99ff2d6d186dda5ab998e19875d",
+    "canonical_current": "75a667ad2d396f212a147df1442e187f43038f4b25ce09e7d1d6f2deb511c057"
+  },
+  "scope": {
+    "summary": "Traced capture readiness waits that occur before the current timeout and recorded terminal-state requirements.",
+    "scope_limit": "The unresolved waits are source-derived and not reproduced; active compilation must not be mistaken for a hang."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "566c31151f5d285de466b6c58470c08d70a7830510ffadd03a4ad534a7023c36",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

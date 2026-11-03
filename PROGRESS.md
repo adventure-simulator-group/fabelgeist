@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:04:17.198038+00:00
+Updated: 2026-11-03T21:06:16.294887+00:00
 
-Latest verified checkpoint: **1202**. Goal: **active**.
+Latest verified checkpoint: **1203**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced a conditional stale screenshot acceptance path and recorded capture-
-artifact repair requirements.
+Traced capture readiness waits that occur before the current timeout and
+recorded terminal-state requirements.
 
-The stale-file case is source-derived, not reproduced; other report validation
-gates remain independent.
+The unresolved waits are source-derived and not reproduced; active compilation
+must not be mistaken for a hang.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1202 publication record](CHECKPOINT-1202.json)
-- [Saved report for checkpoint 1202](PROGRESS-1202.md)
+- [Checkpoint 1203 publication record](CHECKPOINT-1203.json)
+- [Saved report for checkpoint 1203](PROGRESS-1203.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
