@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 581,
+  "at": "2026-11-03T01:59:11.970915+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "b0bd15e0934381ac19a70ada2e754bcfe6421ecfd1f64bbf03fa6e422caa2fe3",
+    "verification": "bd22a62339294ea976a4f9dcf5f1c5932f2c9eebf449587f1cc72d62dbc97642",
+    "canonical_current": "25f0b71db14f02fc984140b2ccdf0fafa4818294f0ded61d31d7594f0b8f59b0"
+  },
+  "scope": {
+    "summary": "Reconciled the added pose-culling helper across nine remaining perspectives, tracing active views, freeze and resume, physics ownership, buffered pose writes and the terrain IK marker filter.",
+    "scope_limit": "Earlier revision source checks: 381 of 767; newest revision remains 403 of 403. Deferred marker timing, other procedural passes, multi-camera and ragdoll acceptance remain open; counts do not represent whole-audit completion."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "98b5a7b404b003c599216337a70d1fb7f5e8420fb253dd1f526a994a8555c7c6",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

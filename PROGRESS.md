@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:57:47.671157+00:00
+Updated: 2026-11-03T01:59:27.062469+00:00
 
-Latest verified checkpoint: **580**. Goal: **active**.
+Latest verified checkpoint: **581**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,14 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the graphics configuration and shipped settings across twelve
-remaining perspectives each. The old per-tier grass shadow flags were removed;
-equal fade endpoints and some floating-point finiteness checks require follow-
-up.
+Reconciled the added pose-culling helper across nine remaining perspectives,
+tracing active views, freeze and resume, physics ownership, buffered pose writes
+and the terrain IK marker filter.
 
-Earlier revision source checks: 372 of 767; newest revision remains 403 of 403.
-Deserialization edge cases, renderer behavior and shadow acceptance remain open;
-counts do not represent whole-audit completion.
+Earlier revision source checks: 381 of 767; newest revision remains 403 of 403.
+Deferred marker timing, other procedural passes, multi-camera and ragdoll
+acceptance remain open; counts do not represent whole-audit completion.
 
 ## Working on now
 
@@ -374,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 580 publication record](CHECKPOINT-580.json)
-- [Saved report for checkpoint 580](PROGRESS-580.md)
+- [Checkpoint 581 publication record](CHECKPOINT-581.json)
+- [Saved report for checkpoint 581](PROGRESS-581.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
