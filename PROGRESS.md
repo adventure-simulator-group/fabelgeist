@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:18:35.021295+00:00
+Updated: 2026-11-03T15:22:03.998351+00:00
 
-Latest verified checkpoint: **1033**. Goal: **active**.
+Latest verified checkpoint: **1034**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned Vec3 sequence serialization and started an isolated product-
-level mesh probe.
+Traced floor, quad, copy and clipped doorway support-mesh producers while the
+isolated probe builds.
 
-Probe is still building; no test outcome or complete surface admission is
-established.
+Clipping bounds, generated tiny-triangle reachability and product probe outcome
+remain unverified.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1033 publication record](CHECKPOINT-1033.json)
-- [Saved report for checkpoint 1033](PROGRESS-1033.md)
+- [Checkpoint 1034 publication record](CHECKPOINT-1034.json)
+- [Saved report for checkpoint 1034](PROGRESS-1034.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
