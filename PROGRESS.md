@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:00:55.391162+00:00
+Updated: 2026-11-03T11:02:03.224762+00:00
 
-Latest verified checkpoint: **886**. Goal: **active**.
+Latest verified checkpoint: **887**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced death-required victim matching and diagnostic serialization of whole
-autoresolve outcomes.
+Qualified the autopsy demo caller: each fixed victim and attacker pair has
+distinct low 32-bit IDs.
 
-Duplicate participant admission and actual diagnostic output remain unproven; no
-product execution was performed.
+This fixture does not cover the collision; public helper inputs and runtime
+behavior remain unvalidated.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 886 publication record](CHECKPOINT-886.json)
-- [Saved report for checkpoint 886](PROGRESS-886.md)
+- [Checkpoint 887 publication record](CHECKPOINT-887.json)
+- [Saved report for checkpoint 887](PROGRESS-887.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
