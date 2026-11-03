@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:58:56.290588+00:00
+Updated: 2026-11-03T21:00:42.380094+00:00
 
-Latest verified checkpoint: **1200**. Goal: **active**.
+Latest verified checkpoint: **1201**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A controlled device-backed corrective forward pass measured changed offsets from
-a synthetic fractional-coordinate archive.
+Traced corrective loader error context and creator reload state into the
+existing repair acceptance.
 
-The archive and pose are synthetic; full character output and visible effects
+Source inspection only; interactive failure and browser error presentation
 remain untested.
 
 ## Working on now
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1200 publication record](CHECKPOINT-1200.json)
-- [Saved report for checkpoint 1200](PROGRESS-1200.md)
+- [Checkpoint 1201 publication record](CHECKPOINT-1201.json)
+- [Saved report for checkpoint 1201](PROGRESS-1201.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
