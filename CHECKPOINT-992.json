@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 992,
+  "at": "2026-11-03T13:50:23.072273+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ce277980f50fe7b3f50a9cb284705917badeb114e9efa2cd4d676ffadbb6a57a",
+    "verification": "b2cce4aa2900ac339737f7fd85d3f57169b59932985fe8ea82e01343062f9c41",
+    "canonical_current": "5176692cd7e79cdaf79b833da12f1727051098e008dda573572db47365a9d517"
+  },
+  "scope": {
+    "summary": "Traced duration and sample-clock conversion: one-sample quicksteps take the end-phase return before acceleration division.",
+    "scope_limit": "Runtime sample-rate bounds, multi-sample scales, direct helper use and native force effects remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e17ab13c8a8166d7bea6ca024c22fc50db406c68eb134dc2cb238cac30372205",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
