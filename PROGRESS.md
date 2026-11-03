@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:35:41.925884+00:00
+Updated: 2026-11-03T14:37:43.279842+00:00
 
-Latest verified checkpoint: **1013**. Goal: **active**.
+Latest verified checkpoint: **1014**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned Avian heightfield forwarding and Parry default triangle split
-against the sampled terrain surface.
+Verified pinned Parry column-major indexing maps the terrain adapter to the
+intended height samples, including rectangular grids.
 
-Native array indexing, owned terrain and runtime numerical validation remain
-open.
+Owned terrain, extreme geometry and runtime acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +113,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1013 publication record](CHECKPOINT-1013.json)
-- [Saved report for checkpoint 1013](PROGRESS-1013.md)
+- [Checkpoint 1014 publication record](CHECKPOINT-1014.json)
+- [Saved report for checkpoint 1014](PROGRESS-1014.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
