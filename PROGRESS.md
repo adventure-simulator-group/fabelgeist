@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:35:57.617395+00:00
+Updated: 2026-11-03T22:37:20.144846+00:00
 
-Latest verified checkpoint: **1250**. Goal: **active**.
+Latest verified checkpoint: **1251**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the pinned wgpu mapping error as a unit type and narrowed cause-
-preservation expectations.
+Recorded a provisional typed readback plan distinguishing map, channel, poll and
+admission outcomes.
 
-Native and browser mapping and polling remain distinct; detailed backend reason
-is not carried by the API error.
+Poll admissibility, all consumers and native validation remain open; no backend
+detail is invented.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1250 publication record](CHECKPOINT-1250.json)
-- [Saved report for checkpoint 1250](PROGRESS-1250.md)
+- [Checkpoint 1251 publication record](CHECKPOINT-1251.json)
+- [Saved report for checkpoint 1251](PROGRESS-1251.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
