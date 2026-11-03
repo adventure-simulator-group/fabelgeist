@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:26:38.883718+00:00
+Updated: 2026-11-03T20:28:56.525744+00:00
 
-Latest verified checkpoint: **1184**. Goal: **active**.
+Latest verified checkpoint: **1185**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected resident-chat retry findings to the existing replay-scope owner and
-recorded authorization and clock dependencies.
+Traced character clock initialization and web query semantics; linked a
+presence-clock repair to the existing chronology owners.
 
-Authorization policy and integration behavior remain open; source-structure
-tests were inspected, not executed.
+Normal creation initializes a clock; missing-row reachability and live query
+failures remain unproven.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1184 publication record](CHECKPOINT-1184.json)
-- [Saved report for checkpoint 1184](PROGRESS-1184.md)
+- [Checkpoint 1185 publication record](CHECKPOINT-1185.json)
+- [Saved report for checkpoint 1185](PROGRESS-1185.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
