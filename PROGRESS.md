@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:12:55.849612+00:00
+Updated: 2026-11-03T10:14:18.396255+00:00
 
-Latest verified checkpoint: **843**. Goal: **active**.
+Latest verified checkpoint: **844**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Registered the quality workflow revisions and identified its added ZIP and
-cumulative validation steps.
+Read the complete added ZIP validation workflow sections in bounded, untruncated
+ranges.
 
-The large diff output was truncated; other-lens review and actual CI execution
-remain open. Prior Lens 11 attribution is preserved.
+Unchanged workflow body was not newly reviewed; other-lens decisions, CI
+execution, dependency resolution and product acceptance remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 843 publication record](CHECKPOINT-843.json)
-- [Saved report for checkpoint 843](PROGRESS-843.md)
+- [Checkpoint 844 publication record](CHECKPOINT-844.json)
+- [Saved report for checkpoint 844](PROGRESS-844.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
