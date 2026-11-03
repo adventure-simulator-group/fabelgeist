@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:10:17.208984+00:00
+Updated: 2026-11-03T14:12:13.811564+00:00
 
-Latest verified checkpoint: **1002**. Goal: **active**.
+Latest verified checkpoint: **1003**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Standalone f32 reproduction found finite speed and infinite acceleration using
-committed clock/profile with an extreme finite displacement scale.
+Reproduced the extreme quickstep displacement through the actual leg-length
+scaling order using default reference dimensions.
 
-This is a formula calculation; complete configuration, actual target scaling and
-runtime reachability remain unproved.
+Standalone arithmetic only; complete configuration and actual motor execution
+remain unverified.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1002 publication record](CHECKPOINT-1002.json)
-- [Saved report for checkpoint 1002](PROGRESS-1002.md)
+- [Checkpoint 1003 publication record](CHECKPOINT-1003.json)
+- [Saved report for checkpoint 1003](PROGRESS-1003.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
