@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:22:51.028114+00:00
+Updated: 2026-11-03T19:26:12.886116+00:00
 
-Latest verified checkpoint: **1142**. Goal: **active**.
+Latest verified checkpoint: **1143**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-An isolated probe exercised the selected packed decoder with inconsistent
-geometry.
+Traced locked Bevy mesh insertion and unequal-length buffer packing.
 
-The synthetic batch is not a complete product; receipt and renderer behavior
-remain open.
+This is source evidence; full product admission and GPU behavior remain
+untested.
 
 ## Working on now
 
@@ -125,8 +124,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1142 publication record](CHECKPOINT-1142.json)
-- [Saved report for checkpoint 1142](PROGRESS-1142.md)
+- [Checkpoint 1143 publication record](CHECKPOINT-1143.json)
+- [Saved report for checkpoint 1143](PROGRESS-1143.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
