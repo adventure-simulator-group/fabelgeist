@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T16:04:23.776770+00:00
+Updated: 2026-11-03T16:05:50.297790+00:00
 
-Latest verified checkpoint: **1054**. Goal: **active**.
+Latest verified checkpoint: **1055**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fitted-coif wearer upload and its structural GPU-body admission checks.
+Traced uploaded skin weights into the device frame regional-support and bounds
+passes.
 
-The inspected host path has no explicit finite-weight check; invalid-weight GPU
-execution remains untested.
+NaN handling on an actual GPU and other weighted consumers remain unverified.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1054 publication record](CHECKPOINT-1054.json)
-- [Saved report for checkpoint 1054](PROGRESS-1054.md)
+- [Checkpoint 1055 publication record](CHECKPOINT-1055.json)
+- [Saved report for checkpoint 1055](PROGRESS-1055.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
