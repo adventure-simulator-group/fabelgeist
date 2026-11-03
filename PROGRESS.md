@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:22:05.094105+00:00
+Updated: 2026-11-03T10:23:35.449247+00:00
 
-Latest verified checkpoint: **849**. Goal: **active**.
+Latest verified checkpoint: **850**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,19 +18,19 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced random encounter participants to u64 character IDs, including high-bit
-field-character IDs.
+Traced persistent field-character creation and road-to-combat rebinding. Full
+u64 collision checks do not establish low-32-bit uniqueness.
 
-No particular equal-low-bit collision is established. Other producers,
-scheduling, external readers and aliases remain open; tests were not run.
+No actual packed collision or runtime result established. Other producers,
+scheduling, readers and aliases remain open.
 
 ## Working on now
 
-Reconciling the older revision batch and connected archive, renderer and terrain
-contracts.
+Reconciling connected identity, renderer, native boundary and canonical repair
+obligations after completing the scoped source-delta assessments.
 
-- Continue older revision reconciliation while preserving connected rawzip and
-  decompression obligations.
+- Trace packed attack identity through producers, scheduling and readers,
+  preserving the unresolved collision witness.
 
 - Resolve connected renderer and native boundary obligations, including producer
   completeness, bounds and visual acceptance.
@@ -68,6 +68,9 @@ contracts.
 
 - Preserved exact checkpoint history and published progress snapshots; the full
   audit evidence graph remains local.
+
+- Assessed all 2,002 path-and-lens cells in the older source delta; connected
+  and unchanged-source obligations remain open.
 
 ## What remains
 
@@ -107,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 849 publication record](CHECKPOINT-849.json)
-- [Saved report for checkpoint 849](PROGRESS-849.md)
+- [Checkpoint 850 publication record](CHECKPOINT-850.json)
+- [Saved report for checkpoint 850](PROGRESS-850.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
