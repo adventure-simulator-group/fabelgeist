@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 858,
+  "at": "2026-11-03T10:31:25.743696+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "916cc5aa1515182cc5699c14c1b9a84d9ec5e18de15e65939febc82e41986890",
+    "verification": "622d3372d62ab9ac8614205bc2ff5fe48e197414c246a1e3e346e70b7b27a638",
+    "canonical_current": "1f9b706d7cfbdf386fa0d95a6095041c47d98f77220c10f102c4d01b857aa1cb"
+  },
+  "scope": {
+    "summary": "Qualified the deterministic BLAKE3 and SplitMix64 derivation used by the default fixture character ID.",
+    "scope_limit": "Fixture low-bit equality remains unevaluated; no product test or actual collision is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "f28851440ea912c41aaa2b5877e3f92e3551274c54344b7a27dbdcc552f081a3",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

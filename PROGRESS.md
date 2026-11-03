@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:30:27.227133+00:00
+Updated: 2026-11-03T10:31:33.413990+00:00
 
-Latest verified checkpoint: **857**. Goal: **active**.
+Latest verified checkpoint: **858**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the existing cancellation fixture to its default-character ID and
-deterministic hammer opponent ID.
+Qualified the deterministic BLAKE3 and SplitMix64 derivation used by the default
+fixture character ID.
 
-Their low bits have not yet been compared; no collision or runtime result is
-claimed.
+Fixture low-bit equality remains unevaluated; no product test or actual
+collision is claimed.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 857 publication record](CHECKPOINT-857.json)
-- [Saved report for checkpoint 857](PROGRESS-857.md)
+- [Checkpoint 858 publication record](CHECKPOINT-858.json)
+- [Saved report for checkpoint 858](PROGRESS-858.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
