@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T00:27:52.572330+00:00
+Updated: 2026-11-03T00:30:34.222622+00:00
 
-Latest verified checkpoint: **542**. Goal: **active**.
+Latest verified checkpoint: **543**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,13 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed the remaining nine source perspectives for the changed texture runtime
-file, tracing recipe admission, reserved destinations, retained membership,
-loading and scene consumers, and native asset state.
+Completed the remaining eleven source perspectives for the scene-readiness view,
+tracing marker producers, loading-stage consumers and the native ECS marker-
+presence query.
 
-Nine current-source checks closed: 64 of 403 for this revision. The separate
-failure, channel admission, scale, lifecycle, GPU and runtime acceptance
-obligations remain open; no full case or global audit gate is closed.
+Eleven current-source checks closed: 75 of 403 for this revision. Expected scene
+population, replication ordering, failure causes and GPU presentation remain
+open; no runtime acceptance or whole-case closure is claimed.
 
 ## Working on now
 
@@ -315,6 +315,10 @@ connected owners and remaining source perspectives.
   questions remain distinct and open, along with native lifecycle and later
   runtime acceptance.
 
+- Completed all 13 current-source perspectives for the scene-readiness view.
+  Marker counts remain qualified snapshots; expected population, observer
+  lifecycle, failure and GPU readiness remain distinct open obligations.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -335,7 +339,7 @@ connected owners and remaining source perspectives.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 64 of those checks are closed. These are audit coverage obligations, not
+checks; 75 of those checks are closed. These are audit coverage obligations, not
 bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -353,8 +357,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 542 publication record](CHECKPOINT-542.json)
-- [Saved report for checkpoint 542](PROGRESS-542.md)
+- [Checkpoint 543 publication record](CHECKPOINT-543.json)
+- [Saved report for checkpoint 543](PROGRESS-543.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
