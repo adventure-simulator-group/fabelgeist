@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:01:54.212086+00:00
+Updated: 2026-11-03T23:03:54.507624+00:00
 
-Latest verified checkpoint: **1265**. Goal: **active**.
+Latest verified checkpoint: **1266**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified ordinary arrow projection and bounded its containment disposition.
+Reconciled the separate lens-13 ammunition companion question with the lens-12
+projectile finding.
 
-Exceptional helper callers, receipt policy, other inventory sources and aliases
-remain open; no new coverage is claimed.
+Exceptional states, receipt policy and exact aliases remain open; no new
+coverage or full contract closure is claimed.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1265 publication record](CHECKPOINT-1265.json)
-- [Saved report for checkpoint 1265](PROGRESS-1265.md)
+- [Checkpoint 1266 publication record](CHECKPOINT-1266.json)
+- [Saved report for checkpoint 1266](PROGRESS-1266.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
