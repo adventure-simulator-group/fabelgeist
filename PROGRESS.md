@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:31:22.416538+00:00
+Updated: 2026-11-03T11:32:32.175524+00:00
 
-Latest verified checkpoint: **911**. Goal: **active**.
+Latest verified checkpoint: **912**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified the pinned MHR archive and inspected hashed LOD 4-6 UV mapping
-metadata: each uses polygon-vertex indexed-to-direct mapping.
+Decoded hashed pinned LOD 4-6 geometry candidates and checked polygon and UV
+index extents and stream shape.
 
-Metadata only; UV array contents, alternative asset policy, global aliases and
-runtime acceptance remain open.
+The inspected arrays are in bounds; Rust importer execution, alternate assets,
+aliases and runtime acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 911 publication record](CHECKPOINT-911.json)
-- [Saved report for checkpoint 911](PROGRESS-911.md)
+- [Checkpoint 912 publication record](CHECKPOINT-912.json)
+- [Saved report for checkpoint 912](PROGRESS-912.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
