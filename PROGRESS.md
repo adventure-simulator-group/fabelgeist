@@ -26,6 +26,15 @@ This is a scoped header and source comparison, not proof of asset provenance,
 pixel correctness or global scale policy. No matrix cells or whole cases closed;
 product execution remains unperformed.
 
+## Investigation since checkpoint 537
+
+The forest-litter catalogue describes generic surface outputs, while the bake
+and reserved handles use a packed litter surface and a normal map. The shader
+reads height, occlusion, tone and coverage from that packed surface. Descriptor
+categories are not necessarily one-to-one with runtime map channels. Their
+intended meaning and consumers need qualification before calling this a defect.
+This source trace is not yet adopted.
+
 ## Working on now
 
 Qualify texture residency, asset failures and scene restoration against
