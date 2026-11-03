@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:53:52.583942+00:00
+Updated: 2026-11-03T23:55:48.652690+00:00
 
-Latest verified checkpoint: **1294**. Goal: **active**.
+Latest verified checkpoint: **1295**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced 32 skill fields through schedule training and an immediate activity
-persistence path.
+Recorded global organization, organization-scoped role and settlement-scoped
+chapter identity constraints.
 
-Other update paths, public admission and aliases remain open; no population
-credit is claimed.
+Service-linked locations, persistence, native boundaries and aliases remain
+open; no population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1294 publication record](CHECKPOINT-1294.json)
-- [Saved report for checkpoint 1294](PROGRESS-1294.md)
+- [Checkpoint 1295 publication record](CHECKPOINT-1295.json)
+- [Saved report for checkpoint 1295](PROGRESS-1295.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
