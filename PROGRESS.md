@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T16:12:31.986304+00:00
+Updated: 2026-11-03T16:13:48.025869+00:00
 
-Latest verified checkpoint: **1059**. Goal: **active**.
+Latest verified checkpoint: **1060**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A focused selected-rig test confirmed all-zero influence reduction produces a
-NaN weight.
+Traced four-influence reduction into underlayer probes, morph correction and
+runtime equipment mesh attributes.
 
-Supported zero-row producer reachability and unweighted policy remain
-unverified.
+Generated zero-row reachability and runtime behavior remain unverified.
 
 ## Working on now
 
@@ -114,8 +113,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1059 publication record](CHECKPOINT-1059.json)
-- [Saved report for checkpoint 1059](PROGRESS-1059.md)
+- [Checkpoint 1060 publication record](CHECKPOINT-1060.json)
+- [Saved report for checkpoint 1060](PROGRESS-1060.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
