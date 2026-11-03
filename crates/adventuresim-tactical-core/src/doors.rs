@@ -11,6 +11,10 @@ pub const DOOR_GRAB_LATERAL_MARGIN_METRES: f32 = 0.6;
 /// Collision layer reserved for interactive tactical doors.
 pub const TACTICAL_DOOR_LAYER: LayerMask = LayerMask(1 << 6);
 pub const TACTICAL_WINDOW_LAYER: LayerMask = LayerMask(1 << 7);
+/// Door and window leaves stop default-layer characters and scene items, but
+/// not the terrain-layer wall, sill and floor colliders around their opening.
+pub const TACTICAL_LEAF_FILTERS: LayerMask =
+    LayerMask(LayerMask::DEFAULT.0 | crate::inventory::TACTICAL_ITEM_LAYER.0);
 const DOOR_INTERIOR_SIDE_EPSILON_METRES: f32 = 0.05;
 
 pub fn can_grab_door_from_inside(
