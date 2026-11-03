@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:52:17.647872+00:00
+Updated: 2026-11-03T08:53:54.312853+00:00
 
-Latest verified checkpoint: **787**. Goal: **active**.
+Latest verified checkpoint: **788**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared creator morph, preview and proportion consumers before and after the
-typed MHR boundary changes.
+Reconciled creator morph, preview and proportion source changes across thirteen
+perspectives.
 
-Cross-geometry correspondence, complete callers, native renderer behavior,
-aliases and acceptance remain open; tests were not run.
+The older batch retains 1237 pending checks. Vertex correspondence, native
+rendering, aliases and acceptance remain open; tests were not run.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 787 publication record](CHECKPOINT-787.json)
-- [Saved report for checkpoint 787](PROGRESS-787.md)
+- [Checkpoint 788 publication record](CHECKPOINT-788.json)
+- [Saved report for checkpoint 788](PROGRESS-788.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
