@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 682,
+  "at": "2026-11-03T06:09:07.179178+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "d89e23eca1e220a9d94bcb97589c8e097927abac7054458df87c098cd582e210",
+    "verification": "c0a2174e2ade0d8f91d4e993afba89d121a48243dc2900a4776260e005e65a30",
+    "canonical_current": "b061ce07d7070796258c41007d5c9cecfc2ac1ad9e233a0b408bf610dd91c953"
+  },
+  "scope": {
+    "summary": "Registered both full lockfile versions and read the first 800 lines of the earlier version for the remaining revision-delta reconciliation.",
+    "scope_limit": "Both lockfile reads remain incomplete; no lens cell or renderer acceptance closed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "7dacffafd1c9118cfc9e79144ba27be52b7dbae042ab2e14646bf9a8718bcfff",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
