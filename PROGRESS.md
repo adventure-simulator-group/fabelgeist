@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:00:42.380094+00:00
+Updated: 2026-11-03T21:04:17.198038+00:00
 
-Latest verified checkpoint: **1201**. Goal: **active**.
+Latest verified checkpoint: **1202**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced corrective loader error context and creator reload state into the
-existing repair acceptance.
+Traced a conditional stale screenshot acceptance path and recorded capture-
+artifact repair requirements.
 
-Source inspection only; interactive failure and browser error presentation
-remain untested.
+The stale-file case is source-derived, not reproduced; other report validation
+gates remain independent.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1201 publication record](CHECKPOINT-1201.json)
-- [Saved report for checkpoint 1201](PROGRESS-1201.md)
+- [Checkpoint 1202 publication record](CHECKPOINT-1202.json)
+- [Saved report for checkpoint 1202](PROGRESS-1202.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

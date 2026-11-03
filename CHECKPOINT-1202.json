@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1202,
+  "at": "2026-11-03T21:04:05.635988+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "a99d8cea7534baa1178bb9eae53f3a811a1786d54ee3f7dbad049f5995051cec",
+    "verification": "48853f6cb7ebace11bb62892cac1ffc5a5799cf753f85402ffb821d36c0b963a",
+    "canonical_current": "37e3e460d354ba3a3083108bad9adfe14dbb8d32fbb25428fabfbe1432e223ad"
+  },
+  "scope": {
+    "summary": "Traced a conditional stale screenshot acceptance path and recorded capture-artifact repair requirements.",
+    "scope_limit": "The stale-file case is source-derived, not reproduced; other report validation gates remain independent."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "96af36a1096ef0abf8266598d31b153affc9599c0e58722dc25c7b6172d8632e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
