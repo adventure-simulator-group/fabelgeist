@@ -73,7 +73,7 @@ pub(super) fn drop_hand(
             AngularVelocity::ZERO,
             RigidBody::Dynamic,
             collider,
-            CollisionLayers::new(TACTICAL_ITEM_LAYER, TACTICAL_TERRAIN_LAYER),
+            CollisionLayers::new(TACTICAL_ITEM_LAYER, TACTICAL_ITEM_BLOCKERS),
         ));
     true
 }
@@ -130,8 +130,9 @@ fn item_box_center(grip: Vec3, physical: &TacticalEquipmentPhysical) -> Vec3 {
     grip - physical.anchor_offset_m
 }
 
-/// Terrain and support sight is evaluated separately from item pointing, so
-/// item boxes do not become combat or visibility blockers.
+/// Terrain, support and closed leaves block item sight, which is evaluated
+/// separately from item pointing so item boxes never become combat or
+/// visibility blockers.
 fn has_clear_sight(spatial: &SpatialQuery, actor_position: Vec3, item_position: Vec3) -> bool {
     let origin = actor_position + Vec3::Y * ITEM_SIGHT_HEIGHT_M;
     let sight = item_position - origin;
@@ -144,7 +145,7 @@ fn has_clear_sight(spatial: &SpatialQuery, actor_position: Vec3, item_position: 
             direction,
             sight.length(),
             true,
-            &SpatialQueryFilter::from_mask(TACTICAL_TERRAIN_LAYER),
+            &SpatialQueryFilter::from_mask(TACTICAL_ITEM_BLOCKERS),
         )
         .is_none()
 }

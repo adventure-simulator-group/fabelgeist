@@ -841,10 +841,13 @@ mod tests {
     }
 
     #[test]
-    fn item_and_terrain_layers_are_isolated() {
-        let item = CollisionLayers::new(TACTICAL_ITEM_LAYER, TACTICAL_TERRAIN_LAYER);
+    fn scene_items_meet_support_and_closed_leaves_but_not_characters() {
+        let item = CollisionLayers::new(TACTICAL_ITEM_LAYER, TACTICAL_ITEM_BLOCKERS);
         let terrain = CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL);
         assert!(item.interacts_with(terrain));
+        for leaf in [TACTICAL_DOOR_LAYER, TACTICAL_WINDOW_LAYER] {
+            assert!(item.interacts_with(CollisionLayers::new(leaf, TACTICAL_LEAF_FILTERS)));
+        }
         assert!(!item.interacts_with(CollisionLayers::DEFAULT));
     }
 

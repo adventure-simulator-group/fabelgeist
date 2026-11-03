@@ -34,8 +34,13 @@ pub use quantity::*;
 
 pub const TACTICAL_TERRAIN_LAYER: LayerMask = LayerMask(1 << 5);
 pub const TACTICAL_ITEM_LAYER: LayerMask = LayerMask(1 << 4);
-/// Dynamic doors collide with default-layer characters, but not with the
-/// terrain-layer wall, sill, and floor colliders that surround their opening.
+/// Scene items rest on terrain-layer support and are stopped, and hidden from
+/// reach, by closed door and window leaves.
+pub const TACTICAL_ITEM_BLOCKERS: LayerMask = LayerMask(
+    TACTICAL_TERRAIN_LAYER.0
+        | crate::doors::TACTICAL_DOOR_LAYER.0
+        | crate::doors::TACTICAL_WINDOW_LAYER.0,
+);
 
 #[derive(Component, Serialize, Deserialize, Debug, Reflect, PartialEq, Eq, Clone, MapEntities)]
 #[reflect(Component)]
