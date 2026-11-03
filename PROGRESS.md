@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:08:32.497968+00:00
+Updated: 2026-11-03T11:09:39.000147+00:00
 
-Latest verified checkpoint: **893**. Goal: **active**.
+Latest verified checkpoint: **894**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified public DrapeInput fields and the export path that turns returned
-fitting problems into warnings.
+Traced recipe validation into saved garments and outfit assembly into current-
+body drape inputs.
 
-No malformed input was executed; actual recipe admission and topology policy
-remain open.
+The actual export entry ordering and direct public API policy remain open; no
+product execution occurred.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 893 publication record](CHECKPOINT-893.json)
-- [Saved report for checkpoint 893](PROGRESS-893.md)
+- [Checkpoint 894 publication record](CHECKPOINT-894.json)
+- [Saved report for checkpoint 894](PROGRESS-894.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
