@@ -34,6 +34,11 @@ not directly check that each recipe channel reached its intended handle. This
 is a test coverage limitation, not an observed misbinding; the test has not
 been run. Recipe-channel admission and failure handling remain open.
 
+Strategic scene generation waits for catalogue textures before copying a stored
+scene-document error into retained scene status. That can defer this error while
+textures remain pending; another failure may still be reported. This is an
+unadopted source observation, with no runtime reproduction.
+
 ## Working on now
 
 Qualify texture residency, asset failures and scene restoration against
