@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1198,
+  "at": "2026-11-03T20:55:13.372208+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ebc3a27bb5e0c2c9b67f3f6865f00cc7a3861af7103daf3d3b57f8c16c994b98",
+    "verification": "a1dbf6a4170bd43b4db37037f96000940b3e269e16fb7987440e61343bacdc9d",
+    "canonical_current": "165fb4075282f6e4483da77672371eabb0287e8b3de99a2d28ddcc918ea42dee"
+  },
+  "scope": {
+    "summary": "Confirmed fractional coordinate conversion and traced a synthetic collision through ordered dense writes.",
+    "scope_limit": "The coefficient overwrite is inferred from source and array inspection; Burn tensor readback and visible effects remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e2b42672d97f85d5bc9591b7af9606aab3c293e9f10c33e0a6c11769db05fde5",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

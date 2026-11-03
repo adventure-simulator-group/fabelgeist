@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:52:41.962707+00:00
+Updated: 2026-11-03T20:55:23.883495+00:00
 
-Latest verified checkpoint: **1197**. Goal: **active**.
+Latest verified checkpoint: **1198**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Selected-source model construction accepted synthetic positive and negative
-fractional corrective coordinates.
+Confirmed fractional coordinate conversion and traced a synthetic collision
+through ordered dense writes.
 
-The derived archives are synthetic; final tensor coordinates and visible runtime
-effects were not inspected.
+The coefficient overwrite is inferred from source and array inspection; Burn
+tensor readback and visible effects remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1197 publication record](CHECKPOINT-1197.json)
-- [Saved report for checkpoint 1197](PROGRESS-1197.md)
+- [Checkpoint 1198 publication record](CHECKPOINT-1198.json)
+- [Saved report for checkpoint 1198](PROGRESS-1198.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
