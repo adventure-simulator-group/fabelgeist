@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:49:52.165511+00:00
+Updated: 2026-11-03T14:51:27.232920+00:00
 
-Latest verified checkpoint: **1021**. Goal: **active**.
+Latest verified checkpoint: **1022**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced geographic source construction through shared planar triangle admission
-and the scene terrain/vista producer.
+Traced owned support compilation and its separate elevation-list and normal-
+bearing queries.
 
-Owned compilation, supported extreme bounds and actual product execution remain
+Clipping invariants, supported extreme inputs and actual runtime behavior remain
 open.
 
 ## Working on now
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1021 publication record](CHECKPOINT-1021.json)
-- [Saved report for checkpoint 1021](PROGRESS-1021.md)
+- [Checkpoint 1022 publication record](CHECKPOINT-1022.json)
+- [Saved report for checkpoint 1022](PROGRESS-1022.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
