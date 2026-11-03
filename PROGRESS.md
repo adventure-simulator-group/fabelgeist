@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:20:57.432662+00:00
+Updated: 2026-11-03T21:23:15.189345+00:00
 
-Latest verified checkpoint: **1211**. Goal: **active**.
+Latest verified checkpoint: **1212**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified remote main matches the selected revision and traced conditional
-renderer membership behavior.
+A controlled request-manager test confirmed changed same-location venues reuse
+prior preparation.
 
-The native outcomes are source-derived; real browser and rendered output remain
-untested.
+The test uses stub generation and installation; native freshness policy and
+visual impact remain unproven.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1211 publication record](CHECKPOINT-1211.json)
-- [Saved report for checkpoint 1211](PROGRESS-1211.md)
+- [Checkpoint 1212 publication record](CHECKPOINT-1212.json)
+- [Saved report for checkpoint 1212](PROGRESS-1212.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
