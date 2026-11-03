@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:34:04.866989+00:00
+Updated: 2026-11-03T07:36:14.093142+00:00
 
-Latest verified checkpoint: **739**. Goal: **active**.
+Latest verified checkpoint: **740**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected locked shader definition composition and cache-key treatment under
+Traced chunk pipeline key construction and locked Bevy view-key generation under
 lens 12.
 
-Actual duplicate definitions, LOD-view applicability, lockfile disposition and
-broader audit remain open.
+Native topology bit conversion, LOD-view applicability and the connected
+lockfile disposition remain open.
 
 ## Working on now
 
@@ -104,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 739 publication record](CHECKPOINT-739.json)
-- [Saved report for checkpoint 739](PROGRESS-739.md)
+- [Checkpoint 740 publication record](CHECKPOINT-740.json)
+- [Saved report for checkpoint 740](PROGRESS-740.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
