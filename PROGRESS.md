@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:11:16.794920+00:00
+Updated: 2026-11-03T05:14:51.150365+00:00
 
-Latest verified checkpoint: **649**. Goal: **active**.
+Latest verified checkpoint: **650**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed the registered reading of the earlier quality baseline through its
-end, including strategic web labels and semantic-family fingerprints.
+Read the registered quality analyzer through its end and traced how function
+ceilings are checked and derived. The only earlier baseline delta lowers the
+understory spawn ceiling from 127 to 124.
 
-Reading the baseline is not a lens disposition: the older lockfile and baseline
-delta cells and connected contracts remain open. No product validation has run.
+The quality analyzer test was read rather than executed. The baseline and
+lockfile delta lens assessments and connected contracts remain open.
 
 ## Working on now
 
@@ -371,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 649 publication record](CHECKPOINT-649.json)
-- [Saved report for checkpoint 649](PROGRESS-649.md)
+- [Checkpoint 650 publication record](CHECKPOINT-650.json)
+- [Saved report for checkpoint 650](PROGRESS-650.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
