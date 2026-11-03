@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:22:46.828881+00:00
+Updated: 2026-11-03T20:24:43.595870+00:00
 
-Latest verified checkpoint: **1182**. Goal: **active**.
+Latest verified checkpoint: **1183**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the chat redirect and renewed form identity; recorded a repair plan for
-conditional committed-but-unobserved outcomes.
+Traced shared resident-dialogue receipts and the client retry token; connected a
+second conditional ambiguous-outcome repair.
 
-The duplicate-action risk is source-derived and conditional; browser navigation
-and integration tests remain open.
+The retry risk is source-derived and conditional; tests were inspected, not
+executed, and integration coverage remains open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1182 publication record](CHECKPOINT-1182.json)
-- [Saved report for checkpoint 1182](PROGRESS-1182.md)
+- [Checkpoint 1183 publication record](CHECKPOINT-1183.json)
+- [Saved report for checkpoint 1183](PROGRESS-1183.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
