@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:37:20.144846+00:00
+Updated: 2026-11-03T22:39:01.147374+00:00
 
-Latest verified checkpoint: **1251**. Goal: **active**.
+Latest verified checkpoint: **1252**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a provisional typed readback plan distinguishing map, channel, poll and
-admission outcomes.
+Qualified the existing typed staged readback and several distinct buffer
+consumers.
 
-Poll admissibility, all consumers and native validation remain open; no backend
-detail is invented.
+The batched and single-buffer lifecycles differ; shared ownership and other
+consumers remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1251 publication record](CHECKPOINT-1251.json)
-- [Saved report for checkpoint 1251](PROGRESS-1251.md)
+- [Checkpoint 1252 publication record](CHECKPOINT-1252.json)
+- [Saved report for checkpoint 1252](PROGRESS-1252.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

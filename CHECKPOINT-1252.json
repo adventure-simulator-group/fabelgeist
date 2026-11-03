@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1252,
+  "at": "2026-11-03T22:38:47.357787+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "a623e3c6c9090637c024a4a3009ba98f2712c070a16533aa5da9cdd5b0bc4b6a",
+    "verification": "a81405c9cffa64cd872e0c7ea62f36e9018a1d3e8667e4a7d38f54d9aa3a9ff5",
+    "canonical_current": "fcaa7c9d616d1ab58fff7e177b2ed3c7329335b6a83bce1387608ce1fb5ae953"
+  },
+  "scope": {
+    "summary": "Qualified the existing typed staged readback and several distinct buffer consumers.",
+    "scope_limit": "The batched and single-buffer lifecycles differ; shared ownership and other consumers remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "4a28243d351b7dac704eb0fb084ce47ae7305079354a194935045e8608d07e7d",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
