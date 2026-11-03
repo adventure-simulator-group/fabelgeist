@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T03:18:39.364663+00:00
+Updated: 2026-11-03T03:19:50.736778+00:00
 
-Latest verified checkpoint: **621**. Goal: **active**.
+Latest verified checkpoint: **622**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced motor output to the pinned vendored character controller, including its
-query, gravity, velocity and configuration consumption.
+Traced motor calculation checks and the server request validation and movement
+restoration paths.
 
 Earlier revision source checks remain 741 of 767; newest revision remains 403 of
-403. The supported failure route, helper behavior, intended rejection policy and
-runtime acceptance remain open.
+403. Other input producers, supported failure reachability, aggregate validity
+and failure policy remain open.
 
 ## Working on now
 
@@ -372,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 621 publication record](CHECKPOINT-621.json)
-- [Saved report for checkpoint 621](PROGRESS-621.md)
+- [Checkpoint 622 publication record](CHECKPOINT-622.json)
+- [Saved report for checkpoint 622](PROGRESS-622.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
