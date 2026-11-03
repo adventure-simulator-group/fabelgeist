@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:44:32.748812+00:00
+Updated: 2026-11-03T10:45:27.874116+00:00
 
-Latest verified checkpoint: **870**. Goal: **active**.
+Latest verified checkpoint: **871**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified public combatant IDs versus private transient scheduling state and
-fresh strategic conversion.
+Connected the ordinary public battle round to joint melee scheduling after
+ranged combat.
 
-The internal simultaneous fixture is not evidence that external callers directly
-construct that state or that a strategic collision occurred.
+A concrete collision still depends on admitted IDs, survival, eligibility and
+aligned readiness; no runtime test was run.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 870 publication record](CHECKPOINT-870.json)
-- [Saved report for checkpoint 870](PROGRESS-870.md)
+- [Checkpoint 871 publication record](CHECKPOINT-871.json)
+- [Saved report for checkpoint 871](PROGRESS-871.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
