@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:37:15.186651+00:00
+Updated: 2026-11-03T09:38:31.171032+00:00
 
-Latest verified checkpoint: **819**. Goal: **active**.
+Latest verified checkpoint: **820**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced creator asset-directory selection and MHR filesystem loading for saved-
-drape topology identity.
+Traced MHR FBX polygon traversal into the face ordinals used by saved garment
+bindings.
 
-Supported asset policy, FBX admission, topology order and direct APIs remain
-open; no supported mismatched asset is established.
+Supported asset policy, native parser ordering and topology identity acceptance
+remain open; no supported reordered asset is demonstrated.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 819 publication record](CHECKPOINT-819.json)
-- [Saved report for checkpoint 819](PROGRESS-819.md)
+- [Checkpoint 820 publication record](CHECKPOINT-820.json)
+- [Saved report for checkpoint 820](PROGRESS-820.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
