@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1230,
+  "at": "2026-11-03T22:00:29.611636+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "cfaf13c45ce94d705de51373621cf1cdf2e0af9edafa3392a081eabd5c9ac21d",
+    "verification": "1a175fcfcdea5da0a91d12ea957ef9b8d5152904e6d195215275b5c5b6639341",
+    "canonical_current": "9d35aa315dbc8082a7bb7d06a56f7c027be82c26d007ae0a6dd55baae370dce3"
+  },
+  "scope": {
+    "summary": "Traced public session ID generation and the existing-session participant presence check.",
+    "scope_limit": "A same-ID different-NPC case remains conditional; nonce policy, concurrency and exact aliases remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "44d197df401cdc6e1408c2b01c6fc78b265844d6fc418dfe6bffc39099d4eccc",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

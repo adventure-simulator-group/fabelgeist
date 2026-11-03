@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:59:11.213025+00:00
+Updated: 2026-11-03T22:00:42.490840+00:00
 
-Latest verified checkpoint: **1229**. Goal: **active**.
+Latest verified checkpoint: **1230**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Independently assessed both registered Lens 8 dialogue-session extension ranges
-and retained a retry identity question.
+Traced public session ID generation and the existing-session participant
+presence check.
 
-Connected retry callers, current dependencies, transaction boundaries and exact
-aliases remain open.
+A same-ID different-NPC case remains conditional; nonce policy, concurrency and
+exact aliases remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1229 publication record](CHECKPOINT-1229.json)
-- [Saved report for checkpoint 1229](PROGRESS-1229.md)
+- [Checkpoint 1230 publication record](CHECKPOINT-1230.json)
+- [Saved report for checkpoint 1230](PROGRESS-1230.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
