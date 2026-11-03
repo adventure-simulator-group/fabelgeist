@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:55:53.933744+00:00
+Updated: 2026-11-03T21:57:19.234173+00:00
 
-Latest verified checkpoint: **1227**. Goal: **active**.
+Latest verified checkpoint: **1228**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced debug snapshot physical-component omission to client visual admission and
-qualified the round-trip fixture.
+Traced debug snapshot physical-component omission to drop and pickup admission
+and recorded a provisional repair plan.
 
-Reconstruction paths and runtime effect remain unverified; this is a conditional
-debug restore question.
+Indirect reconstruction and runtime effect remain unverified; debug restore is
+separate from ordinary reconnect.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1227 publication record](CHECKPOINT-1227.json)
-- [Saved report for checkpoint 1227](PROGRESS-1227.md)
+- [Checkpoint 1228 publication record](CHECKPOINT-1228.json)
+- [Saved report for checkpoint 1228](PROGRESS-1228.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
