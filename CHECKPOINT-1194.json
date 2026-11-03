@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1194,
+  "at": "2026-11-03T20:46:20.906314+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "4cdb55805bde0314bef7538949fcf95eac18055160edc1729ecbd153d79343ce",
+    "verification": "e02c3749f095d6fd47691fe1bc0c909d60fa7420e7cb1677ca0ce8ba78556e9c",
+    "canonical_current": "a819394fd5d3853fe6407e835f8575eacb52dfb89037351b93cd20f4ae81a7e8"
+  },
+  "scope": {
+    "summary": "A two-joint parser probe showed a missing cluster silently changes weights from [0.5, 0.5] to [1.0, 0.0].",
+    "scope_limit": "The test uses a synthetic in-memory scene; serialized input, production reachability and rendering remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "7314cb30521172d0ff482961f0242abcbab93392df7599761fc3d8e0dceff852",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

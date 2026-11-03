@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:44:51.584102+00:00
+Updated: 2026-11-03T20:46:33.704440+00:00
 
-Latest verified checkpoint: **1193**. Goal: **active**.
+Latest verified checkpoint: **1194**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A selected-source in-memory parser test accepted a missing-weight cluster when
-another cluster covered all vertices.
+A two-joint parser probe showed a missing cluster silently changes weights from
+[0.5, 0.5] to [1.0, 0.0].
 
-The test uses a synthetic in-memory scene with the same joint for both clusters;
-production reachability remains untested.
+The test uses a synthetic in-memory scene; serialized input, production
+reachability and rendering remain untested.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1193 publication record](CHECKPOINT-1193.json)
-- [Saved report for checkpoint 1193](PROGRESS-1193.md)
+- [Checkpoint 1194 publication record](CHECKPOINT-1194.json)
+- [Saved report for checkpoint 1194](PROGRESS-1194.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
