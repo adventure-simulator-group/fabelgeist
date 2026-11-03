@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:48:37.162004+00:00
+Updated: 2026-11-03T07:50:29.719160+00:00
 
-Latest verified checkpoint: **748**. Goal: **active**.
+Latest verified checkpoint: **749**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,16 +18,19 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the remaining earlier Cargo.lock lens cells for producer propagation,
-admission, behavior and numeric policy.
+Read the earlier third-party notice delta and identified its rawzip attribution
+addition.
 
-All 767 checks in that batch are assessed, but connected producer, renderer,
-alias, native and acceptance obligations and the broader audit remain open.
+The older revision batch still has 1918 pending lens/path checks; rawzip
+connections and all broader audit obligations remain open.
 
 ## Working on now
 
-Reconciling renderer capacity, connected terrain admission and outstanding
-canonical contracts.
+Reconciling the older revision batch and connected archive, renderer and terrain
+contracts.
+
+- Assess the older third-party notice delta against same-lens rawzip reader and
+  native boundary evidence.
 
 - Resolve connected renderer and native boundary obligations, including producer
   completeness, bounds and visual acceptance.
@@ -104,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 748 publication record](CHECKPOINT-748.json)
-- [Saved report for checkpoint 748](PROGRESS-748.md)
+- [Checkpoint 749 publication record](CHECKPOINT-749.json)
+- [Saved report for checkpoint 749](PROGRESS-749.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
