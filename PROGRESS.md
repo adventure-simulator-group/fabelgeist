@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T16:09:50.981179+00:00
+Updated: 2026-11-03T16:11:17.389971+00:00
 
-Latest verified checkpoint: **1057**. Goal: **active**.
+Latest verified checkpoint: **1058**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the P09 fixture morph assertions with current armor endpoint and
-delta records.
+Connected five existing skin admission, normalization, diagnostic and preview
+obligations without merging their distinct failures.
 
-The fixture and GPU path have not been executed; wider P09 contracts remain
-open.
+No obligation was closed; full P09 family, aliases and validation remain open.
 
 ## Working on now
 
@@ -115,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1057 publication record](CHECKPOINT-1057.json)
-- [Saved report for checkpoint 1057](PROGRESS-1057.md)
+- [Checkpoint 1058 publication record](CHECKPOINT-1058.json)
+- [Saved report for checkpoint 1058](PROGRESS-1058.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
