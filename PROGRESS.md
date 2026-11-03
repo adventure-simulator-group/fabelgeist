@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:17:00.181858+00:00
+Updated: 2026-11-03T20:20:42.647611+00:00
 
-Latest verified checkpoint: **1180**. Goal: **active**.
+Latest verified checkpoint: **1181**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced casual chat action ID, native replay checks and HTTP receipt readback.
+Corrected the earlier HTTP-error interpretation: the actual background-fetch
+wrapper rejects non-success responses, and an exact-source controlled probe
+retained the prior wheel after a 503.
 
-Readback failure is conditional; actual browser retries and independent terminal
-contracts remain open.
+The probe uses a stub DOM and fetch, not a live browser or service; audit and
+repair validation remain open.
 
 ## Working on now
 
@@ -140,8 +142,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1180 publication record](CHECKPOINT-1180.json)
-- [Saved report for checkpoint 1180](PROGRESS-1180.md)
+- [Checkpoint 1181 publication record](CHECKPOINT-1181.json)
+- [Saved report for checkpoint 1181](PROGRESS-1181.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

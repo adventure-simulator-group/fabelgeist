@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1181,
+  "at": "2026-11-03T20:20:17.829820+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "77d731cf6f69e57dbb44d38d11208bd00af9ac90bb0a2cbf86a9a64d4f1c011d",
+    "verification": "a1e3d0b2b993ff9f75d1a7fa43e11eadc16a73dc8f2a8766a80b97443e41720b",
+    "canonical_current": "47dd141e478bbd6e04755dbb272b2dbc071c620581abe2e396f5c64783112401"
+  },
+  "scope": {
+    "summary": "Corrected the earlier HTTP-error interpretation: the actual background-fetch wrapper rejects non-success responses, and an exact-source controlled probe retained the prior wheel after a 503.",
+    "scope_limit": "The probe uses a stub DOM and fetch, not a live browser or service; audit and repair validation remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "55ce216afdb759a58dd0f2b5c7994d2413481e76a201235e613b6a45cb76e51b",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
