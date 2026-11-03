@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:20:53.496763+00:00
+Updated: 2026-11-03T11:21:50.672117+00:00
 
-Latest verified checkpoint: **904**. Goal: **active**.
+Latest verified checkpoint: **905**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled documented pinned MHR installation and configurable runtime asset
-directory.
+Traced native and byte MHR loaders through LOD checking, asset parsing and
+optional correctives.
 
-Location override does not establish support for mismatched assets; runtime
-loader admission and topology identity remain open.
+The inspected loader does not compare installer hashes; no supported alternate
+topology or runtime mismatch is claimed.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 904 publication record](CHECKPOINT-904.json)
-- [Saved report for checkpoint 904](PROGRESS-904.md)
+- [Checkpoint 905 publication record](CHECKPOINT-905.json)
+- [Saved report for checkpoint 905](PROGRESS-905.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

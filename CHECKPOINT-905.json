@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 905,
+  "at": "2026-11-03T11:21:42.720159+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "958c721edd5d0abd3c95d9e4421459998c7d7fd68175a832dc44ca477b9624d7",
+    "verification": "0c367346ebf0679e2c4ef3f385db72ef1071abc8849240648eeb56804d4858fb",
+    "canonical_current": "efb2742aa336e6f1102a322be89c87d8d897a6a356e4da4a6018ab21d537ba70"
+  },
+  "scope": {
+    "summary": "Traced native and byte MHR loaders through LOD checking, asset parsing and optional correctives.",
+    "scope_limit": "The inspected loader does not compare installer hashes; no supported alternate topology or runtime mismatch is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "240cb8c1808b41a7772932ad4065c1139ce219e64925c422c67f2bb4b04cfa53",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
