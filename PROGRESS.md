@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T15:33:43.507177+00:00
+Updated: 2026-11-03T15:37:32.652884+00:00
 
-Latest verified checkpoint: **1040**. Goal: **active**.
+Latest verified checkpoint: **1041**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,16 +18,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-The isolated selected-revision product test passed: public mesh decoding accepts
-the supplied small triangle and maximum_grade returns zero.
+An isolated product test confirmed full surface decoding accepts a constructed
+grade-one tiny triangle while reporting zero maximum grade.
 
-This confirms the public mesh boundary only; complete surface admission and
-generated gameplay reachability remain unverified.
+Generated gameplay production and transmission of this geometry remain
+unverified.
 
 ## Working on now
 
-Reconcile the confirmed public mesh grade underflow with complete surface and
-generated geometry contracts.
+Reconcile confirmed mesh and surface grade underflow with generated geometry and
+connected audit obligations.
 
 - Resolve saved garment topology identity, public fitting admission and
   supported asset policy.
@@ -104,8 +104,9 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-An isolated selected-revision mesh probe passed (1 test); broad product tests,
-lints, generators and runtime acceptance remain outstanding.
+Two isolated selected-revision product probes passed: public mesh and complete
+surface decoding (one test each). Broad product tests, lints, generators and
+runtime acceptance remain outstanding.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -114,8 +115,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1040 publication record](CHECKPOINT-1040.json)
-- [Saved report for checkpoint 1040](PROGRESS-1040.md)
+- [Checkpoint 1041 publication record](CHECKPOINT-1041.json)
+- [Saved report for checkpoint 1041](PROGRESS-1041.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
