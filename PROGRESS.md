@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:33:02.331907+00:00
+Updated: 2026-11-03T17:34:58.021086+00:00
 
-Latest verified checkpoint: **1080**. Goal: **active**.
+Latest verified checkpoint: **1081**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Ran a neutral GPU forward evaluation of the selected-source model using the
-verified pinned LOD4 and corrective data.
+Confirmed a malformed corrective archive retains its structured cardinality
+cause through the selected-source model byte loader.
 
-One neutral case passed in an isolated standalone crate with separately resolved
-dependencies; numerical parity, other poses and the full workspace remain
-untested.
+The test covers one derived malformed archive and byte-loader path; other errors
+and the full workspace remain untested.
 
 ## Working on now
 
@@ -123,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1080 publication record](CHECKPOINT-1080.json)
-- [Saved report for checkpoint 1080](PROGRESS-1080.md)
+- [Checkpoint 1081 publication record](CHECKPOINT-1081.json)
+- [Saved report for checkpoint 1081](PROGRESS-1081.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
