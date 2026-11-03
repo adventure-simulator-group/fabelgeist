@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:33:56.975540+00:00
+Updated: 2026-11-03T02:35:20.293582+00:00
 
-Latest verified checkpoint: **600**. Goal: **active**.
+Latest verified checkpoint: **601**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,14 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled tree material field visibility across eleven remaining perspectives,
-tracing the copy into instanced vista cards and the different meaning of their
-packed first parameter.
+Reconciled the ground-scatter facade across eleven remaining perspectives,
+including the shared celestial updater and its new vista-card material writes.
 
-Earlier revision source checks: 650 of 767; newest revision remains 403 of 403.
-Height grouping, material timing, shader semantics and visual acceptance remain
-open; tests were inspected but not run, and counts do not represent whole-audit
-completion.
+Earlier revision source checks: 661 of 767; newest revision remains 403 of 403.
+New material initialization, shader semantics and runtime acceptance remain
+open; counts do not represent whole-audit completion.
 
 ## Working on now
 
@@ -374,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 600 publication record](CHECKPOINT-600.json)
-- [Saved report for checkpoint 600](PROGRESS-600.md)
+- [Checkpoint 601 publication record](CHECKPOINT-601.json)
+- [Saved report for checkpoint 601](PROGRESS-601.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
