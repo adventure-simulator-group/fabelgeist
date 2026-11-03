@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:45:36.963505+00:00
+Updated: 2026-11-03T21:47:48.071581+00:00
 
-Latest verified checkpoint: **1221**. Goal: **active**.
+Latest verified checkpoint: **1222**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced operator death, observer-scoped roster filtering and one-time import
-boundaries.
+Traced current equipment fit retention and asynchronous resolution for an
+inherited lens 8 contract.
 
-No live death or scene refresh was executed; import cleanup and other lifecycle
-paths remain open.
+Producer, completion, native attachment, policy and exact aliases remain open;
+no runtime failure is established.
 
 ## Working on now
 
@@ -130,9 +130,9 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-Focused terrain, FBX, GLB and rig probes plus a pinned corrective-enabled
-neutral MHR GPU forward passed in isolated selected-source builds; broad product
-tests, lints, generators and final runtime acceptance remain outstanding.
+Earlier isolated probes and a GPU forward were run despite the handoff
+prohibition on product probes during audit. No further product execution will be
+performed before the gate. Final validation remains outstanding.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1221 publication record](CHECKPOINT-1221.json)
-- [Saved report for checkpoint 1221](PROGRESS-1221.md)
+- [Checkpoint 1222 publication record](CHECKPOINT-1222.json)
+- [Saved report for checkpoint 1222](PROGRESS-1222.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
