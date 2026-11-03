@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:01:02.548355+00:00
+Updated: 2026-11-03T12:02:39.542201+00:00
 
-Latest verified checkpoint: **929**. Goal: **active**.
+Latest verified checkpoint: **930**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fresh body upload checks and expanded tasset support counts feeding the
-shader search.
+Traced device-body cache reuse against public host geometry and fresh creator
+generation.
 
-Cache, layer counts, finite input and sentinel reachability remain unproven; no
-overflow or GPU failure was executed.
+Conditional public API case only; actual runtime lifecycle, device ownership,
+aliases and GPU execution remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 929 publication record](CHECKPOINT-929.json)
-- [Saved report for checkpoint 929](PROGRESS-929.md)
+- [Checkpoint 930 publication record](CHECKPOINT-930.json)
+- [Saved report for checkpoint 930](PROGRESS-930.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
