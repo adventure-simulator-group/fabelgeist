@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 981,
+  "at": "2026-11-03T13:33:23.389566+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "bf340cfc1a87b8752bf1018c14dc8ae0ba15d401553ed4d76ae73512ecfcb01f",
+    "verification": "c8fccbcbbe3e40564be61e4174f9e704e705ec9b8311ca9da77c2d643bcd4a24",
+    "canonical_current": "970edfcfab7c23813ea3235eab4de3f2d214ea4fc045b80cfc897abf47dc096e"
+  },
+  "scope": {
+    "summary": "Traced fresh worker and cached bytes into the same Rust product admission; decode and program mismatches evict cached products.",
+    "scope_limit": "Cache integrity and dispatch matching, worker trust, API policy and native validation remain open; no corrupted product was observed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "78fcb41eb210cdc0491988f9093151efe48cd72109332ed6f4ffc390f5849b3b",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
