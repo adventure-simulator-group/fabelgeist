@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:28:25.834494+00:00
+Updated: 2026-11-03T22:30:03.053320+00:00
 
-Latest verified checkpoint: **1246**. Goal: **active**.
+Latest verified checkpoint: **1247**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,9 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected layer and cache fixtures and recorded a provisional typed-cause plan.
+Traced typed armor failures and the earlier device-error string conversion.
 
-Native causes and final runtime validation remain open; no product test was run.
+Concrete upstream error variants and native execution remain open; no product
+test was run.
 
 ## Working on now
 
@@ -139,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1246 publication record](CHECKPOINT-1246.json)
-- [Saved report for checkpoint 1246](PROGRESS-1246.md)
+- [Checkpoint 1247 publication record](CHECKPOINT-1247.json)
+- [Saved report for checkpoint 1247](PROGRESS-1247.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
