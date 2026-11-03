@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:19:23.169809+00:00
+Updated: 2026-11-03T23:20:49.742401+00:00
 
-Latest verified checkpoint: **1275**. Goal: **active**.
+Latest verified checkpoint: **1276**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled public rig influence construction across MHR and armor and recorded
-repair constraints.
+Traced influence reduction into export, fit, geometry probe and runtime mesh
+boundaries.
 
-All constructors, malformed input reachability, aliases and final policy remain
-open; no product execution is claimed.
+Caller propagation, row alignment, aliases and final policy remain open; no
+product execution is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1275 publication record](CHECKPOINT-1275.json)
-- [Saved report for checkpoint 1275](PROGRESS-1275.md)
+- [Checkpoint 1276 publication record](CHECKPOINT-1276.json)
+- [Saved report for checkpoint 1276](PROGRESS-1276.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
