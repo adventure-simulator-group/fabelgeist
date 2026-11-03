@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:10:55.220721+00:00
+Updated: 2026-11-03T17:13:20.307143+00:00
 
-Latest verified checkpoint: **1072**. Goal: **active**.
+Latest verified checkpoint: **1073**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced importer diagnostics and confirmed a negative FBX vertex is displayed as
-its converted unsigned value in a focused selected-source harness.
+Confirmed a constructed mismatched skin array is rejected with cluster context
+and traced how model loaders retain its cause.
 
-The constructed fixture and separately resolved module harness do not establish
-production asset reachability or full importer coverage.
+The synthetic fixture has an inconsistent array payload; the separately resolved
+module harness does not establish production asset reachability or full importer
+coverage.
 
 ## Working on now
 
@@ -122,8 +123,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1072 publication record](CHECKPOINT-1072.json)
-- [Saved report for checkpoint 1072](PROGRESS-1072.md)
+- [Checkpoint 1073 publication record](CHECKPOINT-1073.json)
+- [Saved report for checkpoint 1073](PROGRESS-1073.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
