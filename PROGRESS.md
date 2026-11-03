@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:14:28.477458+00:00
+Updated: 2026-11-03T12:16:36.767163+00:00
 
-Latest verified checkpoint: **937**. Goal: **active**.
+Latest verified checkpoint: **938**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified ID-keyed default and serialized override semantics for duplicate
-catalogue records.
+Qualified P15 client revision admission, server sequence/revision handling and
+actor lifecycle cleanup.
 
-No differing default output is established; custom-catalogue policy,
-placement/export collisions and execution remain open.
+Reservations, reconnect sender synchronization, other P15 paths and executable
+protocol acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 937 publication record](CHECKPOINT-937.json)
-- [Saved report for checkpoint 937](PROGRESS-937.md)
+- [Checkpoint 938 publication record](CHECKPOINT-938.json)
+- [Saved report for checkpoint 938](PROGRESS-938.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
