@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:21:21.145368+00:00
+Updated: 2026-11-03T02:22:54.401509+00:00
 
-Latest verified checkpoint: **592**. Goal: **active**.
+Latest verified checkpoint: **593**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,14 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the vista detail producer across ten remaining perspectives. New tree
-chunks omit the provenance required by the viewer query used for animation-play
-near-field acceptance, a source-level diagnostic mismatch requiring a capture
-check.
+Reconciled equipment skin synchronization across nine remaining perspectives,
+tracing the borrowed joint-name index, ownership, transfer and drop behavior.
 
-Earlier revision source checks: 563 of 767; newest revision remains 403 of 403.
-Alternate producers, coordinate-frame guarantees, runtime capture and visual
-acceptance remain open; counts do not represent whole-audit completion.
+Earlier revision source checks: 572 of 767; newest revision remains 403 of 403.
+Joint-name uniqueness, bindpose-only changes and runtime scheduling remain open;
+tests were inspected but not run, and counts do not represent whole-audit
+completion.
 
 ## Working on now
 
@@ -374,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 592 publication record](CHECKPOINT-592.json)
-- [Saved report for checkpoint 592](PROGRESS-592.md)
+- [Checkpoint 593 publication record](CHECKPOINT-593.json)
+- [Saved report for checkpoint 593](PROGRESS-593.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
