@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:54:56.414750+00:00
+Updated: 2026-11-03T10:55:46.480026+00:00
 
-Latest verified checkpoint: **880**. Goal: **active**.
+Latest verified checkpoint: **881**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified seeded party-attachment call sites in injured, disease and social demo
-fixtures.
+Compared hostile context membership and party membership, including fresh field-
+character full-ID collision checks.
 
-The social demo documents guarded isolated development; all seed authorization
-and general roster uniqueness are not yet proven.
+Cross-side disjointness and other context writers remain unproven; no
+overlapping battle roster is claimed.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 880 publication record](CHECKPOINT-880.json)
-- [Saved report for checkpoint 880](PROGRESS-880.md)
+- [Checkpoint 881 publication record](CHECKPOINT-881.json)
+- [Saved report for checkpoint 881](PROGRESS-881.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
