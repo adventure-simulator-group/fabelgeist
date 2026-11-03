@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:48:59.571110+00:00
+Updated: 2026-11-03T11:50:50.969810+00:00
 
-Latest verified checkpoint: **922**. Goal: **active**.
+Latest verified checkpoint: **923**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced ordered waist endpoint production and a conditional duplicate-name
-ambiguity in wrapped tasset fitting.
+Qualified creator-generated morph names and the runtime no-morph path against
+the conditional public duplicate-name case.
 
-Caller name uniqueness and actual mismatch remain unverified; public assembly,
-aliases and GPU acceptance remain open.
+Other public callers and identity policy remain open; no ordinary producer
+failure or GPU run is claimed.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 922 publication record](CHECKPOINT-922.json)
-- [Saved report for checkpoint 922](PROGRESS-922.md)
+- [Checkpoint 923 publication record](CHECKPOINT-923.json)
+- [Saved report for checkpoint 923](PROGRESS-923.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
