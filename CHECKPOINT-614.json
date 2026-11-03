@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 614,
+  "at": "2026-11-03T03:07:54.901040+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "726daf676aa882e3f84b0f26dfebbb0986dc236fdd8bb002302e3b43c3e4cfeb",
+    "verification": "4f7cc57ad33465afb92023329cb3baa187a8ce9cb5a73147c89ccbb3bc9cf9f9",
+    "canonical_current": "7c1c3980d11621ff4e9d865e2d88da4a902e3adde6e73bb74eeb36a34bb74b68"
+  },
+  "scope": {
+    "summary": "Traced browser dialogue submission and receipt tests. Each answer submission creates an action ID; the inspected answer path does not use the separate retry helper.",
+    "scope_limit": "Earlier revision source checks remain 741 of 767; newest revision remains 403 of 403. Underlying transport retries, other clients, ballot ordering and runtime acceptance remain open; tests were inspected but not run."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "db7b866df992d4c7fd41ae848d262d6ae7f7d49bfb634f179afdca235000004a",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
