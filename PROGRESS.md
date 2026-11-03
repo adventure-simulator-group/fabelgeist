@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T06:59:32.689078+00:00
+Updated: 2026-11-03T07:01:31.467984+00:00
 
-Latest verified checkpoint: **718**. Goal: **active**.
+Latest verified checkpoint: **719**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,19 +18,19 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Distinguished strategic camera environment-map synchronization from the required
-SceneEnvironment component.
+Corrected the live report to match the authoritative earlier source-delta count:
+754 of 767 checks closed.
 
-Other environment producers, debug restoration, resource bounds and broader
-audit remain open.
+The 13 remaining lockfile lens checks and all broader connected audit
+obligations remain open.
 
 ## Working on now
 
-Reconciling the older lockfile and quality-baseline delta, renderer capacity and
-the connected terrain admission record.
+Reconciling the remaining lockfile lens checks, renderer capacity and connected
+terrain admission.
 
-- Continue independent current-source assessments for the remaining changed
-  paths; preserve native boundaries and exact source scope.
+- Complete independent assessments for the 13 remaining earlier lockfile lens
+  checks; preserve connected renderer and native boundary obligations.
 
 - Reconcile the retained build-target specification question and other connected
   findings against exact canonical owners and aliases.
@@ -47,16 +47,17 @@ the connected terrain admission record.
   identity codecs, injury clocks and strategic-to-tactical boundaries.
 
 - Assessed all 403 lens/path checks in the latest 31-path source delta. The
-  preceding 59-path delta has 741 of 767 checks closed; earlier populations and
-  connected work remain separate.
+  preceding 59-path delta has 754 of 767 checks closed; its remaining 13 are
+  Cargo.lock lens checks. Earlier populations and connected work remain
+  separate.
 
 - Traced the replacement foliage renderer, shader layouts, material and loading
   readiness paths; retained admission, failure, lifecycle and visual acceptance
   questions.
 
-- Read both registered quality baseline revisions and traced the sole earlier
-  baseline change to a function-length ceiling. Inspected the removed renderer
-  dependency and the replacement chunk upload path.
+- Read both registered lockfile revisions and both quality baseline revisions;
+  reconciled the lockfile deletion and traced the quality baseline change to a
+  function-length ceiling.
 
 - Connected terrain admission, selected geographic input bounds, GPU limit
   selection and native/browser buffer error evidence to an existing open terrain
@@ -103,8 +104,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 718 publication record](CHECKPOINT-718.json)
-- [Saved report for checkpoint 718](PROGRESS-718.md)
+- [Checkpoint 719 publication record](CHECKPOINT-719.json)
+- [Saved report for checkpoint 719](PROGRESS-719.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
