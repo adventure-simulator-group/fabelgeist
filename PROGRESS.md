@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:22:44.122682+00:00
+Updated: 2026-11-03T23:24:12.734825+00:00
 
-Latest verified checkpoint: **1277**. Goal: **active**.
+Latest verified checkpoint: **1278**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified morph correction callers and existing export row and weight-sum
-validation.
+Traced five fallible armor-fit caller boundaries and a sum-only weight predicate
+counterexample.
 
-Armor caller propagation, individual-value policy and aliases remain open; no
+Higher error consumers, individual-value policy and aliases remain open; no
 product execution is claimed.
 
 ## Working on now
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1277 publication record](CHECKPOINT-1277.json)
-- [Saved report for checkpoint 1277](PROGRESS-1277.md)
+- [Checkpoint 1278 publication record](CHECKPOINT-1278.json)
+- [Saved report for checkpoint 1278](PROGRESS-1278.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
