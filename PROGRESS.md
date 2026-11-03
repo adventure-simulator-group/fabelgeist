@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:48:19.813176+00:00
+Updated: 2026-11-03T09:49:59.533140+00:00
 
-Latest verified checkpoint: **826**. Goal: **active**.
+Latest verified checkpoint: **827**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Assessed seven ZIP error fixture byte bodies across their 85 remaining source
-perspectives.
+Inspected 23 complete ZIP record fixture bodies and linked competing end records
+to the existing selection-policy question.
 
-The older batch retains 893 pending checks. Decoder, archive admission policies
-and runtime acceptance remain open; tests were not run.
+Two large end-window fixtures, per-perspective decisions, native decoding and
+runtime acceptance remain open; no tests were run.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 826 publication record](CHECKPOINT-826.json)
-- [Saved report for checkpoint 826](PROGRESS-826.md)
+- [Checkpoint 827 publication record](CHECKPOINT-827.json)
+- [Saved report for checkpoint 827](PROGRESS-827.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
