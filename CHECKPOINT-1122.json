@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1122,
+  "at": "2026-11-03T18:50:40.383110+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "42d772efc3041ab1c72f100759457f75d1f8d8e898a1dd93c7335802385f5969",
+    "verification": "e7ed082b72e8aa23df95f6df771d8ba6276e1c0175cd776c23a3c616e9dac740",
+    "canonical_current": "90268a186d7eb687dcc446af154098baff2dc4d340278f6232eeabd47ea08a49"
+  },
+  "scope": {
+    "summary": "Verified that a reproduced fatal receipt leaves a live character alongside its death and corpse records after tactical server deletion.",
+    "scope_limit": "This isolated checkout build covers one scenario; other death effects, aliases and selected revision equivalence remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "5642c13a157835ff9756d15e8044163e61df6b6e5d1666982e4f3ac6e5ea0a3e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
