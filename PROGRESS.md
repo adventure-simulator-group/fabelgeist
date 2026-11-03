@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:49:51.863303+00:00
+Updated: 2026-11-03T20:52:41.962707+00:00
 
-Latest verified checkpoint: **1196**. Goal: **active**.
+Latest verified checkpoint: **1197**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A distinct-name serialized FBX byte-loader probe reproduced silently changed
-influence weights.
+Selected-source model construction accepted synthetic positive and negative
+fractional corrective coordinates.
 
-The test uses synthetic fixtures and a module harness; production assets, full
-model and rendering remain untested.
+The derived archives are synthetic; final tensor coordinates and visible runtime
+effects were not inspected.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1196 publication record](CHECKPOINT-1196.json)
-- [Saved report for checkpoint 1196](PROGRESS-1196.md)
+- [Checkpoint 1197 publication record](CHECKPOINT-1197.json)
+- [Saved report for checkpoint 1197](PROGRESS-1197.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
