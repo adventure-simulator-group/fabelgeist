@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:38:01.538799+00:00
+Updated: 2026-11-03T23:39:54.985907+00:00
 
-Latest verified checkpoint: **1286**. Goal: **active**.
+Latest verified checkpoint: **1287**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Independently assessed the registered organization catalog range under producer-
-propagation lens 1.
+Traced organization build validation, runtime training conversion and typed
+reward selection.
 
-Catalog compiler, runtime consumers, persistence and aliases remain open; no
-population credit is claimed.
+Validator/runtime vocabulary parity, non-catalog producers, persistence and
+aliases remain open; no population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1286 publication record](CHECKPOINT-1286.json)
-- [Saved report for checkpoint 1286](PROGRESS-1286.md)
+- [Checkpoint 1287 publication record](CHECKPOINT-1287.json)
+- [Saved report for checkpoint 1287](PROGRESS-1287.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
