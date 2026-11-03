@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:38:20.312521+00:00
+Updated: 2026-11-03T10:39:16.363640+00:00
 
-Latest verified checkpoint: **864**. Goal: **active**.
+Latest verified checkpoint: **865**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified authored attack timing and the 0.5-second recovery applied after same-
-weapon cancellation.
+Traced authored timing into generated autoresolve parameters and identified the
+256-round public battle loop bound.
 
-These constrain individual paths but do not prove global tick uniqueness or
-constitute runtime validation.
+No build was run; this alone does not prove all scheduled-time bounds or tick
+uniqueness.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 864 publication record](CHECKPOINT-864.json)
-- [Saved report for checkpoint 864](PROGRESS-864.md)
+- [Checkpoint 865 publication record](CHECKPOINT-865.json)
+- [Saved report for checkpoint 865](PROGRESS-865.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
