@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 975,
+  "at": "2026-11-03T13:23:54.931892+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "b70b825f25ed9d6e42d2690dddbf1bec642dcec66fe98aedd67b677f37bcaff7",
+    "verification": "62bd7296becffe7937eb7f39c1200f56c30bf302f89c0dfddc288abacdd11129",
+    "canonical_current": "273bf39a9f237f1052d63dd5fe8a634039b50f9e52c6ce2a09a1460a71c5f7c2"
+  },
+  "scope": {
+    "summary": "Traced interior installation callers: inspected production paths propagate failures and discard locally generated furniture before returning or spawning props.",
+    "scope_limit": "Public API atomicity, admitted failure reachability, aliases and native acceptance remain open; no user-visible incident was established."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e7a5d979cc9ef5fe2a17e21ff4bd248587e9a2f29769078ef3350918faf07c4f",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
