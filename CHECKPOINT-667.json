@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 667,
+  "at": "2026-11-03T05:45:32.246337+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "f4b9fc5c403e5ce0318ef258c7f0e174519c365af7880781a8a505711fad3b42",
+    "verification": "29591531858fb18efa64ff5ef46000acb3dca3e5e6edac8d60c379da6819cb77",
+    "canonical_current": "dd0a5b020d043e8b4cf7ed61357ee699752788fa9f02221571194a1f10e0ebc1"
+  },
+  "scope": {
+    "summary": "Traced Bevy\u2019s device-error callbacks and polling into the tactical client\u2019s ignore-after-logging render policy.",
+    "scope_limit": "Buffer initialization can involve synchronous or asynchronous errors; its exact failure path and any actual device incident remain unverified."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "3a01b43646761b77e04dba0fafbacf5a669e373eb93a852bd53e916bc2dce08e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
