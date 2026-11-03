@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:38:47.892614+00:00
+Updated: 2026-11-03T19:39:47.480529+00:00
 
-Latest verified checkpoint: **1152**. Goal: **active**.
+Latest verified checkpoint: **1153**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced strategic components through the connected-player view into tactical
-starting state.
+Compared strategic fatigue arithmetic with tactical update and display bounds.
 
-Fatigue bounds, exact wheel parity, missing-row behavior and independent
-autoresolve remain open.
+The over-one example is synthetic; reachability, tick ordering and gameplay
+effects remain open.
 
 ## Working on now
 
@@ -125,8 +124,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1152 publication record](CHECKPOINT-1152.json)
-- [Saved report for checkpoint 1152](PROGRESS-1152.md)
+- [Checkpoint 1153 publication record](CHECKPOINT-1153.json)
+- [Saved report for checkpoint 1153](PROGRESS-1153.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
