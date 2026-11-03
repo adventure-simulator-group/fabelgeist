@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T00:15:50.467218+00:00
+Updated: 2026-11-03T00:18:47.682039+00:00
 
-Latest verified checkpoint: **537**. Goal: **active**.
+Latest verified checkpoint: **538**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,22 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the selected bake-scale producer, wire and terrain consumer path. The
-three inspected soil, litter and rock asset headers match their terrain
-constants; runtime does not retain the header scale.
+Qualified the forest-litter descriptor, generated map channels, reserved handles
+and packed shader meaning. Linked this distinction to the existing channel-
+admission and type-owner questions.
 
-This is a scoped header and source comparison, not proof of asset provenance,
-pixel correctness or global scale policy. No matrix cells or whole cases closed;
-product execution remains unperformed.
-
-## Investigation since checkpoint 537
-
-The forest-litter catalogue describes generic surface outputs, while the bake
-and reserved handles use a packed litter surface and a normal map. The shader
-reads height, occlusion, tone and coverage from that packed surface. Descriptor
-categories are not necessarily one-to-one with runtime map channels. Their
-intended meaning and consumers need qualification before calling this a defect.
-This source trace is not yet adopted.
+Descriptor intent and its full consumer population remain open. No rendering
+fault, complete case or matrix-cell closure is claimed; product execution
+remains unperformed.
 
 ## Working on now
 
@@ -302,6 +293,10 @@ connected owners and remaining source perspectives.
   headers match the current terrain constants; alternate asset policy and other
   consumers remain open.
 
+- Qualified the forest-litter catalogue and runtime map distinction: generated
+  and reserved channels agree, while descriptor categories are not a direct
+  channel list. Descriptor meaning and channel admission remain open.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -340,8 +335,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 537 publication record](CHECKPOINT-537.json)
-- [Saved report for checkpoint 537](PROGRESS-537.md)
+- [Checkpoint 538 publication record](CHECKPOINT-538.json)
+- [Saved report for checkpoint 538](PROGRESS-538.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
