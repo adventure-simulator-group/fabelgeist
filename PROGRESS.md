@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T18:09:11.999706+00:00
+Updated: 2026-11-03T18:12:12.030163+00:00
 
-Latest verified checkpoint: **1101**. Goal: **active**.
+Latest verified checkpoint: **1102**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,27 +18,30 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the GPU residency snapshot under twelve lenses and traced its building
-and furniture review consumers.
+Traced GPU review readiness to its timeout and pre-capture evidence, and
+identified a conditional pending-timer lifecycle question.
 
-GPU ID membership is not a rendered-pixel or terminal-failure guarantee; full
-capture and renderer contracts remain open.
+The possible ready-then-pending sequence and actual capture outcomes have not
+been exercised.
 
 ## Working on now
 
 Reconciling strategic recruitment observation and action outcomes alongside the
 remaining audit ledger.
 
-- Reconcile recruitment source failures, fit freshness, join outcomes and finite
-  versus unlimited role policies.
+- Reconcile MHR skin admission and typed cluster failures against the pinned
+  rigs and malformed inputs.
 
-- Complete P09 skin, corrective and garment consumer aliases and acceptance
-  cases.
+- Define shared zero-total influence handling across export, geometry probes,
+  GLB fixtures and equipment.
 
-- Complete all 13 perspectives, all 20 families and the ordered repair ledger
-  before implementation.
+- Resolve corrective index conversion policy, preserving existing typed errors
+  and the pinned release baseline.
 
-- Implement the final types, then complete independent review and validation.
+- Reconcile garment previews, cancellation, all 13 perspectives and all 20
+  families before implementation.
+
+- Implement the final types and complete independent review and validation.
 
 ## Work completed since the handoff
 
@@ -122,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1101 publication record](CHECKPOINT-1101.json)
-- [Saved report for checkpoint 1101](PROGRESS-1101.md)
+- [Checkpoint 1102 publication record](CHECKPOINT-1102.json)
+- [Saved report for checkpoint 1102](PROGRESS-1102.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

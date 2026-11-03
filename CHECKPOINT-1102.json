@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1102,
+  "at": "2026-11-03T18:12:01.566217+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "e7fc0dd04c327d2273619019f4080fc415e4c541ce742a7ffcc97fbb5fc17df2",
+    "verification": "edbdf39a4a591b343c12da24e7288e94788905b9162910215d69aa8a8ab3416c",
+    "canonical_current": "1b4ab809e5ce2ea4b0ff086862bae9bab6aaf13f3eb3523d86ac121e25c56490"
+  },
+  "scope": {
+    "summary": "Traced GPU review readiness to its timeout and pre-capture evidence, and identified a conditional pending-timer lifecycle question.",
+    "scope_limit": "The possible ready-then-pending sequence and actual capture outcomes have not been exercised."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d316189cd107d81084258d83d68be1520fb8276acbe948d2b9aa93fc0936816b",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
