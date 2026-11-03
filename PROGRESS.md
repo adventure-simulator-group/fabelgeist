@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T07:53:32.782310+00:00
+Updated: 2026-11-03T07:54:56.751696+00:00
 
-Latest verified checkpoint: **751**. Goal: **active**.
+Latest verified checkpoint: **752**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled four earlier third-party notice perspectives against the rawzip-
-backed reader.
+Reconciled the remaining third-party notice perspectives against the registered
+archive reader.
 
-The older batch retains 1914 pending checks; native archive boundaries and
+The older batch retains 1906 pending checks; native archive boundaries and
 broader audit remain open.
 
 ## Working on now
@@ -29,8 +29,8 @@ broader audit remain open.
 Reconciling the older revision batch and connected archive, renderer and terrain
 contracts.
 
-- Assess the older third-party notice delta against same-lens rawzip reader and
-  native boundary evidence.
+- Continue older revision reconciliation while preserving connected rawzip and
+  decompression obligations.
 
 - Resolve connected renderer and native boundary obligations, including producer
   completeness, bounds and visual acceptance.
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 751 publication record](CHECKPOINT-751.json)
-- [Saved report for checkpoint 751](PROGRESS-751.md)
+- [Checkpoint 752 publication record](CHECKPOINT-752.json)
+- [Saved report for checkpoint 752](PROGRESS-752.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
