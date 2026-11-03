@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:21:17.293187+00:00
+Updated: 2026-11-03T22:22:51.218680+00:00
 
-Latest verified checkpoint: **1242**. Goal: **active**.
+Latest verified checkpoint: **1243**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced vambrace design encoding, hash and left/right placement requirements.
+Traced vambrace placement side to device joint selection and inspected codec
+test coverage.
 
-Bracer codec consumers and native fit mapping remain open; no compatibility path
-is required.
+Other codec consumers and native output remain unverified; no product test ran.
 
 ## Working on now
 
@@ -140,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1242 publication record](CHECKPOINT-1242.json)
-- [Saved report for checkpoint 1242](PROGRESS-1242.md)
+- [Checkpoint 1243 publication record](CHECKPOINT-1243.json)
+- [Saved report for checkpoint 1243](PROGRESS-1243.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
