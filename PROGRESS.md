@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:50:50.969810+00:00
+Updated: 2026-11-03T11:52:32.683287+00:00
 
-Latest verified checkpoint: **923**. Goal: **active**.
+Latest verified checkpoint: **924**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified creator-generated morph names and the runtime no-morph path against
-the conditional public duplicate-name case.
+Qualified the P10 optional parent representation from FBX construction through
+forward-kinematics tensor encoding.
 
-Other public callers and identity policy remain open; no ordinary producer
-failure or GPU run is claimed.
+Public parent membership, cycles, other family paths and native acceptance
+remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 923 publication record](CHECKPOINT-923.json)
-- [Saved report for checkpoint 923](PROGRESS-923.md)
+- [Checkpoint 924 publication record](CHECKPOINT-924.json)
+- [Saved report for checkpoint 924](PROGRESS-924.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
