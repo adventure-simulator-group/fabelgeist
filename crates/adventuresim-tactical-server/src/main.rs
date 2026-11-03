@@ -47,6 +47,8 @@ use crate::{
 
 mod bot;
 mod combat;
+#[cfg(test)]
+mod compound_review_fixture;
 #[cfg(feature = "debug")]
 mod debug_dump;
 mod equipment;

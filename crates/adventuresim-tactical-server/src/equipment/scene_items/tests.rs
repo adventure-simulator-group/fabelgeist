@@ -38,6 +38,17 @@ impl Scene {
         facing: Vec3,
         heights: impl Fn(f32, f32) -> f32 + 'static,
     ) -> Self {
+        let colliders = terrain_colliders(collision, &heights);
+        Self::from_colliders(colliders, Box::new(heights), item_id, feet_xz, facing)
+    }
+
+    fn from_colliders(
+        colliders: Vec<Collider>,
+        heights: Box<dyn Fn(f32, f32) -> f32>,
+        item_id: &str,
+        feet_xz: Vec2,
+        facing: Vec3,
+    ) -> Self {
         let mut app = App::new();
         app.add_plugins((MinimalPlugins, PhysicsPlugins::default(), TransformPlugin));
         app.insert_resource(Time::<Fixed>::from_hz(TICK_HZ));
@@ -46,10 +57,10 @@ impl Scene {
         )));
         app.finish();
         app.cleanup();
-        spawn_terrain(app.world_mut(), collision, &heights);
+        spawn_colliders(app.world_mut(), colliders);
         let mut scene = Self {
             app,
-            heights: Box::new(heights),
+            heights,
             actor: Entity::PLACEHOLDER,
             item: Entity::PLACEHOLDER,
         };
@@ -173,11 +184,10 @@ impl Scene {
     }
 }
 
-fn spawn_terrain(
-    world: &mut World,
+fn terrain_colliders(
     collision: TerrainCollision,
     heights: &impl Fn(f32, f32) -> f32,
-) {
+) -> Vec<Collider> {
     let half_extent = (TERRAIN_GRID_CELLS as f32 - 1.0) / 2.0;
     let mut samples = Vec::with_capacity(TERRAIN_GRID_CELLS * TERRAIN_GRID_CELLS);
     for z in 0..TERRAIN_GRID_CELLS {
@@ -186,7 +196,7 @@ fn spawn_terrain(
             samples.push(Vec3::new(x, heights(x, z), z));
         }
     }
-    let colliders = match collision {
+    match collision {
         TerrainCollision::Heightfield => {
             let heightmap = samples.iter().map(|sample| sample.y).collect();
             SceneTerrain::from_heightmap(TERRAIN_GRID_CELLS, TERRAIN_GRID_CELLS, 1.0, heightmap)
@@ -195,7 +205,10 @@ fn spawn_terrain(
                 .unwrap()
         }
         TerrainCollision::Trimesh => vec![Collider::trimesh(samples, grid_triangles())],
-    };
+    }
+}
+
+fn spawn_colliders(world: &mut World, colliders: Vec<Collider>) {
     for collider in colliders {
         world.spawn((
             RigidBody::Static,
@@ -354,3 +367,5 @@ fn dropping_against_a_wall_keeps_the_item_on_the_players_side() {
         assert!(scene.pick_up_item(), "{context}: pickup rejected");
     }
 }
+
+mod settlement;

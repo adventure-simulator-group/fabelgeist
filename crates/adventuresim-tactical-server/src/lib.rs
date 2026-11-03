@@ -19,6 +19,8 @@
 
 pub mod bot;
 pub mod combat;
+#[cfg(test)]
+mod compound_review_fixture;
 pub mod equipment;
 #[cfg(feature = "iteration")]
 pub mod iteration;
