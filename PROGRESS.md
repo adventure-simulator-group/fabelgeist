@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:09:23.825987+00:00
+Updated: 2026-11-03T13:11:01.607773+00:00
 
-Latest verified checkpoint: **967**. Goal: **active**.
+Latest verified checkpoint: **968**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Linked an inherited Lens 13 strategic party-count observation to a distinct
-current audit obligation.
+Traced both strategic capable-count conversions through selection, commit and
+enemy roster.
 
-This is not a new unique finding; practical cardinality, exact aliases and
-native acceptance remain open.
+Party cardinality policy, exact aliases and native acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +113,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 967 publication record](CHECKPOINT-967.json)
-- [Saved report for checkpoint 967](PROGRESS-967.md)
+- [Checkpoint 968 publication record](CHECKPOINT-968.json)
+- [Saved report for checkpoint 968](PROGRESS-968.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
