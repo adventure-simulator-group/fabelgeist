@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 580,
+  "at": "2026-11-03T01:57:18.847781+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "fae98bc959dca03817d5655f75dc3ed94b7b9b56a245240da8059f26cc41dcdc",
+    "verification": "42869939eba04d09ccdf39d9f2feb25df15af799fb939d929bdee59ed0c074ed",
+    "canonical_current": "cf03ff2878ebbea412f70f51ed4f23c87027475d558680d0a3b8ef89132fdd02"
+  },
+  "scope": {
+    "summary": "Reconciled the graphics configuration and shipped settings across twelve remaining perspectives each. The old per-tier grass shadow flags were removed; equal fade endpoints and some floating-point finiteness checks require follow-up.",
+    "scope_limit": "Earlier revision source checks: 372 of 767; newest revision remains 403 of 403. Deserialization edge cases, renderer behavior and shadow acceptance remain open; counts do not represent whole-audit completion."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "2603d254f7101cdbc154861795816b715a203335dca54583affb99b32df7c87c",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
