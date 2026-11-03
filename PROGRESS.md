@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:04:49.634035+00:00
+Updated: 2026-11-03T14:06:30.676520+00:00
 
-Latest verified checkpoint: **999**. Goal: **active**.
+Latest verified checkpoint: **1000**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced skeleton sample tick projection from fixed elapsed time and runtime
-animation rate, including integer saturation at extreme values.
+Qualified server fixed ordering: intent restoration, tactical motor, Ahoy
+movement, then skeleton projection and snapshots.
 
-Exact scheduling, complete configuration and actual extreme execution remain
-open.
+Input observer timing, extreme configuration reachability and native acceptance
+remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 999 publication record](CHECKPOINT-999.json)
-- [Saved report for checkpoint 999](PROGRESS-999.md)
+- [Checkpoint 1000 publication record](CHECKPOINT-1000.json)
+- [Saved report for checkpoint 1000](PROGRESS-1000.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
