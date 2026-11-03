@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:50:08.097410+00:00
+Updated: 2026-11-03T12:51:53.359864+00:00
 
-Latest verified checkpoint: **957**. Goal: **active**.
+Latest verified checkpoint: **958**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified starting character and temporary-enemy attribute provenance for
-durability stress.
+Qualified starting-life and strategic training as attribute consumers rather
+than strength writers.
 
-Starting-life and later mutation, exact scaling limits, semantic aliases and
-native acceptance remain open.
+Other attribute writers, enemy bounds, equipment inputs, semantic aliases and
+native execution remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 957 publication record](CHECKPOINT-957.json)
-- [Saved report for checkpoint 957](PROGRESS-957.md)
+- [Checkpoint 958 publication record](CHECKPOINT-958.json)
+- [Saved report for checkpoint 958](PROGRESS-958.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
