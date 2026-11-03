@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 940,
+  "at": "2026-11-03T12:19:42.983351+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "89003062616b05c56bf021b5f09eaabe223f14a150b114b17c8657c4e68d5fb4",
+    "verification": "141b05feec1e35fd39da5cf2a6242a6e8d424ef18812bf82a310189a17db8b5c",
+    "canonical_current": "e7748a0029981b2645b25d4d8afe28b42d69beb61de814f4a741aed6f8ad2667"
+  },
+  "scope": {
+    "summary": "Qualified client reconnect credential and equipment sender resource lifetimes.",
+    "scope_limit": "A same-application reconnect is expected to preserve the sender; fresh-client reachability and synchronization remain unverified, and no network incident was executed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "9663819a1dc13b77e946ba5a7bae6f5defa6105113b70f256f5f4e6546012542",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

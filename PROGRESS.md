@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T12:17:59.697695+00:00
+Updated: 2026-11-03T12:19:52.550536+00:00
 
-Latest verified checkpoint: **939**. Goal: **active**.
+Latest verified checkpoint: **940**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced server reconnect sequence transfer and the initial client sender
-sequence.
+Qualified client reconnect credential and equipment sender resource lifetimes.
 
-Fresh-client reconnect reachability and synchronization are unverified; no
-network incident was executed.
+A same-application reconnect is expected to preserve the sender; fresh-client
+reachability and synchronization remain unverified, and no network incident was
+executed.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 939 publication record](CHECKPOINT-939.json)
-- [Saved report for checkpoint 939](PROGRESS-939.md)
+- [Checkpoint 940 publication record](CHECKPOINT-940.json)
+- [Saved report for checkpoint 940](PROGRESS-940.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
