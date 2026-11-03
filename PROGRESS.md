@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:04:06.538712+00:00
+Updated: 2026-11-03T01:06:13.998346+00:00
 
-Latest verified checkpoint: **559**. Goal: **active**.
+Latest verified checkpoint: **560**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed eleven remaining source perspectives for the map control module,
-recording reopen, overlay revision, failure clearing and camera marker behavior.
+Completed all thirteen source perspectives for strategic status, tracing the
+extracted asset classifier and shared pipeline telemetry into readiness and
+error precedence.
 
-Eleven current-source checks closed: 273 of 403 for this revision. Retained-
-resource lifecycle, error policy, scheduling and runtime acceptance remain open;
-no complete case is claimed.
+Thirteen current-source checks closed: 286 of 403 for this revision. Shared
+installation wiring, asset failure lifetime, candidate rendering and runtime
+acceptance remain open; no complete case is claimed.
 
 ## Working on now
 
@@ -354,7 +355,7 @@ connected owners and remaining source perspectives.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 273 of those checks are closed. These are audit coverage obligations,
+checks; 286 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -372,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 559 publication record](CHECKPOINT-559.json)
-- [Saved report for checkpoint 559](PROGRESS-559.md)
+- [Checkpoint 560 publication record](CHECKPOINT-560.json)
+- [Saved report for checkpoint 560](PROGRESS-560.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
