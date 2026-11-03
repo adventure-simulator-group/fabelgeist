@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:04:56.850177+00:00
+Updated: 2026-11-03T05:06:17.027942+00:00
 
-Latest verified checkpoint: **644**. Goal: **active**.
+Latest verified checkpoint: **645**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,17 +18,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Advanced the registered earlier quality baseline read through line 6000,
-covering quest and skill checker records.
+Inspected lines 6001-7200 of the earlier registered quality baseline, including
+starting-character, strategic scheduling and persistence checker fingerprints.
 
-Earlier revision source checks remain 741 of 767; newest revision remains 403 of
-403. Remaining earlier baseline ranges, lens dispositions and runtime acceptance
-remain open.
+The earlier baseline remains unread from line 7201 onward. No audit cells or
+implementation gate were closed by this reading.
 
 ## Working on now
 
-Qualify texture residency, asset failures and scene restoration against
-connected owners and remaining source perspectives.
+Reading the registered earlier quality baseline and tracing its candidate
+bespoke-type findings.
 
 - Continue independent current-source assessments for the remaining changed
   paths; preserve native boundaries and exact source scope.
@@ -372,8 +371,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 644 publication record](CHECKPOINT-644.json)
-- [Saved report for checkpoint 644](PROGRESS-644.md)
+- [Checkpoint 645 publication record](CHECKPOINT-645.json)
+- [Saved report for checkpoint 645](PROGRESS-645.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
