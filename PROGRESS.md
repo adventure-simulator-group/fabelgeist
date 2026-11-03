@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:37:43.279842+00:00
+Updated: 2026-11-03T14:39:22.993328+00:00
 
-Latest verified checkpoint: **1014**. Goal: **active**.
+Latest verified checkpoint: **1015**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified pinned Parry column-major indexing maps the terrain adapter to the
-intended height samples, including rectangular grids.
+Traced owned-property terrain selection: invalid candidate heights or normals
+are filtered before choosing the highest admitted surface.
 
-Owned terrain, extreme geometry and runtime acceptance remain open.
+Producer guarantees, native collider details and intended owned-query failure
+policy remain open.
 
 ## Working on now
 
@@ -113,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1014 publication record](CHECKPOINT-1014.json)
-- [Saved report for checkpoint 1014](PROGRESS-1014.md)
+- [Checkpoint 1015 publication record](CHECKPOINT-1015.json)
+- [Saved report for checkpoint 1015](PROGRESS-1015.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
