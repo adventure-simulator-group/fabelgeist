@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:30:46.120877+00:00
+Updated: 2026-11-03T17:33:02.331907+00:00
 
-Latest verified checkpoint: **1079**. Goal: **active**.
+Latest verified checkpoint: **1080**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Constructed the selected-source MHR model with the verified pinned LOD4 rig and
-corrective archives.
+Ran a neutral GPU forward evaluation of the selected-source model using the
+verified pinned LOD4 and corrective data.
 
-The isolated standalone crate uses separately resolved dependencies; forward
-evaluation and the full workspace remain untested.
+One neutral case passed in an isolated standalone crate with separately resolved
+dependencies; numerical parity, other poses and the full workspace remain
+untested.
 
 ## Working on now
 
@@ -111,9 +112,9 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-Isolated terrain and FBX probes and selected-source GLB/rig harnesses passed;
-broad product tests, lints, generators and runtime acceptance remain
-outstanding.
+Focused terrain, FBX, GLB and rig probes plus a pinned corrective-enabled
+neutral MHR GPU forward passed in isolated selected-source builds; broad product
+tests, lints, generators and final runtime acceptance remain outstanding.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -122,8 +123,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1079 publication record](CHECKPOINT-1079.json)
-- [Saved report for checkpoint 1079](PROGRESS-1079.md)
+- [Checkpoint 1080 publication record](CHECKPOINT-1080.json)
+- [Saved report for checkpoint 1080](PROGRESS-1080.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1080,
+  "at": "2026-11-03T17:32:50.688970+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "aa58a083d4478f4119da6b69f54240d477ab3ed73416f0af6bd8e3beb7b50f24",
+    "verification": "ba271cb1172184e396d5d7983c521a09227f398de198ae7986c0fbe77492e145",
+    "canonical_current": "f1f94f2b1404f4cf30e2dc51057e00b04e24ad1e3634ee5353e3587f2867cea7"
+  },
+  "scope": {
+    "summary": "Ran a neutral GPU forward evaluation of the selected-source model using the verified pinned LOD4 and corrective data.",
+    "scope_limit": "One neutral case passed in an isolated standalone crate with separately resolved dependencies; numerical parity, other poses and the full workspace remain untested."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "807a0eb1794bcc8edcc3227e51fcbc62e118e97c51cc021ba6bfd9524364fa7f",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
