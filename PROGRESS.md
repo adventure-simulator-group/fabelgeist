@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T17:39:19.475799+00:00
+Updated: 2026-11-03T17:40:34.943996+00:00
 
-Latest verified checkpoint: **1083**. Goal: **active**.
+Latest verified checkpoint: **1084**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,23 +18,23 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reproduced admission of a NaN corrective sparse coordinate through the selected-
-source model byte loader.
+Drafted an evidence-linked P09 repair order spanning skin admission, rig
+reduction, corrective coordinates and garment consumers.
 
-The malformed input is derived from the pinned release; actual release data is
-finite and downstream rendered effects were not tested.
+The proposed order remains provisional; full family and repository-wide audit
+gates still prohibit implementation.
 
 ## Working on now
 
 Reconciling P09 skin admission, reduction and equipment consumers across the
 remaining audit ledger.
 
-- Complete P09 skin producer, GLB fixture and flexible equipment receiver
-  contracts and exact aliases.
+- Reconcile the proposed P09 repair order with remaining aliases, consumers and
+  supported-input policy.
 
-- Resolve saved garment topology, renderer and native boundary obligations.
+- Complete garment topology, renderer and cancellation obligations.
 
-- Reconcile all 13 perspectives, all 20 families and the ordered repair ledger
+- Complete all 13 perspectives, all 20 families and the ordered repair ledger
   before implementation.
 
 - Implement the clean final types, then complete independent review and final
@@ -122,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1083 publication record](CHECKPOINT-1083.json)
-- [Saved report for checkpoint 1083](PROGRESS-1083.md)
+- [Checkpoint 1084 publication record](CHECKPOINT-1084.json)
+- [Saved report for checkpoint 1084](PROGRESS-1084.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
