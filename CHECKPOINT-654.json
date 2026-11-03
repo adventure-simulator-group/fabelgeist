@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 654,
+  "at": "2026-11-03T05:23:19.775908+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "9278e7d2dd92a04c69c743b51cc3e220a3e4d53f2a885892422db431b59fc11d",
+    "verification": "c3dbc043f7eee371dbe6e7b15135ccb6d66ea6e173b219a0ef0c6f2493ae6b12",
+    "canonical_current": "26994940d893118e563f2786977b328724b5d7622db881d518c58e8126376563"
+  },
+  "scope": {
+    "summary": "Traced the removed renderer\u2019s locked allocation interfaces, buffer preparation and indirect batch construction, including its WebAssembly offset handling.",
+    "scope_limit": "Backend allocation, culling and rendering remain open. This source reading does not establish visual equivalence or close the full lockfile and baseline lens checks."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "26a2e7636a14860854f10ca2dc0bc217de119d6505987ba515690f3797acc94f",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
