@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T02:46:49.609541+00:00
+Updated: 2026-11-03T02:49:27.673157+00:00
 
-Latest verified checkpoint: **605**. Goal: **active**.
+Latest verified checkpoint: **606**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,14 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the inverse-kinematics coordinator across eleven remaining
-perspectives, including pose-culling admission and the separate runtime tuning
-cache.
+Reconciled the vista observer across all thirteen perspectives, including paired
+tree-material stores and the scene replacement sequence.
 
-Earlier revision source checks: 702 of 767; newest revision remains 403 of 403.
-Post-propagation observation, marker timing, cache freshness and reappearance
-acceptance remain open; tests were not run, and counts do not represent whole-
-audit completion.
+Earlier revision source checks: 715 of 767; newest revision remains 403 of 403.
+Asset readiness, terrain seams, scheduling and visual acceptance remain open;
+tests were inspected but not run, and counts do not represent whole-audit
+completion.
 
 ## Working on now
 
@@ -374,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 605 publication record](CHECKPOINT-605.json)
-- [Saved report for checkpoint 605](PROGRESS-605.md)
+- [Checkpoint 606 publication record](CHECKPOINT-606.json)
+- [Saved report for checkpoint 606](PROGRESS-606.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
