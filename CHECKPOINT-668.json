@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 668,
+  "at": "2026-11-03T05:46:33.212636+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "dcf93dd5dde931e599003f4bb5578eef0319682ba2654f18a23cf6e663e571f1",
+    "verification": "13262f8d21c99be2b10b5ccac3ec71c5079de8c8a9017d05bcb1f92034a427cb",
+    "canonical_current": "bd9e65250552e56fdfbc58bda3ab7b61656e719735a99bdaf46936371822ba20"
+  },
+  "scope": {
+    "summary": "Traced native wgpu buffer creation error reporting and mapped-range validation alongside the client\u2019s render error policy.",
+    "scope_limit": "Underlying invalid-buffer mapping and browser behavior remain unverified; no actual allocation failure or rendering incident is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "473bd623157ee9bb0da01031a69da3cec87f3bf51663567e8c769abfe5038d31",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
