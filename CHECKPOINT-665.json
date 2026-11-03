@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 665,
+  "at": "2026-11-03T05:43:03.568631+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "98600f846cb1c5af443674f834f19c7054a10b54c0dbf41f7d4da15497603bb2",
+    "verification": "147345e868774f2a2f58fc392f662787f119eda476a8cbd5b4763fb7e1a47173",
+    "canonical_current": "4016ea9f4dc692ac29bb7d2361206cfc40d812c35c5542849942c78a4191963d"
+  },
+  "scope": {
+    "summary": "Traced playable grid admission and upsampling: the selected geographic input allows at most 601 vertices per side and 2,000-metre spacing.",
+    "scope_limit": "This bounds the nominal input extent for that producer only. Finite-precision chunk cardinality, refinement success, other producers and device behavior remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "023dfe926d4fe9c33ad998fb64834042e35e1d06221f25650cd60aa9caed5d80",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
