@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1093,
+  "at": "2026-11-03T17:57:59.870842+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ae527677ba7a700a1d6214a952d7ce515780b0e85c6b6d98a98f19ca2b6f5f18",
+    "verification": "62f88a54e9b9f0fc6c44af5a582c8d96e58358ef0854f990ff9060d73409b4b9",
+    "canonical_current": "15ef34c9e580ba0dadb18b212732d9fe35affa8b2b2c5c3c2d1bf5d098027609"
+  },
+  "scope": {
+    "summary": "Corrected the prior service-quest HTTP fallback assessment: the shared fetch helper throws before that branch.",
+    "scope_limit": "Backend query failures may still become empty data; browser behavior and the service family require further validation."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "871c2e0502b1d6e88fc00a02780be88909dceac39b72b7d5c0d867655c8d3b8b",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
