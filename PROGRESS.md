@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T18:47:11.609237+00:00
+Updated: 2026-11-03T18:48:44.867617+00:00
 
-Latest verified checkpoint: **1120**. Goal: **active**.
+Latest verified checkpoint: **1121**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Linked the original inventory-target journal and later inherited views to the
-newly traced native and UI evidence.
+Dispositioned the exact inventory-target acknowledgement source question with an
+owned repair and acceptance cases.
 
-The bounded reference search does not establish the global alias inventory;
-formal disposition and integration remain open.
+Only the named source question is closed; repair, integration, global aliases
+and all broader audit gates remain open.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1120 publication record](CHECKPOINT-1120.json)
-- [Saved report for checkpoint 1120](PROGRESS-1120.md)
+- [Checkpoint 1121 publication record](CHECKPOINT-1121.json)
+- [Saved report for checkpoint 1121](PROGRESS-1121.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
