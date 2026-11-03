@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:56:15.575390+00:00
+Updated: 2026-11-03T22:58:54.348277+00:00
 
-Latest verified checkpoint: **1262**. Goal: **active**.
+Latest verified checkpoint: **1263**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,9 +34,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the fresh field-character default loadout and weapon carry provisioning.
+Narrowed the conditional arrow containment mismatch against stable-object rules.
 
-Other enemy inventory sources, receipt policy, stack eligibility and aliases
+Arrow object creation, receipt policy, other inventory sources and aliases
 remain open; no new coverage is claimed.
 
 ## Working on now
@@ -140,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1262 publication record](CHECKPOINT-1262.json)
-- [Saved report for checkpoint 1262](PROGRESS-1262.md)
+- [Checkpoint 1263 publication record](CHECKPOINT-1263.json)
+- [Saved report for checkpoint 1263](PROGRESS-1263.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

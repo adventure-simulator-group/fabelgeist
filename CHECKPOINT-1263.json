@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1263,
+  "at": "2026-11-03T22:58:43.000658+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "6f9d22225f4fd93afdb52525528027a9df3cb193542f39e744641460fc354ed2",
+    "verification": "6cb2a28b1efa1614464a8b8b80c1642f089b5ad0d21789f63284ace73c2cd31a",
+    "canonical_current": "fd67e7a0e58ca217cc9eb7aed862798d9c63f574a1527a3f914406ab6c1a5db1"
+  },
+  "scope": {
+    "summary": "Narrowed the conditional arrow containment mismatch against stable-object rules.",
+    "scope_limit": "Arrow object creation, receipt policy, other inventory sources and aliases remain open; no new coverage is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d608f18366877a558fbf2e0a2f8d564b311d3e9b959cf9abc2ffd9602e56547e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
