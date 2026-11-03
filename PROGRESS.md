@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T18:06:25.175498+00:00
+Updated: 2026-11-03T18:07:35.587306+00:00
 
-Latest verified checkpoint: **1099**. Goal: **active**.
+Latest verified checkpoint: **1100**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,30 +18,27 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced stored request-time applicant fit into the leader panel and separately
-refreshed capability details.
+Drafted an evidence-linked recruitment repair order covering observation
+completeness, fit freshness, join outcomes and presentation.
 
-Fit freshness and failure policy remain open; no stale live request was
-observed.
+The order is provisional; strategic aliases, product policy and the repository-
+wide audit gate remain open.
 
 ## Working on now
 
-Reconciling P09 skin admission, reduction and equipment consumers across the
+Reconciling strategic recruitment observation and action outcomes alongside the
 remaining audit ledger.
 
-- Reconcile MHR skin admission and typed cluster failures against the pinned
-  rigs and malformed inputs.
+- Reconcile recruitment source failures, fit freshness, join outcomes and finite
+  versus unlimited role policies.
 
-- Define shared zero-total influence handling across export, geometry probes,
-  GLB fixtures and equipment.
+- Complete P09 skin, corrective and garment consumer aliases and acceptance
+  cases.
 
-- Resolve corrective index conversion policy, preserving existing typed errors
-  and the pinned release baseline.
+- Complete all 13 perspectives, all 20 families and the ordered repair ledger
+  before implementation.
 
-- Reconcile garment previews, cancellation, all 13 perspectives and all 20
-  families before implementation.
-
-- Implement the final types and complete independent review and validation.
+- Implement the final types, then complete independent review and validation.
 
 ## Work completed since the handoff
 
@@ -125,8 +122,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1099 publication record](CHECKPOINT-1099.json)
-- [Saved report for checkpoint 1099](PROGRESS-1099.md)
+- [Checkpoint 1100 publication record](CHECKPOINT-1100.json)
+- [Saved report for checkpoint 1100](PROGRESS-1100.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
