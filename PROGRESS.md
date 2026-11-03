@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:06:16.294887+00:00
+Updated: 2026-11-03T21:08:05.010798+00:00
 
-Latest verified checkpoint: **1203**. Goal: **active**.
+Latest verified checkpoint: **1204**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced capture readiness waits that occur before the current timeout and
-recorded terminal-state requirements.
+Traced standard capture recipes and pinned Bevy screenshot completion behavior
+for dropped requests.
 
-The unresolved waits are source-derived and not reproduced; active compilation
-must not be mistaken for a hang.
+Viewer-specific dropped requests and actual hangs remain unproven; callers may
+add their own deadlines.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1203 publication record](CHECKPOINT-1203.json)
-- [Saved report for checkpoint 1203](PROGRESS-1203.md)
+- [Checkpoint 1204 publication record](CHECKPOINT-1204.json)
+- [Saved report for checkpoint 1204](PROGRESS-1204.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
