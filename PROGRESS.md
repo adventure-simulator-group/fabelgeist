@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:16:58.802953+00:00
+Updated: 2026-11-03T11:17:56.705961+00:00
 
-Latest verified checkpoint: **900**. Goal: **active**.
+Latest verified checkpoint: **901**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified creator, shell, mesh and BVH dependency directions for geometry
-validator reuse.
+Qualified empty BVH and saved-drape capture behavior as distinct contracts.
 
-Shared validator ownership and supported geometry policy remain open; no product
-source changed.
+Other empty and degenerate consumers, shared validator policy and runtime
+acceptance remain open.
 
 ## Working on now
 
@@ -114,8 +113,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 900 publication record](CHECKPOINT-900.json)
-- [Saved report for checkpoint 900](PROGRESS-900.md)
+- [Checkpoint 901 publication record](CHECKPOINT-901.json)
+- [Saved report for checkpoint 901](PROGRESS-901.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
