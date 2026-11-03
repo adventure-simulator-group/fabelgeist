@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:25:35.029956+00:00
+Updated: 2026-11-03T13:27:21.421789+00:00
 
-Latest verified checkpoint: **976**. Goal: **active**.
+Latest verified checkpoint: **977**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified a conditional public-layout path to MissingFloor after an earlier
-successful furniture conversion; traced the normal furnishing producer to its
-candidate checks.
+Qualified finite point admission and normal candidate floor checks: public off-
+floor points are representable, while accepted candidate centres have qualifying
+floor support at validation.
 
-This is source reasoning, not an executed witness; normal producer guarantees,
-API atomicity, aliases and native validation remain open.
+Later changes, other conversion failures, API policy, aliases and native
+validation remain open; no runtime incident was established.
 
 ## Working on now
 
@@ -115,8 +115,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 976 publication record](CHECKPOINT-976.json)
-- [Saved report for checkpoint 976](PROGRESS-976.md)
+- [Checkpoint 977 publication record](CHECKPOINT-977.json)
+- [Saved report for checkpoint 977](PROGRESS-977.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
