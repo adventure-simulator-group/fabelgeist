@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:42:55.106665+00:00
+Updated: 2026-11-03T14:44:33.390364+00:00
 
-Latest verified checkpoint: **1017**. Goal: **active**.
+Latest verified checkpoint: **1018**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-A standalone calculation found an extreme finite owned triangle that passes the
-planar determinant criterion while its f32 normal overflows.
+Traced public owned-surface construction and query index validation; the
+inspected checks admit finite coordinates without an explicit geographic range.
 
-Arithmetic reproduction only; actual owned-terrain producer reachability and
-runtime behavior remain unproved.
+The extreme triangle has not been run through the actual constructor/query;
+supported-domain policy and other producers remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1017 publication record](CHECKPOINT-1017.json)
-- [Saved report for checkpoint 1017](PROGRESS-1017.md)
+- [Checkpoint 1018 publication record](CHECKPOINT-1018.json)
+- [Saved report for checkpoint 1018](PROGRESS-1018.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
