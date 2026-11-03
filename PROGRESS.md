@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:40:51.853840+00:00
+Updated: 2026-11-03T13:42:46.148665+00:00
 
-Latest verified checkpoint: **986**. Goal: **active**.
+Latest verified checkpoint: **987**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Confirmed enabled simulation schedules the tactical motor before Ahoy character
-movement; checked speed and duration producers were scoped.
+Traced the pinned vendored Ahoy movement receiver: matching entities read
+controller and velocity, use speed and gravity, and sanitize nonfinite velocity.
 
-Native solver reads, deferred commands, valid failure reachability and error
-policy remain open.
+Query overlap, deferred command visibility, admitted failure reachability and
+policy remain open; no runtime failure was established.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 986 publication record](CHECKPOINT-986.json)
-- [Saved report for checkpoint 986](PROGRESS-986.md)
+- [Checkpoint 987 publication record](CHECKPOINT-987.json)
+- [Saved report for checkpoint 987](PROGRESS-987.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
