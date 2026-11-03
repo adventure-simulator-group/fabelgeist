@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T14:59:15.014059+00:00
+Updated: 2026-11-03T15:01:02.274579+00:00
 
-Latest verified checkpoint: **1026**. Goal: **active**.
+Latest verified checkpoint: **1027**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified encoded support-surface validation: it rejects non-finite triangle
-normals before grade measurement.
+Confirmed that decoded and generated support surfaces share the encoded
+validator; explored a conditional finite-normal overflow case.
 
-The earlier extreme arithmetic example is rejected on this path; other consumers
-and finite-normal cases remain unverified.
+Scalar calculation only; vector implementation, grade conversion and product
+execution remain unverified.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1026 publication record](CHECKPOINT-1026.json)
-- [Saved report for checkpoint 1026](PROGRESS-1026.md)
+- [Checkpoint 1027 publication record](CHECKPOINT-1027.json)
+- [Saved report for checkpoint 1027](PROGRESS-1027.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
