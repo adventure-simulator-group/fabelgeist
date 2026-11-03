@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T10:33:52.265001+00:00
+Updated: 2026-11-03T10:35:07.778114+00:00
 
-Latest verified checkpoint: **860**. Goal: **active**.
+Latest verified checkpoint: **861**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the combat timeline connection with the broader historical P17 report
-family and preserved its earlier scoped review and outstanding dependencies.
+Reconciled the inherited full-width participant ID witness and optional
+scheduled-measure requirement with current scheduling evidence.
 
-This does not close P17 or prove an exact alias; collision witness, canonical
-ownership and integration remain open.
+Source-level capacity loss is established; no observed authored collision,
+global alias resolution or runtime validation is claimed.
 
 ## Working on now
 
@@ -110,8 +110,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 860 publication record](CHECKPOINT-860.json)
-- [Saved report for checkpoint 860](PROGRESS-860.md)
+- [Checkpoint 861 publication record](CHECKPOINT-861.json)
+- [Saved report for checkpoint 861](PROGRESS-861.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
