@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T06:09:19.328882+00:00
+Updated: 2026-11-03T06:10:03.440535+00:00
 
-Latest verified checkpoint: **682**. Goal: **active**.
+Latest verified checkpoint: **683**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Registered both full lockfile versions and read the first 800 lines of the
-earlier version for the remaining revision-delta reconciliation.
+Continued the registered earlier lockfile review through line 1600, including
+the Bevy package records.
 
-Both lockfile reads remain incomplete; no lens cell or renderer acceptance
-closed.
+The remainder of both lockfile versions, independent lens dispositions and
+renderer acceptance remain open.
 
 ## Working on now
 
@@ -103,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 682 publication record](CHECKPOINT-682.json)
-- [Saved report for checkpoint 682](PROGRESS-682.md)
+- [Checkpoint 683 publication record](CHECKPOINT-683.json)
+- [Saved report for checkpoint 683](PROGRESS-683.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
