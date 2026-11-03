@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:00:11.072864+00:00
+Updated: 2026-11-03T20:01:37.720395+00:00
 
-Latest verified checkpoint: **1171**. Goal: **active**.
+Latest verified checkpoint: **1172**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled five historical unread ranges against later authored receipts and
-four separate repair dispositions.
+Traced selected rest summary failure collapse and linked the independent Lens 12
+repair.
 
-The inherited source reads do not close connected contracts, repairs, aliases or
-other lenses.
+No live rest failure was executed; own-Lens-11 and independent contracts remain
+open.
 
 ## Working on now
 
@@ -125,8 +125,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1171 publication record](CHECKPOINT-1171.json)
-- [Saved report for checkpoint 1171](PROGRESS-1171.md)
+- [Checkpoint 1172 publication record](CHECKPOINT-1172.json)
+- [Saved report for checkpoint 1172](PROGRESS-1172.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
