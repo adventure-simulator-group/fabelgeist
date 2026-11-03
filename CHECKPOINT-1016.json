@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1016,
+  "at": "2026-11-03T14:41:14.304067+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "e0508ebd1e3384d20dc6987e1c0de5fcc0599a9207a47789a3717a8b3318fab1",
+    "verification": "d01cd9bdd4408f0cd30b1a932557c4707fdb71b7819ff9dcb2f479078b5fdceb",
+    "canonical_current": "b7dd6ce217647dc2abbaa291642de12d636e1f21c0b9523d86f17466988a3543"
+  },
+  "scope": {
+    "summary": "Qualified owned triangle preparation: finite degenerate faces intentionally produce no hit, while nondegenerate faces use a double-precision planar determinant check.",
+    "scope_limit": "Later f32 height/normal arithmetic, producer bounds and native collider acceptance remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "5a1457f64e820938d0c586f16f43984e0fcfdc8fa67a4f9c55346c1f3d03a570",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
