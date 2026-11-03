@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:08:50.960341+00:00
+Updated: 2026-11-03T01:10:20.457673+00:00
 
-Latest verified checkpoint: **561**. Goal: **active**.
+Latest verified checkpoint: **562**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all thirteen source perspectives for the presentation facade and
-traced pipeline installation through the loading-screen installer.
+Completed all thirteen source perspectives for the strategic scene module,
+including marker re-export removal, retained people and scene release.
 
-Thirteen current-source checks closed: 299 of 403 for this revision. All
-installer callers, scene ordering, native render acknowledgment and runtime
-acceptance remain open; no complete case is claimed.
+Thirteen current-source checks closed: 312 of 403 for this revision. Identity,
+venue and layer bounds, scene cleanup and runtime acceptance remain open; no
+complete case is claimed.
 
 ## Working on now
 
@@ -354,7 +354,7 @@ connected owners and remaining source perspectives.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 299 of those checks are closed. These are audit coverage obligations,
+checks; 312 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -372,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 561 publication record](CHECKPOINT-561.json)
-- [Saved report for checkpoint 561](PROGRESS-561.md)
+- [Checkpoint 562 publication record](CHECKPOINT-562.json)
+- [Saved report for checkpoint 562](PROGRESS-562.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
