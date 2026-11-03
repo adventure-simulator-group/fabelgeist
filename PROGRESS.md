@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T00:44:40.969541+00:00
+Updated: 2026-11-03T00:47:41.092742+00:00
 
-Latest verified checkpoint: **547**. Goal: **active**.
+Latest verified checkpoint: **548**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all thirteen source perspectives for the loading gate, including
-native disconnect identity and the reconnect producer.
+Completed the remaining eleven source perspectives for the shared canvas
+rectangle, tracing browser clipping, map admission, strategic consumers and
+native camera lowering.
 
-Thirteen current-source checks closed: 127 of 403 for this revision. Observer
-ordering, retry and cleanup, native failure causes, rendering and runtime
-acceptance remain open.
+Eleven current-source checks closed: 138 of 403 for this revision. Shared
+admission, resize propagation, cached cameras, native projection bounds and
+runtime acceptance remain open; no complete case is claimed.
 
 ## Working on now
 
@@ -354,7 +355,7 @@ connected owners and remaining source perspectives.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 127 of those checks are closed. These are audit coverage obligations,
+checks; 138 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -372,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 547 publication record](CHECKPOINT-547.json)
-- [Saved report for checkpoint 547](PROGRESS-547.md)
+- [Checkpoint 548 publication record](CHECKPOINT-548.json)
+- [Saved report for checkpoint 548](PROGRESS-548.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
