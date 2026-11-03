@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T19:19:33.617963+00:00
+Updated: 2026-11-03T19:21:14.823484+00:00
 
-Latest verified checkpoint: **1140**. Goal: **active**.
+Latest verified checkpoint: **1141**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Assessed existing native worker tests and decoded venue mesh conversion.
+Traced packed geometry decoding and building mesh installation.
 
-Tests were inspected, not run; malformed decoded geometry and its consumer
-remain open.
+No malformed product was executed; downstream renderer behavior remains open.
 
 ## Working on now
 
@@ -124,8 +123,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1140 publication record](CHECKPOINT-1140.json)
-- [Saved report for checkpoint 1140](PROGRESS-1140.md)
+- [Checkpoint 1141 publication record](CHECKPOINT-1141.json)
+- [Saved report for checkpoint 1141](PROGRESS-1141.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
