@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:12:58.510469+00:00
+Updated: 2026-11-03T11:14:05.251026+00:00
 
-Latest verified checkpoint: **897**. Goal: **active**.
+Latest verified checkpoint: **898**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced public body faces into indexed BVH construction, separately from saved
-binding ordinal admission.
+Reconciled public DrapeInput and BVH admission with the inherited MHR importer
+and Lens 13 garment contracts.
 
-No malformed input was executed or ordinary MHR violation established; upstream
-and canonical topology reconciliation remain open.
+Related boundaries remain distinct; exact aliases and canonical public-input
+ownership are unresolved.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 897 publication record](CHECKPOINT-897.json)
-- [Saved report for checkpoint 897](PROGRESS-897.md)
+- [Checkpoint 898 publication record](CHECKPOINT-898.json)
+- [Saved report for checkpoint 898](PROGRESS-898.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
