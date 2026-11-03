@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:07:14.946358+00:00
+Updated: 2026-11-03T13:09:23.825987+00:00
 
-Latest verified checkpoint: **966**. Goal: **active**.
+Latest verified checkpoint: **967**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,10 +18,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified recruitment merge cardinality against the separate strategic encounter
-count conversion.
+Linked an inherited Lens 13 strategic party-count observation to a distinct
+current audit obligation.
 
-Other membership writers, actual oversized-party reachability, exact aliases and
+This is not a new unique finding; practical cardinality, exact aliases and
 native acceptance remain open.
 
 ## Working on now
@@ -99,7 +99,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3848 entries. Entries and views overlap, so this is
+The canonical queue contains 3849 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 966 publication record](CHECKPOINT-966.json)
-- [Saved report for checkpoint 966](PROGRESS-966.md)
+- [Checkpoint 967 publication record](CHECKPOINT-967.json)
+- [Saved report for checkpoint 967](PROGRESS-967.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
