@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T01:00:23.924236+00:00
+Updated: 2026-11-03T01:01:53.660952+00:00
 
-Latest verified checkpoint: **557**. Goal: **active**.
+Latest verified checkpoint: **558**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed all thirteen source perspectives for map status and traced its
-relocated pipeline telemetry. Recorded that drawn coverage and sticky settled
-readiness are distinct.
+Completed all thirteen source perspectives for focused map city publication,
+comparing its pipeline source and tracing candidate replacement, coverage and
+settling.
 
-Thirteen current-source checks closed: 249 of 403 for this revision. Candidate
-rendering, reset and scheduler policy, browser acknowledgment and runtime
+Thirteen current-source checks closed: 262 of 403 for this revision. Installer
+admission, candidate GPU acknowledgment, status phase policy and runtime
 acceptance remain open; no complete case is claimed.
 
 ## Working on now
@@ -355,7 +355,7 @@ connected owners and remaining source perspectives.
 ## Coverage and verification limits
 
 The newest source-revision batch contains 31 changed paths and 403 lens/path
-checks; 249 of those checks are closed. These are audit coverage obligations,
+checks; 262 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
 The canonical queue contains 3848 entries. Entries and views overlap, so this is
@@ -373,8 +373,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 557 publication record](CHECKPOINT-557.json)
-- [Saved report for checkpoint 557](PROGRESS-557.md)
+- [Checkpoint 558 publication record](CHECKPOINT-558.json)
+- [Saved report for checkpoint 558](PROGRESS-558.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
