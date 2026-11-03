@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:22:51.218680+00:00
+Updated: 2026-11-03T22:24:45.844161+00:00
 
-Latest verified checkpoint: **1243**. Goal: **active**.
+Latest verified checkpoint: **1244**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced vambrace placement side to device joint selection and inspected codec
-test coverage.
+Traced existing catalog-bound item/placement ownership and duplicate-record
+semantics.
 
-Other codec consumers and native output remain unverified; no product test ran.
+Full P14 propagation, recipe identity policy and native validation remain open.
 
 ## Working on now
 
@@ -140,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1243 publication record](CHECKPOINT-1243.json)
-- [Saved report for checkpoint 1243](PROGRESS-1243.md)
+- [Checkpoint 1244 publication record](CHECKPOINT-1244.json)
+- [Saved report for checkpoint 1244](PROGRESS-1244.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
