@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:02:13.672671+00:00
+Updated: 2026-11-03T22:04:03.963037+00:00
 
-Latest verified checkpoint: **1231**. Goal: **active**.
+Latest verified checkpoint: **1232**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected the session-ID and participant evidence to segovb’s existing session-
-NPC reuse contract.
+Traced generated overview residents and their shared conversation and
+overlapping daily windows.
 
-The finding remains conditional; independent Lens 8 obligations, collision
-policy and native boundaries stay open.
+Successful live co-presence and any session-ID collision remain unverified.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1231 publication record](CHECKPOINT-1231.json)
-- [Saved report for checkpoint 1231](PROGRESS-1231.md)
+- [Checkpoint 1232 publication record](CHECKPOINT-1232.json)
+- [Saved report for checkpoint 1232](PROGRESS-1232.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
