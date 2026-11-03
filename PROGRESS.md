@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T08:38:14.506171+00:00
+Updated: 2026-11-03T08:39:58.617972+00:00
 
-Latest verified checkpoint: **778**. Goal: **active**.
+Latest verified checkpoint: **779**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the corrective numeric test and fixture across thirteen perspectives,
-retaining missing 32-bit index coverage.
+Traced mesh and rig count construction and connected a related cast-before-
+lookup question in skin and blend-shape inputs.
 
-The older batch retains 1406 pending checks. Tests were not run; supported
-targets, input policy, native behavior, aliases and broader audit remain open.
+Target support, asset provenance, separate index policies, aliases and native
+acceptance remain open; no affected asset or runtime failure is claimed.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 778 publication record](CHECKPOINT-778.json)
-- [Saved report for checkpoint 778](PROGRESS-778.md)
+- [Checkpoint 779 publication record](CHECKPOINT-779.json)
+- [Saved report for checkpoint 779](PROGRESS-779.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
