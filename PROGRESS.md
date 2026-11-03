@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T21:52:53.973813+00:00
+Updated: 2026-11-03T21:54:16.286088+00:00
 
-Latest verified checkpoint: **1225**. Goal: **active**.
+Latest verified checkpoint: **1226**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced iteration and capture item constructors and the replication registration.
+Traced item ownership during reconnect and the debug world-dump allowlist and
+load mapping.
 
-Reconnect and world-load behavior, indirect mutation, fit policy and exact
-aliases remain open.
+Client mapping and visual component reconstruction remain unverified; no runtime
+incident is established.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1225 publication record](CHECKPOINT-1225.json)
-- [Saved report for checkpoint 1225](PROGRESS-1225.md)
+- [Checkpoint 1226 publication record](CHECKPOINT-1226.json)
+- [Saved report for checkpoint 1226](PROGRESS-1226.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
