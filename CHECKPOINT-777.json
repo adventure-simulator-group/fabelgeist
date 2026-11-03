@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 777,
+  "at": "2026-11-03T08:36:38.358497+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "7dab4de861b736479c332df8b943ec229d0673d22a1318b6ab2e79789a56c418",
+    "verification": "73350a2fe8dc36c0b0482813e291d9ab219a8ebac3d307141fa3a95b306f9111",
+    "canonical_current": "07c7003b4bfb4d93152772af1e4ee5b400c6619132340a87e10344c696e0c932"
+  },
+  "scope": {
+    "summary": "Read the corrective numeric test and expected output, and linked its index-coverage limits to the existing extent admission record.",
+    "scope_limit": "The authored test excludes wasm32 and does not cover values that truncate into range on 32-bit. It was not run; target support and policy remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "f2816e82f3bbc488b501ae6c03e27c479f48b6969a262aa5637879cc6b010d54",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
