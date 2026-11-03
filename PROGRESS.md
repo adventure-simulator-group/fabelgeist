@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T22:19:25.908717+00:00
+Updated: 2026-11-03T22:21:17.293187+00:00
 
-Latest verified checkpoint: **1241**. Goal: **active**.
+Latest verified checkpoint: **1242**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the separate vambrace recipe identity path and rechecked the remote
-main revision.
+Traced vambrace design encoding, hash and left/right placement requirements.
 
-The two design contracts are not automatically aliases; recipe identity policy
-and consumers remain open.
+Bracer codec consumers and native fit mapping remain open; no compatibility path
+is required.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1241 publication record](CHECKPOINT-1241.json)
-- [Saved report for checkpoint 1241](PROGRESS-1241.md)
+- [Checkpoint 1242 publication record](CHECKPOINT-1242.json)
+- [Saved report for checkpoint 1242](PROGRESS-1242.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
