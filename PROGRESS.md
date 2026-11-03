@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:55:06.100584+00:00
+Updated: 2026-11-03T05:57:05.352530+00:00
 
-Latest verified checkpoint: **674**. Goal: **active**.
+Latest verified checkpoint: **675**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the locked YAML-to-usize conversion for a grass tuft count of 2^31 and
-linked it to the existing topology capacity record.
+Read the shipped grass counts and the actual tall-grass, finite-coordinate and
+slope gates preceding the topology arithmetic.
 
-Complete configuration and eligible-cell reachability remain source questions;
-no example or runtime test was executed.
+The shipped counts are small. A modified complete configuration and eligible
+terrain witness have not been executed or fully qualified.
 
 ## Working on now
 
@@ -103,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 674 publication record](CHECKPOINT-674.json)
-- [Saved report for checkpoint 674](PROGRESS-674.md)
+- [Checkpoint 675 publication record](CHECKPOINT-675.json)
+- [Saved report for checkpoint 675](PROGRESS-675.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
