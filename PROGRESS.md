@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T05:35:15.957579+00:00
+Updated: 2026-11-03T05:36:50.866066+00:00
 
-Latest verified checkpoint: **659**. Goal: **active**.
+Latest verified checkpoint: **660**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced chunk upload through locked Bevy and wgpu buffer APIs and identified the
-device’s maximum buffer-size boundary.
+Traced understory placement to its 3.2-metre candidate lattice and the ground
+and slope filters that precede chunking.
 
-The project’s negotiated device limit, failure handling and reachable chunk
-sizes remain unverified. The documented default is not claimed as the active
-limit.
+A numerical per-chunk bound still depends on terrain admission, floating-point
+behavior and RNG range. Other producers and device failure handling remain open;
+no product tests ran.
 
 ## Working on now
 
@@ -372,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 659 publication record](CHECKPOINT-659.json)
-- [Saved report for checkpoint 659](PROGRESS-659.md)
+- [Checkpoint 660 publication record](CHECKPOINT-660.json)
+- [Saved report for checkpoint 660](PROGRESS-660.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
