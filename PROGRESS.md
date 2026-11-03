@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:28:56.525744+00:00
+Updated: 2026-11-03T20:30:38.820570+00:00
 
-Latest verified checkpoint: **1185**. Goal: **active**.
+Latest verified checkpoint: **1186**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced character clock initialization and web query semantics; linked a
-presence-clock repair to the existing chronology owners.
+Traced clock-view visibility, daily presence bounds and native suppression
+requirements.
 
-Normal creation initializes a clock; missing-row reachability and live query
-failures remain unproven.
+The noon-versus-midnight effect is conditional source analysis; no live query
+failure or gameplay incident was reproduced.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1185 publication record](CHECKPOINT-1185.json)
-- [Saved report for checkpoint 1185](PROGRESS-1185.md)
+- [Checkpoint 1186 publication record](CHECKPOINT-1186.json)
+- [Saved report for checkpoint 1186](PROGRESS-1186.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
