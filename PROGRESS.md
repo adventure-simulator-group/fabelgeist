@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T09:18:45.340051+00:00
+Updated: 2026-11-03T09:20:09.143919+00:00
 
-Latest verified checkpoint: **805**. Goal: **active**.
+Latest verified checkpoint: **806**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the earlier combat configuration delta across thirteen perspectives
-and separately retained the later runtime reexport.
+Compared the asset-backed skeletal proportion test and its typed parameter and
+vertex projections.
 
-The older batch retains 1030 pending checks. Child validation, runtime caches,
-authority and gameplay acceptance remain open.
+The ignored test was not run; asset-backed acceptance, corrective-enabled paths,
+geometry identity and native behavior remain open.
 
 ## Working on now
 
@@ -107,8 +107,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 805 publication record](CHECKPOINT-805.json)
-- [Saved report for checkpoint 805](PROGRESS-805.md)
+- [Checkpoint 806 publication record](CHECKPOINT-806.json)
+- [Saved report for checkpoint 806](PROGRESS-806.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
