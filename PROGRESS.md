@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T11:37:01.524829+00:00
+Updated: 2026-11-03T11:39:14.889937+00:00
 
-Latest verified checkpoint: **915**. Goal: **active**.
+Latest verified checkpoint: **916**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced public drape input, creator construction and wardrobe validation to
-refine the body correspondence ownership boundary.
+Requalified the reopened P09 skin ordinal producer gap against current MHR and
+shared rig source, identifying the existing typed packing owner.
 
-Concrete carrier and arbitrary-input policy remain unresolved; source evidence
-only, with no product or runtime change.
+One producer only; other P09 receivers, weight admission, global aliases and
+product validation remain open.
 
 ## Working on now
 
@@ -114,8 +114,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 915 publication record](CHECKPOINT-915.json)
-- [Saved report for checkpoint 915](PROGRESS-915.md)
+- [Checkpoint 916 publication record](CHECKPOINT-916.json)
+- [Saved report for checkpoint 916](PROGRESS-916.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
