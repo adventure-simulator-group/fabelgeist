@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1010,
+  "at": "2026-11-03T14:28:32.244584+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "29b5924402c3804b30f62eeb25609b61b88f89dc101761b99bba9a8a16bde850",
+    "verification": "f34982bad1145df2894fd9be76f437673a651a7fcad56c4cb838f248840d8576",
+    "canonical_current": "906c7a6cbbc1eba377219c0958839b900ed5c9295dc7dbdc1a72bda8f58fa07b"
+  },
+  "scope": {
+    "summary": "Traced a direct dispatcher terrain consumer: optional landform selection uses height queries on an ordinary 1-metre playable grid.",
+    "scope_limit": "Height source bounds, other producers and exact error policy remain open; no landform omission was observed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "da4c8782e17d13a2f58626867e15c83d9adbe2c939e3a81759022996a59bdd09",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
