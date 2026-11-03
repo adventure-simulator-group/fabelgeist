@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:38:56.921533+00:00
+Updated: 2026-11-03T20:40:27.496973+00:00
 
-Latest verified checkpoint: **1190**. Goal: **active**.
+Latest verified checkpoint: **1191**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified zero fallback and NaN propagation in an isolated selected-source armor
-blend probe.
+Connected the saved skin reminder to the MHR admission and shared reduction
+owners, preserving separate fixture and armor evidence.
 
-Four isolated tests passed with stand-in rig types; production reachability and
-GPU behavior remain untested.
+Unweighted policy, full family reconciliation and production validation remain
+open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1190 publication record](CHECKPOINT-1190.json)
-- [Saved report for checkpoint 1190](PROGRESS-1190.md)
+- [Checkpoint 1191 publication record](CHECKPOINT-1191.json)
+- [Saved report for checkpoint 1191](PROGRESS-1191.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
