@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T13:30:09.285892+00:00
+Updated: 2026-11-03T13:31:46.270329+00:00
 
-Latest verified checkpoint: **979**. Goal: **active**.
+Latest verified checkpoint: **980**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,12 +18,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected the interior partial-install finding to two overlapping Lens 12
-records, preserving their broader prepared-plan and native publication
-questions.
+Traced venue worker plan association: normal generation returns the plan used to
+furnish, while product admission checks program identity without validating the
+interior against the plan.
 
-Worker plan identity, supported failures, wider aliases, API policy and native
-validation remain open.
+Worker trust, supported failures, API atomicity, wider aliases and native
+validation remain open; no mismatched product was observed.
 
 ## Working on now
 
@@ -115,8 +115,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 979 publication record](CHECKPOINT-979.json)
-- [Saved report for checkpoint 979](PROGRESS-979.md)
+- [Checkpoint 980 publication record](CHECKPOINT-980.json)
+- [Saved report for checkpoint 980](PROGRESS-980.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
