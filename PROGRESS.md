@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T06:51:44.923210+00:00
+Updated: 2026-11-03T06:53:28.178090+00:00
 
-Latest verified checkpoint: **713**. Goal: **active**.
+Latest verified checkpoint: **714**. Goal: **active**.
 
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
@@ -18,11 +18,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced debug restore scheduling, terrain observer registration and required
-scatter query components.
+Reviewed debug dump parent tests and found no ground or scatter restoration
+assertion in that module.
 
-Other plugin hooks, runtime restoration, resource limits and broader audit
-remain open.
+Child tests, other hooks, runtime restoration and broader audit remain open;
+tests were read, not executed.
 
 ## Working on now
 
@@ -103,8 +103,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 713 publication record](CHECKPOINT-713.json)
-- [Saved report for checkpoint 713](PROGRESS-713.md)
+- [Checkpoint 714 publication record](CHECKPOINT-714.json)
+- [Saved report for checkpoint 714](PROGRESS-714.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

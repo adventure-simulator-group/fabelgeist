@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 714,
+  "at": "2026-11-03T06:53:02.133676+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "feb7f81fde7004602acd97fd62df2b1834b33eb25e3c3f5eae6a72e4941ee2d4",
+    "verification": "867b3bf42baf01986d0690162c87cbd46a0a3d82c72843593cbca014ca6b1336",
+    "canonical_current": "ebea72ead661f1fc77fc7ef228dc98958db00d46686748c71ba85752f0491ef6"
+  },
+  "scope": {
+    "summary": "Reviewed debug dump parent tests and found no ground or scatter restoration assertion in that module.",
+    "scope_limit": "Child tests, other hooks, runtime restoration and broader audit remain open; tests were read, not executed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "7a654e903e9aade5f29d9d2c39b16f5237e243a4a063ef11654ef8f66ecb695e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
