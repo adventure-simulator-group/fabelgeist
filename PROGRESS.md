@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T20:13:00.286236+00:00
+Updated: 2026-11-03T20:14:31.356711+00:00
 
-Latest verified checkpoint: **1178**. Goal: **active**.
+Latest verified checkpoint: **1179**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -11,7 +11,7 @@ Latest verified checkpoint: **1178**. Goal: **active**.
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
 | Queue entries explicitly marked source-discovery closed | 31 / 3,849 marked | 3,818 other entries |
-| Entries flagged for repair after the audit gate | 25 recorded | Implementation gate open |
+| Entries flagged for repair after the audit gate | 26 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,9 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Assessed native and UI tests for prayer training and preview label independence.
+Linked the retained prayer preview finding to its scoped repair while preserving
+open family and lens duties.
 
-Tests were inspected, not executed; repair and global aliases remain open.
+No incorrect current preview or runtime repair was demonstrated; global aliases
+and other lenses remain open.
 
 ## Working on now
 
@@ -139,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1178 publication record](CHECKPOINT-1178.json)
-- [Saved report for checkpoint 1178](PROGRESS-1178.md)
+- [Checkpoint 1179 publication record](CHECKPOINT-1179.json)
+- [Saved report for checkpoint 1179](PROGRESS-1179.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
