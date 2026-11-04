@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:55:27.927302+00:00
+Updated: 2026-11-04T13:56:34.566810+00:00
 
-Latest verified checkpoint: **1741**. Goal: **active**.
+Latest verified checkpoint: **1742**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced book target presentation, reading access and selected merchant
-restrictions.
+Attached current book target consumers to the existing connected ownership
+obligation.
 
-Runtime parity, other consumers, exact aliases and the broader audit remain
+Historical revisions, runtime parity, exact aliases and the broader audit remain
 open.
 
 ## Working on now
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1741 publication record](CHECKPOINT-1741.json)
-- [Saved report for checkpoint 1741](PROGRESS-1741.md)
+- [Checkpoint 1742 publication record](CHECKPOINT-1742.json)
+- [Saved report for checkpoint 1742](PROGRESS-1742.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
