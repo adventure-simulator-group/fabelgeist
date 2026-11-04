@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T08:59:28.179946+00:00
+Updated: 2026-11-04T09:00:56.797563+00:00
 
-Latest verified checkpoint: **1570**. Goal: **active**.
+Latest verified checkpoint: **1571**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Checked curated program defaults and service mapping: fortified service recipes
-and rear-range lots occupy different city selection paths.
+Reconciled four tower audit checks, distinguishing profile-specific minima and
+geometric consistency from universal input admission.
 
-One partial Lens 13 observation; complete program mutation, runtime behavior,
-aliases, implementation and collision acceptance remain open.
+One partial Lens 13 observation; universal admission, supported modes, aliases,
+implementation and collision acceptance remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1570 publication record](CHECKPOINT-1570.json)
-- [Saved report for checkpoint 1570](PROGRESS-1570.md)
+- [Checkpoint 1571 publication record](CHECKPOINT-1571.json)
+- [Saved report for checkpoint 1571](PROGRESS-1571.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
