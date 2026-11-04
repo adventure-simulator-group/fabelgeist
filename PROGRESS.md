@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:46:38.775759+00:00
+Updated: 2026-11-04T11:47:46.841668+00:00
 
-Latest verified checkpoint: **1662**. Goal: **active**.
+Latest verified checkpoint: **1663**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Narrowed temporary-character creation reachability with a bounded source search
-and tactical connection inspection.
+Distinguished the reset-before-initial-seed path from the live-database reseed
+path.
 
-One connected source question narrowed; dynamic or external invocation,
-projection, receipt validation and the broader audit remain open.
+One roster-consistency question narrowed; intervening state changes, custom
+launch policy and the broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1662 publication record](CHECKPOINT-1662.json)
-- [Saved report for checkpoint 1662](PROGRESS-1662.md)
+- [Checkpoint 1663 publication record](CHECKPOINT-1663.json)
+- [Saved report for checkpoint 1663](PROGRESS-1663.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
