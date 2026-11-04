@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:31:40.756200+00:00
+Updated: 2026-11-04T19:33:33.525601+00:00
 
-Latest verified checkpoint: **1905**. Goal: **active**.
+Latest verified checkpoint: **1906**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced scene cleanup to cloud visibility.
+Traced cloud layer-to-lattice coordinates.
 
-Transition scheduling, browser render and independent lenses remain open.
+Input and lifetime bounds, live delivery and independent lenses remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1905 publication record](CHECKPOINT-1905.json)
-- [Saved report for checkpoint 1905](PROGRESS-1905.md)
+- [Checkpoint 1906 publication record](CHECKPOINT-1906.json)
+- [Saved report for checkpoint 1906](PROGRESS-1906.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
