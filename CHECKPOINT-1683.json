@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1683,
+  "at": "2026-11-04T12:20:24.704842+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ca077074c5c4d5d8cdfde406dfc865e4939ecc7432b50f944d6dca91ed674482",
+    "verification": "4726cb95f07f3377212d782b92519c799ae78e1af658eb31f819d907d7e52b88",
+    "canonical_current": "54a2590b6ea138f576a9c3b88544cf3e430559541247944bbf62d0b5263b14be"
+  },
+  "scope": {
+    "summary": "Traced zero-duration mission timeout through the pinned timer and terminal ordering.",
+    "scope_limit": "Zero-timeout effect is source-level; CLI admission, ordering in a live run, aliases and the broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e217e7b123c197a0e374dd2f524ee285cf4f17cb550d27e2c821504190606168",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

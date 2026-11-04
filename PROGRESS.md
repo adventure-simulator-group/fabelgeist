@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:18:42.129924+00:00
+Updated: 2026-11-04T12:20:34.069554+00:00
 
-Latest verified checkpoint: **1682**. Goal: **active**.
+Latest verified checkpoint: **1683**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced mission-timeout construction into the same native duration conversion as
-reconnect grace.
+Traced zero-duration mission timeout through the pinned timer and terminal
+ordering.
 
-Timeout-disabled mode is separate; CLI admission, aliases, runtime and the
-broader audit remain open.
+Zero-timeout effect is source-level; CLI admission, ordering in a live run,
+aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -151,8 +151,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1682 publication record](CHECKPOINT-1682.json)
-- [Saved report for checkpoint 1682](PROGRESS-1682.md)
+- [Checkpoint 1683 publication record](CHECKPOINT-1683.json)
+- [Saved report for checkpoint 1683](PROGRESS-1683.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
