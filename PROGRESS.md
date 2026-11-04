@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:52:18.796643+00:00
+Updated: 2026-11-04T13:53:58.814186+00:00
 
-Latest verified checkpoint: **1739**. Goal: **active**.
+Latest verified checkpoint: **1740**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced validated item catalog documents into the embedded runtime catalog.
+Compared book terrain identifiers with canonical skill identities and related
+ledger obligations.
 
-Alternate constructors, other consumers, exact aliases and the broader audit
-remain open.
+Other consumers, exact aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -165,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1739 publication record](CHECKPOINT-1739.json)
-- [Saved report for checkpoint 1739](PROGRESS-1739.md)
+- [Checkpoint 1740 publication record](CHECKPOINT-1740.json)
+- [Saved report for checkpoint 1740](PROGRESS-1740.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
