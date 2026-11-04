@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:05:41.021413+00:00
+Updated: 2026-11-04T00:07:30.437116+00:00
 
-Latest verified checkpoint: **1300**. Goal: **active**.
+Latest verified checkpoint: **1301**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified pinned SATS sequence parsing rejects missing expected fields,
-conditional on the HTTP server using that decoder.
+Found all 59 current role titles are strings while the build validator does not
+check the type of an explicitly provided title.
 
-Server decoder identity, runtime reachability and aliases remain open; no
-population credit is claimed.
+Native decoder, cross-lens disposition and aliases remain open; no population
+credit is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1300 publication record](CHECKPOINT-1300.json)
-- [Saved report for checkpoint 1300](PROGRESS-1300.md)
+- [Checkpoint 1301 publication record](CHECKPOINT-1301.json)
+- [Saved report for checkpoint 1301](PROGRESS-1301.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
