@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:29:16.891870+00:00
+Updated: 2026-11-04T17:30:54.050954+00:00
 
-Latest verified checkpoint: **1843**. Goal: **active**.
+Latest verified checkpoint: **1844**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the controller snapshot and selected consumers.
+Clarified future rollback intent and selected client input path.
 
-Replay semantics, other consumers, aliases and runtime remain open.
+Future replay policy, other consumers, aliases and runtime remain open.
 
 ## Working on now
 
@@ -194,8 +194,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1843 publication record](CHECKPOINT-1843.json)
-- [Saved report for checkpoint 1843](PROGRESS-1843.md)
+- [Checkpoint 1844 publication record](CHECKPOINT-1844.json)
+- [Saved report for checkpoint 1844](PROGRESS-1844.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
