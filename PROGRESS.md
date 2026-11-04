@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T01:41:41.790246+00:00
+Updated: 2026-11-04T01:44:19.360422+00:00
 
-Latest verified checkpoint: **1329**. Goal: **active**.
+Latest verified checkpoint: **1330**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced resident creation, organization admission authority and adult promotion.
+Traced catalog admission to impact arithmetic and identified a bounded overflow-
+prone combination.
 
-A player-facing stale membership remains unproven; no population credit is
-claimed.
+Actual authenticated contact reachability and historical obligations remain
+open; no population credit is claimed.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1329 publication record](CHECKPOINT-1329.json)
-- [Saved report for checkpoint 1329](PROGRESS-1329.md)
+- [Checkpoint 1330 publication record](CHECKPOINT-1330.json)
+- [Saved report for checkpoint 1330](PROGRESS-1330.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
