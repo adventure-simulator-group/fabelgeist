@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:13:56.376182+00:00
+Updated: 2026-11-04T12:15:34.724817+00:00
 
-Latest verified checkpoint: **1679**. Goal: **active**.
+Latest verified checkpoint: **1680**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the attached long-option value path in the pinned clap lexer and
-command parser.
+Connected attached option routing, float parsing and duration conversion into a
+conditional source chain.
 
-Attached-value routing inspected; exact type inference, other token forms,
-runtime and the broader audit remain open.
+Exact parser selection, installed distribution provenance, runtime and the
+broader audit remain open.
 
 ## Working on now
 
@@ -151,8 +151,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1679 publication record](CHECKPOINT-1679.json)
-- [Saved report for checkpoint 1679](PROGRESS-1679.md)
+- [Checkpoint 1680 publication record](CHECKPOINT-1680.json)
+- [Saved report for checkpoint 1680](PROGRESS-1680.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
