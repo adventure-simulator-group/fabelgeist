@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:18:57.749884+00:00
+Updated: 2026-11-04T10:20:35.183723+00:00
 
-Latest verified checkpoint: **1617**. Goal: **active**.
+Latest verified checkpoint: **1618**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,12 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced selected generated objective construction and distinguished it from
-manifest deserialization; clarified the implementation gate in the quantitative
-table.
+Traced generated outcome and dialogue manifest replay and objective matching,
+including selected source-level test assertions.
 
-One partial Lens 6 assessment; decoded manifest admission, other producers and
-the broader audit remain open.
+One partial Lens 6 assessment; manual cases, other consumers and the broader
+audit remain open; tests were inspected but not run.
 
 ## Working on now
 
@@ -147,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1617 publication record](CHECKPOINT-1617.json)
-- [Saved report for checkpoint 1617](PROGRESS-1617.md)
+- [Checkpoint 1618 publication record](CHECKPOINT-1618.json)
+- [Saved report for checkpoint 1618](PROGRESS-1618.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
