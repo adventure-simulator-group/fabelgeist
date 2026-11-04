@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:02:31.927659+00:00
+Updated: 2026-11-04T13:03:50.547810+00:00
 
-Latest verified checkpoint: **1706**. Goal: **active**.
+Latest verified checkpoint: **1707**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned reducer rollback semantics for the ordinary membership join
-path.
+Traced role assignment identity and selected membership updates.
 
-Existing data integrity, other producers, runtime behavior, aliases and the
+Historical data integrity, other producers, runtime behavior, aliases and the
 broader audit remain open.
 
 ## Working on now
@@ -166,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1706 publication record](CHECKPOINT-1706.json)
-- [Saved report for checkpoint 1706](PROGRESS-1706.md)
+- [Checkpoint 1707 publication record](CHECKPOINT-1707.json)
+- [Saved report for checkpoint 1707](PROGRESS-1707.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
