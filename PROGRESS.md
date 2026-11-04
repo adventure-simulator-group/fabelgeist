@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:29:59.892536+00:00
+Updated: 2026-11-04T09:31:10.199225+00:00
 
-Latest verified checkpoint: **1592**. Goal: **active**.
+Latest verified checkpoint: **1593**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected disconnect expiry and terminal system registration and added a
-concrete cross-boundary outcome acceptance case.
+Assessed the full mission systems body independently for Lens 8 and recorded
+behavior that later refactoring must preserve.
 
-One partial Lens 9 assessment; indirect schedule ordering, reducer completion,
-receipt checks and broader outcome contracts remain open.
+One partial Lens 8 assessment; connected implementations, acceptance and broader
+audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1592 publication record](CHECKPOINT-1592.json)
-- [Saved report for checkpoint 1592](PROGRESS-1592.md)
+- [Checkpoint 1593 publication record](CHECKPOINT-1593.json)
+- [Saved report for checkpoint 1593](PROGRESS-1593.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
