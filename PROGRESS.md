@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:00:18.206842+00:00
+Updated: 2026-11-04T11:02:29.564327+00:00
 
-Latest verified checkpoint: **1636**. Goal: **active**.
+Latest verified checkpoint: **1637**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Registered and assessed the mission-systems aggregate-state scope at three exact
-revisions.
+Traced mission enrollment, outcome-hold and terminal lifecycle variants and
+their retained data.
 
-One partial Lens 5 assessment; state internals, native boundaries and the
-broader audit remain open.
+One partial Lens 5 assessment; connected native boundaries and the broader audit
+remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1636 publication record](CHECKPOINT-1636.json)
-- [Saved report for checkpoint 1636](PROGRESS-1636.md)
+- [Checkpoint 1637 publication record](CHECKPOINT-1637.json)
+- [Saved report for checkpoint 1637](PROGRESS-1637.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
