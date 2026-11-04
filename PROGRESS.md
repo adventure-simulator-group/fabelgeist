@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:26:37.537917+00:00
+Updated: 2026-11-04T20:28:25.906304+00:00
 
-Latest verified checkpoint: **1935**. Goal: **active**.
+Latest verified checkpoint: **1936**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced finite-bone and plan completeness checks.
+Traced jitter timestamps, segment coverage and acceptance.
 
-Chronology, non-bone fields, native rotation, aliases and independent lenses
-remain open.
+Actual chronology, measurement coverage, aliases and independent lenses remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1935 publication record](CHECKPOINT-1935.json)
-- [Saved report for checkpoint 1935](PROGRESS-1935.md)
+- [Checkpoint 1936 publication record](CHECKPOINT-1936.json)
+- [Saved report for checkpoint 1936](PROGRESS-1936.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
