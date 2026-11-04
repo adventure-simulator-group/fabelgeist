@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:25:10.996792+00:00
+Updated: 2026-11-04T00:27:22.906107+00:00
 
-Latest verified checkpoint: **1309**. Goal: **active**.
+Latest verified checkpoint: **1310**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced empty role titles through public role selection, social precedence and
-dialogue fallback.
+Found ten repeated public role ordering keys across organizations and recorded a
+conditional scoped-identity tie policy.
 
-Independent extension disposition and aliases remain open; no population credit
-is claimed.
+Simultaneous assignments, iteration semantics and aliases remain open; no
+population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1309 publication record](CHECKPOINT-1309.json)
-- [Saved report for checkpoint 1309](PROGRESS-1309.md)
+- [Checkpoint 1310 publication record](CHECKPOINT-1310.json)
+- [Saved report for checkpoint 1310](PROGRESS-1310.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
