@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:53:26.389223+00:00
+Updated: 2026-11-04T19:55:36.758217+00:00
 
-Latest verified checkpoint: **1917**. Goal: **active**.
+Latest verified checkpoint: **1918**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **1917**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 439 / 3,849 marked | 3,410 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 413 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 3 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 4 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Bounded weather interval and history arithmetic.
+Probed weather field advection at extreme strategic time.
 
-Other weather arithmetic, policy and independent lenses remain open.
+Release behavior, live reachability and independent lenses remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1917 publication record](CHECKPOINT-1917.json)
-- [Saved report for checkpoint 1917](PROGRESS-1917.md)
+- [Checkpoint 1918 publication record](CHECKPOINT-1918.json)
+- [Saved report for checkpoint 1918](PROGRESS-1918.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
