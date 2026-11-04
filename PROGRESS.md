@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T16:17:02.087897+00:00
+Updated: 2026-11-04T16:19:06.365683+00:00
 
-Latest verified checkpoint: **1827**. Goal: **active**.
+Latest verified checkpoint: **1828**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned SATS unit and JSON tuple value serialization.
+Qualified current breastplate anime gauge validation order.
 
-Reducer transport, end-to-end execution and aliases remain open.
+Actual input producer, runtime, aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -189,8 +189,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1827 publication record](CHECKPOINT-1827.json)
-- [Saved report for checkpoint 1827](PROGRESS-1827.md)
+- [Checkpoint 1828 publication record](CHECKPOINT-1828.json)
+- [Saved report for checkpoint 1828](PROGRESS-1828.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
