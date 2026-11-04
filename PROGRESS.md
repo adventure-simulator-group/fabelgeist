@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:39:53.519785+00:00
+Updated: 2026-11-04T22:41:45.373311+00:00
 
-Latest verified checkpoint: **2005**. Goal: **active**.
+Latest verified checkpoint: **2006**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded the fireplace descendant scenario as conditional.
+Traced presentation, simulator and test item producers.
 
-Normal mission reachability, remaining mass consumers, runtime validation and
-aliases remain open.
+Other item uses, effective mass design, runtime validation and aliases remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2005 publication record](CHECKPOINT-2005.json)
-- [Saved report for checkpoint 2005](PROGRESS-2005.md)
+- [Checkpoint 2006 publication record](CHECKPOINT-2006.json)
+- [Saved report for checkpoint 2006](PROGRESS-2006.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
