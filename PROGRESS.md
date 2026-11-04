@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:52:17.464270+00:00
+Updated: 2026-11-04T22:53:39.974010+00:00
 
-Latest verified checkpoint: **2010**. Goal: **active**.
+Latest verified checkpoint: **2011**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,9 +10,9 @@ Latest verified checkpoint: **2010**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 444 / 3,849 marked | 3,405 other entries |
+| Queue entries explicitly marked source-discovery closed | 445 / 3,849 marked | 3,404 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
-| Entries with explicit repair status | 417 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 12 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped PointGrid radius discovery with an owned repair.
+Closed scoped PointGrid count and search-work discovery with owned repairs.
 
-Zero-count and resource policies, other lenses and runtime validation remain
-open.
+Final policies, independent lenses and runtime validation remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2010 publication record](CHECKPOINT-2010.json)
-- [Saved report for checkpoint 2010](PROGRESS-2010.md)
+- [Checkpoint 2011 publication record](CHECKPOINT-2011.json)
+- [Saved report for checkpoint 2011](PROGRESS-2011.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
