@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T16:14:36.759002+00:00
+Updated: 2026-11-04T16:17:02.087897+00:00
 
-Latest verified checkpoint: **1826**. Goal: **active**.
+Latest verified checkpoint: **1827**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Corrected two current schedule dispositions that inherited capture alias
-wording.
+Qualified pinned SATS unit and JSON tuple value serialization.
 
-Simulation admission, independent lenses, global aliases and the broader audit
-remain open.
+Reducer transport, end-to-end execution and aliases remain open.
 
 ## Working on now
 
@@ -191,8 +189,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1826 publication record](CHECKPOINT-1826.json)
-- [Saved report for checkpoint 1826](PROGRESS-1826.md)
+- [Checkpoint 1827 publication record](CHECKPOINT-1827.json)
+- [Saved report for checkpoint 1827](PROGRESS-1827.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
