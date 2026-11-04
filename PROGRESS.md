@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:02:03.783711+00:00
+Updated: 2026-11-04T21:03:33.818263+00:00
 
-Latest verified checkpoint: **1955**. Goal: **active**.
+Latest verified checkpoint: **1956**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pool page supporting query failures and presentation.
+Traced pool observations into strategic encumbrance and target projections.
 
-Live outage presentation, other queries and global aliases remain open.
+Live failure presentation, combat-wheel relationship and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1955 publication record](CHECKPOINT-1955.json)
-- [Saved report for checkpoint 1955](PROGRESS-1955.md)
+- [Checkpoint 1956 publication record](CHECKPOINT-1956.json)
+- [Saved report for checkpoint 1956](PROGRESS-1956.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
