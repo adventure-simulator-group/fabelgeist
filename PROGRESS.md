@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:35:14.673430+00:00
+Updated: 2026-11-04T12:36:48.641384+00:00
 
-Latest verified checkpoint: **1691**. Goal: **active**.
+Latest verified checkpoint: **1692**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared native and browser project-root path identities with read/write
-matching.
+Traced browser root-name prefix collisions into read and write traversal.
 
-Component-boundary and URI policy, platform runtime, exact aliases and the
-broader audit remain open.
+Supported URI policy, browser behavior, exact aliases and the broader audit
+remain open.
 
 ## Working on now
 
@@ -151,8 +150,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1691 publication record](CHECKPOINT-1691.json)
-- [Saved report for checkpoint 1691](PROGRESS-1691.md)
+- [Checkpoint 1692 publication record](CHECKPOINT-1692.json)
+- [Saved report for checkpoint 1692](PROGRESS-1692.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
