@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:44:41.827009+00:00
+Updated: 2026-11-04T12:47:34.644659+00:00
 
-Latest verified checkpoint: **1697**. Goal: **active**.
+Latest verified checkpoint: **1698**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced staged project-root writes and reconciled the existing Unix root round-
-trip entry.
+Qualified 32-bit FBX vertex-index truncation against the existing skin error
+entry.
 
-Write atomicity policy, browser behavior, global aliases and the broader audit
+Supported malformed assets, target runtime, global aliases and the broader audit
 remain open.
 
 ## Working on now
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1697 publication record](CHECKPOINT-1697.json)
-- [Saved report for checkpoint 1697](PROGRESS-1697.md)
+- [Checkpoint 1698 publication record](CHECKPOINT-1698.json)
+- [Saved report for checkpoint 1698](PROGRESS-1698.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
