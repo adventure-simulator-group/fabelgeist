@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:05:43.157071+00:00
+Updated: 2026-11-04T11:07:46.524870+00:00
 
-Latest verified checkpoint: **1639**. Goal: **active**.
+Latest verified checkpoint: **1640**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified the no-current-candidate branch that can return reducer success after
-strategic mission failure.
+Traced candidate creation and completion-time revalidation for the no-current-
+candidate branch.
 
-One partial Lens 5 assessment; candidate reachability, callback semantics and
+One partial Lens 5 assessment; live candidate invalidation, runtime behavior and
 the broader audit remain open.
 
 ## Working on now
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1639 publication record](CHECKPOINT-1639.json)
-- [Saved report for checkpoint 1639](PROGRESS-1639.md)
+- [Checkpoint 1640 publication record](CHECKPOINT-1640.json)
+- [Saved report for checkpoint 1640](PROGRESS-1640.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
