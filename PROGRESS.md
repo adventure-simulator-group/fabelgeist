@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:05:48.174181+00:00
+Updated: 2026-11-04T23:07:46.774070+00:00
 
-Latest verified checkpoint: **2018**. Goal: **active**.
+Latest verified checkpoint: **2019**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected current MHR asset entry points to corrective tensor loading.
+Separated current WGPU manifest declarations from locked Torch backend packages.
 
-Historical Torch scope, other model paths and runtime validation remain open.
+Resolved backend features, other model paths and runtime validation remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2018 publication record](CHECKPOINT-2018.json)
-- [Saved report for checkpoint 2018](PROGRESS-2018.md)
+- [Checkpoint 2019 publication record](CHECKPOINT-2019.json)
+- [Saved report for checkpoint 2019](PROGRESS-2019.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
