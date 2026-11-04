@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T02:41:54.668954+00:00
+Updated: 2026-11-04T02:43:49.098282+00:00
 
-Latest verified checkpoint: **1358**. Goal: **active**.
+Latest verified checkpoint: **1359**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1358**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 65 / 3,849 marked | 3,784 other entries |
-| Entries flagged for repair after the audit gate | 52 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 66 / 3,849 marked | 3,783 other entries |
+| Entries flagged for repair after the audit gate | 53 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned the CPU ray query upper-endpoint inconsistency through finite
-garment and shell consumers, with an evidence-linked repair plan.
+Dispositioned public ray direction and cached reciprocal ownership with a
+connected repair plan and examined existing vector and direction error types.
 
-No live endpoint incident is claimed; tie policy, direction cache, GPU client
-contracts, other lenses, aliases and runtime validation remain open.
+No caller mutation or runtime miss established; direction admission and
+normalization, independent lenses, aliases and validation remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1358 publication record](CHECKPOINT-1358.json)
-- [Saved report for checkpoint 1358](PROGRESS-1358.md)
+- [Checkpoint 1359 publication record](CHECKPOINT-1359.json)
+- [Saved report for checkpoint 1359](PROGRESS-1359.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
