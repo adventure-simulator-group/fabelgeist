@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:43:44.217635+00:00
+Updated: 2026-11-04T22:47:13.564926+00:00
 
-Latest verified checkpoint: **2007**. Goal: **active**.
+Latest verified checkpoint: **2008**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fractional and food amount ownership and tactical replication.
+Compared the current PointGrid candidate with interpolation, guide mapping and
+simulation callers.
 
-Remaining item consumers, effective mass design, runtime validation and aliases
-remain open.
+Caller impact, exact aliases and native binding remain open; no runtime
+execution.
 
 ## Working on now
 
@@ -204,8 +205,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2007 publication record](CHECKPOINT-2007.json)
-- [Saved report for checkpoint 2007](PROGRESS-2007.md)
+- [Checkpoint 2008 publication record](CHECKPOINT-2008.json)
+- [Saved report for checkpoint 2008](PROGRESS-2008.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
