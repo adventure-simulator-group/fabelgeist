@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:20:21.961852+00:00
+Updated: 2026-11-04T22:22:46.486106+00:00
 
-Latest verified checkpoint: **1997**. Goal: **active**.
+Latest verified checkpoint: **1998**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped condition source discovery with wheel repair and numeric policy.
+Independently qualified tactical stack mass under the numeric lens.
 
-Finite-value and zero-capacity policy, native behavior, global aliases and
-runtime validation remain open.
+All weight consumers, geometry ownership, actual loadouts and aliases remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1997 publication record](CHECKPOINT-1997.json)
-- [Saved report for checkpoint 1997](PROGRESS-1997.md)
+- [Checkpoint 1998 publication record](CHECKPOINT-1998.json)
+- [Saved report for checkpoint 1998](PROGRESS-1998.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
