@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T08:55:32.733443+00:00
+Updated: 2026-11-04T08:56:58.209104+00:00
 
-Latest verified checkpoint: **1567**. Goal: **active**.
+Latest verified checkpoint: **1568**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced compiled building collision into city recipe construction and two
-production clearance validations.
+Mapped city clearance gates and tower-producing archetypes; a rear recipe uses
+StorageRange, while front recipe selection depends on the lot.
 
-One partial Lens 13 observation; tower reachability, runtime integration,
+One partial Lens 13 observation; front-lot reachability, runtime behavior,
 supported-mode policy, aliases, implementation and collision acceptance remain
 open.
 
@@ -147,8 +147,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1567 publication record](CHECKPOINT-1567.json)
-- [Saved report for checkpoint 1567](PROGRESS-1567.md)
+- [Checkpoint 1568 publication record](CHECKPOINT-1568.json)
+- [Saved report for checkpoint 1568](PROGRESS-1568.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
