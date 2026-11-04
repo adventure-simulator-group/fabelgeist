@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:03:12.498133+00:00
+Updated: 2026-11-04T12:04:46.809004+00:00
 
-Latest verified checkpoint: **1674**. Goal: **active**.
+Latest verified checkpoint: **1675**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared dispatcher and development timeout settings for an unresolved
-enrollment.
+Corrected the loading-state assessment for zero reconnect grace and compared the
+existing zero-grace finding.
 
-One connected issue narrowed; rejection persistence, disconnect ordering,
-runtime and the broader audit remain open.
+Positive grace resets the timer while loading; zero grace can still abandon.
+Rejection behavior, runtime and the broader audit remain open.
 
 ## Working on now
 
@@ -108,6 +108,10 @@ Reconciling mission outcome and receipt contracts alongside the remaining
   participant and distinct attack instances through scheduling, cancellation,
   batching and diagnostic output.
 
+- Correction to checkpoint 1673: loading resets the empty-party duration, but
+  zero reconnect grace can still trigger abandonment. The separate zero-grace
+  finding remains open.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -147,8 +151,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1674 publication record](CHECKPOINT-1674.json)
-- [Saved report for checkpoint 1674](PROGRESS-1674.md)
+- [Checkpoint 1675 publication record](CHECKPOINT-1675.json)
+- [Saved report for checkpoint 1675](PROGRESS-1675.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

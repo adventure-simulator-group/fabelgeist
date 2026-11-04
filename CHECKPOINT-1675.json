@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1675,
+  "at": "2026-11-04T12:04:34.722847+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "82a37c33d61f7dc1a63b5db47feaa4af8522a5da6f2b8ecf641a7ddbf031fdf5",
+    "verification": "dd3eba2156da2d64ee4d878b002f5149c0fb90c2a185adc0f30a6b586ae6d47e",
+    "canonical_current": "c77b964f61a534f58911d1b50baa2e57002fe2d656ea08afc37a16402ed9afae"
+  },
+  "scope": {
+    "summary": "Corrected the loading-state assessment for zero reconnect grace and compared the existing zero-grace finding.",
+    "scope_limit": "Positive grace resets the timer while loading; zero grace can still abandon. Rejection behavior, runtime and the broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "47e61adc4259fdb88fb784fd26ee80ddc266ba83aaba11f1601b5bab6598ef93",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
