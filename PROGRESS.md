@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:40:14.011227+00:00
+Updated: 2026-11-04T00:41:55.477559+00:00
 
-Latest verified checkpoint: **1316**. Goal: **active**.
+Latest verified checkpoint: **1317**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fixture-added GeneralStore and Temple services to the merchant and
-religion venue predicates.
+Traced fixture preconditions and pinned reducer rollback semantics for service
+mutations.
 
-Fixture transaction success, preexisting state, other mutation paths and aliases
-remain open; no population credit is claimed.
+Successful fixture state, other mutation paths and aliases remain open; no
+population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1316 publication record](CHECKPOINT-1316.json)
-- [Saved report for checkpoint 1316](PROGRESS-1316.md)
+- [Checkpoint 1317 publication record](CHECKPOINT-1317.json)
+- [Saved report for checkpoint 1317](PROGRESS-1317.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
