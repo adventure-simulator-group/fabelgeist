@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:09:18.947848+00:00
+Updated: 2026-11-04T18:11:42.779540+00:00
 
-Latest verified checkpoint: **1864**. Goal: **active**.
+Latest verified checkpoint: **1865**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected selected base rig node scales and loading.
+Inspected scale channels in all selected unarmed motion GLBs.
 
-Separate clips, runtime hierarchy, independent contracts and capture remain
-open.
+Other animation families, runtime hierarchy and actual capture remain open.
 
 ## Working on now
 
@@ -197,8 +196,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1864 publication record](CHECKPOINT-1864.json)
-- [Saved report for checkpoint 1864](PROGRESS-1864.md)
+- [Checkpoint 1865 publication record](CHECKPOINT-1865.json)
+- [Saved report for checkpoint 1865](PROGRESS-1865.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
