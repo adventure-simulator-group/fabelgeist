@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:35:05.737215+00:00
+Updated: 2026-11-04T10:37:03.966298+00:00
 
-Latest verified checkpoint: **1623**. Goal: **active**.
+Latest verified checkpoint: **1624**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced development character IDs into inventory, weapon provisioning and solo-
-party creation.
+Traced starting inventory into stable personal objects and distinguished raw
+location IDs from nonzero operational custody.
 
-One partial Lens 6 assessment; downstream equipment and carry admission, native
+One partial Lens 6 assessment; equipment and weapon initialization, native
 boundaries and the broader audit remain open.
 
 ## Working on now
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1623 publication record](CHECKPOINT-1623.json)
-- [Saved report for checkpoint 1623](PROGRESS-1623.md)
+- [Checkpoint 1624 publication record](CHECKPOINT-1624.json)
+- [Saved report for checkpoint 1624](PROGRESS-1624.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
