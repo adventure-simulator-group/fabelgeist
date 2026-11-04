@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:22:15.750934+00:00
+Updated: 2026-11-04T10:24:21.983179+00:00
 
-Latest verified checkpoint: **1619**. Goal: **active**.
+Latest verified checkpoint: **1620**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified a manifest/context tuple mismatch in generated investigability and
-traced its conditional use in action resolution.
+Compared generated context and manifest shapes and traced the skipped
+investigability adjustment to three route-skill contributions.
 
-One partial Lens 6 assessment; runtime impact, other consumers and the broader
-audit remain open. No product fix or test run was made.
+One partial Lens 6 assessment based on source; runtime validation, other
+consumers and the broader audit remain open. No product fix or test run was
+made.
 
 ## Working on now
 
@@ -146,8 +147,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1619 publication record](CHECKPOINT-1619.json)
-- [Saved report for checkpoint 1619](PROGRESS-1619.md)
+- [Checkpoint 1620 publication record](CHECKPOINT-1620.json)
+- [Saved report for checkpoint 1620](PROGRESS-1620.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
