@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:21:36.113573+00:00
+Updated: 2026-11-04T15:23:04.069353+00:00
 
-Latest verified checkpoint: **1795**. Goal: **active**.
+Latest verified checkpoint: **1796**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,7 +35,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced final screenshot callback through report writes and exit.
+Compared capture admission, timeout and armor failure reporting paths.
 
 Native failure policy, runtime verification, aliases and the broader audit
 remain open.
@@ -185,8 +185,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1795 publication record](CHECKPOINT-1795.json)
-- [Saved report for checkpoint 1795](PROGRESS-1795.md)
+- [Checkpoint 1796 publication record](CHECKPOINT-1796.json)
+- [Saved report for checkpoint 1796](PROGRESS-1796.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
