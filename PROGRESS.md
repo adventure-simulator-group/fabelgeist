@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:03:50.547810+00:00
+Updated: 2026-11-04T13:05:06.952849+00:00
 
-Latest verified checkpoint: **1707**. Goal: **active**.
+Latest verified checkpoint: **1708**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced role assignment identity and selected membership updates.
+Compared current schedule admissions with existing related audit obligations.
 
-Historical data integrity, other producers, runtime behavior, aliases and the
-broader audit remain open.
+Other callers, independent lenses, exact aliases and the broader audit remain
+open.
 
 ## Working on now
 
@@ -165,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1707 publication record](CHECKPOINT-1707.json)
-- [Saved report for checkpoint 1707](PROGRESS-1707.md)
+- [Checkpoint 1708 publication record](CHECKPOINT-1708.json)
+- [Saved report for checkpoint 1708](PROGRESS-1708.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
