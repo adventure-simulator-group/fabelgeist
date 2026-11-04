@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:17:22.402177+00:00
+Updated: 2026-11-04T09:18:34.988722+00:00
 
-Latest verified checkpoint: **1582**. Goal: **active**.
+Latest verified checkpoint: **1583**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced temporary mission entry and connected-player side classification,
-identifying a conditional route to receipt rejection.
+Identified the server-only temporary character producer and its direct mission-
+entry call.
 
-One partial Lens 10 assessment; runtime reachability, equipment, consequence
-production and the connected strategic contract remain open.
+One partial Lens 10 assessment; producer invocation, enemy membership,
+projection and the connected strategic contract remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1582 publication record](CHECKPOINT-1582.json)
-- [Saved report for checkpoint 1582](PROGRESS-1582.md)
+- [Checkpoint 1583 publication record](CHECKPOINT-1583.json)
+- [Saved report for checkpoint 1583](PROGRESS-1583.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
