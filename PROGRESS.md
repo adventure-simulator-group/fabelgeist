@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:04:43.302135+00:00
+Updated: 2026-11-04T18:06:21.774142+00:00
 
-Latest verified checkpoint: **1862**. Goal: **active**.
+Latest verified checkpoint: **1863**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed finite non-unit rotation from a constructed sheared transform.
+Traced pose scale sampling and global bone capture.
 
-Actual rig shear, capture reachability, independent contracts and runtime remain
-open.
+Actual asset shear, independent contracts and runtime remain open.
 
 ## Working on now
 
@@ -197,8 +196,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1862 publication record](CHECKPOINT-1862.json)
-- [Saved report for checkpoint 1862](PROGRESS-1862.md)
+- [Checkpoint 1863 publication record](CHECKPOINT-1863.json)
+- [Saved report for checkpoint 1863](PROGRESS-1863.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
