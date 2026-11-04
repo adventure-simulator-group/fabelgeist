@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:29:23.528356+00:00
+Updated: 2026-11-04T18:32:23.837592+00:00
 
-Latest verified checkpoint: **1873**. Goal: **active**.
+Latest verified checkpoint: **1874**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced separate global and evaluation bone report boundaries.
+Compared selected base-rig joints with reduced report roles.
 
-Actual rig membership, full-report policy and runtime remain open.
+Runtime binding, global artifact validity and actual capture remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1873 publication record](CHECKPOINT-1873.json)
-- [Saved report for checkpoint 1873](PROGRESS-1873.md)
+- [Checkpoint 1874 publication record](CHECKPOINT-1874.json)
+- [Saved report for checkpoint 1874](PROGRESS-1874.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
