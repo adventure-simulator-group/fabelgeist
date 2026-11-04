@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1410,
+  "at": "2026-11-04T04:24:27.266992+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "6070cd9e88a9009303a359ebd46ae749001aadadab0a837b5bbe149ff425bd4c",
+    "verification": "bd269155ac652d855bc48f1b911ba1104560a4e174d177e71b7e711bce6586f0",
+    "canonical_current": "cf1f8848cd9fe6507ac2c64388cc901222459bb229738ece6157c9b1e4afd9db"
+  },
+  "scope": {
+    "summary": "Compared terrain cache lookup and rounded keys with cold-path coordinate and routing admission.",
+    "scope_limit": "All callers, route endpoint semantics, aliases and behavioral acceptance remain open; no warm-cache witness was run."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "56d6b73761e6039a3fa62952614857957ff1a7d6263dd456504dae8aa50f04f5",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
