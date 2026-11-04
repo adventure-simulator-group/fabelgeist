@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:57:13.030554+00:00
+Updated: 2026-11-04T22:58:19.437387+00:00
 
-Latest verified checkpoint: **2013**. Goal: **active**.
+Latest verified checkpoint: **2014**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2013**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 445 / 3,849 marked | 3,404 other entries |
+| Queue entries explicitly marked source-discovery closed | 447 / 3,849 marked | 3,402 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 12 recorded | Broader contracts may remain open |
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned rawzip central-directory extent checks.
+Closed two superseded historical framing findings within their selected scopes.
 
-Locator, member access, allocation limits and runtime validation remain open.
+Locator, member access, resource limits, independent lenses and runtime
+validation remain open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2013 publication record](CHECKPOINT-2013.json)
-- [Saved report for checkpoint 2013](PROGRESS-2013.md)
+- [Checkpoint 2014 publication record](CHECKPOINT-2014.json)
+- [Saved report for checkpoint 2014](PROGRESS-2014.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
