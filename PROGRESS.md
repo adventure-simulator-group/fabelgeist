@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:45:33.698687+00:00
+Updated: 2026-11-04T23:47:25.220112+00:00
 
-Latest verified checkpoint: **2041**. Goal: **active**.
+Latest verified checkpoint: **2042**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Corrected buffer-write error characterization after tracing the wrapper.
+Traced pinned wgpu queue-write submission and error routing.
 
-Native queue-write errors, recovery, aliases and runtime validation remain open.
+Native error-sink behavior, recovery, aliases and runtime validation remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2041 publication record](CHECKPOINT-2041.json)
-- [Saved report for checkpoint 2041](PROGRESS-2041.md)
+- [Checkpoint 2042 publication record](CHECKPOINT-2042.json)
+- [Saved report for checkpoint 2042](PROGRESS-2042.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
