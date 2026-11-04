@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:35:25.692603+00:00
+Updated: 2026-11-04T21:38:23.522734+00:00
 
-Latest verified checkpoint: **1976**. Goal: **active**.
+Latest verified checkpoint: **1977**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical spawn, deferred commands and condition ordering.
+Connected tactical condition burden to the existing stack-mass audit entry.
 
-Replication timing, viewer readiness, live client behavior and aliases remain
-open.
+Actual stack semantics, relationship readiness, runtime wheel behavior and
+aliases remain open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1976 publication record](CHECKPOINT-1976.json)
-- [Saved report for checkpoint 1976](PROGRESS-1976.md)
+- [Checkpoint 1977 publication record](CHECKPOINT-1977.json)
+- [Saved report for checkpoint 1977](PROGRESS-1977.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
