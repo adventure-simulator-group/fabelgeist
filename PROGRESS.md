@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:12:56.863567+00:00
+Updated: 2026-11-04T14:14:26.242290+00:00
 
-Latest verified checkpoint: **1752**. Goal: **active**.
+Latest verified checkpoint: **1753**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fame-role eligibility and identified a conditional Socializing mismatch
-between the immediate-action UI and route vocabulary.
+Traced the settlement Socializing button through the immediate-activity form to
+a route that rejects its activity name.
 
-Player-visible runtime behavior, reward rounding and caps, aliases and the
-broader audit remain open.
+Browser runtime behavior, intended social contract, aliases and the broader
+audit remain open.
 
 ## Working on now
 
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1752 publication record](CHECKPOINT-1752.json)
-- [Saved report for checkpoint 1752](PROGRESS-1752.md)
+- [Checkpoint 1753 publication record](CHECKPOINT-1753.json)
+- [Saved report for checkpoint 1753](PROGRESS-1753.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
