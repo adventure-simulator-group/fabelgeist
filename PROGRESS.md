@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:40:48.895955+00:00
+Updated: 2026-11-04T19:42:11.677094+00:00
 
-Latest verified checkpoint: **1910**. Goal: **active**.
+Latest verified checkpoint: **1911**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced scene-load errors and unchecked temperature arithmetic.
+Independently traced weather temperature types and existing overflow finding.
 
-Actual release behavior, other producers and independent lenses remain open.
+Temperature type policy, release behavior and independent lenses remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1910 publication record](CHECKPOINT-1910.json)
-- [Saved report for checkpoint 1910](PROGRESS-1910.md)
+- [Checkpoint 1911 publication record](CHECKPOINT-1911.json)
+- [Saved report for checkpoint 1911](PROGRESS-1911.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
