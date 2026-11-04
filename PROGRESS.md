@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:04:18.247517+00:00
+Updated: 2026-11-04T09:05:53.962803+00:00
 
-Latest verified checkpoint: **1573**. Goal: **active**.
+Latest verified checkpoint: **1574**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,14 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared raw wall frame positions and directions with existing finite plan
-points and frame-typed normalized directions.
+Traced church and artillery frame construction into geometry consumers and
+identified a finite-admission gap in the audit comparisons.
 
-One partial Lens 13 observation; wall frame producers, consumers, paired-basis
-policy, aliases and implementation remain open. Correction: the inherited
-partial-plan acceptance text in checkpoints 1563–1572 mentions room/storey
-identity and is not tower acceptance evidence; the queue retains its original
-tower-specific acceptance requirements.
+One partial Lens 13 observation; remaining producers, native boundaries, paired-
+basis policy, aliases and implementation remain open.
 
 ## Working on now
 
@@ -149,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1573 publication record](CHECKPOINT-1573.json)
-- [Saved report for checkpoint 1573](PROGRESS-1573.md)
+- [Checkpoint 1574 publication record](CHECKPOINT-1574.json)
+- [Saved report for checkpoint 1574](PROGRESS-1574.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
