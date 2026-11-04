@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:29:25.936521+00:00
+Updated: 2026-11-04T00:31:10.242825+00:00
 
-Latest verified checkpoint: **1311**. Goal: **active**.
+Latest verified checkpoint: **1312**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced both role lookups through the same pinned index helper; equal-key engine
-ordering remains unestablished.
+Traced existing first-entry role selection in dialogue and corrected the
+provisional web-boundary repair plan.
 
-Engine ordering, simultaneous assignments and aliases remain open; no population
-credit is claimed.
+Simultaneous assignments, multi-role policy and aliases remain open; no
+population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1311 publication record](CHECKPOINT-1311.json)
-- [Saved report for checkpoint 1311](PROGRESS-1311.md)
+- [Checkpoint 1312 publication record](CHECKPOINT-1312.json)
+- [Saved report for checkpoint 1312](PROGRESS-1312.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
