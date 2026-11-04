@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1689,
+  "at": "2026-11-04T12:32:20.725229+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "e4d266566ceb6f00ca9cd8bbea6f79ddb26a12d5f1d4a61ffdd8636bfe881a50",
+    "verification": "9c937c90edaa7d20d1e94ffd123ab40a7f89f041262051f016e65155bdb76631",
+    "canonical_current": "471ae754e1b45b931f057d697cebb6f3b89043a7d0a5ac5a8a00209e59022538"
+  },
+  "scope": {
+    "summary": "Traced the shared HTTP status concern into the feature-gated image loader.",
+    "scope_limit": "HTTP status policy, image consumers, actual network behavior, exact aliases and the broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e8873dc8ae9f3acbd6c2e2d79aaab300f5e412f1c2d3a51c4abba2ba8510ea35",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
