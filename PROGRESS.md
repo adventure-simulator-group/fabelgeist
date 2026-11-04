@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:45:21.383538+00:00
+Updated: 2026-11-04T20:46:55.823967+00:00
 
-Latest verified checkpoint: **1945**. Goal: **active**.
+Latest verified checkpoint: **1946**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Independently traced inventory reason strings to pool route.
+Traced remaining inventory form consumer outcomes.
 
-Other form consumers, typed reason policy and native execution remain open.
+Typed reason policy, aliases and actual HTTP behavior remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1945 publication record](CHECKPOINT-1945.json)
-- [Saved report for checkpoint 1945](PROGRESS-1945.md)
+- [Checkpoint 1946 publication record](CHECKPOINT-1946.json)
+- [Saved report for checkpoint 1946](PROGRESS-1946.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
