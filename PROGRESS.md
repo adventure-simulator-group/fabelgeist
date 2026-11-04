@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:58:02.185209+00:00
+Updated: 2026-11-04T22:00:29.299610+00:00
 
-Latest verified checkpoint: **1988**. Goal: **active**.
+Latest verified checkpoint: **1989**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced chest injury projection into fatigue capacity.
+Traced chest injury receipt bounds through blood-loss refresh.
 
-Complete survival sequence, zero-capacity policy, runtime behavior and aliases
-remain open.
+Full authorization, native serialization, runtime survival and aliases remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1988 publication record](CHECKPOINT-1988.json)
-- [Saved report for checkpoint 1988](PROGRESS-1988.md)
+- [Checkpoint 1989 publication record](CHECKPOINT-1989.json)
+- [Saved report for checkpoint 1989](PROGRESS-1989.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
