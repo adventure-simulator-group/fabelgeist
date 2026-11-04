@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:16:31.664043+00:00
+Updated: 2026-11-04T13:17:59.915588+00:00
 
-Latest verified checkpoint: **1716**. Goal: **active**.
+Latest verified checkpoint: **1717**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the conditional isolated simulation schedule gap to settlement rest.
+Traced simulation-owner authorization through the public settlement rest
+reducer.
 
-Reducer invocation, runtime, NPC generator, global aliases and the broader audit
-remain open.
+Actual isolated execution, transaction effects, NPC generator, global aliases
+and the broader audit remain open.
 
 ## Working on now
 
@@ -165,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1716 publication record](CHECKPOINT-1716.json)
-- [Saved report for checkpoint 1716](PROGRESS-1716.md)
+- [Checkpoint 1717 publication record](CHECKPOINT-1717.json)
+- [Saved report for checkpoint 1717](PROGRESS-1717.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
