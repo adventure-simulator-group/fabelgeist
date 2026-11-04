@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T06:42:59.998514+00:00
+Updated: 2026-11-04T06:44:28.476761+00:00
 
-Latest verified checkpoint: **1492**. Goal: **active**.
+Latest verified checkpoint: **1493**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1492**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 186 / 3,849 marked | 3,663 other entries |
-| Entries flagged for repair after the audit gate | 170 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 187 / 3,849 marked | 3,662 other entries |
+| Entries flagged for repair after the audit gate | 171 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced terrain validation string cases and substring-based test classification.
+Traced terrain builder TIFF error erasure through the map-building caller.
 
-External error consumers, TIFF errors and broader aliases remain open; tests not
-executed.
+Native TIFF leaf type, CLI presentation and broader aliases remain open.
 
 ## Working on now
 
@@ -140,8 +139,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1492 publication record](CHECKPOINT-1492.json)
-- [Saved report for checkpoint 1492](PROGRESS-1492.md)
+- [Checkpoint 1493 publication record](CHECKPOINT-1493.json)
+- [Saved report for checkpoint 1493](PROGRESS-1493.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
