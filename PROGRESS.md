@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:14:44.764358+00:00
+Updated: 2026-11-04T11:16:15.347008+00:00
 
-Latest verified checkpoint: **1643**. Goal: **active**.
+Latest verified checkpoint: **1644**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced party-scoped case-site arrival and observer-specific exact-site
-authority.
+Traced party-scoped travel admission to a disclosed exact case site.
 
-One partial Lens 5 assessment; full cross-party route, runtime behavior and the
-broader audit remain open.
+One partial Lens 5 assessment; route completion, negotiation, runtime behavior
+and the broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +145,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1643 publication record](CHECKPOINT-1643.json)
-- [Saved report for checkpoint 1643](PROGRESS-1643.md)
+- [Checkpoint 1644 publication record](CHECKPOINT-1644.json)
+- [Saved report for checkpoint 1644](PROGRESS-1644.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
