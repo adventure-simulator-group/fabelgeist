@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T03:52:13.812133+00:00
+Updated: 2026-11-04T03:53:52.881526+00:00
 
-Latest verified checkpoint: **1392**. Goal: **active**.
+Latest verified checkpoint: **1393**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1392**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 99 / 3,849 marked | 3,750 other entries |
-| Entries flagged for repair after the audit gate | 85 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 100 / 3,849 marked | 3,749 other entries |
+| Entries flagged for repair after the audit gate | 86 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced observer frontier checks and independently sourced mutable projections
-through representative condition and local-chat consumers.
+Traced dialogue event and prompt JSON defaults against representative
+authoritative serialization and rejection paths.
 
-Native and cache coherence guarantees, advancing writers, other consumers,
-aliases and behavioral acceptance remain open; no live disclosure is claimed.
+All producers, prompt cardinality, optional reference policy, aliases and
+behavioral acceptance remain open; no malformed live row is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1392 publication record](CHECKPOINT-1392.json)
-- [Saved report for checkpoint 1392](PROGRESS-1392.md)
+- [Checkpoint 1393 publication record](CHECKPOINT-1393.json)
+- [Saved report for checkpoint 1393](PROGRESS-1393.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
