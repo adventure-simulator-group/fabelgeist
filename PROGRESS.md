@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:15:34.724817+00:00
+Updated: 2026-11-04T12:17:14.650709+00:00
 
-Latest verified checkpoint: **1680**. Goal: **active**.
+Latest verified checkpoint: **1681**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected attached option routing, float parsing and duration conversion into a
-conditional source chain.
+Added independent Lens 3 CLI and native duration evidence to the existing
+admission question.
 
-Exact parser selection, installed distribution provenance, runtime and the
+Exact parser selection, current-source and alias reconciliation, runtime and the
 broader audit remain open.
 
 ## Working on now
@@ -151,8 +151,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1680 publication record](CHECKPOINT-1680.json)
-- [Saved report for checkpoint 1680](PROGRESS-1680.md)
+- [Checkpoint 1681 publication record](CHECKPOINT-1681.json)
+- [Saved report for checkpoint 1681](PROGRESS-1681.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
