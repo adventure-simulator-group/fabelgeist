@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T08:05:26.620142+00:00
+Updated: 2026-11-04T08:07:28.826510+00:00
 
-Latest verified checkpoint: **1540**. Goal: **active**.
+Latest verified checkpoint: **1541**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1540**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 300 / 3,849 marked | 3,549 other entries |
-| Entries flagged for repair after the audit gate | 278 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 313 / 3,849 marked | 3,536 other entries |
+| Entries flagged for repair after the audit gate | 291 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,12 +34,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled six older corrective-import queue descriptions with the selected
-revision: typed errors and checked joint subtraction already exist.
+Traced thirteen MHR model loading and tensor-input contracts, including three
+level-of-detail entry points, identity broadcast, expression shape and two
+asset-read causes.
 
-Six scoped existing-behavior dispositions; signed sparse conversion, callers,
-native tensor contracts, aliases, implementation and runtime acceptance remain
-open.
+Thirteen scoped source discoveries and provisional repair plans; loader callers,
+native causes, tensor contracts, aliases, implementation and runtime acceptance
+remain open.
 
 ## Working on now
 
@@ -147,8 +148,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1540 publication record](CHECKPOINT-1540.json)
-- [Saved report for checkpoint 1540](PROGRESS-1540.md)
+- [Checkpoint 1541 publication record](CHECKPOINT-1541.json)
+- [Saved report for checkpoint 1541](PROGRESS-1541.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
