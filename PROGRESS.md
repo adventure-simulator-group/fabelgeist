@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:53:41.037549+00:00
+Updated: 2026-11-04T09:55:16.339955+00:00
 
-Latest verified checkpoint: **1605**. Goal: **active**.
+Latest verified checkpoint: **1606**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Confirmed the examined disease fixture leader is also distinct from default
-tactical ID 1 and is part of full development bootstrap.
+Read the mission systems independently for Lens 6 and identified its existing
+identity, side, state and terminal owners.
 
-One partial Lens 7 assessment; reused history, customized inputs and broader
+One partial Lens 6 assessment; owner definitions, native boundaries and broader
 audit remain open.
 
 ## Working on now
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1605 publication record](CHECKPOINT-1605.json)
-- [Saved report for checkpoint 1605](PROGRESS-1605.md)
+- [Checkpoint 1606 publication record](CHECKPOINT-1606.json)
+- [Saved report for checkpoint 1606](PROGRESS-1606.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
