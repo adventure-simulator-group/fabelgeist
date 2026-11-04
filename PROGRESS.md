@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:41:47.995316+00:00
+Updated: 2026-11-04T10:44:13.629222+00:00
 
-Latest verified checkpoint: **1626**. Goal: **active**.
+Latest verified checkpoint: **1627**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected the default standalone longsword to the conditional nonzero custody
-check and identified discarded inventory insertion results.
+Compared expected enrollment with zero-valid combat counts and linked the
+existing Lens 2 count-owner obligation.
 
-One conditional Lens 6 source assessment; materialization, runtime behavior,
-other paths and the broader audit remain open.
+One partial Lens 6 source assessment; connected admission, exact aliases and the
+broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1626 publication record](CHECKPOINT-1626.json)
-- [Saved report for checkpoint 1626](PROGRESS-1626.md)
+- [Checkpoint 1627 publication record](CHECKPOINT-1627.json)
+- [Saved report for checkpoint 1627](PROGRESS-1627.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
