@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T03:35:11.049163+00:00
+Updated: 2026-11-04T03:37:55.370245+00:00
 
-Latest verified checkpoint: **1384**. Goal: **active**.
+Latest verified checkpoint: **1385**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **1384**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 91 / 3,849 marked | 3,758 other entries |
+| Queue entries explicitly marked source-discovery closed | 92 / 3,849 marked | 3,757 other entries |
 | Entries flagged for repair after the audit gate | 78 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned MHR cluster bind-matrix inversion and supported transform
-admission.
+Reconciled the historical corrective extent suspicion with current checked
+subtraction and tensor layout admission.
 
-Tolerance and missing-link policy, other transform routes and lenses, aliases
-and runtime validation remain open.
+Two-joint zero-feature backend behavior, archive integrity, independent lenses,
+aliases and runtime validation remain open; no new repair claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1384 publication record](CHECKPOINT-1384.json)
-- [Saved report for checkpoint 1384](PROGRESS-1384.md)
+- [Checkpoint 1385 publication record](CHECKPOINT-1385.json)
+- [Saved report for checkpoint 1385](PROGRESS-1385.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
