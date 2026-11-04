@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:39:01.790484+00:00
+Updated: 2026-11-04T09:41:10.341787+00:00
 
-Latest verified checkpoint: **1598**. Goal: **active**.
+Latest verified checkpoint: **1599**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the tactical launch count with claimed registration, which retrieves
-and validates the roster independently.
+Traced consequences of mismatched expected counts through enrollment and
+examined existing threshold tests.
 
-One partial Lens 7 assessment; mismatched launch count policy, behavior and
+One partial Lens 7 assessment; supported direct launches, actual mismatches and
 broader audit remain open.
 
 ## Working on now
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1598 publication record](CHECKPOINT-1598.json)
-- [Saved report for checkpoint 1598](PROGRESS-1598.md)
+- [Checkpoint 1599 publication record](CHECKPOINT-1599.json)
+- [Saved report for checkpoint 1599](PROGRESS-1599.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
