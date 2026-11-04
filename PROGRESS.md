@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T06:33:35.111004+00:00
+Updated: 2026-11-04T06:35:16.843658+00:00
 
-Latest verified checkpoint: **1486**. Goal: **active**.
+Latest verified checkpoint: **1487**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1486**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 180 / 3,849 marked | 3,669 other entries |
-| Entries flagged for repair after the audit gate | 164 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 181 / 3,849 marked | 3,668 other entries |
+| Entries flagged for repair after the audit gate | 165 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical iteration log insertion, duel loop and result collection.
+Traced tactical duel victor identity from terminal side through display-name
+batch counting.
 
-Intervening plugin resource lifetime and broader aliases remain open; no
-missing-log runtime witness.
+Duplicate-label admission, causal identity and broader aliases remain open.
 
 ## Working on now
 
@@ -140,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1486 publication record](CHECKPOINT-1486.json)
-- [Saved report for checkpoint 1486](PROGRESS-1486.md)
+- [Checkpoint 1487 publication record](CHECKPOINT-1487.json)
+- [Saved report for checkpoint 1487](PROGRESS-1487.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
