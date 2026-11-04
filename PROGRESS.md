@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:04:05.899586+00:00
+Updated: 2026-11-04T23:05:48.174181+00:00
 
-Latest verified checkpoint: **2017**. Goal: **active**.
+Latest verified checkpoint: **2018**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced integer array and corrective sparse tensor cardinality.
+Connected current MHR asset entry points to corrective tensor loading.
 
-Other model, reshape and device paths, integrity policy and runtime validation
-remain open.
+Historical Torch scope, other model paths and runtime validation remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2017 publication record](CHECKPOINT-2017.json)
-- [Saved report for checkpoint 2017](PROGRESS-2017.md)
+- [Checkpoint 2018 publication record](CHECKPOINT-2018.json)
+- [Saved report for checkpoint 2018](PROGRESS-2018.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
