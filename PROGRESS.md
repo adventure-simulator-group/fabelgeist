@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:47:13.564926+00:00
+Updated: 2026-11-04T22:49:53.675924+00:00
 
-Latest verified checkpoint: **2008**. Goal: **active**.
+Latest verified checkpoint: **2009**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,11 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the current PointGrid candidate with interpolation, guide mapping and
-simulation callers.
+Qualified edge clamping, guide use and simulation binding uploads.
 
-Caller impact, exact aliases and native binding remain open; no runtime
-execution.
+Other caller effects, aliases and native runtime admission remain open.
 
 ## Working on now
 
@@ -205,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2008 publication record](CHECKPOINT-2008.json)
-- [Saved report for checkpoint 2008](PROGRESS-2008.md)
+- [Checkpoint 2009 publication record](CHECKPOINT-2009.json)
+- [Saved report for checkpoint 2009](PROGRESS-2009.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
