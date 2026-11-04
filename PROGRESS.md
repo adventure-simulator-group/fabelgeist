@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T04:34:22.061676+00:00
+Updated: 2026-11-04T04:36:02.302974+00:00
 
-Latest verified checkpoint: **1415**. Goal: **active**.
+Latest verified checkpoint: **1416**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **1415**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 118 / 3,849 marked | 3,731 other entries |
+| Queue entries explicitly marked source-discovery closed | 119 / 3,849 marked | 3,730 other entries |
 | Entries flagged for repair after the audit gate | 103 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced six terrain skill values through direct and effective-hour tooltip
-averages and the independent rank calculation.
+Traced prayer-versus-meditation preview dispatch from display label to the core
+optional-religion training owner.
 
-Tooltip runtime, other aggregates, aliases and behavioral acceptance remain
-open; no UI execution was run.
+All preview writers, native religion resolution, independent lenses, aliases and
+behavioral acceptance remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1415 publication record](CHECKPOINT-1415.json)
-- [Saved report for checkpoint 1415](PROGRESS-1415.md)
+- [Checkpoint 1416 publication record](CHECKPOINT-1416.json)
+- [Saved report for checkpoint 1416](PROGRESS-1416.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
