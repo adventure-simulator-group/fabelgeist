@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:41:25.362081+00:00
+Updated: 2026-11-04T12:43:07.547143+00:00
 
-Latest verified checkpoint: **1695**. Goal: **active**.
+Latest verified checkpoint: **1696**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared documented project URI support with native and browser missing-root
-behavior.
+Traced browser blob failure caching and added recent audit findings to the
+ongoing report.
 
-Missing-root policy, platform runtime, exact aliases and the broader audit
-remain open.
+Blob retry policy, platform runtime, exact aliases and the broader audit remain
+open.
 
 ## Working on now
 
@@ -112,6 +112,14 @@ Reconciling mission outcome and receipt contracts alongside the remaining
   zero reconnect grace can still trigger abandonment. The separate zero-grace
   finding remains open.
 
+- Traced mission enrollment, roster and timeout boundaries, including
+  conditional stale membership and discarded enrollment acknowledgement; runtime
+  and exact aliases remain open.
+
+- Traced MHR skin errors and filesystem URI boundaries, including conditional
+  missing-cluster, HTTP status, project-root and native path differences;
+  supported policy and runtime remain open.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -128,6 +136,10 @@ Reconciling mission outcome and receipt contracts alongside the remaining
 
 - Complete independent review, remediation, required formatting and lint checks,
   applicable product tests, and isolated observable acceptance.
+
+- Reconcile shared filesystem status, URI identity, containment and fallback
+  policy with MHR and image consumers; validate platform behavior after the
+  audit gate.
 
 ## Coverage and verification limits
 
@@ -151,8 +163,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1695 publication record](CHECKPOINT-1695.json)
-- [Saved report for checkpoint 1695](PROGRESS-1695.md)
+- [Checkpoint 1696 publication record](CHECKPOINT-1696.json)
+- [Saved report for checkpoint 1696](PROGRESS-1696.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
