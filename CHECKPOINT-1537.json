@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1537,
+  "at": "2026-11-04T07:59:11.858177+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "270a7656768b730540a77a7f55ca7a2ebc8a1731ca0998a46819f9c73ba76eca",
+    "verification": "8dc9f0eb313393e284bd54da50aae978baea6b3bf52d8dfb33c8cf3b8e69833f",
+    "canonical_current": "d063f8de40d88458b4c66bbc55d041c795d7a10efdbe7ba7bd90cde875c853b1"
+  },
+  "scope": {
+    "summary": "Traced eight shader parsing, validation and reflection contracts, including compacted sparse bind-group layouts. Rechecked checkpoint 1536 against the frozen selected revision.",
+    "scope_limit": "Eight scoped source discoveries and provisional repair plans. Checkpoint 1536 initially read the clean but older checkout for pipeline source; frozen-source reread confirms its substantive findings while correcting validation-observation API and line positions. No runtime failure was reproduced; native causes, all callers, aliases, implementation and validation remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "c523ceda08f48187e30950eccbd2cd0a73d0823e36ab979303c1dcc0d3b34c0e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
