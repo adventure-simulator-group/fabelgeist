@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T01:52:37.316505+00:00
+Updated: 2026-11-04T01:54:27.263945+00:00
 
-Latest verified checkpoint: **1334**. Goal: **active**.
+Latest verified checkpoint: **1335**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **1334**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 32 / 3,849 marked | 3,817 other entries |
+| Queue entries explicitly marked source-discovery closed | 33 / 3,849 marked | 3,816 other entries |
 | Entries flagged for repair after the audit gate | 27 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced distinct organization presentation and profession-of-faith boundaries.
+Dispositioned the optional organization role owner question using same-lens
+source and native boundaries.
 
-Same-lens source and alias qualification remain open; no population credit is
-claimed.
+Independent catalog, service, faith, alias and other-lens obligations remain
+open; no separate defect was inferred from optional roles.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1334 publication record](CHECKPOINT-1334.json)
-- [Saved report for checkpoint 1334](PROGRESS-1334.md)
+- [Checkpoint 1335 publication record](CHECKPOINT-1335.json)
+- [Saved report for checkpoint 1335](PROGRESS-1335.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
