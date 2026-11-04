@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:20:48.829793+00:00
+Updated: 2026-11-04T21:22:07.250724+00:00
 
-Latest verified checkpoint: **1966**. Goal: **active**.
+Latest verified checkpoint: **1967**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the personal schedule query into the skills editor.
+Compared selected schedule allocation callers and test source.
 
-Outage behavior, absent-row policy, other writers and exact aliases remain open.
+Public construction policy, external or aliased callers, runtime tests and
+aliases remain open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1966 publication record](CHECKPOINT-1966.json)
-- [Saved report for checkpoint 1966](PROGRESS-1966.md)
+- [Checkpoint 1967 publication record](CHECKPOINT-1967.json)
+- [Saved report for checkpoint 1967](PROGRESS-1967.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
