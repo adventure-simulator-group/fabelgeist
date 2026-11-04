@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T07:50:17.754612+00:00
+Updated: 2026-11-04T07:51:49.804413+00:00
 
-Latest verified checkpoint: **1532**. Goal: **active**.
+Latest verified checkpoint: **1533**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1532**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 226 / 3,849 marked | 3,623 other entries |
-| Entries flagged for repair after the audit gate | 210 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 233 / 3,849 marked | 3,616 other entries |
+| Entries flagged for repair after the audit gate | 217 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the regular GPU texture binding missing-parameter error and its order
-relative to kind, format, dimension and view checks.
+Traced seven regular GPU texture and sampler validation reasons, preserving the
+distinct missing, kind, format, dimension, view and native resource predicates.
 
-One scoped source discovery and provisional repair plan; actual producers,
+Seven scoped source discoveries and provisional repair plans; actual producers,
 public consumers, fast path, aliases, implementation and runtime acceptance
 remain open.
 
@@ -142,8 +142,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1532 publication record](CHECKPOINT-1532.json)
-- [Saved report for checkpoint 1532](PROGRESS-1532.md)
+- [Checkpoint 1533 publication record](CHECKPOINT-1533.json)
+- [Saved report for checkpoint 1533](PROGRESS-1533.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
