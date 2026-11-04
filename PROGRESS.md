@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:35:41.717212+00:00
+Updated: 2026-11-04T18:39:08.549523+00:00
 
-Latest verified checkpoint: **1875**. Goal: **active**.
+Latest verified checkpoint: **1876**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced capture support rejection and terminal scheduling.
+Probed global and evaluation query membership in a synthetic fixture.
 
-Actual callbacks, failure artifacts and runtime remain open.
+Actual rig binding, artifact policy and full capture remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1875 publication record](CHECKPOINT-1875.json)
-- [Saved report for checkpoint 1875](PROGRESS-1875.md)
+- [Checkpoint 1876 publication record](CHECKPOINT-1876.json)
+- [Saved report for checkpoint 1876](PROGRESS-1876.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
