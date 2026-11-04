@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:56:52.623918+00:00
+Updated: 2026-11-04T15:58:20.336026+00:00
 
-Latest verified checkpoint: **1815**. Goal: **active**.
+Latest verified checkpoint: **1816**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled duplicated schedule input evidence with the existing queue
-obligation.
+Traced schedule organization normalization and authoritative membership.
 
-External callers, API policy, independent lenses and global aliases remain open.
+Identity key internals, other consumers, aliases and the broader audit remain
+open.
 
 ## Working on now
 
@@ -190,8 +190,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1815 publication record](CHECKPOINT-1815.json)
-- [Saved report for checkpoint 1815](PROGRESS-1815.md)
+- [Checkpoint 1816 publication record](CHECKPOINT-1816.json)
+- [Saved report for checkpoint 1816](PROGRESS-1816.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
