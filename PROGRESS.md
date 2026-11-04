@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:12:19.539043+00:00
+Updated: 2026-11-04T09:13:41.984263+00:00
 
-Latest verified checkpoint: **1578**. Goal: **active**.
+Latest verified checkpoint: **1579**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced frozen terminal retry lifecycle and identified a receipt participant-
-limit question for downstream reconciliation.
+Traced receipt contact membership validation and roster/enrollment limits,
+retaining the truncation mismatch as a conditional reachability question.
 
-One partial Lens 10 assessment; participant-limit handling, admission and
-strategic acknowledgement remain open.
+One partial Lens 10 assessment; actual admission authority, truncation
+reachability and connected strategic contract remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1578 publication record](CHECKPOINT-1578.json)
-- [Saved report for checkpoint 1578](PROGRESS-1578.md)
+- [Checkpoint 1579 publication record](CHECKPOINT-1579.json)
+- [Saved report for checkpoint 1579](PROGRESS-1579.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
