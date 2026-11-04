@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:25:22.366734+00:00
+Updated: 2026-11-04T13:26:46.041503+00:00
 
-Latest verified checkpoint: **1722**. Goal: **active**.
+Latest verified checkpoint: **1723**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified generated simulation profile totals and live conversion bounds.
+Distinguished generated live profiles from supplied offline profiles and direct
+configuration clients.
 
-Arbitrary profiles, direct clients, runtime, exact aliases and the broader audit
+Direct configuration clients, runtime, exact aliases and the broader audit
 remain open.
 
 ## Working on now
@@ -165,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1722 publication record](CHECKPOINT-1722.json)
-- [Saved report for checkpoint 1722](PROGRESS-1722.md)
+- [Checkpoint 1723 publication record](CHECKPOINT-1723.json)
+- [Saved report for checkpoint 1723](PROGRESS-1723.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
