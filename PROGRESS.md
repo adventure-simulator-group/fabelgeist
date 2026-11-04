@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:43:51.493717+00:00
+Updated: 2026-11-04T14:45:14.956119+00:00
 
-Latest verified checkpoint: **1772**. Goal: **active**.
+Latest verified checkpoint: **1773**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced raised-guard, right-support and live-attack families in the default
-capture plan.
+Traced selected helper-generated identities used by the default capture plan.
 
-Helper identities, call sites, runtime, aliases and the broader audit remain
+Remaining helpers, call sites, runtime, aliases and the broader audit remain
 open.
 
 ## Working on now
@@ -166,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1772 publication record](CHECKPOINT-1772.json)
-- [Saved report for checkpoint 1772](PROGRESS-1772.md)
+- [Checkpoint 1773 publication record](CHECKPOINT-1773.json)
+- [Saved report for checkpoint 1773](PROGRESS-1773.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
