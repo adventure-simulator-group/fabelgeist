@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T06:44:28.476761+00:00
+Updated: 2026-11-04T06:46:00.949635+00:00
 
-Latest verified checkpoint: **1493**. Goal: **active**.
+Latest verified checkpoint: **1494**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1493**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 187 / 3,849 marked | 3,662 other entries |
-| Entries flagged for repair after the audit gate | 171 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 188 / 3,849 marked | 3,661 other entries |
+| Entries flagged for repair after the audit gate | 172 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,9 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced terrain builder TIFF error erasure through the map-building caller.
+Traced weapon attachment frame text through frame registration, placement and
+mount lookup.
 
-Native TIFF leaf type, CLI presentation and broader aliases remain open.
+Reference admission, custom geometry policy, other consumers and aliases remain
+open.
 
 ## Working on now
 
@@ -139,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1493 publication record](CHECKPOINT-1493.json)
-- [Saved report for checkpoint 1493](PROGRESS-1493.md)
+- [Checkpoint 1494 publication record](CHECKPOINT-1494.json)
+- [Saved report for checkpoint 1494](PROGRESS-1494.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
