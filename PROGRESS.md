@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:51:44.720949+00:00
+Updated: 2026-11-04T15:53:16.523544+00:00
 
-Latest verified checkpoint: **1812**. Goal: **active**.
+Latest verified checkpoint: **1813**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the pinned Rand u64 uniform constructor and sampling body.
+Qualified pinned widening multiplication and the schedule selection bound.
 
-Widening multiply, generator, other writers, aliases and the broader audit
-remain open.
+Generator quality, other writers, aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -190,8 +189,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1812 publication record](CHECKPOINT-1812.json)
-- [Saved report for checkpoint 1812](PROGRESS-1812.md)
+- [Checkpoint 1813 publication record](CHECKPOINT-1813.json)
+- [Saved report for checkpoint 1813](PROGRESS-1813.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
