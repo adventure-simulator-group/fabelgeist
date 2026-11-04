@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:01:29.162893+00:00
+Updated: 2026-11-04T00:03:17.707651+00:00
 
-Latest verified checkpoint: **1298**. Goal: **active**.
+Latest verified checkpoint: **1299**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,12 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified a conditional web call sending two arguments to a reducer whose
-selected schema requires three, and recorded a provisional role-selection
-repair.
+Traced the POST route and found ten service-linked organizations with chapters
+each currently have one authored entry role.
 
-Native server handling, reachability, other consumers and aliases remain open;
-no population credit is claimed.
+Native handling, dynamic caller and runtime reachability, and aliases remain
+open; no population credit is claimed.
 
 ## Working on now
 
@@ -142,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1298 publication record](CHECKPOINT-1298.json)
-- [Saved report for checkpoint 1298](PROGRESS-1298.md)
+- [Checkpoint 1299 publication record](CHECKPOINT-1299.json)
+- [Saved report for checkpoint 1299](PROGRESS-1299.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
