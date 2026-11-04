@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:53:49.391457+00:00
+Updated: 2026-11-04T23:55:42.832641+00:00
 
-Latest verified checkpoint: **2045**. Goal: **active**.
+Latest verified checkpoint: **2046**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a connected collision-grid and projection repair plan.
+Traced buffer allocation and garment device-capability checks.
 
-Full audit, implementation choices, native recovery and runtime validation
-remain open.
+Allocation and binding limits, aliases and runtime validation remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2045 publication record](CHECKPOINT-2045.json)
-- [Saved report for checkpoint 2045](PROGRESS-2045.md)
+- [Checkpoint 2046 publication record](CHECKPOINT-2046.json)
+- [Saved report for checkpoint 2046](PROGRESS-2046.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
