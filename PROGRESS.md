@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:22:54.822347+00:00
+Updated: 2026-11-04T19:24:43.392665+00:00
 
-Latest verified checkpoint: **1899**. Goal: **active**.
+Latest verified checkpoint: **1900**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced completed cloud bake installation and tests.
+Traced browser cloud prebake and wasm branch.
 
-Same-key wind replacement, live delivery and independent lenses remain open.
+Supported browser mode, actual render outcome and independent lenses remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1899 publication record](CHECKPOINT-1899.json)
-- [Saved report for checkpoint 1899](PROGRESS-1899.md)
+- [Checkpoint 1900 publication record](CHECKPOINT-1900.json)
+- [Saved report for checkpoint 1900](PROGRESS-1900.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
