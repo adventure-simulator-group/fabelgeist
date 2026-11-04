@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:07:46.524870+00:00
+Updated: 2026-11-04T11:10:38.306989+00:00
 
-Latest verified checkpoint: **1640**. Goal: **active**.
+Latest verified checkpoint: **1641**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced candidate creation and completion-time revalidation for the no-current-
-candidate branch.
+Traced hostile-resolution capability deactivation and its party-scoped in-flight
+mission guard.
 
-One partial Lens 5 assessment; live candidate invalidation, runtime behavior and
+One partial Lens 5 assessment; cross-party reachability, runtime behavior and
 the broader audit remain open.
 
 ## Working on now
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1640 publication record](CHECKPOINT-1640.json)
-- [Saved report for checkpoint 1640](PROGRESS-1640.md)
+- [Checkpoint 1641 publication record](CHECKPOINT-1641.json)
+- [Saved report for checkpoint 1641](PROGRESS-1641.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
