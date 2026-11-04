@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:34:17.362939+00:00
+Updated: 2026-11-04T11:36:04.211193+00:00
 
-Latest verified checkpoint: **1655**. Goal: **active**.
+Latest verified checkpoint: **1656**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared supervised and Windows staged launcher working directories and fixture-
-copy ordering.
+Narrowed fixture path concerns by tracing the stock Windows staged launcher
+default selector.
 
-One partial Lens 5 assessment; explicit relative paths, changed fixtures,
+One partial Lens 5 assessment; custom launch arrangements, changed fixtures,
 runtime behavior and the broader audit remain open.
 
 ## Working on now
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1655 publication record](CHECKPOINT-1655.json)
-- [Saved report for checkpoint 1655](PROGRESS-1655.md)
+- [Checkpoint 1656 publication record](CHECKPOINT-1656.json)
+- [Saved report for checkpoint 1656](PROGRESS-1656.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
