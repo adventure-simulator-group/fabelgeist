@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:54:15.893202+00:00
+Updated: 2026-11-04T14:55:50.532650+00:00
 
-Latest verified checkpoint: **1779**. Goal: **active**.
+Latest verified checkpoint: **1780**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced duplicate-name behavior in clothing fitting, skeleton export and pose-
-buffer binding.
+Inspected the checked-in base GLB: its one skin has 130 named joints with no
+duplicate names.
 
-Supported asset contents, runtime behavior, aliases and the broader audit remain
-open.
+Other rigs, runtime entity names, aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -182,8 +181,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1779 publication record](CHECKPOINT-1779.json)
-- [Saved report for checkpoint 1779](PROGRESS-1779.md)
+- [Checkpoint 1780 publication record](CHECKPOINT-1780.json)
+- [Saved report for checkpoint 1780](PROGRESS-1780.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
