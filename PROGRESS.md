@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:49:01.014077+00:00
+Updated: 2026-11-04T00:51:39.328973+00:00
 
-Latest verified checkpoint: **1320**. Goal: **active**.
+Latest verified checkpoint: **1321**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced owner-controlled import upserts and completion cleanup as a conditional
-economy-change path.
+Traced conditional profile and presence cleanup gaps when import completion
+deletes characters.
 
-Import interleaving, cleanup effects, other writers and aliases remain open; no
-population credit is claimed.
+Indirect cleanup, import interleaving, survivor state and aliases remain open;
+no population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1320 publication record](CHECKPOINT-1320.json)
-- [Saved report for checkpoint 1320](PROGRESS-1320.md)
+- [Checkpoint 1321 publication record](CHECKPOINT-1321.json)
+- [Saved report for checkpoint 1321](PROGRESS-1321.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

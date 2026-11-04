@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1321,
+  "at": "2026-11-04T00:51:06.016372+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "866d053d1a0ec707047180573d672b0871d06bbefc7974581cbf7b98d4206ecd",
+    "verification": "b6f4aca0deadd6d3f271ea9eced98939264bac1c0b140277841d9950299e0d40",
+    "canonical_current": "71a639ceec05873b38dde6a120c8d4361557681fa1a75ab5ed9e7642c991b2fd"
+  },
+  "scope": {
+    "summary": "Traced conditional profile and presence cleanup gaps when import completion deletes characters.",
+    "scope_limit": "Indirect cleanup, import interleaving, survivor state and aliases remain open; no population credit is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e74cc98b7a4d666acaf52283049db0c96998bed76f73c902fc3ab862f550f4b1",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
