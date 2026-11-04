@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:23:03.330841+00:00
+Updated: 2026-11-04T23:24:36.316245+00:00
 
-Latest verified checkpoint: **2028**. Goal: **active**.
+Latest verified checkpoint: **2029**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2028**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 451 / 3,849 marked | 3,398 other entries |
+| Queue entries explicitly marked source-discovery closed | 452 / 3,849 marked | 3,397 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 12 recorded | Broader contracts may remain open |
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped constraint membership discovery with an explicit policy.
+Closed scoped contact-response discovery with a numeric policy question.
 
-Final membership policy, other lenses and GPU runtime validation remain open.
+Numeric policy, other lenses and runtime validation remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2028 publication record](CHECKPOINT-2028.json)
-- [Saved report for checkpoint 2028](PROGRESS-2028.md)
+- [Checkpoint 2029 publication record](CHECKPOINT-2029.json)
+- [Saved report for checkpoint 2029](PROGRESS-2029.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
