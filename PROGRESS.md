@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T02:16:14.523492+00:00
+Updated: 2026-11-04T02:17:49.896723+00:00
 
-Latest verified checkpoint: **1346**. Goal: **active**.
+Latest verified checkpoint: **1347**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned the Buffer::read parent error contract with an owned repair and
-explicit poll policy question.
+Traced hair context error ownership and the shared completion caller.
 
-Poll policy, staged readback, independent lenses and runtime validation remain
-open.
+Completion and borrowed-device policies remain open; no population credit is
+claimed.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1346 publication record](CHECKPOINT-1346.json)
-- [Saved report for checkpoint 1346](PROGRESS-1346.md)
+- [Checkpoint 1347 publication record](CHECKPOINT-1347.json)
+- [Saved report for checkpoint 1347](PROGRESS-1347.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
