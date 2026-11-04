@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:34:21.528945+00:00
+Updated: 2026-11-04T14:35:57.386584+00:00
 
-Latest verified checkpoint: **1766**. Goal: **active**.
+Latest verified checkpoint: **1767**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced capture sidecar publication and identified a conditional stale-readiness
-risk when output directories are reused.
+Traced no-harness capture readiness and its conditional stale-sidecar path in
+reused output directories.
 
-Stale-output reachability, runtime behavior, aliases and the broader audit
-remain open.
+Runtime behavior, exact aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -166,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1766 publication record](CHECKPOINT-1766.json)
-- [Saved report for checkpoint 1766](PROGRESS-1766.md)
+- [Checkpoint 1767 publication record](CHECKPOINT-1767.json)
+- [Saved report for checkpoint 1767](PROGRESS-1767.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
