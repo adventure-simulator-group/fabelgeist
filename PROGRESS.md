@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T05:35:33.255480+00:00
+Updated: 2026-11-04T05:37:06.960013+00:00
 
-Latest verified checkpoint: **1451**. Goal: **active**.
+Latest verified checkpoint: **1452**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1451**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 152 / 3,849 marked | 3,697 other entries |
-| Entries flagged for repair after the audit gate | 136 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 153 / 3,849 marked | 3,696 other entries |
+| Entries flagged for repair after the audit gate | 137 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced local chat NPC identity through duplicate parsing and presence checks.
+Traced activity incident kind strings into the existing native IncidentKind and
+source keys.
 
-Shared identity owner, other callers, gateway codecs, aliases and behavioral
-acceptance remain open.
+Other incident producers, key semantics, aliases and behavioral acceptance
+remain open.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1451 publication record](CHECKPOINT-1451.json)
-- [Saved report for checkpoint 1451](PROGRESS-1451.md)
+- [Checkpoint 1452 publication record](CHECKPOINT-1452.json)
+- [Saved report for checkpoint 1452](PROGRESS-1452.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
