@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:39:38.176326+00:00
+Updated: 2026-11-04T14:41:03.185933+00:00
 
-Latest verified checkpoint: **1769**. Goal: **active**.
+Latest verified checkpoint: **1770**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced scenario CLI admission, numerical plan errors and runtime capture
-rejection to the existing unsupported-scenario repair entry.
+Traced valid focused scenario tests and the pre-publication plan error exit
+boundary.
 
-Complete call-site inventory, error policy, aliases and the broader audit remain
-open.
+Unsupported-label runtime, complete call sites, aliases and the broader audit
+remain open.
 
 ## Working on now
 
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1769 publication record](CHECKPOINT-1769.json)
-- [Saved report for checkpoint 1769](PROGRESS-1769.md)
+- [Checkpoint 1770 publication record](CHECKPOINT-1770.json)
+- [Saved report for checkpoint 1770](PROGRESS-1770.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
