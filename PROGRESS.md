@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:23:54.000510+00:00
+Updated: 2026-11-04T18:26:50.902882+00:00
 
-Latest verified checkpoint: **1871**. Goal: **active**.
+Latest verified checkpoint: **1872**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,30 +37,38 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced bouncy telemetry scheduling and report transfer.
+Traced report writing and native nonfinite float serialization.
 
-Actual capture, full-report behavior and independent contracts remain open.
+Actual writer reachability, full-report behavior and filesystem outcomes remain
+open.
 
 ## Working on now
 
-Reconciling capture admission and activity form contracts with existing repair
-entries while completing the 13-lens audit.
+Tracing capture rotation and report boundaries while reconciling animation
+spring findings across audit lenses.
 
-- Reconcile MHR skin admission and typed cluster failures against the pinned
-  rigs and malformed inputs.
+- Finish capture rotation, asset scale, report serialization and native boundary
+  reconciliation.
 
-- Define shared zero-total influence handling across export, geometry probes,
-  GLB fixtures and equipment.
+- Resolve supported spring tuning and telemetry failure semantics, retaining
+  independent numeric-lens duties.
 
-- Resolve corrective index conversion policy, preserving existing typed errors
-  and the pinned release baseline.
+- Reconcile MHR skin admission, shared zero-influence policy and corrective
+  index conversion.
 
-- Reconcile garment previews, cancellation, all 13 perspectives and all 20
-  families before implementation.
+- Complete all 13 perspectives, 20 migration families and connected obligations
+  before implementation.
 
 - Implement the final types and complete independent review and validation.
 
 ## Work completed since the handoff
+
+- Traced capture rig scales and native quaternion decomposition; isolated probes
+  distinguish degenerate and sheared transforms from observed supported assets.
+
+- Confirmed isolated extreme spring tuning can yield nonfinite state and mask
+  its telemetry; recorded scoped repair obligations without claiming live
+  capture behavior.
 
 - Rechecked checkpoint 1536 against the frozen selected pipeline revision after
   discovering the clean checkout was older. The substantive dispositions hold;
@@ -196,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1871 publication record](CHECKPOINT-1871.json)
-- [Saved report for checkpoint 1871](PROGRESS-1871.md)
+- [Checkpoint 1872 publication record](CHECKPOINT-1872.json)
+- [Saved report for checkpoint 1872](PROGRESS-1872.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
