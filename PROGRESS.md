@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:09:03.570075+00:00
+Updated: 2026-11-04T09:11:06.599488+00:00
 
-Latest verified checkpoint: **1576**. Goal: **active**.
+Latest verified checkpoint: **1577**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced selected viewer and tactical scene paths to generated plans and bounded
-the evidence for direct BuildingPlan readers.
+Read the full registered Lens 10 mission systems body at historical and selected
+revisions and identified transient counts and frozen retry evidence.
 
-One partial Lens 13 observation; inferred or external plan readers, paired-basis
-policy, aliases and implementation remain open.
+One partial Lens 10 assessment; connected MissionState, receipt, admission and
+strategic acknowledgement remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1576 publication record](CHECKPOINT-1576.json)
-- [Saved report for checkpoint 1576](PROGRESS-1576.md)
+- [Checkpoint 1577 publication record](CHECKPOINT-1577.json)
+- [Saved report for checkpoint 1577](PROGRESS-1577.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
