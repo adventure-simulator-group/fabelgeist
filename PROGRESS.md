@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:03:29.293130+00:00
+Updated: 2026-11-04T17:05:10.219455+00:00
 
-Latest verified checkpoint: **1832**. Goal: **active**.
+Latest verified checkpoint: **1833**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled two existing anime-gauge queue entries against current source and
-probes.
+Traced studio breastplate design option through the catalog loader.
 
-Full loader execution, distinct armor contracts, global aliases and the broader
+Full CLI execution, distinct armor contracts, global aliases and the broader
 audit remain open.
 
 ## Working on now
@@ -196,8 +195,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1832 publication record](CHECKPOINT-1832.json)
-- [Saved report for checkpoint 1832](PROGRESS-1832.md)
+- [Checkpoint 1833 publication record](CHECKPOINT-1833.json)
+- [Saved report for checkpoint 1833](PROGRESS-1833.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
