@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:55:59.282825+00:00
+Updated: 2026-11-04T00:57:53.336388+00:00
 
-Latest verified checkpoint: **1323**. Goal: **active**.
+Latest verified checkpoint: **1324**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced missing-character behavior in the gateway resident projection and
-separate public presence table.
+Traced carried-object subtree deletion and its component cleanup helpers.
 
-Transitive and native cleanup, import interleaving and survivor state remain
-open; no population credit is claimed.
+Remaining indirect and native behavior, import interleaving and survivor state
+remain open; no population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1323 publication record](CHECKPOINT-1323.json)
-- [Saved report for checkpoint 1323](PROGRESS-1323.md)
+- [Checkpoint 1324 publication record](CHECKPOINT-1324.json)
+- [Saved report for checkpoint 1324](PROGRESS-1324.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
