@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:01:51.418470+00:00
+Updated: 2026-11-04T15:03:16.070394+00:00
 
-Latest verified checkpoint: **1784**. Goal: **active**.
+Latest verified checkpoint: **1785**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced equipment attachment and the additional requirements for inclusion in the
-global bone trace.
+Traced animation, equipment and capture system registration and readiness
+ordering.
 
-Target binding timing, runtime entities, aliases and the broader audit remain
+Deferred-command timing, runtime entities, aliases and the broader audit remain
 open.
 
 ## Working on now
@@ -182,8 +182,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1784 publication record](CHECKPOINT-1784.json)
-- [Saved report for checkpoint 1784](PROGRESS-1784.md)
+- [Checkpoint 1785 publication record](CHECKPOINT-1785.json)
+- [Saved report for checkpoint 1785](PROGRESS-1785.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
