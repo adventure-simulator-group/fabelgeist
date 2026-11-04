@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:57:12.799722+00:00
+Updated: 2026-11-04T20:59:11.543396+00:00
 
-Latest verified checkpoint: **1952**. Goal: **active**.
+Latest verified checkpoint: **1953**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **1952**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 440 / 3,849 marked | 3,409 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 413 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 6 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 7 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pool page data and staged transfer controls.
+Traced pool page query failures into empty presentation.
 
-Liquidation producer, query failures, batch behavior and aliases remain open.
+Live outage presentation, other queries and exact aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1952 publication record](CHECKPOINT-1952.json)
-- [Saved report for checkpoint 1952](PROGRESS-1952.md)
+- [Checkpoint 1953 publication record](CHECKPOINT-1953.json)
+- [Saved report for checkpoint 1953](PROGRESS-1953.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
