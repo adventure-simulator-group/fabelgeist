@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2041,
+  "at": "2026-11-04T23:45:12.306925+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "8a8785a9e9c45f4f391230bd87a91752a585c6f52731c50d65a3413d8943ce49",
+    "verification": "e548f7e17a4647a38343bdcd50e726e97813f094d321e833f74986765644d12f",
+    "canonical_current": "aea8a1bba5c8e2dd3b7dda2d31cb46e9e137978685f1f0be8ee6683426a154ba"
+  },
+  "scope": {
+    "summary": "Corrected buffer-write error characterization after tracing the wrapper.",
+    "scope_limit": "Native queue-write errors, recovery, aliases and runtime validation remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "33b2fd3d00f518f28632fffd76ad8504045a2890a3c5c7bb82a62362c9a4d8cb",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

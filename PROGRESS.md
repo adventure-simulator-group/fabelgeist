@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:43:55.358409+00:00
+Updated: 2026-11-04T23:45:33.698687+00:00
 
-Latest verified checkpoint: **2040**. Goal: **active**.
+Latest verified checkpoint: **2041**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,11 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared layer and swept-contact buffer publication and linked related ledger
-scopes.
+Corrected buffer-write error characterization after tracing the wrapper.
 
-Device-write semantics, coherent recovery, aliases and runtime validation remain
-open.
+Native queue-write errors, recovery, aliases and runtime validation remain open.
 
 ## Working on now
 
@@ -205,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2040 publication record](CHECKPOINT-2040.json)
-- [Saved report for checkpoint 2040](PROGRESS-2040.md)
+- [Checkpoint 2041 publication record](CHECKPOINT-2041.json)
+- [Saved report for checkpoint 2041](PROGRESS-2041.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
