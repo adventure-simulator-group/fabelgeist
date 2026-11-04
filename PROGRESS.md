@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:20:07.449860+00:00
+Updated: 2026-11-04T11:21:40.753071+00:00
 
-Latest verified checkpoint: **1646**. Goal: **active**.
+Latest verified checkpoint: **1647**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Distinguished empty candidate selection from zero-weight and overflow sampling
-failures, and checked normal producer weights.
+Traced the flattened strategic mission row into its existing validated aggregate
+state.
 
-One partial Lens 5 assessment; unusual weight reachability, native sampler
-details, runtime behavior and the broader audit remain open.
+One partial Lens 5 assessment; consumers, persisted/native invariants and the
+broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1646 publication record](CHECKPOINT-1646.json)
-- [Saved report for checkpoint 1646](PROGRESS-1646.md)
+- [Checkpoint 1647 publication record](CHECKPOINT-1647.json)
+- [Saved report for checkpoint 1647](PROGRESS-1647.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
