@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T02:35:44.365095+00:00
+Updated: 2026-11-04T02:37:43.673122+00:00
 
-Latest verified checkpoint: **1356**. Goal: **active**.
+Latest verified checkpoint: **1357**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1356**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 63 / 3,849 marked | 3,786 other entries |
-| Entries flagged for repair after the audit gate | 50 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 64 / 3,849 marked | 3,785 other entries |
+| Entries flagged for repair after the audit gate | 51 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled staged session, part association and zero-sized element source
-subcontracts.
+Dispositioned the staged readback parent identity contract through the creator
+part and skin consumers.
 
-Association policies, canonical/global dedup and runtime validation remain open;
-these scopes were already source-qualified.
+Association policies, independent correspondence and lens obligations, global
+aliases and runtime validation remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1356 publication record](CHECKPOINT-1356.json)
-- [Saved report for checkpoint 1356](PROGRESS-1356.md)
+- [Checkpoint 1357 publication record](CHECKPOINT-1357.json)
+- [Saved report for checkpoint 1357](PROGRESS-1357.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
