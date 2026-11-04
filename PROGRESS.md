@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:01:38.810715+00:00
+Updated: 2026-11-04T10:05:10.786645+00:00
 
-Latest verified checkpoint: **1609**. Goal: **active**.
+Latest verified checkpoint: **1610**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced selected player, NPC and isolated starting-character IDs into common
-character insertion.
+Identified distinct zero-ID policies in repair escrow and world-event validation
+for reconciliation with character creation.
 
-One partial Lens 6 assessment; downstream custody, remaining creation callers
-and broader audit remain open.
+One partial Lens 6 assessment; zero-ID producers, wider consumers and broader
+audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1609 publication record](CHECKPOINT-1609.json)
-- [Saved report for checkpoint 1609](PROGRESS-1609.md)
+- [Checkpoint 1610 publication record](CHECKPOINT-1610.json)
+- [Saved report for checkpoint 1610](PROGRESS-1610.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
