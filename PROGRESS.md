@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:49:28.709805+00:00
+Updated: 2026-11-04T14:50:57.898291+00:00
 
-Latest verified checkpoint: **1776**. Goal: **active**.
+Latest verified checkpoint: **1777**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared sidecar provenance with existing screenshot, readiness and global trace
-obligations.
+Traced bone identity from global trace production to name-keyed underlayer
+deformation.
 
-Exact sidecar ownership, broader aliases, runtime behavior and the audit remain
+Supported rig uniqueness, runtime behavior, aliases and the broader audit remain
 open.
 
 ## Working on now
@@ -182,8 +182,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1776 publication record](CHECKPOINT-1776.json)
-- [Saved report for checkpoint 1776](PROGRESS-1776.md)
+- [Checkpoint 1777 publication record](CHECKPOINT-1777.json)
+- [Saved report for checkpoint 1777](PROGRESS-1777.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
