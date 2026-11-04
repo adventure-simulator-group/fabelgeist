@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:26:35.712828+00:00
+Updated: 2026-11-04T15:28:29.068300+00:00
 
-Latest verified checkpoint: **1798**. Goal: **active**.
+Latest verified checkpoint: **1799**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,7 +35,8 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced sample-rate admission and probed native duration rounding.
+Corrected sample-rate source to locomotion configuration and traced local
+validation.
 
 Full YAML and viewer execution, aliases and the broader audit remain open.
 
@@ -184,8 +185,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1798 publication record](CHECKPOINT-1798.json)
-- [Saved report for checkpoint 1798](PROGRESS-1798.md)
+- [Checkpoint 1799 publication record](CHECKPOINT-1799.json)
+- [Saved report for checkpoint 1799](PROGRESS-1799.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
