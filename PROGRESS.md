@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:44:06.391426+00:00
+Updated: 2026-11-04T17:45:36.486469+00:00
 
-Latest verified checkpoint: **1851**. Goal: **active**.
+Latest verified checkpoint: **1852**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced server impact production and animation tuning installation.
+Probed an extreme finite scale in bone kick arithmetic.
 
-Input admission, extreme arithmetic, other lenses and runtime remain open.
+Whole-config admission, gameplay reachability, other lenses and runtime remain
+open.
 
 ## Working on now
 
@@ -194,8 +195,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1851 publication record](CHECKPOINT-1851.json)
-- [Saved report for checkpoint 1851](PROGRESS-1851.md)
+- [Checkpoint 1852 publication record](CHECKPOINT-1852.json)
+- [Saved report for checkpoint 1852](PROGRESS-1852.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
