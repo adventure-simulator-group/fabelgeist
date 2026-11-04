@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:40:38.653404+00:00
+Updated: 2026-11-04T23:42:28.344864+00:00
 
-Latest verified checkpoint: **2038**. Goal: **active**.
+Latest verified checkpoint: **2039**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced typed layer projection arithmetic and historical mass fixtures.
+Reconciled exact layer constructors and historical frame-name searches.
 
-Numeric admission policy, frame producers, aliases and runtime validation remain
-open.
+Semantic frame and external producer assumptions, numeric policy, aliases and
+runtime validation remain open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2038 publication record](CHECKPOINT-2038.json)
-- [Saved report for checkpoint 2038](PROGRESS-2038.md)
+- [Checkpoint 2039 publication record](CHECKPOINT-2039.json)
+- [Saved report for checkpoint 2039](PROGRESS-2039.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
