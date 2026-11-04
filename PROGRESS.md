@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:11:57.194618+00:00
+Updated: 2026-11-04T22:14:30.649780+00:00
 
-Latest verified checkpoint: **1994**. Goal: **active**.
+Latest verified checkpoint: **1995**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced frozen tactical receipt retries and acknowledgement timeout.
+Traced pinned condition JSON float serialization.
 
-Native serialization, actual transaction outcome and retry policy remain open.
+Database acceptance, endpoint execution, numeric policy and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1994 publication record](CHECKPOINT-1994.json)
-- [Saved report for checkpoint 1994](PROGRESS-1994.md)
+- [Checkpoint 1995 publication record](CHECKPOINT-1995.json)
+- [Saved report for checkpoint 1995](PROGRESS-1995.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
