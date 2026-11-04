@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1311,
+  "at": "2026-11-04T00:29:06.021815+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "494d3deaa46082741ef1c66e49f33c4366e96235f3c38203f7897549aaf932f4",
+    "verification": "04b52f9df969368065a9e451ac243fcc2eed19d2b48c858bb751353d1ef76de3",
+    "canonical_current": "a7266619ffd26659db34124f0d821b8a4f32ba3596e5a2179cf43f054ecb07a4"
+  },
+  "scope": {
+    "summary": "Traced both role lookups through the same pinned index helper; equal-key engine ordering remains unestablished.",
+    "scope_limit": "Engine ordering, simultaneous assignments and aliases remain open; no population credit is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "9fc24ec0e52e417aef6318c205b19750cc150bd9ccc3e7e4ff45cd36c44d4fac",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
