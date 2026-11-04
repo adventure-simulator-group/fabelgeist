@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:20:02.702616+00:00
+Updated: 2026-11-04T00:22:30.026858+00:00
 
-Latest verified checkpoint: **1307**. Goal: **active**.
+Latest verified checkpoint: **1308**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a conditional f64-to-f32 training-weight underflow and checked the
-range of current catalog weights.
+Traced zero-weight awards through direct skill and language training and
+documented feature-dependent JSON decoding.
 
-Feature-specific native conversion, independent extensions and aliases remain
+Actual decoder configuration, runtime behavior and independent extensions remain
 open; no population credit is claimed.
 
 ## Working on now
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1307 publication record](CHECKPOINT-1307.json)
-- [Saved report for checkpoint 1307](PROGRESS-1307.md)
+- [Checkpoint 1308 publication record](CHECKPOINT-1308.json)
+- [Saved report for checkpoint 1308](PROGRESS-1308.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
