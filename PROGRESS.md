@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T02:23:37.063279+00:00
+Updated: 2026-11-04T02:25:16.071579+00:00
 
-Latest verified checkpoint: **1350**. Goal: **active**.
+Latest verified checkpoint: **1351**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned engraving IO and image decode cause ownership through metal bake,
-preview and export.
+Traced typed staged readback and separate armor and metal GPU error adapters.
 
-Semantic admission, GPU internals, independent lenses, global aliases and
-runtime validation remain open.
+Native branches, geometry and independent lens obligations remain open; no
+population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1350 publication record](CHECKPOINT-1350.json)
-- [Saved report for checkpoint 1350](PROGRESS-1350.md)
+- [Checkpoint 1351 publication record](CHECKPOINT-1351.json)
+- [Saved report for checkpoint 1351](PROGRESS-1351.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
