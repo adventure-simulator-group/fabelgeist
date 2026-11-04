@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:48:54.469445+00:00
+Updated: 2026-11-04T13:50:36.811654+00:00
 
-Latest verified checkpoint: **1737**. Goal: **active**.
+Latest verified checkpoint: **1738**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified historical item schema ranges independently under lenses 6 through 13.
+Traced book target string validation and selected runtime mappings.
 
-Current source, item admission and consumers, global aliases and the broader
-audit remain open.
+Catalog loading, other consumers, exact aliases and the broader audit remain
+open.
 
 ## Working on now
 
@@ -165,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1737 publication record](CHECKPOINT-1737.json)
-- [Saved report for checkpoint 1737](PROGRESS-1737.md)
+- [Checkpoint 1738 publication record](CHECKPOINT-1738.json)
+- [Saved report for checkpoint 1738](PROGRESS-1738.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
