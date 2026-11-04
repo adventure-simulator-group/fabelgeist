@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:07:17.013821+00:00
+Updated: 2026-11-04T10:09:30.012738+00:00
 
-Latest verified checkpoint: **1611**. Goal: **active**.
+Latest verified checkpoint: **1612**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Distinguished nonzero generated default IDs from caller-supplied isolated seed
-IDs and recorded the conditional zero-input path.
+Compared existing checked physical-custody character identity with the separate
+case-custody ledger entry.
 
-One partial Lens 6 assessment; transaction success, other producers, consumers
+One partial Lens 6 assessment; general character identity policy, wider aliases
 and broader audit remain open.
 
 ## Working on now
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1611 publication record](CHECKPOINT-1611.json)
-- [Saved report for checkpoint 1611](PROGRESS-1611.md)
+- [Checkpoint 1612 publication record](CHECKPOINT-1612.json)
+- [Saved report for checkpoint 1612](PROGRESS-1612.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
