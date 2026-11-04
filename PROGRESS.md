@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T16:24:53.507665+00:00
+Updated: 2026-11-04T17:03:29.293130+00:00
 
-Latest verified checkpoint: **1831**. Goal: **active**.
+Latest verified checkpoint: **1832**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed selected outer and inner breastplate validation in both overflow modes.
+Reconciled two existing anime-gauge queue entries against current source and
+probes.
 
-Real loader, full types, GPU, aliases and the broader audit remain open.
+Full loader execution, distinct armor contracts, global aliases and the broader
+audit remain open.
 
 ## Working on now
 
@@ -146,6 +148,11 @@ entries while completing the 13-lens audit.
   settlement and location-aware preview consumers expect a validated schedule.
   Simulation commit and end-to-end reachability remain unverified.
 
+- Confirmed in an isolated selected-method probe that an out-of-range anime
+  breastplate gauge can panic before validation under checked arithmetic;
+  unchecked arithmetic reaches the outer range error. Full loader and GPU
+  execution remain untested.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -189,8 +196,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1831 publication record](CHECKPOINT-1831.json)
-- [Saved report for checkpoint 1831](PROGRESS-1831.md)
+- [Checkpoint 1832 publication record](CHECKPOINT-1832.json)
+- [Saved report for checkpoint 1832](PROGRESS-1832.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
