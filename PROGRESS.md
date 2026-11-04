@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T08:31:16.827850+00:00
+Updated: 2026-11-04T08:32:53.499006+00:00
 
-Latest verified checkpoint: **1554**. Goal: **active**.
+Latest verified checkpoint: **1555**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1554**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 433 / 3,849 marked | 3,416 other entries |
-| Entries flagged for repair after the audit gate | 409 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 434 / 3,849 marked | 3,415 other entries |
+| Entries flagged for repair after the audit gate | 410 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,12 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced a narrative combat producer and follow-up mismatch: timeout and mutual
-incapacitation are produced but rejected when a follow-up exists.
+Traced the eight natural hair-colour choices from UI strings through pigment and
+material selection.
 
-One scoped Lens 1 source disposition and provisional repair; authored outcome
-policy, transaction semantics, aliases, implementation and runtime acceptance
-remain open.
+One scoped source discovery and provisional repair plan; external named-colour
+consumers, aliases, implementation and runtime acceptance remain open.
 
 ## Working on now
 
@@ -147,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1554 publication record](CHECKPOINT-1554.json)
-- [Saved report for checkpoint 1554](PROGRESS-1554.md)
+- [Checkpoint 1555 publication record](CHECKPOINT-1555.json)
+- [Saved report for checkpoint 1555](PROGRESS-1555.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
