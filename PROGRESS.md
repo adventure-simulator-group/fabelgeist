@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:50:57.898291+00:00
+Updated: 2026-11-04T14:52:24.306882+00:00
 
-Latest verified checkpoint: **1777**. Goal: **active**.
+Latest verified checkpoint: **1778**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,8 +35,8 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced bone identity from global trace production to name-keyed underlayer
-deformation.
+Compared first-match rig lookup with last-entry trace-consumer behavior for
+duplicate bone names.
 
 Supported rig uniqueness, runtime behavior, aliases and the broader audit remain
 open.
@@ -182,8 +182,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1777 publication record](CHECKPOINT-1777.json)
-- [Saved report for checkpoint 1777](PROGRESS-1777.md)
+- [Checkpoint 1778 publication record](CHECKPOINT-1778.json)
+- [Saved report for checkpoint 1778](PROGRESS-1778.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
