@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:17:48.879035+00:00
+Updated: 2026-11-04T23:19:39.903627+00:00
 
-Latest verified checkpoint: **2025**. Goal: **active**.
+Latest verified checkpoint: **2026**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,11 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled historical fixture and parser source identities at the selected
-revision.
+Traced contact mass admission and constraint incidence boundaries.
 
-Solver and constraint contracts, archive policy and runtime validation remain
-open.
+Projection arithmetic, particle membership, dispatch and runtime validation
+remain open.
 
 ## Working on now
 
@@ -205,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2025 publication record](CHECKPOINT-2025.json)
-- [Saved report for checkpoint 2025](PROGRESS-2025.md)
+- [Checkpoint 2026 publication record](CHECKPOINT-2026.json)
+- [Saved report for checkpoint 2026](PROGRESS-2026.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
