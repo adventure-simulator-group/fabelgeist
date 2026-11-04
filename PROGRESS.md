@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:09:58.185225+00:00
+Updated: 2026-11-04T12:11:48.802325+00:00
 
-Latest verified checkpoint: **1677**. Goal: **active**.
+Latest verified checkpoint: **1678**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified installed Rust duration conversion, including tiny positive values
-that round to zero.
+Qualified the installed f32 string grammar and its relationship to pinned clap
+parser inference.
 
-Installed toolchain source inspected; exact CLI admission, distribution
-provenance, runtime and the broader audit remain open.
+Installed toolchain and pinned crate sources inspected; exact CLI token
+handling, provenance, runtime and the broader audit remain open.
 
 ## Working on now
 
@@ -151,8 +151,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1677 publication record](CHECKPOINT-1677.json)
-- [Saved report for checkpoint 1677](PROGRESS-1677.md)
+- [Checkpoint 1678 publication record](CHECKPOINT-1678.json)
+- [Saved report for checkpoint 1678](PROGRESS-1678.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
