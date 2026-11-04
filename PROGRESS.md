@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:26:19.463176+00:00
+Updated: 2026-11-04T23:28:21.485326+00:00
 
-Latest verified checkpoint: **2030**. Goal: **active**.
+Latest verified checkpoint: **2031**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped shell particle-buffer discovery with a count policy question.
+Compared CPU and GPU BVH traversal and stack limits.
 
-Count policy, device acceptance, other lenses and runtime validation remain
-open.
+GPU hierarchy depth, native limits and runtime candidate validation remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2030 publication record](CHECKPOINT-2030.json)
-- [Saved report for checkpoint 2030](PROGRESS-2030.md)
+- [Checkpoint 2031 publication record](CHECKPOINT-2031.json)
+- [Saved report for checkpoint 2031](PROGRESS-2031.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
