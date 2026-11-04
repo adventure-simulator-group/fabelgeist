@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:29:28.810177+00:00
+Updated: 2026-11-04T23:32:17.724596+00:00
 
-Latest verified checkpoint: **2032**. Goal: **active**.
+Latest verified checkpoint: **2033**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped BVH traversal discovery with configuration policy.
+Traced outer projection and self-collision configuration.
 
-Default depth proof, native limits and runtime candidate validation remain open.
+Mesh and frame admission, scheduler, adjacency and runtime validation remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2032 publication record](CHECKPOINT-2032.json)
-- [Saved report for checkpoint 2032](PROGRESS-2032.md)
+- [Checkpoint 2033 publication record](CHECKPOINT-2033.json)
+- [Saved report for checkpoint 2033](PROGRESS-2033.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
