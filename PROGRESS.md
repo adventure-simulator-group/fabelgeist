@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:37:45.452159+00:00
+Updated: 2026-11-04T23:39:06.000795+00:00
 
-Latest verified checkpoint: **2036**. Goal: **active**.
+Latest verified checkpoint: **2037**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced self-collision adjacency, count arithmetic and checked-in callers.
+Traced outer-layer mesh admission and typed interior projection.
 
-Count and device-limit policy, external reuse, aliases and runtime validation
-remain open.
+Frame producers, numeric limits, aliases and runtime validation remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2036 publication record](CHECKPOINT-2036.json)
-- [Saved report for checkpoint 2036](PROGRESS-2036.md)
+- [Checkpoint 2037 publication record](CHECKPOINT-2037.json)
+- [Saved report for checkpoint 2037](PROGRESS-2037.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
