@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-03T23:59:27.209124+00:00
+Updated: 2026-11-04T00:01:29.162893+00:00
 
-Latest verified checkpoint: **1297**. Goal: **active**.
+Latest verified checkpoint: **1298**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Enumerated 27 distinct settlement/service pairs with no duplicates and traced
-physician and surgeon chapter-location fallback.
+Identified a conditional web call sending two arguments to a reducer whose
+selected schema requires three, and recorded a provisional role-selection
+repair.
 
-Future service selection policy, other consumers, persistence, native boundaries
-and aliases remain open; no population credit is claimed.
+Native server handling, reachability, other consumers and aliases remain open;
+no population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +142,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1297 publication record](CHECKPOINT-1297.json)
-- [Saved report for checkpoint 1297](PROGRESS-1297.md)
+- [Checkpoint 1298 publication record](CHECKPOINT-1298.json)
+- [Saved report for checkpoint 1298](PROGRESS-1298.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
