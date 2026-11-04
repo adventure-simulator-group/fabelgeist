@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:26:11.887643+00:00
+Updated: 2026-11-04T19:27:37.795068+00:00
 
-Latest verified checkpoint: **1901**. Goal: **active**.
+Latest verified checkpoint: **1902**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced empty cloud bake into shader opacity.
+Traced browser cloud configuration and resource construction.
 
-Resource state, actual GPU render and independent lenses remain open.
+Deployed resource state, actual GPU render and independent lenses remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1901 publication record](CHECKPOINT-1901.json)
-- [Saved report for checkpoint 1901](PROGRESS-1901.md)
+- [Checkpoint 1902 publication record](CHECKPOINT-1902.json)
+- [Saved report for checkpoint 1902](PROGRESS-1902.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
