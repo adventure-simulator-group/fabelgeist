@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:32:20.918403+00:00
+Updated: 2026-11-04T09:33:34.728793+00:00
 
-Latest verified checkpoint: **1594**. Goal: **active**.
+Latest verified checkpoint: **1595**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,16 +34,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected existing mission behavior tests and identified the empty-receipt and
-cross-boundary validation limits.
+Inspected strategic outcome tests and confirmed the examined completion
+assertion is source-based, not an end-to-end transaction test.
 
-One partial Lens 8 assessment; tests were not run, and nonempty receipt, cross-
-boundary acceptance and broader audit remain open.
+One partial Lens 8 assessment; tests were not run, and reducer transaction,
+cross-boundary acceptance and broader audit remain open.
 
 ## Working on now
 
-Completing the 13-lens audit and evidence-linked repair ledger, including city
-preparation, MHR and remaining connected contracts.
+Reconciling mission outcome and receipt contracts alongside the remaining
+13-lens audit and repair ledger.
 
 - Reconcile MHR skin admission and typed cluster failures against the pinned
   rigs and malformed inputs.
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1594 publication record](CHECKPOINT-1594.json)
-- [Saved report for checkpoint 1594](PROGRESS-1594.md)
+- [Checkpoint 1595 publication record](CHECKPOINT-1595.json)
+- [Saved report for checkpoint 1595](PROGRESS-1595.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
