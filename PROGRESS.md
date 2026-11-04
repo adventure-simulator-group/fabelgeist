@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:51:22.516054+00:00
+Updated: 2026-11-04T17:52:50.449277+00:00
 
-Latest verified checkpoint: **1855**. Goal: **active**.
+Latest verified checkpoint: **1856**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed nonfinite spring propagation under admitted extreme tuning.
+Recorded focused repair obligation for nonfinite spring state.
 
-Real rig behavior, tuning policy, other lenses and runtime remain open.
+Broader audit, rig behavior, tuning policy and independent lenses remain open.
 
 ## Working on now
 
@@ -194,8 +194,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1855 publication record](CHECKPOINT-1855.json)
-- [Saved report for checkpoint 1855](PROGRESS-1855.md)
+- [Checkpoint 1856 publication record](CHECKPOINT-1856.json)
+- [Saved report for checkpoint 1856](PROGRESS-1856.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
