@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1818,
+  "at": "2026-11-04T16:01:14.415320+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "f89ab7aa2dbc9856da162c2d24fe0d8cf626aa6a06464ffd2e263c68c765602e",
+    "verification": "918ad8f52076123ef68cf6680b9e729f560542741fc84a99a8decdba9cd22b08",
+    "canonical_current": "33c51abe56200c2b28d2f37236f9683598c4294086348831eaaf8963dcdfd658"
+  },
+  "scope": {
+    "summary": "Traced catalog identity lookup and membership insertion.",
+    "scope_limit": "Build-time catalog admission, other consumers, aliases and the broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "6e8e1587683fc4e414fa63fed8de59134878ba8a597419f196da1d1fa8c06fb1",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
