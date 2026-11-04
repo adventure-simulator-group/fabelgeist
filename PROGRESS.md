@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T07:55:30.046963+00:00
+Updated: 2026-11-04T07:57:02.502775+00:00
 
-Latest verified checkpoint: **1535**. Goal: **active**.
+Latest verified checkpoint: **1536**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1535**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 254 / 3,849 marked | 3,595 other entries |
-| Entries flagged for repair after the audit gate | 238 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 261 / 3,849 marked | 3,588 other entries |
+| Entries flagged for repair after the audit gate | 245 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,12 +34,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared thirteen compute-pass admission checks with regular binding, including
-the divergent TextureView and sRGB counterpart handling.
+Traced seven buffer and pipeline contracts, including a conditional zero-size
+unwrap and native validation error erasure.
 
-Thirteen scoped source discoveries and provisional repair plans; actual callers,
-producer invariants, divergent texture policy, aliases, implementation and
-runtime acceptance remain open.
+Seven scoped source discoveries and provisional repair plans; no runtime panic
+was reproduced. Constructors, native causes, callers, target policy, aliases,
+implementation and validation remain open.
 
 ## Working on now
 
@@ -142,8 +142,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1535 publication record](CHECKPOINT-1535.json)
-- [Saved report for checkpoint 1535](PROGRESS-1535.md)
+- [Checkpoint 1536 publication record](CHECKPOINT-1536.json)
+- [Saved report for checkpoint 1536](PROGRESS-1536.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

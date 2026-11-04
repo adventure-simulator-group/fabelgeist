@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1536,
+  "at": "2026-11-04T07:56:51.557578+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "40e7e02fd98bbc7de6350292fd4dc33b6ff05bcff534e0df211802f5647b7df9",
+    "verification": "1372991f566642f6916418c1b12de7128677462d5083574048c2983d47d86362",
+    "canonical_current": "fa764e27d164e7a48059b8e13ad928c79dc21a94c453389a221702eee293e0fc"
+  },
+  "scope": {
+    "summary": "Traced seven buffer and pipeline contracts, including a conditional zero-size unwrap and native validation error erasure.",
+    "scope_limit": "Seven scoped source discoveries and provisional repair plans; no runtime panic was reproduced. Constructors, native causes, callers, target policy, aliases, implementation and validation remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "fde025b62e51343bcb0c1db4571e4a0a48bff1d0803840e1ab22d881e46eec30",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
