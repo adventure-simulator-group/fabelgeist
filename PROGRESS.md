@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T05:49:12.099324+00:00
+Updated: 2026-11-04T05:50:49.915201+00:00
 
-Latest verified checkpoint: **1460**. Goal: **active**.
+Latest verified checkpoint: **1461**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Partially traced optional road trial continuation against the shared unresolved
-encounter guard.
+Partially traced immediate activity schedule scaling into ambient language
+exposure.
 
-Ordinary producer, trial state, intended policy and behavioral acceptance remain
-open.
+Admitted positive-gain state, other callers, aliases and behavioral acceptance
+remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1460 publication record](CHECKPOINT-1460.json)
-- [Saved report for checkpoint 1460](PROGRESS-1460.md)
+- [Checkpoint 1461 publication record](CHECKPOINT-1461.json)
+- [Saved report for checkpoint 1461](PROGRESS-1461.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
