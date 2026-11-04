@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:13:41.984263+00:00
+Updated: 2026-11-04T09:14:59.197994+00:00
 
-Latest verified checkpoint: **1579**. Goal: **active**.
+Latest verified checkpoint: **1580**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced receipt contact membership validation and roster/enrollment limits,
-retaining the truncation mismatch as a conditional reachability question.
+Traced captured bounded roster into server registration and strategic party
+admission, identifying temporary and standalone exceptions.
 
-One partial Lens 10 assessment; actual admission authority, truncation
-reachability and connected strategic contract remain open.
+One partial Lens 10 assessment; temporary and standalone cases, contact
+provenance and connected strategic contract remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1579 publication record](CHECKPOINT-1579.json)
-- [Saved report for checkpoint 1579](PROGRESS-1579.md)
+- [Checkpoint 1580 publication record](CHECKPOINT-1580.json)
+- [Saved report for checkpoint 1580](PROGRESS-1580.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
