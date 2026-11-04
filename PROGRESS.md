@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:39:32.436951+00:00
+Updated: 2026-11-04T20:41:47.449440+00:00
 
-Latest verified checkpoint: **1942**. Goal: **active**.
+Latest verified checkpoint: **1943**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified existing jitter test scope and acceptance gaps.
+Reconciled current inventory parsing, browser drafts and pool routes.
 
-Actual incident behavior, attribution and derivative policy remain open.
+Empty-slot policy, reducer acceptance, batch behavior and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1942 publication record](CHECKPOINT-1942.json)
-- [Saved report for checkpoint 1942](PROGRESS-1942.md)
+- [Checkpoint 1943 publication record](CHECKPOINT-1943.json)
+- [Saved report for checkpoint 1943](PROGRESS-1943.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
