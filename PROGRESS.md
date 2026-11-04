@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T07:31:49.480490+00:00
+Updated: 2026-11-04T07:33:28.091302+00:00
 
-Latest verified checkpoint: **1522**. Goal: **active**.
+Latest verified checkpoint: **1523**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1522**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 216 / 3,849 marked | 3,633 other entries |
-| Entries flagged for repair after the audit gate | 200 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 217 / 3,849 marked | 3,632 other entries |
+| Entries flagged for repair after the audit gate | 201 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced read_bytes native file fallback and filesystem cause erasure.
+Traced native FileEntry read cause erasure through project-root read_bytes.
 
-URI normalization, web and project-root paths, consumers and broader aliases
-remain open.
+Other implementations, write errors, consumers and broader aliases remain open.
 
 ## Working on now
 
@@ -140,8 +139,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1522 publication record](CHECKPOINT-1522.json)
-- [Saved report for checkpoint 1522](PROGRESS-1522.md)
+- [Checkpoint 1523 publication record](CHECKPOINT-1523.json)
+- [Saved report for checkpoint 1523](PROGRESS-1523.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
