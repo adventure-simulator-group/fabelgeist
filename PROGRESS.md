@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:58:54.322600+00:00
+Updated: 2026-11-04T18:01:16.297650+00:00
 
-Latest verified checkpoint: **1859**. Goal: **active**.
+Latest verified checkpoint: **1860**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared existing animation types with spring tuning semantics.
+Compared capture rotation checks with existing rigid-rotation admission.
 
-Semantic fit, arithmetic policy, other lenses and runtime remain open.
+Native decomposition, actual malformed input, independent contracts and runtime
+remain open.
 
 ## Working on now
 
@@ -196,8 +197,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1859 publication record](CHECKPOINT-1859.json)
-- [Saved report for checkpoint 1859](PROGRESS-1859.md)
+- [Checkpoint 1860 publication record](CHECKPOINT-1860.json)
+- [Saved report for checkpoint 1860](PROGRESS-1860.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
