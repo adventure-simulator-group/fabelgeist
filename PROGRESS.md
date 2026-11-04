@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:57:03.255566+00:00
+Updated: 2026-11-04T10:58:24.184190+00:00
 
-Latest verified checkpoint: **1634**. Goal: **active**.
+Latest verified checkpoint: **1635**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Narrowed receipt truncation to excess Party-classified identities by tracing
-melee and ranged consequence attribution.
+Established that the transient enrollment set can exceed its expected count
+before sealing.
 
-One partial Lens 6 assessment; exceptional Party identity reachability, runtime
-behavior and the broader audit remain open.
+One partial Lens 6 assessment; actual concurrent joins, receipt behavior and the
+broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1634 publication record](CHECKPOINT-1634.json)
-- [Saved report for checkpoint 1634](PROGRESS-1634.md)
+- [Checkpoint 1635 publication record](CHECKPOINT-1635.json)
+- [Saved report for checkpoint 1635](PROGRESS-1635.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
