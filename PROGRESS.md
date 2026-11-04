@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:17:14.871836+00:00
+Updated: 2026-11-04T18:19:13.885700+00:00
 
-Latest verified checkpoint: **1868**. Goal: **active**.
+Latest verified checkpoint: **1869**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced ragdoll owner-scale extraction and geometry recipients.
+Traced capture subject initial scale and fixture-root updates.
 
-Owner scale reachability, independent contracts and capture remain open.
+Later scale writers, other actor paths and actual capture remain open.
 
 ## Working on now
 
@@ -196,8 +196,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1868 publication record](CHECKPOINT-1868.json)
-- [Saved report for checkpoint 1868](PROGRESS-1868.md)
+- [Checkpoint 1869 publication record](CHECKPOINT-1869.json)
+- [Saved report for checkpoint 1869](PROGRESS-1869.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
