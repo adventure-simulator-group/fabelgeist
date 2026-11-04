@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T06:50:54.880040+00:00
+Updated: 2026-11-04T06:52:24.199371+00:00
 
-Latest verified checkpoint: **1497**. Goal: **active**.
+Latest verified checkpoint: **1498**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1497**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 191 / 3,849 marked | 3,658 other entries |
-| Entries flagged for repair after the audit gate | 175 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 192 / 3,849 marked | 3,657 other entries |
+| Entries flagged for repair after the audit gate | 176 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced family, form and surname IDs through retained catalogue and private
-rendering lookups.
+Traced deterministic name sampling errors into the string-valued catalogue
+error.
 
-Catalogue membership, other identity roles and downstream consumers remain open.
+Pinned sampler taxonomy, public consumers and broader aliases remain open.
 
 ## Working on now
 
@@ -140,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1497 publication record](CHECKPOINT-1497.json)
-- [Saved report for checkpoint 1497](PROGRESS-1497.md)
+- [Checkpoint 1498 publication record](CHECKPOINT-1498.json)
+- [Saved report for checkpoint 1498](PROGRESS-1498.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
