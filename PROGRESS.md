@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:22:36.913874+00:00
+Updated: 2026-11-04T14:23:43.449931+00:00
 
-Latest verified checkpoint: **1759**. Goal: **active**.
+Latest verified checkpoint: **1760**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced active membership and the inclusive paid-through boundary against the
-personal character clock.
+Traced dues payment, reactivation, lapse suspension and presentation
+reconciliation.
 
-Membership mutation, runtime behavior, aliases and the broader audit remain
-open.
+Runtime behavior, related contracts, aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -166,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1759 publication record](CHECKPOINT-1759.json)
-- [Saved report for checkpoint 1759](PROGRESS-1759.md)
+- [Checkpoint 1760 publication record](CHECKPOINT-1760.json)
+- [Saved report for checkpoint 1760](PROGRESS-1760.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
