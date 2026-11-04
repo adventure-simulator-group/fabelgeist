@@ -1,24 +1,26 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:52:50.449277+00:00
+Updated: 2026-11-04T17:54:52.707673+00:00
 
-Latest verified checkpoint: **1856**. Goal: **active**.
+Latest verified checkpoint: **1857**. Goal: **active**.
 
 ## Quantitative summary
 
 | Category | Done or recorded | Remaining or status |
 | --- | --- | --- |
-| Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
+| Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
 | Queue entries explicitly marked source-discovery closed | 439 / 3,849 marked | 3,410 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
-| Entries flagged for repair after the audit gate | 413 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 413 recorded | Implementation gate not yet passed |
+| Scoped repair obligations on entries | 1 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
 include reminders and independent obligations; the other entries are not a count
 of unique unfinished bugs. The source-closed count includes only explicit flags;
 qualified-open entries use a separate status and are not completed contracts.
+Scoped repair obligations are counted separately and may overlap other entries.
 The full audit, implementation, review and validation remain incomplete.
 
 The refactor remains in the required source audit. Its 13 perspectives include
@@ -35,7 +37,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded focused repair obligation for nonfinite spring state.
+Probed a second path to nonfinite spring state and corrected progress counts.
 
 Broader audit, rig behavior, tuning policy and independent lenses remain open.
 
@@ -194,8 +196,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1856 publication record](CHECKPOINT-1856.json)
-- [Saved report for checkpoint 1856](PROGRESS-1856.md)
+- [Checkpoint 1857 publication record](CHECKPOINT-1857.json)
+- [Saved report for checkpoint 1857](PROGRESS-1857.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
