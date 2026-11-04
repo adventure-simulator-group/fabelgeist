@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:12:37.866208+00:00
+Updated: 2026-11-04T23:13:55.186793+00:00
 
-Latest verified checkpoint: **2022**. Goal: **active**.
+Latest verified checkpoint: **2023**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2022**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 447 / 3,849 marked | 3,402 other entries |
+| Queue entries explicitly marked source-discovery closed | 448 / 3,849 marked | 3,401 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 12 recorded | Broader contracts may remain open |
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved both default feature graphs across Cargo targets; torch-sys absent.
+Closed selected MHR corrective and NumPy source discovery with existing policy.
 
-Other feature combinations, workspace builds and runtime validation remain open.
+Other model families, archive policy, feature combinations and runtime
+validation remain open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2022 publication record](CHECKPOINT-2022.json)
-- [Saved report for checkpoint 2022](PROGRESS-2022.md)
+- [Checkpoint 2023 publication record](CHECKPOINT-2023.json)
+- [Saved report for checkpoint 2023](PROGRESS-2023.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
