@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:17:20.685280+00:00
+Updated: 2026-11-04T21:18:39.585266+00:00
 
-Latest verified checkpoint: **1964**. Goal: **active**.
+Latest verified checkpoint: **1965**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,11 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified normal simulator production, claim restrictions and web preview
-boundaries.
+Compared schedule cross-field admission, writer and saved preview ownership.
 
-Direct malformed reducer input remains conditional; other writers, runtime
-validation and aliases remain open.
+Direct caller policy, saved-preview acquisition, runtime tests and global
+aliases remain open.
 
 ## Working on now
 
@@ -205,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1964 publication record](CHECKPOINT-1964.json)
-- [Saved report for checkpoint 1964](PROGRESS-1964.md)
+- [Checkpoint 1965 publication record](CHECKPOINT-1965.json)
+- [Saved report for checkpoint 1965](PROGRESS-1965.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
