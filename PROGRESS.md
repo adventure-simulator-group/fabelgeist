@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:10:40.754238+00:00
+Updated: 2026-11-04T20:12:00.922639+00:00
 
-Latest verified checkpoint: **1924**. Goal: **active**.
+Latest verified checkpoint: **1925**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced selected animation report assembly and error boundaries.
+Traced animation value errors and capture completion.
 
-Historical successor, capture producers and independent lenses remain open.
+Screenshot persistence, historical successor and independent lenses remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1924 publication record](CHECKPOINT-1924.json)
-- [Saved report for checkpoint 1924](PROGRESS-1924.md)
+- [Checkpoint 1925 publication record](CHECKPOINT-1925.json)
+- [Saved report for checkpoint 1925](PROGRESS-1925.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
