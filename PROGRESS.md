@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:41:32.844856+00:00
+Updated: 2026-11-04T15:43:10.475599+00:00
 
-Latest verified checkpoint: **1806**. Goal: **active**.
+Latest verified checkpoint: **1807**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced postwrite condition and capability refresh entry bodies.
+Traced saved schedule preview and reconciled its related audit obligation.
 
-Transitive projection helpers, simulation commit, runtime and aliases remain
-open.
+Simulation commit, preview reachability, independent lenses and exact aliases
+remain open.
 
 ## Working on now
 
@@ -142,6 +142,11 @@ entries while completing the 13-lens audit.
   can bypass the inspected frame timeout, while the separate watchdog covers
   armor readiness. External watchdogs and runtime behavior remain unverified.
 
+- Traced a conditional isolated-simulation schedule admission mismatch: a non-
+  quarter-hour allocation can pass its local total check, while stationary,
+  settlement and location-aware preview consumers expect a validated schedule.
+  Simulation commit and end-to-end reachability remain unverified.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -185,8 +190,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1806 publication record](CHECKPOINT-1806.json)
-- [Saved report for checkpoint 1806](PROGRESS-1806.md)
+- [Checkpoint 1807 publication record](CHECKPOINT-1807.json)
+- [Saved report for checkpoint 1807](PROGRESS-1807.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
