@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T06:47:32.393747+00:00
+Updated: 2026-11-04T06:49:05.006667+00:00
 
-Latest verified checkpoint: **1495**. Goal: **active**.
+Latest verified checkpoint: **1496**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1495**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 189 / 3,849 marked | 3,660 other entries |
-| Entries flagged for repair after the audit gate | 173 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 190 / 3,849 marked | 3,659 other entries |
+| Entries flagged for repair after the audit gate | 174 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,9 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced map compiler errors through worker thread string conversion and join.
+Traced name catalogue validation strings through recursive checks and the build
+consumer.
 
-Leaf error types, thread-safety constraints and broader aliases remain open.
+Identifier owner fit, complete recursive cases and broader aliases remain open;
+tests not executed.
 
 ## Working on now
 
@@ -139,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1495 publication record](CHECKPOINT-1495.json)
-- [Saved report for checkpoint 1495](PROGRESS-1495.md)
+- [Checkpoint 1496 publication record](CHECKPOINT-1496.json)
+- [Saved report for checkpoint 1496](PROGRESS-1496.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
