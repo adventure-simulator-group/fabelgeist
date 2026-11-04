@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:21:14.409820+00:00
+Updated: 2026-11-04T20:22:44.443283+00:00
 
-Latest verified checkpoint: **1931**. Goal: **active**.
+Latest verified checkpoint: **1932**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced steady scenario plans and support sampling eligibility.
+Compared guard liveness and foot-support measurement thresholds.
 
-Actual support coverage, historical consumers, exact aliases and independent
-lenses remain open.
+Remaining support gates, historical aliases and independent lenses remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1931 publication record](CHECKPOINT-1931.json)
-- [Saved report for checkpoint 1931](PROGRESS-1931.md)
+- [Checkpoint 1932 publication record](CHECKPOINT-1932.json)
+- [Saved report for checkpoint 1932](PROGRESS-1932.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
