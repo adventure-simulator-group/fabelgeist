@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:01:02.107308+00:00
+Updated: 2026-11-04T19:02:22.503354+00:00
 
-Latest verified checkpoint: **1888**. Goal: **active**.
+Latest verified checkpoint: **1889**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced local chat timestamp persistence, projection and ordering.
+Traced local chat browser timestamp display and ordering.
 
-Browser display, other timestamp callers and independent lenses remain open.
+Browser numeric edge behavior, other timestamp callers and independent lenses
+remain open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1888 publication record](CHECKPOINT-1888.json)
-- [Saved report for checkpoint 1888](PROGRESS-1888.md)
+- [Checkpoint 1889 publication record](CHECKPOINT-1889.json)
+- [Saved report for checkpoint 1889](PROGRESS-1889.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
