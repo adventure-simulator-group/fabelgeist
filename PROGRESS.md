@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:14:45.488606+00:00
+Updated: 2026-11-04T13:16:31.664043+00:00
 
-Latest verified checkpoint: **1715**. Goal: **active**.
+Latest verified checkpoint: **1716**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified alternate saved-schedule writers and a conditional simulation
-validation gap.
+Traced the conditional isolated simulation schedule gap to settlement rest.
 
-Simulation reachability, NPC generator, runtime, global aliases and the broader
-audit remain open.
+Reducer invocation, runtime, NPC generator, global aliases and the broader audit
+remain open.
 
 ## Working on now
 
@@ -166,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1715 publication record](CHECKPOINT-1715.json)
-- [Saved report for checkpoint 1715](PROGRESS-1715.md)
+- [Checkpoint 1716 publication record](CHECKPOINT-1716.json)
+- [Saved report for checkpoint 1716](PROGRESS-1716.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
