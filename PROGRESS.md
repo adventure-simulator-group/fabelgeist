@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:55:36.758217+00:00
+Updated: 2026-11-04T19:59:14.684178+00:00
 
-Latest verified checkpoint: **1918**. Goal: **active**.
+Latest verified checkpoint: **1919**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,7 +37,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed weather field advection at extreme strategic time.
+Probed weather advection boundary including pressure neighbor.
 
 Release behavior, live reachability and independent lenses remain open.
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1918 publication record](CHECKPOINT-1918.json)
-- [Saved report for checkpoint 1918](PROGRESS-1918.md)
+- [Checkpoint 1919 publication record](CHECKPOINT-1919.json)
+- [Saved report for checkpoint 1919](PROGRESS-1919.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
