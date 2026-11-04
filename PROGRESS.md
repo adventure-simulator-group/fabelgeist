@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:42:05.002733+00:00
+Updated: 2026-11-04T21:43:25.317736+00:00
 
-Latest verified checkpoint: **1979**. Goal: **active**.
+Latest verified checkpoint: **1980**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fungible and measured inventory grant paths.
+Traced physical load and condition inputs to movement.
 
-Concrete live loadout, mass representation, runtime behavior and aliases remain
+Other movement overrides, runtime parity, numeric inputs and aliases remain
 open.
 
 ## Working on now
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1979 publication record](CHECKPOINT-1979.json)
-- [Saved report for checkpoint 1979](PROGRESS-1979.md)
+- [Checkpoint 1980 publication record](CHECKPOINT-1980.json)
+- [Saved report for checkpoint 1980](PROGRESS-1980.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
