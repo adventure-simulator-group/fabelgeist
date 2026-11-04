@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T16:10:39.705173+00:00
+Updated: 2026-11-04T16:11:52.541457+00:00
 
-Latest verified checkpoint: **1823**. Goal: **active**.
+Latest verified checkpoint: **1824**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Confirmed schedule API invariant bypasses with an isolated exact-source probe.
+Recorded schedule-specific repair constraints and acceptance, superseding a
+stray capture constraint.
 
-Production reachability, database behavior, API policy and aliases remain open.
+Production reachability, database behavior, independent lenses and aliases
+remain open.
 
 ## Working on now
 
@@ -189,8 +191,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1823 publication record](CHECKPOINT-1823.json)
-- [Saved report for checkpoint 1823](PROGRESS-1823.md)
+- [Checkpoint 1824 publication record](CHECKPOINT-1824.json)
+- [Saved report for checkpoint 1824](PROGRESS-1824.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
