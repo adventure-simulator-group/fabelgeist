@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:49:08.094765+00:00
+Updated: 2026-11-04T20:51:03.966792+00:00
 
-Latest verified checkpoint: **1947**. Goal: **active**.
+Latest verified checkpoint: **1948**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **1947**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 440 / 3,849 marked | 3,409 other entries |
+| Queue entries explicitly marked source-discovery closed | 439 / 3,849 marked | 3,410 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 413 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 6 recorded | Broader contracts may remain open |
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled inventory form reason discovery and recorded typed admission repair.
+Reopened form-reason discovery after identifying omitted liquidation consumer.
 
-Response policy, global aliases and actual HTTP behavior remain open.
+Liquidation producer, exact aliases, typed reason repair and live HTTP remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1947 publication record](CHECKPOINT-1947.json)
-- [Saved report for checkpoint 1947](PROGRESS-1947.md)
+- [Checkpoint 1948 publication record](CHECKPOINT-1948.json)
+- [Saved report for checkpoint 1948](PROGRESS-1948.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
