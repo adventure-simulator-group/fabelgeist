@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:11:10.701945+00:00
+Updated: 2026-11-04T10:12:53.549312+00:00
 
-Latest verified checkpoint: **1613**. Goal: **active**.
+Latest verified checkpoint: **1614**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared case custody ID construction and deserialization with the distinct
-physical-custody identity owner.
+Traced case IDs into JSON-decoded objectives and facts and distinguished that
+boundary from the existing private readmission finding.
 
-One partial Lens 6 assessment; case decode consumers, identity policy, wider
-aliases and broader audit remain open.
+One partial Lens 6 assessment; write provenance, other validation, identity
+policy and broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1613 publication record](CHECKPOINT-1613.json)
-- [Saved report for checkpoint 1613](PROGRESS-1613.md)
+- [Checkpoint 1614 publication record](CHECKPOINT-1614.json)
+- [Saved report for checkpoint 1614](PROGRESS-1614.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
