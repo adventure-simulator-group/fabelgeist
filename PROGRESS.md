@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:00:16.517691+00:00
+Updated: 2026-11-04T12:01:42.099376+00:00
 
-Latest verified checkpoint: **1672**. Goal: **active**.
+Latest verified checkpoint: **1673**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced asynchronous enrollment submission, discarded completion status and
-loading projection.
+Traced how an unresolved loading player affects enrollment, abandonment and
+combat outcome readiness.
 
-One connected issue narrowed; SDK behavior, rejection cleanup, scheduling,
+One connected issue narrowed; rejection cleanup, disconnect ordering, timeout,
 runtime and the broader audit remain open.
 
 ## Working on now
@@ -147,8 +147,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1672 publication record](CHECKPOINT-1672.json)
-- [Saved report for checkpoint 1672](PROGRESS-1672.md)
+- [Checkpoint 1673 publication record](CHECKPOINT-1673.json)
+- [Saved report for checkpoint 1673](PROGRESS-1673.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
