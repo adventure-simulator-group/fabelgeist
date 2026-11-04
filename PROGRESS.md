@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:30:54.170207+00:00
+Updated: 2026-11-04T22:33:26.095684+00:00
 
-Latest verified checkpoint: **2001**. Goal: **active**.
+Latest verified checkpoint: **2002**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared generated equipment, food, fractional and fireplace mass boundaries.
+Narrowed the fireplace custody and tactical mass discrepancy.
 
-Remaining item consumers, fireplace lifecycle, runtime validation and aliases
+Descendant row lifecycle, mission authorization, runtime validation and aliases
 remain open.
 
 ## Working on now
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2001 publication record](CHECKPOINT-2001.json)
-- [Saved report for checkpoint 2001](PROGRESS-2001.md)
+- [Checkpoint 2002 publication record](CHECKPOINT-2002.json)
+- [Saved report for checkpoint 2002](PROGRESS-2002.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
