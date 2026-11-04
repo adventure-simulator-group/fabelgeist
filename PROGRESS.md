@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T04:12:18.240740+00:00
+Updated: 2026-11-04T04:14:04.811347+00:00
 
-Latest verified checkpoint: **1403**. Goal: **active**.
+Latest verified checkpoint: **1404**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1403**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 107 / 3,849 marked | 3,742 other entries |
-| Entries flagged for repair after the audit gate | 92 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 108 / 3,849 marked | 3,741 other entries |
+| Entries flagged for repair after the audit gate | 93 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced mission cancellation outcome loss through party action dispatch and
-reducer authorization.
+Traced loot form pairs through independent numeric filtering and authoritative
+transfer checks, including the empty-array all-loot branch.
 
-Home feedback, shared error ownership, aliases and behavioral acceptance remain
-open; no authorization bypass is claimed.
+Explicit all-loot policy, other producers, aliases and behavioral acceptance
+remain open; no malformed live request was run.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1403 publication record](CHECKPOINT-1403.json)
-- [Saved report for checkpoint 1403](PROGRESS-1403.md)
+- [Checkpoint 1404 publication record](CHECKPOINT-1404.json)
+- [Saved report for checkpoint 1404](PROGRESS-1404.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
