@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:23:42.801182+00:00
+Updated: 2026-11-04T09:24:57.298648+00:00
 
-Latest verified checkpoint: **1587**. Goal: **active**.
+Latest verified checkpoint: **1588**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Read the registered mission systems body independently for Lens 9 and identified
-typed terminal, enrollment and admission distinctions.
+Confirmed existing lifecycle and enrollment enums preserve distinct states and
+mapped strategic resolutions to player outcomes.
 
-One partial Lens 9 assessment; owning state, native outcome mapping and
-connected contracts remain open.
+One partial Lens 9 assessment; native receiver, aliases and broader connected
+contracts remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1587 publication record](CHECKPOINT-1587.json)
-- [Saved report for checkpoint 1587](PROGRESS-1587.md)
+- [Checkpoint 1588 publication record](CHECKPOINT-1588.json)
+- [Saved report for checkpoint 1588](PROGRESS-1588.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
