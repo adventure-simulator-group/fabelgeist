@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:19:13.885700+00:00
+Updated: 2026-11-04T18:21:50.722430+00:00
 
-Latest verified checkpoint: **1869**. Goal: **active**.
+Latest verified checkpoint: **1870**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **1869**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 439 / 3,849 marked | 3,410 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 413 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 1 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 2 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced capture subject initial scale and fixture-root updates.
+Probed nonfinite spring telemetry and its report gate.
 
-Later scale writers, other actor paths and actual capture remain open.
+Full report, actual capture, other lenses and runtime remain open.
 
 ## Working on now
 
@@ -196,8 +196,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1869 publication record](CHECKPOINT-1869.json)
-- [Saved report for checkpoint 1869](PROGRESS-1869.md)
+- [Checkpoint 1870 publication record](CHECKPOINT-1870.json)
+- [Saved report for checkpoint 1870](PROGRESS-1870.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
