@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:47:57.217985+00:00
+Updated: 2026-11-04T17:49:36.223104+00:00
 
-Latest verified checkpoint: **1853**. Goal: **active**.
+Latest verified checkpoint: **1854**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified full config admission of an extreme finite impact scale.
+Probed selected impact with an admitted extreme presentation scale.
 
-Gameplay reachability, rig output, other lenses and runtime remain open.
+Live combat, rig output, other lenses and runtime remain open.
 
 ## Working on now
 
@@ -194,8 +194,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1853 publication record](CHECKPOINT-1853.json)
-- [Saved report for checkpoint 1853](PROGRESS-1853.md)
+- [Checkpoint 1854 publication record](CHECKPOINT-1854.json)
+- [Saved report for checkpoint 1854](PROGRESS-1854.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
