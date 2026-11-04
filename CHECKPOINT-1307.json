@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1307,
+  "at": "2026-11-04T00:19:39.633154+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "93d958d34641ef29f5d18d3b39357f051262c7c5d29ad56fa3ed05e40244fc92",
+    "verification": "d52fa59ede96125ca10dca773fb6e436c452929368472e0f1c9f5ecd2b549123",
+    "canonical_current": "dbb53233a85d60a3d2c0ac9f05b3b95dcb15ba868b9f2c45492c6213947b3a57"
+  },
+  "scope": {
+    "summary": "Recorded a conditional f64-to-f32 training-weight underflow and checked the range of current catalog weights.",
+    "scope_limit": "Feature-specific native conversion, independent extensions and aliases remain open; no population credit is claimed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "eff236331cedcf5286065d1967bb131fb54fec7c3ca89f3304351912c55af8eb",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
