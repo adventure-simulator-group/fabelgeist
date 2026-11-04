@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:23:31.764796+00:00
+Updated: 2026-11-04T21:24:48.061209+00:00
 
-Latest verified checkpoint: **1968**. Goal: **active**.
+Latest verified checkpoint: **1969**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,9 +10,9 @@ Latest verified checkpoint: **1968**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 441 / 3,849 marked | 3,408 other entries |
+| Queue entries explicitly marked source-discovery closed | 442 / 3,849 marked | 3,407 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
-| Entries with explicit repair status | 414 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 415 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 11 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded the documented organization allocation invariant and schedule storage
-paths.
+Closed scoped schedule allocation source discovery with three owned repairs.
 
-External or indirect writers, exact aliases and runtime validation remain open.
+Final API and presentation policy, external callers, global aliases and runtime
+validation remain open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1968 publication record](CHECKPOINT-1968.json)
-- [Saved report for checkpoint 1968](PROGRESS-1968.md)
+- [Checkpoint 1969 publication record](CHECKPOINT-1969.json)
+- [Saved report for checkpoint 1969](PROGRESS-1969.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
