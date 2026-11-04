@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T03:49:02.181234+00:00
+Updated: 2026-11-04T03:50:36.205016+00:00
 
-Latest verified checkpoint: **1390**. Goal: **active**.
+Latest verified checkpoint: **1391**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1390**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 97 / 3,849 marked | 3,752 other entries |
-| Entries flagged for repair after the audit gate | 83 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 98 / 3,849 marked | 3,751 other entries |
+| Entries flagged for repair after the audit gate | 84 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned the XPBD spring damping component that is admitted but unused by
-its shader, distinct from solver-wide drag.
+Dispositioned strategic navigation fragment body-read failure across negotiated
+GET and POST with a connected repair plan.
 
-No production constructor call or runtime incident was identified; damping law,
-supported producers, aliases and acceptance remain open.
+Native and browser error behavior, response headers, other lenses, aliases and
+runtime acceptance remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1390 publication record](CHECKPOINT-1390.json)
-- [Saved report for checkpoint 1390](PROGRESS-1390.md)
+- [Checkpoint 1391 publication record](CHECKPOINT-1391.json)
+- [Saved report for checkpoint 1391](PROGRESS-1391.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
