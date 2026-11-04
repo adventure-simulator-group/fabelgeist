@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:31:13.671379+00:00
+Updated: 2026-11-04T20:35:04.191001+00:00
 
-Latest verified checkpoint: **1938**. Goal: **active**.
+Latest verified checkpoint: **1939**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **1938**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 439 / 3,849 marked | 3,410 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 413 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 4 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 5 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared scenario timestamp formulas and sample-rate ownership.
+Probed an admitted nondefault rate against turn timestamp formulas.
 
-Supported rate configuration, other families, runtime and independent lenses
-remain open.
+Viewer execution, exact aliases and independent lenses remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1938 publication record](CHECKPOINT-1938.json)
-- [Saved report for checkpoint 1938](PROGRESS-1938.md)
+- [Checkpoint 1939 publication record](CHECKPOINT-1939.json)
+- [Saved report for checkpoint 1939](PROGRESS-1939.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
