@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:20:07.395492+00:00
+Updated: 2026-11-04T09:21:25.629789+00:00
 
-Latest verified checkpoint: **1584**. Goal: **active**.
+Latest verified checkpoint: **1585**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced subscribed connected-player spawning and found the matching LoadingPlayer
-condition on Party-classified rows.
+Traced join identity into LoadingPlayer and identified reducer acceptance as a
+separate condition.
 
-One partial Lens 10 assessment; reducer invocation, loading recipient and
-connected strategic contract remain open.
+One partial Lens 10 assessment; actual temporary selection, reducer completion
+and connected strategic contract remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1584 publication record](CHECKPOINT-1584.json)
-- [Saved report for checkpoint 1584](PROGRESS-1584.md)
+- [Checkpoint 1585 publication record](CHECKPOINT-1585.json)
+- [Saved report for checkpoint 1585](PROGRESS-1585.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
