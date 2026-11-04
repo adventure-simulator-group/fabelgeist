@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:17:14.117621+00:00
+Updated: 2026-11-04T19:20:53.453666+00:00
 
-Latest verified checkpoint: **1897**. Goal: **active**.
+Latest verified checkpoint: **1898**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced server environment spawn and replication registration.
+Traced gameplay replication plugin and update mode.
 
-Transport delivery, later replacement and independent lenses remain open.
+Live delivery, later replacement and independent lenses remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1897 publication record](CHECKPOINT-1897.json)
-- [Saved report for checkpoint 1897](PROGRESS-1897.md)
+- [Checkpoint 1898 publication record](CHECKPOINT-1898.json)
+- [Saved report for checkpoint 1898](PROGRESS-1898.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
