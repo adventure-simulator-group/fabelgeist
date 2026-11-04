@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:33:54.439121+00:00
+Updated: 2026-11-04T21:35:25.692603+00:00
 
-Latest verified checkpoint: **1975**. Goal: **active**.
+Latest verified checkpoint: **1976**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced strategic condition through tactical enrollment and first update.
+Traced tactical spawn, deferred commands and condition ordering.
 
-First-frame observability, numeric consistency, runtime validation and aliases
-remain open.
+Replication timing, viewer readiness, live client behavior and aliases remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1975 publication record](CHECKPOINT-1975.json)
-- [Saved report for checkpoint 1975](PROGRESS-1975.md)
+- [Checkpoint 1976 publication record](CHECKPOINT-1976.json)
+- [Saved report for checkpoint 1976](PROGRESS-1976.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
