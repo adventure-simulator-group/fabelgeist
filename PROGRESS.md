@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:26:03.962422+00:00
+Updated: 2026-11-04T14:27:45.465793+00:00
 
-Latest verified checkpoint: **1761**. Goal: **active**.
+Latest verified checkpoint: **1762**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced selected capture plan completeness and found unknown scenario selection
-asserts on an empty plan.
+Traced open scenario labels to empty-plan assertion and confirmed absent body-
+response scenarios pass their conditional gates.
 
-Optional scenario policy, native error boundaries, aliases and the broader audit
+Other report gates, native error boundaries, aliases and the broader audit
 remain open.
 
 ## Working on now
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1761 publication record](CHECKPOINT-1761.json)
-- [Saved report for checkpoint 1761](PROGRESS-1761.md)
+- [Checkpoint 1762 publication record](CHECKPOINT-1762.json)
+- [Saved report for checkpoint 1762](PROGRESS-1762.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
