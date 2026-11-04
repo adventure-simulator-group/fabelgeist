@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:05:27.359528+00:00
+Updated: 2026-11-04T15:07:12.154891+00:00
 
-Latest verified checkpoint: **1786**. Goal: **active**.
+Latest verified checkpoint: **1787**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced a conditional pre-application playback wait that bypasses the inspected
-capture-frame timeout.
+Traced required-motion readiness and the separate armor-only watchdog for the
+conditional playback wait.
 
-Other watchdogs, actual runtime reachability, aliases and the broader audit
+External watchdogs, actual runtime reachability, aliases and the broader audit
 remain open.
 
 ## Working on now
@@ -139,6 +139,10 @@ entries while completing the 13-lens audit.
   path when an output directory is reused for a no-harness capture. Runtime and
   exact alias reconciliation remain open.
 
+- Traced a conditional capture readiness gap: a persistent unresolved playback
+  can bypass the inspected frame timeout, while the separate watchdog covers
+  armor readiness. External watchdogs and runtime behavior remain unverified.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -182,8 +186,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1786 publication record](CHECKPOINT-1786.json)
-- [Saved report for checkpoint 1786](PROGRESS-1786.md)
+- [Checkpoint 1787 publication record](CHECKPOINT-1787.json)
+- [Saved report for checkpoint 1787](PROGRESS-1787.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
