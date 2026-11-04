@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T05:38:36.868952+00:00
+Updated: 2026-11-04T05:40:13.279097+00:00
 
-Latest verified checkpoint: **1453**. Goal: **active**.
+Latest verified checkpoint: **1454**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1453**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 154 / 3,849 marked | 3,695 other entries |
-| Entries flagged for repair after the audit gate | 138 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 155 / 3,849 marked | 3,694 other entries |
+| Entries flagged for repair after the audit gate | 139 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced party grant error erasure into selected loot, deposit and currency paths.
+Traced guarded personal purchase route admission into private storefront
+execution.
 
-Failure reachability, other callers, native transaction behavior, aliases and
-behavioral acceptance remain open.
+Other entry points, provider/payment behavior, aliases and behavioral acceptance
+remain open.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1453 publication record](CHECKPOINT-1453.json)
-- [Saved report for checkpoint 1453](PROGRESS-1453.md)
+- [Checkpoint 1454 publication record](CHECKPOINT-1454.json)
+- [Saved report for checkpoint 1454](PROGRESS-1454.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
