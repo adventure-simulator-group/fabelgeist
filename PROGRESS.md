@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:48:55.977592+00:00
+Updated: 2026-11-04T09:50:47.132271+00:00
 
-Latest verified checkpoint: **1602**. Goal: **active**.
+Latest verified checkpoint: **1603**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced living roster capture and established a development helper can attach
-members to an existing party.
+Identified development fixtures that use multi-member attachment without
+assuming they share the isolated tactical seed.
 
-One partial Lens 7 assessment; actual isolated workflow state, supported multi-
-member use and broader audit remain open.
+One partial Lens 7 assessment; isolated database identity, seed history and
+broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1602 publication record](CHECKPOINT-1602.json)
-- [Saved report for checkpoint 1602](PROGRESS-1602.md)
+- [Checkpoint 1603 publication record](CHECKPOINT-1603.json)
+- [Saved report for checkpoint 1603](PROGRESS-1603.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
