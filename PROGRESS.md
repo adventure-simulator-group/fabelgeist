@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T08:01:32.252513+00:00
+Updated: 2026-11-04T08:03:38.496130+00:00
 
-Latest verified checkpoint: **1538**. Goal: **active**.
+Latest verified checkpoint: **1539**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1538**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 279 / 3,849 marked | 3,570 other entries |
-| Entries flagged for repair after the audit gate | 263 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 294 / 3,849 marked | 3,555 other entries |
+| Entries flagged for repair after the audit gate | 278 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,12 +34,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced ten hair admission contracts covering parting lanes, density image
-extents, strand arrays, curve sampling, empty inputs and seed offsets.
+Traced fifteen MHR FBX asset and skin checks. Found corrective import already
+has typed layout errors and checked joint-count subtraction in the selected
+revision; stale queue descriptions need separate reconciliation.
 
-Ten scoped source discoveries and provisional repair plans; callers, serialized
-assets, GPU parity, policy, aliases, implementation and runtime acceptance
-remain open.
+Fifteen scoped source discoveries and provisional repair plans; corrective queue
+reconciliation, actual rig corpus, FBX semantics, callers, finite weights,
+aliases, implementation and runtime acceptance remain open.
 
 ## Working on now
 
@@ -147,8 +148,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1538 publication record](CHECKPOINT-1538.json)
-- [Saved report for checkpoint 1538](PROGRESS-1538.md)
+- [Checkpoint 1539 publication record](CHECKPOINT-1539.json)
+- [Saved report for checkpoint 1539](PROGRESS-1539.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
