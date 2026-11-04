@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:48:07.641642+00:00
+Updated: 2026-11-04T19:49:26.833779+00:00
 
-Latest verified checkpoint: **1914**. Goal: **active**.
+Latest verified checkpoint: **1915**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced seeded abstract settlements and case-site encoding.
+Traced generated site distances and abstract coordinate envelope.
 
-Live case sites, weather policy and independent lenses remain open.
+Specific live case sites, weather policy and independent lenses remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1914 publication record](CHECKPOINT-1914.json)
-- [Saved report for checkpoint 1914](PROGRESS-1914.md)
+- [Checkpoint 1915 publication record](CHECKPOINT-1915.json)
+- [Saved report for checkpoint 1915](PROGRESS-1915.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
