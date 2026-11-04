@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:03:17.707651+00:00
+Updated: 2026-11-04T00:05:41.021413+00:00
 
-Latest verified checkpoint: **1299**. Goal: **active**.
+Latest verified checkpoint: **1300**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the POST route and found ten service-linked organizations with chapters
-each currently have one authored entry role.
+Verified pinned SATS sequence parsing rejects missing expected fields,
+conditional on the HTTP server using that decoder.
 
-Native handling, dynamic caller and runtime reachability, and aliases remain
-open; no population credit is claimed.
+Server decoder identity, runtime reachability and aliases remain open; no
+population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1299 publication record](CHECKPOINT-1299.json)
-- [Saved report for checkpoint 1299](PROGRESS-1299.md)
+- [Checkpoint 1300 publication record](CHECKPOINT-1300.json)
+- [Saved report for checkpoint 1300](PROGRESS-1300.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
