@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:34:09.766938+00:00
+Updated: 2026-11-04T23:36:13.887202+00:00
 
-Latest verified checkpoint: **2034**. Goal: **active**.
+Latest verified checkpoint: **2035**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced shell mesh admission, retained membership and projection scheduling.
+Traced GPU batch submission and self-collision grid readiness.
 
-Body-frame producers, adjacency representability, aliases and runtime validation
-remain open.
+External reuse callers, error handling, aliases and runtime validation remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2034 publication record](CHECKPOINT-2034.json)
-- [Saved report for checkpoint 2034](PROGRESS-2034.md)
+- [Checkpoint 2035 publication record](CHECKPOINT-2035.json)
+- [Saved report for checkpoint 2035](PROGRESS-2035.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
