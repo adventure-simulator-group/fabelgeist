@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1515,
+  "at": "2026-11-04T07:20:21.017524+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "76b7cd5ea762a44a9577365d9abc322d8a09ba08fb7c371bd0f70aae31ab22e4",
+    "verification": "e1ab23b1a5963aaf832aef90f744a5c99e85d6af1e5d33658ee596ccc8722b9c",
+    "canonical_current": "0b86c540cac6d95700e03c6b949f90495543c02345525154b33f61bcf071b0c9"
+  },
+  "scope": {
+    "summary": "Traced FBX reader checked offset overflow and separate truncation handling.",
+    "scope_limit": "Actual overflow reachability, parser consumers and broader aliases remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "e67eb35df7506c02460715825d36a3f67798f72d571af4e34ecb88fb295ca987",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
