@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:30:54.050954+00:00
+Updated: 2026-11-04T17:32:54.102061+00:00
 
-Latest verified checkpoint: **1844**. Goal: **active**.
+Latest verified checkpoint: **1845**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Clarified future rollback intent and selected client input path.
+Traced client and server controller and camera wiring.
 
-Future replay policy, other consumers, aliases and runtime remain open.
+Client state freshness, camera behavior, aliases and runtime remain open.
 
 ## Working on now
 
@@ -194,8 +194,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1844 publication record](CHECKPOINT-1844.json)
-- [Saved report for checkpoint 1844](PROGRESS-1844.md)
+- [Checkpoint 1845 publication record](CHECKPOINT-1845.json)
+- [Saved report for checkpoint 1845](PROGRESS-1845.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
