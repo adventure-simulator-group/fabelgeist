@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:14:59.197994+00:00
+Updated: 2026-11-04T09:16:14.454140+00:00
 
-Latest verified checkpoint: **1580**. Goal: **active**.
+Latest verified checkpoint: **1581**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced captured bounded roster into server registration and strategic party
-admission, identifying temporary and standalone exceptions.
+Traced melee contact provenance and established that strategic receipt
+validation rejects temporary participants.
 
-One partial Lens 10 assessment; temporary and standalone cases, contact
-provenance and connected strategic contract remain open.
+One partial Lens 10 assessment; actual temporary Party reachability, other
+consequence producers and connected strategic contract remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1580 publication record](CHECKPOINT-1580.json)
-- [Saved report for checkpoint 1580](PROGRESS-1580.md)
+- [Checkpoint 1581 publication record](CHECKPOINT-1581.json)
+- [Saved report for checkpoint 1581](PROGRESS-1581.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
