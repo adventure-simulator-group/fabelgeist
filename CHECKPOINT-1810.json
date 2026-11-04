@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1810,
+  "at": "2026-11-04T15:47:46.181982+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "29459f07eb840e705e882382b1b6711c611686d74a4ab3f6b44a5a5fdc38c640",
+    "verification": "664e0550da674d21481212a76f6c862d563c7cd5a254d59a6e009ecc4496dad9",
+    "canonical_current": "7468f4d7049902203002972d267d887ebc621b7f838a5afeb834d5b01bcd64cc"
+  },
+  "scope": {
+    "summary": "Traced the weighted sampler wrapper used by schedule redistribution.",
+    "scope_limit": "Native sampler, other writers, aliases and the broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "ac716b6d6dd72b9c20b9932ad579455c81033b9b7e6dc8cd29d7f986b6952ccf",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
