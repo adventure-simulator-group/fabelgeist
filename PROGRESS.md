@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T03:26:00.612714+00:00
+Updated: 2026-11-04T03:27:42.037090+00:00
 
-Latest verified checkpoint: **1379**. Goal: **active**.
+Latest verified checkpoint: **1380**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1379**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 86 / 3,849 marked | 3,763 other entries |
-| Entries flagged for repair after the audit gate | 73 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 87 / 3,849 marked | 3,762 other entries |
+| Entries flagged for repair after the audit gate | 74 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned MHR sparse blend-shape admission through dense basis and tensor
-upload.
+Dispositioned MHR cluster weight finiteness and normalization through packed rig
+indices and sparse upload.
 
-Duplicate and numeric value policy, tensor shape checks, independent lenses,
-aliases and runtime validation remain open.
+Weight domain and threshold policies, other consumers and lenses, aliases and
+final validation remain open; the prior prohibited probe remains disclosed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1379 publication record](CHECKPOINT-1379.json)
-- [Saved report for checkpoint 1379](PROGRESS-1379.md)
+- [Checkpoint 1380 publication record](CHECKPOINT-1380.json)
+- [Saved report for checkpoint 1380](PROGRESS-1380.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
