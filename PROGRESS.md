@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:18:39.585266+00:00
+Updated: 2026-11-04T21:20:48.829793+00:00
 
-Latest verified checkpoint: **1965**. Goal: **active**.
+Latest verified checkpoint: **1966**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **1965**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 441 / 3,849 marked | 3,408 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 414 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 9 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 10 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,15 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared schedule cross-field admission, writer and saved preview ownership.
+Traced the personal schedule query into the skills editor.
 
-Direct caller policy, saved-preview acquisition, runtime tests and global
-aliases remain open.
+Outage behavior, absent-row policy, other writers and exact aliases remain open.
 
 ## Working on now
 
-Tracing capture rotation and report boundaries while reconciling animation
-spring findings across audit lenses.
+Tracing schedule admission, saved writes and preview boundaries across audit
+lenses.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1965 publication record](CHECKPOINT-1965.json)
-- [Saved report for checkpoint 1965](PROGRESS-1965.md)
+- [Checkpoint 1966 publication record](CHECKPOINT-1966.json)
+- [Saved report for checkpoint 1966](PROGRESS-1966.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
