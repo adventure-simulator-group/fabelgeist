@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:36:47.672074+00:00
+Updated: 2026-11-04T20:38:11.539984+00:00
 
-Latest verified checkpoint: **1940**. Goal: **active**.
+Latest verified checkpoint: **1941**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Independently qualified turn timestamp numeric constant.
+Qualified jitter stencil and corrected checkpoint 1940 lens label.
 
-Actual viewer behavior and separate derivative alignment remain open.
+Actual incident behavior and derivative policy remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1940 publication record](CHECKPOINT-1940.json)
-- [Saved report for checkpoint 1940](PROGRESS-1940.md)
+- [Checkpoint 1941 publication record](CHECKPOINT-1941.json)
+- [Saved report for checkpoint 1941](PROGRESS-1941.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
