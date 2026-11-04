@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:00:28.304581+00:00
+Updated: 2026-11-04T15:01:51.418470+00:00
 
-Latest verified checkpoint: **1783**. Goal: **active**.
+Latest verified checkpoint: **1784**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected the base GLB Skeleton subtree: 131 named nodes with no duplicate names
-or full paths.
+Traced equipment attachment and the additional requirements for inclusion in the
+global bone trace.
 
-Runtime-added entities, other assets, aliases and the broader audit remain open.
+Target binding timing, runtime entities, aliases and the broader audit remain
+open.
 
 ## Working on now
 
@@ -181,8 +182,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1783 publication record](CHECKPOINT-1783.json)
-- [Saved report for checkpoint 1783](PROGRESS-1783.md)
+- [Checkpoint 1784 publication record](CHECKPOINT-1784.json)
+- [Saved report for checkpoint 1784](PROGRESS-1784.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
