@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:46:36.567572+00:00
+Updated: 2026-11-04T14:48:03.766031+00:00
 
-Latest verified checkpoint: **1774**. Goal: **active**.
+Latest verified checkpoint: **1775**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,16 +35,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced unsupported scenario failure before report invalidation and documented
-retained prior artifacts.
+Reconciled the fame preview discrepancy with its existing repair entry and
+retained Socializing as a separate question.
 
-Artifact preservation policy, runtime, aliases and the broader audit remain
-open.
+Socializing runtime, capture and sidecar policy, global aliases and the broader
+audit remain open.
 
 ## Working on now
 
-Reconciling mission outcome and receipt contracts alongside the remaining
-13-lens audit and repair ledger.
+Reconciling capture admission and activity form contracts with existing repair
+entries while completing the 13-lens audit.
 
 - Reconcile MHR skin admission and typed cluster failures against the pinned
   rigs and malformed inputs.
@@ -123,6 +123,22 @@ Reconciling mission outcome and receipt contracts alongside the remaining
 - Reconciled the Unix root round-trip observed at checkpoint 1694 with the pre-
   existing Lens 13 ledger entry; it is not a second unique finding.
 
+- Traced the settlement Socializing button through the immediate-activity route:
+  the submitted name is rejected. Scheduled Socializing has separate target,
+  receipt and training semantics; browser runtime remains untested.
+
+- Reconciled the profession-fame browser preview multiplier discrepancy with
+  existing repair entry 2491; the related reward-enum conversion is entry 540.
+  No additional unique finding is claimed.
+
+- Traced focused capture plan completeness, absent body-response gates and the
+  unsupported-scenario assertion; the assertion is already owned by entry 46.
+  Prior report files remain on pre-admission failure.
+
+- Traced pose-trace consumers and a conditional stale armor-readiness sidecar
+  path when an output directory is reused for a no-harness capture. Runtime and
+  exact alias reconciliation remain open.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -166,8 +182,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1774 publication record](CHECKPOINT-1774.json)
-- [Saved report for checkpoint 1774](PROGRESS-1774.md)
+- [Checkpoint 1775 publication record](CHECKPOINT-1775.json)
+- [Saved report for checkpoint 1775](PROGRESS-1775.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
