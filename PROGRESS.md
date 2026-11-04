@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:43:10.475599+00:00
+Updated: 2026-11-04T15:44:33.413711+00:00
 
-Latest verified checkpoint: **1807**. Goal: **active**.
+Latest verified checkpoint: **1808**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced saved schedule preview and reconciled its related audit obligation.
+Qualified the current schedule adapter independently under lenses 12 and 13.
 
-Simulation commit, preview reachability, independent lenses and exact aliases
-remain open.
+Connected schedule contracts, global aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -190,8 +189,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1807 publication record](CHECKPOINT-1807.json)
-- [Saved report for checkpoint 1807](PROGRESS-1807.md)
+- [Checkpoint 1808 publication record](CHECKPOINT-1808.json)
+- [Saved report for checkpoint 1808](PROGRESS-1808.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
