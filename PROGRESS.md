@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T01:39:57.441373+00:00
+Updated: 2026-11-04T01:41:41.790246+00:00
 
-Latest verified checkpoint: **1328**. Goal: **active**.
+Latest verified checkpoint: **1329**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,7 +34,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared dues reconciliation across travel, NPC, and outbreak clock writes.
+Traced resident creation, organization admission authority and adult promotion.
 
 A player-facing stale membership remains unproven; no population credit is
 claimed.
@@ -140,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1328 publication record](CHECKPOINT-1328.json)
-- [Saved report for checkpoint 1328](PROGRESS-1328.md)
+- [Checkpoint 1329 publication record](CHECKPOINT-1329.json)
+- [Saved report for checkpoint 1329](PROGRESS-1329.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
