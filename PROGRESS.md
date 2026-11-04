@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:49:11.895204+00:00
+Updated: 2026-11-04T18:50:52.217302+00:00
 
-Latest verified checkpoint: **1880**. Goal: **active**.
+Latest verified checkpoint: **1881**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced world-clock initialization and refresh.
+Traced terrain noise period, fixture caller and height admission.
 
-Database lifecycle and live failure reachability, native timestamps, delivery
-and independent lenses remain open.
+Concrete native sampling, other consumers and independent lenses remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1880 publication record](CHECKPOINT-1880.json)
-- [Saved report for checkpoint 1880](PROGRESS-1880.md)
+- [Checkpoint 1881 publication record](CHECKPOINT-1881.json)
+- [Saved report for checkpoint 1881](PROGRESS-1881.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
