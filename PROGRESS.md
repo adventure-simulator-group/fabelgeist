@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:28:44.820968+00:00
+Updated: 2026-11-04T13:30:18.413353+00:00
 
-Latest verified checkpoint: **1724**. Goal: **active**.
+Latest verified checkpoint: **1725**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Independently assessed generated simulation schedule arithmetic under Lens 13.
+Traced generated activity and medical schedule installation and restoration.
 
-Arbitrary profiles, downstream consumers, runtime, exact aliases and the broader
-audit remain open.
+Runtime ordering, nonstandard producers, exact aliases and the broader audit
+remain open.
 
 ## Working on now
 
@@ -165,8 +165,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1724 publication record](CHECKPOINT-1724.json)
-- [Saved report for checkpoint 1724](PROGRESS-1724.md)
+- [Checkpoint 1725 publication record](CHECKPOINT-1725.json)
+- [Saved report for checkpoint 1725](PROGRESS-1725.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
