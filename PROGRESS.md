@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:43:49.043077+00:00
+Updated: 2026-11-04T00:46:15.373564+00:00
 
-Latest verified checkpoint: **1318**. Goal: **active**.
+Latest verified checkpoint: **1319**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced general-shop eligibility and the fixture’s existing-merchant
-prerequisite; temple-only transition remains conditional.
+Established that standard quest-coverage demo settlement IDs do not match
+authored organization chapters.
 
-Existing provider variants, committed fixture, production mutations and aliases
+Other simulation setup, production mutations, presence writers and aliases
 remain open; no population credit is claimed.
 
 ## Working on now
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1318 publication record](CHECKPOINT-1318.json)
-- [Saved report for checkpoint 1318](PROGRESS-1318.md)
+- [Checkpoint 1319 publication record](CHECKPOINT-1319.json)
+- [Saved report for checkpoint 1319](PROGRESS-1319.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
