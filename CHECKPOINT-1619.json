@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1619,
+  "at": "2026-11-04T10:22:03.261954+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "7b5b9f36856e1b47e4241e42418456c0ee553cf47b2df8f1b08875f3ae7810b1",
+    "verification": "ccece6c67e1f6c1ae76191497430f15024b76b206a3170e21a4d339ad30d30c0",
+    "canonical_current": "4a34fe68fbeb04993f7de9695c7edb6dd149ec447f70ec7f6bd875db1329d3b8"
+  },
+  "scope": {
+    "summary": "Identified a manifest/context tuple mismatch in generated investigability and traced its conditional use in action resolution.",
+    "scope_limit": "One partial Lens 6 assessment; runtime impact, other consumers and the broader audit remain open. No product fix or test run was made."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "d7a5a6e85e162c59b2a925d37ddb1a38171ac805630ae8a9dbc1e6a47fae0b6e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
