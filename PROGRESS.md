@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:55:19.605706+00:00
+Updated: 2026-11-04T20:57:12.799722+00:00
 
-Latest verified checkpoint: **1951**. Goal: **active**.
+Latest verified checkpoint: **1952**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled reopened inventory reason discovery including liquidation.
+Traced pool page data and staged transfer controls.
 
-Liquidation UI, response policy, global aliases and actual HTTP behavior remain
-open.
+Liquidation producer, query failures, batch behavior and aliases remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1951 publication record](CHECKPOINT-1951.json)
-- [Saved report for checkpoint 1951](PROGRESS-1951.md)
+- [Checkpoint 1952 publication record](CHECKPOINT-1952.json)
+- [Saved report for checkpoint 1952](PROGRESS-1952.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
