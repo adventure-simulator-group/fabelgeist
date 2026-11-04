@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:39:24.204330+00:00
+Updated: 2026-11-04T10:41:47.995316+00:00
 
-Latest verified checkpoint: **1625**. Goal: **active**.
+Latest verified checkpoint: **1626**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced sheath holder fitting through personal-object custody and its nonzero
-character-ID check.
+Connected the default standalone longsword to the conditional nonzero custody
+check and identified discarded inventory insertion results.
 
-One conditional Lens 6 source assessment; loadout reachability, other paths,
-runtime behavior and the broader audit remain open.
+One conditional Lens 6 source assessment; materialization, runtime behavior,
+other paths and the broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1625 publication record](CHECKPOINT-1625.json)
-- [Saved report for checkpoint 1625](PROGRESS-1625.md)
+- [Checkpoint 1626 publication record](CHECKPOINT-1626.json)
+- [Saved report for checkpoint 1626](PROGRESS-1626.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
