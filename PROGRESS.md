@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:56:42.603715+00:00
+Updated: 2026-11-04T09:58:57.320140+00:00
 
-Latest verified checkpoint: **1607**. Goal: **active**.
+Latest verified checkpoint: **1608**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared tactical and reducer character ID owners and traced strategic mission
-side into the tactical component.
+Traced character identity through database lookup, the name-domain wrapper and
+tactical receipt conversion.
 
-One partial Lens 6 assessment; identity admission, remaining consumers and
-broader audit remain open.
+One partial Lens 6 assessment; creation admission, remaining identity consumers
+and broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1607 publication record](CHECKPOINT-1607.json)
-- [Saved report for checkpoint 1607](PROGRESS-1607.md)
+- [Checkpoint 1608 publication record](CHECKPOINT-1608.json)
+- [Saved report for checkpoint 1608](PROGRESS-1608.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
