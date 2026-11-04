@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:44:13.629222+00:00
+Updated: 2026-11-04T10:45:33.677921+00:00
 
-Latest verified checkpoint: **1627**. Goal: **active**.
+Latest verified checkpoint: **1628**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared expected enrollment with zero-valid combat counts and linked the
-existing Lens 2 count-owner obligation.
+Traced expected-count admission and distinguished accumulated unique enrollment
+from the current loaded-party count.
 
-One partial Lens 6 source assessment; connected admission, exact aliases and the
-broader audit remain open.
+One partial Lens 6 assessment; launcher-to-roster agreement, exact aliases and
+the broader audit remain open. Tests were not run.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1627 publication record](CHECKPOINT-1627.json)
-- [Saved report for checkpoint 1627](PROGRESS-1627.md)
+- [Checkpoint 1628 publication record](CHECKPOINT-1628.json)
+- [Saved report for checkpoint 1628](PROGRESS-1628.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
