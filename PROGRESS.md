@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T13:09:18.464918+00:00
+Updated: 2026-11-04T13:10:29.942308+00:00
 
-Latest verified checkpoint: **1711**. Goal: **active**.
+Latest verified checkpoint: **1712**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced persisted schedule organization strings to the catalog lookup under Lens
+Compared the generated schedule binding with its authoritative schema under Lens
 11.
 
-Global identity ownership, generated bindings, exact aliases and the broader
-audit remain open.
+Final schema, generated consumers, exact aliases and the broader audit remain
+open.
 
 ## Working on now
 
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1711 publication record](CHECKPOINT-1711.json)
-- [Saved report for checkpoint 1711](PROGRESS-1711.md)
+- [Checkpoint 1712 publication record](CHECKPOINT-1712.json)
+- [Saved report for checkpoint 1712](PROGRESS-1712.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
