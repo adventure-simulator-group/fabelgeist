@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:12:02.833283+00:00
+Updated: 2026-11-04T15:14:48.245153+00:00
 
-Latest verified checkpoint: **1790**. Goal: **active**.
+Latest verified checkpoint: **1791**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced unresolved clip anchors into an empty bind playback plan and retained
-alternate-contribution conditions.
+Traced viewer subject, armor fixture and optional weapon grip prerequisites.
 
-Alternate contributions, runtime reachability, aliases and the broader audit
-remain open.
+Other systems, runtime inventory, aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -186,8 +184,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1790 publication record](CHECKPOINT-1790.json)
-- [Saved report for checkpoint 1790](PROGRESS-1790.md)
+- [Checkpoint 1791 publication record](CHECKPOINT-1791.json)
+- [Saved report for checkpoint 1791](PROGRESS-1791.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
