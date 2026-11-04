@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T02:58:36.898082+00:00
+Updated: 2026-11-04T03:00:40.192373+00:00
 
-Latest verified checkpoint: **1365**. Goal: **active**.
+Latest verified checkpoint: **1366**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1365**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 72 / 3,849 marked | 3,777 other entries |
-| Entries flagged for repair after the audit gate | 59 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 73 / 3,849 marked | 3,776 other entries |
+| Entries flagged for repair after the audit gate | 60 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned shader uniform reflection and checked packing across the standard
-and cached dispatch paths.
+Dispositioned observed native kernel validation error ownership through shader,
+standard pipeline and cached paths.
 
-Native type and layout policy, logical buffer binding, other lenses, global
-aliases and runtime validation remain open.
+Pipeline failure publication, browser and uncaptured behavior, independent
+lenses, global aliases and runtime validation remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1365 publication record](CHECKPOINT-1365.json)
-- [Saved report for checkpoint 1365](PROGRESS-1365.md)
+- [Checkpoint 1366 publication record](CHECKPOINT-1366.json)
+- [Saved report for checkpoint 1366](PROGRESS-1366.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
