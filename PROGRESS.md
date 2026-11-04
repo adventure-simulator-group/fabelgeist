@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T05:03:41.943698+00:00
+Updated: 2026-11-04T05:05:09.874189+00:00
 
-Latest verified checkpoint: **1430**. Goal: **active**.
+Latest verified checkpoint: **1431**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1430**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 133 / 3,849 marked | 3,716 other entries |
-| Entries flagged for repair after the audit gate | 117 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 134 / 3,849 marked | 3,715 other entries |
+| Entries flagged for repair after the audit gate | 118 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced validated generated authority from canonical commitment and replay checks
-through private positional JSON wrappers and selected consumers.
+Traced the generated investigability tuple-slot error into conditional route-
+skill adjustment and action resolution input.
 
-Other callers, duplicate equality, alias reconciliation, wrong-slot effects and
-behavioral acceptance remain open.
+An applicable nonneutral generated case, runtime effect, aliases and behavioral
+acceptance remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1430 publication record](CHECKPOINT-1430.json)
-- [Saved report for checkpoint 1430](PROGRESS-1430.md)
+- [Checkpoint 1431 publication record](CHECKPOINT-1431.json)
+- [Saved report for checkpoint 1431](PROGRESS-1431.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
