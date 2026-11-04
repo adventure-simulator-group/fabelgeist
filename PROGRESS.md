@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:43:25.317736+00:00
+Updated: 2026-11-04T21:44:35.704530+00:00
 
-Latest verified checkpoint: **1980**. Goal: **active**.
+Latest verified checkpoint: **1981**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,15 +37,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced physical load and condition inputs to movement.
+Traced movement overrides and incapacitated input gate.
 
-Other movement overrides, runtime parity, numeric inputs and aliases remain
+Other performance paths, finite values, runtime behavior and aliases remain
 open.
 
 ## Working on now
 
-Tracing schedule admission, saved writes and preview boundaries across audit
-lenses.
+Reconciling strategic and tactical condition, burden and wheel boundaries across
+audit lenses.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1980 publication record](CHECKPOINT-1980.json)
-- [Saved report for checkpoint 1980](PROGRESS-1980.md)
+- [Checkpoint 1981 publication record](CHECKPOINT-1981.json)
+- [Saved report for checkpoint 1981](PROGRESS-1981.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
