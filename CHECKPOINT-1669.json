@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1669,
+  "at": "2026-11-04T11:55:54.001697+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "ec07e00b2e3dece986f8a3e790d501b7e05ba70b7873e29bda22d14f0480597e",
+    "verification": "3cd4674b7c40542bed456e81314d40d6ec884cb2da9a2b5b9515e6894bfd7a2f",
+    "canonical_current": "9ea266bfa45a3a276d885f5c7b7210e501dc5d9a61ca30bf0fd325f172138172"
+  },
+  "scope": {
+    "summary": "Traced how a completed party merge can precede recreation of the standalone solo party.",
+    "scope_limit": "One conditional issue narrowed; merge and seed prerequisites, transaction outcome and the broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "6aa86b5ccfdff01af91c4c16a28452358a96c946815328c022d99694c4bd9897",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:55:03.847824+00:00
+Updated: 2026-11-04T11:56:02.741553+00:00
 
-Latest verified checkpoint: **1668**. Goal: **active**.
+Latest verified checkpoint: **1669**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced standalone cleanup following character reassignment and retained its
-transaction restrictions.
+Traced how a completed party merge can precede recreation of the standalone solo
+party.
 
-One conditional issue narrowed; nested effects, supported reachability,
-transaction outcome and the broader audit remain open.
+One conditional issue narrowed; merge and seed prerequisites, transaction
+outcome and the broader audit remain open.
 
 ## Working on now
 
@@ -147,8 +147,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1668 publication record](CHECKPOINT-1668.json)
-- [Saved report for checkpoint 1668](PROGRESS-1668.md)
+- [Checkpoint 1669 publication record](CHECKPOINT-1669.json)
+- [Saved report for checkpoint 1669](PROGRESS-1669.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
