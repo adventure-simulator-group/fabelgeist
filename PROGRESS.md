@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T05:08:01.213446+00:00
+Updated: 2026-11-04T05:09:43.951286+00:00
 
-Latest verified checkpoint: **1433**. Goal: **active**.
+Latest verified checkpoint: **1434**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced checked inventory grants, erased errors and selected currency credit and
-party withdrawal consumers.
+Partially traced the architecture source-boundary helper and its ordinary and
+concatenated inputs.
 
-Failure reachability, native transaction outcomes, other callers, aliases and
-behavioral acceptance remain open.
+The reported production-after-marker example, full callers and alias
+reconciliation remain open; no test was run.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1433 publication record](CHECKPOINT-1433.json)
-- [Saved report for checkpoint 1433](PROGRESS-1433.md)
+- [Checkpoint 1434 publication record](CHECKPOINT-1434.json)
+- [Saved report for checkpoint 1434](PROGRESS-1434.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
