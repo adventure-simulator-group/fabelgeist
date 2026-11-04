@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:58:19.437387+00:00
+Updated: 2026-11-04T22:59:58.404241+00:00
 
-Latest verified checkpoint: **2014**. Goal: **active**.
+Latest verified checkpoint: **2015**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed two superseded historical framing findings within their selected scopes.
+Traced ZIP integrity policy and selected NumPy-to-model tensor boundaries.
 
-Locator, member access, resource limits, independent lenses and runtime
-validation remain open.
+Integrity policy, other model consumers, native Burn and runtime validation
+remain open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2014 publication record](CHECKPOINT-2014.json)
-- [Saved report for checkpoint 2014](PROGRESS-2014.md)
+- [Checkpoint 2015 publication record](CHECKPOINT-2015.json)
+- [Saved report for checkpoint 2015](PROGRESS-2015.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
