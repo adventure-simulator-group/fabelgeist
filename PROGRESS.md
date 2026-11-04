@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:32:41.930953+00:00
+Updated: 2026-11-04T14:34:21.528945+00:00
 
-Latest verified checkpoint: **1765**. Goal: **active**.
+Latest verified checkpoint: **1766**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced two underlayer pose-trace consumers, their configuration sidecars and
-empty-input handling.
+Traced capture sidecar publication and identified a conditional stale-readiness
+risk when output directories are reused.
 
-Other consumers, runtime behavior, aliases and the broader audit remain open.
+Stale-output reachability, runtime behavior, aliases and the broader audit
+remain open.
 
 ## Working on now
 
@@ -165,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1765 publication record](CHECKPOINT-1765.json)
-- [Saved report for checkpoint 1765](PROGRESS-1765.md)
+- [Checkpoint 1766 publication record](CHECKPOINT-1766.json)
+- [Saved report for checkpoint 1766](PROGRESS-1766.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

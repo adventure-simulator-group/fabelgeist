@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1766,
+  "at": "2026-11-04T14:34:12.338047+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "4f25217e266c4c6273de1231977dcc17478527ad140efa29dd1230f6a3152f34",
+    "verification": "cca5fe95add15b6e698fb161dd0fa0c8ea67b1e6f90ac25d72c81155ced15e95",
+    "canonical_current": "05422c25cf4aae1b146bcd7a0d837c5842da6c9960b35523dc8bef9afaa84fdd"
+  },
+  "scope": {
+    "summary": "Traced capture sidecar publication and identified a conditional stale-readiness risk when output directories are reused.",
+    "scope_limit": "Stale-output reachability, runtime behavior, aliases and the broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "8e26ec74436cd011d3efec5e41d1cf4c2306e2fd303b865060aab9426e469d8a",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
