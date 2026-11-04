@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T02:17:49.896723+00:00
+Updated: 2026-11-04T02:19:53.529230+00:00
 
-Latest verified checkpoint: **1347**. Goal: **active**.
+Latest verified checkpoint: **1348**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced hair context error ownership and the shared completion caller.
+Traced pinned completion callback and poll semantics through shell backpressure
+callers.
 
-Completion and borrowed-device policies remain open; no population credit is
-claimed.
+Completion failure and borrowed-device policies remain open; no population
+credit is claimed.
 
 ## Working on now
 
@@ -140,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1347 publication record](CHECKPOINT-1347.json)
-- [Saved report for checkpoint 1347](PROGRESS-1347.md)
+- [Checkpoint 1348 publication record](CHECKPOINT-1348.json)
+- [Saved report for checkpoint 1348](PROGRESS-1348.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
