@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T08:51:03.169744+00:00
+Updated: 2026-11-04T08:53:08.559263+00:00
 
-Latest verified checkpoint: **1565**. Goal: **active**.
+Latest verified checkpoint: **1566**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced stored tower-shell radii through audit containment and cavity checks and
-confirmed separate tower rendering dispatch.
+Traced selected round-tower wall hosts through static collision compilation: the
+current projection uses a full cuboid envelope.
 
-One partial Lens 13 observation; runtime collision projection, supported-mode
-policy, aliases, implementation and acceptance remain open.
+One partial Lens 13 observation; runtime integration, supported-mode policy,
+aliases, implementation and collision acceptance remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1565 publication record](CHECKPOINT-1565.json)
-- [Saved report for checkpoint 1565](PROGRESS-1565.md)
+- [Checkpoint 1566 publication record](CHECKPOINT-1566.json)
+- [Saved report for checkpoint 1566](PROGRESS-1566.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
