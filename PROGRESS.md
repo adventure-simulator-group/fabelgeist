@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:39:51.403211+00:00
+Updated: 2026-11-04T21:42:05.002733+00:00
 
-Latest verified checkpoint: **1978**. Goal: **active**.
+Latest verified checkpoint: **1979**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced strategic effective mass into tactical item projection.
+Traced fungible and measured inventory grant paths.
 
-Actual inventory examples, effective quantity ownership, runtime combat and
-aliases remain open.
+Concrete live loadout, mass representation, runtime behavior and aliases remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1978 publication record](CHECKPOINT-1978.json)
-- [Saved report for checkpoint 1978](PROGRESS-1978.md)
+- [Checkpoint 1979 publication record](CHECKPOINT-1979.json)
+- [Saved report for checkpoint 1979](PROGRESS-1979.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
