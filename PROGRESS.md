@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:05:10.219455+00:00
+Updated: 2026-11-04T17:06:49.333693+00:00
 
-Latest verified checkpoint: **1833**. Goal: **active**.
+Latest verified checkpoint: **1834**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced studio breastplate design option through the catalog loader.
+Qualified selected authored and example breastplate fixtures.
 
-Full CLI execution, distinct armor contracts, global aliases and the broader
-audit remain open.
+External input, runtime execution, distinct armor contracts and aliases remain
+open.
 
 ## Working on now
 
@@ -195,8 +195,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1833 publication record](CHECKPOINT-1833.json)
-- [Saved report for checkpoint 1833](PROGRESS-1833.md)
+- [Checkpoint 1834 publication record](CHECKPOINT-1834.json)
+- [Saved report for checkpoint 1834](PROGRESS-1834.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
