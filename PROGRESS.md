@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:47:46.841668+00:00
+Updated: 2026-11-04T11:48:39.360233+00:00
 
-Latest verified checkpoint: **1663**. Goal: **active**.
+Latest verified checkpoint: **1664**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Distinguished the reset-before-initial-seed path from the live-database reseed
-path.
+Traced supervised tactical-play cache reuse through seeding and the fixed
+expected party count.
 
-One roster-consistency question narrowed; intervening state changes, custom
-launch policy and the broader audit remain open.
+One roster-consistency question narrowed; supported party changes, runtime
+behavior and the broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1663 publication record](CHECKPOINT-1663.json)
-- [Saved report for checkpoint 1663](PROGRESS-1663.md)
+- [Checkpoint 1664 publication record](CHECKPOINT-1664.json)
+- [Saved report for checkpoint 1664](PROGRESS-1664.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
