@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:03:16.070394+00:00
+Updated: 2026-11-04T15:05:27.359528+00:00
 
-Latest verified checkpoint: **1785**. Goal: **active**.
+Latest verified checkpoint: **1786**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced animation, equipment and capture system registration and readiness
-ordering.
+Traced a conditional pre-application playback wait that bypasses the inspected
+capture-frame timeout.
 
-Deferred-command timing, runtime entities, aliases and the broader audit remain
-open.
+Other watchdogs, actual runtime reachability, aliases and the broader audit
+remain open.
 
 ## Working on now
 
@@ -182,8 +182,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1785 publication record](CHECKPOINT-1785.json)
-- [Saved report for checkpoint 1785](PROGRESS-1785.md)
+- [Checkpoint 1786 publication record](CHECKPOINT-1786.json)
+- [Saved report for checkpoint 1786](PROGRESS-1786.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
