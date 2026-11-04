@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:45:56.590204+00:00
+Updated: 2026-11-04T21:47:26.920568+00:00
 
-Latest verified checkpoint: **1982**. Goal: **active**.
+Latest verified checkpoint: **1983**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced total incapacitation into tactical combat performance.
+Traced missing combat state through melee start and recovery.
 
-Missing-state reachability, other consumers, finite values and runtime behavior
+Missing-state reachability, completion checks, runtime behavior and aliases
 remain open.
 
 ## Working on now
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1982 publication record](CHECKPOINT-1982.json)
-- [Saved report for checkpoint 1982](PROGRESS-1982.md)
+- [Checkpoint 1983 publication record](CHECKPOINT-1983.json)
+- [Saved report for checkpoint 1983](PROGRESS-1983.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
