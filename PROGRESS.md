@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:52:44.775595+00:00
+Updated: 2026-11-04T10:54:43.928968+00:00
 
-Latest verified checkpoint: **1632**. Goal: **active**.
+Latest verified checkpoint: **1633**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced typed join identity through loading and matching connected-player spawn
-admission.
+Traced typed consequence identities through bounded receipt construction and
+strategic participant validation.
 
-One partial Lens 6 assessment; reducer acceptance, exception reachability, count
-agreement and the broader audit remain open.
+One partial Lens 6 assessment; excess-participant reachability, runtime
+behavior, exact aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1632 publication record](CHECKPOINT-1632.json)
-- [Saved report for checkpoint 1632](PROGRESS-1632.md)
+- [Checkpoint 1633 publication record](CHECKPOINT-1633.json)
+- [Saved report for checkpoint 1633](PROGRESS-1633.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
