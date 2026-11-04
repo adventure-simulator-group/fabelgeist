@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:45:36.486469+00:00
+Updated: 2026-11-04T17:47:57.217985+00:00
 
-Latest verified checkpoint: **1852**. Goal: **active**.
+Latest verified checkpoint: **1853**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed an extreme finite scale in bone kick arithmetic.
+Verified full config admission of an extreme finite impact scale.
 
-Whole-config admission, gameplay reachability, other lenses and runtime remain
-open.
+Gameplay reachability, rig output, other lenses and runtime remain open.
 
 ## Working on now
 
@@ -195,8 +194,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1852 publication record](CHECKPOINT-1852.json)
-- [Saved report for checkpoint 1852](PROGRESS-1852.md)
+- [Checkpoint 1853 publication record](CHECKPOINT-1853.json)
+- [Saved report for checkpoint 1853](PROGRESS-1853.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
