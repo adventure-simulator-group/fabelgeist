@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T08:42:37.565597+00:00
+Updated: 2026-11-04T08:44:24.099739+00:00
 
-Latest verified checkpoint: **1560**. Goal: **active**.
+Latest verified checkpoint: **1561**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,12 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced player-build JSON loading and editable room/storey operations alongside
-generated-document auditing; recorded the existing compatibility-only field for
-removal within scope.
+Compared room and storey ownership with indexed wall-frame, timber and other-
+lens queue candidates; retained them as distinct obligations.
 
-Two partial Lens 13 observations only; complete decoded-plan admission, other
-consumers, aliases, implementation and acceptance remain open.
+Two partial Lens 13 alias comparisons only; global alias completeness, consumer
+obligations, implementation and acceptance remain open.
 
 ## Working on now
 
@@ -147,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1560 publication record](CHECKPOINT-1560.json)
-- [Saved report for checkpoint 1560](PROGRESS-1560.md)
+- [Checkpoint 1561 publication record](CHECKPOINT-1561.json)
+- [Saved report for checkpoint 1561](PROGRESS-1561.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
