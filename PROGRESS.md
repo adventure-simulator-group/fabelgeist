@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T22:02:36.001782+00:00
+Updated: 2026-11-04T22:05:57.878238+00:00
 
-Latest verified checkpoint: **1990**. Goal: **active**.
+Latest verified checkpoint: **1991**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical receipt production and authorization.
+Traced applied melee damage into aggregated tactical receipt.
 
-Produced damage combinations, native serialization, commit behavior and aliases
+Other damage producers, live zero-health reachability, serialization and aliases
 remain open.
 
 ## Working on now
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1990 publication record](CHECKPOINT-1990.json)
-- [Saved report for checkpoint 1990](PROGRESS-1990.md)
+- [Checkpoint 1991 publication record](CHECKPOINT-1991.json)
+- [Saved report for checkpoint 1991](PROGRESS-1991.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
