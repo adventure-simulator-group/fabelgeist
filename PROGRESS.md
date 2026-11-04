@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T10:25:58.113154+00:00
+Updated: 2026-11-04T10:33:06.276084+00:00
 
-Latest verified checkpoint: **1621**. Goal: **active**.
+Latest verified checkpoint: **1622**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the investigability evidence with segovb’s existing finding and two
-follow-up obligations, avoiding a duplicate repair count.
+Attributed and read the exact historical mission-systems revisit and matched it
+to the original and selected source bytes.
 
-One partial Lens 6 assessment; the original finding and its related Lens 12
-follow-ups retain their outstanding evidence and validation obligations.
+One partial Lens 6 assessment; connected admission, native boundaries and the
+broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1621 publication record](CHECKPOINT-1621.json)
-- [Saved report for checkpoint 1621](PROGRESS-1621.md)
+- [Checkpoint 1622 publication record](CHECKPOINT-1622.json)
+- [Saved report for checkpoint 1622](PROGRESS-1622.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
