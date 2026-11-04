@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T04:05:27.771420+00:00
+Updated: 2026-11-04T04:06:50.000898+00:00
 
-Latest verified checkpoint: **1399**. Goal: **active**.
+Latest verified checkpoint: **1400**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified planned route bounds against the route progress overflow suspicion and
-inspected two persistence sites.
+Traced planned route and camp redirect validation and identified a separate
+authoritative straight-line case-route producer.
 
-All route writer validation provenance and broader aliases remain open; the
-named source-discovery entry remains open and no supported overflow is claimed.
+Straight-line coordinate and duration bounds and remaining writers are unproven;
+the route progress audit entry remains open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1399 publication record](CHECKPOINT-1399.json)
-- [Saved report for checkpoint 1399](PROGRESS-1399.md)
+- [Checkpoint 1400 publication record](CHECKPOINT-1400.json)
+- [Saved report for checkpoint 1400](PROGRESS-1400.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
