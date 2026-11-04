@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T07:06:32.344891+00:00
+Updated: 2026-11-04T07:07:59.518778+00:00
 
-Latest verified checkpoint: **1506**. Goal: **active**.
+Latest verified checkpoint: **1507**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1506**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 200 / 3,849 marked | 3,649 other entries |
-| Entries flagged for repair after the audit gate | 184 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 201 / 3,849 marked | 3,648 other entries |
+| Entries flagged for repair after the audit gate | 185 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced missing reflected uniform parameters through fast-path preparation and
-dispatch.
+Traced unsupported cached uniform parameter kinds and their formatted error.
 
-Parameter producers, regular dispatch and broader aliases remain open.
+Complete parameter kinds, producers, regular dispatch and broader aliases remain
+open.
 
 ## Working on now
 
@@ -140,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1506 publication record](CHECKPOINT-1506.json)
-- [Saved report for checkpoint 1506](PROGRESS-1506.md)
+- [Checkpoint 1507 publication record](CHECKPOINT-1507.json)
+- [Saved report for checkpoint 1507](PROGRESS-1507.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
