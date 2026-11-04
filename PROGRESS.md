@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:24:57.298648+00:00
+Updated: 2026-11-04T09:26:18.702867+00:00
 
-Latest verified checkpoint: **1588**. Goal: **active**.
+Latest verified checkpoint: **1589**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Confirmed existing lifecycle and enrollment enums preserve distinct states and
-mapped strategic resolutions to player outcomes.
+Traced resolution across the strategic reducer and presentation callback,
+identifying a conditional accepted-success versus strategic-failure discrepancy.
 
-One partial Lens 9 assessment; native receiver, aliases and broader connected
-contracts remain open.
+One partial Lens 9 assessment; connected-party reachability, successful
+transaction and broader outcome contracts remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1588 publication record](CHECKPOINT-1588.json)
-- [Saved report for checkpoint 1588](PROGRESS-1588.md)
+- [Checkpoint 1589 publication record](CHECKPOINT-1589.json)
+- [Saved report for checkpoint 1589](PROGRESS-1589.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
