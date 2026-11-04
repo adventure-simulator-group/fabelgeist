@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:32:57.424830+00:00
+Updated: 2026-11-04T11:34:17.362939+00:00
 
-Latest verified checkpoint: **1654**. Goal: **active**.
+Latest verified checkpoint: **1655**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared Python and Rust fixture path resolution and identified their working-
-directory dependency.
+Compared supervised and Windows staged launcher working directories and fixture-
+copy ordering.
 
-One partial Lens 5 assessment; launcher working directories, runtime behavior
-and the broader audit remain open.
+One partial Lens 5 assessment; explicit relative paths, changed fixtures,
+runtime behavior and the broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1654 publication record](CHECKPOINT-1654.json)
-- [Saved report for checkpoint 1654](PROGRESS-1654.md)
+- [Checkpoint 1655 publication record](CHECKPOINT-1655.json)
+- [Saved report for checkpoint 1655](PROGRESS-1655.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
