@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:08:30.589666+00:00
+Updated: 2026-11-04T14:10:07.264073+00:00
 
-Latest verified checkpoint: **1749**. Goal: **active**.
+Latest verified checkpoint: **1750**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced profession preview provenance and practice accrual; identified a
-conditional fame multiplier discrepancy between server and browser previews.
+Traced profession fame through reputation projection: the browser preview omits
+the population multiplier used by the server preview and local award.
 
-Reputation event processing, player-visible runtime behavior, aliases and the
-broader audit remain open.
+Player-visible runtime behavior, rounding and caps, aliases and the broader
+audit remain open.
 
 ## Working on now
 
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1749 publication record](CHECKPOINT-1749.json)
-- [Saved report for checkpoint 1749](PROGRESS-1749.md)
+- [Checkpoint 1750 publication record](CHECKPOINT-1750.json)
+- [Saved report for checkpoint 1750](PROGRESS-1750.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
