@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T00:09:34.524314+00:00
+Updated: 2026-11-04T00:11:09.398464+00:00
 
-Latest verified checkpoint: **1302**. Goal: **active**.
+Latest verified checkpoint: **1303**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified pinned JSON decoding rejects numeric role titles that the inspected
-field validator does not check; current authored titles are strings.
+Traced the complete catalog producer and recorded a repair constraint that
+preserves absent and empty title behavior.
 
-Full producer gate, cross-lens disposition and aliases remain open; no
-population credit is claimed.
+Cross-lens disposition and aliases remain open; no population credit is claimed.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1302 publication record](CHECKPOINT-1302.json)
-- [Saved report for checkpoint 1302](PROGRESS-1302.md)
+- [Checkpoint 1303 publication record](CHECKPOINT-1303.json)
+- [Saved report for checkpoint 1303](PROGRESS-1303.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
