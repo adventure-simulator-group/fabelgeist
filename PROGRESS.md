@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:51:52.420349+00:00
+Updated: 2026-11-04T11:53:41.916267+00:00
 
-Latest verified checkpoint: **1666**. Goal: **active**.
+Latest verified checkpoint: **1667**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified strategic authorization and recruitment prerequisites for the cached-
-party roster question.
+Identified a conditional mismatch between standalone character reassignment and
+existing party membership rows.
 
-One roster-consistency question narrowed; gateway presence, eligible second
-party, runtime behavior and the broader audit remain open.
+One source-level conditional issue; supported reachability, transaction outcome,
+downstream effects and the broader audit remain open.
 
 ## Working on now
 
@@ -147,8 +147,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1666 publication record](CHECKPOINT-1666.json)
-- [Saved report for checkpoint 1666](PROGRESS-1666.md)
+- [Checkpoint 1667 publication record](CHECKPOINT-1667.json)
+- [Saved report for checkpoint 1667](PROGRESS-1667.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

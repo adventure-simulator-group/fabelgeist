@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1667,
+  "at": "2026-11-04T11:53:31.735141+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "65932b6a323b6c103575298b96195c34eb114a0010a75294543dd76a8f40f0d8",
+    "verification": "5679817b2ffbebfb2d199ba6402fb24fd10bf5312bcf3220bc0af371c79872d3",
+    "canonical_current": "b45c4ee0fe1a0b58e8fe219e4a3435eb1502020e2e93b882a5d1992899f4eccc"
+  },
+  "scope": {
+    "summary": "Identified a conditional mismatch between standalone character reassignment and existing party membership rows.",
+    "scope_limit": "One source-level conditional issue; supported reachability, transaction outcome, downstream effects and the broader audit remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "0c0178b88204c4b80459292c88e6ead7836d45a473a0dafbd8be3edd04cf7c66",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
