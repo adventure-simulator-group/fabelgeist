@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:15:41.290267+00:00
+Updated: 2026-11-04T21:17:20.685280+00:00
 
-Latest verified checkpoint: **1963**. Goal: **active**.
+Latest verified checkpoint: **1964**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced simulation and NPC schedule writers into camp and settlement consumers.
+Qualified normal simulator production, claim restrictions and web preview
+boundaries.
 
-Runtime failure reachability, other schedule writers, public construction policy
-and exact aliases remain open.
+Direct malformed reducer input remains conditional; other writers, runtime
+validation and aliases remain open.
 
 ## Working on now
 
@@ -204,8 +205,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1963 publication record](CHECKPOINT-1963.json)
-- [Saved report for checkpoint 1963](PROGRESS-1963.md)
+- [Checkpoint 1964 publication record](CHECKPOINT-1964.json)
+- [Saved report for checkpoint 1964](PROGRESS-1964.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
