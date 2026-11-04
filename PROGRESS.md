@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:52:05.906350+00:00
+Updated: 2026-11-04T21:54:28.551624+00:00
 
-Latest verified checkpoint: **1986**. Goal: **active**.
+Latest verified checkpoint: **1987**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced condition numeric aggregation and performance admission.
+Traced health-adjusted fatigue denominator and selected writers.
 
-Actual non-finite reachability, numeric policy, runtime behavior and aliases
+Zero denominator reachability, lifecycle policy, runtime behavior and aliases
 remain open.
 
 ## Working on now
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1986 publication record](CHECKPOINT-1986.json)
-- [Saved report for checkpoint 1986](PROGRESS-1986.md)
+- [Checkpoint 1987 publication record](CHECKPOINT-1987.json)
+- [Saved report for checkpoint 1987](PROGRESS-1987.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
