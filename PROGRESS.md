@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:05:53.962803+00:00
+Updated: 2026-11-04T09:07:31.154170+00:00
 
-Latest verified checkpoint: **1574**. Goal: **active**.
+Latest verified checkpoint: **1575**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced church and artillery frame construction into geometry consumers and
-identified a finite-admission gap in the audit comparisons.
+Traced wall-frame retention through BuildingPlan serialization and the explicit
+audit call chain, distinguishing the editable document boundary.
 
-One partial Lens 13 observation; remaining producers, native boundaries, paired-
-basis policy, aliases and implementation remain open.
+One partial Lens 13 observation; actual plan readers, paired-basis policy,
+aliases and implementation remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1574 publication record](CHECKPOINT-1574.json)
-- [Saved report for checkpoint 1574](PROGRESS-1574.md)
+- [Checkpoint 1575 publication record](CHECKPOINT-1575.json)
+- [Saved report for checkpoint 1575](PROGRESS-1575.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
