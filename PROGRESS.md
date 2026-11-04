@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T05:56:33.500961+00:00
+Updated: 2026-11-04T05:58:21.578684+00:00
 
-Latest verified checkpoint: **1464**. Goal: **active**.
+Latest verified checkpoint: **1465**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Partially traced current loopback URL validation and its documented IPv6 origin.
+Partially traced capped semantic event keys into quest coverage acceptance.
 
-Pinned parser evidence, other callers, aliases and behavioral acceptance remain
-open.
+Cap reachability, event producers, report policy, aliases and behavioral
+acceptance remain open.
 
 ## Working on now
 
@@ -140,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1464 publication record](CHECKPOINT-1464.json)
-- [Saved report for checkpoint 1464](PROGRESS-1464.md)
+- [Checkpoint 1465 publication record](CHECKPOINT-1465.json)
+- [Saved report for checkpoint 1465](PROGRESS-1465.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
