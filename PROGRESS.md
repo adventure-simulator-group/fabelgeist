@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T07:59:23.747062+00:00
+Updated: 2026-11-04T08:01:32.252513+00:00
 
-Latest verified checkpoint: **1537**. Goal: **active**.
+Latest verified checkpoint: **1538**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1537**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 269 / 3,849 marked | 3,580 other entries |
-| Entries flagged for repair after the audit gate | 253 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 279 / 3,849 marked | 3,570 other entries |
+| Entries flagged for repair after the audit gate | 263 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,15 +34,12 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced eight shader parsing, validation and reflection contracts, including
-compacted sparse bind-group layouts. Rechecked checkpoint 1536 against the
-frozen selected revision.
+Traced ten hair admission contracts covering parting lanes, density image
+extents, strand arrays, curve sampling, empty inputs and seed offsets.
 
-Eight scoped source discoveries and provisional repair plans. Checkpoint 1536
-initially read the clean but older checkout for pipeline source; frozen-source
-reread confirms its substantive findings while correcting validation-observation
-API and line positions. No runtime failure was reproduced; native causes, all
-callers, aliases, implementation and validation remain open.
+Ten scoped source discoveries and provisional repair plans; callers, serialized
+assets, GPU parity, policy, aliases, implementation and runtime acceptance
+remain open.
 
 ## Working on now
 
@@ -150,8 +147,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1537 publication record](CHECKPOINT-1537.json)
-- [Saved report for checkpoint 1537](PROGRESS-1537.md)
+- [Checkpoint 1538 publication record](CHECKPOINT-1538.json)
+- [Saved report for checkpoint 1538](PROGRESS-1538.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
