@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T11:41:10.447361+00:00
+Updated: 2026-11-04T11:42:59.844928+00:00
 
-Latest verified checkpoint: **1659**. Goal: **active**.
+Latest verified checkpoint: **1660**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the complete mission systems body under the existing-type reuse lens
-at all three registered source identities.
+Qualified the complete mission systems body independently under the authority,
+behavior, state-variant and derivability lenses.
 
-One source range qualified; identity admission, strategic acknowledgement,
-aliases, native boundaries and the broader audit remain open.
+Four lens-specific source ranges qualified; connected contracts, aliases, native
+boundaries and the broader audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1659 publication record](CHECKPOINT-1659.json)
-- [Saved report for checkpoint 1659](PROGRESS-1659.md)
+- [Checkpoint 1660 publication record](CHECKPOINT-1660.json)
+- [Saved report for checkpoint 1660](PROGRESS-1660.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
