@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:24:48.061209+00:00
+Updated: 2026-11-04T21:26:31.064708+00:00
 
-Latest verified checkpoint: **1969**. Goal: **active**.
+Latest verified checkpoint: **1970**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **1969**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 442 / 3,849 marked | 3,407 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 415 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 11 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 12 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped schedule allocation source discovery with three owned repairs.
+Recorded the strategic condition refresh failure repair.
 
-Final API and presentation policy, external callers, global aliases and runtime
-validation remain open.
+Live browser validation, numeric and combat contracts, and aliases remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1969 publication record](CHECKPOINT-1969.json)
-- [Saved report for checkpoint 1969](PROGRESS-1969.md)
+- [Checkpoint 1970 publication record](CHECKPOINT-1970.json)
+- [Saved report for checkpoint 1970](PROGRESS-1970.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
