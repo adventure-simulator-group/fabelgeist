@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T17:11:13.590539+00:00
+Updated: 2026-11-04T17:13:26.986753+00:00
 
-Latest verified checkpoint: **1836**. Goal: **active**.
+Latest verified checkpoint: **1837**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded explicit source-closure and owned-repair flags for the anime gauge
-finding.
+Traced breastplate device caller and design error boundary.
 
-Repair, full loader and GPU validation, independent armor obligations and
-broader audit remain open.
+GPU execution, resource lifetimes, aliases and the broader audit remain open.
 
 ## Working on now
 
@@ -196,8 +194,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1836 publication record](CHECKPOINT-1836.json)
-- [Saved report for checkpoint 1836](PROGRESS-1836.md)
+- [Checkpoint 1837 publication record](CHECKPOINT-1837.json)
+- [Saved report for checkpoint 1837](PROGRESS-1837.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
