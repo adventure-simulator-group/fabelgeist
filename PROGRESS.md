@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T14:01:10.646531+00:00
+Updated: 2026-11-04T14:03:44.260206+00:00
 
-Latest verified checkpoint: **1745**. Goal: **active**.
+Latest verified checkpoint: **1746**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -11,7 +11,7 @@ Latest verified checkpoint: **1745**. Goal: **active**.
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
 | Queue entries explicitly marked source-discovery closed | 436 / 3,849 marked | 3,413 other entries |
-| Registered source ranges qualified, connected work open | 106 entries | Connected contracts remain open |
+| Registered source ranges qualified, connected work open | 114 entries | Connected contracts remain open |
 | Entries flagged for repair after the audit gate | 412 recorded | Implementation gate not yet passed |
 
 These categories overlap and have different meanings. Original roles and
@@ -35,8 +35,8 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified historical immediate activity script independently under lenses 1, 3,
-4 and 5.
+Qualified historical immediate activity script independently under lenses 6
+through 13.
 
 Current source, preview inputs and authoritative outcomes, aliases and the
 broader audit remain open.
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1745 publication record](CHECKPOINT-1745.json)
-- [Saved report for checkpoint 1745](PROGRESS-1745.md)
+- [Checkpoint 1746 publication record](CHECKPOINT-1746.json)
+- [Saved report for checkpoint 1746](PROGRESS-1746.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
