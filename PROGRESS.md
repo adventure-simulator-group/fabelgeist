@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T20:05:38.012762+00:00
+Updated: 2026-11-04T20:07:31.456407+00:00
 
-Latest verified checkpoint: **1922**. Goal: **active**.
+Latest verified checkpoint: **1923**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced personal clock initialization and lifecycle segmentation.
+Traced lifecycle boundaries and camp-rest exposure.
 
-Personal history limits, other writers and independent lenses remain open.
+Universal personal history limits, other writers and independent lenses remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1922 publication record](CHECKPOINT-1922.json)
-- [Saved report for checkpoint 1922](PROGRESS-1922.md)
+- [Checkpoint 1923 publication record](CHECKPOINT-1923.json)
+- [Saved report for checkpoint 1923](PROGRESS-1923.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
