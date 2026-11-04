@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T15:40:08.446216+00:00
+Updated: 2026-11-04T15:41:32.844856+00:00
 
-Latest verified checkpoint: **1805**. Goal: **active**.
+Latest verified checkpoint: **1806**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced isolated simulation authority, reducer tail and standard schedule
-producer.
+Traced postwrite condition and capability refresh entry bodies.
 
-Postwrite projection, simulation commit, runtime, independent lenses and aliases
-remain open.
+Transitive projection helpers, simulation commit, runtime and aliases remain
+open.
 
 ## Working on now
 
@@ -186,8 +185,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1805 publication record](CHECKPOINT-1805.json)
-- [Saved report for checkpoint 1805](PROGRESS-1805.md)
+- [Checkpoint 1806 publication record](CHECKPOINT-1806.json)
+- [Saved report for checkpoint 1806](PROGRESS-1806.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
