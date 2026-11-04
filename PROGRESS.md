@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:55:45.889033+00:00
+Updated: 2026-11-04T12:57:25.538470+00:00
 
-Latest verified checkpoint: **1702**. Goal: **active**.
+Latest verified checkpoint: **1703**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced schedule save, retained update and organization eligibility sampling.
+Compared preview and authoritative organization membership, identifying a
+conditional missing-role divergence.
 
-Transaction behavior, eligibility parity, global aliases and the broader audit
-remain open.
+Missing-role reachability, transaction timing, global aliases and the broader
+audit remain open.
 
 ## Working on now
 
@@ -165,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1702 publication record](CHECKPOINT-1702.json)
-- [Saved report for checkpoint 1702](PROGRESS-1702.md)
+- [Checkpoint 1703 publication record](CHECKPOINT-1703.json)
+- [Saved report for checkpoint 1703](PROGRESS-1703.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
