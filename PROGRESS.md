@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T08:46:09.392047+00:00
+Updated: 2026-11-04T08:47:43.464199+00:00
 
-Latest verified checkpoint: **1562**. Goal: **active**.
+Latest verified checkpoint: **1563**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tower, wall frame, opening and sign-site schemas against existing checked
-geometry owners.
+Traced tower wall producers into resolved shell construction and the general
+solid audit.
 
-Four partial Lens 13 observations only; producer modes, decoded admission,
-cross-field policies, aliases, implementation and acceptance remain open.
+One partial Lens 13 observation; gatehouse admission, solid and annular native
+consumers, policy, aliases, implementation and acceptance remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1562 publication record](CHECKPOINT-1562.json)
-- [Saved report for checkpoint 1562](PROGRESS-1562.md)
+- [Checkpoint 1563 publication record](CHECKPOINT-1563.json)
+- [Saved report for checkpoint 1563](PROGRESS-1563.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
