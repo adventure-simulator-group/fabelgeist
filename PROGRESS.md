@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T03:53:52.881526+00:00
+Updated: 2026-11-04T03:55:26.590118+00:00
 
-Latest verified checkpoint: **1393**. Goal: **active**.
+Latest verified checkpoint: **1394**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1393**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 100 / 3,849 marked | 3,749 other entries |
-| Entries flagged for repair after the audit gate | 86 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 101 / 3,849 marked | 3,748 other entries |
+| Entries flagged for repair after the audit gate | 87 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced dialogue event and prompt JSON defaults against representative
-authoritative serialization and rejection paths.
+Traced NPC listing and availability clock fallback through the shared half-open
+daily presence window.
 
-All producers, prompt cardinality, optional reference policy, aliases and
-behavioral acceptance remain open; no malformed live row is claimed.
+Time-row creation, server authority, related projections, aliases and behavioral
+acceptance remain open; no failed live query is claimed.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1393 publication record](CHECKPOINT-1393.json)
-- [Saved report for checkpoint 1393](PROGRESS-1393.md)
+- [Checkpoint 1394 publication record](CHECKPOINT-1394.json)
+- [Saved report for checkpoint 1394](PROGRESS-1394.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
