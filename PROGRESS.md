@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T09:35:50.877808+00:00
+Updated: 2026-11-04T09:37:36.691107+00:00
 
-Latest verified checkpoint: **1596**. Goal: **active**.
+Latest verified checkpoint: **1597**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Assessed mission systems under Lens 7, distinguishing transient tactical
-observations, frozen submissions and strategic outcome authority.
+Traced the expected party count from the validated captured roster through
+dispatcher arguments into tactical enrollment.
 
-One partial Lens 7 assessment; strategic outcome, presentation and broader audit
-remain open.
+One partial Lens 7 assessment; direct launch, connected authority and broader
+audit remain open.
 
 ## Working on now
 
@@ -146,8 +146,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1596 publication record](CHECKPOINT-1596.json)
-- [Saved report for checkpoint 1596](PROGRESS-1596.md)
+- [Checkpoint 1597 publication record](CHECKPOINT-1597.json)
+- [Saved report for checkpoint 1597](PROGRESS-1597.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
