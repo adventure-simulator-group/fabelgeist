@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:52:39.186554+00:00
+Updated: 2026-11-04T12:54:14.817476+00:00
 
-Latest verified checkpoint: **1700**. Goal: **active**.
+Latest verified checkpoint: **1701**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,10 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the historical schedule adapter body independently under Lens 1.
+Traced selected current schedule admission and preview for the qualified Lens 1
+adapter.
 
-Current source, connected schedule contracts, global aliases and the broader
-audit remain open.
+Persistence, organization authority, global aliases and the broader audit remain
+open.
 
 ## Working on now
 
@@ -165,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1700 publication record](CHECKPOINT-1700.json)
-- [Saved report for checkpoint 1700](PROGRESS-1700.md)
+- [Checkpoint 1701 publication record](CHECKPOINT-1701.json)
+- [Saved report for checkpoint 1701](PROGRESS-1701.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
