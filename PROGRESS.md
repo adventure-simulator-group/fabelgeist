@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T18:53:36.711690+00:00
+Updated: 2026-11-04T18:54:57.589606+00:00
 
-Latest verified checkpoint: **1883**. Goal: **active**.
+Latest verified checkpoint: **1884**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pinned terrain-noise octaves and normalization.
+Traced pinned terrain-noise gradient and grid sampling.
 
-Inner gradient behavior, supported inputs, other consumers and independent
+Native vector conversion, supported inputs, other consumers and independent
 lenses remain open.
 
 ## Working on now
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1883 publication record](CHECKPOINT-1883.json)
-- [Saved report for checkpoint 1883](PROGRESS-1883.md)
+- [Checkpoint 1884 publication record](CHECKPOINT-1884.json)
+- [Saved report for checkpoint 1884](PROGRESS-1884.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
