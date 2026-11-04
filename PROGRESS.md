@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T02:21:22.999411+00:00
+Updated: 2026-11-04T02:23:37.063279+00:00
 
-Latest verified checkpoint: **1349**. Goal: **active**.
+Latest verified checkpoint: **1350**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1349**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 51 / 3,849 marked | 3,798 other entries |
-| Entries flagged for repair after the audit gate | 41 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 52 / 3,849 marked | 3,797 other entries |
+| Entries flagged for repair after the audit gate | 42 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,10 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned the GPU context creation error graph with an owned repair and
-explicit related policy questions.
+Dispositioned engraving IO and image decode cause ownership through metal bake,
+preview and export.
 
-Browser cause, completion, borrowed-device policy, independent lenses and
+Semantic admission, GPU internals, independent lenses, global aliases and
 runtime validation remain open.
 
 ## Working on now
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1349 publication record](CHECKPOINT-1349.json)
-- [Saved report for checkpoint 1349](PROGRESS-1349.md)
+- [Checkpoint 1350 publication record](CHECKPOINT-1350.json)
+- [Saved report for checkpoint 1350](PROGRESS-1350.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
