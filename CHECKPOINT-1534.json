@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 1534,
+  "at": "2026-11-04T07:53:45.172559+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "fd1e95d85efc68b506e76dac465ffee47505ea64cda6c691fe1819eaf83eae46",
+    "verification": "fd085f0a583871d284cb9bad79d6ba558da3a456fef16ad4adcb7273eb4b0b5f",
+    "canonical_current": "5e8f12702bbca0b31016977bd1ee75b8d88519cb72a302370f4b1ee5d146b1af"
+  },
+  "scope": {
+    "summary": "Traced eight GPU buffer and readback reasons, including native and WebAssembly channel closure and distinct byte-boundary checks.",
+    "scope_limit": "Eight scoped source discoveries and provisional repair plans; callers, native cause types, platform behavior, aliases, implementation and runtime acceptance remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "report_sha256": "f29f1704709d227bdc6e33dc3173eeb1701b248932ae27a1497322e5d4deb5ff",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
