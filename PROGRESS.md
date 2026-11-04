@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:28:40.962324+00:00
+Updated: 2026-11-04T12:30:48.798604+00:00
 
-Latest verified checkpoint: **1687**. Goal: **active**.
+Latest verified checkpoint: **1688**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,9 +35,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared MHR URI fallback behavior with the shared filesystem error owner.
+Compared native and browser HTTP status handling at the MHR fallback boundary.
 
-Fallback policy, platform causes, exact aliases, runtime and the broader audit
+HTTP status policy, actual network behavior, exact aliases and the broader audit
 remain open.
 
 ## Working on now
@@ -150,8 +150,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1687 publication record](CHECKPOINT-1687.json)
-- [Saved report for checkpoint 1687](PROGRESS-1687.md)
+- [Checkpoint 1688 publication record](CHECKPOINT-1688.json)
+- [Saved report for checkpoint 1688](PROGRESS-1688.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
