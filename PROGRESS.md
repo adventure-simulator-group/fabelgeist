@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:47:34.644659+00:00
+Updated: 2026-11-04T12:49:53.966044+00:00
 
-Latest verified checkpoint: **1698**. Goal: **active**.
+Latest verified checkpoint: **1699**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,8 +35,8 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified 32-bit FBX vertex-index truncation against the existing skin error
-entry.
+Connected the existing skin-index concern to documented browser-facing MHR
+loaders.
 
 Supported malformed assets, target runtime, global aliases and the broader audit
 remain open.
@@ -166,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1698 publication record](CHECKPOINT-1698.json)
-- [Saved report for checkpoint 1698](PROGRESS-1698.md)
+- [Checkpoint 1699 publication record](CHECKPOINT-1699.json)
+- [Saved report for checkpoint 1699](PROGRESS-1699.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
