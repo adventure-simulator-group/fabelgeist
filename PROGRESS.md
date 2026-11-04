@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T19:34:50.323224+00:00
+Updated: 2026-11-04T19:36:15.856048+00:00
 
-Latest verified checkpoint: **1907**. Goal: **active**.
+Latest verified checkpoint: **1908**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced scene-input weather and cloud layer admission.
+Traced imported scene weather producer and wind cap.
 
-Other environment producers, lifetime bounds and independent lenses remain open.
+Other weather fields, live delivery and independent lenses remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1907 publication record](CHECKPOINT-1907.json)
-- [Saved report for checkpoint 1907](PROGRESS-1907.md)
+- [Checkpoint 1908 publication record](CHECKPOINT-1908.json)
+- [Saved report for checkpoint 1908](PROGRESS-1908.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
