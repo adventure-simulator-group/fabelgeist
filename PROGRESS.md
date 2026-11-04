@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T03:10:19.806257+00:00
+Updated: 2026-11-04T03:12:44.386165+00:00
 
-Latest verified checkpoint: **1371**. Goal: **active**.
+Latest verified checkpoint: **1372**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1371**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 78 / 3,849 marked | 3,771 other entries |
-| Entries flagged for repair after the audit gate | 65 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 79 / 3,849 marked | 3,770 other entries |
+| Entries flagged for repair after the audit gate | 66 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned the garment section grid unit mismatch through creator mesh
-conversion and ring assembly.
+Dispositioned zero-offset buffer write extent admission against checked offsets,
+allocation and a stereo caller.
 
-Intended physical tolerance, robust shared-edge identity, other lenses, global
-aliases and runtime validation remain open.
+Native alignment, usage and device policy, other lenses, aliases and runtime
+validation remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1371 publication record](CHECKPOINT-1371.json)
-- [Saved report for checkpoint 1371](PROGRESS-1371.md)
+- [Checkpoint 1372 publication record](CHECKPOINT-1372.json)
+- [Saved report for checkpoint 1372](PROGRESS-1372.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
