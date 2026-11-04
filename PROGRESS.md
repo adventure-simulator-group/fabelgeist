@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T21:12:04.277886+00:00
+Updated: 2026-11-04T21:13:55.702403+00:00
 
-Latest verified checkpoint: **1961**. Goal: **active**.
+Latest verified checkpoint: **1962**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,11 +37,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped pool inventory source discovery with owned repairs and explicit
-policy questions.
+Traced public schedule allocation admission through the selected web and reducer
+paths.
 
-Blank encoding, liquidation producer, response policy, global aliases and
-runtime transaction behavior remain open.
+Other schedule writers and consumers, public construction policy and exact
+aliases remain open.
 
 ## Working on now
 
@@ -205,8 +205,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1961 publication record](CHECKPOINT-1961.json)
-- [Saved report for checkpoint 1961](PROGRESS-1961.md)
+- [Checkpoint 1962 publication record](CHECKPOINT-1962.json)
+- [Saved report for checkpoint 1962](PROGRESS-1962.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
