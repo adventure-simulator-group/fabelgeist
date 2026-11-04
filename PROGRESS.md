@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T01:36:13.893651+00:00
+Updated: 2026-11-04T01:39:57.441373+00:00
 
-Latest verified checkpoint: **1327**. Goal: **active**.
+Latest verified checkpoint: **1328**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -34,11 +34,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified the active picker’s minute-zero fallback when character-time
-observation is missing or fails.
+Compared dues reconciliation across travel, NPC, and outbreak clock writes.
 
-Stale status reachability, query failure behavior and aliases remain open; no
-population credit is claimed.
+A player-facing stale membership remains unproven; no population credit is
+claimed.
 
 ## Working on now
 
@@ -141,8 +140,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1327 publication record](CHECKPOINT-1327.json)
-- [Saved report for checkpoint 1327](PROGRESS-1327.md)
+- [Checkpoint 1328 publication record](CHECKPOINT-1328.json)
+- [Saved report for checkpoint 1328](PROGRESS-1328.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
