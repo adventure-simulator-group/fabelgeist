@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T03:15:02.954410+00:00
+Updated: 2026-11-04T03:17:00.794978+00:00
 
-Latest verified checkpoint: **1373**. Goal: **active**.
+Latest verified checkpoint: **1374**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,8 +10,8 @@ Latest verified checkpoint: **1373**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 80 / 3,849 marked | 3,769 other entries |
-| Entries flagged for repair after the audit gate | 67 recorded | Implementation gate open |
+| Queue entries explicitly marked source-discovery closed | 81 / 3,849 marked | 3,768 other entries |
+| Entries flagged for repair after the audit gate | 68 recorded | Implementation gate open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -34,11 +34,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Dispositioned signed hair seed operation offsets and recorded separate guide
-widening and CPU/GPU consistency obligations.
+Dispositioned hair parting lane count admission through CPU grouping and GPU
+guide packing.
 
-Guide negative-word policy, other operation adapters, independent lenses,
-aliases and runtime validation remain open.
+Supported maximum and precision, other shader paths, independent lenses, aliases
+and runtime validation remain open.
 
 ## Working on now
 
@@ -141,8 +141,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1373 publication record](CHECKPOINT-1373.json)
-- [Saved report for checkpoint 1373](PROGRESS-1373.md)
+- [Checkpoint 1374 publication record](CHECKPOINT-1374.json)
+- [Saved report for checkpoint 1374](PROGRESS-1374.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
