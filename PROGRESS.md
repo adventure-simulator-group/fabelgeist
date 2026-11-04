@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T12:43:07.547143+00:00
+Updated: 2026-11-04T12:44:41.827009+00:00
 
-Latest verified checkpoint: **1696**. Goal: **active**.
+Latest verified checkpoint: **1697**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -35,11 +35,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced browser blob failure caching and added recent audit findings to the
-ongoing report.
+Traced staged project-root writes and reconciled the existing Unix root round-
+trip entry.
 
-Blob retry policy, platform runtime, exact aliases and the broader audit remain
-open.
+Write atomicity policy, browser behavior, global aliases and the broader audit
+remain open.
 
 ## Working on now
 
@@ -120,6 +120,9 @@ Reconciling mission outcome and receipt contracts alongside the remaining
   missing-cluster, HTTP status, project-root and native path differences;
   supported policy and runtime remain open.
 
+- Reconciled the Unix root round-trip observed at checkpoint 1694 with the pre-
+  existing Lens 13 ledger entry; it is not a second unique finding.
+
 ## What remains
 
 - Finish the required audit across all 13 lenses, the 20 migration families,
@@ -163,8 +166,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 1696 publication record](CHECKPOINT-1696.json)
-- [Saved report for checkpoint 1696](PROGRESS-1696.md)
+- [Checkpoint 1697 publication record](CHECKPOINT-1697.json)
+- [Saved report for checkpoint 1697](PROGRESS-1697.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
