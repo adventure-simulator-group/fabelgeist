@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:06:02.613934+00:00
+Updated: 2026-11-05T14:07:20.211992+00:00
 
-Latest verified checkpoint: **2387**. Goal: **active**.
+Latest verified checkpoint: **2388**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected furniture site and market loops to validated collection limits under
-Lens 11.
+Qualified local market-patch validation limits under Lens 11.
 
-Loose theoretical bound is not a reachable witness; mesh and device limits
-remain open.
+Full geometry and occupancy bounds remain open; no tests were run.
 
 ## Working on now
 
-Qualify market geometry, recipe clusters and actual device limits.
+Qualify cross-patch occupancy and market geometry.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2387 publication record](CHECKPOINT-2387.json)
-- [Saved report for checkpoint 2387](PROGRESS-2387.md)
+- [Checkpoint 2388 publication record](CHECKPOINT-2388.json)
+- [Saved report for checkpoint 2388](PROGRESS-2388.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
