@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:11:16.702757+00:00
+Updated: 2026-11-05T18:13:33.331564+00:00
 
-Latest verified checkpoint: **2488**. Goal: **active**.
+Latest verified checkpoint: **2489**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped landform replication codec discovery using pinned Serde and
-postcard source.
+Traced scene generation and materialization errors through dispatcher and CLI.
 
-Repair, related codecs and actual replication validation remain open. No tests
-were run.
+Existing error owners, concurrent launch policy and filesystem behavior remain
+open. No tests were run.
 
 ## Working on now
 
-Continue related replication and nested codec obligations.
+Trace provisioning cause owners and concurrent materialization policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2488 publication record](CHECKPOINT-2488.json)
-- [Saved report for checkpoint 2488](PROGRESS-2488.md)
+- [Checkpoint 2489 publication record](CHECKPOINT-2489.json)
+- [Saved report for checkpoint 2489](PROGRESS-2489.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
