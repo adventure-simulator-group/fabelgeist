@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:01:35.700357+00:00
+Updated: 2026-11-05T00:03:06.115517+00:00
 
-Latest verified checkpoint: **2049**. Goal: **active**.
+Latest verified checkpoint: **2050**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced solver dispatch dimensions and cached uniform allocation.
+Connected solver workgroup counts to native dispatch limits.
 
-Native dispatch and uniform limits, resource policy and runtime validation
-remain open.
+Other dispatches, uniform sizes, resource policy and runtime validation remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2049 publication record](CHECKPOINT-2049.json)
-- [Saved report for checkpoint 2049](PROGRESS-2049.md)
+- [Checkpoint 2050 publication record](CHECKPOINT-2050.json)
+- [Saved report for checkpoint 2050](PROGRESS-2050.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
