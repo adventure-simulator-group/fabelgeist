@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:50:30.935627+00:00
+Updated: 2026-11-05T18:57:22.239480+00:00
 
-Latest verified checkpoint: **2503**. Goal: **active**.
+Latest verified checkpoint: **2504**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped canonical weapon construction error discovery with
-representative lower failure categories.
+Traced grip end scales into radial geometry and identified an empty-profile
+case.
 
-Complete lower-kernel classification, repair and validation remain open. No
-tests were run.
+Pole policy, full admission, physical output and aliases remain open. No tests
+were run.
 
 ## Working on now
 
-Continue lower-kernel error and weapon frame obligations.
+Trace grip admission and downstream physical output.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2503 publication record](CHECKPOINT-2503.json)
-- [Saved report for checkpoint 2503](PROGRESS-2503.md)
+- [Checkpoint 2504 publication record](CHECKPOINT-2504.json)
+- [Saved report for checkpoint 2504](PROGRESS-2504.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
