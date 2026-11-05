@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:12:53.969818+00:00
+Updated: 2026-11-05T03:14:20.638093+00:00
 
-Latest verified checkpoint: **2103**. Goal: **active**.
+Latest verified checkpoint: **2104**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced clipped physical rectangle and map admission.
+Probed physical rounding and traced rejected command propagation.
 
-Subpixel sliver behavior, GPU constraints and identity aliases remain open.
+Browser reachability and recovery, GPU constraints and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2103 publication record](CHECKPOINT-2103.json)
-- [Saved report for checkpoint 2103](PROGRESS-2103.md)
+- [Checkpoint 2104 publication record](CHECKPOINT-2104.json)
+- [Saved report for checkpoint 2104](PROGRESS-2104.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
