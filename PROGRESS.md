@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:31:10.521984+00:00
+Updated: 2026-11-05T20:32:27.467746+00:00
 
-Latest verified checkpoint: **2552**. Goal: **active**.
+Latest verified checkpoint: **2553**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced room-reference presence through portal and geometry audit classification.
+Traced specialist church and artillery frame producers.
 
-Frame population, other consumers, aliases and repair remain open.
+Specialist frame population, consumers, aliases and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2552 publication record](CHECKPOINT-2552.json)
-- [Saved report for checkpoint 2552](PROGRESS-2552.md)
+- [Checkpoint 2553 publication record](CHECKPOINT-2553.json)
+- [Saved report for checkpoint 2553](PROGRESS-2553.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
