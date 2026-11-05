@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T04:19:37.283420+00:00
+Updated: 2026-11-05T04:33:07.053262+00:00
 
-Latest verified checkpoint: **2126**. Goal: **active**.
+Latest verified checkpoint: **2127**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,11 +37,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the backend validation gate and challenge route for ordered-sigil clue
-presentation.
+Traced journey movement, rest elapsed time and the normal departure clock into
+camp-bound challenges.
 
-Normal stored puzzle projection validates clue positions; direct public
-admission, camp timing and remaining aliases stay open.
+Zero-departure reachability from other anchor sources and broader connected
+aliases remain open.
 
 ## Working on now
 
@@ -207,8 +207,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2126 publication record](CHECKPOINT-2126.json)
-- [Saved report for checkpoint 2126](PROGRESS-2126.md)
+- [Checkpoint 2127 publication record](CHECKPOINT-2127.json)
+- [Saved report for checkpoint 2127](PROGRESS-2127.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
