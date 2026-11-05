@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T04:47:10.722780+00:00
+Updated: 2026-11-05T04:49:15.553934+00:00
 
-Latest verified checkpoint: **2133**. Goal: **active**.
+Latest verified checkpoint: **2134**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,7 +37,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Independently reconciled the optional road-trial contract under Lens 12.
+Reconciled the Lens 12 road-trial revisit to its still-open canonical entry.
 
 Implicit versus explicit ignore policy, UI behavior and broader aliases remain
 open.
@@ -206,8 +206,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2133 publication record](CHECKPOINT-2133.json)
-- [Saved report for checkpoint 2133](PROGRESS-2133.md)
+- [Checkpoint 2134 publication record](CHECKPOINT-2134.json)
+- [Saved report for checkpoint 2134](PROGRESS-2134.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
