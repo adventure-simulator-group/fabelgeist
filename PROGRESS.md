@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:03:40.795195+00:00
+Updated: 2026-11-05T19:05:39.236052+00:00
 
-Latest verified checkpoint: **2506**. Goal: **active**.
+Latest verified checkpoint: **2507**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced a shaft-only zero-radius profile from validation through mass division.
+Traced root-attached grip and shaft zero-radius profiles into empty solids and
+zero-mass division.
 
-Source-derived shaft case is not runtime-tested; grip reachability, pole policy
-and aliases remain open.
+Both source-derived cases are untested; pole policy and broader shared geometry
+aliases remain open.
 
 ## Working on now
 
-Reconcile shaft and physical-output aliases and trace grip-component admission.
+Determine pole policy and finite physical-output acceptance; reconcile broader
+geometry aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2506 publication record](CHECKPOINT-2506.json)
-- [Saved report for checkpoint 2506](PROGRESS-2506.md)
+- [Checkpoint 2507 publication record](CHECKPOINT-2507.json)
+- [Saved report for checkpoint 2507](PROGRESS-2507.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
