@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T11:39:46.419270+00:00
+Updated: 2026-11-05T11:41:41.046171+00:00
 
-Latest verified checkpoint: **2294**. Goal: **active**.
+Latest verified checkpoint: **2295**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,7 +40,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced captured roster, join admission and tactical side projection.
+Traced temporary character assignment and party-side loading conditions.
 
 Connected producers, consumers, aliases and other lenses remain open; fixtures
 were not run.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2294 publication record](CHECKPOINT-2294.json)
-- [Saved report for checkpoint 2294](PROGRESS-2294.md)
+- [Checkpoint 2295 publication record](CHECKPOINT-2295.json)
+- [Saved report for checkpoint 2295](PROGRESS-2295.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
