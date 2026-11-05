@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T10:00:19.593418+00:00
+Updated: 2026-11-05T10:03:28.426728+00:00
 
-Latest verified checkpoint: **2255**. Goal: **active**.
+Latest verified checkpoint: **2256**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced checked sample rates into the viewer fixed clock.
+Traced shared melee-measure settings into tactical and autoresolve consumers.
 
-Native clock details, other consumers and broader contracts remain open.
+Configuration authority, runtime overrides and broader contracts remain open.
 
 ## Working on now
 
-Tracing viewer sample-rate and native clock admission.
+Reconciling authored combat settings across consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2255 publication record](CHECKPOINT-2255.json)
-- [Saved report for checkpoint 2255](PROGRESS-2255.md)
+- [Checkpoint 2256 publication record](CHECKPOINT-2256.json)
+- [Saved report for checkpoint 2256](PROGRESS-2256.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
