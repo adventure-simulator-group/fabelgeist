@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T07:23:57.868558+00:00
+Updated: 2026-11-05T07:26:31.533952+00:00
 
-Latest verified checkpoint: **2197**. Goal: **active**.
+Latest verified checkpoint: **2198**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,7 +43,7 @@ Other request producers, consumers and exact aliases remain open.
 
 ## Working on now
 
-Tracing gateway visibility of capability rows.
+Qualifying ordinary character capability initialization.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2197 publication record](CHECKPOINT-2197.json)
-- [Saved report for checkpoint 2197](PROGRESS-2197.md)
+- [Checkpoint 2198 publication record](CHECKPOINT-2198.json)
+- [Saved report for checkpoint 2198](PROGRESS-2198.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
