@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T01:03:20.403278+00:00
+Updated: 2026-11-05T01:04:44.955480+00:00
 
-Latest verified checkpoint: **2085**. Goal: **active**.
+Latest verified checkpoint: **2086**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced shared player view and attack and defense performance consumers.
+Traced melee start admission and conditional missing-state fallback.
 
-Missing-state recovery fallback, update ordering, assist outcomes and aliases
-remain open.
+Spawn invariants, update ordering, assist outcomes and aliases remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2085 publication record](CHECKPOINT-2085.json)
-- [Saved report for checkpoint 2085](PROGRESS-2085.md)
+- [Checkpoint 2086 publication record](CHECKPOINT-2086.json)
+- [Saved report for checkpoint 2086](PROGRESS-2086.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
