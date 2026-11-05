@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T10:48:25.101363+00:00
+Updated: 2026-11-05T10:52:21.394468+00:00
 
-Latest verified checkpoint: **2270**. Goal: **active**.
+Latest verified checkpoint: **2271**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced zero-performance exchange and unavailable recovery handling.
+Linked the historical AI precision reminder to its same-lens source-qualified
+owner.
 
-A supported witness, intervening operations and report policy remain open.
+Ingress, mutation, independent contracts, other lenses and global aliases remain
+open; no runtime probe was run.
 
 ## Working on now
 
-Tracing supported incapacitation and intervening exchange operations.
+Reconciling AI precision reminders and their distinct connected owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +213,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2270 publication record](CHECKPOINT-2270.json)
-- [Saved report for checkpoint 2270](PROGRESS-2270.md)
+- [Checkpoint 2271 publication record](CHECKPOINT-2271.json)
+- [Saved report for checkpoint 2271](PROGRESS-2271.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
