@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:09:15.758612+00:00
+Updated: 2026-11-05T13:10:36.964464+00:00
 
-Latest verified checkpoint: **2352**. Goal: **active**.
+Latest verified checkpoint: **2353**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced focused-city browser failure state, user message and retry under Lens 11.
+Separated regional city assembly failure and GPU readiness from placement
+construction failure under Lens 11.
 
-Building failure reachability and aliases remain open; no tests were run.
+Native readiness, failure reachability and remaining aliases stay open; no tests
+were run.
 
 ## Working on now
 
-Trace concrete construction failure reachability and reconcile existing
-ownership entries.
+Qualify native GPU readiness and construction failure reachability
+independently.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2352 publication record](CHECKPOINT-2352.json)
-- [Saved report for checkpoint 2352](PROGRESS-2352.md)
+- [Checkpoint 2353 publication record](CHECKPOINT-2353.json)
+- [Saved report for checkpoint 2353](PROGRESS-2353.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
