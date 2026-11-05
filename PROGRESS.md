@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:34:21.630045+00:00
+Updated: 2026-11-05T14:35:59.606541+00:00
 
-Latest verified checkpoint: **2406**. Goal: **active**.
+Latest verified checkpoint: **2407**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced vista origin and sampled versus owned terrain query admission under Lens
-12.
+Traced imported-scene vista origins and owned-terrain support selection under
+Lens 12.
 
-Actual producer origins, owned terrain, market failure reachability and native
+Other producers, owned terrain coverage, market failure reachability and native
 collision remain open. No tests were run.
 
 ## Working on now
 
-Trace actual vista origins and owned terrain support for furniture placement.
+Reconcile remaining vista producers and owned terrain coverage with existing
+obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2406 publication record](CHECKPOINT-2406.json)
-- [Saved report for checkpoint 2406](PROGRESS-2406.md)
+- [Checkpoint 2407 publication record](CHECKPOINT-2407.json)
+- [Saved report for checkpoint 2407](PROGRESS-2407.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
