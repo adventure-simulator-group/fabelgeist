@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:58:37.938994+00:00
+Updated: 2026-11-05T18:00:21.412947+00:00
 
-Latest verified checkpoint: **2482**. Goal: **active**.
+Latest verified checkpoint: **2483**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced vista local-to-scene conversion and playable seam sampling.
+Traced vista source-origin validation, sampled-ring mesher and occupied
+geographic support admission.
 
-Origin admission, mesh and support consumers and tree-frame reconciliation
-remain open. No tests were run.
+Shifted producer reachability, final mesh transform and tree-frame
+reconciliation remain open. No tests were run.
 
 ## Working on now
 
-Trace vista origin admission and mesh, support and tree consumers.
+Trace shifted-ring producers, final mesh transform and tree placement.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2482 publication record](CHECKPOINT-2482.json)
-- [Saved report for checkpoint 2482](PROGRESS-2482.md)
+- [Checkpoint 2483 publication record](CHECKPOINT-2483.json)
+- [Saved report for checkpoint 2483](PROGRESS-2483.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
