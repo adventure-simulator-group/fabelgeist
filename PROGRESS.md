@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:26:52.817121+00:00
+Updated: 2026-11-05T17:28:49.166221+00:00
 
-Latest verified checkpoint: **2478**. Goal: **active**.
+Latest verified checkpoint: **2479**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2478**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 462 / 3,849 marked | 3,387 other entries |
+| Queue entries explicitly marked source-discovery closed | 463 / 3,849 marked | 3,386 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced replicated ground registration, lazy urban lookup, cover scalar and
-representative scatter consumer.
+Completed scoped ground-grid wire admission discovery and recorded the connected
+repair.
 
-Native decode, urban bucket limits and alias reconciliation remain open. No
-tests were run.
+Urban geometry and bucket limits, scalar admission, repair and validation remain
+open. No tests were run.
 
 ## Working on now
 
-Trace replication decoder and reconcile urban and scalar admission contracts.
+Continue remaining urban geometry and scalar admission obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2478 publication record](CHECKPOINT-2478.json)
-- [Saved report for checkpoint 2478](PROGRESS-2478.md)
+- [Checkpoint 2479 publication record](CHECKPOINT-2479.json)
+- [Saved report for checkpoint 2479](PROGRESS-2479.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
