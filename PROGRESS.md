@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:00:52.060808+00:00
+Updated: 2026-11-05T20:03:06.450942+00:00
 
-Latest verified checkpoint: **2535**. Goal: **active**.
+Latest verified checkpoint: **2536**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2535**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 495 / 3,849 marked | 3,354 other entries |
+| Queue entries explicitly marked source-discovery closed | 496 / 3,849 marked | 3,353 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced temporary stake transfer, dismissal guard and living-participant credit.
+Completed scoped temporary stake discovery through living battle reward
+eligibility.
 
-Temporary reward reachability and native rollback remain open. No tests were
-run.
+Native rollback, ownership policy, implementation and tests remain open.
 
 ## Working on now
 
-Trace temporary companion rewards and reducer transaction rollback.
+Continue remaining strategic encounter and time contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2535 publication record](CHECKPOINT-2535.json)
-- [Saved report for checkpoint 2535](PROGRESS-2535.md)
+- [Checkpoint 2536 publication record](CHECKPOINT-2536.json)
+- [Saved report for checkpoint 2536](PROGRESS-2536.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
