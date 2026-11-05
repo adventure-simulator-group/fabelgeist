@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T16:01:19.605886+00:00
+Updated: 2026-11-05T16:38:03.122638+00:00
 
-Latest verified checkpoint: **2457**. Goal: **active**.
+Latest verified checkpoint: **2458**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Documented the conditional foundation-volume arithmetic finding and closed its
-scoped source discovery.
+Traced terrain grade tolerance and its production refinement caller under Lens
+11.
 
-Repair, post-audit validation and broader generated geometry remain open. No
-tests were run.
+Input elevation range, native consumers and exact aliases remain open. No tests
+were run.
 
 ## Working on now
 
-Continue broader foundation geometry discovery and remaining audit obligations.
+Trace terrain elevation input and physical triangle consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2457 publication record](CHECKPOINT-2457.json)
-- [Saved report for checkpoint 2457](PROGRESS-2457.md)
+- [Checkpoint 2458 publication record](CHECKPOINT-2458.json)
+- [Saved report for checkpoint 2458](PROGRESS-2458.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
