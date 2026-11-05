@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:40:19.179411+00:00
+Updated: 2026-11-05T19:42:33.258618+00:00
 
-Latest verified checkpoint: **2526**. Goal: **active**.
+Latest verified checkpoint: **2527**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2526**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 490 / 3,849 marked | 3,359 other entries |
+| Queue entries explicitly marked source-discovery closed | 491 / 3,849 marked | 3,358 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Pinned Spade constraint panic contract and derived a conditional outside-cap
-example.
+Completed scoped plate hole and bevel discovery with pinned triangulator
+conflict behavior.
 
-Exact outline, native outcome and supported geometry acceptance remain open. No
-tests were run.
+Native execution, closed-facet policy, implementation and tests remain open.
 
 ## Working on now
 
-Inspect plate outline and triangulation containment for the candidate example.
+Continue remaining connected audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2526 publication record](CHECKPOINT-2526.json)
-- [Saved report for checkpoint 2526](PROGRESS-2526.md)
+- [Checkpoint 2527 publication record](CHECKPOINT-2527.json)
+- [Saved report for checkpoint 2527](PROGRESS-2527.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
