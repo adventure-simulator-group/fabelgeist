@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:46:29.113202+00:00
+Updated: 2026-11-05T14:47:48.535379+00:00
 
-Latest verified checkpoint: **2413**. Goal: **active**.
+Latest verified checkpoint: **2414**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced furniture compound construction into pinned Avian and Parry under Lens
-12.
+Inspected the all-key furniture collider coverage test under Lens 12.
 
-Nonempty collider cardinality across playable recipes and public market policy
-remain open. No tests were run.
+The all-key test was not run; key admission, collider cardinality and public
+market policy remain open.
 
 ## Working on now
 
-Qualify playable recipe collider cardinality and reconcile native compound
-admission.
+Qualify furniture key admission and preserve all-key collider validation for the
+repair phase.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2413 publication record](CHECKPOINT-2413.json)
-- [Saved report for checkpoint 2413](PROGRESS-2413.md)
+- [Checkpoint 2414 publication record](CHECKPOINT-2414.json)
+- [Saved report for checkpoint 2414](PROGRESS-2414.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
