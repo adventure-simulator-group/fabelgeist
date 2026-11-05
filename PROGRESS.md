@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T16:56:47.595855+00:00
+Updated: 2026-11-05T16:59:06.543950+00:00
 
-Latest verified checkpoint: **2466**. Goal: **active**.
+Latest verified checkpoint: **2467**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Documented conditional support-profile cause loss and closed scoped source
-discovery.
+Reconciled current quickstep target arithmetic and force-tracking consumer.
 
-Repair, reachable-path validation and broader diagnostic reconciliation remain
-open. No tests were run.
+Supported extreme input reachability, native force and aliases remain open. No
+tests were run.
 
 ## Working on now
 
-Continue broader support-diagnostic and remaining audit obligations.
+Trace supported quickstep configuration and native force/velocity boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2466 publication record](CHECKPOINT-2466.json)
-- [Saved report for checkpoint 2466](PROGRESS-2466.md)
+- [Checkpoint 2467 publication record](CHECKPOINT-2467.json)
+- [Saved report for checkpoint 2467](PROGRESS-2467.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
