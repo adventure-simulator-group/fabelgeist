@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2098,
+  "at": "2026-11-05T01:21:03.684758+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "e3ceb26af20f70cc365860167025d3728193d8f2040dc6657e513a84e386bb03",
+    "verification": "21bfa745d1974a996a52e80af10638302115b45d8cd43737a258a550323edb41",
+    "canonical_current": "ba93703d6aed6bd0d97767749bc6b2112cf5163ecb1f7b9b8e3fcc81506dd529"
+  },
+  "scope": {
+    "summary": "Traced deferred consequence execution before replication collection.",
+    "scope_limit": "Tick timing, intervening recomputation, runtime reconciliation and aliases remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "41bcbf1b3976e5a050ed7823814749f2247b193ee4388e5519472fb2ebeaaf8b",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
