@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:51:06.072443+00:00
+Updated: 2026-11-05T09:53:50.798425+00:00
 
-Latest verified checkpoint: **2252**. Goal: **active**.
+Latest verified checkpoint: **2253**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified delegated validators and linked the existing AI precision gap.
+Qualified checked duration, speed and fraction deserialization.
 
-Config consumers, field admissions and broader contracts remain open.
+Other aggregate consumers, native dependencies and broader contracts remain
+open.
 
 ## Working on now
 
-Assessing delegated validators and AI precision ownership.
+Tracing checked scalar configuration admissions.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2252 publication record](CHECKPOINT-2252.json)
-- [Saved report for checkpoint 2252](PROGRESS-2252.md)
+- [Checkpoint 2253 publication record](CHECKPOINT-2253.json)
+- [Saved report for checkpoint 2253](PROGRESS-2253.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
