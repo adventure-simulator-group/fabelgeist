@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:34:55.194804+00:00
+Updated: 2026-11-05T00:36:05.732429+00:00
 
-Latest verified checkpoint: **2069**. Goal: **active**.
+Latest verified checkpoint: **2070**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Assessed concave triangulation and seam test coverage.
+Recorded pattern and cloth admission repair acceptance.
 
-Whole-triangle topology, pattern stitch admission and runtime validation remain
-open.
+Full producer audit, implementation and runtime validation remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2069 publication record](CHECKPOINT-2069.json)
-- [Saved report for checkpoint 2069](PROGRESS-2069.md)
+- [Checkpoint 2070 publication record](CHECKPOINT-2070.json)
+- [Saved report for checkpoint 2070](PROGRESS-2070.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
