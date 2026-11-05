@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:12:08.193579+00:00
+Updated: 2026-11-05T19:14:08.108013+00:00
 
-Latest verified checkpoint: **2510**. Goal: **active**.
+Latest verified checkpoint: **2511**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped frame-alias ownership discovery and recorded connected repair.
+Traced discarded terrain sample failures into cultivation relief scoring.
 
-Collision policy, broader frame migration, implementation and behavioral
-validation remain open.
+Allocation publication, missing-coverage policy and native acceptance remain
+open. No tests were run.
 
 ## Working on now
 
-Continue cultivation terrain error admission and connected source policy.
+Trace cultivation allocation output, terrain failures and coverage policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2510 publication record](CHECKPOINT-2510.json)
-- [Saved report for checkpoint 2510](PROGRESS-2510.md)
+- [Checkpoint 2511 publication record](CHECKPOINT-2511.json)
+- [Saved report for checkpoint 2511](PROGRESS-2511.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
