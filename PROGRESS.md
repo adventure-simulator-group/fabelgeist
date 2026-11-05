@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:23:56.747743+00:00
+Updated: 2026-11-05T12:25:26.465076+00:00
 
-Latest verified checkpoint: **2320**. Goal: **active**.
+Latest verified checkpoint: **2321**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified tactical loading source additions since the handoff revision.
+Corrected current-loading reconciliation history and retained prior qualified
+evidence.
 
-Tactical event ownership, timing, retry policy and full alias inventory remain
-open.
+Early-event and retry ownership and global alias reconciliation remain open.
 
 ## Working on now
 
-Reconcile the new tactical loading source against current-delta and alias
-obligations.
+Reconcile conditional tactical failure and retry paths with existing owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2320 publication record](CHECKPOINT-2320.json)
-- [Saved report for checkpoint 2320](PROGRESS-2320.md)
+- [Checkpoint 2321 publication record](CHECKPOINT-2321.json)
+- [Saved report for checkpoint 2321](PROGRESS-2321.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
