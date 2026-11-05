@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:17:31.819799+00:00
+Updated: 2026-11-05T13:19:12.020728+00:00
 
-Latest verified checkpoint: **2357**. Goal: **active**.
+Latest verified checkpoint: **2358**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced city buffer creation, frame updates and pinned native buffer reuse under
-Lens 11.
+Authenticated Bevy asset allocation and render-asset update handling under Lens
+11.
 
-Asset identity, extraction timing and exceptional buffer replacement remain
-open; source tests were inspected but not run.
+Render scheduling and actual deferred or replacement conditions remain open; no
+tests were run.
 
 ## Working on now
 
-Qualify asset ID allocation and render extraction ordering.
+Qualify render scheduling, asset write limits and device recovery.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2357 publication record](CHECKPOINT-2357.json)
-- [Saved report for checkpoint 2357](PROGRESS-2357.md)
+- [Checkpoint 2358 publication record](CHECKPOINT-2358.json)
+- [Saved report for checkpoint 2358](PROGRESS-2358.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
