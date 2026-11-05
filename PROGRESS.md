@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:42:26.112602+00:00
+Updated: 2026-11-05T14:43:45.168687+00:00
 
-Latest verified checkpoint: **2411**. Goal: **active**.
+Latest verified checkpoint: **2412**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified a conditional degenerate-market path through route and frame
-admission under Lens 12.
+Traced full scene validation and generated market-block selection under Lens 12.
 
-Whole-scene and ordinary-producer reachability, market skip policy and native
-collision remain open. No tests were run.
+The inspected city producer excludes the coincident-edge case; public-input
+policy, other supported paths and native collision remain open. No tests were
+run.
 
 ## Working on now
 
-Qualify full scene and producer reachability for the conditional market-frame
-skip.
+Resolve public market input policy and reconcile ground and native contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2411 publication record](CHECKPOINT-2411.json)
-- [Saved report for checkpoint 2411](PROGRESS-2411.md)
+- [Checkpoint 2412 publication record](CHECKPOINT-2412.json)
+- [Saved report for checkpoint 2412](PROGRESS-2412.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
