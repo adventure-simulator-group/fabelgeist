@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:43:04.866834+00:00
+Updated: 2026-11-05T20:45:02.164779+00:00
 
-Latest verified checkpoint: **2559**. Goal: **active**.
+Latest verified checkpoint: **2560**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared projected-defense storey lookup and level arithmetic.
+Traced projected-defense producer and packed-level arithmetic.
 
-Supported ordering, maximum levels, aliases and repair remain open.
+Program limits, maximum-level reachability, aliases and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2559 publication record](CHECKPOINT-2559.json)
-- [Saved report for checkpoint 2559](PROGRESS-2559.md)
+- [Checkpoint 2560 publication record](CHECKPOINT-2560.json)
+- [Saved report for checkpoint 2560](PROGRESS-2560.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
