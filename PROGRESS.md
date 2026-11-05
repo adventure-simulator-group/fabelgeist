@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:05:44.928168+00:00
+Updated: 2026-11-05T15:07:31.056961+00:00
 
-Latest verified checkpoint: **2426**. Goal: **active**.
+Latest verified checkpoint: **2427**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced owned vista mesh partition and transition-collar filtering under Lens 12.
+Compared owned transition-collar render and collision face selection under Lens
+12.
 
-Collision equivalence, exact seams, direct-surface policy and runtime acceptance
-remain open. No tests were run.
+Full clipping equivalence, direct-surface policy and runtime acceptance remain
+open. No tests were run.
 
 ## Working on now
 
-Compare owned presentation and collision filtering and reconcile vista seam
-contracts.
+Reconcile exact vista seam and direct-surface contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2426 publication record](CHECKPOINT-2426.json)
-- [Saved report for checkpoint 2426](PROGRESS-2426.md)
+- [Checkpoint 2427 publication record](CHECKPOINT-2427.json)
+- [Saved report for checkpoint 2427](PROGRESS-2427.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
