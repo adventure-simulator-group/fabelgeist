@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:35:13.055355+00:00
+Updated: 2026-11-05T18:37:45.991442+00:00
 
-Latest verified checkpoint: **2497**. Goal: **active**.
+Latest verified checkpoint: **2498**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2497**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 474 / 3,849 marked | 3,375 other entries |
+| Queue entries explicitly marked source-discovery closed | 475 / 3,849 marked | 3,374 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped terrain chunk geometry admission discovery and recorded its
-repair.
+Completed scoped terrain builder TIFF error discovery and recorded its repair.
 
-Repair, broader package admission and bounded validation remain open. No tests
+Repair, broader terrain errors and source-chain validation remain open. No tests
 were run.
 
 ## Working on now
 
-Continue terrain source and package admission obligations.
+Continue broader terrain source and error obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2497 publication record](CHECKPOINT-2497.json)
-- [Saved report for checkpoint 2497](PROGRESS-2497.md)
+- [Checkpoint 2498 publication record](CHECKPOINT-2498.json)
+- [Saved report for checkpoint 2498](PROGRESS-2498.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
