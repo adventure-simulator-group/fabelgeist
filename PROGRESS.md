@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:05:18.740118+00:00
+Updated: 2026-11-05T20:07:30.615412+00:00
 
-Latest verified checkpoint: **2537**. Goal: **active**.
+Latest verified checkpoint: **2538**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2537**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 497 / 3,849 marked | 3,352 other entries |
+| Queue entries explicitly marked source-discovery closed | 498 / 3,849 marked | 3,351 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped immediate activity language exposure discovery.
+Completed scoped lifecycle policy metric evidence discovery.
 
-Conditional language gain is source-derived; implementation and tests remain
-open.
+No actual courtship policy failure claimed; report repair and tests remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2537 publication record](CHECKPOINT-2537.json)
-- [Saved report for checkpoint 2537](PROGRESS-2537.md)
+- [Checkpoint 2538 publication record](CHECKPOINT-2538.json)
+- [Saved report for checkpoint 2538](PROGRESS-2538.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
