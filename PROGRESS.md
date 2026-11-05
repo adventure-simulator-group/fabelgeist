@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:27:22.444322+00:00
+Updated: 2026-11-05T09:29:58.119874+00:00
 
-Latest verified checkpoint: **2244**. Goal: **active**.
+Latest verified checkpoint: **2245**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,14 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified transparent mission ID deserialization against locked Serde source.
+Reconciled shared authority IDs with standalone admission ownership.
 
-Actual deserialization consumers, action feedback and broader contracts remain
+Identity transport requirements, exact aliases and broader contracts remain
 open.
 
 ## Working on now
 
-Checking mission ID deserialization and identity ownership.
+Reconciling authority ID deserialization and existing owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -212,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2244 publication record](CHECKPOINT-2244.json)
-- [Saved report for checkpoint 2244](PROGRESS-2244.md)
+- [Checkpoint 2245 publication record](CHECKPOINT-2245.json)
+- [Saved report for checkpoint 2245](PROGRESS-2245.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
