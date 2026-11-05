@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:04:36.309835+00:00
+Updated: 2026-11-05T14:06:02.613934+00:00
 
-Latest verified checkpoint: **2386**. Goal: **active**.
+Latest verified checkpoint: **2387**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the generated outdoor furniture group item bound under Lens 11.
+Connected furniture site and market loops to validated collection limits under
+Lens 11.
 
-Recipe mesh batches, event admission and aggregate capacity remain open; no
-tests were run.
+Loose theoretical bound is not a reachable witness; mesh and device limits
+remain open.
 
 ## Working on now
 
-Qualify furniture recipe mesh batches and geometry clusters.
+Qualify market geometry, recipe clusters and actual device limits.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2386 publication record](CHECKPOINT-2386.json)
-- [Saved report for checkpoint 2386](PROGRESS-2386.md)
+- [Checkpoint 2387 publication record](CHECKPOINT-2387.json)
+- [Saved report for checkpoint 2387](PROGRESS-2387.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
