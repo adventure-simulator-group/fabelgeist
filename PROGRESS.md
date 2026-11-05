@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T08:49:31.615436+00:00
+Updated: 2026-11-05T08:52:06.811326+00:00
 
-Latest verified checkpoint: **2231**. Goal: **active**.
+Latest verified checkpoint: **2232**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced merge preconditions and pending-request cleanup.
+Traced member removal and party disband reassignment.
 
-Stale-request invariants, XP policy and broader audit contracts remain open.
+Outgoing request lifecycle, XP policy and broader audit contracts remain open.
 
 ## Working on now
 
-Tracing stale join requests and party reassignment.
+Qualifying outgoing join request lifecycle.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2231 publication record](CHECKPOINT-2231.json)
-- [Saved report for checkpoint 2231](PROGRESS-2231.md)
+- [Checkpoint 2232 publication record](CHECKPOINT-2232.json)
+- [Saved report for checkpoint 2232](PROGRESS-2232.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
