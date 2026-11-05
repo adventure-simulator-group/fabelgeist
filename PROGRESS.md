@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:27:45.573381+00:00
+Updated: 2026-11-05T12:29:14.086094+00:00
 
-Latest verified checkpoint: **2322**. Goal: **active**.
+Latest verified checkpoint: **2323**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Assessed regional-map surface source under twelve registered perspectives.
+Traced regional terrain grid, mesh holes and camera ground-position inputs.
 
-Connected producers, consumers, aliases and other lenses remain open; fixtures
-were not run.
+Interpolation, native renderer and connected source contracts remain open; no
+tests were run.
 
 ## Working on now
 
-Trace regional-map terrain, camera and render ownership.
+Trace regional geographic interpolation and city frame alignment.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2322 publication record](CHECKPOINT-2322.json)
-- [Saved report for checkpoint 2322](PROGRESS-2322.md)
+- [Checkpoint 2323 publication record](CHECKPOINT-2323.json)
+- [Saved report for checkpoint 2323](PROGRESS-2323.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
