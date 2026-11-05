@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T06:11:56.088531+00:00
+Updated: 2026-11-05T06:13:22.716604+00:00
 
-Latest verified checkpoint: **2168**. Goal: **active**.
+Latest verified checkpoint: **2169**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **2168**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 16 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 17 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,14 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced public report query, defeat badge discriminator and text presentation.
+Linked typed roster-cause loss to its existing Lens 1 ledger owner.
 
-Other report consumers, query failure policy, reducer error conversion and exact
-aliases remain open.
+Reducer rendering, other contracts and exact aliases remain open.
 
 ## Working on now
 
-Tracing autoresolve report semantics, native table boundaries and consumers
+Reconciling mission roster error ownership and remaining autoresolve contracts
 under Lens 1.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -213,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2168 publication record](CHECKPOINT-2168.json)
-- [Saved report for checkpoint 2168](PROGRESS-2168.md)
+- [Checkpoint 2169 publication record](CHECKPOINT-2169.json)
+- [Saved report for checkpoint 2169](PROGRESS-2169.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
