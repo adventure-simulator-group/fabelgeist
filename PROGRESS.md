@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T16:38:03.122638+00:00
+Updated: 2026-11-05T16:39:52.646894+00:00
 
-Latest verified checkpoint: **2458**. Goal: **active**.
+Latest verified checkpoint: **2459**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced terrain grade tolerance and its production refinement caller under Lens
-11.
+Qualified scene height bounds and shared mesh/collider use for terrain-grade
+tolerance.
 
-Input elevation range, native consumers and exact aliases remain open. No tests
-were run.
+Physical tolerance policy, native collider boundary and exact aliases remain
+open. No tests were run.
 
 ## Working on now
 
-Trace terrain elevation input and physical triangle consumers.
+Reconcile terrain grade tolerance policy and native boundary.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2458 publication record](CHECKPOINT-2458.json)
-- [Saved report for checkpoint 2458](PROGRESS-2458.md)
+- [Checkpoint 2459 publication record](CHECKPOINT-2459.json)
+- [Saved report for checkpoint 2459](PROGRESS-2459.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
