@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:15:54.548347+00:00
+Updated: 2026-11-05T12:17:07.361940+00:00
 
-Latest verified checkpoint: **2314**. Goal: **active**.
+Latest verified checkpoint: **2315**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified selected texture failure and art-demo readiness under Lens 11.
+Compared texture readiness and failure handling in tactical, strategic and art-
+demo consumers.
 
-Other consumers, indirect observers and aliases remain open; no runtime failure
-was reproduced.
+Event timing, indirect handlers, retry policy and aliases remain open; no
+runtime failure was reproduced.
 
 ## Working on now
 
-Reconcile remaining readiness consumers, failure ownership and aliases.
+Reconcile failure event timing, retry ownership and aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2314 publication record](CHECKPOINT-2314.json)
-- [Saved report for checkpoint 2314](PROGRESS-2314.md)
+- [Checkpoint 2315 publication record](CHECKPOINT-2315.json)
+- [Saved report for checkpoint 2315](PROGRESS-2315.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
