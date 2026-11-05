@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:14:32.709720+00:00
+Updated: 2026-11-05T15:15:55.318906+00:00
 
-Latest verified checkpoint: **2432**. Goal: **active**.
+Latest verified checkpoint: **2433**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced detail-patch and vista material compositing under Lens 12.
+Linked related city-ground origin, publication and vertex obligations without
+merging them.
 
-Nonzero-origin and nonplanar vista acceptance, visibility and runtime evidence
-remain open. No tests were run.
+Related city-ground scopes, nonzero-origin policy and runtime evidence remain
+open. No tests were run.
 
 ## Working on now
 
-Resolve vista and detail-patch surface contract and post-audit visibility
-acceptance.
+Qualify related city-ground origin and publication scopes independently.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2432 publication record](CHECKPOINT-2432.json)
-- [Saved report for checkpoint 2432](PROGRESS-2432.md)
+- [Checkpoint 2433 publication record](CHECKPOINT-2433.json)
+- [Saved report for checkpoint 2433](PROGRESS-2433.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
