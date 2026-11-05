@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T11:25:24.541887+00:00
+Updated: 2026-11-05T11:28:50.907665+00:00
 
-Latest verified checkpoint: **2288**. Goal: **active**.
+Latest verified checkpoint: **2289**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -11,7 +11,7 @@ Latest verified checkpoint: **2288**. Goal: **active**.
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
-| Registered source ranges qualified, connected work open | 127 entries | Connected contracts remain open |
+| Registered source ranges qualified, connected work open | 139 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 19 recorded | Broader contracts may remain open |
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified a full Lens 1 errantry range while retaining connected work.
+Assessed language initialization under twelve registered perspectives.
 
-Connected producers, consumers, native boundaries and exact aliases remain open.
+Connected producers, consumers, aliases and other lenses remain open; fixtures
+were not run.
 
 ## Working on now
 
-Tracing connected clue and journey contracts across audit lenses.
+Reconcile registered animation ranges and connected ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2288 publication record](CHECKPOINT-2288.json)
-- [Saved report for checkpoint 2288](PROGRESS-2288.md)
+- [Checkpoint 2289 publication record](CHECKPOINT-2289.json)
+- [Saved report for checkpoint 2289](PROGRESS-2289.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
