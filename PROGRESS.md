@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:29:58.119874+00:00
+Updated: 2026-11-05T09:32:59.647553+00:00
 
-Latest verified checkpoint: **2245**. Goal: **active**.
+Latest verified checkpoint: **2246**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,14 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled shared authority IDs with standalone admission ownership.
+Traced recovery semantics into autoresolve and tactical attack admission.
 
-Identity transport requirements, exact aliases and broader contracts remain
+Combat-state lifecycle, configuration admission and broader contracts remain
 open.
 
 ## Working on now
 
-Reconciling authority ID deserialization and existing owners.
+Tracing recovery timing through attack scheduling.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -212,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2245 publication record](CHECKPOINT-2245.json)
-- [Saved report for checkpoint 2245](PROGRESS-2245.md)
+- [Checkpoint 2246 publication record](CHECKPOINT-2246.json)
+- [Saved report for checkpoint 2246](PROGRESS-2246.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
