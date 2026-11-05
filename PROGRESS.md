@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:42:36.535159+00:00
+Updated: 2026-11-05T09:45:34.780906+00:00
 
-Latest verified checkpoint: **2249**. Goal: **active**.
+Latest verified checkpoint: **2250**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced authored combat configuration and build-time timing projection.
+Traced tactical configuration decoding and runtime snapshot validation.
 
-Config authority, aggregate admission and broader contracts remain open.
+Other public config consumers, field authority and broader contracts remain
+open.
 
 ## Working on now
 
-Tracing authored combat configuration and generated timing inputs.
+Tracing tactical configuration decode and validation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2249 publication record](CHECKPOINT-2249.json)
-- [Saved report for checkpoint 2249](PROGRESS-2249.md)
+- [Checkpoint 2250 publication record](CHECKPOINT-2250.json)
+- [Saved report for checkpoint 2250](PROGRESS-2250.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
