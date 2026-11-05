@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:48:16.669283+00:00
+Updated: 2026-11-05T15:49:50.905346+00:00
 
-Latest verified checkpoint: **2450**. Goal: **active**.
+Latest verified checkpoint: **2451**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced strategic seam pigment and sward-coverage values into the vista shader
-under Lens 12.
+Qualified existing source-test expectations for strategic and generic vista seam
+coverage under Lens 12.
 
-Strategic versus generic seam coverage policy, nonzero-origin semantics and
-exact aliases remain open. No tests were run.
+Nonzero-origin semantics and exact aliases remain open; test source was read but
+not executed.
 
 ## Working on now
 
-Reconcile strategic and generic seam coverage policies and supported origin
-semantics.
+Reconcile supported nonzero-origin seam semantics and related vista-height
+obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2450 publication record](CHECKPOINT-2450.json)
-- [Saved report for checkpoint 2450](PROGRESS-2450.md)
+- [Checkpoint 2451 publication record](CHECKPOINT-2451.json)
+- [Saved report for checkpoint 2451](PROGRESS-2451.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
