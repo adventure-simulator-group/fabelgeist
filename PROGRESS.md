@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:15:53.491988+00:00
+Updated: 2026-11-05T17:19:33.160681+00:00
 
-Latest verified checkpoint: **2473**. Goal: **active**.
+Latest verified checkpoint: **2474**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Documented the conditional AI offense admission finding and closed its scoped
-source discovery.
+Traced shared marching-edge calculation, optimized height extraction and mesh
+admission.
 
-Repair, scalar policies and post-audit validation remain open. No tests were
-run.
+Producer range, mesh consumers and complete alias reconciliation remain open. No
+tests were run.
 
 ## Working on now
 
-Continue broader AI and configuration audit obligations.
+Trace terrain producer bounds and downstream mesh consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2473 publication record](CHECKPOINT-2473.json)
-- [Saved report for checkpoint 2473](PROGRESS-2473.md)
+- [Checkpoint 2474 publication record](CHECKPOINT-2474.json)
+- [Saved report for checkpoint 2474](PROGRESS-2474.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
