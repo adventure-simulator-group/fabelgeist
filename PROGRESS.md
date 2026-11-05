@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:20:44.799225+00:00
+Updated: 2026-11-05T18:25:51.015285+00:00
 
-Latest verified checkpoint: **2492**. Goal: **active**.
+Latest verified checkpoint: **2493**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped ranged authorization source-test discovery and recorded
-behavioral acceptance.
+Traced pickup range and line-of-sight center against dropped item collider
+offset.
 
-Repair, broader combat authority and observer validation remain open. No tests
-were run.
+Catalog offsets, rigid-body pose and client selection remain open. No tests were
+run.
 
 ## Working on now
 
-Continue broader combat authority and acceptance obligations.
+Trace physical geometry producer, dropped pose and client selection.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2492 publication record](CHECKPOINT-2492.json)
-- [Saved report for checkpoint 2492](PROGRESS-2492.md)
+- [Checkpoint 2493 publication record](CHECKPOINT-2493.json)
+- [Saved report for checkpoint 2493](PROGRESS-2493.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
