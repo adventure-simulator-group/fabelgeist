@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T16:42:14.630354+00:00
+Updated: 2026-11-05T16:44:49.747635+00:00
 
-Latest verified checkpoint: **2460**. Goal: **active**.
+Latest verified checkpoint: **2461**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Documented the terrain-grade offset tolerance policy and closed its scoped
-source discovery.
+Traced city market containment, scene validation and ground lookup under Lens
+11.
 
-Tolerance decision, repair and post-audit validation remain open. No tests were
-run.
+Generated market reachability, canonical polygon and exact aliases remain open.
+No tests were run.
 
 ## Working on now
 
-Continue broader coordinate and numerical audit obligations.
+Trace generated market geometry and canonical polygon admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2460 publication record](CHECKPOINT-2460.json)
-- [Saved report for checkpoint 2460](PROGRESS-2460.md)
+- [Checkpoint 2461 publication record](CHECKPOINT-2461.json)
+- [Saved report for checkpoint 2461](PROGRESS-2461.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
