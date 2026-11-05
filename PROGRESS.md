@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:30:41.659249+00:00
+Updated: 2026-11-05T14:32:52.009321+00:00
 
-Latest verified checkpoint: **2404**. Goal: **active**.
+Latest verified checkpoint: **2405**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced authored furniture recipe construction and common local frame under Lens
+Traced furniture ground scope, vista fallback and market clearance under Lens
 12.
 
-Native dependency behavior, ground and collision reconciliation, alias
-disposition and runtime verification remain open. No tests were run.
+Vista coordinate invariants, market failure reachability and native collision
+remain open. No tests were run.
 
 ## Working on now
 
-Reconcile furniture ground, collision and native contracts with existing related
-entries.
+Resolve vista coordinate and terrain admission invariants for furniture
+placement.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2404 publication record](CHECKPOINT-2404.json)
-- [Saved report for checkpoint 2404](PROGRESS-2404.md)
+- [Checkpoint 2405 publication record](CHECKPOINT-2405.json)
+- [Saved report for checkpoint 2405](PROGRESS-2405.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
