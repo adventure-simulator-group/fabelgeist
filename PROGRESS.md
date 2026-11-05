@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:21:41.309290+00:00
+Updated: 2026-11-05T13:23:34.712901+00:00
 
-Latest verified checkpoint: **2360**. Goal: **active**.
+Latest verified checkpoint: **2361**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified render-asset ordering and recovery re-extraction under Lens 11.
+Traced actual client error policies against pinned Bevy device recovery under
+Lens 11.
 
-City scratch reset and actual device recovery behavior remain open; no tests
-were run.
+Other entry points and readiness after ignored errors remain open; no tests were
+run.
 
 ## Working on now
 
-Trace device recovery and city scratch reset.
+Trace ignored render errors into readiness and status.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2360 publication record](CHECKPOINT-2360.json)
-- [Saved report for checkpoint 2360](PROGRESS-2360.md)
+- [Checkpoint 2361 publication record](CHECKPOINT-2361.json)
+- [Saved report for checkpoint 2361](PROGRESS-2361.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
