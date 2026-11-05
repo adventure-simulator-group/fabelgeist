@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:12:31.912637+00:00
+Updated: 2026-11-05T17:15:53.491988+00:00
 
-Latest verified checkpoint: **2472**. Goal: **active**.
+Latest verified checkpoint: **2473**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2472**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 460 / 3,849 marked | 3,389 other entries |
+| Queue entries explicitly marked source-discovery closed | 461 / 3,849 marked | 3,388 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified YAML and JSON nonfinite-float boundaries for AI offense configuration.
+Documented the conditional AI offense admission finding and closed its scoped
+source discovery.
 
-Remaining offense consumers, scalar policies and aliases remain open. No tests
-were run.
+Repair, scalar policies and post-audit validation remain open. No tests were
+run.
 
 ## Working on now
 
-Trace remaining offense field consumers and reconcile scalar policies.
+Continue broader AI and configuration audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2472 publication record](CHECKPOINT-2472.json)
-- [Saved report for checkpoint 2472](PROGRESS-2472.md)
+- [Checkpoint 2473 publication record](CHECKPOINT-2473.json)
+- [Saved report for checkpoint 2473](PROGRESS-2473.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
