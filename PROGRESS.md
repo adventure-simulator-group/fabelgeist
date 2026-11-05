@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T07:03:32.378761+00:00
+Updated: 2026-11-05T07:06:11.787004+00:00
 
-Latest verified checkpoint: **2189**. Goal: **active**.
+Latest verified checkpoint: **2190**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,7 +43,7 @@ Other request producers, consumers and exact aliases remain open.
 
 ## Working on now
 
-Tracing player-facing party action notification consumption.
+Tracing party action cleanup and bounded module consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2189 publication record](CHECKPOINT-2189.json)
-- [Saved report for checkpoint 2189](PROGRESS-2189.md)
+- [Checkpoint 2190 publication record](CHECKPOINT-2190.json)
+- [Saved report for checkpoint 2190](PROGRESS-2190.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
