@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T04:12:47.273147+00:00
+Updated: 2026-11-05T04:17:30.191441+00:00
 
-Latest verified checkpoint: **2124**. Goal: **active**.
+Latest verified checkpoint: **2125**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,16 +37,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Corrected an audit-gate violation and stopped the isolated product build before
-its test ran.
+Assessed the full errantry source under Lens 1 and traced ordered-sigil clue
+production into presentation.
 
-Earlier probes were contrary to the handoff; source audit continues and product
-execution is deferred.
+Malformed input reachability, camp timing propagation and exact aliases remain
+open; no runtime probe was run.
 
 ## Working on now
 
-Reconciling strategic and tactical condition, burden and wheel boundaries across
-audit lenses.
+Reconciling errantry producer propagation and connected puzzle and camp
+contracts across audit lenses.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -207,8 +207,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2124 publication record](CHECKPOINT-2124.json)
-- [Saved report for checkpoint 2124](PROGRESS-2124.md)
+- [Checkpoint 2125 publication record](CHECKPOINT-2125.json)
+- [Saved report for checkpoint 2125](PROGRESS-2125.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
