@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:55:43.986857+00:00
+Updated: 2026-11-05T14:58:10.655548+00:00
 
-Latest verified checkpoint: **2420**. Goal: **active**.
+Latest verified checkpoint: **2421**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced moving terrain-detail caller coordinates into the retained vista query
-under Lens 12.
+Traced scene-file, vista bundle and sampled-terrain activation under Lens 12.
 
-Nonzero-origin nonurban reachability, alias disposition and runtime acceptance
-remain open. No tests were run.
+Complete nonzero-origin nonurban witness, alias disposition and runtime
+acceptance remain open. No tests were run.
 
 ## Working on now
 
-Qualify nonzero-origin nonurban reachability and reconcile related coordinate
+Qualify a complete nonzero-origin nonurban input and related coordinate
 contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2420 publication record](CHECKPOINT-2420.json)
-- [Saved report for checkpoint 2420](PROGRESS-2420.md)
+- [Checkpoint 2421 publication record](CHECKPOINT-2421.json)
+- [Saved report for checkpoint 2421](PROGRESS-2421.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
