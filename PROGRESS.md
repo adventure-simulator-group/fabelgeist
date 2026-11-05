@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:21:20.128840+00:00
+Updated: 2026-11-05T12:22:36.338858+00:00
 
-Latest verified checkpoint: **2318**. Goal: **active**.
+Latest verified checkpoint: **2319**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned asset message timing and the loading screen reader behavior.
+Reconciled existing strategic and texture failure ledger relationships.
 
-Actual timing, indirect resource mutation and retry policy remain open; no retry
-was executed.
+Tactical event ownership, timing, retry policy and global aliases remain open.
 
 ## Working on now
 
-Reconcile indirect resource mutation, retry policy and aliases.
+Reconcile tactical failure event lifetime and retry ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2318 publication record](CHECKPOINT-2318.json)
-- [Saved report for checkpoint 2318](PROGRESS-2318.md)
+- [Checkpoint 2319 publication record](CHECKPOINT-2319.json)
+- [Saved report for checkpoint 2319](PROGRESS-2319.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
