@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:48:27.316447+00:00
+Updated: 2026-11-05T20:50:22.994121+00:00
 
-Latest verified checkpoint: **2562**. Goal: **active**.
+Latest verified checkpoint: **2563**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Derived a bounded source witness for vertical-connection diagnostic overflow.
+Traced a large ordinary program through gates to the diagnostic overflow.
 
-Full generation reachability, execution and repair remain open.
+Runtime confirmation, size policy, aliases and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2562 publication record](CHECKPOINT-2562.json)
-- [Saved report for checkpoint 2562](PROGRESS-2562.md)
+- [Checkpoint 2563 publication record](CHECKPOINT-2563.json)
+- [Saved report for checkpoint 2563](PROGRESS-2563.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
