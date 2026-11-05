@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:43:53.378851+00:00
+Updated: 2026-11-05T18:46:20.364162+00:00
 
-Latest verified checkpoint: **2500**. Goal: **active**.
+Latest verified checkpoint: **2501**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped icon PNG error discovery and recorded its repair.
+Traced canonical recipe validation, placement and construction error conversion.
 
-Repair, broader icon contracts and source-chain validation remain open. No tests
-were run.
+Lower geometry failures, public consumers and error-family reconciliation remain
+open. No tests were run.
 
 ## Working on now
 
-Continue broader icon and generation error obligations.
+Trace weapon construction failure variants and public consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2500 publication record](CHECKPOINT-2500.json)
-- [Saved report for checkpoint 2500](PROGRESS-2500.md)
+- [Checkpoint 2501 publication record](CHECKPOINT-2501.json)
+- [Saved report for checkpoint 2501](PROGRESS-2501.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
