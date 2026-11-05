@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:08:49.328689+00:00
+Updated: 2026-11-05T14:10:05.911219+00:00
 
-Latest verified checkpoint: **2389**. Goal: **active**.
+Latest verified checkpoint: **2390**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced shared furniture occupancy and support admission under Lens 11.
+Connected furniture-layout admission and city GPU outcome across lenses.
 
-A numerical global bound remains open; source tests were inspected but not run.
+Both independent lens obligations and numeric bounds remain open; no tests were
+run.
 
 ## Working on now
 
-Qualify terrain extent and minimum admitted footprint dimensions.
+Qualify furniture layout and GPU capacity under their own lenses.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2389 publication record](CHECKPOINT-2389.json)
-- [Saved report for checkpoint 2389](PROGRESS-2389.md)
+- [Checkpoint 2390 publication record](CHECKPOINT-2390.json)
+- [Saved report for checkpoint 2390](PROGRESS-2390.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
