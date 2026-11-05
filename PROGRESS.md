@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T07:57:47.857328+00:00
+Updated: 2026-11-05T08:00:15.478260+00:00
 
-Latest verified checkpoint: **2211**. Goal: **active**.
+Latest verified checkpoint: **2212**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,7 +43,7 @@ Other request producers, consumers and exact aliases remain open.
 
 ## Working on now
 
-Tracing destination-specific hostile influence selection.
+Qualifying destination-selection test scope and authority uniqueness.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2211 publication record](CHECKPOINT-2211.json)
-- [Saved report for checkpoint 2211](PROGRESS-2211.md)
+- [Checkpoint 2212 publication record](CHECKPOINT-2212.json)
+- [Saved report for checkpoint 2212](PROGRESS-2212.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
