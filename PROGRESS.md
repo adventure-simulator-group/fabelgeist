@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T06:50:29.990902+00:00
+Updated: 2026-11-05T06:53:36.711519+00:00
 
-Latest verified checkpoint: **2184**. Goal: **active**.
+Latest verified checkpoint: **2185**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **2184**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 17 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 18 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,15 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Linked contract currency grant behavior to the existing party-grant error-
-erasure obligation.
+Traced party action kind and payload from request admission through approval.
 
-Admitted insertion failures, reward policy and exact aliases remain open.
+Other request producers, consumers and exact aliases remain open.
 
 ## Working on now
 
-Reconciling mission roster error ownership and remaining autoresolve contracts
-under Lens 1.
+Tracing party action request admission, typed payload and approval boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -213,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2184 publication record](CHECKPOINT-2184.json)
-- [Saved report for checkpoint 2184](PROGRESS-2184.md)
+- [Checkpoint 2185 publication record](CHECKPOINT-2185.json)
+- [Saved report for checkpoint 2185](PROGRESS-2185.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
