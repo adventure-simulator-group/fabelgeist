@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:20:08.173542+00:00
+Updated: 2026-11-05T20:21:23.320218+00:00
 
-Latest verified checkpoint: **2544**. Goal: **active**.
+Latest verified checkpoint: **2545**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced viewer wall-face rendering entry and separate document load paths.
+Qualified freeform viewer placeholder use and retained player-build storeys.
 
-Renderer helpers, admission guarantees, native consumers, aliases and repair
-remain open.
+Editing and admission guarantees, other consumers, aliases and repair remain
+open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2544 publication record](CHECKPOINT-2544.json)
-- [Saved report for checkpoint 2544](PROGRESS-2544.md)
+- [Checkpoint 2545 publication record](CHECKPOINT-2545.json)
+- [Saved report for checkpoint 2545](PROGRESS-2545.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
