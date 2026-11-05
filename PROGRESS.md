@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:56:25.462822+00:00
+Updated: 2026-11-05T15:58:12.242895+00:00
 
-Latest verified checkpoint: **2454**. Goal: **active**.
+Latest verified checkpoint: **2455**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Documented the support-grade numerical finding and closed its scoped source
-discovery; broader connected work remains open.
+Traced foundation prism admission, transport and volume arithmetic under Lens
+11.
 
-Repair, post-audit validation, broader planar discovery and generated
-reachability remain open; earlier restricted probes are historical only.
+Admitted overflow reachability, volume consumers and exact aliases remain open.
+No tests were run.
 
 ## Working on now
 
-Continue the broader planar-layout discovery and remaining audit obligations.
+Trace admitted prism volume ranges and actual volume consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2454 publication record](CHECKPOINT-2454.json)
-- [Saved report for checkpoint 2454](PROGRESS-2454.md)
+- [Checkpoint 2455 publication record](CHECKPOINT-2455.json)
+- [Saved report for checkpoint 2455](PROGRESS-2455.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
