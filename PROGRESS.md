@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T01:11:30.888130+00:00
+Updated: 2026-11-05T01:12:50.323109+00:00
 
-Latest verified checkpoint: **2091**. Goal: **active**.
+Latest verified checkpoint: **2092**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced ranged authorization, timing and precision consumption.
+Traced client ranged report and precision scaling before clamp.
 
-Extreme precision arithmetic, client producer, ordering and aliases remain open.
+Trusted precision policy, remaining damage arithmetic, ordering and aliases
+remain open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2091 publication record](CHECKPOINT-2091.json)
-- [Saved report for checkpoint 2091](PROGRESS-2091.md)
+- [Checkpoint 2092 publication record](CHECKPOINT-2092.json)
+- [Saved report for checkpoint 2092](PROGRESS-2092.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
