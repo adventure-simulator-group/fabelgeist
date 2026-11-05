@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:24:07.199226+00:00
+Updated: 2026-11-05T03:25:20.189876+00:00
 
-Latest verified checkpoint: **2111**. Goal: **active**.
+Latest verified checkpoint: **2112**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed f32 offset acknowledgment tolerance at large clipped coordinates.
+Probed actual map acknowledgment with rounded native offset.
 
-Supported layout bounds, end-to-end renderer and aliases remain open.
+Supported layout bounds, real renderer and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2111 publication record](CHECKPOINT-2111.json)
-- [Saved report for checkpoint 2111](PROGRESS-2111.md)
+- [Checkpoint 2112 publication record](CHECKPOINT-2112.json)
+- [Saved report for checkpoint 2112](PROGRESS-2112.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
