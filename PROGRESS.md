@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:49:29.591882+00:00
+Updated: 2026-11-05T13:51:00.046952+00:00
 
-Latest verified checkpoint: **2377**. Goal: **active**.
+Latest verified checkpoint: **2378**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned Bevy adapter-derived device limits under Lens 11.
+Compared city mesh admission and GPU capacity ownership across lenses.
 
-Accepted group bounds and actual device limits remain open; no tests were run.
+Joint cardinality and device limits remain open; no cross-lens closure or tests.
 
 ## Working on now
 
-Trace accepted group bounds and numeric-capacity aliases.
+Qualify joint mesh, placement and camera cardinality.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2377 publication record](CHECKPOINT-2377.json)
-- [Saved report for checkpoint 2377](PROGRESS-2377.md)
+- [Checkpoint 2378 publication record](CHECKPOINT-2378.json)
+- [Saved report for checkpoint 2378](PROGRESS-2378.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
