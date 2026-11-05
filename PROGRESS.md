@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:27:46.136095+00:00
+Updated: 2026-11-05T14:29:20.510316+00:00
 
-Latest verified checkpoint: **2402**. Goal: **active**.
+Latest verified checkpoint: **2403**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,17 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced furniture review serialization and overlay under Lens 12; identified
-repeated earlier worker investigation.
+Traced furniture key to production collider and mesh conversion under Lens 12.
 
-Production native consumers and alias disposition remain open; checkpoints
-2398-2401 repeated evidence already recorded in related entries. No tests were
-run.
+Authored recipe and native dependency behavior, alias disposition and runtime
+verification remain open. No tests were run.
 
 ## Working on now
 
-Reconcile furniture admission and native consumers, consulting existing related
-entries first.
+Reconcile furniture recipe and native contracts with existing related entries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2402 publication record](CHECKPOINT-2402.json)
-- [Saved report for checkpoint 2402](PROGRESS-2402.md)
+- [Checkpoint 2403 publication record](CHECKPOINT-2403.json)
+- [Saved report for checkpoint 2403](PROGRESS-2403.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
