@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:06:32.107368+00:00
+Updated: 2026-11-05T09:09:03.219939+00:00
 
-Latest verified checkpoint: **2236**. Goal: **active**.
+Latest verified checkpoint: **2237**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced allied combat input and strategic consequence persistence.
+Traced failed mission state and canonical death-to-corpse transition.
 
-Failure cleanup, death transitions and broader audit contracts remain open.
+Mixed outcomes, other enemy death owners and broader audit contracts remain
+open.
 
 ## Working on now
 
-Tracing combat outcome persistence and corpse ownership.
+Checking failed-mission and canonical death ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2236 publication record](CHECKPOINT-2236.json)
-- [Saved report for checkpoint 2236](PROGRESS-2236.md)
+- [Checkpoint 2237 publication record](CHECKPOINT-2237.json)
+- [Saved report for checkpoint 2237](PROGRESS-2237.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
