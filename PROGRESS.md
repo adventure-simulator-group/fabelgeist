@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:31:15.688760+00:00
+Updated: 2026-11-05T19:33:03.337201+00:00
 
-Latest verified checkpoint: **2521**. Goal: **active**.
+Latest verified checkpoint: **2522**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped bracer morph metadata discovery and recorded connected repair.
+Traced tiling plate limit after per-grid accumulation and candidate allocation.
 
-Current caller pairs the same input sequence; generic staging and tests remain
-open.
+Generated-surface extents, candidate policy and behavioral acceptance remain
+open. No tests were run.
 
 ## Working on now
 
-Continue armor tiling resource admission and connected geometry obligations.
+Trace generated armor surface producers and tiling input admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2521 publication record](CHECKPOINT-2521.json)
-- [Saved report for checkpoint 2521](PROGRESS-2521.md)
+- [Checkpoint 2522 publication record](CHECKPOINT-2522.json)
+- [Saved report for checkpoint 2522](PROGRESS-2522.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
