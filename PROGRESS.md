@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:09:31.378786+00:00
+Updated: 2026-11-05T17:12:31.912637+00:00
 
-Latest verified checkpoint: **2471**. Goal: **active**.
+Latest verified checkpoint: **2472**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced AI offense configuration checks and representative melee and ranged
-consumers.
+Qualified YAML and JSON nonfinite-float boundaries for AI offense configuration.
 
-Parser admission, runtime snapshot, remaining consumers and aliases remain open.
-No tests were run.
+Remaining offense consumers, scalar policies and aliases remain open. No tests
+were run.
 
 ## Working on now
 
-Trace offense parser, runtime snapshot and remaining consumers.
+Trace remaining offense field consumers and reconcile scalar policies.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2471 publication record](CHECKPOINT-2471.json)
-- [Saved report for checkpoint 2471](PROGRESS-2471.md)
+- [Checkpoint 2472 publication record](CHECKPOINT-2472.json)
+- [Saved report for checkpoint 2472](PROGRESS-2472.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
