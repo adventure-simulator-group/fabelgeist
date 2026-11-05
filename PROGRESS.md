@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:19:58.397498+00:00
+Updated: 2026-11-05T03:21:03.310373+00:00
 
-Latest verified checkpoint: **2108**. Goal: **active**.
+Latest verified checkpoint: **2109**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed retry and remount and planned empty-viewport handling.
+Compared viewport finding with regional map and native lifecycle contracts.
 
-End-to-end bridge, native projection, aliases and implementation remain open.
+Exact aliases, end-to-end bridge, city lifecycle and implementation remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2108 publication record](CHECKPOINT-2108.json)
-- [Saved report for checkpoint 2108](PROGRESS-2108.md)
+- [Checkpoint 2109 publication record](CHECKPOINT-2109.json)
+- [Saved report for checkpoint 2109](PROGRESS-2109.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
