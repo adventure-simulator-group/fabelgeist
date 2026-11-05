@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:41:29.546580+00:00
+Updated: 2026-11-05T13:43:12.549003+00:00
 
-Latest verified checkpoint: **2372**. Goal: **active**.
+Latest verified checkpoint: **2373**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced native exhibit retirement and tactical capture settling under Lens 11.
+Traced native capture manifest acceptance fields under Lens 11.
 
-Capture acceptance and exact GPU generation remain open; no tests were run.
+Pixel-derived validation and exact city GPU generation remain open; no tests
+were run.
 
 ## Working on now
 
-Trace capture acceptance and native resource-generation timing.
+Trace pixel-derived capture checks and native resource-generation timing.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2372 publication record](CHECKPOINT-2372.json)
-- [Saved report for checkpoint 2372](PROGRESS-2372.md)
+- [Checkpoint 2373 publication record](CHECKPOINT-2373.json)
+- [Saved report for checkpoint 2373](PROGRESS-2373.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
