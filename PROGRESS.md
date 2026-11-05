@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:15:38.073477+00:00
+Updated: 2026-11-05T19:17:03.161199+00:00
 
-Latest verified checkpoint: **2512**. Goal: **active**.
+Latest verified checkpoint: **2513**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped cultivation terrain error discovery through final terrain
-input.
+Traced WKT token and ring loss through clipping and final geometry validation.
 
-Coverage policy, broader terrain errors, implementation and validation remain
-open.
+Production source grammar, empty geometry policy and geographic owners remain
+open. No tests were run.
 
 ## Working on now
 
-Continue strategic WKT geometry admission and related geographic ownership.
+Inspect initialized Viabundus schema and geographic coordinate owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2512 publication record](CHECKPOINT-2512.json)
-- [Saved report for checkpoint 2512](PROGRESS-2512.md)
+- [Checkpoint 2513 publication record](CHECKPOINT-2513.json)
+- [Saved report for checkpoint 2513](PROGRESS-2513.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
