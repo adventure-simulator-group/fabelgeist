@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:37:39.460055+00:00
+Updated: 2026-11-05T20:39:46.440712+00:00
 
-Latest verified checkpoint: **2556**. Goal: **active**.
+Latest verified checkpoint: **2557**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified wall-count checks and storey-indexed replacement accounting.
+Traced generated storey ordering and replaced-wall producers.
 
-Exact wall coverage and storey ordering, consumers and repair remain open.
+Other mutations, public admission, wall coverage and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2556 publication record](CHECKPOINT-2556.json)
-- [Saved report for checkpoint 2556](PROGRESS-2556.md)
+- [Checkpoint 2557 publication record](CHECKPOINT-2557.json)
+- [Saved report for checkpoint 2557](PROGRESS-2557.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
