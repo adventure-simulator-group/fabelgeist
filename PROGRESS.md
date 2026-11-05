@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:05:39.236052+00:00
+Updated: 2026-11-05T19:06:59.397177+00:00
 
-Latest verified checkpoint: **2507**. Goal: **active**.
+Latest verified checkpoint: **2508**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2507**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 478 / 3,849 marked | 3,371 other entries |
+| Queue entries explicitly marked source-discovery closed | 479 / 3,849 marked | 3,370 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced root-attached grip and shaft zero-radius profiles into empty solids and
-zero-mass division.
+Completed scoped grip and shaft profile admission discovery and recorded
+connected repair.
 
-Both source-derived cases are untested; pole policy and broader shared geometry
-aliases remain open.
+Pole policy, broader geometry reconciliation, implementation and validation
+remain open.
 
 ## Working on now
 
-Determine pole policy and finite physical-output acceptance; reconcile broader
-geometry aliases.
+Continue remaining audit contracts and geometry error classifications.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2507 publication record](CHECKPOINT-2507.json)
-- [Saved report for checkpoint 2507](PROGRESS-2507.md)
+- [Checkpoint 2508 publication record](CHECKPOINT-2508.json)
+- [Saved report for checkpoint 2508](PROGRESS-2508.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
