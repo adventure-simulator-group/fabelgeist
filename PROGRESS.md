@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:30:46.744937+00:00
+Updated: 2026-11-05T00:32:06.770385+00:00
 
-Latest verified checkpoint: **2066**. Goal: **active**.
+Latest verified checkpoint: **2067**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced selected generated curve control producers.
+Traced panel and stitch identity through pattern merging and fitting.
 
-Other producers, mutable edges, units and runtime validation remain open.
+Name uniqueness, stitch policy, units and runtime validation remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2066 publication record](CHECKPOINT-2066.json)
-- [Saved report for checkpoint 2066](PROGRESS-2066.md)
+- [Checkpoint 2067 publication record](CHECKPOINT-2067.json)
+- [Saved report for checkpoint 2067](PROGRESS-2067.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
