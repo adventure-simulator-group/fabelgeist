@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:45:12.019500+00:00
+Updated: 2026-11-05T15:46:40.156526+00:00
 
-Latest verified checkpoint: **2448**. Goal: **active**.
+Latest verified checkpoint: **2449**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified strategic backdrop input parsing and foreground terrain grid
-invariants under Lens 12.
+Traced source and grounding validation branches for strategic vista origins
+under Lens 12.
 
-Full first-ring origin admission and exact aliases remain open. No tests were
-run.
+A complete supported nonzero-origin witness, seam policy and exact aliases
+remain open. No tests were run.
 
 ## Working on now
 
-Trace full first-ring origin admission and reconcile seam contracts.
+Reconcile supported ungrounded scene origin semantics with the seam and height
+contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2448 publication record](CHECKPOINT-2448.json)
-- [Saved report for checkpoint 2448](PROGRESS-2448.md)
+- [Checkpoint 2449 publication record](CHECKPOINT-2449.json)
+- [Saved report for checkpoint 2449](PROGRESS-2449.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
