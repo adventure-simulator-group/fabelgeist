@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:23:34.712901+00:00
+Updated: 2026-11-05T13:24:47.590944+00:00
 
-Latest verified checkpoint: **2361**. Goal: **active**.
+Latest verified checkpoint: **2362**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced actual client error policies against pinned Bevy device recovery under
-Lens 11.
+Traced strategic and tactical loading readiness consumers under Lens 11.
 
-Other entry points and readiness after ignored errors remain open; no tests were
-run.
+Loading policy, browser consumers and concrete error reachability remain open;
+no tests were run.
 
 ## Working on now
 
-Trace ignored render errors into readiness and status.
+Trace loading progress policy and browser status consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2361 publication record](CHECKPOINT-2361.json)
-- [Saved report for checkpoint 2361](PROGRESS-2361.md)
+- [Checkpoint 2362 publication record](CHECKPOINT-2362.json)
+- [Saved report for checkpoint 2362](PROGRESS-2362.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
