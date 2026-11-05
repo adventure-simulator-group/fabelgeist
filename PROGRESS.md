@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:38:59.849346+00:00
+Updated: 2026-11-05T00:40:47.769003+00:00
 
-Latest verified checkpoint: **2072**. Goal: **active**.
+Latest verified checkpoint: **2073**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced seam-chain cardinality and short-chain guards.
+Traced garment design choices and body measurement inputs.
 
-Pattern identity, topology, count bounds and runtime validation remain open.
+Body measurement admission, generated geometry and runtime validation remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2072 publication record](CHECKPOINT-2072.json)
-- [Saved report for checkpoint 2072](PROGRESS-2072.md)
+- [Checkpoint 2073 publication record](CHECKPOINT-2073.json)
+- [Saved report for checkpoint 2073](PROGRESS-2073.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
