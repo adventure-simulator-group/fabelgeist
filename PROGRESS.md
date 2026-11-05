@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:17:46.996940+00:00
+Updated: 2026-11-05T00:19:03.983180+00:00
 
-Latest verified checkpoint: **2060**. Goal: **active**.
+Latest verified checkpoint: **2061**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced texture and sampler parameters into compute bind groups.
+Compared reflection assumptions with native texture and sampler validation.
 
-Actual uncommon resource producers, feature rules and runtime validation remain
+Producer reachability, supported interface policy and runtime validation remain
 open.
 
 ## Working on now
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2060 publication record](CHECKPOINT-2060.json)
-- [Saved report for checkpoint 2060](PROGRESS-2060.md)
+- [Checkpoint 2061 publication record](CHECKPOINT-2061.json)
+- [Saved report for checkpoint 2061](PROGRESS-2061.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
