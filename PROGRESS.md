@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:07:20.211992+00:00
+Updated: 2026-11-05T14:08:49.328689+00:00
 
-Latest verified checkpoint: **2388**. Goal: **active**.
+Latest verified checkpoint: **2389**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified local market-patch validation limits under Lens 11.
+Traced shared furniture occupancy and support admission under Lens 11.
 
-Full geometry and occupancy bounds remain open; no tests were run.
+A numerical global bound remains open; source tests were inspected but not run.
 
 ## Working on now
 
-Qualify cross-patch occupancy and market geometry.
+Qualify terrain extent and minimum admitted footprint dimensions.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2388 publication record](CHECKPOINT-2388.json)
-- [Saved report for checkpoint 2388](PROGRESS-2388.md)
+- [Checkpoint 2389 publication record](CHECKPOINT-2389.json)
+- [Saved report for checkpoint 2389](PROGRESS-2389.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
