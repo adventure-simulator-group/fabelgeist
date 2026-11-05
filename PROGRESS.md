@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:28:14.517898+00:00
+Updated: 2026-11-05T20:29:36.655965+00:00
 
-Latest verified checkpoint: **2550**. Goal: **active**.
+Latest verified checkpoint: **2551**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced interior room lookups, deterministic seeds and viewer palette boundary.
+Traced room navigation diagnostics and church furniture orientation.
 
-Church population guarantees, other consumers, aliases and repair remain open.
+Church frame references, other consumers, aliases and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2550 publication record](CHECKPOINT-2550.json)
-- [Saved report for checkpoint 2550](PROGRESS-2550.md)
+- [Checkpoint 2551 publication record](CHECKPOINT-2551.json)
+- [Saved report for checkpoint 2551](PROGRESS-2551.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
