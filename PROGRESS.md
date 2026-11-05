@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:47:56.956017+00:00
+Updated: 2026-11-05T12:49:34.827017+00:00
 
-Latest verified checkpoint: **2337**. Goal: **active**.
+Latest verified checkpoint: **2338**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected enclosure admission and thin-cell collision test source.
+Independently traced enclosure collision outcomes under Lens 12.
 
-Numeric domains, native behavior and aliases remain open; the inspected tests
-were not run.
+Numeric domains, all consumers and aliases remain open; no tests were run.
 
 ## Working on now
 
-Reconcile enclosure numeric domains and independent lens obligations.
+Reconcile enclosure collision domains and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2337 publication record](CHECKPOINT-2337.json)
-- [Saved report for checkpoint 2337](PROGRESS-2337.md)
+- [Checkpoint 2338 publication record](CHECKPOINT-2338.json)
+- [Saved report for checkpoint 2338](PROGRESS-2338.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
