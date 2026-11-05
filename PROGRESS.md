@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:16:58.426048+00:00
+Updated: 2026-11-05T14:18:33.806826+00:00
 
-Latest verified checkpoint: **2395**. Goal: **active**.
+Latest verified checkpoint: **2396**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared existing interior partial-install obligations across lenses.
+Traced prepared venue generation and worker admission under Lens 12.
 
-Prepared-plan identity, exact aliases and native consumers remain open; no tests
-were run.
+Worker trust boundary and exact plan association remain open; no tests were run.
 
 ## Working on now
 
-Trace prepared interior plan identity and existing partial-install owners.
+Trace worker ticket ownership and product trust boundary.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2395 publication record](CHECKPOINT-2395.json)
-- [Saved report for checkpoint 2395](PROGRESS-2395.md)
+- [Checkpoint 2396 publication record](CHECKPOINT-2396.json)
+- [Saved report for checkpoint 2396](PROGRESS-2396.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
