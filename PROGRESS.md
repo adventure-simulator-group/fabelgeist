@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T10:43:28.221099+00:00
+Updated: 2026-11-05T10:46:09.503526+00:00
 
-Latest verified checkpoint: **2268**. Goal: **active**.
+Latest verified checkpoint: **2269**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified simultaneous contact currentness and defensive cancellation.
+Traced committed responses and injury ordering for simultaneous contacts.
 
-A noncancelled incapacitating contact witness and report policy remain open.
+An incapacitating contact witness, later exchange and report policy remain open.
 
 ## Working on now
 
-Tracing response selection and simultaneous-contact injury.
+Tracing incapacitation and later simultaneous exchange.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2268 publication record](CHECKPOINT-2268.json)
-- [Saved report for checkpoint 2268](PROGRESS-2268.md)
+- [Checkpoint 2269 publication record](CHECKPOINT-2269.json)
+- [Saved report for checkpoint 2269](PROGRESS-2269.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
