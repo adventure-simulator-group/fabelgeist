@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:50:22.994121+00:00
+Updated: 2026-11-05T20:51:56.958392+00:00
 
-Latest verified checkpoint: **2563**. Goal: **active**.
+Latest verified checkpoint: **2564**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2563**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 19 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 20 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced a large ordinary program through gates to the diagnostic overflow.
+Recorded a scoped repair obligation for the vertical-connection diagnostic.
 
-Runtime confirmation, size policy, aliases and repair remain open.
+Runtime confirmation and repair are deferred; the broader storey contract
+remains open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2563 publication record](CHECKPOINT-2563.json)
-- [Saved report for checkpoint 2563](PROGRESS-2563.md)
+- [Checkpoint 2564 publication record](CHECKPOINT-2564.json)
+- [Saved report for checkpoint 2564](PROGRESS-2564.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
