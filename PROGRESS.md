@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T05:03:59.430659+00:00
+Updated: 2026-11-05T05:06:23.110643+00:00
 
-Latest verified checkpoint: **2139**. Goal: **active**.
+Latest verified checkpoint: **2140**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the original simulator error source, SDK callback and failure projection.
+Traced travel wrapper replacement of a typed reducer failure in the simulator
+recorder.
 
-Remaining callback consumers, diagnostic recency and exact aliases remain open.
+Other recorder paths, exact aliases and final validation remain open.
 
 ## Working on now
 
@@ -205,8 +206,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2139 publication record](CHECKPOINT-2139.json)
-- [Saved report for checkpoint 2139](PROGRESS-2139.md)
+- [Checkpoint 2140 publication record](CHECKPOINT-2140.json)
+- [Saved report for checkpoint 2140](PROGRESS-2140.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
