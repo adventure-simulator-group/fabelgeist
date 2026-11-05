@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:37:59.910335+00:00
+Updated: 2026-11-05T03:39:54.739889+00:00
 
-Latest verified checkpoint: **2120**. Goal: **active**.
+Latest verified checkpoint: **2121**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced garment and hair UV sources and writer fallback.
+Traced pinned Bevy glTF attribute mapping and mesh counts.
 
-Public surface-only output, native glTF acceptance and aliases remain open.
+Parser acceptance, native output behavior and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2120 publication record](CHECKPOINT-2120.json)
-- [Saved report for checkpoint 2120](PROGRESS-2120.md)
+- [Checkpoint 2121 publication record](CHECKPOINT-2121.json)
+- [Saved report for checkpoint 2121](PROGRESS-2121.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
