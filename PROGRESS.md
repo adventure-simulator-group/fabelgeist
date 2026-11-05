@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:05:08.095249+00:00
+Updated: 2026-11-05T18:07:18.768459+00:00
 
-Latest verified checkpoint: **2485**. Goal: **active**.
+Latest verified checkpoint: **2486**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2485**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 465 / 3,849 marked | 3,384 other entries |
+| Queue entries explicitly marked source-discovery closed | 466 / 3,849 marked | 3,383 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tree support, ring-local instance creation and chunk batching.
+Completed scoped shifted-ring tree card placement discovery through GPU shader.
 
-GPU instance interpretation, parent conventions and broader scatter
-reconciliation remain open. No tests were run.
+Ordinary shifted production, shared origin policy, broader scatter, repair and
+validation remain open. No tests were run.
 
 ## Working on now
 
-Trace tree instance upload and shader coordinates.
+Continue broader vista scatter and origin policy obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2485 publication record](CHECKPOINT-2485.json)
-- [Saved report for checkpoint 2485](PROGRESS-2485.md)
+- [Checkpoint 2486 publication record](CHECKPOINT-2486.json)
+- [Saved report for checkpoint 2486](PROGRESS-2486.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
