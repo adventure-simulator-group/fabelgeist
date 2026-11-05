@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:03:11.322840+00:00
+Updated: 2026-11-05T12:04:38.208980+00:00
 
-Latest verified checkpoint: **2305**. Goal: **active**.
+Latest verified checkpoint: **2306**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared procedural texture recipe producers with reserved runtime channels.
+Traced lazy exhibit texture requests and decoded channel admission.
 
-Lazy producers, decoded inputs, asset lifecycle, consumers and aliases remain
-open; fixtures were not run.
+Asset provenance, native lifecycle, consumers and aliases remain open; fixtures
+were not run.
 
 ## Working on now
 
-Trace texture channel admission and lazy requests; reconcile connected
-ownership.
+Trace compressed asset admission, failures and connected texture consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2305 publication record](CHECKPOINT-2305.json)
-- [Saved report for checkpoint 2305](PROGRESS-2305.md)
+- [Checkpoint 2306 publication record](CHECKPOINT-2306.json)
+- [Saved report for checkpoint 2306](PROGRESS-2306.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
