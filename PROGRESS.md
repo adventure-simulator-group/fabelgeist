@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T05:10:13.732985+00:00
+Updated: 2026-11-05T05:12:18.679737+00:00
 
-Latest verified checkpoint: **2142**. Goal: **active**.
+Latest verified checkpoint: **2143**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **2142**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 13 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 14 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced discovery-start typed cause replacement and recoverable contact replan.
+Traced the pinned SDK server internal-error callback into simulator failure
+classification.
 
-Other recorder paths, exact aliases and final validation remain open.
+Runtime incidence, native disconnect paths and exact aliases remain open.
 
 ## Working on now
 
@@ -205,8 +206,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2142 publication record](CHECKPOINT-2142.json)
-- [Saved report for checkpoint 2142](PROGRESS-2142.md)
+- [Checkpoint 2143 publication record](CHECKPOINT-2143.json)
+- [Saved report for checkpoint 2143](PROGRESS-2143.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
