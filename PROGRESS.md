@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:39:00.082890+00:00
+Updated: 2026-11-05T14:40:42.154694+00:00
 
-Latest verified checkpoint: **2409**. Goal: **active**.
+Latest verified checkpoint: **2410**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced normal furniture generation and direct owned-surface installation under
-Lens 12.
+Traced market patch and terrain grid admission under Lens 12.
 
-Ungrounded market admission, direct-surface contract, support coverage and
-native collision remain open. No tests were run.
+Market skip reachability, direct-surface contract, support coverage and native
+collision remain open. No tests were run.
 
 ## Working on now
 
-Resolve ungrounded market and direct-surface contracts against related ledger
-entries.
+Resolve market-frame skip reachability and direct-surface contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2409 publication record](CHECKPOINT-2409.json)
-- [Saved report for checkpoint 2409](PROGRESS-2409.md)
+- [Checkpoint 2410 publication record](CHECKPOINT-2410.json)
+- [Saved report for checkpoint 2410](PROGRESS-2410.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
