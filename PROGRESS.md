@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T05:07:58.626338+00:00
+Updated: 2026-11-05T05:10:13.732985+00:00
 
-Latest verified checkpoint: **2141**. Goal: **active**.
+Latest verified checkpoint: **2142**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,8 +37,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a scoped obligation to preserve the typed travel failure when adding
-context.
+Traced discovery-start typed cause replacement and recoverable contact replan.
 
 Other recorder paths, exact aliases and final validation remain open.
 
@@ -206,8 +205,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2141 publication record](CHECKPOINT-2141.json)
-- [Saved report for checkpoint 2141](PROGRESS-2141.md)
+- [Checkpoint 2142 publication record](CHECKPOINT-2142.json)
+- [Saved report for checkpoint 2142](PROGRESS-2142.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
