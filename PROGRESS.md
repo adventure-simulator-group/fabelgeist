@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:25:22.190710+00:00
+Updated: 2026-11-05T00:29:11.753650+00:00
 
-Latest verified checkpoint: **2064**. Goal: **active**.
+Latest verified checkpoint: **2065**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pattern geometry through fitting, cloth and shell admission.
+Traced generated curve controls through assembly and fitting.
 
-Decoder, unit and stitch identity, mesh budgets and runtime validation remain
+Producer reachability, units, stitch identity and runtime validation remain
 open.
 
 ## Working on now
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2064 publication record](CHECKPOINT-2064.json)
-- [Saved report for checkpoint 2064](PROGRESS-2064.md)
+- [Checkpoint 2065 publication record](CHECKPOINT-2065.json)
+- [Saved report for checkpoint 2065](PROGRESS-2065.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
