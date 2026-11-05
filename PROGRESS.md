@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:36:32.440566+00:00
+Updated: 2026-11-05T19:38:16.606266+00:00
 
-Latest verified checkpoint: **2524**. Goal: **active**.
+Latest verified checkpoint: **2525**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped trim morph normal correspondence discovery and recorded
-connected repair.
+Traced hole placement and bevel cap into constrained triangulation.
 
-Normalization policy, implementation and rendered validation remain open.
+Pinned triangulator behavior and supported geometry cases remain open. No tests
+were run.
 
 ## Working on now
 
-Continue plate template hole admission and geometry obligations.
+Inspect pinned triangulator constraint and outside-hole behavior.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2524 publication record](CHECKPOINT-2524.json)
-- [Saved report for checkpoint 2524](PROGRESS-2524.md)
+- [Checkpoint 2525 publication record](CHECKPOINT-2525.json)
+- [Saved report for checkpoint 2525](PROGRESS-2525.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
