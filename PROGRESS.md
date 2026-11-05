@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:44:31.789728+00:00
+Updated: 2026-11-05T13:45:51.828819+00:00
 
-Latest verified checkpoint: **2374**. Goal: **active**.
+Latest verified checkpoint: **2375**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced native screenshot pixel and optional stable-readback gates under Lens 11.
+Recorded the conditional pending-versus-capacity failure distinction under Lens
+11.
 
-Exact city GPU generation and real failure reachability remain open; no tests
-were run.
+Device limits, reachable scene sizes and owner-generation state remain open; no
+tests were run.
 
 ## Working on now
 
-Reconcile native scene readiness and exact resource-generation ownership.
+Qualify supported device limits and scene capacity reachability.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2374 publication record](CHECKPOINT-2374.json)
-- [Saved report for checkpoint 2374](PROGRESS-2374.md)
+- [Checkpoint 2375 publication record](CHECKPOINT-2375.json)
+- [Saved report for checkpoint 2375](PROGRESS-2375.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
