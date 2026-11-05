@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:36:37.637761+00:00
+Updated: 2026-11-05T12:38:24.768013+00:00
 
-Latest verified checkpoint: **2329**. Goal: **active**.
+Latest verified checkpoint: **2330**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -11,7 +11,7 @@ Latest verified checkpoint: **2329**. Goal: **active**.
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
-| Registered source ranges qualified, connected work open | 271 entries | Connected contracts remain open |
+| Registered source ranges qualified, connected work open | 283 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 19 recorded | Broader contracts may remain open |
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared regional coverage documentation and browser test source with the
-maximum-span case.
+Assessed enclosure owner binding under twelve registered perspectives.
 
-Coverage policy, actual browser outcome and aliases remain open; no tests were
-run.
+Connected producers, consumers, aliases and other lenses remain open; fixtures
+were not run.
 
 ## Working on now
 
-Reconcile regional coverage policy and exact related ledger owners.
+Trace enclosure property, support and native geometry ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2329 publication record](CHECKPOINT-2329.json)
-- [Saved report for checkpoint 2329](PROGRESS-2329.md)
+- [Checkpoint 2330 publication record](CHECKPOINT-2330.json)
+- [Saved report for checkpoint 2330](PROGRESS-2330.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
