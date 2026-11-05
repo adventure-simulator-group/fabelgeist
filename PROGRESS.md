@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:10:41.055835+00:00
+Updated: 2026-11-05T00:11:59.048416+00:00
 
-Latest verified checkpoint: **2055**. Goal: **active**.
+Latest verified checkpoint: **2056**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced uniform, image and sampler reflection assumptions.
+Traced mutable shader state and pipeline cache identity.
 
-Actual resource producers, native feature rules and runtime validation remain
-open.
+Actual mutation and device-sharing callers, cache policy and runtime validation
+remain open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2055 publication record](CHECKPOINT-2055.json)
-- [Saved report for checkpoint 2055](PROGRESS-2055.md)
+- [Checkpoint 2056 publication record](CHECKPOINT-2056.json)
+- [Saved report for checkpoint 2056](PROGRESS-2056.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

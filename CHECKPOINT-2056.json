@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2056,
+  "at": "2026-11-05T00:11:40.349986+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "406daf646f5dd1bd93c839ac516a0f5723028382feed60f1a28cd88f9cf7d31e",
+    "verification": "1a7198ee88fa3d58adc920159e8703eb694afec36d8892554c4ccc0be5af28e3",
+    "canonical_current": "d28e54698cf4c28de66529372c6fcbf1d8160439608ee421b3b65cbd8f7df2f2"
+  },
+  "scope": {
+    "summary": "Traced mutable shader state and pipeline cache identity.",
+    "scope_limit": "Actual mutation and device-sharing callers, cache policy and runtime validation remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "9785019e34cfb2b06721a822b7e8a4becd3d997ab1c4a1ec41a4074e75bb8fad",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
