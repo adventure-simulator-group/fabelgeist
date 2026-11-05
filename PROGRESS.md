@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:02:47.899116+00:00
+Updated: 2026-11-05T18:05:08.095249+00:00
 
-Latest verified checkpoint: **2484**. Goal: **active**.
+Latest verified checkpoint: **2485**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped shifted-vista seam frame discovery and recorded the policy and
-repair.
+Traced tree support, ring-local instance creation and chunk batching.
 
-Policy, ordinary shifted-scene reachability, tree placement, repair and
-validation remain open. No tests were run.
+GPU instance interpretation, parent conventions and broader scatter
+reconciliation remain open. No tests were run.
 
 ## Working on now
 
-Continue the separate tree-placement frame and other coordinate obligations.
+Trace tree instance upload and shader coordinates.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2484 publication record](CHECKPOINT-2484.json)
-- [Saved report for checkpoint 2484](PROGRESS-2484.md)
+- [Checkpoint 2485 publication record](CHECKPOINT-2485.json)
+- [Saved report for checkpoint 2485](PROGRESS-2485.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
