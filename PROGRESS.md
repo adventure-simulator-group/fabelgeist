@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:25:20.189876+00:00
+Updated: 2026-11-05T03:26:48.684584+00:00
 
-Latest verified checkpoint: **2112**. Goal: **active**.
+Latest verified checkpoint: **2113**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,7 +37,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed actual map acknowledgment with rounded native offset.
+Traced map layout and recorded native offset identity policy.
 
 Supported layout bounds, real renderer and aliases remain open.
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2112 publication record](CHECKPOINT-2112.json)
-- [Saved report for checkpoint 2112](PROGRESS-2112.md)
+- [Checkpoint 2113 publication record](CHECKPOINT-2113.json)
+- [Saved report for checkpoint 2113](PROGRESS-2113.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
