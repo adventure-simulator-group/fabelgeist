@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:45:14.426183+00:00
+Updated: 2026-11-05T04:12:47.273147+00:00
 
-Latest verified checkpoint: **2123**. Goal: **active**.
+Latest verified checkpoint: **2124**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -33,14 +33,15 @@ not complete the audit or authorize implementation.
 | Required audit | In progress |
 | Product implementation | Not started |
 | Independent review | Not started |
-| Product and runtime validation | Focused probes only; final validation not started |
+| Product and runtime validation | Deferred until audit completion; earlier prohibited probes are historical evidence only |
 
 ## Latest checkpoint
 
-Verified the pinned glTF parser accepts a synthetic GLB with mismatched position
-and UV counts.
+Corrected an audit-gate violation and stopped the isolated product build before
+its test ran.
 
-Actual exporter output, Bevy loader behavior and aliases remain open.
+Earlier probes were contrary to the handoff; source audit continues and product
+execution is deferred.
 
 ## Working on now
 
@@ -193,9 +194,11 @@ not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
 
-Earlier isolated probes and a GPU forward were run despite the handoff
-prohibition on product probes during audit. No further product execution will be
-performed before the gate. Final validation remains outstanding.
+Earlier probes, including the checkpoint 2123 synthetic parser probe, ran
+despite the handoff restriction. A later isolated exporter test build was
+stopped before the test ran and its added fixture was removed. No product builds
+or runtime probes will be run until the audit gate is complete; final validation
+remains outstanding.
 
 No subagents have been used in this continuation. Checkpoint verification is not
 independent review.
@@ -204,8 +207,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2123 publication record](CHECKPOINT-2123.json)
-- [Saved report for checkpoint 2123](PROGRESS-2123.md)
+- [Checkpoint 2124 publication record](CHECKPOINT-2124.json)
+- [Saved report for checkpoint 2124](PROGRESS-2124.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

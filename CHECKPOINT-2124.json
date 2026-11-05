@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2124,
+  "at": "2026-11-05T04:12:25.763904+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "2e20b1e29d76c365affdfc72fa1576ff18cea45c1dbc902cc92a7ee232cdcf2c",
+    "verification": "164f310eec444480c6ab647b75ae805cf43ec3e39067d3f1225e6b6280e0740d",
+    "canonical_current": "39f6500254b604f471558960c1bbd01b9b73d98a4022b67f382aa05bc0805a63"
+  },
+  "scope": {
+    "summary": "Corrected an audit-gate violation and stopped the isolated product build before its test ran.",
+    "scope_limit": "Earlier probes were contrary to the handoff; source audit continues and product execution is deferred."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "9b0e11461da92c8aea825d48d9b26a880e74a41921eb0fc0e5b4504b61d98e62",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
