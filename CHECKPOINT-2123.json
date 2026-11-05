@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2123,
+  "at": "2026-11-05T03:44:52.213879+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "a525cf9d78a74580406bff2200bc3528c68c36345305ddacd0d5b2df1e57bb55",
+    "verification": "843f0917dce55347e904e312024a24ce7a961ee45634a3f25c223b759a8890df",
+    "canonical_current": "f9485b31b7582c0754d275cc7cabeeb3184cd4ea309fb91a455a2806c215d9cb"
+  },
+  "scope": {
+    "summary": "Verified the pinned glTF parser accepts a synthetic GLB with mismatched position and UV counts.",
+    "scope_limit": "Actual exporter output, Bevy loader behavior and aliases remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "f76dc084e226645f844dc796b32f2935f2787780a14926eef0af9f1081afc9c8",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
