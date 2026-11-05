@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T05:12:18.679737+00:00
+Updated: 2026-11-05T05:15:05.899452+00:00
 
-Latest verified checkpoint: **2143**. Goal: **active**.
+Latest verified checkpoint: **2144**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,15 +37,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the pinned SDK server internal-error callback into simulator failure
-classification.
+Traced pinned SDK callback storage and connection-end handling against simulator
+timeout classification.
 
-Runtime incidence, native disconnect paths and exact aliases remain open.
+Other teardown ownership paths, remote outcome, runtime incidence and exact
+aliases remain open.
 
 ## Working on now
 
-Reconciling errantry producer propagation and connected puzzle and camp
-contracts across audit lenses.
+Tracing simulator reducer errors and callback ownership across the pinned SDK
+boundary; reconciling related audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -206,8 +207,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2143 publication record](CHECKPOINT-2143.json)
-- [Saved report for checkpoint 2143](PROGRESS-2143.md)
+- [Checkpoint 2144 publication record](CHECKPOINT-2144.json)
+- [Saved report for checkpoint 2144](PROGRESS-2144.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
