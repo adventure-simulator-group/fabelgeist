@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:24:46.479129+00:00
+Updated: 2026-11-05T15:26:20.141152+00:00
 
-Latest verified checkpoint: **2437**. Goal: **active**.
+Latest verified checkpoint: **2438**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified Bevy asset-handle cleanup and cached city-product boundary under Lens
-12.
+Traced focused-city activation, failed-root cleanup and cached upload error
+ownership under Lens 12.
 
-Retained handle ownership, malformed-product reachability and runtime cleanup
+Retry after cached error, malformed-product reachability and runtime cleanup
 remain open. No tests were run.
 
 ## Working on now
 
-Trace retained city-ground handles and reconcile decoded batch obligations.
+Trace city-product replacement and retry after a cached upload error.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2437 publication record](CHECKPOINT-2437.json)
-- [Saved report for checkpoint 2437](PROGRESS-2437.md)
+- [Checkpoint 2438 publication record](CHECKPOINT-2438.json)
+- [Saved report for checkpoint 2438](PROGRESS-2438.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
