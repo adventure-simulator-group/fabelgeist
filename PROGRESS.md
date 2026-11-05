@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T01:17:53.162130+00:00
+Updated: 2026-11-05T01:19:47.418933+00:00
 
-Latest verified checkpoint: **2096**. Goal: **active**.
+Latest verified checkpoint: **2097**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced condition refresh and melee consequence ordering.
+Traced PostUpdate replication collection after combat Update.
 
-Observer execution, replication ordering, runtime reconciliation and aliases
-remain open.
+Deferred event execution, tick timing, runtime reconciliation and aliases remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2096 publication record](CHECKPOINT-2096.json)
-- [Saved report for checkpoint 2096](PROGRESS-2096.md)
+- [Checkpoint 2097 publication record](CHECKPOINT-2097.json)
+- [Saved report for checkpoint 2097](PROGRESS-2097.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
