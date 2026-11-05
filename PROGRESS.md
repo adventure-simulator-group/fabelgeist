@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:01:22.542257+00:00
+Updated: 2026-11-05T15:02:43.602383+00:00
 
-Latest verified checkpoint: **2423**. Goal: **active**.
+Latest verified checkpoint: **2424**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected selected fields of the default nonurban scene descriptor under Lens
-12.
+Connected the conditional vista coordinate mismatch to the broader origin and
+seam ledger entry.
 
-Only selected fixture fields were inspected; nonzero-origin witness, aliases and
-runtime acceptance remain open. No tests were run.
+Garden, support and transition consumers, nonzero-origin policy and runtime
+acceptance remain open. No tests were run.
 
 ## Working on now
 
-Reconcile scene-space consumers and prepare post-audit nonzero-origin
-validation.
+Trace remaining vista origin and seam consumers for the broader ledger entry.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2423 publication record](CHECKPOINT-2423.json)
-- [Saved report for checkpoint 2423](PROGRESS-2423.md)
+- [Checkpoint 2424 publication record](CHECKPOINT-2424.json)
+- [Saved report for checkpoint 2424](PROGRESS-2424.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
