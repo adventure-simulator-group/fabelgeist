@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:07:27.626681+00:00
+Updated: 2026-11-05T12:08:46.677058+00:00
 
-Latest verified checkpoint: **2308**. Goal: **active**.
+Latest verified checkpoint: **2309**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared texture failure observers across tactical loading, strategic status and
-the art demo.
+Compared art-demo and tactical app construction and failure observer
+installation.
 
-Native event behavior, plugin interactions, asset provenance and aliases remain
-open; fixtures were not run.
+Native event behavior, indirect plugin interactions, asset provenance and
+aliases remain open; fixtures were not run.
 
 ## Working on now
 
-Trace native asset failures and art-demo plugin interactions.
+Trace native asset failures and indirect art-demo plugin interactions.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2308 publication record](CHECKPOINT-2308.json)
-- [Saved report for checkpoint 2308](PROGRESS-2308.md)
+- [Checkpoint 2309 publication record](CHECKPOINT-2309.json)
+- [Saved report for checkpoint 2309](PROGRESS-2309.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
