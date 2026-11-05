@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:45:51.828819+00:00
+Updated: 2026-11-05T13:47:32.759064+00:00
 
-Latest verified checkpoint: **2375**. Goal: **active**.
+Latest verified checkpoint: **2376**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded the conditional pending-versus-capacity failure distinction under Lens
-11.
+Traced city draw-group capacity into scratch storage sizing under Lens 11.
 
-Device limits, reachable scene sizes and owner-generation state remain open; no
-tests were run.
+Accepted group sizes, device limits and arithmetic bounds remain open; source
+tests were inspected but not run.
 
 ## Working on now
 
-Qualify supported device limits and scene capacity reachability.
+Qualify accepted groups, device limits and numeric-capacity aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2375 publication record](CHECKPOINT-2375.json)
-- [Saved report for checkpoint 2375](PROGRESS-2375.md)
+- [Checkpoint 2376 publication record](CHECKPOINT-2376.json)
+- [Saved report for checkpoint 2376](PROGRESS-2376.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
