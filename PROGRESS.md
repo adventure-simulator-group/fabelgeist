@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:19:33.160681+00:00
+Updated: 2026-11-05T17:21:30.591372+00:00
 
-Latest verified checkpoint: **2474**. Goal: **active**.
+Latest verified checkpoint: **2475**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced shared marching-edge calculation, optimized height extraction and mesh
-admission.
+Traced fault-scarp producer, existing comparison tests, render upload and server
+collision handoff.
 
-Producer range, mesh consumers and complete alias reconciliation remain open. No
-tests were run.
+Producer numerical bounds, collider construction and complete alias
+reconciliation remain open. No tests were run.
 
 ## Working on now
 
-Trace terrain producer bounds and downstream mesh consumers.
+Trace terrain admission, recipe bounds and collider construction.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2474 publication record](CHECKPOINT-2474.json)
-- [Saved report for checkpoint 2474](PROGRESS-2474.md)
+- [Checkpoint 2475 publication record](CHECKPOINT-2475.json)
+- [Saved report for checkpoint 2475](PROGRESS-2475.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
