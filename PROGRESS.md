@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:07:30.615412+00:00
+Updated: 2026-11-05T20:09:30.356253+00:00
 
-Latest verified checkpoint: **2538**. Goal: **active**.
+Latest verified checkpoint: **2539**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2538**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 498 / 3,849 marked | 3,351 other entries |
+| Queue entries explicitly marked source-discovery closed | 499 / 3,849 marked | 3,350 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped lifecycle policy metric evidence discovery.
+Completed scoped quest coverage trace-cap discovery.
 
-No actual courtship policy failure claimed; report repair and tests remain open.
+Ordinary cap reachability is unproven; implementation and tests remain open.
 
 ## Working on now
 
-Continue remaining strategic encounter and reporting contracts.
+Continue remaining strategic reporting and source contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2538 publication record](CHECKPOINT-2538.json)
-- [Saved report for checkpoint 2538](PROGRESS-2538.md)
+- [Checkpoint 2539 publication record](CHECKPOINT-2539.json)
+- [Saved report for checkpoint 2539](PROGRESS-2539.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
