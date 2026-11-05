@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:18:33.806826+00:00
+Updated: 2026-11-05T14:19:53.479863+00:00
 
-Latest verified checkpoint: **2396**. Goal: **active**.
+Latest verified checkpoint: **2397**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced prepared venue generation and worker admission under Lens 12.
+Traced staged-ticket and scene-activation ownership under Lens 12.
 
-Worker trust boundary and exact plan association remain open; no tests were run.
+Worker transport and decoded plan association remain open; no tests were run.
 
 ## Working on now
 
-Trace worker ticket ownership and product trust boundary.
+Trace worker transport and staged scene assembly.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2396 publication record](CHECKPOINT-2396.json)
-- [Saved report for checkpoint 2396](PROGRESS-2396.md)
+- [Checkpoint 2397 publication record](CHECKPOINT-2397.json)
+- [Saved report for checkpoint 2397](PROGRESS-2397.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
