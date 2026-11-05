@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:08:54.233959+00:00
+Updated: 2026-11-05T19:12:08.193579+00:00
 
-Latest verified checkpoint: **2509**. Goal: **active**.
+Latest verified checkpoint: **2510**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2509**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 479 / 3,849 marked | 3,370 other entries |
+| Queue entries explicitly marked source-discovery closed | 480 / 3,849 marked | 3,369 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced attachment aliases into point, rotation and contact-parent lookup.
+Completed scoped frame-alias ownership discovery and recorded connected repair.
 
-Supported examples, collision policy, alias inventory and behavioral validation
-remain open. No tests were run.
+Collision policy, broader frame migration, implementation and behavioral
+validation remain open.
 
 ## Working on now
 
-Trace supported rotated grip and shield aliases and parent contact behavior.
+Continue cultivation terrain error admission and connected source policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2509 publication record](CHECKPOINT-2509.json)
-- [Saved report for checkpoint 2509](PROGRESS-2509.md)
+- [Checkpoint 2510 publication record](CHECKPOINT-2510.json)
+- [Saved report for checkpoint 2510](PROGRESS-2510.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
