@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:47:32.759064+00:00
+Updated: 2026-11-05T13:49:29.591882+00:00
 
-Latest verified checkpoint: **2376**. Goal: **active**.
+Latest verified checkpoint: **2377**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced city draw-group capacity into scratch storage sizing under Lens 11.
+Qualified pinned Bevy adapter-derived device limits under Lens 11.
 
-Accepted group sizes, device limits and arithmetic bounds remain open; source
-tests were inspected but not run.
+Accepted group bounds and actual device limits remain open; no tests were run.
 
 ## Working on now
 
-Qualify accepted groups, device limits and numeric-capacity aliases.
+Trace accepted group bounds and numeric-capacity aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2376 publication record](CHECKPOINT-2376.json)
-- [Saved report for checkpoint 2376](PROGRESS-2376.md)
+- [Checkpoint 2377 publication record](CHECKPOINT-2377.json)
+- [Saved report for checkpoint 2377](PROGRESS-2377.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
