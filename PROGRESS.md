@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T11:13:39.807603+00:00
+Updated: 2026-11-05T11:17:02.296110+00:00
 
-Latest verified checkpoint: **2283**. Goal: **active**.
+Latest verified checkpoint: **2284**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -12,7 +12,7 @@ Latest verified checkpoint: **2283**. Goal: **active**.
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
-| Historical unread entries with recorded range evidence | 8 / 189 entries | 181 without these markers |
+| Historical unread entries with recorded range evidence | 63 / 189 entries | 126 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 19 recorded | Broader contracts may remain open |
 
@@ -40,8 +40,8 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled four overlapping locomotion ranges using attributed same-lens
-evidence.
+Reconciled 55 historical entries using exact same-lens attributed source
+receipts.
 
 Connected producers, consumers, aliases and other lenses remain open; fixtures
 were not run.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2283 publication record](CHECKPOINT-2283.json)
-- [Saved report for checkpoint 2283](PROGRESS-2283.md)
+- [Checkpoint 2284 publication record](CHECKPOINT-2284.json)
+- [Saved report for checkpoint 2284](PROGRESS-2284.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
