@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T01:02:03.095922+00:00
+Updated: 2026-11-05T01:03:20.403278+00:00
 
-Latest verified checkpoint: **2084**. Goal: **active**.
+Latest verified checkpoint: **2085**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pinned default replication and lossless f32 encoding.
+Traced shared player view and attack and defense performance consumers.
 
-Update ordering, client Will inputs, other consumers and aliases remain open.
+Missing-state recovery fallback, update ordering, assist outcomes and aliases
+remain open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2084 publication record](CHECKPOINT-2084.json)
-- [Saved report for checkpoint 2084](PROGRESS-2084.md)
+- [Checkpoint 2085 publication record](CHECKPOINT-2085.json)
+- [Saved report for checkpoint 2085](PROGRESS-2085.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
