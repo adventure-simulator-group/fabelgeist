@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:27:23.370111+00:00
+Updated: 2026-11-05T19:29:27.961515+00:00
 
-Latest verified checkpoint: **2519**. Goal: **active**.
+Latest verified checkpoint: **2520**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2519**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 486 / 3,849 marked | 3,363 other entries |
+| Queue entries explicitly marked source-discovery closed | 487 / 3,849 marked | 3,362 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped name sampler error ownership discovery and recorded connected
+Completed scoped catalog weight admission discovery and recorded connected
 repair.
 
-Production sampler failure is unproven; implementation and tests remain open.
+Current catalog overflow is unproven; implementation and tests remain open.
 
 ## Working on now
 
-Continue remaining source and error-family reconciliation.
+Continue armor morph metadata and staged publication obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2519 publication record](CHECKPOINT-2519.json)
-- [Saved report for checkpoint 2519](PROGRESS-2519.md)
+- [Checkpoint 2520 publication record](CHECKPOINT-2520.json)
+- [Saved report for checkpoint 2520](PROGRESS-2520.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
