@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:55:35.826669+00:00
+Updated: 2026-11-05T12:56:53.948150+00:00
 
-Latest verified checkpoint: **2342**. Goal: **active**.
+Latest verified checkpoint: **2343**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced production building spawn outcomes and prepared facade admission.
+Traced prepared facade worker admission and scene activation.
 
-Preparation sequencing, error ownership and other callers remain open; no tests
-were run.
+Job planning, duplicate reuse, error ownership and consumers remain open; no
+tests were run.
 
 ## Working on now
 
-Trace prepared facade lifecycle and building failure ownership.
+Trace facade job planning and resident-cache reuse.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2342 publication record](CHECKPOINT-2342.json)
-- [Saved report for checkpoint 2342](PROGRESS-2342.md)
+- [Checkpoint 2343 publication record](CHECKPOINT-2343.json)
+- [Saved report for checkpoint 2343](PROGRESS-2343.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
