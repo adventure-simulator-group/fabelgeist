@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:48:18.272382+00:00
+Updated: 2026-11-05T18:50:30.935627+00:00
 
-Latest verified checkpoint: **2502**. Goal: **active**.
+Latest verified checkpoint: **2503**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2502**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 477 / 3,849 marked | 3,372 other entries |
+| Queue entries explicitly marked source-discovery closed | 478 / 3,849 marked | 3,371 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced public model, gameplay, evaluation and browser construction error
-boundaries.
+Completed scoped canonical weapon construction error discovery with
+representative lower failure categories.
 
-Lower geometry and placement failure classification and error-family
-reconciliation remain open. No tests were run.
+Complete lower-kernel classification, repair and validation remain open. No
+tests were run.
 
 ## Working on now
 
-Trace lower placement, facing and manufacturing rejection categories.
+Continue lower-kernel error and weapon frame obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2502 publication record](CHECKPOINT-2502.json)
-- [Saved report for checkpoint 2502](PROGRESS-2502.md)
+- [Checkpoint 2503 publication record](CHECKPOINT-2503.json)
+- [Saved report for checkpoint 2503](PROGRESS-2503.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
