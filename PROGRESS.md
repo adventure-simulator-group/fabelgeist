@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-04T23:58:50.006639+00:00
+Updated: 2026-11-05T00:00:10.222940+00:00
 
-Latest verified checkpoint: **2047**. Goal: **active**.
+Latest verified checkpoint: **2048**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced native buffer allocation and storage-binding limits.
+Traced actual compute buffer binding ranges.
 
-Actual binding ranges, device resource policy, aliases and runtime validation
-remain open.
+Solver dispatch, uniform capacity, resource policy and runtime validation remain
+open.
 
 ## Working on now
 
@@ -204,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2047 publication record](CHECKPOINT-2047.json)
-- [Saved report for checkpoint 2047](PROGRESS-2047.md)
+- [Checkpoint 2048 publication record](CHECKPOINT-2048.json)
+- [Saved report for checkpoint 2048](PROGRESS-2048.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
