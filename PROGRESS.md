@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:17:09.421258+00:00
+Updated: 2026-11-05T20:18:24.492016+00:00
 
-Latest verified checkpoint: **2542**. Goal: **active**.
+Latest verified checkpoint: **2543**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced retained room and wall identities through integer representation.
+Traced wall and opening frame propagation and room-connection consumers.
 
-Frame producers, loaders, native consumers, aliases and repair remain open.
+Other producers, loaders, native consumers, aliases and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2542 publication record](CHECKPOINT-2542.json)
-- [Saved report for checkpoint 2542](PROGRESS-2542.md)
+- [Checkpoint 2543 publication record](CHECKPOINT-2543.json)
+- [Saved report for checkpoint 2543](PROGRESS-2543.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
