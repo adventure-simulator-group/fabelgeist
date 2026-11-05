@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:20:20.046765+00:00
+Updated: 2026-11-05T15:22:49.826367+00:00
 
-Latest verified checkpoint: **2435**. Goal: **active**.
+Latest verified checkpoint: **2436**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced city-ground reflection and focused installation ordering under Lens 12.
+Qualified city-ground decoded admission and pinned Bevy winding and deferred
+commands under Lens 12.
 
-Decoded-product admission, native winding and deferred-command and asset
-behavior remain open. No tests were run.
+Malformed-product reachability, asset cleanup and native execution remain open.
+No tests were run.
 
 ## Working on now
 
-Qualify decoded city-ground batches and focused failure ownership.
+Trace decoded batch provenance and earlier asset lifetime on focused failure.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2435 publication record](CHECKPOINT-2435.json)
-- [Saved report for checkpoint 2435](PROGRESS-2435.md)
+- [Checkpoint 2436 publication record](CHECKPOINT-2436.json)
+- [Saved report for checkpoint 2436](PROGRESS-2436.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
