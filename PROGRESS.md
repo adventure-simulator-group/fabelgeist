@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:36:25.522498+00:00
+Updated: 2026-11-05T15:37:49.042213+00:00
 
-Latest verified checkpoint: **2443**. Goal: **active**.
+Latest verified checkpoint: **2444**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced city-ground furniture activity values into the visual material shader
-under Lens 12.
+Traced street traffic geometry through tile rasterization, residency and
+material consumers under Lens 12.
 
-Traffic residency, native vertex and color ABI, and exact aliases remain open.
-No tests were run.
+Native vertex and color ABI and exact aliases remain open. No tests were run.
 
 ## Working on now
 
-Trace city-ground traffic-mask production and residency, then reconcile the
-connected contracts.
+Qualify native vertex and color ABI and reconcile connected city-ground
+contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2443 publication record](CHECKPOINT-2443.json)
-- [Saved report for checkpoint 2443](PROGRESS-2443.md)
+- [Checkpoint 2444 publication record](CHECKPOINT-2444.json)
+- [Saved report for checkpoint 2444](PROGRESS-2444.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
