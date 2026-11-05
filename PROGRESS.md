@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T16:51:20.738157+00:00
+Updated: 2026-11-05T16:53:49.381344+00:00
 
-Latest verified checkpoint: **2464**. Goal: **active**.
+Latest verified checkpoint: **2465**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Documented the conditional city-patch admission finding and closed its scoped
-source discovery.
+Traced typed support-profile errors and their generic diagnostic adaptation.
 
-Repair policy, generated reachability and post-audit validation remain open. No
+Top-level reporting, producer reachability and exact aliases remain open. No
 tests were run.
 
 ## Working on now
 
-Continue broader scene-input and geometry audit obligations.
+Trace support-profile diagnostic propagation and reachable rejection branches.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2464 publication record](CHECKPOINT-2464.json)
-- [Saved report for checkpoint 2464](PROGRESS-2464.md)
+- [Checkpoint 2465 publication record](CHECKPOINT-2465.json)
+- [Saved report for checkpoint 2465](PROGRESS-2465.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
