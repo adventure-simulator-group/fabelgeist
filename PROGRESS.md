@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:24:59.202001+00:00
+Updated: 2026-11-05T17:26:52.817121+00:00
 
-Latest verified checkpoint: **2477**. Goal: **active**.
+Latest verified checkpoint: **2478**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced SceneGround constructor, derived deserialization and representative
-ground consumers.
+Traced replicated ground registration, lazy urban lookup, cover scalar and
+representative scatter consumer.
 
-Decode, urban geometry, scalar owners and complete consumer reconciliation
-remain open. No tests were run.
+Native decode, urban bucket limits and alias reconciliation remain open. No
+tests were run.
 
 ## Working on now
 
-Trace SceneGround decode, urban lookup and cover consumers.
+Trace replication decoder and reconcile urban and scalar admission contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2477 publication record](CHECKPOINT-2477.json)
-- [Saved report for checkpoint 2477](PROGRESS-2477.md)
+- [Checkpoint 2478 publication record](CHECKPOINT-2478.json)
+- [Saved report for checkpoint 2478](PROGRESS-2478.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
