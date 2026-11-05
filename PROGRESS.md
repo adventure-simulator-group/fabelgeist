@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T04:34:52.884042+00:00
+Updated: 2026-11-05T04:37:42.868021+00:00
 
-Latest verified checkpoint: **2128**. Goal: **active**.
+Latest verified checkpoint: **2129**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified normal wilderness-clock anchor initialization and reset for camp-bound
-challenges.
+Traced the bound-road-challenge guard into travel continuation and camp rest.
 
-Preexisting authority admission, direct public contracts and broader connected
+Ordinary issuance, optional-trial policy, future-open encounter selection and
 aliases remain open.
 
 ## Working on now
@@ -207,8 +206,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2128 publication record](CHECKPOINT-2128.json)
-- [Saved report for checkpoint 2128](PROGRESS-2128.md)
+- [Checkpoint 2129 publication record](CHECKPOINT-2129.json)
+- [Saved report for checkpoint 2129](PROGRESS-2129.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
