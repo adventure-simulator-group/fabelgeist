@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:58:04.535277+00:00
+Updated: 2026-11-05T12:59:16.248460+00:00
 
-Latest verified checkpoint: **2344**. Goal: **active**.
+Latest verified checkpoint: **2345**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced facade job deduplication and compiled-cache reuse.
+Traced scene and demo facade cache reset paths.
 
-Cache lifecycle, producer correspondence, error ownership and aliases remain
-open; no tests were run.
+Other reset paths, error conditions and aliases remain open; no tests were run.
 
 ## Working on now
 
-Trace facade cache and residency invalidation.
+Reconcile remaining cache reset and residency error paths.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2344 publication record](CHECKPOINT-2344.json)
-- [Saved report for checkpoint 2344](PROGRESS-2344.md)
+- [Checkpoint 2345 publication record](CHECKPOINT-2345.json)
+- [Saved report for checkpoint 2345](PROGRESS-2345.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
