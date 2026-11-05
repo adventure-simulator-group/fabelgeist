@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:26:00.012370+00:00
+Updated: 2026-11-05T13:27:45.513650+00:00
 
-Latest verified checkpoint: **2363**. Goal: **active**.
+Latest verified checkpoint: **2364**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical shader backlog, settling and stall policy under Lens 11.
+Traced strategic scene status and failure handling in the browser under Lens 11.
 
-Browser consumers and concrete render-error reachability remain open; no tests
-were run.
+Render-error reachability, owner generation and capture consumers remain open;
+no tests were run.
 
 ## Working on now
 
-Trace strategic browser status consumers and error reachability.
+Qualify render-error reachability and owner-generation readiness.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2363 publication record](CHECKPOINT-2363.json)
-- [Saved report for checkpoint 2363](PROGRESS-2363.md)
+- [Checkpoint 2364 publication record](CHECKPOINT-2364.json)
+- [Saved report for checkpoint 2364](PROGRESS-2364.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
