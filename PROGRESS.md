@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:57:22.239480+00:00
+Updated: 2026-11-05T19:00:24.930081+00:00
 
-Latest verified checkpoint: **2504**. Goal: **active**.
+Latest verified checkpoint: **2505**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced grip end scales into radial geometry and identified an empty-profile
-case.
+Traced shaft dimension checks and physical mass divisions; empty grip
+reachability remains open.
 
-Pole policy, full admission, physical output and aliases remain open. No tests
-were run.
+Pole policy, full admission, public output reachability and aliases remain open.
+No tests were run.
 
 ## Working on now
 
-Trace grip admission and downstream physical output.
+Trace empty grip through placement and construction admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2504 publication record](CHECKPOINT-2504.json)
-- [Saved report for checkpoint 2504](PROGRESS-2504.md)
+- [Checkpoint 2505 publication record](CHECKPOINT-2505.json)
+- [Saved report for checkpoint 2505](PROGRESS-2505.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
