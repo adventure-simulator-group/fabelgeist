@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:50:00.839312+00:00
+Updated: 2026-11-05T14:51:44.160388+00:00
 
-Latest verified checkpoint: **2416**. Goal: **active**.
+Latest verified checkpoint: **2417**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Consolidated furniture ground, market and collider acceptance and related entry
-scopes under Lens 12.
+Qualified frozen and current furniture vista guard against identical source
+objects under Lens 12.
 
-Frozen vista scope, remaining consumers, public policy and runtime acceptance
-remain open. No tests were run.
+Remaining vista helpers, supported input policy, consumers and runtime
+acceptance remain open. No tests were run.
 
 ## Working on now
 
-Qualify frozen vista guard and remaining consumer scopes before reconciliation.
+Qualify vista helper dependencies and reconcile origin and seam contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2416 publication record](CHECKPOINT-2416.json)
-- [Saved report for checkpoint 2416](PROGRESS-2416.md)
+- [Checkpoint 2417 publication record](CHECKPOINT-2417.json)
+- [Saved report for checkpoint 2417](PROGRESS-2417.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
