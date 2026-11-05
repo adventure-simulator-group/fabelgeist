@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:39:52.984579+00:00
+Updated: 2026-11-05T12:41:07.845018+00:00
 
-Latest verified checkpoint: **2331**. Goal: **active**.
+Latest verified checkpoint: **2332**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced enclosure support projection and scene admission.
+Traced foundation prism admission and enclosure collision-face preparation.
 
-Foundation, geometry, native collision and aliases remain open; no tests were
-run.
+Other producers, native collision semantics and aliases remain open; no tests
+were run.
 
 ## Working on now
 
-Trace foundation geometry, native collision and enclosure consumers.
+Trace enclosure clipping, other foundation producers and native collider
+semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2331 publication record](CHECKPOINT-2331.json)
-- [Saved report for checkpoint 2331](PROGRESS-2331.md)
+- [Checkpoint 2332 publication record](CHECKPOINT-2332.json)
+- [Saved report for checkpoint 2332](PROGRESS-2332.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
