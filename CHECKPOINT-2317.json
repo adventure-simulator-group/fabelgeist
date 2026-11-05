@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2317,
+  "at": "2026-11-05T12:19:28.790714+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "e4cb808835739d94e42a8be4bcf62aaa60b3fe9f987ec5874b5877d8bfd01738",
+    "verification": "62c464387f4ad446fbd47917366f20f5c45cb410c2cd3f3de6584e8597769ad9",
+    "canonical_current": "307be3412b3b6f9a359a42a90102621d28d818ba3564c185c886e6d4ab922320"
+  },
+  "scope": {
+    "summary": "Traced texture startup and client-add loading lifecycle around tactical Retry.",
+    "scope_limit": "Indirect resource mutation, event timing and retry policy remain open; no retry was executed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "645ae34d766c65241458515586d3790fe507de76f916333fde841b7fbb703680",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

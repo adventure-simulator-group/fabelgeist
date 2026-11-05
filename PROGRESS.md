@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:18:20.996586+00:00
+Updated: 2026-11-05T12:19:45.256991+00:00
 
-Latest verified checkpoint: **2316**. Goal: **active**.
+Latest verified checkpoint: **2317**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced texture request caching and tactical retry action against pinned Bevy
-load state.
+Traced texture startup and client-add loading lifecycle around tactical Retry.
 
-Indirect client lifecycle, event timing and retry policy remain open; no retry
+Indirect resource mutation, event timing and retry policy remain open; no retry
 was executed.
 
 ## Working on now
 
-Trace client respawn effects on retained textures and failure reporting.
+Reconcile indirect resource mutation and failure-event timing.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2316 publication record](CHECKPOINT-2316.json)
-- [Saved report for checkpoint 2316](PROGRESS-2316.md)
+- [Checkpoint 2317 publication record](CHECKPOINT-2317.json)
+- [Saved report for checkpoint 2317](PROGRESS-2317.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
