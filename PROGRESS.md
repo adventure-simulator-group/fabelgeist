@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T08:02:28.218988+00:00
+Updated: 2026-11-05T08:04:56.188453+00:00
 
-Latest verified checkpoint: **2213**. Goal: **active**.
+Latest verified checkpoint: **2214**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced party action kind and payload from request admission through approval.
+Traced encounter scan error propagation into party movement.
 
-Other request producers, consumers and exact aliases remain open.
+Outer movement error rendering and broader audit contracts remain open.
 
 ## Working on now
 
-Recording distinct invalid and unmapped threat outcomes.
+Tracing encounter error propagation through movement.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2213 publication record](CHECKPOINT-2213.json)
-- [Saved report for checkpoint 2213](PROGRESS-2213.md)
+- [Checkpoint 2214 publication record](CHECKPOINT-2214.json)
+- [Saved report for checkpoint 2214](PROGRESS-2214.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
