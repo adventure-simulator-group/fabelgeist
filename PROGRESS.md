@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:44:54.557995+00:00
+Updated: 2026-11-05T12:46:45.994012+00:00
 
-Latest verified checkpoint: **2335**. Goal: **active**.
+Latest verified checkpoint: **2336**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed the pinned Parry convex-mesh constructor source trace.
+Traced enclosure server collision and client rendering consumers.
 
-Floating-point edges, public-cell admission, native consumers and aliases remain
-open; no tests were run.
+Observer scheduling, numeric edges, native behavior and aliases remain open; no
+tests were run.
 
 ## Working on now
 
-Reconcile prism numeric admission and native collider consumers.
+Reconcile enclosure observer scheduling, numeric admission and aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2335 publication record](CHECKPOINT-2335.json)
-- [Saved report for checkpoint 2335](PROGRESS-2335.md)
+- [Checkpoint 2336 publication record](CHECKPOINT-2336.json)
+- [Saved report for checkpoint 2336](PROGRESS-2336.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
