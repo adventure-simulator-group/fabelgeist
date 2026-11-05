@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:43:12.117817+00:00
+Updated: 2026-11-05T00:45:21.926515+00:00
 
-Latest verified checkpoint: **2074**. Goal: **active**.
+Latest verified checkpoint: **2075**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced body measurement admission and section indexing.
+Traced application producers of body geometry and rig input.
 
-Body producer guarantees, numeric bounds and runtime validation remain open.
+Model and generation guarantees, numeric bounds and runtime validation remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2074 publication record](CHECKPOINT-2074.json)
-- [Saved report for checkpoint 2074](PROGRESS-2074.md)
+- [Checkpoint 2075 publication record](CHECKPOINT-2075.json)
+- [Saved report for checkpoint 2075](PROGRESS-2075.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
