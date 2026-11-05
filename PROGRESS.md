@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:34:32.179126+00:00
+Updated: 2026-11-05T13:36:40.041826+00:00
 
-Latest verified checkpoint: **2368**. Goal: **active**.
+Latest verified checkpoint: **2369**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected candidate publication and owner readiness to native frame scheduling
-under Lens 11.
+Corrected regional-map versus native pipelining platform scope under Lens 11.
 
-Concrete old/new dispatch interleaving and Last-system ordering remain open; no
-tests were run.
+Native Scene-owner interleaving remains open; no tests were run.
 
 ## Working on now
 
-Qualify old and new dispatch reachability and scheduling order.
+Trace native Scene-owner replacement and camera scheduling.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2368 publication record](CHECKPOINT-2368.json)
-- [Saved report for checkpoint 2368](PROGRESS-2368.md)
+- [Checkpoint 2369 publication record](CHECKPOINT-2369.json)
+- [Saved report for checkpoint 2369](PROGRESS-2369.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
