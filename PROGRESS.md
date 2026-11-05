@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:34:39.098479+00:00
+Updated: 2026-11-05T19:36:32.440566+00:00
 
-Latest verified checkpoint: **2523**. Goal: **active**.
+Latest verified checkpoint: **2524**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2523**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 489 / 3,849 marked | 3,360 other entries |
+| Queue entries explicitly marked source-discovery closed | 490 / 3,849 marked | 3,359 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped tiling budget discovery through public surface inputs.
+Completed scoped trim morph normal correspondence discovery and recorded
+connected repair.
 
-Natural body extents, candidate policy, implementation and tests remain open.
+Normalization policy, implementation and rendered validation remain open.
 
 ## Working on now
 
-Continue remaining geometry and audit ledger obligations.
+Continue plate template hole admission and geometry obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2523 publication record](CHECKPOINT-2523.json)
-- [Saved report for checkpoint 2523](PROGRESS-2523.md)
+- [Checkpoint 2524 publication record](CHECKPOINT-2524.json)
+- [Saved report for checkpoint 2524](PROGRESS-2524.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
