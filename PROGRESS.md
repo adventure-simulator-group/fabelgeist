@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T04:44:51.152574+00:00
+Updated: 2026-11-05T04:47:10.722780+00:00
 
-Latest verified checkpoint: **2132**. Goal: **active**.
+Latest verified checkpoint: **2133**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced normal journey camp binding and the 60-minute road-challenge availability
-threshold.
+Independently reconciled the optional road-trial contract under Lens 12.
 
-Optional-trial policy, interrupted and clipped paths, and aliases remain open.
+Implicit versus explicit ignore policy, UI behavior and broader aliases remain
+open.
 
 ## Working on now
 
@@ -206,8 +206,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2132 publication record](CHECKPOINT-2132.json)
-- [Saved report for checkpoint 2132](PROGRESS-2132.md)
+- [Checkpoint 2133 publication record](CHECKPOINT-2133.json)
+- [Saved report for checkpoint 2133](PROGRESS-2133.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
