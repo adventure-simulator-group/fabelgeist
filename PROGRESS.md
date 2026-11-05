@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:36:40.041826+00:00
+Updated: 2026-11-05T13:38:13.698454+00:00
 
-Latest verified checkpoint: **2369**. Goal: **active**.
+Latest verified checkpoint: **2370**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Corrected regional-map versus native pipelining platform scope under Lens 11.
+Separated native scene GPU lifecycle from wasm-only strategic status under Lens
+11.
 
-Native Scene-owner interleaving remains open; no tests were run.
+Native scene-vista producers and readiness consumers remain open; no tests were
+run.
 
 ## Working on now
 
-Trace native Scene-owner replacement and camera scheduling.
+Trace native scene-vista producer and readiness consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2369 publication record](CHECKPOINT-2369.json)
-- [Saved report for checkpoint 2369](PROGRESS-2369.md)
+- [Checkpoint 2370 publication record](CHECKPOINT-2370.json)
+- [Saved report for checkpoint 2370](PROGRESS-2370.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
