@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T11:02:08.103619+00:00
+Updated: 2026-11-05T11:03:52.198382+00:00
 
-Latest verified checkpoint: **2277**. Goal: **active**.
+Latest verified checkpoint: **2278**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced default YAML options and typed float scalar acquisition.
+Traced the YAML streaming event adapter to typed float parsing.
 
-Scanner production, startup reachability, mutation and aliases remain open.
+Parser production, startup reachability, mutation and aliases remain open.
 
 ## Working on now
 
-Tracing scanner production and AI intent reachability.
+Tracing locked parser and AI intent reachability.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2277 publication record](CHECKPOINT-2277.json)
-- [Saved report for checkpoint 2277](PROGRESS-2277.md)
+- [Checkpoint 2278 publication record](CHECKPOINT-2278.json)
+- [Saved report for checkpoint 2278](PROGRESS-2278.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
