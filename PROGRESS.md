@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T05:56:25.729146+00:00
+Updated: 2026-11-05T05:59:46.608411+00:00
 
-Latest verified checkpoint: **2161**. Goal: **active**.
+Latest verified checkpoint: **2162**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **2161**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 15 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 16 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the authoritative public report table and mission existence check.
+Traced public report query, defeat badge discriminator and text presentation.
 
-Other report consumers, reducer error conversion and exact aliases remain open.
+Other report consumers, query failure policy, reducer error conversion and exact
+aliases remain open.
 
 ## Working on now
 
@@ -61,6 +62,13 @@ under Lens 1.
 - Implement the final types and complete independent review and validation.
 
 ## Work completed since the handoff
+
+- Corrected an audit-evidence filename collision: checkpoints 2160 and 2161
+  referred to different hashes at one local qualification path. Both exact
+  original byte sequences were reconstructed and hash-verified under distinct
+  RECOVERED-QUALIFICATION files; the shared path holds the latest historical
+  version. Earlier checkpoint references retain the collision and require this
+  correction when inspected.
 
 - Traced capture rig scales and native quaternion decomposition; isolated probes
   distinguish degenerate and sheared transforms from observed supported assets.
@@ -205,8 +213,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2161 publication record](CHECKPOINT-2161.json)
-- [Saved report for checkpoint 2161](PROGRESS-2161.md)
+- [Checkpoint 2162 publication record](CHECKPOINT-2162.json)
+- [Saved report for checkpoint 2162](PROGRESS-2162.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
