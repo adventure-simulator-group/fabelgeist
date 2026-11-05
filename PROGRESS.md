@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T04:58:26.041005+00:00
+Updated: 2026-11-05T05:00:10.503465+00:00
 
-Latest verified checkpoint: **2137**. Goal: **active**.
+Latest verified checkpoint: **2138**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the camp continuation error path with the existing typed reducer-error
-owner.
+Linked a concrete camp error path to the broader reducer-error audit obligation.
 
-Optional-trial policy, appropriate error classification and broader aliases
+Original registered source, other producers and callbacks, and exact aliases
 remain open.
 
 ## Working on now
@@ -207,8 +206,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2137 publication record](CHECKPOINT-2137.json)
-- [Saved report for checkpoint 2137](PROGRESS-2137.md)
+- [Checkpoint 2138 publication record](CHECKPOINT-2138.json)
+- [Saved report for checkpoint 2138](PROGRESS-2138.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
