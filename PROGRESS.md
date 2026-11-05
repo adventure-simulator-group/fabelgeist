@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:41:41.328029+00:00
+Updated: 2026-11-05T15:43:20.499649+00:00
 
-Latest verified checkpoint: **2446**. Goal: **active**.
+Latest verified checkpoint: **2447**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Corrected original city-ground and strategic seam-color scope using the
-historical Lens 12 receipt and current source.
+Traced strategic seam construction and the first vista ring coordinate frame
+under Lens 12.
 
-Strategic seam caller and frames, decoded-batch policy and exact aliases remain
-open. No tests were run.
+Supported first-ring origin policy, admitted grid invariants and exact aliases
+remain open. No tests were run.
 
 ## Working on now
 
-Trace strategic seam caller and frames; reconcile connected city-ground
+Trace first-ring origin admission and foreground grid invariants; reconcile seam
 contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2446 publication record](CHECKPOINT-2446.json)
-- [Saved report for checkpoint 2446](PROGRESS-2446.md)
+- [Checkpoint 2447 publication record](CHECKPOINT-2447.json)
+- [Saved report for checkpoint 2447](PROGRESS-2447.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
