@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:38:16.606266+00:00
+Updated: 2026-11-05T19:40:19.179411+00:00
 
-Latest verified checkpoint: **2525**. Goal: **active**.
+Latest verified checkpoint: **2526**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced hole placement and bevel cap into constrained triangulation.
+Pinned Spade constraint panic contract and derived a conditional outside-cap
+example.
 
-Pinned triangulator behavior and supported geometry cases remain open. No tests
-were run.
+Exact outline, native outcome and supported geometry acceptance remain open. No
+tests were run.
 
 ## Working on now
 
-Inspect pinned triangulator constraint and outside-hole behavior.
+Inspect plate outline and triangulation containment for the candidate example.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2525 publication record](CHECKPOINT-2525.json)
-- [Saved report for checkpoint 2525](PROGRESS-2525.md)
+- [Checkpoint 2526 publication record](CHECKPOINT-2526.json)
+- [Saved report for checkpoint 2526](PROGRESS-2526.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
