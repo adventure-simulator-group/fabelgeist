@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:21:30.591372+00:00
+Updated: 2026-11-05T17:23:11.968879+00:00
 
-Latest verified checkpoint: **2475**. Goal: **active**.
+Latest verified checkpoint: **2476**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2475**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 461 / 3,849 marked | 3,388 other entries |
+| Queue entries explicitly marked source-discovery closed | 462 / 3,849 marked | 3,387 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fault-scarp producer, existing comparison tests, render upload and server
-collision handoff.
+Completed scoped source discovery of the conditional finite-field interpolation
+issue and recorded its owned repair.
 
-Producer numerical bounds, collider construction and complete alias
-reconciliation remain open. No tests were run.
+Production reachability, broader terrain contracts, repair and validation remain
+open. No tests were run.
 
 ## Working on now
 
-Trace terrain admission, recipe bounds and collider construction.
+Continue remaining terrain and numeric audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2475 publication record](CHECKPOINT-2475.json)
-- [Saved report for checkpoint 2475](PROGRESS-2475.md)
+- [Checkpoint 2476 publication record](CHECKPOINT-2476.json)
+- [Saved report for checkpoint 2476](PROGRESS-2476.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
