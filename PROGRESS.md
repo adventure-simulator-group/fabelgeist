@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T04:37:42.868021+00:00
+Updated: 2026-11-05T04:39:54.174004+00:00
 
-Latest verified checkpoint: **2129**. Goal: **active**.
+Latest verified checkpoint: **2130**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the bound-road-challenge guard into travel continuation and camp rest.
+Traced normal errantry issuance and camp UI against the bound-road continuation
+guard.
 
-Ordinary issuance, optional-trial policy, future-open encounter selection and
-aliases remain open.
+Quest-eligible choices, normal camp admission, optional-trial policy and aliases
+remain open.
 
 ## Working on now
 
@@ -206,8 +207,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2129 publication record](CHECKPOINT-2129.json)
-- [Saved report for checkpoint 2129](PROGRESS-2129.md)
+- [Checkpoint 2130 publication record](CHECKPOINT-2130.json)
+- [Saved report for checkpoint 2130](PROGRESS-2130.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
