@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:32:59.647553+00:00
+Updated: 2026-11-05T09:36:06.077838+00:00
 
-Latest verified checkpoint: **2246**. Goal: **active**.
+Latest verified checkpoint: **2247**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,14 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced recovery semantics into autoresolve and tactical attack admission.
+Traced tactical combat-state projection and melee ingress requirements.
 
-Combat-state lifecycle, configuration admission and broader contracts remain
-open.
+Other event producers, component removal and broader contracts remain open.
 
 ## Working on now
 
-Tracing recovery timing through attack scheduling.
+Tracing tactical state admission and melee event sources.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -212,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2246 publication record](CHECKPOINT-2246.json)
-- [Saved report for checkpoint 2246](PROGRESS-2246.md)
+- [Checkpoint 2247 publication record](CHECKPOINT-2247.json)
+- [Saved report for checkpoint 2247](PROGRESS-2247.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
