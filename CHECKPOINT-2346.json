@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2346,
+  "at": "2026-11-05T13:00:01.697804+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "e0c7a268e932801cea37827eb059d5b7ac7c86178bb2b6ed5fe653d6b83b9b44",
+    "verification": "a3ad4352bf208ea8cf115c8a48ae9f5c1ef903a2cc65a97ebd618c4c7fb6b069",
+    "canonical_current": "75c9d3b32236b6c77d3c7781db61dfe1193b0c132c7294bb15e4efba212e6fc5"
+  },
+  "scope": {
+    "summary": "Qualified generation residency reset error as mutex poisoning.",
+    "scope_limit": "Poison reachability, broader reset paths and aliases remain open; no tests were run."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "2c3487ea26853ea64e9904b8dbcfde79b15173146a64148cea7c86793446b126",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
