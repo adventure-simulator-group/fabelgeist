@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T06:22:22.514588+00:00
+Updated: 2026-11-05T06:25:06.434148+00:00
 
-Latest verified checkpoint: **2173**. Goal: **active**.
+Latest verified checkpoint: **2174**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Linked typed roster-cause loss to its existing Lens 1 ledger owner.
+Linked contract currency grant behavior to the existing party-grant error-
+erasure obligation.
 
-Reducer rendering, other contracts and exact aliases remain open.
+Admitted insertion failures, reward policy and exact aliases remain open.
 
 ## Working on now
 
@@ -212,8 +213,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2173 publication record](CHECKPOINT-2173.json)
-- [Saved report for checkpoint 2173](PROGRESS-2173.md)
+- [Checkpoint 2174 publication record](CHECKPOINT-2174.json)
+- [Saved report for checkpoint 2174](PROGRESS-2174.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
