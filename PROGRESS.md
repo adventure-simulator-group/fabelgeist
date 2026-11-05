@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:27:45.513650+00:00
+Updated: 2026-11-05T13:29:15.087734+00:00
 
-Latest verified checkpoint: **2364**. Goal: **active**.
+Latest verified checkpoint: **2365**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced strategic scene status and failure handling in the browser under Lens 11.
+Traced capture and visibility gates across installation and asset readiness
+under Lens 11.
 
-Render-error reachability, owner generation and capture consumers remain open;
-no tests were run.
+Owner generation and render-error reachability remain open; source tests were
+inspected but not run.
 
 ## Working on now
 
-Qualify render-error reachability and owner-generation readiness.
+Qualify owner-generation correspondence and render-error reachability.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2364 publication record](CHECKPOINT-2364.json)
-- [Saved report for checkpoint 2364](PROGRESS-2364.md)
+- [Checkpoint 2365 publication record](CHECKPOINT-2365.json)
+- [Saved report for checkpoint 2365](PROGRESS-2365.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
