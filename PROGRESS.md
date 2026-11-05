@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T01:15:14.290094+00:00
+Updated: 2026-11-05T01:16:43.131792+00:00
 
-Latest verified checkpoint: **2094**. Goal: **active**.
+Latest verified checkpoint: **2095**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pinned entity-update atomicity and packet splitting.
+Traced mental Will inputs and their replication boundary.
 
-Server scheduling, cross-entity inputs, other consumers and aliases remain open.
+Server scheduling, other consumers and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2094 publication record](CHECKPOINT-2094.json)
-- [Saved report for checkpoint 2094](PROGRESS-2094.md)
+- [Checkpoint 2095 publication record](CHECKPOINT-2095.json)
+- [Saved report for checkpoint 2095](PROGRESS-2095.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
