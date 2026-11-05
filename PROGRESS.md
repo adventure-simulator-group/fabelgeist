@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:05:46.543492+00:00
+Updated: 2026-11-05T17:09:31.378786+00:00
 
-Latest verified checkpoint: **2470**. Goal: **active**.
+Latest verified checkpoint: **2471**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Documented conditional quickstep target acceleration and closed its scoped
-source discovery.
+Traced AI offense configuration checks and representative melee and ranged
+consumers.
 
-Repair, supported gameplay reachability and post-audit validation remain open.
+Parser admission, runtime snapshot, remaining consumers and aliases remain open.
 No tests were run.
 
 ## Working on now
 
-Continue broader combat configuration and timing audit obligations.
+Trace offense parser, runtime snapshot and remaining consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2470 publication record](CHECKPOINT-2470.json)
-- [Saved report for checkpoint 2470](PROGRESS-2470.md)
+- [Checkpoint 2471 publication record](CHECKPOINT-2471.json)
+- [Saved report for checkpoint 2471](PROGRESS-2471.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
