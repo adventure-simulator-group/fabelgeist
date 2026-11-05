@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:32:46.315962+00:00
+Updated: 2026-11-05T03:34:12.302345+00:00
 
-Latest verified checkpoint: **2117**. Goal: **active**.
+Latest verified checkpoint: **2118**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced optional Sex as witness-kind discriminator into private storage.
+Recorded explicit witness commitment ownership and privacy acceptance.
 
-Final candidate ownership, schema, renderer and exact aliases remain open.
+Final design, schema, exact aliases and implementation remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2117 publication record](CHECKPOINT-2117.json)
-- [Saved report for checkpoint 2117](PROGRESS-2117.md)
+- [Checkpoint 2118 publication record](CHECKPOINT-2118.json)
+- [Saved report for checkpoint 2118](PROGRESS-2118.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
