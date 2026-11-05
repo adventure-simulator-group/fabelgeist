@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T05:06:23.110643+00:00
+Updated: 2026-11-05T05:07:58.626338+00:00
 
-Latest verified checkpoint: **2140**. Goal: **active**.
+Latest verified checkpoint: **2141**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **2140**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 12 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 13 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -37,8 +37,8 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced travel wrapper replacement of a typed reducer failure in the simulator
-recorder.
+Recorded a scoped obligation to preserve the typed travel failure when adding
+context.
 
 Other recorder paths, exact aliases and final validation remain open.
 
@@ -206,8 +206,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2140 publication record](CHECKPOINT-2140.json)
-- [Saved report for checkpoint 2140](PROGRESS-2140.md)
+- [Checkpoint 2141 publication record](CHECKPOINT-2141.json)
+- [Saved report for checkpoint 2141](PROGRESS-2141.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
