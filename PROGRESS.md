@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T08:12:25.815942+00:00
+Updated: 2026-11-05T08:15:17.715819+00:00
 
-Latest verified checkpoint: **2217**. Goal: **active**.
+Latest verified checkpoint: **2218**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled travel failure paths with existing error owners.
+Compared currency and XP distribution and inspected two reward producers.
 
-Threat aliases and broader audit contracts remain open.
+Other reward producers, XP policy and broader audit contracts remain open.
 
 ## Working on now
 
-Reconciling travel error owners and remaining threat aliases.
+Tracing reward producers and progression policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2217 publication record](CHECKPOINT-2217.json)
-- [Saved report for checkpoint 2217](PROGRESS-2217.md)
+- [Checkpoint 2218 publication record](CHECKPOINT-2218.json)
+- [Saved report for checkpoint 2218](PROGRESS-2218.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
