@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:05:24.570879+00:00
+Updated: 2026-11-05T13:06:53.143808+00:00
 
-Latest verified checkpoint: **2349**. Goal: **active**.
+Latest verified checkpoint: **2350**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced placement identity through strategic streaming and compared the regional-
-map publication path under Lens 11.
+Traced regional-map installation failure classification and failed candidate
+cleanup under Lens 11.
 
-Failure reachability, regional-map callers, other consumers and aliases remain
-open; no tests were run.
+Failure reachability, external status consumers and aliases remain open; no
+tests were run.
 
 ## Working on now
 
-Trace scene admission and regional-map error consumers.
+Trace regional-map installation status consumers and concrete failure
+reachability.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2349 publication record](CHECKPOINT-2349.json)
-- [Saved report for checkpoint 2349](PROGRESS-2349.md)
+- [Checkpoint 2350 publication record](CHECKPOINT-2350.json)
+- [Saved report for checkpoint 2350](PROGRESS-2350.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
