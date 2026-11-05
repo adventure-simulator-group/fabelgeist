@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:14:08.108013+00:00
+Updated: 2026-11-05T19:15:38.073477+00:00
 
-Latest verified checkpoint: **2511**. Goal: **active**.
+Latest verified checkpoint: **2512**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2511**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 480 / 3,849 marked | 3,369 other entries |
+| Queue entries explicitly marked source-discovery closed | 481 / 3,849 marked | 3,368 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced discarded terrain sample failures into cultivation relief scoring.
+Completed scoped cultivation terrain error discovery through final terrain
+input.
 
-Allocation publication, missing-coverage policy and native acceptance remain
-open. No tests were run.
+Coverage policy, broader terrain errors, implementation and validation remain
+open.
 
 ## Working on now
 
-Trace cultivation allocation output, terrain failures and coverage policy.
+Continue strategic WKT geometry admission and related geographic ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2511 publication record](CHECKPOINT-2511.json)
-- [Saved report for checkpoint 2511](PROGRESS-2511.md)
+- [Checkpoint 2512 publication record](CHECKPOINT-2512.json)
+- [Saved report for checkpoint 2512](PROGRESS-2512.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
