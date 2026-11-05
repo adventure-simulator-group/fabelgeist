@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T06:34:11.379997+00:00
+Updated: 2026-11-05T06:36:15.732207+00:00
 
-Latest verified checkpoint: **2178**. Goal: **active**.
+Latest verified checkpoint: **2179**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -213,8 +213,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2178 publication record](CHECKPOINT-2178.json)
-- [Saved report for checkpoint 2178](PROGRESS-2178.md)
+- [Checkpoint 2179 publication record](CHECKPOINT-2179.json)
+- [Saved report for checkpoint 2179](PROGRESS-2179.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
