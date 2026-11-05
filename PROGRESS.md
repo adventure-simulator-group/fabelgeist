@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:30:22.608444+00:00
+Updated: 2026-11-05T12:31:42.326709+00:00
 
-Latest verified checkpoint: **2324**. Goal: **active**.
+Latest verified checkpoint: **2325**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced regional triangle interpolation and focused-city coordinate frame.
+Traced regional map pose admission, zoom bounds and window selection.
 
-Numeric edges, native rendering, other consumers and aliases remain open; no
-tests were run.
+Largest-window coverage, leaf admission, native rendering and aliases remain
+open; no tests were run.
 
 ## Working on now
 
-Reconcile numeric admission, native rendering and regional-map consumers.
+Reconcile regional window coverage, native projection and aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2324 publication record](CHECKPOINT-2324.json)
-- [Saved report for checkpoint 2324](PROGRESS-2324.md)
+- [Checkpoint 2325 publication record](CHECKPOINT-2325.json)
+- [Saved report for checkpoint 2325](PROGRESS-2325.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
