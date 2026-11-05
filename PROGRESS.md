@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:01:36.041813+00:00
+Updated: 2026-11-05T13:04:11.886514+00:00
 
-Latest verified checkpoint: **2347**. Goal: **active**.
+Latest verified checkpoint: **2348**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Independently traced city streaming failure ownership under Lens 11.
+Traced upstream typed building and preparation errors to the city queue under
+Lens 11.
 
-Upstream error types, other consumers and aliases remain open; no tests were
-run.
+Concrete failure reachability, other consumers and aliases remain open; no tests
+were run.
 
 ## Working on now
 
-Trace building construction error causes and status consumers.
+Trace construction error variants and placement identity across upstream
+constructors and status consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2347 publication record](CHECKPOINT-2347.json)
-- [Saved report for checkpoint 2347](PROGRESS-2347.md)
+- [Checkpoint 2348 publication record](CHECKPOINT-2348.json)
+- [Saved report for checkpoint 2348](PROGRESS-2348.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
