@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:34:28.664401+00:00
+Updated: 2026-11-05T20:36:02.092729+00:00
 
-Latest verified checkpoint: **2554**. Goal: **active**.
+Latest verified checkpoint: **2555**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced typed storey conversion into retained plans and wall sources.
+Traced editor selectors and enclosure wall-source lookup.
 
-Storey producers, serialization boundaries, consumers and repair remain open.
+Missing-wall policy, storey consumers, serialization and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2554 publication record](CHECKPOINT-2554.json)
-- [Saved report for checkpoint 2554](PROGRESS-2554.md)
+- [Checkpoint 2555 publication record](CHECKPOINT-2555.json)
+- [Saved report for checkpoint 2555](PROGRESS-2555.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
