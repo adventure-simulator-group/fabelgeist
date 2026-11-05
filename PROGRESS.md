@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:56:36.088212+00:00
+Updated: 2026-11-05T00:58:09.663158+00:00
 
-Latest verified checkpoint: **2080**. Goal: **active**.
+Latest verified checkpoint: **2081**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Consolidated body, pattern and cloth admission repair and acceptance plan.
+Traced tactical incapacitation production and performance.
 
-Aliases, remaining lenses and implementation remain open.
+Client reports, other combat consumers and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2080 publication record](CHECKPOINT-2080.json)
-- [Saved report for checkpoint 2080](PROGRESS-2080.md)
+- [Checkpoint 2081 publication record](CHECKPOINT-2081.json)
+- [Saved report for checkpoint 2081](PROGRESS-2081.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
