@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:15:55.318906+00:00
+Updated: 2026-11-05T15:18:26.899680+00:00
 
-Latest verified checkpoint: **2433**. Goal: **active**.
+Latest verified checkpoint: **2434**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Linked related city-ground origin, publication and vertex obligations without
-merging them.
+Traced city-ground preparation and owner-specific upload publication under Lens
+12.
 
-Related city-ground scopes, nonzero-origin policy and runtime evidence remain
-open. No tests were run.
+Reflection failure reachability, asset lifecycle and native upload remain open.
+No tests were run.
 
 ## Working on now
 
-Qualify related city-ground origin and publication scopes independently.
+Trace reflected city-ground admission and focused-map failure ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2433 publication record](CHECKPOINT-2433.json)
-- [Saved report for checkpoint 2433](PROGRESS-2433.md)
+- [Checkpoint 2434 publication record](CHECKPOINT-2434.json)
+- [Saved report for checkpoint 2434](PROGRESS-2434.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
