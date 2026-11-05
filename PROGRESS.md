@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T18:07:18.768459+00:00
+Updated: 2026-11-05T18:09:28.142970+00:00
 
-Latest verified checkpoint: **2486**. Goal: **active**.
+Latest verified checkpoint: **2487**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped shifted-ring tree card placement discovery through GPU shader.
+Traced landform replication registration, nested geology structure and client
+materializer.
 
-Ordinary shifted production, shared origin policy, broader scatter, repair and
-validation remain open. No tests were run.
+Pinned tagged-enum decoder behavior and codec aliases remain open. No tests were
+run.
 
 ## Working on now
 
-Continue broader vista scatter and origin policy obligations.
+Trace pinned Serde and postcard tagged enum decoding.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2486 publication record](CHECKPOINT-2486.json)
-- [Saved report for checkpoint 2486](PROGRESS-2486.md)
+- [Checkpoint 2487 publication record](CHECKPOINT-2487.json)
+- [Saved report for checkpoint 2487](PROGRESS-2487.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
