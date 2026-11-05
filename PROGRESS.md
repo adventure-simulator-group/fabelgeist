@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T10:15:17.728344+00:00
+Updated: 2026-11-05T10:19:19.333700+00:00
 
-Latest verified checkpoint: **2260**. Goal: **active**.
+Latest verified checkpoint: **2261**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified imported fatigue and weapon-contact validators.
+Traced item catalog source maps and validation diagnostic locations.
 
-Weapon geometry, source-map diagnostics and broader contracts remain open.
+Authoring rules, diagnostic accuracy and broader contracts remain open.
 
 ## Working on now
 
-Tracing imported combat parameter validation and consumers.
+Tracing item source-map generation and diagnostics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2260 publication record](CHECKPOINT-2260.json)
-- [Saved report for checkpoint 2260](PROGRESS-2260.md)
+- [Checkpoint 2261 publication record](CHECKPOINT-2261.json)
+- [Saved report for checkpoint 2261](PROGRESS-2261.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
