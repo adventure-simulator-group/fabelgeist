@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T07:16:38.931987+00:00
+Updated: 2026-11-05T07:19:08.855757+00:00
 
-Latest verified checkpoint: **2194**. Goal: **active**.
+Latest verified checkpoint: **2195**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,7 +43,7 @@ Other request producers, consumers and exact aliases remain open.
 
 ## Working on now
 
-Tracing aggregate recruitment checks and applicant contributions.
+Reconciling unavailable recruitment capabilities with existing error ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2194 publication record](CHECKPOINT-2194.json)
-- [Saved report for checkpoint 2194](PROGRESS-2194.md)
+- [Checkpoint 2195 publication record](CHECKPOINT-2195.json)
+- [Saved report for checkpoint 2195](PROGRESS-2195.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
