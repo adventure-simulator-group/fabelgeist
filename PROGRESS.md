@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T08:41:45.293360+00:00
+Updated: 2026-11-05T08:44:29.097261+00:00
 
-Latest verified checkpoint: **2228**. Goal: **active**.
+Latest verified checkpoint: **2229**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Checked contract state updates and bounded site-deletion references.
+Traced reward recipient ordering and membership schema.
 
-Indirect lifecycle writers, XP policy and broader audit contracts remain open.
+Membership invariants, XP policy and broader audit contracts remain open.
 
 ## Working on now
 
-Tracing contract lifecycle and site association.
+Tracing reward recipient and membership invariants.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2228 publication record](CHECKPOINT-2228.json)
-- [Saved report for checkpoint 2228](PROGRESS-2228.md)
+- [Checkpoint 2229 publication record](CHECKPOINT-2229.json)
+- [Saved report for checkpoint 2229](PROGRESS-2229.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
