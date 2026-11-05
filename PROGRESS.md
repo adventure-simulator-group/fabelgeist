@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T10:55:09.118603+00:00
+Updated: 2026-11-05T10:57:12.949178+00:00
 
-Latest verified checkpoint: **2273**. Goal: **active**.
+Latest verified checkpoint: **2274**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,14 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled precision scaling and ranged miss reminders with separate owners.
+Traced AI configuration loading, validation and resource installation.
 
-Ingress, mutation, independent contracts, other lenses and global aliases remain
-open; no runtime probe was run.
+YAML admission, startup snapshot, mutation, other lenses and aliases remain
+open.
 
 ## Working on now
 
-Completing precision and ranged connected authority qualifications.
+Tracing YAML admission and startup snapshot semantics for AI precision.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -212,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2273 publication record](CHECKPOINT-2273.json)
-- [Saved report for checkpoint 2273](PROGRESS-2273.md)
+- [Checkpoint 2274 publication record](CHECKPOINT-2274.json)
+- [Saved report for checkpoint 2274](PROGRESS-2274.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
