@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:13:26.648617+00:00
+Updated: 2026-11-05T00:14:36.078367+00:00
 
-Latest verified checkpoint: **2057**. Goal: **active**.
+Latest verified checkpoint: **2058**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced garment, armor and hair kernel cache ownership.
+Traced pipeline validation error and cache publication ordering.
 
-Other callers, device-bound cache policy and runtime validation remain open.
+Actual multi-entry callers, cache error policy and runtime validation remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2057 publication record](CHECKPOINT-2057.json)
-- [Saved report for checkpoint 2057](PROGRESS-2057.md)
+- [Checkpoint 2058 publication record](CHECKPOINT-2058.json)
+- [Saved report for checkpoint 2058](PROGRESS-2058.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
