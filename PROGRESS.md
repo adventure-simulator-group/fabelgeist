@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:55:22.943918+00:00
+Updated: 2026-11-05T00:56:36.088212+00:00
 
-Latest verified checkpoint: **2079**. Goal: **active**.
+Latest verified checkpoint: **2080**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pinned Burn dimension checks and GPU selection kernel.
+Consolidated body, pattern and cloth admission repair and acceptance plan.
 
-Face membership, GPU out-of-bounds behavior and runtime validation remain open.
+Aliases, remaining lenses and implementation remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2079 publication record](CHECKPOINT-2079.json)
-- [Saved report for checkpoint 2079](PROGRESS-2079.md)
+- [Checkpoint 2080 publication record](CHECKPOINT-2080.json)
+- [Saved report for checkpoint 2080](PROGRESS-2080.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
