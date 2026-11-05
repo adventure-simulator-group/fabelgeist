@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:39:54.739889+00:00
+Updated: 2026-11-05T03:42:28.768051+00:00
 
-Latest verified checkpoint: **2121**. Goal: **active**.
+Latest verified checkpoint: **2122**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pinned Bevy glTF attribute mapping and mesh counts.
+Traced default glTF validation and primitive hook.
 
-Parser acceptance, native output behavior and aliases remain open.
+Full validation, native output behavior and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2121 publication record](CHECKPOINT-2121.json)
-- [Saved report for checkpoint 2121](PROGRESS-2121.md)
+- [Checkpoint 2122 publication record](CHECKPOINT-2122.json)
+- [Saved report for checkpoint 2122](PROGRESS-2122.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
