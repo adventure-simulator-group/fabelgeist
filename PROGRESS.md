@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:00:17.513423+00:00
+Updated: 2026-11-05T13:01:36.041813+00:00
 
-Latest verified checkpoint: **2346**. Goal: **active**.
+Latest verified checkpoint: **2347**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified generation residency reset error as mutex poisoning.
+Independently traced city streaming failure ownership under Lens 11.
 
-Poison reachability, broader reset paths and aliases remain open; no tests were
+Upstream error types, other consumers and aliases remain open; no tests were
 run.
 
 ## Working on now
 
-Reconcile preparation errors and exact streaming failure owners.
+Trace building construction error causes and status consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2346 publication record](CHECKPOINT-2346.json)
-- [Saved report for checkpoint 2346](PROGRESS-2346.md)
+- [Checkpoint 2347 publication record](CHECKPOINT-2347.json)
+- [Saved report for checkpoint 2347](PROGRESS-2347.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
