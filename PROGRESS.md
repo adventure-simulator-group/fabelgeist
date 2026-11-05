@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:45:21.926515+00:00
+Updated: 2026-11-05T00:48:30.984820+00:00
 
-Latest verified checkpoint: **2075**. Goal: **active**.
+Latest verified checkpoint: **2076**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced application producers of body geometry and rig input.
+Traced body generation readback checks and model loading.
 
-Model and generation guarantees, numeric bounds and runtime validation remain
-open.
+FBX admission, output numeric guarantees and runtime validation remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2075 publication record](CHECKPOINT-2075.json)
-- [Saved report for checkpoint 2075](PROGRESS-2075.md)
+- [Checkpoint 2076 publication record](CHECKPOINT-2076.json)
+- [Saved report for checkpoint 2076](PROGRESS-2076.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
