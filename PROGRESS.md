@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:51:00.046952+00:00
+Updated: 2026-11-05T13:52:46.433467+00:00
 
-Latest verified checkpoint: **2378**. Goal: **active**.
+Latest verified checkpoint: **2379**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared city mesh admission and GPU capacity ownership across lenses.
+Qualified tactical and distant placement count limits under Lens 11.
 
-Joint cardinality and device limits remain open; no cross-lens closure or tests.
+Event admission, mesh ranges, props and camera groups remain open; no tests were
+run.
 
 ## Working on now
 
-Qualify joint mesh, placement and camera cardinality.
+Connect placement admission to actual scene-vista producers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2378 publication record](CHECKPOINT-2378.json)
-- [Saved report for checkpoint 2378](PROGRESS-2378.md)
+- [Checkpoint 2379 publication record](CHECKPOINT-2379.json)
+- [Saved report for checkpoint 2379](PROGRESS-2379.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
