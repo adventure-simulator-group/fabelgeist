@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T11:05:23.815104+00:00
+Updated: 2026-11-05T11:08:04.738791+00:00
 
-Latest verified checkpoint: **2279**. Goal: **active**.
+Latest verified checkpoint: **2280**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified dependency fixture distinctions for nonfinite typed floats.
+Read the previously unassessed animation evaluation range under Lens 11.
 
-Project f32 document, startup reachability, mutation and aliases remain open.
+Connected producers, consumers, aliases and other lenses remain open; fixtures
+were not run.
 
 ## Working on now
 
-Tracing concrete YAML document admission and AI intent reachability.
+Completing registered unread animation ranges and connected contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2279 publication record](CHECKPOINT-2279.json)
-- [Saved report for checkpoint 2279](PROGRESS-2279.md)
+- [Checkpoint 2280 publication record](CHECKPOINT-2280.json)
+- [Saved report for checkpoint 2280](PROGRESS-2280.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
