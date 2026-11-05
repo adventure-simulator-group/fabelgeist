@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:35:20.178580+00:00
+Updated: 2026-11-05T12:36:37.637761+00:00
 
-Latest verified checkpoint: **2328**. Goal: **active**.
+Latest verified checkpoint: **2329**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced regional terrain coverage status and request identity.
+Compared regional coverage documentation and browser test source with the
+maximum-span case.
 
-Actual browser outcome, coverage policy, native projection and aliases remain
-open; no tests were run.
+Coverage policy, actual browser outcome and aliases remain open; no tests were
+run.
 
 ## Working on now
 
-Resolve intended regional coverage policy and connected ownership.
+Reconcile regional coverage policy and exact related ledger owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2328 publication record](CHECKPOINT-2328.json)
-- [Saved report for checkpoint 2328](PROGRESS-2328.md)
+- [Checkpoint 2329 publication record](CHECKPOINT-2329.json)
+- [Saved report for checkpoint 2329](PROGRESS-2329.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
