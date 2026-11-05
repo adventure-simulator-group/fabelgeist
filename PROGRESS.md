@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:14:12.846401+00:00
+Updated: 2026-11-05T14:15:48.036867+00:00
 
-Latest verified checkpoint: **2393**. Goal: **active**.
+Latest verified checkpoint: **2394**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced interior furniture identity, transforms and append ordering under Lens
+Traced interior furnishing error ownership through inspected callers under Lens
 12.
 
-Caller handling, conversion reachability and debug serialization remain open; no
-tests were run.
+Public caller contract, failure reachability and debug serialization remain
+open; no tests were run.
 
 ## Working on now
 
-Trace interior installation callers and failure ownership.
+Qualify public interior API failure contract and conversion reachability.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2393 publication record](CHECKPOINT-2393.json)
-- [Saved report for checkpoint 2393](PROGRESS-2393.md)
+- [Checkpoint 2394 publication record](CHECKPOINT-2394.json)
+- [Saved report for checkpoint 2394](PROGRESS-2394.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
