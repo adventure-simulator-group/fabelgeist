@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:08:25.106296+00:00
+Updated: 2026-11-05T03:10:14.495818+00:00
 
-Latest verified checkpoint: **2100**. Goal: **active**.
+Latest verified checkpoint: **2101**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Linked combat consequence and wheel reconciliation contracts.
+Traced frontend viewport acknowledgment and demographic identifiers.
 
-Runtime witness, exact aliases, remaining audit and implementation remain open.
+Native renderer, seed consumers and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2100 publication record](CHECKPOINT-2100.json)
-- [Saved report for checkpoint 2100](PROGRESS-2100.md)
+- [Checkpoint 2101 publication record](CHECKPOINT-2101.json)
+- [Saved report for checkpoint 2101](PROGRESS-2101.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
