@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:01:15.525410+00:00
+Updated: 2026-11-05T17:03:30.451053+00:00
 
-Latest verified checkpoint: **2468**. Goal: **active**.
+Latest verified checkpoint: **2469**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified quickstep profile and scalar configuration checks against the target
-calculation.
+Traced quickstep action duration, sample quantization and default character
+dimensions.
 
-Action timing, dimension producers and native velocity remain open. No tests
+Other dimension producers, native velocity and aliases remain open. No tests
 were run.
 
 ## Working on now
 
-Trace quickstep action timing and dimension producers.
+Trace dimension update sources and native quickstep velocity boundary.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2468 publication record](CHECKPOINT-2468.json)
-- [Saved report for checkpoint 2468](PROGRESS-2468.md)
+- [Checkpoint 2469 publication record](CHECKPOINT-2469.json)
+- [Saved report for checkpoint 2469](PROGRESS-2469.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
