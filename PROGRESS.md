@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:21:03.310373+00:00
+Updated: 2026-11-05T03:22:25.305081+00:00
 
-Latest verified checkpoint: **2109**. Goal: **active**.
+Latest verified checkpoint: **2110**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared viewport finding with regional map and native lifecycle contracts.
+Traced Bevy sub-camera dimension and offset arithmetic.
 
-Exact aliases, end-to-end bridge, city lifecycle and implementation remain open.
+Projection bounds, end-to-end bridge, city lifecycle and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2109 publication record](CHECKPOINT-2109.json)
-- [Saved report for checkpoint 2109](PROGRESS-2109.md)
+- [Checkpoint 2110 publication record](CHECKPOINT-2110.json)
+- [Saved report for checkpoint 2110](PROGRESS-2110.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
