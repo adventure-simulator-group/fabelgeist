@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:21:10.568788+00:00
+Updated: 2026-11-05T00:22:46.775568+00:00
 
-Latest verified checkpoint: **2062**. Goal: **active**.
+Latest verified checkpoint: **2063**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Distinguished array and comparison resource owners from reflected compute.
+Recorded compute reflection identity and resource acceptance cases.
 
-Other producers, supported interface policy and runtime validation remain open.
+Full producer audit, feature policy, implementation and runtime validation
+remain open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2062 publication record](CHECKPOINT-2062.json)
-- [Saved report for checkpoint 2062](PROGRESS-2062.md)
+- [Checkpoint 2063 publication record](CHECKPOINT-2063.json)
+- [Saved report for checkpoint 2063](PROGRESS-2063.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
