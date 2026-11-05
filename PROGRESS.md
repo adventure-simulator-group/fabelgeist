@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:30:40.431097+00:00
+Updated: 2026-11-05T13:33:07.779262+00:00
 
-Latest verified checkpoint: **2366**. Goal: **active**.
+Latest verified checkpoint: **2367**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned render extraction and conditional pipelined overlap under Lens
-11.
+Qualified native default pipelined rendering and wasm exclusion under Lens 11.
 
-Enabled configurations and an actual stale-readiness interleaving remain
-unproven; no tests were run.
+Exact scene-replacement interleaving and full feature resolution remain open; no
+tests were run.
 
 ## Working on now
 
-Qualify enabled pipelining and scene replacement scheduling.
+Trace scene replacement and readiness across native concurrent frames.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2366 publication record](CHECKPOINT-2366.json)
-- [Saved report for checkpoint 2366](PROGRESS-2366.md)
+- [Checkpoint 2367 publication record](CHECKPOINT-2367.json)
+- [Saved report for checkpoint 2367](PROGRESS-2367.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
