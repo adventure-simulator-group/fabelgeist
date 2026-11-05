@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T08:28:50.497356+00:00
+Updated: 2026-11-05T08:31:17.384415+00:00
 
-Latest verified checkpoint: **2223**. Goal: **active**.
+Latest verified checkpoint: **2224**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Searched bounded browser and web source for direct progression consumers.
+Traced gateway contract reward projection and conditional row omission.
 
-Indirect consumers, XP policy and broader audit contracts remain open.
+Generated contract ownership, XP policy and broader audit contracts remain open.
 
 ## Working on now
 
-Tracing indirect progression consumers and reward policy.
+Tracing contract authority and reward projection.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2223 publication record](CHECKPOINT-2223.json)
-- [Saved report for checkpoint 2223](PROGRESS-2223.md)
+- [Checkpoint 2224 publication record](CHECKPOINT-2224.json)
+- [Saved report for checkpoint 2224](PROGRESS-2224.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
