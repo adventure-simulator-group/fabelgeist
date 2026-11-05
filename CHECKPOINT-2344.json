@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2344,
+  "at": "2026-11-05T12:57:48.209964+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "52b8176b4620dde4d4287fd7c356e67b757220efa5f2498cf566e42066d2b548",
+    "verification": "968f92eb5093eddc03b2c67af5fa75c9930a5acfac10f60f6f600d10d83f6ee9",
+    "canonical_current": "7c28de4fb9df1aef437f66f53d8cd0ea5b662230c2b98652c94ec846b0094658"
+  },
+  "scope": {
+    "summary": "Traced facade job deduplication and compiled-cache reuse.",
+    "scope_limit": "Cache lifecycle, producer correspondence, error ownership and aliases remain open; no tests were run."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "6da5a3b5498c389d7573afebfbe77908c119d04de6dc062394759aa09283f396",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
