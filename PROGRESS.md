@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:26:20.141152+00:00
+Updated: 2026-11-05T15:28:34.701479+00:00
 
-Latest verified checkpoint: **2438**. Goal: **active**.
+Latest verified checkpoint: **2439**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced focused-city activation, failed-root cleanup and cached upload error
-ownership under Lens 12.
+Traced retry reuse of a resident city product after a cached upload error under
+Lens 12.
 
-Retry after cached error, malformed-product reachability and runtime cleanup
-remain open. No tests were run.
+Retry reuse is source-traced; ordinary failure reachability and runtime
+acceptance remain open. No tests were run.
 
 ## Working on now
 
-Trace city-product replacement and retry after a cached upload error.
+Qualify supported reflection failure and reconcile city-ground batch contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2438 publication record](CHECKPOINT-2438.json)
-- [Saved report for checkpoint 2438](PROGRESS-2438.md)
+- [Checkpoint 2439 publication record](CHECKPOINT-2439.json)
+- [Saved report for checkpoint 2439](PROGRESS-2439.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
