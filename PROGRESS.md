@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:28:49.166221+00:00
+Updated: 2026-11-05T17:54:18.927881+00:00
 
-Latest verified checkpoint: **2479**. Goal: **active**.
+Latest verified checkpoint: **2480**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped ground-grid wire admission discovery and recorded the connected
-repair.
+Traced signed and unsigned basis-point constructors, Serde derives and
+representative consumers.
 
-Urban geometry and bucket limits, scalar admission, repair and validation remain
-open. No tests were run.
+Native decoding, serialized consumers and alias reconciliation remain open. No
+tests were run.
 
 ## Working on now
 
-Continue remaining urban geometry and scalar admission obligations.
+Trace native schema decoding and basis-point consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2479 publication record](CHECKPOINT-2479.json)
-- [Saved report for checkpoint 2479](PROGRESS-2479.md)
+- [Checkpoint 2480 publication record](CHECKPOINT-2480.json)
+- [Saved report for checkpoint 2480](PROGRESS-2480.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
