@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:49:50.905346+00:00
+Updated: 2026-11-05T15:53:42.174069+00:00
 
-Latest verified checkpoint: **2451**. Goal: **active**.
+Latest verified checkpoint: **2452**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified existing source-test expectations for strategic and generic vista seam
-coverage under Lens 12.
+Reconciled current support-grade source and related same-lens geometry
+obligations.
 
-Nonzero-origin semantics and exact aliases remain open; test source was read but
-not executed.
+Further family reconciliation and generated reachability remain open; earlier
+restricted probes are historical, not post-repair validation.
 
 ## Working on now
 
-Reconcile supported nonzero-origin seam semantics and related vista-height
-obligations.
+Reconcile support-grade connected family and exact aliases before a source
+disposition.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2451 publication record](CHECKPOINT-2451.json)
-- [Saved report for checkpoint 2451](PROGRESS-2451.md)
+- [Checkpoint 2452 publication record](CHECKPOINT-2452.json)
+- [Saved report for checkpoint 2452](PROGRESS-2452.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
