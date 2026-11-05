@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:08:46.677058+00:00
+Updated: 2026-11-05T12:10:39.337423+00:00
 
-Latest verified checkpoint: **2309**. Goal: **active**.
+Latest verified checkpoint: **2310**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared art-demo and tactical app construction and failure observer
-installation.
+Authenticated pinned Bevy asset failure state and message handling.
 
-Native event behavior, indirect plugin interactions, asset provenance and
-aliases remain open; fixtures were not run.
+Indirect plugin interactions, asset provenance and aliases remain open; no
+failure was reproduced.
 
 ## Working on now
 
-Trace native asset failures and indirect art-demo plugin interactions.
+Trace indirect art-demo handlers and committed texture provenance.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2309 publication record](CHECKPOINT-2309.json)
-- [Saved report for checkpoint 2309](PROGRESS-2309.md)
+- [Checkpoint 2310 publication record](CHECKPOINT-2310.json)
+- [Saved report for checkpoint 2310](PROGRESS-2310.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
