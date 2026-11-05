@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T08:36:45.661258+00:00
+Updated: 2026-11-05T08:39:04.171645+00:00
 
-Latest verified checkpoint: **2226**. Goal: **active**.
+Latest verified checkpoint: **2227**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified contract projection privacy test and omission coverage.
+Traced case-site creation for two contract producers.
 
-Projection failure policy, XP policy and broader audit contracts remain open.
+Other lifecycle writers, XP policy and broader audit contracts remain open.
 
 ## Working on now
 
-Qualifying contract projection failure and privacy policy.
+Tracing contract and case-site lifecycle invariants.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2226 publication record](CHECKPOINT-2226.json)
-- [Saved report for checkpoint 2226](PROGRESS-2226.md)
+- [Checkpoint 2227 publication record](CHECKPOINT-2227.json)
+- [Saved report for checkpoint 2227](PROGRESS-2227.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
