@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:53:50.798425+00:00
+Updated: 2026-11-05T09:57:19.144098+00:00
 
-Latest verified checkpoint: **2253**. Goal: **active**.
+Latest verified checkpoint: **2254**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,14 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified checked duration, speed and fraction deserialization.
+Traced tactical configuration snapshots and viewer installation.
 
-Other aggregate consumers, native dependencies and broader contracts remain
-open.
+Other public consumers, transport details and broader contracts remain open.
 
 ## Working on now
 
-Tracing checked scalar configuration admissions.
+Tracing tactical configuration snapshot consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -212,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2253 publication record](CHECKPOINT-2253.json)
-- [Saved report for checkpoint 2253](PROGRESS-2253.md)
+- [Checkpoint 2254 publication record](CHECKPOINT-2254.json)
+- [Saved report for checkpoint 2254](PROGRESS-2254.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
