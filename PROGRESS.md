@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:38:48.434933+00:00
+Updated: 2026-11-05T09:42:36.535159+00:00
 
-Latest verified checkpoint: **2248**. Goal: **active**.
+Latest verified checkpoint: **2249**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced client and bot melee intents and reconnect state restoration.
+Traced authored combat configuration and build-time timing projection.
 
-Other event sources, component lifecycle and broader contracts remain open.
+Config authority, aggregate admission and broader contracts remain open.
 
 ## Working on now
 
-Tracing melee intent producers and reconnect restoration.
+Tracing authored combat configuration and generated timing inputs.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2248 publication record](CHECKPOINT-2248.json)
-- [Saved report for checkpoint 2248](PROGRESS-2248.md)
+- [Checkpoint 2249 publication record](CHECKPOINT-2249.json)
+- [Saved report for checkpoint 2249](PROGRESS-2249.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
