@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:36:05.732429+00:00
+Updated: 2026-11-05T00:37:39.720649+00:00
 
-Latest verified checkpoint: **2070**. Goal: **active**.
+Latest verified checkpoint: **2071**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded pattern and cloth admission repair acceptance.
+Traced character-creator resolution and generated pattern units.
 
-Full producer audit, implementation and runtime validation remain open.
+Reusable fitting inputs, geometry bounds, unit policy and runtime validation
+remain open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2070 publication record](CHECKPOINT-2070.json)
-- [Saved report for checkpoint 2070](PROGRESS-2070.md)
+- [Checkpoint 2071 publication record](CHECKPOINT-2071.json)
+- [Saved report for checkpoint 2071](PROGRESS-2071.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
