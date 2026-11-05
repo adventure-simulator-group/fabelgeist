@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T08:00:15.478260+00:00
+Updated: 2026-11-05T08:02:28.218988+00:00
 
-Latest verified checkpoint: **2212**. Goal: **active**.
+Latest verified checkpoint: **2213**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -13,7 +13,7 @@ Latest verified checkpoint: **2212**. Goal: **active**.
 | Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
 | Registered source ranges qualified, connected work open | 126 entries | Connected contracts remain open |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 18 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 19 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -43,7 +43,7 @@ Other request producers, consumers and exact aliases remain open.
 
 ## Working on now
 
-Qualifying destination-selection test scope and authority uniqueness.
+Recording distinct invalid and unmapped threat outcomes.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2212 publication record](CHECKPOINT-2212.json)
-- [Saved report for checkpoint 2212](PROGRESS-2212.md)
+- [Checkpoint 2213 publication record](CHECKPOINT-2213.json)
+- [Saved report for checkpoint 2213](PROGRESS-2213.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
