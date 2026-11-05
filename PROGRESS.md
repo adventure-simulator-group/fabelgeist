@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:17:20.563223+00:00
+Updated: 2026-11-05T03:18:42.930284+00:00
 
-Latest verified checkpoint: **2106**. Goal: **active**.
+Latest verified checkpoint: **2107**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reproduced negative viewport width with Chromium layout.
+Probed same-host recovery after rejected viewport.
 
-Full bridge recovery, native projection guarantees and aliases remain open.
+End-to-end bridge and remount recovery, native projection and aliases remain
+open.
 
 ## Working on now
 
@@ -203,8 +204,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2106 publication record](CHECKPOINT-2106.json)
-- [Saved report for checkpoint 2106](PROGRESS-2106.md)
+- [Checkpoint 2107 publication record](CHECKPOINT-2107.json)
+- [Saved report for checkpoint 2107](PROGRESS-2107.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
