@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:16:42.477998+00:00
+Updated: 2026-11-05T09:19:26.916547+00:00
 
-Latest verified checkpoint: **2240**. Goal: **active**.
+Latest verified checkpoint: **2241**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,14 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fresh mission binding and living roster capture.
+Qualified the complete cancellation reducer and claim lifecycle.
 
-Mixed-outcome reachability, group count reconciliation and broader contracts
-remain open.
+Native transaction semantics, concurrent ordering and broader contracts remain
+open.
 
 ## Working on now
 
-Tracing fresh mission binding and living roster capture.
+Reconciling mission cancellation and pending claims.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -212,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2240 publication record](CHECKPOINT-2240.json)
-- [Saved report for checkpoint 2240](PROGRESS-2240.md)
+- [Checkpoint 2241 publication record](CHECKPOINT-2241.json)
+- [Saved report for checkpoint 2241](PROGRESS-2241.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
