@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T05:54:32.495870+00:00
+Updated: 2026-11-05T05:56:25.729146+00:00
 
-Latest verified checkpoint: **2160**. Goal: **active**.
+Latest verified checkpoint: **2161**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,11 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced autoresolve report serialization into the generated subscribed table
-shape.
+Traced the authoritative public report table and mission existence check.
 
-Schema ownership, report consumers, reducer error conversion and exact aliases
-remain open.
+Other report consumers, reducer error conversion and exact aliases remain open.
 
 ## Working on now
 
@@ -207,8 +205,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2160 publication record](CHECKPOINT-2160.json)
-- [Saved report for checkpoint 2160](PROGRESS-2160.md)
+- [Checkpoint 2161 publication record](CHECKPOINT-2161.json)
+- [Saved report for checkpoint 2161](PROGRESS-2161.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
