@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:15:48.563752+00:00
+Updated: 2026-11-05T13:17:31.819799+00:00
 
-Latest verified checkpoint: **2356**. Goal: **active**.
+Latest verified checkpoint: **2357**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced extracted city dispatch preparation and scratch cache identity under Lens
-11.
+Traced city buffer creation, frame updates and pinned native buffer reuse under
+Lens 11.
 
-Buffer identity, cross-world ordering and failure behavior remain open; no tests
-were run.
+Asset identity, extraction timing and exceptional buffer replacement remain
+open; source tests were inspected but not run.
 
 ## Working on now
 
-Trace buffer creation, extraction ordering and scratch identity.
+Qualify asset ID allocation and render extraction ordering.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2356 publication record](CHECKPOINT-2356.json)
-- [Saved report for checkpoint 2356](PROGRESS-2356.md)
+- [Checkpoint 2357 publication record](CHECKPOINT-2357.json)
+- [Saved report for checkpoint 2357](PROGRESS-2357.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
