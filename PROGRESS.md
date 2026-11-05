@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:58:03.128906+00:00
+Updated: 2026-11-05T13:59:31.150125+00:00
 
-Latest verified checkpoint: **2382**. Goal: **active**.
+Latest verified checkpoint: **2383**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected initial server vista bundle to validated startup input under Lens 11.
+Traced retained server vista furniture updates under Lens 11.
 
-Later bundle mutations, client dispatch and aggregate capacity remain open; no
+Furniture generation, client dispatch and aggregate capacity remain open; no
 tests were run.
 
 ## Working on now
 
-Trace retained vista mutation and client event dispatch.
+Trace furniture generation and GPU prop grouping.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2382 publication record](CHECKPOINT-2382.json)
-- [Saved report for checkpoint 2382](PROGRESS-2382.md)
+- [Checkpoint 2383 publication record](CHECKPOINT-2383.json)
+- [Saved report for checkpoint 2383](PROGRESS-2383.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
