@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T07:50:10.359794+00:00
+Updated: 2026-11-05T07:52:56.173318+00:00
 
-Latest verified checkpoint: **2208**. Goal: **active**.
+Latest verified checkpoint: **2209**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,7 +43,7 @@ Other request producers, consumers and exact aliases remain open.
 
 ## Working on now
 
-Reconciling threat admission with existing private readmission owners.
+Tracing syntax-only threat constructor uses and open vocabularies.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2208 publication record](CHECKPOINT-2208.json)
-- [Saved report for checkpoint 2208](PROGRESS-2208.md)
+- [Checkpoint 2209 publication record](CHECKPOINT-2209.json)
+- [Saved report for checkpoint 2209](PROGRESS-2209.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
