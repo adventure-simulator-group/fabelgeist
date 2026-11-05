@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T12:12:02.713973+00:00
+Updated: 2026-11-05T12:13:35.340436+00:00
 
-Latest verified checkpoint: **2311**. Goal: **active**.
+Latest verified checkpoint: **2312**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced documented texture bake authoring and committed asset inventory.
+Compared existing texture failure and channel-admission ledger obligations.
 
-Committed bytes, indirect handlers, renderer behavior and aliases remain open;
-no bake or tests were run.
+Exact source attribution and cross-lens qualification remain open; no product
+tests were run.
 
 ## Working on now
 
-Reconcile committed texture byte provenance and indirect failure handlers.
+Qualify the exact relationship between Lens 3 admission entries and connect Lens
+11 failure evidence.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2311 publication record](CHECKPOINT-2311.json)
-- [Saved report for checkpoint 2311](PROGRESS-2311.md)
+- [Checkpoint 2312 publication record](CHECKPOINT-2312.json)
+- [Saved report for checkpoint 2312](PROGRESS-2312.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
