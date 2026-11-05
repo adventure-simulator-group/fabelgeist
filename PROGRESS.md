@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T00:14:36.078367+00:00
+Updated: 2026-11-05T00:16:17.972596+00:00
 
-Latest verified checkpoint: **2058**. Goal: **active**.
+Latest verified checkpoint: **2059**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,10 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced pipeline validation error and cache publication ordering.
+Reconciled cache callers and recorded per-entry validation policy.
 
-Actual multi-entry callers, cache error policy and runtime validation remain
-open.
+Public multi-entry policy, other callers and runtime validation remain open.
 
 ## Working on now
 
@@ -204,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2058 publication record](CHECKPOINT-2058.json)
-- [Saved report for checkpoint 2058](PROGRESS-2058.md)
+- [Checkpoint 2059 publication record](CHECKPOINT-2059.json)
+- [Saved report for checkpoint 2059](PROGRESS-2059.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
