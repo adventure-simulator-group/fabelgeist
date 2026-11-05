@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:58:12.242895+00:00
+Updated: 2026-11-05T15:59:25.743072+00:00
 
-Latest verified checkpoint: **2455**. Goal: **active**.
+Latest verified checkpoint: **2456**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced foundation prism admission, transport and volume arithmetic under Lens
-11.
+Identified a candidate finite prism overflow and scoped direct volume-method
+consumers.
 
-Admitted overflow reachability, volume consumers and exact aliases remain open.
-No tests were run.
+Candidate admission and exact aliases remain open. No tests were run.
 
 ## Working on now
 
-Trace admitted prism volume ranges and actual volume consumers.
+Qualify the finite-prism candidate and reconcile numerical aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2455 publication record](CHECKPOINT-2455.json)
-- [Saved report for checkpoint 2455](PROGRESS-2455.md)
+- [Checkpoint 2456 publication record](CHECKPOINT-2456.json)
+- [Saved report for checkpoint 2456](PROGRESS-2456.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
