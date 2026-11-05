@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:48:49.150590+00:00
+Updated: 2026-11-05T14:50:00.839312+00:00
 
-Latest verified checkpoint: **2415**. Goal: **active**.
+Latest verified checkpoint: **2416**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected furniture key lookup to the all-key collider coverage test under Lens
-12.
+Consolidated furniture ground, market and collider acceptance and related entry
+scopes under Lens 12.
 
-All successfully resolved keys are covered by the existing test source; the test
-was not run, and market policy remains open.
+Frozen vista scope, remaining consumers, public policy and runtime acceptance
+remain open. No tests were run.
 
 ## Working on now
 
-Reconcile furniture ground and market obligations; run all-key validation after
-the audit gate.
+Qualify frozen vista guard and remaining consumer scopes before reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2415 publication record](CHECKPOINT-2415.json)
-- [Saved report for checkpoint 2415](PROGRESS-2415.md)
+- [Checkpoint 2416 publication record](CHECKPOINT-2416.json)
+- [Saved report for checkpoint 2416](PROGRESS-2416.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
