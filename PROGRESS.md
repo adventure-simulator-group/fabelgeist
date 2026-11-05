@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T10:32:22.902367+00:00
+Updated: 2026-11-05T10:35:23.221206+00:00
 
-Latest verified checkpoint: **2265**. Goal: **active**.
+Latest verified checkpoint: **2266**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced serialized battle outcomes into the melee iteration tool.
+Traced battle trace errors and recovery-interval reporting.
 
-Diagnostic schema consumers, report retention and broader contracts remain open.
+Interval production, native serialization and broader contracts remain open.
 
 ## Working on now
 
-Tracing battle outcome serialization and diagnostic summaries.
+Tracing diagnostic recovery and serialization errors.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2265 publication record](CHECKPOINT-2265.json)
-- [Saved report for checkpoint 2265](PROGRESS-2265.md)
+- [Checkpoint 2266 publication record](CHECKPOINT-2266.json)
+- [Saved report for checkpoint 2266](PROGRESS-2266.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
