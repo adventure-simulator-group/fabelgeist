@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:39:38.225548+00:00
+Updated: 2026-11-05T15:41:41.328029+00:00
 
-Latest verified checkpoint: **2445**. Goal: **active**.
+Latest verified checkpoint: **2446**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned Bevy forward and deferred UV1 and color shader interface
-mappings under Lens 12.
+Corrected original city-ground and strategic seam-color scope using the
+historical Lens 12 receipt and current source.
 
-Decoded-batch policy, remaining connected scope and exact aliases remain open.
-No tests were run.
+Strategic seam caller and frames, decoded-batch policy and exact aliases remain
+open. No tests were run.
 
 ## Working on now
 
-Reconcile connected city-ground contracts and their decoded-product policy.
+Trace strategic seam caller and frames; reconcile connected city-ground
+contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2445 publication record](CHECKPOINT-2445.json)
-- [Saved report for checkpoint 2445](PROGRESS-2445.md)
+- [Checkpoint 2446 publication record](CHECKPOINT-2446.json)
+- [Saved report for checkpoint 2446](PROGRESS-2446.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
