@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T10:58:38.635599+00:00
+Updated: 2026-11-05T11:00:45.403738+00:00
 
-Latest verified checkpoint: **2275**. Goal: **active**.
+Latest verified checkpoint: **2276**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced AI configuration snapshot validation, cloning and digest serialization.
+Qualified locked YAML float and JSON nonfinite serialization paths.
 
-YAML and JSON float handling, mutation, other lenses and aliases remain open.
+Scalar admission, startup reachability, mutation and aliases remain open.
 
 ## Working on now
 
-Qualifying locked YAML and JSON float semantics for AI precision.
+Tracing YAML scalar admission and AI intent reachability.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2275 publication record](CHECKPOINT-2275.json)
-- [Saved report for checkpoint 2275](PROGRESS-2275.md)
+- [Checkpoint 2276 publication record](CHECKPOINT-2276.json)
+- [Saved report for checkpoint 2276](PROGRESS-2276.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
