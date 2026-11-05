@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T08:17:58.641337+00:00
+Updated: 2026-11-05T08:20:38.217071+00:00
 
-Latest verified checkpoint: **2219**. Goal: **active**.
+Latest verified checkpoint: **2220**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Checked live wiki and existing source tests for XP distribution policy.
+Traced character XP initialization, derived level and generated wire fields.
 
-XP rounding policy, other producers and broader audit contracts remain open.
+XP policy, indirect progression consumers and broader audit contracts remain
+open.
 
 ## Working on now
 
-Qualifying XP distribution policy and acceptance coverage.
+Tracing character progression invariant and generated boundary.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2219 publication record](CHECKPOINT-2219.json)
-- [Saved report for checkpoint 2219](PROGRESS-2219.md)
+- [Checkpoint 2220 publication record](CHECKPOINT-2220.json)
+- [Saved report for checkpoint 2220](PROGRESS-2220.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
