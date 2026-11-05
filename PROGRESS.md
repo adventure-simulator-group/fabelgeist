@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:30:13.485967+00:00
+Updated: 2026-11-05T15:31:59.660775+00:00
 
-Latest verified checkpoint: **2440**. Goal: **active**.
+Latest verified checkpoint: **2441**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected retry test coverage and specified native error-cache acceptance under
+Traced packed city-ground decoding and inspected product-reuse test source under
 Lens 12.
 
-Existing retry coverage is mocked; ordinary failure reachability and native
-acceptance remain open. No tests were run.
+Decoded batch policy, ordinary failure reachability and native acceptance remain
+open. No tests were run.
 
 ## Working on now
 
-Qualify supported reflection failure and native retry acceptance.
+Reconcile decoded city-ground attribute admission and failure policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2440 publication record](CHECKPOINT-2440.json)
-- [Saved report for checkpoint 2440](PROGRESS-2440.md)
+- [Checkpoint 2441 publication record](CHECKPOINT-2441.json)
+- [Saved report for checkpoint 2441](PROGRESS-2441.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
