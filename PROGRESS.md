@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:50:18.780266+00:00
+Updated: 2026-11-05T19:52:47.065265+00:00
 
-Latest verified checkpoint: **2530**. Goal: **active**.
+Latest verified checkpoint: **2531**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped IPv6 loopback host representation discovery and recorded
-connected repair.
+Qualified exact test-marker ordering in concatenated time source.
 
-No connection was attempted; implementation and tests remain open.
+Other callers and the historical production-after-marker claim remain open. No
+tests were run.
 
 ## Working on now
 
-Continue related source and policy reconciliation.
+Identify actual ordinary source caller and production-after-marker witness.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2530 publication record](CHECKPOINT-2530.json)
-- [Saved report for checkpoint 2530](PROGRESS-2530.md)
+- [Checkpoint 2531 publication record](CHECKPOINT-2531.json)
+- [Saved report for checkpoint 2531](PROGRESS-2531.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
