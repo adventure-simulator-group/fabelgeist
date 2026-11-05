@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T01:07:07.862302+00:00
+Updated: 2026-11-05T01:08:28.870448+00:00
 
-Latest verified checkpoint: **2088**. Goal: **active**.
+Latest verified checkpoint: **2089**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced bot combat-state query and exact removal spellings.
+Traced explicit lunge arrival and attack scheduling outcomes.
 
-Indirect mutations, other producers, update ordering and aliases remain open.
+Contact outcomes, precision, replication ordering and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2088 publication record](CHECKPOINT-2088.json)
-- [Saved report for checkpoint 2088](PROGRESS-2088.md)
+- [Checkpoint 2089 publication record](CHECKPOINT-2089.json)
+- [Saved report for checkpoint 2089](PROGRESS-2089.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
