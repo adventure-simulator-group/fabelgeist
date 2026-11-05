@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2316,
+  "at": "2026-11-05T12:18:05.767714+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "2997689d7650625906fd97c41791f04c24bcef0859b46b2a01c809cf860dfce7",
+    "verification": "0b200a410d67523de2009fc37fb42b32d149ee7500392840f87cad02ceebbc1b",
+    "canonical_current": "28dca1ed67c9f9dadfd01446678c41838524c9120dd75b888fd7649517a158fc"
+  },
+  "scope": {
+    "summary": "Traced texture request caching and tactical retry action against pinned Bevy load state.",
+    "scope_limit": "Indirect client lifecycle, event timing and retry policy remain open; no retry was executed."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "bb7e6427f0acee4fbf90ffff2ea67e5a4614b806d05ef527dab7560fb1d7abd1",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
