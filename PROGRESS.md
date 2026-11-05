@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:22:23.967514+00:00
+Updated: 2026-11-05T19:24:04.997532+00:00
 
-Latest verified checkpoint: **2516**. Goal: **active**.
+Latest verified checkpoint: **2517**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped cumulative daily-share arithmetic discovery through settlement
-rest.
+Traced unchecked travel point fields into panic-prone world validation.
 
-Ordinary gameplay impact is unproven; final overflow policy, repair and tests
-remain open.
+Native wire admission and aggregate callers remain open. No tests were run.
 
 ## Working on now
 
-Continue travel geometry coordinate admission and wire contracts.
+Trace travel geometry aggregate decoding and native wire boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2516 publication record](CHECKPOINT-2516.json)
-- [Saved report for checkpoint 2516](PROGRESS-2516.md)
+- [Checkpoint 2517 publication record](CHECKPOINT-2517.json)
+- [Saved report for checkpoint 2517](PROGRESS-2517.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
