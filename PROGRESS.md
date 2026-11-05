@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T14:00:59.114530+00:00
+Updated: 2026-11-05T14:03:01.064390+00:00
 
-Latest verified checkpoint: **2384**. Goal: **active**.
+Latest verified checkpoint: **2385**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced outdoor vista furniture into scene GPU packing under Lens 11.
+Qualified building-frontage and market candidate loop limits under Lens 11.
 
-Furniture recipe and group bounds, timing and aggregate capacity remain open; no
-tests were run.
+Candidate items, recipe meshes and aggregate capacity remain open; no tests were
+run.
 
 ## Working on now
 
-Qualify furniture generation and per-key recipe bounds.
+Qualify candidate item and furniture recipe bounds.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2384 publication record](CHECKPOINT-2384.json)
-- [Saved report for checkpoint 2384](PROGRESS-2384.md)
+- [Checkpoint 2385 publication record](CHECKPOINT-2385.json)
+- [Saved report for checkpoint 2385](PROGRESS-2385.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
