@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T17:56:37.040920+00:00
+Updated: 2026-11-05T17:58:37.938994+00:00
 
-Latest verified checkpoint: **2481**. Goal: **active**.
+Latest verified checkpoint: **2482**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped unit basis-point Serde and native derive admission discovery.
+Traced vista local-to-scene conversion and playable seam sampling.
 
-Actual persisted exposure, related schema contracts, repair and validation
+Origin admission, mesh and support consumers and tree-frame reconciliation
 remain open. No tests were run.
 
 ## Working on now
 
-Continue remaining schema and numeric admission obligations.
+Trace vista origin admission and mesh, support and tree consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2481 publication record](CHECKPOINT-2481.json)
-- [Saved report for checkpoint 2481](PROGRESS-2481.md)
+- [Checkpoint 2482 publication record](CHECKPOINT-2482.json)
+- [Saved report for checkpoint 2482](PROGRESS-2482.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
