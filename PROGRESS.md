@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:53:42.174069+00:00
+Updated: 2026-11-05T15:54:54.193981+00:00
 
-Latest verified checkpoint: **2452**. Goal: **active**.
+Latest verified checkpoint: **2453**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled current support-grade source and related same-lens geometry
-obligations.
+Traced support-grade surface admission, apron consumption and compact projection
+bindings.
 
-Further family reconciliation and generated reachability remain open; earlier
-restricted probes are historical, not post-repair validation.
+Exact aliases, supported-input policy and generated reachability remain open;
+earlier restricted probes are historical only.
 
 ## Working on now
 
-Reconcile support-grade connected family and exact aliases before a source
+Reconcile support-grade numeric leaf and broader geometry family for a source
 disposition.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2452 publication record](CHECKPOINT-2452.json)
-- [Saved report for checkpoint 2452](PROGRESS-2452.md)
+- [Checkpoint 2453 publication record](CHECKPOINT-2453.json)
+- [Saved report for checkpoint 2453](PROGRESS-2453.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
