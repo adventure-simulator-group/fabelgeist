@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:23:36.524230+00:00
+Updated: 2026-11-05T20:25:21.764208+00:00
 
-Latest verified checkpoint: **2547**. Goal: **active**.
+Latest verified checkpoint: **2548**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced freeform room removal and heating room lookup diagnostics.
+Traced generated plan heating orchestration and editor audit gate.
 
-Heating entry paths, admission, other consumers, aliases and repair remain open.
+Freeform admission, other consumers, aliases and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2547 publication record](CHECKPOINT-2547.json)
-- [Saved report for checkpoint 2547](PROGRESS-2547.md)
+- [Checkpoint 2548 publication record](CHECKPOINT-2548.json)
+- [Saved report for checkpoint 2548](PROGRESS-2548.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
