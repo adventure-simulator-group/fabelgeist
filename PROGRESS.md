@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:03:39.598140+00:00
+Updated: 2026-11-05T09:06:32.107368+00:00
 
-Latest verified checkpoint: **2235**. Goal: **active**.
+Latest verified checkpoint: **2236**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced report schema, web consumers and tactical resolution guard.
+Traced allied combat input and strategic consequence persistence.
 
-Report identity, query failures and broader audit contracts remain open.
+Failure cleanup, death transitions and broader audit contracts remain open.
 
 ## Working on now
 
-Tracing the autoresolve report consumers.
+Tracing combat outcome persistence and corpse ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2235 publication record](CHECKPOINT-2235.json)
-- [Saved report for checkpoint 2235](PROGRESS-2235.md)
+- [Checkpoint 2236 publication record](CHECKPOINT-2236.json)
+- [Saved report for checkpoint 2236](PROGRESS-2236.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
