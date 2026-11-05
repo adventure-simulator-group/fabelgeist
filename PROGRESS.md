@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:20:19.218454+00:00
+Updated: 2026-11-05T13:21:41.309290+00:00
 
-Latest verified checkpoint: **2359**. Goal: **active**.
+Latest verified checkpoint: **2360**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Excluded byte-limiter deferral for pinned city shader buffers under Lens 11.
+Qualified render-asset ordering and recovery re-extraction under Lens 11.
 
-Device recovery, extraction timing and other replacement paths remain open; no
-tests were run.
+City scratch reset and actual device recovery behavior remain open; no tests
+were run.
 
 ## Working on now
 
-Qualify render scheduling and device recovery for cached bindings.
+Trace device recovery and city scratch reset.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2359 publication record](CHECKPOINT-2359.json)
-- [Saved report for checkpoint 2359](PROGRESS-2359.md)
+- [Checkpoint 2360 publication record](CHECKPOINT-2360.json)
+- [Saved report for checkpoint 2360](PROGRESS-2360.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
