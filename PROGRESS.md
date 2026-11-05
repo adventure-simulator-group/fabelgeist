@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T11:08:04.738791+00:00
+Updated: 2026-11-05T11:09:32.246672+00:00
 
-Latest verified checkpoint: **2280**. Goal: **active**.
+Latest verified checkpoint: **2281**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,7 +37,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Read the previously unassessed animation evaluation range under Lens 11.
+Read the previously unassessed terrain foot-clearance range under Lens 11.
 
 Connected producers, consumers, aliases and other lenses remain open; fixtures
 were not run.
@@ -212,8 +212,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2280 publication record](CHECKPOINT-2280.json)
-- [Saved report for checkpoint 2280](PROGRESS-2280.md)
+- [Checkpoint 2281 publication record](CHECKPOINT-2281.json)
+- [Saved report for checkpoint 2281](PROGRESS-2281.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
