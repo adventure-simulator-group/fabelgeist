@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T13:14:26.412056+00:00
+Updated: 2026-11-05T13:15:48.563752+00:00
 
-Latest verified checkpoint: **2355**. Goal: **active**.
+Latest verified checkpoint: **2356**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Authenticated pinned Bevy pipeline states and resource extraction under Lens 11.
+Traced extracted city dispatch preparation and scratch cache identity under Lens
+11.
 
-Candidate generation identity and actual permanent-failure behavior remain open;
-no tests were run.
+Buffer identity, cross-world ordering and failure behavior remain open; no tests
+were run.
 
 ## Working on now
 
-Qualify candidate generation identity across extraction and cull.
+Trace buffer creation, extraction ordering and scratch identity.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2355 publication record](CHECKPOINT-2355.json)
-- [Saved report for checkpoint 2355](PROGRESS-2355.md)
+- [Checkpoint 2356 publication record](CHECKPOINT-2356.json)
+- [Saved report for checkpoint 2356](PROGRESS-2356.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
