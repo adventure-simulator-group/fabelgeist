@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T09:21:50.537128+00:00
+Updated: 2026-11-05T09:24:21.929522+00:00
 
-Latest verified checkpoint: **2242**. Goal: **active**.
+Latest verified checkpoint: **2243**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,13 +37,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified documented reducer rollback for mission cancellation.
+Traced mission identity admission and web cancellation handling.
 
-Concurrent ordering, runtime verification and broader contracts remain open.
+Identity deserialization, action feedback and broader contracts remain open.
 
 ## Working on now
 
-Checking cancellation against the locked reducer transaction contract.
+Tracing mission ID and cancellation presentation boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -211,8 +211,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2242 publication record](CHECKPOINT-2242.json)
-- [Saved report for checkpoint 2242](PROGRESS-2242.md)
+- [Checkpoint 2243 publication record](CHECKPOINT-2243.json)
+- [Saved report for checkpoint 2243](PROGRESS-2243.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
