@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T19:42:33.258618+00:00
+Updated: 2026-11-05T19:45:21.909015+00:00
 
-Latest verified checkpoint: **2527**. Goal: **active**.
+Latest verified checkpoint: **2528**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Completed scoped plate hole and bevel discovery with pinned triangulator
-conflict behavior.
+Traced permissive unit enum payload decoding and typed equipment construction.
 
-Native execution, closed-facet policy, implementation and tests remain open.
+Actual JSON consumers and native unit representation remain open. No tests were
+run.
 
 ## Working on now
 
-Continue remaining connected audit obligations.
+Trace presentation DTO deserialization and native unit representation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2527 publication record](CHECKPOINT-2527.json)
-- [Saved report for checkpoint 2527](PROGRESS-2527.md)
+- [Checkpoint 2528 publication record](CHECKPOINT-2528.json)
+- [Saved report for checkpoint 2528](PROGRESS-2528.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
