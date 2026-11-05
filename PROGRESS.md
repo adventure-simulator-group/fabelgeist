@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T15:54:54.193981+00:00
+Updated: 2026-11-05T15:56:25.462822+00:00
 
-Latest verified checkpoint: **2453**. Goal: **active**.
+Latest verified checkpoint: **2454**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2453**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 454 / 3,849 marked | 3,395 other entries |
+| Queue entries explicitly marked source-discovery closed | 455 / 3,849 marked | 3,394 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced support-grade surface admission, apron consumption and compact projection
-bindings.
+Documented the support-grade numerical finding and closed its scoped source
+discovery; broader connected work remains open.
 
-Exact aliases, supported-input policy and generated reachability remain open;
-earlier restricted probes are historical only.
+Repair, post-audit validation, broader planar discovery and generated
+reachability remain open; earlier restricted probes are historical only.
 
 ## Working on now
 
-Reconcile support-grade numeric leaf and broader geometry family for a source
-disposition.
+Continue the broader planar-layout discovery and remaining audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2453 publication record](CHECKPOINT-2453.json)
-- [Saved report for checkpoint 2453](PROGRESS-2453.md)
+- [Checkpoint 2454 publication record](CHECKPOINT-2454.json)
+- [Saved report for checkpoint 2454](PROGRESS-2454.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
