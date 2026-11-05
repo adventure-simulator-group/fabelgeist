@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T03:36:30.400056+00:00
+Updated: 2026-11-05T03:37:59.910335+00:00
 
-Latest verified checkpoint: **2119**. Goal: **active**.
+Latest verified checkpoint: **2120**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -37,9 +37,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced current armor and clothing UV producers into compaction.
+Traced garment and hair UV sources and writer fallback.
 
-Garment and hair producers, native glTF acceptance and aliases remain open.
+Public surface-only output, native glTF acceptance and aliases remain open.
 
 ## Working on now
 
@@ -203,8 +203,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2119 publication record](CHECKPOINT-2119.json)
-- [Saved report for checkpoint 2119](PROGRESS-2119.md)
+- [Checkpoint 2120 publication record](CHECKPOINT-2120.json)
+- [Saved report for checkpoint 2120](PROGRESS-2120.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
