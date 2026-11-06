@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:34:46.273380+00:00
+Updated: 2026-11-06T08:38:10.148066+00:00
 
-Latest verified checkpoint: **2768**. Goal: **active**.
+Latest verified checkpoint: **2769**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled market geometry with its existing repair owner.
+Qualified transition mesh triangle cardinality.
 
-No complete malformed scene or runtime effect was demonstrated.
+Finite coordinates, index bounds and native acceptance remain open.
 
 ## Working on now
 
-Continue scene geometry and terrain contract reconciliation.
+Continue transition terrain admission and native mesh reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2768 publication record](CHECKPOINT-2768.json)
-- [Saved report for checkpoint 2768](PROGRESS-2768.md)
+- [Checkpoint 2769 publication record](CHECKPOINT-2769.json)
+- [Saved report for checkpoint 2769](PROGRESS-2769.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
