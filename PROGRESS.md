@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T19:24:44.955679+00:00
+Updated: 2026-11-06T19:31:14.544387+00:00
 
-Latest verified checkpoint: **3004**. Goal: **active**.
+Latest verified checkpoint: **3005**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified flat terrain and modeled triangle admission for rounded vista cells.
+Located modeled adjacent-cell overlap outside the playable footprint.
 
-Full scene execution, tolerance policy and gameplay reachability remain open.
+Full scene execution, tolerance effects and gameplay reachability remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3004 publication record](CHECKPOINT-3004.json)
-- [Saved report for checkpoint 3004](PROGRESS-3004.md)
+- [Checkpoint 3005 publication record](CHECKPOINT-3005.json)
+- [Saved report for checkpoint 3005](PROGRESS-3005.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
