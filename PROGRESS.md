@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:59:53.324898+00:00
+Updated: 2026-11-06T10:02:40.975365+00:00
 
-Latest verified checkpoint: **2799**. Goal: **active**.
+Latest verified checkpoint: **2800**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced mapped geology windows into tactical recipes.
+Traced geology windows through terrain-pack admission.
 
-Package provenance and the full projected footprint remain unproven.
+Per-recipe binding and exact projected coverage remain policy questions.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2799 publication record](CHECKPOINT-2799.json)
-- [Saved report for checkpoint 2799](PROGRESS-2799.md)
+- [Checkpoint 2800 publication record](CHECKPOINT-2800.json)
+- [Saved report for checkpoint 2800](PROGRESS-2800.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
