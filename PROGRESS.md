@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:12:13.921309+00:00
+Updated: 2026-11-06T05:14:13.796648+00:00
 
-Latest verified checkpoint: **2696**. Goal: **active**.
+Latest verified checkpoint: **2697**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded conditional parish and home population coherence.
+Traced typed imported source and fixture identity boundaries.
 
-Parish completeness policy, mission binding and runtime validation remain open.
+Tactical source binding, alias reconciliation and runtime validation remain
+open.
 
 ## Working on now
 
-Continue mission-to-scene authority binding and connected audit obligations.
+Continue source digest provenance and mission binding obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2696 publication record](CHECKPOINT-2696.json)
-- [Saved report for checkpoint 2696](PROGRESS-2696.md)
+- [Checkpoint 2697 publication record](CHECKPOINT-2697.json)
+- [Saved report for checkpoint 2697](PROGRESS-2697.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
