@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T19:01:21.759824+00:00
+Updated: 2026-11-06T19:06:11.701079+00:00
 
-Latest verified checkpoint: **2999**. Goal: **active**.
+Latest verified checkpoint: **3000**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced source overlap-gap cancellation into report coverage flags.
+Qualified polygon and index admission for the coverage counterexample.
 
-Producer reachability, coverage ownership and runtime verification remain open.
+Clipping execution, coverage ownership and generated-source reachability remain
+open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2999 publication record](CHECKPOINT-2999.json)
-- [Saved report for checkpoint 2999](PROGRESS-2999.md)
+- [Checkpoint 3000 publication record](CHECKPOINT-3000.json)
+- [Saved report for checkpoint 3000](PROGRESS-3000.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
