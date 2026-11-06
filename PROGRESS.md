@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:53:16.321855+00:00
+Updated: 2026-11-06T07:57:31.049677+00:00
 
-Latest verified checkpoint: **2753**. Goal: **active**.
+Latest verified checkpoint: **2754**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the oak review terminal-shoot selection invariant.
+Qualified rock material, shader and observer wiring.
 
-Geometry, render validation and the rest of the parent contract remain open.
+Observer timing, asset residency, GPU behavior and the rest of the parent
+contract remain open.
 
 ## Working on now
 
-Continue rock material, observer and oak presentation reconciliation.
+Continue observer timing and native presentation reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2753 publication record](CHECKPOINT-2753.json)
-- [Saved report for checkpoint 2753](PROGRESS-2753.md)
+- [Checkpoint 2754 publication record](CHECKPOINT-2754.json)
+- [Saved report for checkpoint 2754](PROGRESS-2754.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
