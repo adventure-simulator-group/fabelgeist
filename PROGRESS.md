@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:01:40.553481+00:00
+Updated: 2026-11-06T03:03:07.376451+00:00
 
-Latest verified checkpoint: **2636**. Goal: **active**.
+Latest verified checkpoint: **2637**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,10 +10,10 @@ Latest verified checkpoint: **2636**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 509 / 3,849 marked | 3,340 other entries |
+| Queue entries explicitly marked source-discovery closed | 510 / 3,849 marked | 3,339 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
-| Entries with explicit repair status | 424 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 425 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 26 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared CPU field allocation with later GPU selection bounds.
+Closed scoped interior-field plan and grid admission discovery.
 
-Resource and omission policy, aliases and validation remain open.
+Producer guarantees, GPU residency, aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2636 publication record](CHECKPOINT-2636.json)
-- [Saved report for checkpoint 2636](PROGRESS-2636.md)
+- [Checkpoint 2637 publication record](CHECKPOINT-2637.json)
+- [Saved report for checkpoint 2637](PROGRESS-2637.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
