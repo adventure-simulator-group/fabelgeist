@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:23:09.379408+00:00
+Updated: 2026-11-06T04:25:50.985742+00:00
 
-Latest verified checkpoint: **2676**. Goal: **active**.
+Latest verified checkpoint: **2677**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified garden projection and missing-support classifications.
+Recorded contextual garden support failure classification repair.
 
-Numeric support admission, public decoded gardens and validation remain open.
+Shared support owner, decoded gardens, implementation and validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2676 publication record](CHECKPOINT-2676.json)
-- [Saved report for checkpoint 2676](PROGRESS-2676.md)
+- [Checkpoint 2677 publication record](CHECKPOINT-2677.json)
+- [Saved report for checkpoint 2677](PROGRESS-2677.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
