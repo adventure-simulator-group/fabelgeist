@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:17:30.413455+00:00
+Updated: 2026-11-06T09:19:59.035892+00:00
 
-Latest verified checkpoint: **2785**. Goal: **active**.
+Latest verified checkpoint: **2786**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared admitted fault grid limits with the authored fixture.
+Traced fixture validation separately from landform extraction.
 
-The maximum-size recipe was not executed as a complete scene.
+An upper-bound scene and its extraction have not been executed.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2785 publication record](CHECKPOINT-2785.json)
-- [Saved report for checkpoint 2785](PROGRESS-2785.md)
+- [Checkpoint 2786 publication record](CHECKPOINT-2786.json)
+- [Saved report for checkpoint 2786](PROGRESS-2786.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
