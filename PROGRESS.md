@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:21:31.769212+00:00
+Updated: 2026-11-06T02:23:52.204093+00:00
 
-Latest verified checkpoint: **2616**. Goal: **active**.
+Latest verified checkpoint: **2617**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified current window pose and shutter-light sample update.
+Traced shutter association, GPU field upload and shader indexing.
 
-Lighting producer, shader, aliases and runtime validation remain open.
+Association ambiguity, native buffers, aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2616 publication record](CHECKPOINT-2616.json)
-- [Saved report for checkpoint 2616](PROGRESS-2616.md)
+- [Checkpoint 2617 publication record](CHECKPOINT-2617.json)
+- [Saved report for checkpoint 2617](PROGRESS-2617.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
