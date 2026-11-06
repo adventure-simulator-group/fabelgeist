@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:48:18.557000+00:00
+Updated: 2026-11-06T11:50:50.076595+00:00
 
-Latest verified checkpoint: **2846**. Goal: **active**.
+Latest verified checkpoint: **2847**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2846**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 563 / 3,849 marked | 3,286 other entries |
+| Queue entries explicitly marked source-discovery closed | 564 / 3,849 marked | 3,285 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected building report representation to its existing repair owner.
+Connected imported vista origin and seam calculations to the existing frame
+repair.
 
-Existing repair remains pending until the full audit gate.
+Zero-origin imported production is not evidence of an ordinary shifted-ring
+failure.
 
 ## Working on now
 
@@ -214,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2846 publication record](CHECKPOINT-2846.json)
-- [Saved report for checkpoint 2846](PROGRESS-2846.md)
+- [Checkpoint 2847 publication record](CHECKPOINT-2847.json)
+- [Saved report for checkpoint 2847](PROGRESS-2847.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
