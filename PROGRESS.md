@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:05:00.502738+00:00
+Updated: 2026-11-06T15:07:16.636050+00:00
 
-Latest verified checkpoint: **2935**. Goal: **active**.
+Latest verified checkpoint: **2936**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified canonical geographic source and broad-phase candidate order.
+Traced owned-query bounds expansion and represented-point ownership.
 
-Extreme query reachability and native acceptance remain open.
+Harmful extreme-query reachability and native acceptance remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2935 publication record](CHECKPOINT-2935.json)
-- [Saved report for checkpoint 2935](PROGRESS-2935.md)
+- [Checkpoint 2936 publication record](CHECKPOINT-2936.json)
+- [Saved report for checkpoint 2936](PROGRESS-2936.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
