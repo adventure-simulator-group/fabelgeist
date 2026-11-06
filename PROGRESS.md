@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:44:38.583630+00:00
+Updated: 2026-11-06T07:48:40.987624+00:00
 
-Latest verified checkpoint: **2750**. Goal: **active**.
+Latest verified checkpoint: **2751**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded rock recipe geometry admission question.
+Traced generated rock replication and native sphere constructor.
 
-No invalid generated or replicated rock was demonstrated; native and admission
-tracing remain open.
+No invalid live recipe or downstream zero-radius collision behavior was
+demonstrated.
 
 ## Working on now
 
-Continue rock recipe producer and native collision reconciliation.
+Continue rock recipe admission and connected contract reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2750 publication record](CHECKPOINT-2750.json)
-- [Saved report for checkpoint 2750](PROGRESS-2750.md)
+- [Checkpoint 2751 publication record](CHECKPOINT-2751.json)
+- [Saved report for checkpoint 2751](PROGRESS-2751.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
