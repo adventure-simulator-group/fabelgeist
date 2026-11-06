@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:14:44.449172+00:00
+Updated: 2026-11-06T11:17:15.491835+00:00
 
-Latest verified checkpoint: **2830**. Goal: **active**.
+Latest verified checkpoint: **2831**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,11 +10,11 @@ Latest verified checkpoint: **2830**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 558 / 3,849 marked | 3,291 other entries |
+| Queue entries explicitly marked source-discovery closed | 559 / 3,849 marked | 3,290 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 60 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 61 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced prepared capture producer, metadata writer and support reader.
+Identified default-versus-runtime walking-limit provenance in the garden report.
 
-No ordinary isolation capture or misleading normal-run report is demonstrated.
+A non-default runtime report has not been executed.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2830 publication record](CHECKPOINT-2830.json)
-- [Saved report for checkpoint 2830](PROGRESS-2830.md)
+- [Checkpoint 2831 publication record](CHECKPOINT-2831.json)
+- [Saved report for checkpoint 2831](PROGRESS-2831.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
