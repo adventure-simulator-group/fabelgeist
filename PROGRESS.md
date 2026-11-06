@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:04:24.209927+00:00
+Updated: 2026-11-06T01:05:52.957282+00:00
 
-Latest verified checkpoint: **2572**. Goal: **active**.
+Latest verified checkpoint: **2573**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a scoped tower wall-dimension admission repair.
+Traced wall-frame point and direction admission and apse audit gap.
 
-Shell policy, collision behavior, runtime validation and repair remain open.
+Frame constructors, basis policy, aliases and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2572 publication record](CHECKPOINT-2572.json)
-- [Saved report for checkpoint 2572](PROGRESS-2572.md)
+- [Checkpoint 2573 publication record](CHECKPOINT-2573.json)
+- [Saved report for checkpoint 2573](PROGRESS-2573.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
