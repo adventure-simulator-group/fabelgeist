@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T22:59:58.421033+00:00
+Updated: 2026-11-06T23:06:11.375022+00:00
 
-Latest verified checkpoint: **3043**. Goal: **active**.
+Latest verified checkpoint: **3044**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3043**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 569 / 3,850 marked | 3,281 other entries |
+| Queue entries explicitly marked source-discovery closed | 570 / 3,850 marked | 3,280 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 440 recorded | Implementation gate not yet passed |
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Confirmed the module has no source-declared case-policy override.
+Resolved the unit-result route-retention question and documented return-leg
+policy.
 
-The coordinate mismatch suspicion is not supported for the normal policy; alias
-and return-leg checks remain open.
+Return-leg policy remains undecided; broader audit, implementation and runtime
+validation remain open.
 
 ## Working on now
 
-Reconcile coordinate and route aliases; resolve the return-leg policy before
+Continue the remaining audit; resolve the return-leg policy before
 implementation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3043 publication record](CHECKPOINT-3043.json)
-- [Saved report for checkpoint 3043](PROGRESS-3043.md)
+- [Checkpoint 3044 publication record](CHECKPOINT-3044.json)
+- [Saved report for checkpoint 3044](PROGRESS-3044.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
