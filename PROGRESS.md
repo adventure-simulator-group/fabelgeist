@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:48:32.532387+00:00
+Updated: 2026-11-06T06:50:10.232096+00:00
 
-Latest verified checkpoint: **2732**. Goal: **active**.
+Latest verified checkpoint: **2733**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Bounded small-church wall and artillery station opening IDs.
+Bounded church schedule and portal opening IDs.
 
-Other church, roof and tower paths, supplied plans and runtime validation remain
-open.
+Roof and tower paths, supplied plans and runtime validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2732 publication record](CHECKPOINT-2732.json)
-- [Saved report for checkpoint 2732](PROGRESS-2732.md)
+- [Checkpoint 2733 publication record](CHECKPOINT-2733.json)
+- [Saved report for checkpoint 2733](PROGRESS-2733.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
