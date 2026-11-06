@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:43:14.449011+00:00
+Updated: 2026-11-06T10:46:00.155282+00:00
 
-Latest verified checkpoint: **2816**. Goal: **active**.
+Latest verified checkpoint: **2817**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced direct input rejection paths and the fixed-update network consumer.
+Traced local combat consumption and reflected elapsed admission after input
+rejection.
 
-Overflow reachability and failure policy remain open.
+Scheduler behavior, diagnostic reachability and failure policy remain open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2816 publication record](CHECKPOINT-2816.json)
-- [Saved report for checkpoint 2816](PROGRESS-2816.md)
+- [Checkpoint 2817 publication record](CHECKPOINT-2817.json)
+- [Saved report for checkpoint 2817](PROGRESS-2817.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
