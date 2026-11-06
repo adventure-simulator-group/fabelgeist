@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:18:19.563576+00:00
+Updated: 2026-11-06T02:21:31.769212+00:00
 
-Latest verified checkpoint: **2615**. Goal: **active**.
+Latest verified checkpoint: **2616**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped opening-dimension discovery with owned repair.
+Qualified current window pose and shutter-light sample update.
 
-Profile and artillery policy, broader aliases, implementation and validation
-remain open.
+Lighting producer, shader, aliases and runtime validation remain open.
 
 ## Working on now
 
-Continue remaining strategic and geometry audit obligations.
+Continue window-lighting and remaining cross-lens audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2615 publication record](CHECKPOINT-2615.json)
-- [Saved report for checkpoint 2615](PROGRESS-2615.md)
+- [Checkpoint 2616 publication record](CHECKPOINT-2616.json)
+- [Saved report for checkpoint 2616](PROGRESS-2616.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
