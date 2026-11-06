@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:00:18.745490+00:00
+Updated: 2026-11-06T06:02:16.052824+00:00
 
-Latest verified checkpoint: **2716**. Goal: **active**.
+Latest verified checkpoint: **2717**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2716**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 527 / 3,849 marked | 3,322 other entries |
+| Queue entries explicitly marked source-discovery closed | 528 / 3,849 marked | 3,321 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Derived a finite-height sampled overflow witness.
+Reconciled sampled heightfield entry to its existing repair owners.
 
-Witness reproduction, derived scene ranges and runtime validation remain open.
+Existing support and refinement repairs, other lenses and runtime validation
+remain open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2716 publication record](CHECKPOINT-2716.json)
-- [Saved report for checkpoint 2716](PROGRESS-2716.md)
+- [Checkpoint 2717 publication record](CHECKPOINT-2717.json)
+- [Saved report for checkpoint 2717](PROGRESS-2717.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
