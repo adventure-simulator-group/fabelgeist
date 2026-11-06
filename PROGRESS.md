@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:50:44.754155+00:00
+Updated: 2026-11-06T07:53:16.321855+00:00
 
-Latest verified checkpoint: **2752**. Goal: **active**.
+Latest verified checkpoint: **2753**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed rock recipe source discovery with a conditional admission policy.
+Qualified the oak review terminal-shoot selection invariant.
 
-Entry 1329 retains broader rock and oak concerns; no invalid live recipe or
-downstream zero-radius physics outcome was demonstrated.
+Geometry, render validation and the rest of the parent contract remain open.
 
 ## Working on now
 
-Continue remaining connected source and alias reconciliation.
+Continue rock material, observer and oak presentation reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2752 publication record](CHECKPOINT-2752.json)
-- [Saved report for checkpoint 2752](PROGRESS-2752.md)
+- [Checkpoint 2753 publication record](CHECKPOINT-2753.json)
+- [Saved report for checkpoint 2753](PROGRESS-2753.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
