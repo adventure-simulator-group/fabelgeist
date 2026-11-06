@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T18:51:36.640010+00:00
+Updated: 2026-11-06T18:56:37.193395+00:00
 
-Latest verified checkpoint: **2997**. Goal: **active**.
+Latest verified checkpoint: **2998**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced compound and single-building approach grade consumers.
+Traced geographic coverage measurements and report flags.
 
-Generated reachability, native consumers and runtime verification remain open.
+Overlap policy, other consumers and runtime verification remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2997 publication record](CHECKPOINT-2997.json)
-- [Saved report for checkpoint 2997](PROGRESS-2997.md)
+- [Checkpoint 2998 publication record](CHECKPOINT-2998.json)
+- [Saved report for checkpoint 2998](PROGRESS-2998.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
