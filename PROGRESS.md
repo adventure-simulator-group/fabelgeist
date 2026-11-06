@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:28:38.768610+00:00
+Updated: 2026-11-06T13:30:54.309460+00:00
 
-Latest verified checkpoint: **2893**. Goal: **active**.
+Latest verified checkpoint: **2894**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified positive-length decoding and terrain refinement relief limits.
+Traced upsampling, microrelief and finite grade-repair publication.
 
-Grade repair, earlier preparation and actual report overflow remain open.
+Exact grade range and actual report overflow remain open.
 
 ## Working on now
 
-Trace grade repair and earlier terrain preparation bounds.
+Qualify grade projection range and generated building heights.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2893 publication record](CHECKPOINT-2893.json)
-- [Saved report for checkpoint 2893](PROGRESS-2893.md)
+- [Checkpoint 2894 publication record](CHECKPOINT-2894.json)
+- [Saved report for checkpoint 2894](PROGRESS-2894.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
