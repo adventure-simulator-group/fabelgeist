@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:49:09.207682+00:00
+Updated: 2026-11-06T03:50:35.245987+00:00
 
-Latest verified checkpoint: **2660**. Goal: **active**.
+Latest verified checkpoint: **2661**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,10 +10,10 @@ Latest verified checkpoint: **2660**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 517 / 3,849 marked | 3,332 other entries |
+| Queue entries explicitly marked source-discovery closed | 518 / 3,849 marked | 3,331 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
-| Entries with explicit repair status | 432 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 433 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 26 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified gate datum and ideal continuous quarter-turn sweep bound.
+Closed scoped market admission and gate-sweep source discovery.
 
-Floating-point and native physics verification, market repair and broader
-placement remain open.
+Market implementation, numeric and physics validation, and broader placement
+remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2660 publication record](CHECKPOINT-2660.json)
-- [Saved report for checkpoint 2660](PROGRESS-2660.md)
+- [Checkpoint 2661 publication record](CHECKPOINT-2661.json)
+- [Saved report for checkpoint 2661](PROGRESS-2661.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
