@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:06:42.117262+00:00
+Updated: 2026-11-06T12:08:50.383999+00:00
 
-Latest verified checkpoint: **2854**. Goal: **active**.
+Latest verified checkpoint: **2855**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared gate route admission with terrain and support grade invariants.
+Traced generated gate routes and endpoint connectivity validation.
 
-Generated route geometry, numerical edges, and diagnostic failure representation
-remain open.
+Authored compounds, gate-route uniqueness, numerical edges, and diagnostic
+failures remain open.
 
 ## Working on now
 
-Trace generated gate and junction geometry and route uniqueness.
+Trace authored compound validation and gate-route uniqueness.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2854 publication record](CHECKPOINT-2854.json)
-- [Saved report for checkpoint 2854](PROGRESS-2854.md)
+- [Checkpoint 2855 publication record](CHECKPOINT-2855.json)
+- [Saved report for checkpoint 2855](PROGRESS-2855.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
