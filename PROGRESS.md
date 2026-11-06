@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:01:04.227397+00:00
+Updated: 2026-11-06T08:03:10.117996+00:00
 
-Latest verified checkpoint: **2755**. Goal: **active**.
+Latest verified checkpoint: **2756**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2755**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 53 recorded | 3 conditional; 4 policy/design |
+| Scoped repair obligations on entries | 53 recorded | 2 conditional; 4 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded conditional art-demo texture failure handling question.
+Reconciled art-demo texture failure with its existing residency owner.
 
-No failed texture load was demonstrated; observer timing, GPU behavior and the
-parent contract remain open.
+The existing texture owner and broader presentation contract remain open; no
+failed load was demonstrated.
 
 ## Working on now
 
-Continue texture failure ownership and presentation reconciliation.
+Continue the existing texture owner and remaining presentation reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2755 publication record](CHECKPOINT-2755.json)
-- [Saved report for checkpoint 2755](PROGRESS-2755.md)
+- [Checkpoint 2756 publication record](CHECKPOINT-2756.json)
+- [Saved report for checkpoint 2756](PROGRESS-2756.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
