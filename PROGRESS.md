@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T17:33:52.140171+00:00
+Updated: 2026-11-06T17:37:25.174750+00:00
 
-Latest verified checkpoint: **2979**. Goal: **active**.
+Latest verified checkpoint: **2980**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2979**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 70 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 71 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Derived a two-face shared-edge tie-order candidate.
+Recorded a measurable tiny support face whose f32 hit normal underflows.
 
-Decoded acceptance, tie-order policy and runtime acceptance remain unproven.
+Public query regression, implementation and runtime acceptance remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2979 publication record](CHECKPOINT-2979.json)
-- [Saved report for checkpoint 2979](PROGRESS-2979.md)
+- [Checkpoint 2980 publication record](CHECKPOINT-2980.json)
+- [Saved report for checkpoint 2980](PROGRESS-2980.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
