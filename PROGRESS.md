@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:33:17.582210+00:00
+Updated: 2026-11-06T02:35:40.060749+00:00
 
-Latest verified checkpoint: **2622**. Goal: **active**.
+Latest verified checkpoint: **2623**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped window-pose and shutter-sample discovery.
+Qualified strong buffer ownership and conditional publication gap.
 
-Conditional association, other lighting contracts and validation remain open.
+Actual buffer removal, recovery, aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2622 publication record](CHECKPOINT-2622.json)
-- [Saved report for checkpoint 2622](PROGRESS-2622.md)
+- [Checkpoint 2623 publication record](CHECKPOINT-2623.json)
+- [Saved report for checkpoint 2623](PROGRESS-2623.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
