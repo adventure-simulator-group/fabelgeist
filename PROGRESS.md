@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:12:18.378897+00:00
+Updated: 2026-11-06T14:13:44.518260+00:00
 
-Latest verified checkpoint: **2912**. Goal: **active**.
+Latest verified checkpoint: **2913**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,11 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected distinct displacement and tolerance roles to the independent Lens 11
-limits obligation.
+Qualified distinct support displacement and contact-tolerance roles under Lens
+11.
 
-The independent type-granularity view, policy authority and runtime acceptance
-remain open.
+Canonical type ownership, callers and runtime acceptance remain open.
 
 ## Working on now
 
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2912 publication record](CHECKPOINT-2912.json)
-- [Saved report for checkpoint 2912](PROGRESS-2912.md)
+- [Checkpoint 2913 publication record](CHECKPOINT-2913.json)
+- [Saved report for checkpoint 2913](PROGRESS-2913.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
