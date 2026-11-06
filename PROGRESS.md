@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T16:50:50.942919+00:00
+Updated: 2026-11-06T16:53:57.751729+00:00
 
-Latest verified checkpoint: **2968**. Goal: **active**.
+Latest verified checkpoint: **2969**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified existing sliver intent and prepared-query test coverage.
+Traced settlement decode validation and identified an owner-sentinel assumption.
 
-Cross-boundary sliver policy, collider behavior and runtime acceptance remain
-open.
+Product size bounds, sentinel reachability and runtime acceptance remain open.
 
 ## Working on now
 
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2968 publication record](CHECKPOINT-2968.json)
-- [Saved report for checkpoint 2968](PROGRESS-2968.md)
+- [Checkpoint 2969 publication record](CHECKPOINT-2969.json)
+- [Saved report for checkpoint 2969](PROGRESS-2969.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
