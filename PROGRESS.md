@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:16:45.124413+00:00
+Updated: 2026-11-06T12:18:31.977234+00:00
 
-Latest verified checkpoint: **2859**. Goal: **active**.
+Latest verified checkpoint: **2860**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced boundary projection, gate datum and enclosure descriptor binding during
-scene generation.
+Compared gate diagnostic with existing support binding, numeric grade, and
+terrace JSON repair owners.
 
-Complete route mismatch reachability and existing repair ownership remain open.
+Diagnostic grade propagation and failure policy, plus route-to-support binding,
+remain open.
 
 ## Working on now
 
-Reconcile existing support binding owners and route mutation reachability.
+Finish diagnostic caller, arithmetic, and result contract.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2859 publication record](CHECKPOINT-2859.json)
-- [Saved report for checkpoint 2859](PROGRESS-2859.md)
+- [Checkpoint 2860 publication record](CHECKPOINT-2860.json)
+- [Saved report for checkpoint 2860](PROGRESS-2860.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
