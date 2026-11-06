@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T22:22:39.698626+00:00
+Updated: 2026-11-06T22:28:03.554205+00:00
 
-Latest verified checkpoint: **3038**. Goal: **active**.
+Latest verified checkpoint: **3039**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced generated route decoding and identified a coordinate naming question.
+Traced SATS named-field matching for generated route coordinates.
 
-Generated coordinate name mapping and return-leg policy remain open; no runtime
+A schema-dependent naming mismatch and return-leg policy remain open; no runtime
 execution.
 
 ## Working on now
 
-Trace SATS coordinate name mapping and resolve the return-leg contract;
+Establish nested SQL schema naming and resolve the return-leg contract;
 implement after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3038 publication record](CHECKPOINT-3038.json)
-- [Saved report for checkpoint 3038](PROGRESS-3038.md)
+- [Checkpoint 3039 publication record](CHECKPOINT-3039.json)
+- [Saved report for checkpoint 3039](PROGRESS-3039.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
