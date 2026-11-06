@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:47:46.851666+00:00
+Updated: 2026-11-06T13:49:49.906749+00:00
 
-Latest verified checkpoint: **2901**. Goal: **active**.
+Latest verified checkpoint: **2902**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced playable and distant placement programs through generation and report
-inspection.
+Qualified placement admission, generation failures and horizontal pad checks.
 
-Accepted placement bounds and any actual nonfinite report remain open.
+Support binding, accepted placement bounds and any actual nonfinite report
+remain open.
 
 ## Working on now
 
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2901 publication record](CHECKPOINT-2901.json)
-- [Saved report for checkpoint 2901](PROGRESS-2901.md)
+- [Checkpoint 2902 publication record](CHECKPOINT-2902.json)
+- [Saved report for checkpoint 2902](PROGRESS-2902.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
