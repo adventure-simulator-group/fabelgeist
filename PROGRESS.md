@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:01:32.371667+00:00
+Updated: 2026-11-06T05:03:21.980669+00:00
 
-Latest verified checkpoint: **2691**. Goal: **active**.
+Latest verified checkpoint: **2692**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2691**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 525 / 3,849 marked | 3,324 other entries |
+| Queue entries explicitly marked source-discovery closed | 526 / 3,849 marked | 3,323 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified solver resource initialization and support outlines.
+Reconciled the standard controller clearance mismatch suspicion.
 
-Custom units, geometric tolerance and runtime validation remain open.
+Custom unit policy, geometric tolerance and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2691 publication record](CHECKPOINT-2691.json)
-- [Saved report for checkpoint 2691](PROGRESS-2691.md)
+- [Checkpoint 2692 publication record](CHECKPOINT-2692.json)
+- [Saved report for checkpoint 2692](PROGRESS-2692.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
