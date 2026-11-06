@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:46:07.856656+00:00
+Updated: 2026-11-06T12:48:09.483602+00:00
 
-Latest verified checkpoint: **2874**. Goal: **active**.
+Latest verified checkpoint: **2875**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced clipping, barycentric sampling and quantity error admission.
+Compared production triangle admission with diagnostic-generated vista triangles
+and support mesh.
 
-Generated mesh, source triangle admission and zero-station reachability remain
+Quantized generated cells and diagnostic triangle failure reachability remain
 open.
 
 ## Working on now
 
-Trace generated mesh and geographic triangle admission.
+Qualify transformed support cells and diagnostic vista subdivision.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2874 publication record](CHECKPOINT-2874.json)
-- [Saved report for checkpoint 2874](PROGRESS-2874.md)
+- [Checkpoint 2875 publication record](CHECKPOINT-2875.json)
+- [Saved report for checkpoint 2875](PROGRESS-2875.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
