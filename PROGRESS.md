@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:03:13.212402+00:00
+Updated: 2026-11-06T14:05:13.151562+00:00
 
-Latest verified checkpoint: **2908**. Goal: **active**.
+Latest verified checkpoint: **2909**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced production bounded policy through shared selection and retained
-projection.
+Qualified selected server, fixture and art-demo support-policy callers.
 
-Policy authority, other production callers and runtime acceptance remain open.
+Decoded policy authority, external callers and runtime acceptance remain open.
 
 ## Working on now
 
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2908 publication record](CHECKPOINT-2908.json)
-- [Saved report for checkpoint 2908](PROGRESS-2908.md)
+- [Checkpoint 2909 publication record](CHECKPOINT-2909.json)
+- [Saved report for checkpoint 2909](PROGRESS-2909.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
