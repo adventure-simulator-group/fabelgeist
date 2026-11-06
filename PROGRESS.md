@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:06:35.834741+00:00
+Updated: 2026-11-06T08:08:53.997428+00:00
 
-Latest verified checkpoint: **2757**. Goal: **active**.
+Latest verified checkpoint: **2758**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified obstacle add versus replacement observer behavior.
+Qualified obstacle creation and scene-cleanup paths.
 
-No live obstacle replacement or stale presentation was demonstrated; broader
-lifecycle remains open.
+Full dump restoration, GPU behavior and the remaining parent contract remain
+open.
 
 ## Working on now
 
-Continue obstacle lifecycle and presentation reconciliation.
+Continue obstacle snapshot and presentation reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2757 publication record](CHECKPOINT-2757.json)
-- [Saved report for checkpoint 2757](PROGRESS-2757.md)
+- [Checkpoint 2758 publication record](CHECKPOINT-2758.json)
+- [Saved report for checkpoint 2758](PROGRESS-2758.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
