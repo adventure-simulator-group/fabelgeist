@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:52:36.631336+00:00
+Updated: 2026-11-06T11:54:02.227942+00:00
 
-Latest verified checkpoint: **2848**. Goal: **active**.
+Latest verified checkpoint: **2849**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2848**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 565 / 3,849 marked | 3,284 other entries |
+| Queue entries explicitly marked source-discovery closed | 566 / 3,849 marked | 3,283 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,7 +40,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the previously unread terrace producer with the existing repair.
+Reconciled a second terrace JSON revisit with the existing repair.
 
 Existing repair remains pending until the full audit gate.
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2848 publication record](CHECKPOINT-2848.json)
-- [Saved report for checkpoint 2848](PROGRESS-2848.md)
+- [Checkpoint 2849 publication record](CHECKPOINT-2849.json)
+- [Saved report for checkpoint 2849](PROGRESS-2849.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
