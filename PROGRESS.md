@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:28:20.636323+00:00
+Updated: 2026-11-06T04:30:51.210542+00:00
 
-Latest verified checkpoint: **2678**. Goal: **active**.
+Latest verified checkpoint: **2679**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified garden deserialization, ownership and presentation paths.
+Qualified garden geometry, server publication and dump entry points.
 
-Replication trust, root provenance and validation remain open.
+Reflected restore, root provenance and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2678 publication record](CHECKPOINT-2678.json)
-- [Saved report for checkpoint 2678](PROGRESS-2678.md)
+- [Checkpoint 2679 publication record](CHECKPOINT-2679.json)
+- [Saved report for checkpoint 2679](PROGRESS-2679.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
