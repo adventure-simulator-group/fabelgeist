@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:16:17.835729+00:00
+Updated: 2026-11-06T04:18:30.885353+00:00
 
-Latest verified checkpoint: **2673**. Goal: **active**.
+Latest verified checkpoint: **2674**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,10 +10,10 @@ Latest verified checkpoint: **2673**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 522 / 3,849 marked | 3,327 other entries |
+| Queue entries explicitly marked source-discovery closed | 523 / 3,849 marked | 3,326 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
-| Entries with explicit repair status | 437 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 438 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 26 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled city-ground activity and traffic material inputs.
+Reconciled city-ground upload, publication and retry source scope.
 
-Decoded admission, GPU rendering and validation remain open.
+Strategic color, native rendering, implementation and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2673 publication record](CHECKPOINT-2673.json)
-- [Saved report for checkpoint 2673](PROGRESS-2673.md)
+- [Checkpoint 2674 publication record](CHECKPOINT-2674.json)
+- [Saved report for checkpoint 2674](PROGRESS-2674.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
