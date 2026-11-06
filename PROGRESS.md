@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:24:56.188506+00:00
+Updated: 2026-11-06T05:26:58.569992+00:00
 
-Latest verified checkpoint: **2702**. Goal: **active**.
+Latest verified checkpoint: **2703**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified distinct baked asset and curated scene identities.
+Qualified fixture identities used by review tools.
 
-Other native consumers, implementation and runtime validation remain open.
+Other tool consumers, implementation and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2702 publication record](CHECKPOINT-2702.json)
-- [Saved report for checkpoint 2702](PROGRESS-2702.md)
+- [Checkpoint 2703 publication record](CHECKPOINT-2703.json)
+- [Saved report for checkpoint 2703](PROGRESS-2703.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
