@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T16:02:40.002861+00:00
+Updated: 2026-11-06T16:05:47.102867+00:00
 
-Latest verified checkpoint: **2954**. Goal: **active**.
+Latest verified checkpoint: **2955**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Checked compound grid cut cardinality and zero-column control flow.
+Traced collapsed grid to structured empty floor partition rejection.
 
-Collapsed-grid policy, other writers and runtime acceptance remain open.
+Lower-level mesh consumers, collapsed-plan reachability and runtime acceptance
+remain open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2954 publication record](CHECKPOINT-2954.json)
-- [Saved report for checkpoint 2954](PROGRESS-2954.md)
+- [Checkpoint 2955 publication record](CHECKPOINT-2955.json)
+- [Saved report for checkpoint 2955](PROGRESS-2955.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
