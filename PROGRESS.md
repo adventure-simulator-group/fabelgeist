@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:55:42.282055+00:00
+Updated: 2026-11-06T05:58:07.843310+00:00
 
-Latest verified checkpoint: **2714**. Goal: **active**.
+Latest verified checkpoint: **2715**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled sampled terrain admission and refinement error scopes.
+Derived an admitted sampled-normal underflow witness.
 
-Admitted numeric ranges, owned colliders and runtime validation remain open.
+Witness reproduction, sampled-support repair and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2714 publication record](CHECKPOINT-2714.json)
-- [Saved report for checkpoint 2714](PROGRESS-2714.md)
+- [Checkpoint 2715 publication record](CHECKPOINT-2715.json)
+- [Saved report for checkpoint 2715](PROGRESS-2715.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
