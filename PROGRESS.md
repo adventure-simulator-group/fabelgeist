@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:29:48.398815+00:00
+Updated: 2026-11-06T11:31:57.465956+00:00
 
-Latest verified checkpoint: **2837**. Goal: **active**.
+Latest verified checkpoint: **2838**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2837**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 61 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 62 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified cylinder, triangle and convex shape-pair support.
+Recorded typed building-ID propagation at the diagnostic filter.
 
-The exact shape-pair conclusion does not certify numerical contact results.
+The separate scene-input digest identity remains open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2837 publication record](CHECKPOINT-2837.json)
-- [Saved report for checkpoint 2837](PROGRESS-2837.md)
+- [Checkpoint 2838 publication record](CHECKPOINT-2838.json)
+- [Saved report for checkpoint 2838](PROGRESS-2838.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
