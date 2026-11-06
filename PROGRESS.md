@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T18:42:59.446456+00:00
+Updated: 2026-11-06T18:46:19.365106+00:00
 
-Latest verified checkpoint: **2995**. Goal: **active**.
+Latest verified checkpoint: **2996**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified support-grade underflow through final surface validation.
+Qualified finite-normal grade overflow and topology classification.
 
-Full admission, connected consumers and runtime verification remain open.
+Full admission, diagnostic policy and runtime verification remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2995 publication record](CHECKPOINT-2995.json)
-- [Saved report for checkpoint 2995](PROGRESS-2995.md)
+- [Checkpoint 2996 publication record](CHECKPOINT-2996.json)
+- [Saved report for checkpoint 2996](PROGRESS-2996.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
