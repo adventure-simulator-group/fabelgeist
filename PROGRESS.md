@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:47:33.072330+00:00
+Updated: 2026-11-06T02:49:11.668665+00:00
 
-Latest verified checkpoint: **2629**. Goal: **active**.
+Latest verified checkpoint: **2630**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped playable-building field installation discovery.
+Recorded conditional interior-field plan admission obligation.
 
-Other lifecycles, deferred behavior, buffer policy and validation remain open.
+Generated-plan guarantees, extent policy, aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2629 publication record](CHECKPOINT-2629.json)
-- [Saved report for checkpoint 2629](PROGRESS-2629.md)
+- [Checkpoint 2630 publication record](CHECKPOINT-2630.json)
+- [Saved report for checkpoint 2630](PROGRESS-2630.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
