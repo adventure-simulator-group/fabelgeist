@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:42:49.283707+00:00
+Updated: 2026-11-06T03:44:51.546054+00:00
 
-Latest verified checkpoint: **2657**. Goal: **active**.
+Latest verified checkpoint: **2658**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified zero-area market reservation and candidate behavior.
+Traced market block production and degenerate containment consumers.
 
-Complete scene admission, gate sweep containment and validation remain open.
+Canonical bounds, full scene admission, gate containment and validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2657 publication record](CHECKPOINT-2657.json)
-- [Saved report for checkpoint 2657](PROGRESS-2657.md)
+- [Checkpoint 2658 publication record](CHECKPOINT-2658.json)
+- [Saved report for checkpoint 2658](PROGRESS-2658.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
