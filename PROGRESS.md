@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:48:40.987624+00:00
+Updated: 2026-11-06T07:50:44.754155+00:00
 
-Latest verified checkpoint: **2751**. Goal: **active**.
+Latest verified checkpoint: **2752**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2751**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 533 / 3,849 marked | 3,316 other entries |
+| Queue entries explicitly marked source-discovery closed | 534 / 3,849 marked | 3,315 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced generated rock replication and native sphere constructor.
+Closed rock recipe source discovery with a conditional admission policy.
 
-No invalid live recipe or downstream zero-radius collision behavior was
-demonstrated.
+Entry 1329 retains broader rock and oak concerns; no invalid live recipe or
+downstream zero-radius physics outcome was demonstrated.
 
 ## Working on now
 
-Continue rock recipe admission and connected contract reconciliation.
+Continue remaining connected source and alias reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2751 publication record](CHECKPOINT-2751.json)
-- [Saved report for checkpoint 2751](PROGRESS-2751.md)
+- [Checkpoint 2752 publication record](CHECKPOINT-2752.json)
+- [Saved report for checkpoint 2752](PROGRESS-2752.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
