@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:32:00.167230+00:00
+Updated: 2026-11-06T03:34:31.338463+00:00
 
-Latest verified checkpoint: **2652**. Goal: **active**.
+Latest verified checkpoint: **2653**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,10 +10,10 @@ Latest verified checkpoint: **2652**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 515 / 3,849 marked | 3,334 other entries |
+| Queue entries explicitly marked source-discovery closed | 516 / 3,849 marked | 3,333 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
-| Entries with explicit repair status | 430 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 431 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 26 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped recipe and site coherence discovery with an owned repair.
+Closed scoped playable versus vista support authority with an owned repair.
 
-Related layout, outdoor placement, implementation and validation remain open.
+Vista origin and seams, broader collision recipes, implementation and validation
+remain open.
 
 ## Working on now
 
-Continue recipe coherence and remaining cross-lens audit obligations.
+Continue vista origin and remaining cross-lens audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2652 publication record](CHECKPOINT-2652.json)
-- [Saved report for checkpoint 2652](PROGRESS-2652.md)
+- [Checkpoint 2653 publication record](CHECKPOINT-2653.json)
+- [Saved report for checkpoint 2653](PROGRESS-2653.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
