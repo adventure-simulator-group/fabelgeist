@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:09:53.962593+00:00
+Updated: 2026-11-06T03:12:09.309887+00:00
 
-Latest verified checkpoint: **2641**. Goal: **active**.
+Latest verified checkpoint: **2642**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,10 +10,10 @@ Latest verified checkpoint: **2641**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 511 / 3,849 marked | 3,338 other entries |
+| Queue entries explicitly marked source-discovery closed | 512 / 3,849 marked | 3,337 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
-| Entries with explicit repair status | 426 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 427 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 26 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped exposure and GPU residency discovery with coordinated policy.
+Closed scoped interior installation transaction discovery.
 
-Capacity degradation implementation, broader aliases and validation remain open.
+Prepared-plan binding, broader aliases, implementation and validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2641 publication record](CHECKPOINT-2641.json)
-- [Saved report for checkpoint 2641](PROGRESS-2641.md)
+- [Checkpoint 2642 publication record](CHECKPOINT-2642.json)
+- [Saved report for checkpoint 2642](PROGRESS-2642.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
