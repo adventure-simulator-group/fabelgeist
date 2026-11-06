@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T21:40:51.269591+00:00
+Updated: 2026-11-06T21:50:17.047738+00:00
 
-Latest verified checkpoint: **3030**. Goal: **active**.
+Latest verified checkpoint: **3032**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,10 +10,10 @@ Latest verified checkpoint: **3030**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 567 / 3,849 marked | 3,282 other entries |
+| Queue entries explicitly marked source-discovery closed | 568 / 3,850 marked | 3,282 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
-| Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 440 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 74 recorded | 3 conditional; 10 policy/design |
 
 These categories overlap and have different meanings. Original roles and
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified static development fixture party creation and reuse checks.
+Closed the original departure optional-success discovery and separated partyless
+travel policy.
 
-Existing reused identities, later lifecycle state and runtime behavior remain
-open.
+Partyless policy and all implementation and runtime validation remain open.
 
 ## Working on now
 
-Reconcile existing scenario identities and partyless travel policy; implement
-only after the audit gate.
+Continue the separate partyless travel policy and remaining audit obligations;
+implement only after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -198,7 +198,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3849 entries. Entries and views overlap, so this is
+The canonical queue contains 3850 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3030 publication record](CHECKPOINT-3030.json)
-- [Saved report for checkpoint 3030](PROGRESS-3030.md)
+- [Checkpoint 3032 publication record](CHECKPOINT-3032.json)
+- [Saved report for checkpoint 3032](PROGRESS-3032.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
