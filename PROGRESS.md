@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:53:44.309901+00:00
+Updated: 2026-11-06T05:55:42.282055+00:00
 
-Latest verified checkpoint: **2713**. Goal: **active**.
+Latest verified checkpoint: **2714**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified sampled heightfield matrix and native triangle orientation.
+Reconciled sampled terrain admission and refinement error scopes.
 
-Owned colliders, sampled error classification and runtime validation remain
-open.
+Admitted numeric ranges, owned colliders and runtime validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2713 publication record](CHECKPOINT-2713.json)
-- [Saved report for checkpoint 2713](PROGRESS-2713.md)
+- [Checkpoint 2714 publication record](CHECKPOINT-2714.json)
+- [Saved report for checkpoint 2714](PROGRESS-2714.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
