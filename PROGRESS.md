@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T22:37:09.755946+00:00
+Updated: 2026-11-06T22:43:12.311603+00:00
 
-Latest verified checkpoint: **3040**. Goal: **active**.
+Latest verified checkpoint: **3041**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified SQL schema evidence and generated-name test fixture limits.
+Traced pinned server SQL result schema to query column types.
 
-Actual SQL schema names, alias comparison and return-leg policy remain open; no
-runtime execution.
+View column type construction, naming aliases and return-leg policy remain open;
+no runtime execution.
 
 ## Working on now
 
-Trace SQL schema generation, compare aliases and resolve the return-leg
-contract; implement after the audit gate.
+Trace view column types from the module typespace; resolve aliases and return-
+leg policy after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3040 publication record](CHECKPOINT-3040.json)
-- [Saved report for checkpoint 3040](PROGRESS-3040.md)
+- [Checkpoint 3041 publication record](CHECKPOINT-3041.json)
+- [Saved report for checkpoint 3041](PROGRESS-3041.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
