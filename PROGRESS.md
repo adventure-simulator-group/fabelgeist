@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:12:21.159412+00:00
+Updated: 2026-11-06T06:14:31.049811+00:00
 
-Latest verified checkpoint: **2720**. Goal: **active**.
+Latest verified checkpoint: **2721**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled scene validation and environment identity to existing owners.
+Recorded a weather-admission arithmetic overflow boundary.
 
-The shared scene identity obligation, other audit entries and runtime validation
-remain open.
+File loading policy, broader weather contracts, implementation and runtime
+validation remain open.
 
 ## Working on now
 
-Continue connected scene input and terrain contracts.
+Continue scene file-loading and weather admission contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2720 publication record](CHECKPOINT-2720.json)
-- [Saved report for checkpoint 2720](PROGRESS-2720.md)
+- [Checkpoint 2721 publication record](CHECKPOINT-2721.json)
+- [Saved report for checkpoint 2721](PROGRESS-2721.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
