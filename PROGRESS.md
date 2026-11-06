@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:11:17.849017+00:00
+Updated: 2026-11-06T10:13:55.501303+00:00
 
-Latest verified checkpoint: **2804**. Goal: **active**.
+Latest verified checkpoint: **2805**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the narrow extreme support-profile test scope.
+Traced tactical endpoint producers and normalization.
 
-Related profile diagnostics and topology remain open; the test was not run.
+Native parser and actual connection behavior remain untested.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2804 publication record](CHECKPOINT-2804.json)
-- [Saved report for checkpoint 2804](PROGRESS-2804.md)
+- [Checkpoint 2805 publication record](CHECKPOINT-2805.json)
+- [Saved report for checkpoint 2805](PROGRESS-2805.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
