@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:33:11.032499+00:00
+Updated: 2026-11-06T04:36:25.013350+00:00
 
-Latest verified checkpoint: **2680**. Goal: **active**.
+Latest verified checkpoint: **2681**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified Bevy snapshot extraction requirements for SceneGarden.
+Recorded active garden replication eligibility repair.
 
-Actual registry, restore, root provenance and validation remain open.
+Snapshot registry, root provenance, implementation and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2680 publication record](CHECKPOINT-2680.json)
-- [Saved report for checkpoint 2680](PROGRESS-2680.md)
+- [Checkpoint 2681 publication record](CHECKPOINT-2681.json)
+- [Saved report for checkpoint 2681](PROGRESS-2681.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
