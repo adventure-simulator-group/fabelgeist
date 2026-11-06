@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:28:16.798863+00:00
+Updated: 2026-11-06T07:30:24.402247+00:00
 
-Latest verified checkpoint: **2744**. Goal: **active**.
+Latest verified checkpoint: **2745**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified furniture identity derivation and retained group behavior.
+Qualified furniture entity, visibility and snapshot identity roles.
 
-ID collision policy, native boundaries and runtime validation remain open.
+Duplicate-ID policy and runtime validation remain open; source tests were not
+run.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2744 publication record](CHECKPOINT-2744.json)
-- [Saved report for checkpoint 2744](PROGRESS-2744.md)
+- [Checkpoint 2745 publication record](CHECKPOINT-2745.json)
+- [Saved report for checkpoint 2745](PROGRESS-2745.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
