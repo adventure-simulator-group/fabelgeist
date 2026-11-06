@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:39:34.868947+00:00
+Updated: 2026-11-06T12:42:01.334608+00:00
 
-Latest verified checkpoint: **2871**. Goal: **active**.
+Latest verified checkpoint: **2872**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified distinct scene and stage JSON paths and surveyed stage readers.
+Traced terrace quantity outcomes and intermediate arithmetic.
 
-Actual paired-export round-trip validation remains deferred until after the
-audit gate.
+Accepted-plan geometry and numeric reachability remain open.
 
 ## Working on now
 
-Continue the audit, then verify paired-export round trips and mismatched vistas.
+Trace accepted support geometry and quantity numeric bounds.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2871 publication record](CHECKPOINT-2871.json)
-- [Saved report for checkpoint 2871](PROGRESS-2871.md)
+- [Checkpoint 2872 publication record](CHECKPOINT-2872.json)
+- [Saved report for checkpoint 2872](PROGRESS-2872.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
