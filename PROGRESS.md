@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:38:10.148066+00:00
+Updated: 2026-11-06T08:40:37.558028+00:00
 
-Latest verified checkpoint: **2769**. Goal: **active**.
+Latest verified checkpoint: **2770**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified transition mesh triangle cardinality.
+Qualified sampled and owned transition mesh admission bounds.
 
-Finite coordinates, index bounds and native acceptance remain open.
+Derived UVs, centre arithmetic and native acceptance remain open.
 
 ## Working on now
 
-Continue transition terrain admission and native mesh reconciliation.
+Continue owned mesh numerical and native acceptance reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2769 publication record](CHECKPOINT-2769.json)
-- [Saved report for checkpoint 2769](PROGRESS-2769.md)
+- [Checkpoint 2770 publication record](CHECKPOINT-2770.json)
+- [Saved report for checkpoint 2770](PROGRESS-2770.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
