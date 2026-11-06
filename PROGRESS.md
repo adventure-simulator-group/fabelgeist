@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:03:21.980669+00:00
+Updated: 2026-11-06T05:06:08.102819+00:00
 
-Latest verified checkpoint: **2692**. Goal: **active**.
+Latest verified checkpoint: **2693**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the standard controller clearance mismatch suspicion.
+Traced captured settlement identity into home catalog generation.
 
-Custom unit policy, geometric tolerance and runtime validation remain open.
+Request-to-scene admission, implementation and runtime validation remain open.
 
 ## Working on now
 
-Continue physical-clearance native boundaries and remaining audit obligations.
+Continue mission-to-scene authority binding and connected audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2692 publication record](CHECKPOINT-2692.json)
-- [Saved report for checkpoint 2692](PROGRESS-2692.md)
+- [Checkpoint 2693 publication record](CHECKPOINT-2693.json)
+- [Saved report for checkpoint 2693](PROGRESS-2693.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
