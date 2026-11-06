@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:12:00.964436+00:00
+Updated: 2026-11-06T01:13:54.907990+00:00
 
-Latest verified checkpoint: **2577**. Goal: **active**.
+Latest verified checkpoint: **2578**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced profile width into closure solids and operable door leaves.
+Qualified editor door-width acceptance and existing test scope.
 
-Edited-door reachability, override policy and repair remain open.
+Fortified acceptance, width policy and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2577 publication record](CHECKPOINT-2577.json)
-- [Saved report for checkpoint 2577](PROGRESS-2577.md)
+- [Checkpoint 2578 publication record](CHECKPOINT-2578.json)
+- [Saved report for checkpoint 2578](PROGRESS-2578.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
