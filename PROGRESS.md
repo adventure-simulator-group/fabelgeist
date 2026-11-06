@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T00:59:49.438923+00:00
+Updated: 2026-11-06T01:01:38.898657+00:00
 
-Latest verified checkpoint: **2569**. Goal: **active**.
+Latest verified checkpoint: **2570**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced collision cuboids into the tactical physics compound.
+Traced occupied tower spiral-stair generation alongside collision.
 
-Collision policy, other scene routes, runtime behavior and repair remain open.
+Traversability, collision policy, runtime behavior and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2569 publication record](CHECKPOINT-2569.json)
-- [Saved report for checkpoint 2569](PROGRESS-2569.md)
+- [Checkpoint 2570 publication record](CHECKPOINT-2570.json)
+- [Saved report for checkpoint 2570](PROGRESS-2570.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
