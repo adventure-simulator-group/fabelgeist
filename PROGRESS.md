@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:08:40.419450+00:00
+Updated: 2026-11-06T01:10:05.843576+00:00
 
-Latest verified checkpoint: **2575**. Goal: **active**.
+Latest verified checkpoint: **2576**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced opening dimensions into shape-specific profiles.
+Traced fortified door width and window-bay clipping.
 
-Standalone profiles, shape consumers, aliases and repair remain open.
+Fortified override policy, standalone profiles, consumers and repair remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2575 publication record](CHECKPOINT-2575.json)
-- [Saved report for checkpoint 2575](PROGRESS-2575.md)
+- [Checkpoint 2576 publication record](CHECKPOINT-2576.json)
+- [Saved report for checkpoint 2576](PROGRESS-2576.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
