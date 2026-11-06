@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:38:46.516333+00:00
+Updated: 2026-11-06T05:41:23.324549+00:00
 
-Latest verified checkpoint: **2708**. Goal: **active**.
+Latest verified checkpoint: **2709**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded playable city-ground zero-ring publication obligation.
+Qualified empty vista inputs and default ring configuration.
 
-Zero-ring reachability, implementation and runtime validation remain open.
+A complete urban zero-ring run, implementation and runtime validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2708 publication record](CHECKPOINT-2708.json)
-- [Saved report for checkpoint 2708](PROGRESS-2708.md)
+- [Checkpoint 2709 publication record](CHECKPOINT-2709.json)
+- [Saved report for checkpoint 2709](PROGRESS-2709.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
