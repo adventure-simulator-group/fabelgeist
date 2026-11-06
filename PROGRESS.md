@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:20:30.761998+00:00
+Updated: 2026-11-06T04:23:09.379408+00:00
 
-Latest verified checkpoint: **2675**. Goal: **active**.
+Latest verified checkpoint: **2676**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled strategic first-ring color and coverage source scope.
+Qualified garden projection and missing-support classifications.
 
-City-ground owners, implementation and rendering validation remain open.
+Numeric support admission, public decoded gardens and validation remain open.
 
 ## Working on now
 
-Continue city-ground and remaining cross-lens audit obligations.
+Continue garden support and remaining cross-lens obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2675 publication record](CHECKPOINT-2675.json)
-- [Saved report for checkpoint 2675](PROGRESS-2675.md)
+- [Checkpoint 2676 publication record](CHECKPOINT-2676.json)
+- [Saved report for checkpoint 2676](PROGRESS-2676.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
