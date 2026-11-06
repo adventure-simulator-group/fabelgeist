@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:38:18.677241+00:00
+Updated: 2026-11-06T06:40:34.800190+00:00
 
-Latest verified checkpoint: **2729**. Goal: **active**.
+Latest verified checkpoint: **2730**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified gate property ownership and strategic-scene door association.
+Inventoried building-generator opening ID formulas.
 
-Generated ID bounds, admitted plan paths and runtime validation remain open.
+Indexed formula bounds, non-generator paths and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2729 publication record](CHECKPOINT-2729.json)
-- [Saved report for checkpoint 2729](PROGRESS-2729.md)
+- [Checkpoint 2730 publication record](CHECKPOINT-2730.json)
+- [Saved report for checkpoint 2730](PROGRESS-2730.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
