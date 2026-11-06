@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:51:15.754956+00:00
+Updated: 2026-11-06T09:53:45.493358+00:00
 
-Latest verified checkpoint: **2795**. Goal: **active**.
+Latest verified checkpoint: **2796**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced retained geology structure through shader use.
+Qualified locked geology stream hash and generator sources.
 
-GPU output and cross-target determinism were not executed.
+Replay, cross-target and GPU behavior were not executed.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2795 publication record](CHECKPOINT-2795.json)
-- [Saved report for checkpoint 2795](PROGRESS-2795.md)
+- [Checkpoint 2796 publication record](CHECKPOINT-2796.json)
+- [Saved report for checkpoint 2796](PROGRESS-2796.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
