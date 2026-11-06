@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:21:54.059799+00:00
+Updated: 2026-11-06T01:23:06.923760+00:00
 
-Latest verified checkpoint: **2583**. Goal: **active**.
+Latest verified checkpoint: **2584**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2583**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 22 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 23 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced artillery ray placeholder replacement and target binding.
+Recorded scoped repair for semantic opening dimension admission.
 
-Indirect consumers, angle relationship and validation remain open.
+Profile policy, angle relationships and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2583 publication record](CHECKPOINT-2583.json)
-- [Saved report for checkpoint 2583](PROGRESS-2583.md)
+- [Checkpoint 2584 publication record](CHECKPOINT-2584.json)
+- [Saved report for checkpoint 2584](PROGRESS-2584.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
