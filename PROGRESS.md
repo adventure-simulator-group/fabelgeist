@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:20:45.478749+00:00
+Updated: 2026-11-06T05:22:43.376593+00:00
 
-Latest verified checkpoint: **2700**. Goal: **active**.
+Latest verified checkpoint: **2701**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded shared scene identity obligation.
+Recorded scene identity cache and seed constraints.
 
-Fixture semantics, additional consumers and runtime validation remain open.
+Other asset consumers, implementation and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2700 publication record](CHECKPOINT-2700.json)
-- [Saved report for checkpoint 2700](PROGRESS-2700.md)
+- [Checkpoint 2701 publication record](CHECKPOINT-2701.json)
+- [Saved report for checkpoint 2701](PROGRESS-2701.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
