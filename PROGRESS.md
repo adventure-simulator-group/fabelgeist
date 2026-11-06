@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:25:34.447883+00:00
+Updated: 2026-11-06T08:29:09.689001+00:00
 
-Latest verified checkpoint: **2765**. Goal: **active**.
+Latest verified checkpoint: **2766**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2765**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 535 / 3,849 marked | 3,314 other entries |
+| Queue entries explicitly marked source-discovery closed | 536 / 3,849 marked | 3,313 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed the scoped obstacle and oak presentation source discovery.
+Closed the historical road test relocation source question.
 
-Snapshot repair, numerical policy and graphics validation remain open; no
-runtime failure was demonstrated.
+The road test was not run; cross-target numerical validation and the wider audit
+remain open.
 
 ## Working on now
 
-Continue remaining connected audit and owner reconciliation.
+Continue remaining road and terrain contract reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2765 publication record](CHECKPOINT-2765.json)
-- [Saved report for checkpoint 2765](PROGRESS-2765.md)
+- [Checkpoint 2766 publication record](CHECKPOINT-2766.json)
+- [Saved report for checkpoint 2766](PROGRESS-2766.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
