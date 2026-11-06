@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:08:48.777281+00:00
+Updated: 2026-11-06T04:11:19.677565+00:00
 
-Latest verified checkpoint: **2670**. Goal: **active**.
+Latest verified checkpoint: **2671**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled vista origin, garden and owned transition source scope.
+Recorded strategic first-ring color frame repair.
 
-City-ground and foundation owners, implementation and validation remain open.
+City-ground publication, traffic, implementation and validation remain open.
 
 ## Working on now
 
-Continue broader vista and remaining cross-lens obligations.
+Continue city-ground and remaining cross-lens audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2670 publication record](CHECKPOINT-2670.json)
-- [Saved report for checkpoint 2670](PROGRESS-2670.md)
+- [Checkpoint 2671 publication record](CHECKPOINT-2671.json)
+- [Saved report for checkpoint 2671](PROGRESS-2671.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
