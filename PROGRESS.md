@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:18:10.136315+00:00
+Updated: 2026-11-06T05:20:45.478749+00:00
 
-Latest verified checkpoint: **2699**. Goal: **active**.
+Latest verified checkpoint: **2700**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the historical scene-source parent reference.
+Recorded shared scene identity obligation.
 
-Connected digest consumers, tactical source binding and runtime validation
-remain open.
+Fixture semantics, additional consumers and runtime validation remain open.
 
 ## Working on now
 
-Continue source digest provenance and mission binding obligations.
+Continue scene identity consumers and connected audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2699 publication record](CHECKPOINT-2699.json)
-- [Saved report for checkpoint 2699](PROGRESS-2699.md)
+- [Checkpoint 2700 publication record](CHECKPOINT-2700.json)
+- [Saved report for checkpoint 2700](PROGRESS-2700.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
