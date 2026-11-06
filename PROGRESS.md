@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:46:27.685343+00:00
+Updated: 2026-11-06T09:49:12.763197+00:00
 
-Latest verified checkpoint: **2793**. Goal: **active**.
+Latest verified checkpoint: **2794**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reproduced an extreme public-terrain landform sizing panic.
+Traced geology stream literals into retained structure and material.
 
-The witness uses the public API and debug build; normal scene input excludes its
-heights.
+Global stream policy and native consumers remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2793 publication record](CHECKPOINT-2793.json)
-- [Saved report for checkpoint 2793](PROGRESS-2793.md)
+- [Checkpoint 2794 publication record](CHECKPOINT-2794.json)
+- [Saved report for checkpoint 2794](PROGRESS-2794.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
