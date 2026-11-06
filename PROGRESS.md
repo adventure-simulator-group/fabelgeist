@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:43:05.441439+00:00
+Updated: 2026-11-06T08:46:00.432371+00:00
 
-Latest verified checkpoint: **2771**. Goal: **active**.
+Latest verified checkpoint: **2772**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded owned terrain surface and UV composition question.
+Qualified native transition mesh and collider adapters.
 
-No fully constructed failing input or runtime failure was demonstrated.
+Parry rejection reachability, UVs and runtime behavior remain open.
 
 ## Working on now
 
-Continue owned terrain composition and native mesh reconciliation.
+Continue Parry triangle acceptance and owned mesh numerical reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2771 publication record](CHECKPOINT-2771.json)
-- [Saved report for checkpoint 2771](PROGRESS-2771.md)
+- [Checkpoint 2772 publication record](CHECKPOINT-2772.json)
+- [Saved report for checkpoint 2772](PROGRESS-2772.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
