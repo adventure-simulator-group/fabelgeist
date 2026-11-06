@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:00:20.136702+00:00
+Updated: 2026-11-06T04:02:33.260030+00:00
 
-Latest verified checkpoint: **2666**. Goal: **active**.
+Latest verified checkpoint: **2667**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped vista origin and grid admission with an owned repair.
+Recorded moving detail vista coordinate and surface repair.
 
-Seam and support owners, implementation and validation remain open.
+Owned-surface policy, composition, implementation and validation remain open.
 
 ## Working on now
 
-Continue vista origin admission and remaining cross-lens obligations.
+Continue broader vista and remaining cross-lens obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2666 publication record](CHECKPOINT-2666.json)
-- [Saved report for checkpoint 2666](PROGRESS-2666.md)
+- [Checkpoint 2667 publication record](CHECKPOINT-2667.json)
+- [Saved report for checkpoint 2667](PROGRESS-2667.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
