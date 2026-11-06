@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:36:55.793069+00:00
+Updated: 2026-11-06T13:40:22.735919+00:00
 
-Latest verified checkpoint: **2897**. Goal: **active**.
+Latest verified checkpoint: **2898**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared report elevation checks with the existing apron elevation repair owner.
+Qualified selected grounded-node producers and operable-door filtering.
 
-Generated value bounds and any actual nonfinite report remain open.
+Complete producer bounds, sill relationships and any actual nonfinite report
+remain open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2897 publication record](CHECKPOINT-2897.json)
-- [Saved report for checkpoint 2897](PROGRESS-2897.md)
+- [Checkpoint 2898 publication record](CHECKPOINT-2898.json)
+- [Saved report for checkpoint 2898](PROGRESS-2898.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
