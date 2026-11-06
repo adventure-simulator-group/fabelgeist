@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:51:40.955317+00:00
+Updated: 2026-11-06T10:54:31.240982+00:00
 
-Latest verified checkpoint: **2820**. Goal: **active**.
+Latest verified checkpoint: **2821**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified positive duration and closed the scoped held-melee admission
-suspicion.
+Traced landform replication registration to nested geology and the installed
+default codec.
 
-A compiled scalar probe supports the bound; full Bevy runtime behavior was not
-exercised.
+Actual variant round trips and network consequences remain untested.
 
 ## Working on now
 
-Continue the related melee input and native admission audit.
+Exercise landform geology variants through the locked codec.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2820 publication record](CHECKPOINT-2820.json)
-- [Saved report for checkpoint 2820](PROGRESS-2820.md)
+- [Checkpoint 2821 publication record](CHECKPOINT-2821.json)
+- [Saved report for checkpoint 2821](PROGRESS-2821.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
