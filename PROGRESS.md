@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:37:52.598119+00:00
+Updated: 2026-11-06T12:39:34.868947+00:00
 
-Latest verified checkpoint: **2870**. Goal: **active**.
+Latest verified checkpoint: **2871**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified structural vista equality and the fields consumed by stage readers.
+Qualified distinct scene and stage JSON paths and surveyed stage readers.
 
-Round-trip and other-consumer qualification remain open; identical data does not
-prove same-run origin.
+Actual paired-export round-trip validation remains deferred until after the
+audit gate.
 
 ## Working on now
 
-Qualify vista serialization and remaining consumers before implementation.
+Continue the audit, then verify paired-export round trips and mismatched vistas.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2870 publication record](CHECKPOINT-2870.json)
-- [Saved report for checkpoint 2870](PROGRESS-2870.md)
+- [Checkpoint 2871 publication record](CHECKPOINT-2871.json)
+- [Saved report for checkpoint 2871](PROGRESS-2871.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
