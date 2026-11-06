@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:03:10.117996+00:00
+Updated: 2026-11-06T08:04:26.353330+00:00
 
 Latest verified checkpoint: **2756**. Goal: **active**.
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2756**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 53 recorded | 2 conditional; 4 policy/design |
+| Scoped repair obligations on entries | 52 recorded | 2 conditional; 4 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
