@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:06:09.038662+00:00
+Updated: 2026-11-06T11:08:11.361154+00:00
 
-Latest verified checkpoint: **2826**. Goal: **active**.
+Latest verified checkpoint: **2827**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced mapped action entity fields and authoritative ingress checks.
+Traced unmapped entity handling through the Replicon message sender.
 
-Missing mappings, complete validation and live transport remain untested.
+Reachability and user-facing feedback are not demonstrated.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2826 publication record](CHECKPOINT-2826.json)
-- [Saved report for checkpoint 2826](PROGRESS-2826.md)
+- [Checkpoint 2827 publication record](CHECKPOINT-2827.json)
+- [Saved report for checkpoint 2827](PROGRESS-2827.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
