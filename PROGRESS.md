@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:05:52.957282+00:00
+Updated: 2026-11-06T01:07:21.843385+00:00
 
-Latest verified checkpoint: **2573**. Goal: **active**.
+Latest verified checkpoint: **2574**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2573**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 21 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 22 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced wall-frame point and direction admission and apse audit gap.
+Recorded frame admission repair and qualified diagonal apse producer.
 
-Frame constructors, basis policy, aliases and repair remain open.
+Other constructors, basis policy, aliases and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2573 publication record](CHECKPOINT-2573.json)
-- [Saved report for checkpoint 2573](PROGRESS-2573.md)
+- [Checkpoint 2574 publication record](CHECKPOINT-2574.json)
+- [Saved report for checkpoint 2574](PROGRESS-2574.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
