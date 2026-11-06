@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:29:03.683572+00:00
+Updated: 2026-11-06T05:31:22.345462+00:00
 
-Latest verified checkpoint: **2704**. Goal: **active**.
+Latest verified checkpoint: **2705**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled vista bundle identity to the shared repair.
+Recorded vista preparation failure-state obligation.
 
-Shared repair, transport validation and other connected contracts remain open.
+Failure reachability, native geometry and runtime validation remain open.
 
 ## Working on now
 
-Continue scene identity consumers and connected audit obligations.
+Continue vista lifecycle and connected audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2704 publication record](CHECKPOINT-2704.json)
-- [Saved report for checkpoint 2704](PROGRESS-2704.md)
+- [Checkpoint 2705 publication record](CHECKPOINT-2705.json)
+- [Saved report for checkpoint 2705](PROGRESS-2705.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
