@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:23:09.919065+00:00
+Updated: 2026-11-06T06:25:44.407155+00:00
 
-Latest verified checkpoint: **2723**. Goal: **active**.
+Latest verified checkpoint: **2724**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified business and operator identity validation ordering; corrected scoped
-obligation counts.
+Resolved cross-population building ID validation ordering.
 
-Cross-population building identity and scene/catalog association remain open.
+Other building, scene/catalog, native and runtime obligations remain open.
 
 ## Working on now
 
-Continue cross-population building identity and scene/catalog association.
+Continue building placement, scene/catalog and native boundary contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2723 publication record](CHECKPOINT-2723.json)
-- [Saved report for checkpoint 2723](PROGRESS-2723.md)
+- [Checkpoint 2724 publication record](CHECKPOINT-2724.json)
+- [Saved report for checkpoint 2724](PROGRESS-2724.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
