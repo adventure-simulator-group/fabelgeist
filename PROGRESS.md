@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:29:18.013812+00:00
+Updated: 2026-11-06T10:33:16.026098+00:00
 
-Latest verified checkpoint: **2810**. Goal: **active**.
+Latest verified checkpoint: **2811**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,11 +10,11 @@ Latest verified checkpoint: **2810**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 552 / 3,849 marked | 3,297 other entries |
+| Queue entries explicitly marked source-discovery closed | 553 / 3,849 marked | 3,296 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 58 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 60 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced generated character identity through the browser numeric boundary.
+Recorded separate browser full-width identity and client CharacterId propagation
+repairs.
 
 The numeric probe is not a full browser mission or authorization test.
 
 ## Working on now
 
-Continue terrain and landform contract reconciliation.
+Continue audit discovery and reconcile connected character identity boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2810 publication record](CHECKPOINT-2810.json)
-- [Saved report for checkpoint 2810](PROGRESS-2810.md)
+- [Checkpoint 2811 publication record](CHECKPOINT-2811.json)
+- [Saved report for checkpoint 2811](PROGRESS-2811.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
