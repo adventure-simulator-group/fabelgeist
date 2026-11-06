@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:43:23.860982+00:00
+Updated: 2026-11-06T02:46:08.540226+00:00
 
-Latest verified checkpoint: **2627**. Goal: **active**.
+Latest verified checkpoint: **2628**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced playable-building interior-field installation.
+Qualified interior-field observer registration and selected cleanup.
 
-Observer scheduling, cleanup, buffer lifecycle and validation remain open.
+Other scene lifecycles, deferred behavior, buffer policy and validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2627 publication record](CHECKPOINT-2627.json)
-- [Saved report for checkpoint 2627](PROGRESS-2627.md)
+- [Checkpoint 2628 publication record](CHECKPOINT-2628.json)
+- [Saved report for checkpoint 2628](PROGRESS-2628.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
