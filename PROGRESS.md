@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T17:04:25.188677+00:00
+Updated: 2026-11-06T17:08:22.800837+00:00
 
-Latest verified checkpoint: **2972**. Goal: **active**.
+Latest verified checkpoint: **2973**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded the reserved binary owner collision repair obligation.
+Qualified region-outline pairing and a conditional overlap precheck gap.
 
-Extreme public allocation was not executed; implementation and verification
-remain open.
+Fully admitted example, downstream ownership and runtime acceptance remain open.
 
 ## Working on now
 
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2972 publication record](CHECKPOINT-2972.json)
-- [Saved report for checkpoint 2972](PROGRESS-2972.md)
+- [Checkpoint 2973 publication record](CHECKPOINT-2973.json)
+- [Saved report for checkpoint 2973](PROGRESS-2973.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
