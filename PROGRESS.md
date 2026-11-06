@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:09:54.920592+00:00
+Updated: 2026-11-06T06:12:21.159412+00:00
 
-Latest verified checkpoint: **2719**. Goal: **active**.
+Latest verified checkpoint: **2720**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2719**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 529 / 3,849 marked | 3,320 other entries |
+| Queue entries explicitly marked source-discovery closed | 530 / 3,849 marked | 3,319 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the generated ground environment cardinality question.
+Reconciled scene validation and environment identity to existing owners.
 
-Other audit entries, implementation and runtime validation remain open.
+The shared scene identity obligation, other audit entries and runtime validation
+remain open.
 
 ## Working on now
 
-Continue connected terrain generation and refinement contracts.
+Continue connected scene input and terrain contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2719 publication record](CHECKPOINT-2719.json)
-- [Saved report for checkpoint 2719](PROGRESS-2719.md)
+- [Checkpoint 2720 publication record](CHECKPOINT-2720.json)
+- [Saved report for checkpoint 2720](PROGRESS-2720.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
