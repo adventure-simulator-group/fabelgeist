@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:29:18.603878+00:00
+Updated: 2026-11-06T09:32:59.223789+00:00
 
-Latest verified checkpoint: **2788**. Goal: **active**.
+Latest verified checkpoint: **2789**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced terrain patch admission through rendering and collision.
+Probed the native constructor with an all-coincident triangle.
 
-Degenerate native behavior and public admission policy remain open.
+Only one constructor case was exercised; rendering and collision remain
+untested.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2788 publication record](CHECKPOINT-2788.json)
-- [Saved report for checkpoint 2788](PROGRESS-2788.md)
+- [Checkpoint 2789 publication record](CHECKPOINT-2789.json)
+- [Saved report for checkpoint 2789](PROGRESS-2789.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
