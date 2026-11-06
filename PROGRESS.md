@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:09:22.655055+00:00
+Updated: 2026-11-06T10:11:17.849017+00:00
 
-Latest verified checkpoint: **2803**. Goal: **active**.
+Latest verified checkpoint: **2804**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2803**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 550 / 3,849 marked | 3,299 other entries |
+| Queue entries explicitly marked source-discovery closed | 551 / 3,849 marked | 3,298 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced extreme support-profile interpolation and passage use.
+Resolved the narrow extreme support-profile test scope.
 
-The checked-in extreme test was inspected but not executed.
+Related profile diagnostics and topology remain open; the test was not run.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2803 publication record](CHECKPOINT-2803.json)
-- [Saved report for checkpoint 2803](PROGRESS-2803.md)
+- [Checkpoint 2804 publication record](CHECKPOINT-2804.json)
+- [Saved report for checkpoint 2804](PROGRESS-2804.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
