@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T00:56:40.041799+00:00
+Updated: 2026-11-06T00:58:22.591369+00:00
 
-Latest verified checkpoint: **2567**. Goal: **active**.
+Latest verified checkpoint: **2568**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced radial audit and static collision envelope for tower shells.
+Traced building collision into tactical and interior consumers.
 
-Collision policy, supported dimensions, native consumers and repair remain open.
+Collider adapter, collision policy, supported dimensions and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2567 publication record](CHECKPOINT-2567.json)
-- [Saved report for checkpoint 2567](PROGRESS-2567.md)
+- [Checkpoint 2568 publication record](CHECKPOINT-2568.json)
+- [Saved report for checkpoint 2568](PROGRESS-2568.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
