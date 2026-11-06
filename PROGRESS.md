@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:53:45.493358+00:00
+Updated: 2026-11-06T09:55:28.856044+00:00
 
-Latest verified checkpoint: **2796**. Goal: **active**.
+Latest verified checkpoint: **2797**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2796**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 546 / 3,849 marked | 3,303 other entries |
+| Queue entries explicitly marked source-discovery closed | 547 / 3,849 marked | 3,302 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified locked geology stream hash and generator sources.
+Resolved the local geology stream-purpose contract.
 
-Replay, cross-target and GPU behavior were not executed.
+Broader stream namespace, replay and GPU validation remain independent.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2796 publication record](CHECKPOINT-2796.json)
-- [Saved report for checkpoint 2796](PROGRESS-2796.md)
+- [Checkpoint 2797 publication record](CHECKPOINT-2797.json)
+- [Saved report for checkpoint 2797](PROGRESS-2797.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
