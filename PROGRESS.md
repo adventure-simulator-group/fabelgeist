@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-05T20:51:56.958392+00:00
+Updated: 2026-11-06T00:52:37.476889+00:00
 
-Latest verified checkpoint: **2564**. Goal: **active**.
+Latest verified checkpoint: **2565**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a scoped repair obligation for the vertical-connection diagnostic.
+Traced round-tower dimension admission into shell construction.
 
-Runtime confirmation and repair are deferred; the broader storey contract
-remains open.
+Shell policy, other producers, native consumers and repair remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2564 publication record](CHECKPOINT-2564.json)
-- [Saved report for checkpoint 2564](PROGRESS-2564.md)
+- [Checkpoint 2565 publication record](CHECKPOINT-2565.json)
+- [Saved report for checkpoint 2565](PROGRESS-2565.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
