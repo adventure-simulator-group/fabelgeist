@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:57:43.637377+00:00
+Updated: 2026-11-06T09:59:53.324898+00:00
 
-Latest verified checkpoint: **2798**. Goal: **active**.
+Latest verified checkpoint: **2799**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded explicit geology structure association policy.
+Traced mapped geology windows into tactical recipes.
 
-The source does not prove an invalid scene or choose the authoring policy.
+Package provenance and the full projected footprint remain unproven.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2798 publication record](CHECKPOINT-2798.json)
-- [Saved report for checkpoint 2798](PROGRESS-2798.md)
+- [Checkpoint 2799 publication record](CHECKPOINT-2799.json)
+- [Saved report for checkpoint 2799](PROGRESS-2799.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
