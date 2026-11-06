@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:11:19.677565+00:00
+Updated: 2026-11-06T04:13:39.003658+00:00
 
-Latest verified checkpoint: **2671**. Goal: **active**.
+Latest verified checkpoint: **2672**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded strategic first-ring color frame repair.
+Recorded city-ground decoded batch and failed-upload retry repair.
 
-City-ground publication, traffic, implementation and validation remain open.
+Vertex ABI, traffic, implementation and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2671 publication record](CHECKPOINT-2671.json)
-- [Saved report for checkpoint 2671](PROGRESS-2671.md)
+- [Checkpoint 2672 publication record](CHECKPOINT-2672.json)
+- [Saved report for checkpoint 2672](PROGRESS-2672.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
