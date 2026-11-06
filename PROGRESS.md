@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:06:08.102819+00:00
+Updated: 2026-11-06T05:07:54.785823+00:00
 
-Latest verified checkpoint: **2693**. Goal: **active**.
+Latest verified checkpoint: **2694**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced captured settlement identity into home catalog generation.
+Traced materialized scene launch and mission claim binding.
 
-Request-to-scene admission, implementation and runtime validation remain open.
+Materialized-scene trust policy, independent identity binding and runtime
+validation remain open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2693 publication record](CHECKPOINT-2693.json)
-- [Saved report for checkpoint 2693](PROGRESS-2693.md)
+- [Checkpoint 2694 publication record](CHECKPOINT-2694.json)
+- [Saved report for checkpoint 2694](PROGRESS-2694.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
