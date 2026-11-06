@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:49:57.112795+00:00
+Updated: 2026-11-06T04:51:39.365362+00:00
 
-Latest verified checkpoint: **2686**. Goal: **active**.
+Latest verified checkpoint: **2687**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2686**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 524 / 3,849 marked | 3,325 other entries |
+| Queue entries explicitly marked source-discovery closed | 525 / 3,849 marked | 3,324 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Established source index bounds for geographic grid upsampling.
+Closed the scoped malformed-source-grid suspicion on geographic preparation.
 
-Interpolation quality, connected terrain consumers, implementation and runtime
+Other terrain consumers, interpolation quality, implementation and runtime
 validation remain open.
 
 ## Working on now
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2686 publication record](CHECKPOINT-2686.json)
-- [Saved report for checkpoint 2686](PROGRESS-2686.md)
+- [Checkpoint 2687 publication record](CHECKPOINT-2687.json)
+- [Saved report for checkpoint 2687](PROGRESS-2687.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
