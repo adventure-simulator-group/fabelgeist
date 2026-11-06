@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T18:20:15.071807+00:00
+Updated: 2026-11-06T18:24:00.717522+00:00
 
-Latest verified checkpoint: **2989**. Goal: **active**.
+Latest verified checkpoint: **2990**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced enclosure count controls into structured error presentation.
+Qualified single-building and foundation count-control producers.
 
-Other count producers, external consumers and runtime verification remain open.
+Remaining producers, external consumers and runtime verification remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2989 publication record](CHECKPOINT-2989.json)
-- [Saved report for checkpoint 2989](PROGRESS-2989.md)
+- [Checkpoint 2990 publication record](CHECKPOINT-2990.json)
+- [Saved report for checkpoint 2990](PROGRESS-2990.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
