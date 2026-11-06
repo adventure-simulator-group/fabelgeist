@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:51:14.824293+00:00
+Updated: 2026-11-06T02:53:02.397431+00:00
 
-Latest verified checkpoint: **2631**. Goal: **active**.
+Latest verified checkpoint: **2632**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified selected generated opening-index and recipe paths.
+Traced worker venue and scene recipe acceptance.
 
-Other producers, decoded recipes, extent policy and validation remain open.
+Other recipe checks, field extent policy and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2631 publication record](CHECKPOINT-2631.json)
-- [Saved report for checkpoint 2631](PROGRESS-2631.md)
+- [Checkpoint 2632 publication record](CHECKPOINT-2632.json)
+- [Saved report for checkpoint 2632](PROGRESS-2632.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
