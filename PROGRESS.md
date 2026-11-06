@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T18:07:15.772104+00:00
+Updated: 2026-11-06T18:11:22.443223+00:00
 
-Latest verified checkpoint: **2986**. Goal: **active**.
+Latest verified checkpoint: **2987**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,11 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared rectangular-ring morphing with the shifted-origin seam and city
-producer.
+Traced unmeasurable discrepancy and structured report adapters.
 
-Other producers, seam policy, full alias comparison and runtime validation
-remain open.
+Public adapter policy, remaining consumers and runtime verification remain open.
 
 ## Working on now
 
@@ -217,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2986 publication record](CHECKPOINT-2986.json)
-- [Saved report for checkpoint 2986](PROGRESS-2986.md)
+- [Checkpoint 2987 publication record](CHECKPOINT-2987.json)
+- [Saved report for checkpoint 2987](PROGRESS-2987.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
