@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:09:57.770489+00:00
+Updated: 2026-11-06T14:12:18.378897+00:00
 
-Latest verified checkpoint: **2911**. Goal: **active**.
+Latest verified checkpoint: **2912**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified support policy units, selective fallback and diagnostic context.
+Connected distinct displacement and tolerance roles to the independent Lens 11
+limits obligation.
 
-Cross-lens parameter ownership, decoded policy authority and runtime acceptance
+The independent type-granularity view, policy authority and runtime acceptance
 remain open.
 
 ## Working on now
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2911 publication record](CHECKPOINT-2911.json)
-- [Saved report for checkpoint 2911](PROGRESS-2911.md)
+- [Checkpoint 2912 publication record](CHECKPOINT-2912.json)
+- [Saved report for checkpoint 2912](PROGRESS-2912.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
