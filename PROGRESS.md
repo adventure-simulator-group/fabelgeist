@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:21:47.386791+00:00
+Updated: 2026-11-06T13:24:16.095845+00:00
 
-Latest verified checkpoint: **2890**. Goal: **active**.
+Latest verified checkpoint: **2891**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced curated storey height and generated opening sill construction.
+Traced placement floor binding and support reconstruction before inspection.
 
-Universal generation bounds and actual world-elevation overflow remain open.
+Stored limits, source reconstruction and actual world-elevation overflow remain
+open.
 
 ## Working on now
 
-Trace geometry construction and placement elevation provenance.
+Qualify source-height reconstruction and stored support limits.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2890 publication record](CHECKPOINT-2890.json)
-- [Saved report for checkpoint 2890](PROGRESS-2890.md)
+- [Checkpoint 2891 publication record](CHECKPOINT-2891.json)
+- [Saved report for checkpoint 2891](PROGRESS-2891.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
