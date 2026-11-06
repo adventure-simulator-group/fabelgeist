@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T16:53:57.751729+00:00
+Updated: 2026-11-06T16:57:29.185379+00:00
 
-Latest verified checkpoint: **2969**. Goal: **active**.
+Latest verified checkpoint: **2970**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced settlement decode validation and identified an owner-sentinel assumption.
+Bounded generated settlement owners below the binary sentinel.
 
-Product size bounds, sentinel reachability and runtime acceptance remain open.
+Public-constructor limits, enclosing byte bounds and runtime acceptance remain
+open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2969 publication record](CHECKPOINT-2969.json)
-- [Saved report for checkpoint 2969](PROGRESS-2969.md)
+- [Checkpoint 2970 publication record](CHECKPOINT-2970.json)
+- [Saved report for checkpoint 2970](PROGRESS-2970.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
