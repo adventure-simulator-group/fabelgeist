@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:03:46.417042+00:00
+Updated: 2026-11-06T02:05:27.297455+00:00
 
-Latest verified checkpoint: **2607**. Goal: **active**.
+Latest verified checkpoint: **2608**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced generated gable enclosure planes and normal conditions.
+Traced wall-frame axes into jamb mesh and viewer focus.
 
-Gable nondegeneracy, remaining frame consumers, aliases and validation remain
-open.
+Other consumers, radial policy, aliases and validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2607 publication record](CHECKPOINT-2607.json)
-- [Saved report for checkpoint 2607](PROGRESS-2607.md)
+- [Checkpoint 2608 publication record](CHECKPOINT-2608.json)
+- [Saved report for checkpoint 2608](PROGRESS-2608.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
