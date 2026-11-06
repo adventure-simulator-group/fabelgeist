@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:35:33.657398+00:00
+Updated: 2026-11-06T10:37:18.133254+00:00
 
-Latest verified checkpoint: **2812**. Goal: **active**.
+Latest verified checkpoint: **2813**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced equipment hand labels into tactical occupancy identity.
+Traced tactical occupancy topology through replication registration, ordering,
+and conflict checks.
 
-Consumer and replication boundaries remain open.
+Indirect field uses, client consumers and readmission remain open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2812 publication record](CHECKPOINT-2812.json)
-- [Saved report for checkpoint 2812](PROGRESS-2812.md)
+- [Checkpoint 2813 publication record](CHECKPOINT-2813.json)
+- [Saved report for checkpoint 2813](PROGRESS-2813.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
