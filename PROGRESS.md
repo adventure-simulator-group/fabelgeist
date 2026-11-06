@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:55:43.971348+00:00
+Updated: 2026-11-06T12:57:47.689484+00:00
 
-Latest verified checkpoint: **2879**. Goal: **active**.
+Latest verified checkpoint: **2880**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced staged vista dimensions to the diagnostic triangle builder.
+Traced ground-contact dimensionality into the post-distance helper.
 
-Malformed-stage reachability and build-mode behavior remain unverified.
+Area-contact collapse under valid transforms remains unproven.
 
 ## Working on now
 
-Reconcile stage admission with the existing vista content-binding repair.
+Trace polygon admission and transformed-area precision.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2879 publication record](CHECKPOINT-2879.json)
-- [Saved report for checkpoint 2879](PROGRESS-2879.md)
+- [Checkpoint 2880 publication record](CHECKPOINT-2880.json)
+- [Saved report for checkpoint 2880](PROGRESS-2880.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
