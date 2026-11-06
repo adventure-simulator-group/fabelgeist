@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:51:45.288828+00:00
+Updated: 2026-11-06T01:53:20.102852+00:00
 
-Latest verified checkpoint: **2600**. Goal: **active**.
+Latest verified checkpoint: **2601**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,11 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Selected sign width-height admission requirements against existing dimension
-owners.
+Compared all named-sign queue hits with the physical-site finding.
 
-Final owner design, full alias qualification, raster policy and validation
-remain open.
+Non-textual alias qualification, raster policy and validation remain open.
 
 ## Working on now
 
@@ -216,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2600 publication record](CHECKPOINT-2600.json)
-- [Saved report for checkpoint 2600](PROGRESS-2600.md)
+- [Checkpoint 2601 publication record](CHECKPOINT-2601.json)
+- [Saved report for checkpoint 2601](PROGRESS-2601.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
