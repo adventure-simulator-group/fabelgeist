@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:35:12.339089+00:00
+Updated: 2026-11-06T09:37:01.693027+00:00
 
-Latest verified checkpoint: **2790**. Goal: **active**.
+Latest verified checkpoint: **2791**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2790**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 543 / 3,849 marked | 3,306 other entries |
+| Queue entries explicitly marked source-discovery closed | 544 / 3,849 marked | 3,305 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the fault-erosion neighbor boundary as an intentional no-transfer mode.
+Reconciled internal patch construction with its existing admission owner.
 
-Independent grid sizing and numeric field concerns remain open.
+The shared public patch policy and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2790 publication record](CHECKPOINT-2790.json)
-- [Saved report for checkpoint 2790](PROGRESS-2790.md)
+- [Checkpoint 2791 publication record](CHECKPOINT-2791.json)
+- [Saved report for checkpoint 2791](PROGRESS-2791.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
