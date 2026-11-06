@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:18:47.658440+00:00
+Updated: 2026-11-06T08:20:42.587868+00:00
 
-Latest verified checkpoint: **2762**. Goal: **active**.
+Latest verified checkpoint: **2763**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Linked current seed-derived shoot identity to its existing owner.
+Qualified beech and shrub shoot identity producers and raster grouping.
 
-Other species, collision policy, numeric framing and runtime validation remain
-open.
+No identity collision was demonstrated; collision policy and other lens evidence
+remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2762 publication record](CHECKPOINT-2762.json)
-- [Saved report for checkpoint 2762](PROGRESS-2762.md)
+- [Checkpoint 2763 publication record](CHECKPOINT-2763.json)
+- [Saved report for checkpoint 2763](PROGRESS-2763.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
