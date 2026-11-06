@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:48:10.689894+00:00
+Updated: 2026-11-06T08:50:26.615710+00:00
 
-Latest verified checkpoint: **2773**. Goal: **active**.
+Latest verified checkpoint: **2774**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2773**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 538 / 3,849 marked | 3,311 other entries |
+| Queue entries explicitly marked source-discovery closed | 539 / 3,849 marked | 3,310 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified default Parry triangle-mesh constructor behavior.
+Closed transition terrain source discovery with numerical policy retained.
 
-Owned indices, UVs and runtime collision behavior remain open.
+Owned UV composition, numeric extremes and runtime validation remain open.
 
 ## Working on now
 
-Continue owned terrain numerical and index reconciliation.
+Continue remaining terrain and volumetric patch contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2773 publication record](CHECKPOINT-2773.json)
-- [Saved report for checkpoint 2773](PROGRESS-2773.md)
+- [Checkpoint 2774 publication record](CHECKPOINT-2774.json)
+- [Saved report for checkpoint 2774](PROGRESS-2774.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
