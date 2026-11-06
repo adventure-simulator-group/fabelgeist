@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:38:08.608728+00:00
+Updated: 2026-11-06T11:40:00.563934+00:00
 
-Latest verified checkpoint: **2841**. Goal: **active**.
+Latest verified checkpoint: **2842**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced capture mission label and settlement-dependent seed selection.
+Traced settlement and mission identifiers to schema and deterministic seed
+boundaries.
 
-Canonical settlement and mission identity owners remain open.
+A declaration search alone does not establish all existing identity owners.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2841 publication record](CHECKPOINT-2841.json)
-- [Saved report for checkpoint 2841](PROGRESS-2841.md)
+- [Checkpoint 2842 publication record](CHECKPOINT-2842.json)
+- [Saved report for checkpoint 2842](PROGRESS-2842.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
