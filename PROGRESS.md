@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:13:54.907990+00:00
+Updated: 2026-11-06T01:15:20.994627+00:00
 
-Latest verified checkpoint: **2578**. Goal: **active**.
+Latest verified checkpoint: **2579**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified editor door-width acceptance and existing test scope.
+Traced gun-loop parameters through clipping and later audit.
 
-Fortified acceptance, width policy and runtime validation remain open.
+Independent profiles, tactical use, aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2578 publication record](CHECKPOINT-2578.json)
-- [Saved report for checkpoint 2578](PROGRESS-2578.md)
+- [Checkpoint 2579 publication record](CHECKPOINT-2579.json)
+- [Saved report for checkpoint 2579](PROGRESS-2579.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
