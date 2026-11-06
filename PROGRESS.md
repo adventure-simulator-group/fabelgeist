@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T20:57:00.676375+00:00
+Updated: 2026-11-06T21:01:12.181754+00:00
 
-Latest verified checkpoint: **3022**. Goal: **active**.
+Latest verified checkpoint: **3023**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced a concrete uncut owned-terrain construction matching the payload lower
-bound.
+Narrowed empty-plan terrain reach through the dispatcher grounding and owner
+checks.
 
-The construction is source-derived and has not been executed or shown on the
-production path.
+Nonempty grounded terrain sizes and live transport behavior remain unmeasured.
 
 ## Working on now
 
-Establish production reach and reconcile transport obligations; verify after the
-audit gate.
+Reconcile nonempty grounded terrain sizes and transport obligations; verify
+after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3022 publication record](CHECKPOINT-3022.json)
-- [Saved report for checkpoint 3022](PROGRESS-3022.md)
+- [Checkpoint 3023 publication record](CHECKPOINT-3023.json)
+- [Saved report for checkpoint 3023](PROGRESS-3023.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
