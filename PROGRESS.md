@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:42:39.397641+00:00
+Updated: 2026-11-06T13:45:27.415350+00:00
 
-Latest verified checkpoint: **2899**. Goal: **active**.
+Latest verified checkpoint: **2900**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced selected sill production and conditional checked enclosure use.
+Distinguished curated recipe selection from supplied-program reconstruction and
+generation checks.
 
-All-producer admission and any actual nonfinite report remain open.
+Accepted placement provenance, generation bounds and any actual nonfinite report
+remain open.
 
 ## Working on now
 
@@ -215,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2899 publication record](CHECKPOINT-2899.json)
-- [Saved report for checkpoint 2899](PROGRESS-2899.md)
+- [Checkpoint 2900 publication record](CHECKPOINT-2900.json)
+- [Saved report for checkpoint 2900](PROGRESS-2900.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
