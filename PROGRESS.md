@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T17:44:43.115259+00:00
+Updated: 2026-11-06T17:48:52.747689+00:00
 
-Latest verified checkpoint: **2982**. Goal: **active**.
+Latest verified checkpoint: **2983**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Bounded a widened normal-computation approach for f32 vertices.
+Linked sampled terrain normal failure to its existing audit owner.
 
-Implementation, independent normal verification and runtime acceptance remain
-open.
+Separate sampled and owned repairs, caller policy and runtime verification
+remain open.
 
 ## Working on now
 
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2982 publication record](CHECKPOINT-2982.json)
-- [Saved report for checkpoint 2982](PROGRESS-2982.md)
+- [Checkpoint 2983 publication record](CHECKPOINT-2983.json)
+- [Saved report for checkpoint 2983](PROGRESS-2983.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
