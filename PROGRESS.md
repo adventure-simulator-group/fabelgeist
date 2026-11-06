@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T21:17:13.373527+00:00
+Updated: 2026-11-06T21:22:19.638392+00:00
 
-Latest verified checkpoint: **3026**. Goal: **active**.
+Latest verified checkpoint: **3027**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Narrowed partyless travel reach through web and selected simulation callers.
+Identified direct camp travel and qualified session and party approval
+boundaries.
 
-Other callers, partyless policy and runtime behavior remain open.
+Partyless session grants, other callers and runtime behavior remain open.
 
 ## Working on now
 
-Resolve remaining settlement travel callers and partyless policy; implement only
-after the audit gate.
+Trace session grant production and reconcile partyless travel policy; implement
+only after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3026 publication record](CHECKPOINT-3026.json)
-- [Saved report for checkpoint 3026](PROGRESS-3026.md)
+- [Checkpoint 3027 publication record](CHECKPOINT-3027.json)
+- [Saved report for checkpoint 3027](PROGRESS-3027.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
