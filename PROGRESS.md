@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:21:54.059339+00:00
+Updated: 2026-11-06T07:25:58.862134+00:00
 
-Latest verified checkpoint: **2742**. Goal: **active**.
+Latest verified checkpoint: **2743**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the terrain-delta diagnostic source role.
+Qualified bounded furniture candidates and accepted activity metadata.
 
-No terrain or capture test was executed; independent audit and repairs remain
-open.
+Identity, native boundaries and runtime validation remain open.
 
 ## Working on now
 
-Continue unresolved furniture and scene authority contracts.
+Continue furniture identity and native boundary reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2742 publication record](CHECKPOINT-2742.json)
-- [Saved report for checkpoint 2742](PROGRESS-2742.md)
+- [Checkpoint 2743 publication record](CHECKPOINT-2743.json)
+- [Saved report for checkpoint 2743](PROGRESS-2743.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
