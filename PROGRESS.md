@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:43:13.037569+00:00
+Updated: 2026-11-06T01:44:59.578587+00:00
 
-Latest verified checkpoint: **2595**. Goal: **active**.
+Latest verified checkpoint: **2596**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified pinned GPU texture dimension validation.
+Traced Bevy image preparation to wgpu texture creation.
 
-Backend connection, raster policy, semantic aliases and validation remain open.
+Backend dispatch, raster policy, semantic aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2595 publication record](CHECKPOINT-2595.json)
-- [Saved report for checkpoint 2595](PROGRESS-2595.md)
+- [Checkpoint 2596 publication record](CHECKPOINT-2596.json)
+- [Saved report for checkpoint 2596](PROGRESS-2596.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
