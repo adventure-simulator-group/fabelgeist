@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:29:24.539870+00:00
+Updated: 2026-11-06T14:31:38.643097+00:00
 
-Latest verified checkpoint: **2923**. Goal: **active**.
+Latest verified checkpoint: **2924**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced floor admission error classes through decode and projection boundaries.
+Excluded member-error conversion failure on the inspected admitted construction
+path.
 
-Member-conversion reachability, native consumers and runtime acceptance remain
-open.
+Other floor coverage, native consumers and runtime acceptance remain open.
 
 ## Working on now
 
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2923 publication record](CHECKPOINT-2923.json)
-- [Saved report for checkpoint 2923](PROGRESS-2923.md)
+- [Checkpoint 2924 publication record](CHECKPOINT-2924.json)
+- [Saved report for checkpoint 2924](PROGRESS-2924.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
