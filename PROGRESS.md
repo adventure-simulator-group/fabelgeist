@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:14:13.796648+00:00
+Updated: 2026-11-06T05:16:13.787991+00:00
 
-Latest verified checkpoint: **2697**. Goal: **active**.
+Latest verified checkpoint: **2698**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced typed imported source and fixture identity boundaries.
+Traced verified terrain package digest into scene source.
 
-Tactical source binding, alias reconciliation and runtime validation remain
+Historical parent locator, tactical source binding and runtime validation remain
 open.
 
 ## Working on now
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2697 publication record](CHECKPOINT-2697.json)
-- [Saved report for checkpoint 2697](PROGRESS-2697.md)
+- [Checkpoint 2698 publication record](CHECKPOINT-2698.json)
+- [Saved report for checkpoint 2698](PROGRESS-2698.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
