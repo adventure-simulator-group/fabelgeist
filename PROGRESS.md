@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:44:59.578587+00:00
+Updated: 2026-11-06T01:46:47.797197+00:00
 
-Latest verified checkpoint: **2596**. Goal: **active**.
+Latest verified checkpoint: **2597**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced Bevy image preparation to wgpu texture creation.
+Traced wgpu-core texture dispatch and error forwarding.
 
-Backend dispatch, raster policy, semantic aliases and validation remain open.
+Browser backend, raster policy, semantic aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2596 publication record](CHECKPOINT-2596.json)
-- [Saved report for checkpoint 2596](PROGRESS-2596.md)
+- [Checkpoint 2597 publication record](CHECKPOINT-2597.json)
+- [Saved report for checkpoint 2597](PROGRESS-2597.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
