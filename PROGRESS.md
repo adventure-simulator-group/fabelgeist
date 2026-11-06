@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:55:28.856044+00:00
+Updated: 2026-11-06T09:57:43.637377+00:00
 
-Latest verified checkpoint: **2797**. Goal: **active**.
+Latest verified checkpoint: **2798**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,11 +10,11 @@ Latest verified checkpoint: **2797**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 547 / 3,849 marked | 3,302 other entries |
+| Queue entries explicitly marked source-discovery closed | 548 / 3,849 marked | 3,301 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 55 recorded | 2 conditional; 6 policy/design |
+| Scoped repair obligations on entries | 56 recorded | 2 conditional; 7 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the local geology stream-purpose contract.
+Recorded explicit geology structure association policy.
 
-Broader stream namespace, replay and GPU validation remain independent.
+The source does not prove an invalid scene or choose the authoring policy.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2797 publication record](CHECKPOINT-2797.json)
-- [Saved report for checkpoint 2797](PROGRESS-2797.md)
+- [Checkpoint 2798 publication record](CHECKPOINT-2798.json)
+- [Saved report for checkpoint 2798](PROGRESS-2798.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
