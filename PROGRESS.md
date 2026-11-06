@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:39:05.771905+00:00
+Updated: 2026-11-06T14:41:13.544708+00:00
 
-Latest verified checkpoint: **2927**. Goal: **active**.
+Latest verified checkpoint: **2928**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced floor binding into terrain queries and building presentation.
+Qualified missing-face, wrong-level and floor-mismatch test intent.
 
-Broader numeric bounds, external consumers and runtime acceptance remain open.
+Tests remain unexecuted; broader numeric bounds and native acceptance remain
+open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2927 publication record](CHECKPOINT-2927.json)
-- [Saved report for checkpoint 2927](PROGRESS-2927.md)
+- [Checkpoint 2928 publication record](CHECKPOINT-2928.json)
+- [Saved report for checkpoint 2928](PROGRESS-2928.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
