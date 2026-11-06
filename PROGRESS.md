@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:56:14.857147+00:00
+Updated: 2026-11-06T09:00:13.957383+00:00
 
-Latest verified checkpoint: **2776**. Goal: **active**.
+Latest verified checkpoint: **2777**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2776**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 540 / 3,849 marked | 3,309 other entries |
+| Queue entries explicitly marked source-discovery closed | 541 / 3,849 marked | 3,308 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed collar blend source discovery with public policy retained.
+Reconciled vista clipping with its existing seam owner.
 
-No failing seam was demonstrated; generic patch clipping and production blending
-remain distinct.
+No nonzero-origin grounded runtime failure was demonstrated.
 
 ## Working on now
 
-Continue independent landform and terrain contracts.
+Continue terrain and landform contract reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2776 publication record](CHECKPOINT-2776.json)
-- [Saved report for checkpoint 2776](PROGRESS-2776.md)
+- [Checkpoint 2777 publication record](CHECKPOINT-2777.json)
+- [Saved report for checkpoint 2777](PROGRESS-2777.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
