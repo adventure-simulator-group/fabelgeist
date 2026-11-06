@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:40:34.800190+00:00
+Updated: 2026-11-06T06:43:40.383211+00:00
 
-Latest verified checkpoint: **2730**. Goal: **active**.
+Latest verified checkpoint: **2731**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inventoried building-generator opening ID formulas.
+Bounded ordinary grid-wall opening IDs below the gate marker.
 
-Indexed formula bounds, non-generator paths and runtime validation remain open.
+Other generator paths, non-generator plans and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2730 publication record](CHECKPOINT-2730.json)
-- [Saved report for checkpoint 2730](PROGRESS-2730.md)
+- [Checkpoint 2731 publication record](CHECKPOINT-2731.json)
+- [Saved report for checkpoint 2731](PROGRESS-2731.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
