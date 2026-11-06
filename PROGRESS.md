@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:19:59.035892+00:00
+Updated: 2026-11-06T09:24:31.636394+00:00
 
-Latest verified checkpoint: **2786**. Goal: **active**.
+Latest verified checkpoint: **2787**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2786**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 541 / 3,849 marked | 3,308 other entries |
+| Queue entries explicitly marked source-discovery closed | 542 / 3,849 marked | 3,307 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced fixture validation separately from landform extraction.
+Recorded landform grid sizing and corrected its repair plan.
 
-An upper-bound scene and its extraction have not been executed.
+Related presentation, erosion and extreme-height scopes remain open; no product
+failure was demonstrated.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2786 publication record](CHECKPOINT-2786.json)
-- [Saved report for checkpoint 2786](PROGRESS-2786.md)
+- [Checkpoint 2787 publication record](CHECKPOINT-2787.json)
+- [Saved report for checkpoint 2787](PROGRESS-2787.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
