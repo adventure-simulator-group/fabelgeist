@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:33:26.629294+00:00
+Updated: 2026-11-06T12:35:37.338871+00:00
 
-Latest verified checkpoint: **2868**. Goal: **active**.
+Latest verified checkpoint: **2869**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2868**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 64 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 65 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the documented same-run provenance requirement with resampler and
-source identity checks.
+Recorded a scoped repair to bind staged vista content to the scene vista.
 
-Vista equality and a content-binding disposition remain open.
+Equality semantics and other stage fields remain open; identical data does not
+prove same-run origin.
 
 ## Working on now
 
-Trace final scene vista and select a provenance binding consistent with the
-documented contract.
+Qualify vista equality and stage fields before implementation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2868 publication record](CHECKPOINT-2868.json)
-- [Saved report for checkpoint 2868](PROGRESS-2868.md)
+- [Checkpoint 2869 publication record](CHECKPOINT-2869.json)
+- [Saved report for checkpoint 2869](PROGRESS-2869.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
