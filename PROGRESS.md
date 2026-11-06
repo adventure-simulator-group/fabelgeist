@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:04:19.564970+00:00
+Updated: 2026-11-06T09:06:26.758624+00:00
 
-Latest verified checkpoint: **2778**. Goal: **active**.
+Latest verified checkpoint: **2779**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded partial landform grid-sizing evidence.
+Modeled the landform vertical-count arithmetic; product reachability remains
+open.
 
-Extreme-height overflow and runtime impact remain unproven.
+The numerical model is not a product reproduction.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2778 publication record](CHECKPOINT-2778.json)
-- [Saved report for checkpoint 2778](PROGRESS-2778.md)
+- [Checkpoint 2779 publication record](CHECKPOINT-2779.json)
+- [Saved report for checkpoint 2779](PROGRESS-2779.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
