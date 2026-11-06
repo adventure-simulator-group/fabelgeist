@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:24:18.711842+00:00
+Updated: 2026-11-06T14:26:52.510116+00:00
 
-Latest verified checkpoint: **2921**. Goal: **active**.
+Latest verified checkpoint: **2922**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,11 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a scoped repair for distinct support limits and zero-valid query
-tolerance.
+Qualified floor-region wire reconstruction and owner-specific surface admission
+errors.
 
-The broader Lens 11 contract, full audit gate, implementation and acceptance
-remain open.
+Coverage, native consumers and runtime acceptance remain open.
 
 ## Working on now
 
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2921 publication record](CHECKPOINT-2921.json)
-- [Saved report for checkpoint 2921](PROGRESS-2921.md)
+- [Checkpoint 2922 publication record](CHECKPOINT-2922.json)
+- [Saved report for checkpoint 2922](PROGRESS-2922.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
