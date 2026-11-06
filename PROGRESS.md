@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:41:04.512226+00:00
+Updated: 2026-11-06T15:44:39.679306+00:00
 
-Latest verified checkpoint: **2947**. Goal: **active**.
+Latest verified checkpoint: **2948**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Extended the centering overflow repair obligation to boundary colliders.
+Traced an accepted enclosure decode path for the centering overflow.
 
-Complete boundary binding reachability, native outcome and runtime acceptance
+Extreme variant has not run; native outcome and generated-scene reachability
 remain open.
 
 ## Working on now
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2947 publication record](CHECKPOINT-2947.json)
-- [Saved report for checkpoint 2947](PROGRESS-2947.md)
+- [Checkpoint 2948 publication record](CHECKPOINT-2948.json)
+- [Saved report for checkpoint 2948](PROGRESS-2948.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
