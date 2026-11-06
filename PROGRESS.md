@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T17:22:38.423637+00:00
+Updated: 2026-11-06T17:26:39.898121+00:00
 
-Latest verified checkpoint: **2976**. Goal: **active**.
+Latest verified checkpoint: **2977**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced support-query ceilings and owned versus sampled hit selection.
+Traced selected production, test and diagnostic support-query callers.
 
-Ceiling producers, ties, numerical extremes and runtime acceptance remain open.
+Tie semantics, numerical extremes and runtime acceptance remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2976 publication record](CHECKPOINT-2976.json)
-- [Saved report for checkpoint 2976](PROGRESS-2976.md)
+- [Checkpoint 2977 publication record](CHECKPOINT-2977.json)
+- [Saved report for checkpoint 2977](PROGRESS-2977.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
