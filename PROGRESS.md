@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:07:27.089317+00:00
+Updated: 2026-11-06T02:09:11.284739+00:00
 
-Latest verified checkpoint: **2609**. Goal: **active**.
+Latest verified checkpoint: **2610**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified operable door, window and bar direction admission.
+Traced door, window and bar geometry into tactical collision.
 
-Collision consumers, radial policy, aliases and validation remain open.
+Other consumers, radial policy, aliases and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2609 publication record](CHECKPOINT-2609.json)
-- [Saved report for checkpoint 2609](PROGRESS-2609.md)
+- [Checkpoint 2610 publication record](CHECKPOINT-2610.json)
+- [Saved report for checkpoint 2610](PROGRESS-2610.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
