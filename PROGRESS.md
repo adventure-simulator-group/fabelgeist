@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:05:09.401584+00:00
+Updated: 2026-11-06T13:07:28.194216+00:00
 
-Latest verified checkpoint: **2883**. Goal: **active**.
+Latest verified checkpoint: **2884**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified the existing checked architectural-to-scene polygon projection.
+Traced scene-to-property transforms and compared the city-patch geometry owner.
 
-Property-frame conversion and complete-scene collapse remain unproven.
+Actual generated contact collapse and final frame-owner choice remain open.
 
 ## Working on now
 
-Trace the scene-to-property conversion and related geometry owners.
+Qualify generated contact reachability and frame ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2883 publication record](CHECKPOINT-2883.json)
-- [Saved report for checkpoint 2883](PROGRESS-2883.md)
+- [Checkpoint 2884 publication record](CHECKPOINT-2884.json)
+- [Saved report for checkpoint 2884](PROGRESS-2884.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
