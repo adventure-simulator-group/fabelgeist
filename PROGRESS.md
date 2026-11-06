@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T22:51:55.211279+00:00
+Updated: 2026-11-06T22:59:58.421033+00:00
 
-Latest verified checkpoint: **3042**. Goal: **active**.
+Latest verified checkpoint: **3043**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced default schema case conversion for route coordinate names.
+Confirmed the module has no source-declared case-policy override.
 
-The apparent coordinate mismatch is not supported under default conversion;
-alias and return-leg checks remain open.
+The coordinate mismatch suspicion is not supported for the normal policy; alias
+and return-leg checks remain open.
 
 ## Working on now
 
-Confirm module policy and reconcile route aliases; resolve return-leg policy
-before implementation.
+Reconcile coordinate and route aliases; resolve the return-leg policy before
+implementation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3042 publication record](CHECKPOINT-3042.json)
-- [Saved report for checkpoint 3042](PROGRESS-3042.md)
+- [Checkpoint 3043 publication record](CHECKPOINT-3043.json)
+- [Saved report for checkpoint 3043](PROGRESS-3043.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
