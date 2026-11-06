@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:33:23.954439+00:00
+Updated: 2026-11-06T06:35:47.065550+00:00
 
-Latest verified checkpoint: **2727**. Goal: **active**.
+Latest verified checkpoint: **2728**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified door identity replication, presentation and gate classification.
+Qualified public opening IDs and the gate bit-mask boundary.
 
-Opening namespace admission, native behavior and runtime validation remain open.
+Generated ID bounds, admitted plan paths and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2727 publication record](CHECKPOINT-2727.json)
-- [Saved report for checkpoint 2727](PROGRESS-2727.md)
+- [Checkpoint 2728 publication record](CHECKPOINT-2728.json)
+- [Saved report for checkpoint 2728](PROGRESS-2728.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
