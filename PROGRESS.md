@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:03:07.376451+00:00
+Updated: 2026-11-06T03:05:04.117863+00:00
 
-Latest verified checkpoint: **2637**. Goal: **active**.
+Latest verified checkpoint: **2638**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped interior-field plan and grid admission discovery.
+Qualified exposure selection versus GPU field residency.
 
-Producer guarantees, GPU residency, aliases and validation remain open.
+Supported capacity, degradation policy, aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2637 publication record](CHECKPOINT-2637.json)
-- [Saved report for checkpoint 2637](PROGRESS-2637.md)
+- [Checkpoint 2638 publication record](CHECKPOINT-2638.json)
+- [Saved report for checkpoint 2638](PROGRESS-2638.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
