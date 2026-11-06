@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:28:00.857054+00:00
+Updated: 2026-11-06T11:29:48.398815+00:00
 
-Latest verified checkpoint: **2836**. Goal: **active**.
+Latest verified checkpoint: **2837**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified heightfield and composite child-cast error handling.
+Qualified cylinder, triangle and convex shape-pair support.
 
-No supported generated terrain case reaches an unsupported child pair in the
-evidence so far.
+The exact shape-pair conclusion does not certify numerical contact results.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2836 publication record](CHECKPOINT-2836.json)
-- [Saved report for checkpoint 2836](PROGRESS-2836.md)
+- [Checkpoint 2837 publication record](CHECKPOINT-2837.json)
+- [Saved report for checkpoint 2837](PROGRESS-2837.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
