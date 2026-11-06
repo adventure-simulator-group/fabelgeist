@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:59:53.196951+00:00
+Updated: 2026-11-06T13:02:50.695955+00:00
 
-Latest verified checkpoint: **2881**. Goal: **active**.
+Latest verified checkpoint: **2882**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced convex polygon admission and unchecked frame transformations.
+Compared aggregate contact envelope and per-solid distance inputs.
 
-Complete-scene transformed-area collapse remains unproven.
+Individual recipe geometry and complete-scene collapse remain unproven.
 
 ## Working on now
 
-Trace recipe geometry and complete scene placement constraints.
+Trace merchant contact geometry and support constraints.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2881 publication record](CHECKPOINT-2881.json)
-- [Saved report for checkpoint 2881](PROGRESS-2881.md)
+- [Checkpoint 2882 publication record](CHECKPOINT-2882.json)
+- [Saved report for checkpoint 2882](PROGRESS-2882.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
