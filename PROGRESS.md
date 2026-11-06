@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:32:00.704681+00:00
+Updated: 2026-11-06T08:34:46.273380+00:00
 
-Latest verified checkpoint: **2767**. Goal: **active**.
+Latest verified checkpoint: **2768**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2767**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 537 / 3,849 marked | 3,312 other entries |
+| Queue entries explicitly marked source-discovery closed | 538 / 3,849 marked | 3,311 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved active/distant duplicate ID admission through support bindings.
+Reconciled market geometry with its existing repair owner.
 
-No runtime test was run; pre-grounding and unrelated scene contracts remain
-open.
+No complete malformed scene or runtime effect was demonstrated.
 
 ## Working on now
 
-Continue scene source and support contract reconciliation.
+Continue scene geometry and terrain contract reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2767 publication record](CHECKPOINT-2767.json)
-- [Saved report for checkpoint 2767](PROGRESS-2767.md)
+- [Checkpoint 2768 publication record](CHECKPOINT-2768.json)
+- [Saved report for checkpoint 2768](PROGRESS-2768.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
