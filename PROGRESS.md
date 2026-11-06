@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:58:13.537215+00:00
+Updated: 2026-11-06T11:00:15.735624+00:00
 
-Latest verified checkpoint: **2822**. Goal: **active**.
+Latest verified checkpoint: **2823**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Probed three actual landform variants and linked their codec failures to the
-existing repair.
+Traced scene and configuration sends and their channel registrations.
 
-The product-type codec probe failed for all three variants; live replication
-remains untested.
+Cross-channel delivery and live scene readiness remain untested.
 
 ## Working on now
 
-Continue landform codec repair planning and remaining audit.
+Inspect pending vista replay and transport ordering.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2822 publication record](CHECKPOINT-2822.json)
-- [Saved report for checkpoint 2822](PROGRESS-2822.md)
+- [Checkpoint 2823 publication record](CHECKPOINT-2823.json)
+- [Saved report for checkpoint 2823](PROGRESS-2823.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
