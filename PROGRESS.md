@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:16:52.992305+00:00
+Updated: 2026-11-06T15:20:58.145961+00:00
 
-Latest verified checkpoint: **2940**. Goal: **active**.
+Latest verified checkpoint: **2941**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2940**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 66 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 67 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified existing nested-margin and owned-terrain codec test intent.
+Recorded settlement cut-face collision repair for empty natural terrain.
 
-Extreme query behavior and executed native acceptance remain open.
+Production reachability, the separate property-terrain path and runtime
+acceptance remain open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2940 publication record](CHECKPOINT-2940.json)
-- [Saved report for checkpoint 2940](PROGRESS-2940.md)
+- [Checkpoint 2941 publication record](CHECKPOINT-2941.json)
+- [Saved report for checkpoint 2941](PROGRESS-2941.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
