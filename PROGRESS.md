@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:44:00.501458+00:00
+Updated: 2026-11-06T11:45:53.102001+00:00
 
-Latest verified checkpoint: **2844**. Goal: **active**.
+Latest verified checkpoint: **2845**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected imported-scene identity roles to existing dispatcher and settlement
-owners.
+Separated terrain-stage provenance from capture purpose and inspected ID
+selection.
 
-The settlement-stability test was inspected but not run.
+No required-coverage policy or runtime failure is established.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2844 publication record](CHECKPOINT-2844.json)
-- [Saved report for checkpoint 2844](PROGRESS-2844.md)
+- [Checkpoint 2845 publication record](CHECKPOINT-2845.json)
+- [Saved report for checkpoint 2845](PROGRESS-2845.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
