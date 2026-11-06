@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2793,
+  "at": "2026-11-06T09:45:36.679323+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "4ff861586dfc736ab475ac9f85b88719bdb0f1ea4db1532ceab944613d4c1da5",
+    "verification": "fc8f2eb054f3bf27a832fe1925462e84a265f621df5466c9783bb3887c2372af",
+    "canonical_current": "1dd6b9ec74d16aad337c1f45a09851184e4a301525f53dafcb07006b7d0b69d7"
+  },
+  "scope": {
+    "summary": "Reproduced an extreme public-terrain landform sizing panic.",
+    "scope_limit": "The witness uses the public API and debug build; normal scene input excludes its heights."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "fbdafd96c65a12f24f3d382ce3d0e7b8b1fac101d8aa7928da05e08a41bb2419",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

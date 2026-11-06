@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:39:46.406093+00:00
+Updated: 2026-11-06T09:46:27.685343+00:00
 
-Latest verified checkpoint: **2792**. Goal: **active**.
+Latest verified checkpoint: **2793**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2792**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 545 / 3,849 marked | 3,304 other entries |
+| Queue entries explicitly marked source-discovery closed | 546 / 3,849 marked | 3,303 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the landform support error with its existing sampled-support owner.
+Reproduced an extreme public-terrain landform sizing panic.
 
-Genuine owned-support gaps and other consumers remain separate.
+The witness uses the public API and debug build; normal scene input excludes its
+heights.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2792 publication record](CHECKPOINT-2792.json)
-- [Saved report for checkpoint 2792](PROGRESS-2792.md)
+- [Checkpoint 2793 publication record](CHECKPOINT-2793.json)
+- [Saved report for checkpoint 2793](PROGRESS-2793.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
