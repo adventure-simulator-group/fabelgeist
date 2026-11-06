@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:37:43.159903+00:00
+Updated: 2026-11-06T01:39:16.124899+00:00
 
-Latest verified checkpoint: **2592**. Goal: **active**.
+Latest verified checkpoint: **2593**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared framed sign geometry against existing checked owners.
+Qualified a zero-height sign raster case and named alias search.
 
-Panel dimension ownership, aliases, native image policy and validation remain
-open.
+Raster bounds, semantic aliases, native image policy and validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2592 publication record](CHECKPOINT-2592.json)
-- [Saved report for checkpoint 2592](PROGRESS-2592.md)
+- [Checkpoint 2593 publication record](CHECKPOINT-2593.json)
+- [Saved report for checkpoint 2593](PROGRESS-2593.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
