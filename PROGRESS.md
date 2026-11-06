@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:59:26.018468+00:00
+Updated: 2026-11-06T05:01:32.371667+00:00
 
-Latest verified checkpoint: **2690**. Goal: **active**.
+Latest verified checkpoint: **2691**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced standard server physics units and obstacle collider radii.
+Qualified solver resource initialization and support outlines.
 
-Custom units, support outline validity and runtime validation remain open.
+Custom units, geometric tolerance and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2690 publication record](CHECKPOINT-2690.json)
-- [Saved report for checkpoint 2690](PROGRESS-2690.md)
+- [Checkpoint 2691 publication record](CHECKPOINT-2691.json)
+- [Saved report for checkpoint 2691](PROGRESS-2691.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
