@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:33:59.636508+00:00
+Updated: 2026-11-06T11:36:05.018338+00:00
 
-Latest verified checkpoint: **2839**. Goal: **active**.
+Latest verified checkpoint: **2840**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2839**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 560 / 3,849 marked | 3,289 other entries |
+| Queue entries explicitly marked source-discovery closed | 561 / 3,849 marked | 3,288 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected capture digest comparisons to existing identity and provenance owners.
+Connected terrace candidate JSON readmission to the existing repair owner.
 
-Stage-content provenance and broader scene identity remain open.
+Existing repair remains pending until the full audit gate.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2839 publication record](CHECKPOINT-2839.json)
-- [Saved report for checkpoint 2839](PROGRESS-2839.md)
+- [Checkpoint 2840 publication record](CHECKPOINT-2840.json)
+- [Saved report for checkpoint 2840](PROGRESS-2840.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
