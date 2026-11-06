@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:00:54.951096+00:00
+Updated: 2026-11-06T12:04:44.171429+00:00
 
-Latest verified checkpoint: **2852**. Goal: **active**.
+Latest verified checkpoint: **2853**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified vista area and height admission against scene-input bounds.
+Traced gate approach grade limit and missing-result propagation.
 
-No validated vista numeric failure is demonstrated.
+Route geometry, grade ownership, and diagnostic failure representation remain
+open.
 
 ## Working on now
 
-Inspect pending vista replay and transport ordering.
+Trace gate route geometry admission and grade ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2852 publication record](CHECKPOINT-2852.json)
-- [Saved report for checkpoint 2852](PROGRESS-2852.md)
+- [Checkpoint 2853 publication record](CHECKPOINT-2853.json)
+- [Saved report for checkpoint 2853](PROGRESS-2853.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
