@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 2819,
+  "at": "2026-11-06T10:49:11.649047+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "905c7a38c60f74f4f788e3c3ec3c698da4ec9ead73fbbfec83d874e9246209a9",
+    "verification": "e51320a199cb8294221c15d7c406226794fb8dfb3fd463081fe461c3dc588c69",
+    "canonical_current": "e3d8652779753e072a39ba97563a3e98ebed2cc90574ae1b06218fff3e667cbf"
+  },
+  "scope": {
+    "summary": "Bounded native duration addition and rejected the scoped direct-input overflow suspicion.",
+    "scope_limit": "A compiled scalar probe supports the bound; full Bevy runtime behavior was not exercised."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "bbbe1181e306bc8e04c2a5525f9a6c1b20e60a9d7cceb706f0743a85cfa2d075",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
