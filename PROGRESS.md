@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T20:00:25.157510+00:00
+Updated: 2026-11-06T20:05:00.983470+00:00
 
-Latest verified checkpoint: **3011**. Goal: **active**.
+Latest verified checkpoint: **3012**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified city-vista grid specifications against endpoint rounding.
+Traced strategic backdrop height failure into scene preparation.
 
-Other producers, custom inputs and real query execution remain open.
+Custom-scene reachability, venue positions and runtime verification remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3011 publication record](CHECKPOINT-3011.json)
-- [Saved report for checkpoint 3011](PROGRESS-3011.md)
+- [Checkpoint 3012 publication record](CHECKPOINT-3012.json)
+- [Saved report for checkpoint 3012](PROGRESS-3012.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
