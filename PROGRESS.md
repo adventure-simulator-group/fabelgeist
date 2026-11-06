@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T19:55:13.874252+00:00
+Updated: 2026-11-06T20:00:25.157510+00:00
 
-Latest verified checkpoint: **3010**. Goal: **active**.
+Latest verified checkpoint: **3011**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced vista triangle queries into furniture and backdrop consumers.
+Qualified city-vista grid specifications against endpoint rounding.
 
-Producer reachability, real query execution and caller effects remain open.
+Other producers, custom inputs and real query execution remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3010 publication record](CHECKPOINT-3010.json)
-- [Saved report for checkpoint 3010](PROGRESS-3010.md)
+- [Checkpoint 3011 publication record](CHECKPOINT-3011.json)
+- [Saved report for checkpoint 3011](PROGRESS-3011.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
