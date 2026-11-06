@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:41:23.324549+00:00
+Updated: 2026-11-06T05:44:12.208756+00:00
 
-Latest verified checkpoint: **2709**. Goal: **active**.
+Latest verified checkpoint: **2710**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified empty vista inputs and default ring configuration.
+Traced required and optional terrain refinement support.
 
-A complete urban zero-ring run, implementation and runtime validation remain
-open.
+Native math, failure classification and runtime validation remain open.
 
 ## Working on now
 
-Continue vista lifecycle and connected audit obligations.
+Continue terrain refinement native math and error ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2709 publication record](CHECKPOINT-2709.json)
-- [Saved report for checkpoint 2709](PROGRESS-2709.md)
+- [Checkpoint 2710 publication record](CHECKPOINT-2710.json)
+- [Saved report for checkpoint 2710](PROGRESS-2710.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
