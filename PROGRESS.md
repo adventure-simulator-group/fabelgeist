@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:08:53.997428+00:00
+Updated: 2026-11-06T08:11:14.349059+00:00
 
-Latest verified checkpoint: **2758**. Goal: **active**.
+Latest verified checkpoint: **2759**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2758**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 52 recorded | 2 conditional; 4 policy/design |
+| Scoped repair obligations on entries | 53 recorded | 2 conditional; 4 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified obstacle creation and scene-cleanup paths.
+Recorded debug snapshot obstacle restoration gap.
 
-Full dump restoration, GPU behavior and the remaining parent contract remain
-open.
+No runtime dump restoration was demonstrated; other snapshot and presentation
+contracts remain open.
 
 ## Working on now
 
-Continue obstacle snapshot and presentation reconciliation.
+Continue snapshot owner and presentation reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2758 publication record](CHECKPOINT-2758.json)
-- [Saved report for checkpoint 2758](PROGRESS-2758.md)
+- [Checkpoint 2759 publication record](CHECKPOINT-2759.json)
+- [Saved report for checkpoint 2759](PROGRESS-2759.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
