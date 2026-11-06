@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T23:33:18.962375+00:00
+Updated: 2026-11-06T23:38:21.148568+00:00
 
-Latest verified checkpoint: **3047**. Goal: **active**.
+Latest verified checkpoint: **3048**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,10 +10,10 @@ Latest verified checkpoint: **3047**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 571 / 3,850 marked | 3,279 other entries |
+| Queue entries explicitly marked source-discovery closed | 572 / 3,850 marked | 3,278 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
-| Entries with explicit repair status | 440 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 74 recorded | 3 conditional; 10 policy/design |
 
 These categories overlap and have different meanings. Original roles and
@@ -40,15 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Enumerated quest-eligible ignore choices and traced delay and receipt effects.
+Recorded the optional errantry continuation repair and its delay and receipt
+requirements.
 
-Four of 14 eligible authored choices include ignore delays; policy remains open
-and no runtime execution occurred.
+The scoped repair is deferred until the full audit; no runtime execution
+occurred.
 
 ## Working on now
 
-Resolve the road-challenge policy while preserving authored delays and receipts;
-implement after the audit gate.
+Continue the remaining audit; implement the recorded road-challenge repair after
+the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3047 publication record](CHECKPOINT-3047.json)
-- [Saved report for checkpoint 3047](PROGRESS-3047.md)
+- [Checkpoint 3048 publication record](CHECKPOINT-3048.json)
+- [Saved report for checkpoint 3048](PROGRESS-3048.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
