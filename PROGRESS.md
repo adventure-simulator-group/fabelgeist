@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:31:23.800087+00:00
+Updated: 2026-11-06T01:34:16.643172+00:00
 
-Latest verified checkpoint: **2589**. Goal: **active**.
+Latest verified checkpoint: **2590**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2589**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 25 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 26 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded sign-site admission repair and qualified mounting checks.
+Recorded sign mounting plate admission repair and support predicate limits.
 
-Mounting, raster limits, aliases and runtime validation remain open.
+Public callers, aliases and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2589 publication record](CHECKPOINT-2589.json)
-- [Saved report for checkpoint 2589](PROGRESS-2589.md)
+- [Checkpoint 2590 publication record](CHECKPOINT-2590.json)
+- [Saved report for checkpoint 2590](PROGRESS-2590.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
