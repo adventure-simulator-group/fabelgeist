@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:50:15.794095+00:00
+Updated: 2026-11-06T15:53:24.139178+00:00
 
-Latest verified checkpoint: **2950**. Goal: **active**.
+Latest verified checkpoint: **2951**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced foundation construction, generated compilation and both decode paths.
+Traced support surface index validation and identified a pre-admission consumer.
 
-Upstream support mesh indexing, privileged writers and projection remain open.
+Intermediate single-building assembly and other privileged writers remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2950 publication record](CHECKPOINT-2950.json)
-- [Saved report for checkpoint 2950](PROGRESS-2950.md)
+- [Checkpoint 2951 publication record](CHECKPOINT-2951.json)
+- [Saved report for checkpoint 2951](PROGRESS-2951.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
