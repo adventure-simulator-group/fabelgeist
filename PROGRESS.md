@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:52:01.709305+00:00
+Updated: 2026-11-06T13:54:06.763469+00:00
 
-Latest verified checkpoint: **2903**. Goal: **active**.
+Latest verified checkpoint: **2904**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,11 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced binding equality and source-displacement checks during support
-reconstruction.
+Traced bearing-to-mesh coverage and its contact-tolerance area allowance.
 
-Floor-to-support geometry, accepted extreme bounds and any actual nonfinite
-report remain open.
+Extreme decoded tolerance, accepted bounds and any actual nonfinite report
+remain open.
 
 ## Working on now
 
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2903 publication record](CHECKPOINT-2903.json)
-- [Saved report for checkpoint 2903](PROGRESS-2903.md)
+- [Checkpoint 2904 publication record](CHECKPOINT-2904.json)
+- [Saved report for checkpoint 2904](PROGRESS-2904.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
