@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:33:16.026098+00:00
+Updated: 2026-11-06T10:35:33.657398+00:00
 
-Latest verified checkpoint: **2811**. Goal: **active**.
+Latest verified checkpoint: **2812**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded separate browser full-width identity and client CharacterId propagation
-repairs.
+Traced equipment hand labels into tactical occupancy identity.
 
-The numeric probe is not a full browser mission or authorization test.
+Consumer and replication boundaries remain open.
 
 ## Working on now
 
-Continue audit discovery and reconcile connected character identity boundaries.
+Trace equipment occupancy consumers and readmission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2811 publication record](CHECKPOINT-2811.json)
-- [Saved report for checkpoint 2811](PROGRESS-2811.md)
+- [Checkpoint 2812 publication record](CHECKPOINT-2812.json)
+- [Saved report for checkpoint 2812](PROGRESS-2812.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
