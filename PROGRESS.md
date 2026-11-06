@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:02:33.260030+00:00
+Updated: 2026-11-06T04:04:59.898546+00:00
 
-Latest verified checkpoint: **2667**. Goal: **active**.
+Latest verified checkpoint: **2668**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded moving detail vista coordinate and surface repair.
+Recorded owned-surface vista coordinate binding repair.
 
-Owned-surface policy, composition, implementation and validation remain open.
+Transition collar, collision ownership, implementation and validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2667 publication record](CHECKPOINT-2667.json)
-- [Saved report for checkpoint 2667](PROGRESS-2667.md)
+- [Checkpoint 2668 publication record](CHECKPOINT-2668.json)
+- [Saved report for checkpoint 2668](PROGRESS-2668.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
