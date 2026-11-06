@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T16:40:43.958124+00:00
+Updated: 2026-11-06T16:44:16.550578+00:00
 
-Latest verified checkpoint: **2965**. Goal: **active**.
+Latest verified checkpoint: **2966**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Constructed equal-area interior source gap and overlap example.
+Traced prepared support cache, skipped faces and query reference admission.
 
-Complete surface reachability, boundary effects and runtime acceptance remain
-open.
+Other producers, sliver classification and runtime acceptance remain open.
 
 ## Working on now
 
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2965 publication record](CHECKPOINT-2965.json)
-- [Saved report for checkpoint 2965](PROGRESS-2965.md)
+- [Checkpoint 2966 publication record](CHECKPOINT-2966.json)
+- [Saved report for checkpoint 2966](PROGRESS-2966.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
