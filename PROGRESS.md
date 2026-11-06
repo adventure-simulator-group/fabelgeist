@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:27:47.635805+00:00
+Updated: 2026-11-06T06:30:39.512113+00:00
 
-Latest verified checkpoint: **2725**. Goal: **active**.
+Latest verified checkpoint: **2726**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled business identity to the existing settlement-coherence obligation.
+Connected generated-building recipe consumers to their existing coherence owner.
 
-The shared settlement repair, other audit entries and runtime validation remain
-open.
+Door, native boundary, implementation and runtime obligations remain open.
 
 ## Working on now
 
-Continue generated building and scene authority contracts.
+Continue door identity and native building boundary contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2725 publication record](CHECKPOINT-2725.json)
-- [Saved report for checkpoint 2725](PROGRESS-2725.md)
+- [Checkpoint 2726 publication record](CHECKPOINT-2726.json)
+- [Saved report for checkpoint 2726](PROGRESS-2726.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
