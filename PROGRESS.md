@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:06:51.349992+00:00
+Updated: 2026-11-06T10:09:22.655055+00:00
 
-Latest verified checkpoint: **2802**. Goal: **active**.
+Latest verified checkpoint: **2803**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the direct garden admission duplicate.
+Traced extreme support-profile interpolation and passage use.
 
-The owning garden admission and replication scope remains open.
+The checked-in extreme test was inspected but not executed.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2802 publication record](CHECKPOINT-2802.json)
-- [Saved report for checkpoint 2802](PROGRESS-2802.md)
+- [Checkpoint 2803 publication record](CHECKPOINT-2803.json)
+- [Saved report for checkpoint 2803](PROGRESS-2803.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
