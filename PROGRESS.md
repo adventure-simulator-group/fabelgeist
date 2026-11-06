@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T21:55:24.931479+00:00
+Updated: 2026-11-06T22:02:19.854992+00:00
 
-Latest verified checkpoint: **3033**. Goal: **active**.
+Latest verified checkpoint: **3034**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Documented the independent partyless settlement-travel policy decision.
+Traced planned route validation into retained journey state.
 
-The policy is undecided and no runtime behavior has been tested.
+Return-leg consumers and all relevant admission boundaries remain open; no
+runtime execution.
 
 ## Working on now
 
-Continue the remaining audit; resolve recorded policy decisions before
-implementation.
+Trace retained return-leg consumers and route producers; implement only after
+the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3033 publication record](CHECKPOINT-3033.json)
-- [Saved report for checkpoint 3033](PROGRESS-3033.md)
+- [Checkpoint 3034 publication record](CHECKPOINT-3034.json)
+- [Saved report for checkpoint 3034](PROGRESS-3034.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
