@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T16:12:29.807829+00:00
+Updated: 2026-11-06T16:15:23.629259+00:00
 
-Latest verified checkpoint: **2957**. Goal: **active**.
+Latest verified checkpoint: **2958**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced horizontal triangle ordering through the floor-shift basis.
+Identified a conditional quantized floor-basis response at large elevations.
 
-Numerical response, source controls and runtime acceptance remain open.
+Reachability, solver policy and runtime acceptance remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2957 publication record](CHECKPOINT-2957.json)
-- [Saved report for checkpoint 2957](PROGRESS-2957.md)
+- [Checkpoint 2958 publication record](CHECKPOINT-2958.json)
+- [Saved report for checkpoint 2958](PROGRESS-2958.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
