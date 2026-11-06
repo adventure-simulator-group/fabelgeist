@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:12:11.814215+00:00
+Updated: 2026-11-06T11:14:44.449172+00:00
 
-Latest verified checkpoint: **2829**. Goal: **active**.
+Latest verified checkpoint: **2830**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced entity-map removal and retained ranged-target state.
+Traced prepared capture producer, metadata writer and support reader.
 
-A reachable unmapped hit or user-visible failure is not demonstrated.
+No ordinary isolation capture or misleading normal-run report is demonstrated.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2829 publication record](CHECKPOINT-2829.json)
-- [Saved report for checkpoint 2829](PROGRESS-2829.md)
+- [Checkpoint 2830 publication record](CHECKPOINT-2830.json)
+- [Saved report for checkpoint 2830](PROGRESS-2830.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
