@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:11:14.349059+00:00
+Updated: 2026-11-06T08:13:22.593268+00:00
 
-Latest verified checkpoint: **2759**. Goal: **active**.
+Latest verified checkpoint: **2760**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded debug snapshot obstacle restoration gap.
+Linked obstacle and garden snapshot restoration owners.
 
-No runtime dump restoration was demonstrated; other snapshot and presentation
-contracts remain open.
+The component-specific snapshot work remains open; no dump restoration was run.
 
 ## Working on now
 
-Continue snapshot owner and presentation reconciliation.
+Continue remaining snapshot and presentation reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2759 publication record](CHECKPOINT-2759.json)
-- [Saved report for checkpoint 2759](PROGRESS-2759.md)
+- [Checkpoint 2760 publication record](CHECKPOINT-2760.json)
+- [Saved report for checkpoint 2760](PROGRESS-2760.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
