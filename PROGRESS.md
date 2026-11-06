@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:38:10.812272+00:00
+Updated: 2026-11-06T15:41:04.512226+00:00
 
-Latest verified checkpoint: **2946**. Goal: **active**.
+Latest verified checkpoint: **2947**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2946**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 68 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 69 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a finite foundation coordinate centering overflow repair obligation.
+Extended the centering overflow repair obligation to boundary colliders.
 
-Native outcome, ordinary generated reachability and runtime acceptance remain
-open.
+Complete boundary binding reachability, native outcome and runtime acceptance
+remain open.
 
 ## Working on now
 
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2946 publication record](CHECKPOINT-2946.json)
-- [Saved report for checkpoint 2946](PROGRESS-2946.md)
+- [Checkpoint 2947 publication record](CHECKPOINT-2947.json)
+- [Saved report for checkpoint 2947](PROGRESS-2947.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
