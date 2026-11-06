@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T23:44:48.859541+00:00
+Updated: 2026-11-06T23:53:48.649647+00:00
 
-Latest verified checkpoint: **3049**. Goal: **active**.
+Latest verified checkpoint: **3050**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced travel coordinate-mode selection and unplanned weather admission.
+Traced automatic quest and camp-position coordinate consumers.
 
-Supported abstract and mixed-mode producer envelopes remain open; no runtime
+Supported abstract producer and coordinate-frame policy remain open; no runtime
 execution.
 
 ## Working on now
 
-Trace supported coordinate producers and reconcile weather/frame aliases before
-implementation.
+Qualify world and quest coordinate producers; reconcile weather and position-
+frame obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3049 publication record](CHECKPOINT-3049.json)
-- [Saved report for checkpoint 3049](PROGRESS-3049.md)
+- [Checkpoint 3050 publication record](CHECKPOINT-3050.json)
+- [Saved report for checkpoint 3050](PROGRESS-3050.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
