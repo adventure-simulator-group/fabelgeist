@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T20:25:40.897397+00:00
+Updated: 2026-11-06T20:30:07.088774+00:00
 
-Latest verified checkpoint: **3015**. Goal: **active**.
+Latest verified checkpoint: **3016**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced owned terrain from tactical server replication through packed geometry
-admission.
+Traced native WebSocket defaults, logical fragmentation and browser target
+distinction.
 
-Supported cross-target byte order, network size limits and runtime verification
+Logical reassembly limits, supported byte-order policy and runtime behavior
 remain open.
 
 ## Working on now
 
-Reconcile transport target and network limits; verify repairs after the full
-audit gate.
+Trace fragmented-message admission and supported target policy; verify repairs
+after the full audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3015 publication record](CHECKPOINT-3015.json)
-- [Saved report for checkpoint 3015](PROGRESS-3015.md)
+- [Checkpoint 3016 publication record](CHECKPOINT-3016.json)
+- [Saved report for checkpoint 3016](PROGRESS-3016.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
