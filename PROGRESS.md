@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:38:15.716277+00:00
+Updated: 2026-11-06T02:39:57.052682+00:00
 
-Latest verified checkpoint: **2624**. Goal: **active**.
+Latest verified checkpoint: **2625**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified selected buffer callers and native replacement behavior.
+Traced interior buffer into material and diagnostics consumers.
 
-Supported replacement and recovery, aliases and validation remain open.
+Supported handle replacement, rebinding, aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2624 publication record](CHECKPOINT-2624.json)
-- [Saved report for checkpoint 2624](PROGRESS-2624.md)
+- [Checkpoint 2625 publication record](CHECKPOINT-2625.json)
+- [Saved report for checkpoint 2625](PROGRESS-2625.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
