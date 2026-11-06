@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:21:45.419672+00:00
+Updated: 2026-11-06T14:23:06.170629+00:00
 
-Latest verified checkpoint: **2919**. Goal: **active**.
+Latest verified checkpoint: **2920**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Mapped support-limit constructor sites and distinct diagnostic policy sources.
+Qualified existing policy codec, reflection and projection test intent.
 
-Full caller-body inspection, codec migration and acceptance remain open; the
-full Lens 11 contract remains open.
+Tests have not run; zero aggregate, role separation and full Lens 11 acceptance
+remain open.
 
 ## Working on now
 
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2919 publication record](CHECKPOINT-2919.json)
-- [Saved report for checkpoint 2919](PROGRESS-2919.md)
+- [Checkpoint 2920 publication record](CHECKPOINT-2920.json)
+- [Saved report for checkpoint 2920](PROGRESS-2920.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
