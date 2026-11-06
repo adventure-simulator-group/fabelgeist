@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T19:36:16.141251+00:00
+Updated: 2026-11-06T19:40:57.155988+00:00
 
-Latest verified checkpoint: **3006**. Goal: **active**.
+Latest verified checkpoint: **3007**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **3006**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 72 recorded | 2 conditional; 10 policy/design |
+| Scoped repair obligations on entries | 73 recorded | 3 conditional; 10 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Bounded small vista seam and identified a larger admitted-grid candidate.
+Modeled the large vista gap across the complete rectangle row.
 
-Full scene execution, tolerance effects and generated-world reachability remain
+Typed admission, full scene execution and generated-world reachability remain
 open.
 
 ## Working on now
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3006 publication record](CHECKPOINT-3006.json)
-- [Saved report for checkpoint 3006](PROGRESS-3006.md)
+- [Checkpoint 3007 publication record](CHECKPOINT-3007.json)
+- [Saved report for checkpoint 3007](PROGRESS-3007.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
