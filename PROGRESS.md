@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:36:57.686540+00:00
+Updated: 2026-11-06T03:39:25.218562+00:00
 
-Latest verified checkpoint: **2654**. Goal: **active**.
+Latest verified checkpoint: **2655**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled sampled vista origin and seam frame with the existing owner.
+Qualified market source validation and candidate-frame rejection.
 
-Other vista coordinates, implementation and validation remain open.
+Market reservation behavior, gate sweeps and validation remain open.
 
 ## Working on now
 
-Continue remaining vista and cross-lens audit obligations.
+Continue market geometry and gate-sweep audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2654 publication record](CHECKPOINT-2654.json)
-- [Saved report for checkpoint 2654](PROGRESS-2654.md)
+- [Checkpoint 2655 publication record](CHECKPOINT-2655.json)
+- [Saved report for checkpoint 2655](PROGRESS-2655.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
