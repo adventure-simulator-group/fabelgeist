@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:58:10.744286+00:00
+Updated: 2026-11-06T14:00:59.080077+00:00
 
-Latest verified checkpoint: **2906**. Goal: **active**.
+Latest verified checkpoint: **2907**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,11 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected decoded tolerance to the existing engineering SupportLimits ownership
-question.
+Traced caller-supplied limits through single and compound support policy APIs.
 
-Both distinct contract scopes, accepted bounds and any actual nonfinite report
-remain open.
+Policy coherence, all-caller coverage and runtime acceptance remain open.
 
 ## Working on now
 
@@ -217,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2906 publication record](CHECKPOINT-2906.json)
-- [Saved report for checkpoint 2906](PROGRESS-2906.md)
+- [Checkpoint 2907 publication record](CHECKPOINT-2907.json)
+- [Saved report for checkpoint 2907](PROGRESS-2907.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
