@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:41:57.394821+00:00
+Updated: 2026-11-06T04:44:39.246438+00:00
 
-Latest verified checkpoint: **2683**. Goal: **active**.
+Latest verified checkpoint: **2684**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced authoritative garden roots into client presentation.
+Qualified source-grid validation before geographic ground construction.
 
-Actual snapshot and replication behavior, root admission, implementation and
+Boundary arithmetic, other terrain consumers, implementation and runtime
 validation remain open.
 
 ## Working on now
 
-Continue garden provenance and remaining cross-lens obligations.
+Continue terrain index bounds and remaining connected audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2683 publication record](CHECKPOINT-2683.json)
-- [Saved report for checkpoint 2683](PROGRESS-2683.md)
+- [Checkpoint 2684 publication record](CHECKPOINT-2684.json)
+- [Saved report for checkpoint 2684](PROGRESS-2684.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
