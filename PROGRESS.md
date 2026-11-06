@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:17:45.824927+00:00
+Updated: 2026-11-06T14:19:00.610196+00:00
 
-Latest verified checkpoint: **2916**. Goal: **active**.
+Latest verified checkpoint: **2917**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Selected a separate zero-valid support-query tolerance representation.
+Compared shared geometry owners and traced native support-query tolerance use.
 
-Shared-owner reconciliation, codec migration and acceptance remain open; the
-full Lens 11 contract remains open.
+Query port propagation, codec migration and acceptance remain open; the full
+Lens 11 contract remains open.
 
 ## Working on now
 
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2916 publication record](CHECKPOINT-2916.json)
-- [Saved report for checkpoint 2916](PROGRESS-2916.md)
+- [Checkpoint 2917 publication record](CHECKPOINT-2917.json)
+- [Saved report for checkpoint 2917](PROGRESS-2917.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
