@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:26:58.569992+00:00
+Updated: 2026-11-06T05:29:03.683572+00:00
 
-Latest verified checkpoint: **2703**. Goal: **active**.
+Latest verified checkpoint: **2704**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2703**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 526 / 3,849 marked | 3,323 other entries |
+| Queue entries explicitly marked source-discovery closed | 527 / 3,849 marked | 3,322 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified fixture identities used by review tools.
+Reconciled vista bundle identity to the shared repair.
 
-Other tool consumers, implementation and runtime validation remain open.
+Shared repair, transport validation and other connected contracts remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2703 publication record](CHECKPOINT-2703.json)
-- [Saved report for checkpoint 2703](PROGRESS-2703.md)
+- [Checkpoint 2704 publication record](CHECKPOINT-2704.json)
+- [Saved report for checkpoint 2704](PROGRESS-2704.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
