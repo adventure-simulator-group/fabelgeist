@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T18:11:22.443223+00:00
+Updated: 2026-11-06T18:16:11.509308+00:00
 
-Latest verified checkpoint: **2987**. Goal: **active**.
+Latest verified checkpoint: **2988**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced unmeasurable discrepancy and structured report adapters.
+Qualified count producers and compound selection fallback ordering.
 
-Public adapter policy, remaining consumers and runtime verification remain open.
+Other count producers, alias comparison and runtime verification remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2987 publication record](CHECKPOINT-2987.json)
-- [Saved report for checkpoint 2987](PROGRESS-2987.md)
+- [Checkpoint 2988 publication record](CHECKPOINT-2988.json)
+- [Saved report for checkpoint 2988](PROGRESS-2988.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
