@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:00:00.650091+00:00
+Updated: 2026-11-06T15:02:31.686326+00:00
 
-Latest verified checkpoint: **2933**. Goal: **active**.
+Latest verified checkpoint: **2934**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified geographic triangle admission and optional range construction.
+Traced represented intersection points and query rounding tolerance.
 
-Clipped-control reachability, other callers and native acceptance remain open.
+Extreme query reachability and native acceptance remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2933 publication record](CHECKPOINT-2933.json)
-- [Saved report for checkpoint 2933](PROGRESS-2933.md)
+- [Checkpoint 2934 publication record](CHECKPOINT-2934.json)
+- [Saved report for checkpoint 2934](PROGRESS-2934.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
