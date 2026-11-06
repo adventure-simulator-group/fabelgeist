@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T16:09:11.337410+00:00
+Updated: 2026-11-06T16:12:29.807829+00:00
 
-Latest verified checkpoint: **2956**. Goal: **active**.
+Latest verified checkpoint: **2957**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced lower-level compound mesh use in bearing validation and floor shift.
+Traced horizontal triangle ordering through the floor-shift basis.
 
-Passage-only cases, basis pairing, public callers and runtime acceptance remain
-open.
+Numerical response, source controls and runtime acceptance remain open.
 
 ## Working on now
 
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2956 publication record](CHECKPOINT-2956.json)
-- [Saved report for checkpoint 2956](PROGRESS-2956.md)
+- [Checkpoint 2957 publication record](CHECKPOINT-2957.json)
+- [Saved report for checkpoint 2957](PROGRESS-2957.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
