@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:46:53.284139+00:00
+Updated: 2026-11-06T03:49:09.207682+00:00
 
-Latest verified checkpoint: **2659**. Goal: **active**.
+Latest verified checkpoint: **2660**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded scoped market quadrilateral admission repair.
+Qualified gate datum and ideal continuous quarter-turn sweep bound.
 
-Gate containment, broader furniture placement, implementation and validation
-remain open.
+Floating-point and native physics verification, market repair and broader
+placement remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2659 publication record](CHECKPOINT-2659.json)
-- [Saved report for checkpoint 2659](PROGRESS-2659.md)
+- [Checkpoint 2660 publication record](CHECKPOINT-2660.json)
+- [Saved report for checkpoint 2660](PROGRESS-2660.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
