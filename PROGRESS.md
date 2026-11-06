@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:54:24.422185+00:00
+Updated: 2026-11-06T03:56:42.691725+00:00
 
-Latest verified checkpoint: **2663**. Goal: **active**.
+Latest verified checkpoint: **2664**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled furniture support, market clearance and collision admission.
+Qualified vista source grid limits and origin conversion.
 
-Vista source and seam duties, implementation and validation remain open.
+Complete origin-to-mesh admission, shifted-ring behavior and validation remain
+open.
 
 ## Working on now
 
-Continue remaining furniture and vista audit obligations.
+Continue vista origin admission and remaining cross-lens obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2663 publication record](CHECKPOINT-2663.json)
-- [Saved report for checkpoint 2663](PROGRESS-2663.md)
+- [Checkpoint 2664 publication record](CHECKPOINT-2664.json)
+- [Saved report for checkpoint 2664](PROGRESS-2664.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
