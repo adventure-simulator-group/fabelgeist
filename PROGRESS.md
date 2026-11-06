@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T18:24:00.717522+00:00
+Updated: 2026-11-06T18:27:27.335579+00:00
 
-Latest verified checkpoint: **2990**. Goal: **active**.
+Latest verified checkpoint: **2991**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified single-building and foundation count-control producers.
+Traced rejected-coordinate evidence through diagnostic JSON reporting.
 
-Remaining producers, external consumers and runtime verification remain open.
+Nonfinite report policy, single-property reachability and runtime verification
+remain open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2990 publication record](CHECKPOINT-2990.json)
-- [Saved report for checkpoint 2990](PROGRESS-2990.md)
+- [Checkpoint 2991 publication record](CHECKPOINT-2991.json)
+- [Saved report for checkpoint 2991](PROGRESS-2991.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
