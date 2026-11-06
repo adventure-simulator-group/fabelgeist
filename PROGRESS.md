@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:04:19.362056+00:00
+Updated: 2026-11-06T11:06:09.038662+00:00
 
-Latest verified checkpoint: **2825**. Goal: **active**.
+Latest verified checkpoint: **2826**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced Replicon channel configuration into Aeronet transport lanes.
+Traced mapped action entity fields and authoritative ingress checks.
 
-Adapter source is inspected; live ordering and readiness remain untested.
+Missing mappings, complete validation and live transport remain untested.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2825 publication record](CHECKPOINT-2825.json)
-- [Saved report for checkpoint 2825](PROGRESS-2825.md)
+- [Checkpoint 2826 publication record](CHECKPOINT-2826.json)
+- [Saved report for checkpoint 2826](PROGRESS-2826.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
