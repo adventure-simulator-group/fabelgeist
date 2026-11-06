@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:12:09.309887+00:00
+Updated: 2026-11-06T03:15:39.840589+00:00
 
-Latest verified checkpoint: **2642**. Goal: **active**.
+Latest verified checkpoint: **2643**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped interior installation transaction discovery.
+Qualified validator return values and prepared layout retention.
 
-Prepared-plan binding, broader aliases, implementation and validation remain
+Worker trust, retained-path consumers, native publication and validation remain
 open.
 
 ## Working on now
 
-Continue window-lighting and remaining cross-lens audit obligations.
+Continue prepared-interior consumer and remaining cross-lens audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2642 publication record](CHECKPOINT-2642.json)
-- [Saved report for checkpoint 2642](PROGRESS-2642.md)
+- [Checkpoint 2643 publication record](CHECKPOINT-2643.json)
+- [Saved report for checkpoint 2643](PROGRESS-2643.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
