@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T19:45:09.550717+00:00
+Updated: 2026-11-06T19:50:15.163438+00:00
 
-Latest verified checkpoint: **3008**. Goal: **active**.
+Latest verified checkpoint: **3009**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified point representability inside the modeled vista gap.
+Identified a representable point in a separate vista cell gap.
 
-Other grids, area and mesh effects, and product execution remain open.
+Real public query execution, producer reachability and renderer effects remain
+open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3008 publication record](CHECKPOINT-3008.json)
-- [Saved report for checkpoint 3008](PROGRESS-3008.md)
+- [Checkpoint 3009 publication record](CHECKPOINT-3009.json)
+- [Saved report for checkpoint 3009](PROGRESS-3009.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
