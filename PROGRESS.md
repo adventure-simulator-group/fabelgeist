@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:56:42.691725+00:00
+Updated: 2026-11-06T03:58:42.435448+00:00
 
-Latest verified checkpoint: **2664**. Goal: **active**.
+Latest verified checkpoint: **2665**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified vista source grid limits and origin conversion.
+Traced stricter vista mesh admission and retained presentation on failure.
 
-Complete origin-to-mesh admission, shifted-ring behavior and validation remain
-open.
+Complete admitted witness, shifted-ring policy and validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2664 publication record](CHECKPOINT-2664.json)
-- [Saved report for checkpoint 2664](PROGRESS-2664.md)
+- [Checkpoint 2665 publication record](CHECKPOINT-2665.json)
+- [Saved report for checkpoint 2665](PROGRESS-2665.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
