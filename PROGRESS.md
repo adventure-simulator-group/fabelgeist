@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:30:39.512113+00:00
+Updated: 2026-11-06T06:33:23.954439+00:00
 
-Latest verified checkpoint: **2726**. Goal: **active**.
+Latest verified checkpoint: **2727**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Connected generated-building recipe consumers to their existing coherence owner.
+Qualified door identity replication, presentation and gate classification.
 
-Door, native boundary, implementation and runtime obligations remain open.
+Opening namespace admission, native behavior and runtime validation remain open.
 
 ## Working on now
 
-Continue door identity and native building boundary contracts.
+Continue opening namespace producers and native building boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2726 publication record](CHECKPOINT-2726.json)
-- [Saved report for checkpoint 2726](PROGRESS-2726.md)
+- [Checkpoint 2727 publication record](CHECKPOINT-2727.json)
+- [Saved report for checkpoint 2727](PROGRESS-2727.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
