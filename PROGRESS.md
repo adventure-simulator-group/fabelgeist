@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:58:07.843310+00:00
+Updated: 2026-11-06T06:00:18.745490+00:00
 
-Latest verified checkpoint: **2715**. Goal: **active**.
+Latest verified checkpoint: **2716**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Derived an admitted sampled-normal underflow witness.
+Derived a finite-height sampled overflow witness.
 
-Witness reproduction, sampled-support repair and runtime validation remain open.
+Witness reproduction, derived scene ranges and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2715 publication record](CHECKPOINT-2715.json)
-- [Saved report for checkpoint 2715](PROGRESS-2715.md)
+- [Checkpoint 2716 publication record](CHECKPOINT-2716.json)
+- [Saved report for checkpoint 2716](PROGRESS-2716.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
