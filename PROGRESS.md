@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:55:33.294188+00:00
+Updated: 2026-11-06T11:59:01.645571+00:00
 
-Latest verified checkpoint: **2850**. Goal: **active**.
+Latest verified checkpoint: **2851**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2850**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 62 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 63 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled the terrain-stage locator with the separate capture-purpose owner.
+Reproduced a playable-coverage versus measurement discrepancy on admitted
+extreme terrain.
 
-Capture-purpose and stage provenance policies remain open.
+The probe is not an ordinary imported scene or full diagnostic run.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2850 publication record](CHECKPOINT-2850.json)
-- [Saved report for checkpoint 2850](PROGRESS-2850.md)
+- [Checkpoint 2851 publication record](CHECKPOINT-2851.json)
+- [Saved report for checkpoint 2851](PROGRESS-2851.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
