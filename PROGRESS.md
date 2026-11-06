@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:24:05.948636+00:00
+Updated: 2026-11-06T11:26:19.137649+00:00
 
-Latest verified checkpoint: **2834**. Goal: **active**.
+Latest verified checkpoint: **2835**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Ran representative cylinder casts against heightfield, mesh and compound shapes.
+Traced foundation convex children and probed a representative convex compound.
 
-Only the heightfield came from SceneTerrain; the other shapes are representative
-fixtures.
+The convex compound is representative, not a generated foundation.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2834 publication record](CHECKPOINT-2834.json)
-- [Saved report for checkpoint 2834](PROGRESS-2834.md)
+- [Checkpoint 2835 publication record](CHECKPOINT-2835.json)
+- [Saved report for checkpoint 2835](PROGRESS-2835.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
