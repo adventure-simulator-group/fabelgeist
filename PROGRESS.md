@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:02:12.473960+00:00
+Updated: 2026-11-06T02:03:46.417042+00:00
 
-Latest verified checkpoint: **2606**. Goal: **active**.
+Latest verified checkpoint: **2607**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified generated artillery facing and gable normal inputs.
+Traced generated gable enclosure planes and normal conditions.
 
-Generated gable polygon guarantees, aliases and validation remain open.
+Gable nondegeneracy, remaining frame consumers, aliases and validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2606 publication record](CHECKPOINT-2606.json)
-- [Saved report for checkpoint 2606](PROGRESS-2606.md)
+- [Checkpoint 2607 publication record](CHECKPOINT-2607.json)
+- [Saved report for checkpoint 2607](PROGRESS-2607.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
