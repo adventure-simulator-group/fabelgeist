@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:23:43.666005+00:00
+Updated: 2026-11-06T12:25:34.357319+00:00
 
-Latest verified checkpoint: **2863**. Goal: **active**.
+Latest verified checkpoint: **2864**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Distinguished positive construction support grade from the nonnegative terrain
-diagnostic limit.
+Linked gate diagnostic source-stage admission to the existing provenance
+question.
 
-Construction-grade failure reporting and gate arithmetic remain open; the
-earlier scoped repair is retained.
+Stage content provenance, gate arithmetic and missing-sample policy remain open.
 
 ## Working on now
 
-Resolve construction comparison failure reporting and gate arithmetic.
+Resolve staged vista provenance and gate arithmetic without duplicating the
+existing ledger entry.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2863 publication record](CHECKPOINT-2863.json)
-- [Saved report for checkpoint 2863](PROGRESS-2863.md)
+- [Checkpoint 2864 publication record](CHECKPOINT-2864.json)
+- [Saved report for checkpoint 2864](PROGRESS-2864.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
