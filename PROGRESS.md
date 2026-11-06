@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:20:01.610602+00:00
+Updated: 2026-11-06T12:22:00.842849+00:00
 
-Latest verified checkpoint: **2861**. Goal: **active**.
+Latest verified checkpoint: **2862**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2861**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 63 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 64 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,13 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced requested versus unrequested terrace result and final report write.
+Recorded a scoped repair to retain the existing terrain grade limit through gate
+diagnostics.
 
-Diagnostic arithmetic, typed grade propagation and failure policy remain open.
+Gate arithmetic, failure policy, and the separate solutions comparison remain
+open.
 
 ## Working on now
 
-Resolve diagnostic arithmetic, grade propagation and unavailable-result policy.
+Resolve gate arithmetic and unavailable-result policy; compare solutions grade
+flow.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2861 publication record](CHECKPOINT-2861.json)
-- [Saved report for checkpoint 2861](PROGRESS-2861.md)
+- [Checkpoint 2862 publication record](CHECKPOINT-2862.json)
+- [Saved report for checkpoint 2862](PROGRESS-2862.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
