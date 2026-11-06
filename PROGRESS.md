@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:50:03.188599+00:00
+Updated: 2026-11-06T12:52:02.457191+00:00
 
-Latest verified checkpoint: **2876**. Goal: **active**.
+Latest verified checkpoint: **2877**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced vista subdivision and support-grid local cut deduplication.
+Distinguished generated support-surface admission from the diagnostic direct
+mesh path.
 
-World-coordinate quantization and accepted-plan reachability remain open.
+Compile-time bearing checks and accepted-scene reachability remain open.
 
 ## Working on now
 
-Trace world-coordinate bounds and generated mesh acceptance.
+Trace compile-time bearing validation and diagnostic geometry.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2876 publication record](CHECKPOINT-2876.json)
-- [Saved report for checkpoint 2876](PROGRESS-2876.md)
+- [Checkpoint 2877 publication record](CHECKPOINT-2877.json)
+- [Saved report for checkpoint 2877](PROGRESS-2877.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
