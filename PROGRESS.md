@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:19:14.525152+00:00
+Updated: 2026-11-06T06:23:09.919065+00:00
 
-Latest verified checkpoint: **2722**. Goal: **active**.
+Latest verified checkpoint: **2723**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2722**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 26 recorded | Broader contracts may remain open |
+| Scoped repair obligations on entries | 48 recorded | 2 conditional; 1 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a conditional scene input read-bound gap.
+Qualified business and operator identity validation ordering; corrected scoped
+obligation counts.
 
-The source-level race is untested; weather, trust policy and implementation
-remain open.
+Cross-population building identity and scene/catalog association remain open.
 
 ## Working on now
 
-Continue scene file-loading and weather admission contracts.
+Continue cross-population building identity and scene/catalog association.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2722 publication record](CHECKPOINT-2722.json)
-- [Saved report for checkpoint 2722](PROGRESS-2722.md)
+- [Checkpoint 2723 publication record](CHECKPOINT-2723.json)
+- [Saved report for checkpoint 2723](PROGRESS-2723.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
