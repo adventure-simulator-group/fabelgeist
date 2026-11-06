@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:15:03.821092+00:00
+Updated: 2026-11-06T09:17:30.413455+00:00
 
-Latest verified checkpoint: **2784**. Goal: **active**.
+Latest verified checkpoint: **2785**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced conditional presentation fallback and its existing audit scope.
+Compared admitted fault grid limits with the authored fixture.
 
-No failed scene or rendered hole has been demonstrated.
+The maximum-size recipe was not executed as a complete scene.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2784 publication record](CHECKPOINT-2784.json)
-- [Saved report for checkpoint 2784](PROGRESS-2784.md)
+- [Checkpoint 2785 publication record](CHECKPOINT-2785.json)
+- [Saved report for checkpoint 2785](PROGRESS-2785.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
