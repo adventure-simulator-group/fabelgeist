@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:30:24.402247+00:00
+Updated: 2026-11-06T07:32:24.732078+00:00
 
-Latest verified checkpoint: **2745**. Goal: **active**.
+Latest verified checkpoint: **2746**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2745**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 48 recorded | 2 conditional; 1 policy/design |
+| Scoped repair obligations on entries | 49 recorded | 2 conditional; 2 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified furniture entity, visibility and snapshot identity roles.
+Recorded conditional furniture group identity policy and existing repair owners.
 
-Duplicate-ID policy and runtime validation remain open; source tests were not
-run.
+No actual collision is shown; policy, native behavior and runtime validation
+remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2745 publication record](CHECKPOINT-2745.json)
-- [Saved report for checkpoint 2745](PROGRESS-2745.md)
+- [Checkpoint 2746 publication record](CHECKPOINT-2746.json)
+- [Saved report for checkpoint 2746](PROGRESS-2746.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
