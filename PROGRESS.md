@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:51:39.365362+00:00
+Updated: 2026-11-06T04:54:11.932074+00:00
 
-Latest verified checkpoint: **2687**. Goal: **active**.
+Latest verified checkpoint: **2688**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed the scoped malformed-source-grid suspicion on geographic preparation.
+Traced physical clearance to the tactical controller default.
 
-Other terrain consumers, interpolation quality, implementation and runtime
-validation remain open.
+Preserved controllers, native collision semantics and runtime validation remain
+open.
 
 ## Working on now
 
-Continue terrain consumers and remaining connected audit obligations.
+Continue physical-clearance native boundaries and remaining audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2687 publication record](CHECKPOINT-2687.json)
-- [Saved report for checkpoint 2687](PROGRESS-2687.md)
+- [Checkpoint 2688 publication record](CHECKPOINT-2688.json)
+- [Saved report for checkpoint 2688](PROGRESS-2688.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
