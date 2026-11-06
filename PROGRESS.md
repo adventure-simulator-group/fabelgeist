@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:44:00.663935+00:00
+Updated: 2026-11-06T14:48:22.080391+00:00
 
-Latest verified checkpoint: **2929**. Goal: **active**.
+Latest verified checkpoint: **2930**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced finite triangle admission and double-precision floor plane evaluation.
+Traced height admission and candidate handling across support query paths.
 
-Intermediate and final numeric bounds and native acceptance remain open.
+Reachable numeric failure, exact aliases and native acceptance remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2929 publication record](CHECKPOINT-2929.json)
-- [Saved report for checkpoint 2929](PROGRESS-2929.md)
+- [Checkpoint 2930 publication record](CHECKPOINT-2930.json)
+- [Saved report for checkpoint 2930](PROGRESS-2930.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
