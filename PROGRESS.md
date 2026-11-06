@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:58:55.573169+00:00
+Updated: 2026-11-06T02:00:23.921573+00:00
 
-Latest verified checkpoint: **2604**. Goal: **active**.
+Latest verified checkpoint: **2605**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified both wall-frame basis orientations and radial distinction.
+Traced artillery and gable opening frame construction.
 
-Other constructors, radial policy, aliases and validation remain open.
+Gable face and artillery facing guarantees, aliases and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2604 publication record](CHECKPOINT-2604.json)
-- [Saved report for checkpoint 2604](PROGRESS-2604.md)
+- [Checkpoint 2605 publication record](CHECKPOINT-2605.json)
+- [Saved report for checkpoint 2605](PROGRESS-2605.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
