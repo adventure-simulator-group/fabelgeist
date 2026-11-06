@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:55:44.394013+00:00
+Updated: 2026-11-06T02:58:10.691395+00:00
 
-Latest verified checkpoint: **2633**. Goal: **active**.
+Latest verified checkpoint: **2634**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified venue generation and interior-layout installation.
+Compared navigation admission with lighting field assumptions.
 
-Navigation admission, field extents, related install obligation and validation
-remain open.
+Other helper checks, field extents, aliases and validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2633 publication record](CHECKPOINT-2633.json)
-- [Saved report for checkpoint 2633](PROGRESS-2633.md)
+- [Checkpoint 2634 publication record](CHECKPOINT-2634.json)
+- [Saved report for checkpoint 2634](PROGRESS-2634.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
