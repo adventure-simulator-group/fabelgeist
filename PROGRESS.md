@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:29:39.403023+00:00
+Updated: 2026-11-06T12:31:26.087010+00:00
 
-Latest verified checkpoint: **2866**. Goal: **active**.
+Latest verified checkpoint: **2867**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced terrain-stage export and three offline consumers.
+Traced imported terrain sampling and geographic-surface admission.
 
-Payload admission, intended trust boundary, and cross-consumer disposition
-remain open.
+Exact resampler inputs and the intended offline provenance guarantee remain
+open.
 
 ## Working on now
 
-Trace imported stage production and geographic surface admission.
+Trace vista resampling and determine the offline stage provenance contract.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2866 publication record](CHECKPOINT-2866.json)
-- [Saved report for checkpoint 2866](PROGRESS-2866.md)
+- [Checkpoint 2867 publication record](CHECKPOINT-2867.json)
+- [Saved report for checkpoint 2867](PROGRESS-2867.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
