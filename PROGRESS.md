@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:20:58.145961+00:00
+Updated: 2026-11-06T15:23:47.568979+00:00
 
-Latest verified checkpoint: **2941**. Goal: **active**.
+Latest verified checkpoint: **2942**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded settlement cut-face collision repair for empty natural terrain.
+Traced single-property terrain production and conditional cut-face omission.
 
-Production reachability, the separate property-terrain path and runtime
-acceptance remain open.
+Admitted empty-natural witness, physical consumer policy and acceptance remain
+open.
 
 ## Working on now
 
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2941 publication record](CHECKPOINT-2941.json)
-- [Saved report for checkpoint 2941](PROGRESS-2941.md)
+- [Checkpoint 2942 publication record](CHECKPOINT-2942.json)
+- [Saved report for checkpoint 2942](PROGRESS-2942.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
