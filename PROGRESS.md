@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T04:54:11.932074+00:00
+Updated: 2026-11-06T04:57:21.812059+00:00
 
-Latest verified checkpoint: **2688**. Goal: **active**.
+Latest verified checkpoint: **2689**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced physical clearance to the tactical controller default.
+Traced clearance through reconnect and native solver scaling.
 
-Preserved controllers, native collision semantics and runtime validation remain
-open.
+Nondefault units, collision geometry and runtime validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2688 publication record](CHECKPOINT-2688.json)
-- [Saved report for checkpoint 2688](PROGRESS-2688.md)
+- [Checkpoint 2689 publication record](CHECKPOINT-2689.json)
+- [Saved report for checkpoint 2689](PROGRESS-2689.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
