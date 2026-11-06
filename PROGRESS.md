@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:48:02.648623+00:00
+Updated: 2026-11-06T01:50:03.311668+00:00
 
-Latest verified checkpoint: **2598**. Goal: **active**.
+Latest verified checkpoint: **2599**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified browser WebGPU descriptor forwarding.
+Compared sign placement and raster contracts with related ledger owners.
 
-Browser validation behavior, raster policy, semantic aliases and validation
-remain open.
+Full alias qualification, raster policy and validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2598 publication record](CHECKPOINT-2598.json)
-- [Saved report for checkpoint 2598](PROGRESS-2598.md)
+- [Checkpoint 2599 publication record](CHECKPOINT-2599.json)
+- [Saved report for checkpoint 2599](PROGRESS-2599.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
