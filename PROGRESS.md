@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:00:15.735624+00:00
+Updated: 2026-11-06T11:02:29.285938+00:00
 
-Latest verified checkpoint: **2823**. Goal: **active**.
+Latest verified checkpoint: **2824**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced scene and configuration sends and their channel registrations.
+Traced pending vista replay and Replicon server-message tick buffering.
 
-Cross-channel delivery and live scene readiness remain untested.
+Project test source was inspected but not run; live ordering and readiness
+remain untested.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2823 publication record](CHECKPOINT-2823.json)
-- [Saved report for checkpoint 2823](PROGRESS-2823.md)
+- [Checkpoint 2824 publication record](CHECKPOINT-2824.json)
+- [Saved report for checkpoint 2824](PROGRESS-2824.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
