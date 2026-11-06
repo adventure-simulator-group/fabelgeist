@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:54:34.054882+00:00
+Updated: 2026-11-06T01:56:27.972602+00:00
 
-Latest verified checkpoint: **2602**. Goal: **active**.
+Latest verified checkpoint: **2603**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,10 +10,10 @@ Latest verified checkpoint: **2602**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 500 / 3,849 marked | 3,349 other entries |
+| Queue entries explicitly marked source-discovery closed | 501 / 3,849 marked | 3,348 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
-| Entries with explicit repair status | 418 recorded | Implementation gate not yet passed |
+| Entries with explicit repair status | 419 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 26 recorded | Broader contracts may remain open |
 
 These categories overlap and have different meanings. Original roles and
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded generated sign panel and raster bounds for repair acceptance.
+Closed scoped SignSite physical-placement discovery with owned repair.
 
-Public admission, non-textual aliases, raster policy and validation remain open.
+Mounting, raster policy, broader aliases, implementation and validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2602 publication record](CHECKPOINT-2602.json)
-- [Saved report for checkpoint 2602](PROGRESS-2602.md)
+- [Checkpoint 2603 publication record](CHECKPOINT-2603.json)
+- [Saved report for checkpoint 2603](PROGRESS-2603.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
