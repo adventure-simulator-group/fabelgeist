@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:32:24.732078+00:00
+Updated: 2026-11-06T07:35:56.240306+00:00
 
-Latest verified checkpoint: **2746**. Goal: **active**.
+Latest verified checkpoint: **2747**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2746**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 532 / 3,849 marked | 3,317 other entries |
+| Queue entries explicitly marked source-discovery closed | 533 / 3,849 marked | 3,316 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded conditional furniture group identity policy and existing repair owners.
+Reconciled early grid validation and garden support to existing owners.
 
-No actual collision is shown; policy, native behavior and runtime validation
+Existing garden and sampled-support repairs, other lenses and runtime checks
 remain open.
 
 ## Working on now
 
-Continue furniture identity and native boundary reconciliation.
+Continue unresolved garden geometry and replication contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2746 publication record](CHECKPOINT-2746.json)
-- [Saved report for checkpoint 2746](PROGRESS-2746.md)
+- [Checkpoint 2747 publication record](CHECKPOINT-2747.json)
+- [Saved report for checkpoint 2747](PROGRESS-2747.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
