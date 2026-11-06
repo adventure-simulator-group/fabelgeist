@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:21:44.150203+00:00
+Updated: 2026-11-06T11:24:05.948636+00:00
 
-Latest verified checkpoint: **2833**. Goal: **active**.
+Latest verified checkpoint: **2834**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced terrain collider variants into Parry shape-cast dispatch.
+Ran representative cylinder casts against heightfield, mesh and compound shapes.
 
-Nested dispatch and actual casts remain untested.
+Only the heightfield came from SceneTerrain; the other shapes are representative
+fixtures.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2833 publication record](CHECKPOINT-2833.json)
-- [Saved report for checkpoint 2833](PROGRESS-2833.md)
+- [Checkpoint 2834 publication record](CHECKPOINT-2834.json)
+- [Saved report for checkpoint 2834](PROGRESS-2834.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
