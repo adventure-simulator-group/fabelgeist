@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:24:31.636394+00:00
+Updated: 2026-11-06T09:29:18.603878+00:00
 
-Latest verified checkpoint: **2787**. Goal: **active**.
+Latest verified checkpoint: **2788**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded landform grid sizing and corrected its repair plan.
+Traced terrain patch admission through rendering and collision.
 
-Related presentation, erosion and extreme-height scopes remain open; no product
-failure was demonstrated.
+Degenerate native behavior and public admission policy remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2787 publication record](CHECKPOINT-2787.json)
-- [Saved report for checkpoint 2787](PROGRESS-2787.md)
+- [Checkpoint 2788 publication record](CHECKPOINT-2788.json)
+- [Saved report for checkpoint 2788](PROGRESS-2788.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
