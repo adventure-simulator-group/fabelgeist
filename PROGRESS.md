@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:02:16.052824+00:00
+Updated: 2026-11-06T06:06:50.097259+00:00
 
-Latest verified checkpoint: **2717**. Goal: **active**.
+Latest verified checkpoint: **2718**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled sampled heightfield entry to its existing repair owners.
+Qualified terrain grade repair atomicity and error distinctions.
 
-Existing support and refinement repairs, other lenses and runtime validation
-remain open.
+Refinement classification, implementation and runtime validation remain open.
 
 ## Working on now
 
-Continue sampled terrain failure classification and native boundaries.
+Continue terrain refinement native math and error ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2717 publication record](CHECKPOINT-2717.json)
-- [Saved report for checkpoint 2717](PROGRESS-2717.md)
+- [Checkpoint 2718 publication record](CHECKPOINT-2718.json)
+- [Saved report for checkpoint 2718](PROGRESS-2718.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
