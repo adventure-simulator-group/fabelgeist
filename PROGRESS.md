@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:56:30.274423+00:00
+Updated: 2026-11-06T15:59:50.382840+00:00
 
-Latest verified checkpoint: **2952**. Goal: **active**.
+Latest verified checkpoint: **2953**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced generated single-building floor and apron index construction.
+Traced compound grid and street-entry mesh index construction.
 
-Compound and other privileged writers, geometric validity and runtime acceptance
-remain open.
+Grid cardinality, other privileged writers and runtime acceptance remain open.
 
 ## Working on now
 
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2952 publication record](CHECKPOINT-2952.json)
-- [Saved report for checkpoint 2952](PROGRESS-2952.md)
+- [Checkpoint 2953 publication record](CHECKPOINT-2953.json)
+- [Saved report for checkpoint 2953](PROGRESS-2953.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
