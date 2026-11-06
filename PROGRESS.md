@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T20:14:43.247026+00:00
+Updated: 2026-11-06T20:21:08.599527+00:00
 
-Latest verified checkpoint: **3013**. Goal: **active**.
+Latest verified checkpoint: **3014**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced foundation transport and zero-cell collision ownership.
+Traced cache identity and size checks through worker product admission.
 
-Native codec limits, cache protocol and runtime verification remain open.
+Cache limits do not bound every worker delivery; replication and runtime
+verification remain open.
 
 ## Working on now
 
-Continue support geometry and diagnostic source audit; verify repairs after the
+Continue worker and replication transport source audit; verify repairs after the
 full audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3013 publication record](CHECKPOINT-3013.json)
-- [Saved report for checkpoint 3013](PROGRESS-3013.md)
+- [Checkpoint 3014 publication record](CHECKPOINT-3014.json)
+- [Saved report for checkpoint 3014](PROGRESS-3014.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
