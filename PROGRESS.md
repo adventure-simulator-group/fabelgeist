@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:59:57.838122+00:00
+Updated: 2026-11-06T07:04:18.102409+00:00
 
-Latest verified checkpoint: **2736**. Goal: **active**.
+Latest verified checkpoint: **2737**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Bounded generated gable opening IDs below the gate marker.
+Traced supplied building plans to door identity consumers.
 
-Supplied-plan admission and runtime validation remain open.
+Complete admitted-plan reachability and gate namespace policy remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2736 publication record](CHECKPOINT-2736.json)
-- [Saved report for checkpoint 2736](PROGRESS-2736.md)
+- [Checkpoint 2737 publication record](CHECKPOINT-2737.json)
+- [Saved report for checkpoint 2737](PROGRESS-2737.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
