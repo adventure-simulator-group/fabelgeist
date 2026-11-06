@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T06:14:31.049811+00:00
+Updated: 2026-11-06T06:19:14.525152+00:00
 
-Latest verified checkpoint: **2721**. Goal: **active**.
+Latest verified checkpoint: **2722**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a weather-admission arithmetic overflow boundary.
+Recorded a conditional scene input read-bound gap.
 
-File loading policy, broader weather contracts, implementation and runtime
-validation remain open.
+The source-level race is untested; weather, trust policy and implementation
+remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2721 publication record](CHECKPOINT-2721.json)
-- [Saved report for checkpoint 2721](PROGRESS-2721.md)
+- [Checkpoint 2722 publication record](CHECKPOINT-2722.json)
+- [Saved report for checkpoint 2722](PROGRESS-2722.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
