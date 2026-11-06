@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:59:01.645571+00:00
+Updated: 2026-11-06T12:00:54.951096+00:00
 
-Latest verified checkpoint: **2851**. Goal: **active**.
+Latest verified checkpoint: **2852**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reproduced a playable-coverage versus measurement discrepancy on admitted
-extreme terrain.
+Qualified vista area and height admission against scene-input bounds.
 
-The probe is not an ordinary imported scene or full diagnostic run.
+No validated vista numeric failure is demonstrated.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2851 publication record](CHECKPOINT-2851.json)
-- [Saved report for checkpoint 2851](PROGRESS-2851.md)
+- [Checkpoint 2852 publication record](CHECKPOINT-2852.json)
+- [Saved report for checkpoint 2852](PROGRESS-2852.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
