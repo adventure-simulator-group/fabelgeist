@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:18:33.741489+00:00
+Updated: 2026-11-06T07:21:54.059339+00:00
 
-Latest verified checkpoint: **2741**. Goal: **active**.
+Latest verified checkpoint: **2742**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2741**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 531 / 3,849 marked | 3,318 other entries |
+| Queue entries explicitly marked source-discovery closed | 532 / 3,849 marked | 3,317 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified dispatcher scene provisioning and mission enrollment boundaries.
+Resolved the terrain-delta diagnostic source role.
 
-Scene-file trust policy and runtime validation remain open.
+No terrain or capture test was executed; independent audit and repairs remain
+open.
 
 ## Working on now
 
-Determine intended mission request and provisioned scene binding policy.
+Continue unresolved furniture and scene authority contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2741 publication record](CHECKPOINT-2741.json)
-- [Saved report for checkpoint 2741](PROGRESS-2741.md)
+- [Checkpoint 2742 publication record](CHECKPOINT-2742.json)
+- [Saved report for checkpoint 2742](PROGRESS-2742.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
