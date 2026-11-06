@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:46:08.540226+00:00
+Updated: 2026-11-06T02:47:33.072330+00:00
 
-Latest verified checkpoint: **2628**. Goal: **active**.
+Latest verified checkpoint: **2629**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2628**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 508 / 3,849 marked | 3,341 other entries |
+| Queue entries explicitly marked source-discovery closed | 509 / 3,849 marked | 3,340 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 424 recorded | Implementation gate not yet passed |
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified interior-field observer registration and selected cleanup.
+Closed scoped playable-building field installation discovery.
 
-Other scene lifecycles, deferred behavior, buffer policy and validation remain
-open.
+Other lifecycles, deferred behavior, buffer policy and validation remain open.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2628 publication record](CHECKPOINT-2628.json)
-- [Saved report for checkpoint 2628](PROGRESS-2628.md)
+- [Checkpoint 2629 publication record](CHECKPOINT-2629.json)
+- [Saved report for checkpoint 2629](PROGRESS-2629.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
