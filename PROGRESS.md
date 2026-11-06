@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T19:10:28.054849+00:00
+Updated: 2026-11-06T19:14:49.862290+00:00
 
-Latest verified checkpoint: **3001**. Goal: **active**.
+Latest verified checkpoint: **3002**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified clipping and coverage ownership for the gap-and-duplicate case.
+Qualified adjacent vista cell endpoint rounding.
 
-Coverage ownership, product execution and generated-source reachability remain
-open.
+Complete scene admission, tolerance policy and runtime verification remain open.
 
 ## Working on now
 
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3001 publication record](CHECKPOINT-3001.json)
-- [Saved report for checkpoint 3001](PROGRESS-3001.md)
+- [Checkpoint 3002 publication record](CHECKPOINT-3002.json)
+- [Saved report for checkpoint 3002](PROGRESS-3002.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
