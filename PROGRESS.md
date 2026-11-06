@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T23:23:48.003211+00:00
+Updated: 2026-11-06T23:33:18.962375+00:00
 
-Latest verified checkpoint: **3046**. Goal: **active**.
+Latest verified checkpoint: **3047**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled three travel scopes and traced ordinary errantry to the camp
-interface.
+Enumerated quest-eligible ignore choices and traced delay and receipt effects.
 
-The existing road-challenge policy remains undecided; no runtime execution.
+Four of 14 eligible authored choices include ignore delays; policy remains open
+and no runtime execution occurred.
 
 ## Working on now
 
-Continue the remaining audit and resolve the existing road-challenge policy
-before implementation.
+Resolve the road-challenge policy while preserving authored delays and receipts;
+implement after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3046 publication record](CHECKPOINT-3046.json)
-- [Saved report for checkpoint 3046](PROGRESS-3046.md)
+- [Checkpoint 3047 publication record](CHECKPOINT-3047.json)
+- [Saved report for checkpoint 3047](PROGRESS-3047.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
