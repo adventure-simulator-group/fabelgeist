@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T16:23:25.777026+00:00
+Updated: 2026-11-06T16:26:36.357930+00:00
 
-Latest verified checkpoint: **2960**. Goal: **active**.
+Latest verified checkpoint: **2961**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced rear doorway sampling and geographic source admission.
+Established a scalar feasible-shift candidate for quantized floor basis.
 
-A feasible large-elevation case and runtime acceptance remain open.
+Full plan feasibility and runtime acceptance remain unproven.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2960 publication record](CHECKPOINT-2960.json)
-- [Saved report for checkpoint 2960](PROGRESS-2960.md)
+- [Checkpoint 2961 publication record](CHECKPOINT-2961.json)
+- [Saved report for checkpoint 2961](PROGRESS-2961.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
