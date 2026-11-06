@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:17:35.873894+00:00
+Updated: 2026-11-06T03:19:47.784964+00:00
 
-Latest verified checkpoint: **2644**. Goal: **active**.
+Latest verified checkpoint: **2645**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced retained circulation paths into strategic conversation positions.
+Qualified native and WebAssembly scene preparation and activation boundaries.
 
-Worker trust, native publication, broader consumers and validation remain open.
+Worker trust, plan association, broader consumers and validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2644 publication record](CHECKPOINT-2644.json)
-- [Saved report for checkpoint 2644](PROGRESS-2644.md)
+- [Checkpoint 2645 publication record](CHECKPOINT-2645.json)
+- [Saved report for checkpoint 2645](PROGRESS-2645.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
