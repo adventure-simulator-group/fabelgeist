@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:50:35.245987+00:00
+Updated: 2026-11-06T03:52:40.441060+00:00
 
-Latest verified checkpoint: **2661**. Goal: **active**.
+Latest verified checkpoint: **2662**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed scoped market admission and gate-sweep source discovery.
+Recorded scoped nonempty furniture collision recipe admission.
 
-Market implementation, numeric and physics validation, and broader placement
-remain open.
+Vista source and seam duties, implementation and validation remain open.
 
 ## Working on now
 
-Continue market geometry and gate-sweep audit obligations.
+Continue remaining furniture and vista audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2661 publication record](CHECKPOINT-2661.json)
-- [Saved report for checkpoint 2661](PROGRESS-2661.md)
+- [Checkpoint 2662 publication record](CHECKPOINT-2662.json)
+- [Saved report for checkpoint 2662](PROGRESS-2662.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
