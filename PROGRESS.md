@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T11:42:09.396351+00:00
+Updated: 2026-11-06T11:44:00.501458+00:00
 
-Latest verified checkpoint: **2843**. Goal: **active**.
+Latest verified checkpoint: **2844**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2843**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 561 / 3,849 marked | 3,288 other entries |
+| Queue entries explicitly marked source-discovery closed | 562 / 3,849 marked | 3,287 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified macro-generated MissionId and distinct offline capture identities.
+Connected imported-scene identity roles to existing dispatcher and settlement
+owners.
 
-Capture labels must not be treated as authoritative MissionId values.
+The settlement-stability test was inspected but not run.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2843 publication record](CHECKPOINT-2843.json)
-- [Saved report for checkpoint 2843](PROGRESS-2843.md)
+- [Checkpoint 2844 publication record](CHECKPOINT-2844.json)
+- [Saved report for checkpoint 2844](PROGRESS-2844.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
