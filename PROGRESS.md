@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T20:46:56.442235+00:00
+Updated: 2026-11-06T20:52:16.520525+00:00
 
-Latest verified checkpoint: **3020**. Goal: **active**.
+Latest verified checkpoint: **3021**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Bounded the dispatcher imported-scene heightmap contribution after refinement.
+Modeled a conditional owned-terrain payload lower bound including the query
+index.
 
-Owned support, total update and live transport sizes remain unmeasured.
+Actual retained triangle counts and live transport behavior remain unmeasured.
 
 ## Working on now
 
-Reconcile full terrain payload and supported target boundaries with existing
-obligations; verify after the audit gate.
+Reconcile generated owned-support size and supported target boundaries with
+existing obligations; verify after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3020 publication record](CHECKPOINT-3020.json)
-- [Saved report for checkpoint 3020](PROGRESS-3020.md)
+- [Checkpoint 3021 publication record](CHECKPOINT-3021.json)
+- [Saved report for checkpoint 3021](PROGRESS-3021.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
