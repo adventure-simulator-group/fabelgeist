@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T21:50:17.047738+00:00
+Updated: 2026-11-06T21:55:24.931479+00:00
 
-Latest verified checkpoint: **3032**. Goal: **active**.
+Latest verified checkpoint: **3033**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3032**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 568 / 3,850 marked | 3,282 other entries |
+| Queue entries explicitly marked source-discovery closed | 569 / 3,850 marked | 3,281 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 440 recorded | Implementation gate not yet passed |
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Closed the original departure optional-success discovery and separated partyless
-travel policy.
+Documented the independent partyless settlement-travel policy decision.
 
-Partyless policy and all implementation and runtime validation remain open.
+The policy is undecided and no runtime behavior has been tested.
 
 ## Working on now
 
-Continue the separate partyless travel policy and remaining audit obligations;
-implement only after the audit gate.
+Continue the remaining audit; resolve recorded policy decisions before
+implementation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3032 publication record](CHECKPOINT-3032.json)
-- [Saved report for checkpoint 3032](PROGRESS-3032.md)
+- [Checkpoint 3033 publication record](CHECKPOINT-3033.json)
+- [Saved report for checkpoint 3033](PROGRESS-3033.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
