@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T17:30:47.877572+00:00
+Updated: 2026-11-06T17:33:52.140171+00:00
 
-Latest verified checkpoint: **2978**. Goal: **active**.
+Latest verified checkpoint: **2979**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified equal-height hit selection and decoded index ordering.
+Derived a two-face shared-edge tie-order candidate.
 
-Decoded tie-order policy, numerical extremes and runtime acceptance remain open.
+Decoded acceptance, tie-order policy and runtime acceptance remain unproven.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2978 publication record](CHECKPOINT-2978.json)
-- [Saved report for checkpoint 2978](PROGRESS-2978.md)
+- [Checkpoint 2979 publication record](CHECKPOINT-2979.json)
+- [Saved report for checkpoint 2979](PROGRESS-2979.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
