@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T23:38:21.148568+00:00
+Updated: 2026-11-06T23:44:48.859541+00:00
 
-Latest verified checkpoint: **3048**. Goal: **active**.
+Latest verified checkpoint: **3049**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded the optional errantry continuation repair and its delay and receipt
-requirements.
+Traced travel coordinate-mode selection and unplanned weather admission.
 
-The scoped repair is deferred until the full audit; no runtime execution
-occurred.
+Supported abstract and mixed-mode producer envelopes remain open; no runtime
+execution.
 
 ## Working on now
 
-Continue the remaining audit; implement the recorded road-challenge repair after
-the audit gate.
+Trace supported coordinate producers and reconcile weather/frame aliases before
+implementation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3048 publication record](CHECKPOINT-3048.json)
-- [Saved report for checkpoint 3048](PROGRESS-3048.md)
+- [Checkpoint 3049 publication record](CHECKPOINT-3049.json)
+- [Saved report for checkpoint 3049](PROGRESS-3049.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
