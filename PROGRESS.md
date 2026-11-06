@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T01:26:22.956450+00:00
+Updated: 2026-11-06T01:27:56.848971+00:00
 
-Latest verified checkpoint: **2586**. Goal: **active**.
+Latest verified checkpoint: **2587**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced generated sign-site selection and prepared-facade retention.
+Traced prepared sign sites through worker product admission.
 
-Prepared transport, mounting, paint and repair remain open.
+Transport trust, site admission, mounting and paint remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2586 publication record](CHECKPOINT-2586.json)
-- [Saved report for checkpoint 2586](PROGRESS-2586.md)
+- [Checkpoint 2587 publication record](CHECKPOINT-2587.json)
+- [Saved report for checkpoint 2587](PROGRESS-2587.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
