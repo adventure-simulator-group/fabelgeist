@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:37:18.133254+00:00
+Updated: 2026-11-06T10:39:06.552350+00:00
 
-Latest verified checkpoint: **2813**. Goal: **active**.
+Latest verified checkpoint: **2814**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **2813**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 553 / 3,849 marked | 3,296 other entries |
+| Queue entries explicitly marked source-discovery closed | 554 / 3,849 marked | 3,295 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
@@ -40,10 +40,11 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical occupancy topology through replication registration, ordering,
-and conflict checks.
+Connected the hand-generated occupancy string to its existing open equipment
+identity owner.
 
-Indirect field uses, client consumers and readmission remain open.
+The broader occupancy and client identity investigation remains open under its
+existing owner.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2813 publication record](CHECKPOINT-2813.json)
-- [Saved report for checkpoint 2813](PROGRESS-2813.md)
+- [Checkpoint 2814 publication record](CHECKPOINT-2814.json)
+- [Saved report for checkpoint 2814](PROGRESS-2814.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
