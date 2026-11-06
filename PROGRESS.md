@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T12:31:26.087010+00:00
+Updated: 2026-11-06T12:33:26.629294+00:00
 
-Latest verified checkpoint: **2867**. Goal: **active**.
+Latest verified checkpoint: **2868**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced imported terrain sampling and geographic-surface admission.
+Compared the documented same-run provenance requirement with resampler and
+source identity checks.
 
-Exact resampler inputs and the intended offline provenance guarantee remain
-open.
+Vista equality and a content-binding disposition remain open.
 
 ## Working on now
 
-Trace vista resampling and determine the offline stage provenance contract.
+Trace final scene vista and select a provenance binding consistent with the
+documented contract.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2867 publication record](CHECKPOINT-2867.json)
-- [Saved report for checkpoint 2867](PROGRESS-2867.md)
+- [Checkpoint 2868 publication record](CHECKPOINT-2868.json)
+- [Saved report for checkpoint 2868](PROGRESS-2868.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
