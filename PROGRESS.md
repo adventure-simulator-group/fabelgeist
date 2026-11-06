@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T23:06:11.375022+00:00
+Updated: 2026-11-06T23:17:17.711194+00:00
 
-Latest verified checkpoint: **3044**. Goal: **active**.
+Latest verified checkpoint: **3045**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the unit-result route-retention question and documented return-leg
-policy.
+Compared three distinct travel contracts and traced the bound road-challenge
+guard.
 
-Return-leg policy remains undecided; broader audit, implementation and runtime
-validation remain open.
+Ordinary road-challenge reachability and intended ignore policy remain open; no
+runtime execution.
 
 ## Working on now
 
-Continue the remaining audit; resolve the return-leg policy before
-implementation.
+Trace ordinary road-challenge production and browser continuation; implement
+only after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3044 publication record](CHECKPOINT-3044.json)
-- [Saved report for checkpoint 3044](PROGRESS-3044.md)
+- [Checkpoint 3045 publication record](CHECKPOINT-3045.json)
+- [Saved report for checkpoint 3045](PROGRESS-3045.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
