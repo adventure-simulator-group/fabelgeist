@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:10:01.351574+00:00
+Updated: 2026-11-06T05:12:13.921309+00:00
 
-Latest verified checkpoint: **2695**. Goal: **active**.
+Latest verified checkpoint: **2696**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded cross-settlement scene admission obligation.
+Recorded conditional parish and home population coherence.
 
-Mission binding, implementation and runtime validation remain open.
+Parish completeness policy, mission binding and runtime validation remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2695 publication record](CHECKPOINT-2695.json)
-- [Saved report for checkpoint 2695](PROGRESS-2695.md)
+- [Checkpoint 2696 publication record](CHECKPOINT-2696.json)
+- [Saved report for checkpoint 2696](PROGRESS-2696.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
