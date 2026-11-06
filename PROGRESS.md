@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:11:44.151941+00:00
+Updated: 2026-11-06T13:14:52.339537+00:00
 
-Latest verified checkpoint: **2886**. Goal: **active**.
+Latest verified checkpoint: **2887**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,16 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the existing merchant fixture and source tests for contact-distance
-coverage.
+Traced grounded-node and sill additions against checked LOD world elevation.
 
-Individual transformed-contact outcomes and complete-scene collapse remain
-unproven.
+Generated elevation bounds and report consumer semantics remain open.
 
 ## Working on now
 
-Continue source audit; retain contact-distance runtime checks after the audit
-gate.
+Trace generated elevation bounds and report consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2886 publication record](CHECKPOINT-2886.json)
-- [Saved report for checkpoint 2886](PROGRESS-2886.md)
+- [Checkpoint 2887 publication record](CHECKPOINT-2887.json)
+- [Saved report for checkpoint 2887](PROGRESS-2887.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
