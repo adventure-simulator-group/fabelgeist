@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T02:28:04.866949+00:00
+Updated: 2026-11-06T02:29:59.671479+00:00
 
-Latest verified checkpoint: **2619**. Goal: **active**.
+Latest verified checkpoint: **2620**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified shutter eligibility and stock cottage projection.
+Qualified selected multi-storey and shutter validation gates.
 
-Modified-program reachability, association policy, aliases and validation remain
+Complete modified-program reachability, association policy and validation remain
 open.
 
 ## Working on now
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2619 publication record](CHECKPOINT-2619.json)
-- [Saved report for checkpoint 2619](PROGRESS-2619.md)
+- [Checkpoint 2620 publication record](CHECKPOINT-2620.json)
+- [Saved report for checkpoint 2620](PROGRESS-2620.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
