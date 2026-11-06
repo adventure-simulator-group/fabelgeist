@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T17:37:25.174750+00:00
+Updated: 2026-11-06T17:41:24.642818+00:00
 
-Latest verified checkpoint: **2980**. Goal: **active**.
+Latest verified checkpoint: **2981**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded a measurable tiny support face whose f32 hit normal underflows.
+Extended support-normal repair to normalization underflow and overflow.
 
-Public query regression, implementation and runtime acceptance remain open.
+Public query regression and robust normalization remain unverified.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2980 publication record](CHECKPOINT-2980.json)
-- [Saved report for checkpoint 2980](PROGRESS-2980.md)
+- [Checkpoint 2981 publication record](CHECKPOINT-2981.json)
+- [Saved report for checkpoint 2981](PROGRESS-2981.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
