@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T13:17:05.507336+00:00
+Updated: 2026-11-06T13:19:30.171545+00:00
 
-Latest verified checkpoint: **2888**. Goal: **active**.
+Latest verified checkpoint: **2889**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Surveyed exact grounded-node and sill report key consumers.
+Traced permissive building-program input and generation versus exhaustive audit.
 
-External consumers and generated elevation bounds remain open.
+Successful generator bounds and actual world-elevation overflow remain open.
 
 ## Working on now
 
-Trace generated plan and scene placement elevation bounds.
+Trace storey-height admission and generated node and opening elevations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2888 publication record](CHECKPOINT-2888.json)
-- [Saved report for checkpoint 2888](PROGRESS-2888.md)
+- [Checkpoint 2889 publication record](CHECKPOINT-2889.json)
+- [Saved report for checkpoint 2889](PROGRESS-2889.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
