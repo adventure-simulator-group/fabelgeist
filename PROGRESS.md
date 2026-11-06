@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T00:52:37.476889+00:00
+Updated: 2026-11-06T00:54:29.543401+00:00
 
-Latest verified checkpoint: **2565**. Goal: **active**.
+Latest verified checkpoint: **2566**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced round-tower dimension admission into shell construction.
+Compared tower producer values, shell containment and rendered inner radius.
 
-Shell policy, other producers, native consumers and repair remain open.
+Supported extreme dimensions, native consumers and repair remain open.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2565 publication record](CHECKPOINT-2565.json)
-- [Saved report for checkpoint 2565](PROGRESS-2565.md)
+- [Checkpoint 2566 publication record](CHECKPOINT-2566.json)
+- [Saved report for checkpoint 2566](PROGRESS-2566.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
