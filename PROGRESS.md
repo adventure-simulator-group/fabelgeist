@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T21:26:33.790007+00:00
+Updated: 2026-11-06T21:35:40.109223+00:00
 
-Latest verified checkpoint: **3028**. Goal: **active**.
+Latest verified checkpoint: **3029**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced browser grant origins and their distinct party creation guarantees.
+Traced development scenario creation and party recreation on removal.
 
-Development scenario and later lifecycle reach remain open; no runtime was
-exercised.
+Existing scenario primaries, static fixtures and runtime behavior remain open.
 
 ## Working on now
 
-Trace development scenario and lifecycle party state; implement only after the
-audit gate.
+Reconcile existing scenario identities and partyless travel policy; implement
+only after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3028 publication record](CHECKPOINT-3028.json)
-- [Saved report for checkpoint 3028](PROGRESS-3028.md)
+- [Checkpoint 3029 publication record](CHECKPOINT-3029.json)
+- [Saved report for checkpoint 3029](PROGRESS-3029.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
