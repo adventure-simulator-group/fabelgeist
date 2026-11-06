@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T03:44:51.546054+00:00
+Updated: 2026-11-06T03:46:53.284139+00:00
 
-Latest verified checkpoint: **2658**. Goal: **active**.
+Latest verified checkpoint: **2659**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced market block production and degenerate containment consumers.
+Recorded scoped market quadrilateral admission repair.
 
-Canonical bounds, full scene admission, gate containment and validation remain
-open.
+Gate containment, broader furniture placement, implementation and validation
+remain open.
 
 ## Working on now
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2658 publication record](CHECKPOINT-2658.json)
-- [Saved report for checkpoint 2658](PROGRESS-2658.md)
+- [Checkpoint 2659 publication record](CHECKPOINT-2659.json)
+- [Saved report for checkpoint 2659](PROGRESS-2659.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
