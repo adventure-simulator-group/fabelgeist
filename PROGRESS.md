@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T23:17:17.711194+00:00
+Updated: 2026-11-06T23:23:48.003211+00:00
 
-Latest verified checkpoint: **3045**. Goal: **active**.
+Latest verified checkpoint: **3046**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3045**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 570 / 3,850 marked | 3,280 other entries |
+| Queue entries explicitly marked source-discovery closed | 571 / 3,850 marked | 3,279 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 440 recorded | Implementation gate not yet passed |
@@ -40,16 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared three distinct travel contracts and traced the bound road-challenge
-guard.
+Reconciled three travel scopes and traced ordinary errantry to the camp
+interface.
 
-Ordinary road-challenge reachability and intended ignore policy remain open; no
-runtime execution.
+The existing road-challenge policy remains undecided; no runtime execution.
 
 ## Working on now
 
-Trace ordinary road-challenge production and browser continuation; implement
-only after the audit gate.
+Continue the remaining audit and resolve the existing road-challenge policy
+before implementation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3045 publication record](CHECKPOINT-3045.json)
-- [Saved report for checkpoint 3045](PROGRESS-3045.md)
+- [Checkpoint 3046 publication record](CHECKPOINT-3046.json)
+- [Saved report for checkpoint 3046](PROGRESS-3046.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
