@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T20:38:52.550054+00:00
+Updated: 2026-11-06T20:43:11.205813+00:00
 
-Latest verified checkpoint: **3018**. Goal: **active**.
+Latest verified checkpoint: **3019**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Modeled an admitted sampled grid whose postcard sample bytes exceed the default
-shared transport budget.
+Traced terrain refinement and modeled a producer-size boundary against
+replication.
 
-The arithmetic example is not a generated terrain or runtime transport test.
+The input example and transport consequences remain unexecuted.
 
 ## Working on now
 
-Trace terrain producer reach and component transport; verify repairs after the
-full audit gate.
+Reconcile producer reach and transport failure evidence with existing
+obligations; verify after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3018 publication record](CHECKPOINT-3018.json)
-- [Saved report for checkpoint 3018](PROGRESS-3018.md)
+- [Checkpoint 3019 publication record](CHECKPOINT-3019.json)
+- [Saved report for checkpoint 3019](PROGRESS-3019.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
