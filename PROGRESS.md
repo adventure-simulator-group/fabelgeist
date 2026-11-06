@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T14:34:32.173000+00:00
+Updated: 2026-11-06T14:36:50.519709+00:00
 
-Latest verified checkpoint: **2925**. Goal: **active**.
+Latest verified checkpoint: **2926**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified floor union algorithm and rounded-architecture test intent.
+Traced floor clipping, subtraction and finite broad-phase bounds.
 
-Native clipping, broader coverage and runtime acceptance remain open.
+Intermediate numeric bounds, broader coverage and runtime acceptance remain
+open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2925 publication record](CHECKPOINT-2925.json)
-- [Saved report for checkpoint 2925](PROGRESS-2925.md)
+- [Checkpoint 2926 publication record](CHECKPOINT-2926.json)
+- [Saved report for checkpoint 2926](PROGRESS-2926.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
