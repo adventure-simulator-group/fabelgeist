@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T05:46:46.980844+00:00
+Updated: 2026-11-06T05:48:41.370182+00:00
 
-Latest verified checkpoint: **2711**. Goal: **active**.
+Latest verified checkpoint: **2712**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified refinement math and its locked libm implementation.
+Recorded contextual terrain refinement failure obligation.
 
-Cross-target numerical equivalence and support-error classification remain open.
+Shared sampled-support policy, implementation and runtime validation remain
+open.
 
 ## Working on now
 
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2711 publication record](CHECKPOINT-2711.json)
-- [Saved report for checkpoint 2711](PROGRESS-2711.md)
+- [Checkpoint 2712 publication record](CHECKPOINT-2712.json)
+- [Saved report for checkpoint 2712](PROGRESS-2712.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
