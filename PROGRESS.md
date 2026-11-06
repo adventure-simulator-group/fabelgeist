@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T07:35:56.240306+00:00
+Updated: 2026-11-06T07:39:17.187269+00:00
 
-Latest verified checkpoint: **2747**. Goal: **active**.
+Latest verified checkpoint: **2748**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2747**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 49 recorded | 2 conditional; 2 policy/design |
+| Scoped repair obligations on entries | 50 recorded | 2 conditional; 2 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled early grid validation and garden support to existing owners.
+Recorded distant garden projection failure lifecycle obligation.
 
-Existing garden and sampled-support repairs, other lenses and runtime checks
+No runtime failure was demonstrated; support classification and validation
 remain open.
 
 ## Working on now
 
-Continue unresolved garden geometry and replication contracts.
+Continue garden projection and identity reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2747 publication record](CHECKPOINT-2747.json)
-- [Saved report for checkpoint 2747](PROGRESS-2747.md)
+- [Checkpoint 2748 publication record](CHECKPOINT-2748.json)
+- [Saved report for checkpoint 2748](PROGRESS-2748.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
