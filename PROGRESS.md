@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T17:00:47.708601+00:00
+Updated: 2026-11-06T17:04:25.188677+00:00
 
-Latest verified checkpoint: **2971**. Goal: **active**.
+Latest verified checkpoint: **2972**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **2971**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 69 recorded | 2 conditional; 9 policy/design |
+| Scoped repair obligations on entries | 70 recorded | 2 conditional; 9 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,9 +40,10 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified the browser product-size limit and its optional scope.
+Recorded the reserved binary owner collision repair obligation.
 
-Direct serialization limits and runtime acceptance remain open.
+Extreme public allocation was not executed; implementation and verification
+remain open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2971 publication record](CHECKPOINT-2971.json)
-- [Saved report for checkpoint 2971](PROGRESS-2971.md)
+- [Checkpoint 2972 publication record](CHECKPOINT-2972.json)
+- [Saved report for checkpoint 2972](PROGRESS-2972.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
