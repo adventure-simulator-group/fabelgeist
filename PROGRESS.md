@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T08:04:26.353330+00:00
+Updated: 2026-11-06T08:06:35.834741+00:00
 
-Latest verified checkpoint: **2756**. Goal: **active**.
+Latest verified checkpoint: **2757**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled art-demo texture failure with its existing residency owner.
+Qualified obstacle add versus replacement observer behavior.
 
-The existing texture owner and broader presentation contract remain open; no
-failed load was demonstrated.
+No live obstacle replacement or stale presentation was demonstrated; broader
+lifecycle remains open.
 
 ## Working on now
 
-Continue the existing texture owner and remaining presentation reconciliation.
+Continue obstacle lifecycle and presentation reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2756 publication record](CHECKPOINT-2756.json)
-- [Saved report for checkpoint 2756](PROGRESS-2756.md)
+- [Checkpoint 2757 publication record](CHECKPOINT-2757.json)
+- [Saved report for checkpoint 2757](PROGRESS-2757.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
