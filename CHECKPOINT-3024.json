@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 3024,
+  "at": "2026-11-06T21:05:33.309465+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "56d5045141073abcff736d66363c74e7729c0aefe83a420366eaf1a749047720",
+    "verification": "dd8bd574e0fa14bf6debd8c2a8a8ec8389cb61b293038573da09b3ef9031a34c",
+    "canonical_current": "4ace787edc96598157547a3794dd4e7737a3e98b2dbef05673dafe7b9b6b3fec"
+  },
+  "scope": {
+    "summary": "Scoped a dead optional departure-time result and both unreachable travel branches.",
+    "scope_limit": "Adjacent departure readiness, terminal-time contracts and runtime validation remain open."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "670979e62a0d65f170b30392616c906a383b36774d2763c47cc4c38986f1556f",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

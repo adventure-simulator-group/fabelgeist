@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T21:01:12.181754+00:00
+Updated: 2026-11-06T21:08:21.830195+00:00
 
-Latest verified checkpoint: **3023**. Goal: **active**.
+Latest verified checkpoint: **3024**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **3023**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 439 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 73 recorded | 3 conditional; 10 policy/design |
+| Scoped repair obligations on entries | 74 recorded | 3 conditional; 10 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Narrowed empty-plan terrain reach through the dispatcher grounding and owner
-checks.
+Scoped a dead optional departure-time result and both unreachable travel
+branches.
 
-Nonempty grounded terrain sizes and live transport behavior remain unmeasured.
+Adjacent departure readiness, terminal-time contracts and runtime validation
+remain open.
 
 ## Working on now
 
-Reconcile nonempty grounded terrain sizes and transport obligations; verify
+Resolve departure clock connected contracts and exact aliases; implement only
 after the audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3023 publication record](CHECKPOINT-3023.json)
-- [Saved report for checkpoint 3023](PROGRESS-3023.md)
+- [Checkpoint 3024 publication record](CHECKPOINT-3024.json)
+- [Saved report for checkpoint 3024](PROGRESS-3024.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
