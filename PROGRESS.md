@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T15:09:51.790444+00:00
+Updated: 2026-11-06T15:12:09.514236+00:00
 
-Latest verified checkpoint: **2937**. Goal: **active**.
+Latest verified checkpoint: **2938**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,7 +40,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Established public API admission of finite extreme owned-support queries.
+Distinguished sampled grid checks from owned support query routing.
 
 Incorrect-result reachability and native acceptance remain open.
 
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2937 publication record](CHECKPOINT-2937.json)
-- [Saved report for checkpoint 2937](PROGRESS-2937.md)
+- [Checkpoint 2938 publication record](CHECKPOINT-2938.json)
+- [Saved report for checkpoint 2938](PROGRESS-2938.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
