@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T10:22:43.025948+00:00
+Updated: 2026-11-06T10:25:16.589306+00:00
 
-Latest verified checkpoint: **2808**. Goal: **active**.
+Latest verified checkpoint: **2809**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,9 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded tactical endpoint admission and transport-selection scope.
+Traced client character identity into the join request.
 
-No network connection was executed; standard producer uses a bare address.
+Browser numeric width and identity ownership remain under review.
 
 ## Working on now
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2808 publication record](CHECKPOINT-2808.json)
-- [Saved report for checkpoint 2808](PROGRESS-2808.md)
+- [Checkpoint 2809 publication record](CHECKPOINT-2809.json)
+- [Saved report for checkpoint 2809](PROGRESS-2809.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
