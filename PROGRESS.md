@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T09:06:26.758624+00:00
+Updated: 2026-11-06T09:08:06.550593+00:00
 
-Latest verified checkpoint: **2779**. Goal: **active**.
+Latest verified checkpoint: **2780**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,10 +40,9 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Modeled the landform vertical-count arithmetic; product reachability remains
-open.
+Traced scene input height bounds and grade repair before landform extraction.
 
-The numerical model is not a product reproduction.
+Public terrain and owned support remain separate reachability questions.
 
 ## Working on now
 
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 2779 publication record](CHECKPOINT-2779.json)
-- [Saved report for checkpoint 2779](PROGRESS-2779.md)
+- [Checkpoint 2780 publication record](CHECKPOINT-2780.json)
+- [Saved report for checkpoint 2780](PROGRESS-2780.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
