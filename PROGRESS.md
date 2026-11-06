@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-06T22:13:02.279383+00:00
+Updated: 2026-11-06T22:17:55.061029+00:00
 
-Latest verified checkpoint: **3036**. Goal: **active**.
+Latest verified checkpoint: **3037**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,16 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced trusted gateway approval and return-leg input representation.
+Compared travel aliases and traced retained routes through the generated web
+projection.
 
-The final return-leg API policy and remaining producer comparison are open; no
-runtime execution.
+The return-leg policy and native request admission remain open; no runtime
+execution.
 
 ## Working on now
 
-Resolve the route-leg contract and compare remaining producers and aliases;
-implement after the audit gate.
+Resolve the route-leg contract and native request admission; implement after the
+audit gate.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3036 publication record](CHECKPOINT-3036.json)
-- [Saved report for checkpoint 3036](PROGRESS-3036.md)
+- [Checkpoint 3037 publication record](CHECKPOINT-3037.json)
+- [Saved report for checkpoint 3037](PROGRESS-3037.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
