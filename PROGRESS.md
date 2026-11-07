@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:17:17.790441+00:00
+Updated: 2026-11-07T12:20:04.023346+00:00
 
-Latest verified checkpoint: **3294**. Goal: **active**.
+Latest verified checkpoint: **3295**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -282,7 +282,9 @@ second-party acquisition. Rumor receipts and generated graphs are observer-
 scoped; repeated same-case admission and timing remain open. Rumor receipt
 creation is observer-scoped and does not consume the problem; selection and
 cross-party timing remain open. Admitted dialogue receives delivered observer-
-owned rumors; generated site and cross-party timing remain open.
+owned rumors; generated site and cross-party timing remain open. Inspected
+hostile finale sites are initially unknown; additional investigation is required
+for the cross-party scenario.
 
 | Phase | Status |
 | --- | --- |
@@ -293,13 +295,13 @@ owned rumors; generated site and cross-party timing remain open.
 
 ## Latest checkpoint
 
-Traced dialogue admission and local rumor receipt consumption.
+Traced initially known generated sites and hostile finale roles.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace generated initially known sites and cross-party timing.
+Trace disclosure of the hostile finale through investigation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -467,8 +469,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3294 publication record](CHECKPOINT-3294.json)
-- [Saved report for checkpoint 3294](PROGRESS-3294.md)
+- [Checkpoint 3295 publication record](CHECKPOINT-3295.json)
+- [Saved report for checkpoint 3295](PROGRESS-3295.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
