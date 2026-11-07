@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 3077,
+  "at": "2026-11-07T02:19:02.166461+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "a4a93322249935c77f554b6c2bd2f11248c564caffaf47d303de8edbd887aa9e",
+    "verification": "f79895b63174cbe6c8d92415b35aae75a52f3e30cedd67c9d656c2d1839ec665",
+    "canonical_current": "66699e4ecc56a4f31f65724e6c5574603c9cd776bcf73578b2476b547da824f1"
+  },
+  "scope": {
+    "summary": "Identified serializable isolation for host-created reducer transactions.",
+    "scope_limit": "Existing-transaction callers and nested writes remain open; no runtime execution."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "846b8c3b0935892aeea43a1206715624e5ab5ca50e39bddcb950d6f4afea686e",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
