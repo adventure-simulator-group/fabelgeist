@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:13:10.870568+00:00
+Updated: 2026-11-07T15:15:03.315491+00:00
 
-Latest verified checkpoint: **3379**. Goal: **active**.
+Latest verified checkpoint: **3380**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -417,7 +417,8 @@ restricted proxy templates; live topology remains unverified. Existing caller
 authority accepts the strategic gateway or the owner of a registered simulation
 character; multi-character scope needs explicit treatment. Party joins combine
 actor authority and same-simulation-scope checks; inventory consent policy
-remains distinct.
+remains distinct. Existing source-text authority tests cover listed recruitment
+and mission reducers, not the inspected inventory mutations.
 
 | Phase | Status |
 | --- | --- |
@@ -428,13 +429,13 @@ remains distinct.
 
 ## Latest checkpoint
 
-Compared party-join actor authority and simulation scope.
+Qualified existing authority test coverage.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify party-sharing policy and multi-character inventory authority.
+Qualify inventory authority and later runtime acceptance.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -602,8 +603,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3379 publication record](CHECKPOINT-3379.json)
-- [Saved report for checkpoint 3379](PROGRESS-3379.md)
+- [Checkpoint 3380 publication record](CHECKPOINT-3380.json)
+- [Saved report for checkpoint 3380](PROGRESS-3380.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
