@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:01:51.427535+00:00
+Updated: 2026-11-07T18:04:22.494045+00:00
 
-Latest verified checkpoint: **3447**. Goal: **active**.
+Latest verified checkpoint: **3448**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -532,7 +532,9 @@ current Lens 11 extension ranges were reread after registration; connected work
 remains open. Mission enrollment and terminal receipt submission paths are
 source-qualified; roster and transport boundaries remain open. Strategic receipt
 admission checks participant and contact bounds; the shared roster caps
-membership at 16, with accumulator containment still open.
+membership at 16, with accumulator containment still open. Tactical consequence
+producers filter on Party side; captured-roster containment and aggregate
+numeric admission remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -543,13 +545,14 @@ membership at 16, with accumulator containment still open.
 
 ## Latest checkpoint
 
-Traced tactical submission, strategic receipt admission and roster bound.
+Traced tactical consequence accumulator producers.
 
-Accumulator membership, SDK delivery and runtime behavior remain open.
+Captured-roster membership, numerical admission and runtime behavior remain
+open.
 
 ## Working on now
 
-Reconcile tactical accumulator membership and native callback semantics.
+Trace Party-side projection and receipt numeric admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -717,8 +720,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3447 publication record](CHECKPOINT-3447.json)
-- [Saved report for checkpoint 3447](PROGRESS-3447.md)
+- [Checkpoint 3448 publication record](CHECKPOINT-3448.json)
+- [Saved report for checkpoint 3448](PROGRESS-3448.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
