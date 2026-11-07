@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:21:21.021126+00:00
+Updated: 2026-11-07T19:22:43.498352+00:00
 
-Latest verified checkpoint: **3489**. Goal: **active**.
+Latest verified checkpoint: **3490**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -594,7 +594,8 @@ materialization and a fixed-bandit standalone insertion. Selected escalation and
 resolution updates preserve the stored enemy type. Case-site and canonical
 journey-camp identities differ from the trial camp token; mapping remains open.
 Trial binding has party and journey coordinates needed by the canonical camp
-constructor; unbound state needs explicit treatment.
+constructor; unbound state needs explicit treatment. The scoped challenge parser
+discards the ordinal and cannot alone own complete retained identity.
 
 | Phase | Status |
 | --- | --- |
@@ -605,13 +606,13 @@ constructor; unbound state needs explicit treatment.
 
 ## Latest checkpoint
 
-Qualified trial camp binding context.
+Qualified scoped challenge identity classification.
 
-Bound/unbound design, serialization and native boundaries remain open.
+Complete identity owners and serialization boundaries remain open.
 
 ## Working on now
 
-Reconcile bound/unbound camp identity and frame serialization.
+Reconcile complete challenge, frame and trial identity owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -779,8 +780,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3489 publication record](CHECKPOINT-3489.json)
-- [Saved report for checkpoint 3489](PROGRESS-3489.md)
+- [Checkpoint 3490 publication record](CHECKPOINT-3490.json)
+- [Saved report for checkpoint 3490](PROGRESS-3490.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
