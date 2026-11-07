@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:38:44.553791+00:00
+Updated: 2026-11-07T06:40:24.962738+00:00
 
-Latest verified checkpoint: **3134**. Goal: **active**.
+Latest verified checkpoint: **3135**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -36,7 +36,8 @@ unresolved. A bounded scan checked 489 nearby decision evidence references;
 seven mismatches all concern the same note. The reducer adapter scope has been
 reread after its registration; related contract work remains open. Web and
 simulation error consumers have been reread after registration; runtime delivery
-remains unverified.
+remains unverified. Strategic reducer error propagation has been reread after
+registration; runtime delivery remains unverified.
 
 | Phase | Status |
 | --- | --- |
@@ -47,7 +48,7 @@ remains unverified.
 
 ## Latest checkpoint
 
-Reread registered web and simulation error consumers.
+Reread registered strategic reducer error propagation scopes.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -222,8 +223,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3134 publication record](CHECKPOINT-3134.json)
-- [Saved report for checkpoint 3134](PROGRESS-3134.md)
+- [Checkpoint 3135 publication record](CHECKPOINT-3135.json)
+- [Saved report for checkpoint 3135](PROGRESS-3135.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
