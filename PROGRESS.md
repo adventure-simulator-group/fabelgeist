@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:11:43.879627+00:00
+Updated: 2026-11-07T15:13:10.870568+00:00
 
-Latest verified checkpoint: **3378**. Goal: **active**.
+Latest verified checkpoint: **3379**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -415,7 +415,9 @@ loopback service and restricted proxy templates; live topology remains
 unverified. The game deployment script installs the loopback service and
 restricted proxy templates; live topology remains unverified. Existing caller
 authority accepts the strategic gateway or the owner of a registered simulation
-character; multi-character scope needs explicit treatment.
+character; multi-character scope needs explicit treatment. Party joins combine
+actor authority and same-simulation-scope checks; inventory consent policy
+remains distinct.
 
 | Phase | Status |
 | --- | --- |
@@ -426,13 +428,13 @@ character; multi-character scope needs explicit treatment.
 
 ## Latest checkpoint
 
-Qualified simulation caller and scope helpers.
+Compared party-join actor authority and simulation scope.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify multi-character simulation scope and inventory caller authority.
+Qualify party-sharing policy and multi-character inventory authority.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -600,8 +602,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3378 publication record](CHECKPOINT-3378.json)
-- [Saved report for checkpoint 3378](PROGRESS-3378.md)
+- [Checkpoint 3379 publication record](CHECKPOINT-3379.json)
+- [Saved report for checkpoint 3379](PROGRESS-3379.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
