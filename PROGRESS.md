@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T16:09:44.139074+00:00
+Updated: 2026-11-07T16:13:23.130413+00:00
 
-Latest verified checkpoint: **3404**. Goal: **active**.
+Latest verified checkpoint: **3405**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -457,6 +457,10 @@ at checkpoint 3401; historical checkpoint retained. The schedule preview
 validates its submitted form before organization eligibility filtering;
 connected policy and alias closure remains open. Selected role cleanup paths
 were traced; organization namespace and indirect-writer invariants remain open.
+A bounded catalog ID census found no provisional family-prefix organization ID;
+indirect-writer invariants remain open. A bounded catalog ID census found no
+provisional family-prefix organization ID; indirect-writer invariants remain
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -467,8 +471,7 @@ were traced; organization namespace and indirect-writer invariants remain open.
 
 ## Latest checkpoint
 
-Qualified organization role cleanup paths and membership construction
-navigation.
+Compared pinned organization IDs with the provisional family namespace.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -643,8 +646,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3404 publication record](CHECKPOINT-3404.json)
-- [Saved report for checkpoint 3404](PROGRESS-3404.md)
+- [Checkpoint 3405 publication record](CHECKPOINT-3405.json)
+- [Saved report for checkpoint 3405](PROGRESS-3405.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
