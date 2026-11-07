@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:23:45.881440+00:00
+Updated: 2026-11-07T14:26:11.416583+00:00
 
-Latest verified checkpoint: **3353**. Goal: **active**.
+Latest verified checkpoint: **3354**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -372,7 +372,10 @@ Disband independently requires stakes settled and the remaining pool liquidated
 before reserve payout. Browser and approved-action removal share the reducer;
 simulation also invokes inventory withdrawal for purchases. Three ledger entries
 share the immediate conditional settlement mismatch; broader Lens 11 and 13
-obligations remain open.
+obligations remain open. Owned-item deposits can credit member stake; the
+inspected encounter helper does not itself authenticate the actor. Owned-item
+deposits can credit member stake; the inspected encounter helper does not itself
+authenticate the actor.
 
 | Phase | Status |
 | --- | --- |
@@ -383,13 +386,13 @@ obligations remain open.
 
 ## Latest checkpoint
 
-Compared the temporary-stake finding across three ledger entries.
+Traced item-deposit stake creation and encounter guard.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile remaining membership reachability and custody dependencies.
+Reconcile admission and actor authority for stake-producing actions.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -557,8 +560,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3353 publication record](CHECKPOINT-3353.json)
-- [Saved report for checkpoint 3353](PROGRESS-3353.md)
+- [Checkpoint 3354 publication record](CHECKPOINT-3354.json)
+- [Saved report for checkpoint 3354](PROGRESS-3354.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
