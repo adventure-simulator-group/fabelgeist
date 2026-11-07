@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:09:09.638068+00:00
+Updated: 2026-11-07T09:10:44.525065+00:00
 
-Latest verified checkpoint: **3209**. Goal: **active**.
+Latest verified checkpoint: **3210**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -146,7 +146,9 @@ ordering. Movement exposure repair must preserve route and wilderness-time
 cursors across chunks and settlement departure. Lens 12 source qualification
 connects planned movement weather exposure to an existing open question; aliases
 remain open. Lens 12 source qualification connects planned movement weather
-exposure to an existing open question; aliases remain open.
+exposure to an existing open question; aliases remain open. Three journey entry
+paths use the planned party movement seam after encounter clipping; related
+aliases remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -157,7 +159,7 @@ exposure to an existing open question; aliases remain open.
 
 ## Latest checkpoint
 
-Qualified planned movement exposure and its existing Lens 12 question.
+Connected three journey entry paths to planned party movement.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -332,8 +334,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3209 publication record](CHECKPOINT-3209.json)
-- [Saved report for checkpoint 3209](PROGRESS-3209.md)
+- [Checkpoint 3210 publication record](CHECKPOINT-3210.json)
+- [Saved report for checkpoint 3210](PROGRESS-3210.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
