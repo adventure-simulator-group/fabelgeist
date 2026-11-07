@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:32:46.036046+00:00
+Updated: 2026-11-07T07:34:52.622215+00:00
 
-Latest verified checkpoint: **3162**. Goal: **active**.
+Latest verified checkpoint: **3163**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -75,6 +75,8 @@ weather before snapshot; browser and alternate environment paths remain open.
 Strategic retained scene parsing validates weather; pre-preparation and
 alternate environment paths remain open. Standard browser pre-preparation
 validates scene input before venue discovery; alternate entry paths remain open.
+Tactical scene environments are inserted on replicated entities; client
+admission and alternate producers remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -85,7 +87,7 @@ validates scene input before venue discovery; alternate entry paths remain open.
 
 ## Latest checkpoint
 
-Traced standard browser pre-preparation input validation.
+Traced tactical environment insertion and replication registration.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -260,8 +262,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3162 publication record](CHECKPOINT-3162.json)
-- [Saved report for checkpoint 3162](PROGRESS-3162.md)
+- [Checkpoint 3163 publication record](CHECKPOINT-3163.json)
+- [Saved report for checkpoint 3163](PROGRESS-3163.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
