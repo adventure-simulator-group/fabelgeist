@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:27:45.431057+00:00
+Updated: 2026-11-07T20:28:53.618292+00:00
 
-Latest verified checkpoint: **3529**. Goal: **active**.
+Latest verified checkpoint: **3530**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -636,6 +636,7 @@ name, slug and speech. Tactical insight stores a string derived from a typed
 threat ID. Insight projection exposes text while public Serde remains an
 admission boundary. Threat syntax admission is narrower than catalog membership
 checking. Threat syntax admission is broader than catalog membership checking.
+Threat syntax storage is reused by report and evidence vocabularies.
 
 | Phase | Status |
 | --- | --- |
@@ -646,14 +647,14 @@ checking. Threat syntax admission is broader than catalog membership checking.
 
 ## Latest checkpoint
 
-Qualified insight threat profile admission gap.
+Qualified threat syntax reuse across vocabularies.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile public threat construction and profile admission.
+Separate syntax and catalog admission across distinct vocabularies.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -821,8 +822,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3529 publication record](CHECKPOINT-3529.json)
-- [Saved report for checkpoint 3529](PROGRESS-3529.md)
+- [Checkpoint 3530 publication record](CHECKPOINT-3530.json)
+- [Saved report for checkpoint 3530](PROGRESS-3530.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
