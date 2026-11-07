@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:29:21.469610+00:00
+Updated: 2026-11-07T12:32:16.791537+00:00
 
-Latest verified checkpoint: **3299**. Goal: **active**.
+Latest verified checkpoint: **3300**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -291,6 +291,8 @@ intervals; cross-party timing remains unproven. Tracking validates predecessor
 position instead of requiring the undisclosed finale; success and cross-party
 timing remain open. Generated action resolution reaches a guaranteed threshold
 after five uninterrupted failures; admission and cross-party timing remain open.
+Inspected readiness and encounter gates are acting-party scoped; other cross-
+party admission and timing remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -301,13 +303,13 @@ after five uninterrupted failures; admission and cross-party timing remain open.
 
 ## Latest checkpoint
 
-Traced generated action bounded success and retry history.
+Traced party-scoped readiness and encounter gates.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace cross-party arrival and negotiation timing.
+Trace remaining cross-party site and negotiation gates.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -475,8 +477,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3299 publication record](CHECKPOINT-3299.json)
-- [Saved report for checkpoint 3299](PROGRESS-3299.md)
+- [Checkpoint 3300 publication record](CHECKPOINT-3300.json)
+- [Saved report for checkpoint 3300](PROGRESS-3300.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
