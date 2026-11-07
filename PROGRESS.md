@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T23:03:21.391804+00:00
+Updated: 2026-11-07T23:04:31.021681+00:00
 
-Latest verified checkpoint: **3618**. Goal: **active**.
+Latest verified checkpoint: **3619**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -27,10 +27,11 @@ obligations are counted separately and may overlap other entries. The full
 audit, implementation, review and validation remain incomplete.
 
 The required thirteen-lens audit and connected repair ledger remain incomplete;
-implementation is gated on their completion. Recent work traced errantry trial
-identities, threat catalog admission and ordered-sigil clue boundaries. The
-checkpoint 3130 evidence-integrity correction and unresolved checkpoint 3122
-note remain open for review.
+implementation is gated on their completion. Recent work traced conditional
+follow-up incident dialogue loss, physical evidence admission, and disease
+source selection and error propagation. These findings remain subject to alias
+and runtime checks. The checkpoint 3130 evidence-integrity correction and
+unresolved checkpoint 3122 note remain open for review.
 
 | Phase | Status |
 | --- | --- |
@@ -41,9 +42,9 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified disease source writer scope.
+Qualified generated outbreak disease key.
 
-Complete writer inventory, malformed-row policy and aliases remain open.
+Other writers, malformed-row policy and aliases remain open.
 
 ## Working on now
 
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3618 publication record](CHECKPOINT-3618.json)
-- [Saved report for checkpoint 3618](PROGRESS-3618.md)
+- [Checkpoint 3619 publication record](CHECKPOINT-3619.json)
+- [Saved report for checkpoint 3619](PROGRESS-3619.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
