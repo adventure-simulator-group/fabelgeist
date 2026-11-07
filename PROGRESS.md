@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:19:56.726451+00:00
+Updated: 2026-11-07T17:22:00.039835+00:00
 
-Latest verified checkpoint: **3427**. Goal: **active**.
+Latest verified checkpoint: **3428**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -497,7 +497,8 @@ Scoped narrative measured-food cost discovery is complete; existing acceptance
 requires measured availability and four whole portions, with partial-row
 allocation left to repair. Current personal storefront merging bypasses the
 stable-object predicate for existing non-food simple rows under stated
-conditions.
+conditions. Simple item and container-capacity projection is explicit; a
+simulation fixture creates a stocked general store with a present merchant.
 
 | Phase | Status |
 | --- | --- |
@@ -508,14 +509,13 @@ conditions.
 
 ## Latest checkpoint
 
-Qualified current storefront merge against stable-item admission.
+Traced stable item catalog projection and fixture storefront activation.
 
-Stock and database mapping activation, exact aliases and runtime behavior remain
-open.
+Ordinary-world activation, exact aliases and runtime behavior remain open.
 
 ## Working on now
 
-Qualify storefront stock, item mapping and stable-object aliases.
+Qualify ordinary-world storefront activation and stable-object aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -683,8 +683,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3427 publication record](CHECKPOINT-3427.json)
-- [Saved report for checkpoint 3427](PROGRESS-3427.md)
+- [Checkpoint 3428 publication record](CHECKPOINT-3428.json)
+- [Saved report for checkpoint 3428](PROGRESS-3428.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
