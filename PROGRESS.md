@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:58:30.995109+00:00
+Updated: 2026-11-07T09:02:45.592463+00:00
 
-Latest verified checkpoint: **3207**. Goal: **active**.
+Latest verified checkpoint: **3208**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -142,7 +142,8 @@ the exposure call present in ordinary travel; outer admission remains to be
 confirmed. Three party travel entry paths use disease-plan movement without the
 ordinary exposure call; end-to-end validation remains pending. Planned movement
 exposure repair must preserve shared disease-plan clipping and lifecycle
-ordering.
+ordering. Movement exposure repair must preserve route and wilderness-time
+cursors across chunks and settlement departure.
 
 | Phase | Status |
 | --- | --- |
@@ -153,8 +154,7 @@ ordering.
 
 ## Latest checkpoint
 
-Traced shared disease preview and commit ordering for the movement exposure
-repair.
+Traced movement exposure route and wilderness-time cursor requirements.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -329,8 +329,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3207 publication record](CHECKPOINT-3207.json)
-- [Saved report for checkpoint 3207](PROGRESS-3207.md)
+- [Checkpoint 3208 publication record](CHECKPOINT-3208.json)
+- [Saved report for checkpoint 3208](PROGRESS-3208.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
