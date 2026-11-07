@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T22:28:48.273417+00:00
+Updated: 2026-11-07T22:30:37.796765+00:00
 
-Latest verified checkpoint: **3595**. Goal: **active**.
+Latest verified checkpoint: **3596**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Recorded follow-up evidence repair obligation.
+Compared initial and follow-up evidence authority.
 
-Other routes, alias ownership and runtime remain open.
+Developer manifests, alternate routes and aliases remain open.
 
 ## Working on now
 
-Resolve physical evidence aliases and authority repair.
+Qualify developer manifests and evidence alias ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3595 publication record](CHECKPOINT-3595.json)
-- [Saved report for checkpoint 3595](PROGRESS-3595.md)
+- [Checkpoint 3596 publication record](CHECKPOINT-3596.json)
+- [Saved report for checkpoint 3596](PROGRESS-3596.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
