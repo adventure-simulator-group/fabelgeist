@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:47:48.224936+00:00
+Updated: 2026-11-07T11:50:08.198747+00:00
 
-Latest verified checkpoint: **3280**. Goal: **active**.
+Latest verified checkpoint: **3281**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -260,7 +260,9 @@ sends its configured ID; a search found no non-generated temporary-creation
 caller, while external invocation and delivery remain open. The SDK does not
 replay an identical cached row as a new insert; actual view changes and timing
 remain open. Receipt evidence overlaps three existing enrollment and projection
-entries; their independent scopes remain open.
+entries; their independent scopes remain open. A ranged miss flows through
+sender-derived authority and consumes an available arrow after authorization;
+terminal and impact traces remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -271,13 +273,13 @@ entries; their independent scopes remain open.
 
 ## Latest checkpoint
 
-Linked receipt findings to existing enrollment and projection obligations.
+Traced ranged miss and outcome message paths.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile connected enrollment and projection obligations.
+Trace ranged authority and terminal acceptance for network message entry.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -445,8 +447,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3280 publication record](CHECKPOINT-3280.json)
-- [Saved report for checkpoint 3280](PROGRESS-3280.md)
+- [Checkpoint 3281 publication record](CHECKPOINT-3281.json)
+- [Saved report for checkpoint 3281](PROGRESS-3281.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
