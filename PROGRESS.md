@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:04:56.487756+00:00
+Updated: 2026-11-07T07:06:57.096892+00:00
 
-Latest verified checkpoint: **3149**. Goal: **active**.
+Latest verified checkpoint: **3150**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -56,7 +56,9 @@ timing; supported near-equal reachability remains open. Scene-assets has a
 browser generation consumer; independent tactical-server delivery remains open.
 Dispatcher request minutes feed a separately materialized tactical-server scene;
 their producer remains open. Tactical requests use a wilderness clock;
-standalone bootstrap has a separate world-start fallback.
+standalone bootstrap has a separate world-start fallback. Standalone bootstrap
+initializes its local clock before the fallback; other clock producers remain
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -67,7 +69,7 @@ standalone bootstrap has a separate world-start fallback.
 
 ## Latest checkpoint
 
-Traced tactical request minutes to the wilderness clock helper.
+Traced clock anchoring and narrowed standalone fallback reachability.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -242,8 +244,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3149 publication record](CHECKPOINT-3149.json)
-- [Saved report for checkpoint 3149](PROGRESS-3149.md)
+- [Checkpoint 3150 publication record](CHECKPOINT-3150.json)
+- [Saved report for checkpoint 3150](PROGRESS-3150.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
