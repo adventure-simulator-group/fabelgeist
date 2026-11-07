@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:57:00.138140+00:00
+Updated: 2026-11-07T18:58:26.176901+00:00
 
-Latest verified checkpoint: **3476**. Goal: **active**.
+Latest verified checkpoint: **3477**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -575,7 +575,8 @@ camp-coordinate owner question now includes generated client and web transport
 evidence. Journey creation and redirect admit zero coordinates, including a real
 movement-zero camp. Route totals are positive and bounded, while progress and
 camp movement may be zero. Fallback travel, independent return routes and
-redirects have distinct duration producers.
+redirects have distinct duration producers. Journey coordinate schema changes
+must preserve gateway-authorized reducers and gateway-only views.
 
 | Phase | Status |
 | --- | --- |
@@ -586,13 +587,13 @@ redirects have distinct duration producers.
 
 ## Latest checkpoint
 
-Traced fallback and redirect journey producers.
+Qualified journey reducer and view boundaries.
 
-Complete producers, native boundaries and owner choice remain open.
+Alternative producers, exact owners and aliases remain open.
 
 ## Working on now
 
-Complete journey producer and native admission reconciliation.
+Complete journey producer, owner and alias reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -760,8 +761,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3476 publication record](CHECKPOINT-3476.json)
-- [Saved report for checkpoint 3476](PROGRESS-3476.md)
+- [Checkpoint 3477 publication record](CHECKPOINT-3477.json)
+- [Saved report for checkpoint 3477](PROGRESS-3477.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
