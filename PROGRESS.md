@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:17:11.640089+00:00
+Updated: 2026-11-07T19:19:48.067256+00:00
 
-Latest verified checkpoint: **3487**. Goal: **active**.
+Latest verified checkpoint: **3488**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -591,7 +591,8 @@ consumer; public serialization remains an open contract. Hostile-group
 construction catalog-checks identity before retaining a string; insight
 presentation parses it again. Hostile group writers include checked
 materialization and a fixed-bandit standalone insertion. Selected escalation and
-resolution updates preserve the stored enemy type.
+resolution updates preserve the stored enemy type. Case-site and canonical
+journey-camp identities differ from the trial camp token; mapping remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -602,13 +603,13 @@ resolution updates preserve the stored enemy type.
 
 ## Latest checkpoint
 
-Qualified selected hostile-group updates.
+Compared errantry identity owners.
 
-Remaining native writes and direct public insight admission remain open.
+Identity mapping, all producers and native boundaries remain open.
 
 ## Working on now
 
-Reconcile remaining native writes and tactical insight owner fit.
+Reconcile errantry frame, trial and camp identity owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -776,8 +777,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3487 publication record](CHECKPOINT-3487.json)
-- [Saved report for checkpoint 3487](PROGRESS-3487.md)
+- [Checkpoint 3488 publication record](CHECKPOINT-3488.json)
+- [Saved report for checkpoint 3488](PROGRESS-3488.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
