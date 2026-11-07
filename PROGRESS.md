@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:02:55.021975+00:00
+Updated: 2026-11-07T07:04:56.487756+00:00
 
-Latest verified checkpoint: **3148**. Goal: **active**.
+Latest verified checkpoint: **3149**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -55,7 +55,8 @@ cancellation remain open. Same-weapon defensive cancellation clears retained
 timing; supported near-equal reachability remains open. Scene-assets has a
 browser generation consumer; independent tactical-server delivery remains open.
 Dispatcher request minutes feed a separately materialized tactical-server scene;
-their producer remains open.
+their producer remains open. Tactical requests use a wilderness clock;
+standalone bootstrap has a separate world-start fallback.
 
 | Phase | Status |
 | --- | --- |
@@ -66,14 +67,14 @@ their producer remains open.
 
 ## Latest checkpoint
 
-Traced tactical request scene file into server startup.
+Traced tactical request minutes to the wilderness clock helper.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace tactical request minute production and remaining clock owners while
-preserving P02 questions.
+Trace wilderness clock producers and standalone fallback policy while preserving
+P02 questions.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -241,8 +242,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3148 publication record](CHECKPOINT-3148.json)
-- [Saved report for checkpoint 3148](PROGRESS-3148.md)
+- [Checkpoint 3149 publication record](CHECKPOINT-3149.json)
+- [Saved report for checkpoint 3149](PROGRESS-3149.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
