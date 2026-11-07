@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:23:21.604475+00:00
+Updated: 2026-11-07T18:25:38.944068+00:00
 
-Latest verified checkpoint: **3457**. Goal: **active**.
+Latest verified checkpoint: **3458**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -549,7 +549,9 @@ finite; autoresolve and healing still require upstream numeric qualification.
 Autoresolve logs and internal wounds use different cut/blunt proportions; the
 intended contract and downstream effects remain open. Tactical consequences use
 the weighted split; a separate conditional question records autoresolve logged
-shares and durable injury semantics.
+shares and durable injury semantics. Contact precision 1 produces equal cut and
+blunt energy on an unarmored positive-energy hit; supported encounter
+reachability remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -560,14 +562,14 @@ shares and durable injury semantics.
 
 ## Latest checkpoint
 
-Registered conditional applied-injury split question.
+Qualified a source-level mixed contact energy case.
 
-Mixed-hit reachability, intended equivalence, aliases and runtime impact remain
-open.
+Equipment and encounter reachability and intended semantics remain open.
 
 ## Working on now
 
-Qualify mixed-hit reachability, intended applied-share semantics and aliases.
+Qualify mixed-hit equipment and encounter reachability and injury split
+semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -735,8 +737,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3457 publication record](CHECKPOINT-3457.json)
-- [Saved report for checkpoint 3457](PROGRESS-3457.md)
+- [Checkpoint 3458 publication record](CHECKPOINT-3458.json)
+- [Saved report for checkpoint 3458](PROGRESS-3458.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
