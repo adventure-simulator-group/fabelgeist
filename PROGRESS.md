@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:35:55.578328+00:00
+Updated: 2026-11-07T17:37:55.658884+00:00
 
-Latest verified checkpoint: **3434**. Goal: **active**.
+Latest verified checkpoint: **3435**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -513,7 +513,8 @@ food at whole catalog defaults; a separate conditional custody question is
 registered. Party merge may recreate partially consumed non-durable food at
 whole catalog defaults; a separate conditional custody question is registered.
 Elapsed-needs consumption can leave a partially consumed party food row before a
-later merge.
+later merge. Party food lot, amount and object are separate records; inspected
+native delete wrapper does not specify companion cleanup.
 
 | Phase | Status |
 | --- | --- |
@@ -524,13 +525,14 @@ later merge.
 
 ## Latest checkpoint
 
-Qualified ordinary partial party-food production before a potential merge.
+Qualified party food companion tables and native keyed-delete boundary.
 
-Deletion effects, merge conditions, aliases and runtime behavior remain open.
+Host cleanup behavior, supported merge conditions and runtime outcomes remain
+open.
 
 ## Working on now
 
-Qualify party-merge deletion and companion-state behavior.
+Reconcile party merge deletion semantics and supported join preconditions.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -698,8 +700,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3434 publication record](CHECKPOINT-3434.json)
-- [Saved report for checkpoint 3434](PROGRESS-3434.md)
+- [Checkpoint 3435 publication record](CHECKPOINT-3435.json)
+- [Saved report for checkpoint 3435](PROGRESS-3435.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
