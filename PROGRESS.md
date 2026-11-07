@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:23:33.124208+00:00
+Updated: 2026-11-07T13:25:25.670150+00:00
 
-Latest verified checkpoint: **3326**. Goal: **active**.
+Latest verified checkpoint: **3327**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -331,7 +331,8 @@ session. Authored prompts include respondent roles allowing four players; a
 concrete joined pair and reused action ID remain conditional. Receipt retries
 first require active membership, owning party, settlement, personal time and NPC
 co-presence. Current session state has only Active; answer responses reconstruct
-a current view rather than a receipt snapshot.
+a current view rather than a receipt snapshot. Topic and join accept any
+existing session action receipt; answer additionally checks prompt action kind.
 
 | Phase | Status |
 | --- | --- |
@@ -342,13 +343,13 @@ a current view rather than a receipt snapshot.
 
 ## Latest checkpoint
 
-Traced supported session state and answer view reconstruction.
+Compared topic, join and answer receipt identity checks.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace receipt lifetime and response reconstruction failure.
+Trace dialogue action aliases and receipt lifetime.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -516,8 +517,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3326 publication record](CHECKPOINT-3326.json)
-- [Saved report for checkpoint 3326](PROGRESS-3326.md)
+- [Checkpoint 3327 publication record](CHECKPOINT-3327.json)
+- [Saved report for checkpoint 3327](PROGRESS-3327.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
