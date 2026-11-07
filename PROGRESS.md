@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T05:35:27.236094+00:00
+Updated: 2026-11-07T05:38:03.259223+00:00
 
-Latest verified checkpoint: **3111**. Goal: **active**.
+Latest verified checkpoint: **3112**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced normal vista construction and property grounding checks.
+Traced canonical foundation reconstruction and vista dispatch.
 
-Transport and complete support reconstruction invariants remain unverified.
+Client terrain association and runtime event ordering remain unverified.
 
 ## Working on now
 
-Complete vista delivery and support reconstruction evidence.
+Trace client terrain association and event ordering.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3111 publication record](CHECKPOINT-3111.json)
-- [Saved report for checkpoint 3111](PROGRESS-3111.md)
+- [Checkpoint 3112 publication record](CHECKPOINT-3112.json)
+- [Saved report for checkpoint 3112](PROGRESS-3112.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
