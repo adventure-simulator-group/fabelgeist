@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T16:54:48.005962+00:00
+Updated: 2026-11-07T16:58:45.479161+00:00
 
-Latest verified checkpoint: **3417**. Goal: **active**.
+Latest verified checkpoint: **3418**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -478,7 +478,9 @@ Party food-lot cause loss precedes an existing grant error-erasure boundary;
 reachability and exact ownership remain open. The selected party grant creates
 its stable object before the food lot; native visibility and failure
 reachability remain open. Pinned table iteration documents visibility of same-
-reducer inserts; other party food failure conditions remain open.
+reducer inserts; other party food failure conditions remain open. Pinned unique
+lookup delegates to a native index scan; same-reducer index visibility remains
+unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -489,14 +491,14 @@ reducer inserts; other party food failure conditions remain open.
 
 ## Latest checkpoint
 
-Qualified pinned table iteration visibility for the party food object scan.
+Traced pinned unique-index lookup to its native boundary.
 
-Debug restore reconstruction and exact aliases remain open; no runtime
+Item schema connected discovery and exact aliases remain open; no runtime
 execution.
 
 ## Working on now
 
-Reconcile debug item restore hooks and connected equipment identity contracts.
+Qualify item schema producers, consumers, native admission and aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -664,8 +666,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3417 publication record](CHECKPOINT-3417.json)
-- [Saved report for checkpoint 3417](PROGRESS-3417.md)
+- [Checkpoint 3418 publication record](CHECKPOINT-3418.json)
+- [Saved report for checkpoint 3418](PROGRESS-3418.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
