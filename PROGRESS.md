@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:37:17.804654+00:00
+Updated: 2026-11-07T18:38:37.550788+00:00
 
-Latest verified checkpoint: **3465**. Goal: **active**.
+Latest verified checkpoint: **3466**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -561,7 +561,8 @@ remains open. Default armor coverage is empty, allowing the unarmored contact
 branch; actual battle reachability remains open. Allied equipment projection
 retains empty coverage for unprotected body parts; contact timing remains open.
 Intended weapon contact preserves weapon precision, while haft and pommel
-contacts use unarmed precision.
+contacts use unarmed precision. Existing test source describes positive-energy
+sword contact; it does not prove a specific bandit hit.
 
 | Phase | Status |
 | --- | --- |
@@ -572,13 +573,13 @@ contacts use unarmed precision.
 
 ## Latest checkpoint
 
-Qualified melee contact and damage conditions.
+Attached intended-contact source example to injury-share question.
 
-Concrete contact timing, intended semantics and runtime impact remain open.
+Bandit contact reachability, intended semantics and runtime impact remain open.
 
 ## Working on now
 
-Resolve contact timing and injury split semantics.
+Resolve injury split semantics, reachability and aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -746,8 +747,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3465 publication record](CHECKPOINT-3465.json)
-- [Saved report for checkpoint 3465](PROGRESS-3465.md)
+- [Checkpoint 3466 publication record](CHECKPOINT-3466.json)
+- [Saved report for checkpoint 3466](PROGRESS-3466.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
