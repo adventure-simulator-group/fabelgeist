@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:08:51.258201+00:00
+Updated: 2026-11-07T14:10:53.147439+00:00
 
-Latest verified checkpoint: **3346**. Goal: **active**.
+Latest verified checkpoint: **3347**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -361,7 +361,9 @@ records living party members without a temporary exclusion; a temporary
 character joining that party remains unproven. Party merge checks authority and
 shared location; its inspected member move does not explicitly filter temporary
 status. Browser join routes use session character IDs; inspected wounded and
-social demo NPC constructors pass false for temporary status.
+social demo NPC constructors pass false for temporary status. Browser selection
+and inspected grant paths reject temporary characters; non-browser producers and
+later status transitions remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -372,13 +374,13 @@ social demo NPC constructors pass false for temporary status.
 
 ## Latest checkpoint
 
-Traced browser join routes and selected fixture callers.
+Traced browser session selection and grant guards.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace temporary character session eligibility and stake liquidity.
+Trace temporary status transitions and non-browser admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -546,8 +548,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3346 publication record](CHECKPOINT-3346.json)
-- [Saved report for checkpoint 3346](PROGRESS-3346.md)
+- [Checkpoint 3347 publication record](CHECKPOINT-3347.json)
+- [Saved report for checkpoint 3347](PROGRESS-3347.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
