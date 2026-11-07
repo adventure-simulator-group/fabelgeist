@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:13:06.404461+00:00
+Updated: 2026-11-07T17:15:01.802932+00:00
 
-Latest verified checkpoint: **3424**. Goal: **active**.
+Latest verified checkpoint: **3425**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -491,7 +491,8 @@ item handler under stated conditions. The bridge is eligible for weighted
 errantry selection; existing measured food operations coordinate lot, fraction
 and custody state. Narrative row-count checks do not inspect remaining food
 fractions; whole-versus-partial cost policy and agreement between view and
-reducer remain open.
+reducer remain open. Pinned native reducer documentation establishes rollback
+when the narrative cost error propagates; food authority requires conservation.
 
 | Phase | Status |
 | --- | --- |
@@ -502,14 +503,13 @@ reducer remain open.
 
 ## Latest checkpoint
 
-Compared three related food contracts and identified whole-versus-partial ration
-policy.
+Qualified narrative cost error rollback and food material authority.
 
-Semantic aliases, policy and runtime acceptance remain open.
+Partial-food policy, semantic aliases and runtime verification remain open.
 
 ## Working on now
 
-Resolve measured-food cost policy and remaining semantic alias comparisons.
+Reconcile measured-food cost policy and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -677,8 +677,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3424 publication record](CHECKPOINT-3424.json)
-- [Saved report for checkpoint 3424](PROGRESS-3424.md)
+- [Checkpoint 3425 publication record](CHECKPOINT-3425.json)
+- [Saved report for checkpoint 3425](PROGRESS-3425.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
