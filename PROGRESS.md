@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:58:33.967492+00:00
+Updated: 2026-11-07T15:00:09.607648+00:00
 
-Latest verified checkpoint: **3371**. Goal: **active**.
+Latest verified checkpoint: **3372**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -402,7 +402,9 @@ Startup passes the requested bind to SpacetimeDB unless a process already
 listens; actual deployment remains unverified. Transfer and discard bodies also
 lack explicit caller checks in the inspected scope; each effect remains
 independently qualified. Browser discard is self-only; browser transfer permits
-the active character to be sender or recipient.
+the active character to be sender or recipient. The multi-item offer checks
+same-party item relationships but has no actor parameter; intended consent
+remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -413,13 +415,13 @@ the active character to be sender or recipient.
 
 ## Latest checkpoint
 
-Traced browser discard and transfer actor checks.
+Traced browser and reducer multi-item party offer.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify recipient-initiated transfer policy and database authority.
+Qualify intended party-sharing consent and database authority.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -587,8 +589,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3371 publication record](CHECKPOINT-3371.json)
-- [Saved report for checkpoint 3371](PROGRESS-3371.md)
+- [Checkpoint 3372 publication record](CHECKPOINT-3372.json)
+- [Saved report for checkpoint 3372](PROGRESS-3372.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
