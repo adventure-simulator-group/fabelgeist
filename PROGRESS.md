@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:44:52.315867+00:00
+Updated: 2026-11-07T17:46:16.394529+00:00
 
-Latest verified checkpoint: **3439**. Goal: **active**.
+Latest verified checkpoint: **3440**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3439**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 577 / 3,858 marked | 3,281 other entries |
+| Queue entries explicitly marked source-discovery closed | 578 / 3,858 marked | 3,280 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -521,7 +521,9 @@ non-repairable rations at whole catalog defaults; old companion deletion
 behavior remains unresolved. Party weapon initialization has fallible lookup,
 evaluation and encoding after row insertion; an admitted failing default remains
 unproven. Existing test source intends to evaluate and encode each melee
-default; no passing test result is claimed.
+default; no passing test result is claimed. Scoped party-grant error discovery
+is reconciled to its Lens 12 owner; a supported failing initializer remains
+unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -532,13 +534,15 @@ default; no passing test result is claimed.
 
 ## Latest checkpoint
 
-Qualified existing default weapon evaluation and codec test source.
+Closed scoped party-grant error discovery with conditional supported-failure
+follow-up.
 
-Tests were not executed; database and persisted-projection behavior remain open.
+Supported failure, indexed visibility and runtime repair verification remain
+open.
 
 ## Working on now
 
-Reconcile party grant caller and exact native read contracts.
+Continue remaining connected audit and repair ledger obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -706,8 +710,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3439 publication record](CHECKPOINT-3439.json)
-- [Saved report for checkpoint 3439](PROGRESS-3439.md)
+- [Checkpoint 3440 publication record](CHECKPOINT-3440.json)
+- [Saved report for checkpoint 3440](PROGRESS-3440.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
