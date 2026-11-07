@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:28:57.848764+00:00
+Updated: 2026-11-07T10:31:27.690726+00:00
 
-Latest verified checkpoint: **3245**. Goal: **active**.
+Latest verified checkpoint: **3246**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -207,7 +207,9 @@ tracked. Audio config errors, visual gating, pitch composition and scene
 selection have distinct existing owners. Pinned rodio stores playback speed
 without checking and applies it to a speed wrapper; remaining registered scopes
 are open. The registered rodio player and spatial-player source ranges have been
-read under Lens 2; independent contracts remain open.
+read under Lens 2; independent contracts remain open. Procedural anticipation
+source matches the prior assessed bytes at the current pin; exact aliases remain
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -218,7 +220,7 @@ read under Lens 2; independent contracts remain open.
 
 ## Latest checkpoint
 
-Completed the registered native audio player source ranges.
+Reconciled procedural anticipation fractions with the current pinned source.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -393,8 +395,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3245 publication record](CHECKPOINT-3245.json)
-- [Saved report for checkpoint 3245](PROGRESS-3245.md)
+- [Checkpoint 3246 publication record](CHECKPOINT-3246.json)
+- [Saved report for checkpoint 3246](PROGRESS-3246.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
