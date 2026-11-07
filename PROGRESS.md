@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:35:45.441715+00:00
+Updated: 2026-11-07T18:37:17.804654+00:00
 
-Latest verified checkpoint: **3464**. Goal: **active**.
+Latest verified checkpoint: **3465**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -560,6 +560,8 @@ earlier Lens 1 question overlaps the damage recorder; its exact relationship
 remains open. Default armor coverage is empty, allowing the unarmored contact
 branch; actual battle reachability remains open. Allied equipment projection
 retains empty coverage for unprotected body parts; contact timing remains open.
+Intended weapon contact preserves weapon precision, while haft and pommel
+contacts use unarmed precision.
 
 | Phase | Status |
 | --- | --- |
@@ -570,13 +572,13 @@ retains empty coverage for unprotected body parts; contact timing remains open.
 
 ## Latest checkpoint
 
-Connected allied equipment projection to unarmored coverage.
+Qualified melee contact and damage conditions.
 
-Contact classification, intended semantics and runtime impact remain open.
+Concrete contact timing, intended semantics and runtime impact remain open.
 
 ## Working on now
 
-Qualify contact timing, classification and injury split semantics.
+Resolve contact timing and injury split semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -744,8 +746,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3464 publication record](CHECKPOINT-3464.json)
-- [Saved report for checkpoint 3464](PROGRESS-3464.md)
+- [Checkpoint 3465 publication record](CHECKPOINT-3465.json)
+- [Saved report for checkpoint 3465](PROGRESS-3465.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
