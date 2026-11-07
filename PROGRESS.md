@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:18:55.416702+00:00
+Updated: 2026-11-07T20:20:27.674823+00:00
 
-Latest verified checkpoint: **3523**. Goal: **active**.
+Latest verified checkpoint: **3524**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -629,7 +629,8 @@ behavior reconciliation. Finale-defense enum and retained JSON require behavior
 reconciliation. Inspected mission paths use neutral countermeasure multipliers.
 Mission combat scale is captured from the hostile group separately. Finale group
 values derive from the threat profile before mission capture. Pinned source
-search found no other named finale-defense reader.
+search found no other named finale-defense reader. Core and server presenter
+enums overlap across a generated boundary.
 
 | Phase | Status |
 | --- | --- |
@@ -640,14 +641,14 @@ search found no other named finale-defense reader.
 
 ## Latest checkpoint
 
-Inventoried pinned finale-defense references.
+Qualified presenter catalog owner candidate.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Qualify indirect consumers and reconcile finale-defense documentation.
+Assess presenter schema feasibility and remaining consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -815,8 +816,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3523 publication record](CHECKPOINT-3523.json)
-- [Saved report for checkpoint 3523](PROGRESS-3523.md)
+- [Checkpoint 3524 publication record](CHECKPOINT-3524.json)
+- [Saved report for checkpoint 3524](PROGRESS-3524.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
