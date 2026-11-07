@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T01:16:51.918048+00:00
+Updated: 2026-11-07T01:20:32.400186+00:00
 
-Latest verified checkpoint: **3064**. Goal: **active**.
+Latest verified checkpoint: **3065**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified abstract coordinate bounds and quest weather conversion.
+Traced source-less fixture activity into quest weather conversion.
 
-Abstract weather mapping and supported producers remain open; no runtime
-execution.
+Weather mapping and production scope remain open; no runtime execution.
 
 ## Working on now
 
-Resolve supported abstract weather and mixed-frame journey behavior.
+Resolve abstract weather mapping and mixed-frame journey behavior.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3064 publication record](CHECKPOINT-3064.json)
-- [Saved report for checkpoint 3064](PROGRESS-3064.md)
+- [Checkpoint 3065 publication record](CHECKPOINT-3065.json)
+- [Saved report for checkpoint 3065](PROGRESS-3065.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
