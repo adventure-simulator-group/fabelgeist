@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:26:58.625195+00:00
+Updated: 2026-11-07T06:28:35.123583+00:00
 
-Latest verified checkpoint: **3128**. Goal: **active**.
+Latest verified checkpoint: **3129**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,7 +40,7 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Verified pinned reducer adapter renders combat errors as strings.
+Traced web and simulation handling of reducer rejection detail.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3128 publication record](CHECKPOINT-3128.json)
-- [Saved report for checkpoint 3128](PROGRESS-3128.md)
+- [Checkpoint 3129 publication record](CHECKPOINT-3129.json)
+- [Saved report for checkpoint 3129](PROGRESS-3129.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
