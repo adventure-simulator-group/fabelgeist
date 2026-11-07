@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:51:25.390043+00:00
+Updated: 2026-11-07T10:53:22.953525+00:00
 
-Latest verified checkpoint: **3256**. Goal: **active**.
+Latest verified checkpoint: **3257**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -223,6 +223,8 @@ projectile identity before shared body-part injury aggregation; receipt-only
 repair is insufficient. Tactical item projection carries the ranged flag and ID
 but no projectile or ammunition compatibility. Tactical receipt validation
 bounds records and checks party authority before strategic injury commitment.
+The missing projectile-kind receipt question overlaps one existing Lens 12
+entry; its wear and repair obligations remain distinct.
 
 | Phase | Status |
 | --- | --- |
@@ -233,7 +235,7 @@ bounds records and checks party authority before strategic injury commitment.
 
 ## Latest checkpoint
 
-Traced strategic receipt admission and injury commitment.
+Compared projectile and ammunition obligations by their first contracts.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -408,8 +410,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3256 publication record](CHECKPOINT-3256.json)
-- [Saved report for checkpoint 3256](PROGRESS-3256.md)
+- [Checkpoint 3257 publication record](CHECKPOINT-3257.json)
+- [Saved report for checkpoint 3257](PROGRESS-3257.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
