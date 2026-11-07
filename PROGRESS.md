@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:26:14.137972+00:00
+Updated: 2026-11-07T17:28:03.141285+00:00
 
-Latest verified checkpoint: **3430**. Goal: **active**.
+Latest verified checkpoint: **3431**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3430**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 575 / 3,857 marked | 3,282 other entries |
+| Queue entries explicitly marked source-discovery closed | 576 / 3,857 marked | 3,281 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -502,7 +502,11 @@ simulation fixture creates a stocked general store with a present merchant.
 Ordinary settlement import infers a general store and general-goods stock, while
 actual trade still requires provider and transaction preconditions. General-shop
 operator creation and provider selection are source-qualified, subject to
-building limits and presence; failed reducer transactions roll back.
+building limits and presence; failed reducer transactions roll back. Scoped
+storefront stable-object discovery is complete; independent quantity-one objects
+and fractions remain required in the repair. Scoped storefront stable-object
+discovery is complete; independent quantity-one objects and fractions remain
+required in the repair.
 
 | Phase | Status |
 | --- | --- |
@@ -513,14 +517,13 @@ building limits and presence; failed reducer transactions roll back.
 
 ## Latest checkpoint
 
-Qualified merchant provider generation and transactional trade boundary.
+Closed scoped personal storefront stable-object discovery with an owned repair.
 
-Building limits and presence are conditional; exact aliases and runtime trade
-remain open.
+Related inventory contracts and runtime repair validation remain open.
 
 ## Working on now
 
-Complete storefront stable-object alias and repair reconciliation.
+Continue remaining connected audit and repair ledger obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -688,8 +691,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3430 publication record](CHECKPOINT-3430.json)
-- [Saved report for checkpoint 3430](PROGRESS-3430.md)
+- [Checkpoint 3431 publication record](CHECKPOINT-3431.json)
+- [Saved report for checkpoint 3431](PROGRESS-3431.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
