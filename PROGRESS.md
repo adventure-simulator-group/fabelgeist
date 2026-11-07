@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T23:15:41.467380+00:00
+Updated: 2026-11-07T23:17:02.549668+00:00
 
-Latest verified checkpoint: **3625**. Goal: **active**.
+Latest verified checkpoint: **3626**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -42,13 +42,13 @@ unresolved checkpoint 3122 note remain open for review.
 
 ## Latest checkpoint
 
-Qualified developer outbreak transaction.
+Qualified settlement generation and scoped comparisons.
 
-Other callers, exposure consumers and aliases remain open.
+Other callers, exposure consumers and broad historical overlaps remain open.
 
 ## Working on now
 
-Trace other materializer callers and compare exact aliases.
+Trace remaining fixture callers and native exposure boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3625 publication record](CHECKPOINT-3625.json)
-- [Saved report for checkpoint 3625](PROGRESS-3625.md)
+- [Checkpoint 3626 publication record](CHECKPOINT-3626.json)
+- [Saved report for checkpoint 3626](PROGRESS-3626.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
