@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:05:02.817216+00:00
+Updated: 2026-11-07T20:06:23.891994+00:00
 
-Latest verified checkpoint: **3514**. Goal: **active**.
+Latest verified checkpoint: **3515**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -620,7 +620,8 @@ authority and projection rows carry string challenge IDs. Challenge IDs flow
 through receipts and solved case facts. Developer investigation quests reject
 authored challenge objectives. Road authority accepts errantry and narrative
 occurrence identity families. Road occurrence identity links deterministic
-combat and follow-up records.
+combat and follow-up records. Road occurrence identity also links actor context
+and information sources.
 
 | Phase | Status |
 | --- | --- |
@@ -631,14 +632,14 @@ combat and follow-up records.
 
 ## Latest checkpoint
 
-Qualified occurrence identity and combat follow-up.
+Qualified occurrence actor and information associations.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile deterministic inputs and follow-up associations.
+Reconcile actor, information and identity consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -806,8 +807,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3514 publication record](CHECKPOINT-3514.json)
-- [Saved report for checkpoint 3514](PROGRESS-3514.md)
+- [Checkpoint 3515 publication record](CHECKPOINT-3515.json)
+- [Saved report for checkpoint 3515](PROGRESS-3515.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
