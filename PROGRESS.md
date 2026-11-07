@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:11:04.444111+00:00
+Updated: 2026-11-07T08:13:04.062484+00:00
 
-Latest verified checkpoint: **3184**. Goal: **active**.
+Latest verified checkpoint: **3185**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -108,7 +108,9 @@ weather time is bounded for officially initialized wilderness anchors; stored
 provenance and personal clocks remain open. Current production anchor writes
 initialize from official time or clear the anchor; personal-clock admission
 remains open. Road-cast overrides use official time and one social action has an
-eight-hour limit; cumulative personal time remains open.
+eight-hour limit; cumulative personal time remains open. Personal and official
+clocks have separate documented authority; extreme supported time policy remains
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -119,8 +121,8 @@ eight-hour limit; cumulative personal time remains open.
 
 ## Latest checkpoint
 
-Qualified personal-clock override producers and a bounded social advancement
-path under Lens 13.
+Compared documented clock ownership and calendar projections with the weather
+witness.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -295,8 +297,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3184 publication record](CHECKPOINT-3184.json)
-- [Saved report for checkpoint 3184](PROGRESS-3184.md)
+- [Checkpoint 3185 publication record](CHECKPOINT-3185.json)
+- [Saved report for checkpoint 3185](PROGRESS-3185.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
