@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:50:22.558912+00:00
+Updated: 2026-11-07T21:52:20.746416+00:00
 
-Latest verified checkpoint: **3574**. Goal: **active**.
+Latest verified checkpoint: **3575**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,14 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified facade tangent index boundary.
+Qualified browser tangent feature declarations.
 
-Feature activation, producer invariants and malformed-input reachability remain
-open.
+Resolved target graph, other lenses and runtime remain open.
 
 ## Working on now
 
-Reconcile facade tangent feature and mesh admission.
+Reconcile mesh producer invariants and independent feature obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3574 publication record](CHECKPOINT-3574.json)
-- [Saved report for checkpoint 3574](PROGRESS-3574.md)
+- [Checkpoint 3575 publication record](CHECKPOINT-3575.json)
+- [Saved report for checkpoint 3575](PROGRESS-3575.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
