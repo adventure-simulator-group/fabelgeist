@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:02:00.901627+00:00
+Updated: 2026-11-07T12:04:22.826073+00:00
 
-Latest verified checkpoint: **3287**. Goal: **active**.
+Latest verified checkpoint: **3288**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -272,7 +272,8 @@ validates combat hitboxes before insertion; mutation and native timing remain
 open. No current mission candidate can yield strategic failure despite a
 reported tactical success; reachability and presentation policy remain open.
 Candidate validity depends on live capability, objective and custody state;
-invalidation during an active mission remains unproven.
+invalidation during an active mission remains unproven. Negotiation guards a
+bound mission for the acting party; cross-party invalidation remains unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -283,13 +284,13 @@ invalidation during an active mission remains unproven.
 
 ## Latest checkpoint
 
-Traced current mission-candidate validity and capability deactivation.
+Traced negotiation, surrender and autoresolve mission guards.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace admitted candidate invalidation during active tactical missions.
+Trace cross-party hostile resolution and candidate invalidation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -457,8 +458,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3287 publication record](CHECKPOINT-3287.json)
-- [Saved report for checkpoint 3287](PROGRESS-3287.md)
+- [Checkpoint 3288 publication record](CHECKPOINT-3288.json)
+- [Saved report for checkpoint 3288](PROGRESS-3288.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
