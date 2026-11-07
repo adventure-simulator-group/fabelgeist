@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:53:07.198885+00:00
+Updated: 2026-11-07T17:56:20.743608+00:00
 
-Latest verified checkpoint: **3443**. Goal: **active**.
+Latest verified checkpoint: **3444**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -526,7 +526,8 @@ is reconciled to its Lens 12 owner; a supported failing initializer remains
 unproven. An adopted full frozen Lens 13 challenge read covers the extension
 ranges; current reconciliation remains open. Four more frozen extension scopes
 reuse adopted Lens 13 reads without new body credit. Eight frozen extension
-scopes reuse adopted Lens 12 reads without new body credit.
+scopes reuse adopted Lens 12 reads without new body credit. Twenty frozen
+extension scopes reuse adopted Lens 11 reads without new body credit.
 
 | Phase | Status |
 | --- | --- |
@@ -537,7 +538,7 @@ scopes reuse adopted Lens 12 reads without new body credit.
 
 ## Latest checkpoint
 
-Qualified eight frozen extension ranges by adopted Lens 12 evidence.
+Qualified twenty frozen extension ranges by adopted Lens 11 evidence.
 
 Current reconciliation and connected contracts remain open.
 
@@ -711,8 +712,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3443 publication record](CHECKPOINT-3443.json)
-- [Saved report for checkpoint 3443](PROGRESS-3443.md)
+- [Checkpoint 3444 publication record](CHECKPOINT-3444.json)
+- [Saved report for checkpoint 3444](PROGRESS-3444.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
