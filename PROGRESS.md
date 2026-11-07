@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:25:38.944068+00:00
+Updated: 2026-11-07T18:28:01.946892+00:00
 
-Latest verified checkpoint: **3458**. Goal: **active**.
+Latest verified checkpoint: **3459**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -551,7 +551,8 @@ intended contract and downstream effects remain open. Tactical consequences use
 the weighted split; a separate conditional question records autoresolve logged
 shares and durable injury semantics. Contact precision 1 produces equal cut and
 blunt energy on an unarmored positive-energy hit; supported encounter
-reachability remains open.
+reachability remains open. An authored ranged weapon has positive precision and
+its equipment projection carries that value into combat.
 
 | Phase | Status |
 | --- | --- |
@@ -562,13 +563,13 @@ reachability remains open.
 
 ## Latest checkpoint
 
-Qualified a source-level mixed contact energy case.
+Traced authored weapon precision and combatant projection.
 
-Equipment and encounter reachability and intended semantics remain open.
+Equipment selection, supported hits and intended semantics remain open.
 
 ## Working on now
 
-Qualify mixed-hit equipment and encounter reachability and injury split
+Qualify equipment selection, supported defender-side mixed hits and injury split
 semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
@@ -737,8 +738,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3458 publication record](CHECKPOINT-3458.json)
-- [Saved report for checkpoint 3458](PROGRESS-3458.md)
+- [Checkpoint 3459 publication record](CHECKPOINT-3459.json)
+- [Saved report for checkpoint 3459](PROGRESS-3459.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
