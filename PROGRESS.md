@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:35:52.734545+00:00
+Updated: 2026-11-07T20:37:47.919664+00:00
 
-Latest verified checkpoint: **3534**. Goal: **active**.
+Latest verified checkpoint: **3535**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -641,7 +641,9 @@ evidence ledger entries share syntax storage but remain distinct. Catalog syntax
 and strategic-place component have different admission bounds. Shared catalog
 syntax must also work in build-script validation. Public threat profile
 admission is now a separately tracked question. Public threat profile admission
-is now a separately tracked question.
+is now a separately tracked question. Public profile callers include both parsed
+and direct typed inputs. Public profile callers include both parsed and direct
+typed inputs.
 
 | Phase | Status |
 | --- | --- |
@@ -652,14 +654,14 @@ is now a separately tracked question.
 
 ## Latest checkpoint
 
-Recorded public threat profile admission obligation.
+Qualified public threat profile callers.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile threat admission, vocabularies and catalog bootstrap.
+Qualify remaining profile callers and admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -827,8 +829,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3534 publication record](CHECKPOINT-3534.json)
-- [Saved report for checkpoint 3534](PROGRESS-3534.md)
+- [Checkpoint 3535 publication record](CHECKPOINT-3535.json)
+- [Saved report for checkpoint 3535](PROGRESS-3535.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
