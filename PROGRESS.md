@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T00:06:33.070931+00:00
+Updated: 2026-11-07T00:14:27.883635+00:00
 
-Latest verified checkpoint: **3051**. Goal: **active**.
+Latest verified checkpoint: **3052**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified imported versus development settlement and site-disclosure paths.
+Traced development scenario settlement coordinate flags and activity generation.
 
-Production abstract producers and coordinate-frame policy remain open; no
+Production producer scope and fixture coordinate-frame policy remain open; no
 runtime execution.
 
 ## Working on now
 
-Trace any production abstract settlement producers and reconcile weather/frame
-obligations.
+Trace remaining settlement writers and reconcile fixture coordinate-frame
+policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3051 publication record](CHECKPOINT-3051.json)
-- [Saved report for checkpoint 3051](PROGRESS-3051.md)
+- [Checkpoint 3052 publication record](CHECKPOINT-3052.json)
+- [Saved report for checkpoint 3052](PROGRESS-3052.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
