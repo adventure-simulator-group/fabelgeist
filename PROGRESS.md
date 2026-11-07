@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:17:54.625478+00:00
+Updated: 2026-11-07T13:20:18.177895+00:00
 
-Latest verified checkpoint: **3323**. Goal: **active**.
+Latest verified checkpoint: **3324**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -327,7 +327,8 @@ match prompt action kind before ballot comparison; ordinary browser submission
 uses a fresh ID. Browser transport makes one fetch; dialogue receipts omit actor
 and ballot while answer rows retain them. Gateway has one explicit send;
 dialogue role maximum controls whether multiple eligible actors can share a
-session.
+session. Authored prompts include respondent roles allowing four players; a
+concrete joined pair and reused action ID remain conditional.
 
 | Phase | Status |
 | --- | --- |
@@ -338,13 +339,13 @@ session.
 
 ## Latest checkpoint
 
-Traced gateway send and dialogue membership admission.
+Traced authored multi-player dialogue respondent roles.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace authored dialogue role cardinality and receipt lifecycle.
+Trace live dialogue admission and receipt lifecycle.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -512,8 +513,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3323 publication record](CHECKPOINT-3323.json)
-- [Saved report for checkpoint 3323](PROGRESS-3323.md)
+- [Checkpoint 3324 publication record](CHECKPOINT-3324.json)
+- [Saved report for checkpoint 3324](PROGRESS-3324.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
