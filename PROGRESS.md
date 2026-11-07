@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T22:42:13.986172+00:00
+Updated: 2026-11-07T22:43:26.357552+00:00
 
-Latest verified checkpoint: **3604**. Goal: **active**.
+Latest verified checkpoint: **3605**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Traced generated problem scope authority.
+Traced scope writers and readers.
 
-Scope JSON, symptom consumers, disease policy and aliases remain open.
+Other mutation paths, symptom and disease consumers remain open.
 
 ## Working on now
 
-Trace scope and symptom writers and consumers.
+Trace remaining mutation paths and disease consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3604 publication record](CHECKPOINT-3604.json)
-- [Saved report for checkpoint 3604](PROGRESS-3604.md)
+- [Checkpoint 3605 publication record](CHECKPOINT-3605.json)
+- [Saved report for checkpoint 3605](PROGRESS-3605.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
