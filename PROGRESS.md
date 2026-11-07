@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:39:50.992052+00:00
+Updated: 2026-11-07T13:41:44.441798+00:00
 
-Latest verified checkpoint: **3335**. Goal: **active**.
+Latest verified checkpoint: **3336**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -344,7 +344,8 @@ manual retry from an unchanged pre-commit view uses a fresh ID and encounters a
 closed prompt or stale revision. Shared fetch throws plain errors before the
 errantry retry helper can inspect HTTP status; answer uses a separate fresh-ID
 path. Errantry maps database-call errors to 422, but the shared wrapper strips
-numeric status before retry handling.
+numeric status before retry handling. Errantry exact retries bind actor,
+session, action and current case-contract authority before presence checks.
 
 | Phase | Status |
 | --- | --- |
@@ -355,13 +356,13 @@ numeric status before retry handling.
 
 ## Latest checkpoint
 
-Traced errantry route status into the retry helper.
+Traced errantry acceptance receipt and retry preconditions.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile errantry failure-stage ownership and dialogue recovery.
+Reconcile errantry transport ownership and dialogue recovery.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -529,8 +530,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3335 publication record](CHECKPOINT-3335.json)
-- [Saved report for checkpoint 3335](PROGRESS-3335.md)
+- [Checkpoint 3336 publication record](CHECKPOINT-3336.json)
+- [Saved report for checkpoint 3336](PROGRESS-3336.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
