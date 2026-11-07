@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:16:44.870480+00:00
+Updated: 2026-11-07T14:18:11.985437+00:00
 
-Latest verified checkpoint: **3350**. Goal: **active**.
+Latest verified checkpoint: **3351**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -368,6 +368,8 @@ makes a solo-party enemy; other membership producers and lifecycle paths remain
 open. Stake value is not necessarily liquid coin; temporary settlement requires
 enough currency stacks and can fail earlier. Temporary teardown refuses a party
 containing a different member; inspected alternate paths create solo parties.
+Disband independently requires stakes settled and the remaining pool liquidated
+before reserve payout.
 
 | Phase | Status |
 | --- | --- |
@@ -378,13 +380,14 @@ containing a different member; inspected alternate paths create solo parties.
 
 ## Latest checkpoint
 
-Traced temporary teardown and selected solo-party producers.
+Compared temporary dismissal with party disband guards.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile remaining non-browser membership producers and stake withdrawal paths.
+Reconcile remaining non-browser membership producers and stake withdrawal
+callers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -552,8 +555,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3350 publication record](CHECKPOINT-3350.json)
-- [Saved report for checkpoint 3350](PROGRESS-3350.md)
+- [Checkpoint 3351 publication record](CHECKPOINT-3351.json)
+- [Saved report for checkpoint 3351](PROGRESS-3351.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
