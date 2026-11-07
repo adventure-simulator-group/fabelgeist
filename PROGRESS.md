@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:28:25.170181+00:00
+Updated: 2026-11-07T21:31:12.643057+00:00
 
-Latest verified checkpoint: **3564**. Goal: **active**.
+Latest verified checkpoint: **3565**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Recorded scoped GPU residency disposition.
+Qualified building queue and status.
 
-Parent semantic asset admission, other lenses and runtime capture remain open.
+GPU publication, status consumers, total writers and geometry remain open.
 
 ## Working on now
 
-Reconcile parent asset admission and remaining audit obligations.
+Trace building queue failures through GPU and readiness consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3564 publication record](CHECKPOINT-3564.json)
-- [Saved report for checkpoint 3564](PROGRESS-3564.md)
+- [Checkpoint 3565 publication record](CHECKPOINT-3565.json)
+- [Saved report for checkpoint 3565](PROGRESS-3565.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
