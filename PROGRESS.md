@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:09:53.335161+00:00
+Updated: 2026-11-07T17:11:34.025590+00:00
 
-Latest verified checkpoint: **3422**. Goal: **active**.
+Latest verified checkpoint: **3423**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -487,7 +487,9 @@ the measured-item cost handler rejects; connected reachability remains open.
 Current narrative bridge cost specifies food that the measured-item cost handler
 rejects; connected reachability remains open. Catalog embedding and choice
 view/reducer checks connect the authored bridge cost to its rejecting measured-
-item handler under stated conditions.
+item handler under stated conditions. The bridge is eligible for weighted
+errantry selection; existing measured food operations coordinate lot, fraction
+and custody state.
 
 | Phase | Status |
 | --- | --- |
@@ -498,14 +500,13 @@ item handler under stated conditions.
 
 ## Latest checkpoint
 
-Traced narrative catalog embedding and choice availability to the measured-cost
-handler.
+Traced eligible bridge selection and measured food custody.
 
-Supported challenge creation, exact aliases and runtime behavior remain open.
+Exact aliases, measured-cost policy and runtime behavior remain open.
 
 ## Working on now
 
-Reconcile supported challenge creation, measured food custody and exact aliases.
+Reconcile narrative measured-food cost policy and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -673,8 +674,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3422 publication record](CHECKPOINT-3422.json)
-- [Saved report for checkpoint 3422](PROGRESS-3422.md)
+- [Checkpoint 3423 publication record](CHECKPOINT-3423.json)
+- [Saved report for checkpoint 3423](PROGRESS-3423.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
