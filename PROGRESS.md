@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:20:11.159848+00:00
+Updated: 2026-11-07T09:23:09.760964+00:00
 
-Latest verified checkpoint: **3216**. Goal: **active**.
+Latest verified checkpoint: **3217**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -157,7 +157,10 @@ yield generic case-site recovery text if the shown notice path is reached; live
 reachability remains open. The case-site portrait wheel source includes
 temperature, narrowing the separate recovery wording question; live rendering
 remains unverified. The movement exposure partial plan was scoped without
-discarding independent battle-time and forecast obligations.
+discarding independent battle-time and forecast obligations. Signed elevation
+admission matches its historical owner at the current pin; related aliases
+remain open. Signed elevation admission matches its historical owner at the
+current pin; related aliases remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -168,7 +171,7 @@ discarding independent battle-time and forecast obligations.
 
 ## Latest checkpoint
 
-Separated movement exposure repair requirements from inherited unrelated work.
+Reconciled signed elevation admission against current source.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -343,8 +346,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3216 publication record](CHECKPOINT-3216.json)
-- [Saved report for checkpoint 3216](PROGRESS-3216.md)
+- [Checkpoint 3217 publication record](CHECKPOINT-3217.json)
+- [Saved report for checkpoint 3217](PROGRESS-3217.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
