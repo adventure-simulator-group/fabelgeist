@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:11:44.278881+00:00
+Updated: 2026-11-07T20:13:46.191552+00:00
 
-Latest verified checkpoint: **3518**. Goal: **active**.
+Latest verified checkpoint: **3519**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -624,7 +624,9 @@ combat and follow-up records. Road occurrence identity also links actor context
 and information sources. Information IDs can contain the delimiter used in
 source keys. Current authored information IDs contain no colons although
 admission allows them. Identity repair acceptance now spans creation,
-boundaries, retries and outcomes.
+boundaries, retries and outcomes. Finale-defense enum and retained JSON require
+behavior reconciliation. Finale-defense enum and retained JSON require behavior
+reconciliation.
 
 | Phase | Status |
 | --- | --- |
@@ -635,14 +637,14 @@ boundaries, retries and outcomes.
 
 ## Latest checkpoint
 
-Consolidated connected identity repair acceptance.
+Qualified finale-defense typed owner and documentation question.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Complete source, alias and chronology qualification for the identity plan.
+Trace finale-defense consumers and intended contract.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -810,8 +812,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3518 publication record](CHECKPOINT-3518.json)
-- [Saved report for checkpoint 3518](PROGRESS-3518.md)
+- [Checkpoint 3519 publication record](CHECKPOINT-3519.json)
+- [Saved report for checkpoint 3519](PROGRESS-3519.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
