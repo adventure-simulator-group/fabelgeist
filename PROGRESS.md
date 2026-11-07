@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T16:03:51.889368+00:00
+Updated: 2026-11-07T16:06:49.162270+00:00
 
-Latest verified checkpoint: **3402**. Goal: **active**.
+Latest verified checkpoint: **3403**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -453,7 +453,9 @@ the inspected path; combat-state acceptance now covers action and wound
 behavior. The Lens 1 schedule adapter and core numeric admission were reread;
 connected policy and alias closure remains open. Checkpoint 3402 corrects an
 unrelated debug-restore remaining-evidence line appended to the schedule entry
-at checkpoint 3401; historical checkpoint retained.
+at checkpoint 3401; historical checkpoint retained. The schedule preview
+validates its submitted form before organization eligibility filtering;
+connected policy and alias closure remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -464,7 +466,7 @@ at checkpoint 3401; historical checkpoint retained.
 
 ## Latest checkpoint
 
-Corrected the schedule entry remaining-evidence text.
+Qualified schedule preview form validation before eligibility filtering.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -639,8 +641,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3402 publication record](CHECKPOINT-3402.json)
-- [Saved report for checkpoint 3402](PROGRESS-3402.md)
+- [Checkpoint 3403 publication record](CHECKPOINT-3403.json)
+- [Saved report for checkpoint 3403](PROGRESS-3403.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
