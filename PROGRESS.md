@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:38:07.300237+00:00
+Updated: 2026-11-07T13:39:50.992052+00:00
 
-Latest verified checkpoint: **3334**. Goal: **active**.
+Latest verified checkpoint: **3335**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -343,7 +343,8 @@ startup identity and projection decoding have distinct failure boundaries. A
 manual retry from an unchanged pre-commit view uses a fresh ID and encounters a
 closed prompt or stale revision. Shared fetch throws plain errors before the
 errantry retry helper can inspect HTTP status; answer uses a separate fresh-ID
-path.
+path. Errantry maps database-call errors to 422, but the shared wrapper strips
+numeric status before retry handling.
 
 | Phase | Status |
 | --- | --- |
@@ -354,13 +355,13 @@ path.
 
 ## Latest checkpoint
 
-Traced conflict status through the shared fetch wrapper.
+Traced errantry route status into the retry helper.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace related errantry error ownership and dialogue recovery.
+Reconcile errantry failure-stage ownership and dialogue recovery.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -528,8 +529,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3334 publication record](CHECKPOINT-3334.json)
-- [Saved report for checkpoint 3334](PROGRESS-3334.md)
+- [Checkpoint 3335 publication record](CHECKPOINT-3335.json)
+- [Saved report for checkpoint 3335](PROGRESS-3335.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
