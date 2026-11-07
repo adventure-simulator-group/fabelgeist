@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T01:12:53.507609+00:00
+Updated: 2026-11-07T01:16:51.918048+00:00
 
-Latest verified checkpoint: **3063**. Goal: **active**.
+Latest verified checkpoint: **3064**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Recorded an explicit scoped camp redirect repair obligation.
+Qualified abstract coordinate bounds and quest weather conversion.
 
-Connected contracts and final retained-state design remain open; no runtime
+Abstract weather mapping and supported producers remain open; no runtime
 execution.
 
 ## Working on now
 
-Continue connected coordinate-frame and camp identity reconciliation.
+Resolve supported abstract weather and mixed-frame journey behavior.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3063 publication record](CHECKPOINT-3063.json)
-- [Saved report for checkpoint 3063](PROGRESS-3063.md)
+- [Checkpoint 3064 publication record](CHECKPOINT-3064.json)
+- [Saved report for checkpoint 3064](PROGRESS-3064.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
