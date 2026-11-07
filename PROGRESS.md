@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:56:46.824077+00:00
+Updated: 2026-11-07T14:58:33.967492+00:00
 
-Latest verified checkpoint: **3370**. Goal: **active**.
+Latest verified checkpoint: **3371**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -401,7 +401,8 @@ inspected disease and equipment loaders do not directly compare caller identity.
 Startup passes the requested bind to SpacetimeDB unless a process already
 listens; actual deployment remains unverified. Transfer and discard bodies also
 lack explicit caller checks in the inspected scope; each effect remains
-independently qualified.
+independently qualified. Browser discard is self-only; browser transfer permits
+the active character to be sender or recipient.
 
 | Phase | Status |
 | --- | --- |
@@ -412,13 +413,13 @@ independently qualified.
 
 ## Latest checkpoint
 
-Compared adjacent transfer and discard caller guards.
+Traced browser discard and transfer actor checks.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify connected transfer and discard authority and exact aliases.
+Qualify recipient-initiated transfer policy and database authority.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -586,8 +587,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3370 publication record](CHECKPOINT-3370.json)
-- [Saved report for checkpoint 3370](PROGRESS-3370.md)
+- [Checkpoint 3371 publication record](CHECKPOINT-3371.json)
+- [Saved report for checkpoint 3371](PROGRESS-3371.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
