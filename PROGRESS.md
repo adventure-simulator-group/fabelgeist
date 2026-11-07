@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:59:52.780130+00:00
+Updated: 2026-11-07T19:01:54.237155+00:00
 
-Latest verified checkpoint: **3478**. Goal: **active**.
+Latest verified checkpoint: **3479**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -578,7 +578,8 @@ camp movement may be zero. Fallback travel, independent return routes and
 redirects have distinct duration producers. Journey coordinate schema changes
 must preserve gateway-authorized reducers and gateway-only views. Forecast
 refresh rebases movement and elapsed coordinates independently and merges
-contiguous camps at the same movement point.
+contiguous camps at the same movement point. The full current errantry file is
+read under Lens 2; connected owners and clue admission remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -589,13 +590,13 @@ contiguous camps at the same movement point.
 
 ## Latest checkpoint
 
-Qualified forecast rebasing and camp coalescing.
+Qualified complete current errantry source under Lens 2.
 
-Alternative producers, exact owners and aliases remain open.
+Connected owners, puzzle admission and aliases remain open.
 
 ## Working on now
 
-Complete journey producer, owner and alias reconciliation.
+Reconcile errantry connected owners and puzzle admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -763,8 +764,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3478 publication record](CHECKPOINT-3478.json)
-- [Saved report for checkpoint 3478](PROGRESS-3478.md)
+- [Checkpoint 3479 publication record](CHECKPOINT-3479.json)
+- [Saved report for checkpoint 3479](PROGRESS-3479.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
