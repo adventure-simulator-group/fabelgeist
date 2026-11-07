@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:51:56.089897+00:00
+Updated: 2026-11-07T13:54:00.254973+00:00
 
-Latest verified checkpoint: **3340**. Goal: **active**.
+Latest verified checkpoint: **3341**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -351,7 +351,8 @@ obligation. Errantry maps both gateway HTTP transport failures and database
 error responses to 422. Pinned reqwest may return pre-dispatch errors or errors
 while a request is in flight; commit outcome remains unproven. Pinned
 SpacetimeDB reducer documentation says failed reducers roll back; HTTP failure
-and commit correspondence remains open.
+and commit correspondence remains open. Existing helper tests inject status
+directly and do not exercise the shared fetch wrapper on conflict.
 
 | Phase | Status |
 | --- | --- |
@@ -362,13 +363,13 @@ and commit correspondence remains open.
 
 ## Latest checkpoint
 
-Qualified pinned reducer transaction documentation.
+Compared retry helper tests with the production fetch boundary.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify server HTTP response and delivery semantics.
+Qualify server response semantics and errantry retry ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -536,8 +537,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3340 publication record](CHECKPOINT-3340.json)
-- [Saved report for checkpoint 3340](PROGRESS-3340.md)
+- [Checkpoint 3341 publication record](CHECKPOINT-3341.json)
+- [Saved report for checkpoint 3341](PROGRESS-3341.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
