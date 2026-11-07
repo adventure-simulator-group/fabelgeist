@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:27:37.158141+00:00
+Updated: 2026-11-07T15:29:10.303054+00:00
 
-Latest verified checkpoint: **3387**. Goal: **active**.
+Latest verified checkpoint: **3388**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -429,7 +429,8 @@ Simulation withdraws stake for first-aid and ammunition shortfalls; authorized
 behavior must survive any authority repair. Corrected the current inventory
 authority plan, which had inherited unrelated temporary-stake dismissal
 acceptance. Corrected errantry retry acceptance inherited from the distinct
-dialogue receipt plan.
+dialogue receipt plan. Corrected the temporary-stake plan observation while
+retaining conditional reachability.
 
 | Phase | Status |
 | --- | --- |
@@ -440,13 +441,13 @@ dialogue receipt plan.
 
 ## Latest checkpoint
 
-Corrected errantry acceptance inherited from the dialogue template.
+Corrected the temporary-stake plan observation.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Correct the temporary-stake plan and reconcile errantry failure stages.
+Audit recent plan integrity and continue connected source qualification.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -614,8 +615,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3387 publication record](CHECKPOINT-3387.json)
-- [Saved report for checkpoint 3387](PROGRESS-3387.md)
+- [Checkpoint 3388 publication record](CHECKPOINT-3388.json)
+- [Saved report for checkpoint 3388](PROGRESS-3388.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
