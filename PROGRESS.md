@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T02:40:25.066400+00:00
+Updated: 2026-11-07T02:46:24.182489+00:00
 
-Latest verified checkpoint: **3080**. Goal: **active**.
+Latest verified checkpoint: **3081**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced surgery consent, item custody and post-wait checks.
+Traced healing during treatment and the resulting double-return failure path.
 
-Post-wait state transitions and item ownership remain open; no runtime
-execution.
+Reachability, transaction outcome and other surgery and custody scopes remain
+open; no runtime execution.
 
 ## Working on now
 
-Trace treatment wait recovery and commit-time validity.
+Verify the splint-removal boundary and trace related custody and transaction
+behavior.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3080 publication record](CHECKPOINT-3080.json)
-- [Saved report for checkpoint 3080](PROGRESS-3080.md)
+- [Checkpoint 3081 publication record](CHECKPOINT-3081.json)
+- [Saved report for checkpoint 3081](PROGRESS-3081.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
