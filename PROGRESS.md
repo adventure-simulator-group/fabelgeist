@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:41:42.860549+00:00
+Updated: 2026-11-07T08:46:44.892062+00:00
 
-Latest verified checkpoint: **3200**. Goal: **active**.
+Latest verified checkpoint: **3201**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -131,7 +131,9 @@ contain an ignored event. Inspected readiness decisions combine thermal and
 other safety checks and treat missing return projections as unsafe. Thermal
 forecasts and wilderness exposure use different weather clocks; reachable
 readiness impact remains open. Forecast weather clock differences feed seasonal
-and lattice inputs; actual readiness impact remains open.
+and lattice inputs; actual readiness impact remains open. A source-level
+overnight itinerary yields different forecast and wilderness dates; admission
+and readiness impact remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -142,7 +144,8 @@ and lattice inputs; actual readiness impact remains open.
 
 ## Latest checkpoint
 
-Traced differing forecast weather intervals into seasonal and lattice inputs.
+Derived an ordinary-range overnight itinerary with differing forecast and
+wilderness dates.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -317,8 +320,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3200 publication record](CHECKPOINT-3200.json)
-- [Saved report for checkpoint 3200](PROGRESS-3200.md)
+- [Checkpoint 3201 publication record](CHECKPOINT-3201.json)
+- [Saved report for checkpoint 3201](PROGRESS-3201.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
