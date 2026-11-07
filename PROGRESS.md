@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:41:48.367601+00:00
+Updated: 2026-11-07T06:43:06.309270+00:00
 
-Latest verified checkpoint: **3136**. Goal: **active**.
+Latest verified checkpoint: **3137**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -38,7 +38,9 @@ reread after its registration; related contract work remains open. Web and
 simulation error consumers have been reread after registration; runtime delivery
 remains unverified. Strategic reducer error propagation has been reread after
 registration; runtime delivery remains unverified. P02 mobility and timeline
-scopes were reread after registration; the connected contract remains open.
+scopes were reread after registration; the connected contract remains open. P02
+scheduling was reread after registration; initialization failure behavior
+remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -49,7 +51,7 @@ scopes were reread after registration; the connected contract remains open.
 
 ## Latest checkpoint
 
-Reread registered P02 mobility and timeline source.
+Reread complete registered P02 scheduling source.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -224,8 +226,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3136 publication record](CHECKPOINT-3136.json)
-- [Saved report for checkpoint 3136](PROGRESS-3136.md)
+- [Checkpoint 3137 publication record](CHECKPOINT-3137.json)
+- [Saved report for checkpoint 3137](PROGRESS-3137.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
