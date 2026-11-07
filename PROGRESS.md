@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:45:27.992269+00:00
+Updated: 2026-11-07T20:47:21.264908+00:00
 
-Latest verified checkpoint: **3540**. Goal: **active**.
+Latest verified checkpoint: **3541**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -647,7 +647,8 @@ typed inputs. The normal quest solver parses catalog-backed hostile causes.
 Authored profile compilation needs an ID before live catalog membership. Several
 server consumers parse stored threats before profile lookup. Inspected manifest
 paths deserialize catalog-checked threat IDs. The encounter panel catalog-parses
-its threat before display.
+its threat before display. Threat admission acceptance spans public, catalog and
+native boundaries.
 
 | Phase | Status |
 | --- | --- |
@@ -658,14 +659,14 @@ its threat before display.
 
 ## Latest checkpoint
 
-Qualified strategic encounter web threat boundary.
+Consolidated threat admission repair acceptance.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile web threat presentation and remaining caller policies.
+Complete caller and alias qualification for threat admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -833,8 +834,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3540 publication record](CHECKPOINT-3540.json)
-- [Saved report for checkpoint 3540](PROGRESS-3540.md)
+- [Checkpoint 3541 publication record](CHECKPOINT-3541.json)
+- [Saved report for checkpoint 3541](PROGRESS-3541.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
