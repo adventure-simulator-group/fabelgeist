@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:28:10.934323+00:00
+Updated: 2026-11-07T11:30:01.634644+00:00
 
-Latest verified checkpoint: **3272**. Goal: **active**.
+Latest verified checkpoint: **3273**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -247,7 +247,9 @@ authored longsword threshold and synthetic contact example are recorded; an end-
 to-end contact remains unproven. Tactical contact aggregation and per-exchange
 autoresolve can differ under the nonlinear wear formula; intended policy and
 reachability remain open. Receipt participant truncation can conflict with
-retained contact owners; supported overflow reachability remains open.
+retained contact owners; supported overflow reachability remains open. Captured
+tactical rosters share the 16-member receipt bound; temporary and tactical-side
+provenance remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -258,13 +260,13 @@ retained contact owners; supported overflow reachability remains open.
 
 ## Latest checkpoint
 
-Traced receipt participant truncation and contact-owner validation.
+Traced strategic tactical roster limits and enrollment checks.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace tactical party admission and receipt overflow reachability.
+Trace tactical side and accumulator participant provenance.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -432,8 +434,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3272 publication record](CHECKPOINT-3272.json)
-- [Saved report for checkpoint 3272](PROGRESS-3272.md)
+- [Checkpoint 3273 publication record](CHECKPOINT-3273.json)
+- [Saved report for checkpoint 3273](PROGRESS-3273.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
