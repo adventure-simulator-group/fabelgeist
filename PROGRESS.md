@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:17:14.936440+00:00
+Updated: 2026-11-07T18:18:46.646710+00:00
 
-Latest verified checkpoint: **3454**. Goal: **active**.
+Latest verified checkpoint: **3455**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -544,7 +544,8 @@ initializes at one and surgery projects clamped values; temporary and enemy
 scaling remain separate. Receipt injury inputs are checked for finite bounds,
 while stored injury components and other writers still require qualification.
 Strategic autoresolve and other strategic injury writers are traced to their
-immediate inputs; upstream values remain open.
+immediate inputs; upstream values remain open. The frostbite increment is
+finite; autoresolve and healing still require upstream numeric qualification.
 
 | Phase | Status |
 | --- | --- |
@@ -555,14 +556,13 @@ immediate inputs; upstream values remain open.
 
 ## Latest checkpoint
 
-Traced additional strategic injury writers.
+Traced frostbite constant, recovery inputs and autoresolve dispatch.
 
-Autoresolve producer, settlement inputs and runtime behavior remain open.
+Ranged and melee damage, physiology and runtime behavior remain open.
 
 ## Working on now
 
-Qualify autoresolve and settlement inputs, temporary classification and receipt
-bounds.
+Qualify ranged and melee damage, physiology and receipt bounds.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -730,8 +730,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3454 publication record](CHECKPOINT-3454.json)
-- [Saved report for checkpoint 3454](PROGRESS-3454.md)
+- [Checkpoint 3455 publication record](CHECKPOINT-3455.json)
+- [Saved report for checkpoint 3455](PROGRESS-3455.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
