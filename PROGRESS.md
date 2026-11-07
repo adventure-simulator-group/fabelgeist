@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:58:15.944077+00:00
+Updated: 2026-11-07T19:59:49.872524+00:00
 
-Latest verified checkpoint: **3509**. Goal: **active**.
+Latest verified checkpoint: **3510**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -615,7 +615,8 @@ coherent exact coordinates. Ordinary travel encounter scans select a boundary
 after current movement. Direct camp rest records elapsed time without adding a
 reached stop. Gateway and web routes exchange challenge IDs but not frame or
 trial IDs. Challenge classifiers retain different subsets of the full identity.
-Existing location identities do not encode the complete challenge key.
+Existing location identities do not encode the complete challenge key. Generated
+authority and projection rows carry string challenge IDs.
 
 | Phase | Status |
 | --- | --- |
@@ -626,14 +627,14 @@ Existing location identities do not encode the complete challenge key.
 
 ## Latest checkpoint
 
-Qualified existing identity owner fit.
+Qualified generated schema identity boundary.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Complete owner admission and schema boundary comparison.
+Reconcile generated schema, reducer and client consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -801,8 +802,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3509 publication record](CHECKPOINT-3509.json)
-- [Saved report for checkpoint 3509](PROGRESS-3509.md)
+- [Checkpoint 3510 publication record](CHECKPOINT-3510.json)
+- [Saved report for checkpoint 3510](PROGRESS-3510.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
