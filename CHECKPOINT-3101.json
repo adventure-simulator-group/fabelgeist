@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 3101,
+  "at": "2026-11-07T05:04:18.922296+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "25d5f348ccd433bb8ab5ae9bf218d64913d9e79fc1c213a65175ab241f9ad7d8",
+    "verification": "e0df7173001edac6e66257a07aa1225358a5cd8d14e1958e2f38be8af0041f33",
+    "canonical_current": "7f099a720be310ce9ef043a28210a3ecf9f1eb4d5884376abd1d24326eb37aee"
+  },
+  "scope": {
+    "summary": "Traced wall and cap construction and its direct consumers.",
+    "scope_limit": "Descriptor admission, native consumers and exact aliases remain open; no runtime execution."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "28d11095b4c7adac453cdec308bc220fc9e5b8d20d10aae2d9ef16a8917fddac",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

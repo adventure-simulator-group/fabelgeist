@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T04:59:32.904798+00:00
+Updated: 2026-11-07T05:04:49.431377+00:00
 
-Latest verified checkpoint: **3100**. Goal: **active**.
+Latest verified checkpoint: **3101**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced unchecked party withdrawal and starting-inventory grants.
+Traced wall and cap construction and its direct consumers.
 
-Valid-item failure reachability and runtime effects remain unverified; no
-runtime execution.
+Descriptor admission, native consumers and exact aliases remain open; no runtime
+execution.
 
 ## Working on now
 
-Trace valid-item failures and generated inventory admission.
+Complete boundary descriptor admission and native consumer evidence.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3100 publication record](CHECKPOINT-3100.json)
-- [Saved report for checkpoint 3100](PROGRESS-3100.md)
+- [Checkpoint 3101 publication record](CHECKPOINT-3101.json)
+- [Saved report for checkpoint 3101](PROGRESS-3101.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
