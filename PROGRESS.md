@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:00:55.917733+00:00
+Updated: 2026-11-07T13:02:46.429551+00:00
 
-Latest verified checkpoint: **3314**. Goal: **active**.
+Latest verified checkpoint: **3315**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -313,6 +313,8 @@ training callers use elapsed-derived durations; convalescence and camp-priority
 ambient exposure need policy. Lens 11 and Lens 13 identify the same immediate
 ambient interval defect; independent lens work remains open. The Lens 13
 immediate activity interval mismatch was independently reread on current source.
+Existing strategic instant, day-position and injury recovery types have distinct
+roles from general elapsed time.
 
 | Phase | Status |
 | --- | --- |
@@ -323,13 +325,13 @@ immediate activity interval mismatch was independently reread on current source.
 
 ## Latest checkpoint
 
-Independently traced the Lens 13 immediate ambient interval finding.
+Compared existing strategic instant, day position and recovery interval owners.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile canonical duration owners and remaining aliases.
+Reconcile elapsed duration and schedule allocation owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -497,8 +499,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3314 publication record](CHECKPOINT-3314.json)
-- [Saved report for checkpoint 3314](PROGRESS-3314.md)
+- [Checkpoint 3315 publication record](CHECKPOINT-3315.json)
+- [Saved report for checkpoint 3315](PROGRESS-3315.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
