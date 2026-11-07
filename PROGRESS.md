@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:26:19.963015+00:00
+Updated: 2026-11-07T20:27:45.431057+00:00
 
-Latest verified checkpoint: **3528**. Goal: **active**.
+Latest verified checkpoint: **3529**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -634,7 +634,8 @@ enums overlap across a generated boundary. Core has an established conditional
 database-type derive pattern. Presenter acceptance covers generated boundary,
 name, slug and speech. Tactical insight stores a string derived from a typed
 threat ID. Insight projection exposes text while public Serde remains an
-admission boundary.
+admission boundary. Threat syntax admission is narrower than catalog membership
+checking. Threat syntax admission is broader than catalog membership checking.
 
 | Phase | Status |
 | --- | --- |
@@ -645,14 +646,14 @@ admission boundary.
 
 ## Latest checkpoint
 
-Qualified tactical insight consumer inventory.
+Qualified insight threat profile admission gap.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Resolve insight public admission and exact aliases.
+Reconcile public threat construction and profile admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -820,8 +821,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3528 publication record](CHECKPOINT-3528.json)
-- [Saved report for checkpoint 3528](PROGRESS-3528.md)
+- [Checkpoint 3529 publication record](CHECKPOINT-3529.json)
+- [Saved report for checkpoint 3529](PROGRESS-3529.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
