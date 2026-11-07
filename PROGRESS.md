@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:48:47.535612+00:00
+Updated: 2026-11-07T14:50:57.475491+00:00
 
-Latest verified checkpoint: **3366**. Goal: **active**.
+Latest verified checkpoint: **3367**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -393,7 +393,8 @@ inventory and party membership schema rows are public; the full Character table
 is private. Authored Rhenish gulden has currency kind and unit value one;
 initialized deposit classification remains to be checked. Fresh item
 initialization projects embedded catalog definitions with default omitted
-equipment and capabilities.
+equipment and capabilities. Authored currency is excluded from food and explicit
+measured-material classifications under fresh initialization.
 
 | Phase | Status |
 | --- | --- |
@@ -404,13 +405,13 @@ equipment and capabilities.
 
 ## Latest checkpoint
 
-Traced currency catalog initialization and defaults.
+Traced currency food exclusions and capability loader entries.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify currency reference exclusions and capability loaders.
+Qualify remaining capability and insertion helpers and deployment access.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -578,8 +579,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3366 publication record](CHECKPOINT-3366.json)
-- [Saved report for checkpoint 3366](PROGRESS-3366.md)
+- [Checkpoint 3367 publication record](CHECKPOINT-3367.json)
+- [Saved report for checkpoint 3367](PROGRESS-3367.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
