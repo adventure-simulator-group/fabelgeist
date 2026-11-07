@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:54:00.254973+00:00
+Updated: 2026-11-07T13:56:34.882110+00:00
 
-Latest verified checkpoint: **3341**. Goal: **active**.
+Latest verified checkpoint: **3342**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -352,7 +352,10 @@ error responses to 422. Pinned reqwest may return pre-dispatch errors or errors
 while a request is in flight; commit outcome remains unproven. Pinned
 SpacetimeDB reducer documentation says failed reducers roll back; HTTP failure
 and commit correspondence remains open. Existing helper tests inject status
-directly and do not exercise the shared fetch wrapper on conflict.
+directly and do not exercise the shared fetch wrapper on conflict. Current
+temporary dismissal transfers currency without clearing the positive stake
+before its guard; reducer failure implies rollback under the documented
+contract.
 
 | Phase | Status |
 | --- | --- |
@@ -363,13 +366,13 @@ directly and do not exercise the shared fetch wrapper on conflict.
 
 ## Latest checkpoint
 
-Compared retry helper tests with the production fetch boundary.
+Reconciled temporary member stake dismissal against current source.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify server response semantics and errantry retry ownership.
+Trace temporary member stake creation and dismissal admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -537,8 +540,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3341 publication record](CHECKPOINT-3341.json)
-- [Saved report for checkpoint 3341](PROGRESS-3341.md)
+- [Checkpoint 3342 publication record](CHECKPOINT-3342.json)
+- [Saved report for checkpoint 3342](PROGRESS-3342.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
