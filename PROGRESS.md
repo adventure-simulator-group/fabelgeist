@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:12:23.041403+00:00
+Updated: 2026-11-07T10:13:47.192273+00:00
 
-Latest verified checkpoint: **3237**. Goal: **active**.
+Latest verified checkpoint: **3238**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -195,7 +195,8 @@ Native audio forwards composed playback speed; the existing pitch-product repair
 remains independently owned. Checked UnitInterval is a reuse candidate for
 bounded audio gains; native volume and pitch retain separate semantics. Combat
 one-shots and rain-loop gain updates have been traced; remaining movement and
-lifecycle scope is open.
+lifecycle scope is open. Movement and wind playback and the registered native
+Volume tail have been read; alias and independent lens work remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -206,7 +207,8 @@ lifecycle scope is open.
 
 ## Latest checkpoint
 
-Traced combat and rain audio playback and gain consumers.
+Traced movement and wind playback and completed the registered native Volume
+source read.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -381,8 +383,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3237 publication record](CHECKPOINT-3237.json)
-- [Saved report for checkpoint 3237](PROGRESS-3237.md)
+- [Checkpoint 3238 publication record](CHECKPOINT-3238.json)
+- [Saved report for checkpoint 3238](PROGRESS-3238.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
