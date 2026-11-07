@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:07:32.984423+00:00
+Updated: 2026-11-07T19:09:33.998181+00:00
 
-Latest verified checkpoint: **3482**. Goal: **active**.
+Latest verified checkpoint: **3483**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -584,7 +584,9 @@ positions are validated at puzzle level and used directly for errantry lookup;
 an existing Lens 3 admission question is retained. The gateway validates
 retained puzzles before projection; direct public clue admission remains open.
 Named puzzle choices do not themselves own ordinal clue positions; bounded
-construction and serialization remain to be designed.
+construction and serialization remain to be designed. Tactical insight stores a
+raw threat string despite an existing ThreatId; inspected gateway output uses
+only text.
 
 | Phase | Status |
 | --- | --- |
@@ -595,13 +597,13 @@ construction and serialization remain to be designed.
 
 ## Latest checkpoint
 
-Compared puzzle choices and clue position ownership.
+Traced ThreatId through tactical insight.
 
-Final position API and direct public admission remain open.
+All insight consumers and direct serialization contracts remain open.
 
 ## Working on now
 
-Reconcile clue-position type, serialization and direct public admission.
+Inventory tactical insight consumers and ThreatId owner fit.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -769,8 +771,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3482 publication record](CHECKPOINT-3482.json)
-- [Saved report for checkpoint 3482](PROGRESS-3482.md)
+- [Checkpoint 3483 publication record](CHECKPOINT-3483.json)
+- [Saved report for checkpoint 3483](PROGRESS-3483.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
