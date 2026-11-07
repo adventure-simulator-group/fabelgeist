@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:50:33.761417+00:00
+Updated: 2026-11-07T12:52:42.833671+00:00
 
-Latest verified checkpoint: **3308**. Goal: **active**.
+Latest verified checkpoint: **3309**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -304,7 +304,9 @@ initialized vernacular exposure; actual pairwise language overlap remains
 unproven. Life simulation carries native oral exposure forward; actual player
 overlap and positive caps remain unproven. Default and generated players have
 positive initial instinct and initialized oral skills; later state and complete
-negotiation remain open.
+negotiation remain open. Settlement and journey paths train retained oral
+skills; negotiation reads stored instinct rather than the inspected disease-
+adjusted copy.
 
 | Phase | Status |
 | --- | --- |
@@ -315,13 +317,13 @@ negotiation remain open.
 
 ## Latest checkpoint
 
-Traced starting player oral initialization and instinct inputs.
+Traced selected oral training and disease-adjustment paths.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace later language and instinct changes and negotiation timing.
+Trace oral training bounds and remaining negotiation conditions.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -489,8 +491,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3308 publication record](CHECKPOINT-3308.json)
-- [Saved report for checkpoint 3308](PROGRESS-3308.md)
+- [Checkpoint 3309 publication record](CHECKPOINT-3309.json)
+- [Saved report for checkpoint 3309](PROGRESS-3309.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
