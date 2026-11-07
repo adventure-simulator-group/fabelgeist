@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:43:29.505234+00:00
+Updated: 2026-11-07T18:46:34.854160+00:00
 
-Latest verified checkpoint: **3469**. Goal: **active**.
+Latest verified checkpoint: **3470**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -567,6 +567,8 @@ channel hit makes the two injury splits straddle the fracture threshold; runtime
 occurrence remains unproved. Direct remote verification confirms the selected
 current source pin despite a stale local tracking reference. Recent
 qualification paths match the selected source tree despite the older checkout.
+Historical errantry source is read under Lens 2; movement and elapsed time
+owners need current reconciliation.
 
 | Phase | Status |
 | --- | --- |
@@ -577,13 +579,13 @@ qualification paths match the selected source tree despite the older checkout.
 
 ## Latest checkpoint
 
-Verified recent source identities.
+Qualified historical errantry source under Lens 2.
 
-No contract closure or runtime validation follows from source identity.
+Current source, connected owners and admission remain open.
 
 ## Working on now
 
-Continue remaining connected source and alias audits.
+Reconcile current errantry movement and elapsed time owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -751,8 +753,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3469 publication record](CHECKPOINT-3469.json)
-- [Saved report for checkpoint 3469](PROGRESS-3469.md)
+- [Checkpoint 3470 publication record](CHECKPOINT-3470.json)
+- [Saved report for checkpoint 3470](PROGRESS-3470.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
