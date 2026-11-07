@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:55:54.524126+00:00
+Updated: 2026-11-07T19:57:02.043152+00:00
 
-Latest verified checkpoint: **3507**. Goal: **active**.
+Latest verified checkpoint: **3508**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -614,7 +614,7 @@ rest advances member clocks. Resolved interruptions establish a camp only at
 coherent exact coordinates. Ordinary travel encounter scans select a boundary
 after current movement. Direct camp rest records elapsed time without adding a
 reached stop. Gateway and web routes exchange challenge IDs but not frame or
-trial IDs.
+trial IDs. Challenge classifiers retain different subsets of the full identity.
 
 | Phase | Status |
 | --- | --- |
@@ -625,14 +625,14 @@ trial IDs.
 
 ## Latest checkpoint
 
-Qualified challenge identity gateway and web boundaries.
+Qualified server and web challenge ID classifiers.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile remaining consumers, classification and retry behavior.
+Reconcile full identity, native serialization and classifier consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -800,8 +800,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3507 publication record](CHECKPOINT-3507.json)
-- [Saved report for checkpoint 3507](PROGRESS-3507.md)
+- [Checkpoint 3508 publication record](CHECKPOINT-3508.json)
+- [Saved report for checkpoint 3508](PROGRESS-3508.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
