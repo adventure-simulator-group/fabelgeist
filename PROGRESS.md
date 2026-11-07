@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:45:55.482256+00:00
+Updated: 2026-11-07T11:47:48.224936+00:00
 
-Latest verified checkpoint: **3279**. Goal: **active**.
+Latest verified checkpoint: **3280**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -259,7 +259,8 @@ delivery ordering and supported invocation remain open. The tactical client
 sends its configured ID; a search found no non-generated temporary-creation
 caller, while external invocation and delivery remain open. The SDK does not
 replay an identical cached row as a new insert; actual view changes and timing
-remain open.
+remain open. Receipt evidence overlaps three existing enrollment and projection
+entries; their independent scopes remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -270,13 +271,13 @@ remain open.
 
 ## Latest checkpoint
 
-Traced connected-player cache and insert callback semantics.
+Linked receipt findings to existing enrollment and projection obligations.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Resolve temporary subscription timing and receipt bounds.
+Reconcile connected enrollment and projection obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -444,8 +445,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3279 publication record](CHECKPOINT-3279.json)
-- [Saved report for checkpoint 3279](PROGRESS-3279.md)
+- [Checkpoint 3280 publication record](CHECKPOINT-3280.json)
+- [Saved report for checkpoint 3280](PROGRESS-3280.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
