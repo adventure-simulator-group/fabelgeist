@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:06:22.645458+00:00
+Updated: 2026-11-07T11:08:52.565057+00:00
 
-Latest verified checkpoint: **3263**. Goal: **active**.
+Latest verified checkpoint: **3264**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -234,7 +234,8 @@ receipts are frozen before submission; projectile multiplicity needs an explicit
 bounded policy. Strategic ranged combat counts and consumes arrows independently
 of weapon kind; containment reachability remains conditional. Tactical receipt
 refreshes capability before equipment wear; later lazy refresh and visible
-effects remain to be traced.
+effects remain to be traced. Web refresh errors are ignored before a stored
+capability read; server readiness also reads stored combat power.
 
 | Phase | Status |
 | --- | --- |
@@ -245,7 +246,7 @@ effects remain to be traced.
 
 ## Latest checkpoint
 
-Traced tactical equipment wear and capability refresh ordering.
+Traced stored capability consumers and lazy refresh behavior.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -420,8 +421,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3263 publication record](CHECKPOINT-3263.json)
-- [Saved report for checkpoint 3263](PROGRESS-3263.md)
+- [Checkpoint 3264 publication record](CHECKPOINT-3264.json)
+- [Saved report for checkpoint 3264](PROGRESS-3264.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
