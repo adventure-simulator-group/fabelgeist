@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:05:46.981956+00:00
+Updated: 2026-11-07T15:07:45.010392+00:00
 
-Latest verified checkpoint: **3375**. Goal: **active**.
+Latest verified checkpoint: **3376**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -408,7 +408,9 @@ remains open. Party-offer UI has one staged confirmation; the inspected test
 covers encounter guard presence, not consent. Both inventory rails intentionally
 stage unequipped-item transfers in either direction; consent policy remains
 open. The scripted firewall allows web and SSH inbound without a direct
-database-port rule; actual deployment remains unverified.
+database-port rule; actual deployment remains unverified. Game deployment
+templates bind the database to loopback and restrict tactical proxy ports;
+actual topology remains unverified.
 
 | Phase | Status |
 | --- | --- |
@@ -419,13 +421,13 @@ database-port rule; actual deployment remains unverified.
 
 ## Latest checkpoint
 
-Qualified checked-in deployment firewall rules.
+Qualified game service and proxy deployment templates.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify deployed topology and database authority boundaries.
+Qualify actual topology and database authority independently.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -593,8 +595,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3375 publication record](CHECKPOINT-3375.json)
-- [Saved report for checkpoint 3375](PROGRESS-3375.md)
+- [Checkpoint 3376 publication record](CHECKPOINT-3376.json)
+- [Saved report for checkpoint 3376](PROGRESS-3376.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
