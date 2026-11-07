@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:28:35.123583+00:00
+Updated: 2026-11-07T06:30:09.134766+00:00
 
-Latest verified checkpoint: **3129**. Goal: **active**.
+Latest verified checkpoint: **3130**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -29,7 +29,9 @@ audit, implementation, review and validation remain incomplete.
 The refactor remains in the required source audit. Its 13 perspectives include
 reuse of existing types and preservation of semantic values through native
 boundaries. Completing a scoped question or correcting an old status note does
-not complete the audit or authorize implementation.
+not complete the audit or authorize implementation. Checkpoint 3130 records an
+evidence-integrity correction for recent work; adjacent checkpoints still
+require review.
 
 | Phase | Status |
 | --- | --- |
@@ -40,13 +42,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced web and simulation handling of reducer rejection detail.
+Corrected recent source-registration and mutable-evidence qualification.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Complete P02 consumer and alias reconciliation.
+Audit checkpoint registration order and mutable evidence references before
+claiming further source qualification.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3129 publication record](CHECKPOINT-3129.json)
-- [Saved report for checkpoint 3129](PROGRESS-3129.md)
+- [Checkpoint 3130 publication record](CHECKPOINT-3130.json)
+- [Saved report for checkpoint 3130](PROGRESS-3130.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
