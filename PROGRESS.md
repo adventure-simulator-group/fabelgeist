@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T03:56:38.102733+00:00
+Updated: 2026-11-07T04:05:34.673164+00:00
 
-Latest verified checkpoint: **3092**. Goal: **active**.
+Latest verified checkpoint: **3093**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced case membership closure and post-wait treatment revalidation.
+Qualified outbreak patient permission and recovery fixture coverage.
 
-Recovery-crossing reachability and outcome policy remain open; no runtime
-execution.
+Wound, visibility and complete recovery-crossing reachability remain open; no
+runtime execution.
 
 ## Working on now
 
-Qualify recovery-crossing reachability and reconcile treatment outcome
-contracts.
+Trace wound and visibility preconditions for recovery-crossing treatment.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3092 publication record](CHECKPOINT-3092.json)
-- [Saved report for checkpoint 3092](PROGRESS-3092.md)
+- [Checkpoint 3093 publication record](CHECKPOINT-3093.json)
+- [Saved report for checkpoint 3093](PROGRESS-3093.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
