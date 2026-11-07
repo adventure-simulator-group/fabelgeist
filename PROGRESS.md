@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:09:29.048859+00:00
+Updated: 2026-11-07T13:11:07.353204+00:00
 
-Latest verified checkpoint: **3319**. Goal: **active**.
+Latest verified checkpoint: **3320**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -321,7 +321,8 @@ would double-scale them. The day evaluation basis preserves immediate activity
 and prayer allocations; changing it alone would double-scale them. Organization
 and reading hours also rely on the schedule evaluation basis. The Lens 13
 immediate defect is linked to the existing Lens 12 repair owner; broader
-obligations remain open.
+obligations remain open. The Lens 11 immediate defect is linked to the existing
+Lens 12 repair owner; broader obligations remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -332,7 +333,7 @@ obligations remain open.
 
 ## Latest checkpoint
 
-Reconciled the Lens 13 immediate defect with its existing repair owner.
+Reconciled the Lens 11 immediate defect with its existing repair owner.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -506,8 +507,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3319 publication record](CHECKPOINT-3319.json)
-- [Saved report for checkpoint 3319](PROGRESS-3319.md)
+- [Checkpoint 3320 publication record](CHECKPOINT-3320.json)
+- [Saved report for checkpoint 3320](PROGRESS-3320.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
