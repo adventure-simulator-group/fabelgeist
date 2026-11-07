@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:25:21.826929+00:00
+Updated: 2026-11-07T21:28:25.170181+00:00
 
-Latest verified checkpoint: **3563**. Goal: **active**.
+Latest verified checkpoint: **3564**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3563**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 582 / 3,860 marked | 3,278 other entries |
+| Queue entries explicitly marked source-discovery closed | 583 / 3,860 marked | 3,277 other entries |
 | Registered source ranges qualified, connected work open | 297 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -41,14 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Recorded scoped logic-grid admission disposition.
+Recorded scoped GPU residency disposition.
 
-Other retained writes, aliases, native behavior and runtime verification remain
-open.
+Parent semantic asset admission, other lenses and runtime capture remain open.
 
 ## Working on now
 
-Reconcile remaining puzzle errors and cross-lens boundaries.
+Reconcile parent asset admission and remaining audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3563 publication record](CHECKPOINT-3563.json)
-- [Saved report for checkpoint 3563](PROGRESS-3563.md)
+- [Checkpoint 3564 publication record](CHECKPOINT-3564.json)
+- [Saved report for checkpoint 3564](PROGRESS-3564.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
