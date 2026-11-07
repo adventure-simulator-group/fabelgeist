@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:20:45.199239+00:00
+Updated: 2026-11-07T15:22:21.639371+00:00
 
-Latest verified checkpoint: **3383**. Goal: **active**.
+Latest verified checkpoint: **3384**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -423,7 +423,8 @@ creation and simulation setup credit currency through a stack helper; runtime
 effects remain unverified. Checked grants insert a non-individual stack;
 currency bypasses weapon metadata and the wrapper separately discards errors.
 Personal and party grant-error erasure have separate owned ledger repairs from
-the caller-authority question.
+the caller-authority question. Browser withdrawal uses the session actor; the
+inspected reducer validates stake and custody without an explicit caller check.
 
 | Phase | Status |
 | --- | --- |
@@ -434,13 +435,13 @@ the caller-authority question.
 
 ## Latest checkpoint
 
-Compared inventory authority and grant-error ledger entries.
+Traced withdrawal and leave caller boundaries.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify capability prerequisites and remaining authority aliases.
+Qualify connected withdrawal and leave authority.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -608,8 +609,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3383 publication record](CHECKPOINT-3383.json)
-- [Saved report for checkpoint 3383](PROGRESS-3383.md)
+- [Checkpoint 3384 publication record](CHECKPOINT-3384.json)
+- [Saved report for checkpoint 3384](PROGRESS-3384.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
