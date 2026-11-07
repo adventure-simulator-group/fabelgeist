@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:28:03.141285+00:00
+Updated: 2026-11-07T17:30:44.709234+00:00
 
-Latest verified checkpoint: **3431**. Goal: **active**.
+Latest verified checkpoint: **3432**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -506,7 +506,9 @@ building limits and presence; failed reducer transactions roll back. Scoped
 storefront stable-object discovery is complete; independent quantity-one objects
 and fractions remain required in the repair. Scoped storefront stable-object
 discovery is complete; independent quantity-one objects and fractions remain
-required in the repair.
+required in the repair. The party grant wrapper discards checked errors; loot,
+currency and merge callers can mutate source state afterward, subject to actual
+failure reachability.
 
 | Phase | Status |
 | --- | --- |
@@ -517,13 +519,14 @@ required in the repair.
 
 ## Latest checkpoint
 
-Closed scoped personal storefront stable-object discovery with an owned repair.
+Traced unchecked party grant callers and a separate party-merge custody
+question.
 
-Related inventory contracts and runtime repair validation remain open.
+Supported initializer failure, merge custody and runtime behavior remain open.
 
 ## Working on now
 
-Continue remaining connected audit and repair ledger obligations.
+Qualify party grant failure and party-merge custody.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -691,8 +694,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3431 publication record](CHECKPOINT-3431.json)
-- [Saved report for checkpoint 3431](PROGRESS-3431.md)
+- [Checkpoint 3432 publication record](CHECKPOINT-3432.json)
+- [Saved report for checkpoint 3432](PROGRESS-3432.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
