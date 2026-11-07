@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T05:42:40.279513+00:00
+Updated: 2026-11-07T05:45:11.707125+00:00
 
-Latest verified checkpoint: **3114**. Goal: **active**.
+Latest verified checkpoint: **3115**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced debug-dump environment omission and replication registration.
+Traced standalone dump join and narrowed the vista concern.
 
-Other restoration paths and debug vista use remain unverified.
+Other debug environment consumers and alternate events remain unverified.
 
 ## Working on now
 
-Trace debug environment restoration and vista use.
+Qualify other debug environment consumers and alternate event sources.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3114 publication record](CHECKPOINT-3114.json)
-- [Saved report for checkpoint 3114](PROGRESS-3114.md)
+- [Checkpoint 3115 publication record](CHECKPOINT-3115.json)
+- [Saved report for checkpoint 3115](PROGRESS-3115.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
