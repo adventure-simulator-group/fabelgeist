@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T16:33:27.310824+00:00
+Updated: 2026-11-07T16:36:45.765202+00:00
 
-Latest verified checkpoint: **3410**. Goal: **active**.
+Latest verified checkpoint: **3411**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -468,6 +468,8 @@ bookstore paths; exact aliases remain open. Selected book rank paths share
 aptitude and cap helpers for equal source attributes; hours and timing parity
 remain open. Selected ordinary and terrain book hours use matching fields and
 shared projection for equal source data; family and timing parity remain open.
+Selected web family-hour methods delegate to shared world-schema values;
+transport and timing remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -478,7 +480,7 @@ shared projection for equal source data; family and timing parity remain open.
 
 ## Latest checkpoint
 
-Compared strategic and web ordinary and terrain book effective hours.
+Qualified selected web book family-hour projection.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -653,8 +655,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3410 publication record](CHECKPOINT-3410.json)
-- [Saved report for checkpoint 3410](PROGRESS-3410.md)
+- [Checkpoint 3411 publication record](CHECKPOINT-3411.json)
+- [Saved report for checkpoint 3411](PROGRESS-3411.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
