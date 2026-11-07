@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:01:09.442680+00:00
+Updated: 2026-11-07T11:02:46.691482+00:00
 
-Latest verified checkpoint: **3261**. Goal: **active**.
+Latest verified checkpoint: **3262**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -231,7 +231,8 @@ without a local clamp; enemy scaling alone does not establish party receipt
 reachability. Ordinary strategic limb creation starts at one and injury
 projection clamps; other writers and finite admission remain open. Terminal
 receipts are frozen before submission; projectile multiplicity needs an explicit
-bounded policy.
+bounded policy. Strategic ranged combat counts and consumes arrows independently
+of weapon kind; containment reachability remains conditional.
 
 | Phase | Status |
 | --- | --- |
@@ -242,7 +243,7 @@ bounded policy.
 
 ## Latest checkpoint
 
-Traced frozen terminal submission and receipt rejection handling.
+Compared strategic ammunition counting and consumption with weapon selection.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -417,8 +418,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3261 publication record](CHECKPOINT-3261.json)
-- [Saved report for checkpoint 3261](PROGRESS-3261.md)
+- [Checkpoint 3262 publication record](CHECKPOINT-3262.json)
+- [Saved report for checkpoint 3262](PROGRESS-3262.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
