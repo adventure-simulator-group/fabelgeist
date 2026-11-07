@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:40:55.241622+00:00
+Updated: 2026-11-07T11:42:44.170937+00:00
 
-Latest verified checkpoint: **3277**. Goal: **active**.
+Latest verified checkpoint: **3278**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -255,7 +255,9 @@ assigns characters without adding them to the captured enemy roster; invocation
 and receipt reachability remain open. A party-classified temporary row needs a
 matching loading player to spawn; actual invocation and receipt reachability
 remain open. Before sealing, joins can create a matching loading record; row
-delivery ordering and supported invocation remain open.
+delivery ordering and supported invocation remain open. The tactical client
+sends its configured ID; a search found no non-generated temporary-creation
+caller, while external invocation and delivery remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -266,13 +268,13 @@ delivery ordering and supported invocation remain open.
 
 ## Latest checkpoint
 
-Traced pre-seal joins and loading-player creation.
+Traced tactical client join request identity.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace temporary invocation and subscription delivery ordering.
+Resolve temporary subscription delivery and receipt bounds.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -440,8 +442,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3277 publication record](CHECKPOINT-3277.json)
-- [Saved report for checkpoint 3277](PROGRESS-3277.md)
+- [Checkpoint 3278 publication record](CHECKPOINT-3278.json)
+- [Saved report for checkpoint 3278](PROGRESS-3278.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
