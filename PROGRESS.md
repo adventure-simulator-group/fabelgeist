@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:41:40.131372+00:00
+Updated: 2026-11-07T09:43:46.013553+00:00
 
-Latest verified checkpoint: **3225**. Goal: **active**.
+Latest verified checkpoint: **3226**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -175,7 +175,9 @@ snapshot policy remains open. A validated config digest has a distinct
 serialization error; supported failure reachability remains open. The JSON
 serializer maps nonfinite scalar floats to null; complete config admission and
 serialization semantics remain open. A public AI facing threshold lacks a top-
-level finite check; file admission and intended range remain open.
+level finite check; file admission and intended range remain open. YAML float
+parsing admits nonfinite AI facing thresholds in the source-level path;
+threshold policy and runtime effects remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -186,7 +188,7 @@ level finite check; file admission and intended range remain open.
 
 ## Latest checkpoint
 
-Identified unchecked AI facing threshold admission.
+Traced YAML nonfinite admission and the AI facing law.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -361,8 +363,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3225 publication record](CHECKPOINT-3225.json)
-- [Saved report for checkpoint 3225](PROGRESS-3225.md)
+- [Checkpoint 3226 publication record](CHECKPOINT-3226.json)
+- [Saved report for checkpoint 3226](PROGRESS-3226.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
