@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:48:41.673770+00:00
+Updated: 2026-11-07T15:50:49.254143+00:00
 
-Latest verified checkpoint: **3395**. Goal: **active**.
+Latest verified checkpoint: **3396**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -441,7 +441,9 @@ physical reflectability, replication and iteration construction are qualified;
 restore reconstruction remains open. The debug dump excludes physical equipment
 data, and inspected item relationship hooks do not recreate it; other indirect
 reconstruction remains open. Debug restore may also omit player equipment action
-state; indirect initialization and runtime behavior remain open.
+state; indirect initialization and runtime behavior remain open. The shared
+attack-result handler requires wounds on both combatants; debug restore
+initialization remains unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -452,7 +454,7 @@ state; indirect initialization and runtime behavior remain open.
 
 ## Latest checkpoint
 
-Traced debug player equipment action-state initialization and action gates.
+Traced transient wound-state use by melee, ranged and bleeding consumers.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -627,8 +629,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3395 publication record](CHECKPOINT-3395.json)
-- [Saved report for checkpoint 3395](PROGRESS-3395.md)
+- [Checkpoint 3396 publication record](CHECKPOINT-3396.json)
+- [Saved report for checkpoint 3396](PROGRESS-3396.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
