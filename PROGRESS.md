@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T04:53:18.172750+00:00
+Updated: 2026-11-07T04:59:32.904798+00:00
 
-Latest verified checkpoint: **3099**. Goal: **active**.
+Latest verified checkpoint: **3100**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced checked inventory grants and an ignored unknown-item error.
+Traced unchecked party withdrawal and starting-inventory grants.
 
-Unknown-item reducer behavior and caller access require runtime verification; no
+Valid-item failure reachability and runtime effects remain unverified; no
 runtime execution.
 
 ## Working on now
 
-Trace unchecked grant consumers and connect inventory findings to the audit
-ledger.
+Trace valid-item failures and generated inventory admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3099 publication record](CHECKPOINT-3099.json)
-- [Saved report for checkpoint 3099](PROGRESS-3099.md)
+- [Checkpoint 3100 publication record](CHECKPOINT-3100.json)
+- [Saved report for checkpoint 3100](PROGRESS-3100.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
