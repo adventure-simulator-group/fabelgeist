@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T00:42:58.770490+00:00
+Updated: 2026-11-07T00:48:53.560168+00:00
 
-Latest verified checkpoint: **3057**. Goal: **active**.
+Latest verified checkpoint: **3058**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the camp destination form through the unplanned redirect.
+Recorded a scoped repair contract for camp redirect departure position.
 
-Encounter selection remains conditional and coordinate-frame policy remains
+Related interpolation, camp identity, timing and weather obligations remain
 open; no runtime execution.
 
 ## Working on now
 
-Reconcile reachable route-less redirect with camp and route ownership
-obligations.
+Resolve coordinate-frame policy and remaining connected consumer contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3057 publication record](CHECKPOINT-3057.json)
-- [Saved report for checkpoint 3057](PROGRESS-3057.md)
+- [Checkpoint 3058 publication record](CHECKPOINT-3058.json)
+- [Saved report for checkpoint 3058](PROGRESS-3058.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
