@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T02:27:02.290556+00:00
+Updated: 2026-11-07T02:32:57.521838+00:00
 
-Latest verified checkpoint: **3078**. Goal: **active**.
+Latest verified checkpoint: **3079**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3078**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 572 / 3,850 marked | 3,278 other entries |
+| Queue entries explicitly marked source-discovery closed | 573 / 3,850 marked | 3,277 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced ordinary reducer dispatch into serializable host transactions.
+Resolved the scoped stale-settlement snapshot suspicion from source.
 
-In-transaction helper writes remain open; no runtime execution.
+Independent population and tactical scene obligations remain open; no runtime
+execution.
 
 ## Working on now
 
-Reconcile population helper writes with captured settlement fields.
+Continue independent population and tactical scene obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3078 publication record](CHECKPOINT-3078.json)
-- [Saved report for checkpoint 3078](PROGRESS-3078.md)
+- [Checkpoint 3079 publication record](CHECKPOINT-3079.json)
+- [Saved report for checkpoint 3079](PROGRESS-3079.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
