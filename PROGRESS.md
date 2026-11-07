@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:55:29.877358+00:00
+Updated: 2026-11-07T09:57:25.233078+00:00
 
-Latest verified checkpoint: **3231**. Goal: **active**.
+Latest verified checkpoint: **3232**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -185,7 +185,8 @@ remains separate. The AI facing-threshold gap now has its own open entry; its
 numeric-lens qualification remains separate. AI facing admission now has
 separate Lens 12 and Lens 13 source evidence; finite policy remains open. AI
 facing admission has independent type, string and numeric lens evidence; finite
-policy remains open.
+policy remains open. Ratio is unchecked; UnitInterval adds bounded admission, so
+the threshold policy must decide the appropriate owner.
 
 | Phase | Status |
 | --- | --- |
@@ -196,7 +197,7 @@ policy remains open.
 
 ## Latest checkpoint
 
-Qualified AI facing type ownership independently under Lens 11.
+Compared existing ratio and bounded fraction types for the AI threshold.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -371,8 +372,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3231 publication record](CHECKPOINT-3231.json)
-- [Saved report for checkpoint 3231](PROGRESS-3231.md)
+- [Checkpoint 3232 publication record](CHECKPOINT-3232.json)
+- [Saved report for checkpoint 3232](PROGRESS-3232.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
