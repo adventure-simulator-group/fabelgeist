@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:10:05.325447+00:00
+Updated: 2026-11-07T07:12:19.955533+00:00
 
-Latest verified checkpoint: **3152**. Goal: **active**.
+Latest verified checkpoint: **3153**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -61,6 +61,8 @@ initializes its local clock before the fallback; other clock producers remain
 open. Wilderness elapsed updates saturate and project within the anchor day;
 supported boundary reachability remains open. Inspected journey transitions
 retain the clock outside settlements and clear it on settlement arrival.
+Official clock conversion clamps negative elapsed and uses saturating
+arithmetic; native extremes remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -71,7 +73,7 @@ retain the clock outside settlements and clear it on settlement arrival.
 
 ## Latest checkpoint
 
-Traced wilderness clock retention and reset at journey transitions.
+Traced official world-clock timestamp conversion and simulation advance.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -246,8 +248,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3152 publication record](CHECKPOINT-3152.json)
-- [Saved report for checkpoint 3152](PROGRESS-3152.md)
+- [Checkpoint 3153 publication record](CHECKPOINT-3153.json)
+- [Saved report for checkpoint 3153](PROGRESS-3153.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
