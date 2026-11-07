@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:50:52.169207+00:00
+Updated: 2026-11-07T08:52:45.072005+00:00
 
-Latest verified checkpoint: **3203**. Goal: **active**.
+Latest verified checkpoint: **3204**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -136,7 +136,8 @@ overnight itinerary yields different forecast and wilderness dates; admission
 and readiness impact remain open. Camp rest samples wrapped wilderness weather
 before advancing party elapsed; complete route impact remains open. Generated
 site distances can exceed an eight-hour forecast leg; a concrete admitted route
-remains open.
+remains open. Safe-departure selection configures journey-local time without
+advancing personal time in the inspected method.
 
 | Phase | Status |
 | --- | --- |
@@ -147,8 +148,7 @@ remains open.
 
 ## Latest checkpoint
 
-Traced generated site distance range and route admission for overnight
-forecasts.
+Traced simulator safe-departure selection into journey-local configuration.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -323,8 +323,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3203 publication record](CHECKPOINT-3203.json)
-- [Saved report for checkpoint 3203](PROGRESS-3203.md)
+- [Checkpoint 3204 publication record](CHECKPOINT-3204.json)
+- [Saved report for checkpoint 3204](PROGRESS-3204.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
