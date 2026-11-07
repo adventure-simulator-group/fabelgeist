@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:41:59.394692+00:00
+Updated: 2026-11-07T18:43:29.505234+00:00
 
-Latest verified checkpoint: **3468**. Goal: **active**.
+Latest verified checkpoint: **3469**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -565,7 +565,8 @@ contacts use unarmed precision. Existing test source describes positive-energy
 sword contact; it does not prove a specific bandit hit. A hypothetical equal-
 channel hit makes the two injury splits straddle the fracture threshold; runtime
 occurrence remains unproved. Direct remote verification confirms the selected
-current source pin despite a stale local tracking reference.
+current source pin despite a stale local tracking reference. Recent
+qualification paths match the selected source tree despite the older checkout.
 
 | Phase | Status |
 | --- | --- |
@@ -576,14 +577,13 @@ current source pin despite a stale local tracking reference.
 
 ## Latest checkpoint
 
-Verified remote main source pin.
+Verified recent source identities.
 
-Injury-share reachability, semantics and runtime impact remain open.
+No contract closure or runtime validation follows from source identity.
 
 ## Working on now
 
-Resolve injury split semantics and supported reachability; continue audit
-closure.
+Continue remaining connected source and alias audits.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -751,8 +751,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3468 publication record](CHECKPOINT-3468.json)
-- [Saved report for checkpoint 3468](PROGRESS-3468.md)
+- [Checkpoint 3469 publication record](CHECKPOINT-3469.json)
+- [Saved report for checkpoint 3469](PROGRESS-3469.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
