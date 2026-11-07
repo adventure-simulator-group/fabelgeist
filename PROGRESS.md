@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:36:55.102777+00:00
+Updated: 2026-11-07T10:39:11.245903+00:00
 
-Latest verified checkpoint: **3249**. Goal: **active**.
+Latest verified checkpoint: **3250**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -213,7 +213,8 @@ open. UnitInterval lacks a fixed-step method; the anticipation repair must
 preserve exact step arithmetic. The registered current procedural animation file
 is read under Lens 2; its helper test does not cover the full anticipation
 system. Jump anticipation is ordered between body response and later pose
-refinements and fixed-tick stabilization.
+refinements and fixed-tick stabilization. Jump charging admission is restricted
+to grounded upright state without a posture transition.
 
 | Phase | Status |
 | --- | --- |
@@ -224,7 +225,7 @@ refinements and fixed-tick stabilization.
 
 ## Latest checkpoint
 
-Traced anticipation within the ordered presentation schedule.
+Traced admitted upstream jump anticipation state and transitions.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -399,8 +400,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3249 publication record](CHECKPOINT-3249.json)
-- [Saved report for checkpoint 3249](PROGRESS-3249.md)
+- [Checkpoint 3250 publication record](CHECKPOINT-3250.json)
+- [Saved report for checkpoint 3250](PROGRESS-3250.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
