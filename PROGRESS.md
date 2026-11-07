@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:21:05.832797+00:00
+Updated: 2026-11-07T21:22:29.320438+00:00
 
-Latest verified checkpoint: **3560**. Goal: **active**.
+Latest verified checkpoint: **3561**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified logic-grid projection admission.
+Traced logic-grid receipt rendering.
 
-Retained last-answer consistency, aliases and direct-value policy remain open.
+Retained-data consistency, aliases and native behavior remain open.
 
 ## Working on now
 
-Trace logic-grid retained answer and projection consistency.
+Reconcile logic-grid retained data and direct projection admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3560 publication record](CHECKPOINT-3560.json)
-- [Saved report for checkpoint 3560](PROGRESS-3560.md)
+- [Checkpoint 3561 publication record](CHECKPOINT-3561.json)
+- [Saved report for checkpoint 3561](PROGRESS-3561.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
