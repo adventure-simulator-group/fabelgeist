@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:45:12.907067+00:00
+Updated: 2026-11-07T15:48:41.673770+00:00
 
-Latest verified checkpoint: **3394**. Goal: **active**.
+Latest verified checkpoint: **3395**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -440,7 +440,8 @@ reuse existing records; temporary-member reachability remains open. Debug item
 physical reflectability, replication and iteration construction are qualified;
 restore reconstruction remains open. The debug dump excludes physical equipment
 data, and inspected item relationship hooks do not recreate it; other indirect
-reconstruction remains open.
+reconstruction remains open. Debug restore may also omit player equipment action
+state; indirect initialization and runtime behavior remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -451,7 +452,7 @@ reconstruction remains open.
 
 ## Latest checkpoint
 
-Qualified the debug dump allowlist and item relationship hooks.
+Traced debug player equipment action-state initialization and action gates.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -626,8 +627,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3394 publication record](CHECKPOINT-3394.json)
-- [Saved report for checkpoint 3394](PROGRESS-3394.md)
+- [Checkpoint 3395 publication record](CHECKPOINT-3395.json)
+- [Saved report for checkpoint 3395](PROGRESS-3395.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
