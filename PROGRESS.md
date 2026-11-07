@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:31:27.690726+00:00
+Updated: 2026-11-07T10:33:30.041841+00:00
 
-Latest verified checkpoint: **3246**. Goal: **active**.
+Latest verified checkpoint: **3247**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -209,7 +209,8 @@ without checking and applies it to a speed wrapper; remaining registered scopes
 are open. The registered rodio player and spatial-player source ranges have been
 read under Lens 2; independent contracts remain open. Procedural anticipation
 source matches the prior assessed bytes at the current pin; exact aliases remain
-open.
+open. UnitInterval lacks a fixed-step method; the anticipation repair must
+preserve exact step arithmetic.
 
 | Phase | Status |
 | --- | --- |
@@ -220,7 +221,7 @@ open.
 
 ## Latest checkpoint
 
-Reconciled procedural anticipation fractions with the current pinned source.
+Compared checked fraction operations and connected pose obligations.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -395,8 +396,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3246 publication record](CHECKPOINT-3246.json)
-- [Saved report for checkpoint 3246](PROGRESS-3246.md)
+- [Checkpoint 3247 publication record](CHECKPOINT-3247.json)
+- [Saved report for checkpoint 3247](PROGRESS-3247.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
