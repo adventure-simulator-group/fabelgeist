@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:43:14.962484+00:00
+Updated: 2026-11-07T14:44:44.269145+00:00
 
-Latest verified checkpoint: **3363**. Goal: **active**.
+Latest verified checkpoint: **3364**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -388,7 +388,9 @@ and inventory association but the inspected entry has no explicit caller-
 identity guard. Inspected deposit value, equipment and stake helpers do not add
 a caller-identity check. Inspected deposit classification and object lookup
 helpers do not compare caller identity. The inspected capability refresh does
-not directly check caller identity; downstream loaders remain open.
+not directly check caller identity; downstream loaders remain open. Personal
+inventory and party membership schema rows are public; the full Character table
+is private.
 
 | Phase | Status |
 | --- | --- |
@@ -399,13 +401,13 @@ not directly check caller identity; downstream loaders remain open.
 
 ## Latest checkpoint
 
-Traced capability refresh and plain-stack classifications.
+Qualified inventory and party schema visibility.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify capability loaders and deposit mutation helpers.
+Qualify deployment access and a supported plain-stack deposit path.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -573,8 +575,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3363 publication record](CHECKPOINT-3363.json)
-- [Saved report for checkpoint 3363](PROGRESS-3363.md)
+- [Checkpoint 3364 publication record](CHECKPOINT-3364.json)
+- [Saved report for checkpoint 3364](PROGRESS-3364.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
