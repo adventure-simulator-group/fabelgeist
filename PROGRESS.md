@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:58:40.074965+00:00
+Updated: 2026-11-07T16:02:27.535421+00:00
 
-Latest verified checkpoint: **3400**. Goal: **active**.
+Latest verified checkpoint: **3401**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -450,7 +450,8 @@ and wound state questions independently of fit identity. Related debug
 environment and obstacle views share a snapshot boundary but have distinct first
 contracts from combat state. Standalone join only installs a loading marker in
 the inspected path; combat-state acceptance now covers action and wound
-behavior.
+behavior. The Lens 1 schedule adapter and core numeric admission were reread;
+connected policy and alias closure remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -461,8 +462,7 @@ behavior.
 
 ## Latest checkpoint
 
-Traced standalone join and completed the provisional action and wound acceptance
-scope.
+Reconciled current Lens 1 schedule adapter with related ledger owners.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -637,8 +637,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3400 publication record](CHECKPOINT-3400.json)
-- [Saved report for checkpoint 3400](PROGRESS-3400.md)
+- [Checkpoint 3401 publication record](CHECKPOINT-3401.json)
+- [Saved report for checkpoint 3401](PROGRESS-3401.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
