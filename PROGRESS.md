@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:56:51.974074+00:00
+Updated: 2026-11-07T20:59:25.089127+00:00
 
-Latest verified checkpoint: **3546**. Goal: **active**.
+Latest verified checkpoint: **3547**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -652,7 +652,7 @@ native boundaries. Existing invalid-data fallbacks are not compatibility duties.
 Threat syntax and membership share one threat-named error. Authored threat
 errors cross server and simulator wrappers. Threat error and parsing entries
 remain independently scoped. Errantry trial order and selection need further
-reconciliation.
+reconciliation. Ordered clue position admission remains under reconciliation.
 
 | Phase | Status |
 | --- | --- |
@@ -663,13 +663,13 @@ reconciliation.
 
 ## Latest checkpoint
 
-Qualified errantry trial order and selection.
+Qualified ordered clue position admission.
 
-Ordering semantics, all consumers, aliases and serialization remain open.
+Validation dispatch, native boundaries and clean owner remain open.
 
 ## Working on now
 
-Reconcile errantry ordering and identity consumers.
+Reconcile clue position validation and public ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -837,8 +837,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3546 publication record](CHECKPOINT-3546.json)
-- [Saved report for checkpoint 3546](PROGRESS-3546.md)
+- [Checkpoint 3547 publication record](CHECKPOINT-3547.json)
+- [Saved report for checkpoint 3547](PROGRESS-3547.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
