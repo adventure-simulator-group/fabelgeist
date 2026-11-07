@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:42:35.355271+00:00
+Updated: 2026-11-07T12:46:20.652295+00:00
 
-Latest verified checkpoint: **3305**. Goal: **active**.
+Latest verified checkpoint: **3306**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -299,7 +299,9 @@ and drive-off objectives. Withdrawal can pass its score threshold in principle;
 jointly admitted inputs and timing remain unproven. Authored bandits are
 negotiable with morale 50; admitted social and language inputs remain unproven.
 Tactical assignment alone does not close hostile context membership; other
-lifecycle and timing conditions remain open.
+lifecycle and timing conditions remain open. Field counterparties receive
+initialized vernacular exposure; actual pairwise language overlap remains
+unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -310,13 +312,13 @@ lifecycle and timing conditions remain open.
 
 ## Latest checkpoint
 
-Traced hostile context membership through tactical assignment.
+Traced field character language initialization and its negotiation input.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace hostile spokesman language and tactical lifecycle.
+Trace persisted oral skills and admitted pair overlap.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -484,8 +486,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3305 publication record](CHECKPOINT-3305.json)
-- [Saved report for checkpoint 3305](PROGRESS-3305.md)
+- [Checkpoint 3306 publication record](CHECKPOINT-3306.json)
+- [Saved report for checkpoint 3306](PROGRESS-3306.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
