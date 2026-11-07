@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:38:37.550788+00:00
+Updated: 2026-11-07T18:40:14.500660+00:00
 
-Latest verified checkpoint: **3466**. Goal: **active**.
+Latest verified checkpoint: **3467**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -562,7 +562,9 @@ branch; actual battle reachability remains open. Allied equipment projection
 retains empty coverage for unprotected body parts; contact timing remains open.
 Intended weapon contact preserves weapon precision, while haft and pommel
 contacts use unarmed precision. Existing test source describes positive-energy
-sword contact; it does not prove a specific bandit hit.
+sword contact; it does not prove a specific bandit hit. A hypothetical equal-
+channel hit makes the two injury splits straddle the fracture threshold; runtime
+occurrence remains unproved.
 
 | Phase | Status |
 | --- | --- |
@@ -573,13 +575,14 @@ sword contact; it does not prove a specific bandit hit.
 
 ## Latest checkpoint
 
-Attached intended-contact source example to injury-share question.
+Qualified illustrative fracture threshold divergence.
 
-Bandit contact reachability, intended semantics and runtime impact remain open.
+Actual hit reachability, intended semantics and runtime impact remain open.
 
 ## Working on now
 
-Resolve injury split semantics, reachability and aliases.
+Resolve injury split semantics and supported reachability; plan parity
+acceptance.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -747,8 +750,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3466 publication record](CHECKPOINT-3466.json)
-- [Saved report for checkpoint 3466](PROGRESS-3466.md)
+- [Checkpoint 3467 publication record](CHECKPOINT-3467.json)
+- [Saved report for checkpoint 3467](PROGRESS-3467.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
