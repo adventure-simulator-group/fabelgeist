@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:39:55.259577+00:00
+Updated: 2026-11-07T17:41:39.711190+00:00
 
-Latest verified checkpoint: **3436**. Goal: **active**.
+Latest verified checkpoint: **3437**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3436**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 576 / 3,858 marked | 3,282 other entries |
+| Queue entries explicitly marked source-discovery closed | 577 / 3,858 marked | 3,281 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -516,7 +516,9 @@ Elapsed-needs consumption can leave a partially consumed party food row before a
 later merge. Party food lot, amount and object are separate records; inspected
 native delete wrapper does not specify companion cleanup. Join admission does
 not explicitly exclude partial food; pinned indexed deletion does not specify
-companion-table effects.
+companion-table effects. A successful eligible party merge recreates partial
+non-repairable rations at whole catalog defaults; old companion deletion
+behavior remains unresolved.
 
 | Phase | Status |
 | --- | --- |
@@ -527,13 +529,13 @@ companion-table effects.
 
 ## Latest checkpoint
 
-Qualified join admission and pinned indexed-delete syscall.
+Closed scoped party-merge food conservation discovery with an owned repair.
 
-Host companion behavior and runtime join remain open.
+Host companion deletion semantics and runtime repair validation remain open.
 
 ## Working on now
 
-Reconcile party-merge companion behavior and exact aliases.
+Continue remaining connected audit and repair ledger obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -701,8 +703,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3436 publication record](CHECKPOINT-3436.json)
-- [Saved report for checkpoint 3436](PROGRESS-3436.md)
+- [Checkpoint 3437 publication record](CHECKPOINT-3437.json)
+- [Saved report for checkpoint 3437](PROGRESS-3437.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
