@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:02:04.119565+00:00
+Updated: 2026-11-07T06:06:55.037255+00:00
 
-Latest verified checkpoint: **3120**. Goal: **active**.
+Latest verified checkpoint: **3121**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared the debug environment observation with existing queue entries.
+Qualified P01 movement-audio seed propagation at the current pin.
 
-Literal search does not establish semantic aliases or prove the observation
-unique.
+Other P01 lenses and native runtime behavior remain open.
 
 ## Working on now
 
-Resolve debug environment insertion paths and semantic aliases.
+Reconcile P01 with remaining seed and time contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3120 publication record](CHECKPOINT-3120.json)
-- [Saved report for checkpoint 3120](PROGRESS-3120.md)
+- [Checkpoint 3121 publication record](CHECKPOINT-3121.json)
+- [Saved report for checkpoint 3121](PROGRESS-3121.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
