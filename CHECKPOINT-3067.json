@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 3067,
+  "at": "2026-11-07T01:30:12.894906+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "75764224b535bfea0dc07e904bae81927a9c90490210ebbe3aa29bca2ecbde2d",
+    "verification": "fb10cfef722c765fb38d79ef2f6f05d3b0f144f02fafa8dce442316dc5f3836e",
+    "canonical_current": "0911092b7de52460455f2bf933936a60fb42a397cb1c901127c8aadaa2701ad2"
+  },
+  "scope": {
+    "summary": "Traced settlement snapshot through generated client and scene binding.",
+    "scope_limit": "Nested population writes and alias reconciliation remain open; no runtime execution."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "f37750b6cfba3493aeabc85ada005766205c884310387098e6bc9d124551c376",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}

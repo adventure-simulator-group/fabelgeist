@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T01:27:13.090451+00:00
+Updated: 2026-11-07T01:32:37.560547+00:00
 
-Latest verified checkpoint: **3066**. Goal: **active**.
+Latest verified checkpoint: **3067**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced tactical settlement snapshot and population materialization entry points.
+Traced settlement snapshot through generated client and scene binding.
 
-Nested helper writes and dispatcher consumers remain open; no runtime execution.
+Nested population writes and alias reconciliation remain open; no runtime
+execution.
 
 ## Working on now
 
-Trace nested population writes and tactical snapshot consumers.
+Finish nested population writer and tactical snapshot reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3066 publication record](CHECKPOINT-3066.json)
-- [Saved report for checkpoint 3066](PROGRESS-3066.md)
+- [Checkpoint 3067 publication record](CHECKPOINT-3067.json)
+- [Saved report for checkpoint 3067](PROGRESS-3067.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
