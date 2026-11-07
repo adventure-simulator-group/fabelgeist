@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:56:20.743608+00:00
+Updated: 2026-11-07T17:58:11.845497+00:00
 
-Latest verified checkpoint: **3444**. Goal: **active**.
+Latest verified checkpoint: **3445**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -11,7 +11,7 @@ Latest verified checkpoint: **3444**. Goal: **active**.
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
 | Queue entries explicitly marked source-discovery closed | 578 / 3,858 marked | 3,280 other entries |
-| Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
+| Registered source ranges qualified, connected work open | 297 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
 | Scoped repair obligations on entries | 75 recorded | 3 conditional; 10 policy/design |
@@ -527,7 +527,9 @@ unproven. An adopted full frozen Lens 13 challenge read covers the extension
 ranges; current reconciliation remains open. Four more frozen extension scopes
 reuse adopted Lens 13 reads without new body credit. Eight frozen extension
 scopes reuse adopted Lens 12 reads without new body credit. Twenty frozen
-extension scopes reuse adopted Lens 11 reads without new body credit.
+extension scopes reuse adopted Lens 11 reads without new body credit. Two
+current Lens 11 extension ranges were reread after registration; connected work
+remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -538,13 +540,13 @@ extension scopes reuse adopted Lens 11 reads without new body credit.
 
 ## Latest checkpoint
 
-Qualified twenty frozen extension ranges by adopted Lens 11 evidence.
+Reread current mission and weapon surface-refinement extension scopes.
 
-Current reconciliation and connected contracts remain open.
+Connected source contracts, aliases and runtime behavior remain open.
 
 ## Working on now
 
-Reconcile current extension sources and connected obligations.
+Reconcile mission and weapon refinement connected contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -712,8 +714,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3444 publication record](CHECKPOINT-3444.json)
-- [Saved report for checkpoint 3444](PROGRESS-3444.md)
+- [Checkpoint 3445 publication record](CHECKPOINT-3445.json)
+- [Saved report for checkpoint 3445](PROGRESS-3445.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
