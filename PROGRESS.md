@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:22:21.639371+00:00
+Updated: 2026-11-07T15:24:05.037032+00:00
 
-Latest verified checkpoint: **3384**. Goal: **active**.
+Latest verified checkpoint: **3385**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -425,6 +425,8 @@ currency bypasses weapon metadata and the wrapper separately discards errors.
 Personal and party grant-error erasure have separate owned ledger repairs from
 the caller-authority question. Browser withdrawal uses the session actor; the
 inspected reducer validates stake and custody without an explicit caller check.
+Simulation withdraws stake for first-aid and ammunition shortfalls; authorized
+behavior must survive any authority repair.
 
 | Phase | Status |
 | --- | --- |
@@ -435,13 +437,13 @@ inspected reducer validates stake and custody without an explicit caller check.
 
 ## Latest checkpoint
 
-Traced withdrawal and leave caller boundaries.
+Traced simulation stake-funded purchase callers.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify connected withdrawal and leave authority.
+Qualify connected authority and simulation acceptance.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -609,8 +611,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3384 publication record](CHECKPOINT-3384.json)
-- [Saved report for checkpoint 3384](PROGRESS-3384.md)
+- [Checkpoint 3385 publication record](CHECKPOINT-3385.json)
+- [Saved report for checkpoint 3385](PROGRESS-3385.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
