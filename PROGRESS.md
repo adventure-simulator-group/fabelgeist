@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:04:13.255837+00:00
+Updated: 2026-11-07T21:05:55.442950+00:00
 
-Latest verified checkpoint: **3550**. Goal: **active**.
+Latest verified checkpoint: **3551**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,14 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Connected distinct ordered-sigil preconditions.
+Qualified ordered-sigil spec under Lens 3.
 
-Public admissions, native consumers and separate lens obligations remain open.
+Exact alias and public rejection ownership remain open; no runtime test.
 
 ## Working on now
 
-Reconcile connected ordered-sigil preconditions and their independent lens
-obligations.
+Complete specification admission and consumer reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3550 publication record](CHECKPOINT-3550.json)
-- [Saved report for checkpoint 3550](PROGRESS-3550.md)
+- [Checkpoint 3551 publication record](CHECKPOINT-3551.json)
+- [Saved report for checkpoint 3551](PROGRESS-3551.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
