@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:23:09.760964+00:00
+Updated: 2026-11-07T09:26:36.167946+00:00
 
-Latest verified checkpoint: **3217**. Goal: **active**.
+Latest verified checkpoint: **3218**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3217**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 573 / 3,850 marked | 3,277 other entries |
+| Queue entries explicitly marked source-discovery closed | 574 / 3,850 marked | 3,276 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -160,7 +160,10 @@ remains unverified. The movement exposure partial plan was scoped without
 discarding independent battle-time and forecast obligations. Signed elevation
 admission matches its historical owner at the current pin; related aliases
 remain open. Signed elevation admission matches its historical owner at the
-current pin; related aliases remain open.
+current pin; related aliases remain open. Compiled-default diagnostic source is
+reconciled; dynamic configuration error policy remains separate. Compiled-
+default diagnostic source is reconciled; dynamic configuration error policy
+remains separate.
 
 | Phase | Status |
 | --- | --- |
@@ -171,7 +174,7 @@ current pin; related aliases remain open.
 
 ## Latest checkpoint
 
-Reconciled signed elevation admission against current source.
+Resolved the compiled-default diagnostic source question.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -346,8 +349,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3217 publication record](CHECKPOINT-3217.json)
-- [Saved report for checkpoint 3217](PROGRESS-3217.md)
+- [Checkpoint 3218 publication record](CHECKPOINT-3218.json)
+- [Saved report for checkpoint 3218](PROGRESS-3218.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
