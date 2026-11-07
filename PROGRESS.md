@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:55:08.635277+00:00
+Updated: 2026-11-07T06:56:50.507828+00:00
 
-Latest verified checkpoint: **3144**. Goal: **active**.
+Latest verified checkpoint: **3145**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -49,7 +49,9 @@ recorded telemetry; intended near-equal policy remains open. Authored initiative
 delay varies; a supported near-equal contact witness and policy remain open.
 Normal joint scheduling fixes new starts at its window endpoint; surprise-
 opening timing remains to be traced. Surprise opening can retain out-of-window
-timing in principle; a supported near-equal witness remains unproven.
+timing in principle; a supported near-equal witness remains unproven. Retained
+contact coordinates feed joint windows; supported near-equal reachability and
+cancellation remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -60,7 +62,7 @@ timing in principle; a supported near-equal witness remains unproven.
 
 ## Latest checkpoint
 
-Traced conditional surprise-opening contact retention.
+Traced retained contact coordinates into joint windows.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -235,8 +237,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3144 publication record](CHECKPOINT-3144.json)
-- [Saved report for checkpoint 3144](PROGRESS-3144.md)
+- [Checkpoint 3145 publication record](CHECKPOINT-3145.json)
+- [Saved report for checkpoint 3145](PROGRESS-3145.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
