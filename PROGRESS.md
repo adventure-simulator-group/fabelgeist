@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:39:13.039570+00:00
+Updated: 2026-11-07T09:41:40.131372+00:00
 
-Latest verified checkpoint: **3224**. Goal: **active**.
+Latest verified checkpoint: **3225**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -174,7 +174,8 @@ animation and server defense consume their respective config states; rejected-
 snapshot policy remains open. A validated config digest has a distinct
 serialization error; supported failure reachability remains open. The JSON
 serializer maps nonfinite scalar floats to null; complete config admission and
-serialization semantics remain open.
+serialization semantics remain open. A public AI facing threshold lacks a top-
+level finite check; file admission and intended range remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -185,7 +186,7 @@ serialization semantics remain open.
 
 ## Latest checkpoint
 
-Qualified JSON serializer behavior for configuration digests.
+Identified unchecked AI facing threshold admission.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -360,8 +361,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3224 publication record](CHECKPOINT-3224.json)
-- [Saved report for checkpoint 3224](PROGRESS-3224.md)
+- [Checkpoint 3225 publication record](CHECKPOINT-3225.json)
+- [Saved report for checkpoint 3225](PROGRESS-3225.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
