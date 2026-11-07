@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:34:05.423945+00:00
+Updated: 2026-11-07T12:35:44.074279+00:00
 
-Latest verified checkpoint: **3301**. Goal: **active**.
+Latest verified checkpoint: **3302**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -293,7 +293,9 @@ timing remain open. Generated action resolution reaches a guaranteed threshold
 after five uninterrupted failures; admission and cross-party timing remain open.
 Inspected readiness and encounter gates are acting-party scoped; other cross-
 party admission and timing remain open. Arrival directly commits matching escort
-objectives; continuity effects and cross-party timing remain open.
+objectives; continuity effects and cross-party timing remain open. Arrival
+continuity guards cover survive and protect objectives, not the inspected defeat
+and drive-off objectives.
 
 | Phase | Status |
 | --- | --- |
@@ -304,13 +306,13 @@ objectives; continuity effects and cross-party timing remain open.
 
 ## Latest checkpoint
 
-Traced case-site arrival and case outcome evaluation.
+Traced arrival continuity guards and emitted facts.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace arrival continuity and cross-party negotiation timing.
+Trace cross-party negotiation eligibility and timing.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -478,8 +480,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3301 publication record](CHECKPOINT-3301.json)
-- [Saved report for checkpoint 3301](PROGRESS-3301.md)
+- [Checkpoint 3302 publication record](CHECKPOINT-3302.json)
+- [Saved report for checkpoint 3302](PROGRESS-3302.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
