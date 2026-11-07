@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:54:32.847355+00:00
+Updated: 2026-11-07T07:56:12.969098+00:00
 
-Latest verified checkpoint: **3174**. Goal: **active**.
+Latest verified checkpoint: **3175**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -93,7 +93,9 @@ reject it against the wilderness departure interval. Member approval reaches the
 same planned route clock boundary; coordinate-frame questions remain separate.
 Member approval reaches the same planned route clock boundary; coordinate-frame
 questions remain separate. Forecast starting times come from independent
-personal clocks; supported extreme bounds remain open.
+personal clocks; supported extreme bounds remain open. Newborn and encounter
+character clocks derive from parent and encounter times; those producer bounds
+remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -104,8 +106,7 @@ personal clocks; supported extreme bounds remain open.
 
 ## Latest checkpoint
 
-Traced thermal forecast inputs to persisted personal clocks and their
-independent advancement.
+Traced newborn and road-encounter personal-clock initialization sources.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -280,8 +281,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3174 publication record](CHECKPOINT-3174.json)
-- [Saved report for checkpoint 3174](PROGRESS-3174.md)
+- [Checkpoint 3175 publication record](CHECKPOINT-3175.json)
+- [Saved report for checkpoint 3175](PROGRESS-3175.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
