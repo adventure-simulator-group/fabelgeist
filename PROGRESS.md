@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T01:46:42.056573+00:00
+Updated: 2026-11-07T01:51:36.258068+00:00
 
-Latest verified checkpoint: **3070**. Goal: **active**.
+Latest verified checkpoint: **3071**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Inspected the remaining general character creation and origin selector bodies.
+Traced NPC initialization, currency and equipment effects.
 
-Nested component helpers and native transaction assumptions remain open.
+Nested helper calls and native transaction behavior remain open.
 
 ## Working on now
 
-Qualify nested character helpers and tactical snapshot aliases.
+Finish nested helper and transaction qualification for the snapshot.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3070 publication record](CHECKPOINT-3070.json)
-- [Saved report for checkpoint 3070](PROGRESS-3070.md)
+- [Checkpoint 3071 publication record](CHECKPOINT-3071.json)
+- [Saved report for checkpoint 3071](PROGRESS-3071.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
