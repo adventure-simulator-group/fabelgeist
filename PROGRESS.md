@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:13:36.601181+00:00
+Updated: 2026-11-07T19:15:27.714228+00:00
 
-Latest verified checkpoint: **3485**. Goal: **active**.
+Latest verified checkpoint: **3486**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -589,7 +589,8 @@ raw threat string despite an existing ThreatId; inspected gateway output uses
 only text. First-party symbol uses do not show a retained insight identifier
 consumer; public serialization remains an open contract. Hostile-group
 construction catalog-checks identity before retaining a string; insight
-presentation parses it again.
+presentation parses it again. Hostile group writers include checked
+materialization and a fixed-bandit standalone insertion.
 
 | Phase | Status |
 | --- | --- |
@@ -600,13 +601,13 @@ presentation parses it again.
 
 ## Latest checkpoint
 
-Traced hostile threat admission and insight reparse.
+Traced hostile group writers.
 
-All native writers and direct public insight admission remain open.
+Native writer completeness and direct public insight admission remain open.
 
 ## Working on now
 
-Qualify hostile-group writers and tactical insight owner fit.
+Reconcile native writer assumptions and tactical insight owner fit.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -774,8 +775,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3485 publication record](CHECKPOINT-3485.json)
-- [Saved report for checkpoint 3485](PROGRESS-3485.md)
+- [Checkpoint 3486 publication record](CHECKPOINT-3486.json)
+- [Saved report for checkpoint 3486](PROGRESS-3486.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
