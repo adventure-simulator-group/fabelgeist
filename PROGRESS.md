@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T16:58:45.479161+00:00
+Updated: 2026-11-07T17:02:21.837867+00:00
 
-Latest verified checkpoint: **3418**. Goal: **active**.
+Latest verified checkpoint: **3419**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -31,9 +31,10 @@ reuse of existing types and preservation of semantic values through native
 boundaries. Completing a scoped question or correcting an old status note does
 not complete the audit or authorize implementation. Checkpoint 3130 records an
 evidence-integrity correction for recent work; adjacent checkpoints still
-require review. Six P02 note versions were recovered by exact hash; two remain
-unresolved. A bounded scan checked 489 nearby decision evidence references;
-seven mismatches all concern the same note. The reducer adapter scope has been
+require review. Seven P02 note versions were recovered by exact hash; the
+checkpoint 3122 version remains unresolved. A bounded scan checked 489 nearby
+decision evidence references; seven mismatches all concern the same note;
+checkpoint 3123 was subsequently recovered. The reducer adapter scope has been
 reread after its registration; related contract work remains open. Web and
 simulation error consumers have been reread after registration; runtime delivery
 remains unverified. Strategic reducer error propagation has been reread after
@@ -491,14 +492,14 @@ unproven.
 
 ## Latest checkpoint
 
-Traced pinned unique-index lookup to its native boundary.
+Recovered checkpoint 3123 historical P02 note by exact hash.
 
-Item schema connected discovery and exact aliases remain open; no runtime
+Checkpoint 3122 note and source read ordering remain unresolved; no runtime
 execution.
 
 ## Working on now
 
-Qualify item schema producers, consumers, native admission and aliases.
+Resolve checkpoint 3122 evidence and connected audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -666,8 +667,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3418 publication record](CHECKPOINT-3418.json)
-- [Saved report for checkpoint 3418](PROGRESS-3418.md)
+- [Checkpoint 3419 publication record](CHECKPOINT-3419.json)
+- [Saved report for checkpoint 3419](PROGRESS-3419.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
