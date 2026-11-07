@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:32:41.865796+00:00
+Updated: 2026-11-07T13:34:18.874962+00:00
 
-Latest verified checkpoint: **3331**. Goal: **active**.
+Latest verified checkpoint: **3332**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -338,7 +338,8 @@ rendered view; other refresh paths remain open. NPC reselect starts a timestamp-
 nonce encounter; the inspected browser client does not directly call the session
 view endpoint. Dialogue social refresh reuses its existing view rather than
 fetching a new session view. Ballots retain vector order; unanimous comparison
-is order-sensitive and policy remains open.
+is order-sensitive and policy remains open. Dialogue receipt, case-fact replay,
+startup identity and projection decoding have distinct failure boundaries.
 
 | Phase | Status |
 | --- | --- |
@@ -349,13 +350,13 @@ is order-sensitive and policy remains open.
 
 ## Latest checkpoint
 
-Traced ballot representation and unanimous comparison.
+Compared dialogue receipt with related fact, startup and payload contracts.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile ballot policy, action aliases and recovery.
+Reconcile remaining dialogue action aliases and recovery.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -523,8 +524,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3331 publication record](CHECKPOINT-3331.json)
-- [Saved report for checkpoint 3331](PROGRESS-3331.md)
+- [Checkpoint 3332 publication record](CHECKPOINT-3332.json)
+- [Saved report for checkpoint 3332](PROGRESS-3332.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
