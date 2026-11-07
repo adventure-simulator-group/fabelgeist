@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T03:14:43.568872+00:00
+Updated: 2026-11-07T03:20:18.354771+00:00
 
-Latest verified checkpoint: **3086**. Goal: **active**.
+Latest verified checkpoint: **3087**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced patient-death estate transfer and conditional temporary-patient cleanup.
+Qualified temporary-patient consent and corrected the same-party teardown
+outcome.
 
-Death ownership policy, temporary-treatment reachability and other transfers
+Supported temporary-party reachability, death ownership and other transfers
 remain open; no runtime execution.
 
 ## Working on now
 
-Trace temporary-patient treatment reachability and treatment receipt
-obligations.
+Trace alternate consent, remaining transfers and treatment receipt obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3086 publication record](CHECKPOINT-3086.json)
-- [Saved report for checkpoint 3086](PROGRESS-3086.md)
+- [Checkpoint 3087 publication record](CHECKPOINT-3087.json)
+- [Saved report for checkpoint 3087](PROGRESS-3087.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
