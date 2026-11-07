@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:40:14.500660+00:00
+Updated: 2026-11-07T18:41:59.394692+00:00
 
-Latest verified checkpoint: **3467**. Goal: **active**.
+Latest verified checkpoint: **3468**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -564,7 +564,8 @@ Intended weapon contact preserves weapon precision, while haft and pommel
 contacts use unarmed precision. Existing test source describes positive-energy
 sword contact; it does not prove a specific bandit hit. A hypothetical equal-
 channel hit makes the two injury splits straddle the fracture threshold; runtime
-occurrence remains unproved.
+occurrence remains unproved. Direct remote verification confirms the selected
+current source pin despite a stale local tracking reference.
 
 | Phase | Status |
 | --- | --- |
@@ -575,14 +576,14 @@ occurrence remains unproved.
 
 ## Latest checkpoint
 
-Qualified illustrative fracture threshold divergence.
+Verified remote main source pin.
 
-Actual hit reachability, intended semantics and runtime impact remain open.
+Injury-share reachability, semantics and runtime impact remain open.
 
 ## Working on now
 
-Resolve injury split semantics and supported reachability; plan parity
-acceptance.
+Resolve injury split semantics and supported reachability; continue audit
+closure.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -750,8 +751,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3467 publication record](CHECKPOINT-3467.json)
-- [Saved report for checkpoint 3467](PROGRESS-3467.md)
+- [Checkpoint 3468 publication record](CHECKPOINT-3468.json)
+- [Saved report for checkpoint 3468](PROGRESS-3468.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
