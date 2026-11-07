@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:44:44.269145+00:00
+Updated: 2026-11-07T14:46:43.949241+00:00
 
-Latest verified checkpoint: **3364**. Goal: **active**.
+Latest verified checkpoint: **3365**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -390,7 +390,8 @@ a caller-identity check. Inspected deposit classification and object lookup
 helpers do not compare caller identity. The inspected capability refresh does
 not directly check caller identity; downstream loaders remain open. Personal
 inventory and party membership schema rows are public; the full Character table
-is private.
+is private. Authored Rhenish gulden has currency kind and unit value one;
+initialized deposit classification remains to be checked.
 
 | Phase | Status |
 | --- | --- |
@@ -401,13 +402,13 @@ is private.
 
 ## Latest checkpoint
 
-Qualified inventory and party schema visibility.
+Qualified an authored currency candidate for the deposit trace.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify deployment access and a supported plain-stack deposit path.
+Qualify currency initialization and deposit classification defaults.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -575,8 +576,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3364 publication record](CHECKPOINT-3364.json)
-- [Saved report for checkpoint 3364](PROGRESS-3364.md)
+- [Checkpoint 3365 publication record](CHECKPOINT-3365.json)
+- [Saved report for checkpoint 3365](PROGRESS-3365.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
