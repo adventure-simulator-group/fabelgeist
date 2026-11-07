@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:04:22.826073+00:00
+Updated: 2026-11-07T12:05:58.244180+00:00
 
-Latest verified checkpoint: **3288**. Goal: **active**.
+Latest verified checkpoint: **3289**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -274,6 +274,8 @@ reported tactical success; reachability and presentation policy remain open.
 Candidate validity depends on live capability, objective and custody state;
 invalidation during an active mission remains unproven. Negotiation guards a
 bound mission for the acting party; cross-party invalidation remains unproven.
+Shared pre-combat resolution has no separate active-server check; second-party
+admission remains unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -284,13 +286,13 @@ bound mission for the acting party; cross-party invalidation remains unproven.
 
 ## Latest checkpoint
 
-Traced negotiation, surrender and autoresolve mission guards.
+Traced cross-party negotiation and shared commit admission.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace cross-party hostile resolution and candidate invalidation.
+Trace same-site party presence and approach eligibility.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -458,8 +460,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3288 publication record](CHECKPOINT-3288.json)
-- [Saved report for checkpoint 3288](PROGRESS-3288.md)
+- [Checkpoint 3289 publication record](CHECKPOINT-3289.json)
+- [Saved report for checkpoint 3289](PROGRESS-3289.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
