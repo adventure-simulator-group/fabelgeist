@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:54:37.786589+00:00
+Updated: 2026-11-07T15:56:47.892067+00:00
 
-Latest verified checkpoint: **3398**. Goal: **active**.
+Latest verified checkpoint: **3399**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -446,7 +446,9 @@ attack-result handler requires wounds on both combatants; debug restore
 initialization remains unproven. Existing dump and join tests do not assert
 wound or equipment action state; combat fixture helpers explicitly provide
 wounds. A separate provisional debug combat-state obligation preserves action
-and wound state questions independently of fit identity.
+and wound state questions independently of fit identity. Related debug
+environment and obstacle views share a snapshot boundary but have distinct first
+contracts from combat state.
 
 | Phase | Status |
 | --- | --- |
@@ -457,7 +459,7 @@ and wound state questions independently of fit identity.
 
 ## Latest checkpoint
 
-Recorded a separate provisional debug combat-state obligation.
+Compared debug combat state with related snapshot ledger entries.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -632,8 +634,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3398 publication record](CHECKPOINT-3398.json)
-- [Saved report for checkpoint 3398](PROGRESS-3398.md)
+- [Checkpoint 3399 publication record](CHECKPOINT-3399.json)
+- [Saved report for checkpoint 3399](PROGRESS-3399.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
