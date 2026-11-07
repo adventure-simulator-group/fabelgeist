@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T02:32:57.521838+00:00
+Updated: 2026-11-07T02:40:25.066400+00:00
 
-Latest verified checkpoint: **3079**. Goal: **active**.
+Latest verified checkpoint: **3080**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Resolved the scoped stale-settlement snapshot suspicion from source.
+Traced surgery consent, item custody and post-wait checks.
 
-Independent population and tactical scene obligations remain open; no runtime
+Post-wait state transitions and item ownership remain open; no runtime
 execution.
 
 ## Working on now
 
-Continue independent population and tactical scene obligations.
+Trace treatment wait recovery and commit-time validity.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3079 publication record](CHECKPOINT-3079.json)
-- [Saved report for checkpoint 3079](PROGRESS-3079.md)
+- [Checkpoint 3080 publication record](CHECKPOINT-3080.json)
+- [Saved report for checkpoint 3080](PROGRESS-3080.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
