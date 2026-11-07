@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:20:05.028193+00:00
+Updated: 2026-11-07T11:23:47.316268+00:00
 
-Latest verified checkpoint: **3270**. Goal: **active**.
+Latest verified checkpoint: **3271**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -244,7 +244,9 @@ unproven. Live subscriptions invalidate on item-condition and capability
 changes; render and refresh timing remain open. Melee contact force feeds wear;
 a supported above-threshold contact and visible stale value remain unproven. An
 authored longsword threshold and synthetic contact example are recorded; an end-
-to-end contact remains unproven.
+to-end contact remains unproven. Tactical contact aggregation and per-exchange
+autoresolve can differ under the nonlinear wear formula; intended policy and
+reachability remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -255,14 +257,13 @@ to-end contact remains unproven.
 
 ## Latest checkpoint
 
-Compared an authored durability threshold with a synthetic contact example.
+Compared tactical accumulated contact stress with per-exchange autoresolve wear.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace wilderness clock producers and standalone fallback policy while preserving
-P02 questions.
+Reconcile tactical wear aggregation with autoresolve and receipt bounds.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -430,8 +431,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3270 publication record](CHECKPOINT-3270.json)
-- [Saved report for checkpoint 3270](PROGRESS-3270.md)
+- [Checkpoint 3271 publication record](CHECKPOINT-3271.json)
+- [Saved report for checkpoint 3271](PROGRESS-3271.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
