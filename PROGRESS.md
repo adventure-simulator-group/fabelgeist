@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:26:11.416583+00:00
+Updated: 2026-11-07T14:27:59.917443+00:00
 
-Latest verified checkpoint: **3354**. Goal: **active**.
+Latest verified checkpoint: **3355**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -375,7 +375,9 @@ share the immediate conditional settlement mismatch; broader Lens 11 and 13
 obligations remain open. Owned-item deposits can credit member stake; the
 inspected encounter helper does not itself authenticate the actor. Owned-item
 deposits can credit member stake; the inspected encounter helper does not itself
-authenticate the actor.
+authenticate the actor. Browser and simulation deposit callers differ; the
+inspected reducer entry does not invoke the strategic-character authority
+helper.
 
 | Phase | Status |
 | --- | --- |
@@ -386,13 +388,13 @@ authenticate the actor.
 
 ## Latest checkpoint
 
-Traced item-deposit stake creation and encounter guard.
+Compared deposit callers with the strategic authority helper.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile admission and actor authority for stake-producing actions.
+Qualify deposit authority boundary and related ledger aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -560,8 +562,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3354 publication record](CHECKPOINT-3354.json)
-- [Saved report for checkpoint 3354](PROGRESS-3354.md)
+- [Checkpoint 3355 publication record](CHECKPOINT-3355.json)
+- [Saved report for checkpoint 3355](PROGRESS-3355.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
