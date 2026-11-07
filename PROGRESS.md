@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:16:48.584035+00:00
+Updated: 2026-11-07T09:18:35.377194+00:00
 
-Latest verified checkpoint: **3214**. Goal: **active**.
+Latest verified checkpoint: **3215**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -154,7 +154,9 @@ thermal state and frostbite limb damage; movement terminal policy remains open.
 Core exposure is minute-stepped; case-site recovery cause presentation has an
 unverified thermal omission. A representable thermal-only incapacitation would
 yield generic case-site recovery text if the shown notice path is reached; live
-reachability remains open.
+reachability remains open. The case-site portrait wheel source includes
+temperature, narrowing the separate recovery wording question; live rendering
+remains unverified.
 
 | Phase | Status |
 | --- | --- |
@@ -165,7 +167,7 @@ reachability remains open.
 
 ## Latest checkpoint
 
-Traced the conditional thermal recovery notice through rendering.
+Located temperature in the case-site portrait condition wheel.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -340,8 +342,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3214 publication record](CHECKPOINT-3214.json)
-- [Saved report for checkpoint 3214](PROGRESS-3214.md)
+- [Checkpoint 3215 publication record](CHECKPOINT-3215.json)
+- [Saved report for checkpoint 3215](PROGRESS-3215.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
