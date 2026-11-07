@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:45:44.633768+00:00
+Updated: 2026-11-07T13:49:27.474339+00:00
 
-Latest verified checkpoint: **3338**. Goal: **active**.
+Latest verified checkpoint: **3339**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -348,7 +348,8 @@ numeric status before retry handling. Errantry exact retries bind actor,
 session, action and current case-contract authority before presence checks.
 Errantry HTTP status and retry ownership is recorded as a separate open
 obligation. Errantry maps both gateway HTTP transport failures and database
-error responses to 422.
+error responses to 422. Pinned reqwest may return pre-dispatch errors or errors
+while a request is in flight; commit outcome remains unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -359,13 +360,13 @@ error responses to 422.
 
 ## Latest checkpoint
 
-Traced gateway transport and reducer error classes.
+Traced pinned reqwest send and in-flight error paths.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify native commit and delivery semantics for errantry retry.
+Qualify server transaction and response semantics for errantry retry.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -533,8 +534,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3338 publication record](CHECKPOINT-3338.json)
-- [Saved report for checkpoint 3338](PROGRESS-3338.md)
+- [Checkpoint 3339 publication record](CHECKPOINT-3339.json)
+- [Saved report for checkpoint 3339](PROGRESS-3339.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
