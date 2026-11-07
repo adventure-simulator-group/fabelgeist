@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:57:28.985971+00:00
+Updated: 2026-11-07T10:59:17.929523+00:00
 
-Latest verified checkpoint: **3259**. Goal: **active**.
+Latest verified checkpoint: **3260**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -228,7 +228,8 @@ entry; its wear and repair obligations remain distinct. Tactical injury
 accumulation is limited per hit by current limb health; aggregate receipt
 reachability remains unproven. Tactical projection copies snapshot limb health
 without a local clamp; enemy scaling alone does not establish party receipt
-reachability.
+reachability. Ordinary strategic limb creation starts at one and injury
+projection clamps; other writers and finite admission remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -239,7 +240,7 @@ reachability.
 
 ## Latest checkpoint
 
-Traced tactical limb-health projection and separate enemy scaling.
+Traced ordinary strategic limb initialization and injury projection.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -414,8 +415,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3259 publication record](CHECKPOINT-3259.json)
-- [Saved report for checkpoint 3259](PROGRESS-3259.md)
+- [Checkpoint 3260 publication record](CHECKPOINT-3260.json)
+- [Saved report for checkpoint 3260](PROGRESS-3260.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
