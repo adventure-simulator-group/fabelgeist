@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:56:02.557942+00:00
+Updated: 2026-11-07T12:57:43.239051+00:00
 
-Latest verified checkpoint: **3311**. Goal: **active**.
+Latest verified checkpoint: **3312**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -308,7 +308,9 @@ negotiation remain open. Settlement and journey paths train retained oral
 skills; negotiation reads stored instinct rather than the inspected disease-
 adjusted copy. Language training preserves existing finite nonnegative hours
 above a lowered aptitude cap. Current immediate activities pass a normalized day
-into ambient exposure; aptitude caps may limit the resulting gain.
+into ambient exposure; aptitude caps may limit the resulting gain. Other
+training callers use elapsed-derived durations; convalescence and camp-priority
+ambient exposure need policy.
 
 | Phase | Status |
 | --- | --- |
@@ -319,13 +321,13 @@ into ambient exposure; aptitude caps may limit the resulting gain.
 
 ## Latest checkpoint
 
-Reconciled the immediate-activity ambient interval finding with current source.
+Traced remaining direct activity-training callers.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace all activity-training callers and ambient-time ownership.
+Resolve ambient exposure interval policy and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -493,8 +495,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3311 publication record](CHECKPOINT-3311.json)
-- [Saved report for checkpoint 3311](PROGRESS-3311.md)
+- [Checkpoint 3312 publication record](CHECKPOINT-3312.json)
+- [Saved report for checkpoint 3312](PROGRESS-3312.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
