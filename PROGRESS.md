@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:01:10.032308+00:00
+Updated: 2026-11-07T20:02:28.258531+00:00
 
-Latest verified checkpoint: **3511**. Goal: **active**.
+Latest verified checkpoint: **3512**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -617,7 +617,8 @@ reached stop. Gateway and web routes exchange challenge IDs but not frame or
 trial IDs. Challenge classifiers retain different subsets of the full identity.
 Existing location identities do not encode the complete challenge key. Generated
 authority and projection rows carry string challenge IDs. Challenge IDs flow
-through receipts and solved case facts.
+through receipts and solved case facts. Developer investigation quests reject
+authored challenge objectives.
 
 | Phase | Status |
 | --- | --- |
@@ -628,14 +629,14 @@ through receipts and solved case facts.
 
 ## Latest checkpoint
 
-Qualified challenge receipt and case outcome identity.
+Qualified developer challenge objective admission.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile outcome producers, consumers and receipt semantics.
+Trace supported objective producers and identity admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -803,8 +804,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3511 publication record](CHECKPOINT-3511.json)
-- [Saved report for checkpoint 3511](PROGRESS-3511.md)
+- [Checkpoint 3512 publication record](CHECKPOINT-3512.json)
+- [Saved report for checkpoint 3512](PROGRESS-3512.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
