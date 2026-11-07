@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 3078,
+  "at": "2026-11-07T02:23:33.482757+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "8ec26188273aa14f5305e8258ed26b0c593974cbf988ba9ff9a7134c3cc10f46",
+    "verification": "09eaaecb6d2f08cf9f8ad73abdbf8f868ba827135e0dcbdce06ddf6331b38e4f",
+    "canonical_current": "3b26d7b155f233f76cc158fe8024819e04d86a468e1c96a890e436948ca34b7c"
+  },
+  "scope": {
+    "summary": "Traced ordinary reducer dispatch into serializable host transactions.",
+    "scope_limit": "In-transaction helper writes remain open; no runtime execution."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "6f7a09c5f5d8f27b4953234e4cc57b644fdccde5e29860552ba19aac234188b9",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
