@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T00:27:16.254481+00:00
+Updated: 2026-11-07T00:31:58.067328+00:00
 
-Latest verified checkpoint: **3054**. Goal: **active**.
+Latest verified checkpoint: **3055**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced settlement writers and source-node choices in seed rows.
+Traced route-position use in exposure, foraging and encounters.
 
-Historical state and source-less fixture frame policy remain open; no runtime
+Coordinate-frame policy and remaining consumers remain open; no runtime
 execution.
 
 ## Working on now
 
-Reconcile source-less seed and fixture coordinate-frame policy with journey
-consumers.
+Reconcile route-position consumer contracts and coordinate-frame policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3054 publication record](CHECKPOINT-3054.json)
-- [Saved report for checkpoint 3054](PROGRESS-3054.md)
+- [Checkpoint 3055 publication record](CHECKPOINT-3055.json)
+- [Saved report for checkpoint 3055](PROGRESS-3055.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
