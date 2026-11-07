@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T16:48:10.582267+00:00
+Updated: 2026-11-07T16:51:03.296615+00:00
 
-Latest verified checkpoint: **3415**. Goal: **active**.
+Latest verified checkpoint: **3416**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -475,7 +475,9 @@ open. Food class validation and runtime enum mapping were compared; independent
 aliases and consumers remain open. Selected food lot creation maps ration class
 to preserved preparation; independent aliases and other consumers remain open.
 Party food-lot cause loss precedes an existing grant error-erasure boundary;
-reachability and exact ownership remain open.
+reachability and exact ownership remain open. The selected party grant creates
+its stable object before the food lot; native visibility and failure
+reachability remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -486,7 +488,7 @@ reachability and exact ownership remain open.
 
 ## Latest checkpoint
 
-Traced party food-lot cause loss to the existing grant error owner.
+Qualified object creation ordering for the party food-lot failure path.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -661,8 +663,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3415 publication record](CHECKPOINT-3415.json)
-- [Saved report for checkpoint 3415](PROGRESS-3415.md)
+- [Checkpoint 3416 publication record](CHECKPOINT-3416.json)
+- [Saved report for checkpoint 3416](PROGRESS-3416.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
