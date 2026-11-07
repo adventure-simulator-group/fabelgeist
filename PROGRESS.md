@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:34:18.874962+00:00
+Updated: 2026-11-07T13:36:14.078907+00:00
 
-Latest verified checkpoint: **3332**. Goal: **active**.
+Latest verified checkpoint: **3333**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -339,7 +339,9 @@ nonce encounter; the inspected browser client does not directly call the session
 view endpoint. Dialogue social refresh reuses its existing view rather than
 fetching a new session view. Ballots retain vector order; unanimous comparison
 is order-sensitive and policy remains open. Dialogue receipt, case-fact replay,
-startup identity and projection decoding have distinct failure boundaries.
+startup identity and projection decoding have distinct failure boundaries. A
+manual retry from an unchanged pre-commit view uses a fresh ID and encounters a
+closed prompt or stale revision.
 
 | Phase | Status |
 | --- | --- |
@@ -350,7 +352,7 @@ startup identity and projection decoding have distinct failure boundaries.
 
 ## Latest checkpoint
 
-Compared dialogue receipt with related fact, startup and payload contracts.
+Derived the conditional lost-response manual retry sequence.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -524,8 +526,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3332 publication record](CHECKPOINT-3332.json)
-- [Saved report for checkpoint 3332](PROGRESS-3332.md)
+- [Checkpoint 3333 publication record](CHECKPOINT-3333.json)
+- [Saved report for checkpoint 3333](PROGRESS-3333.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
