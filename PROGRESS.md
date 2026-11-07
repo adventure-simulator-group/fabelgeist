@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:55:13.249173+00:00
+Updated: 2026-11-07T08:56:48.045547+00:00
 
-Latest verified checkpoint: **3205**. Goal: **active**.
+Latest verified checkpoint: **3206**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -139,7 +139,8 @@ site distances can exceed an eight-hour forecast leg; a concrete admitted route
 remains open. Safe-departure selection configures journey-local time without
 advancing personal time in the inspected method. Planned party movement lacks
 the exposure call present in ordinary travel; outer admission remains to be
-confirmed.
+confirmed. Three party travel entry paths use disease-plan movement without the
+ordinary exposure call; end-to-end validation remains pending.
 
 | Phase | Status |
 | --- | --- |
@@ -150,8 +151,7 @@ confirmed.
 
 ## Latest checkpoint
 
-Identified missing weather exposure in the inspected disease-plan party movement
-path.
+Traced planned movement exposure gap through three journey entry paths.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -326,8 +326,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3205 publication record](CHECKPOINT-3205.json)
-- [Saved report for checkpoint 3205](PROGRESS-3205.md)
+- [Checkpoint 3206 publication record](CHECKPOINT-3206.json)
+- [Saved report for checkpoint 3206](PROGRESS-3206.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
