@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:11:01.104252+00:00
+Updated: 2026-11-07T11:12:30.785880+00:00
 
-Latest verified checkpoint: **3265**. Goal: **active**.
+Latest verified checkpoint: **3266**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -237,7 +237,8 @@ refreshes capability before equipment wear; later lazy refresh and visible
 effects remain to be traced. Web refresh errors are ignored before a stored
 capability read; server readiness also reads stored combat power. Combat power
 uses wear-sensitive precision and resistance; the located readiness caller
-refreshes before reading.
+refreshes before reading. The registered settlement capability-consumer file is
+read; unrelated displays use separate data paths.
 
 | Phase | Status |
 | --- | --- |
@@ -248,7 +249,7 @@ refreshes before reading.
 
 ## Latest checkpoint
 
-Traced wear-sensitive combat power and the known readiness caller.
+Completed the registered web capability-consumer source read.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -423,8 +424,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3265 publication record](CHECKPOINT-3265.json)
-- [Saved report for checkpoint 3265](PROGRESS-3265.md)
+- [Checkpoint 3266 publication record](CHECKPOINT-3266.json)
+- [Saved report for checkpoint 3266](PROGRESS-3266.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
