@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:15:03.315491+00:00
+Updated: 2026-11-07T15:16:44.551625+00:00
 
-Latest verified checkpoint: **3380**. Goal: **active**.
+Latest verified checkpoint: **3381**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -418,7 +418,9 @@ authority accepts the strategic gateway or the owner of a registered simulation
 character; multi-character scope needs explicit treatment. Party joins combine
 actor authority and same-simulation-scope checks; inventory consent policy
 remains distinct. Existing source-text authority tests cover listed recruitment
-and mission reducers, not the inspected inventory mutations.
+and mission reducers, not the inspected inventory mutations. Non-newborn
+creation and simulation setup credit currency through a stack helper; runtime
+effects remain unverified.
 
 | Phase | Status |
 | --- | --- |
@@ -429,13 +431,13 @@ and mission reducers, not the inspected inventory mutations.
 
 ## Latest checkpoint
 
-Qualified existing authority test coverage.
+Traced starting-currency producers.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify inventory authority and later runtime acceptance.
+Qualify currency grant and capability prerequisites.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -603,8 +605,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3380 publication record](CHECKPOINT-3380.json)
-- [Saved report for checkpoint 3380](PROGRESS-3380.md)
+- [Checkpoint 3381 publication record](CHECKPOINT-3381.json)
+- [Saved report for checkpoint 3381](PROGRESS-3381.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
