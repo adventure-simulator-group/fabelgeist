@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:05:52.602232+00:00
+Updated: 2026-11-07T08:07:43.752447+00:00
 
-Latest verified checkpoint: **3181**. Goal: **active**.
+Latest verified checkpoint: **3182**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -103,7 +103,9 @@ gameplay reachability remains open. The lattice witness matches a byte-identical
 frozen Lens 13 operation; independent qualification remains open. Lens 13
 independently reread the matching current weather lattice; native admission
 remains open. Lens 13 native weather paths use distinct official, personal,
-wilderness and dispatcher clocks; admission remains open.
+wilderness and dispatcher clocks; admission remains open. Tactical request
+weather time is bounded for officially initialized wilderness anchors; stored
+provenance and personal clocks remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -114,7 +116,8 @@ wilderness and dispatcher clocks; admission remains open.
 
 ## Latest checkpoint
 
-Qualified native weather caller time and coordinate seams under Lens 13.
+Traced tactical dispatcher time to wilderness and official clock producers under
+Lens 13.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -289,8 +292,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3181 publication record](CHECKPOINT-3181.json)
-- [Saved report for checkpoint 3181](PROGRESS-3181.md)
+- [Checkpoint 3182 publication record](CHECKPOINT-3182.json)
+- [Saved report for checkpoint 3182](PROGRESS-3182.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
