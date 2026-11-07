@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:35:24.712941+00:00
+Updated: 2026-11-07T19:36:57.368616+00:00
 
-Latest verified checkpoint: **3497**. Goal: **active**.
+Latest verified checkpoint: **3498**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -604,7 +604,8 @@ the anchor. Canonical camp identity has validated versioned serialization
 distinct from the current trial token. Frame and trial records are persisted;
 challenge ID is used to select a trial. Road trial identity is checked through
 its own authority, errantry list and private overlay. Puzzle and road camp
-checks share identity but differ in destination and timing admission.
+checks share identity but differ in destination and timing admission. Puzzle and
+road caller guards and retry predicates have distinct scopes.
 
 | Phase | Status |
 | --- | --- |
@@ -615,14 +616,14 @@ checks share identity but differ in destination and timing admission.
 
 ## Latest checkpoint
 
-Qualified puzzle and road camp admission differences.
+Qualified puzzle and road caller guards and retries.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Trace caller safeguards, origin-specific timing and identity consumers.
+Resolve road destination safeguards, retry semantics and identity consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -790,8 +791,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3497 publication record](CHECKPOINT-3497.json)
-- [Saved report for checkpoint 3497](PROGRESS-3497.md)
+- [Checkpoint 3498 publication record](CHECKPOINT-3498.json)
+- [Saved report for checkpoint 3498](PROGRESS-3498.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
