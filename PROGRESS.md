@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T22:38:14.027115+00:00
+Updated: 2026-11-07T22:39:29.593376+00:00
 
-Latest verified checkpoint: **3601**. Goal: **active**.
+Latest verified checkpoint: **3602**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified case-site provenance.
+Qualified inspection caller modes.
 
-Other discovery routes, alias ownership and runtime remain open.
+Simulation ownership internals, other routes and runtime remain open.
 
 ## Working on now
 
-Resolve remaining evidence discovery routes and aliases.
+Trace simulation ownership and alternate evidence routes.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3601 publication record](CHECKPOINT-3601.json)
-- [Saved report for checkpoint 3601](PROGRESS-3601.md)
+- [Checkpoint 3602 publication record](CHECKPOINT-3602.json)
+- [Saved report for checkpoint 3602](PROGRESS-3602.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
