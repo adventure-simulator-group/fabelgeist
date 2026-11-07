@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:11:16.812848+00:00
+Updated: 2026-11-07T19:13:36.601181+00:00
 
-Latest verified checkpoint: **3484**. Goal: **active**.
+Latest verified checkpoint: **3485**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -587,7 +587,9 @@ Named puzzle choices do not themselves own ordinal clue positions; bounded
 construction and serialization remain to be designed. Tactical insight stores a
 raw threat string despite an existing ThreatId; inspected gateway output uses
 only text. First-party symbol uses do not show a retained insight identifier
-consumer; public serialization remains an open contract.
+consumer; public serialization remains an open contract. Hostile-group
+construction catalog-checks identity before retaining a string; insight
+presentation parses it again.
 
 | Phase | Status |
 | --- | --- |
@@ -598,13 +600,13 @@ consumer; public serialization remains an open contract.
 
 ## Latest checkpoint
 
-Inventoried tactical insight symbol uses.
+Traced hostile threat admission and insight reparse.
 
-External public API and direct serialization semantics remain open.
+All native writers and direct public insight admission remain open.
 
 ## Working on now
 
-Resolve tactical insight identifier admission and owner fit.
+Qualify hostile-group writers and tactical insight owner fit.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -772,8 +774,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3484 publication record](CHECKPOINT-3484.json)
-- [Saved report for checkpoint 3484](PROGRESS-3484.md)
+- [Checkpoint 3485 publication record](CHECKPOINT-3485.json)
+- [Saved report for checkpoint 3485](PROGRESS-3485.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
