@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T04:43:51.563968+00:00
+Updated: 2026-11-07T04:53:18.172750+00:00
 
-Latest verified checkpoint: **3098**. Goal: **active**.
+Latest verified checkpoint: **3099**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Qualified surgery skill sampling and mental-skill inputs.
+Traced checked inventory grants and an ignored unknown-item error.
 
-Skill-sampling policy and post-wait procedure contracts remain open; no runtime
-execution.
+Unknown-item reducer behavior and caller access require runtime verification; no
+runtime execution.
 
 ## Working on now
 
-Resolve skill-sampling policy and reconcile post-wait treatment contracts.
+Trace unchecked grant consumers and connect inventory findings to the audit
+ledger.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3098 publication record](CHECKPOINT-3098.json)
-- [Saved report for checkpoint 3098](PROGRESS-3098.md)
+- [Checkpoint 3099 publication record](CHECKPOINT-3099.json)
+- [Saved report for checkpoint 3099](PROGRESS-3099.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
