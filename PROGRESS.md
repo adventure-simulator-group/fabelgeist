@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:05:40.301568+00:00
+Updated: 2026-11-07T19:07:32.984423+00:00
 
-Latest verified checkpoint: **3481**. Goal: **active**.
+Latest verified checkpoint: **3482**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -583,6 +583,8 @@ read under Lens 2; connected owners and clue admission remain open. Raw clue
 positions are validated at puzzle level and used directly for errantry lookup;
 an existing Lens 3 admission question is retained. The gateway validates
 retained puzzles before projection; direct public clue admission remains open.
+Named puzzle choices do not themselves own ordinal clue positions; bounded
+construction and serialization remain to be designed.
 
 | Phase | Status |
 | --- | --- |
@@ -593,13 +595,13 @@ retained puzzles before projection; direct public clue admission remains open.
 
 ## Latest checkpoint
 
-Traced validated native clue projection.
+Compared puzzle choices and clue position ownership.
 
-Direct public value admission and position ownership remain open.
+Final position API and direct public admission remain open.
 
 ## Working on now
 
-Reconcile bounded clue positions and direct public value admission.
+Reconcile clue-position type, serialization and direct public admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -767,8 +769,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3481 publication record](CHECKPOINT-3481.json)
-- [Saved report for checkpoint 3481](PROGRESS-3481.md)
+- [Checkpoint 3482 publication record](CHECKPOINT-3482.json)
+- [Saved report for checkpoint 3482](PROGRESS-3482.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
