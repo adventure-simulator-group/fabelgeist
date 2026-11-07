@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:15:10.259973+00:00
+Updated: 2026-11-07T20:16:31.469351+00:00
 
-Latest verified checkpoint: **3520**. Goal: **active**.
+Latest verified checkpoint: **3521**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -627,6 +627,7 @@ admission allows them. Identity repair acceptance now spans creation,
 boundaries, retries and outcomes. Finale-defense enum and retained JSON require
 behavior reconciliation. Finale-defense enum and retained JSON require behavior
 reconciliation. Inspected mission paths use neutral countermeasure multipliers.
+Mission combat scale is captured from the hostile group separately.
 
 | Phase | Status |
 | --- | --- |
@@ -637,14 +638,14 @@ reconciliation. Inspected mission paths use neutral countermeasure multipliers.
 
 ## Latest checkpoint
 
-Qualified neutral mission multiplier paths.
+Qualified mission combat-scale snapshot.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile retained finale-defense data and other consumers.
+Qualify other group producers and finale-defense consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -812,8 +813,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3520 publication record](CHECKPOINT-3520.json)
-- [Saved report for checkpoint 3520](PROGRESS-3520.md)
+- [Checkpoint 3521 publication record](CHECKPOINT-3521.json)
+- [Saved report for checkpoint 3521](PROGRESS-3521.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
