@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:36:39.981339+00:00
+Updated: 2026-11-07T07:38:11.926845+00:00
 
-Latest verified checkpoint: **3164**. Goal: **active**.
+Latest verified checkpoint: **3165**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -78,7 +78,8 @@ validates scene input before venue discovery; alternate entry paths remain open.
 Tactical scene environments are inserted on replicated entities; client
 admission and alternate producers remain open. Inspected viewer and demo
 environment paths have bounded fixture wind or validate their input; other
-producers remain open.
+producers remain open. Generated weather caps wind speed and normalizes
+direction; other producers remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -89,7 +90,7 @@ producers remain open.
 
 ## Latest checkpoint
 
-Traced viewer and demo environment construction.
+Traced generated weather wind range into its snapshot.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -264,8 +265,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3164 publication record](CHECKPOINT-3164.json)
-- [Saved report for checkpoint 3164](PROGRESS-3164.md)
+- [Checkpoint 3165 publication record](CHECKPOINT-3165.json)
+- [Saved report for checkpoint 3165](PROGRESS-3165.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
