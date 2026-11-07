@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T05:49:11.265986+00:00
+Updated: 2026-11-07T05:52:12.009845+00:00
 
-Latest verified checkpoint: **3116**. Goal: **active**.
+Latest verified checkpoint: **3117**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the debug environment omission into client terrain presentation.
+Connected the environment-dependent terrain query to the normal tactical client.
 
-Other environment insertion paths and runtime behavior remain unverified.
+Environment restoration and debug runtime behavior remain unverified.
 
 ## Working on now
 
-Trace environment restoration and later validate debug terrain presentation.
+Complete environment insertion-path tracing and later validate debug
+presentation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3116 publication record](CHECKPOINT-3116.json)
-- [Saved report for checkpoint 3116](PROGRESS-3116.md)
+- [Checkpoint 3117 publication record](CHECKPOINT-3117.json)
+- [Saved report for checkpoint 3117](PROGRESS-3117.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
