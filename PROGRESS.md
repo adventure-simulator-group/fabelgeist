@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:54:05.736337+00:00
+Updated: 2026-11-07T12:56:02.557942+00:00
 
-Latest verified checkpoint: **3310**. Goal: **active**.
+Latest verified checkpoint: **3311**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -307,7 +307,8 @@ positive initial instinct and initialized oral skills; later state and complete
 negotiation remain open. Settlement and journey paths train retained oral
 skills; negotiation reads stored instinct rather than the inspected disease-
 adjusted copy. Language training preserves existing finite nonnegative hours
-above a lowered aptitude cap.
+above a lowered aptitude cap. Current immediate activities pass a normalized day
+into ambient exposure; aptitude caps may limit the resulting gain.
 
 | Phase | Status |
 | --- | --- |
@@ -318,13 +319,13 @@ above a lowered aptitude cap.
 
 ## Latest checkpoint
 
-Traced oral training preservation and aptitude limits.
+Reconciled the immediate-activity ambient interval finding with current source.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace remaining negotiation conditions and other mutations.
+Trace all activity-training callers and ambient-time ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -492,8 +493,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3310 publication record](CHECKPOINT-3310.json)
-- [Saved report for checkpoint 3310](PROGRESS-3310.md)
+- [Checkpoint 3311 publication record](CHECKPOINT-3311.json)
+- [Saved report for checkpoint 3311](PROGRESS-3311.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
