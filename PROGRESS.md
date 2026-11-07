@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:32:07.032290+00:00
+Updated: 2026-11-07T14:34:18.460073+00:00
 
-Latest verified checkpoint: **3357**. Goal: **active**.
+Latest verified checkpoint: **3358**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -380,7 +380,9 @@ inspected reducer entry does not invoke the strategic-character authority
 helper. A public-interface database startup recipe exists; actual deployment
 access and reducer invocation remain unverified. Current external reducer
 documentation supports a callable-client concern but is not pinned to the
-project native version.
+project native version. Pinned SpacetimeDB documentation describes client-
+callable reducers and in-reducer identity checks; deployment access remains
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -391,13 +393,13 @@ project native version.
 
 ## Latest checkpoint
 
-Qualified current external reducer documentation with its version limit.
+Qualified client invocation against pinned SpacetimeDB documentation.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify pinned native reducer invocation and deployment access controls.
+Qualify deployment access and reconcile deposit authority aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -565,8 +567,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3357 publication record](CHECKPOINT-3357.json)
-- [Saved report for checkpoint 3357](PROGRESS-3357.md)
+- [Checkpoint 3358 publication record](CHECKPOINT-3358.json)
+- [Saved report for checkpoint 3358](PROGRESS-3358.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
