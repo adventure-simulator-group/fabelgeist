@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T04:35:52.348840+00:00
+Updated: 2026-11-07T04:43:51.563968+00:00
 
-Latest verified checkpoint: **3097**. Goal: **active**.
+Latest verified checkpoint: **3098**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced stitching after the treated cut heals during the wait.
+Qualified surgery skill sampling and mental-skill inputs.
 
-End-to-end reachability and healed-during-treatment policy remain open; no
-runtime execution.
+Skill-sampling policy and post-wait procedure contracts remain open; no runtime
+execution.
 
 ## Working on now
 
-Qualify stitch recovery boundary and reconcile post-wait treatment contracts.
+Resolve skill-sampling policy and reconcile post-wait treatment contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3097 publication record](CHECKPOINT-3097.json)
-- [Saved report for checkpoint 3097](PROGRESS-3097.md)
+- [Checkpoint 3098 publication record](CHECKPOINT-3098.json)
+- [Saved report for checkpoint 3098](PROGRESS-3098.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
