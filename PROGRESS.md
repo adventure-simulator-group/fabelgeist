@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:10:54.205436+00:00
+Updated: 2026-11-07T18:12:35.944302+00:00
 
-Latest verified checkpoint: **3451**. Goal: **active**.
+Latest verified checkpoint: **3452**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -539,7 +539,9 @@ the captured roster; a temporary-character exception requires lifecycle
 qualification. Temporary creation assigns a character, while Party-classified
 tactical spawn requires a matching loading player; combined reachability remains
 open. Tactical applied limb damage is clamped before injury aggregation;
-complete receipt numeric bounds remain unproven.
+complete receipt numeric bounds remain unproven. Character limb health
+initializes at one and surgery projects clamped values; temporary and enemy
+scaling remain separate.
 
 | Phase | Status |
 | --- | --- |
@@ -550,13 +552,13 @@ complete receipt numeric bounds remain unproven.
 
 ## Latest checkpoint
 
-Traced tactical limb damage clamp and receipt aggregation.
+Traced limb-health initialization and injury projection.
 
-Initial health, lifecycle and floating-point admission remain open.
+Finite Party invariants, other writers and runtime behavior remain open.
 
 ## Working on now
 
-Qualify tactical starting limb health and lifecycle bounds.
+Qualify limb writers, temporary classification and numerical receipt bounds.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -724,8 +726,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3451 publication record](CHECKPOINT-3451.json)
-- [Saved report for checkpoint 3451](PROGRESS-3451.md)
+- [Checkpoint 3452 publication record](CHECKPOINT-3452.json)
+- [Saved report for checkpoint 3452](PROGRESS-3452.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
