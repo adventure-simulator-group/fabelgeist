@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:52:53.472396+00:00
+Updated: 2026-11-07T15:54:37.786589+00:00
 
-Latest verified checkpoint: **3397**. Goal: **active**.
+Latest verified checkpoint: **3398**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3397**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 574 / 3,856 marked | 3,282 other entries |
+| Queue entries explicitly marked source-discovery closed | 574 / 3,857 marked | 3,283 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -445,7 +445,8 @@ state; indirect initialization and runtime behavior remain open. The shared
 attack-result handler requires wounds on both combatants; debug restore
 initialization remains unproven. Existing dump and join tests do not assert
 wound or equipment action state; combat fixture helpers explicitly provide
-wounds.
+wounds. A separate provisional debug combat-state obligation preserves action
+and wound state questions independently of fit identity.
 
 | Phase | Status |
 | --- | --- |
@@ -456,7 +457,7 @@ wounds.
 
 ## Latest checkpoint
 
-Inspected dump and standalone join test coverage for combat state.
+Recorded a separate provisional debug combat-state obligation.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -613,7 +614,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3856 entries. Entries and views overlap, so this is
+The canonical queue contains 3857 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -631,8 +632,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3397 publication record](CHECKPOINT-3397.json)
-- [Saved report for checkpoint 3397](PROGRESS-3397.md)
+- [Checkpoint 3398 publication record](CHECKPOINT-3398.json)
+- [Saved report for checkpoint 3398](PROGRESS-3398.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
