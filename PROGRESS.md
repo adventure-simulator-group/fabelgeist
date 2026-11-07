@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:13:35.853839+00:00
+Updated: 2026-11-07T09:15:15.909905+00:00
 
-Latest verified checkpoint: **3212**. Goal: **active**.
+Latest verified checkpoint: **3213**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -151,6 +151,8 @@ paths use the planned party movement seam after encounter clipping; related
 aliases remain open. Direct rest and stationary exposure calls cover their own
 intervals; movement terminal ordering remains open. Weather exposure persists
 thermal state and frostbite limb damage; movement terminal policy remains open.
+Core exposure is minute-stepped; case-site recovery cause presentation has an
+unverified thermal omission.
 
 | Phase | Status |
 | --- | --- |
@@ -161,7 +163,7 @@ thermal state and frostbite limb damage; movement terminal policy remains open.
 
 ## Latest checkpoint
 
-Traced weather exposure into thermal and limb condition state.
+Traced core exposure stepping and a conditional recovery notice omission.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -336,8 +338,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3212 publication record](CHECKPOINT-3212.json)
-- [Saved report for checkpoint 3212](PROGRESS-3212.md)
+- [Checkpoint 3213 publication record](CHECKPOINT-3213.json)
+- [Saved report for checkpoint 3213](PROGRESS-3213.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
