@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:26:36.022519+00:00
+Updated: 2026-11-07T08:28:33.004292+00:00
 
-Latest verified checkpoint: **3191**. Goal: **active**.
+Latest verified checkpoint: **3192**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -118,7 +118,8 @@ remains open. Inspected native abstract E7 conversions cannot reach the raw
 i32-min latitude witness; other consumers remain open. Forecast endpoints are
 geographic, but interpolation depends on itinerary movement invariants.
 Generated itinerary segments constrain movement offsets; extreme-time and cast
-conditions remain open.
+conditions remain open. Itinerary forecasting can fail to advance at
+StrategicMinute MAX; supported native reachability remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -129,7 +130,8 @@ conditions remain open.
 
 ## Latest checkpoint
 
-Traced generated itinerary movement offsets into thermal forecast interpolation.
+Established the itinerary clock-exhaustion non-progress witness at
+StrategicMinute MAX.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -304,8 +306,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3191 publication record](CHECKPOINT-3191.json)
-- [Saved report for checkpoint 3191](PROGRESS-3191.md)
+- [Checkpoint 3192 publication record](CHECKPOINT-3192.json)
+- [Saved report for checkpoint 3192](PROGRESS-3192.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
