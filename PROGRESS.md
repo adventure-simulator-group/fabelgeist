@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:59:49.872524+00:00
+Updated: 2026-11-07T20:01:10.032308+00:00
 
-Latest verified checkpoint: **3510**. Goal: **active**.
+Latest verified checkpoint: **3511**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -616,7 +616,8 @@ after current movement. Direct camp rest records elapsed time without adding a
 reached stop. Gateway and web routes exchange challenge IDs but not frame or
 trial IDs. Challenge classifiers retain different subsets of the full identity.
 Existing location identities do not encode the complete challenge key. Generated
-authority and projection rows carry string challenge IDs.
+authority and projection rows carry string challenge IDs. Challenge IDs flow
+through receipts and solved case facts.
 
 | Phase | Status |
 | --- | --- |
@@ -627,14 +628,14 @@ authority and projection rows carry string challenge IDs.
 
 ## Latest checkpoint
 
-Qualified generated schema identity boundary.
+Qualified challenge receipt and case outcome identity.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile generated schema, reducer and client consumers.
+Reconcile outcome producers, consumers and receipt semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -802,8 +803,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3510 publication record](CHECKPOINT-3510.json)
-- [Saved report for checkpoint 3510](PROGRESS-3510.md)
+- [Checkpoint 3511 publication record](CHECKPOINT-3511.json)
+- [Saved report for checkpoint 3511](PROGRESS-3511.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
