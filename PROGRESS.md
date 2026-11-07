@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:28:14.454997+00:00
+Updated: 2026-11-07T19:29:51.057042+00:00
 
-Latest verified checkpoint: **3493**. Goal: **active**.
+Latest verified checkpoint: **3494**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -600,7 +600,8 @@ trial tokens and zero departure sentinels represent related state; a conditional
 zero-epoch question is retained. A freshly initialized wilderness anchor cannot
 produce zero departure under the inspected clock calculation. Inspected
 production anchor writes use the official clock and settlement arrival clears
-the anchor.
+the anchor. Canonical camp identity has validated versioned serialization
+distinct from the current trial token.
 
 | Phase | Status |
 | --- | --- |
@@ -611,13 +612,13 @@ the anchor.
 
 ## Latest checkpoint
 
-Qualified selected wilderness anchor writes.
+Qualified canonical camp serialization.
 
-Restored state and global sentinel disposition remain open.
+Bound/unbound schema and connected identity consumers remain open.
 
 ## Working on now
 
-Reconcile restored anchor admission and sentinel disposition.
+Reconcile bound/unbound identity and connected serialization.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -785,8 +786,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3493 publication record](CHECKPOINT-3493.json)
-- [Saved report for checkpoint 3493](PROGRESS-3493.md)
+- [Checkpoint 3494 publication record](CHECKPOINT-3494.json)
+- [Saved report for checkpoint 3494](PROGRESS-3494.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
