@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:33:10.951555+00:00
+Updated: 2026-11-07T20:35:52.734545+00:00
 
-Latest verified checkpoint: **3533**. Goal: **active**.
+Latest verified checkpoint: **3534**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3533**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 578 / 3,859 marked | 3,281 other entries |
+| Queue entries explicitly marked source-discovery closed | 578 / 3,860 marked | 3,282 other entries |
 | Registered source ranges qualified, connected work open | 297 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -639,7 +639,9 @@ checking. Threat syntax admission is broader than catalog membership checking.
 Threat syntax storage is reused by report and evidence vocabularies. Threat and
 evidence ledger entries share syntax storage but remain distinct. Catalog syntax
 and strategic-place component have different admission bounds. Shared catalog
-syntax must also work in build-script validation.
+syntax must also work in build-script validation. Public threat profile
+admission is now a separately tracked question. Public threat profile admission
+is now a separately tracked question.
 
 | Phase | Status |
 | --- | --- |
@@ -650,14 +652,14 @@ syntax must also work in build-script validation.
 
 ## Latest checkpoint
 
-Qualified catalog syntax build boundary.
+Recorded public threat profile admission obligation.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile build-time syntax and runtime membership owners.
+Reconcile threat admission, vocabularies and catalog bootstrap.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -807,7 +809,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3859 entries. Entries and views overlap, so this is
+The canonical queue contains 3860 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -825,8 +827,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3533 publication record](CHECKPOINT-3533.json)
-- [Saved report for checkpoint 3533](PROGRESS-3533.md)
+- [Checkpoint 3534 publication record](CHECKPOINT-3534.json)
+- [Saved report for checkpoint 3534](PROGRESS-3534.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
