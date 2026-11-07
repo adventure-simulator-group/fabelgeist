@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:46:17.795372+00:00
+Updated: 2026-11-07T21:48:40.690945+00:00
 
-Latest verified checkpoint: **3572**. Goal: **active**.
+Latest verified checkpoint: **3573**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,14 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Separated city packing and dynamic venue paths.
+Traced facade mesh to city packing.
 
-Shared producer/cache paths, malformed input reachability and aliases remain
-open.
+Other mesh producers, tangent handling, reachability and aliases remain open.
 
 ## Working on now
 
-Reconcile prepared building producer and consumer paths.
+Reconcile facade mesh admission and independent city-mesh obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3572 publication record](CHECKPOINT-3572.json)
-- [Saved report for checkpoint 3572](PROGRESS-3572.md)
+- [Checkpoint 3573 publication record](CHECKPOINT-3573.json)
+- [Saved report for checkpoint 3573](PROGRESS-3573.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
