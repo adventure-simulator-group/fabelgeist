@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:36:40.775458+00:00
+Updated: 2026-11-07T09:39:13.039570+00:00
 
-Latest verified checkpoint: **3223**. Goal: **active**.
+Latest verified checkpoint: **3224**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -172,7 +172,9 @@ record. Checkpoint 3219 incorrectly closed the dynamic configuration entry;
 checkpoint 3220 restored it to open and retained the prior record. Client
 animation and server defense consume their respective config states; rejected-
 snapshot policy remains open. A validated config digest has a distinct
-serialization error; supported failure reachability remains open.
+serialization error; supported failure reachability remains open. The JSON
+serializer maps nonfinite scalar floats to null; complete config admission and
+serialization semantics remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -183,7 +185,7 @@ serialization error; supported failure reachability remains open.
 
 ## Latest checkpoint
 
-Traced configuration digest error and startup handling.
+Qualified JSON serializer behavior for configuration digests.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -358,8 +360,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3223 publication record](CHECKPOINT-3223.json)
-- [Saved report for checkpoint 3223](PROGRESS-3223.md)
+- [Checkpoint 3224 publication record](CHECKPOINT-3224.json)
+- [Saved report for checkpoint 3224](PROGRESS-3224.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
