@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:18:01.789262+00:00
+Updated: 2026-11-07T10:19:46.590688+00:00
 
-Latest verified checkpoint: **3240**. Goal: **active**.
+Latest verified checkpoint: **3241**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -199,7 +199,9 @@ lifecycle scope is open. Movement and wind playback and the registered native
 Volume tail have been read; alias and independent lens work remain open. Native
 sink lifecycle is traced; the relationship between global volume and subsequent
 ambience updates remains open. Native and browser startup validate audio config;
-Bevy Pitch is a sine-wave source and global volume defaults to unity.
+Bevy Pitch is a sine-wave source and global volume defaults to unity. Audio
+decision templates contained unrelated inherited labels; checkpoint 3241
+corrects the current record while preserving history.
 
 | Phase | Status |
 | --- | --- |
@@ -210,7 +212,8 @@ Bevy Pitch is a sine-wave source and global volume defaults to unity.
 
 ## Latest checkpoint
 
-Traced audio startup and distinguished native Pitch from playback-speed ratios.
+Completed the registered audio startup source read and corrected inherited
+decision labels.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -385,8 +388,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3240 publication record](CHECKPOINT-3240.json)
-- [Saved report for checkpoint 3240](PROGRESS-3240.md)
+- [Checkpoint 3241 publication record](CHECKPOINT-3241.json)
+- [Saved report for checkpoint 3241](PROGRESS-3241.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
