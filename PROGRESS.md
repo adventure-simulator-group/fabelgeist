@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T22:11:04.608560+00:00
+Updated: 2026-11-07T22:12:42.575785+00:00
 
-Latest verified checkpoint: **3584**. Goal: **active**.
+Latest verified checkpoint: **3585**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified referral variant fallback.
+Traced incident event projection.
 
-Remaining renderer preconditions, aliases and runtime remain open.
+Browser rendering, renderer preconditions and aliases remain open.
 
 ## Working on now
 
-Trace incident presentation downstream and compare exact aliases.
+Qualify browser rendering and compare Lens 12 dispatch scope.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3584 publication record](CHECKPOINT-3584.json)
-- [Saved report for checkpoint 3584](PROGRESS-3584.md)
+- [Checkpoint 3585 publication record](CHECKPOINT-3585.json)
+- [Saved report for checkpoint 3585](PROGRESS-3585.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
