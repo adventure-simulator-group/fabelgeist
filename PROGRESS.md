@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T02:01:06.536925+00:00
+Updated: 2026-11-07T02:08:09.022843+00:00
 
-Latest verified checkpoint: **3073**. Goal: **active**.
+Latest verified checkpoint: **3074**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Reconciled snapshot suspicion with connected population and scene entries.
+Traced condition and equipment projection effects for NPC creation.
 
-Condition and equipment helpers and transaction behavior remain open.
+Nested projection effects and transaction behavior remain open.
 
 ## Working on now
 
-Qualify remaining snapshot helpers and preserve independent scene obligations.
+Qualify nested projection effects and transaction behavior for the snapshot.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3073 publication record](CHECKPOINT-3073.json)
-- [Saved report for checkpoint 3073](PROGRESS-3073.md)
+- [Checkpoint 3074 publication record](CHECKPOINT-3074.json)
+- [Saved report for checkpoint 3074](PROGRESS-3074.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
