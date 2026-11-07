@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T16:18:31.981841+00:00
+Updated: 2026-11-07T16:21:29.850959+00:00
 
-Latest verified checkpoint: **3406**. Goal: **active**.
+Latest verified checkpoint: **3407**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -461,7 +461,9 @@ A bounded catalog ID census found no provisional family-prefix organization ID;
 indirect-writer invariants remain open. A bounded catalog ID census found no
 provisional family-prefix organization ID; indirect-writer invariants remain
 open. Book target build and runtime restrictions were compared; connected
-consumers and aliases remain open.
+consumers and aliases remain open. Strategic reading and web preview use the
+same selected terrain and ordinary-skill target mappings; other consumers remain
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -472,7 +474,7 @@ consumers and aliases remain open.
 
 ## Latest checkpoint
 
-Qualified book target schema, build admission and runtime mapping.
+Traced strategic and web book target consumers.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -647,8 +649,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3406 publication record](CHECKPOINT-3406.json)
-- [Saved report for checkpoint 3406](PROGRESS-3406.md)
+- [Checkpoint 3407 publication record](CHECKPOINT-3407.json)
+- [Saved report for checkpoint 3407](PROGRESS-3407.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
