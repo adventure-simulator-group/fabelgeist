@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:35:48.799159+00:00
+Updated: 2026-11-07T15:38:08.467502+00:00
 
-Latest verified checkpoint: **3391**. Goal: **active**.
+Latest verified checkpoint: **3392**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -434,7 +434,9 @@ retaining conditional reachability. A bounded check opened 555 current partial
 plans and sampled five status labels; content correctness remains unproven. All
 555 current partial-plan references matched their recorded hashes at queue 3724;
 content correctness remains unproven. The temporary-stake current plan again
-states the conditional settlement mismatch; reachability remains unproven.
+states the conditional settlement mismatch; reachability remains unproven. The
+disease fixture creates missing party participants as non-temporary but may
+reuse existing records; temporary-member reachability remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -445,7 +447,7 @@ states the conditional settlement mismatch; reachability remains unproven.
 
 ## Latest checkpoint
 
-Restored the temporary-stake finding in its current repair plan.
+Qualified disease diagnostic fixture creation and attachment.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -619,8 +621,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3391 publication record](CHECKPOINT-3391.json)
-- [Saved report for checkpoint 3391](PROGRESS-3391.md)
+- [Checkpoint 3392 publication record](CHECKPOINT-3392.json)
+- [Saved report for checkpoint 3392](PROGRESS-3392.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
