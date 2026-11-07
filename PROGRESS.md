@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:46:16.394529+00:00
+Updated: 2026-11-07T17:48:35.267841+00:00
 
-Latest verified checkpoint: **3440**. Goal: **active**.
+Latest verified checkpoint: **3441**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -523,7 +523,8 @@ evaluation and encoding after row insertion; an admitted failing default remains
 unproven. Existing test source intends to evaluate and encode each melee
 default; no passing test result is claimed. Scoped party-grant error discovery
 is reconciled to its Lens 12 owner; a supported failing initializer remains
-unproven.
+unproven. An adopted full frozen Lens 13 challenge read covers the extension
+ranges; current reconciliation remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -534,15 +535,13 @@ unproven.
 
 ## Latest checkpoint
 
-Closed scoped party-grant error discovery with conditional supported-failure
-follow-up.
+Qualified all frozen challenge extension ranges by adopted same-lens evidence.
 
-Supported failure, indexed visibility and runtime repair verification remain
-open.
+Current reconciliation and connected challenge contracts remain open.
 
 ## Working on now
 
-Continue remaining connected audit and repair ledger obligations.
+Reconcile current challenge extension and connected contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -710,8 +709,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3440 publication record](CHECKPOINT-3440.json)
-- [Saved report for checkpoint 3440](PROGRESS-3440.md)
+- [Checkpoint 3441 publication record](CHECKPOINT-3441.json)
+- [Saved report for checkpoint 3441](PROGRESS-3441.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
