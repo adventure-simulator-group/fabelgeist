@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:18:13.127142+00:00
+Updated: 2026-11-07T11:20:05.028193+00:00
 
-Latest verified checkpoint: **3269**. Goal: **active**.
+Latest verified checkpoint: **3270**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -242,7 +242,9 @@ read; unrelated displays use separate data paths. Condition loss can affect
 effective equipment stats; a measurable post-receipt stale value remains
 unproven. Live subscriptions invalidate on item-condition and capability
 changes; render and refresh timing remain open. Melee contact force feeds wear;
-a supported above-threshold contact and visible stale value remain unproven.
+a supported above-threshold contact and visible stale value remain unproven. An
+authored longsword threshold and synthetic contact example are recorded; an end-
+to-end contact remains unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -253,7 +255,7 @@ a supported above-threshold contact and visible stale value remain unproven.
 
 ## Latest checkpoint
 
-Traced melee contact force feeding equipment wear.
+Compared an authored durability threshold with a synthetic contact example.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -428,8 +430,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3269 publication record](CHECKPOINT-3269.json)
-- [Saved report for checkpoint 3269](PROGRESS-3269.md)
+- [Checkpoint 3270 publication record](CHECKPOINT-3270.json)
+- [Saved report for checkpoint 3270](PROGRESS-3270.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
