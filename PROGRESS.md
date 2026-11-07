@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T23:31:46.580046+00:00
+Updated: 2026-11-07T23:34:10.679781+00:00
 
-Latest verified checkpoint: **3634**. Goal: **active**.
+Latest verified checkpoint: **3635**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -42,13 +42,13 @@ unresolved checkpoint 3122 note remain open for review.
 
 ## Latest checkpoint
 
-Qualified contaminated-well disease validation.
+Traced water collection and consumption.
 
-Malformed-state policy, other consumers and historical overlaps remain open.
+Final time and disease ports, malformed-state policy and aliases remain open.
 
 ## Working on now
 
-Trace remaining water consumers and malformed-state policy.
+Trace final time-advance and disease-admission ports.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3634 publication record](CHECKPOINT-3634.json)
-- [Saved report for checkpoint 3634](PROGRESS-3634.md)
+- [Checkpoint 3635 publication record](CHECKPOINT-3635.json)
+- [Saved report for checkpoint 3635](PROGRESS-3635.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
