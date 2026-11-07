@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:44:00.382044+00:00
+Updated: 2026-11-07T10:46:07.050260+00:00
 
-Latest verified checkpoint: **3252**. Goal: **active**.
+Latest verified checkpoint: **3253**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -217,7 +217,8 @@ refinements and fixed-tick stabilization. Jump charging admission is restricted
 to grounded upright state without a posture transition. Strategic catalog
 projection retains the ranged flag but has no projectile-kind field. Selected
 bow and firearm catalog records lack explicit projectile or ammunition
-compatibility.
+compatibility. Tactical ranged attacks select arrows and record aggregate party
+ammunition use; receipt representation remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -228,7 +229,7 @@ compatibility.
 
 ## Latest checkpoint
 
-Compared authored bow, firearm and arrow catalog records.
+Traced tactical ammunition selection and aggregate receipt representation.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -403,8 +404,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3252 publication record](CHECKPOINT-3252.json)
-- [Saved report for checkpoint 3252](PROGRESS-3252.md)
+- [Checkpoint 3253 publication record](CHECKPOINT-3253.json)
+- [Saved report for checkpoint 3253](PROGRESS-3253.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
