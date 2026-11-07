@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:55:15.535892+00:00
+Updated: 2026-11-07T14:56:46.824077+00:00
 
-Latest verified checkpoint: **3369**. Goal: **active**.
+Latest verified checkpoint: **3370**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -399,7 +399,9 @@ uses an all-interface bind; inspected disease and equipment loaders do not
 directly compare caller identity. Public startup uses an all-interface bind;
 inspected disease and equipment loaders do not directly compare caller identity.
 Startup passes the requested bind to SpacetimeDB unless a process already
-listens; actual deployment remains unverified.
+listens; actual deployment remains unverified. Transfer and discard bodies also
+lack explicit caller checks in the inspected scope; each effect remains
+independently qualified.
 
 | Phase | Status |
 | --- | --- |
@@ -410,13 +412,13 @@ listens; actual deployment remains unverified.
 
 ## Latest checkpoint
 
-Traced database startup bind and disease conversion.
+Compared adjacent transfer and discard caller guards.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify nested capability checks and connected inventory authority.
+Qualify connected transfer and discard authority and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -584,8 +586,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3369 publication record](CHECKPOINT-3369.json)
-- [Saved report for checkpoint 3369](PROGRESS-3369.md)
+- [Checkpoint 3370 publication record](CHECKPOINT-3370.json)
+- [Saved report for checkpoint 3370](PROGRESS-3370.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
