@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:10:58.158373+00:00
+Updated: 2026-11-07T06:13:46.201244+00:00
 
-Latest verified checkpoint: **3122**. Goal: **active**.
+Latest verified checkpoint: **3123**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Partially traced P02 typed battle time and elapsed spans.
+Traced P02 scheduling and defensive cancellation time types.
 
-Other P02 scheduling and defense paths remain unexamined; no runtime execution.
+Other readiness and consumer paths remain open; no runtime execution.
 
 ## Working on now
 
-Complete P02 scheduling and defense source tracing.
+Complete P02 readiness and consumer source tracing.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3122 publication record](CHECKPOINT-3122.json)
-- [Saved report for checkpoint 3122](PROGRESS-3122.md)
+- [Checkpoint 3123 publication record](CHECKPOINT-3123.json)
+- [Saved report for checkpoint 3123](PROGRESS-3123.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
