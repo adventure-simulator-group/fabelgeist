@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:04:21.568812+00:00
+Updated: 2026-11-07T10:07:01.279512+00:00
 
-Latest verified checkpoint: **3234**. Goal: **active**.
+Latest verified checkpoint: **3235**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -191,6 +191,8 @@ markers now reference existing qualified reads; connected work remains open.
 Native audio existing-type ownership is partially qualified under Lens 2;
 project producers and other lenses remain open. Audio gain and pitch admission
 is traced into selected native playback settings; other consumers remain open.
+Native audio forwards composed playback speed; the existing pitch-product repair
+remains independently owned.
 
 | Phase | Status |
 | --- | --- |
@@ -201,7 +203,7 @@ is traced into selected native playback settings; other consumers remain open.
 
 ## Latest checkpoint
 
-Traced audio configuration into native playback types.
+Linked native pitch forwarding to the existing composition repair.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -376,8 +378,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3234 publication record](CHECKPOINT-3234.json)
-- [Saved report for checkpoint 3234](PROGRESS-3234.md)
+- [Checkpoint 3235 publication record](CHECKPOINT-3235.json)
+- [Saved report for checkpoint 3235](PROGRESS-3235.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
