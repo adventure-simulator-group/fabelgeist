@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:41:49.404074+00:00
+Updated: 2026-11-07T19:43:37.086136+00:00
 
-Latest verified checkpoint: **3500**. Goal: **active**.
+Latest verified checkpoint: **3501**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -607,7 +607,8 @@ its own authority, errantry list and private overlay. Puzzle and road camp
 checks share identity but differ in destination and timing admission. Puzzle and
 road caller guards and retry predicates have distinct scopes. Camp redirect
 clears reached camp identity before continued travel. Authorized redirect clears
-camp stops; later travel may record new stops.
+camp stops; later travel may record new stops. Departure and redirect derive
+anchors from distinct clock sources.
 
 | Phase | Status |
 | --- | --- |
@@ -618,14 +619,14 @@ camp stops; later travel may record new stops.
 
 ## Latest checkpoint
 
-Qualified redirect caller and later reached-camp recording.
+Qualified original and redirected departure clock sources.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Resolve possible departure and movement coordinate reuse.
+Trace wilderness and character clock synchronization.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -793,8 +794,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3500 publication record](CHECKPOINT-3500.json)
-- [Saved report for checkpoint 3500](PROGRESS-3500.md)
+- [Checkpoint 3501 publication record](CHECKPOINT-3501.json)
+- [Saved report for checkpoint 3501](PROGRESS-3501.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
