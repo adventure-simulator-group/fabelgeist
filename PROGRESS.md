@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:21:09.172148+00:00
+Updated: 2026-11-07T07:26:54.362557+00:00
 
-Latest verified checkpoint: **3158**. Goal: **active**.
+Latest verified checkpoint: **3159**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -69,7 +69,8 @@ supported failure policy remains open. Cloud seeds remain typed through
 sampling; other generators and coordinate admission remain open. Cloud ray and
 layer inputs are constrained; endpoint and wind admission remain open. Cloud
 endpoints advance per completed bake; wind admission and supported long-session
-behavior remain open.
+behavior remain open. Validated scene wind speed is bounded; complete
+environment-producer coverage remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -80,7 +81,7 @@ behavior remain open.
 
 ## Latest checkpoint
 
-Traced cloud endpoint advancement and wind derivation.
+Traced cloud wind representation and scene validation.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -255,8 +256,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3158 publication record](CHECKPOINT-3158.json)
-- [Saved report for checkpoint 3158](PROGRESS-3158.md)
+- [Checkpoint 3159 publication record](CHECKPOINT-3159.json)
+- [Saved report for checkpoint 3159](PROGRESS-3159.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
