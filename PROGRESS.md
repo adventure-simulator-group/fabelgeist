@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T23:34:10.679781+00:00
+Updated: 2026-11-07T23:36:46.235618+00:00
 
-Latest verified checkpoint: **3635**. Goal: **active**.
+Latest verified checkpoint: **3636**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -42,13 +42,13 @@ unresolved checkpoint 3122 note remain open for review.
 
 ## Latest checkpoint
 
-Traced water collection and consumption.
+Traced water disease admission and time.
 
-Final time and disease ports, malformed-state policy and aliases remain open.
+Other time callers, consequence application and aliases remain open.
 
 ## Working on now
 
-Trace final time-advance and disease-admission ports.
+Trace world-event consequences and remaining time reducer callers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3635 publication record](CHECKPOINT-3635.json)
-- [Saved report for checkpoint 3635](PROGRESS-3635.md)
+- [Checkpoint 3636 publication record](CHECKPOINT-3636.json)
+- [Saved report for checkpoint 3636](PROGRESS-3636.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
