@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:29:38.076816+00:00
+Updated: 2026-11-07T18:31:17.258465+00:00
 
-Latest verified checkpoint: **3460**. Goal: **active**.
+Latest verified checkpoint: **3461**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -554,7 +554,8 @@ blunt energy on an unarmored positive-energy hit; supported encounter
 reachability remains open. An authored ranged weapon has positive precision and
 its equipment projection carries that value into combat. Authored bandit
 precision feeds strategic enemy weapon construction; encounter selection and
-landed hits remain open.
+landed hits remain open. Journey encounter selection includes bandits and enemy
+melee contacts target allies; particular contact conditions remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -565,13 +566,13 @@ landed hits remain open.
 
 ## Latest checkpoint
 
-Traced enemy precision into strategic combatants.
+Traced bandit selection and enemy melee target flow.
 
-Bandit encounter selection, supported hits and intended semantics remain open.
+Specific contact conditions, intended semantics and runtime impact remain open.
 
 ## Working on now
 
-Qualify bandit encounter selection, supported hits and injury split semantics.
+Qualify supported contact conditions and injury split semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -739,8 +740,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3460 publication record](CHECKPOINT-3460.json)
-- [Saved report for checkpoint 3460](PROGRESS-3460.md)
+- [Checkpoint 3461 publication record](CHECKPOINT-3461.json)
+- [Saved report for checkpoint 3461](PROGRESS-3461.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
