@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T22:45:59.550019+00:00
+Updated: 2026-11-07T22:47:24.689935+00:00
 
-Latest verified checkpoint: **3607**. Goal: **active**.
+Latest verified checkpoint: **3608**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Corrected disease exposure caller scope.
+Qualified disease source cap ordering.
 
-Row retention, interval overlap and aliases remain open.
+Ordinary row ordering, lifecycle and aliases remain open.
 
 ## Working on now
 
-Trace production interval overlap and problem retention.
+Qualify source ordering, retention and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3607 publication record](CHECKPOINT-3607.json)
-- [Saved report for checkpoint 3607](PROGRESS-3607.md)
+- [Checkpoint 3608 publication record](CHECKPOINT-3608.json)
+- [Saved report for checkpoint 3608](PROGRESS-3608.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
