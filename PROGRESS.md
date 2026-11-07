@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T04:16:12.288609+00:00
+Updated: 2026-11-07T04:25:05.752630+00:00
 
-Latest verified checkpoint: **3094**. Goal: **active**.
+Latest verified checkpoint: **3095**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced merchant purchase merging into an applied splint row.
+Traced applied splint source and destination handling in sale and party
+transfer.
 
-Storefront, row selection and other inventory and lifecycle paths remain open;
-no runtime execution.
+Other inventory and lifecycle paths remain open; no runtime execution.
 
 ## Working on now
 
-Trace remaining applied-splint inventory and lifecycle paths.
+Reconcile remaining splint custody consumers and lifecycle obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3094 publication record](CHECKPOINT-3094.json)
-- [Saved report for checkpoint 3094](PROGRESS-3094.md)
+- [Checkpoint 3095 publication record](CHECKPOINT-3095.json)
+- [Saved report for checkpoint 3095](PROGRESS-3095.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
