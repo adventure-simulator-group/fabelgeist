@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:45:28.541119+00:00
+Updated: 2026-11-07T09:47:58.673545+00:00
 
-Latest verified checkpoint: **3227**. Goal: **active**.
+Latest verified checkpoint: **3228**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -178,7 +178,8 @@ serialization semantics remain open. A public AI facing threshold lacks a top-
 level finite check; file admission and intended range remain open. YAML float
 parsing admits nonfinite AI facing thresholds in the source-level path;
 threshold policy and runtime effects remain open. UnitInterval is a possible AI
-threshold type; finite out-of-range policy remains open.
+threshold type; finite out-of-range policy remains open. AI precision admission
+is already owned separately and intentionally accepts every finite value.
 
 | Phase | Status |
 | --- | --- |
@@ -189,7 +190,7 @@ threshold type; finite out-of-range policy remains open.
 
 ## Latest checkpoint
 
-Located an existing bounded fraction candidate for the AI threshold.
+Linked AI precision admission to its existing repair owner.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -364,8 +365,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3227 publication record](CHECKPOINT-3227.json)
-- [Saved report for checkpoint 3227](PROGRESS-3227.md)
+- [Checkpoint 3228 publication record](CHECKPOINT-3228.json)
+- [Saved report for checkpoint 3228](PROGRESS-3228.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
