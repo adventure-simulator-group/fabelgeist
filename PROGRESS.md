@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T05:11:47.915759+00:00
+Updated: 2026-11-07T05:14:40.591654+00:00
 
-Latest verified checkpoint: **3103**. Goal: **active**.
+Latest verified checkpoint: **3104**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Identified a conditional collapsed-cell rendering and collision mismatch.
+Traced boundary cell decoding and one-time replication.
 
-Generated-scene reachability, policy and native acceptance remain open; no
+Input authority, cell-geometry policy and runtime behavior remain open; no
 runtime execution.
 
 ## Working on now
 
-Trace collapsed-cell reachability and reconcile boundary aliases.
+Resolve cell-geometry authority and reconcile boundary aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3103 publication record](CHECKPOINT-3103.json)
-- [Saved report for checkpoint 3103](PROGRESS-3103.md)
+- [Checkpoint 3104 publication record](CHECKPOINT-3104.json)
+- [Saved report for checkpoint 3104](PROGRESS-3104.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
