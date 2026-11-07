@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:37:51.016350+00:00
+Updated: 2026-11-07T12:40:18.167328+00:00
 
-Latest verified checkpoint: **3303**. Goal: **active**.
+Latest verified checkpoint: **3304**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -296,7 +296,8 @@ party admission and timing remain open. Arrival directly commits matching escort
 objectives; continuity effects and cross-party timing remain open. Arrival
 continuity guards cover survive and protect objectives, not the inspected defeat
 and drive-off objectives. Withdrawal can pass its score threshold in principle;
-jointly admitted inputs and timing remain unproven.
+jointly admitted inputs and timing remain unproven. Authored bandits are
+negotiable with morale 50; admitted social and language inputs remain unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -307,13 +308,13 @@ jointly admitted inputs and timing remain unproven.
 
 ## Latest checkpoint
 
-Traced deterministic withdrawal acceptance threshold.
+Traced authored bandit morale and withdrawal input owners.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace admitted cross-party negotiation inputs and timing.
+Trace admitted leader and spokesman language, skill and timing.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -481,8 +482,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3303 publication record](CHECKPOINT-3303.json)
-- [Saved report for checkpoint 3303](PROGRESS-3303.md)
+- [Checkpoint 3304 publication record](CHECKPOINT-3304.json)
+- [Saved report for checkpoint 3304](PROGRESS-3304.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
