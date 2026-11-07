@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:20:27.674823+00:00
+Updated: 2026-11-07T20:22:00.274158+00:00
 
-Latest verified checkpoint: **3524**. Goal: **active**.
+Latest verified checkpoint: **3525**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -630,7 +630,8 @@ reconciliation. Inspected mission paths use neutral countermeasure multipliers.
 Mission combat scale is captured from the hostile group separately. Finale group
 values derive from the threat profile before mission capture. Pinned source
 search found no other named finale-defense reader. Core and server presenter
-enums overlap across a generated boundary.
+enums overlap across a generated boundary. Core has an established conditional
+database-type derive pattern.
 
 | Phase | Status |
 | --- | --- |
@@ -641,14 +642,14 @@ enums overlap across a generated boundary.
 
 ## Latest checkpoint
 
-Qualified presenter catalog owner candidate.
+Qualified core database-type precedent.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Assess presenter schema feasibility and remaining consumers.
+Reconcile presenter consumers and schema identity.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -816,8 +817,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3524 publication record](CHECKPOINT-3524.json)
-- [Saved report for checkpoint 3524](PROGRESS-3524.md)
+- [Checkpoint 3525 publication record](CHECKPOINT-3525.json)
+- [Saved report for checkpoint 3525](PROGRESS-3525.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
