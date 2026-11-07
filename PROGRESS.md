@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:58:08.591814+00:00
+Updated: 2026-11-07T12:00:12.392559+00:00
 
-Latest verified checkpoint: **3285**. Goal: **active**.
+Latest verified checkpoint: **3286**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -269,7 +269,8 @@ applies velocity to a separate recipient; timing and native boundaries remain
 open. Impact surfaces use configured body-part boxes; config admission, native
 timing and mission completion dependencies remain open. Normal server startup
 validates combat hitboxes before insertion; mutation and native timing remain
-open.
+open. No current mission candidate can yield strategic failure despite a
+reported tactical success; reachability and presentation policy remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -280,13 +281,13 @@ open.
 
 ## Latest checkpoint
 
-Traced normal tactical combat-config validation at startup.
+Traced conditional strategic failure after reported tactical success.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace impact transform timing and mission completion dependencies.
+Trace outcome candidate invalidation and terminal presentation policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -454,8 +455,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3285 publication record](CHECKPOINT-3285.json)
-- [Saved report for checkpoint 3285](PROGRESS-3285.md)
+- [Checkpoint 3286 publication record](CHECKPOINT-3286.json)
+- [Saved report for checkpoint 3286](PROGRESS-3286.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
