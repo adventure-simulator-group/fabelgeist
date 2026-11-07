@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:31:31.657542+00:00
+Updated: 2026-11-07T08:33:12.561221+00:00
 
-Latest verified checkpoint: **3194**. Goal: **active**.
+Latest verified checkpoint: **3195**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -122,7 +122,9 @@ conditions remain open. Itinerary forecasting can fail to advance at
 StrategicMinute MAX; supported native reachability remains open. On-site
 readiness passes personal time directly to itinerary forecasting; supported
 clock exhaustion remains open. Correction: the full-range lattice bound includes
-one-cell pressure offsets and still fits i128.
+one-cell pressure offsets and still fits i128. Returned generated itineraries
+accepted by the thermal horizon keep movement offsets and geographic
+interpolation bounded.
 
 | Phase | Status |
 | --- | --- |
@@ -133,7 +135,8 @@ one-cell pressure offsets and still fits i128.
 
 ## Latest checkpoint
 
-Corrected the lattice arithmetic bound for neighboring pressure cells.
+Qualified returned generated itinerary movement and thermal interpolation
+bounds.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -308,8 +311,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3194 publication record](CHECKPOINT-3194.json)
-- [Saved report for checkpoint 3194](PROGRESS-3194.md)
+- [Checkpoint 3195 publication record](CHECKPOINT-3195.json)
+- [Saved report for checkpoint 3195](PROGRESS-3195.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
