@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:31:17.258465+00:00
+Updated: 2026-11-07T18:32:42.610747+00:00
 
-Latest verified checkpoint: **3461**. Goal: **active**.
+Latest verified checkpoint: **3462**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -555,7 +555,9 @@ reachability remains open. An authored ranged weapon has positive precision and
 its equipment projection carries that value into combat. Authored bandit
 precision feeds strategic enemy weapon construction; encounter selection and
 landed hits remain open. Journey encounter selection includes bandits and enemy
-melee contacts target allies; particular contact conditions remain open.
+melee contacts target allies; particular contact conditions remain open. An
+earlier Lens 1 question overlaps the damage recorder; its exact relationship
+remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -566,13 +568,13 @@ melee contacts target allies; particular contact conditions remain open.
 
 ## Latest checkpoint
 
-Traced bandit selection and enemy melee target flow.
+Compared cross-lens apportionment owner.
 
-Specific contact conditions, intended semantics and runtime impact remain open.
+Exact alias identity, contact conditions and runtime impact remain open.
 
 ## Working on now
 
-Qualify supported contact conditions and injury split semantics.
+Resolve exact cross-lens relationship and injury split semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -740,8 +742,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3461 publication record](CHECKPOINT-3461.json)
-- [Saved report for checkpoint 3461](PROGRESS-3461.md)
+- [Checkpoint 3462 publication record](CHECKPOINT-3462.json)
+- [Saved report for checkpoint 3462](PROGRESS-3462.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
