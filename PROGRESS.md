@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:05:55.442950+00:00
+Updated: 2026-11-07T21:07:41.419803+00:00
 
-Latest verified checkpoint: **3551**. Goal: **active**.
+Latest verified checkpoint: **3552**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,14 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified ordered-sigil spec under Lens 3.
+Qualified ordered-sigil spec callers.
 
-Exact alias and public rejection ownership remain open; no runtime test.
+External public admission, exact aliases and error ownership remain open; source
+tests not run.
 
 ## Working on now
 
-Complete specification admission and consumer reconciliation.
+Reconcile public spec admission with puzzle error ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3551 publication record](CHECKPOINT-3551.json)
-- [Saved report for checkpoint 3551](PROGRESS-3551.md)
+- [Checkpoint 3552 publication record](CHECKPOINT-3552.json)
+- [Saved report for checkpoint 3552](PROGRESS-3552.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
