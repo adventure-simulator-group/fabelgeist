@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:34:13.874238+00:00
+Updated: 2026-11-07T18:35:45.441715+00:00
 
-Latest verified checkpoint: **3463**. Goal: **active**.
+Latest verified checkpoint: **3464**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -558,7 +558,8 @@ landed hits remain open. Journey encounter selection includes bandits and enemy
 melee contacts target allies; particular contact conditions remain open. An
 earlier Lens 1 question overlaps the damage recorder; its exact relationship
 remains open. Default armor coverage is empty, allowing the unarmored contact
-branch; actual battle reachability remains open.
+branch; actual battle reachability remains open. Allied equipment projection
+retains empty coverage for unprotected body parts; contact timing remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -569,13 +570,13 @@ branch; actual battle reachability remains open.
 
 ## Latest checkpoint
 
-Qualified default unarmored coverage.
+Connected allied equipment projection to unarmored coverage.
 
-Actual ally loading, contact classification and runtime impact remain open.
+Contact classification, intended semantics and runtime impact remain open.
 
 ## Working on now
 
-Qualify ally loading, contact classification and injury split semantics.
+Qualify contact timing, classification and injury split semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -743,8 +744,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3463 publication record](CHECKPOINT-3463.json)
-- [Saved report for checkpoint 3463](PROGRESS-3463.md)
+- [Checkpoint 3464 publication record](CHECKPOINT-3464.json)
+- [Saved report for checkpoint 3464](PROGRESS-3464.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
