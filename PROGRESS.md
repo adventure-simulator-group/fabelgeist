@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:01:54.237155+00:00
+Updated: 2026-11-07T19:03:37.810899+00:00
 
-Latest verified checkpoint: **3479**. Goal: **active**.
+Latest verified checkpoint: **3480**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -579,7 +579,9 @@ redirects have distinct duration producers. Journey coordinate schema changes
 must preserve gateway-authorized reducers and gateway-only views. Forecast
 refresh rebases movement and elapsed coordinates independently and merges
 contiguous camps at the same movement point. The full current errantry file is
-read under Lens 2; connected owners and clue admission remain open.
+read under Lens 2; connected owners and clue admission remain open. Raw clue
+positions are validated at puzzle level and used directly for errantry lookup;
+an existing Lens 3 admission question is retained.
 
 | Phase | Status |
 | --- | --- |
@@ -590,13 +592,13 @@ read under Lens 2; connected owners and clue admission remain open.
 
 ## Latest checkpoint
 
-Qualified complete current errantry source under Lens 2.
+Traced ordered clue position owner and admission.
 
-Connected owners, puzzle admission and aliases remain open.
+Position owner, serialization and direct-value admission remain open.
 
 ## Working on now
 
-Reconcile errantry connected owners and puzzle admission.
+Reconcile clue position ownership and native admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -764,8 +766,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3479 publication record](CHECKPOINT-3479.json)
-- [Saved report for checkpoint 3479](PROGRESS-3479.md)
+- [Checkpoint 3480 publication record](CHECKPOINT-3480.json)
+- [Saved report for checkpoint 3480](PROGRESS-3480.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
