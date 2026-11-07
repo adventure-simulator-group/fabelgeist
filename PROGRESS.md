@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:26:32.762142+00:00
+Updated: 2026-11-07T19:28:14.454997+00:00
 
-Latest verified checkpoint: **3492**. Goal: **active**.
+Latest verified checkpoint: **3493**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -598,7 +598,9 @@ constructor; unbound state needs explicit treatment. The scoped challenge parser
 discards the ordinal and cannot alone own complete retained identity. Unbound
 trial tokens and zero departure sentinels represent related state; a conditional
 zero-epoch question is retained. A freshly initialized wilderness anchor cannot
-produce zero departure under the inspected clock calculation.
+produce zero departure under the inspected clock calculation. Inspected
+production anchor writes use the official clock and settlement arrival clears
+the anchor.
 
 | Phase | Status |
 | --- | --- |
@@ -609,13 +611,13 @@ produce zero departure under the inspected clock calculation.
 
 ## Latest checkpoint
 
-Qualified fresh-anchor departure chronology.
+Qualified selected wilderness anchor writes.
 
-Existing anchors, restoration and global sentinel disposition remain open.
+Restored state and global sentinel disposition remain open.
 
 ## Working on now
 
-Reconcile existing anchor writers and supported departure chronology.
+Reconcile restored anchor admission and sentinel disposition.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -783,8 +785,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3492 publication record](CHECKPOINT-3492.json)
-- [Saved report for checkpoint 3492](PROGRESS-3492.md)
+- [Checkpoint 3493 publication record](CHECKPOINT-3493.json)
+- [Saved report for checkpoint 3493](PROGRESS-3493.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
