@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:29:28.390239+00:00
+Updated: 2026-11-07T07:30:57.794546+00:00
 
-Latest verified checkpoint: **3160**. Goal: **active**.
+Latest verified checkpoint: **3161**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -72,6 +72,8 @@ endpoints advance per completed bake; wind admission and supported long-session
 behavior remain open. Validated scene wind speed is bounded; complete
 environment-producer coverage remains open. Tactical startup validates scene
 weather before snapshot; browser and alternate environment paths remain open.
+Strategic retained scene parsing validates weather; pre-preparation and
+alternate environment paths remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -82,7 +84,7 @@ weather before snapshot; browser and alternate environment paths remain open.
 
 ## Latest checkpoint
 
-Traced tactical scene weather validation into environment snapshot.
+Traced strategic retained scene validation before environment snapshot.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -257,8 +259,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3160 publication record](CHECKPOINT-3160.json)
-- [Saved report for checkpoint 3160](PROGRESS-3160.md)
+- [Checkpoint 3161 publication record](CHECKPOINT-3161.json)
+- [Saved report for checkpoint 3161](PROGRESS-3161.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
