@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:18:46.979787+00:00
+Updated: 2026-11-07T15:20:45.199239+00:00
 
-Latest verified checkpoint: **3382**. Goal: **active**.
+Latest verified checkpoint: **3383**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -422,6 +422,8 @@ and mission reducers, not the inspected inventory mutations. Non-newborn
 creation and simulation setup credit currency through a stack helper; runtime
 effects remain unverified. Checked grants insert a non-individual stack;
 currency bypasses weapon metadata and the wrapper separately discards errors.
+Personal and party grant-error erasure have separate owned ledger repairs from
+the caller-authority question.
 
 | Phase | Status |
 | --- | --- |
@@ -432,13 +434,13 @@ currency bypasses weapon metadata and the wrapper separately discards errors.
 
 ## Latest checkpoint
 
-Traced currency grant and weapon initialization.
+Compared inventory authority and grant-error ledger entries.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify capability prerequisites and connected authority aliases.
+Qualify capability prerequisites and remaining authority aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -606,8 +608,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3382 publication record](CHECKPOINT-3382.json)
-- [Saved report for checkpoint 3382](PROGRESS-3382.md)
+- [Checkpoint 3383 publication record](CHECKPOINT-3383.json)
+- [Saved report for checkpoint 3383](PROGRESS-3383.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
