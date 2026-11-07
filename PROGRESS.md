@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:07:36.428084+00:00
+Updated: 2026-11-07T17:09:53.335161+00:00
 
-Latest verified checkpoint: **3421**. Goal: **active**.
+Latest verified checkpoint: **3422**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -485,7 +485,9 @@ unproven. Ten registered P02 source scopes were reread under Lens 11; broader
 connected work remains open. Current narrative bridge cost specifies food that
 the measured-item cost handler rejects; connected reachability remains open.
 Current narrative bridge cost specifies food that the measured-item cost handler
-rejects; connected reachability remains open.
+rejects; connected reachability remains open. Catalog embedding and choice
+view/reducer checks connect the authored bridge cost to its rejecting measured-
+item handler under stated conditions.
 
 | Phase | Status |
 | --- | --- |
@@ -496,13 +498,14 @@ rejects; connected reachability remains open.
 
 ## Latest checkpoint
 
-Qualified current authored narrative food cost and measured-item rejection.
+Traced narrative catalog embedding and choice availability to the measured-cost
+handler.
 
-Catalog and choice reachability, exact aliases and runtime behavior remain open.
+Supported challenge creation, exact aliases and runtime behavior remain open.
 
 ## Working on now
 
-Reconcile narrative choice and measured food custody paths.
+Reconcile supported challenge creation, measured food custody and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -670,8 +673,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3421 publication record](CHECKPOINT-3421.json)
-- [Saved report for checkpoint 3421](PROGRESS-3421.md)
+- [Checkpoint 3422 publication record](CHECKPOINT-3422.json)
+- [Saved report for checkpoint 3422](PROGRESS-3422.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
