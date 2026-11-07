@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T22:00:35.113164+00:00
+Updated: 2026-11-07T22:02:26.634123+00:00
 
-Latest verified checkpoint: **3579**. Goal: **active**.
+Latest verified checkpoint: **3580**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified witness selection and testimony alignment.
+Traced dialogue event source alignment.
 
-Event persistence, manual routes and aliases remain open.
+Catalog admission, choice events, referrals and aliases remain open.
 
 ## Working on now
 
-Trace dialogue event persistence and manual provenance.
+Trace remaining dialogue event and catalog admission paths.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3579 publication record](CHECKPOINT-3579.json)
-- [Saved report for checkpoint 3579](PROGRESS-3579.md)
+- [Checkpoint 3580 publication record](CHECKPOINT-3580.json)
+- [Saved report for checkpoint 3580](PROGRESS-3580.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
