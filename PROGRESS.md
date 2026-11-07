@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T05:14:40.591654+00:00
+Updated: 2026-11-07T05:18:00.606732+00:00
 
-Latest verified checkpoint: **3104**. Goal: **active**.
+Latest verified checkpoint: **3105**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced boundary cell decoding and one-time replication.
+Qualified contact-only policy and a numerical rounding example.
 
-Input authority, cell-geometry policy and runtime behavior remain open; no
-runtime execution.
+Generated reachability and rendered-contact policy remain open; the numerical
+model is not product execution.
 
 ## Working on now
 
-Resolve cell-geometry authority and reconcile boundary aliases.
+Resolve generated reachability and intended rendered-contact behavior.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3104 publication record](CHECKPOINT-3104.json)
-- [Saved report for checkpoint 3104](PROGRESS-3104.md)
+- [Checkpoint 3105 publication record](CHECKPOINT-3105.json)
+- [Saved report for checkpoint 3105](PROGRESS-3105.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
