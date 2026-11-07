@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T05:55:24.539406+00:00
+Updated: 2026-11-07T05:58:11.509188+00:00
 
-Latest verified checkpoint: **3118**. Goal: **active**.
+Latest verified checkpoint: **3119**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Compared scoped wall and cap audit obligations.
+Linked the pending-boundary outcome to an existing numeric-lens obligation.
 
-The search covers first-question fields only; global alias reconciliation
-remains open.
+Literal queue search does not cover all semantic aliases or external evidence.
 
 ## Working on now
 
-Complete global alias reconciliation and independent boundary scopes.
+Compare remaining semantic aliases and independent boundary scopes.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3118 publication record](CHECKPOINT-3118.json)
-- [Saved report for checkpoint 3118](PROGRESS-3118.md)
+- [Checkpoint 3119 publication record](CHECKPOINT-3119.json)
+- [Saved report for checkpoint 3119](PROGRESS-3119.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
