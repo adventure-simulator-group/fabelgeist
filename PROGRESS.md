@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:49:56.810319+00:00
+Updated: 2026-11-07T20:51:28.160015+00:00
 
-Latest verified checkpoint: **3543**. Goal: **active**.
+Latest verified checkpoint: **3544**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -649,7 +649,8 @@ server consumers parse stored threats before profile lookup. Inspected manifest
 paths deserialize catalog-checked threat IDs. The encounter panel catalog-parses
 its threat before display. Threat admission acceptance spans public, catalog and
 native boundaries. Existing invalid-data fallbacks are not compatibility duties.
-Threat syntax and membership share one threat-named error.
+Threat syntax and membership share one threat-named error. Authored threat
+errors cross server and simulator wrappers.
 
 | Phase | Status |
 | --- | --- |
@@ -660,14 +661,14 @@ Threat syntax and membership share one threat-named error.
 
 ## Latest checkpoint
 
-Qualified threat identifier error ownership.
+Qualified structured threat error consumers.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile syntax and membership error ownership.
+Qualify remaining threat error consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -835,8 +836,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3543 publication record](CHECKPOINT-3543.json)
-- [Saved report for checkpoint 3543](PROGRESS-3543.md)
+- [Checkpoint 3544 publication record](CHECKPOINT-3544.json)
+- [Saved report for checkpoint 3544](PROGRESS-3544.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
