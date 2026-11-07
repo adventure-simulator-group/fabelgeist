@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:23:49.020118+00:00
+Updated: 2026-11-07T17:26:14.137972+00:00
 
-Latest verified checkpoint: **3429**. Goal: **active**.
+Latest verified checkpoint: **3430**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -500,7 +500,9 @@ stable-object predicate for existing non-food simple rows under stated
 conditions. Simple item and container-capacity projection is explicit; a
 simulation fixture creates a stocked general store with a present merchant.
 Ordinary settlement import infers a general store and general-goods stock, while
-actual trade still requires provider and transaction preconditions.
+actual trade still requires provider and transaction preconditions. General-shop
+operator creation and provider selection are source-qualified, subject to
+building limits and presence; failed reducer transactions roll back.
 
 | Phase | Status |
 | --- | --- |
@@ -511,13 +513,14 @@ actual trade still requires provider and transaction preconditions.
 
 ## Latest checkpoint
 
-Qualified ordinary settlement general-store and stock inference.
+Qualified merchant provider generation and transactional trade boundary.
 
-Provider, aliases and runtime trade remain open.
+Building limits and presence are conditional; exact aliases and runtime trade
+remain open.
 
 ## Working on now
 
-Reconcile storefront provider, transaction and exact aliases.
+Complete storefront stable-object alias and repair reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -685,8 +688,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3429 publication record](CHECKPOINT-3429.json)
-- [Saved report for checkpoint 3429](PROGRESS-3429.md)
+- [Checkpoint 3430 publication record](CHECKPOINT-3430.json)
+- [Saved report for checkpoint 3430](PROGRESS-3430.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
