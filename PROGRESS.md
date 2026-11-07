@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:14:38.765399+00:00
+Updated: 2026-11-07T08:16:39.163360+00:00
 
-Latest verified checkpoint: **3186**. Goal: **active**.
+Latest verified checkpoint: **3187**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -111,7 +111,8 @@ remains open. Road-cast overrides use official time and one social action has an
 eight-hour limit; cumulative personal time remains open. Personal and official
 clocks have separate documented authority; extreme supported time policy remains
 open. Full typed-input lattice indices fit i64 after wider intermediate
-arithmetic; late-time rules behavior remains open.
+arithmetic; late-time rules behavior remains open. Weather rules version affects
+route cache identity and route and tactical snapshot admission.
 
 | Phase | Status |
 | --- | --- |
@@ -122,8 +123,7 @@ arithmetic; late-time rules behavior remains open.
 
 ## Latest checkpoint
 
-Bounded full-range lattice intermediates and recorded a concrete repair
-candidate.
+Traced weather rules version through route cache and snapshot admission.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -298,8 +298,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3186 publication record](CHECKPOINT-3186.json)
-- [Saved report for checkpoint 3186](PROGRESS-3186.md)
+- [Checkpoint 3187 publication record](CHECKPOINT-3187.json)
+- [Saved report for checkpoint 3187](PROGRESS-3187.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
