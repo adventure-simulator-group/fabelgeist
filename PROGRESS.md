@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:35:58.582294+00:00
+Updated: 2026-11-07T14:37:53.618008+00:00
 
-Latest verified checkpoint: **3359**. Goal: **active**.
+Latest verified checkpoint: **3360**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -383,7 +383,9 @@ documentation supports a callable-client concern but is not pinned to the
 project native version. Pinned SpacetimeDB documentation describes client-
 callable reducers and in-reducer identity checks; deployment access remains
 open. Deposit caller authority is recorded separately from temporary stake
-settlement; reachability and aliases remain open.
+settlement; reachability and aliases remain open. Deposit validates character
+and inventory association but the inspected entry has no explicit caller-
+identity guard.
 
 | Phase | Status |
 | --- | --- |
@@ -394,14 +396,13 @@ settlement; reachability and aliases remain open.
 
 ## Latest checkpoint
 
-Recorded deposit caller authority as a separate open obligation.
+Traced the full deposit reducer and its direct guards.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify the separate deposit authority obligation and temporary stake
-reachability.
+Qualify indirect deposit helpers and deployment access.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -569,8 +570,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3359 publication record](CHECKPOINT-3359.json)
-- [Saved report for checkpoint 3359](PROGRESS-3359.md)
+- [Checkpoint 3360 publication record](CHECKPOINT-3360.json)
+- [Saved report for checkpoint 3360](PROGRESS-3360.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
