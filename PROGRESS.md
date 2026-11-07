@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:35:23.506644+00:00
+Updated: 2026-11-07T11:37:20.934447+00:00
 
-Latest verified checkpoint: **3274**. Goal: **active**.
+Latest verified checkpoint: **3275**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -250,7 +250,9 @@ reachability remain open. Receipt participant truncation can conflict with
 retained contact owners; supported overflow reachability remains open. Captured
 tactical rosters share the 16-member receipt bound; temporary and tactical-side
 provenance remain open. Party-side projection feeds routine and combat
-consequences; strategic side provenance remains open.
+consequences; strategic side provenance remains open. A temporary enemy creator
+assigns characters without adding them to the captured enemy roster; invocation
+and receipt reachability remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -261,13 +263,13 @@ consequences; strategic side provenance remains open.
 
 ## Latest checkpoint
 
-Traced tactical party side into consequence accumulation.
+Traced temporary character creation to tactical assignment.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace strategic mission-side producer and temporary projections.
+Trace temporary-character invocation and projection into receipts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -435,8 +437,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3274 publication record](CHECKPOINT-3274.json)
-- [Saved report for checkpoint 3274](PROGRESS-3274.md)
+- [Checkpoint 3275 publication record](CHECKPOINT-3275.json)
+- [Saved report for checkpoint 3275](PROGRESS-3275.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
