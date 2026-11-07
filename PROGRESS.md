@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:50:57.475491+00:00
+Updated: 2026-11-07T14:53:24.637354+00:00
 
-Latest verified checkpoint: **3367**. Goal: **active**.
+Latest verified checkpoint: **3368**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -394,7 +394,10 @@ is private. Authored Rhenish gulden has currency kind and unit value one;
 initialized deposit classification remains to be checked. Fresh item
 initialization projects embedded catalog definitions with default omitted
 equipment and capabilities. Authored currency is excluded from food and explicit
-measured-material classifications under fresh initialization.
+measured-material classifications under fresh initialization. Public startup
+uses an all-interface bind; inspected disease and equipment loaders do not
+directly compare caller identity. Public startup uses an all-interface bind;
+inspected disease and equipment loaders do not directly compare caller identity.
 
 | Phase | Status |
 | --- | --- |
@@ -405,13 +408,13 @@ measured-material classifications under fresh initialization.
 
 ## Latest checkpoint
 
-Traced currency food exclusions and capability loader entries.
+Traced loader inputs and repository bind defaults.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify remaining capability and insertion helpers and deployment access.
+Qualify nested helpers and actual deployment access.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -579,8 +582,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3367 publication record](CHECKPOINT-3367.json)
-- [Saved report for checkpoint 3367](PROGRESS-3367.md)
+- [Checkpoint 3368 publication record](CHECKPOINT-3368.json)
+- [Saved report for checkpoint 3368](PROGRESS-3368.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
