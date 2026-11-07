@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:39:11.245903+00:00
+Updated: 2026-11-07T10:42:00.626567+00:00
 
-Latest verified checkpoint: **3250**. Goal: **active**.
+Latest verified checkpoint: **3251**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -214,7 +214,8 @@ preserve exact step arithmetic. The registered current procedural animation file
 is read under Lens 2; its helper test does not cover the full anticipation
 system. Jump anticipation is ordered between body response and later pose
 refinements and fixed-tick stabilization. Jump charging admission is restricted
-to grounded upright state without a posture transition.
+to grounded upright state without a posture transition. Strategic catalog
+projection retains the ranged flag but has no projectile-kind field.
 
 | Phase | Status |
 | --- | --- |
@@ -225,7 +226,7 @@ to grounded upright state without a posture transition.
 
 ## Latest checkpoint
 
-Traced admitted upstream jump anticipation state and transitions.
+Traced authored weapon projection into strategic items.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -400,8 +401,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3250 publication record](CHECKPOINT-3250.json)
-- [Saved report for checkpoint 3250](PROGRESS-3250.md)
+- [Checkpoint 3251 publication record](CHECKPOINT-3251.json)
+- [Saved report for checkpoint 3251](PROGRESS-3251.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
