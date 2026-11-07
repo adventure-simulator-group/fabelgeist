@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:34:18.460073+00:00
+Updated: 2026-11-07T14:35:58.582294+00:00
 
-Latest verified checkpoint: **3358**. Goal: **active**.
+Latest verified checkpoint: **3359**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3358**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 574 / 3,855 marked | 3,281 other entries |
+| Queue entries explicitly marked source-discovery closed | 574 / 3,856 marked | 3,282 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -382,7 +382,8 @@ access and reducer invocation remain unverified. Current external reducer
 documentation supports a callable-client concern but is not pinned to the
 project native version. Pinned SpacetimeDB documentation describes client-
 callable reducers and in-reducer identity checks; deployment access remains
-open.
+open. Deposit caller authority is recorded separately from temporary stake
+settlement; reachability and aliases remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -393,13 +394,14 @@ open.
 
 ## Latest checkpoint
 
-Qualified client invocation against pinned SpacetimeDB documentation.
+Recorded deposit caller authority as a separate open obligation.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify deployment access and reconcile deposit authority aliases.
+Qualify the separate deposit authority obligation and temporary stake
+reachability.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -549,7 +551,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3855 entries. Entries and views overlap, so this is
+The canonical queue contains 3856 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -567,8 +569,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3358 publication record](CHECKPOINT-3358.json)
-- [Saved report for checkpoint 3358](PROGRESS-3358.md)
+- [Checkpoint 3359 publication record](CHECKPOINT-3359.json)
+- [Saved report for checkpoint 3359](PROGRESS-3359.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
