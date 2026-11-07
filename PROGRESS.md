@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T01:08:54.965944+00:00
+Updated: 2026-11-07T01:12:53.507609+00:00
 
-Latest verified checkpoint: **3062**. Goal: **active**.
+Latest verified checkpoint: **3063**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -14,7 +14,7 @@ Latest verified checkpoint: **3062**. Goal: **active**.
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
-| Scoped repair obligations on entries | 74 recorded | 3 conditional; 10 policy/design |
+| Scoped repair obligations on entries | 75 recorded | 3 conditional; 10 policy/design |
 
 These categories overlap and have different meanings. Original roles and
 registered delta checks are not findings or completed repairs. Queue entries
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced web cooking, foraging and party exit camp identity consumers.
+Recorded an explicit scoped camp redirect repair obligation.
 
-Resolved-stop distinctions and final retained-state design remain open; no
-runtime execution.
+Connected contracts and final retained-state design remain open; no runtime
+execution.
 
 ## Working on now
 
-Reconcile camp identity projections, foraging and custody with journey state.
+Continue connected coordinate-frame and camp identity reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3062 publication record](CHECKPOINT-3062.json)
-- [Saved report for checkpoint 3062](PROGRESS-3062.md)
+- [Checkpoint 3063 publication record](CHECKPOINT-3063.json)
+- [Saved report for checkpoint 3063](PROGRESS-3063.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
