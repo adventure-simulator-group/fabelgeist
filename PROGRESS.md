@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:58:41.247737+00:00
+Updated: 2026-11-07T07:01:03.921908+00:00
 
-Latest verified checkpoint: **3146**. Goal: **active**.
+Latest verified checkpoint: **3147**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -52,7 +52,8 @@ opening timing remains to be traced. Surprise opening can retain out-of-window
 timing in principle; a supported near-equal witness remains unproven. Retained
 contact coordinates feed joint windows; supported near-equal reachability and
 cancellation remain open. Same-weapon defensive cancellation clears retained
-timing; supported near-equal reachability remains open.
+timing; supported near-equal reachability remains open. Scene-assets has a
+browser generation consumer; independent tactical-server delivery remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -63,14 +64,14 @@ timing; supported near-equal reachability remains open.
 
 ## Latest checkpoint
 
-Traced cancellation of retained attack timing.
+Traced scene-assets JSON to its browser consumer.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Recover older evidence and requalify connected source reads using registrations
-before reads.
+Trace independent tactical-server scene delivery and remaining clock owners
+while preserving the P02 questions.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -238,8 +239,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3146 publication record](CHECKPOINT-3146.json)
-- [Saved report for checkpoint 3146](PROGRESS-3146.md)
+- [Checkpoint 3147 publication record](CHECKPOINT-3147.json)
+- [Saved report for checkpoint 3147](PROGRESS-3147.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
