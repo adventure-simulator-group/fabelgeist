@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:06:30.564500+00:00
+Updated: 2026-11-07T18:08:46.324385+00:00
 
-Latest verified checkpoint: **3449**. Goal: **active**.
+Latest verified checkpoint: **3450**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -536,7 +536,9 @@ membership at 16, with accumulator containment still open. Tactical consequence
 producers filter on Party side; captured-roster containment and aggregate
 numeric admission remain open. Normal non-temporary tactical admission checks
 the captured roster; a temporary-character exception requires lifecycle
-qualification.
+qualification. Temporary creation assigns a character, while Party-classified
+tactical spawn requires a matching loading player; combined reachability remains
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -547,14 +549,14 @@ qualification.
 
 ## Latest checkpoint
 
-Traced strategic roster admission and tactical Party projection.
+Traced temporary character creation and tactical spawn guard.
 
-Temporary-character reachability, numeric receipt admission and runtime behavior
-remain open.
+Combined first-party reachability, receipt bounds and runtime behavior remain
+open.
 
 ## Working on now
 
-Qualify temporary tactical character lifecycle and receipt bounds.
+Qualify temporary-character callers and tactical join lifecycle.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -722,8 +724,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3449 publication record](CHECKPOINT-3449.json)
-- [Saved report for checkpoint 3449](PROGRESS-3449.md)
+- [Checkpoint 3450 publication record](CHECKPOINT-3450.json)
+- [Saved report for checkpoint 3450](PROGRESS-3450.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
