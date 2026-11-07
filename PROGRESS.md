@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:02:20.444039+00:00
+Updated: 2026-11-07T15:03:51.190514+00:00
 
-Latest verified checkpoint: **3373**. Goal: **active**.
+Latest verified checkpoint: **3374**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -405,7 +405,9 @@ independently qualified. Browser discard is self-only; browser transfer permits
 the active character to be sender or recipient. The multi-item offer checks
 same-party item relationships but has no actor parameter; intended consent
 remains open. Party-offer UI has one staged confirmation; the inspected test
-covers encounter guard presence, not consent.
+covers encounter guard presence, not consent. Both inventory rails intentionally
+stage unequipped-item transfers in either direction; consent policy remains
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -416,13 +418,13 @@ covers encounter guard presence, not consent.
 
 ## Latest checkpoint
 
-Traced party-offer presentation and existing test scope.
+Traced two-way inventory transfer staging.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify party-sharing policy and database authority.
+Qualify party-sharing policy and database authority boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -590,8 +592,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3373 publication record](CHECKPOINT-3373.json)
-- [Saved report for checkpoint 3373](PROGRESS-3373.md)
+- [Checkpoint 3374 publication record](CHECKPOINT-3374.json)
+- [Saved report for checkpoint 3374](PROGRESS-3374.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
