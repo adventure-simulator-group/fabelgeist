@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:02:21.837867+00:00
+Updated: 2026-11-07T17:04:24.868651+00:00
 
-Latest verified checkpoint: **3419**. Goal: **active**.
+Latest verified checkpoint: **3420**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -481,7 +481,8 @@ its stable object before the food lot; native visibility and failure
 reachability remain open. Pinned table iteration documents visibility of same-
 reducer inserts; other party food failure conditions remain open. Pinned unique
 lookup delegates to a native index scan; same-reducer index visibility remains
-unproven.
+unproven. Ten registered P02 source scopes were reread under Lens 11; broader
+connected work remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -492,14 +493,14 @@ unproven.
 
 ## Latest checkpoint
 
-Recovered checkpoint 3123 historical P02 note by exact hash.
+Reread ten previously registered P02 source scopes under Lens 11.
 
-Checkpoint 3122 note and source read ordering remain unresolved; no runtime
-execution.
+The checkpoint 3122 note, historical ordering, connected consumers and aliases
+remain open; no runtime execution.
 
 ## Working on now
 
-Resolve checkpoint 3122 evidence and connected audit obligations.
+Complete P02 connected source and evidence reconciliation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -667,8 +668,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3419 publication record](CHECKPOINT-3419.json)
-- [Saved report for checkpoint 3419](PROGRESS-3419.md)
+- [Checkpoint 3420 publication record](CHECKPOINT-3420.json)
+- [Saved report for checkpoint 3420](PROGRESS-3420.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
