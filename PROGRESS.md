@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T02:46:24.182489+00:00
+Updated: 2026-11-07T02:53:15.787297+00:00
 
-Latest verified checkpoint: **3081**. Goal: **active**.
+Latest verified checkpoint: **3082**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced healing during treatment and the resulting double-return failure path.
+Qualified a tactical receipt boundary and pinned server rollback path for splint
+removal.
 
-Reachability, transaction outcome and other surgery and custody scopes remain
-open; no runtime execution.
+Simulation-level reachability and other surgery and custody scopes remain open;
+no runtime execution.
 
 ## Working on now
 
-Verify the splint-removal boundary and trace related custody and transaction
-behavior.
+Trace treatment item custody, consent reasons and related receipt obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3081 publication record](CHECKPOINT-3081.json)
-- [Saved report for checkpoint 3081](PROGRESS-3081.md)
+- [Checkpoint 3082 publication record](CHECKPOINT-3082.json)
+- [Saved report for checkpoint 3082](PROGRESS-3082.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
