@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:32:53.641856+00:00
+Updated: 2026-11-07T19:34:07.127894+00:00
 
-Latest verified checkpoint: **3495**. Goal: **active**.
+Latest verified checkpoint: **3496**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -602,7 +602,8 @@ produce zero departure under the inspected clock calculation. Inspected
 production anchor writes use the official clock and settlement arrival clears
 the anchor. Canonical camp identity has validated versioned serialization
 distinct from the current trial token. Frame and trial records are persisted;
-challenge ID is used to select a trial.
+challenge ID is used to select a trial. Road trial identity is checked through
+its own authority, errantry list and private overlay.
 
 | Phase | Status |
 | --- | --- |
@@ -613,14 +614,14 @@ challenge ID is used to select a trial.
 
 ## Latest checkpoint
 
-Qualified frame and trial persistence and challenge selection.
+Qualified road trial authority and binding.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile identity consumers, aliases and connected serialization.
+Reconcile road and puzzle bindings, identity consumers and serialization.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -788,8 +789,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3495 publication record](CHECKPOINT-3495.json)
-- [Saved report for checkpoint 3495](PROGRESS-3495.md)
+- [Checkpoint 3496 publication record](CHECKPOINT-3496.json)
+- [Saved report for checkpoint 3496](PROGRESS-3496.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
