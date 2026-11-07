@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:49:53.620539+00:00
+Updated: 2026-11-07T10:51:25.390043+00:00
 
-Latest verified checkpoint: **3255**. Goal: **active**.
+Latest verified checkpoint: **3256**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -221,7 +221,8 @@ compatibility. Tactical ranged attacks select arrows and record aggregate party
 ammunition use; receipt representation remains open. Ranged contact loses
 projectile identity before shared body-part injury aggregation; receipt-only
 repair is insufficient. Tactical item projection carries the ranged flag and ID
-but no projectile or ammunition compatibility.
+but no projectile or ammunition compatibility. Tactical receipt validation
+bounds records and checks party authority before strategic injury commitment.
 
 | Phase | Status |
 | --- | --- |
@@ -232,7 +233,7 @@ but no projectile or ammunition compatibility.
 
 ## Latest checkpoint
 
-Traced ranged item data into tactical server projection.
+Traced strategic receipt admission and injury commitment.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -407,8 +408,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3255 publication record](CHECKPOINT-3255.json)
-- [Saved report for checkpoint 3255](PROGRESS-3255.md)
+- [Checkpoint 3256 publication record](CHECKPOINT-3256.json)
+- [Saved report for checkpoint 3256](PROGRESS-3256.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
