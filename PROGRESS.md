@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:43:23.020369+00:00
+Updated: 2026-11-07T17:44:52.315867+00:00
 
-Latest verified checkpoint: **3438**. Goal: **active**.
+Latest verified checkpoint: **3439**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -520,7 +520,8 @@ companion-table effects. A successful eligible party merge recreates partial
 non-repairable rations at whole catalog defaults; old companion deletion
 behavior remains unresolved. Party weapon initialization has fallible lookup,
 evaluation and encoding after row insertion; an admitted failing default remains
-unproven.
+unproven. Existing test source intends to evaluate and encode each melee
+default; no passing test result is claimed.
 
 | Phase | Status |
 | --- | --- |
@@ -531,13 +532,13 @@ unproven.
 
 ## Latest checkpoint
 
-Traced fallible party weapon initialization after row insertion.
+Qualified existing default weapon evaluation and codec test source.
 
-Supported default-recipe failure and runtime effects remain unproven.
+Tests were not executed; database and persisted-projection behavior remain open.
 
 ## Working on now
 
-Qualify default recipe and indexed-read contracts for party grant.
+Reconcile party grant caller and exact native read contracts.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -705,8 +706,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3438 publication record](CHECKPOINT-3438.json)
-- [Saved report for checkpoint 3438](PROGRESS-3438.md)
+- [Checkpoint 3439 publication record](CHECKPOINT-3439.json)
+- [Saved report for checkpoint 3439](PROGRESS-3439.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
