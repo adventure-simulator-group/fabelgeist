@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:51:06.354568+00:00
+Updated: 2026-11-07T07:53:02.269142+00:00
 
-Latest verified checkpoint: **3172**. Goal: **active**.
+Latest verified checkpoint: **3173**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -89,7 +89,10 @@ reducer validation use distinct clock sources; divergence and intended behavior
 remain open. A selected departure can differ from personal time and trigger a
 stale route rejection; end-to-end admission remains to be confirmed. The planned
 case-site payload carries personal-clock weather to the reducer, which can
-reject it against the wilderness departure interval.
+reject it against the wilderness departure interval. Member approval reaches the
+same planned route clock boundary; coordinate-frame questions remain separate.
+Member approval reaches the same planned route clock boundary; coordinate-frame
+questions remain separate.
 
 | Phase | Status |
 | --- | --- |
@@ -100,8 +103,8 @@ reject it against the wilderness departure interval.
 
 ## Latest checkpoint
 
-Traced the conditional planned case-site route from gateway payload to reducer
-rejection.
+Traced member approval to the same planned route boundary and recorded repair
+acceptance.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -276,8 +279,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3172 publication record](CHECKPOINT-3172.json)
-- [Saved report for checkpoint 3172](PROGRESS-3172.md)
+- [Checkpoint 3173 publication record](CHECKPOINT-3173.json)
+- [Saved report for checkpoint 3173](PROGRESS-3173.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
