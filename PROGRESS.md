@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:53:48.711618+00:00
+Updated: 2026-11-07T11:56:18.914667+00:00
 
-Latest verified checkpoint: **3283**. Goal: **active**.
+Latest verified checkpoint: **3284**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -266,7 +266,8 @@ terminal and impact traces remain open. Ranged windup gates authorization;
 connected outcome presentation follows acceptance, while impact and strategic
 checks remain open. Impact feedback transforms target-local contact data and
 applies velocity to a separate recipient; timing and native boundaries remain
-open.
+open. Impact surfaces use configured body-part boxes; config admission, native
+timing and mission completion dependencies remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -277,13 +278,13 @@ open.
 
 ## Latest checkpoint
 
-Traced impact frame and client effect consumers.
+Traced canonical impact box and terminal reducer checks.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace canonical impact surface and strategic terminal acceptance.
+Trace impact configuration admission and mission completion dependencies.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -451,8 +452,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3283 publication record](CHECKPOINT-3283.json)
-- [Saved report for checkpoint 3283](PROGRESS-3283.md)
+- [Checkpoint 3284 publication record](CHECKPOINT-3284.json)
+- [Saved report for checkpoint 3284](PROGRESS-3284.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
