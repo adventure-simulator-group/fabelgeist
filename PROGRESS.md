@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:12:44.649461+00:00
+Updated: 2026-11-07T14:14:48.916115+00:00
 
-Latest verified checkpoint: **3348**. Goal: **active**.
+Latest verified checkpoint: **3349**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -365,7 +365,8 @@ social demo NPC constructors pass false for temporary status. Browser selection
 and inspected grant paths reject temporary characters; non-browser producers and
 later status transitions remain open. The inspected tactical temporary creator
 makes a solo-party enemy; other membership producers and lifecycle paths remain
-open.
+open. Stake value is not necessarily liquid coin; temporary settlement requires
+enough currency stacks and can fail earlier.
 
 | Phase | Status |
 | --- | --- |
@@ -376,13 +377,13 @@ open.
 
 ## Latest checkpoint
 
-Traced temporary tactical creation and solo membership.
+Traced stake liquidity and disease fixture construction.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace non-browser membership producers and stake liquidity.
+Trace non-browser membership producers and temporary status lifecycle.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -550,8 +551,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3348 publication record](CHECKPOINT-3348.json)
-- [Saved report for checkpoint 3348](PROGRESS-3348.md)
+- [Checkpoint 3349 publication record](CHECKPOINT-3349.json)
+- [Saved report for checkpoint 3349](PROGRESS-3349.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
