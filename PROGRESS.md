@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:57:25.233078+00:00
+Updated: 2026-11-07T10:02:18.826214+00:00
 
-Latest verified checkpoint: **3232**. Goal: **active**.
+Latest verified checkpoint: **3233**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3232**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 574 / 3,853 marked | 3,279 other entries |
+| Queue entries explicitly marked source-discovery closed | 574 / 3,854 marked | 3,280 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -186,7 +186,10 @@ numeric-lens qualification remains separate. AI facing admission now has
 separate Lens 12 and Lens 13 source evidence; finite policy remains open. AI
 facing admission has independent type, string and numeric lens evidence; finite
 policy remains open. Ratio is unchecked; UnitInterval adds bounded admission, so
-the threshold policy must decide the appropriate owner.
+the threshold policy must decide the appropriate owner. Two historical range
+markers now reference existing qualified reads; connected work remains open.
+Native audio existing-type ownership is partially qualified under Lens 2;
+project producers and other lenses remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -197,7 +200,7 @@ the threshold policy must decide the appropriate owner.
 
 ## Latest checkpoint
 
-Compared existing ratio and bounded fraction types for the AI threshold.
+Qualified native audio type owners independently under Lens 2.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -354,7 +357,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3853 entries. Entries and views overlap, so this is
+The canonical queue contains 3854 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -372,8 +375,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3232 publication record](CHECKPOINT-3232.json)
-- [Saved report for checkpoint 3232](PROGRESS-3232.md)
+- [Checkpoint 3233 publication record](CHECKPOINT-3233.json)
+- [Saved report for checkpoint 3233](PROGRESS-3233.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
