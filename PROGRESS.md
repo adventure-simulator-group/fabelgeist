@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:03:51.190514+00:00
+Updated: 2026-11-07T15:05:46.981956+00:00
 
-Latest verified checkpoint: **3374**. Goal: **active**.
+Latest verified checkpoint: **3375**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -407,7 +407,8 @@ same-party item relationships but has no actor parameter; intended consent
 remains open. Party-offer UI has one staged confirmation; the inspected test
 covers encounter guard presence, not consent. Both inventory rails intentionally
 stage unequipped-item transfers in either direction; consent policy remains
-open.
+open. The scripted firewall allows web and SSH inbound without a direct
+database-port rule; actual deployment remains unverified.
 
 | Phase | Status |
 | --- | --- |
@@ -418,13 +419,13 @@ open.
 
 ## Latest checkpoint
 
-Traced two-way inventory transfer staging.
+Qualified checked-in deployment firewall rules.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify party-sharing policy and database authority boundaries.
+Qualify deployed topology and database authority boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -592,8 +593,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3374 publication record](CHECKPOINT-3374.json)
-- [Saved report for checkpoint 3374](PROGRESS-3374.md)
+- [Checkpoint 3375 publication record](CHECKPOINT-3375.json)
+- [Saved report for checkpoint 3375](PROGRESS-3375.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
