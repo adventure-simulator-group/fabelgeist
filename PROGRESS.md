@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:35:37.825581+00:00
+Updated: 2026-11-07T21:37:48.771102+00:00
 
-Latest verified checkpoint: **3567**. Goal: **active**.
+Latest verified checkpoint: **3568**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified prepared venue geometry producer.
+Qualified packed venue product admission.
 
-Packed decoder, native mesh admission, queue writers and aliases remain open.
+Worker/cache provenance, native mesh behavior and aliases remain open.
 
 ## Working on now
 
-Trace packed geometry decoding and mesh admission.
+Trace worker/cache provenance and native mesh admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3567 publication record](CHECKPOINT-3567.json)
-- [Saved report for checkpoint 3567](PROGRESS-3567.md)
+- [Checkpoint 3568 publication record](CHECKPOINT-3568.json)
+- [Saved report for checkpoint 3568](PROGRESS-3568.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
