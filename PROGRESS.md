@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:46:18.564688+00:00
+Updated: 2026-11-07T06:48:03.067292+00:00
 
-Latest verified checkpoint: **3139**. Goal: **active**.
+Latest verified checkpoint: **3140**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,6 +43,7 @@ scheduling was reread after registration; initialization failure behavior
 remains open. The initialization caller owns its vectors and returns no outcome
 on failure; other connected obligations remain open. The battle clock and joint
 window scheduler were reread; contact batching policy remains an open question.
+Existing test source does not explicitly settle near-equal contact batching.
 
 | Phase | Status |
 | --- | --- |
@@ -53,7 +54,7 @@ window scheduler were reread; contact batching policy remains an open question.
 
 ## Latest checkpoint
 
-Reread the registered battle clock and joint window scheduler.
+Reviewed existing simultaneous-contact test source and its scope.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -228,8 +229,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3139 publication record](CHECKPOINT-3139.json)
-- [Saved report for checkpoint 3139](PROGRESS-3139.md)
+- [Checkpoint 3140 publication record](CHECKPOINT-3140.json)
+- [Saved report for checkpoint 3140](PROGRESS-3140.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
