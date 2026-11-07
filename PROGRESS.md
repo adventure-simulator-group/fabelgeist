@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:57:53.696212+00:00
+Updated: 2026-11-07T07:59:28.399278+00:00
 
-Latest verified checkpoint: **3176**. Goal: **active**.
+Latest verified checkpoint: **3177**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -96,7 +96,8 @@ questions remain separate. Forecast starting times come from independent
 personal clocks; supported extreme bounds remain open. Newborn and encounter
 character clocks derive from parent and encounter times; those producer bounds
 remain open. Inspected road-cast clocks initialize from official time; newborn
-chronology and mortality bounds remain open.
+chronology and mortality bounds remain open. Conception follows personal leisure
+time and age display saturates; independent mortality bounds remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -107,8 +108,7 @@ chronology and mortality bounds remain open.
 
 ## Latest checkpoint
 
-Bounded inspected road-cast initialization to the refreshed official clock and
-traced conception chronology.
+Traced conception to personal leisure intervals and inspected age settlement.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -283,8 +283,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3176 publication record](CHECKPOINT-3176.json)
-- [Saved report for checkpoint 3176](PROGRESS-3176.md)
+- [Checkpoint 3177 publication record](CHECKPOINT-3177.json)
+- [Saved report for checkpoint 3177](PROGRESS-3177.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
