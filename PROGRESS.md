@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:18:16.427990+00:00
+Updated: 2026-11-07T08:19:59.461720+00:00
 
-Latest verified checkpoint: **3188**. Goal: **active**.
+Latest verified checkpoint: **3189**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -114,7 +114,8 @@ open. Full typed-input lattice indices fit i64 after wider intermediate
 arithmetic; late-time rules behavior remains open. Weather rules version affects
 route cache identity and route and tactical snapshot admission. Raw minimum
 latitude can overflow cell reconstruction; supported coordinate admission
-remains open.
+remains open. Inspected native abstract E7 conversions cannot reach the raw
+i32-min latitude witness; other consumers remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -125,8 +126,8 @@ remains open.
 
 ## Latest checkpoint
 
-Identified a separate raw latitude cell reconstruction overflow and retained
-route snapshot fields.
+Bounded inspected native abstract E7 weather coordinates away from the raw
+latitude witness.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -301,8 +302,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3188 publication record](CHECKPOINT-3188.json)
-- [Saved report for checkpoint 3188](PROGRESS-3188.md)
+- [Checkpoint 3189 publication record](CHECKPOINT-3189.json)
+- [Saved report for checkpoint 3189](PROGRESS-3189.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
