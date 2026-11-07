@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T12:59:12.507255+00:00
+Updated: 2026-11-07T13:00:55.917733+00:00
 
-Latest verified checkpoint: **3313**. Goal: **active**.
+Latest verified checkpoint: **3314**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -311,7 +311,8 @@ above a lowered aptitude cap. Current immediate activities pass a normalized day
 into ambient exposure; aptitude caps may limit the resulting gain. Other
 training callers use elapsed-derived durations; convalescence and camp-priority
 ambient exposure need policy. Lens 11 and Lens 13 identify the same immediate
-ambient interval defect; independent lens work remains open.
+ambient interval defect; independent lens work remains open. The Lens 13
+immediate activity interval mismatch was independently reread on current source.
 
 | Phase | Status |
 | --- | --- |
@@ -322,13 +323,13 @@ ambient interval defect; independent lens work remains open.
 
 ## Latest checkpoint
 
-Compared the Lens 11 and Lens 13 immediate ambient interval findings.
+Independently traced the Lens 13 immediate ambient interval finding.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Resolve ambient exposure policy, presence and remaining aliases.
+Reconcile canonical duration owners and remaining aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -496,8 +497,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3313 publication record](CHECKPOINT-3313.json)
-- [Saved report for checkpoint 3313](PROGRESS-3313.md)
+- [Checkpoint 3314 publication record](CHECKPOINT-3314.json)
+- [Saved report for checkpoint 3314](PROGRESS-3314.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
