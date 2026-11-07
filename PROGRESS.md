@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T08:38:28.697523+00:00
+Updated: 2026-11-07T08:40:11.808910+00:00
 
-Latest verified checkpoint: **3198**. Goal: **active**.
+Latest verified checkpoint: **3199**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -128,7 +128,9 @@ interpolation bounded. Thermal forecasts consume survival state and thresholds
 while frostbite event consequences remain to be assessed. Frostbite events
 require colder strain than the thermal unsafe threshold; safe forecasts cannot
 contain an ignored event. Inspected readiness decisions combine thermal and
-other safety checks and treat missing return projections as unsafe.
+other safety checks and treat missing return projections as unsafe. Thermal
+forecasts and wilderness exposure use different weather clocks; reachable
+readiness impact remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -139,7 +141,7 @@ other safety checks and treat missing return projections as unsafe.
 
 ## Latest checkpoint
 
-Traced thermal safety into departure and on-site readiness decisions.
+Identified distinct personal forecast and wilderness exposure weather clocks.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -314,8 +316,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3198 publication record](CHECKPOINT-3198.json)
-- [Saved report for checkpoint 3198](PROGRESS-3198.md)
+- [Checkpoint 3199 publication record](CHECKPOINT-3199.json)
+- [Saved report for checkpoint 3199](PROGRESS-3199.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
