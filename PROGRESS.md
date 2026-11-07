@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:11:34.025590+00:00
+Updated: 2026-11-07T17:13:06.404461+00:00
 
-Latest verified checkpoint: **3423**. Goal: **active**.
+Latest verified checkpoint: **3424**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -489,7 +489,9 @@ rejects; connected reachability remains open. Catalog embedding and choice
 view/reducer checks connect the authored bridge cost to its rejecting measured-
 item handler under stated conditions. The bridge is eligible for weighted
 errantry selection; existing measured food operations coordinate lot, fraction
-and custody state.
+and custody state. Narrative row-count checks do not inspect remaining food
+fractions; whole-versus-partial cost policy and agreement between view and
+reducer remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -500,13 +502,14 @@ and custody state.
 
 ## Latest checkpoint
 
-Traced eligible bridge selection and measured food custody.
+Compared three related food contracts and identified whole-versus-partial ration
+policy.
 
-Exact aliases, measured-cost policy and runtime behavior remain open.
+Semantic aliases, policy and runtime acceptance remain open.
 
 ## Working on now
 
-Reconcile narrative measured-food cost policy and exact aliases.
+Resolve measured-food cost policy and remaining semantic alias comparisons.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -674,8 +677,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3423 publication record](CHECKPOINT-3423.json)
-- [Saved report for checkpoint 3423](PROGRESS-3423.md)
+- [Checkpoint 3424 publication record](CHECKPOINT-3424.json)
+- [Saved report for checkpoint 3424](PROGRESS-3424.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
