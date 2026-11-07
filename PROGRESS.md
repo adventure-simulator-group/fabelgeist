@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T15:43:07.627239+00:00
+Updated: 2026-11-07T15:45:12.907067+00:00
 
-Latest verified checkpoint: **3393**. Goal: **active**.
+Latest verified checkpoint: **3394**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -438,7 +438,9 @@ states the conditional settlement mismatch; reachability remains unproven. The
 disease fixture creates missing party participants as non-temporary but may
 reuse existing records; temporary-member reachability remains open. Debug item
 physical reflectability, replication and iteration construction are qualified;
-restore reconstruction remains open.
+restore reconstruction remains open. The debug dump excludes physical equipment
+data, and inspected item relationship hooks do not recreate it; other indirect
+reconstruction remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -449,7 +451,7 @@ restore reconstruction remains open.
 
 ## Latest checkpoint
 
-Qualified debug item physical type, replication, and iteration creation.
+Qualified the debug dump allowlist and item relationship hooks.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -624,8 +626,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3393 publication record](CHECKPOINT-3393.json)
-- [Saved report for checkpoint 3393](PROGRESS-3393.md)
+- [Checkpoint 3394 publication record](CHECKPOINT-3394.json)
+- [Saved report for checkpoint 3394](PROGRESS-3394.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
