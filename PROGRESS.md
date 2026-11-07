@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:07:01.279512+00:00
+Updated: 2026-11-07T10:10:31.900953+00:00
 
-Latest verified checkpoint: **3235**. Goal: **active**.
+Latest verified checkpoint: **3236**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -192,7 +192,8 @@ Native audio existing-type ownership is partially qualified under Lens 2;
 project producers and other lenses remain open. Audio gain and pitch admission
 is traced into selected native playback settings; other consumers remain open.
 Native audio forwards composed playback speed; the existing pitch-product repair
-remains independently owned.
+remains independently owned. Checked UnitInterval is a reuse candidate for
+bounded audio gains; native volume and pitch retain separate semantics.
 
 | Phase | Status |
 | --- | --- |
@@ -203,7 +204,7 @@ remains independently owned.
 
 ## Latest checkpoint
 
-Linked native pitch forwarding to the existing composition repair.
+Compared existing checked gain and unconstrained ratio types for audio reuse.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -378,8 +379,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3235 publication record](CHECKPOINT-3235.json)
-- [Saved report for checkpoint 3235](PROGRESS-3235.md)
+- [Checkpoint 3236 publication record](CHECKPOINT-3236.json)
+- [Saved report for checkpoint 3236](PROGRESS-3236.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
