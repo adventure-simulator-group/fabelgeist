@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:20:37.424215+00:00
+Updated: 2026-11-07T18:23:21.604475+00:00
 
-Latest verified checkpoint: **3456**. Goal: **active**.
+Latest verified checkpoint: **3457**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3456**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 578 / 3,858 marked | 3,280 other entries |
+| Queue entries explicitly marked source-discovery closed | 578 / 3,859 marked | 3,281 other entries |
 | Registered source ranges qualified, connected work open | 297 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -547,7 +547,9 @@ Strategic autoresolve and other strategic injury writers are traced to their
 immediate inputs; upstream values remain open. The frostbite increment is
 finite; autoresolve and healing still require upstream numeric qualification.
 Autoresolve logs and internal wounds use different cut/blunt proportions; the
-intended contract and downstream effects remain open.
+intended contract and downstream effects remain open. Tactical consequences use
+the weighted split; a separate conditional question records autoresolve logged
+shares and durable injury semantics.
 
 | Phase | Status |
 | --- | --- |
@@ -558,14 +560,14 @@ intended contract and downstream effects remain open.
 
 ## Latest checkpoint
 
-Compared autoresolve internal and recorded injury splits.
+Registered conditional applied-injury split question.
 
-The intended equivalence of the two splits and their consumers remains open.
+Mixed-hit reachability, intended equivalence, aliases and runtime impact remain
+open.
 
 ## Working on now
 
-Resolve damage split semantics and qualify the remaining producers and receipt
-bounds.
+Qualify mixed-hit reachability, intended applied-share semantics and aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -715,7 +717,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3858 entries. Entries and views overlap, so this is
+The canonical queue contains 3859 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -733,8 +735,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3456 publication record](CHECKPOINT-3456.json)
-- [Saved report for checkpoint 3456](PROGRESS-3456.md)
+- [Checkpoint 3457 publication record](CHECKPOINT-3457.json)
+- [Saved report for checkpoint 3457](PROGRESS-3457.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
