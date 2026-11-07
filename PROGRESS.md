@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:37:55.658884+00:00
+Updated: 2026-11-07T17:39:55.259577+00:00
 
-Latest verified checkpoint: **3435**. Goal: **active**.
+Latest verified checkpoint: **3436**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -514,7 +514,9 @@ registered. Party merge may recreate partially consumed non-durable food at
 whole catalog defaults; a separate conditional custody question is registered.
 Elapsed-needs consumption can leave a partially consumed party food row before a
 later merge. Party food lot, amount and object are separate records; inspected
-native delete wrapper does not specify companion cleanup.
+native delete wrapper does not specify companion cleanup. Join admission does
+not explicitly exclude partial food; pinned indexed deletion does not specify
+companion-table effects.
 
 | Phase | Status |
 | --- | --- |
@@ -525,14 +527,13 @@ native delete wrapper does not specify companion cleanup.
 
 ## Latest checkpoint
 
-Qualified party food companion tables and native keyed-delete boundary.
+Qualified join admission and pinned indexed-delete syscall.
 
-Host cleanup behavior, supported merge conditions and runtime outcomes remain
-open.
+Host companion behavior and runtime join remain open.
 
 ## Working on now
 
-Reconcile party merge deletion semantics and supported join preconditions.
+Reconcile party-merge companion behavior and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -700,8 +701,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3435 publication record](CHECKPOINT-3435.json)
-- [Saved report for checkpoint 3435](PROGRESS-3435.md)
+- [Checkpoint 3436 publication record](CHECKPOINT-3436.json)
+- [Saved report for checkpoint 3436](PROGRESS-3436.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
