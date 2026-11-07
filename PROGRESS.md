@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:04:22.494045+00:00
+Updated: 2026-11-07T18:06:30.564500+00:00
 
-Latest verified checkpoint: **3448**. Goal: **active**.
+Latest verified checkpoint: **3449**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -534,7 +534,9 @@ source-qualified; roster and transport boundaries remain open. Strategic receipt
 admission checks participant and contact bounds; the shared roster caps
 membership at 16, with accumulator containment still open. Tactical consequence
 producers filter on Party side; captured-roster containment and aggregate
-numeric admission remain open.
+numeric admission remain open. Normal non-temporary tactical admission checks
+the captured roster; a temporary-character exception requires lifecycle
+qualification.
 
 | Phase | Status |
 | --- | --- |
@@ -545,14 +547,14 @@ numeric admission remain open.
 
 ## Latest checkpoint
 
-Traced tactical consequence accumulator producers.
+Traced strategic roster admission and tactical Party projection.
 
-Captured-roster membership, numerical admission and runtime behavior remain
-open.
+Temporary-character reachability, numeric receipt admission and runtime behavior
+remain open.
 
 ## Working on now
 
-Trace Party-side projection and receipt numeric admission.
+Qualify temporary tactical character lifecycle and receipt bounds.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -720,8 +722,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3448 publication record](CHECKPOINT-3448.json)
-- [Saved report for checkpoint 3448](PROGRESS-3448.md)
+- [Checkpoint 3449 publication record](CHECKPOINT-3449.json)
+- [Saved report for checkpoint 3449](PROGRESS-3449.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
