@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:40:06.701977+00:00
+Updated: 2026-11-07T07:43:31.425547+00:00
 
-Latest verified checkpoint: **3166**. Goal: **active**.
+Latest verified checkpoint: **3167**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -80,7 +80,9 @@ admission and alternate producers remain open. Inspected viewer and demo
 environment paths have bounded fixture wind or validate their input; other
 producers remain open. Generated weather caps wind speed and normalizes
 direction; other producers remain open. Strategic weather uses typed seeds and
-fixed-point lattice coordinates; supported extreme arithmetic remains open.
+fixed-point lattice coordinates; supported extreme arithmetic remains open. The
+official clock is below the weather lattice cap; other clock producers remain
+open.
 
 | Phase | Status |
 | --- | --- |
@@ -91,7 +93,7 @@ fixed-point lattice coordinates; supported extreme arithmetic remains open.
 
 ## Latest checkpoint
 
-Traced strategic weather seed through fixed-point lattice sampling.
+Bounded the official weather clock and traced two geographic admission paths.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -266,8 +268,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3166 publication record](CHECKPOINT-3166.json)
-- [Saved report for checkpoint 3166](PROGRESS-3166.md)
+- [Checkpoint 3167 publication record](CHECKPOINT-3167.json)
+- [Saved report for checkpoint 3167](PROGRESS-3167.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
