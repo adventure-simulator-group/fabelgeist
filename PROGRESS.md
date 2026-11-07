@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T02:59:00.874136+00:00
+Updated: 2026-11-07T03:04:24.660562+00:00
 
-Latest verified checkpoint: **3083**. Goal: **active**.
+Latest verified checkpoint: **3084**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,15 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced the applied splint inventory guard through discard and party deposit.
+Qualified ordinary splint catalog and inventory representation; scoped the
+object-backed case.
 
-Physical-object, other transfer and lifecycle scopes remain open; no runtime
-execution.
+Object-backed reachability, other transfers and lifecycle remain open; no
+runtime execution.
 
 ## Working on now
 
-Trace physical splint objects, remaining transfer paths, consent reasons and
-receipt obligations.
+Trace remaining splint transfers, lifecycle and treatment receipt obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3083 publication record](CHECKPOINT-3083.json)
-- [Saved report for checkpoint 3083](PROGRESS-3083.md)
+- [Checkpoint 3084 publication record](CHECKPOINT-3084.json)
+- [Saved report for checkpoint 3084](PROGRESS-3084.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
