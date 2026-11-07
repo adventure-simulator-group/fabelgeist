@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:03:37.810899+00:00
+Updated: 2026-11-07T19:05:40.301568+00:00
 
-Latest verified checkpoint: **3480**. Goal: **active**.
+Latest verified checkpoint: **3481**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -581,7 +581,8 @@ refresh rebases movement and elapsed coordinates independently and merges
 contiguous camps at the same movement point. The full current errantry file is
 read under Lens 2; connected owners and clue admission remain open. Raw clue
 positions are validated at puzzle level and used directly for errantry lookup;
-an existing Lens 3 admission question is retained.
+an existing Lens 3 admission question is retained. The gateway validates
+retained puzzles before projection; direct public clue admission remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -592,13 +593,13 @@ an existing Lens 3 admission question is retained.
 
 ## Latest checkpoint
 
-Traced ordered clue position owner and admission.
+Traced validated native clue projection.
 
-Position owner, serialization and direct-value admission remain open.
+Direct public value admission and position ownership remain open.
 
 ## Working on now
 
-Reconcile clue position ownership and native admission.
+Reconcile bounded clue positions and direct public value admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -766,8 +767,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3480 publication record](CHECKPOINT-3480.json)
-- [Saved report for checkpoint 3480](PROGRESS-3480.md)
+- [Checkpoint 3481 publication record](CHECKPOINT-3481.json)
+- [Saved report for checkpoint 3481](PROGRESS-3481.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
