@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:35:20.265410+00:00
+Updated: 2026-11-07T06:36:52.802293+00:00
 
-Latest verified checkpoint: **3132**. Goal: **active**.
+Latest verified checkpoint: **3133**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -33,7 +33,8 @@ not complete the audit or authorize implementation. Checkpoint 3130 records an
 evidence-integrity correction for recent work; adjacent checkpoints still
 require review. Six P02 note versions were recovered by exact hash; two remain
 unresolved. A bounded scan checked 489 nearby decision evidence references;
-seven mismatches all concern the same note.
+seven mismatches all concern the same note. The reducer adapter scope has been
+reread after its registration; related contract work remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -44,13 +45,14 @@ seven mismatches all concern the same note.
 
 ## Latest checkpoint
 
-Checked 489 nearby decision evidence references; seven note hashes mismatch.
+Reread registered reducer adapter source after registration.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Recover two older P02 note versions and audit checkpoint registration order.
+Recover older evidence and requalify connected source reads using registrations
+before reads.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +220,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3132 publication record](CHECKPOINT-3132.json)
-- [Saved report for checkpoint 3132](PROGRESS-3132.md)
+- [Checkpoint 3133 publication record](CHECKPOINT-3133.json)
+- [Saved report for checkpoint 3133](PROGRESS-3133.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
