@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:14:10.416922+00:00
+Updated: 2026-11-07T11:16:07.849109+00:00
 
-Latest verified checkpoint: **3267**. Goal: **active**.
+Latest verified checkpoint: **3268**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -240,7 +240,8 @@ uses wear-sensitive precision and resistance; the located readiness caller
 refreshes before reading. The registered settlement capability-consumer file is
 read; unrelated displays use separate data paths. Condition loss can affect
 effective equipment stats; a measurable post-receipt stale value remains
-unproven.
+unproven. Live subscriptions invalidate on item-condition and capability
+changes; render and refresh timing remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -251,7 +252,7 @@ unproven.
 
 ## Latest checkpoint
 
-Qualified durability and effective-stat source formulas.
+Traced item-condition and capability live invalidation.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -426,8 +427,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3267 publication record](CHECKPOINT-3267.json)
-- [Saved report for checkpoint 3267](PROGRESS-3267.md)
+- [Checkpoint 3268 publication record](CHECKPOINT-3268.json)
+- [Saved report for checkpoint 3268](PROGRESS-3268.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
