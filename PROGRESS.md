@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:39:48.611315+00:00
+Updated: 2026-11-07T14:41:27.559106+00:00
 
-Latest verified checkpoint: **3361**. Goal: **active**.
+Latest verified checkpoint: **3362**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -386,7 +386,8 @@ open. Deposit caller authority is recorded separately from temporary stake
 settlement; reachability and aliases remain open. Deposit validates character
 and inventory association but the inspected entry has no explicit caller-
 identity guard. Inspected deposit value, equipment and stake helpers do not add
-a caller-identity check.
+a caller-identity check. Inspected deposit classification and object lookup
+helpers do not compare caller identity.
 
 | Phase | Status |
 | --- | --- |
@@ -397,13 +398,13 @@ a caller-identity check.
 
 ## Latest checkpoint
 
-Traced deposit value, equipment and stake-credit helpers.
+Traced deposit classification and object lookup helpers.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify remaining deposit classification and custody helpers.
+Qualify deposit mutation and capability-refresh helpers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -571,8 +572,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3361 publication record](CHECKPOINT-3361.json)
-- [Saved report for checkpoint 3361](PROGRESS-3361.md)
+- [Checkpoint 3362 publication record](CHECKPOINT-3362.json)
+- [Saved report for checkpoint 3362](PROGRESS-3362.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
