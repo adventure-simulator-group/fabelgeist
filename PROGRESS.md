@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:17:20.899019+00:00
+Updated: 2026-11-07T17:19:56.726451+00:00
 
-Latest verified checkpoint: **3426**. Goal: **active**.
+Latest verified checkpoint: **3427**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -495,7 +495,9 @@ reducer remain open. Pinned native reducer documentation establishes rollback
 when the narrative cost error propagates; food authority requires conservation.
 Scoped narrative measured-food cost discovery is complete; existing acceptance
 requires measured availability and four whole portions, with partial-row
-allocation left to repair.
+allocation left to repair. Current personal storefront merging bypasses the
+stable-object predicate for existing non-food simple rows under stated
+conditions.
 
 | Phase | Status |
 | --- | --- |
@@ -506,14 +508,14 @@ allocation left to repair.
 
 ## Latest checkpoint
 
-Closed scoped narrative food-cost discovery with an owned repair and open
-partial-allocation decision.
+Qualified current storefront merge against stable-item admission.
 
-Related generic source, food contracts and runtime validation remain open.
+Stock and database mapping activation, exact aliases and runtime behavior remain
+open.
 
 ## Working on now
 
-Continue remaining connected source and repair ledger obligations.
+Qualify storefront stock, item mapping and stable-object aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -681,8 +683,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3426 publication record](CHECKPOINT-3426.json)
-- [Saved report for checkpoint 3426](PROGRESS-3426.md)
+- [Checkpoint 3427 publication record](CHECKPOINT-3427.json)
+- [Saved report for checkpoint 3427](PROGRESS-3427.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
