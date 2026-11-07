@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:59:05.875388+00:00
+Updated: 2026-11-07T14:01:42.098738+00:00
 
-Latest verified checkpoint: **3343**. Goal: **active**.
+Latest verified checkpoint: **3344**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -356,7 +356,9 @@ directly and do not exercise the shared fetch wrapper on conflict. Current
 temporary dismissal transfers currency without clearing the positive stake
 before its guard; reducer failure implies rollback under the documented
 contract. Battle loot can credit recorded living participants without excluding
-temporary characters; enrollment and liquidity remain open.
+temporary characters; enrollment and liquidity remain open. Battle result
+records living party members without a temporary exclusion; a temporary
+character joining that party remains unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -367,13 +369,13 @@ temporary characters; enrollment and liquidity remain open.
 
 ## Latest checkpoint
 
-Traced battle loot stake credit and ordinary withdrawal.
+Traced battle participant membership and temporary construction.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace temporary participant enrollment and pool liquidity.
+Trace temporary party-join admission and pool liquidity.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -541,8 +543,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3343 publication record](CHECKPOINT-3343.json)
-- [Saved report for checkpoint 3343](PROGRESS-3343.md)
+- [Checkpoint 3344 publication record](CHECKPOINT-3344.json)
+- [Saved report for checkpoint 3344](PROGRESS-3344.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
