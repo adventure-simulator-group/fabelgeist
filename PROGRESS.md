@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:01:42.098738+00:00
+Updated: 2026-11-07T14:04:23.087007+00:00
 
-Latest verified checkpoint: **3344**. Goal: **active**.
+Latest verified checkpoint: **3345**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -358,7 +358,9 @@ before its guard; reducer failure implies rollback under the documented
 contract. Battle loot can credit recorded living participants without excluding
 temporary characters; enrollment and liquidity remain open. Battle result
 records living party members without a temporary exclusion; a temporary
-character joining that party remains unproven.
+character joining that party remains unproven. Party merge checks authority and
+shared location; its inspected member move does not explicitly filter temporary
+status.
 
 | Phase | Status |
 | --- | --- |
@@ -369,13 +371,13 @@ character joining that party remains unproven.
 
 ## Latest checkpoint
 
-Traced battle participant membership and temporary construction.
+Traced party join and fixture attachment admission.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace temporary party-join admission and pool liquidity.
+Trace player-facing and fixture temporary join producers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -543,8 +545,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3344 publication record](CHECKPOINT-3344.json)
-- [Saved report for checkpoint 3344](PROGRESS-3344.md)
+- [Checkpoint 3345 publication record](CHECKPOINT-3345.json)
+- [Saved report for checkpoint 3345](PROGRESS-3345.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
