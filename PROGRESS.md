@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T10:23:25.291372+00:00
+Updated: 2026-11-07T10:25:51.564867+00:00
 
-Latest verified checkpoint: **3243**. Goal: **active**.
+Latest verified checkpoint: **3244**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -204,7 +204,9 @@ decision templates contained unrelated inherited labels; checkpoint 3241
 corrects the current record while preserving history. Physical areal density
 does not own audio playback speed; checked pitch composition remains separately
 tracked. Audio config errors, visual gating, pitch composition and scene
-selection have distinct existing owners.
+selection have distinct existing owners. Pinned rodio stores playback speed
+without checking and applies it to a speed wrapper; remaining registered scopes
+are open.
 
 | Phase | Status |
 | --- | --- |
@@ -215,7 +217,7 @@ selection have distinct existing owners.
 
 ## Latest checkpoint
 
-Compared audio ownership against four distinct existing repair obligations.
+Traced native playback speed through the pinned audio player and speed wrapper.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -390,8 +392,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3243 publication record](CHECKPOINT-3243.json)
-- [Saved report for checkpoint 3243](PROGRESS-3243.md)
+- [Checkpoint 3244 publication record](CHECKPOINT-3244.json)
+- [Saved report for checkpoint 3244](PROGRESS-3244.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
