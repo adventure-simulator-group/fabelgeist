@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 3066,
+  "at": "2026-11-07T01:24:57.755888+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "950894694150b020f825ba64b41601a9f15dc3b6c519a20c0d395381a6950130",
+    "verification": "26b9f5878092535b4e7ab13e479e3ad00a673b8ffa7e4f7cdd12f227d68823cd",
+    "canonical_current": "9522703fbd85283c126f27be316fabf101c398e3a0f88e8c69d2538b7e69c112"
+  },
+  "scope": {
+    "summary": "Traced tactical settlement snapshot and population materialization entry points.",
+    "scope_limit": "Nested helper writes and dispatcher consumers remain open; no runtime execution."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "e9ec38dc999520b1788cffabbd9dd8892606dfe05b71748bbda32970b193069b",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
