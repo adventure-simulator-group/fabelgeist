@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:15:53.510149+00:00
+Updated: 2026-11-07T13:17:54.625478+00:00
 
-Latest verified checkpoint: **3322**. Goal: **active**.
+Latest verified checkpoint: **3323**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -325,7 +325,9 @@ obligations remain open. The Lens 11 immediate defect is linked to the existing
 Lens 12 repair owner; broader obligations remain open. Dialogue answer receipts
 match prompt action kind before ballot comparison; ordinary browser submission
 uses a fresh ID. Browser transport makes one fetch; dialogue receipts omit actor
-and ballot while answer rows retain them.
+and ballot while answer rows retain them. Gateway has one explicit send;
+dialogue role maximum controls whether multiple eligible actors can share a
+session.
 
 | Phase | Status |
 | --- | --- |
@@ -336,13 +338,13 @@ and ballot while answer rows retain them.
 
 ## Latest checkpoint
 
-Traced browser transport and dialogue receipt storage shape.
+Traced gateway send and dialogue membership admission.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Trace gateway retry and dialogue membership cardinality.
+Trace authored dialogue role cardinality and receipt lifecycle.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -510,8 +512,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3322 publication record](CHECKPOINT-3322.json)
-- [Saved report for checkpoint 3322](PROGRESS-3322.md)
+- [Checkpoint 3323 publication record](CHECKPOINT-3323.json)
+- [Saved report for checkpoint 3323](PROGRESS-3323.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
