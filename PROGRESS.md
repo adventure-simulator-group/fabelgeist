@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:04:24.868651+00:00
+Updated: 2026-11-07T17:07:36.428084+00:00
 
-Latest verified checkpoint: **3420**. Goal: **active**.
+Latest verified checkpoint: **3421**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -482,7 +482,10 @@ reachability remain open. Pinned table iteration documents visibility of same-
 reducer inserts; other party food failure conditions remain open. Pinned unique
 lookup delegates to a native index scan; same-reducer index visibility remains
 unproven. Ten registered P02 source scopes were reread under Lens 11; broader
-connected work remains open.
+connected work remains open. Current narrative bridge cost specifies food that
+the measured-item cost handler rejects; connected reachability remains open.
+Current narrative bridge cost specifies food that the measured-item cost handler
+rejects; connected reachability remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -493,14 +496,13 @@ connected work remains open.
 
 ## Latest checkpoint
 
-Reread ten previously registered P02 source scopes under Lens 11.
+Qualified current authored narrative food cost and measured-item rejection.
 
-The checkpoint 3122 note, historical ordering, connected consumers and aliases
-remain open; no runtime execution.
+Catalog and choice reachability, exact aliases and runtime behavior remain open.
 
 ## Working on now
 
-Complete P02 connected source and evidence reconciliation.
+Reconcile narrative choice and measured food custody paths.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -668,8 +670,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3420 publication record](CHECKPOINT-3420.json)
-- [Saved report for checkpoint 3420](PROGRESS-3420.md)
+- [Checkpoint 3421 publication record](CHECKPOINT-3421.json)
+- [Saved report for checkpoint 3421](PROGRESS-3421.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
