@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:41:07.903779+00:00
+Updated: 2026-11-07T20:42:35.401858+00:00
 
-Latest verified checkpoint: **3537**. Goal: **active**.
+Latest verified checkpoint: **3538**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -644,7 +644,8 @@ admission is now a separately tracked question. Public threat profile admission
 is now a separately tracked question. Public profile callers include both parsed
 and direct typed inputs. Public profile callers include both parsed and direct
 typed inputs. The normal quest solver parses catalog-backed hostile causes.
-Authored profile compilation needs an ID before live catalog membership.
+Authored profile compilation needs an ID before live catalog membership. Several
+server consumers parse stored threats before profile lookup.
 
 | Phase | Status |
 | --- | --- |
@@ -655,14 +656,14 @@ Authored profile compilation needs an ID before live catalog membership.
 
 ## Latest checkpoint
 
-Qualified threat catalog compilation source tests.
+Qualified server threat readmission paths.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile named constants, catalog compilation and public admission.
+Qualify remaining server profile consumers and boundary policies.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -830,8 +831,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3537 publication record](CHECKPOINT-3537.json)
-- [Saved report for checkpoint 3537](PROGRESS-3537.md)
+- [Checkpoint 3538 publication record](CHECKPOINT-3538.json)
+- [Saved report for checkpoint 3538](PROGRESS-3538.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
