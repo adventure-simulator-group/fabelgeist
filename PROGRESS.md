@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T07:48:05.110799+00:00
+Updated: 2026-11-07T07:49:47.050798+00:00
 
-Latest verified checkpoint: **3170**. Goal: **active**.
+Latest verified checkpoint: **3171**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -86,7 +86,8 @@ open. Journey elapsed time wraps within its stored anchor day; anchor provenance
 and other weather callers remain open. Four more weather callers have distinct
 time and coordinate paths; their upstream bounds remain open. Route planning and
 reducer validation use distinct clock sources; divergence and intended behavior
-remain open.
+remain open. A selected departure can differ from personal time and trigger a
+stale route rejection; end-to-end admission remains to be confirmed.
 
 | Phase | Status |
 | --- | --- |
@@ -97,8 +98,8 @@ remain open.
 
 ## Latest checkpoint
 
-Traced personal and wilderness weather clocks to a conditional route validation
-mismatch.
+Established a source-level route clock divergence scenario and gateway error
+propagation.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -273,8 +274,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3170 publication record](CHECKPOINT-3170.json)
-- [Saved report for checkpoint 3170](PROGRESS-3170.md)
+- [Checkpoint 3171 publication record](CHECKPOINT-3171.json)
+- [Saved report for checkpoint 3171](PROGRESS-3171.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
