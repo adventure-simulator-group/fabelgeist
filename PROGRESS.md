@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:08:46.324385+00:00
+Updated: 2026-11-07T18:10:54.205436+00:00
 
-Latest verified checkpoint: **3450**. Goal: **active**.
+Latest verified checkpoint: **3451**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -538,7 +538,8 @@ numeric admission remain open. Normal non-temporary tactical admission checks
 the captured roster; a temporary-character exception requires lifecycle
 qualification. Temporary creation assigns a character, while Party-classified
 tactical spawn requires a matching loading player; combined reachability remains
-open.
+open. Tactical applied limb damage is clamped before injury aggregation;
+complete receipt numeric bounds remain unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -549,14 +550,13 @@ open.
 
 ## Latest checkpoint
 
-Traced temporary character creation and tactical spawn guard.
+Traced tactical limb damage clamp and receipt aggregation.
 
-Combined first-party reachability, receipt bounds and runtime behavior remain
-open.
+Initial health, lifecycle and floating-point admission remain open.
 
 ## Working on now
 
-Qualify temporary-character callers and tactical join lifecycle.
+Qualify tactical starting limb health and lifecycle bounds.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -724,8 +724,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3450 publication record](CHECKPOINT-3450.json)
-- [Saved report for checkpoint 3450](PROGRESS-3450.md)
+- [Checkpoint 3451 publication record](CHECKPOINT-3451.json)
+- [Saved report for checkpoint 3451](PROGRESS-3451.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
