@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:56:50.507828+00:00
+Updated: 2026-11-07T06:58:41.247737+00:00
 
-Latest verified checkpoint: **3145**. Goal: **active**.
+Latest verified checkpoint: **3146**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -51,7 +51,8 @@ Normal joint scheduling fixes new starts at its window endpoint; surprise-
 opening timing remains to be traced. Surprise opening can retain out-of-window
 timing in principle; a supported near-equal witness remains unproven. Retained
 contact coordinates feed joint windows; supported near-equal reachability and
-cancellation remain open.
+cancellation remain open. Same-weapon defensive cancellation clears retained
+timing; supported near-equal reachability remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -62,7 +63,7 @@ cancellation remain open.
 
 ## Latest checkpoint
 
-Traced retained contact coordinates into joint windows.
+Traced cancellation of retained attack timing.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -237,8 +238,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3145 publication record](CHECKPOINT-3145.json)
-- [Saved report for checkpoint 3145](PROGRESS-3145.md)
+- [Checkpoint 3146 publication record](CHECKPOINT-3146.json)
+- [Saved report for checkpoint 3146](PROGRESS-3146.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
