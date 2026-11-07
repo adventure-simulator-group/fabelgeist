@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T13:41:44.441798+00:00
+Updated: 2026-11-07T13:44:04.225374+00:00
 
-Latest verified checkpoint: **3336**. Goal: **active**.
+Latest verified checkpoint: **3337**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3336**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 574 / 3,854 marked | 3,280 other entries |
+| Queue entries explicitly marked source-discovery closed | 574 / 3,855 marked | 3,281 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -346,6 +346,8 @@ errantry retry helper can inspect HTTP status; answer uses a separate fresh-ID
 path. Errantry maps database-call errors to 422, but the shared wrapper strips
 numeric status before retry handling. Errantry exact retries bind actor,
 session, action and current case-contract authority before presence checks.
+Errantry HTTP status and retry ownership is recorded as a separate open
+obligation.
 
 | Phase | Status |
 | --- | --- |
@@ -356,13 +358,13 @@ session, action and current case-contract authority before presence checks.
 
 ## Latest checkpoint
 
-Traced errantry acceptance receipt and retry preconditions.
+Recorded errantry retry status as a separate open obligation.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile errantry transport ownership and dialogue recovery.
+Reconcile the separate errantry transport obligation and dialogue recovery.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -512,7 +514,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3854 entries. Entries and views overlap, so this is
+The canonical queue contains 3855 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -530,8 +532,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3336 publication record](CHECKPOINT-3336.json)
-- [Saved report for checkpoint 3336](PROGRESS-3336.md)
+- [Checkpoint 3337 publication record](CHECKPOINT-3337.json)
+- [Saved report for checkpoint 3337](PROGRESS-3337.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
