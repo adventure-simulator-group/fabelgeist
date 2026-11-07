@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:44:46.873848+00:00
+Updated: 2026-11-07T06:46:18.564688+00:00
 
-Latest verified checkpoint: **3138**. Goal: **active**.
+Latest verified checkpoint: **3139**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,7 +41,8 @@ registration; runtime delivery remains unverified. P02 mobility and timeline
 scopes were reread after registration; the connected contract remains open. P02
 scheduling was reread after registration; initialization failure behavior
 remains open. The initialization caller owns its vectors and returns no outcome
-on failure; other connected obligations remain open.
+on failure; other connected obligations remain open. The battle clock and joint
+window scheduler were reread; contact batching policy remains an open question.
 
 | Phase | Status |
 | --- | --- |
@@ -52,8 +53,7 @@ on failure; other connected obligations remain open.
 
 ## Latest checkpoint
 
-Resolved scoped initialization-vector escape question from its registered
-caller.
+Reread the registered battle clock and joint window scheduler.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -228,8 +228,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3138 publication record](CHECKPOINT-3138.json)
-- [Saved report for checkpoint 3138](PROGRESS-3138.md)
+- [Checkpoint 3139 publication record](CHECKPOINT-3139.json)
+- [Saved report for checkpoint 3139](PROGRESS-3139.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
