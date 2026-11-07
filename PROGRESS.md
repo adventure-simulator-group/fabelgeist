@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T02:08:09.022843+00:00
+Updated: 2026-11-07T02:13:06.421571+00:00
 
-Latest verified checkpoint: **3074**. Goal: **active**.
+Latest verified checkpoint: **3075**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,13 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced condition and equipment projection effects for NPC creation.
+Qualified the tactical request reducer transaction boundary.
 
-Nested projection effects and transaction behavior remain open.
+Nested writes and pinned server isolation remain open; no runtime execution.
 
 ## Working on now
 
-Qualify nested projection effects and transaction behavior for the snapshot.
+Qualify nested writes and pinned server isolation for the snapshot.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +214,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3074 publication record](CHECKPOINT-3074.json)
-- [Saved report for checkpoint 3074](PROGRESS-3074.md)
+- [Checkpoint 3075 publication record](CHECKPOINT-3075.json)
+- [Saved report for checkpoint 3075](PROGRESS-3075.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved

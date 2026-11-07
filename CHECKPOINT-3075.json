@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-checkpoint-summary-v1",
+  "checkpoint_number": 3075,
+  "at": "2026-11-07T02:10:17.054193+00:00",
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "local_evidence_sha256": {
+    "checkpoint": "d79ceb64084ce777d8d938f4cbfaab1f08c2bbfdc7fe5754f132144a62c00a45",
+    "verification": "0a0042161caffbd6e147ab74ef0b6b0d927df9ac2d6f994f35232aeb572e7974",
+    "canonical_current": "2a0e835a19e590a9466d7d76b3454398b4d8a3255837e052cf896e4376da1e87"
+  },
+  "scope": {
+    "summary": "Qualified the tactical request reducer transaction boundary.",
+    "scope_limit": "Nested writes and pinned server isolation remain open; no runtime execution."
+  },
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": true,
+  "report_sha256": "75cfe92b6e972b44ce9f6e08195a483bc4c3bbb6d6a6ee96909ae88839b79385",
+  "evidence_note": "Public summary; full checkpoint and evidence graph remain local. Hashes identify those originals."
+}
