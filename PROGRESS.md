@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:30:44.709234+00:00
+Updated: 2026-11-07T17:34:00.236652+00:00
 
-Latest verified checkpoint: **3432**. Goal: **active**.
+Latest verified checkpoint: **3433**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3432**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 576 / 3,857 marked | 3,281 other entries |
+| Queue entries explicitly marked source-discovery closed | 576 / 3,858 marked | 3,282 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -508,7 +508,10 @@ and fractions remain required in the repair. Scoped storefront stable-object
 discovery is complete; independent quantity-one objects and fractions remain
 required in the repair. The party grant wrapper discards checked errors; loot,
 currency and merge callers can mutate source state afterward, subject to actual
-failure reachability.
+failure reachability. Party merge may recreate partially consumed non-durable
+food at whole catalog defaults; a separate conditional custody question is
+registered. Party merge may recreate partially consumed non-durable food at
+whole catalog defaults; a separate conditional custody question is registered.
 
 | Phase | Status |
 | --- | --- |
@@ -519,14 +522,14 @@ failure reachability.
 
 ## Latest checkpoint
 
-Traced unchecked party grant callers and a separate party-merge custody
-question.
+Registered separate party-merge measured-item custody question.
 
-Supported initializer failure, merge custody and runtime behavior remain open.
+Supported reachability, deletion behavior, aliases and runtime outcome remain
+open.
 
 ## Working on now
 
-Qualify party grant failure and party-merge custody.
+Qualify party merge material conservation and deletion semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -676,7 +679,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3857 entries. Entries and views overlap, so this is
+The canonical queue contains 3858 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -694,8 +697,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3432 publication record](CHECKPOINT-3432.json)
-- [Saved report for checkpoint 3432](PROGRESS-3432.md)
+- [Checkpoint 3433 publication record](CHECKPOINT-3433.json)
+- [Saved report for checkpoint 3433](PROGRESS-3433.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
