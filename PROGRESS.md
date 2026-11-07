@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T03:33:45.471257+00:00
+Updated: 2026-11-07T03:40:49.705269+00:00
 
-Latest verified checkpoint: **3089**. Goal: **active**.
+Latest verified checkpoint: **3090**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,14 +40,14 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced surgery web redirect, refreshed injury state and request token lifetime.
+Traced contextual bandage claims, redirects and refreshed treatment eligibility.
 
-Contextual-form reachability and final outcome contract remain open; no runtime
-execution.
+Final outcome semantics and generic contextual navigation remain open; no
+runtime execution.
 
 ## Working on now
 
-Trace contextual treatment navigation and reconcile outcome contracts.
+Reconcile treatment outcome semantics and contextual navigation.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3089 publication record](CHECKPOINT-3089.json)
-- [Saved report for checkpoint 3089](PROGRESS-3089.md)
+- [Checkpoint 3090 publication record](CHECKPOINT-3090.json)
+- [Saved report for checkpoint 3090](PROGRESS-3090.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
