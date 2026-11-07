@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T00:54:42.031828+00:00
+Updated: 2026-11-07T00:59:51.661623+00:00
 
-Latest verified checkpoint: **3059**. Goal: **active**.
+Latest verified checkpoint: **3060**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -40,13 +40,15 @@ not complete the audit or authorize implementation.
 
 ## Latest checkpoint
 
-Traced endpoint choices and camp identity after redirect.
+Traced camp redirect through fireplace custody and retrieval guards.
 
-Repeated redirect policy and camp custody remain open; no runtime execution.
+Occupied-camp custody gap is source-supported; recovery and runtime remain
+unverified.
 
 ## Working on now
 
-Trace camp custody and decide repeated redirect behavior.
+Reconcile occupied-camp custody repair with camp identity and redirect
+ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -214,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3059 publication record](CHECKPOINT-3059.json)
-- [Saved report for checkpoint 3059](PROGRESS-3059.md)
+- [Checkpoint 3060 publication record](CHECKPOINT-3060.json)
+- [Saved report for checkpoint 3060](PROGRESS-3060.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
