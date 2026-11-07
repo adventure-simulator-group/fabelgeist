@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:21:53.881819+00:00
+Updated: 2026-11-07T14:23:45.881440+00:00
 
-Latest verified checkpoint: **3352**. Goal: **active**.
+Latest verified checkpoint: **3353**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -370,7 +370,9 @@ enough currency stacks and can fail earlier. Temporary teardown refuses a party
 containing a different member; inspected alternate paths create solo parties.
 Disband independently requires stakes settled and the remaining pool liquidated
 before reserve payout. Browser and approved-action removal share the reducer;
-simulation also invokes inventory withdrawal for purchases.
+simulation also invokes inventory withdrawal for purchases. Three ledger entries
+share the immediate conditional settlement mismatch; broader Lens 11 and 13
+obligations remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -381,13 +383,13 @@ simulation also invokes inventory withdrawal for purchases.
 
 ## Latest checkpoint
 
-Traced browser, approved-action and simulation callers.
+Compared the temporary-stake finding across three ledger entries.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Reconcile remaining membership producers, callers and aliases.
+Reconcile remaining membership reachability and custody dependencies.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -555,8 +557,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3352 publication record](CHECKPOINT-3352.json)
-- [Saved report for checkpoint 3352](PROGRESS-3352.md)
+- [Checkpoint 3353 publication record](CHECKPOINT-3353.json)
+- [Saved report for checkpoint 3353](PROGRESS-3353.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
