@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T16:42:51.499751+00:00
+Updated: 2026-11-07T16:45:25.545948+00:00
 
-Latest verified checkpoint: **3413**. Goal: **active**.
+Latest verified checkpoint: **3414**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -472,7 +472,8 @@ Selected web family-hour methods delegate to shared world-schema values;
 transport and timing remain open. The item-schema current plan no longer
 contains an unrelated schedule constraint; source and alias closure remains
 open. Food class validation and runtime enum mapping were compared; independent
-aliases and consumers remain open.
+aliases and consumers remain open. Selected food lot creation maps ration class
+to preserved preparation; independent aliases and other consumers remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -483,7 +484,7 @@ aliases and consumers remain open.
 
 ## Latest checkpoint
 
-Traced food class admission and runtime enum conversion.
+Traced food class into selected personal and party lot creation.
 
 Debug restore reconstruction and exact aliases remain open; no runtime
 execution.
@@ -658,8 +659,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3413 publication record](CHECKPOINT-3413.json)
-- [Saved report for checkpoint 3413](PROGRESS-3413.md)
+- [Checkpoint 3414 publication record](CHECKPOINT-3414.json)
+- [Saved report for checkpoint 3414](PROGRESS-3414.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
