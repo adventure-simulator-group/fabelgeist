@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:15:01.802932+00:00
+Updated: 2026-11-07T17:17:20.899019+00:00
 
-Latest verified checkpoint: **3425**. Goal: **active**.
+Latest verified checkpoint: **3426**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3425**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 574 / 3,857 marked | 3,283 other entries |
+| Queue entries explicitly marked source-discovery closed | 575 / 3,857 marked | 3,282 other entries |
 | Registered source ranges qualified, connected work open | 295 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -493,6 +493,9 @@ and custody state. Narrative row-count checks do not inspect remaining food
 fractions; whole-versus-partial cost policy and agreement between view and
 reducer remain open. Pinned native reducer documentation establishes rollback
 when the narrative cost error propagates; food authority requires conservation.
+Scoped narrative measured-food cost discovery is complete; existing acceptance
+requires measured availability and four whole portions, with partial-row
+allocation left to repair.
 
 | Phase | Status |
 | --- | --- |
@@ -503,13 +506,14 @@ when the narrative cost error propagates; food authority requires conservation.
 
 ## Latest checkpoint
 
-Qualified narrative cost error rollback and food material authority.
+Closed scoped narrative food-cost discovery with an owned repair and open
+partial-allocation decision.
 
-Partial-food policy, semantic aliases and runtime verification remain open.
+Related generic source, food contracts and runtime validation remain open.
 
 ## Working on now
 
-Reconcile measured-food cost policy and exact aliases.
+Continue remaining connected source and repair ledger obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -677,8 +681,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3425 publication record](CHECKPOINT-3425.json)
-- [Saved report for checkpoint 3425](PROGRESS-3425.md)
+- [Checkpoint 3426 publication record](CHECKPOINT-3426.json)
+- [Saved report for checkpoint 3426](PROGRESS-3426.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
