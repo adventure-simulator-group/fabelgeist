@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T11:16:07.849109+00:00
+Updated: 2026-11-07T11:18:13.127142+00:00
 
-Latest verified checkpoint: **3268**. Goal: **active**.
+Latest verified checkpoint: **3269**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -241,7 +241,8 @@ refreshes before reading. The registered settlement capability-consumer file is
 read; unrelated displays use separate data paths. Condition loss can affect
 effective equipment stats; a measurable post-receipt stale value remains
 unproven. Live subscriptions invalidate on item-condition and capability
-changes; render and refresh timing remain open.
+changes; render and refresh timing remain open. Melee contact force feeds wear;
+a supported above-threshold contact and visible stale value remain unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -252,7 +253,7 @@ changes; render and refresh timing remain open.
 
 ## Latest checkpoint
 
-Traced item-condition and capability live invalidation.
+Traced melee contact force feeding equipment wear.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -427,8 +428,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3268 publication record](CHECKPOINT-3268.json)
-- [Saved report for checkpoint 3268](PROGRESS-3268.md)
+- [Checkpoint 3269 publication record](CHECKPOINT-3269.json)
+- [Saved report for checkpoint 3269](PROGRESS-3269.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
