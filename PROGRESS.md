@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:58:11.845497+00:00
+Updated: 2026-11-07T18:00:05.571110+00:00
 
-Latest verified checkpoint: **3445**. Goal: **active**.
+Latest verified checkpoint: **3446**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -529,7 +529,8 @@ reuse adopted Lens 13 reads without new body credit. Eight frozen extension
 scopes reuse adopted Lens 12 reads without new body credit. Twenty frozen
 extension scopes reuse adopted Lens 11 reads without new body credit. Two
 current Lens 11 extension ranges were reread after registration; connected work
-remains open.
+remains open. Mission enrollment and terminal receipt submission paths are
+source-qualified; roster and transport boundaries remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -540,13 +541,13 @@ remains open.
 
 ## Latest checkpoint
 
-Reread current mission and weapon surface-refinement extension scopes.
+Traced mission enrollment, terminal submission and consequence receipt source.
 
-Connected source contracts, aliases and runtime behavior remain open.
+Roster bounds, native transport, aliases and runtime validation remain open.
 
 ## Working on now
 
-Reconcile mission and weapon refinement connected contracts.
+Reconcile mission receipt roster and strategic submission boundaries.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -714,8 +715,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3445 publication record](CHECKPOINT-3445.json)
-- [Saved report for checkpoint 3445](PROGRESS-3445.md)
+- [Checkpoint 3446 publication record](CHECKPOINT-3446.json)
+- [Saved report for checkpoint 3446](PROGRESS-3446.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
