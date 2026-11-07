@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T06:49:44.419005+00:00
+Updated: 2026-11-07T06:51:54.171267+00:00
 
-Latest verified checkpoint: **3141**. Goal: **active**.
+Latest verified checkpoint: **3142**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -45,7 +45,8 @@ on failure; other connected obligations remain open. The battle clock and joint
 window scheduler were reread; contact batching policy remains an open question.
 Existing test source does not explicitly settle near-equal contact batching.
 Contact batch membership affects a defeated-attacker condition as well as
-recorded telemetry; intended near-equal policy remains open.
+recorded telemetry; intended near-equal policy remains open. Authored initiative
+delay varies; a supported near-equal contact witness and policy remain open.
 
 | Phase | Status |
 | --- | --- |
@@ -56,7 +57,7 @@ recorded telemetry; intended near-equal policy remains open.
 
 ## Latest checkpoint
 
-Traced contact batch use in resolution and timeline recording.
+Registered and read authored combat timing producers.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -231,8 +232,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3141 publication record](CHECKPOINT-3141.json)
-- [Saved report for checkpoint 3141](PROGRESS-3141.md)
+- [Checkpoint 3142 publication record](CHECKPOINT-3142.json)
+- [Saved report for checkpoint 3142](PROGRESS-3142.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
