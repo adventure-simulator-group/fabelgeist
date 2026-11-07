@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T19:46:40.982780+00:00
+Updated: 2026-11-07T19:48:01.487351+00:00
 
-Latest verified checkpoint: **3503**. Goal: **active**.
+Latest verified checkpoint: **3504**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -610,7 +610,8 @@ clears reached camp identity before continued travel. Authorized redirect clears
 camp stops; later travel may record new stops. Departure and redirect derive
 anchors from distinct clock sources. Character and party clocks have distinct
 initialization and elapsed updates. Wilderness time wraps within the anchor day;
-rest advances member clocks.
+rest advances member clocks. Resolved interruptions establish a camp only at
+coherent exact coordinates.
 
 | Phase | Status |
 | --- | --- |
@@ -621,14 +622,14 @@ rest advances member clocks.
 
 ## Latest checkpoint
 
-Qualified camp rest and wilderness time wrapping.
+Qualified resolved interruption and related ledger owners.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Trace rest clipping, membership and reachable coordinate reuse.
+Qualify encounter creation, clock state and connected identity owners.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -796,8 +797,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3503 publication record](CHECKPOINT-3503.json)
-- [Saved report for checkpoint 3503](PROGRESS-3503.md)
+- [Checkpoint 3504 publication record](CHECKPOINT-3504.json)
+- [Saved report for checkpoint 3504](PROGRESS-3504.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
