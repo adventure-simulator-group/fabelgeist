@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T14:27:59.917443+00:00
+Updated: 2026-11-07T14:30:12.802310+00:00
 
-Latest verified checkpoint: **3355**. Goal: **active**.
+Latest verified checkpoint: **3356**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -377,7 +377,8 @@ inspected encounter helper does not itself authenticate the actor. Owned-item
 deposits can credit member stake; the inspected encounter helper does not itself
 authenticate the actor. Browser and simulation deposit callers differ; the
 inspected reducer entry does not invoke the strategic-character authority
-helper.
+helper. A public-interface database startup recipe exists; actual deployment
+access and reducer invocation remain unverified.
 
 | Phase | Status |
 | --- | --- |
@@ -388,13 +389,13 @@ helper.
 
 ## Latest checkpoint
 
-Compared deposit callers with the strategic authority helper.
+Qualified the repository public deployment recipe and searched ledger aliases.
 
 Other consumers and aliases remain open; no runtime execution.
 
 ## Working on now
 
-Qualify deposit authority boundary and related ledger aliases.
+Qualify native reducer invocation and deployment access controls.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -562,8 +563,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3355 publication record](CHECKPOINT-3355.json)
-- [Saved report for checkpoint 3355](PROGRESS-3355.md)
+- [Checkpoint 3356 publication record](CHECKPOINT-3356.json)
+- [Saved report for checkpoint 3356](PROGRESS-3356.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
