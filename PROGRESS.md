@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:50:22.983338+00:00
+Updated: 2026-11-07T18:52:20.916150+00:00
 
-Latest verified checkpoint: **3472**. Goal: **active**.
+Latest verified checkpoint: **3473**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -570,7 +570,9 @@ qualification paths match the selected source tree despite the older checkout.
 Historical errantry source is read under Lens 2; movement and elapsed time
 owners need current reconciliation. Current movement and elapsed coordinates
 have distinct semantics from absolute StrategicMinute. Nearby time owners have
-different contracts from journey movement and elapsed coordinates.
+different contracts from journey movement and elapsed coordinates. Existing
+camp-coordinate owner question now includes generated client and web transport
+evidence.
 
 | Phase | Status |
 | --- | --- |
@@ -581,13 +583,13 @@ different contracts from journey movement and elapsed coordinates.
 
 ## Latest checkpoint
 
-Compared nearby existing time owners.
+Traced journey coordinate client transport.
 
-Complete owner inventory, boundaries and admission remain open.
+Producer inventory, native admission and owner choice remain open.
 
 ## Working on now
 
-Complete journey coordinate owner and boundary inventory.
+Complete journey coordinate producer and native admission inventory.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -755,8 +757,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3472 publication record](CHECKPOINT-3472.json)
-- [Saved report for checkpoint 3472](PROGRESS-3472.md)
+- [Checkpoint 3473 publication record](CHECKPOINT-3473.json)
+- [Saved report for checkpoint 3473](PROGRESS-3473.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
