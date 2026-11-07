@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T21:33:42.288807+00:00
+Updated: 2026-11-07T21:35:37.825581+00:00
 
-Latest verified checkpoint: **3566**. Goal: **active**.
+Latest verified checkpoint: **3567**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,14 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Traced city readiness and browser errors.
+Qualified prepared venue geometry producer.
 
-GPU failure semantics, queue writers and reachable status combinations remain
-open.
+Packed decoder, native mesh admission, queue writers and aliases remain open.
 
 ## Working on now
 
-Reconcile building queue writers and geometry admission.
+Trace packed geometry decoding and mesh admission.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3566 publication record](CHECKPOINT-3566.json)
-- [Saved report for checkpoint 3566](PROGRESS-3566.md)
+- [Checkpoint 3567 publication record](CHECKPOINT-3567.json)
+- [Saved report for checkpoint 3567](PROGRESS-3567.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
