@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T22:16:33.990464+00:00
+Updated: 2026-11-07T22:17:41.499515+00:00
 
-Latest verified checkpoint: **3587**. Goal: **active**.
+Latest verified checkpoint: **3588**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -41,13 +41,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified scheduled incident producer.
+Qualified incident entry conditions.
 
-Caller reachability, identity conditions and aliases remain open.
+Representative world-state reachability and aliases remain open.
 
 ## Working on now
 
-Trace settlement activity caller and incident ownership.
+Resolve incident aliases and acceptance scope.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -215,8 +215,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3587 publication record](CHECKPOINT-3587.json)
-- [Saved report for checkpoint 3587](PROGRESS-3587.md)
+- [Checkpoint 3588 publication record](CHECKPOINT-3588.json)
+- [Saved report for checkpoint 3588](PROGRESS-3588.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
