@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:41:39.711190+00:00
+Updated: 2026-11-07T17:43:23.020369+00:00
 
-Latest verified checkpoint: **3437**. Goal: **active**.
+Latest verified checkpoint: **3438**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -518,7 +518,9 @@ native delete wrapper does not specify companion cleanup. Join admission does
 not explicitly exclude partial food; pinned indexed deletion does not specify
 companion-table effects. A successful eligible party merge recreates partial
 non-repairable rations at whole catalog defaults; old companion deletion
-behavior remains unresolved.
+behavior remains unresolved. Party weapon initialization has fallible lookup,
+evaluation and encoding after row insertion; an admitted failing default remains
+unproven.
 
 | Phase | Status |
 | --- | --- |
@@ -529,13 +531,13 @@ behavior remains unresolved.
 
 ## Latest checkpoint
 
-Closed scoped party-merge food conservation discovery with an owned repair.
+Traced fallible party weapon initialization after row insertion.
 
-Host companion deletion semantics and runtime repair validation remain open.
+Supported default-recipe failure and runtime effects remain unproven.
 
 ## Working on now
 
-Continue remaining connected audit and repair ledger obligations.
+Qualify default recipe and indexed-read contracts for party grant.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -703,8 +705,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3437 publication record](CHECKPOINT-3437.json)
-- [Saved report for checkpoint 3437](PROGRESS-3437.md)
+- [Checkpoint 3438 publication record](CHECKPOINT-3438.json)
+- [Saved report for checkpoint 3438](PROGRESS-3438.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
