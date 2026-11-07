@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T18:00:05.571110+00:00
+Updated: 2026-11-07T18:01:51.427535+00:00
 
-Latest verified checkpoint: **3446**. Goal: **active**.
+Latest verified checkpoint: **3447**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -530,7 +530,9 @@ scopes reuse adopted Lens 12 reads without new body credit. Twenty frozen
 extension scopes reuse adopted Lens 11 reads without new body credit. Two
 current Lens 11 extension ranges were reread after registration; connected work
 remains open. Mission enrollment and terminal receipt submission paths are
-source-qualified; roster and transport boundaries remain open.
+source-qualified; roster and transport boundaries remain open. Strategic receipt
+admission checks participant and contact bounds; the shared roster caps
+membership at 16, with accumulator containment still open.
 
 | Phase | Status |
 | --- | --- |
@@ -541,13 +543,13 @@ source-qualified; roster and transport boundaries remain open.
 
 ## Latest checkpoint
 
-Traced mission enrollment, terminal submission and consequence receipt source.
+Traced tactical submission, strategic receipt admission and roster bound.
 
-Roster bounds, native transport, aliases and runtime validation remain open.
+Accumulator membership, SDK delivery and runtime behavior remain open.
 
 ## Working on now
 
-Reconcile mission receipt roster and strategic submission boundaries.
+Reconcile tactical accumulator membership and native callback semantics.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -715,8 +717,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3446 publication record](CHECKPOINT-3446.json)
-- [Saved report for checkpoint 3446](PROGRESS-3446.md)
+- [Checkpoint 3447 publication record](CHECKPOINT-3447.json)
+- [Saved report for checkpoint 3447](PROGRESS-3447.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
