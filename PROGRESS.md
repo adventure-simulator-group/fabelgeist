@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T20:30:26.594141+00:00
+Updated: 2026-11-07T20:31:52.712483+00:00
 
-Latest verified checkpoint: **3531**. Goal: **active**.
+Latest verified checkpoint: **3532**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -637,7 +637,8 @@ threat ID. Insight projection exposes text while public Serde remains an
 admission boundary. Threat syntax admission is narrower than catalog membership
 checking. Threat syntax admission is broader than catalog membership checking.
 Threat syntax storage is reused by report and evidence vocabularies. Threat and
-evidence ledger entries share syntax storage but remain distinct.
+evidence ledger entries share syntax storage but remain distinct. Catalog syntax
+and strategic-place component have different admission bounds.
 
 | Phase | Status |
 | --- | --- |
@@ -648,14 +649,14 @@ evidence ledger entries share syntax storage but remain distinct.
 
 ## Latest checkpoint
 
-Qualified threat and vocabulary ledger connections.
+Qualified catalog identifier syntax owner fit.
 
 Full consumer and alias coverage, bound/unbound schema and serialization remain
 open.
 
 ## Working on now
 
-Reconcile exact aliases and syntax leaf ownership.
+Reconcile syntax and semantic validation ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -823,8 +824,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3531 publication record](CHECKPOINT-3531.json)
-- [Saved report for checkpoint 3531](PROGRESS-3531.md)
+- [Checkpoint 3532 publication record](CHECKPOINT-3532.json)
+- [Saved report for checkpoint 3532](PROGRESS-3532.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
