@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T23:27:02.301458+00:00
+Updated: 2026-11-07T23:29:15.843081+00:00
 
-Latest verified checkpoint: **3632**. Goal: **active**.
+Latest verified checkpoint: **3633**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -42,13 +42,13 @@ unresolved checkpoint 3122 note remain open for review.
 
 ## Latest checkpoint
 
-Qualified incident completion and fixture site.
+Traced contaminated-well material consumers.
 
-Other incident exits, fixture paths and historical overlaps remain open.
+Other producers, malformed-state policy and historical overlaps remain open.
 
 ## Working on now
 
-Trace remaining fixture transitions and incident exit routes.
+Qualify disease catalog and other contaminated-well producers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +216,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3632 publication record](CHECKPOINT-3632.json)
-- [Saved report for checkpoint 3632](PROGRESS-3632.md)
+- [Checkpoint 3633 publication record](CHECKPOINT-3633.json)
+- [Saved report for checkpoint 3633](PROGRESS-3633.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
