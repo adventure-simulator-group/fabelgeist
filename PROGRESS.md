@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T17:22:00.039835+00:00
+Updated: 2026-11-07T17:23:49.020118+00:00
 
-Latest verified checkpoint: **3428**. Goal: **active**.
+Latest verified checkpoint: **3429**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -499,6 +499,8 @@ allocation left to repair. Current personal storefront merging bypasses the
 stable-object predicate for existing non-food simple rows under stated
 conditions. Simple item and container-capacity projection is explicit; a
 simulation fixture creates a stocked general store with a present merchant.
+Ordinary settlement import infers a general store and general-goods stock, while
+actual trade still requires provider and transaction preconditions.
 
 | Phase | Status |
 | --- | --- |
@@ -509,13 +511,13 @@ simulation fixture creates a stocked general store with a present merchant.
 
 ## Latest checkpoint
 
-Traced stable item catalog projection and fixture storefront activation.
+Qualified ordinary settlement general-store and stock inference.
 
-Ordinary-world activation, exact aliases and runtime behavior remain open.
+Provider, aliases and runtime trade remain open.
 
 ## Working on now
 
-Qualify ordinary-world storefront activation and stable-object aliases.
+Reconcile storefront provider, transaction and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -683,8 +685,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3428 publication record](CHECKPOINT-3428.json)
-- [Saved report for checkpoint 3428](PROGRESS-3428.md)
+- [Checkpoint 3429 publication record](CHECKPOINT-3429.json)
+- [Saved report for checkpoint 3429](PROGRESS-3429.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
