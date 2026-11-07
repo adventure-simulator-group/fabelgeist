@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T09:32:52.150926+00:00
+Updated: 2026-11-07T09:35:01.273276+00:00
 
-Latest verified checkpoint: **3221**. Goal: **active**.
+Latest verified checkpoint: **3222**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -168,8 +168,10 @@ traced; snapshot producer and outcome policy remain open. Server join and
 reconnect publish the loaded configuration snapshot; delivery and rejection
 consequences remain open. Checkpoint 3219 incorrectly closed the dynamic
 configuration entry; checkpoint 3220 restores it to open and retains the prior
-record. Checkpoint 3220 incorrectly closed the dynamic configuration entry;
-checkpoint 3221 restores it to open and retains the prior record.
+record. Checkpoint 3219 incorrectly closed the dynamic configuration entry;
+checkpoint 3220 restored it to open and retained the prior record. Client
+animation and server defense consume their respective config states; rejected-
+snapshot policy remains open.
 
 | Phase | Status |
 | --- | --- |
@@ -180,7 +182,7 @@ checkpoint 3221 restores it to open and retains the prior record.
 
 ## Latest checkpoint
 
-Checked neighboring queue status transitions after the closure correction.
+Traced selected client and server configuration consumers.
 
 Other consumers and aliases remain open; no runtime execution.
 
@@ -355,8 +357,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3221 publication record](CHECKPOINT-3221.json)
-- [Saved report for checkpoint 3221](PROGRESS-3221.md)
+- [Checkpoint 3222 publication record](CHECKPOINT-3222.json)
+- [Saved report for checkpoint 3222](PROGRESS-3222.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
