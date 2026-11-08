@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:26:43.799317+00:00
+Updated: 2026-11-08T11:28:00.406121+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -18,8 +18,8 @@ Updated: 2026-11-08T11:26:43.799317+00:00
 | Previously reported ingress size findings cleared | 2 |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
-| Additional overlapping paths reviewed against both inputs | 18 / 20 |
-| Overlapping paths still awaiting review | 2 / 23 |
+| Additional overlapping paths reviewed against both inputs | 20 / 20 |
+| Overlapping paths still awaiting bounded comparison | 0 / 23 |
 | Existing contact-geometry tests passed | 11 / 11 |
 | Existing melee iteration tests passed | 9 / 9 |
 | Tactical server ingress tests passed, including range matrix | 9 / 9 |
@@ -116,8 +116,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   their competing changes were formatting. Lifecycle, residence and client
   pickup changes also survive their overlaps. Harness, hit debug and
   equipment-generation fixture changes retain both inputs. Client equipment
-  retains the typed pickup range and revision admission; two paths still
-  await review. Client visual, input and fixture behavior remains unverified.
+  retains the typed pickup range and revision admission. The strategic
+  character and lockfile comparisons complete the 23-path bounded review.
+  Full dependency resolution, independent review, the other recovered paths,
+  and client visual, input and fixture behavior remain unverified.
   The movement report uses typed measurements and rejects missing required
   observations; the new failure behavior still needs behavioral validation.
   A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
