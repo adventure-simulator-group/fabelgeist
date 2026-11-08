@@ -231,7 +231,9 @@ pub use properties::{
     SettlementProperty, SettlementPropertyManifest, backend_available_residence_properties,
     backend_household_property_occupancies, register_settlement_properties,
 };
+mod admission;
 mod occupancy;
+pub(crate) use admission::preflight_residence_occupants_at;
 pub(crate) use occupancy::inherit_parent_home_at;
 use occupancy::property_occupancy_transition__view;
 pub use occupancy::{PropertyOccupancyKind, PropertyOccupancyTransition};
@@ -541,40 +543,6 @@ fn occupant_holding_at(
 ) -> Option<(String, StrategicMinute)> {
     let home = occupancy::at(ctx, character_id, minute)?;
     Some((home.holding_id?, home.minute))
-}
-
-/// A residence admission could not be prepared at its effective minute.
-#[derive(Debug, thiserror::Error)]
-pub(crate) enum ResidenceAdmissionError {
-    #[error("Residence holding was not active at the effective minute")]
-    HoldingUnavailable,
-    #[error("Generated residence property not found")]
-    PropertyMissing,
-    #[error("Residence property has no remaining occupancy capacity")]
-    CapacityExceeded,
-}
-
-/// Validate both occupants together before a shared lifecycle event writes.
-pub(crate) fn preflight_residence_occupants_at(
-    ctx: &ReducerContext,
-    holding_id: &str,
-    character_ids: [u64; 2],
-    minute: StrategicMinute,
-) -> Result<(), ResidenceAdmissionError> {
-    let holding = ctx
-        .db
-        .residence_holding()
-        .id()
-        .find(holding_id.to_owned())
-        .filter(|row| holding_active_at(ctx, &row.id, minute))
-        .ok_or(ResidenceAdmissionError::HoldingUnavailable)?;
-    let occupants = character_ids.map(|character_id| ResidenceOccupant {
-        character_id,
-        property_id: holding.property_id.clone(),
-        holding_id: Some(holding.id.clone()),
-        admitted_minute: minute,
-    });
-    properties::require_property_room_for(ctx, &holding.property_id, &occupants, minute)
 }
 
 /// Apply an occupancy transition at its effective minute without overwriting

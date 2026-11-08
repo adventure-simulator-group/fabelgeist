@@ -52,7 +52,7 @@ pub(super) fn admit(
     }) {
         return Ok(());
     }
-    properties::require_property_room_for(
+    admission::require_property_room_for(
         ctx,
         &occupant.property_id,
         std::slice::from_ref(&occupant),
@@ -126,6 +126,45 @@ pub(super) fn at(
             .filter(|transition| transition.minute <= minute)
             .collect(),
     )
+}
+
+/// Project the same ordered transitions that a delayed admission would add.
+pub(super) fn at_after_admission(
+    ctx: &ReducerContext,
+    occupant: &ResidenceOccupant,
+    minute: StrategicMinute,
+    boundary: StrategicMinute,
+) -> Option<PropertyOccupancyTransition> {
+    let mut events: Vec<_> = ctx
+        .db
+        .property_occupancy_transition()
+        .character_id()
+        .filter(occupant.character_id)
+        .collect();
+    let mut ordinal = events.len() as u64;
+    if let Some(previous) = at(ctx, occupant.character_id, minute) {
+        events.push(PropertyOccupancyTransition {
+            id: String::new(),
+            character_id: occupant.character_id,
+            property_id: previous.property_id,
+            holding_id: previous.holding_id,
+            kind: PropertyOccupancyKind::Removed,
+            minute,
+            ordinal,
+        });
+        ordinal += 1;
+    }
+    events.push(PropertyOccupancyTransition {
+        id: String::new(),
+        character_id: occupant.character_id,
+        property_id: occupant.property_id.clone(),
+        holding_id: occupant.holding_id.clone(),
+        kind: PropertyOccupancyKind::Admitted,
+        minute,
+        ordinal,
+    });
+    events.retain(|event| event.minute <= boundary);
+    fold(events)
 }
 
 pub(super) fn at_view(

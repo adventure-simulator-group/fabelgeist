@@ -19,20 +19,7 @@ pub fn settle_due_weddings(
         .collect();
     for commitment in due {
         let effective_minute = commitment.effective_minute;
-        let participant_death_minute = [
-            commitment.first_character_id,
-            commitment.second_character_id,
-        ]
-        .into_iter()
-        .filter_map(|character_id| {
-            ctx.db
-                .character_death()
-                .character_id()
-                .find(character_id)
-                .map(|death| death.strategic_minute)
-        })
-        .filter(|death_minute| *death_minute <= effective_minute)
-        .min();
+        let participant_death_minute = wedding_participant_death(ctx, &commitment);
         if let Some(death_minute) = participant_death_minute {
             transition_commitment_terminal(
                 ctx,
@@ -132,27 +119,7 @@ pub fn settle_due_weddings(
             )?;
             continue;
         };
-        if let Err(error) = crate::residence::preflight_residence_occupants_at(
-            ctx,
-            &residence_holding_id,
-            [first.id, second.id],
-            effective_minute,
-        ) {
-            record_lifecycle_failure(
-                ctx,
-                LifecycleEventKind::Wedding,
-                &commitment.id,
-                effective_minute,
-                now,
-                error.to_string(),
-            );
-            transition_commitment_terminal(
-                ctx,
-                commitment,
-                CommitmentStatus::Cancelled,
-                CommitmentTerminalReason::ResidenceUnavailable,
-                effective_minute,
-            )?;
+        if !prepare_wedding_residence(ctx, &commitment, &residence_holding_id, now)? {
             continue;
         }
         let courtship_id = format!(
@@ -313,6 +280,45 @@ pub fn settle_due_weddings(
         )?;
     }
     Ok(())
+}
+
+fn wedding_participant_death(
+    ctx: &ReducerContext,
+    commitment: &ExclusiveCommitment,
+) -> Option<StrategicMinute> {
+    [commitment.first_character_id, commitment.second_character_id]
+        .into_iter()
+        .filter_map(|character_id| {
+            ctx.db.character_death().character_id().find(character_id)
+                .map(|death| death.strategic_minute)
+        })
+        .filter(|minute| *minute <= commitment.effective_minute)
+        .min()
+}
+
+fn prepare_wedding_residence(
+    ctx: &ReducerContext,
+    commitment: &ExclusiveCommitment,
+    holding_id: &str,
+    now: StrategicMinute,
+) -> Result<bool, String> {
+    let minute = commitment.effective_minute;
+    if let Err(error) = crate::residence::preflight_residence_occupants_at(
+        ctx,
+        holding_id,
+        [commitment.first_character_id, commitment.second_character_id],
+        minute,
+    ) {
+        record_lifecycle_failure(
+            ctx, LifecycleEventKind::Wedding, &commitment.id, minute, now, error.to_string(),
+        );
+        transition_commitment_terminal(
+            ctx, commitment.clone(), CommitmentStatus::Cancelled,
+            CommitmentTerminalReason::ResidenceUnavailable, minute,
+        )?;
+        return Ok(false);
+    }
+    Ok(true)
 }
 
 /// Settle a stable, bounded slice of due engagements without requiring either
