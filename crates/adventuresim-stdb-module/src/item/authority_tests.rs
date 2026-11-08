@@ -75,5 +75,81 @@ pub fn authority_test_catalog_item_classification(
         return Err("Selected and per-instance reach projections disagree".into());
     }
     ctx.db.item().id().update(original);
+    check_equipment_law_failure(ctx, character_id, inventory.id)?;
+    Ok(())
+}
+
+fn check_equipment_law_failure(
+    ctx: &ReducerContext,
+    character_id: u64,
+    weapon_id: u64,
+) -> Result<(), String> {
+    use crate::character::{CharacterEquippedItem, character, character_equipped_item};
+    use crate::equipment_law::EquipmentLawError;
+
+    let policy = adventuresim_core::organization::catalog()
+        .settlement_policies
+        .iter()
+        .find(|policy| policy.restrict_arms)
+        .ok_or("Fixture needs a settlement restricting arms")?;
+    let original = ctx
+        .db
+        .character()
+        .id()
+        .find(character_id)
+        .ok_or("Character missing")?;
+    let mut subject = original.clone();
+    subject.current_settlement_id = Some(policy.settlement_id.clone());
+    ctx.db.character().id().update(subject);
+    if !matches!(
+        crate::equipment_law::require_item_legal(ctx, character_id, weapon_id),
+        Err(EquipmentLawError::ArmsProhibited(_))
+    ) {
+        return Err("Fixture weapon must be prohibited".into());
+    }
+    let missing_id = u64::MAX;
+    if ctx
+        .db
+        .character_equipped_item()
+        .inventory_item_id()
+        .find(missing_id)
+        .is_some()
+        || ctx.db.inventory_item().id().find(missing_id).is_some()
+    {
+        return Err("Fixture inventory id already exists".into());
+    }
+    ctx.db
+        .character_equipped_item()
+        .insert(CharacterEquippedItem {
+            inventory_item_id: missing_id,
+            character_id,
+            placement_id: "fixture".into(),
+        });
+    let result = crate::equipment_law::enforce_equipment_compliance(ctx, character_id);
+    if !matches!(
+        result.as_ref().err().map(|error| error.cause()),
+        Some(crate::StrategicOperationCause::EquipmentLaw(
+            EquipmentLawError::MissingInventoryItem
+        ))
+    ) || ctx
+        .db
+        .character_equipped_item()
+        .inventory_item_id()
+        .find(weapon_id)
+        .is_none()
+        || ctx
+            .db
+            .character_equipped_item()
+            .inventory_item_id()
+            .find(missing_id)
+            .is_none()
+    {
+        return Err("Missing inventory must fail before any unequip".into());
+    }
+    ctx.db
+        .character_equipped_item()
+        .inventory_item_id()
+        .delete(missing_id);
+    ctx.db.character().id().update(original);
     Ok(())
 }
