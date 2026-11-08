@@ -3,6 +3,8 @@
 use adventuresim_core::physical_object::{
     CarriedInventoryRowId, PartyInventoryRowId, PersonalInventoryRowId,
 };
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
 mod rest_ledger;
 use rest_ledger::mark_evening_evaluated;
 
