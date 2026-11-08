@@ -7,54 +7,6 @@ fn current_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute {
         .map_or(StrategicMinute::ZERO, |t| t.minutes)
 }
 
-fn ensure_food_material_object(
-    ctx: &ReducerContext,
-    row_id: CarriedInventoryRowId,
-) -> Result<crate::InventoryObject, String> {
-    let (item_id, location, quantity) = match row_id {
-        CarriedInventoryRowId::Personal(row_id) => {
-            let row = ctx
-                .db
-                .inventory_item()
-                .id()
-                .find(row_id.get())
-                .ok_or("Food inventory row is missing")?;
-            (
-                row.item_id,
-                InventoryLocation::personal(row.character_id, row_id),
-                row.quantity,
-            )
-        }
-        CarriedInventoryRowId::Party(row_id) => {
-            let row = ctx
-                .db
-                .party_inventory_item()
-                .id()
-                .find(row_id.get())
-                .ok_or("Party food inventory row is missing")?;
-            (
-                row.item_id,
-                InventoryLocation::party(row.party_id, row_id),
-                row.quantity,
-            )
-        }
-    };
-    if quantity != 1 {
-        return Err("Every food lot requires a quantity-one stable inventory object".into());
-    }
-    if let Some(object) = crate::inventory_container::object_for_row(ctx, row_id)? {
-        if object.item_id != item_id || object.location != location {
-            return Err("Food inventory row has a mismatched stable object identity".into());
-        }
-        return Ok(object);
-    }
-    Ok(ctx.db.inventory_object().insert(crate::InventoryObject {
-        id: 0,
-        item_id,
-        location,
-    }))
-}
-
 pub fn create_personal_food_lot(
     ctx: &ReducerContext,
     character_id: u64,

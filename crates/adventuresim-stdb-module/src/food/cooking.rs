@@ -687,61 +687,11 @@ pub fn retrieve_fireplace_dish(
         return Err("Cooked contamination contribution loads do not conserve".into());
     }
 
-    let (personal_id, party_id) = match &destination {
-        OperationalCustody::Character(character) => {
-            let row = ctx.db.inventory_item().insert(crate::InventoryItem {
-                id: 0,
-                character_id: character.get(),
-                item_id: "cooked_meal".into(),
-                quantity: 1,
-            });
-            crate::inventory_amount::initialize_personal(ctx, row.id);
-            (Some(row.id), None)
-        }
-        OperationalCustody::Party(party) => {
-            let row = ctx.db.party_inventory_item().insert(PartyInventoryItem {
-                id: 0,
-                party_id: party.as_str().into(),
-                item_id: "cooked_meal".into(),
-                quantity: 1,
-            });
-            crate::inventory_amount::initialize_party(ctx, row.id);
-            (None, Some(row.id))
-        }
-        _ => return Err("Invalid retrieval inventory".into()),
+    let backing = insert_cooked_meal_backing(ctx, &destination, container_object_id)?;
+    let (personal_id, party_id) = match backing {
+        CarriedInventoryRowId::Personal(id) => (Some(id.get()), None),
+        CarriedInventoryRowId::Party(id) => (None, Some(id.get())),
     };
-    if let Some(parent_object_id) = container_object_id {
-        let row_id = match (personal_id, party_id) {
-            (Some(id), None) => {
-                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(id))
-            }
-            (None, Some(id)) => CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(id)),
-            _ => return Err("Cooked meal must have exactly one inventory row".into()),
-        };
-        let meal = ctx.db.inventory_object().insert(crate::InventoryObject {
-            id: 0,
-            item_id: "cooked_meal".into(),
-            location: crate::inventory_container::carried_location_for_row(&destination, row_id)?,
-        });
-        ctx.db
-            .inventory_containment()
-            .insert(crate::InventoryContainment {
-                child_object_id: meal.id,
-                parent_object_id,
-            });
-    }
-    if let Some(row_id) = personal_id {
-        ensure_food_material_object(
-            ctx,
-            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row_id)),
-        )?;
-    }
-    if let Some(row_id) = party_id {
-        ensure_food_material_object(
-            ctx,
-            CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row_id)),
-        )?;
-    }
     let lot = ctx.db.food_lot().insert(FoodLot {
         id: 0,
         inventory_item_id: personal_id,
