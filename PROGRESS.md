@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:24:29.468049+00:00
+Updated: 2026-11-08T22:26:10.821129+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -9,7 +9,7 @@ Updated: 2026-11-08T22:24:29.468049+00:00
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 4 adopted | Admission, transaction, and aliases open |
-| Fireplace custody source packets | 1 adopted | Initialization, merge, and writers open |
+| Fireplace custody source packets | 2 adopted | Initialization, merge, and writers open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -146,6 +146,12 @@ edges and the separate no-object return path on death. The related estate and
 fireplace contracts remain distinct. Remaining merge branches, amount
 initialization, and station writers are open. Audit checkpoint 3752 adopted
 and verified this evidence without closing either contract.
+
+A registered initialization read found that a no-object instrument return
+to party inventory uses a helper that initializes applicable backing, while
+the personal return inserts a plain row. Supported no-object station states
+and affected item types remain unproven, so this is a conditional difference.
+Audit checkpoint 3753 verified the evidence without closing the contract.
 
 | Increment status | Count |
 | --- | ---: |
