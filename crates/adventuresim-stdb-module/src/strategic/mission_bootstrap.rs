@@ -1578,7 +1578,10 @@ fn generated_scene_key(kind: adventuresim_core::quest_generation::SiteKind) -> &
     }
 }
 
-fn generate_quest_for_settlement(ctx: &ReducerContext, settlement_id: &str) -> Result<(), String> {
+fn generate_quest_for_settlement(
+    ctx: &ReducerContext,
+    settlement_id: &str,
+) -> StrategicOperationResult<()> {
     use adventuresim_core::quest_generation as qg;
     let settlement = ctx
         .db
@@ -1644,7 +1647,7 @@ fn materialize_preferred_generated_fixture(
     character_id: u64,
     family: adventuresim_core::quest_generation::TemplateFamily,
     seed_salt: Seed,
-) -> Result<String, String> {
+) -> StrategicOperationResult<String> {
     use adventuresim_core::quest_generation as qg;
 
     let character = crate::character::require_living_character(ctx, character_id)?;
@@ -1770,7 +1773,7 @@ fn materialize_simulation_acceptance_outbreak(
     ctx: &ReducerContext,
     character_id: u64,
     policy_seed: Seed,
-) -> Result<String, String> {
+) -> StrategicOperationResult<String> {
     use adventuresim_core::quest_generation as qg;
 
     const MAX_CANDIDATES: u16 = 32_768;
@@ -1896,12 +1899,12 @@ fn seed_outbreak_demo(ctx: &ReducerContext, character_id: u64) -> StrategicOpera
         cooking_pot.id,
     )?;
 
-    Ok(materialize_preferred_generated_fixture(
+    materialize_preferred_generated_fixture(
         ctx,
         character_id,
         adventuresim_core::quest_generation::TemplateFamily::Outbreak,
         fabelgeist_determinism::Seed::from_u64(0x4f55_5442_5245_414b),
-    )?)
+    )
 }
 
 pub(crate) struct SimulationQuestFixtureSeed {
@@ -1998,7 +2001,7 @@ pub(crate) fn seed_simulation_quest_fixture_inner(
     policy_seed: Seed,
     direct_leader_id: u64,
     generated_leader_id: u64,
-) -> Result<SimulationQuestFixtureSeed, String> {
+) -> StrategicOperationResult<SimulationQuestFixtureSeed> {
     use adventuresim_core::case::{
         Objective, ObjectiveExpression, ObjectiveId, ObjectivePath, ObjectiveRequirement,
     };
@@ -2183,7 +2186,7 @@ fn materialize_generated_quest(
     generated: &adventuresim_core::quest_generation::GeneratedCase,
     context_snapshot_override: Option<&str>,
     fixture_site_distance_m: Option<u64>,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let settlement_id = context.settlement_id.as_str();
     let seed = context.seed;
     if ctx
@@ -2196,7 +2199,8 @@ fn materialize_generated_quest(
         return Err(format!(
             "Generated case ID collision: {}",
             generated.canonical_case_id
-        ));
+        )
+        .into());
     }
     ctx.db.case_authority().insert(CaseAuthority {
         id: generated.canonical_case_id.clone(),
@@ -2227,7 +2231,7 @@ fn materialize_generated_quest(
             .find(&event.id)
             .is_some()
         {
-            return Err(format!("Generated event ID collision: {}", event.id));
+            return Err(format!("Generated event ID collision: {}", event.id).into());
         }
         ctx.db.investigation_event_authority().insert(
             crate::investigation::InvestigationEventAuthority {
@@ -2289,7 +2293,8 @@ fn materialize_generated_quest(
             return Err(format!(
                 "Generated case-site ID collision: {} for {} ({}) already belongs to {} ({})",
                 row.id_key, generated.canonical_case_id, row.name, existing.case_id, existing.name
-            ));
+            )
+            .into());
         }
         ctx.db.case_site_authority().insert(row.clone());
         site_rows.insert(site.id.clone(), row);
@@ -2302,7 +2307,7 @@ fn materialize_generated_quest(
             .find(&area.id)
             .is_some()
         {
-            return Err(format!("Generated area ID collision: {}", area.id));
+            return Err(format!("Generated area ID collision: {}", area.id).into());
         }
         ctx.db.investigation_area_authority().insert(
             crate::investigation::InvestigationAreaAuthority {
@@ -2329,10 +2334,7 @@ fn materialize_generated_quest(
             .find(&evidence.id.0)
             .is_some()
         {
-            return Err(format!(
-                "Generated evidence ID collision: {}",
-                evidence.id.0
-            ));
+            return Err(format!("Generated evidence ID collision: {}", evidence.id.0).into());
         }
         ctx.db.investigation_evidence_authority().insert(
             crate::investigation::InvestigationEvidenceAuthority {
@@ -2355,10 +2357,7 @@ fn materialize_generated_quest(
             .find(&witness.id.0)
             .is_some()
         {
-            return Err(format!(
-                "Generated testimony ID collision: {}",
-                witness.id.0
-            ));
+            return Err(format!("Generated testimony ID collision: {}", witness.id.0).into());
         }
         ctx.db.investigation_testimony_bundle().insert(
             crate::investigation::InvestigationTestimonyBundle {
@@ -2453,7 +2452,7 @@ pub fn spawn_developer_quest(
     character_id: u64,
     definition_json: String,
     allow_implausible: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_development_gateway(ctx)?;
     use adventuresim_core::{developer_quest as dq, quest_generation as qg};
     require_strategic_character_authority(ctx, character_id)?;
