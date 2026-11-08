@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:21:47.692578+00:00
+Updated: 2026-11-08T18:30:29.214498+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -26,7 +26,9 @@ Updated: 2026-11-08T18:21:47.692578+00:00
 | Reconnect and abandonment grace relationship | 1 source-derived question; open |
 | Inventory row lookup references mapped | 33 in 12 files |
 | Persisted row identity kinds drafted | 2; migration incomplete |
-| Storefront request scope variants in adapted fixture | 2 / 2 passed |
+| Storefront request scope variants in adapted fixture | 2 / 2 passed on parent |
+| Live storefront sale scenarios reached | 0 / 2; seed exhausted energy |
+| Stale trade source assertion corrected | 1 / 1; source checked |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
 | Workspace all-target all-feature Clippy | Running on current draft |
@@ -117,16 +119,18 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `d042cfbfc`. Storefront
+The inventory row-identity migration is a draft at P16 `cb4d21bb3`. Storefront
 requests now admit personal or party sale row IDs at parsing and carry them
 through validation and application. Private request fields keep the sale scope
-consistent with its rows. The adapted request fixture, authority-feature check,
-and targeted quality check passed; formatting passed and full lint is running.
-Three focused identity and custody tests and isolated inventory lifecycle
-acceptance passed on the preceding `81531ce5d`, not the current commit. Live
-storefront and cooking behavior, broader custody and repair, and review remain
-open. An existing trade source assertion expects an older time expression and
-is stale by source inspection; it has not been executed.
+consistent with its rows. On parent `d042cfbfc`, the adapted request fixture,
+authority-feature check, formatting and full lint passed. The current commit
+updates a stale trade time source assertion; its text was checked against the
+implementation, but the native module test has not run. Current formatting and
+lint are running. An isolated live storefront attempt stopped before either
+sale when settlement seeding exhausted the module energy budget; the first
+attempt had a separate runner decoding error. Three focused custody tests and
+inventory lifecycle acceptance passed on `81531ce5d`. Live storefront and
+cooking behavior, broader custody and repair, and review remain open.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
