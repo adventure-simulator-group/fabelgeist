@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:39:40.674240+00:00
+Updated: 2026-11-08T18:43:34.001613+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -30,15 +30,16 @@ Updated: 2026-11-08T18:39:40.674240+00:00
 | Live storefront sale scenarios reached | 0 / 2; seed exhausted energy |
 | Trade authority source checks present | 12 / 12; source inspected |
 | Transfer source row boundaries consolidated | 2 / 2 |
-| Isolated bottle and apple deposit/withdrawal round trips | 2 / 2 passed |
-| Apple lot backing and value conservation round trip | 1 / 1 passed |
+| Isolated bottle and apple deposit/withdrawal on previous draft | 2 / 2 passed |
+| Apple lot backing and value conservation on previous draft | 1 / 1 passed |
 | Workspace production check on prior draft | Passed |
-| Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Passed on current draft |
+| Database module production check on current draft | Passed before final call compaction |
+| Workspace all-target all-feature Clippy | Running on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
-| Food lot lookup/deletion helpers typed | 4 / 4; producers still open |
+| Food lot lookup/deletion helpers typed | 4 / 4 |
+| Food lot creation APIs typed | 2 / 2; live validation open |
 | Current quality size findings | 0 in targeted quality scan |
 | Existing core location fixture on previous draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
@@ -63,7 +64,7 @@ Updated: 2026-11-08T18:39:40.674240+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Passed |
+| Full P16 lint on current identity draft | Running |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -122,22 +123,25 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `9dc0de32c`. Storefront
-requests now admit personal or party sale row IDs at parsing and carry them
+The inventory row-identity migration is a draft at P16 `574c0e004`. Personal
+and party food-lot creation now accept their distinct row ID types at the
+database insert boundary. The authority-feature check passed before the final
+call compaction, the targeted quality check passed afterward, and full lint is
+running. Live party food creation remains unverified. Storefront requests now
+admit personal or party sale row IDs at parsing and carry them
 through validation and application. Private request fields keep the sale scope
 consistent with its rows. Deposit and withdrawal now each admit their source
 row ID once and reuse it through object and food operations. On `d042cfbfc`,
 the adapted request fixture, authority-feature check, formatting and full lint
 passed. Commit `cb4d21bb3` updates a stale trade time source assertion; its
 text was checked against the implementation, but the native module test has not
-run. Formatting and full
-lint passed on `cb4d21bb3`; the current transfer draft passes authority-feature
+run. Formatting and full lint passed on `cb4d21bb3`; transfer draft `9dc0de32c`
+passed authority-feature
 compilation, targeted quality, formatting and full lint. Isolated bottle and
 apple deposit/withdrawal round trips preserved object identity; the apple lot
 also retained its identity, mass, nutrition and value while its backing changed
 with custody. A storefront attempt stopped before either sale when settlement
-seeding exhausted the module energy budget; the first
-attempt had a separate runner decoding error. Three focused custody tests and
+seeding exhausted the module energy budget; the first attempt had a separate runner decoding error. Three focused custody tests and
 inventory lifecycle acceptance passed on `81531ce5d`. Live storefront and
 cooking behavior, broader custody and repair, and review remain open.
 
