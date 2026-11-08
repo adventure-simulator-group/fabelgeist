@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:38:35.089913+00:00
+Updated: 2026-11-08T10:40:44.406535+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -31,8 +31,9 @@ Workspace Clippy passed on the current commit. Full lint was stopped during
 standalone manifest checks when free disk fell below 3 GB; the disposable
 P16-only native build cache was removed, restoring about 8.6 GB free.
 Automatic approval review rejected a separate standalone target as conflicting
-with the shared-target requirement. The first standalone check is running
-under the shared build lock; artifact provenance needs verification.
+with the shared-target requirement. All three standalone Clippy commands passed
+under the shared build lock. Local package names were rebuilt during the
+sequence, but feature-specific artifact provenance has not been established.
 
 | Historical audit measure | Count |
 | --- | --- |
@@ -222,8 +223,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   space. The P16-only native build cache was removed to restore space.
   Automatic approval review rejected a separate standalone target because of
   the shared-target requirement. The first standalone check is running with
-  the shared target and lock; its artifact provenance needs verification.
-  Behavior, full lint, and review remain open.
+  the shared target and lock; all three standalone Clippy commands passed.
+  Local package names were rebuilt during that sequence, but feature-specific
+  artifact provenance remains open. Behavior, a single uninterrupted full
+  lint run, and review remain open.
   Input behavior has not been rerun.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
