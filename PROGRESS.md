@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:10:10.778003+00:00
+Updated: 2026-11-08T12:11:47.495809+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -191,7 +191,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   but their storage-to-consumer behavior is unverified. The authority runner
   previously labeled a catalog fixture as capability projection; it checks
   classification, not reach. The message now states the actual coverage.
-  Player spawn admission prepares all applicable players before issuing any
+  Investigation authority still discards its validated aggregate and reparses
+  raw manifest/context strings. Developer contexts use a wrapper that the
+  downstream plain-context parser rejects; this source-derived defect needs
+  repair and database verification. Player spawn admission prepares all
+  applicable players before issuing any
   spawn commands. The input queue is drained first and is not requeued on
   preparation failure. Source indicates Bevy's default error handler would
   panic on that error. The dispatcher does not monitor or restart its child
