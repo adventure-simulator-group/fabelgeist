@@ -41,6 +41,7 @@ use crate::{
 
 // Assembles the ordered food owners in their existing SpacetimeDB module scope.
 include!("model.rs");
+include!("preparation_tools.rs");
 include!("ingredient_preparation.rs");
 include!("preparation_authority.rs");
 include!("preparation_backing.rs");
@@ -56,6 +57,7 @@ mod authority_tests;
 #[cfg(test)]
 pub(crate) const FOOD_SOURCE: &str = concat!(
     include_str!("model.rs"),
+    include_str!("preparation_tools.rs"),
     include_str!("ingredient_preparation.rs"),
     include_str!("preparation_authority.rs"),
     include_str!("preparation_backing.rs"),

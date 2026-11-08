@@ -345,21 +345,21 @@ mod tests {
     fn personal(character_id: u64, row_id: u64) -> InventoryLocation {
         InventoryLocation::Personal(PersonalInventoryLocation {
             character_id,
-            row_id,
+            row_id: adventuresim_stdb_client::PersonalInventoryRowId { value: row_id },
         })
     }
 
     fn party(party_id: &str, row_id: u64) -> InventoryLocation {
         InventoryLocation::Party(PartyInventoryLocation {
             party_id: party_id.into(),
-            row_id,
+            row_id: adventuresim_stdb_client::PartyInventoryRowId { value: row_id },
         })
     }
 
     fn repair(settlement_id: &str, row_id: u64) -> InventoryLocation {
         InventoryLocation::Repair(RepairInventoryLocation {
             settlement_id: settlement_id.into(),
-            row_id,
+            row_id: adventuresim_stdb_client::PersonalInventoryRowId { value: row_id },
         })
     }
 

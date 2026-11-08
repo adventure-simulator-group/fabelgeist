@@ -88,7 +88,7 @@ mod encumbrance_tests {
                 item_id: "waterskin".into(),
                 location: InventoryLocation::Personal(PersonalInventoryLocation {
                     character_id: 1,
-                    row_id: 31,
+                    row_id: adventuresim_stdb_client::PersonalInventoryRowId { value: 31 },
                 }),
             }],
             containment: Vec::new(),
