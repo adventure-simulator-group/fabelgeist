@@ -1,17 +1,17 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:11:16.203074+00:00
+Updated: 2026-11-08T23:13:54.899468+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 593 / 3,866 | 3,273, including overlapping obligations |
+| Ledger source-discovery entries | 594 / 3,866 | 3,272, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
 | Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
-| Food conservation source packets | 7 adopted | Medicine, events, and transfers open |
+| Food conservation source packets | 8 adopted | 1 scoped discovery closed; conditional validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -281,6 +281,13 @@ deterministic sampler capable of representing zero. A specific successful
 sub-microunit exposure remains unproven. Selected personal transfer admission
 requires atomic physical-object moves. Audit checkpoint 3774 verified the
 evidence without closing the food-lot contract.
+
+Audit checkpoint 3775 closed food-lot conservation source discovery with
+conditional terminal and quantization policies. Exact historical lot, medicine
+and amount sources match the selected revision; selected consumption, transfer
+and event paths are qualified. The medicinal-death and tiny-dose scenarios
+remain unproven and require validation after the audit gate. Independent
+food-event and point-prevention entries remain open.
 
 | Increment status | Count |
 | --- | ---: |
