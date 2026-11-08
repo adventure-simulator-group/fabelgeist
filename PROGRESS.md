@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T19:16:56.966293+00:00
+Updated: 2026-11-08T19:20:51.958361+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -9,8 +9,9 @@ Updated: 2026-11-08T19:16:56.966293+00:00
 | Nested party merge row orders exercised | 2 / 2 on prior draft | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 on prior draft | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
-| Seed-party populated-inventory rejection | 1 / 1 | Stake-only and reserve-only cases open |
-| Seed-party recruitment-role rejection | 1 / 1 | Other obligation cases open |
+| Seed-party populated-inventory rejection | 1 / 1 on prior draft | Stake-only and reserve-only cases open |
+| Seed-party recruitment-role rejection | 1 / 1 on prior draft | Other obligation cases open |
+| Seed-party bound mission/pending incident checks | 2 drafted | Both live cases open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -138,15 +139,17 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `1d2c4f963`. A seed
+The inventory row-identity migration is a draft at P16 `060b6e367`. A seed
 helper could delete a solo party with inventory or active party obligations.
-The draft rejects reassignment when inventory, stake, reserve, active travel,
-contract, encounter, fireplace or recruitment/action records are present. An
-isolated empty-source fixture passed; separate inventory and recruitment-role
-rejections preserved the checked state and prior bootstrap clock. Other
-obligation and stake-only/reserve-only cases remain unverified. Authority-feature
-compilation, targeted quality and formatting passed; full lint is running. A
-misplaced helper comment was also restored to its owning function.
+The draft rejects reassignment for active bound missions and pending incidents,
+as well as inventory, stake, reserve, travel, contract, encounter, fireplace and
+recruitment/action records. On `1d2c4f963`, an isolated empty-source fixture
+passed and inventory and recruitment-role rejections preserved checked state
+and clock. Mission and incident branches and other cases remain unverified on
+the current draft. Authority-feature compilation, targeted quality and
+formatting passed; full lint and the role regression are running in sequence.
+The prior lint run overlapped a source edit and is not attributed to an exact
+revision. A misplaced helper comment was restored to its owning function.
 
 On `5d33a1e9a`, a party merge lost the original backing rows for a nested
 bottle and apple while their physical objects still referenced the former party.
