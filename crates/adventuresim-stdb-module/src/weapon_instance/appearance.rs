@@ -1,8 +1,9 @@
 //! Authenticated connected-client appearance projections.
 use super::*;
+use adventuresim_core::physical_object::PersonalInventoryRowId;
 pub(crate) fn connected_appearance(
     ctx: &ViewContext,
-    inventory_row_id: u64,
+    inventory_row_id: PersonalInventoryRowId,
     item_id: &str,
 ) -> Option<ConnectedWeaponAppearance> {
     let mut objects = ctx
@@ -39,7 +40,7 @@ pub(crate) fn connected_appearance(
 
 pub(crate) fn connected_holder_appearance(
     ctx: &ViewContext,
-    inventory_row_id: u64,
+    inventory_row_id: PersonalInventoryRowId,
     item_id: &str,
 ) -> Option<ConnectedWeaponAppearance> {
     if !matches!(item_id, "scabbard" | "weapon_loop") {

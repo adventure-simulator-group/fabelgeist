@@ -188,10 +188,10 @@ fn carried_row_matches(
 ) -> bool {
     match (scope, location) {
         (CarriedInventoryScope::Personal, InventoryLocation::Personal(location)) => {
-            location.row_id == row_id
+            location.row_id.value == row_id
         }
         (CarriedInventoryScope::Party, InventoryLocation::Party(location)) => {
-            location.row_id == row_id
+            location.row_id.value == row_id
         }
         (
             CarriedInventoryScope::Personal,

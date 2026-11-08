@@ -413,14 +413,18 @@ fn connected_player_items(
         .filter(character_id)
         .filter_map(move |inventory_item| {
             let mut item = ctx.db.item().id().find(&inventory_item.item_id)?;
+            let inventory_row_id =
+                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
+                    inventory_item.id,
+                );
             let weapon_appearance = crate::weapon_instance::connected_appearance(
                 ctx,
-                inventory_item.id,
+                inventory_row_id,
                 &inventory_item.item_id,
             );
             let weapon_holder_appearance = crate::weapon_instance::connected_holder_appearance(
                 ctx,
-                inventory_item.id,
+                inventory_row_id,
                 &inventory_item.item_id,
             );
             let condition = ctx

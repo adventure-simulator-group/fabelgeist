@@ -35,11 +35,11 @@ impl CarriedInventoryView {
         match location {
             InventoryLocation::Personal(location) => Some(Self {
                 scope: CarriedInventoryScope::Personal,
-                row_id: location.row_id,
+                row_id: location.row_id.value,
             }),
             InventoryLocation::Party(location) => Some(Self {
                 scope: CarriedInventoryScope::Party,
-                row_id: location.row_id,
+                row_id: location.row_id.value,
             }),
             InventoryLocation::Fireplace(_) | InventoryLocation::Repair(_) => None,
         }

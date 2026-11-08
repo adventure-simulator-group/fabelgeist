@@ -1,5 +1,5 @@
 use adventuresim_core::item_catalog::{EquipmentBodyPart, EquipmentChannel, EquipmentLocation};
-use adventuresim_core::physical_object::{CarriedInventoryScope, OperationalCustody};
+use adventuresim_core::physical_object::OperationalCustody;
 use adventuresim_core::prelude::*;
 use adventuresim_core::projectile::ProjectileKind;
 use spacetimedb::{ReducerContext, Table, reducer, table};

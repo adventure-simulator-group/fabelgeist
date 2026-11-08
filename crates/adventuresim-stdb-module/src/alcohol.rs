@@ -10,7 +10,6 @@ use adventuresim_core::alcohol::{
 };
 use adventuresim_core::inventory_measurement::ConsumableFractionMicros;
 use adventuresim_core::item_references::TAVERN_DRINK_ITEM_ID;
-use adventuresim_core::physical_object::CarriedInventoryScope;
 use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, Table, table};
 
@@ -289,19 +288,21 @@ fn consume_stack(
     stack: Stack,
     requested_fraction: ConsumableFractionMicros,
 ) -> Result<ConsumableFractionMicros, String> {
-    let (scope, row_id, available) = match &stack {
+    let (row_id, available) = match &stack {
         Stack::Party(row) => (
-            CarriedInventoryScope::Party,
-            row.id,
+            adventuresim_core::physical_object::CarriedInventoryRowId::Party(
+                adventuresim_core::physical_object::PartyInventoryRowId::from_raw(row.id),
+            ),
             crate::inventory_amount::party_fraction(ctx, row.id),
         ),
         Stack::Personal(row) => (
-            CarriedInventoryScope::Personal,
-            row.id,
+            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
+            ),
             crate::inventory_amount::personal_fraction(ctx, row.id),
         ),
     };
-    crate::inventory_container::reconcile_consumed_row(ctx, scope, row_id, false)?;
+    crate::inventory_container::reconcile_consumed_row(ctx, row_id, false)?;
     let consumed = match stack {
         Stack::Party(row) => {
             crate::inventory_amount::consume_party(ctx, row.id, requested_fraction)?
@@ -311,7 +312,7 @@ fn consume_stack(
         }
     };
     if available.is_some_and(|amount| consumed >= amount) {
-        crate::inventory_container::reconcile_consumed_row(ctx, scope, row_id, true)?;
+        crate::inventory_container::reconcile_consumed_row(ctx, row_id, true)?;
     }
     Ok(consumed)
 }

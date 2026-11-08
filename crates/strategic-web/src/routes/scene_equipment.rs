@@ -150,7 +150,7 @@ async fn appearances(
                 holder: None,
             };
             if let Some(object) = objects.iter().find(|object| matches!(&object.location,
-                InventoryLocation::Personal(location) if location.character_id == id && location.row_id == item.id)) {
+                InventoryLocation::Personal(location) if location.character_id == id && location.row_id.value == item.id)) {
                 appearance.weapon = weapons.iter().find(|row| row.physical_object_id == object.id)
                     .map(|row| generated(row.generator_version, row.design_hash.clone(), row.recipe.clone())).transpose()?;
                 appearance.holder = holders.iter().find(|row| row.physical_object_id == object.id)
@@ -173,7 +173,7 @@ async fn recipes(
 ) -> Result<(Vec<WeaponInstance>, Vec<WeaponHolderInstance>), StatusCode> {
     let condition = objects.iter().filter(|object| matches!(&object.location,
         InventoryLocation::Personal(location) if worn.iter().any(|item|
-            item.character_id == location.character_id && item.inventory_item_id == location.row_id)))
+            item.character_id == location.character_id && item.inventory_item_id == location.row_id.value)))
         .map(|object| format!("physical_object_id = {}", object.id)).collect::<Vec<_>>().join(" OR ");
     if condition.is_empty() {
         return Ok((vec![], vec![]));

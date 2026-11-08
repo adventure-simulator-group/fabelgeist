@@ -2690,12 +2690,14 @@ fn finalize_storefront_trade_impl(
     for (inventory_id, quantity) in sell_inventory_ids.iter().zip(&sell_quantities) {
         let container_object = crate::inventory_container::object_for_row(
             ctx,
-            if party_scope {
-                CarriedInventoryScope::Party
-            } else {
-                CarriedInventoryScope::Personal
-            },
-            *inventory_id,
+            adventuresim_core::physical_object::CarriedInventoryRowId::from_raw(
+                if party_scope {
+                    CarriedInventoryScope::Party
+                } else {
+                    CarriedInventoryScope::Personal
+                },
+                *inventory_id,
+            ),
         )?;
         let container_subtree = container_object.as_ref().is_some_and(|object| {
             crate::inventory_container::object_is_nonempty(ctx, object.id)
@@ -2827,12 +2829,14 @@ fn finalize_storefront_trade_impl(
     for (inventory_id, quantity) in sell_inventory_ids.iter().zip(&sell_quantities) {
         let object = crate::inventory_container::object_for_row(
             ctx,
-            if party_scope {
-                CarriedInventoryScope::Party
-            } else {
-                CarriedInventoryScope::Personal
-            },
-            *inventory_id,
+            adventuresim_core::physical_object::CarriedInventoryRowId::from_raw(
+                if party_scope {
+                    CarriedInventoryScope::Party
+                } else {
+                    CarriedInventoryScope::Personal
+                },
+                *inventory_id,
+            ),
         )?;
         if let Some(object) = object {
             crate::inventory_container::detach_if_nested(ctx, object.id)?;

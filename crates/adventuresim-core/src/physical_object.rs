@@ -83,6 +83,18 @@ pub enum CarriedInventoryRowId {
     Party(PartyInventoryRowId),
 }
 
+impl CarriedInventoryRowId {
+    /// Admit a scope and numeric row identifier from a persistence or API boundary.
+    pub const fn from_raw(scope: CarriedInventoryScope, row_id: u64) -> Self {
+        match scope {
+            CarriedInventoryScope::Personal => {
+                Self::Personal(PersonalInventoryRowId::from_raw(row_id))
+            }
+            CarriedInventoryScope::Party => Self::Party(PartyInventoryRowId::from_raw(row_id)),
+        }
+    }
+}
+
 /// A physical object's persisted backing location.
 ///
 /// Each variant contains exactly the identity required by that state, so a

@@ -1,7 +1,6 @@
 use adventuresim_core::prelude::*;
 use adventuresim_core::{
     item_references::STANDARD_WATERSKIN_ID,
-    physical_object::CarriedInventoryScope,
     provisioning::{STRATEGIC_TRAVEL_KCAL_PER_DAY, STRATEGIC_TRAVEL_WATER_ML_PER_DAY},
 };
 use spacetimedb::{ReducerContext, Table, reducer, table};

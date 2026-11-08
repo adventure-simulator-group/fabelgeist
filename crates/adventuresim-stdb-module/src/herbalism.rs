@@ -412,9 +412,9 @@ pub fn start_poppy_tincture(
         .db
         .inventory_item()
         .id()
-        .find(ingredient_location.row_id)
+        .find(ingredient_location.row_id.get())
         .ok_or("Poppy inventory row is missing")?;
-    let lot = crate::food::personal_lot(ctx, ingredient_location.row_id)
+    let lot = crate::food::personal_lot(ctx, ingredient_location.row_id.get())
         .ok_or("Poppy measured lot is missing")?;
     if inventory.quantity != 1
         || lot.preparation != FoodPreparation::Ground

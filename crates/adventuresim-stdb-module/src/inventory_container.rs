@@ -587,7 +587,7 @@ pub(crate) fn delete_subtree(ctx: &ReducerContext, root_object_id: u64) -> Resul
                     .item_condition()
                     .inventory_item_id()
                     .delete(location.row_id.get());
-                crate::food::delete_personal_food_lot(ctx, location.row_id);
+                crate::food::delete_personal_food_lot(ctx, location.row_id.get());
                 ctx.db.inventory_item().id().delete(location.row_id.get());
             }
             InventoryLocation::Party(location) => {
@@ -599,7 +599,7 @@ pub(crate) fn delete_subtree(ctx: &ReducerContext, root_object_id: u64) -> Resul
                     .party_item_condition()
                     .party_inventory_item_id()
                     .delete(location.row_id.get());
-                crate::food::delete_party_food_lot(ctx, location.row_id);
+                crate::food::delete_party_food_lot(ctx, location.row_id.get());
                 ctx.db
                     .party_inventory_item()
                     .id()
@@ -655,7 +655,7 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
         .scope()
         .ok_or("Only carried containers can merge into inventory stacks")?;
     let mergeable_object = |row_id| -> Result<bool, String> {
-        match object_for_row(ctx, scope, row_id)? {
+        match object_for_row(ctx, CarriedInventoryRowId::from_raw(scope, row_id))? {
             Some(object) => {
                 require_exact_carried_backing(ctx, &object, &expected)?;
                 Ok(!object_is_nonempty(ctx, object.id) && !object_is_nested(ctx, object.id))
@@ -939,7 +939,7 @@ pub(crate) fn require_object(
     scope: CarriedInventoryScope,
     row_id: u64,
 ) -> Result<InventoryObject, String> {
-    let object = object_for_row(ctx, scope, row_id)?
+    let object = object_for_row(ctx, CarriedInventoryRowId::from_raw(scope, row_id))?
         .ok_or("Inventory row has no stable physical object identity")?;
     let actor = ctx
         .db

@@ -4,7 +4,7 @@ mod escrow;
 mod smiths;
 use adventuresim_core::durability::DamageBins;
 use adventuresim_core::durability::{DurabilityProfile, damage_from_impact};
-use adventuresim_core::physical_object::{CarriedInventoryScope, InventoryLocation};
+use adventuresim_core::physical_object::InventoryLocation;
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 pub(crate) use smiths::ensure_settlement_smith;
 use smiths::service_skill;

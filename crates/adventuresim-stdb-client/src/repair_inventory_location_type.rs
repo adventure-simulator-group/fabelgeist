@@ -4,11 +4,13 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::personal_inventory_row_id_type::PersonalInventoryRowId;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct RepairInventoryLocation {
     pub settlement_id: String,
-    pub row_id: u64,
+    pub row_id: PersonalInventoryRowId,
 }
 
 impl __sdk::InModule for RepairInventoryLocation {

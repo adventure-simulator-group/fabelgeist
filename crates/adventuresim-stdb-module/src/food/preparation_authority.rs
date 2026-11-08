@@ -323,9 +323,7 @@ fn preparation_material_receipt(
             Vec::new(),
         )
         .map_err(|error| format!("Invalid preparation conservation: {error:?}"))?,
-        herbalism::PreparationMaterialReceipt {
-            action,
-        },
+        herbalism::PreparationMaterialReceipt { action },
     )
     .map_err(|error| format!("Ingredient conservation failed: {error:?}"))
 }
@@ -364,9 +362,11 @@ fn load_preparation_authority(
     if !linked_row {
         return Err("Ingredient lot does not match the selected inventory row".into());
     }
-    let object =
-        crate::inventory_container::object_for_row(ctx, inventory_scope, inventory_item_id)?
-            .ok_or("Ingredient lot has no stable material object")?;
+    let object = crate::inventory_container::object_for_row(
+        ctx,
+        CarriedInventoryRowId::from_raw(inventory_scope, inventory_item_id),
+    )?
+    .ok_or("Ingredient lot has no stable material object")?;
     if object.id != material_object_id {
         return Err("Ingredient material object is stale or ambiguous".into());
     }
@@ -382,12 +382,7 @@ fn load_preparation_authority(
             let tool_binding = qualifying_cutting_weapon_binding(ctx, actor.id).ok_or(
                 "Cutting requires a carried edged weapon with current precision of at least 0.5",
             )?;
-            (
-                Skill::Knife,
-                FoodPreparation::Cut,
-                "Cut",
-                tool_binding,
-            )
+            (Skill::Knife, FoodPreparation::Cut, "Cut", tool_binding)
         }
         IngredientPreparationAction::Grind => {
             if !matches!(lot.preparation, FoodPreparation::Raw | FoodPreparation::Cut) {
@@ -497,7 +492,7 @@ fn build_preparation_planner(
                 request_id: ActionRequestId::try_new(request_id)
                     .map_err(|_| "Ingredient preparation request is malformed")?,
                 action_id: ActionDefinitionId::try_new(action.definition_id())
-                .map_err(|_| "Ingredient preparation definition is malformed")?,
+                    .map_err(|_| "Ingredient preparation definition is malformed")?,
                 input_digest: SnapshotDigest(digest),
                 authority_binding: AuthorityBinding(digest),
             },
@@ -596,7 +591,12 @@ fn preparation_authority_digest_parts(
     frame(&lot.created_at_minute.get().to_le_bytes());
     frame(&duration.to_le_bytes());
     frame(&current_minute.get().to_le_bytes());
-    frame(&terminal_minute.unwrap_or(StrategicMinute::MAX).get().to_le_bytes());
+    frame(
+        &terminal_minute
+            .unwrap_or(StrategicMinute::MAX)
+            .get()
+            .to_le_bytes(),
+    );
     frame(&attempt_generation.to_le_bytes());
     frame(&[match skill {
         Skill::Knife => 1,

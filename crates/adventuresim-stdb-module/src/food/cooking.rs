@@ -167,14 +167,14 @@ pub fn start_fireplace_container_cooking(
         }
         let (row_id, lot, amount) = match (&child.location, scope) {
             (InventoryLocation::Personal(location), CarriedInventoryScope::Personal) => (
-                location.row_id,
-                personal_lot(ctx, location.row_id),
-                crate::inventory_amount::personal_fraction(ctx, location.row_id),
+                location.row_id.get(),
+                personal_lot(ctx, location.row_id.get()),
+                crate::inventory_amount::personal_fraction(ctx, location.row_id.get()),
             ),
             (InventoryLocation::Party(location), CarriedInventoryScope::Party) => (
-                location.row_id,
-                party_lot(ctx, location.row_id),
-                crate::inventory_amount::party_fraction(ctx, location.row_id),
+                location.row_id.get(),
+                party_lot(ctx, location.row_id.get()),
+                crate::inventory_amount::party_fraction(ctx, location.row_id.get()),
             ),
             _ => return Err("Contained food custody conflicts with its return inventory".into()),
         };
