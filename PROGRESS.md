@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T00:04:59.761490+00:00
+Updated: 2026-11-08T00:07:04.052666+00:00
 
-Latest verified checkpoint: **3648**. Goal: **active**.
+Latest verified checkpoint: **3649**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3648**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 583 / 3,863 marked | 3,280 other entries |
+| Queue entries explicitly marked source-discovery closed | 583 / 3,864 marked | 3,281 other entries |
 | Registered source ranges qualified, connected work open | 297 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -43,13 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified existing outbreak fixture coverage.
+Recorded source-site exposure repair obligation.
 
-Other tests, deduplication policy and aliases remain open.
+Broader outbreak scope, source selection and aliases remain open.
 
 ## Working on now
 
-Reconcile other tests and source-window identity.
+Resolve source-site repair dependencies and remaining outbreak scope.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -199,7 +199,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3863 entries. Entries and views overlap, so this is
+The canonical queue contains 3864 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3648 publication record](CHECKPOINT-3648.json)
-- [Saved report for checkpoint 3648](PROGRESS-3648.md)
+- [Checkpoint 3649 publication record](CHECKPOINT-3649.json)
+- [Saved report for checkpoint 3649](PROGRESS-3649.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
