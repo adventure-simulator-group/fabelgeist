@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:52:04.658155+00:00
+Updated: 2026-11-08T11:54:13.977497+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -176,9 +176,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   An existing mission source guard was updated after its assertion moved with
   the extracted code. Its revised assertions passed a direct source audit and
   compiled under Clippy. Its native test could not link SpacetimeDB host
-  functions, so the test itself has not run. The semantic review of all
-  recovered overlaps, remaining behavior checks and integrated gates remain
-  open.
+  functions, so the test itself has not run. Strategic projection source
+  preserves catalog-selected reach separately from per-instance combat reach,
+  but their storage-to-consumer behavior is unverified. The authority runner
+  labels a catalog fixture as capability projection; it checks classification,
+  not reach. Remaining review, behavior checks and integrated gates stay open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
