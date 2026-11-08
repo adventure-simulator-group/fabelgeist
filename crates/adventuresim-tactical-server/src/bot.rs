@@ -636,6 +636,7 @@ mod tests {
         let attacker = app
             .world_mut()
             .spawn((
+                Player::default(),
                 CharacterLook::default(),
                 Transform::default(),
                 TacticalCombatSide::Party,
@@ -700,6 +701,7 @@ mod tests {
         let attacker = app
             .world_mut()
             .spawn((
+                Player::default(),
                 CharacterLook::default(),
                 Transform::default(),
                 TacticalCombatSide::Party,
