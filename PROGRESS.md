@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T00:07:04.052666+00:00
+Updated: 2026-11-08T00:14:26.341140+00:00
 
-Latest verified checkpoint: **3649**. Goal: **active**.
+Latest verified checkpoint: **3650**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,13 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Recorded source-site exposure repair obligation.
+Compared outbreak first-failure ownership.
 
-Broader outbreak scope, source selection and aliases remain open.
+Broader source consumers, transition policy and global aliases remain open.
 
 ## Working on now
 
-Resolve source-site repair dependencies and remaining outbreak scope.
+Trace remaining outbreak authority consumers and exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3649 publication record](CHECKPOINT-3649.json)
-- [Saved report for checkpoint 3649](PROGRESS-3649.md)
+- [Checkpoint 3650 publication record](CHECKPOINT-3650.json)
+- [Saved report for checkpoint 3650](PROGRESS-3650.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
