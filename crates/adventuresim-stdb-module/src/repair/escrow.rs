@@ -1,5 +1,23 @@
 use super::*;
-use adventuresim_core::physical_object::PersonalInventoryRowId;
+use adventuresim_core::physical_object::{
+    CarriedInventoryRowId, InventoryLocation, PersonalInventoryRowId,
+};
+
+pub(super) fn stage_repair_object(
+    ctx: &ReducerContext,
+    row_id: PersonalInventoryRowId,
+    settlement_id: &str,
+) -> crate::StrategicOperationResult<()> {
+    let carried = CarriedInventoryRowId::Personal(row_id);
+    if let Some(mut object) = crate::inventory_container::object_for_row(ctx, carried)? {
+        crate::inventory_container::detach_if_nested(ctx, object.id)?;
+        object.location = InventoryLocation::repair(settlement_id, row_id);
+        ctx.db.inventory_object().id().update(object);
+    } else {
+        crate::inventory_container::reconcile_consumed_row(ctx, carried, true)?;
+    }
+    Ok(())
+}
 
 pub(super) fn restore_repair_object(
     ctx: &ReducerContext,

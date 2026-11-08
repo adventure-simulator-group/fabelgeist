@@ -1,11 +1,10 @@
 //! Persistent strategic equipment condition and settlement repair custody.
 
-use adventuresim_core::physical_object::{CarriedInventoryRowId, PersonalInventoryRowId};
+use adventuresim_core::physical_object::PersonalInventoryRowId;
 mod escrow;
 mod smiths;
 use adventuresim_core::durability::DamageBins;
 use adventuresim_core::durability::{DurabilityProfile, damage_from_impact};
-use adventuresim_core::physical_object::InventoryLocation;
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 pub(crate) use smiths::ensure_settlement_smith;
 use smiths::service_skill;
@@ -222,23 +221,11 @@ fn submit(
     } else {
         Vec::new()
     };
-    if let Some(mut object) = crate::inventory_container::object_for_row(
+    escrow::stage_repair_object(
         ctx,
-        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_item_id)),
-    )? {
-        crate::inventory_container::detach_if_nested(ctx, object.id)?;
-        object.location = InventoryLocation::repair(
-            settlement_id,
-            PersonalInventoryRowId::from_raw(inventory_item_id),
-        );
-        ctx.db.inventory_object().id().update(object);
-    } else {
-        crate::inventory_container::reconcile_consumed_row(
-            ctx,
-            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_item_id)),
-            true,
-        )?;
-    }
+        PersonalInventoryRowId::from_raw(inventory_item_id),
+        settlement_id,
+    )?;
     crate::character::unequip_wearable(ctx, inventory_item_id);
     // Zero is reserved for smith custody and is excluded by every owner-scoped inventory path.
     inventory.character_id = 0;
@@ -702,7 +689,9 @@ mod tests {
             .split("fn saved_attachment_targets")
             .next()
             .unwrap();
-        assert!(submit.contains("InventoryLocation::repair"));
-        assert!(submit.contains("detach_if_nested"));
+        assert!(submit.contains("escrow::stage_repair_object"));
+        let escrow = crate::production_source(include_str!("repair/escrow.rs"));
+        assert!(escrow.contains("InventoryLocation::repair"));
+        assert!(escrow.contains("detach_if_nested"));
     }
 }
