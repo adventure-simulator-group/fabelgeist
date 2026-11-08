@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:40:40.500748+00:00
+Updated: 2026-11-08T21:43:00.612493+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -33,12 +33,15 @@ work documented below was performed before that prerequisite was met. Future
 work is returning to audit discovery and reconciliation. The implementation
 branches are preserved as drafts, with their validation limits unchanged.
 
-A bounded current-source read of the existing expedition elapsed-time contract
-confirmed that the simulator subtracts maxima of member clocks, while camp rest
-advances living members individually. A later dead-member clock could mask a
-living member's elapsed time if that membership state is reachable. This is a
-conditional source finding; runtime reachability, aliases, and the intended
-interval remain open. The authoritative queue has not been marked closed.
+A bounded source read of the expedition elapsed-time contract found that dead
+party membership persists while camp rest excludes dead members, and the
+simulator includes membership clocks when subtracting maxima. A later dead
+clock can therefore mask a living member's elapsed time when the relevant
+unequal clocks and projections occur. The pinned SDK applies a successful
+reducer update before its callback. This remains a conditional source finding:
+runtime reproduction, projection completeness, aliases, and the intended
+interval are open. The exploratory reads have no preregistered body credit, and
+the authoritative queue has not been marked closed.
 
 | Increment status | Count |
 | --- | ---: |
