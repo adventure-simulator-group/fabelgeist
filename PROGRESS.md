@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:44:50.255254+00:00
+Updated: 2026-11-08T22:47:25.567574+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -10,6 +10,7 @@ Updated: 2026-11-08T22:44:50.255254+00:00
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
+| Cooking amount source packets | 1 adopted | Vessel capacity and preview open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -210,6 +211,13 @@ conditional policy. All-dead teardown retires strategic travel and input
 state while retaining tactical mission authority and pooled assets. Repeated
 death, malformed partial-state policy, and runtime rollback still require
 validation; independent child contracts remain tracked.
+
+A registered cooking read traced ingredient checks, contamination
+contributions and output object initialization. Vessel retrieval inserts a
+meal containment edge directly; its capacity implications remain unqualified.
+The preview uses different inputs from the cooking path, with applicability
+and intent still open. Audit checkpoint 3763 verified the bounded evidence
+without closing the cooking contract.
 
 | Increment status | Count |
 | --- | ---: |
