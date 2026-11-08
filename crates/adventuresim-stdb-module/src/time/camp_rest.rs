@@ -129,7 +129,7 @@ pub fn rest_at_camp(
                 limit,
                 InjuryRecoveryMinutes::new(limit),
             )?;
-            Ok::<u64, String>(limit.min(disease).min(injury.elapsed))
+            Ok::<u64, crate::StrategicOperationError>(limit.min(disease).min(injury.elapsed))
         })?;
     let fatigue_before = party_fatigue_summary(ctx, &members)?;
     let language_snapshot: Vec<_> = members

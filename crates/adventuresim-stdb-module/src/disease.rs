@@ -967,7 +967,7 @@ pub(crate) fn protected_point_exposure(
     minute: StrategicMinute,
     vector: TransmissionVector,
     exposure: f32,
-) -> Result<f32, String> {
+) -> crate::StrategicOperationResult<f32> {
     let historical = try_party_physiology_check_at(ctx, character_id, minute)?;
     let check = if historical > 0.0 {
         historical
@@ -1060,7 +1060,7 @@ pub fn plan_party_disease_interval(
     member_ids: &[u64],
     requested: u64,
     allow_healing: bool,
-) -> Result<PartyDiseaseIntervalPlan, String> {
+) -> crate::StrategicOperationResult<PartyDiseaseIntervalPlan> {
     let mut ids = member_ids.to_vec();
     ids.sort_unstable();
     ids.dedup();
@@ -1828,7 +1828,7 @@ fn clip_elapsed_for_disease_planned(
     requested: u64,
     allow_healing: bool,
     plan: Option<&PartyDiseaseIntervalPlan>,
-) -> Result<(u64, Option<TerminalFailure>), String> {
+) -> crate::StrategicOperationResult<(u64, Option<TerminalFailure>)> {
     if requested == 0 {
         return Ok((0, None));
     }
@@ -1934,7 +1934,7 @@ pub fn clip_elapsed_for_disease(
     character_id: u64,
     requested: u64,
     allow_healing: bool,
-) -> Result<(u64, Option<TerminalFailure>), String> {
+) -> crate::StrategicOperationResult<(u64, Option<TerminalFailure>)> {
     clip_elapsed_for_disease_planned(ctx, character_id, requested, allow_healing, None)
 }
 
@@ -1944,7 +1944,7 @@ pub fn clip_elapsed_for_disease_in_plan(
     requested: u64,
     allow_healing: bool,
     plan: &PartyDiseaseIntervalPlan,
-) -> Result<(u64, Option<TerminalFailure>), String> {
+) -> crate::StrategicOperationResult<(u64, Option<TerminalFailure>)> {
     clip_elapsed_for_disease_planned(ctx, character_id, requested, allow_healing, Some(plan))
 }
 
@@ -1956,7 +1956,7 @@ fn preview_disease_boundary_planned(
     requested: u64,
     allow_healing: bool,
     plan: Option<&PartyDiseaseIntervalPlan>,
-) -> Result<(u64, bool), String> {
+) -> crate::StrategicOperationResult<(u64, bool)> {
     let owned_plan;
     let plan = if let Some(plan) = plan {
         plan
@@ -2000,7 +2000,7 @@ pub fn preview_disease_terminal_boundary(
     character_id: u64,
     requested: u64,
     allow_healing: bool,
-) -> Result<(u64, bool), String> {
+) -> crate::StrategicOperationResult<(u64, bool)> {
     preview_disease_boundary_planned(ctx, character_id, requested, allow_healing, None)
 }
 
@@ -2009,7 +2009,7 @@ pub fn preview_elapsed_for_disease(
     character_id: u64,
     requested: u64,
     allow_healing: bool,
-) -> Result<u64, String> {
+) -> crate::StrategicOperationResult<u64> {
     preview_disease_boundary_planned(ctx, character_id, requested, allow_healing, None)
         .map(|preview| preview.0)
 }
@@ -2020,7 +2020,7 @@ pub fn preview_elapsed_for_disease_in_plan(
     requested: u64,
     allow_healing: bool,
     plan: &PartyDiseaseIntervalPlan,
-) -> Result<u64, String> {
+) -> crate::StrategicOperationResult<u64> {
     preview_disease_boundary_planned(ctx, character_id, requested, allow_healing, Some(plan))
         .map(|preview| preview.0)
 }
@@ -2268,7 +2268,7 @@ pub fn stop_preparation(
     ctx: &ReducerContext,
     actor_id: u64,
     administration_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let mut administration = ctx
         .db
         .physiology_administration()

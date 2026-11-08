@@ -179,7 +179,7 @@ pub(crate) fn consume_food_medicine(
     patient_id: u64,
     lot_id: u64,
     fraction: f32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if !fraction.is_finite() {
         return Err("Medicinal food fraction is invalid".into());
     }

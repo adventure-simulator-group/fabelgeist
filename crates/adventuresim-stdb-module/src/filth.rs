@@ -80,7 +80,7 @@ fn predicted_wound_routes(
     ctx: &ReducerContext,
     character_id: u64,
     allow_healing: bool,
-) -> Result<Vec<filth::TimedCutRoute>, String> {
+) -> crate::StrategicOperationResult<Vec<filth::TimedCutRoute>> {
     let natural = if allow_healing {
         crate::time::health_recovered_per_day(crate::time::party_physiology_check(
             ctx,
@@ -445,7 +445,7 @@ fn take_units(pool: &mut [WashStack], mut wanted: u32) -> Vec<WashStack> {
 fn plan_party_wash(
     ctx: &ReducerContext,
     character_ids: &[u64],
-) -> Result<(Vec<PlannedCharacterWash>, WashSummary), String> {
+) -> crate::StrategicOperationResult<(Vec<PlannedCharacterWash>, WashSummary)> {
     struct Subject {
         id: u64,
         dirty: Vec<Deposit>,
@@ -530,7 +530,7 @@ fn plan_party_wash(
                 now,
                 filth::timed_cut_exposure(&predicted_wound_routes(ctx, subject.id, false)?, 0),
             );
-            Ok::<_, String>(filth::wash_priority(
+            Ok::<_, crate::StrategicOperationError>(filth::wash_priority(
                 subject.id,
                 &subject.dirty,
                 subject.cut,
@@ -575,14 +575,14 @@ fn plan_party_wash(
 pub fn preview_party_wash(
     ctx: &ReducerContext,
     character_ids: &[u64],
-) -> Result<WashSummary, String> {
+) -> crate::StrategicOperationResult<WashSummary> {
     plan_party_wash(ctx, character_ids).map(|(_, summary)| summary)
 }
 
 pub fn wash_party_before_explicit_rest(
     ctx: &ReducerContext,
     character_ids: &[u64],
-) -> Result<WashSummary, String> {
+) -> crate::StrategicOperationResult<WashSummary> {
     let (planned, summary) = plan_party_wash(ctx, character_ids)?;
     // Preflight exact tagged identities before the first mutation.
     for (key, quantity) in &summary.stacks {
@@ -661,7 +661,10 @@ pub fn wash_party_before_explicit_rest(
 }
 
 /// Single-character settlement rest wrapper.
-pub fn wash_before_explicit_rest(ctx: &ReducerContext, character_id: u64) -> Result<u32, String> {
+pub fn wash_before_explicit_rest(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> crate::StrategicOperationResult<u32> {
     Ok(wash_party_before_explicit_rest(ctx, &[character_id])?.total_units)
 }
 

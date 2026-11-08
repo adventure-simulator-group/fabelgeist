@@ -868,7 +868,7 @@ fn align_and_advance(
             &disease_plan,
         )?;
         let injury = preview_injury_boundary(ctx, *id, limit, InjuryRecoveryMinutes::new(limit))?;
-        Ok::<u64, String>(limit.min(disease).min(injury.elapsed))
+        Ok::<u64, crate::StrategicOperationError>(limit.min(disease).min(injury.elapsed))
     })?;
     let mut completed = safe_duration == duration;
     for id in participants {

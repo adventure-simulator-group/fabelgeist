@@ -759,7 +759,7 @@ pub(crate) fn restore_equipment_placement(
     inventory_item_id: u64,
     placement_id: &str,
     targets: Vec<EquipmentAttachmentTargetSelection>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let inventory = ctx
         .db
         .inventory_item()
@@ -827,7 +827,7 @@ pub fn create_temporary_character(
         tactical_server.enemy_combat_scale_bps,
         tactical_server.countermeasure_multiplier_bps,
     )?;
-    enter_mission(ctx, id, server)
+    enter_mission(ctx, id, server).map_err(Into::into)
 }
 
 fn scale_temporary_enemy(
@@ -2842,7 +2842,7 @@ pub fn equip_item_at_placement(
     character_id: u64,
     inventory_item_id: u64,
     placement_index: u16,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     equip_equipment_internal(
         ctx,
@@ -2862,7 +2862,7 @@ pub fn attach_item_at_placement(
     inventory_item_id: u64,
     placement_index: u16,
     targets: Vec<EquipmentAttachmentTargetSelection>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     equip_equipment_internal(
         ctx,
@@ -2885,7 +2885,7 @@ pub fn replace_item_at_placement(
     inventory_item_id: u64,
     placement_index: u16,
     targets: Vec<EquipmentAttachmentTargetSelection>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     equip_equipment_internal(
         ctx,
@@ -2906,7 +2906,7 @@ fn equip_equipment_internal(
     targets: Vec<EquipmentAttachmentTargetSelection>,
     enforce_law: bool,
     replace_occupied: bool,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
     require_living_character(ctx, character_id)?;
     let inventory = ctx
@@ -2981,10 +2981,7 @@ fn equip_equipment_internal(
             })
             .collect::<Vec<_>>()
             .join(", ");
-        return Err(format!(
-            "Can't equip {}: occupied at {details}",
-            inventory.item_id
-        ));
+        return Err(format!("Can't equip {}: occupied at {details}", inventory.item_id).into());
     }
     let mut displaced_item_ids = std::collections::BTreeSet::new();
     if replace_occupied {
@@ -2996,7 +2993,8 @@ fn equip_equipment_internal(
             placement.id,
             placement.parents.len(),
             targets.len()
-        ));
+        )
+        .into());
     }
     let mut selected_requirements = std::collections::BTreeSet::new();
     let mut reserved_capacity = std::collections::BTreeSet::new();
@@ -3013,7 +3011,8 @@ fn equip_equipment_internal(
             return Err(format!(
                 "Parent requirement {} was selected more than once",
                 target.requirement_index
-            ));
+            )
+            .into());
         }
         let parent_id = target.parent_inventory_item_id;
         let point_id = target.attachment_point_id.as_str();
@@ -3053,7 +3052,8 @@ fn equip_equipment_internal(
             return Err(format!(
                 "{} is incompatible with attachment point {point_id}",
                 inventory.item_id
-            ));
+            )
+            .into());
         }
         let capacity_index =
             first_free_attachment_capacity(point.capacity, inventory_item_id, |index| {

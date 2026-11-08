@@ -422,7 +422,10 @@ pub fn clear_organization_presentation(
     Ok(())
 }
 
-pub fn settle_membership_dues(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+pub fn settle_membership_dues(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> crate::StrategicOperationResult<()> {
     let now = current_minute(ctx, character_id)?;
     let mut lapsed = Vec::new();
     for mut row in ctx

@@ -314,7 +314,7 @@ fn validate_tracking_action_origin(
                 .any(|attempt| attempt.success)
         },
     ) {
-        return Err(invalid_investigation_route_error());
+        return Err(invalid_investigation_route_error().into());
     }
     let predecessor = ctx
         .db
@@ -638,7 +638,7 @@ fn validate_live_action_prerequisites(
     party_id: &str,
     capability: &InvestigationActionCapability,
     kind: action::InvestigationActionKind,
-) -> Result<Vec<u64>, String> {
+) -> crate::StrategicOperationResult<Vec<u64>> {
     if !tracking_capability_chain_is_coherent(
         capability,
         kind,
@@ -656,7 +656,7 @@ fn validate_live_action_prerequisites(
                 .any(|attempt| attempt.success)
         },
     ) {
-        return Err(invalid_investigation_route_error());
+        return Err(invalid_investigation_route_error().into());
     }
     if !capability_has_live_support_reducer(ctx, capability, kind) {
         return Err("The current journal no longer supports this investigation route".into());
@@ -911,7 +911,7 @@ fn commit_action_consequence(
     capability: &InvestigationActionCapability,
     party_id: &str,
     attempt_id: &str,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let consequence: InvestigationActionConsequence =
         serde_json::from_str(&capability.consequence_json)
             .map_err(|_| "Investigation action consequence authority is invalid")?;
@@ -967,7 +967,7 @@ fn commit_generated_remediation(
     capability: &InvestigationActionCapability,
     party_id: &str,
     attempt_id: &str,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let Some(output) = ctx
         .db
         .investigation_generated_action_output()
@@ -1318,7 +1318,7 @@ fn site_bound_investigation_plan(
     members: &[u64],
     resolution: action::Resolution,
     resolution_input: action::ResolutionInput,
-) -> Result<Option<action::InvestigationPlanningOutcome>, String> {
+) -> crate::StrategicOperationResult<Option<action::InvestigationPlanningOutcome>> {
     use adventuresim_core::{
         physical_object::CustodyCharacterId,
         strategic_action::{
@@ -1488,7 +1488,7 @@ pub(crate) fn perform_investigation_action_authorized(
     method: String,
     expected_version: u32,
     leader_approved: bool,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, actor_id)?;
     let attempt_id = inv::compound_id(&[
         "attempt",
@@ -1558,7 +1558,8 @@ pub(crate) fn perform_investigation_action_authorized(
         return Err(adventuresim_core::reducer_error::coded_reducer_error(
             adventuresim_core::reducer_error::ReducerErrorCode::InvestigationActionStale,
             "Investigation action is stale or belongs to another observer",
-        ));
+        )
+        .into());
     }
     if reissue_stale_custody_capability(ctx, &mut capability, &party_id)? {
         return Ok(());
@@ -1669,7 +1670,8 @@ pub(crate) fn perform_investigation_action_authorized(
             return Err(adventuresim_core::reducer_error::coded_reducer_error(
                 adventuresim_core::reducer_error::ReducerErrorCode::InvestigationActionUnavailable,
                 "Investigation action is unavailable",
-            ));
+            )
+            .into());
         }
         None => None,
     };
@@ -1849,7 +1851,7 @@ pub fn perform_investigation_action(
     action_id: String,
     method: String,
     expected_version: u32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     perform_investigation_action_authorized(
         ctx,
         actor_id,

@@ -223,7 +223,7 @@ pub(crate) fn consume_container_water_contributions(
     source_total_ml: u64,
     consumed_water_ml: u64,
     consumer_character_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let moved = take_container_water_contributions(
         ctx,
         container_object_id,
@@ -242,7 +242,7 @@ fn expose_to_water_contributions(
     ctx: &ReducerContext,
     character_id: u64,
     moved: &[(u64, Microliters, u64)],
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     use sha2::{Digest as _, Sha256};
     let minute = ctx
         .db
@@ -318,7 +318,7 @@ pub fn collect_fixture_water_into_container(
     expected_capability_version: u32,
     container_object_id: u64,
     requested_ml: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     use adventuresim_core::{
         material::MaterialLotId,
         physical_object::{CustodyCharacterId, PhysicalObjectId},

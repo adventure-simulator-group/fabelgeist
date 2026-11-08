@@ -646,7 +646,7 @@ pub(crate) fn persist_autoresolve_enemy_corpses(
     case_site_id: Option<&CaseSiteId>,
     creature_kind: &str,
     outcome: &BattleOutcome,
-) -> Result<usize, String> {
+) -> crate::StrategicOperationResult<usize> {
     let mut inserted = 0;
     for enemy in outcome
         .enemies

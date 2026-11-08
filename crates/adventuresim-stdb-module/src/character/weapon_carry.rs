@@ -97,7 +97,7 @@ fn place_unheld_weapon_in_sheath(
     character_id: u64,
     weapon: &crate::item::InventoryItem,
     sheath: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if ctx
         .db
         .character_equipped_item()

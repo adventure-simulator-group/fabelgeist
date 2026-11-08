@@ -1143,7 +1143,7 @@ pub(crate) fn consume_contained_water(
     consumer_character_id: u64,
     expected_custody: &OperationalCustody,
     requested_ml: u64,
-) -> Result<u64, String> {
+) -> crate::StrategicOperationResult<u64> {
     let mut liquids = Vec::new();
     for liquid in ctx
         .db

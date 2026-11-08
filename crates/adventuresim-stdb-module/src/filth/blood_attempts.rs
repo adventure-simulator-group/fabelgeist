@@ -12,7 +12,7 @@ pub fn blood_exposure_attempts_through(
     allow_healing: bool,
     plan: Option<&crate::disease::PartyDiseaseIntervalPlan>,
     max_work: u64,
-) -> Result<Vec<adventuresim_core::disease::AcquisitionAttempt>, String> {
+) -> crate::StrategicOperationResult<Vec<adventuresim_core::disease::AcquisitionAttempt>> {
     if to <= from {
         return Ok(Vec::new());
     }
@@ -33,7 +33,9 @@ pub fn blood_exposure_attempts_through(
         let key = format!("{character_id}:{}", disease_id.stable_id());
         let checkpoint = ctx.db.blood_exposure_checkpoint().id().find(&key);
         let start = from.saturating_add_minutes(1).max(
-            checkpoint.as_ref().map_or(StrategicMinute::ZERO, |row| row.evaluated_through.saturating_add_minutes(1)),
+            checkpoint.as_ref().map_or(StrategicMinute::ZERO, |row| {
+                row.evaluated_through.saturating_add_minutes(1)
+            }),
         );
         let relevant = relevant_blood_deposits(&all_deposits, disease_id);
         let windows = exposure_windows::blood_infectious_windows(
@@ -48,18 +50,10 @@ pub fn blood_exposure_attempts_through(
         {
             adventuresim_core::disease::add_bounded_work(&mut work, 1, max_work)
                 .map_err(str::to_string)?;
-            let route = filth::timed_cut_exposure(
-                &routes,
-                minute.elapsed_since(from),
-            );
+            let route = filth::timed_cut_exposure(&routes, minute.elapsed_since(from));
             let check = plan.map_or_else(
                 || crate::disease::party_physiology_check_at(ctx, character_id, minute),
-                |plan| {
-                    plan.check_at(
-                        character_id,
-                        minute,
-                    )
-                },
+                |plan| plan.check_at(character_id, minute),
             );
             // Any infectious deposit still present here survived or preceded
             // explicit washing, so clean handling is not available for this

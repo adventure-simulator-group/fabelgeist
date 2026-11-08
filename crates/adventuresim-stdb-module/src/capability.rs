@@ -22,9 +22,7 @@ mod mass;
 use crate::StrategicOperationResult;
 use armor::*;
 pub(crate) use combatant::load_combatant;
-use equipment_projection::{
-    CheckedStrategicWeapon, NativeHands, StrategicHeldEquipment, combat_weapon,
-};
+use equipment_projection::{NativeHands, StrategicHeldEquipment};
 use fabelgeist_geometry::SignedLength;
 
 #[derive(Clone, Debug, PartialEq)]

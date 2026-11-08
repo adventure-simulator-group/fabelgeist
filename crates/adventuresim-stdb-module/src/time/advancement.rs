@@ -17,12 +17,7 @@ pub fn advance_character_time(
         .find(character_id)
         .ok_or_else(|| "Character time record not found".to_string())?;
     let starting_minute = character_time.minutes;
-    if let Some(first) = first_lifecycle_segment(
-        ctx,
-        character_id,
-        starting_minute,
-        minutes,
-    ) {
+    if let Some(first) = first_lifecycle_segment(ctx, character_id, starting_minute, minutes) {
         if !advance_character_time(ctx, character_id, first)? {
             return Ok(false);
         }
@@ -57,11 +52,7 @@ pub fn advance_character_time(
     crate::organization::settle_membership_dues(ctx, character_id)?;
     crate::social::settle_shared_party_time(ctx, character_id);
     crate::disease::finish_disease_interval(ctx, character_id, terminal)?;
-    settle_lifecycle_after_character_time_write(
-        ctx,
-        character_id,
-        interval_end,
-    )?;
+    settle_lifecycle_after_character_time_write(ctx, character_id, interval_end)?;
     advance_married_family_by(ctx, character_id, elapsed)?;
     if terminal.is_some() || !settled.alive {
         return Ok(false);
@@ -87,12 +78,7 @@ fn advance_character_time_in_plan(
         .find(character_id)
         .ok_or_else(|| "Character time record not found".to_string())?;
     let starting_minute = character_time.minutes;
-    if let Some(first) = first_lifecycle_segment(
-        ctx,
-        character_id,
-        starting_minute,
-        minutes,
-    ) {
+    if let Some(first) = first_lifecycle_segment(ctx, character_id, starting_minute, minutes) {
         if !advance_character_time_in_plan(ctx, character_id, first, plan)? {
             return Ok(false);
         }
@@ -120,9 +106,7 @@ fn advance_character_time_in_plan(
     let settled =
         crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;
     let elapsed = settled.elapsed;
-    character_time.minutes = character_time.minutes
-        .saturating_add_minutes(elapsed)
-        ;
+    character_time.minutes = character_time.minutes.saturating_add_minutes(elapsed);
     ctx.db
         .character_time()
         .character_id()
@@ -151,7 +135,7 @@ pub fn preview_travel_time(
     ctx: &ReducerContext,
     character_id: u64,
     requested: u64,
-) -> Result<u64, String> {
+) -> crate::StrategicOperationResult<u64> {
     let injury = crate::surgery::preview_injury_boundary(
         ctx,
         character_id,
@@ -166,7 +150,7 @@ pub fn preview_travel_time_in_plan(
     character_id: u64,
     requested: u64,
     plan: &crate::disease::PartyDiseaseIntervalPlan,
-) -> Result<u64, String> {
+) -> crate::StrategicOperationResult<u64> {
     let injury = crate::surgery::preview_injury_boundary(
         ctx,
         character_id,
@@ -185,7 +169,10 @@ pub fn preview_travel_time_in_plan(
 /// Commit a terminal injury or disease event that falls exactly on the
 /// character's current strategic minute. This intentionally grants no elapsed
 /// travel time, condition use, filth, or training.
-pub fn settle_travel_boundary(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<bool> {
+pub fn settle_travel_boundary(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> StrategicOperationResult<bool> {
     let character = ctx
         .db
         .character()
@@ -342,7 +329,10 @@ pub(crate) fn synchronize_party_activity_time(
 /// independent subjective clocks; shared activity never ages one participant
 /// merely to match another.
 #[reducer]
-pub fn synchronize_party_for_activity(ctx: &ReducerContext, leader_id: u64) -> StrategicOperationResult<()> {
+pub fn synchronize_party_for_activity(
+    ctx: &ReducerContext,
+    leader_id: u64,
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, leader_id)?;
     let leader = crate::character::require_living_character(ctx, leader_id)?;
     let party_id = leader
@@ -428,12 +418,7 @@ pub fn advance_character_wait_time(
         .find(character_id)
         .ok_or("Character time record not found")?;
     let starting_minute = time.minutes;
-    if let Some(first) = first_lifecycle_segment(
-        ctx,
-        character_id,
-        starting_minute,
-        minutes,
-    ) {
+    if let Some(first) = first_lifecycle_segment(ctx, character_id, starting_minute, minutes) {
         if !advance_character_wait_time(ctx, character_id, first)? {
             return Ok(false);
         }
@@ -454,9 +439,7 @@ pub fn advance_character_wait_time(
         elapsed,
         InjuryRecoveryMinutes::new(elapsed),
     )?;
-    time.minutes = time.minutes
-        .saturating_add_minutes(settled.elapsed)
-        ;
+    time.minutes = time.minutes.saturating_add_minutes(settled.elapsed);
     ctx.db.character_time().character_id().update(time);
     advance_married_family_by(ctx, character_id, settled.elapsed)?;
     let at_settlement = ctx
@@ -513,12 +496,7 @@ pub fn advance_character_wait_time_in_plan(
         .find(character_id)
         .ok_or("Character time record not found")?;
     let starting_minute = time.minutes;
-    if let Some(first) = first_lifecycle_segment(
-        ctx,
-        character_id,
-        starting_minute,
-        minutes,
-    ) {
+    if let Some(first) = first_lifecycle_segment(ctx, character_id, starting_minute, minutes) {
         if !advance_character_wait_time_in_plan(ctx, character_id, first, plan)? {
             return Ok(false);
         }
@@ -549,9 +527,7 @@ pub fn advance_character_wait_time_in_plan(
         elapsed,
         InjuryRecoveryMinutes::new(elapsed),
     )?;
-    time.minutes = time.minutes
-        .saturating_add_minutes(settled.elapsed)
-        ;
+    time.minutes = time.minutes.saturating_add_minutes(settled.elapsed);
     ctx.db.character_time().character_id().update(time);
     advance_married_family_by(ctx, character_id, settled.elapsed)?;
     crate::organization::settle_membership_dues(ctx, character_id)?;

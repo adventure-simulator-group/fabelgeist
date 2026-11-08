@@ -6,7 +6,7 @@ fn expose_to_dysentery(
     minute: StrategicMinute,
     dose: f32,
     consumed_fraction_bps: u16,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let contribution_digest = ctx
         .db
         .food_contamination_provenance()
@@ -41,7 +41,7 @@ pub(crate) fn expose_food_water_dysentery(
     dose: f32,
     contribution_digest: &str,
     consumed_fraction_bps: u16,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if dose <= 0.0 {
         return Ok(());
     }
@@ -55,12 +55,7 @@ pub(crate) fn expose_food_water_dysentery(
     if disease::has_unresolved_disease(&episodes, DiseaseId::Dysentery, minute, immunity) {
         return Ok(());
     }
-    let prior = disease::acquired_immunity(
-        &episodes,
-        DiseaseId::Dysentery,
-        minute,
-        immunity
-    );
+    let prior = disease::acquired_immunity(&episodes, DiseaseId::Dysentery, minute, immunity);
     let seed = disease::outbreak_exposure_seed(character_id, exposure_id);
     let protected_dose = crate::disease::protected_point_exposure(
         ctx,
@@ -195,7 +190,10 @@ fn consume_food_amount(
     Ok(wanted)
 }
 
-pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
+pub fn consume_travel_food_to_zero(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> crate::StrategicOperationResult<()> {
     initialize_character_condition(ctx, character_id)?;
     let actor = ctx
         .db

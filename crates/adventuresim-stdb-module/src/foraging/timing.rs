@@ -19,7 +19,7 @@ pub(super) fn forage_terminal_minute(
     character_id: u64,
     current_minute: StrategicMinute,
     duration: u64,
-) -> Result<Option<StrategicMinute>, String> {
+) -> crate::StrategicOperationResult<Option<StrategicMinute>> {
     let injury = crate::surgery::preview_injury_boundary(
         ctx,
         character_id,
