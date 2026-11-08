@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:17:00.829197+00:00
+Updated: 2026-11-08T22:18:49.093540+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -8,7 +8,7 @@ Updated: 2026-11-08T22:17:00.829197+00:00
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
-| Estate custody source packets | 1 adopted | Admission, transaction, and aliases open |
+| Estate custody source packets | 2 adopted | Admission, transaction, and aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -119,6 +119,12 @@ subtree validation before remaining personal rows move. Succession includes
 cycle and death-time guards. Containment admission, outer transaction
 behavior, and aliases remain open. Audit checkpoint 3748 adopted and verified
 this evidence without closing the contract.
+
+A follow-up registered read found that subtree validation constructs a
+global containment graph and custody resolution checks ancestry and carried
+backing. Inspected direct death callers propagate errors; malformed-state
+reachability and transitive transaction behavior remain open. Audit checkpoint
+3749 verified the bounded evidence without closing the estate contract.
 
 | Increment status | Count |
 | --- | ---: |
