@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:14:27.385360+00:00
+Updated: 2026-11-08T22:17:00.829197+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -8,6 +8,7 @@ Updated: 2026-11-08T22:14:27.385360+00:00
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
+| Estate custody source packets | 1 adopted | Admission, transaction, and aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -111,6 +112,13 @@ Missing illness status counts as no symptoms, and private infection episodes
 are excluded from the policy. First-aid and schedule-restoration effects and
 private terminal coexistence remain unverified. Audit checkpoint 3747 adopted
 and verified this bounded evidence without closing the contract.
+
+A registered estate-custody read found that death-time fireplace cleanup
+precedes estate disposition, and that personal object roots are moved through
+subtree validation before remaining personal rows move. Succession includes
+cycle and death-time guards. Containment admission, outer transaction
+behavior, and aliases remain open. Audit checkpoint 3748 adopted and verified
+this evidence without closing the contract.
 
 | Increment status | Count |
 | --- | ---: |
