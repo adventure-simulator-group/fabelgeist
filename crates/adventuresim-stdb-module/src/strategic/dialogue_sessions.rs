@@ -10,13 +10,7 @@ pub fn start_dialogue(
 ) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     require_dialogue_revision(&catalog_revision)?;
-    crate::character::require_living_character(ctx, character_id)?;
-    let character = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or("Character not found")?;
+    let character = crate::character::require_living_character(ctx, character_id)?;
     let owner_party_id = character
         .party_id
         .clone()
