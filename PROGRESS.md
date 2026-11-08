@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:34:56.269175+00:00
+Updated: 2026-11-08T23:39:06.242900+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T23:34:56.269175+00:00
 | Food conservation and event packets | 9 adopted | 2 scoped discoveries closed; conditional validation open |
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
-| Corpse-pathology source packets | 2 adopted | Discovery, native reachability and policy open |
+| Corpse-pathology source packets | 3 adopted | Discovery, native reachability and policy open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -58,6 +58,12 @@ injury rows are copied to corpse evidence, and the surgery reader can select a
 zero-damage row. A player-visible finding depends on combat state, access and
 examination quality; the source trace does not establish native execution.
 The pathology entry remains open, with no new source-discovery closure.
+
+Checkpoint 3782 qualified the examination quality calculation and part of the
+mission access path. For a fresh body, finite surgery capability 0.75 reaches
+the source threshold for an external finding. Actual corpse access, nested
+case and incident effects, and the displayed result remain unverified. The
+pathology entry stays open; no runtime test or discovery closure is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
