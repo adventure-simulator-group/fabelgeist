@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T17:17:45.907388+00:00
+Updated: 2026-11-08T17:32:31.844464+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T17:17:45.907388+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings on inventory draft | 4; quality check failed |
+| File and function size findings on inventory draft | 0 |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
 | Loading reconnect mailbox gap | Draft; live validation open |
@@ -28,7 +28,9 @@ Updated: 2026-11-08T17:17:45.907388+00:00
 | Persisted row identity kinds drafted | 2; migration incomplete |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Current quality size findings | 4; unresolved |
+| Workspace all-target all-feature Clippy | Passed |
+| Isolated database acceptance on identity draft | 0; pending |
+| Current quality size findings | 0 |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
@@ -51,7 +53,7 @@ Updated: 2026-11-08T17:17:45.907388+00:00
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
-| Full P16 lint on inventory identity draft | Failed on size ceilings |
+| Full P16 lint on inventory identity draft | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -110,13 +112,14 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `250b4dd47`. Personal
+The inventory row-identity migration is a draft at P16 `23640b3c3`. Personal
 and party rows have distinct IDs; repair escrow retains the personal row
-identity. Character deletion now delegates repair-escrow cleanup to the
-repair owner. The database module compiles; the quality scan reported four
-size findings before the related baseline reductions. Full lint, current-head
-test-target compilation, isolated database behavior, remaining raw foreign-
-key paths, and duplicate-backing assertions remain unverified.
+identity. Food tool selection and tactical item projection were extracted,
+and trade scope is selected once. Generated-ID fixtures were updated.
+`just fmt-check` and full `just lint` passed, including binding verification
+and workspace all-target, all-feature Clippy. This compiles test targets but
+does not run their assertions. Isolated database behavior, remaining raw
+foreign-key paths, duplicate-backing assertions, and review remain open.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
