@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:40:20.210833+00:00
+Updated: 2026-11-08T22:42:24.157546+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -9,7 +9,7 @@ Updated: 2026-11-08T22:40:20.210833+00:00
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
-| Death-cascade source packets | 1 adopted | Child continuations and mapping open |
+| Death-cascade source packets | 2 adopted | Child continuations and mapping open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -198,6 +198,12 @@ A registered death-cascade read traced selected corpse, browser, social,
 relationship and party-leadership cleanup owners. Their full continuations
 and the historical-to-current character source mapping remain open. Audit
 checkpoint 3760 verified this bounded evidence without closing the cascade.
+
+A registered continuation read traced additional relationship and social
+cleanup. The exact historical death-transition function matches the selected
+revision, although the full source files differ. All-dead party teardown and
+other child dependencies remain open. Audit checkpoint 3761 verified the
+evidence without closing the cascade.
 
 | Increment status | Count |
 | --- | ---: |
