@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:27:25.377346+00:00
+Updated: 2026-11-08T06:30:20.158854+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -47,7 +47,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   lint correction was added. The disposable-database workflow passed at
   `f33d5ebe37407718a2283dc9313924c32ab58973` for joint capacity, scoped
   removal, rejection, escrow refund, household preservation, rollback, and a
-  successful wedding with both spouses admitted and the escrow paid. The landform lint correction is now included.
+  successful wedding with both spouses admitted and the escrow paid. The
+  landform lint correction is now included.
   The formatting gate passed in a non-nested verification worktree. Full
   `just lint` is running under the shared build lock; review and integrated
   validation remain open.
@@ -55,8 +56,9 @@ ledger as backlog. Full refactor completion and validation remain required.
 - [Repeated animation sample tick](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-repeat-sample-tick)
   commit `1dca6e68776aeb4e0ba8f2d38513cf4f50cfcccd`: a draft for the P17
   repeated-view contract. It records and compares the authoritative locomotion
-  sample tick and includes it in mismatch diagnostics. Terrain-run contact
-  validation also retains `LeadFoot`; clearance measurement uses named contact
+  sample tick and includes it in mismatch diagnostics. Source tracing confirms
+  capture drives a frame once before comparing subsequent views. Terrain-run
+  contact validation retains `LeadFoot`; clearance measurement uses named contact
   and flight roles in an extracted module. Formatting and checks are queued
   behind combined lint; runtime behavior and review remain unverified.
 
