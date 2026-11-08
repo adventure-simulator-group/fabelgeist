@@ -16,7 +16,7 @@ use bevy_enhanced_input::prelude::{ActionMock, Actions};
 use crate::{
     animation::TerrainIkMode,
     camera::{CameraAimState, CameraDebugEnabled, CameraRigDebugState},
-    player::{ClientPlayer, HitPerformed, LimbHitbox},
+    player::{ClientPlayer, LimbHitbox, contact::HitPerformed},
 };
 
 pub struct DebugPlugin;

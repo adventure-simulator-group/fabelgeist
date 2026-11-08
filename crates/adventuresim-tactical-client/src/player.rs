@@ -25,13 +25,12 @@ use action_clock::{
 
 use acquisition::{AttackAcquisitionRange, AttackTarget, CombatTargeting};
 use attack_start::{flush_buffered_melee_attacks, try_start_attack};
-pub use contact::HitPerformed;
 use contact::{PredictedAttackContact, PredictedContact};
 
 mod acquisition;
 mod action_clock;
 mod attack_start;
-mod contact;
+pub(crate) mod contact;
 mod quickstep_trace;
 
 const HITBOX_LAYER: LayerMask = LayerMask(1 << 1);
