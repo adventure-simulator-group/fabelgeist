@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:02:04.473406+00:00
+Updated: 2026-11-08T12:08:26.060794+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -29,6 +29,7 @@ Updated: 2026-11-08T12:02:04.473406+00:00
 | Tactical iteration harness tests passed | 10 / 10 |
 | Client targeting and acquisition helper tests passed | 6 / 6 |
 | Client equipment fit and selection fixtures passed | 5 / 5 |
+| Core catalog tests passed | 31 / 31 |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -113,7 +114,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `c438e0abe`: the 159-path snapshot is restored, with three textual
+  commit `5837f86b5`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
@@ -150,8 +151,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   timeout while the report demands none. The pre-restoration draft
   `8ff11c82f` produced the same timeout, combatant outcomes, complete log
   and timeline for this seed. The zero-timeout audit remains unsatisfied;
-  the comparison does not establish behavior for other seeds. The 3 GB bulk trace from the failed run was removed
-  after recording its size and record count. Full-scale rerun remains open.
+  the comparison does not establish behavior for other seeds. The 3 GB bulk
+  trace from the failed run was removed after recording its size and record
+  count. Full-scale rerun remains open.
   A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
   extractions and baseline reductions. At parent `aaf0a66c7`, formatting,
   workspace Clippy, all three standalone Clippy commands, and the guarded
@@ -159,9 +161,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   capacity and rollback, investigation retry, puzzle, mission and outbreak
   checks. Repair, dialogue and development-fixture behavior remain unverified.
   Two subsequent commits changed test fixtures, and `48682faff` changed
-  report aggregation with the focused validation described above. The latest
-  commit corrects an authority-runner success message; Python syntax and
-  diff checks passed, but the database workflow was not rerun for that text.
+  report aggregation with the focused validation described above. Commit
+  `c438e0abe` corrected an authority-runner success message. The
+  latest commit updates stale catalog fixture counts, kind totals and ID hash
+  to match the authored 188-item catalog. All 31 catalog tests, formatting
+  and Rust quality passed; full lint and integrated gates remain open.
   The repair passed formatting, focused report Clippy and Rust quality; full
   uninterrupted `just lint`, current-head validation, review and
   integration remain open.
@@ -190,7 +194,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   panic on that error. The dispatcher does not monitor or restart its child
   in the inspected source; deployed supervisor and row redelivery behavior
   remain unverified.
-  The iteration observer source retains the first typed error for readback;
+  The core build uses geometry without default engine features; an offline
+  dependency tree contained no Bevy packages. The iteration observer source
+  retains the first typed error for readback;
   ten existing harness tests passed on unchanged iteration production code,
   but they do not inject an observer failure. Remaining review, behavior
   checks and integrated gates stay open.
