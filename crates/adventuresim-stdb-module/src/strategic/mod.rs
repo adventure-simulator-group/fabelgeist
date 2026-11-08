@@ -23,6 +23,8 @@ use std::str::FromStr;
 mod approved_action;
 mod battle_combatants;
 mod challenge_state;
+#[cfg(feature = "authority-tests")]
+mod currency_custody_authority_tests;
 mod development_gallery;
 mod dialogue_policy;
 mod mission_roster;
