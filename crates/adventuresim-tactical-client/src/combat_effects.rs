@@ -6,7 +6,10 @@ use bevy::prelude::*;
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
-use crate::{audio_config::TacticalAudioConfig, presentation::ProceduralTextureAssets};
+use crate::{
+    audio_config::{PlaybackSpeed, TacticalAudioConfig},
+    presentation::ProceduralTextureAssets,
+};
 
 mod blood_decals;
 use blood_decals::{BloodDecalPlugin, BloodMaskMaterial, BloodMaterialAssets, BloodSurfaceQuery};
@@ -222,15 +225,21 @@ fn play_impact_sound(
     let pitch_fraction = StreamId::new("audio.combat-pitch")
         .rng(seed, &context)
         .inclusive_unit_f32();
-    let pitch = config.combat.impact_pitch_randomization;
-    let speed = pitch[0] + pitch_fraction * (pitch[1] - pitch[0]);
+    let Some(speed) = config
+        .combat
+        .impact_pitch_randomization
+        .sample(pitch_fraction, PlaybackSpeed::NORMAL)
+    else {
+        warn!("Invalid combat audio playback speed");
+        return;
+    };
     let path = format!("audio/combat/kenney-impact-sounds/{family}{variant}.ogg");
     commands.spawn((
         Name::new("combat-impact-sound"),
         AudioPlayer::new(asset_server.load(path)),
         PlaybackSettings {
             mode: PlaybackMode::Despawn,
-            speed,
+            speed: speed.get(),
             spatial: true,
             volume: Volume::Linear(config.combat.impact_relative_volume),
             ..default()

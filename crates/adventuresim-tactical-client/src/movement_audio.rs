@@ -10,7 +10,7 @@ use fabelgeist_determinism::{Seed, StreamId};
 
 use crate::{
     animation::{LocomotionPresentationEvent, LocomotionPresentationPayload},
-    audio_config::TacticalAudioConfig,
+    audio_config::{PitchRange, PlaybackSpeed, TacticalAudioConfig},
     presentation::GroundScatterLayer,
 };
 
@@ -246,7 +246,7 @@ fn spawn_spatial_variant(
     event_seed: Seed,
     position: Position<Scene>,
     volume: f32,
-    pitch_randomization: [f32; 2],
+    pitch_randomization: PitchRange,
 ) {
     let sample =
         sound_seed(event_seed, position).child(StreamId::new("audio.family"), &[family.as_bytes()]);
@@ -261,7 +261,7 @@ fn spawn_spatial_variant(
         sample,
         position,
         volume,
-        1.0,
+        PlaybackSpeed::NORMAL,
         pitch_randomization,
     );
 }
@@ -272,8 +272,8 @@ fn spawn_rustle(
     event_seed: Seed,
     position: Position<Scene>,
     volume: f32,
-    base_speed: f32,
-    pitch_randomization: [f32; 2],
+    base_speed: PlaybackSpeed,
+    pitch_randomization: PitchRange,
 ) {
     let sample = sound_seed(event_seed, position);
     spawn_spatial_sound(
@@ -293,21 +293,23 @@ fn spawn_spatial_sound(
     sample: Seed,
     position: Position<Scene>,
     volume: f32,
-    base_speed: f32,
-    pitch_randomization: [f32; 2],
+    base_speed: PlaybackSpeed,
+    pitch_randomization: PitchRange,
 ) {
     let pitch_fraction = sample
         .child(StreamId::new("audio.pitch"), &[])
         .rng()
         .inclusive_unit_f32();
-    let pitch =
-        pitch_randomization[0] + pitch_fraction * (pitch_randomization[1] - pitch_randomization[0]);
+    let Some(speed) = pitch_randomization.sample(pitch_fraction, base_speed) else {
+        warn!("Invalid movement audio playback speed");
+        return;
+    };
     commands.spawn((
         Name::new("tactical-movement-sound"),
         AudioPlayer::new(source),
         PlaybackSettings {
             mode: PlaybackMode::Despawn,
-            speed: base_speed * pitch,
+            speed: speed.get(),
             spatial: true,
             volume: Volume::Linear(volume),
             ..default()

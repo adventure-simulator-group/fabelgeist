@@ -21,11 +21,11 @@ pub(crate) struct MovementAudioConfig {
     pub(crate) footstep_relative_volume: f32,
     pub(crate) body_impact_relative_volume: f32,
     pub(crate) tall_grass_rustle_relative_volume: f32,
-    pub(crate) tall_grass_rustle_pitch: f32,
+    pub(crate) tall_grass_rustle_pitch: PlaybackSpeed,
     pub(crate) bush_rustle_relative_volume: f32,
-    pub(crate) bush_rustle_pitch: f32,
+    pub(crate) bush_rustle_pitch: PlaybackSpeed,
     pub(crate) bush_contact_radius_m: f32,
-    pub(crate) pitch_randomization: [f32; 2],
+    pub(crate) pitch_randomization: PitchRange,
     pub(crate) wind: WindAudioConfig,
 }
 
@@ -41,7 +41,7 @@ pub(crate) struct WindAudioConfig {
 #[serde(deny_unknown_fields)]
 pub(crate) struct CombatAudioConfig {
     pub(crate) impact_relative_volume: f32,
-    pub(crate) impact_pitch_randomization: [f32; 2],
+    pub(crate) impact_pitch_randomization: PitchRange,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -53,6 +53,71 @@ pub(crate) struct WeatherAudioConfig {
     pub(crate) volume_response_per_second: f32,
     pub(crate) surface_intensity_exponent: f32,
     pub(crate) storm_surface_ducking: f32,
+}
+
+/// A finite, positive playback-speed multiplier admitted at configuration or
+/// composition boundaries.
+#[derive(Debug, Clone, Copy, Deserialize)]
+#[serde(try_from = "f32")]
+pub(crate) struct PlaybackSpeed(f32);
+
+impl PlaybackSpeed {
+    pub(crate) const NORMAL: Self = Self(1.0);
+
+    pub(crate) fn get(self) -> f32 {
+        self.0
+    }
+
+    fn multiplied_by(self, factor: Self) -> Option<Self> {
+        Self::try_from(self.0 * factor.0).ok()
+    }
+}
+
+impl TryFrom<f32> for PlaybackSpeed {
+    type Error = &'static str;
+
+    fn try_from(value: f32) -> Result<Self, Self::Error> {
+        if value.is_finite() && value > 0.0 {
+            Ok(Self(value))
+        } else {
+            Err("playback speed must be finite and positive")
+        }
+    }
+}
+
+/// Ordered random pitch factors, admitted before audio events use them.
+#[derive(Debug, Clone, Copy, Deserialize)]
+#[serde(try_from = "[f32; 2]")]
+pub(crate) struct PitchRange {
+    minimum: PlaybackSpeed,
+    maximum: PlaybackSpeed,
+}
+
+impl TryFrom<[f32; 2]> for PitchRange {
+    type Error = &'static str;
+
+    fn try_from([minimum, maximum]: [f32; 2]) -> Result<Self, Self::Error> {
+        let minimum = PlaybackSpeed::try_from(minimum)?;
+        let maximum = PlaybackSpeed::try_from(maximum)?;
+        if maximum.0 < minimum.0 {
+            return Err("pitch range must be ordered");
+        }
+        Ok(Self { minimum, maximum })
+    }
+}
+
+impl PitchRange {
+    fn supports(self, base: PlaybackSpeed) -> bool {
+        base.multiplied_by(self.minimum).is_some() && base.multiplied_by(self.maximum).is_some()
+    }
+
+    pub(crate) fn sample(self, fraction: f32, base: PlaybackSpeed) -> Option<PlaybackSpeed> {
+        if !fraction.is_finite() || !(0.0..=1.0).contains(&fraction) {
+            return None;
+        }
+        let factor = self.minimum.0 + fraction * (self.maximum.0 - self.minimum.0);
+        base.multiplied_by(PlaybackSpeed::try_from(factor).ok()?)
+    }
 }
 
 impl TacticalAudioConfig {
@@ -115,15 +180,22 @@ impl TacticalAudioConfig {
             unit_interval(name, volume)?;
         }
         positive(
-            "movement.tall_grass_rustle_pitch",
-            movement.tall_grass_rustle_pitch,
-        )?;
-        positive("movement.bush_rustle_pitch", movement.bush_rustle_pitch)?;
-        positive(
             "movement.bush_contact_radius_m",
             movement.bush_contact_radius_m,
         )?;
-        pitch_range("movement.pitch_randomization", movement.pitch_randomization)?;
+        for (name, base) in [
+            (
+                "movement.tall_grass_rustle_pitch",
+                movement.tall_grass_rustle_pitch,
+            ),
+            ("movement.bush_rustle_pitch", movement.bush_rustle_pitch),
+        ] {
+            if !movement.pitch_randomization.supports(base) {
+                return Err(format!(
+                    "{name} combined with movement.pitch_randomization must produce finite positive playback speeds"
+                ));
+            }
+        }
         if movement.wind.minimum_audible_speed_bps
             >= adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
         {
@@ -132,10 +204,6 @@ impl TacticalAudioConfig {
         positive(
             "movement.wind.response_exponent",
             movement.wind.response_exponent,
-        )?;
-        pitch_range(
-            "combat.impact_pitch_randomization",
-            self.combat.impact_pitch_randomization,
         )?;
         unit_interval(
             "weather.heavy_rain_start_fraction",
@@ -172,16 +240,6 @@ fn unit_interval(name: &str, value: f32) -> Result<(), String> {
         Ok(())
     } else {
         Err(format!("{name} must be between 0 and 1"))
-    }
-}
-
-fn pitch_range(name: &str, range: [f32; 2]) -> Result<(), String> {
-    if range[0].is_finite() && range[0] > 0.0 && range[1].is_finite() && range[1] >= range[0] {
-        Ok(())
-    } else {
-        Err(format!(
-            "{name} must contain an ordered pair of positive values"
-        ))
     }
 }
 
