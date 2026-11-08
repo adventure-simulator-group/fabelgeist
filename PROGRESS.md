@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:33:55.041333+00:00
+Updated: 2026-11-08T01:36:10.524755+00:00
 
-Latest verified checkpoint: **3683**. Goal: **active**.
+Latest verified checkpoint: **3684**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,13 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified current mitigation outcome producer.
+Qualified exposure and remediation endpoint semantics.
 
-Supported partial cases, historical boundary policy and aliases remain open.
+Remediation endpoint policy, historical mitigation and aliases remain open.
 
 ## Working on now
 
-Qualify supported partial cases and exact historical boundaries.
+Resolve remediation endpoint and historical mitigation policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3683 publication record](CHECKPOINT-3683.json)
-- [Saved report for checkpoint 3683](PROGRESS-3683.md)
+- [Checkpoint 3684 publication record](CHECKPOINT-3684.json)
+- [Saved report for checkpoint 3684](PROGRESS-3684.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
