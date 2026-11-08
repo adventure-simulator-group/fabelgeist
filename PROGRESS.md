@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:08:45.509381+00:00
+Updated: 2026-11-08T11:09:30.212665+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -19,7 +19,7 @@ Updated: 2026-11-08T11:08:45.509381+00:00
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Existing contact-geometry tests passed | 11 / 11 |
 | Existing melee iteration tests passed | 9 / 9 |
-| Tactical server melee-range matrix tests passed | 1 / 1 |
+| Tactical server ingress tests passed, including range matrix | 9 / 9 |
 
 The quality counts are findings from the latest scan, not a count of defects
 or independent work items. The quality scan and WebAssembly client Clippy
@@ -252,7 +252,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   dialogue, and development-fixture behavior remain to be verified. The existing
   tactical-server melee-range matrix test passed in the shared target; all 21
   selected local records postdate the validation sequence and none names the
-  wedding worktree.
+  wedding worktree. All nine existing tactical ingress tests passed using the
+  same fingerprint-checked server test binary.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
