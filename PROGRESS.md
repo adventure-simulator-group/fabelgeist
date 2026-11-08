@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:09:16.887883+00:00
+Updated: 2026-11-08T06:11:23.101898+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
-| Implementing | 2 |
-| Awaiting or running checks | 0 |
+| Implementing | 1 |
+| Awaiting or running checks | 1 |
 | Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -41,12 +41,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   Review and integration remain open.
 
 - [Wedding capacity atomicity](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-wedding-atomicity)
-  commit `1bf3b1c36e582b493f6b0635dee78a73e913926b`: the draft performs
+  commit `f33d5ebe37407718a2283dc9313924c32ab58973`: the draft performs
   joint effective-dated capacity preflight and propagates unexpected settlement
   errors. Focused Clippy passed with the authority feature. The guarded
-  disposable-database workflow passed joint capacity, scoped removal, rejected
-  wedding escrow refund, household preservation, and rollback after a
-  post-write error. A successful wedding scenario and review remain open. The
+  disposable-database workflow passed at the parent for joint capacity, scoped
+  removal, rejection, escrow refund, household preservation, and rollback. A
+  successful wedding scenario is running; review remains open. The
   branch precedes the latest landform lint-only commit and needs reconciliation.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
