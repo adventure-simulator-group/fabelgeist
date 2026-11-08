@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T09:17:31.361912+00:00
+Updated: 2026-11-08T09:19:29.903850+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -151,7 +151,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   preflight helpers were separated; the authority-feature database module
   compiled at `fcec86658` and the marriage file-size finding cleared. The
   wedding acceptance setup is now separate and compiles at the current commit;
-  the guarded authority workflow is running again on a disposable local profile.
+  the guarded authority workflow passed again on a disposable local profile,
+  including wedding capacity and rollback fixtures.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
