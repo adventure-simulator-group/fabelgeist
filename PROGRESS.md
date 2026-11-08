@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:46:26.585635+00:00
+Updated: 2026-11-08T15:49:40.556389+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -96,6 +96,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Previous one-container removal | 2 bottle rows deleted |
 | Unselected nested inventory protection fixture | 1 / 1 passed |
 | Tincture-spirit removal observation | 150 ml removed with bottle |
+| Active-tincture demo setup | Failed: energy budget |
 | Liquid and medicine removal policy | Open |
 | Belt addition, spare-first and cleanup database fixture | 1 / 1 passed |
 | Missing-inventory law preflight database fixture | 1 / 1 passed |
@@ -438,7 +439,10 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   disposal policy remains open. A guarded database run used the normal pour
   reducer to put 150 ml of tincture spirit in a bottle; removing the bottle
   also removed that liquid. This is an unprocessed spirit case, not evidence
-  about an active or completed tincture or about water.
+  about an active or completed tincture or about water. A subsequent attempt
+  to seed the guarded herbalism demo exhausted the module energy budget
+  before reaching the active-tincture case; earlier checks in that run passed.
+  No active-tincture result is claimed.
   The persisted personal inventory location still holds a raw row ID, and a
   shared accessor collapses personal, party and repair IDs into one optional
   integer. The producer-to-consumer type migration and
