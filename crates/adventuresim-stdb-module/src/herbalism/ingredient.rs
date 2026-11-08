@@ -1,13 +1,14 @@
 //! Commit the exact measured ingredient when preparation starts.
 
 use super::*;
+use adventuresim_core::physical_object::PersonalInventoryRowId;
 
 pub(super) fn consume_tincture_ingredient(
     ctx: &ReducerContext,
     inventory_id: u64,
     ingredient_id: u64,
 ) {
-    crate::food::delete_personal_food_lot(ctx, inventory_id);
+    crate::food::delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(inventory_id));
     ctx.db
         .inventory_item_amount()
         .inventory_item_id()

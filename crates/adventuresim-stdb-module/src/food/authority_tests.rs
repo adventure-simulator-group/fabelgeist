@@ -25,7 +25,7 @@ fn prepare_and_replay(
         .id()
         .find(actor_id)
         .ok_or("Actor missing")?;
-    let lot = personal_lot(ctx, row_id).ok_or("Lot missing")?;
+    let lot = personal_lot(ctx, PersonalInventoryRowId::from_raw(row_id)).ok_or("Lot missing")?;
     let object = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row_id)),
@@ -64,7 +64,7 @@ fn prepare_and_replay(
         )
     };
     submit()?;
-    let after = personal_lot(ctx, row_id).ok_or("Lot missing")?;
+    let after = personal_lot(ctx, PersonalInventoryRowId::from_raw(row_id)).ok_or("Lot missing")?;
     let receipt = ctx
         .db
         .ingredient_preparation_receipt()
@@ -91,7 +91,7 @@ fn prepare_and_replay(
     let minute = current_minute(ctx, actor_id);
     submit()?;
     if current_minute(ctx, actor_id) != minute
-        || personal_lot(ctx, row_id)
+        || personal_lot(ctx, PersonalInventoryRowId::from_raw(row_id))
             .ok_or("Lot missing")?
             .material_revision
             != after.material_revision

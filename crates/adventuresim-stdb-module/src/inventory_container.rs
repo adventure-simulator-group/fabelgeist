@@ -419,7 +419,9 @@ pub(crate) fn rehome_subtree(
                             item_id: source.item_id.clone(),
                             quantity: 1,
                         });
-                if crate::food::personal_lot(ctx, source.id).is_some() {
+                if crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(source.id))
+                    .is_some()
+                {
                     crate::food::move_or_split_to_party(ctx, source.id, destination_row.id, 1, 1)?;
                 }
                 if crate::inventory_amount::personal_fraction(ctx, source.id).is_some() {
@@ -468,7 +470,7 @@ pub(crate) fn rehome_subtree(
                     item_id: source.item_id.clone(),
                     quantity: 1,
                 });
-                if crate::food::party_lot(ctx, source.id).is_some() {
+                if crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(source.id)).is_some() {
                     crate::food::move_or_split_to_personal(
                         ctx,
                         source.id,
@@ -566,7 +568,7 @@ pub(crate) fn delete_subtree(ctx: &ReducerContext, root_object_id: u64) -> Resul
                     .item_condition()
                     .inventory_item_id()
                     .delete(location.row_id.get());
-                crate::food::delete_personal_food_lot(ctx, location.row_id.get());
+                crate::food::delete_personal_food_lot(ctx, location.row_id);
                 ctx.db.inventory_item().id().delete(location.row_id.get());
             }
             InventoryLocation::Party(location) => {
@@ -578,7 +580,7 @@ pub(crate) fn delete_subtree(ctx: &ReducerContext, root_object_id: u64) -> Resul
                     .party_item_condition()
                     .party_inventory_item_id()
                     .delete(location.row_id.get());
-                crate::food::delete_party_food_lot(ctx, location.row_id.get());
+                crate::food::delete_party_food_lot(ctx, location.row_id);
                 ctx.db
                     .party_inventory_item()
                     .id()

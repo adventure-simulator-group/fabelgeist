@@ -110,12 +110,12 @@ pub fn create_party_food_lot(
     Some(lot)
 }
 
-pub fn delete_personal_food_lot(ctx: &ReducerContext, inventory_item_id: u64) {
+pub fn delete_personal_food_lot(ctx: &ReducerContext, inventory_item_id: PersonalInventoryRowId) {
     for lot in ctx
         .db
         .food_lot()
         .iter()
-        .filter(|lot| lot.inventory_item_id == Some(inventory_item_id))
+        .filter(|lot| lot.inventory_item_id == Some(inventory_item_id.get()))
         .collect::<Vec<_>>()
     {
         crate::herbalism::delete_food_medicine(ctx, lot.id);
@@ -128,12 +128,12 @@ pub fn delete_personal_food_lot(ctx: &ReducerContext, inventory_item_id: u64) {
     }
 }
 
-pub fn delete_party_food_lot(ctx: &ReducerContext, inventory_item_id: u64) {
+pub fn delete_party_food_lot(ctx: &ReducerContext, inventory_item_id: PartyInventoryRowId) {
     for lot in ctx
         .db
         .food_lot()
         .iter()
-        .filter(|lot| lot.party_inventory_item_id == Some(inventory_item_id))
+        .filter(|lot| lot.party_inventory_item_id == Some(inventory_item_id.get()))
         .collect::<Vec<_>>()
     {
         crate::herbalism::delete_food_medicine(ctx, lot.id);
@@ -153,7 +153,7 @@ pub fn remove_party_lot_quantity(
     original: u32,
 ) -> Result<(), String> {
     if removed == original {
-        delete_party_food_lot(ctx, inventory_item_id);
+        delete_party_food_lot(ctx, PartyInventoryRowId::from_raw(inventory_item_id));
         return Ok(());
     }
     let mut lot = ctx
@@ -205,22 +205,26 @@ fn retain_lot_fraction(lot: &mut FoodLot, retained: f32) -> Result<(), String> {
     Ok(())
 }
 
-pub fn personal_lot(ctx: &ReducerContext, inventory_item_id: u64) -> Option<FoodLot> {
+pub fn personal_lot(
+    ctx: &ReducerContext,
+    inventory_item_id: PersonalInventoryRowId,
+) -> Option<FoodLot> {
     ctx.db
         .food_lot()
         .iter()
-        .find(|lot| lot.inventory_item_id == Some(inventory_item_id))
+        .find(|lot| lot.inventory_item_id == Some(inventory_item_id.get()))
 }
 
-pub fn party_lot(ctx: &ReducerContext, inventory_item_id: u64) -> Option<FoodLot> {
+pub fn party_lot(ctx: &ReducerContext, inventory_item_id: PartyInventoryRowId) -> Option<FoodLot> {
     ctx.db
         .food_lot()
         .iter()
-        .find(|lot| lot.party_inventory_item_id == Some(inventory_item_id))
+        .find(|lot| lot.party_inventory_item_id == Some(inventory_item_id.get()))
 }
 
 fn lot_for_inventory(ctx: &ReducerContext, inventory_item_id: u64) -> Result<FoodLot, String> {
-    personal_lot(ctx, inventory_item_id).ok_or("Food lot metadata not found".into())
+    personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory_item_id))
+        .ok_or("Food lot metadata not found".into())
 }
 
 fn contamination(
@@ -299,7 +303,7 @@ pub fn remove_lot_quantity(
         return Err("Invalid food lot quantity change".into());
     }
     if removed == original {
-        delete_personal_food_lot(ctx, inventory_item_id);
+        delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(inventory_item_id));
         return Ok(());
     }
     let mut lot = lot_for_inventory(ctx, inventory_item_id)?;

@@ -94,7 +94,9 @@ fn party_encumbrance_remaining_basis_points(
         .iter()
         .flat_map(|member_id| ctx.db.inventory_item().character_id().filter(*member_id))
         .map(|row| {
-            if let Some(lot) = crate::food::personal_lot(ctx, row.id) {
+            if let Some(lot) =
+                crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(row.id))
+            {
                 return lot.mass_kg.max(0.0);
             }
             ctx.db.item().id().find(&row.item_id).map_or(0.0, |item| {
@@ -110,7 +112,7 @@ fn party_encumbrance_remaining_basis_points(
         .party_id()
         .filter(party_id)
         .map(|row| {
-            if let Some(lot) = crate::food::party_lot(ctx, row.id) {
+            if let Some(lot) = crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(row.id)) {
                 return lot.mass_kg.max(0.0);
             }
             ctx.db.item().id().find(&row.item_id).map_or(0.0, |item| {

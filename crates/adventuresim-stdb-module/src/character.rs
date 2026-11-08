@@ -1000,7 +1000,7 @@ fn delete_character_data(
             ctx.db.repair_order().id().delete(repair.id);
         }
         ctx.db.inventory_item().id().delete(row.id);
-        crate::food::delete_personal_food_lot(ctx, row.id);
+        crate::food::delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(row.id));
     }
     for row in ctx
         .db

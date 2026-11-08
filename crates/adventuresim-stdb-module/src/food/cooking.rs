@@ -168,12 +168,12 @@ pub fn start_fireplace_container_cooking(
         let (row_id, lot, amount) = match (&child.location, scope) {
             (InventoryLocation::Personal(location), CarriedInventoryScope::Personal) => (
                 location.row_id.get(),
-                personal_lot(ctx, location.row_id.get()),
+                personal_lot(ctx, location.row_id),
                 crate::inventory_amount::personal_fraction(ctx, location.row_id.get()),
             ),
             (InventoryLocation::Party(location), CarriedInventoryScope::Party) => (
                 location.row_id.get(),
-                party_lot(ctx, location.row_id.get()),
+                party_lot(ctx, location.row_id),
                 crate::inventory_amount::party_fraction(ctx, location.row_id.get()),
             ),
             _ => return Err("Contained food custody conflicts with its return inventory".into()),
@@ -331,7 +331,8 @@ fn add_fireplace_ingredients_at(
                     row.item_id,
                     crate::inventory_amount::personal_fraction(ctx, id)
                         .ok_or("Ingredient amount state is missing")?,
-                    personal_lot(ctx, id).ok_or("Food lot metadata not found")?,
+                    personal_lot(ctx, PersonalInventoryRowId::from_raw(id))
+                        .ok_or("Food lot metadata not found")?,
                 )
             }
             CarriedInventoryScope::Party => {
@@ -352,7 +353,8 @@ fn add_fireplace_ingredients_at(
                     row.item_id,
                     crate::inventory_amount::party_fraction(ctx, id)
                         .ok_or("Ingredient amount state is missing")?,
-                    party_lot(ctx, id).ok_or("Food lot metadata not found")?,
+                    party_lot(ctx, PartyInventoryRowId::from_raw(id))
+                        .ok_or("Food lot metadata not found")?,
                 )
             }
         };
@@ -514,7 +516,7 @@ fn add_fireplace_ingredients_at(
                         .inventory_item_id()
                         .delete(id);
                     ctx.db.inventory_item().id().delete(id);
-                    delete_personal_food_lot(ctx, id);
+                    delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(id));
                 }
                 CarriedInventoryScope::Party => {
                     ctx.db
@@ -522,7 +524,7 @@ fn add_fireplace_ingredients_at(
                         .party_inventory_item_id()
                         .delete(id);
                     ctx.db.party_inventory_item().id().delete(id);
-                    delete_party_food_lot(ctx, id);
+                    delete_party_food_lot(ctx, PartyInventoryRowId::from_raw(id));
                 }
             }
         } else {

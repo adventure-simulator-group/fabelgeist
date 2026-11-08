@@ -184,7 +184,9 @@ fn personal_inventory_value(
     inventory: &InventoryItem,
     quantity: u32,
 ) -> Result<u64, String> {
-    if let Some(lot) = crate::food::personal_lot(ctx, inventory.id) {
+    if let Some(lot) =
+        crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id))
+    {
         if quantity != inventory.quantity {
             return Err("Food batches must move as complete lots".into());
         }
@@ -206,7 +208,7 @@ fn party_inventory_value(
     inventory: &PartyInventoryItem,
     quantity: u32,
 ) -> Result<u64, String> {
-    if let Some(lot) = crate::food::party_lot(ctx, inventory.id) {
+    if let Some(lot) = crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(inventory.id)) {
         if quantity != inventory.quantity {
             return Err("Food batches must move as complete lots".into());
         }
@@ -1625,7 +1627,8 @@ pub fn deposit_party_inventory_item(
     } else {
         None
     };
-    let food = crate::food::personal_lot(ctx, inventory.id).is_some();
+    let food =
+        crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id)).is_some();
     let measured = crate::inventory_amount::personal_fraction(ctx, inventory.id).is_some();
     let inserted_party_row = if measured {
         if quantity != 1 || inventory.quantity != 1 {
@@ -1909,7 +1912,7 @@ pub fn withdraw_party_inventory_item(
         .party_item_condition()
         .party_inventory_item_id()
         .find(inventory.id);
-    let food = crate::food::party_lot(ctx, inventory.id).is_some();
+    let food = crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(inventory.id)).is_some();
     let measured = crate::inventory_amount::party_fraction(ctx, inventory.id).is_some();
     let new_inventory_id = if measured {
         if quantity != 1 || inventory.quantity != 1 {
@@ -2046,7 +2049,8 @@ pub fn liquidate_party_inventory(
             crate::inventory_container::delete_subtree(ctx, object.id)?;
             continue;
         }
-        let is_food = crate::food::party_lot(ctx, entry.id).is_some();
+        let is_food =
+            crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(entry.id)).is_some();
         if is_food {
             crate::food::remove_party_lot_quantity(ctx, entry.id, quantity, entry.quantity)?;
         }
@@ -2125,7 +2129,7 @@ pub fn discard_inventory_items(
                 .delete(item.id);
             ctx.db.inventory_item().id().delete(item.id);
             ctx.db.item_condition().inventory_item_id().delete(item.id);
-            crate::food::delete_personal_food_lot(ctx, item.id);
+            crate::food::delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(item.id));
         } else {
             crate::food::remove_lot_quantity(ctx, item.id, quantity, item.quantity)?;
             item.quantity -= quantity;
@@ -2704,7 +2708,9 @@ fn finalize_storefront_trade_impl(
             if Some(&inventory.party_id) != party_id.as_ref() {
                 return Err("Invalid party inventory sale".into());
             }
-            let food_value = crate::food::party_lot(ctx, inventory.id).map(|lot| lot.total_value);
+            let food_value =
+                crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(inventory.id))
+                    .map(|lot| lot.total_value);
             (inventory.item_id, inventory.quantity, food_value)
         } else {
             let inventory = ctx
@@ -2717,7 +2723,8 @@ fn finalize_storefront_trade_impl(
                 return Err("Invalid merchant sale".into());
             }
             let food_value =
-                crate::food::personal_lot(ctx, inventory.id).map(|lot| lot.total_value);
+                crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id))
+                    .map(|lot| lot.total_value);
             (inventory.item_id, inventory.quantity, food_value)
         };
         let Some(item) = ctx.db.item().id().find(&item_id) else {
@@ -2835,7 +2842,10 @@ fn finalize_storefront_trade_impl(
                 .find(*inventory_id)
                 .ok_or("Party inventory item disappeared before trade application")?;
             if inventory.quantity == *quantity {
-                crate::food::delete_party_food_lot(ctx, *inventory_id);
+                crate::food::delete_party_food_lot(
+                    ctx,
+                    PartyInventoryRowId::from_raw(*inventory_id),
+                );
                 ctx.db
                     .party_item_amount()
                     .party_inventory_item_id()
@@ -2846,7 +2856,9 @@ fn finalize_storefront_trade_impl(
                     .party_inventory_item_id()
                     .delete(*inventory_id);
             } else {
-                if crate::food::party_lot(ctx, inventory.id).is_some() {
+                if crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(inventory.id))
+                    .is_some()
+                {
                     crate::food::remove_party_lot_quantity(
                         ctx,
                         *inventory_id,
@@ -2865,7 +2877,10 @@ fn finalize_storefront_trade_impl(
                 .find(*inventory_id)
                 .ok_or("Inventory item disappeared before trade application")?;
             if inventory.quantity == *quantity {
-                crate::food::delete_personal_food_lot(ctx, *inventory_id);
+                crate::food::delete_personal_food_lot(
+                    ctx,
+                    PersonalInventoryRowId::from_raw(*inventory_id),
+                );
                 ctx.db
                     .inventory_item_amount()
                     .inventory_item_id()
@@ -2876,7 +2891,9 @@ fn finalize_storefront_trade_impl(
                     .inventory_item_id()
                     .delete(*inventory_id);
             } else {
-                if crate::food::personal_lot(ctx, inventory.id).is_some() {
+                if crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id))
+                    .is_some()
+                {
                     crate::food::remove_lot_quantity(
                         ctx,
                         *inventory_id,

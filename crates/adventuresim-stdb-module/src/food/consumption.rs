@@ -157,7 +157,7 @@ fn consume_food_amount(
             .inventory_item_id()
             .delete(inventory.id);
         ctx.db.inventory_item().id().delete(inventory.id);
-        delete_personal_food_lot(ctx, inventory.id);
+        delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id));
     } else {
         let retained = 1.0 - ratio;
         let state = ctx
