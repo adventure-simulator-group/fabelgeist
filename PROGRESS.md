@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:55:43.782442+00:00
+Updated: 2026-11-08T10:57:27.738397+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -241,7 +241,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   markers were invalidated under the build lock; after rebuilding dependencies,
   the module build passed and all nine selected local records postdate the
   rebuild with none naming the wedding worktree. A guarded authority rerun is
-  running on a disposable local profile.
+  passed on a disposable local profile at the current commit, including
+  wedding, investigation retry, puzzle, mission, and outbreak checks. Repair,
+  dialogue, and development-fixture behavior remain to be verified.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
