@@ -317,7 +317,8 @@ pub fn submit_all_repairable_items(
     for id in ids {
         match submit(ctx, character_id, &settlement_id, service, id) {
             Ok(_) => submitted += 1,
-            Err(crate::StrategicOperationError::Operation(_)) => {}
+            Err(error) if matches!(error.cause(), crate::StrategicOperationCause::Operation(_)) => {
+            }
             Err(error) => return Err(error),
         }
     }

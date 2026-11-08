@@ -19,7 +19,7 @@ mod armor;
 mod combatant;
 mod equipment_projection;
 mod mass;
-use crate::{StrategicOperationError, StrategicOperationResult};
+use crate::StrategicOperationResult;
 use armor::*;
 pub(crate) use combatant::load_combatant;
 use equipment_projection::{

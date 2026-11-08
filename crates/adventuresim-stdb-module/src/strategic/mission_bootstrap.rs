@@ -10,7 +10,7 @@ pub fn report_contract(
     ctx: &ReducerContext,
     character_id: u64,
     contract_id: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     let character = ctx
@@ -384,7 +384,7 @@ pub fn dev_bootstrap_settlement_activity(
     ctx: &ReducerContext,
     bootstrap_token: String,
     index: u32,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     let ids = sorted_settlement_ids(ctx);
     let Some(settlement_id) = ids.get(index as usize) else {
@@ -842,11 +842,11 @@ fn retire_interrupted_standalone_requests(
 pub(crate) fn seed_world(
     ctx: &ReducerContext,
     include_errantry_demo_chapter: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     seed_world_rows(ctx, include_errantry_demo_chapter, true)
 }
 
-fn seed_tactical_host_world(ctx: &ReducerContext) -> Result<(), String> {
+fn seed_tactical_host_world(ctx: &ReducerContext) -> StrategicOperationResult<()> {
     seed_world_rows(ctx, false, false)
 }
 
@@ -854,7 +854,7 @@ fn seed_world_rows(
     ctx: &ReducerContext,
     include_errantry_demo_chapter: bool,
     materialize_strategic_activity: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     const DEMO_SOURCES: &str = "- **Fabelgeist renderer demo:** Hand-authored geographic fixture for exercising map and terrain-routing UI.";
 
     for (id, latitude, longitude) in [
@@ -1093,7 +1093,7 @@ fn seed_world_rows(
 pub fn ensure_settlement_activity(
     ctx: &ReducerContext,
     settlement_id: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     ensure_settlement_activity_inner(ctx, &settlement_id)
 }
 
@@ -1106,16 +1106,16 @@ fn settlement_activity_target(settlement_id: &str) -> usize {
 
 fn settlement_activity_stage_error(
     settlement_id: &str,
-    stage: &str,
-    error: impl std::fmt::Display,
-) -> String {
-    format!("Settlement activity for {settlement_id} failed during {stage}: {error}")
+    stage: &'static str,
+    error: impl Into<StrategicOperationError>,
+) -> StrategicOperationError {
+    error.into().in_settlement_activity(settlement_id, stage)
 }
 
 fn ensure_settlement_activity_inner(
     ctx: &ReducerContext,
     settlement_id: &str,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     ensure_settlement_activity_batched(ctx, settlement_id, 0)
 }
 
@@ -1129,7 +1129,7 @@ fn ensure_settlement_activity_batched(
     ctx: &ReducerContext,
     settlement_id: &str,
     quest_batch: u32,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     // World import writes only canonical settlement facts. These derived
     // service rows are instead materialized when settlement activity is used.
     crate::repair::ensure_settlement_smith(ctx, settlement_id);
@@ -1198,7 +1198,7 @@ fn ensure_settlement_activity_batched(
             if validated.context.settlement_id != settlement_id {
                 return Ok(count);
             }
-            Ok::<_, String>(
+            Ok::<_, StrategicOperationError>(
                 count
                     + usize::from(
                         ctx.db

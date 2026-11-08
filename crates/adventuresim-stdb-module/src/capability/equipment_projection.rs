@@ -184,9 +184,10 @@ impl NativeHands {
             && adventuresim_weapon_model::default_design(&item.id).is_some()
             && geometry.is_none()
         {
-            return Err(StrategicOperationError::MissingWeaponRecipe {
+            return Err(crate::StrategicOperationCause::MissingWeaponRecipe {
                 item: item.id.clone(),
-            });
+            }
+            .into());
         }
         Ok(geometry)
     }
@@ -229,12 +230,12 @@ pub(super) fn combat_weapon(
 ) -> StrategicOperationResult<CombatWeapon> {
     let item = source.item;
     let definition = adventuresim_core::item_catalog::definition(&item.id).ok_or_else(|| {
-        StrategicOperationError::MissingWeaponDefinition {
+        crate::StrategicOperationCause::MissingWeaponDefinition {
             item: item.id.clone(),
         }
     })?;
     let equipment = definition.equipment.as_ref().ok_or_else(|| {
-        StrategicOperationError::MissingWeaponGeometry {
+        crate::StrategicOperationCause::MissingWeaponGeometry {
             item: item.id.clone(),
         }
     })?;

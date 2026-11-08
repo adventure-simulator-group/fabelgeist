@@ -182,7 +182,11 @@ fn ensure_scenario_character(
     Ok(())
 }
 
-fn ensure_scenario_settlement(ctx: &ReducerContext, id: &str, name: &str) -> Result<(), String> {
+fn ensure_scenario_settlement(
+    ctx: &ReducerContext,
+    id: &str,
+    name: &str,
+) -> StrategicOperationResult<()> {
     if let Some(existing) = ctx.db.settlement().id().find(id.to_owned()) {
         return (existing.name == name)
             .then_some(())
@@ -201,7 +205,9 @@ fn ensure_scenario_settlement(ctx: &ReducerContext, id: &str, name: &str) -> Res
     ensure_settlement_activity(ctx, id.into())
 }
 
-pub(crate) fn ensure_foraging_demo_settlement(ctx: &ReducerContext) -> Result<(), String> {
+pub(crate) fn ensure_foraging_demo_settlement(
+    ctx: &ReducerContext,
+) -> StrategicOperationResult<()> {
     const ID: &str = "dev-scenario-foraging";
     let (mut settlement, exists) =
         if let Some(existing) = ctx.db.settlement().id().find(ID.to_owned()) {

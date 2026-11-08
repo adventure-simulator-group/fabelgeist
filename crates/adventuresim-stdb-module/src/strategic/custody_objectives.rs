@@ -137,8 +137,7 @@ fn validate_custody_fact_retry_attribution(
 mod custody_party_dispatch_tests {
     use super::{
         CaseOutcomeSource, CustodyPartyDispatch, apply_custody_party_continuity,
-        custody_party_dispatch,
-        validate_custody_fact_retry_attribution,
+        custody_party_dispatch, validate_custody_fact_retry_attribution,
     };
     use std::cell::Cell;
 
@@ -960,7 +959,7 @@ pub(crate) fn ingest_case_outcome_fact(
     case_id: &str,
     party_id: &str,
     mut kind: adventuresim_core::case::OutcomeFactKind,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let outcome_source = CaseOutcomeSource::parse(source_id)?;
     let mut case = ctx
         .db
@@ -1662,9 +1661,16 @@ pub(crate) fn ensure_bound_mission_authority(
         .id()
         .find(&hostile_group_id)
         .ok_or("Bound hostile group disappeared")?;
-    let authority = MissionAuthority::capture(ctx, mission_id, party_id,
-        observer_character_id, case_site, &hostile_group, scene_key)
-        .map_err(|error| error.to_string())?;
+    let authority = MissionAuthority::capture(
+        ctx,
+        mission_id,
+        party_id,
+        observer_character_id,
+        case_site,
+        &hostile_group,
+        scene_key,
+    )
+    .map_err(|error| error.to_string())?;
     ctx.db.mission_authority().insert(authority.clone());
     for (index, capability) in tactical_capabilities.into_iter().enumerate() {
         ctx.db

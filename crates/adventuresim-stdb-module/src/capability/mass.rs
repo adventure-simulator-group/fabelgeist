@@ -36,7 +36,7 @@ pub(super) fn dry_inventory_weight(
                         .map_or(inventory.quantity as f32, |fraction| fraction.as_unit_f32());
                 let unit_mass = if adventuresim_weapon_model::default_design(&item.id).is_some() {
                     crate::weapon_instance::combat_geometry(ctx, inventory.id, &item.id)?
-                        .ok_or_else(|| StrategicOperationError::MissingWeaponRecipe {
+                        .ok_or_else(|| crate::StrategicOperationCause::MissingWeaponRecipe {
                             item: item.id.clone(),
                         })?
                         .mass_kg

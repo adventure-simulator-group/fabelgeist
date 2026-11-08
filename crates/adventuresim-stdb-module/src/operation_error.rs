@@ -9,8 +9,21 @@ use fabelgeist_geometry::GeometryError;
 
 pub type StrategicOperationResult<T> = Result<T, StrategicOperationError>;
 
+/// A leaf failure and its outer settlement-activity contexts.
+#[derive(Debug)]
+pub struct StrategicOperationError {
+    cause: StrategicOperationCause,
+    settlement_contexts: Vec<SettlementActivityContext>,
+}
+
+#[derive(Debug)]
+struct SettlementActivityContext {
+    settlement_id: String,
+    stage: &'static str,
+}
+
 #[derive(Debug, thiserror::Error)]
-pub enum StrategicOperationError {
+pub enum StrategicOperationCause {
     #[error(transparent)]
     AuthoredThreat(#[from] AuthoredThreatError),
     #[error(transparent)]
@@ -34,15 +47,73 @@ pub enum StrategicOperationError {
     #[error("{0}")]
     Operation(String),
 }
-
-impl From<String> for StrategicOperationError {
-    fn from(message: String) -> Self {
-        Self::Operation(message)
+impl StrategicOperationError {
+    pub(crate) fn cause(&self) -> &StrategicOperationCause {
+        &self.cause
     }
+
+    pub(crate) fn in_settlement_activity(
+        mut self,
+        settlement_id: &str,
+        stage: &'static str,
+    ) -> Self {
+        self.settlement_contexts.push(SettlementActivityContext {
+            settlement_id: settlement_id.to_owned(),
+            stage,
+        });
+        self
+    }
+}
+
+impl std::fmt::Display for StrategicOperationError {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        for context in self.settlement_contexts.iter().rev() {
+            write!(
+                formatter,
+                "Settlement activity for {} failed during {}: ",
+                context.settlement_id, context.stage
+            )?;
+        }
+        std::fmt::Display::fmt(&self.cause, formatter)
+    }
+}
+
+impl std::error::Error for StrategicOperationError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        Some(&self.cause)
+    }
+}
+
+impl From<StrategicOperationCause> for StrategicOperationError {
+    fn from(cause: StrategicOperationCause) -> Self {
+        Self {
+            cause,
+            settlement_contexts: Vec::new(),
+        }
+    }
+}
+
+macro_rules! operation_cause_from {
+    ($($source:ty => $variant:ident),+ $(,)?) => {
+        $(impl From<$source> for StrategicOperationError {
+            fn from(source: $source) -> Self {
+                StrategicOperationCause::$variant(source).into()
+            }
+        })+
+    };
+}
+
+operation_cause_from! {
+    AuthoredThreatError => AuthoredThreat,
+    BattleResolutionError => Resolution,
+    GeometryError => Geometry,
+    ElapsedError => Timing,
+    CustodyIdentityError => Custody,
+    String => Operation,
 }
 
 impl From<&str> for StrategicOperationError {
     fn from(message: &str) -> Self {
-        Self::Operation(message.to_owned())
+        StrategicOperationCause::Operation(message.to_owned()).into()
     }
 }

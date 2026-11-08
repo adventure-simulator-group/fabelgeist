@@ -20,7 +20,7 @@ use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{
-    StrategicOperationError, StrategicOperationResult,
+    StrategicOperationResult,
     capability::character_capability,
     character::{
         character, character__view, character_attributes, character_limbs, character_skills,
@@ -1976,7 +1976,7 @@ fn autopsy_demo_outcome(
         seed,
         128,
     )?
-    .ok_or(StrategicOperationError::RequiredDeathUnavailable)
+    .ok_or_else(|| crate::StrategicOperationCause::RequiredDeathUnavailable.into())
 }
 
 #[cfg(test)]

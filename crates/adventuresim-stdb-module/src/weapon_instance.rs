@@ -366,11 +366,12 @@ pub(crate) fn combat_geometry(
             .value(),
     )
     .map(Some)
-    .ok_or_else(
-        || crate::StrategicOperationError::InvalidWeaponCombatGeometry {
+    .ok_or_else(|| {
+        crate::StrategicOperationCause::InvalidWeaponCombatGeometry {
             item: item_id.to_owned(),
-        },
-    )
+        }
+        .into()
+    })
 }
 
 /// Unfitted holders use their catalog construction; fitted instances use their

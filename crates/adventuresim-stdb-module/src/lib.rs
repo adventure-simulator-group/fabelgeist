@@ -61,7 +61,9 @@ pub use local_problem::*;
 pub use npc_adventurer::*;
 pub use npc_causal::*;
 pub use object_custody::*;
-pub use operation_error::{StrategicOperationError, StrategicOperationResult};
+pub use operation_error::{
+    StrategicOperationCause, StrategicOperationError, StrategicOperationResult,
+};
 pub use organization::*;
 pub use outbreak::*;
 pub use personality::*;
