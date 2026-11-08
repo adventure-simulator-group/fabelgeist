@@ -47,6 +47,7 @@ use item_geometry::PreparedInventoryItem;
 use spawn_admission::{AdmittedPlayer, PreparedPlayerSpawns, SpawnRecipient};
 
 mod dive_launch;
+mod input_trace;
 mod item_geometry;
 mod posture_facing;
 pub(crate) mod projection_equipment;
@@ -1075,21 +1076,14 @@ pub(crate) fn on_player_input(
     }
     let jump_requested =
         sequence_is_newer(validated.jump.sequence, posture_intent.last_jump_sequence);
-    if jump_requested && let Some(direction) = validated.jump.quickstep {
-        info!(
-            target: "quickstep_trace",
-            ?entity,
-            simulation_tick = input.simulation_tick.encoded(),
-            sequence = validated.jump.sequence,
-            ?direction,
-            requested_guard = ?validated.weapon_guard,
-            server_guard = ?skeleton.weapon_guard(),
-            server_body = ?skeleton.body(),
-            server_action = ?skeleton.action_kind(),
-            push_active = quickstep_push.active,
-            "[quickstep][server-input] received new edge"
-        );
-    }
+    input_trace::quickstep_request(
+        entity,
+        input.simulation_tick,
+        validated,
+        &skeleton,
+        quickstep_push.active,
+        jump_requested,
+    );
     if jump_requested {
         // Consume the edge even when the current body state cannot jump. The
         // client repeats this sequence indefinitely, so retaining it through
@@ -1098,15 +1092,7 @@ pub(crate) fn on_player_input(
         posture_intent.last_jump_sequence = validated.jump.sequence;
     }
     if combat_state.is_incapacitated() {
-        if jump_requested && validated.jump.quickstep.is_some() {
-            warn!(
-                target: "quickstep_trace",
-                ?entity,
-                simulation_tick = input.simulation_tick.encoded(),
-                sequence = validated.jump.sequence,
-                "[quickstep][server-input] rejected: incapacitated"
-            );
-        }
+        input_trace::incapacitated_jump(entity, input.simulation_tick, validated, jump_requested);
         accumulated_input.last_movement = None;
         movement_intent.0 = None;
         accumulated_input.jumped = None;
