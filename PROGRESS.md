@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T00:47:26.543647+00:00
+Updated: 2026-11-08T00:49:23.938897+00:00
 
-Latest verified checkpoint: **3663**. Goal: **active**.
+Latest verified checkpoint: **3664**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,13 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified party merge and incident return paths.
+Qualified fixture and patient site transition callers.
 
-Other return paths, source-site policy and cross-lens aliases remain open.
+Patient chronology, return paths and cross-lens aliases remain open.
 
 ## Working on now
 
-Qualify other return paths and reconcile cross-lens identity obligations.
+Qualify patient chronology and reconcile site identity obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3663 publication record](CHECKPOINT-3663.json)
-- [Saved report for checkpoint 3663](PROGRESS-3663.md)
+- [Checkpoint 3664 publication record](CHECKPOINT-3664.json)
+- [Saved report for checkpoint 3664](PROGRESS-3664.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
