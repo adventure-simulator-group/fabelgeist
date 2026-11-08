@@ -118,8 +118,8 @@ pub fn transfer_party_item(
             });
             crate::food::split_lot(
                 ctx,
-                inventory_item_id,
-                destination.id,
+                PersonalInventoryRowId::from_raw(inventory_item_id),
+                PersonalInventoryRowId::from_raw(destination.id),
                 quantity,
                 original_quantity,
             )?;
@@ -1643,8 +1643,8 @@ pub fn deposit_party_inventory_item(
         if food {
             crate::food::move_or_split_to_party(
                 ctx,
-                inventory.id,
-                party_row.id,
+                PersonalInventoryRowId::from_raw(inventory.id),
+                PartyInventoryRowId::from_raw(party_row.id),
                 quantity,
                 inventory.quantity,
             )?;
@@ -1927,8 +1927,8 @@ pub fn withdraw_party_inventory_item(
         if food {
             crate::food::move_or_split_to_personal(
                 ctx,
-                inventory.id,
-                row.id,
+                PartyInventoryRowId::from_raw(inventory.id),
+                PersonalInventoryRowId::from_raw(row.id),
                 quantity,
                 inventory.quantity,
             )?;
@@ -2052,7 +2052,12 @@ pub fn liquidate_party_inventory(
         let is_food =
             crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(entry.id)).is_some();
         if is_food {
-            crate::food::remove_party_lot_quantity(ctx, entry.id, quantity, entry.quantity)?;
+            crate::food::remove_party_lot_quantity(
+                ctx,
+                PartyInventoryRowId::from_raw(entry.id),
+                quantity,
+                entry.quantity,
+            )?;
         }
         if entry.quantity == quantity {
             ctx.db
@@ -2131,7 +2136,12 @@ pub fn discard_inventory_items(
             ctx.db.item_condition().inventory_item_id().delete(item.id);
             crate::food::delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(item.id));
         } else {
-            crate::food::remove_lot_quantity(ctx, item.id, quantity, item.quantity)?;
+            crate::food::remove_lot_quantity(
+                ctx,
+                PersonalInventoryRowId::from_raw(item.id),
+                quantity,
+                item.quantity,
+            )?;
             item.quantity -= quantity;
             ctx.db.inventory_item().id().update(item);
         }
@@ -2861,7 +2871,7 @@ fn finalize_storefront_trade_impl(
                 {
                     crate::food::remove_party_lot_quantity(
                         ctx,
-                        *inventory_id,
+                        PartyInventoryRowId::from_raw(*inventory_id),
                         *quantity,
                         inventory.quantity,
                     )?;
@@ -2896,7 +2906,7 @@ fn finalize_storefront_trade_impl(
                 {
                     crate::food::remove_lot_quantity(
                         ctx,
-                        *inventory_id,
+                        PersonalInventoryRowId::from_raw(*inventory_id),
                         *quantity,
                         inventory.quantity,
                     )?;

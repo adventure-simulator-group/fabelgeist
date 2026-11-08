@@ -148,19 +148,19 @@ pub fn delete_party_food_lot(ctx: &ReducerContext, inventory_item_id: PartyInven
 
 pub fn remove_party_lot_quantity(
     ctx: &ReducerContext,
-    inventory_item_id: u64,
+    inventory_item_id: PartyInventoryRowId,
     removed: u32,
     original: u32,
 ) -> Result<(), String> {
     if removed == original {
-        delete_party_food_lot(ctx, PartyInventoryRowId::from_raw(inventory_item_id));
+        delete_party_food_lot(ctx, inventory_item_id);
         return Ok(());
     }
     let mut lot = ctx
         .db
         .food_lot()
         .iter()
-        .find(|lot| lot.party_inventory_item_id == Some(inventory_item_id))
+        .find(|lot| lot.party_inventory_item_id == Some(inventory_item_id.get()))
         .ok_or("Food lot metadata not found")?;
     let keep = 1.0 - removed as f32 / original as f32;
     retain_lot_fraction(&mut lot, keep)?;
@@ -250,24 +250,24 @@ fn contamination(
 
 pub fn split_lot(
     ctx: &ReducerContext,
-    source_inventory_id: u64,
-    destination_inventory_id: u64,
+    source_inventory_id: PersonalInventoryRowId,
+    destination_inventory_id: PersonalInventoryRowId,
     taken: u32,
     original: u32,
 ) -> Result<(), String> {
     if taken == 0 || original == 0 || taken > original {
         return Err("Invalid food lot split".into());
     }
-    let mut source = lot_for_inventory(ctx, PersonalInventoryRowId::from_raw(source_inventory_id))?;
+    let mut source = lot_for_inventory(ctx, source_inventory_id)?;
     if taken == original {
-        source.inventory_item_id = Some(destination_inventory_id);
+        source.inventory_item_id = Some(destination_inventory_id.get());
         ctx.db.food_lot().id().update(source);
         return Ok(());
     }
     let ratio = taken as f32 / original as f32;
     let mut child = source.clone();
     child.id = 0;
-    child.inventory_item_id = Some(destination_inventory_id);
+    child.inventory_item_id = Some(destination_inventory_id.get());
     retain_lot_fraction(&mut child, ratio)?;
     let (source_ingredients, child_ingredients) =
         split_ingredient_quantities(&source.ingredient_quantities, taken, original);
@@ -282,7 +282,7 @@ pub fn split_lot(
         .ok_or("Food contamination state not found")?;
     ensure_food_material_object(
         ctx,
-        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(destination_inventory_id)),
+        CarriedInventoryRowId::Personal(destination_inventory_id),
     )?;
     let child = ctx.db.food_lot().insert(child);
     split_food_contamination_provenance(ctx, source.id, child.id, ratio)?;
@@ -297,7 +297,7 @@ pub fn split_lot(
 
 pub fn remove_lot_quantity(
     ctx: &ReducerContext,
-    inventory_item_id: u64,
+    inventory_item_id: PersonalInventoryRowId,
     removed: u32,
     original: u32,
 ) -> Result<(), String> {
@@ -305,10 +305,10 @@ pub fn remove_lot_quantity(
         return Err("Invalid food lot quantity change".into());
     }
     if removed == original {
-        delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(inventory_item_id));
+        delete_personal_food_lot(ctx, inventory_item_id);
         return Ok(());
     }
-    let mut lot = lot_for_inventory(ctx, PersonalInventoryRowId::from_raw(inventory_item_id))?;
+    let mut lot = lot_for_inventory(ctx, inventory_item_id)?;
     let keep = 1.0 - removed as f32 / original as f32;
     retain_lot_fraction(&mut lot, keep)?;
     ctx.db.food_lot().id().update(lot);
@@ -317,15 +317,15 @@ pub fn remove_lot_quantity(
 
 pub fn move_or_split_to_party(
     ctx: &ReducerContext,
-    source_inventory_id: u64,
-    destination_party_id: u64,
+    source_inventory_id: PersonalInventoryRowId,
+    destination_party_id: PartyInventoryRowId,
     taken: u32,
     original: u32,
 ) -> Result<(), String> {
-    let mut source = lot_for_inventory(ctx, PersonalInventoryRowId::from_raw(source_inventory_id))?;
+    let mut source = lot_for_inventory(ctx, source_inventory_id)?;
     if taken == original {
         source.inventory_item_id = None;
-        source.party_inventory_item_id = Some(destination_party_id);
+        source.party_inventory_item_id = Some(destination_party_id.get());
         ctx.db.food_lot().id().update(source);
         return Ok(());
     }
@@ -333,7 +333,7 @@ pub fn move_or_split_to_party(
     let mut child = source.clone();
     child.id = 0;
     child.inventory_item_id = None;
-    child.party_inventory_item_id = Some(destination_party_id);
+    child.party_inventory_item_id = Some(destination_party_id.get());
     retain_lot_fraction(&mut child, ratio)?;
     let (source_ingredients, child_ingredients) =
         split_ingredient_quantities(&source.ingredient_quantities, taken, original);
@@ -346,10 +346,7 @@ pub fn move_or_split_to_party(
         .food_lot_id()
         .find(source.id)
         .ok_or("Food contamination state not found")?;
-    ensure_food_material_object(
-        ctx,
-        CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(destination_party_id)),
-    )?;
+    ensure_food_material_object(ctx, CarriedInventoryRowId::Party(destination_party_id))?;
     let child = ctx.db.food_lot().insert(child);
     split_food_contamination_provenance(ctx, source.id, child.id, ratio)?;
     crate::herbalism::split_food_medicine(ctx, source.id, child.id, ratio)?;
@@ -363,8 +360,8 @@ pub fn move_or_split_to_party(
 
 pub fn move_or_split_to_personal(
     ctx: &ReducerContext,
-    source_party_id: u64,
-    destination_inventory_id: u64,
+    source_party_id: PartyInventoryRowId,
+    destination_inventory_id: PersonalInventoryRowId,
     taken: u32,
     original: u32,
 ) -> Result<(), String> {
@@ -372,11 +369,11 @@ pub fn move_or_split_to_personal(
         .db
         .food_lot()
         .iter()
-        .find(|lot| lot.party_inventory_item_id == Some(source_party_id))
+        .find(|lot| lot.party_inventory_item_id == Some(source_party_id.get()))
         .ok_or("Food lot metadata not found")?;
     if taken == original {
         source.party_inventory_item_id = None;
-        source.inventory_item_id = Some(destination_inventory_id);
+        source.inventory_item_id = Some(destination_inventory_id.get());
         ctx.db.food_lot().id().update(source);
         return Ok(());
     }
@@ -384,7 +381,7 @@ pub fn move_or_split_to_personal(
     let mut child = source.clone();
     child.id = 0;
     child.party_inventory_item_id = None;
-    child.inventory_item_id = Some(destination_inventory_id);
+    child.inventory_item_id = Some(destination_inventory_id.get());
     retain_lot_fraction(&mut child, ratio)?;
     let (source_ingredients, child_ingredients) =
         split_ingredient_quantities(&source.ingredient_quantities, taken, original);
@@ -399,7 +396,7 @@ pub fn move_or_split_to_personal(
         .ok_or("Food contamination state not found")?;
     ensure_food_material_object(
         ctx,
-        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(destination_inventory_id)),
+        CarriedInventoryRowId::Personal(destination_inventory_id),
     )?;
     let child = ctx.db.food_lot().insert(child);
     split_food_contamination_provenance(ctx, source.id, child.id, ratio)?;

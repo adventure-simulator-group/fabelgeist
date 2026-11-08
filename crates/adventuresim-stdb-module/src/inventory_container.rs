@@ -419,10 +419,14 @@ pub(crate) fn rehome_subtree(
                             item_id: source.item_id.clone(),
                             quantity: 1,
                         });
-                if crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(source.id))
-                    .is_some()
-                {
-                    crate::food::move_or_split_to_party(ctx, source.id, destination_row.id, 1, 1)?;
+                if crate::food::personal_lot(ctx, location.row_id).is_some() {
+                    crate::food::move_or_split_to_party(
+                        ctx,
+                        location.row_id,
+                        PartyInventoryRowId::from_raw(destination_row.id),
+                        1,
+                        1,
+                    )?;
                 }
                 if crate::inventory_amount::personal_fraction(ctx, source.id).is_some() {
                     crate::inventory_amount::move_personal_to_party(
@@ -470,11 +474,11 @@ pub(crate) fn rehome_subtree(
                     item_id: source.item_id.clone(),
                     quantity: 1,
                 });
-                if crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(source.id)).is_some() {
+                if crate::food::party_lot(ctx, location.row_id).is_some() {
                     crate::food::move_or_split_to_personal(
                         ctx,
-                        source.id,
-                        destination_row.id,
+                        location.row_id,
+                        PersonalInventoryRowId::from_raw(destination_row.id),
                         1,
                         1,
                     )?;

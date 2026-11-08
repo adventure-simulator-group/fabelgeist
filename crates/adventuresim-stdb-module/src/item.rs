@@ -564,7 +564,14 @@ pub fn change_inventory_item(
             for mut row in items {
                 let take = row.quantity.min(remaining);
                 if food {
-                    crate::food::remove_lot_quantity(ctx, row.id, take, row.quantity)?;
+                    crate::food::remove_lot_quantity(
+                        ctx,
+                        adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
+                            row.id,
+                        ),
+                        take,
+                        row.quantity,
+                    )?;
                 }
                 row.quantity -= take;
                 remaining -= take;
