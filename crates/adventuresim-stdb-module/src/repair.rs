@@ -1,7 +1,7 @@
 //! Persistent strategic equipment condition and settlement repair custody.
 
 use adventuresim_core::physical_object::PersonalInventoryRowId;
-mod escrow;
+pub(crate) mod escrow;
 mod smiths;
 use adventuresim_core::durability::DamageBins;
 use adventuresim_core::durability::{DurabilityProfile, damage_from_impact};

@@ -56,3 +56,38 @@ pub(super) fn restore_repair_object(
     }
     Ok(())
 }
+
+/// Remove repair escrow rows belonging to a deleted character.
+pub(crate) fn delete_character_escrow(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> Result<(), String> {
+    for order in ctx
+        .db
+        .repair_order()
+        .owner_id()
+        .filter(character_id)
+        .collect::<Vec<_>>()
+    {
+        crate::inventory_container::delete_repair_object_for_row(
+            ctx,
+            PersonalInventoryRowId::from_raw(order.inventory_item_id),
+        )?;
+        if ctx
+            .db
+            .item_condition()
+            .inventory_item_id()
+            .find(order.inventory_item_id)
+            .is_some()
+        {
+            ctx.db
+                .item_condition()
+                .inventory_item_id()
+                .delete(order.inventory_item_id);
+        }
+        ctx.db.inventory_item().id().delete(order.inventory_item_id);
+        ctx.db.repair_order().id().delete(order.id);
+    }
+
+    Ok(())
+}

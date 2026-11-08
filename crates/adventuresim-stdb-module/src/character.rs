@@ -966,36 +966,7 @@ fn delete_character_data(
         }
     }
 
-    // Repair custody changes InventoryItem.character_id to zero while retaining
-    // the real owner on RepairOrder. Remove those custody rows before scanning
-    // ordinary owned inventory so a temporary character cannot leave orphaned
-    // smith inventory behind.
-    for order in ctx
-        .db
-        .repair_order()
-        .owner_id()
-        .filter(character.id)
-        .collect::<Vec<_>>()
-    {
-        crate::inventory_container::delete_repair_object_for_row(
-            ctx,
-            PersonalInventoryRowId::from_raw(order.inventory_item_id),
-        )?;
-        if ctx
-            .db
-            .item_condition()
-            .inventory_item_id()
-            .find(order.inventory_item_id)
-            .is_some()
-        {
-            ctx.db
-                .item_condition()
-                .inventory_item_id()
-                .delete(order.inventory_item_id);
-        }
-        ctx.db.inventory_item().id().delete(order.inventory_item_id);
-        ctx.db.repair_order().id().delete(order.id);
-    }
+    crate::repair::escrow::delete_character_escrow(ctx, character.id)?;
 
     let inventory = ctx
         .db
