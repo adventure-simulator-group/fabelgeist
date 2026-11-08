@@ -1,16 +1,16 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:54:54.373558+00:00
+Updated: 2026-11-08T22:57:00.739986+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 592 / 3,866 | 3,274, including overlapping obligations |
+| Ledger source-discovery entries | 593 / 3,866 | 3,273, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
-| Cooking amount source packets | 4 adopted | 1 scoped discovery closed; runtime and policy open |
+| Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -231,7 +231,14 @@ Audit checkpoint 3766 closed cooking amount source discovery with a
 conditional capacity policy. The corrected pan example remains to be
 reproduced and resolved after the audit gate. The loose-roast UI preview
 explicitly omits chef-speed adjustment and uses raw ingredient safety; its
-separate target contract and general food-lot conservation remain open.
+separate target contract was subsequently dispositioned; general food-lot
+conservation remains open.
+
+Audit checkpoint 3767 closed cooking preview source discovery with a
+conditional estimate policy. For a cut apple the displayed pre-chef baseline
+uses five safety minutes while authoritative cooking uses four after the cut
+factor. Exact versus conservative preview semantics and runtime validation
+remain open; no runtime failure is asserted.
 
 | Increment status | Count |
 | --- | ---: |
