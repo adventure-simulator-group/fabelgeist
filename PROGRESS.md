@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:17:56.424892+00:00
+Updated: 2026-11-08T05:22:31.983631+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -29,8 +29,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   commit `2d318efbb21d044680070c525554cb04ee286437`: focused `cargo check` passed; existing audio tests are
   compiling under the shared-target lock. Review and integration remain open.
 - [Landform preparation outcome](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-landform-outcome)
-  commit `33a43f0ce44c76b09db3128eead2659367f61811`: unvalidated draft based on the audio commit. It retains a
-  typed initial landform failure and distinguishes natural ground from an
+  commit `079f9990618cfd87308bcff461f66d030ffd237a`: unvalidated draft based on the audio commit. It retains a
+  typed initial landform failure with scene and recipe identity and distinguishes natural ground from an
   admitted patch. Refresh and late-arrival behavior remain open; no build,
   review or integration is claimed for this draft.
 
