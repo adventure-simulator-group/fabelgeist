@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T19:24:46.931533+00:00
+Updated: 2026-11-08T19:31:42.805241+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -10,8 +10,9 @@ Updated: 2026-11-08T19:24:46.931533+00:00
 | Fungible currency merge scenario | 1 / 1 on prior draft | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
 | Seed-party populated-inventory rejection | 1 / 1 on prior draft | Stake-only and reserve-only cases open |
-| Seed-party recruitment-role rejection | 1 / 1 on current draft | Other obligation cases open |
-| Seed-party mission and case-site rejection | 1 / 1 composite case | Individual mission/incident branches open |
+| Seed-party recruitment-role rejection | 1 / 1 on prior draft | Other obligation cases open |
+| Seed-party mission and case-site rejection | 1 / 1 on prior draft | Individual mission/incident branches open |
+| Direct and offer member-transfer scenarios | 2 / 2 passed | Missing-object rejection untested |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -46,7 +47,7 @@ Updated: 2026-11-08T19:24:46.931533+00:00
 | Apple lot backing and value conservation on previous draft | 1 / 1 passed |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Passed on current draft |
+| Workspace all-target all-feature Clippy | Running on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
@@ -80,7 +81,7 @@ Updated: 2026-11-08T19:24:46.931533+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Passed |
+| Full P16 lint on current identity draft | Running |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -139,8 +140,17 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `060b6e367`. A seed
-helper could delete a solo party with inventory or active party obligations.
+The inventory row-identity migration is a draft at P16 `b5d7ba515`. Party
+offer lines now carry a personal row ID from parsing to transfer; the reducer
+admits raw IDs at its boundary. Missing physical objects for stable rows now
+return an error instead of using legacy transfer branches. Authority-feature
+compilation, the adapted request fixture, targeted quality and formatting
+passed. An isolated nested bottle/apple scenario passed direct transfer and
+party offer, including excessive-quantity rejection. The missing-object error
+has not been exercised; full lint is running.
+
+An earlier seed helper could delete a solo party with inventory or active party
+obligations.
 The draft rejects reassignment for active bound missions and pending incidents,
 as well as inventory, stake, reserve, travel, contract, encounter, fireplace and
 recruitment/action records. On `060b6e367`, the empty-source fixture and role
@@ -148,14 +158,14 @@ rejection passed. A composite bound-mission and case-site scenario rejected
 reassignment and preserved the mission, tactical request, membership and
 clock. The case-site check fired first, so the separate mission-status and
 pending-incident branches remain untested. Inventory rejection passed on
-`1d2c4f963`. Compilation, formatting and full lint passed on the current
-draft. A misplaced helper comment was restored to its owning function.
+`1d2c4f963`. Compilation, formatting and full lint passed on `060b6e367`. A
+misplaced helper comment was restored to its owning function.
 
 On `5d33a1e9a`, a party merge lost the original backing rows for a nested
 bottle and apple while their physical objects still referenced the former party.
 The `6bfbe3ea7` draft moves root object trees before fungible rows and rejects
-stable rows lacking an object. The isolated scenario passes for both parent-first and child-first row
-orders, preserving backing rows, object IDs, containment and food-lot identity.
+stable rows lacking an object. The isolated scenario passes for both
+parent-first and child-first row orders, preserving backing rows, object IDs, containment and food-lot identity.
 Authority-feature compilation, formatting and full lint passed on that draft.
 An additional isolated scenario preserved the sum of source and destination
 currency stacks.
