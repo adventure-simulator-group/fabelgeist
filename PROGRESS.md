@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:27:20.695219+00:00
+Updated: 2026-11-08T15:31:06.062968+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -90,6 +90,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Non-durable equipable items needing stable objects | 7 / 7 |
 | Shared instance policy tests | 2 / 2 passed |
 | Checked instance count and row-ID draft | Compiled |
+| Persisted personal row-ID migration | Open |
 | Same-kind nested container catalog witness | 1 / 188 definitions |
 | Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
 | Belt addition, spare-first and cleanup database fixture | 1 / 1 passed |
@@ -420,7 +421,11 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   inventory row ID through selection, with primitive conversion at database
   boundaries. Two existing tests, authority-feature compilation and formatting
   passed; full lint is running. The prior database fixtures have not been
-  rerun on this commit.
+  rerun on this commit. The persisted personal inventory location still holds
+  a raw row ID, and a shared accessor collapses personal, party and repair
+  IDs into one optional integer. The producer-to-consumer type migration and
+  schema/client-binding consequences remain open. A separate local record
+  retains exact source hashes without claiming historical audit credit.
   This is not a completed repair. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
