@@ -1,14 +1,15 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T19:02:51.112857+00:00
+Updated: 2026-11-08T19:07:44.645244+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
-| Nested party merge row orders exercised | 2 / 2 | Broader cases open |
-| Fungible currency merge scenario | 1 / 1 | Other stack cases open |
+| Nested party merge row orders exercised | 2 / 2 on prior draft | Broader cases open |
+| Fungible currency merge scenario | 1 / 1 on prior draft | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
+| Seed-party populated-inventory rejection | 0 / 1 | 1 |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -43,15 +44,15 @@ Updated: 2026-11-08T19:02:51.112857+00:00
 | Apple lot backing and value conservation on previous draft | 1 / 1 passed |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Passed on current draft |
+| Workspace all-target all-feature Clippy | Running on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
 | Food lot lookup/deletion helpers typed | 4 / 4 |
 | Food lot creation APIs typed | 2 / 2; live validation open |
 | Error-discarding party inventory wrappers | 1 removed; rollback unverified |
-| Nested party merge row order scenarios | 2 / 2 passed on draft |
-| Fungible currency merge scenario | 1 / 1 passed on draft |
+| Nested party merge row order scenarios | 2 / 2 passed on prior draft |
+| Fungible currency merge scenario | 1 / 1 passed on prior draft |
 | Corrupt backing merge failure scenarios | 0 validated; open |
 | Current quality size findings | 0 in targeted quality scan |
 | Existing core location fixture on previous draft | 1 / 1 passed |
@@ -77,7 +78,7 @@ Updated: 2026-11-08T19:02:51.112857+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Passed |
+| Full P16 lint on current identity draft | Running |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -136,14 +137,21 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `6bfbe3ea7`. A party
-merge reproduced loss of the original backing rows for a nested bottle and
-apple while their physical objects still referenced the former party. The draft
-moves root object trees before fungible rows and rejects stable rows lacking an
-object. The isolated scenario passes for both parent-first and child-first row
+The inventory row-identity migration is a draft at P16 `d25fb6d46`. A seed
+helper could delete a solo party without checking its inventory or stake rows.
+The draft rejects reassignment when inventory, stake or reserve state exists.
+Authority-feature compilation and targeted quality passed; formatting passed,
+and full lint is running; an existing empty-source fixture is queued. Populated-
+source rejection and other seeded-party metadata remain unverified.
+
+On `5d33a1e9a`, a party merge lost the original backing rows for a nested
+bottle and apple while their physical objects still referenced the former party.
+The `6bfbe3ea7` draft moves root object trees before fungible rows and rejects
+stable rows lacking an object. The isolated scenario passes for both parent-first and child-first row
 orders, preserving backing rows, object IDs, containment and food-lot identity.
-Authority-feature compilation, formatting and full lint passed. An additional
-isolated scenario preserved the sum of source and destination currency stacks.
+Authority-feature compilation, formatting and full lint passed on that draft.
+An additional isolated scenario preserved the sum of source and destination
+currency stacks.
 Corrupt-backing rejection, broader merge cases and review remain open.
 
 A party inventory wrapper previously discarded creation errors even when callers
