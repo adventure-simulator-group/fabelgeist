@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:03:52.934963+00:00
+Updated: 2026-11-08T06:05:17.332265+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
-| Implementing | 1 |
-| Awaiting or running checks | 1 |
+| Implementing | 2 |
+| Awaiting or running checks | 0 |
 | Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -47,8 +47,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   and Rust quality checks passed before the acceptance fixtures; focused
   Clippy passed with the authority feature at this commit. The guarded disposable-database authority
   workflow passed at the parent, including joint capacity and scoped removal.
-  A new workflow is running with a rejected wedding, funded escrow refund,
-  and household checks; unexpected-error rollback remains untested. Review
+  The new workflow also passed a rejected wedding with funded escrow refund
+  and unchanged household membership. Unexpected-error rollback remains
+  untested. Review
   remains open. The branch precedes the latest landform lint-only commit and
   must be reconciled before integration.
 
