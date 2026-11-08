@@ -6,8 +6,6 @@
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct DamageBins(pub [f32; 5]);
 
-pub const MAX_DURABLE_QUANTITY_CHANGE: u32 = 64;
-
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum RepairService {
     Weapons,
@@ -50,17 +48,6 @@ impl RepairService {
     }
 }
 
-/// Choose durable rows for deletion, preferring spare instances and using IDs
-/// only as a stable tie-breaker.
-pub fn durable_removal_ids(mut instances: Vec<(u64, bool)>, remove: u32) -> Vec<u64> {
-    instances.sort_by_key(|(id, equipped)| (*equipped, *id));
-    instances
-        .into_iter()
-        .take(remove as usize)
-        .map(|(id, _)| id)
-        .collect()
-}
-
 /// Stable workshop quote for the complete portion of a job this smith can do.
 pub fn repair_quote(base_value: u32, repairable_damage: f32) -> u32 {
     if !repairable_damage.is_finite() || repairable_damage <= 0.0 {
@@ -89,18 +76,6 @@ pub fn affordable_repair_prefix(available_gold: u64, ordered_costs: &[u32]) -> u
 
 pub fn repair_budget_after_reservations(available_gold: u64, outstanding_costs: &[u32]) -> u64 {
     available_gold.saturating_sub(outstanding_costs.iter().map(|cost| u64::from(*cost)).sum())
-}
-
-pub fn bounded_durable_change(by_quantity: i32) -> Result<(u32, u32), &'static str> {
-    let amount = by_quantity.unsigned_abs();
-    if amount > MAX_DURABLE_QUANTITY_CHANGE {
-        return Err("durable quantity change exceeds the per-call limit");
-    }
-    Ok(if by_quantity >= 0 {
-        (amount, 0)
-    } else {
-        (0, amount)
-    })
 }
 
 pub fn valid_repair_escrow_row(
@@ -395,18 +370,6 @@ mod tests {
     }
 
     #[test]
-    fn durable_removal_prefers_spares_before_equipped_instances() {
-        assert_eq!(
-            durable_removal_ids(vec![(10, true), (12, false), (11, false)], 2),
-            vec![11, 12]
-        );
-        assert_eq!(
-            durable_removal_ids(vec![(10, true), (11, false)], 2),
-            vec![11, 10]
-        );
-    }
-
-    #[test]
     fn repair_quote_scales_with_value_and_repairable_job_share() {
         assert_eq!(repair_quote(100, 0.25), 25);
         assert_eq!(repair_quote(3, 0.01), 1);
@@ -428,14 +391,6 @@ mod tests {
     fn npc_budget_reserves_every_outstanding_quote() {
         assert_eq!(repair_budget_after_reservations(30, &[5, 7, 3]), 15);
         assert_eq!(repair_budget_after_reservations(10, &[8, 9]), 0);
-    }
-
-    #[test]
-    fn durable_quantity_changes_are_bounded_and_exact() {
-        assert_eq!(bounded_durable_change(3), Ok((3, 0)));
-        assert_eq!(bounded_durable_change(-2), Ok((0, 2)));
-        assert!(bounded_durable_change(65).is_err());
-        assert!(bounded_durable_change(i32::MIN).is_err());
     }
 
     #[test]

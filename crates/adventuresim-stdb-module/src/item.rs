@@ -2,9 +2,7 @@
 #[path = "item/authority_tests.rs"]
 mod authority_tests;
 
-use crate::{
-    inventory_amount::inventory_item_amount, repair::item_condition, strategic::settlement,
-};
+use crate::{inventory_amount::inventory_item_amount, strategic::settlement};
 pub use adventuresim_core::item_classification::CatalogItemKind;
 use adventuresim_core::{
     combat_style::MeleeAttackStyle,
@@ -140,6 +138,7 @@ pub struct Item {
 /// Projects a typed authored definition into the authoritative strategic
 /// persistence schema.
 mod equipment_projection;
+mod stable_change;
 
 fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefinition) -> Item {
     use adventuresim_core::item_catalog::ItemKind as K;
@@ -531,71 +530,17 @@ pub fn change_inventory_item(
     by_quantity: i32,
 ) -> crate::StrategicOperationResult<()> {
     crate::character::require_living_character(ctx, character_id)?;
-    let durable = ctx
-        .db
-        .item()
-        .id()
-        .find(item_id.to_owned())
-        .is_some_and(|definition| definition.repairable);
-    if durable {
-        let (add, remove) = adventuresim_core::durability::bounded_durable_change(by_quantity)
-            .map_err(str::to_owned)?;
-        if add > 0 {
-            add_inventory_item(ctx, character_id, item_id, add)?;
-            return Ok(());
-        }
-        if remove > 0 {
-            let instances: Vec<_> = ctx
-                .db
-                .inventory_item()
-                .character_and_item_id()
-                .filter((character_id, item_id))
-                .collect();
-            if instances.len() < remove as usize {
-                return Err("not enough durable instances to remove".into());
-            }
-            let removal_ids = adventuresim_core::durability::durable_removal_ids(
-                instances
-                    .iter()
-                    .map(|item| {
-                        (
-                            item.id,
-                            crate::character::wearable_is_equipped(ctx, item.id),
-                        )
-                    })
-                    .collect(),
-                remove,
-            );
-            let mut equipment_changed = false;
-            for id in removal_ids {
-                if crate::character::wearable_is_equipped(ctx, id) {
-                    crate::character::unequip_wearable(ctx, id);
-                    equipment_changed = true;
-                }
-                if !crate::inventory_container::delete_carried_object_for_row(
-                    ctx,
-                    adventuresim_core::physical_object::CarriedInventoryScope::Personal,
-                    id,
-                )? {
-                    ctx.db.inventory_item().id().delete(id);
-                    ctx.db.item_condition().inventory_item_id().delete(id);
-                }
-            }
-            if equipment_changed {
-                crate::capability::refresh_character_capability(ctx, character_id)?;
-                crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
-            }
-        }
-        return Ok(());
-    }
-    let food = ctx
-        .db
-        .item()
-        .id()
-        .find(item_id.to_owned())
+    let definition = ctx.db.item().id().find(item_id.to_owned());
+    let food = definition
+        .as_ref()
         .is_some_and(|definition| definition.kind == CatalogItemKind::Food)
         || adventuresim_core::food::definition(item_id).is_some();
     let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
+    if definition.as_ref().is_some_and(|item| item.repairable)
+        || (!food && !measured && requires_stable_object(definition.as_ref(), food, measured))
+    {
+        return stable_change::change_instances(ctx, character_id, item_id, by_quantity);
+    }
     if measured {
         if by_quantity > 0 {
             add_inventory_item(ctx, character_id, item_id, by_quantity as u32)?
