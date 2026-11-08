@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:48:26.531269+00:00
+Updated: 2026-11-08T07:53:55.323172+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -81,7 +81,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `a5caf49ece3b00f063970709cab1ad654761f14f`: the unfinished
+  commit `66cc7c2d471990b74480ed21e5672514bea666cd`: the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -99,9 +99,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   reduced the next snapshot to 71 before formatting; these are compiler
   snapshots, not remaining defect counts. The latest draft stores a typed
   cause and settlement-stage context separately; its callers are still being
-  migrated. Encounter and activity propagation brought a later check to 81
-  errors before one further caller edit. Runtime behavior, automatic merges,
-  database compilation, lint, and review remain open.
+  migrated. Propagation through additional strategic reducers brought the
+  latest check to 51 errors before one further caller edit and formatting.
+  Runtime behavior, automatic merges, database compilation, lint, and review
+  remain open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
