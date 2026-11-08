@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:02:34.820859+00:00
+Updated: 2026-11-08T15:06:30.792895+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -34,7 +34,7 @@ Updated: 2026-11-08T15:02:34.820859+00:00
 | Guarded developer authority, investigability and view fixture | Passed |
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
-| Full P16 lint recipe on current commit | Running |
+| Full P16 lint recipe on current commit | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -89,7 +89,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Non-durable equipable items needing stable objects | 7 / 7 |
 | Shared instance policy tests | 2 / 2 passed |
 | Same-kind nested container catalog witness | 1 / 188 definitions |
-| Stable inventory lifecycle draft | Compiled; runtime unverified |
+| Stable inventory lifecycle draft | Database check running |
 | Previous instance-draft full lint | Passed |
 
 | Named repair families in the historical handoff | Count |
@@ -387,8 +387,11 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   same-kind child subject to custody and capacity checks. If selected parent
   and child are deleted parent-first, the earlier draft can attempt to delete
   the child twice. Commit a17f710d2 plans selected removals in descendant-first
-  order. Its authority-feature compile and formatting passed; full lint is
-  running. Database reproduction, rollback and behavior remain unverified.
+  order. Its authority-feature compile, formatting and full lint passed. A
+  guarded check in a uniquely named disposable local profile is running for
+  nested bottles and insufficient-quantity rollback. The first attempt exited
+  before server startup because the profile name did not meet the naming rule;
+  the corrected run is active. Database behavior remains unverified.
   This is not a completed repair. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
