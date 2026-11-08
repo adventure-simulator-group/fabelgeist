@@ -1,0 +1,51 @@
+{
+  "schema": "726-increment-checkpoint-v1",
+  "checkpoint": "increment-027",
+  "at": "2026-11-08T06:22:45.633397+00:00",
+  "historical_audit_checkpoint": 3737,
+  "audio": {
+    "commit": "2d318efbb21d044680070c525554cb04ee286437",
+    "focused_check": "passed",
+    "tests": "passed: 2"
+  },
+  "landform": {
+    "commit": "c40d70aeceeedfd87d7c9528628bf9c9bf87512b",
+    "status": "implementing",
+    "based_on": "2d318efbb21d044680070c525554cb04ee286437",
+    "refresh_and_late_arrival": "reconciliation drafted; behavior and pre-arrival readiness not verified",
+    "focused_check": "passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "focused_tests": "19 passed; 1 ignored at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "test_scope": "existing terrain presentation tests; failure and late-recipe paths not established",
+    "readiness": "failed terrain is excluded from presented count; failure path not dynamically tested",
+    "quality": "passed at parent 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "replication": "library documents atomic entity updates per tick; cross-tick arrival remains open",
+    "focused_clippy": "passed at c40d70aeceeedfd87d7c9528628bf9c9bf87512b"
+  },
+  "integration": "not started",
+  "report_sha256": "00111fef1f684882e7b6baea8d49c0b686e7abc009cbc2784f22e2477dc4de7b",
+  "wedding": {
+    "status": "combined lint running",
+    "implementation": "unverified draft",
+    "worktree": "target/726-wedding-atomicity",
+    "base": "689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "joint_preflight": "projects delayed removal and admission transitions per participant; database behavior not verified",
+    "transaction": "unexpected post-write errors must propagate",
+    "branch": "codex/726-wedding-atomicity",
+    "commit": "4510a2685ea541dd3963bd22aa7a6df6ea29a2a5",
+    "focused_check": "authority-feature Clippy and Rust quality passed at e1ead67e986b55bf8ce8c10693d1ba0e2a0aa82d",
+    "quality": "passed at parent eafb67564a656be3bc6a1fb136c96c6a31443f4f",
+    "acceptance": "guarded disposable-database authority workflow passed at parent f33d5ebe37407718a2283dc9313924c32ab58973; current commit names fixture identifiers",
+    "reconciliation": "landform lint correction cherry-picked",
+    "format": "just fmt-check passed at 4510a2685ea541dd3963bd22aa7a6df6ea29a2a5 in non-nested worktree",
+    "nested_worktree_format": "failed: Cargo interpreted vendored crate as part of outer workspace",
+    "lint": "just lint running on 4510a2685ea541dd3963bd22aa7a6df6ea29a2a5"
+  },
+  "sample_tick": {
+    "status": "checks queued",
+    "branch": "codex/726-repeat-sample-tick",
+    "commit": "8a345af09f40bd381a3cf22d9c6ba71233c72738",
+    "base": "4510a2685ea541dd3963bd22aa7a6df6ea29a2a5",
+    "scope": "P17 repeated evaluation authoritative locomotion sample tick",
+    "validation": "not started"
+  }
+}

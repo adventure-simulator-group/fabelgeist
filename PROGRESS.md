@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:19:58.678970+00:00
+Updated: 2026-11-08T06:22:45.633397+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
 | Implementing | 1 |
-| Awaiting or running checks | 1 |
+| Awaiting or running checks | 2 |
 | Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -51,6 +51,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   The formatting gate passed in a non-nested verification worktree. Full
   `just lint` is running under the shared build lock; review and integrated
   validation remain open.
+
+- [Repeated animation sample tick](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-repeat-sample-tick)
+  commit `8a345af09f40bd381a3cf22d9c6ba71233c72738`: a draft for the P17
+  repeated-view contract. It records and compares the authoritative locomotion
+  sample tick and includes it in mismatch diagnostics. Its checks are queued
+  behind the combined lint run; runtime behavior and review remain unverified.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
