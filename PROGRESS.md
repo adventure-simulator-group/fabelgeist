@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T17:47:46.600531+00:00
+Updated: 2026-11-08T17:51:37.030253+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T17:47:46.600531+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings on inventory draft | 0 |
+| File and function size findings on inventory draft | 6; unresolved |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
 | Loading reconnect mailbox gap | Draft; live validation open |
@@ -29,11 +29,11 @@ Updated: 2026-11-08T17:47:46.600531+00:00
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
 | Workspace all-target all-feature Clippy | Passed |
-| Isolated inventory acceptance on identity draft | 1 / 1 targeted run passed |
-| Focused identity, simulation and web custody tests | 3 / 3 passed |
+| Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
+| Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
-| Food lot lookup/deletion helpers with raw IDs | 4; open |
-| Current quality size findings | 0 |
+| Food lot lookup/deletion helpers typed | 4 / 4; producers still open |
+| Current quality size findings | 6; unresolved |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
@@ -56,7 +56,8 @@ Updated: 2026-11-08T17:47:46.600531+00:00
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
-| Full P16 lint on inventory identity draft | Passed |
+| Full P16 lint on previous identity draft | Passed |
+| Full P16 lint on current identity draft | Not rerun |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -115,15 +116,14 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `23640b3c3`. Personal
-and party rows have distinct IDs; repair escrow retains the personal row
-identity. `just fmt-check` and full `just lint` passed. An isolated database
-run passed targeted nested inventory, rollback, equipment cleanup, enrollment,
-and catalog checks. Existing core location, strategic simulation custody,
-and web custody tests each passed; the web test passed on retry after the
-first build was interrupted for low disk space. Food lot lookup and deletion
-helpers still accept raw row IDs internally; their migration, broader custody
-and repair behavior, duplicate-backing assertions, and review remain open.
+The inventory row-identity migration is a draft at P16 `72758e9e9`. The four
+food-lot lookup and deletion helpers now accept personal or party row IDs.
+Authority-feature module compilation passed, but the quality scan reports six
+size findings from the added call sites. Several internal producers still
+construct IDs from raw values and need migration. The previous draft passed
+full lint, targeted isolated database acceptance, and three focused tests;
+those results have not been repeated on this commit. Broader custody and
+repair behavior, duplicate-backing assertions, and review remain open.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
