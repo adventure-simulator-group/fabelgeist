@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:27:54.717438+00:00
+Updated: 2026-11-08T22:29:50.850102+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -9,7 +9,7 @@ Updated: 2026-11-08T22:27:54.717438+00:00
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 4 adopted | Admission, transaction, and aliases open |
-| Fireplace custody source packets | 3 adopted | Initialization, merge, and writers open |
+| Fireplace custody source packets | 4 adopted | Initialization, merge, and writers open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -159,6 +159,13 @@ and physical object. The earlier no-object initialization difference therefore
 has no demonstrated trigger in those paths. Alternate writes and anomalous
 persisted states remain open. Audit checkpoint 3754 verified this evidence
 without closing the contract.
+
+A registered state-model read found that three independent optional station
+fields can represent an instrument without an object even though the inspected
+normal writers pair them. This is a bespoke-type candidate, not a demonstrated
+runtime failure. The related cooking-amount, estate and death contracts remain
+distinct. Audit checkpoint 3755 verified the evidence without closing the
+contract; complete writer and schema impact qualification remains open.
 
 | Increment status | Count |
 | --- | ---: |
