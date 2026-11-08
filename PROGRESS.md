@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:08:36.395583+00:00
+Updated: 2026-11-08T14:14:35.050959+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -46,6 +46,8 @@ Updated: 2026-11-08T14:08:36.395583+00:00
 | Removed candidate repeated-view check | Passed |
 | Removed candidate ragdoll continuity gate | Failed |
 | Coordinated fixed-step ragdoll viewer run | Passed |
+| Fixed-step draft formatting and full lint | Passed |
+| Fixed-step draft capture and report tests | Running |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -171,8 +173,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   time strategy around ragdoll views and requests one fixed update for each
   subsequent sample. Its nine-frame ragdoll viewer run passed all acceptance
   gates: repeated views were stable, jitter was not applicable, and the worst
-  rotation was 42.88 degrees against the 60-degree limit. The fixed-step count
-  and transitions to other scenarios have not been independently observed.
+  rotation was 42.88 degrees against the 60-degree limit. Formatting and full
+  lint passed; existing capture and report tests are running. The fixed-step
+  count has not been independently observed. Current entry points select the
+  ragdoll plan alone rather than mixing it with other scenarios; clock
+  restoration for a mixed plan is source-reviewed but not runtime-verified.
   Terrain correction runs outside the physics schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
