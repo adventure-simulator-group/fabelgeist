@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:30:29.214498+00:00
+Updated: 2026-11-08T18:33:14.713245+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -28,10 +28,10 @@ Updated: 2026-11-08T18:30:29.214498+00:00
 | Persisted row identity kinds drafted | 2; migration incomplete |
 | Storefront request scope variants in adapted fixture | 2 / 2 passed on parent |
 | Live storefront sale scenarios reached | 0 / 2; seed exhausted energy |
-| Stale trade source assertion corrected | 1 / 1; source checked |
+| Trade authority source checks present | 12 / 12; source inspected |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Running on current draft |
+| Workspace all-target all-feature Clippy | Passed on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
@@ -60,7 +60,7 @@ Updated: 2026-11-08T18:30:29.214498+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Running |
+| Full P16 lint on current identity draft | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -126,7 +126,7 @@ consistent with its rows. On parent `d042cfbfc`, the adapted request fixture,
 authority-feature check, formatting and full lint passed. The current commit
 updates a stale trade time source assertion; its text was checked against the
 implementation, but the native module test has not run. Current formatting and
-lint are running. An isolated live storefront attempt stopped before either
+full lint passed. An isolated live storefront attempt stopped before either
 sale when settlement seeding exhausted the module energy budget; the first
 attempt had a separate runner decoding error. Three focused custody tests and
 inventory lifecycle acceptance passed on `81531ce5d`. Live storefront and
