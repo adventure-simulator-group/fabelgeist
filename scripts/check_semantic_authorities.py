@@ -316,7 +316,7 @@ def run(profile: str, base_port: int) -> None:
         finally:
             if client is not None:
                 client.http.close()
-            stack.stop_recorded(metadata, config)
+            stack.stop_spacetime(metadata, config)
 
 
 if __name__ == "__main__":
