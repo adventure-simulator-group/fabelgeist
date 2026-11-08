@@ -906,17 +906,15 @@ fn starting_activity_profile(
                         moment_of_inertia_kg_m2,
                         ..
                     } => {
-                        let grip_to_tip_m = definition
-                            .equipment
-                            .as_ref()
-                            .map_or(0.0, |equipment| equipment.physical.grip_to_tip_m);
                         (
                             false,
-                            crate::equipment::weapon_balance_from_moment(
-                                *moment_of_inertia_kg_m2,
-                                definition.weight_kg,
-                                grip_to_tip_m,
-                            ),
+                            definition.equipment.as_ref().map_or(1.0, |equipment| {
+                                crate::equipment::weapon_balance_from_moment(
+                                    *moment_of_inertia_kg_m2,
+                                    definition.weight_kg,
+                                    equipment.physical.grip_to_tip_m,
+                                )
+                            }),
                         )
                     }
                     _ => (false, 1.0),

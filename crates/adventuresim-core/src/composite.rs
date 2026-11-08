@@ -2,6 +2,7 @@ use crate::elapsed::{AnimationElapsed, ElapsedResult};
 use crate::{
     attribute::*, body::*, combat::*, combat_style::*, equipment::*, essential::*, skill::*,
 };
+use fabelgeist_geometry::SignedLength;
 
 /// A composite type that holds all aspects of a player's state.
 ///
