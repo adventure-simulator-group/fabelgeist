@@ -119,7 +119,8 @@ pub(in crate::animation_viewer) struct AnimationCaptureValidation {
     pub(in crate::animation_viewer) hard_stop_height_continuity_valid: bool,
     pub(in crate::animation_viewer) repeated_evaluation_valid: bool,
     pub(in crate::animation_viewer) semantic_route_paths_exercised: bool,
-    pub(in crate::animation_viewer) jitter_validation: JitterValidationSummary<BoneRole>,
+    pub(in crate::animation_viewer) jitter_validation:
+        Observation<JitterValidationSummary<BoneRole>>,
     pub(in crate::animation_viewer) views_are_distinct: bool,
     pub(in crate::animation_viewer) duplicate_view_frames: Vec<String>,
     pub(in crate::animation_viewer) note: &'static str,

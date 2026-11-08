@@ -16,7 +16,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> ReportResul
         pose_buffer_metrics,
     } = completed;
     let scenarios = scenario_metrics(&frames)?;
-    let jitter_validation = jitter::validate(&jitter_frames(&frames), Default::default());
+    let jitter_validation = jitter_validation::observe(&frames, &plan);
     let finite_transforms = frames.iter().all(FrameSample::has_finite_bone_transforms);
     let all_scenarios_complete = capture_scenarios_complete(&frames, &plan);
     let all_artifacts_written = capture_artifacts_written(&output, &frames);
@@ -503,11 +503,7 @@ pub(super) fn validation_passed(validation: &AnimationCaptureValidation) -> bool
         && validation.hard_stop_height_continuity_valid
         && validation.repeated_evaluation_valid
         && validation.semantic_route_paths_exercised
-        && validation.jitter_validation.diagnostics_complete
-        && validation
-            .jitter_validation
-            .unacceptable_final_incident_count
-            == 0
+        && jitter_validation::passes(&validation.jitter_validation)
         && validation.views_are_distinct
 }
 
@@ -560,11 +556,7 @@ pub(super) fn quality_score(
             .maximum_planted_foot_drift_metres
             .when_applicable(|drift| *drift <= metrics.expected.planted_drift)
     });
-    let jitter_and_jerk_failed = !validation.jitter_validation.diagnostics_complete
-        || validation
-            .jitter_validation
-            .unacceptable_final_incident_count
-            > 0;
+    let jitter_and_jerk_failed = !jitter_validation::passes(&validation.jitter_validation);
     let categories = QualityCategories {
         catastrophic_foot_displacement_failed,
         guard_step_liveness_failed,
@@ -687,7 +679,7 @@ mod tests {
             hard_stop_height_continuity_valid: true,
             repeated_evaluation_valid: true,
             semantic_route_paths_exercised: true,
-            jitter_validation: jitter::validate(&[], Default::default()),
+            jitter_validation: Observation::Unavailable(UnavailableReason::NoFrames),
             views_are_distinct: true,
             duplicate_view_frames: Vec::new(),
             note: "test",

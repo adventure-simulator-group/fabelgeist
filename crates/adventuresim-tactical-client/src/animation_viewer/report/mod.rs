@@ -24,6 +24,7 @@ mod bones;
 mod continuity_validation;
 mod height_validation;
 mod html;
+mod jitter_validation;
 mod landing_validation;
 mod metrics;
 mod model;

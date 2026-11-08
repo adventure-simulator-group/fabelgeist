@@ -130,8 +130,17 @@ pub(crate) fn validate<K: JitterBoneIdentity>(
 ) -> JitterValidationSummary<K> {
     let mut incidents = Vec::new();
     let mut evidence = JitterEvidence::Complete;
+    let mut measured_window = false;
+    let mut scenario = None;
     let mut start = 0;
     while start < frames.len() {
+        if scenario.is_some_and(|previous| previous != &frames[start].scenario) {
+            if !measured_window {
+                evidence = JitterEvidence::Incomplete;
+            }
+            measured_window = false;
+        }
+        scenario = Some(&frames[start].scenario);
         let end = frames[start..]
             .iter()
             .position(|frame| {
@@ -160,6 +169,7 @@ pub(crate) fn validate<K: JitterBoneIdentity>(
             // every frame across the handoff.
             (start + contact_segment_warmup_frames(&frames[start].scenario)).min(end)
         };
+        measured_window |= end - analysis_start >= 4;
         if analyze_scenario(
             &frames[analysis_start..end],
             &scenario_thresholds,
@@ -177,7 +187,8 @@ pub(crate) fn validate<K: JitterBoneIdentity>(
         .count();
     let top_incidents = incidents.iter().take(20).cloned().collect();
     JitterValidationSummary {
-        diagnostics_complete: evidence == JitterEvidence::Complete
+        diagnostics_complete: measured_window
+            && evidence == JitterEvidence::Complete
             && frames
                 .iter()
                 .all(|frame| frame.bones.len() >= 3 && frame.missing_parent_bones.is_empty())
@@ -537,11 +548,23 @@ mod tests {
 
     #[test]
     fn ignores_noise_floor() {
-        let report = validate(
-            &frames(&[0.0, 0.00001, 0.00002, 0.00003, 0.00004]),
-            JitterThresholds::default(),
-        );
+        let mut samples = frames(&[0.0, 0.00001, 0.00002, 0.00003, 0.00004]);
+        for frame in &mut samples {
+            let bone = frame.bones["foot"];
+            frame.bones.insert("hand".into(), bone);
+            frame.bones.insert("head".into(), bone);
+        }
+        let report = validate(&samples, JitterThresholds::default());
         assert_eq!(report.unacceptable_final_incident_count, 0);
+        assert!(report.diagnostics_complete);
+        assert!(!validate(&samples[..3], JitterThresholds::default()).diagnostics_complete);
+        assert!(!validate(&samples[..0], JitterThresholds::default()).diagnostics_complete);
+        let mut other = samples[..3].to_vec();
+        for frame in &mut other {
+            frame.scenario = ScenarioMetadata::from_label("other").into_owned();
+        }
+        samples.extend(other);
+        assert!(!validate(&samples, JitterThresholds::default()).diagnostics_complete);
     }
 
     #[test]

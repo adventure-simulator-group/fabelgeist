@@ -461,6 +461,11 @@ front/side/third-person image output, missing artifacts, or excessive
 supported-foot per-frame slip and planted-interval drift, and records the
 responsible frames.
 
+The report's `jitter_validation` is an observation: `measured` contains the
+diagnostics, `unavailable` identifies missing captured frames, and
+`not_applicable` identifies a ragdoll-only capture. Measured diagnostics are
+incomplete when no full post-warmup derivative window was available.
+
 The fixture synthesizes deterministic controller observations at the shared
 server projection boundary; it does not run the transport or physics character
 controller. Only the cross-slope probe follows rendered
