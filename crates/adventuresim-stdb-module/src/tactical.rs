@@ -6,6 +6,7 @@ use spacetimedb::{
 use std::collections::HashSet;
 
 mod request;
+mod server_conflicts;
 
 pub use request::{TacticalBusinessOperator, TacticalSettlementSnapshot};
 pub(crate) use request::{tactical_party_roster, tactical_settlement_snapshot};
@@ -797,29 +798,7 @@ pub fn request_tactical_server(
         )
         .into());
     }
-    if ctx
-        .db
-        .tactical_server_request_authority()
-        .iter()
-        .any(|request| {
-            ctx.db
-                .mission_authority()
-                .id()
-                .find(&request.mission_id)
-                .is_some_and(|mission| {
-                    mission.hostile_group_id.as_deref() == Some(&hostile_group_id)
-                })
-        })
-        || ctx.db.tactical_server_authority().iter().any(|server| {
-            ctx.db
-                .mission_authority()
-                .id()
-                .find(&server.mission_id)
-                .is_some_and(|mission| {
-                    mission.hostile_group_id.as_deref() == Some(&hostile_group_id)
-                })
-        })
-    {
+    if server_conflicts::has_server_for_group(ctx, &hostile_group_id) {
         return Err("Party quest already has a pending or active tactical server".into());
     }
 
