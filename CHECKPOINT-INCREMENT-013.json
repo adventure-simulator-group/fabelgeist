@@ -1,0 +1,36 @@
+{
+  "schema": "726-increment-checkpoint-v1",
+  "checkpoint": "increment-013",
+  "at": "2026-11-08T05:48:45.794877+00:00",
+  "historical_audit_checkpoint": 3737,
+  "audio": {
+    "commit": "2d318efbb21d044680070c525554cb04ee286437",
+    "focused_check": "passed",
+    "tests": "passed: 2"
+  },
+  "landform": {
+    "commit": "c40d70aeceeedfd87d7c9528628bf9c9bf87512b",
+    "status": "implementing",
+    "based_on": "2d318efbb21d044680070c525554cb04ee286437",
+    "refresh_and_late_arrival": "reconciliation drafted; behavior and pre-arrival readiness not verified",
+    "focused_check": "passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "focused_tests": "19 passed; 1 ignored at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "test_scope": "existing terrain presentation tests; failure and late-recipe paths not established",
+    "readiness": "failed terrain is excluded from presented count; failure path not dynamically tested",
+    "quality": "passed at parent 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "replication": "library documents atomic entity updates per tick; cross-tick arrival remains open",
+    "focused_clippy": "passed at c40d70aeceeedfd87d7c9528628bf9c9bf87512b"
+  },
+  "integration": "not started",
+  "report_sha256": "23efd3d017d2af1f3ad4a237d9cf3946b54ec15c774f6ab6706539866afe86a1",
+  "wedding": {
+    "status": "focused check running",
+    "implementation": "unverified draft",
+    "worktree": "target/726-wedding-atomicity",
+    "base": "689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "joint_preflight": "overlay proposed residents at all effective boundaries, including individual ends; preserve no-ops",
+    "transaction": "unexpected post-write errors must propagate",
+    "branch": "codex/726-wedding-atomicity",
+    "commit": "dc49cc2310b88b9c46d1e65a734f6a91c1bb7a72"
+  }
+}

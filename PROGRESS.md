@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:44:32.545389+00:00
+Updated: 2026-11-08T05:48:45.794877+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
-| Auditing | 1 |
+| Auditing | 0 |
 | Implementing | 1 |
-| Awaiting or running checks | 0 |
+| Awaiting or running checks | 1 |
 | Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -29,21 +29,24 @@ ledger as backlog. Full refactor completion and validation remain required.
   commit `2d318efbb21d044680070c525554cb04ee286437`: focused `cargo check` and two existing audio
   configuration tests passed. Review and integration remain open.
 - [Landform preparation outcome](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-landform-outcome)
-  commit `689710cc3d7a0631bde03a33dcaa4927734aab74`: a draft based on the
+  commit `c40d70aeceeedfd87d7c9528628bf9c9bf87512b`: a draft based on the
   audio commit. It retains typed landform failures and excludes failed scenes
   from readiness. Recipe and patch arrivals now trigger reconciliation; changed
-  recipes rebuild terrain. The focused client check passed. The Rust quality
-  checker passed after extracting named presentation queries.
-  At this commit, 19 existing terrain tests passed and one benchmark was
-  ignored; they do not exercise the new lifecycle or failure path. The replication library documents per-entity atomic updates
+  recipes rebuild terrain. Focused Clippy passed at this commit; the focused
+  client check and Rust quality checker passed at its parent.
+  At the parent commit, 19 existing terrain tests passed and one benchmark
+  was ignored; they do not exercise the new lifecycle or failure path. The
+  replication library documents per-entity atomic updates
   within a tick, but cross-tick arrival and pre-arrival readiness remain open.
   Review and integration remain open.
 
-Wedding capacity atomicity is in bounded audit. Its joint preflight must overlay
-both participants on the effective resident set at each relevant boundary,
-including their individual interval ends, and preserve same-holding no-ops.
-Unexpected errors after writes must abort the transaction. An isolated
-worktree is prepared; implementation and database validation remain open.
+- [Wedding capacity atomicity](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-wedding-atomicity)
+  commit `dc49cc2310b88b9c46d1e65a734f6a91c1bb7a72`: a draft with joint
+  effective-dated capacity preflight and propagation of unexpected settlement
+  failures. Its focused compile check is running; database behavior and review
+  remain unverified. It is based on the landform branch before the latest
+  lint-only commit and must be reconciled before integration.
+
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
 superseded, while its evidence and unresolved questions remain in the backlog.
