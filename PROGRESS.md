@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:56:39.979663+00:00
+Updated: 2026-11-08T08:57:17.553684+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -11,6 +11,15 @@ Updated: 2026-11-08T08:56:39.979663+00:00
 | Awaiting review | 2 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
+
+| Current P16 quality scan | Count |
+| --- | ---: |
+| File and function size findings remaining | 41 |
+| Previously reported ingress size findings cleared | 2 |
+| Previously reported function-size findings cleared elsewhere | 2 |
+
+The quality counts are findings from the latest scan, not a count of defects
+or independent work items. Full lint stopped before Clippy.
 
 | Historical audit measure | Count |
 | --- | --- |
