@@ -184,23 +184,7 @@ pub(super) fn drive_offensive_combat_ai(
                 continue;
             }
         };
-        let melee_target_reachable = matches!(
-            facts.melee_lunge_delay,
-            Some(MeleeLungeArrival::NotNeeded | MeleeLungeArrival::ArrivesIn(_))
-        );
-
-        let abort_windup = matches!(
-            &controller.phase,
-            OffensiveCombatPhase::MeleeWindup { .. }
-                if !facts.weapon_is_melee
-                    || !facts.melee_attack_available
-                    || facts.dimensions.arm_reach_metres.metres() <= 0.0
-                    || !melee_target_reachable
-                    || !matches!(facts.melee_recovery_seconds, Some(RecoveryTime::After(_)))
-        ) || matches!(
-            &controller.phase,
-            OffensiveCombatPhase::RangedWindup(_) if !facts.use_ranged || distance.metres() > facts.weapon_reach.metres()
-        );
+        let abort_windup = should_abort_windup(&controller.phase, &facts, distance);
         if abort_windup {
             controller.phase = OffensiveCombatPhase::Pursuing;
         }

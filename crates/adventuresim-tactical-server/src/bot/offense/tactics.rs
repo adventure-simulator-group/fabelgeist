@@ -46,3 +46,27 @@ pub(super) fn long_weapon_windup_movement(
     )
     .then_some(-Vec2::Y)
 }
+
+pub(super) fn should_abort_windup(
+    phase: &OffensiveCombatPhase,
+    facts: &OffensiveFacts,
+    distance: SignedLength,
+) -> bool {
+    let melee_target_reachable = matches!(
+        facts.melee_lunge_delay,
+        Some(MeleeLungeArrival::NotNeeded | MeleeLungeArrival::ArrivesIn(_))
+    );
+
+    matches!(
+        phase,
+        OffensiveCombatPhase::MeleeWindup { .. }
+            if !facts.weapon_is_melee
+                || !facts.melee_attack_available
+                || facts.dimensions.arm_reach_metres.metres() <= 0.0
+                || !melee_target_reachable
+                || !matches!(facts.melee_recovery_seconds, Some(RecoveryTime::After(_)))
+    ) || matches!(
+        phase,
+        OffensiveCombatPhase::RangedWindup(_) if !facts.use_ranged || distance.metres() > facts.weapon_reach.metres()
+    )
+}
