@@ -1,12 +1,12 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:14:53.980234+00:00
+Updated: 2026-11-08T07:18:51.547840+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
-| Implementing | 2 |
+| Implementing | 3 |
 | Awaiting or running checks | 1 |
 | Awaiting review | 2 |
 | Integrated and validated | 0 |
@@ -79,6 +79,14 @@ ledger as backlog. Full refactor completion and validation remain required.
   review found local-position jitter derivative timing and incident labels use
   unshifted frames; a separate repair is drafted below. Dependencies,
   review, and final integrated gates also remain open.
+
+- [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
+  commit `16783d3e752eafec566dbfa696bf3016d408ee11`: the unfinished 159-path snapshot is
+  restored on the current draft with its three textual conflicts reconciled.
+  The movement report retains typed measurements and rejects absent required
+  displacement and distance observations instead of assuming zero. This is
+  an uncompiled recovery draft: automatic merges, remaining producer/consumer
+  obligations, behavior, quality gates, and review all remain open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8b3da2e16be30895a7c65f8e31bd3c7614562096`: source-derived timing correction and
