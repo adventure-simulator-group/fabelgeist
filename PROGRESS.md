@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:38:22.846648+00:00
+Updated: 2026-11-08T01:40:45.364418+00:00
 
-Latest verified checkpoint: **3685**. Goal: **active**.
+Latest verified checkpoint: **3686**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -28,11 +28,12 @@ audit, implementation, review and validation remain incomplete.
 
 The required thirteen-lens audit and connected repair ledger remain incomplete;
 implementation is gated on their completion. Recent source work identified a
-source-site outbreak exposure planner mismatch and a departure-timing hazard,
-alongside conditional incident dialogue and physical evidence findings. These
-require alias reconciliation and post-gate validation. The checkpoint 3130
-evidence-integrity correction and unresolved checkpoint 3122 note remain open
-for review.
+source-site outbreak exposure planner mismatch, departure-timing hazards, and a
+conditional historical-mitigation omission for lagging personal clocks. Cross-
+clock remediation semantics, alias reconciliation and post-gate validation
+remain open, alongside incident dialogue and physical evidence findings. The
+checkpoint 3130 evidence-integrity correction and unresolved checkpoint 3122
+note remain open for review.
 
 | Phase | Status |
 | --- | --- |
@@ -43,13 +44,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified remediation action and clock ordering.
+Qualified documented clock ownership for remediation.
 
-Cross-clock remediation policy, historical mitigation and aliases remain open.
+Cross-clock mapping, historical mitigation and aliases remain open.
 
 ## Working on now
 
-Resolve cross-clock remediation and historical mitigation policy.
+Resolve cross-clock remediation and historical mitigation mapping.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3685 publication record](CHECKPOINT-3685.json)
-- [Saved report for checkpoint 3685](PROGRESS-3685.md)
+- [Checkpoint 3686 publication record](CHECKPOINT-3686.json)
+- [Saved report for checkpoint 3686](PROGRESS-3686.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
