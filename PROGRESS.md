@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T09:37:50.686297+00:00
+Updated: 2026-11-08T09:39:52.580755+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T09:37:50.686297+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings remaining | 19 |
+| File and function size findings remaining | 18 |
 | Previously reported ingress size findings cleared | 2 |
 | Previously reported function-size findings cleared elsewhere | 15 |
 
@@ -90,7 +90,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `4e4a8704f` (quality repairs after `623d52a`): the unfinished
+  commit `9e4853a26` (quality repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -173,7 +173,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   authority-feature module compiles at the current commit. Incident behavior
   has not been rerun since this extraction. Morale duration and decay helpers
   were separated, clearing one file-size finding; the authority-feature module
-  compiles at the current commit. Morale behavior has not been rerun.
+  compiled at `4e4a8704f`; morale behavior has not been rerun. Social clock
+  lookup was separated, clearing a file-size finding. The authority-feature
+  module compiles at the current commit; social behavior has not been rerun.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
