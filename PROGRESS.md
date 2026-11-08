@@ -1,10 +1,10 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:21:28.928296+00:00
+Updated: 2026-11-08T23:27:07.610870+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 597 / 3,866 | 3,269, including overlapping obligations |
+| Ledger source-discovery entries | 598 / 3,866 | 3,268, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
@@ -13,6 +13,7 @@ Updated: 2026-11-08T23:21:28.928296+00:00
 | Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
 | Food conservation and event packets | 9 adopted | 2 scoped discoveries closed; conditional validation open |
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
+| Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -34,6 +35,14 @@ Updated: 2026-11-08T23:21:28.928296+00:00
 | Rest payment error sites corrected | 2 / 2 | Enclosing rest rollback open |
 | Tavern and inn failure paths exercised | 1 / 2 | Inn remains open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
+
+Checkpoint 3779 closed one corpse-handling source-discovery entry with a
+conditional numeric-limit policy. Burial and exhumation add handling damage
+and advance time; decomposition reaches its final band before the handling
+counter saturates. Receipt keys include the actor and expected revision. Actual
+repeated-action reachability and intended behavior at saturation remain open.
+The source packet passed preflight, adoption, and verification; no runtime
+probe or implementation was performed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
