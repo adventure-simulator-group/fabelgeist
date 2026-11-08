@@ -1,14 +1,14 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:11:23.101898+00:00
+Updated: 2026-11-08T06:12:47.038778+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
 | Implementing | 1 |
-| Awaiting or running checks | 1 |
-| Awaiting review | 1 |
+| Awaiting or running checks | 0 |
+| Awaiting review | 2 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
 
@@ -45,8 +45,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   joint effective-dated capacity preflight and propagates unexpected settlement
   errors. Focused Clippy passed with the authority feature. The guarded
   disposable-database workflow passed at the parent for joint capacity, scoped
-  removal, rejection, escrow refund, household preservation, and rollback. A
-  successful wedding scenario is running; review remains open. The
+  removal, rejection, escrow refund, household preservation, and rollback.
+  The current commit also passed a successful wedding with both spouses
+  admitted and the escrow paid. Review remains open. The
   branch precedes the latest landform lint-only commit and needs reconciliation.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
