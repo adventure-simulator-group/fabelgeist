@@ -816,7 +816,7 @@ pub fn preview_cooking(
         if !food::is_cookable_ingredient(&inventory.item_id) {
             return Err("A cooked meal cannot be cooked again".into());
         }
-        let lot = lot_for_inventory(ctx, id)?;
+        let lot = lot_for_inventory(ctx, PersonalInventoryRowId::from_raw(id))?;
         safety.push(
             food::definition(&inventory.item_id).map_or(5, |definition| definition.cooking_minutes),
         );

@@ -222,9 +222,11 @@ pub fn party_lot(ctx: &ReducerContext, inventory_item_id: PartyInventoryRowId) -
         .find(|lot| lot.party_inventory_item_id == Some(inventory_item_id.get()))
 }
 
-fn lot_for_inventory(ctx: &ReducerContext, inventory_item_id: u64) -> Result<FoodLot, String> {
-    personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory_item_id))
-        .ok_or("Food lot metadata not found".into())
+fn lot_for_inventory(
+    ctx: &ReducerContext,
+    inventory_item_id: PersonalInventoryRowId,
+) -> Result<FoodLot, String> {
+    personal_lot(ctx, inventory_item_id).ok_or("Food lot metadata not found".into())
 }
 
 fn contamination(
@@ -256,7 +258,7 @@ pub fn split_lot(
     if taken == 0 || original == 0 || taken > original {
         return Err("Invalid food lot split".into());
     }
-    let mut source = lot_for_inventory(ctx, source_inventory_id)?;
+    let mut source = lot_for_inventory(ctx, PersonalInventoryRowId::from_raw(source_inventory_id))?;
     if taken == original {
         source.inventory_item_id = Some(destination_inventory_id);
         ctx.db.food_lot().id().update(source);
@@ -306,7 +308,7 @@ pub fn remove_lot_quantity(
         delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(inventory_item_id));
         return Ok(());
     }
-    let mut lot = lot_for_inventory(ctx, inventory_item_id)?;
+    let mut lot = lot_for_inventory(ctx, PersonalInventoryRowId::from_raw(inventory_item_id))?;
     let keep = 1.0 - removed as f32 / original as f32;
     retain_lot_fraction(&mut lot, keep)?;
     ctx.db.food_lot().id().update(lot);
@@ -320,7 +322,7 @@ pub fn move_or_split_to_party(
     taken: u32,
     original: u32,
 ) -> Result<(), String> {
-    let mut source = lot_for_inventory(ctx, source_inventory_id)?;
+    let mut source = lot_for_inventory(ctx, PersonalInventoryRowId::from_raw(source_inventory_id))?;
     if taken == original {
         source.inventory_item_id = None;
         source.party_inventory_item_id = Some(destination_party_id);

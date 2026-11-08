@@ -96,7 +96,7 @@ pub(crate) fn expose_food_water_dysentery(
 fn consume_food_amount(
     ctx: &ReducerContext,
     character_id: u64,
-    inventory_id: u64,
+    inventory_id: PersonalInventoryRowId,
     kcal: f32,
     explicit: bool,
 ) -> crate::StrategicOperationResult<f32> {
@@ -105,14 +105,14 @@ fn consume_food_amount(
         .db
         .inventory_item()
         .id()
-        .find(inventory_id)
+        .find(inventory_id.get())
         .ok_or("Food inventory row not found")?;
     if inventory.character_id != character_id {
         return Err("Food is not in this inventory".into());
     }
     crate::inventory_container::reconcile_consumed_row(
         ctx,
-        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_id)),
+        CarriedInventoryRowId::Personal(inventory_id),
         false,
     )?;
     let mut lot = lot_for_inventory(ctx, inventory_id)?;
@@ -149,7 +149,7 @@ fn consume_food_amount(
     if ratio >= 0.999_999 {
         crate::inventory_container::reconcile_consumed_row(
             ctx,
-            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory.id)),
+            CarriedInventoryRowId::Personal(inventory_id),
             true,
         )?;
         ctx.db
@@ -157,7 +157,7 @@ fn consume_food_amount(
             .inventory_item_id()
             .delete(inventory.id);
         ctx.db.inventory_item().id().delete(inventory.id);
-        delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id));
+        delete_personal_food_lot(ctx, inventory_id);
     } else {
         let retained = 1.0 - ratio;
         let state = ctx
@@ -319,7 +319,7 @@ fn consume_personal_travel_food(
             )
         })
         .filter_map(|inventory| {
-            lot_for_inventory(ctx, inventory.id)
+            lot_for_inventory(ctx, PersonalInventoryRowId::from_raw(inventory.id))
                 .ok()
                 .map(|lot| (lot.created_at_minute, inventory.id))
         })
@@ -335,7 +335,13 @@ fn consume_personal_travel_food(
         {
             break;
         }
-        consume_food_amount(ctx, character_id, id, f32::MAX, false)?;
+        consume_food_amount(
+            ctx,
+            character_id,
+            PersonalInventoryRowId::from_raw(id),
+            f32::MAX,
+            false,
+        )?;
     }
     Ok(())
 }
@@ -364,6 +370,12 @@ pub fn eat_food(
     if actor.has_tactical_server_assignment() {
         return Err("Eating is unavailable during a tactical encounter".into());
     }
-    consume_food_amount(ctx, character_id, inventory_item_id, f32::MAX, true)?;
+    consume_food_amount(
+        ctx,
+        character_id,
+        PersonalInventoryRowId::from_raw(inventory_item_id),
+        f32::MAX,
+        true,
+    )?;
     Ok(())
 }
