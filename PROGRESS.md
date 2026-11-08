@@ -1,16 +1,16 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:52:03.553233+00:00
+Updated: 2026-11-08T22:54:54.373558+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 591 / 3,866 | 3,275, including overlapping obligations |
+| Ledger source-discovery entries | 592 / 3,866 | 3,274, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
-| Cooking amount source packets | 3 adopted | Vessel capacity and preview open |
+| Cooking amount source packets | 4 adopted | 1 scoped discovery closed; runtime and policy open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -226,6 +226,12 @@ volume. With a 225 ml apple it fits a 2,500 ml pan, but the retained sword
 and 813 ml cooked output would total 2,688 ml. The sequence and later graph
 failure remain source-derived and unverified at runtime. Audit checkpoints
 3764 and 3765 recorded the evidence without closing the contract.
+
+Audit checkpoint 3766 closed cooking amount source discovery with a
+conditional capacity policy. The corrected pan example remains to be
+reproduced and resolved after the audit gate. The loose-roast UI preview
+explicitly omits chef-speed adjustment and uses raw ingredient safety; its
+separate target contract and general food-lot conservation remain open.
 
 | Increment status | Count |
 | --- | ---: |
