@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T17:51:37.030253+00:00
+Updated: 2026-11-08T17:54:00.691444+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -116,14 +116,13 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `72758e9e9`. The four
-food-lot lookup and deletion helpers now accept personal or party row IDs.
-Authority-feature module compilation passed, but the quality scan reports six
-size findings from the added call sites. Several internal producers still
-construct IDs from raw values and need migration. The previous draft passed
-full lint, targeted isolated database acceptance, and three focused tests;
-those results have not been repeated on this commit. Broader custody and
-repair behavior, duplicate-backing assertions, and review remain open.
+The inventory row-identity migration is a draft at P16 `e723a10f8`. Food
+consumption now carries a typed personal row ID through lot lookup,
+reconciliation, and deletion. Authority-feature module compilation passed;
+the quality scan still reports six size findings. Split and transfer paths
+still have raw-ID producers. The earlier full lint, isolated database run,
+and focused tests passed on `23640b3c3`, not on this commit. Broader custody
+and repair behavior, duplicate-backing assertions, and review remain open.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
