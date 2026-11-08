@@ -1765,6 +1765,13 @@ pub fn liquidate_party_inventory(
             ctx,
             CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(entry.id)),
         )?;
+        if object.is_none() {
+            crate::inventory_container::require_fungible_inventory_row(
+                ctx,
+                CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(entry.id)),
+                &entry.item_id,
+            )?;
+        }
         let subtree = object.as_ref().is_some_and(|object| {
             crate::inventory_container::object_is_nonempty(ctx, object.id)
                 || crate::inventory_container::object_is_nested(ctx, object.id)
@@ -1790,20 +1797,8 @@ pub fn liquidate_party_inventory(
             crate::inventory_container::delete_subtree(ctx, object.id)?;
             continue;
         }
-        let row_id = PartyInventoryRowId::from_raw(entry.id);
-        if crate::food::party_lot(ctx, row_id).is_some() {
-            crate::food::remove_party_lot_quantity(ctx, row_id, quantity, entry.quantity)?;
-        }
         if entry.quantity == quantity {
-            ctx.db
-                .party_item_amount()
-                .party_inventory_item_id()
-                .delete(entry.id);
             ctx.db.party_inventory_item().id().delete(entry.id);
-            ctx.db
-                .party_item_condition()
-                .party_inventory_item_id()
-                .delete(entry.id);
         } else {
             entry.quantity -= quantity;
             ctx.db.party_inventory_item().id().update(entry);
@@ -1850,6 +1845,13 @@ pub fn discard_inventory_items(
             ctx,
             CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(item.id)),
         )?;
+        if object.is_none() {
+            crate::inventory_container::require_fungible_inventory_row(
+                ctx,
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(item.id)),
+                &item.item_id,
+            )?;
+        }
         if !physical_object_row_is_atomic(object.is_some(), quantity, item.quantity) {
             return Err("A physical object must be discarded as one exact inventory row".into());
         }
@@ -1863,20 +1865,8 @@ pub fn discard_inventory_items(
             continue;
         }
         if item.quantity == quantity {
-            ctx.db
-                .inventory_item_amount()
-                .inventory_item_id()
-                .delete(item.id);
             ctx.db.inventory_item().id().delete(item.id);
-            ctx.db.item_condition().inventory_item_id().delete(item.id);
-            crate::food::delete_personal_food_lot(ctx, PersonalInventoryRowId::from_raw(item.id));
         } else {
-            crate::food::remove_lot_quantity(
-                ctx,
-                PersonalInventoryRowId::from_raw(item.id),
-                quantity,
-                item.quantity,
-            )?;
             item.quantity -= quantity;
             ctx.db.inventory_item().id().update(item);
         }
