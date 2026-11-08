@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T09:54:08.405226+00:00
+Updated: 2026-11-08T09:58:14.558976+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,9 +14,9 @@ Updated: 2026-11-08T09:54:08.405226+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings remaining | 6 |
+| File and function size findings remaining | 2 |
 | Previously reported ingress size findings cleared | 2 |
-| Previously reported function-size findings cleared elsewhere | 23 |
+| Previously reported function-size findings cleared elsewhere | 26 |
 
 The quality counts are findings from the latest scan, not a count of defects
 or independent work items. Full lint stopped before Clippy.
@@ -90,7 +90,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `5f6e076a3` (quality repairs after `623d52a`): the unfinished
+  commit `37a79c985` (quality repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -188,7 +188,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   the current commit. An adapted source guard remains unrun: Cargo reported
   that this package has no `--tests` target. Mission host and recruitment
   setup were separated, clearing three findings; the authority-feature module
-  compiles at the current commit. Their behavior has not been rerun.
+  compiled at `5f6e076a3`; their behavior has not been rerun. Trade and
+  party-disband checks were simplified, clearing four findings. The
+  authority-feature module compiles at the current commit; their behavior
+  has not been rerun.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
