@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:18:04.623864+00:00
+Updated: 2026-11-08T11:19:17.425843+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -18,7 +18,8 @@ Updated: 2026-11-08T11:18:04.623864+00:00
 | Previously reported ingress size findings cleared | 2 |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
-| Other overlapping recovery paths awaiting review | 20 / 20 |
+| Additional overlapping paths reviewed against both inputs | 3 / 20 |
+| Overlapping paths still awaiting review | 17 / 23 |
 | Existing contact-geometry tests passed | 11 / 11 |
 | Existing melee iteration tests passed | 9 / 9 |
 | Tactical server ingress tests passed, including range matrix | 9 / 9 |
@@ -106,7 +107,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
   by the sole movement-event constructor. Behavioral verification of the
-  new error path and review of the other 20 overlapping paths remain open.
+  new error path remain open. Three further overlap paths preserve both
+  equipment chronology and typed geometry changes; 17 overlapping paths
+  still await source review.
   The movement report uses typed measurements and rejects missing required
   observations; the new failure behavior still needs behavioral validation.
   A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
