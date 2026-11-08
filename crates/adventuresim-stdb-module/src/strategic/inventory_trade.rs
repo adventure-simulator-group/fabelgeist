@@ -1578,21 +1578,22 @@ pub fn deposit_party_inventory_item(
         .find(character_id)
         .ok_or("Character not found")?;
     let party_id = character.party_id.ok_or("Character has no party")?;
+    let source_row = PersonalInventoryRowId::from_raw(inventory_item_id);
     let mut inventory = ctx
         .db
         .inventory_item()
         .id()
-        .find(inventory_item_id)
+        .find(source_row.get())
         .ok_or("Inventory item not found")?;
     if quantity == 0 || inventory.character_id != character_id || inventory.quantity < quantity {
         return Err("Invalid party inventory deposit".into());
     }
-    if crate::character::inventory_item_is_equipped(ctx, character_id, inventory_item_id) {
+    if crate::character::inventory_item_is_equipped(ctx, character_id, source_row.get()) {
         return Err("Unequip an item before depositing it".into());
     }
     if let Some(object) = crate::inventory_container::object_for_row(
         ctx,
-        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory.id)),
+        CarriedInventoryRowId::Personal(source_row),
     )? {
         if !physical_object_row_is_atomic(true, quantity, inventory.quantity) {
             return Err("A physical object must be deposited as one exact inventory row".into());
@@ -1629,8 +1630,7 @@ pub fn deposit_party_inventory_item(
     } else {
         None
     };
-    let food =
-        crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id)).is_some();
+    let food = crate::food::personal_lot(ctx, source_row).is_some();
     let measured = crate::inventory_amount::personal_fraction(ctx, inventory.id).is_some();
     let inserted_party_row = if measured {
         if quantity != 1 || inventory.quantity != 1 {
@@ -1645,7 +1645,7 @@ pub fn deposit_party_inventory_item(
         if food {
             crate::food::move_or_split_to_party(
                 ctx,
-                PersonalInventoryRowId::from_raw(inventory.id),
+                source_row,
                 PartyInventoryRowId::from_raw(party_row.id),
                 quantity,
                 inventory.quantity,
@@ -1853,19 +1853,18 @@ pub fn withdraw_party_inventory_item(
         .find(character_id)
         .ok_or("Character not found")?;
     let party_id = character.party_id.ok_or("Character has no party")?;
+    let source_row = PartyInventoryRowId::from_raw(party_inventory_item_id);
     let mut inventory = ctx
         .db
         .party_inventory_item()
         .id()
-        .find(party_inventory_item_id)
+        .find(source_row.get())
         .ok_or("Party inventory item not found")?;
     if quantity == 0 || inventory.party_id != party_id || inventory.quantity < quantity {
         return Err("Invalid party inventory withdrawal".into());
     }
-    let container_object = crate::inventory_container::object_for_row(
-        ctx,
-        CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(inventory.id)),
-    )?;
+    let container_object =
+        crate::inventory_container::object_for_row(ctx, CarriedInventoryRowId::Party(source_row))?;
     let container_subtree = container_object.as_ref().is_some_and(|object| {
         crate::inventory_container::object_is_nonempty(ctx, object.id)
             || crate::inventory_container::object_is_nested(ctx, object.id)
@@ -1914,7 +1913,7 @@ pub fn withdraw_party_inventory_item(
         .party_item_condition()
         .party_inventory_item_id()
         .find(inventory.id);
-    let food = crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(inventory.id)).is_some();
+    let food = crate::food::party_lot(ctx, source_row).is_some();
     let measured = crate::inventory_amount::party_fraction(ctx, inventory.id).is_some();
     let new_inventory_id = if measured {
         if quantity != 1 || inventory.quantity != 1 {
@@ -1929,7 +1928,7 @@ pub fn withdraw_party_inventory_item(
         if food {
             crate::food::move_or_split_to_personal(
                 ctx,
-                PartyInventoryRowId::from_raw(inventory.id),
+                source_row,
                 PersonalInventoryRowId::from_raw(row.id),
                 quantity,
                 inventory.quantity,
