@@ -1,14 +1,14 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:14:40.927743+00:00
+Updated: 2026-11-08T06:17:34.810030+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
 | Implementing | 1 |
-| Awaiting or running checks | 0 |
-| Awaiting review | 2 |
+| Awaiting or running checks | 1 |
+| Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
 
@@ -41,14 +41,15 @@ ledger as backlog. Full refactor completion and validation remain required.
   Review and integration remain open.
 
 - [Wedding capacity atomicity](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-wedding-atomicity)
-  commit `e1ead67e986b55bf8ce8c10693d1ba0e2a0aa82d`: the draft performs
+  commit `4510a2685ea541dd3963bd22aa7a6df6ea29a2a5`: the draft performs
   joint effective-dated capacity preflight and propagates unexpected settlement
-  errors. Focused Clippy and the Rust quality check passed at this commit. The
-  guarded disposable-database workflow passed at the parent for joint capacity, scoped
-  removal, rejection, escrow refund, household preservation, and rollback.
-  The parent commit also passed a successful wedding with both spouses
-  admitted and the escrow paid. Review remains open. The branch precedes the
-  latest landform lint-only commit and needs reconciliation.
+  errors. Focused Clippy and the Rust quality check passed before the landform
+  lint correction was added. The disposable-database workflow passed at
+  `f33d5ebe37407718a2283dc9313924c32ab58973` for joint capacity, scoped
+  removal, rejection, escrow refund, household preservation, rollback, and a
+  successful wedding with both spouses admitted and the escrow paid. The landform lint correction is now included.
+  The formatting gate is running in a non-nested verification worktree; review
+  and integrated validation remain open.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
