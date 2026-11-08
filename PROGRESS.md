@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:45:02.041866+00:00
+Updated: 2026-11-08T08:46:40.152309+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -117,7 +117,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   and integrated validation remain open. `just fmt-check` passed at parent
   `71ffc473d`. Lint confirmed generated bindings, then found an exact-text
   calendar guard expecting the former string error; the guard now requires
-  the typed strategic error and lint is running again.
+  the typed strategic error. On retry, lint passed that guard and stopped at
+  Rust quality: file and function growth, one moved raw-string finding, and
+  stale baseline entries require repair. Clippy has not yet run.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
