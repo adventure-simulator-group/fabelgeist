@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:49:17.455840+00:00
+Updated: 2026-11-08T01:51:08.630482+00:00
 
-Latest verified checkpoint: **3689**. Goal: **active**.
+Latest verified checkpoint: **3690**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified mitigation history and receipt access.
+Qualified mitigation production paths.
 
 Cross-clock mapping, historical mitigation and aliases remain open.
 
 ## Working on now
 
-Trace supported mitigation outcome producers and bounded history.
+Resolve bounded historical source selection and clock mapping.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3689 publication record](CHECKPOINT-3689.json)
-- [Saved report for checkpoint 3689](PROGRESS-3689.md)
+- [Checkpoint 3690 publication record](CHECKPOINT-3690.json)
+- [Saved report for checkpoint 3690](PROGRESS-3690.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
