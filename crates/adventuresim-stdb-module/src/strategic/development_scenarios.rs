@@ -274,7 +274,7 @@ fn ensure_recurring_threat_provisions(
             .filter(|row| row.item_id == item_id)
             .map(|row| row.quantity)
             .sum::<u32>();
-        add_to_party_inventory_checked(
+        add_to_party_inventory(
             ctx,
             &party_id,
             item_id,
@@ -570,7 +570,7 @@ mod development_scenario_source_tests {
         assert!(source.contains("STANDARD_TRAVEL_RATION_ID"));
         assert!(source.contains("STANDARD_WATERSKIN_ID"));
         assert!(source.contains("FIELD_TENT_ID"));
-        assert!(source.contains("add_to_party_inventory_checked"));
+        assert!(source.contains("add_to_party_inventory"));
         assert!(source.contains(
             "let occurrence_id =\n                materialize_development_road_encounter"
         ));

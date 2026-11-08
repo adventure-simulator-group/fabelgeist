@@ -121,13 +121,13 @@ fn apply_narrative_effect(
     use adventuresim_core::road_encounter_catalog::Effect;
     match effect {
         Effect::GrantItem { item_id, quantity } => {
-            add_to_party_inventory_checked(ctx, party_id, item_id, u32::from(*quantity))
+            add_to_party_inventory(ctx, party_id, item_id, u32::from(*quantity))
         }
         Effect::Currency {
             currency_id,
             amount,
         } if *amount > 0 && adventuresim_core::strategic_currency::is_currency_id(currency_id) => {
-            add_to_party_inventory_checked(ctx, party_id, currency_id, *amount as u32)
+            add_to_party_inventory(ctx, party_id, currency_id, *amount as u32)
         }
         Effect::Currency {
             currency_id,

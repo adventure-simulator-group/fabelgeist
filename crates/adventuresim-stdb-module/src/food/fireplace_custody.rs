@@ -279,12 +279,7 @@ pub(crate) fn cleanup_fireplace_custody_for_death(
         } else {
             match destination {
                 OperationalCustody::Party(party_id) => {
-                    crate::strategic::add_to_party_inventory_checked(
-                        ctx,
-                        party_id.as_str(),
-                        &item_id,
-                        1,
-                    )?;
+                    crate::strategic::add_to_party_inventory(ctx, party_id.as_str(), &item_id, 1)?;
                 }
                 OperationalCustody::Character(character) => {
                     ctx.db.inventory_item().insert(crate::InventoryItem {

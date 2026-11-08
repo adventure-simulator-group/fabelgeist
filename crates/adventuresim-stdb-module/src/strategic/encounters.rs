@@ -1074,7 +1074,7 @@ fn resolve_random_encounter_battle(
                 &encounter.party_id,
                 item_id,
                 u32::from(encounter.enemy_count),
-            );
+            )?;
         }
         for member_id in &member_ids {
             crate::condition::record_morale_event(

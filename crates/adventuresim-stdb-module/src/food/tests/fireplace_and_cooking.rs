@@ -99,11 +99,14 @@ fn fireplace_authority_is_private_location_bound_and_race_safe() {
 #[test]
 fn camp_departure_and_retrieval_cleanup_enforce_fireplace_custody() {
     let food_source = crate::production_source(crate::food::FOOD_SOURCE);
-    let travel_source = crate::production_source(include_str!("../../strategic/travel_reducers.rs"));
+    let travel_source =
+        crate::production_source(include_str!("../../strategic/travel_reducers.rs"));
     assert!(travel_source.contains("require_clear_current_camp_fireplace"));
-    assert!(food_source.contains(
-        "Retrieve every dish and remove every cooking instrument before breaking camp"
-    ));
+    assert!(
+        food_source.contains(
+            "Retrieve every dish and remove every cooking instrument before breaking camp"
+        )
+    );
     let retrieval = food_source
         .split("pub fn retrieve_fireplace_dish")
         .nth(1)
@@ -170,7 +173,7 @@ fn party_exit_and_death_have_explicit_fireplace_custody_policy() {
         .expect("death fireplace cleanup");
     assert!(cleanup.contains("fireplace_dish()"));
     assert!(cleanup.contains(".character_id()"));
-    assert!(cleanup.contains("add_to_party_inventory_checked"));
+    assert!(cleanup.contains("add_to_party_inventory"));
     assert!(cleanup.contains("ctx.db.inventory_item().insert"));
     assert!(cleanup.contains("fireplace_station().key().delete"));
     assert!(cleanup.contains("prevalidate_rehome_subtree"));

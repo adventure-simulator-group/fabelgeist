@@ -315,7 +315,7 @@ mod durable_custody_tests {
         assert!(!durable_policy.contains("ItemKind::"));
         let custody_source = include_str!("inventory_trade.rs");
         for (start, end) in [
-            ("fn add_to_party_inventory_checked", "fn credit_party_stake"),
+            ("fn add_to_party_inventory", "fn credit_party_stake"),
             (
                 "pub fn deposit_party_inventory_item",
                 "pub(crate) fn consume_personal_gold",
@@ -435,7 +435,7 @@ mod medication_custody_tests {
         assert!(direct_transfer.contains("transferred.character_id = to_character_id"));
 
         let party_add = source
-            .rsplit("fn add_to_party_inventory_checked")
+            .rsplit("fn add_to_party_inventory")
             .next()
             .unwrap()
             .split("fn credit_party_stake")
@@ -476,15 +476,6 @@ mod medication_custody_tests {
 }
 
 pub(crate) fn add_to_party_inventory(
-    ctx: &ReducerContext,
-    party_id: &str,
-    item_id: &str,
-    quantity: u32,
-) {
-    let _ = add_to_party_inventory_checked(ctx, party_id, item_id, quantity);
-}
-
-pub(crate) fn add_to_party_inventory_checked(
     ctx: &ReducerContext,
     party_id: &str,
     item_id: &str,
@@ -1535,7 +1526,7 @@ pub fn store_battle_loot(
         return Err("Battle has no eligible participants".into());
     }
     for entry in loot {
-        add_to_party_inventory(ctx, &party_id, &entry.item_id, entry.quantity);
+        add_to_party_inventory(ctx, &party_id, &entry.item_id, entry.quantity)?;
         let original = ctx
             .db
             .battle_loot_item()
@@ -1654,7 +1645,7 @@ pub fn deposit_party_inventory_item(
         crate::inventory_amount::move_personal_to_party(ctx, inventory.id, party_row.id)?;
         Some(party_row)
     } else {
-        add_to_party_inventory(ctx, &party_id, &inventory.item_id, quantity);
+        add_to_party_inventory(ctx, &party_id, &inventory.item_id, quantity)?;
         None
     };
     if let Some(condition) = preserved_condition {
@@ -1763,8 +1754,7 @@ pub(crate) fn credit_party_currency(
     amount: u32,
 ) -> Result<(), String> {
     let currency_id = crate::item::currency_id_for_settlement(ctx, settlement_id)?;
-    add_to_party_inventory(ctx, party_id, &currency_id, amount);
-    Ok(())
+    add_to_party_inventory(ctx, party_id, &currency_id, amount)
 }
 
 fn transfer_personal_currency_to_party(
@@ -1787,7 +1777,7 @@ fn transfer_personal_currency_to_party(
     let mut remaining = amount;
     for mut stack in stacks {
         let taken = remaining.min(u64::from(stack.quantity)) as u32;
-        add_to_party_inventory(ctx, party_id, &stack.item_id, taken);
+        add_to_party_inventory(ctx, party_id, &stack.item_id, taken)?;
         stack.quantity -= taken;
         remaining -= u64::from(taken);
         if stack.quantity == 0 {
@@ -2820,7 +2810,7 @@ fn finalize_storefront_trade_impl(
     }
     for (item_id, quantity) in buy_item_ids.iter().zip(&buy_quantities) {
         if party_scope {
-            add_to_party_inventory_checked(
+            add_to_party_inventory(
                 ctx,
                 party_id.as_ref().ok_or("Character has no party")?,
                 item_id,

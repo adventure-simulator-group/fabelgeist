@@ -1466,7 +1466,7 @@ pub fn accept_party_join_request(
                 ctx.db.party_inventory_item().id().update(entry);
             }
         } else {
-            add_to_party_inventory(ctx, &request.party_id, &entry.item_id, entry.quantity);
+            add_to_party_inventory(ctx, &request.party_id, &entry.item_id, entry.quantity)?;
             ctx.db.party_inventory_item().id().delete(entry.id);
         }
     }

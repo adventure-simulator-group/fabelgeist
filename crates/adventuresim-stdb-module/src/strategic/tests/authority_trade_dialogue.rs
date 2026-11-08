@@ -568,7 +568,7 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
         "storefront_stocks(",
         "settlement_allowlist",
         "inventory_food_definition(Some(item.kind), item_id)?",
-        "add_to_party_inventory_checked(",
+        "add_to_party_inventory(",
         "add_inventory_item(",
     ] {
         assert!(
@@ -584,7 +584,7 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
     );
 
     let party_purchase = source
-        .rsplit("fn add_to_party_inventory_checked")
+        .rsplit("fn add_to_party_inventory")
         .next()
         .and_then(|tail| tail.split("fn credit_party_stake").next())
         .expect("party inventory purchase implementation");
