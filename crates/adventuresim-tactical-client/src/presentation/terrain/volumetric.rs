@@ -17,6 +17,30 @@ pub(super) type PendingScenes<'w, 's> = Query<
     With<PendingTerrainPresentation>,
 >;
 
+pub(super) type PresentedBases<'w, 's> = Query<
+    'w,
+    's,
+    (
+        &'static ScenePresentationOf,
+        &'static MeshMaterial3d<TacticalTerrainMaterial>,
+        &'static PresentedLandform,
+    ),
+    With<TerrainMaterialPresentation>,
+>;
+
+pub(super) type PresentedDetails<'w, 's> = Query<
+    'w,
+    's,
+    (
+        &'static ScenePresentationOf,
+        &'static MeshMaterial3d<TacticalTerrainMaterial>,
+        &'static mut TerrainDetailPatch,
+        &'static Mesh3d,
+        &'static mut TerrainTriangleCount,
+    ),
+    With<TerrainDetailPatch>,
+>;
+
 #[expect(
     clippy::too_many_arguments,
     reason = "presentation state is independently borrowed"

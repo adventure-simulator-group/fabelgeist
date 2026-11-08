@@ -43,18 +43,6 @@ const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
 
 pub(in crate::presentation) struct TerrainObservers;
 
-impl Plugin for TerrainObservers {
-    fn build(&self, app: &mut App) {
-        app.add_observer(on_game_scene_added)
-            .add_observer(on_environment_added)
-            .add_observer(on_ground_added)
-            .add_observer(on_landform_added)
-            .add_observer(on_landform_removed)
-            .add_observer(on_patch_added)
-            .add_observer(on_patch_removed);
-    }
-}
-
 #[derive(Component)]
 pub(in crate::presentation) struct ScenePresentationOf(pub(in crate::presentation) Entity);
 
@@ -85,6 +73,18 @@ pub(crate) struct PendingTerrainPresentation;
 #[derive(Component)]
 pub(crate) struct TerrainPresentationFailure(pub(crate) PreparationError);
 
+impl Plugin for TerrainObservers {
+    fn build(&self, app: &mut App) {
+        app.add_observer(on_game_scene_added)
+            .add_observer(on_environment_added)
+            .add_observer(on_ground_added)
+            .add_observer(on_landform_added)
+            .add_observer(on_landform_removed)
+            .add_observer(on_patch_added)
+            .add_observer(on_patch_removed);
+    }
+}
+
 pub(in crate::presentation) fn on_game_scene_added(
     event: On<Add, SceneId>,
     mut commands: Commands,
@@ -102,25 +102,9 @@ pub(in crate::presentation) fn on_game_scene_added(
 pub(in crate::presentation) fn present_pending_terrain(
     mut commands: Commands,
     query: volumetric::PendingScenes,
-    presentations: Query<
-        (
-            &ScenePresentationOf,
-            &MeshMaterial3d<TacticalTerrainMaterial>,
-            &PresentedLandform,
-        ),
-        With<TerrainMaterialPresentation>,
-    >,
+    presentations: volumetric::PresentedBases,
     existing_presentation_entities: Query<(Entity, &ScenePresentationOf)>,
-    mut detail_presentations: Query<
-        (
-            &ScenePresentationOf,
-            &MeshMaterial3d<TacticalTerrainMaterial>,
-            &mut TerrainDetailPatch,
-            &Mesh3d,
-            &mut TerrainTriangleCount,
-        ),
-        With<TerrainDetailPatch>,
-    >,
+    mut detail_presentations: volumetric::PresentedDetails,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<TacticalTerrainMaterial>>,
     mut images: ResMut<Assets<Image>>,
