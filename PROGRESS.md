@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:08:15.027768+00:00
+Updated: 2026-11-08T01:10:25.621606+00:00
 
-Latest verified checkpoint: **3673**. Goal: **active**.
+Latest verified checkpoint: **3674**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,14 +43,14 @@ for review.
 
 ## Latest checkpoint
 
-Qualified positive-prefix terminal location ordering.
+Qualified travel corpse place and custody model.
 
-In-journey corpse policy, per-member ordering and cross-lens ownership remain
+Journey corpse policy, exact aliases and per-member departure ordering remain
 open.
 
 ## Working on now
 
-Resolve in-journey corpse policy and reconcile site identity obligations.
+Resolve journey corpse place and custody policy and compare exact aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3673 publication record](CHECKPOINT-3673.json)
-- [Saved report for checkpoint 3673](PROGRESS-3673.md)
+- [Checkpoint 3674 publication record](CHECKPOINT-3674.json)
+- [Saved report for checkpoint 3674](PROGRESS-3674.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
