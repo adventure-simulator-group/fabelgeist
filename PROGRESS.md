@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:30:45.837958+00:00
+Updated: 2026-11-08T12:42:36.111102+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -31,7 +31,7 @@ Updated: 2026-11-08T12:30:45.837958+00:00
 | Client targeting and acquisition helper tests passed | 6 / 6 |
 | Client equipment fit and selection fixtures passed | 5 / 5 |
 | Core catalog tests passed | 31 / 31 |
-| Guarded developer authority and investigability fixture | Passed |
+| Guarded developer authority, investigability and view fixture | Passed |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -116,7 +116,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `9cca0db46`: the 159-path snapshot is restored, with three textual
+  commit `ea44c97b9`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
@@ -167,9 +167,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   `c438e0abe` corrected an authority-runner success message. Commit
   `5837f86b5` updated catalog fixture counts, kind totals and ID hash. All
   31 catalog tests passed. Commit `4afaf7b59` carries validated investigation
-  authority through its consumers. The latest commit extends an
-  existing authority fixture. Focused Clippy, formatting, Rust quality, and
-  the isolated authority workflow passed for the current change.
+  authority through its consumers. Later commits extend an existing guarded
+  fixture through the reducer and public view. Focused Clippy, formatting,
+  Rust quality, and the isolated authority workflow passed for the change.
   The repair passed formatting, focused report Clippy and Rust quality; full
   uninterrupted `just lint`, current-head validation, review and
   integration remain open.
@@ -198,8 +198,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   including developer-context bases, and the reversed investigability tuple
   lookup is removed. Existing guarded cases passed; the extended guarded
   fixture stored a developer wrapper and verified reducer lookup and hostile
-  investigability. The view path remains unverified; native unit fixtures
-  only compiled. Player spawn admission prepares all applicable players before
+  investigability. A subsequent guarded run also verified the public action
+  view returns a developer-generated action under its public case ID. Native
+  unit fixtures only compiled. Player spawn admission prepares all applicable players before
   issuing any spawn commands. The input queue is drained first and is not
   requeued on preparation failure. Source indicates Bevy's default error handler would
   panic on that error. The dispatcher does not monitor or restart its child
