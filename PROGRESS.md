@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:07:50.773147+00:00
+Updated: 2026-11-08T06:09:16.887883+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
-| Implementing | 1 |
-| Awaiting or running checks | 1 |
+| Implementing | 2 |
+| Awaiting or running checks | 0 |
 | Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -41,17 +41,13 @@ ledger as backlog. Full refactor completion and validation remain required.
   Review and integration remain open.
 
 - [Wedding capacity atomicity](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-wedding-atomicity)
-  commit `1bf3b1c36e582b493f6b0635dee78a73e913926b`: a draft with joint
-  effective-dated capacity preflight and propagation of unexpected settlement
-  failures. The projection includes scoped future removals. The focused compile
-  and Rust quality checks passed before the acceptance fixtures; focused
-  Clippy passed with the authority feature at this commit. The guarded disposable-database authority
-  workflow passed at the parent, including joint capacity and scoped removal.
-  A workflow passed at the parent for a rejected wedding with funded escrow
-  refund and unchanged household membership. A new workflow is testing an
-  unexpected post-write error and rollback. Review
-  remains open. The branch precedes the latest landform lint-only commit and
-  must be reconciled before integration.
+  commit `1bf3b1c36e582b493f6b0635dee78a73e913926b`: the draft performs
+  joint effective-dated capacity preflight and propagates unexpected settlement
+  errors. Focused Clippy passed with the authority feature. The guarded
+  disposable-database workflow passed joint capacity, scoped removal, rejected
+  wedding escrow refund, household preservation, and rollback after a
+  post-write error. A successful wedding scenario and review remain open. The
+  branch precedes the latest landform lint-only commit and needs reconciliation.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
