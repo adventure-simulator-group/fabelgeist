@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:08:07.092016+00:00
+Updated: 2026-11-08T02:09:24.562219+00:00
 
-Latest verified checkpoint: **3695**. Goal: **active**.
+Latest verified checkpoint: **3696**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified YAML pitch admission and composed speed.
+Qualified native playback-speed receiving chain.
 
-Native Lens 11 downstream scope, exact aliases and repair policy remain open.
+Other pitch producers, exact aliases and repair policy remain open.
 
 ## Working on now
 
-Reconcile pitch composition with native Lens 11 receiving behavior.
+Reconcile remaining pitch producers and alias scopes.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3695 publication record](CHECKPOINT-3695.json)
-- [Saved report for checkpoint 3695](PROGRESS-3695.md)
+- [Checkpoint 3696 publication record](CHECKPOINT-3696.json)
+- [Saved report for checkpoint 3696](PROGRESS-3696.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
