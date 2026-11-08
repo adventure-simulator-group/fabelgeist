@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:49:00.063205+00:00
+Updated: 2026-11-08T14:54:24.721076+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -34,7 +34,7 @@ Updated: 2026-11-08T14:49:00.063205+00:00
 | Guarded developer authority, investigability and view fixture | Passed |
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
-| Full P16 lint recipe on current commit | Passed |
+| Full P16 lint recipe on current commit | Running |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -87,6 +87,8 @@ focused checks and the guarded authority workflow passed as described below.
 | Authored equipable items without durability | 7 / 188 catalog items |
 | Equipment-law typed draft | Lint passed; runtime unverified |
 | Non-durable equipable items needing stable objects | 7 / 7 |
+| Shared instance policy tests | 2 / 2 passed |
+| Stable inventory lifecycle draft | Compiled; runtime unverified |
 
 | Named repair families in the historical handoff | Count |
 | --- | ---: |
@@ -372,7 +374,13 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   and deletes its carried-object subtree; subtree deletion validates custody
   and backing rows before mutation. The durable quantity limit and selection
   helpers currently live in durability, so sharing their policy requires a
-  deliberate common owner and preserving the existing checked behavior. Remaining writer paths,
+  deliberate common owner and preserving the existing checked behavior. Draft
+  commit 882a4d024 moves the prior bounded change and spare-first selection
+  rules to a shared instance policy and applies stable-object addition and
+  removal to non-food, non-measured instances. The two relocated tests and
+  authority-feature compile passed, as did formatting; full lint is running.
+  Database behavior, rollback and batches selecting a container and its own
+  descendant are unverified. This is not a completed repair. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
   preflights all equipped rows before any unequip. The authority-feature
