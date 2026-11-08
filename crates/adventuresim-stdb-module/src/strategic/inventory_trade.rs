@@ -2453,9 +2453,7 @@ fn finalize_storefront_trade_impl(
                 (inventory.item_id, inventory.quantity, food_value)
             }
         };
-        let Some(item) = ctx.db.item().id().find(&item_id) else {
-            return Err("Item definition not found".into());
-        };
+        let item = storefront_sale_definition(ctx, row_id, &item_id, container_object.as_ref())?;
         if available < quantity
             || quantity == 0
             || matches!(

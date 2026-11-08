@@ -1,3 +1,20 @@
+// Validate objectless sales before quoting or changing inventory.
+fn storefront_sale_definition(
+    ctx: &ReducerContext,
+    row_id: CarriedInventoryRowId,
+    item_id: &str,
+    object: Option<&crate::inventory_container::InventoryObject>,
+) -> Result<crate::Item, String> {
+    if object.is_none() {
+        crate::inventory_container::require_fungible_inventory_row(ctx, row_id, item_id)?;
+    }
+    ctx.db
+        .item()
+        .id()
+        .find(item_id.to_owned())
+        .ok_or_else(|| "Item definition not found".into())
+}
+
 // Apply already-validated sales, preserving the carried inventory identity.
 fn apply_storefront_sale(
     ctx: &ReducerContext,
@@ -30,20 +47,8 @@ fn apply_party_storefront_sale(
         .find(row_id.get())
         .ok_or("Party inventory item disappeared before trade application")?;
     if inventory.quantity == quantity {
-        crate::food::delete_party_food_lot(ctx, row_id);
-        ctx.db
-            .party_item_amount()
-            .party_inventory_item_id()
-            .delete(row_id.get());
         ctx.db.party_inventory_item().id().delete(row_id.get());
-        ctx.db
-            .party_item_condition()
-            .party_inventory_item_id()
-            .delete(row_id.get());
     } else {
-        if crate::food::party_lot(ctx, row_id).is_some() {
-            crate::food::remove_party_lot_quantity(ctx, row_id, quantity, inventory.quantity)?;
-        }
         inventory.quantity -= quantity;
         ctx.db.party_inventory_item().id().update(inventory);
     }
@@ -62,20 +67,8 @@ fn apply_personal_storefront_sale(
         .find(row_id.get())
         .ok_or("Inventory item disappeared before trade application")?;
     if inventory.quantity == quantity {
-        crate::food::delete_personal_food_lot(ctx, row_id);
-        ctx.db
-            .inventory_item_amount()
-            .inventory_item_id()
-            .delete(row_id.get());
         ctx.db.inventory_item().id().delete(row_id.get());
-        ctx.db
-            .item_condition()
-            .inventory_item_id()
-            .delete(row_id.get());
     } else {
-        if crate::food::personal_lot(ctx, row_id).is_some() {
-            crate::food::remove_lot_quantity(ctx, row_id, quantity, inventory.quantity)?;
-        }
         inventory.quantity -= quantity;
         ctx.db.inventory_item().id().update(inventory);
     }
