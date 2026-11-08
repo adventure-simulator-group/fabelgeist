@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:02:41.366185+00:00
+Updated: 2026-11-08T13:05:08.095370+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -35,7 +35,7 @@ Updated: 2026-11-08T13:02:41.366185+00:00
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint recipe on current commit | Passed |
-| P17 current-head report tests | Running |
+| P17 current-head report tests | 26 / 26 passed |
 | P17 jitter empty-evidence distinction | Open |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
@@ -118,7 +118,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   relevant baseline reductions. Existing report tests passed: 26 passed,
   0 failed at this commit. Source review found local-position jitter derivative timing and incident labels use
   unshifted frames; a separate repair is present in the P16 ancestry. Current-
-  head report tests are running. Review and integrated gates remain open.
+  head report tests passed: 26 of 26. A subsequent fingerprint trace selected
+  42 local records with no markers from two known other worktrees; this does
+  not rule out all shared-target contamination. Review and integrated gates
+  remain open.
   Source inspection found that empty jitter frames report complete diagnostics:
   this can mean absent samples or an intentionally excluded ragdoll-only
   capture. The current boolean does not distinguish these cases; expected
