@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:58:20.212592+00:00
+Updated: 2026-11-08T13:02:41.366185+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -35,6 +35,8 @@ Updated: 2026-11-08T12:58:20.212592+00:00
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint recipe on current commit | Passed |
+| P17 current-head report tests | Running |
+| P17 jitter empty-evidence distinction | Open |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -65,8 +67,8 @@ focused checks and the guarded authority workflow passed as described below.
 | Validated against the current combined draft | 0 / 20 |
 
 These family labels come from the historical ledger and are not current-head
-acceptance. P16 and P17 were the two marked implementing; the P17 restoration
-is now a draft and still needs its dependencies, review, and validation.
+acceptance. P16 and P17 were the two marked implementing. The P17 restoration is an
+ancestor of the current P16 draft; its review and validation remain open.
 P16 covers melee geometry and targeting-range policy; the historical ledger
 identifies 17 source gaps and shared dependencies that still need current-head
 reconciliation. That historical count is not a current defect count. The
@@ -115,8 +117,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   animation-viewer compile passed; the Rust quality check passed before the
   relevant baseline reductions. Existing report tests passed: 26 passed,
   0 failed at this commit. Source review found local-position jitter derivative timing and incident labels use
-  unshifted frames; a separate repair is drafted below. Dependencies,
-  review, and final integrated gates also remain open.
+  unshifted frames; a separate repair is present in the P16 ancestry. Current-
+  head report tests are running. Review and integrated gates remain open.
+  Source inspection found that empty jitter frames report complete diagnostics:
+  this can mean absent samples or an intentionally excluded ragdoll-only
+  capture. The current boolean does not distinguish these cases; expected
+  reporting and downstream acceptance need reconciliation and validation.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
   commit `7e169b976`: the 159-path snapshot is restored, with three textual
@@ -173,9 +179,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   authority through its consumers. Later commits extend an existing guarded
   fixture through the reducer and public view. Focused Clippy, formatting,
   Rust quality, and the isolated authority workflow passed for the change.
-  The repair passed formatting, focused report Clippy and Rust quality; full
-  uninterrupted `just lint`, current-head validation, review and
-  integration remain open.
+  The repair passed formatting, focused report Clippy and Rust quality. Full
+  lint passed on the current draft; broader current-head behavioral validation,
+  review and integration remain open.
 
   Existing tests passed: 11 contact-geometry and 9 melee iteration tests at
   `aaf0a66c7`. At `5837f86b5`, all 76 autoresolve tests passed, including
