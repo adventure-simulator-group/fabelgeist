@@ -25,7 +25,9 @@ use crate::{
 use adventuresim_core::physiology::{BodyMassKg, BodyRegion};
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 mod fear;
+mod morale_duration;
 use fear::enemy_fear_multiplier;
+use morale_duration::{leisure_morale_effect, stored_morale_event_duration};
 pub const RECENT_MORALE_DURATION_MINUTES: u64 = 7 * 24 * 60;
 const LEISURE_MORALE_SOURCE_ID: &str = "settlement-leisure";
 const MASTERY_MORALE_SOURCE_ID: &str = "mastery-enjoyment";
@@ -1818,18 +1820,6 @@ fn insert_morale_event_without_refresh(
     });
 }
 
-fn stored_morale_event_duration(ctx: &ReducerContext, character_id: u64, magnitude: f32) -> u64 {
-    if magnitude < 0.0 {
-        crate::personality::negative_event_duration_for_character(
-            ctx,
-            character_id,
-            RECENT_MORALE_DURATION_MINUTES,
-        )
-    } else {
-        RECENT_MORALE_DURATION_MINUTES
-    }
-}
-
 /// Record the one-off nonlinear morale result of an explicit prayer or
 /// meditation interval. This deliberately does not inspect or alter the saved
 /// daily activity schedule.
@@ -2000,13 +1990,6 @@ pub fn apply_rest_condition(
     initialize_character_condition(ctx, character_id)?;
     let _ = elapsed_minutes;
     refresh_character_strategic_condition(ctx, character_id).map(|_| ())
-}
-
-fn leisure_morale_effect(magnitude: f32, age_minutes: f32, duration: u64) -> f32 {
-    if duration == 0 {
-        return 0.0;
-    }
-    (magnitude - LEISURE_MORALE_LIMIT * age_minutes.max(0.0) / duration as f32).max(0.0)
 }
 
 fn accumulated_leisure_morale(
