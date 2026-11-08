@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:54:13.977497+00:00
+Updated: 2026-11-08T11:55:56.261019+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -112,7 +112,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `48682faff`: the 159-path snapshot is restored, with three textual
+  commit `c438e0abe`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
@@ -157,8 +157,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   disposable-database authority workflow passed. The workflow included wedding
   capacity and rollback, investigation retry, puzzle, mission and outbreak
   checks. Repair, dialogue and development-fixture behavior remain unverified.
-  Two subsequent commits changed test fixtures; the latest commit changes
-  report aggregation and has the focused validation described above.
+  Two subsequent commits changed test fixtures, and `48682faff` changed
+  report aggregation with the focused validation described above. The latest
+  commit corrects an authority-runner success message; Python syntax and
+  diff checks passed, but the database workflow was not rerun for that text.
   The repair passed formatting, focused report Clippy and Rust quality; full
   uninterrupted `just lint`, current-head validation, review and
   integration remain open.
@@ -179,8 +181,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   functions, so the test itself has not run. Strategic projection source
   preserves catalog-selected reach separately from per-instance combat reach,
   but their storage-to-consumer behavior is unverified. The authority runner
-  labels a catalog fixture as capability projection; it checks classification,
-  not reach. Remaining review, behavior checks and integrated gates stay open.
+  previously labeled a catalog fixture as capability projection; it checks
+  classification, not reach. The message now states the actual coverage.
+  Remaining review, behavior checks and integrated gates stay open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
