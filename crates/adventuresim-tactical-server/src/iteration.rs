@@ -538,12 +538,17 @@ mod tests {
         let veteran = &opponents[2];
         let weapon = veteran.combatant.equipment.melee_weapon.unwrap();
         let expected_preferred = adventuresim_core::combat::preferred_melee_striking_measure(
-            adventuresim_core::combat::HUMANOID_REFERENCE_ARM_REACH_METRES + weapon.melee_reach,
+            fabelgeist_geometry::SignedLength::from_metres(
+                adventuresim_core::combat::HUMANOID_REFERENCE_ARM_REACH_METRES
+                    + weapon.melee_reach.metres(),
+            )
+            .unwrap(),
             weapon.grip_to_tip_m,
             weapon.striking_head_length_m,
             weapon.distal_headed,
             adventuresim_core::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.melee_measure_reach_fraction,
-        );
+        )
+        .unwrap();
         let outcomes = (1..=8)
             .map(Seed::from_u64)
             .map(|seed| resolve_tactical_server_melee_duel(&john, veteran, seed).unwrap())
@@ -569,7 +574,9 @@ mod tests {
                         && decision.status == TacticalDecisionStatus::Started
                         && decision
                             .preferred_melee_measure_metres
-                            .is_some_and(|measure| (measure - expected_preferred).abs() < 0.01)
+                            .is_some_and(|measure| {
+                                (measure.metres() - expected_preferred.metres()).abs() < 0.01
+                            })
                 }),
             "{preferred_measures:?}"
         );

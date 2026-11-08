@@ -701,7 +701,7 @@ mod roll_tests {
             ),
             (
                 "quickstep-max",
-                quickstep_distance - 0.01,
+                quickstep_distance.metres() - 0.01,
                 0.8,
                 BodyPart::Chest,
                 ExpectedLungeMode::Quickstep,
@@ -710,7 +710,7 @@ mod roll_tests {
             ),
             (
                 "quickstep-over",
-                quickstep_distance + 0.01,
+                quickstep_distance.metres() + 0.01,
                 0.8,
                 BodyPart::Chest,
                 ExpectedLungeMode::None,

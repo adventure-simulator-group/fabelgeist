@@ -1008,7 +1008,7 @@ mod tests {
         for distance in [0.101, 0.404, 0.441, 0.499] {
             let arrival = crate::combat::melee_lunge_arrival(
                 crate::combat::MeleeLunge::Forward {
-                    distance_metres: distance,
+                    distance_metres: SignedLength::from_metres(distance).unwrap(),
                 },
                 run_speed,
                 predicted_acceleration,

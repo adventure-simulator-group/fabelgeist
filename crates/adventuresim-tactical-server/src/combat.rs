@@ -1102,7 +1102,7 @@ mod tests {
         };
         let (hits_attacker, velocity_change) = hit_velocity_change(
             result,
-            Vec3::ZERO,
+            Position::ORIGIN,
             Vec3::new(0.0, 0.0, 2.0),
             70.0,
             70.0,
@@ -1139,7 +1139,7 @@ mod tests {
         };
         let (_, velocity_change) = hit_velocity_change(
             result,
-            Vec3::ZERO,
+            Position::ORIGIN,
             Vec3::Z,
             80.0,
             80.0,
@@ -1163,7 +1163,7 @@ mod tests {
         };
         let (hits_attacker, velocity_change) = hit_velocity_change(
             result,
-            Vec3::ZERO,
+            Position::ORIGIN,
             Vec3::new(1.0, 0.0, 0.0),
             80.0,
             60.0,

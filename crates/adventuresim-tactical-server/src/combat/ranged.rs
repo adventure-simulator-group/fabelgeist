@@ -226,21 +226,20 @@ pub(super) fn resolve_ranged_attack(
         target_position,
         ..
     } = validated.impact()
-    {
-        if !authoritative_line_of_sight(
+        && !authoritative_line_of_sight(
             &spatial,
             &q_scene_items,
             validated.attacker(),
             target,
             validated.attacker_position(),
             target_position,
-        ) {
-            debug!(
-                "Rejected ranged intent from {attacker:?}: {:?}",
-                RangedIntentRejection::BlockedLineOfSight
-            );
-            return;
-        }
+        )
+    {
+        debug!(
+            "Rejected ranged intent from {attacker:?}: {:?}",
+            RangedIntentRejection::BlockedLineOfSight
+        );
+        return;
     }
     let cooldown =
         match CombatDuration::from_elapsed(config.realtime_authority.ranged.cooldown_seconds) {

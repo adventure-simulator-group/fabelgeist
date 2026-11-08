@@ -448,7 +448,7 @@ mod tests {
             later_started_at,
             SECOND,
             SECOND,
-            1.0,
+            SignedLength::from_metres(1.0).unwrap(),
             precision,
         );
 
