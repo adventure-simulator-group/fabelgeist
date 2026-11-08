@@ -17,7 +17,6 @@ impl RangedContact<'_> {
         self,
         commands: &mut Commands,
         viewer: &TacticalPlayerViewer,
-        attacker_transform: &Transform,
         attacker_view: &TacticalPlayerView<'_, '_, '_>,
         defender_view: &TacticalPlayerView<'_, '_, '_>,
         config: &TacticalCombatConfig,
@@ -36,7 +35,7 @@ impl RangedContact<'_> {
             authoritative_impact(
                 result,
                 self.shot.attacker(),
-                attacker_transform.translation,
+                self.shot.attacker_position(),
                 attacker_view.body_weight() + attacker_view.inventory_weight(),
                 target,
                 self.target_transform,

@@ -21,7 +21,6 @@ pub(super) fn emit_melee_outcome(
     attacker_has_weapon: bool,
     attacker: &TacticalPlayerView<'_, '_, '_>,
     defender: &TacticalPlayerView<'_, '_, '_>,
-    attacker_transform: &Transform,
     defender_transform: &Transform,
     viewer: &TacticalPlayerViewer<'_, '_>,
     config: &TacticalCombatConfig,
@@ -39,7 +38,7 @@ pub(super) fn emit_melee_outcome(
     let (recipient, velocity_change, point, normal) = authoritative_impact(
         result,
         attack.attacker(),
-        attacker_transform.translation,
+        attack.attacker_position(),
         attacker.body_weight() + attacker.inventory_weight(),
         attack.target(),
         defender_transform,

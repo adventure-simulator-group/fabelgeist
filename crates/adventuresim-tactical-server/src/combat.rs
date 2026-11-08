@@ -143,7 +143,7 @@ fn authoritative_impact(
     );
     let recipient = if hits_attacker { attacker } else { target };
     let (point, normal) =
-        canonical_impact_surface(attacker_position, target_transform, body_part, config);
+        canonical_impact_surface(attacker_position.metres(), target_transform, body_part, config);
     (recipient, velocity_change, point, normal)
 }
 
@@ -300,11 +300,11 @@ fn trace_melee_attack_resolution(event: On<MeleeAttackResolved>) {
         defense_alignment_sample = ?event.defense_alignment_sample,
         defense_engagement = ?event.defense_engagement,
         defender_blocking_slot = ?event.defender_blocking_slot,
-        scheduled_measure_metres = event.contact_at_time.scheduled_measure_metres,
-        ideal_measure_metres = event.contact_at_time.ideal_measure_metres,
-        actual_measure_metres = event.contact_at_time.actual_measure_metres,
+        scheduled_measure_metres = event.contact_at_time.scheduled_measure_metres.metres(),
+        ideal_measure_metres = event.contact_at_time.ideal_measure_metres.metres(),
+        actual_measure_metres = event.contact_at_time.actual_measure_metres.metres(),
         contact_classification = ?event.contact_at_time.classification,
-        lever_arm_metres = event.contact_at_time.lever_arm_metres,
+        lever_arm_metres = event.contact_at_time.lever_arm_metres.metres(),
         contact_energy_fraction = event.contact_at_time.energy_fraction,
         measure_accuracy_multiplier = event.contact_at_time.measure_accuracy_multiplier,
         invalidation_cause = ?event.contact_at_time.invalidation_cause,
@@ -365,7 +365,7 @@ fn hit_velocity_change(
     if !contact_energy.is_finite() || contact_energy <= 0.0 {
         return (hits_attacker, Vec3::ZERO);
     }
-    let horizontal = (defender_position - attacker_position)
+    let horizontal = (defender_position - attacker_position.metres())
         .xz()
         .normalize_or_zero();
     if horizontal == Vec2::ZERO {

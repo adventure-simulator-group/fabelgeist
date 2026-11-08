@@ -2,7 +2,6 @@ use adventuresim_core::{
     combat::RecoveryTime,
     elapsed::{AnimationElapsed, ElapsedResult},
 };
-use adventuresim_tactical_core::animation::AnimationValueResult;
 
 use adventuresim_core::{
     combat::{

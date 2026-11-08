@@ -326,7 +326,6 @@ pub(super) fn resolve_ranged_attack(
     .publish(
         &mut cmd,
         &viewer,
-        attacker_transform,
         &attacker_view,
         &defender_view,
         &config,

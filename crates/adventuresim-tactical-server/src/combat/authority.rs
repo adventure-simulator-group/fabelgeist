@@ -86,6 +86,9 @@ pub(super) struct AuthorizedMeleeAttack {
 }
 
 impl AuthorizedMeleeAttack {
+    pub(super) fn attacker_position(&self) -> Position<Scene> {
+        self.attack.attacker_position
+    }
     pub(super) fn attack_key(&self) -> MeleeAttackKey {
         self.attack_key
     }
@@ -146,6 +149,9 @@ impl ValidatedRangedShot {
 pub(super) struct AuthorizedRangedShot(ValidatedRangedShot);
 
 impl AuthorizedRangedShot {
+    pub(super) fn attacker_position(&self) -> Position<Scene> {
+        self.0.attacker_position
+    }
     pub(super) fn attacker(&self) -> Entity {
         self.0.attacker
     }

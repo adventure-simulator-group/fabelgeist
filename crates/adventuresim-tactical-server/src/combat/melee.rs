@@ -372,7 +372,6 @@ pub(super) fn resolve_melee_attack(
         attacker_has_weapon,
         &attacker_view,
         &defender_view,
-        attacker_transform,
         defender_transform,
         &viewer,
         &config,
