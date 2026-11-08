@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:50:24.174533+00:00
+Updated: 2026-11-08T12:57:51.934117+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -32,7 +32,9 @@ Updated: 2026-11-08T12:50:24.174533+00:00
 | Client equipment fit and selection fixtures passed | 5 / 5 |
 | Core catalog tests passed | 31 / 31 |
 | Guarded developer authority, investigability and view fixture | Passed |
-| Full P16 lint recipe on current commit | Passed |
+| Persisted selected and instance reach distinction | 1 / 1 fixture passed |
+| Full P16 lint recipe on parent commit | Passed |
+| Full P16 lint recipe on current commit | Running |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -117,7 +119,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `ea44c97b9`: the 159-path snapshot is restored, with three textual
+  commit `7e169b976`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
@@ -190,11 +192,14 @@ ledger as backlog. Full refactor completion and validation remain required.
   An existing mission source guard was updated after its assertion moved with
   the extracted code. Its revised assertions passed a direct source audit and
   compiled under Clippy. Its native test could not link SpacetimeDB host
-  functions, so the test itself has not run. Strategic projection source
-  preserves catalog-selected reach separately from per-instance combat reach,
-  but their storage-to-consumer behavior is unverified. The authority runner
-  previously labeled a catalog fixture as capability projection; it checks
-  classification, not reach. The message now states the actual coverage.
+  functions, so the test itself has not run. The guarded authority workflow
+  now loads a persisted diagnostic longsword and deliberately gives its catalog
+  row a different reach from its stored instance geometry. It confirms that
+  the strategic equipment capability returns the selected catalog reach and
+  the combat equipment returns the instance reach, then restores the row.
+  This passed for one equipped melee weapon in an isolated local database;
+  it does not establish every weapon or error path. Focused authority-feature
+  Clippy and formatting passed; full lint is running on `7e169b976`.
   Investigation consumers now retain the validated manifest and context,
   including developer-context bases, and the reversed investigability tuple
   lookup is removed. Existing guarded cases passed; the extended guarded
