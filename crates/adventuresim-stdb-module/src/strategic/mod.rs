@@ -64,6 +64,7 @@ pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("development_gallery.rs"),
     include_str!("development_scenarios.rs"),
     include_str!("tactical_enemy_fixture.rs"),
+    include_str!("mission_setup_helpers.rs"),
     include_str!("mission_bootstrap.rs"),
     include_str!("challenge_leadership.rs"),
     include_str!("challenges.rs"),
@@ -97,6 +98,7 @@ include!("mission_existing.rs");
 include!("custody_objectives.rs");
 include!("development_scenarios.rs");
 include!("tactical_enemy_fixture.rs");
+include!("mission_setup_helpers.rs");
 include!("mission_bootstrap.rs");
 include!("challenge_leadership.rs");
 include!("challenges.rs");
