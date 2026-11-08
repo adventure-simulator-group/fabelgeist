@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:27:54.341230+00:00
+Updated: 2026-11-08T07:28:46.559688+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -89,8 +89,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   formatter were corrected; `just fmt` and `just fmt-check` passed at the
   earlier draft. The focused core compile passed at parent `20ed2a263`; the
   tactical-core check passed on this commit after fixing a duplicate import.
-  The tactical-client check is running. Automatic merges, other producer and
-  consumer obligations, behavior, lint, and review remain open.
+  The tactical-client binary check also passed; server binary checks are
+  running. Automatic merges, other producer and consumer obligations,
+  behavior, lint, and review remain open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
