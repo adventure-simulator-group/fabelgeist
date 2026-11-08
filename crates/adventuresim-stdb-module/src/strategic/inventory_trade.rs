@@ -2465,13 +2465,8 @@ fn validate_personal_storefront_purchase(
         adventuresim_core::strategic_economy::merchant_buy_price(item.base_value.unwrap_or(1)),
         shared_language,
     );
-    Ok((
-        party_id,
-        u64::from(adventuresim_core::local_problem::adjust_price(
-            quote,
-            effects.buy_bps,
-        )),
-    ))
+    let adjusted = adventuresim_core::local_problem::adjust_price(quote, effects.buy_bps);
+    Ok((party_id, u64::from(adjusted)))
 }
 
 fn default_merchant_provider(
@@ -2547,7 +2542,7 @@ fn finalize_storefront_trade_impl(
         .iter()
         .map(|line| line.quantity.get())
         .collect::<Vec<_>>();
-    crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, character_id)?;
     crate::relationship::enforce_temporal_scope(
         ctx,
         character_id,
@@ -2560,9 +2555,6 @@ fn finalize_storefront_trade_impl(
     .map_err(|error| error.to_string())?;
     let storefront = route.storefront();
     let location_id = route.location_id();
-    let Some(character) = ctx.db.character().id().find(character_id) else {
-        return Err("Character not found".into());
-    };
     if character.current_settlement_id.as_deref() != Some(&settlement_id) {
         return Err("Character must be at this settlement to trade".into());
     }
@@ -3124,18 +3116,7 @@ pub fn disband_party(
     if party.leader_id != leader_id {
         return Err("Only the party leader can disband the party".into());
     }
-    let fireplace_member_ids = ctx
-        .db
-        .party_member()
-        .party_id()
-        .filter(&party_id)
-        .map(|member| member.character_id)
-        .collect::<Vec<_>>();
-    crate::food::require_members_clear_current_camp_fireplace(
-        ctx,
-        &party_id,
-        &fireplace_member_ids,
-    )?;
+    require_party_fireplace_clear(ctx, &party_id)?;
     if party
         .active_contract_id
         .as_ref()
