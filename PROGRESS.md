@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T17:09:47.899726+00:00
+Updated: 2026-11-08T17:12:07.459595+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T17:09:47.899726+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings on inventory draft | 10; quality check failed |
+| File and function size findings on inventory draft | 8; quality check failed |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
 | Loading reconnect mailbox gap | Draft; live validation open |
@@ -28,7 +28,7 @@ Updated: 2026-11-08T17:09:47.899726+00:00
 | Persisted row identity kinds drafted | 2; migration incomplete |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Current quality size findings | 10; unresolved |
+| Current quality size findings | 8; unresolved |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
@@ -110,14 +110,14 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `bfdd5d173`. Personal
+The inventory row-identity migration is a draft at P16 `41683894c`. Personal
 and party rows have distinct IDs; repair escrow retains the personal row
-identity. Same-inventory subtree owner changes now use extracted typed helpers
-after the existing preflight. The database module compiles; the quality scan
-reported 10 size findings before lowering the affected baselines, down from
-11. Full lint, current-head test-target compilation, isolated transaction
-behavior, remaining raw foreign-key paths, and duplicate-backing assertions
-remain unverified.
+identity. Food preparation's carried-row lookup now returns a typed identity
+from a focused helper. The database module compiles; the quality scan reported
+eight size findings plus a stale baseline before the relevant baseline
+reductions were applied. Full lint, current-head test-target compilation,
+isolated database behavior, remaining raw foreign-key paths, and duplicate-
+backing assertions remain unverified.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
