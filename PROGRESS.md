@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:04:14.831685+00:00
+Updated: 2026-11-08T01:05:52.514392+00:00
 
-Latest verified checkpoint: **3671**. Goal: **active**.
+Latest verified checkpoint: **3672**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,14 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified zero safe-prefix terminal settlement.
+Qualified terminal corpse and departure ordering constraint.
 
-Surviving-member transitions, return reachability and cross-lens ownership
-remain open.
+Per-member ordering, return reachability and cross-lens ownership remain open.
 
 ## Working on now
 
-Qualify surviving-member transitions and reconcile site identity obligations.
+Specify terminal and departure ordering and reconcile site identity obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3671 publication record](CHECKPOINT-3671.json)
-- [Saved report for checkpoint 3671](PROGRESS-3671.md)
+- [Checkpoint 3672 publication record](CHECKPOINT-3672.json)
+- [Saved report for checkpoint 3672](PROGRESS-3672.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
