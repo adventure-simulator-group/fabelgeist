@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:04:43.282616+00:00
+Updated: 2026-11-08T22:07:05.331775+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
-| Registered duration source packets | 7 adopted | Contracts and wider aliases open |
+| Registered duration source packets | 8 adopted | Contracts and wider aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -90,6 +90,13 @@ separate terminal helper is used for preparation changes. This does not prove a
 terminal private state can pass readiness. The relationship, indirect calls,
 and runtime behavior remain open. The packet was verified at audit checkpoint
 3744 without closing the contract.
+
+A registered physiology read found that private terminal meters combine a
+baseline, disease episodes, and interventions, while public illness flags come
+from episode stages when notices are written. These distinct inputs do not by
+themselves prove that a terminal character can pass action and simulator
+readiness. Supported histories and runtime behavior remain open. The packet was
+verified at audit checkpoint 3745 without closing the contract.
 
 | Increment status | Count |
 | --- | ---: |
