@@ -224,7 +224,7 @@ impl FrameSample {
             semantic_route_runtime_evaluated: true,
             screenshots: VIEWS
                 .into_iter()
-                .map(|view| (view.slug().to_owned(), view.screenshot_name(&frame)))
+                .map(|view| (view.slug().to_owned(), view.screenshot_name(frame)))
                 .collect(),
             bones: evaluation_bones,
         })
