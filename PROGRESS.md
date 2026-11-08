@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:23:10.260401+00:00
+Updated: 2026-11-08T12:30:45.837958+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -31,6 +31,7 @@ Updated: 2026-11-08T12:23:10.260401+00:00
 | Client targeting and acquisition helper tests passed | 6 / 6 |
 | Client equipment fit and selection fixtures passed | 5 / 5 |
 | Core catalog tests passed | 31 / 31 |
+| Guarded developer authority and investigability fixture | Passed |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -115,7 +116,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `4afaf7b59`: the 159-path snapshot is restored, with three textual
+  commit `9cca0db46`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
@@ -163,11 +164,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   checks. Repair, dialogue and development-fixture behavior remain unverified.
   Two subsequent commits changed test fixtures, and `48682faff` changed
   report aggregation with the focused validation described above. Commit
-  `c438e0abe` corrected an authority-runner success message. The
-  commit `5837f86b5` updated stale catalog fixture counts, kind totals and ID
-  hash. All 31 catalog tests passed. The latest commit carries validated
-  investigation authority through its consumers; focused Clippy, formatting,
-  Rust quality, and the isolated authority workflow passed for the change.
+  `c438e0abe` corrected an authority-runner success message. Commit
+  `5837f86b5` updated catalog fixture counts, kind totals and ID hash. All
+  31 catalog tests passed. Commit `4afaf7b59` carries validated investigation
+  authority through its consumers. The latest commit extends an
+  existing authority fixture. Focused Clippy, formatting, Rust quality, and
+  the isolated authority workflow passed for the current change.
   The repair passed formatting, focused report Clippy and Rust quality; full
   uninterrupted `just lint`, current-head validation, review and
   integration remain open.
@@ -194,11 +196,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   classification, not reach. The message now states the actual coverage.
   Investigation consumers now retain the validated manifest and context,
   including developer-context bases, and the reversed investigability tuple
-  lookup is removed. Existing guarded investigation cases passed; a developer
-  wrapper has not been dynamically exercised, and native unit fixtures only
-  compiled. Player spawn admission prepares all applicable players before
-  issuing any spawn commands. The input queue is drained first and is not requeued on
-  preparation failure. Source indicates Bevy's default error handler would
+  lookup is removed. Existing guarded cases passed; the extended guarded
+  fixture stored a developer wrapper and verified reducer lookup and hostile
+  investigability. The view path remains unverified; native unit fixtures
+  only compiled. Player spawn admission prepares all applicable players before
+  issuing any spawn commands. The input queue is drained first and is not
+  requeued on preparation failure. Source indicates Bevy's default error handler would
   panic on that error. The dispatcher does not monitor or restart its child
   in the inspected source; deployed supervisor and row redelivery behavior
   remain unverified.
