@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:15:26.426069+00:00
+Updated: 2026-11-08T21:18:26.257328+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-08T21:15:26.426069+00:00
 | Direct and offer member-transfer scenarios | 2 / 2 passed | Missing-object rejection untested |
 | Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
 | Discard scenarios exercised | 2 / 2 on prior draft | Corrupt rows and liquidation open |
-| Generic stable food removal | 1 / 1 apple passed | Other measured and nested cases open |
+| Generic nested removal scenarios | 2 / 2 passed | Other measured items open |
 | Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
 | Currency debit paths live tested | 3 / 3 | Broader cases open |
 | Corrupt party condition rejection | 1 / 1 on parent | Other corrupt backing cases open |
@@ -149,6 +149,13 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 before it can safely verify the new row-arrival case.
 
 The inventory row-identity migration is a draft at P16 `edf0c4a36`.
+A guarded isolated scenario verified generic removal rejects a nonempty bottle
+without changing the apple's containment, then removes the measured apple and
+the empty bottle in order. It checked the apple amount row, food lot, both
+physical objects, backing rows, and containment edge. Other measured items,
+corrupt fungible backing, and independent review remain open.
+
+At the same revision,
 Generic inventory adjustment now sends stable food and measured items through
 object-aware instance removal instead of deleting their backing rows directly.
 Fungible changes and personal currency credit also check existing backing state.
