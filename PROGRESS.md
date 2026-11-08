@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:14:35.050959+00:00
+Updated: 2026-11-08T14:17:18.593426+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -47,7 +47,11 @@ Updated: 2026-11-08T14:14:35.050959+00:00
 | Removed candidate ragdoll continuity gate | Failed |
 | Coordinated fixed-step ragdoll viewer run | Passed |
 | Fixed-step draft formatting and full lint | Passed |
-| Fixed-step draft capture and report tests | Running |
+| Fixed-step draft capture tests | 5 / 5 passed |
+| Fixed-step draft report tests | 26 / 26 passed |
+| Ragdoll within-sample save intervals with zero physics steps | 18 / 18 |
+| Ragdoll between-sample save intervals with one physics step | 8 / 8 |
+| Ordinary viewer scenario | Running |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -174,10 +178,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   subsequent sample. Its nine-frame ragdoll viewer run passed all acceptance
   gates: repeated views were stable, jitter was not applicable, and the worst
   rotation was 42.88 degrees against the 60-degree limit. Formatting and full
-  lint passed; existing capture and report tests are running. The fixed-step
-  count has not been independently observed. Current entry points select the
-  ragdoll plan alone rather than mixing it with other scenarios; clock
-  restoration for a mixed plan is source-reviewed but not runtime-verified.
+  lint passed, as did five existing capture and 26 report tests. A second
+  passing ragdoll capture traced the physics schedule: between logged view
+  saves there were zero steps in all 18 within-sample intervals and one in
+  all eight between-sample intervals. This evidence uses save-log ordering.
+  An ordinary scenario is running. Current entry points select the ragdoll
+  plan alone; mixed-plan clock restoration is not runtime-verified.
   Terrain correction runs outside the physics schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
