@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:11:32.724423+00:00
+Updated: 2026-11-08T13:17:14.235353+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -130,8 +130,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   capture. A local, uncommitted draft uses the report observation type to
   distinguish unavailable evidence, measured diagnostics and ragdoll-only
   non-applicability. It requires a derivative window before claiming complete
-  diagnostics. Seven existing jitter tests and 26 report tests passed on the
-  draft; ragdoll-only report behavior remains unverified. The required native
+  diagnostics. This window check is global: one scenario can mask another
+  without a complete window, so per-scenario completeness remains open.
+  Seven existing jitter tests and 26 report tests passed on the draft;
+  ragdoll-only report behavior remains unverified. The required native
   diagnostic is running; its first invocation failed before startup due to an
   invalid command argument and was retried with the corrected invocation.
 
