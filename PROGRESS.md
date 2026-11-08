@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-07T23:59:10.076062+00:00
+Updated: 2026-11-08T00:00:56.143559+00:00
 
-Latest verified checkpoint: **3645**. Goal: **active**.
+Latest verified checkpoint: **3646**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -27,11 +27,12 @@ obligations are counted separately and may overlap other entries. The full
 audit, implementation, review and validation remain incomplete.
 
 The required thirteen-lens audit and connected repair ledger remain incomplete;
-implementation is gated on their completion. Recent work traced conditional
-follow-up incident dialogue loss, physical evidence admission, and disease
-source selection and error propagation. These findings remain subject to alias
-and runtime checks. The checkpoint 3130 evidence-integrity correction and
-unresolved checkpoint 3122 note remain open for review.
+implementation is gated on their completion. Recent source work identified a
+source-site outbreak exposure planner mismatch and a departure-timing hazard,
+alongside conditional incident dialogue and physical evidence findings. These
+require alias reconciliation and post-gate validation. The checkpoint 3130
+evidence-integrity correction and unresolved checkpoint 3122 note remain open
+for review.
 
 | Phase | Status |
 | --- | --- |
@@ -42,13 +43,13 @@ unresolved checkpoint 3122 note remain open for review.
 
 ## Latest checkpoint
 
-Identified source-site departure timing hazard.
+Reconciled source-site and interval-cap requirements.
 
-Departure semantics, bounded history and aliases remain open.
+Selection policy, source populations and aliases remain open.
 
 ## Working on now
 
-Specify departure boundary and bounded interval selection.
+Resolve per-minute selection and supported source populations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -216,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3645 publication record](CHECKPOINT-3645.json)
-- [Saved report for checkpoint 3645](PROGRESS-3645.md)
+- [Checkpoint 3646 publication record](CHECKPOINT-3646.json)
+- [Saved report for checkpoint 3646](PROGRESS-3646.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
