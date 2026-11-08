@@ -6,7 +6,7 @@ use crate::animation::{
     AngularSpeedRadians, AnimationElapsed, AnimationFrequency, NonnegativeLength,
     PositiveAnimationDuration, UnitInterval,
 };
-use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
+use adventuresim_building_generator::spatial_geometry::PositiveLength;
 use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
 use adventuresim_core::{
     body::BodyPart,
