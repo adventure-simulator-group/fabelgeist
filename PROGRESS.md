@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:16:59.406514+00:00
+Updated: 2026-11-08T16:21:01.465757+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -21,7 +21,7 @@ Updated: 2026-11-08T16:16:59.406514+00:00
 | Reconnect-filtered tests after extraction | 7 / 7 passed |
 | Reconnect draft lint and formatting | 2 / 2 passed |
 | Reconnect timing scenarios validated live | 0; open |
-| SDK callback dispatch ordering inspected | 1 / 1 source check |
+| SDK callback ordering and cache timing inspected | 2 / 2 source checks |
 | Deletion and replacement scenarios validated live | 0; open |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
@@ -78,17 +78,18 @@ Updated: 2026-11-08T16:16:59.406514+00:00
 | Nearby batch top-level audit flags true | 10 / 11 |
 | Full-scale autoresolve traces completed before failure | 467 / 1,000 |
 
-Reconnect draft `c1ee2c0ad` retains a connected-player row while its loading
-session is disconnected within its reconnect window, coalescing callbacks by
-character. It removes a deferred row on an exact matching delete; the pinned
-SDK dispatches inserts before deletes in one diff, so a newer replacement must
-survive the old row deletion. This equality-based handling requires runtime
-validation, including non-finite floating-point values. Existing reconnect-
-filtered tests passed; they do not cover callbacks or row-arrival timing. Full `just lint` and `just fmt-check`
-passed after removing an unused import found by the first lint run. The live
-disconnect/reconnect case, deleted and replacement subscription rows, event ordering,
-grace expiry, and whole-batch preparation failures remain open. This draft has
-not received independent review.
+Reconnect draft `9d8dd35c2` retains a connected-player row while its loading
+session is disconnected within its reconnect window. A delete callback checks
+the current subscribed cache by character ID before discarding a deferred
+row. The pinned SDK applies the full diff and unlocks the cache before row
+callbacks; it dispatches inserts before deletes. This avoids relying on float
+equality, but deletion and replacement behavior has not been tested live.
+
+Seven existing reconnect tests passed without covering the new callback or
+row-arrival timing. Full `just lint` passed before rustfmt adjusted the callback
+layout; `just fmt-check` then passed. Live disconnect and reconnect timing,
+deleted and replacement subscription rows, event ordering, grace expiry, and
+whole-batch preparation failures remain open. Independent review is pending.
 
 The quality counts describe the latest scan, not a count of defects. At P16
 commit `ea44c97b9`, the complete `just lint` recipe passed: binding checks,
