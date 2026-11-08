@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:39:06.242900+00:00
+Updated: 2026-11-08T23:41:44.516916+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T23:39:06.242900+00:00
 | Food conservation and event packets | 9 adopted | 2 scoped discoveries closed; conditional validation open |
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
-| Corpse-pathology source packets | 3 adopted | Discovery, native reachability and policy open |
+| Corpse-pathology source packets | 4 adopted | Discovery, native reachability and policy open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -64,6 +64,12 @@ mission access path. For a fresh body, finite surgery capability 0.75 reaches
 the source threshold for an external finding. Actual corpse access, nested
 case and incident effects, and the displayed result remain unverified. The
 pathology entry stays open; no runtime test or discovery closure is claimed.
+
+Checkpoint 3783 traced incident and case completion wrappers. Incident status
+updates and roster closure are distinct from site occupancy, but generated
+case completion delegates to other owners whose effects remain unexamined.
+Actual corpse access and examination remain unverified. The pathology entry
+stays open; no discovery closure is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
