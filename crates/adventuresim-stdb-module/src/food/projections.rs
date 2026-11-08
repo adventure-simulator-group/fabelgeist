@@ -349,36 +349,12 @@ pub fn backend_ingredient_preparation_plans(
             .filter(1u64..)
             .filter(|lot| lot.material_revision > 0)
         {
-            let row = if let Some(row_id) = lot.inventory_item_id
-                && ctx
-                    .db
-                    .inventory_item()
-                    .id()
-                    .find(row_id)
-                    .is_some_and(|row| row.character_id == actor.id && row.quantity == 1)
-            {
-                Some((CarriedInventoryScope::Personal, row_id))
-            } else if let Some(row_id) = lot.party_inventory_item_id
-                && actor.party_id.as_deref().is_some_and(|party_id| {
-                    ctx.db
-                        .party_inventory_item()
-                        .id()
-                        .find(row_id)
-                        .is_some_and(|row| row.party_id == party_id && row.quantity == 1)
-                })
-            {
-                Some((CarriedInventoryScope::Party, row_id))
-            } else {
-                None
+            let Some(backing) = view_lot_carried_backing(ctx, &actor, &lot) else {
+                continue;
             };
-            let Some((scope, row_id)) = row else { continue };
-            let backing = match scope {
-                CarriedInventoryScope::Personal => {
-                    CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row_id))
-                }
-                CarriedInventoryScope::Party => {
-                    CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row_id))
-                }
+            let (scope, row_id) = match backing {
+                CarriedInventoryRowId::Personal(id) => (CarriedInventoryScope::Personal, id.get()),
+                CarriedInventoryRowId::Party(id) => (CarriedInventoryScope::Party, id.get()),
             };
             let Some(object) = view_object_for_row(ctx, backing) else {
                 continue;
