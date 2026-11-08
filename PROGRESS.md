@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T03:11:21.912979+00:00
+Updated: 2026-11-08T03:16:26.520255+00:00
 
-Latest verified checkpoint: **3720**. Goal: **active**.
+Latest verified checkpoint: **3721**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,14 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified visibility-related replication bookkeeping.
+Qualified the fault grid bound relative to admission and earlier generation.
 
-Project-specific visibility, reconnect and runtime recovery remain open.
+A complete admitted example, earlier generation outcomes and client reachability
+remain unproven.
 
 ## Working on now
 
-Trace project-specific scene visibility and reconnect behavior.
+Reconcile terrain admission and generator-bound evidence across lenses.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +219,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3720 publication record](CHECKPOINT-3720.json)
-- [Saved report for checkpoint 3720](PROGRESS-3720.md)
+- [Checkpoint 3721 publication record](CHECKPOINT-3721.json)
+- [Saved report for checkpoint 3721](PROGRESS-3721.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
