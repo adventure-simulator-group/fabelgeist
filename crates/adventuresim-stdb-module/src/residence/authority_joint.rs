@@ -135,3 +135,20 @@ pub fn authority_test_verify_wedding_rollback_home(
     }
     Ok(())
 }
+
+/// Verify both spouses occupy the accepted holding after successful settlement.
+#[reducer]
+pub fn authority_test_verify_wedding_success_home(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    for character_id in [726_001, 726_002] {
+        if occupancy::at(ctx, character_id, StrategicMinute::new(100)).is_none_or(|home| {
+            home.holding_id.as_deref() != Some("authority-joint-capacity-holding")
+        }) {
+            return Err("Successful wedding did not admit both spouses".into());
+        }
+    }
+    Ok(())
+}

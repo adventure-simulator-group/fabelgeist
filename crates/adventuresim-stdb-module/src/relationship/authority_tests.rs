@@ -242,3 +242,58 @@ pub fn authority_test_cleanup_wedding_rollback(
     }
     Ok(())
 }
+
+/// Confirm an admissible formal wedding completes and pays its escrow once.
+#[reducer]
+pub fn authority_test_wedding_capacity_success(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    const FIRST: u64 = 726_001;
+    const SECOND: u64 = 726_002;
+    const FATHER: u64 = 726_004;
+    const COMMITMENT: &str = "authority-joint-capacity-success";
+    const DOWRY: u32 = 17;
+    let ceremony = StrategicMinute::new(100);
+    let now = crate::time::refresh_clock(ctx)?;
+    let before_first = crate::item::personal_currency_total(ctx, FIRST);
+    let before_second = crate::item::personal_currency_total(ctx, SECOND);
+    let before_father = crate::item::personal_currency_total(ctx, FATHER);
+    crate::item::consume_personal_currency(ctx, FATHER, u64::from(DOWRY))?;
+    ctx.db.exclusive_commitment().insert(ExclusiveCommitment {
+        id: COMMITMENT.into(), first_character_id: FIRST, second_character_id: SECOND,
+        kind: CommitmentKind::Engagement, status: CommitmentStatus::Reserved,
+        ceremony_settlement_id: "authority-joint-capacity".into(), effective_minute: ceremony,
+        created_minute: StrategicMinute::ZERO, resolved_minute: None, terminal_reason: None,
+    });
+    for character_id in [FIRST, SECOND] {
+        ctx.db.exclusive_commitment_participant().insert(ExclusiveCommitmentParticipant {
+            character_id, commitment_id: COMMITMENT.into(),
+        });
+    }
+    ctx.db.dowry_escrow().insert(DowryEscrow {
+        commitment_id: COMMITMENT.into(), father_id: FATHER, amount: DOWRY,
+        reserved_minute: StrategicMinute::ZERO,
+    });
+    settle_due_lifecycle_events_global(ctx, now, usize::MAX)?;
+    let commitment = ctx.db.exclusive_commitment().id().find(COMMITMENT.to_owned())
+        .ok_or("Successful wedding commitment missing")?;
+    let household_id = format!("household:{COMMITMENT}");
+    if commitment.status != CommitmentStatus::Fulfilled
+        || commitment.terminal_reason != Some(CommitmentTerminalReason::WeddingCompleted)
+        || ctx.db.dowry_escrow().commitment_id().find(COMMITMENT.to_owned()).is_some()
+        || ctx.db.marriage().id().find(format!("marriage:{COMMITMENT}")).is_none()
+        || crate::item::personal_currency_total(ctx, FATHER) + u64::from(DOWRY) != before_father
+        || crate::item::personal_currency_total(ctx, FIRST)
+            + crate::item::personal_currency_total(ctx, SECOND)
+            != before_first + before_second + u64::from(DOWRY)
+        || [FIRST, SECOND].into_iter().any(|character_id| {
+            ctx.db.household_member().character_id().find(character_id)
+                .is_none_or(|member| member.household_id != household_id)
+        })
+    {
+        return Err("Admissible wedding failed to settle household and escrow".into());
+    }
+    Ok(())
+}

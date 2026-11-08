@@ -176,7 +176,8 @@ pub fn settle_due_weddings(
         } else {
             (None, 0, DowryOutcomeKind::FatherUnavailable)
         };
-        // All fallible validation is complete before the first durable write.
+        // Expected residence rejection has been handled before settlement writes.
+        // Unexpected errors must propagate so the reducer rolls them back.
         if let (Some(_father), amount, DowryOutcomeKind::Paid) = planned_dowry {
             crate::item::credit_personal_currency(
                 ctx,

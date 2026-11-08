@@ -233,6 +233,8 @@ def run(profile: str, base_port: int) -> None:
                 for character in wedding_wallets
             }
             client.fixture("authority_test_cleanup_wedding_rollback")
+            client.fixture("authority_test_wedding_capacity_success")
+            client.fixture("authority_test_verify_wedding_success_home")
             print("PASS context intervals, historical membership, idempotent closure", flush=True)
             client.fixture("authority_test_conception_chronology")
             print("PASS conception birth/death chronology and stale display projections", flush=True)
