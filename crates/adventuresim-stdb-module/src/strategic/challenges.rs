@@ -1994,7 +1994,7 @@ pub fn accept_order_errantry(
     character_id: u64,
     dialogue_session_id: String,
     action_id: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Errantry acceptance action ID is invalid".into());
@@ -2069,7 +2069,7 @@ fn materialize_order_errantry(
         String,
     )>,
     launch: ErrantryLaunch,
-) -> Result<MaterializedErrantry, String> {
+) -> StrategicOperationResult<MaterializedErrantry> {
     let character = crate::character::require_living_character(ctx, character_id)?;
     let party_id = character.party_id.clone().ok_or("Must be in a party")?;
     let mut party = ctx
@@ -2120,7 +2120,8 @@ fn materialize_order_errantry(
         return Err(format!(
             "Finish or abandon the active quest '{}' before accepting errantry",
             active_contract.title
-        ));
+        )
+        .into());
     }
     let puzzle_kind = match launch {
         ErrantryLaunch::NormalTravel => adventuresim_puzzles::PuzzleKind::OrderedSigils,

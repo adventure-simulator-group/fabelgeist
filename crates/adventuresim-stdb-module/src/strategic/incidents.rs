@@ -1,4 +1,3 @@
-
 struct IncidentSpec<'a> {
     kind: IncidentKind,
     title: &'a str,
@@ -22,9 +21,7 @@ pub struct BackendAuthorityArrestAction {
 }
 
 #[view(accessor = backend_authority_arrest_actions, public)]
-pub fn backend_authority_arrest_actions(
-    ctx: &ViewContext,
-) -> Vec<BackendAuthorityArrestAction> {
+pub fn backend_authority_arrest_actions(ctx: &ViewContext) -> Vec<BackendAuthorityArrestAction> {
     use crate::{
         character::character__view as _,
         item::{inventory_item__view as _, item__view as _},
@@ -79,8 +76,7 @@ pub fn backend_authority_arrest_actions(
                 })
                 .map(|offense| (offense.severity, offense.settled))
                 .collect::<Vec<_>>();
-            let Some(fine) =
-                adventuresim_core::reputation::authority_fine_for_charges(&charges)
+            let Some(fine) = adventuresim_core::reputation::authority_fine_for_charges(&charges)
             else {
                 continue;
             };
@@ -90,9 +86,11 @@ pub fn backend_authority_arrest_actions(
                 .character_id()
                 .filter(incident.instigator_id)
                 .filter(|stack| {
-                    ctx.db.item().id().find(&stack.item_id).is_some_and(|item| {
-                        item.kind == crate::item::CatalogItemKind::Currency
-                    })
+                    ctx.db
+                        .item()
+                        .id()
+                        .find(&stack.item_id)
+                        .is_some_and(|item| item.kind == crate::item::CatalogItemKind::Currency)
                 })
                 .map(|stack| u64::from(stack.quantity))
                 .sum::<u64>();
@@ -175,9 +173,15 @@ fn create_strategic_incident(
         .ok_or("Incident settlement has invalid WGS84 coordinates")?;
         (coordinate.longitude().get(), coordinate.latitude().get())
     } else {
-        let longitude = adventuresim_world_schema::coordinates::UnboundedCoordinateE7::from_coordinate_units(settlement.coord_x)
+        let longitude =
+            adventuresim_world_schema::coordinates::UnboundedCoordinateE7::from_coordinate_units(
+                settlement.coord_x,
+            )
             .ok_or("Incident settlement longitude cannot be represented as E7")?;
-        let latitude = adventuresim_world_schema::coordinates::UnboundedCoordinateE7::from_coordinate_units(settlement.coord_y)
+        let latitude =
+            adventuresim_world_schema::coordinates::UnboundedCoordinateE7::from_coordinate_units(
+                settlement.coord_y,
+            )
             .ok_or("Incident settlement latitude cannot be represented as E7")?;
         (longitude.raw(), latitude.raw())
     };
@@ -299,7 +303,9 @@ fn maybe_trigger_religious_incident(
     let Some((instigator_id, instigator_fervor)) = instigator else {
         return Ok(None);
     };
-    let roll = fabelgeist_determinism::StreamId::new("incident.fervor").rng(ctx.random::<Seed>(), &[instigator_id]).unit_f32();
+    let roll = fabelgeist_determinism::StreamId::new("incident.fervor")
+        .rng(ctx.random::<Seed>(), &[instigator_id])
+        .unit_f32();
     if !fervor_event_occurs(instigator_fervor, roll) {
         return Ok(None);
     }
@@ -323,7 +329,7 @@ fn maybe_trigger_religious_incident(
             enemy_type: "angry_mob",
             difficulty: 1,
         },
-    )
+    ).map_err(Into::into)
 }
 
 pub(crate) fn maybe_trigger_activity_incident(
@@ -340,8 +346,7 @@ pub(crate) fn maybe_trigger_activity_incident(
     let Some(party_id) = character.party_id.as_deref() else {
         return Ok(None);
     };
-    let current_case_site_id =
-        crate::investigation::character_case_site_id(ctx, character_id);
+    let current_case_site_id = crate::investigation::character_case_site_id(ctx, character_id);
     let settlement_id = if let Some(settlement_id) = character.current_settlement_id.as_ref() {
         settlement_id.clone()
     } else if let Some(case_site_id) = current_case_site_id.as_ref() {
@@ -425,13 +430,14 @@ pub(crate) fn maybe_trigger_activity_incident(
         (current_case_site_id.is_none()
             && has_charge
             && infamy > fame
-            && infamy.saturating_sub(fame) >= 1_000).then_some((
-            "authority_arrest",
-            "Wanted by the Watch",
-            "The local watch recognizes the party's wanted member and moves to make an arrest.",
-            "town_watch",
-            1,
-        ))
+            && infamy.saturating_sub(fame) >= 1_000)
+            .then_some((
+                "authority_arrest",
+                "Wanted by the Watch",
+                "The local watch recognizes the party's wanted member and moves to make an arrest.",
+                "town_watch",
+                1,
+            ))
     };
     let Some((kind, title, description, enemy_type, difficulty)) = outcome else {
         return Ok(None);
