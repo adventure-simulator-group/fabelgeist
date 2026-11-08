@@ -216,7 +216,7 @@ pub(crate) fn advance_party_journey_delay(
     ctx: &ReducerContext,
     party_id: &str,
     minutes: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     for member_id in living_party_member_ids(ctx, party_id) {
         if !advance_travel_time(ctx, member_id, minutes)? {
             return Err(
@@ -920,7 +920,7 @@ fn advance_encounter_penalty(
     ctx: &ReducerContext,
     encounter: &mut StrategicEncounter,
     choice: EncounterChoice,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if !matches!(choice, EncounterChoice::Detour | EncounterChoice::Run) {
         return Ok(());
     }

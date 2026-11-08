@@ -2145,7 +2145,7 @@ pub fn finalize_party_offer(
     to_character_ids: Vec<u64>,
     inventory_item_ids: Vec<u64>,
     quantities: Vec<u32>,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let offer = adventuresim_core::strategic_inventory::parse_party_offer(
         from_character_ids,
         to_character_ids,
@@ -2212,7 +2212,7 @@ pub fn finalize_merchant_trade(
     sell_inventory_ids: Vec<u64>,
     sell_quantities: Vec<u32>,
     party_scope: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let provider_resident_character_id =
         default_merchant_provider(ctx, &settlement_id, "merchants", "market")
             .map_err(|error| error.to_string())?;
