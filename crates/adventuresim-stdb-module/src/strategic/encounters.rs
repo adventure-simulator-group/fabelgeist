@@ -243,7 +243,7 @@ pub(crate) fn advance_party_journey_delay(
     // Narrative and combat delays consume real time without movement. Rebuild
     // the remaining itinerary from that later frontier so future camp windows
     // and the total elapsed forecast remain canonical.
-    refresh_party_journey_forecast(ctx, party_id)
+    refresh_party_journey_forecast(ctx, party_id).map_err(Into::into)
 }
 
 fn journey_elapsed_after_delay(completed: u64, total: u64, delay: u64) -> (u64, u64) {
@@ -593,15 +593,12 @@ fn advance_party_movement_until_encounter(
     party_id: &str,
     traveler_ids: &[u64],
     proposed_leg_minutes: u64,
-) -> Result<
-    (
-        u64,
-        Option<StrategicEncounter>,
-        Option<adventuresim_core::encounter::NarrativeSelection>,
-        u64,
-    ),
-    String,
-> {
+) -> StrategicOperationResult<(
+    u64,
+    Option<StrategicEncounter>,
+    Option<adventuresim_core::encounter::NarrativeSelection>,
+    u64,
+)> {
     let (requested_leg_minutes, mut encounter, mut narrative, mut next_roll) =
         maybe_interrupt_travel(ctx, party_id, proposed_leg_minutes)?;
     let (actual_minutes, _) =
@@ -625,7 +622,7 @@ fn commit_encounter_scan(
     next_roll: u64,
     encounter: Option<StrategicEncounter>,
     narrative: Option<adventuresim_core::encounter::NarrativeSelection>,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let mut authority = ctx
         .db
         .party_journey_encounter_authority()

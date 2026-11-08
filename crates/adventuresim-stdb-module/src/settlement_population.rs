@@ -427,7 +427,7 @@ use resident_persistence::insert_resident_draft;
 pub fn ensure_settlement_population(
     ctx: &ReducerContext,
     settlement_id: &str,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::social_roles::ensure_settlement_social_organizations(ctx, settlement_id)?;
     let (drafts, household_groups) = settlement_resident_drafts(ctx, settlement_id)?;
     for draft in drafts {
@@ -456,7 +456,7 @@ pub fn ensure_settlement_population(
             .update(representative);
     }
     crate::relationship::ensure_seeded_family_households(ctx, settlement_id, &household_groups)?;
-    crate::residence::bind_generated_households(ctx, settlement_id)
+    crate::residence::bind_generated_households(ctx, settlement_id).map_err(Into::into)
 }
 pub fn npc_is_present(
     ctx: &ReducerContext,

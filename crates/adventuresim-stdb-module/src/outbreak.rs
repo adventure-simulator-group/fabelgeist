@@ -1211,7 +1211,8 @@ pub(crate) fn materialize_generated_outbreak(
             return Err(format!(
                 "Generated outbreak patient ID collision: {}",
                 exposure.patient_ref
-            ));
+            )
+            .into());
         }
         let npc = crate::settlement_population::resolve_settlement_resident(
             ctx,

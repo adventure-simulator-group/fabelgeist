@@ -2251,7 +2251,7 @@ pub fn finalize_storefront_trade(
     sell_inventory_ids: Vec<u64>,
     sell_quantities: Vec<u32>,
     party_scope: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let provider_resident_character_id =
         adventuresim_core::strategic_inventory::MerchantProviderId::try_from(
             provider_resident_character_id,

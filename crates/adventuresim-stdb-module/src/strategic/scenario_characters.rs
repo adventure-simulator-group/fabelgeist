@@ -5,7 +5,7 @@ pub(super) fn ensure_scenario_character_at(
     character_id: u64,
     name: &str,
     settlement_id: &str,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if let Some(character) = ctx.db.character().id().find(character_id) {
         return (character.current_settlement_id.as_deref() == Some(settlement_id))
             .then_some(())

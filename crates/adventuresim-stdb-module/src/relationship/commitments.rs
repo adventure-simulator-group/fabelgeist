@@ -43,8 +43,10 @@ fn transition_commitment_terminal(
     status: CommitmentStatus,
     reason: CommitmentTerminalReason,
     minute: StrategicMinute,
-) -> Result<ExclusiveCommitment, String> {
-    commitment.parsed_state().map_err(|error| error.to_string())?;
+) -> crate::StrategicOperationResult<ExclusiveCommitment> {
+    commitment
+        .parsed_state()
+        .map_err(|error| error.to_string())?;
     if commitment.status != CommitmentStatus::Reserved {
         return Ok(commitment);
     }
@@ -113,7 +115,7 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
     ctx: &ReducerContext,
     character_id: u64,
     death_minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let mut commitments = ctx
         .db
         .exclusive_commitment()
@@ -149,7 +151,9 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
         .collect::<Vec<_>>();
     courtships.sort_by(|left, right| left.id.cmp(&right.id));
     for mut courtship in courtships {
-        courtship.parsed_state().map_err(|error| error.to_string())?;
+        courtship
+            .parsed_state()
+            .map_err(|error| error.to_string())?;
         courtship.status = CourtshipStatus::Ended;
         courtship.resolved_minute = Some(death_minute);
         courtship.terminal_reason = Some(CourtshipTerminalReason::PartnerUnavailable);
@@ -167,7 +171,9 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
         (left.conceived_minute, left.id.as_str()).cmp(&(right.conceived_minute, right.id.as_str()))
     });
     for mut pregnancy in pregnancies {
-        pregnancy.parsed_state().map_err(|error| error.to_string())?;
+        pregnancy
+            .parsed_state()
+            .map_err(|error| error.to_string())?;
         pregnancy.status = PregnancyStatus::Ended;
         pregnancy.resolved_minute = Some(death_minute);
         ctx.db.pregnancy().id().update(pregnancy.clone());

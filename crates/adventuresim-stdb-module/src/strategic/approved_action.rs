@@ -102,40 +102,40 @@ impl ApprovedPartyAction {
         leader_id: u64,
         requester_id: u64,
     ) -> StrategicOperationResult<()> {
-        let result = match self {
+        match self {
             Self::TravelToSettlement { settlement_id } => {
-                travel_to_settlement(ctx, leader_id, settlement_id)
+                travel_to_settlement(ctx, leader_id, settlement_id)?
             }
             Self::TravelToCaseSite { case_site_id } => {
-                travel_to_case_site(ctx, leader_id, CaseSiteId::from(case_site_id))
+                travel_to_case_site(ctx, leader_id, CaseSiteId::from(case_site_id))?
             }
             Self::RemovePartyMember { character_id } => {
-                remove_party_member(ctx, leader_id, character_id)
+                remove_party_member(ctx, leader_id, character_id)?
             }
             Self::CreateRecruitmentRole {
                 name,
                 quantity,
                 requirements,
                 save_role,
-            } => create_recruitment_role(ctx, leader_id, name, quantity, requirements, save_role),
+            } => create_recruitment_role(ctx, leader_id, name, quantity, requirements, save_role)?,
             Self::UpdateRecruitmentRole {
                 role_id,
                 name,
                 quantity,
                 requirements,
-            } => update_recruitment_role(ctx, leader_id, role_id, name, quantity, requirements),
+            } => update_recruitment_role(ctx, leader_id, role_id, name, quantity, requirements)?,
             Self::DeleteRecruitmentRole { role_id } => {
-                delete_recruitment_role(ctx, leader_id, role_id)
+                delete_recruitment_role(ctx, leader_id, role_id)?
             }
             Self::AcceptJoinRequest { request_id } => {
-                accept_party_join_request(ctx, leader_id, request_id)
+                accept_party_join_request(ctx, leader_id, request_id)?
             }
             Self::RejectJoinRequest { request_id } => {
-                reject_party_join_request(ctx, leader_id, request_id)
+                reject_party_join_request(ctx, leader_id, request_id)?
             }
-            Self::AcceptContract { contract_id } => accept_contract(ctx, leader_id, contract_id),
-            Self::AbandonContract { contract_id } => abandon_contract(ctx, leader_id, contract_id),
-            Self::ReportContract { contract_id } => report_contract(ctx, leader_id, contract_id),
+            Self::AcceptContract { contract_id } => accept_contract(ctx, leader_id, contract_id)?,
+            Self::AbandonContract { contract_id } => abandon_contract(ctx, leader_id, contract_id)?,
+            Self::ReportContract { contract_id } => report_contract(ctx, leader_id, contract_id)?,
             Self::AutoresolveMission { mission_id } => {
                 return autoresolve_mission(ctx, leader_id, mission_id);
             }
@@ -143,17 +143,17 @@ impl ApprovedPartyAction {
                 physiology,
                 command,
                 religion,
-            } => update_party_check_targets(ctx, leader_id, physiology, command, religion),
+            } => update_party_check_targets(ctx, leader_id, physiology, command, religion)?,
             Self::SetInventoryQuantityTarget { item_id, quantity } => {
-                set_inventory_quantity_target(ctx, leader_id, true, item_id, quantity)
+                set_inventory_quantity_target(ctx, leader_id, true, item_id, quantity)?
             }
-            Self::DisbandParty { party_id } => disband_party(ctx, leader_id, party_id),
+            Self::DisbandParty { party_id } => disband_party(ctx, leader_id, party_id)?,
             Self::RequestTacticalServer {
                 mission_id,
                 scene_key,
-            } => crate::tactical::request_tactical_server(ctx, leader_id, mission_id, scene_key),
+            } => crate::tactical::request_tactical_server(ctx, leader_id, mission_id, scene_key)?,
             Self::CancelMission { mission_id } => {
-                cancel_mission_request(ctx, leader_id, mission_id)
+                cancel_mission_request(ctx, leader_id, mission_id)?
             }
             Self::PerformInvestigation {
                 action_id,
@@ -166,8 +166,8 @@ impl ApprovedPartyAction {
                 method,
                 expected_version,
                 true,
-            ),
+            )?,
         };
-        result.map_err(StrategicOperationError::from)
+        Ok(())
     }
 }

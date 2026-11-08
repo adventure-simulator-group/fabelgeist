@@ -3,7 +3,7 @@ pub fn settle_due_weddings(
     ctx: &ReducerContext,
     participant_id: u64,
     _participant_frontier: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let now = crate::time::refresh_clock(ctx)?;
     let due: Vec<_> = ctx
         .db
@@ -70,10 +70,8 @@ pub fn settle_due_weddings(
             )?;
             continue;
         }
-        if effective_age_years(ctx, first.id, effective_minute).unwrap_or(0)
-            < ADULT_AGE_YEARS
-            || effective_age_years(ctx, second.id, effective_minute).unwrap_or(0)
-                < ADULT_AGE_YEARS
+        if effective_age_years(ctx, first.id, effective_minute).unwrap_or(0) < ADULT_AGE_YEARS
+            || effective_age_years(ctx, second.id, effective_minute).unwrap_or(0) < ADULT_AGE_YEARS
         {
             transition_commitment_terminal(
                 ctx,
@@ -287,14 +285,20 @@ fn wedding_participant_death(
     ctx: &ReducerContext,
     commitment: &ExclusiveCommitment,
 ) -> Option<StrategicMinute> {
-    [commitment.first_character_id, commitment.second_character_id]
-        .into_iter()
-        .filter_map(|character_id| {
-            ctx.db.character_death().character_id().find(character_id)
-                .map(|death| death.strategic_minute)
-        })
-        .filter(|minute| *minute <= commitment.effective_minute)
-        .min()
+    [
+        commitment.first_character_id,
+        commitment.second_character_id,
+    ]
+    .into_iter()
+    .filter_map(|character_id| {
+        ctx.db
+            .character_death()
+            .character_id()
+            .find(character_id)
+            .map(|death| death.strategic_minute)
+    })
+    .filter(|minute| *minute <= commitment.effective_minute)
+    .min()
 }
 
 fn prepare_wedding_residence(
@@ -302,20 +306,31 @@ fn prepare_wedding_residence(
     commitment: &ExclusiveCommitment,
     holding_id: &str,
     now: StrategicMinute,
-) -> Result<bool, String> {
+) -> crate::StrategicOperationResult<bool> {
     let minute = commitment.effective_minute;
     if let Err(error) = crate::residence::preflight_residence_occupants_at(
         ctx,
         holding_id,
-        [commitment.first_character_id, commitment.second_character_id],
+        [
+            commitment.first_character_id,
+            commitment.second_character_id,
+        ],
         minute,
     ) {
         record_lifecycle_failure(
-            ctx, LifecycleEventKind::Wedding, &commitment.id, minute, now, error.to_string(),
+            ctx,
+            LifecycleEventKind::Wedding,
+            &commitment.id,
+            minute,
+            now,
+            error.to_string(),
         );
         transition_commitment_terminal(
-            ctx, commitment.clone(), CommitmentStatus::Cancelled,
-            CommitmentTerminalReason::ResidenceUnavailable, minute,
+            ctx,
+            commitment.clone(),
+            CommitmentStatus::Cancelled,
+            CommitmentTerminalReason::ResidenceUnavailable,
+            minute,
         )?;
         return Ok(false);
     }
@@ -330,7 +345,7 @@ pub fn settle_due_weddings_global(
     ctx: &ReducerContext,
     now: StrategicMinute,
     limit: usize,
-) -> Result<usize, String> {
+) -> crate::StrategicOperationResult<usize> {
     let mut due: Vec<_> = ctx
         .db
         .exclusive_commitment()
@@ -376,11 +391,7 @@ fn resolve_marriage(
         {
             leave_household(ctx, character_id);
         }
-        crate::residence::remove_nonowned_occupancy_effective(
-            ctx,
-            character_id,
-            minute,
-        );
+        crate::residence::remove_nonowned_occupancy_effective(ctx, character_id, minute);
     }
     for (subject_id, related_id) in [
         (marriage.first_character_id, marriage.second_character_id),

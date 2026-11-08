@@ -123,7 +123,7 @@ fn create_strategic_incident(
     current_case_site_id: Option<&str>,
     source_id: IncidentSourceId,
     spec: IncidentSpec<'_>,
-) -> Result<Option<IncidentId>, String> {
+) -> StrategicOperationResult<Option<IncidentId>> {
     parse_threat(spec.enemy_type)?;
     let Some(mut party) = ctx.db.party_authority().id().find(party_id.to_string()) else {
         return Ok(None);
@@ -329,7 +329,7 @@ fn maybe_trigger_religious_incident(
             enemy_type: "angry_mob",
             difficulty: 1,
         },
-    ).map_err(Into::into)
+    )
 }
 
 pub(crate) fn maybe_trigger_activity_incident(

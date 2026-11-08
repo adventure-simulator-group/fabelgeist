@@ -1371,7 +1371,7 @@ fn materialize_hostile_group(
     enemy_type: String,
     enemy_count: u32,
     difficulty: i32,
-) -> Result<HostileGroupAuthority, String> {
+) -> StrategicOperationResult<HostileGroupAuthority> {
     let group =
         hostile_group_authority_row(hostile_group_id, site, enemy_type, enemy_count, difficulty)?;
     if let Some(existing) = ctx.db.hostile_group_authority().id().find(&group.id) {

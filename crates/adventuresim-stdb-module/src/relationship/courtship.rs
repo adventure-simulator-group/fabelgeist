@@ -80,10 +80,8 @@ fn validate_canonical_courtship_pair(
     )?;
     if !suitor.alive
         || !partner.alive
-        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0)
-            < ADULT_AGE_YEARS
-        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0)
-            < ADULT_AGE_YEARS
+        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0) < ADULT_AGE_YEARS
+        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0) < ADULT_AGE_YEARS
     {
         return Err(CourtshipPairError::rejected(
             CourtshipRejectionCode::IneligibleCharacter,
@@ -245,8 +243,7 @@ fn establish_courtship(
                 continue;
             };
             if !character_alive_at(ctx, observer_id, minute)
-                || effective_age_years(ctx, observer_id, minute).unwrap_or(0)
-                    < ADULT_AGE_YEARS
+                || effective_age_years(ctx, observer_id, minute).unwrap_or(0) < ADULT_AGE_YEARS
                 || observer.current_settlement_id != pair_settlement
             {
                 continue;
@@ -313,10 +310,8 @@ pub(crate) fn establish_npc_courtship_and_wedding(
     let effective_minute = suitor_time.max(partner_time);
     if !suitor.alive
         || !partner.alive
-        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0)
-            < ADULT_AGE_YEARS
-        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0)
-            < ADULT_AGE_YEARS
+        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0) < ADULT_AGE_YEARS
+        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0) < ADULT_AGE_YEARS
         || suitor.current_settlement_id.is_none()
         || suitor.current_settlement_id != partner.current_settlement_id
     {
@@ -511,7 +506,7 @@ pub fn prepare_development_courtship(
     ctx: &ReducerContext,
     suitor_id: u64,
     partner_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let settlement_id = ctx
         .db
@@ -629,7 +624,7 @@ pub fn cancel_wedding(
     ctx: &ReducerContext,
     actor_id: u64,
     commitment_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
     let commitment = ctx
         .db
@@ -637,7 +632,9 @@ pub fn cancel_wedding(
         .id()
         .find(&commitment_id)
         .ok_or("Commitment not found")?;
-    commitment.parsed_state().map_err(|error| error.to_string())?;
+    commitment
+        .parsed_state()
+        .map_err(|error| error.to_string())?;
     if actor_id != commitment.first_character_id && actor_id != commitment.second_character_id {
         return Err("Only a participant can cancel this wedding".into());
     }
@@ -666,14 +663,16 @@ pub fn expire_wedding_reservation(
     ctx: &ReducerContext,
     commitment_id: &str,
     minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let commitment = ctx
         .db
         .exclusive_commitment()
         .id()
         .find(commitment_id.to_owned())
         .ok_or("Commitment not found")?;
-    commitment.parsed_state().map_err(|error| error.to_string())?;
+    commitment
+        .parsed_state()
+        .map_err(|error| error.to_string())?;
     transition_commitment_terminal(
         ctx,
         commitment,

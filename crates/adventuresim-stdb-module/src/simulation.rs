@@ -278,7 +278,10 @@ pub(crate) fn sender_owns_simulation_character(ctx: &ReducerContext, character_i
 }
 
 #[reducer]
-pub fn seed_simulation_world(ctx: &ReducerContext, nonce: String) -> Result<(), String> {
+pub fn seed_simulation_world(
+    ctx: &ReducerContext,
+    nonce: String,
+) -> crate::StrategicOperationResult<()> {
     owned_run(ctx, &nonce)?;
     crate::strategic::seed_world(ctx, false)
 }

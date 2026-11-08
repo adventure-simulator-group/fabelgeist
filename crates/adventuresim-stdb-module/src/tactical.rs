@@ -679,7 +679,7 @@ pub fn request_tactical_server_for_scene(
     ctx: &ReducerContext,
     character_id: u64,
     scene_key: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let mission_id = format!(
         "mission:{scene_key}-{}",
         ctx.timestamp.to_micros_since_unix_epoch()
@@ -695,7 +695,7 @@ pub fn request_tactical_server(
     character_id: u64,
     mission_id: String,
     scene_key: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
     let character = crate::character::require_living_character(ctx, character_id)?;
@@ -794,7 +794,8 @@ pub fn request_tactical_server(
         return Err(format!(
             "Server for mission '{mission_id}' already exist: {}",
             server.identity
-        ));
+        )
+        .into());
     }
     if ctx
         .db

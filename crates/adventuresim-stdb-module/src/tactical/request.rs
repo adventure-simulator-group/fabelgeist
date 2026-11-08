@@ -38,7 +38,7 @@ pub(crate) fn case_site_is_inside_origin_settlement(case_site: &CaseSiteAuthorit
 pub(crate) fn tactical_settlement_snapshot(
     ctx: &ReducerContext,
     case_site: &CaseSiteAuthority,
-) -> Result<Option<TacticalSettlementSnapshot>, String> {
+) -> crate::StrategicOperationResult<Option<TacticalSettlementSnapshot>> {
     if !case_site_is_inside_origin_settlement(case_site) {
         return Ok(None);
     }

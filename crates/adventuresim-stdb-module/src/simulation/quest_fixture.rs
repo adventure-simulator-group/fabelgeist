@@ -52,7 +52,7 @@ pub fn seed_simulation_quest_fixture(
             Err("Simulation quest fixture is already bound to different leaders".into())
         };
     }
-    let party_power = |leader_id| -> Result<u64, String> {
+    let party_power = |leader_id| -> StrategicOperationResult<u64> {
         let party_id = ctx
             .db
             .character()
@@ -70,7 +70,9 @@ pub fn seed_simulation_quest_fixture(
         for member_id in crate::strategic::living_party_member_ids(ctx, &party_id) {
             crate::capability::refresh_character_capability(ctx, member_id)?;
         }
-        crate::strategic::publicly_ready_party_combat_power(ctx, &party).map(|(_, power)| power)
+        crate::strategic::publicly_ready_party_combat_power(ctx, &party)
+            .map(|(_, power)| power)
+            .map_err(Into::into)
     };
     let direct_power = party_power(direct_leader_id)?;
     let fixture_enemy_power = crate::strategic::simulation_quest_fixture_enemy_power()?;
