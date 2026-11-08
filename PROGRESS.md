@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:58:24.692278+00:00
+Updated: 2026-11-08T22:01:41.825909+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
-| Registered duration source packets | 5 adopted | Contracts and wider aliases open |
+| Registered duration source packets | 6 adopted | Contracts and wider aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -75,6 +75,13 @@ terminal and zero-minute injury settlement returns alive without wound work.
 Other lifecycle effects and actual reachability remain unverified; this is a
 conditional source finding, not a demonstrated runtime failure. The evidence
 was adopted and verified at audit checkpoint 3742 without closing the contract.
+
+A follow-up registered lifecycle read confirms that disease completion does
+nothing when given no terminal cause, and the inspected outbreak refresh reacts
+to patients already dead or recovered. Other lifecycle hooks, the supported
+current-minute state, and the end-to-end transaction remain unverified. The
+scoped packet was adopted and verified at audit checkpoint 3743; the contract
+remains open.
 
 | Increment status | Count |
 | --- | ---: |
