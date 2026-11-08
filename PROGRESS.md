@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:59:38.906634+00:00
+Updated: 2026-11-08T12:00:52.903613+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -186,7 +186,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   classification, not reach. The message now states the actual coverage.
   Player spawn admission prepares all applicable players before issuing any
   spawn commands. The input queue is drained first and is not requeued on
-  preparation failure; the runtime handler and restart behavior are unverified.
+  preparation failure. Source indicates Bevy's default error handler would
+  panic on that error; actual restart and redelivery remain unverified.
   The iteration observer source retains the first typed error for readback;
   ten existing harness tests passed on unchanged iteration production code,
   but they do not inject an observer failure. Remaining review, behavior
