@@ -1006,7 +1006,7 @@ pub fn end_tactical_server(
     ctx: &ReducerContext,
     resolution: TacticalMissionResolution,
     receipt: TacticalConsequenceReceipt,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let Some(server) = ctx
         .db
         .tactical_server_authority()
@@ -1016,7 +1016,8 @@ pub fn end_tactical_server(
         return Err(format!(
             "Can't end tactical server: sender's server with identity {} not found",
             ctx.sender()
-        ));
+        )
+        .into());
     };
 
     end_tactical_server_by_instance(ctx, server, resolution, receipt)
@@ -1185,7 +1186,7 @@ fn validate_tactical_receipt_bounds(receipt: &TacticalConsequenceReceipt) -> Res
 fn apply_tactical_receipt(
     ctx: &ReducerContext,
     receipt: &TacticalConsequenceReceipt,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     for consequence in &receipt.party {
         for injury in &consequence.injuries {
             crate::surgery::commit_aggregated_hit_injury(
@@ -1229,7 +1230,7 @@ fn end_tactical_server_by_instance(
     server: TacticalServer,
     resolution: TacticalMissionResolution,
     receipt: TacticalConsequenceReceipt,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if ctx
         .db
         .tactical_server_authority()
@@ -1240,7 +1241,8 @@ fn end_tactical_server_by_instance(
         return Err(format!(
             "Can't end tactical server: server with identity {} not found",
             server.identity
-        ));
+        )
+        .into());
     }
 
     validate_tactical_receipt(ctx, &server, &receipt)?;

@@ -435,7 +435,7 @@ pub fn process_rest_evenings(
     start: StrategicMinute,
     end: StrategicMinute,
     settled: bool,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     use crate::personality::Temperance;
     let temperament = crate::personality::personality_or_neutral(ctx, character_id).temperance;
     let temperance_score =

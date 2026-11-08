@@ -1,5 +1,3 @@
-
-
 #[path = "mission_bootstrap/standalone.rs"]
 mod standalone;
 use standalone::{
@@ -197,8 +195,10 @@ pub fn autoresolve_mission(
 
     let member_ids = living_party_member_ids(ctx, &party_id);
     let allies = load_allied_combatants(ctx, &member_ids)?;
-    let enemy_ids = mission.enemy_roster(ctx)
-        .map_err(|error| error.to_string())?.into_enemy_ids();
+    let enemy_ids = mission
+        .enemy_roster(ctx)
+        .map_err(|error| error.to_string())?
+        .into_enemy_ids();
     let enemies = enemy_ids
         .into_iter()
         .map(|enemy_id| {
@@ -410,10 +410,7 @@ pub const DEV_BOOTSTRAP_FINALIZE_STEPS: u32 = 7;
 /// `bootstrap_development_world` exactly. Every sub-seed is idempotent, and an
 /// out-of-range `step` is a no-op so the caller can loop without racing.
 #[reducer]
-pub fn dev_bootstrap_finalize(
-    ctx: &ReducerContext,
-    bootstrap_token: String,
-) -> Result<(), String> {
+pub fn dev_bootstrap_finalize(ctx: &ReducerContext, bootstrap_token: String) -> Result<(), String> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     // The demo characters are individually cheap, so one call seeds them all.
     // The development scenario gallery stays separate (via `dev_bootstrap_gallery`
@@ -716,9 +713,16 @@ pub fn seed_standalone_tactical_mission(
     let mission = if let Some(existing) = ctx.db.mission_authority().id().find(&mission_id) {
         existing
     } else {
-        let snapshot = MissionAuthority::capture(ctx, &mission_id, &party_id,
-            character_id, &case_site, &group, &scene_key)
-            .map_err(|error| error.to_string())?;
+        let snapshot = MissionAuthority::capture(
+            ctx,
+            &mission_id,
+            &party_id,
+            character_id,
+            &case_site,
+            &group,
+            &scene_key,
+        )
+        .map_err(|error| error.to_string())?;
         ctx.db.mission_authority().insert(snapshot)
     };
     if mission.hostile_group_id.as_deref() != Some(&hostile_group_id) {
@@ -749,7 +753,9 @@ pub fn seed_standalone_tactical_mission(
                 capture_custody_version: None,
             });
     }
-    let enemy_roster = mission.enemy_roster(ctx).map_err(|error| error.to_string())?;
+    let enemy_roster = mission
+        .enemy_roster(ctx)
+        .map_err(|error| error.to_string())?;
     let authorized_party_member_ids = crate::tactical::tactical_party_roster(ctx, &party_id)
         .map_err(|error| error.to_string())?
         .into_member_ids();
@@ -766,10 +772,14 @@ pub fn seed_standalone_tactical_mission(
             longitude_e7: case_site.longitude_e7,
             latitude_e7: case_site.latitude_e7,
             settlement,
-            absolute_minute: environment_minutes
-                .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.0),
-            lunar_phase_minute: environment_minutes
-                .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.1),
+            absolute_minute: environment_minutes.map_or(
+                adventuresim_world_schema::calendar::WORLD_START_MINUTE,
+                |value| value.0,
+            ),
+            lunar_phase_minute: environment_minutes.map_or(
+                adventuresim_world_schema::calendar::WORLD_START_MINUTE,
+                |value| value.1,
+            ),
             authorized_party_member_ids,
             required_enemy_kills: enemy_roster.enemy_count().get(),
             enemy_difficulty: mission.enemy_difficulty,
@@ -1089,8 +1099,8 @@ pub fn ensure_settlement_activity(
 
 fn settlement_activity_target(settlement_id: &str) -> usize {
     MIN_QUESTS_PER_SETTLEMENT
-        + fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(),
-            streams::QUEST_COUNT, &[]).rng()
+        + fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(), streams::QUEST_COUNT, &[])
+            .rng()
             .index(MAX_QUESTS_PER_SETTLEMENT - MIN_QUESTS_PER_SETTLEMENT + 1)
 }
 
@@ -1195,9 +1205,7 @@ fn ensure_settlement_activity_batched(
                             .case_authority()
                             .id()
                             .find(&authority.case_id)
-                            .is_some_and(|case| {
-                                case.resolution_status == CaseStatus::Open
-                            }),
+                            .is_some_and(|case| case.resolution_status == CaseStatus::Open),
                     ),
             )
         })?;
@@ -1221,7 +1229,13 @@ fn ensure_settlement_activity_batched(
 }
 
 fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> Result<(), String> {
-    let target = 1 + fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(), streams::RECRUITING_PARTY_COUNT, &[]).rng().index(2);
+    let target = 1 + fabelgeist_determinism::Seed::derive(
+        settlement_id.as_bytes(),
+        streams::RECRUITING_PARTY_COUNT,
+        &[],
+    )
+    .rng()
+    .index(2);
     let now = crate::time::refresh_clock(ctx)?;
     for mut offer in ctx.db.recruitment_offer().iter().collect::<Vec<_>>() {
         if offer.status == RecruitmentOfferStatus::Open && now >= offer.expires_at_minute {
@@ -1306,12 +1320,14 @@ fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> R
             .ok_or("NPC party disappeared after leader assignment")?;
         party.name = format!("{}'s company", leader_name);
         party.current_settlement_id = Some(settlement_id.to_string());
-        party.physiology_target = 3.0 + streams::PHYSIOLOGY.rng(leader_id.into(), &[]).index(3) as f32;
+        party.physiology_target =
+            3.0 + streams::PHYSIOLOGY.rng(leader_id.into(), &[]).index(3) as f32;
         party.command_target = 3.0 + streams::COMMAND.rng(leader_id.into(), &[]).index(3) as f32;
         party.religion_target = 3.0 + streams::RELIGION.rng(leader_id.into(), &[]).index(3) as f32;
         ctx.db.party_authority().id().update(party);
 
-        let requirements = streams::recruiting_role(fabelgeist_determinism::Seed::from_u64(leader_id));
+        let requirements =
+            streams::recruiting_role(fabelgeist_determinism::Seed::from_u64(leader_id));
         ctx.db
             .party_recruitment_role()
             .insert(PartyRecruitmentRole {
@@ -1590,7 +1606,7 @@ fn generate_quest_for_settlement(ctx: &ReducerContext, settlement_id: &str) -> R
     .ok_or("Settlement has invalid WGS84 coordinates")?;
     let incident_weather = adventuresim_core::weather::weather_at(
         adventuresim_core::weather::WORLD_WEATHER_SEED,
-now_minute.saturating_sub_minutes(180),
+        now_minute.saturating_sub_minutes(180),
         weather_coordinate.latitude().get(),
         weather_coordinate.longitude().get(),
         0,
@@ -1723,9 +1739,14 @@ fn materialize_preferred_generated_fixture(
 }
 
 fn ordinary_generated_site_distance_m(seed: Seed, site_id: &str) -> u64 {
-    4_000 + fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
-        streams::SITE_DISTANCE,
-        &[site_id.as_bytes()]).rng().index(17_000) as u64
+    4_000
+        + fabelgeist_determinism::Seed::derive(
+            &seed.to_le_bytes(),
+            streams::SITE_DISTANCE,
+            &[site_id.as_bytes()],
+        )
+        .rng()
+        .index(17_000) as u64
 }
 
 fn preferred_fixture_is_suitable(
@@ -1738,9 +1759,10 @@ fn preferred_fixture_is_suitable(
             outbreak.disease == adventuresim_core::disease::DiseaseId::Dysentery
         });
     let threat_matches = family != TemplateFamily::RecurringDepredation
-        || generated.hostile_groups.iter().any(|(_, _, threat, _)| {
-            matches!(*threat, ThreatId::Bandit | ThreatId::Smuggler)
-        });
+        || generated
+            .hostile_groups
+            .iter()
+            .any(|(_, _, threat, _)| matches!(*threat, ThreatId::Bandit | ThreatId::Smuggler));
     outbreak_matches && threat_matches
 }
 
@@ -1812,7 +1834,7 @@ fn materialize_simulation_acceptance_outbreak(
     Err("No ordinary generated outbreak met the bounded acceptance route constraint".into())
 }
 
-fn seed_outbreak_demo(ctx: &ReducerContext, character_id: u64) -> Result<String, String> {
+fn seed_outbreak_demo(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<String> {
     let mut skills = ctx
         .db
         .character_skills()
@@ -1874,12 +1896,12 @@ fn seed_outbreak_demo(ctx: &ReducerContext, character_id: u64) -> Result<String,
         cooking_pot.id,
     )?;
 
-    materialize_preferred_generated_fixture(
+    Ok(materialize_preferred_generated_fixture(
         ctx,
         character_id,
         adventuresim_core::quest_generation::TemplateFamily::Outbreak,
         fabelgeist_determinism::Seed::from_u64(0x4f55_5442_5245_414b),
-    )
+    )?)
 }
 
 pub(crate) struct SimulationQuestFixtureSeed {
@@ -2471,7 +2493,7 @@ pub fn spawn_developer_quest(
     .ok_or("Settlement has invalid WGS84 coordinates")?;
     let incident_weather = adventuresim_core::weather::weather_at(
         adventuresim_core::weather::WORLD_WEATHER_SEED,
-now_minute.saturating_sub_minutes(180),
+        now_minute.saturating_sub_minutes(180),
         weather_coordinate.latitude().get(),
         weather_coordinate.longitude().get(),
         0,
@@ -2534,7 +2556,12 @@ mod developer_quest_source_tests {
             preferred_fixture_site_distance_m(TemplateFamily::Outbreak),
             None
         );
-        assert!(ordinary_generated_site_distance_m(fabelgeist_determinism::Seed::from_u64(0), "site:fixture") >= 4_000);
+        assert!(
+            ordinary_generated_site_distance_m(
+                fabelgeist_determinism::Seed::from_u64(0),
+                "site:fixture"
+            ) >= 4_000
+        );
     }
 
     #[test]
@@ -2581,7 +2608,8 @@ mod developer_quest_source_tests {
             .find("ensure_settlement_activity_inner")
             .expect("canonical representative population seeding");
         assert!(canonical_chapter < settlement_insert && settlement_insert < population);
-        let population_source = crate::production_source(include_str!("../settlement_population.rs"));
+        let population_source =
+            crate::production_source(include_str!("../settlement_population.rs"));
         let representative_seed = population_source
             .split("for organization in adventuresim_core::organization::organizations_for_chapter")
             .nth(1)
@@ -2726,15 +2754,14 @@ mod developer_quest_source_tests {
     #[test]
     fn developer_witness_projection_matches_core_for_every_presentation() {
         use crate::personality::Presentation;
-        use adventuresim_core::settlement_population::AgeBand;
-        use adventuresim_world_schema::Sex;
         use crate::settlement_population::{
-            ResolvedSettlementResident, SettlementResidentPresence,
-            SettlementResidentProfile,
+            ResolvedSettlementResident, SettlementResidentPresence, SettlementResidentProfile,
         };
         use adventuresim_core::quest_generation::{
             VisibleWitnessCandidateInput, visible_witness_candidate,
         };
+        use adventuresim_core::settlement_population::AgeBand;
+        use adventuresim_world_schema::Sex;
 
         let presence = SettlementResidentPresence {
             character_id: 42,

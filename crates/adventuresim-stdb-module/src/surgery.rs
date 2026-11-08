@@ -826,7 +826,7 @@ fn align_and_advance(
     actor_id: u64,
     patient_id: u64,
     duration: u64,
-) -> Result<bool, String> {
+) -> crate::StrategicOperationResult<bool> {
     let actor_time = ctx
         .db
         .character_time()
