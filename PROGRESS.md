@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:22:35.003423+00:00
+Updated: 2026-11-08T22:24:29.468049+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -9,6 +9,7 @@ Updated: 2026-11-08T22:22:35.003423+00:00
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 4 adopted | Admission, transaction, and aliases open |
+| Fireplace custody source packets | 1 adopted | Initialization, merge, and writers open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -139,6 +140,12 @@ also a reducer. Current [SpacetimeDB documentation](https://spacetimedb.com/docs
 describes database rollback on reducer error; it is not pinned runtime proof.
 Other callers and mutation paths remain open. Audit checkpoint 3751 verified
 the bounded evidence without closing the estate contract.
+
+A registered fireplace read traced placed vessels with retained subtree
+edges and the separate no-object return path on death. The related estate and
+fireplace contracts remain distinct. Remaining merge branches, amount
+initialization, and station writers are open. Audit checkpoint 3752 adopted
+and verified this evidence without closing either contract.
 
 | Increment status | Count |
 | --- | ---: |
