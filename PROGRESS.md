@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:50:19.285900+00:00
+Updated: 2026-11-08T23:55:39.179274+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,6 +15,7 @@ Updated: 2026-11-08T23:50:19.285900+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
+| Equipment compliance source packets | 1 adopted | Classification and backing invariants open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -91,6 +92,12 @@ Checkpoint 3787 qualified selected injury-table references and character
 component validation. The validator checks for seven rows but does not itself
 check distinct regions or canonical keys. Malformed-row reachability and
 policy remain open; no discovery closure or runtime failure is claimed.
+
+Checkpoint 3788 qualified selected equipment compliance and inventory paths.
+Compliance treats missing backing records and prohibited items alike. Normal
+equip checks backing first, and selected transfer, deposit and surrender paths
+protect equipped rows. Remaining deletion and catalog cases, intended error
+policy and runtime reachability remain open. No discovery closure is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
