@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:59:27.408953+00:00
+Updated: 2026-11-08T23:01:30.647662+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -11,7 +11,7 @@ Updated: 2026-11-08T22:59:27.408953+00:00
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
 | Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
-| Food conservation source packets | 1 adopted | Medicine, events, and transfers open |
+| Food conservation source packets | 2 adopted | Medicine, events, and transfers open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -246,6 +246,12 @@ partial amount flooring, contamination provenance and medicinal components.
 Terminal medicine effects, native events and complete transfer callers remain
 open. Audit checkpoint 3768 verified the bounded evidence without closing the
 food-lot contract.
+
+A registered medicinal-food read found that a component can commit death
+before the surrounding consumption code continues. Possible interaction with
+immediate estate transfer or later components is conditional; reachability
+and runtime behavior remain unverified. Audit checkpoint 3769 verified this
+evidence without closing the food-lot contract.
 
 | Increment status | Count |
 | --- | ---: |
