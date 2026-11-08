@@ -24,7 +24,7 @@ use bevy::prelude::*;
 use bevy::time::Stopwatch;
 
 use crate::{
-    Args, SceneVistaBundleResource,
+    SceneVistaBundleResource,
     bot::MissionEnemy,
     combat::{
         MeleeAttackAuthority, PendingMeleeContact, RangedAttackAuthority, TacticalCombatSide,
@@ -44,7 +44,8 @@ use projection_equipment::{
 };
 
 use item_geometry::PreparedInventoryItem;
-use spawn_admission::{AdmittedPlayer, PreparedPlayerSpawns, SpawnRecipient};
+pub(crate) use spawn_admission::spawn_connected_players;
+use spawn_admission::{AdmittedPlayer, SpawnRecipient};
 
 mod dive_launch;
 mod input_trace;
@@ -535,28 +536,6 @@ fn tactical_equipment_channel(
         Durable::Mount => Core::Mount,
         Durable::Containment => Core::Containment,
     }
-}
-
-pub(crate) fn spawn_connected_players(
-    conn: Res<SpacetimeDb>,
-    args: Res<Args>,
-    mut cmd: Commands,
-    q_loading: Query<(Entity, &LoadingPlayer)>,
-    q_scene: Query<&SceneTerrain>,
-    combat_config: Res<TacticalCombatConfig>,
-) -> Result {
-    let Some(terrain) = crate::scene_spawn::authoritative_terrain(&q_scene)? else {
-        return Ok(());
-    };
-    let admitted = PreparedPlayerSpawns::prepare(
-        conn.take_connected_players(),
-        &q_loading,
-        terrain,
-        &args,
-        &combat_config,
-    )?;
-    admitted.project(&args, &mut cmd);
-    Ok(())
 }
 
 fn spawn_connected_player(

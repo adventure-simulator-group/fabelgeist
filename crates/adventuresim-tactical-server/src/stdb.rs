@@ -51,6 +51,10 @@ pub struct SpacetimeDb {
     terminal_results: Arc<Mutex<Vec<TerminalSubmissionResult>>>,
 }
 
+#[derive(Debug, thiserror::Error)]
+#[error("connected-player mailbox is poisoned")]
+pub(crate) struct ConnectedPlayerMailboxError;
+
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub(crate) enum TerminalSubmissionResult {
     Accepted,
@@ -73,7 +77,18 @@ impl SpacetimeDb {
             .db
             .connected_players()
             .on_insert(move |_ctx, row| {
-                connected_players.lock().unwrap().push(row.clone());
+                let Ok(mut pending) = connected_players.lock() else {
+                    error!("Connected-player mailbox is poisoned; admission will fail");
+                    return;
+                };
+                if let Some(existing) = pending
+                    .iter_mut()
+                    .find(|existing| existing.character.id == row.character.id)
+                {
+                    *existing = row.clone();
+                } else {
+                    pending.push(row.clone());
+                }
             });
 
         self.conn
@@ -89,8 +104,35 @@ impl SpacetimeDb {
     }
 
     /// Take every `connected_players` row inserted since the last call.
-    pub fn take_connected_players(&self) -> Vec<ConnectedPlayer> {
-        std::mem::take(&mut *self.connected_players.lock().unwrap())
+    pub(crate) fn take_connected_players(
+        &self,
+    ) -> Result<Vec<ConnectedPlayer>, ConnectedPlayerMailboxError> {
+        let mut pending = self
+            .connected_players
+            .lock()
+            .map_err(|_| ConnectedPlayerMailboxError)?;
+        Ok(std::mem::take(&mut *pending))
+    }
+
+    /// Keep disconnected loading rows until their reconnect window ends.
+    /// A newer callback for the same character takes precedence.
+    pub(crate) fn defer_connected_players(
+        &self,
+        deferred: Vec<ConnectedPlayer>,
+    ) -> Result<(), ConnectedPlayerMailboxError> {
+        let mut pending = self
+            .connected_players
+            .lock()
+            .map_err(|_| ConnectedPlayerMailboxError)?;
+        for player in deferred {
+            if !pending
+                .iter()
+                .any(|existing| existing.character.id == player.character.id)
+            {
+                pending.push(player);
+            }
+        }
+        Ok(())
     }
 
     /// Queue a terminal reducer and mailbox its eventual nested callback

@@ -1,11 +1,15 @@
 //! Admit the complete applicable connected-player batch before any entity commands.
 
 use super::item_geometry::PreparedInventoryItem;
-use super::{LoadingPlayer, player_collider, spawn_connected_player};
+use super::{
+    DisconnectedPlayer, DisconnectedProjection, LoadingPlayer, player_collider,
+    spawn_connected_player,
+};
 use crate::{
     Args,
     bot::CombatantBehaviorPackages,
     scene_spawn::{SceneSpawnError, SceneSpawnResult},
+    stdb::SpacetimeDb,
 };
 use adventuresim_building_generator::spatial_geometry::{Position, SignedLength};
 use adventuresim_stdb_client::*;
@@ -16,6 +20,11 @@ use adventuresim_tactical_core::{
 use bevy::prelude::*;
 
 pub(super) struct PreparedPlayerSpawns(Vec<AdmittedPlayer>);
+
+pub(super) struct PendingPlayerBatch {
+    pub(super) available: Vec<ConnectedPlayer>,
+    pub(super) deferred: Vec<ConnectedPlayer>,
+}
 
 pub(super) struct AdmittedPlayer {
     pub(super) player: ConnectedPlayer,
@@ -29,6 +38,54 @@ pub(super) struct AdmittedPlayer {
 pub(super) enum SpawnRecipient {
     Loading(Entity),
     Enemy(CombatantBehaviorPackages),
+}
+
+fn partition_pending_players(
+    players: Vec<ConnectedPlayer>,
+    loading: &Query<(Entity, &LoadingPlayer)>,
+    disconnected: &Query<(&DisconnectedPlayer, &DisconnectedProjection)>,
+) -> PendingPlayerBatch {
+    let (deferred, available) = players.into_iter().partition(|player| {
+        player.mission_side != TacticalMissionSide::Enemy
+            && !loading
+                .iter()
+                .any(|(_, waiting)| waiting.requested_character.0 == player.character.id)
+            && disconnected.iter().any(|(session, projection)| {
+                (session.remaining_secs > 0.0 || session.claimed)
+                    && session.character_id.0 == player.character.id
+                    && matches!(projection, DisconnectedProjection::Loading(_))
+            })
+    });
+    PendingPlayerBatch {
+        available,
+        deferred,
+    }
+}
+
+pub(crate) fn spawn_connected_players(
+    conn: Res<SpacetimeDb>,
+    args: Res<Args>,
+    mut cmd: Commands,
+    q_loading: Query<(Entity, &LoadingPlayer)>,
+    q_disconnected: Query<(&DisconnectedPlayer, &DisconnectedProjection)>,
+    q_scene: Query<&SceneTerrain>,
+    combat_config: Res<TacticalCombatConfig>,
+) -> Result {
+    let Some(terrain) = crate::scene_spawn::authoritative_terrain(&q_scene)? else {
+        return Ok(());
+    };
+    let pending =
+        partition_pending_players(conn.take_connected_players()?, &q_loading, &q_disconnected);
+    conn.defer_connected_players(pending.deferred)?;
+    let admitted = PreparedPlayerSpawns::prepare(
+        pending.available,
+        &q_loading,
+        terrain,
+        &args,
+        &combat_config,
+    )?;
+    admitted.project(&args, &mut cmd);
+    Ok(())
 }
 
 impl PreparedPlayerSpawns {
