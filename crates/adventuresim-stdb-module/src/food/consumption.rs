@@ -304,6 +304,14 @@ pub fn consume_travel_food_to_zero(
             }
         }
     }
+    consume_personal_travel_food(ctx, character_id)?;
+    Ok(())
+}
+
+fn consume_personal_travel_food(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> crate::StrategicOperationResult<()> {
     let mut personal: Vec<_> = ctx
         .db
         .inventory_item()
