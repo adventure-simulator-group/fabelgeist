@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:41:56.799666+00:00
+Updated: 2026-11-08T13:46:11.834883+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -43,7 +43,8 @@ Updated: 2026-11-08T13:41:56.799666+00:00
 | Ragdoll jitter observation in actual viewer manifest | 1 / 1 correct |
 | Ragdoll viewer acceptance | Failed |
 | Previous draft lint quality gate | Failed on size ceilings |
-| Extracted draft formatting and lint gates | Running |
+| Extracted draft formatting and lint gates | Passed |
+| Extracted draft report and jitter tests | Running |
 | Previous draft native capture and attack excursion | Passed |
 | Revised draft native capture and attack excursion | Passed |
 | One-seed melee report matchups completed | 5 / 5 |
@@ -146,8 +147,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   and 3.81 degrees. This is a separate unresolved viewer failure; no threshold
   was changed. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
-  acceptance were extracted to a focused module; formatting and lint are
-  running again without raising the ceilings. The native diagnostic
+  acceptance were extracted to a focused module; formatting and full lint
+  passed without raising the ceilings. Existing report and jitter tests are
+  rerunning after the extraction. The native diagnostic
   captured successfully in 859.9 seconds; its compact attack analyzer passed
   with 12 attack frames and a maximum forward hand excursion of 0.472 m,
   exceeding the 0.05 m minimum. This checks the native attack, not the viewer's
