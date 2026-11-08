@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:27:07.610870+00:00
+Updated: 2026-11-08T23:31:26.913217+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -14,6 +14,7 @@ Updated: 2026-11-08T23:27:07.610870+00:00
 | Food conservation and event packets | 9 adopted | 2 scoped discoveries closed; conditional validation open |
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
+| Corpse-pathology source packets | 1 adopted | Discovery, native reachability and policy open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -43,6 +44,14 @@ counter saturates. Receipt keys include the actor and expected revision. Actual
 repeated-action reachability and intended behavior at saturation remain open.
 The source packet passed preflight, adoption, and verification; no runtime
 probe or implementation was performed.
+
+Checkpoint 3780 recorded a partial corpse pathology and combat-wound trace.
+The enemy corpse path computes combat-derived injuries but copies only health
+and blood loss into the corpse body; it retains separately stored limb injuries.
+Whether ordinary supported encounters lose wound evidence remains unverified.
+The related combat obligation stays independent. Numeric admission and other
+native writers remain open. No source-discovery closure or runtime pass is
+claimed for this entry.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
