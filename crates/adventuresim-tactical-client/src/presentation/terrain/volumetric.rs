@@ -205,7 +205,7 @@ pub(super) fn spawn_base_and_fault(
             Name::new(format!("{} fault scarp mesh", id.0)),
             ScenePresentationOf(entity),
             TerrainTriangleCount(triangle_count),
-            Mesh3d(meshes.add(terrain_patch_mesh(patch, terrain))),
+            Mesh3d(meshes.add(terrain_patch_mesh(*patch, terrain))),
             MeshMaterial3d(materials.add(fault_material)),
         ));
     }
@@ -215,7 +215,7 @@ pub(super) enum PreparedLandform {
     Natural,
     Patch {
         recipe: TerrainLandformRecipe,
-        patch: SceneTerrainPatch,
+        patch: Box<SceneTerrainPatch>,
     },
 }
 
@@ -231,12 +231,12 @@ pub(super) fn prepare_landform(
         (None, Some(_)) => Err(PreparationError::TerrainPatchWithoutRecipe { scene: id.clone() }),
         (Some(recipe), Some(patch)) => Ok(PreparedLandform::Patch {
             recipe: *recipe,
-            patch: patch.clone(),
+            patch: Box::new(patch.clone()),
         }),
         (Some(recipe), None) => terrain_landform_patch(terrain, *recipe)
             .map(|patch| PreparedLandform::Patch {
                 recipe: *recipe,
-                patch,
+                patch: Box::new(patch),
             })
             .map_err(|source| PreparationError::TerrainLandform {
                 scene: id.clone(),
