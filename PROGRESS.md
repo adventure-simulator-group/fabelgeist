@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T17:32:31.844464+00:00
+Updated: 2026-11-08T17:43:08.899448+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -29,7 +29,9 @@ Updated: 2026-11-08T17:32:31.844464+00:00
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
 | Workspace all-target all-feature Clippy | Passed |
-| Isolated database acceptance on identity draft | 0; pending |
+| Isolated inventory acceptance on identity draft | 1 / 1 targeted run passed |
+| Focused identity and simulation tests | 2 / 2 passed |
+| Focused web custody test | Interrupted during build |
 | Current quality size findings | 0 |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
@@ -114,11 +116,14 @@ before it can safely verify the new row-arrival case.
 
 The inventory row-identity migration is a draft at P16 `23640b3c3`. Personal
 and party rows have distinct IDs; repair escrow retains the personal row
-identity. Food tool selection and tactical item projection were extracted,
-and trade scope is selected once. Generated-ID fixtures were updated.
-`just fmt-check` and full `just lint` passed, including binding verification
-and workspace all-target, all-feature Clippy. This compiles test targets but
-does not run their assertions. Isolated database behavior, remaining raw
+identity. `just fmt-check` and full `just lint` passed. An isolated database
+run passed nested inventory creation and deletion, insufficient-removal
+rollback, unselected child preservation, belt equipment cleanup, enrollment,
+and catalog preflight checks. The core location and strategic simulation
+custody tests passed. The web custody test was interrupted during compilation
+as free disk approached 3 GB; its assertion did not run. The fixture was
+intentionally stopped before the separate bootstrap-finalize section, which
+previously exhausted module energy. Other custody scenarios, remaining raw
 foreign-key paths, duplicate-backing assertions, and review remain open.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
