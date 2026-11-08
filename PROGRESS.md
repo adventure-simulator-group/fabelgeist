@@ -1,14 +1,14 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:36:25.253581+00:00
+Updated: 2026-11-08T22:38:26.662702+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 589 / 3,866 | 3,277, including overlapping obligations |
+| Ledger source-discovery entries | 590 / 3,866 | 3,276, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
-| Estate custody source packets | 4 adopted | Admission, transaction, and aliases open |
+| Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -186,6 +186,12 @@ writers pair a vessel with an object; the extra representable no-object
 instrument state still needs a product decision. Implementation, regenerated
 bindings, runtime validation, and related estate and cooking contracts remain
 open. No runtime failure is asserted.
+
+Audit checkpoint 3759 closed the estate custody source-discovery entry with
+a conditional policy. Equipment attachments are recursively torn down before
+validated subtree transfer and chronological succession. Malformed attachment
+handling, broader transaction coverage, implementation and runtime validation
+remain open; related death and cooking contracts remain independent.
 
 | Increment status | Count |
 | --- | ---: |
