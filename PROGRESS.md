@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:46:53.732629+00:00
+Updated: 2026-11-08T21:49:35.012285+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
-| Registered expedition source packet | 1 adopted | Contract and aliases remain open |
+| Registered expedition source packets | 2 adopted | Contract and wider aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -45,6 +45,13 @@ interval are open. A subsequent preregistered reread of 10 project files and
 the pinned SDK passed preflight, adoption, and verification at audit checkpoint
 3738. It adds scoped evidence without closing the contract or claiming new
 population coverage.
+
+A second registered packet compared the expedition elapsed contract with two
+related ledger entries. Missing expedition projections are a prerequisite to
+the rest metric; generated investigation uses separate maximum-clock
+consumers for progress and action duration. The shared arithmetic does not
+make these exact aliases. Both entries remain independent and open; no new
+population coverage or contract closure was claimed.
 
 | Increment status | Count |
 | --- | ---: |
