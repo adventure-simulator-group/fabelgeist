@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:53:02.638348+00:00
+Updated: 2026-11-08T16:57:49.641508+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T16:53:02.638348+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings on inventory draft | 30; lint failed |
+| File and function size findings on inventory draft | 17; quality check failed |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
 | Loading reconnect mailbox gap | Draft; live validation open |
@@ -26,8 +26,9 @@ Updated: 2026-11-08T16:53:02.638348+00:00
 | Reconnect and abandonment grace relationship | 1 source-derived question; open |
 | Inventory row lookup references mapped | 33 in 12 files |
 | Persisted row identity kinds drafted | 2; migration incomplete |
-| Workspace production check | Passed |
-| Full lint quality size findings | 30; unresolved |
+| Workspace production check on prior draft | Passed |
+| Database module production check on current draft | Passed |
+| Current quality size findings | 17; unresolved |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
@@ -109,16 +110,15 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `bf4cee130`. Personal
+The inventory row-identity migration is a draft at P16 `82ede9d91`. Personal
 and party rows have distinct IDs; repair escrow retains the personal row
-identity. The database client was regenerated and `cargo check --workspace`
-passed for production targets. `just fmt-check` passed, but `just lint` failed
-at the quality gate with 30 file or function size findings; no ceilings were
-raised. Test-target compilation and runtime behavior are not established.
-Some food and inventory APIs still carry raw foreign keys internally and need
-review. The new personal/repair duplicate-backing assertions have not run.
-The generator emitted a Windows path-length warning before its wrapper's
-formatting step completed.
+identity. The prior draft regenerated the client and passed production
+`cargo check --workspace` and `just fmt-check`. Direct imports reduced the
+quality scan from 30 to 17 size findings, without raising ceilings. The
+database module compiles on the current draft; full workspace checks, full
+lint, test-target compilation, and runtime behavior remain unverified here.
+Internal raw foreign-key paths and the personal/repair duplicate-backing
+assertions still need review and validation.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
