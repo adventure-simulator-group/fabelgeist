@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:18:07.644214+00:00
+Updated: 2026-11-08T15:23:02.607027+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -34,7 +34,7 @@ Updated: 2026-11-08T15:18:07.644214+00:00
 | Guarded developer authority, investigability and view fixture | Passed |
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
-| Full P16 lint recipe on current commit | Running |
+| Full P16 lint on previous Rust commit | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -92,6 +92,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
 | Belt addition, spare-first and cleanup database fixture | 1 / 1 passed |
 | Missing-inventory law preflight database fixture | 1 / 1 passed |
+| Isolated runner listener cleanup | 1 / 1 passed |
 | Stable inventory lifecycle draft | 2 database fixtures passed |
 | Previous instance-draft full lint | Passed |
 
@@ -406,8 +407,13 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   extension to the existing guarded authority fixture on commit 7cac4364a
   passed in the same isolated workflow: with a prohibited equipped weapon and
   an equipped row lacking inventory, compliance returned the typed missing-row
-  error and retained both rows. Formatting passed; full lint is running. Other
+  error and retained both rows. Formatting and full lint passed on 7cac4364a.
+  Subsequent commit 4fa2f22e5 changes the Python runner to stop its verified
+  listener and launcher; the focused fixture passed again and no listener
+  remained on its port. Other
   missing-data variants and unrelated cases remain unverified.
+  A local unadopted contract-revisit record preserves source hashes and these
+  results without changing the historical queue or claiming audit closure.
   This is not a completed repair. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
