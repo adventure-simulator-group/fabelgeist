@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:40:44.406535+00:00
+Updated: 2026-11-08T10:43:48.309068+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -32,8 +32,10 @@ standalone manifest checks when free disk fell below 3 GB; the disposable
 P16-only native build cache was removed, restoring about 8.6 GB free.
 Automatic approval review rejected a separate standalone target as conflicting
 with the shared-target requirement. All three standalone Clippy commands passed
-under the shared build lock. Local package names were rebuilt during the
-sequence, but feature-specific artifact provenance has not been established.
+under the shared build lock. Selected local fingerprint records for creator
+and MHR postdate that validation sequence; NumPy-storage was rechecked after
+refreshing its P16 source timestamps, and all eight selected local records
+postdate that recheck.
 
 | Historical audit measure | Count |
 | --- | --- |
@@ -224,9 +226,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   Automatic approval review rejected a separate standalone target because of
   the shared-target requirement. The first standalone check is running with
   the shared target and lock; all three standalone Clippy commands passed.
-  Local package names were rebuilt during that sequence, but feature-specific
-  artifact provenance remains open. Behavior, a single uninterrupted full
-  lint run, and review remain open.
+  Selected creator and MHR local fingerprint records postdate the validation
+  sequence. NumPy-storage was rechecked after refreshing P16 source timestamps;
+  all eight selected local records postdate that recheck. Behavior, a single
+  uninterrupted full lint run, and review remain open.
   Input behavior has not been rerun.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
