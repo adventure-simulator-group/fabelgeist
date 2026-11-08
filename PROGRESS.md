@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T20:43:57.977310+00:00
+Updated: 2026-11-08T20:50:59.497217+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -17,7 +17,8 @@ Updated: 2026-11-08T20:43:57.977310+00:00
 | Discard scenarios exercised | 2 / 2 | Corrupt rows and liquidation open |
 | Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
 | Currency debit paths live tested | 3 / 3 | Broader cases open |
-| Corrupt party condition rejection | 1 / 1 | Other corrupt backing cases open |
+| Corrupt party condition rejection | 1 / 1 on parent | Other corrupt backing cases open |
+| Rest payment error sites corrected | 2 / 2 | Runtime failure coverage open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -145,7 +146,15 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `f61abf752`.
+The inventory row-identity migration is a draft at P16 `1872b7bff`.
+The currency caller audit found two rest-payment error handling sites: tavern
+purchases swallowed all debit failures, and inn payments labeled every debit
+failure as insufficient funds. Both now propagate the underlying error.
+Authority-feature compilation, `just fmt-check`, and full `just lint` passed.
+Corrupt-currency failure through a tavern or inn remains untested at runtime;
+independent review remains open.
+
+At parent `f61abf752`,
 A bootstrap-protected authority-feature fixture exercised normal party currency
 consumption and party-to-personal transfer. It also placed unexpected condition
 state on the second of two party stacks and verified that both operations
