@@ -205,6 +205,21 @@ fn require_seed_party_unengaged(
     require_party_fireplace_clear(ctx, party_id)?;
     if ctx
         .db
+        .mission_authority()
+        .party_id()
+        .filter(party_id)
+        .any(|mission| mission.status == MissionAttemptStatus::Bound)
+        || ctx
+            .db
+            .strategic_incident()
+            .party_id()
+            .filter(party_id)
+            .any(|incident| incident.status == IncidentStatus::Pending)
+    {
+        return Err("Seed party member has active party obligations".into());
+    }
+    if ctx
+        .db
         .party_journey_authority()
         .party_id()
         .find(party_id)
