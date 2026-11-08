@@ -12,7 +12,7 @@ use adventuresim_core::item_references::{
 pub(super) fn provision_generated_weapon_carry(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let sheathable: Vec<_> = ctx
         .db
         .inventory_item()
@@ -29,11 +29,11 @@ pub(super) fn provision_generated_weapon_carry(
         return Err(format!(
             "Generated loadout has {} sheathable weapons but the authored belt kit carries at most two",
             sheathable.len()
-        ));
+        ).into());
     }
 
     let belt =
-        add_inventory_item(ctx, character_id, BELT_ID, 1).ok_or("Could not add generated belt")?;
+        add_inventory_item(ctx, character_id, BELT_ID, 1)?.ok_or("Could not add generated belt")?;
     let belt_placement = authored_placement_index(ctx, BELT_ID, WORN_PLACEMENT_ID)?;
     equip_equipment_internal(
         ctx,
@@ -53,10 +53,10 @@ pub(super) fn provision_generated_weapon_carry(
                 return Err(format!(
                     "Sheathable weapon {} has no procedural holder",
                     weapon.item_id
-                ));
+                ).into());
             }
         };
-        let holder = add_inventory_item(ctx, character_id, holder_id, 1)
+        let holder = add_inventory_item(ctx, character_id, holder_id, 1)?
             .ok_or_else(|| format!("Could not add generated {holder_id}"))?;
         crate::weapon_instance::fit_personal_holder(ctx, character_id, holder, weapon.id)?;
         let holder_placement = authored_placement_index(ctx, holder_id, hip)?;

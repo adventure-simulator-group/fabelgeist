@@ -1,4 +1,5 @@
-use adventuresim_building_generator::spatial_geometry::Radians;
+use adventuresim_building_generator::spatial_geometry::{Position, Radians, RigidRotation};
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use adventuresim_tactical_core::animation::{
     AnimationElapsed, AnimationSampleSpan, AnimationSampleTick,
 };
@@ -39,16 +40,18 @@ use dive_launch::{DiveLaunch, apply_dive_launch_velocity};
 use input::AccumulatedInput;
 use posture_facing::advance_projected_posture;
 use projection_equipment::{
-    projected_armor, projected_holder_appearance, projected_parametric_weapon,
+    projected_armor, projected_holder_appearance,
     projected_weapon_appearance,
 };
 
 use spawn_admission::{AdmittedPlayer, PreparedPlayerSpawns, SpawnRecipient};
+use item_geometry::PreparedInventoryItem;
 
 mod dive_launch;
 mod posture_facing;
-mod projection_equipment;
+pub(crate) mod projection_equipment;
 mod spawn_admission;
+mod item_geometry;
 
 type PlayerInputStateQuery<'world, 'state> = Query<
     'world,
@@ -552,7 +555,7 @@ pub(crate) fn spawn_connected_players(
         &args,
         &combat_config,
     )?;
-    admitted.project(&args, &mut cmd, &combat_config);
+    admitted.project(&args, &mut cmd);
     Ok(())
 }
 
@@ -560,13 +563,14 @@ fn spawn_connected_player(
     admitted: AdmittedPlayer,
     enemy_combat_scale_bps: u32,
     cmd: &mut Commands,
-    combat_config: &TacticalCombatConfig,
 ) {
     let AdmittedPlayer {
         player,
         recipient,
         position,
         collider: player_collider,
+        items,
+        body_mass,
     } = admitted;
     let player = &player;
     let entity = match recipient {
@@ -629,8 +633,6 @@ fn spawn_connected_player(
         tailoring_hours: player.skills.tailoring_hours,
         smithing_hours: player.skills.smithing_hours,
     };
-    let body_mass = adventuresim_core::physiology::BodyMassKg::try_new(player.body_weight_kg)
-        .expect("connected player body mass must be validated by strategic authority");
     let mut limbs = Limbs {
         body_weight_kg: body_mass.kilograms(),
         left_arm: player.limbs.left_arm_health,
@@ -777,22 +779,23 @@ fn spawn_connected_player(
     // Reserve every tactical entity before projecting topology so attachment
     // edges map to replicated ECS identities even when their parent appears
     // later in the durable snapshot. Durable row IDs remain server-only.
-    let tactical_items: BTreeMap<u64, Entity> = player
-        .items
-        .iter()
-        .map(|item| (item.inventory_item_id, cmd.spawn_empty().id()))
+    let tactical_items: BTreeMap<u64, Entity> = items.iter()
+        .map(|item| (item.inventory_id(), cmd.spawn_empty().id()))
         .collect();
-    for item in &player.items {
-        let Some(quantity) = TacticalItemQuantity::new(item.quantity) else {
-            warn!(
-                "Got item '{}' with zero quantity for Player#{}; skipped",
-                item.item.id, player.character.id
-            );
-            continue;
+    for item in items {
+        let (item, quantity, geometry) = match item {
+            PreparedInventoryItem::Empty(item) => {
+                warn!(
+                    "Got item '{}' with zero quantity for Player#{}; skipped",
+                    item.item.id, player.character.id
+                );
+                continue;
+            }
+            PreparedInventoryItem::Admitted { item, quantity, geometry } => (item, quantity, geometry),
         };
+        let item = &item;
         let item_entity = tactical_items[&item.inventory_item_id];
         let mut item_cmd = cmd.entity(item_entity);
-        let instance_geometry = projected_parametric_weapon(item, combat_config.resolution.contact);
         let weapon_appearance = projected_weapon_appearance(item);
         let weapon_holder_appearance = projected_holder_appearance(item);
         item_cmd.insert((
@@ -801,33 +804,12 @@ fn spawn_connected_player(
             ItemOf(entity),
             quantity,
             ItemProperties {
-                weight: instance_geometry
-                    .map(|value| value.mass_kg)
-                    .or_else(|| projection_equipment::projected_holder_mass(item))
-                    .unwrap_or(item.item.weight),
+                weight: geometry.mass,
                 id: item.item.id.clone(),
             },
             Transform::default(),
         ));
-        if let Some(definition) = adventuresim_core::item_catalog::definition(&item.item.id)
-            && let Some(equipment) = &definition.equipment
-        {
-            let mut physical = equipment.physical;
-            if let Some(instance) = instance_geometry {
-                physical.dimensions_m[1] = instance.total_length_m;
-                physical.grip_to_tip_m = instance.grip_to_tip_m;
-                physical.anchor_offset_m[1] = -(instance.total_length_m - instance.grip_to_tip_m);
-            }
-            item_cmd.insert(TacticalEquipmentPhysical {
-                dimensions_m: Vec3::from_array(physical.dimensions_m),
-                grip_to_tip_m: physical.grip_to_tip_m,
-                striking_head_length_m: instance_geometry.map_or(
-                    physical.dimensions_m[0].max(physical.dimensions_m[2]),
-                    |value| value.striking_head_length_m,
-                ),
-                anchor_offset_m: Vec3::from_array(physical.anchor_offset_m),
-            });
-        }
+        if let Some(physical) = geometry.physical { item_cmd.insert(physical); }
         if let Some(appearance) = weapon_appearance {
             item_cmd.insert(appearance);
         }
@@ -875,43 +857,7 @@ fn spawn_connected_player(
             | CatalogItemKind::Medication
             | CatalogItemKind::Food => {}
             CatalogItemKind::Weapon => {
-                let equipment = adventuresim_core::item_catalog::definition(&item.item.id)
-                    .and_then(|definition| definition.equipment.as_ref())
-                    .expect("validated tactical weapon has equipment metadata");
-                item_cmd.insert(WeaponItem {
-                    striking_material: equipment
-                        .striking_material
-                        .expect("validated weapon has a striking material"),
-                    skill_weights: [
-                        item.item.weapon_skills.polearm,
-                        item.item.weapon_skills.axe,
-                        item.item.weapon_skills.bludgeon,
-                        item.item.weapon_skills.sword,
-                        item.item.weapon_skills.knife,
-                        item.item.weapon_skills.bow,
-                        item.item.weapon_skills.crossbow,
-                        item.item.weapon_skills.firearm,
-                        item.item.weapon_skills.throw,
-                    ],
-                    prefers_stab: matches!(
-                        item.item.preferred_melee_style,
-                        adventuresim_stdb_client::MeleeAttackStyle::Stab
-                    ),
-                    precision: instance_geometry.map_or(item.item.precision, |value| {
-                        value.conditioned_precision(&item.item.id, item.item.precision)
-                    }),
-                    reach: instance_geometry.map_or(item.item.reach, |value| value.melee_reach_m()),
-                    grip_to_tip_m: instance_geometry
-                        .map_or(equipment.physical.grip_to_tip_m, |value| {
-                            value.grip_to_tip_m
-                        }),
-                    moment_of_inertia_kg_m2: instance_geometry
-                        .map_or(item.item.moment_of_inertia_kg_m_2, |value| {
-                            value.moment_of_inertia_kg_m2
-                        }),
-                    melee: item.item.melee,
-                    ranged: item.item.ranged,
-                });
+                if let Some(weapon) = geometry.weapon { item_cmd.insert(weapon); }
             }
             CatalogItemKind::Armor | CatalogItemKind::Clothing => {}
             CatalogItemKind::Shield => {
@@ -1270,14 +1216,21 @@ pub(crate) fn on_player_input(
                     if validated.weapon_guard == WeaponGuardState::Raised
                         && skeleton.body() == BodyState::Grounded(GroundedPosture::Upright) =>
                 {
-                    let accepted = begin_authoritative_quickstep(
-                        &mut skeleton,
-                        &mut quickstep_push,
-                        direction,
-                        Quat::from_rotation_y(look.yaw),
-                        transform.translation,
-                        &combat_config,
-                    );
+                    let accepted = (|| -> fabelgeist_geometry::GeometryResult<bool> {
+                        let origin = Position::from_metres(transform.translation)?;
+                        let orientation = RigidRotation::from_quaternion(Quat::from_rotation_y(look.yaw))?;
+                        Ok(begin_authoritative_quickstep(
+                            &mut skeleton, &mut quickstep_push, direction, orientation, origin,
+                            &combat_config,
+                        ))
+                    })();
+                    let accepted = match accepted {
+                        Ok(accepted) => accepted,
+                        Err(error) => {
+                            warn!(?entity, %error, "cannot admit authoritative quickstep pose");
+                            false
+                        }
+                    };
                     if accepted {
                         info!(
                             target: "quickstep_trace",
@@ -1336,8 +1289,8 @@ pub(crate) fn begin_authoritative_quickstep(
     skeleton: &mut SkeletonState,
     quickstep_push: &mut QuickstepPush,
     direction: Vec2,
-    orientation: Quat,
-    origin: Vec3,
+    orientation: RigidRotation,
+    origin: Position<Scene>,
     config: &TacticalCombatConfig,
 ) -> bool {
     if skeleton.weapon_guard() != WeaponGuardState::Raised
@@ -1694,11 +1647,11 @@ pub(crate) fn trace_authoritative_quickstep_after_collision(players: QuickstepTr
         if !push.active {
             continue;
         }
-        let world_direction = (push.orientation
+        let world_direction = (push.orientation.quaternion()
             * Vec3::new(push.direction.x, 0.0, -push.direction.y))
         .xz()
         .normalize_or_zero();
-        let displacement_vector = (transform.translation - push.origin).xz();
+        let displacement_vector = (transform.translation - push.origin.metres()).xz();
         info!(
             target: "quickstep_trace",
             ?entity,
@@ -2214,8 +2167,8 @@ mod standalone_join_tests {
                     skill_weights: [0.0; 9],
 
                     precision: 1.0,
-                    reach: 0.8,
-                    grip_to_tip_m: 0.8,
+                    reach: fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap(),
+                    grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap(),
                     moment_of_inertia_kg_m2: 0.0,
 
                     melee: true,
@@ -2372,11 +2325,11 @@ mod tests {
 
         // The authored spike tip is at 2.18 m; the controlling grip is at the
         // centre of the 1.82 m shaft.
-        assert!((short.melee_reach_m() - 1.27).abs() < 1.0e-6);
-        assert!(long.melee_reach_m() > short.melee_reach_m() + 0.10);
+        assert!((short.melee_reach_m().metres() - 1.27).abs() < 1.0e-6);
+        assert!(long.melee_reach_m().metres() > short.melee_reach_m().metres() + 0.10);
         assert!(long.mass_kg > short.mass_kg);
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
-        assert!((long.striking_head_length_m - short.striking_head_length_m).abs() < 1.0e-6);
+        assert!((long.striking_head_length_m.metres() - short.striking_head_length_m.metres()).abs() < 1.0e-6);
     }
     use adventuresim_tactical_netcode::aeronet::io::connection::{DisconnectReason, Disconnected};
     use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
@@ -3178,8 +3131,8 @@ mod tests {
                         0u64,
                     ),
                     direction: Vec2::X,
-                    orientation: Quat::IDENTITY,
-                    origin: Vec3::ZERO,
+                    orientation: adventuresim_building_generator::spatial_geometry::RigidRotation::IDENTITY,
+                    origin: adventuresim_building_generator::spatial_geometry::Position::ORIGIN,
                     active: true,
                 },
                 input::AccumulatedInput::default(),
@@ -3207,15 +3160,15 @@ mod tests {
             &mut skeleton,
             &mut push,
             Vec2::X,
-            Quat::IDENTITY,
-            Vec3::new(2.0, 0.0, 3.0),
+            adventuresim_building_generator::spatial_geometry::RigidRotation::IDENTITY,
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(2.0, 0.0, 3.0)).unwrap(),
             &TacticalCombatConfig::default(),
         ));
         assert_eq!(skeleton.action_kind(), SkeletonAction::Dodge);
         assert_eq!(skeleton.action_direction(), Vec2::X);
         assert!(push.active);
         assert_eq!(push.direction, Vec2::X);
-        assert_eq!(push.origin, Vec3::new(2.0, 0.0, 3.0));
+        assert_eq!(push.origin.metres(), Vec3::new(2.0, 0.0, 3.0));
     }
 
     #[test]

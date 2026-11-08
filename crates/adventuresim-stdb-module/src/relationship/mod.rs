@@ -64,7 +64,7 @@ pub fn settle_due_lifecycle_events_global(
     ctx: &ReducerContext,
     now: StrategicMinute,
     limit: usize,
-) -> Result<usize, String> {
+) -> crate::StrategicOperationResult<usize> {
     let mut due: Vec<_> = ctx
         .db
         .exclusive_commitment()

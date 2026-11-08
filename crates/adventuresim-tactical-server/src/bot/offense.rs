@@ -2,6 +2,7 @@ use bevy::ecs::entity::MapEntities;
 use bevy::ecs::system::SystemParam;
 
 use super::*;
+use fabelgeist_geometry::SignedLength;
 
 pub(super) use facts::compare_target;
 #[cfg(test)]
@@ -153,8 +154,15 @@ pub(super) fn drive_offensive_combat_ai(
             continue;
         };
         let offset = target_transform.translation.xz() - transform.translation.xz();
-        let distance = offset.length();
-        if distance > 0.0 {
+        let distance = match SignedLength::from_metres(offset.length()) {
+            Ok(distance) => distance,
+            Err(error) => {
+                warn!(?entity, %error, "cannot admit bot target separation");
+                input.0 = None;
+                continue;
+            }
+        };
+        if distance.metres() > 0.0 {
             look.yaw = (-offset.x).atan2(-offset.y);
         }
         let facts = match offensive_facts(
@@ -186,12 +194,12 @@ pub(super) fn drive_offensive_combat_ai(
             OffensiveCombatPhase::MeleeWindup { .. }
                 if !facts.weapon_is_melee
                     || !facts.melee_attack_available
-                    || facts.dimensions.arm_reach_metres <= 0.0
+                    || facts.dimensions.arm_reach_metres.metres() <= 0.0
                     || !melee_target_reachable
                     || !matches!(facts.melee_recovery_seconds, Some(RecoveryTime::After(_)))
         ) || matches!(
             &controller.phase,
-            OffensiveCombatPhase::RangedWindup(_) if !facts.use_ranged || distance > facts.weapon_reach
+            OffensiveCombatPhase::RangedWindup(_) if !facts.use_ranged || distance.metres() > facts.weapon_reach.metres()
         );
         if abort_windup {
             controller.phase = OffensiveCombatPhase::Pursuing;
@@ -251,6 +259,7 @@ pub(super) fn on_attack_committed_to_defense(
 mod tests {
     use super::{below_preferred_long_weapon_measure, committed_threat_recognition_probability};
     use adventuresim_tactical_core::animation::UnitInterval;
+    use fabelgeist_geometry::SignedLength;
 
     #[test]
     fn threat_recognition_grows_with_visible_commitment_and_instinct() {
@@ -275,13 +284,19 @@ mod tests {
     #[test]
     fn polearm_retreats_below_authored_head_band_center_not_generic_seventy_percent() {
         let preferred =
-            adventuresim_core::combat::preferred_melee_striking_measure(2.0, 1.9, 0.16, true, 0.7);
-        assert!((preferred - 1.92).abs() < 1.0e-6);
+            adventuresim_core::combat::preferred_melee_striking_measure(
+                SignedLength::from_metres(2.0).unwrap(),
+                SignedLength::from_metres(1.9).unwrap(),
+                SignedLength::from_metres(0.16).unwrap(), true, 0.7,
+            ).unwrap();
+        assert!((preferred.metres() - 1.92).abs() < 1.0e-6);
         assert!(below_preferred_long_weapon_measure(
-            2.0, preferred, 2.6, 1.2
+            SignedLength::from_metres(2.0).unwrap(), preferred,
+            SignedLength::from_metres(2.6).unwrap(), SignedLength::from_metres(1.2).unwrap()
         ));
         assert!(!below_preferred_long_weapon_measure(
-            2.0, preferred, 2.8, 1.2
+            SignedLength::from_metres(2.0).unwrap(), preferred,
+            SignedLength::from_metres(2.8).unwrap(), SignedLength::from_metres(1.2).unwrap()
         ));
     }
 }

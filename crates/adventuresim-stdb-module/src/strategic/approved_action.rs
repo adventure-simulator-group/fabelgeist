@@ -101,7 +101,7 @@ impl ApprovedPartyAction {
         ctx: &ReducerContext,
         leader_id: u64,
         requester_id: u64,
-    ) -> StrategicCombatResult<()> {
+    ) -> StrategicOperationResult<()> {
         let result = match self {
             Self::TravelToSettlement { settlement_id } => {
                 travel_to_settlement(ctx, leader_id, settlement_id)
@@ -168,6 +168,6 @@ impl ApprovedPartyAction {
                 true,
             ),
         };
-        result.map_err(StrategicCombatError::from)
+        result.map_err(StrategicOperationError::from)
     }
 }

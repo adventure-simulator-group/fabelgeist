@@ -1,5 +1,7 @@
 //! Shared automatic capability tags used by strategic recruitment and tactical UI.
 
+#[cfg(test)]
+use fabelgeist_geometry::SignedLength;
 use serde::{Deserialize, Serialize};
 
 use crate::prelude::*;
@@ -379,8 +381,8 @@ mod tests {
         fn weapon_precision(&self) -> f32 {
             0.0
         }
-        fn weapon_reach(&self) -> f32 {
-            0.0
+        fn weapon_reach(&self) -> SignedLength {
+            SignedLength::ZERO
         }
         fn weapon_holding_side(&self) -> Option<BodySide> {
             None

@@ -19,7 +19,7 @@ pub(super) struct StartedMeleePublication {
     pub(super) timing: MeleeAnimationTiming,
     pub(super) contact_windup: CombatDuration,
     pub(super) work_duration: AnimationElapsed,
-    pub(super) scheduled_measure: f32,
+    pub(super) scheduled_measure: SignedLength,
     pub(super) allowance: CombatDuration,
     pub(super) plan: Option<PlannedMeleeLunge>,
 }
@@ -38,7 +38,7 @@ impl StartedMeleePreparation {
         skeleton: &SkeletonState,
         spec: &AttackSpec,
         transforms: &Query<&Transform>,
-    ) -> AnimationValueResult<StartedMeleePublication> {
+    ) -> MeleeGeometryResult<StartedMeleePublication> {
         let arrival = self
             .plan
             .map_or(MeleeLungeArrival::NotNeeded, |plan| plan.arrival);
@@ -64,7 +64,7 @@ impl StartedMeleePreparation {
             spec,
         )?;
         let scheduled_measure =
-            scheduled_attack_measure(&event, self.contact.weapon_reach, transforms);
+            scheduled_attack_measure(&event, self.contact.weapon_reach, transforms)?;
         Ok(StartedMeleePublication {
             event,
             body_part,
@@ -168,12 +168,12 @@ impl MeleeStartTiming {
 
 pub(super) fn started_attack_lunge_plan(
     event: &MeleeAttackStartedIntent,
-    weapon_reach: f32,
+    weapon_reach: SignedLength,
     transforms: &Query<&Transform>,
     dimensions: &Query<&CharacterDimensions>,
     colliders: &Query<&Collider>,
     config: &TacticalCombatConfig,
-) -> AnimationValueResult<Option<PlannedMeleeLunge>> {
+) -> MeleeGeometryResult<Option<PlannedMeleeLunge>> {
     let Some(target) = event.target else {
         return Ok(None);
     };
@@ -192,20 +192,17 @@ pub(super) fn started_attack_lunge_plan(
 
 pub(super) fn scheduled_attack_measure(
     event: &MeleeAttackStartedIntent,
-    weapon_reach: f32,
+    weapon_reach: SignedLength,
     transforms: &Query<&Transform>,
-) -> f32 {
-    event
-        .target
-        .and_then(|target| {
-            let attacker_transform = transforms.get(event.attacker).ok()?;
-            let target_transform = transforms.get(target).ok()?;
-            Some(melee_surface_measure(
-                attacker_transform.translation,
-                target_transform.translation,
-            ))
-        })
-        .unwrap_or(weapon_reach)
+) -> MeleeGeometryResult<SignedLength> {
+    let Some(target) = event.target else { return Ok(weapon_reach); };
+    let (Ok(attacker), Ok(target)) = (transforms.get(event.attacker), transforms.get(target)) else {
+        return Ok(weapon_reach);
+    };
+    melee_surface_measure(
+        Position::from_metres(attacker.translation)?,
+        Position::from_metres(target.translation)?,
+    )
 }
 
 #[expect(
@@ -221,7 +218,7 @@ pub(super) fn authorize_started_attack(
     defense_alignment_sample: f32,
     attack_key: MeleeAttackKey,
     contact_windup: CombatDuration,
-    scheduled_measure_metres: f32,
+    scheduled_measure_metres: SignedLength,
     time: &Time<()>,
     completion_allowance: CombatDuration,
 ) {
@@ -257,7 +254,7 @@ pub(super) fn begin_started_attack_movement(
     commands: &mut Commands,
     event: &MeleeAttackStartedIntent,
     selected_body_part: Option<BodyPart>,
-    weapon_reach: f32,
+    weapon_reach: SignedLength,
     attack_key: MeleeAttackKey,
     animation_start_tick: AnimationSampleTick,
     contact_tick: AnimationSampleTick,

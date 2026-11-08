@@ -338,7 +338,7 @@ pub fn start_poppy_tincture(
     ctx: &ReducerContext,
     character_id: u64,
     object_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let actor = crate::character::require_living_character(ctx, character_id)?;
     if actor.has_tactical_server_assignment() {
@@ -506,7 +506,7 @@ pub fn administer_tincture_from_container(
     patient_id: u64,
     object_id: u64,
     dose_milliunits: u32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     crate::disease::require_intervention_relationship(ctx, actor_id, patient_id)?;
     let tincture_dose = DoseMilliunits::try_new(dose_milliunits)

@@ -34,12 +34,12 @@ fn weapon_output(
         weapon.ranged_force_joules.max(0.0).sqrt() / 5.0
     } else {
         let striking_mass =
-            weapon.weight.max(0.0) * (1.0 + weapon.balance.max(0.0) * weapon.melee_reach.max(0.0));
+            weapon.weight.max(0.0) * (1.0 + weapon.balance.max(0.0) * weapon.melee_reach.metres().max(0.0));
         (arm_strength.max(0.0) * (1.0 + striking_mass)).sqrt()
     };
     let concentration = ContactPrecision::new(weapon.precision).concentrated_fraction();
     let reach = if weapon.melee {
-        1.0 + weapon.melee_reach.max(0.0).sqrt() * 0.15
+        1.0 + weapon.melee_reach.metres().max(0.0).sqrt() * 0.15
     } else {
         1.0
     };
@@ -68,7 +68,7 @@ fn ranged_opening_power(
         if combatant.equipment.ammunition == 0 {
             0.0
         } else {
-            (weapon.ranged_range.max(0.0)
+            (weapon.ranged_range.metres().max(0.0)
                 / weapon
                     .attack_interval_seconds
                     .max(minimum_attack_interval_seconds)

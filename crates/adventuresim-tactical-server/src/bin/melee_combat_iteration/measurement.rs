@@ -11,6 +11,7 @@ use adventuresim_core::{
     elapsed::AnimationElapsed, linear_speed::NonnegativeSpeed, unit_interval::UnitInterval,
 };
 use adventuresim_tactical_server::iteration::TacticalElapsed;
+use fabelgeist_geometry::SignedLength;
 use serde::Serialize;
 
 pub(super) type MeasurementResult<T> = Result<T, MeasurementError>;
@@ -34,6 +35,8 @@ pub(crate) enum MeasurementError {
 pub(super) trait ReportUnit: Copy + Default + PartialOrd {
     const QUANTITY: ReportQuantity;
 }
+
+pub(super) trait ReportLengthUnit: ReportUnit {}
 
 macro_rules! report_quantities {
     ($($role:ident),+ $(,)?) => {
@@ -78,6 +81,11 @@ report_quantities! {
     DuelsPerWallSecond,
     TacticalSecondsPerWallSecond,
 }
+
+impl ReportLengthUnit for ContactMetres {}
+impl ReportLengthUnit for CenterSeparationMetres {}
+impl ReportLengthUnit for WeaponReachMetres {}
+impl ReportLengthUnit for MovementMetres {}
 
 impl<Role: ReportUnit> Measurement<Role> {
     pub(super) const ZERO: Self = Self {
@@ -174,6 +182,25 @@ impl Measurement<IncapacitationPerformance> {
 impl Measurement<MovementSpeed> {
     pub(super) fn from_speed(speed: NonnegativeSpeed) -> MeasurementResult<Self> {
         Self::from_native(speed.metres_per_second())
+    }
+}
+
+impl<Role: ReportLengthUnit> Measurement<Role> {
+    /// Promote admitted gameplay metres at the owning f64 report operation.
+    pub(super) fn from_length(length: SignedLength) -> Self {
+        Self {
+            value: f64::from(length.metres()),
+            role: PhantomData,
+        }
+    }
+}
+
+impl Measurement<MovementMetres> {
+    pub(super) fn from_absolute_displacement(displacement: SignedLength) -> Self {
+        Self {
+            value: f64::from(displacement.metres().abs()),
+            role: PhantomData,
+        }
     }
 }
 

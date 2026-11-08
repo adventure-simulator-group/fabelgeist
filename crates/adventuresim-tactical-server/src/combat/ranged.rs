@@ -153,7 +153,8 @@ pub(super) fn resolve_ranged_attack(
     let Ok(mut authority) = q_authorities.get_mut(attacker) else {
         return;
     };
-    let facts = RangedIntentFacts {
+    let facts = (|| -> fabelgeist_geometry::GeometryResult<RangedIntentFacts> {
+        Ok(RangedIntentFacts {
         attacker,
         target: event.target,
         attacker_side: q_sides.get(attacker).ok().copied(),
@@ -178,10 +179,11 @@ pub(super) fn resolve_ranged_attack(
             .ranged
             .range_latency_tolerance_metres,
         separation: target_character.map(|(_, transform)| {
+            SignedLength::from_metres(
             attacker_transform
                 .translation
-                .distance(transform.translation)
-        }),
+                .distance(transform.translation))
+        }).transpose()?,
         target_in_aim_cone: target_character.map(|(_, transform)| {
             ranged_target_in_aim_cone(
                 attacker_look.yaw,
@@ -192,10 +194,18 @@ pub(super) fn resolve_ranged_attack(
         }),
         authority_permits: authority.permits(now),
         body_part: event.body_part,
-        attacker_position: attacker_transform.translation,
-        target_position: target_character.map(|(_, transform)| transform.translation),
+        attacker_position: Position::from_metres(attacker_transform.translation)?,
+        target_position: target_character.map(|(_, transform)| Position::from_metres(transform.translation)).transpose()?,
         attacker_yaw: attacker_look.yaw,
         target_yaw: target_character.map(|(look, _)| look.yaw),
+        })
+    })();
+    let facts = match facts {
+        Ok(facts) => facts,
+        Err(error) => {
+            warn!(?attacker, %error, "cannot admit ranged geometry observations");
+            return;
+        }
     };
     let validated = match validate_ranged_intent(facts) {
         Ok(validated) => validated,

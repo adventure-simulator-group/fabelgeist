@@ -21,6 +21,9 @@ use adventuresim_tactical_netcode::{
     },
 };
 use bevy::prelude::*;
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::scene_coordinates::Scene;
+use fabelgeist_geometry::SignedLength;
 use std::collections::HashMap;
 
 use crate::player_projection::{
@@ -122,7 +125,7 @@ fn authoritative_impact_effects(
 fn authoritative_impact(
     result: AttackResult,
     attacker: Entity,
-    attacker_position: Vec3,
+    attacker_position: Position<Scene>,
     attacker_mass_kg: f32,
     target: Entity,
     target_transform: &Transform,
@@ -345,7 +348,7 @@ fn trace_attack_transformed_by_defense(event: On<MeleeAttackTransformedByDefense
 /// already mass-normalized impulse.
 fn hit_velocity_change(
     result: AttackResult,
-    attacker_position: Vec3,
+    attacker_position: Position<Scene>,
     defender_position: Vec3,
     attacker_mass_kg: f32,
     defender_mass_kg: f32,
@@ -407,14 +410,14 @@ struct RangedIntentFacts {
     target_incapacitated: Option<bool>,
     reported_precision: ReportedPrecision,
     weapon_is_ranged: bool,
-    weapon_range: f32,
-    range_latency_tolerance: f32,
-    separation: Option<f32>,
+    weapon_range: SignedLength,
+    range_latency_tolerance: SignedLength,
+    separation: Option<SignedLength>,
     target_in_aim_cone: Option<bool>,
     authority_permits: bool,
     body_part: BodyPart,
-    attacker_position: Vec3,
-    target_position: Option<Vec3>,
+    attacker_position: Position<Scene>,
+    target_position: Option<Position<Scene>>,
     attacker_yaw: f32,
     target_yaw: Option<f32>,
 }
@@ -447,6 +450,14 @@ enum MeleeIntentRejection {
     BlockedLineOfSight,
 }
 
+#[derive(Debug, PartialEq, Eq, thiserror::Error)]
+enum MeleeIntentError {
+    #[error("melee intent rejected: {0:?}")]
+    Rejected(MeleeIntentRejection),
+    #[error(transparent)]
+    Geometry(#[from] MeleeGeometryError),
+}
+
 #[derive(Clone, Copy)]
 struct MeleeIntentFacts {
     attacker: Entity,
@@ -457,16 +468,22 @@ struct MeleeIntentFacts {
     target_incapacitated: Option<bool>,
     attack_capability: MeleeAttackCapability,
     reported_precision: ReportedPrecision,
-    arm_reach: f32,
-    weapon_reach: f32,
-    range_latency_tolerance: f32,
-    separation: f32,
+    arm_reach: SignedLength,
+    weapon_reach: SignedLength,
+    range_latency_tolerance: SignedLength,
+    separation: SignedLength,
     authority_permits: bool,
     body_part: BodyPart,
-    attacker_position: Vec3,
-    target_position: Vec3,
+    attacker_position: Position<Scene>,
+    target_position: Position<Scene>,
     attacker_yaw: f32,
     target_yaw: f32,
+}
+
+impl From<MeleeIntentRejection> for MeleeIntentError {
+    fn from(rejection: MeleeIntentRejection) -> Self {
+        Self::Rejected(rejection)
+    }
 }
 
 fn validate_melee_line_of_sight(line_of_sight: bool) -> Result<(), MeleeIntentRejection> {
@@ -534,14 +551,14 @@ mod tests {
             target_incapacitated: Some(false),
             attack_capability: MeleeAttackCapability::Available,
             reported_precision: ReportedPrecision::new(1.0).unwrap(),
-            arm_reach: 0.55,
-            weapon_reach: 0.8,
-            range_latency_tolerance: 0.25,
-            separation: 1.2,
+            arm_reach: SignedLength::from_metres(0.55).unwrap(),
+            weapon_reach: SignedLength::from_metres(0.8).unwrap(),
+            range_latency_tolerance: SignedLength::from_metres(0.25).unwrap(),
+            separation: SignedLength::from_metres(1.2).unwrap(),
             authority_permits: true,
             body_part: BodyPart::Chest,
-            attacker_position: Vec3::ZERO,
-            target_position: Vec3::X,
+            attacker_position: Position::ORIGIN,
+            target_position: Position::from_metres(Vec3::X).unwrap(),
             attacker_yaw: 0.0,
             target_yaw: 0.0,
         }
@@ -557,14 +574,14 @@ mod tests {
             target_incapacitated: Some(false),
             reported_precision: ReportedPrecision::new(1.0).unwrap(),
             weapon_is_ranged: true,
-            weapon_range: 120.0,
-            range_latency_tolerance: 0.5,
-            separation: Some(30.0),
+            weapon_range: SignedLength::from_metres(120.0).unwrap(),
+            range_latency_tolerance: SignedLength::from_metres(0.5).unwrap(),
+            separation: Some(SignedLength::from_metres(30.0).unwrap()),
             target_in_aim_cone: Some(true),
             authority_permits: true,
             body_part: BodyPart::Chest,
-            attacker_position: Vec3::ZERO,
-            target_position: Some(Vec3::X),
+            attacker_position: Position::ORIGIN,
+            target_position: Some(Position::from_metres(Vec3::X).unwrap()),
             attacker_yaw: 0.0,
             target_yaw: Some(0.0),
         }
@@ -577,7 +594,7 @@ mod tests {
         assert!(validate_melee_intent_cheap(valid).is_ok());
         assert!(
             validate_melee_intent_cheap(MeleeIntentFacts {
-                weapon_reach: 0.0,
+                weapon_reach: SignedLength::from_metres(0.0).unwrap(),
                 separation: valid.arm_reach,
                 ..valid
             })
@@ -586,12 +603,12 @@ mod tests {
         );
         assert_eq!(
             validate_melee_intent_cheap(MeleeIntentFacts {
-                weapon_reach: 0.0,
-                separation: valid.arm_reach + valid.range_latency_tolerance + 0.01,
+                weapon_reach: SignedLength::from_metres(0.0).unwrap(),
+                separation: SignedLength::from_metres(valid.arm_reach.metres() + valid.range_latency_tolerance.metres() + 0.01).unwrap(),
                 ..valid
             })
             .unwrap_err(),
-            MeleeIntentRejection::OutOfRange
+            MeleeIntentRejection::OutOfRange.into()
         );
         assert_eq!(validate_melee_line_of_sight(true), Ok(()));
         assert_eq!(
@@ -645,7 +662,7 @@ mod tests {
             ),
             (
                 MeleeIntentFacts {
-                    separation: 4.0,
+                    separation: SignedLength::from_metres(4.0).unwrap(),
                     ..valid
                 },
                 MeleeIntentRejection::OutOfRange,
@@ -659,7 +676,7 @@ mod tests {
             ),
         ];
         for (facts, expected) in cases {
-            assert_eq!(validate_melee_intent_cheap(facts).unwrap_err(), expected);
+            assert_eq!(validate_melee_intent_cheap(facts).unwrap_err(), expected.into());
         }
     }
 
@@ -706,7 +723,7 @@ mod tests {
             ),
             (
                 RangedIntentFacts {
-                    separation: Some(121.0),
+                    separation: Some(SignedLength::from_metres(121.0).unwrap()),
                     ..valid
                 },
                 RangedIntentRejection::OutOfRange,

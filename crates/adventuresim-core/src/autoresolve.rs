@@ -1,5 +1,6 @@
 //! Framework-neutral, deterministic combat simulation for strategic autoresolve.
 
+use fabelgeist_geometry::SignedLength;
 use crate::battle_time::BattleTime;
 use crate::elapsed::{AnimationElapsed, ElapsedResult};
 use crate::unit_interval::{FractionResult, UnitInterval};
@@ -83,7 +84,7 @@ pub struct Combatant {
     #[doc(hidden)]
     melee_engagement_target: Option<u64>,
     #[doc(hidden)]
-    melee_engagement_distance_metres: f32,
+    melee_engagement_distance_metres: SignedLength,
     /// Signed contribution to separation velocity: closing is negative.
     melee_separation_velocity_metres_per_second: SignedSpeed,
     #[doc(hidden)]
@@ -93,7 +94,7 @@ pub struct Combatant {
     #[doc(hidden)]
     melee_attack_contact_at_seconds: Option<BattleTime>,
     #[doc(hidden)]
-    melee_attack_scheduled_measure_metres: Option<f32>,
+    melee_attack_scheduled_measure_metres: Option<SignedLength>,
     #[doc(hidden)]
     #[doc(hidden)]
     pub yielded: bool,
@@ -152,7 +153,7 @@ impl Combatant {
             melee_consecutive_intercepts: 0,
             melee_phase_adaptation_delay_seconds: AnimationElapsed::ZERO,
             melee_engagement_target: None,
-            melee_engagement_distance_metres: 0.0,
+            melee_engagement_distance_metres: SignedLength::ZERO,
             melee_separation_velocity_metres_per_second: SignedSpeed::ZERO,
             melee_recovery_until_seconds: BattleTime::ZERO,
             melee_attack_started_at_seconds: None,
@@ -426,14 +427,14 @@ pub struct MeleeContactTelemetry {
     pub anatomical_subregion: AnatomicalSubregion,
     pub surface_coordinate: f32,
     pub armor_layer_chain: Vec<ArmorLayerTelemetry>,
-    pub scheduled_contact_measure_metres: f32,
-    pub ideal_contact_measure_metres: f32,
+    pub scheduled_contact_measure_metres: SignedLength,
+    pub ideal_contact_measure_metres: SignedLength,
     /// Gap from the attack origin to the target body's near surface.
-    pub actual_contact_measure_metres: f32,
+    pub actual_contact_measure_metres: SignedLength,
     /// Physical center separation after adding both 0.4 m humanoid radii.
-    pub actual_center_separation_metres: f32,
+    pub actual_center_separation_metres: SignedLength,
     pub contact_classification: MeleeContactClassification,
-    pub contact_lever_arm_metres: f32,
+    pub contact_lever_arm_metres: SignedLength,
     pub contact_energy_fraction: f32,
     pub measure_accuracy_multiplier: f32,
     pub contact_invalidation_cause: Option<MeleeContactInvalidationCause>,
@@ -923,7 +924,7 @@ fn opening_volley_plans(
                 .attack_interval_seconds
                 .max(parameters.minimum_attack_interval_seconds)
                 .seconds();
-            let range = weapon.ranged_range.max(0.0);
+            let range = weapon.ranged_range.metres().max(0.0);
             let direct_seconds = range / direct_closing_speed.metres_per_second();
             let direct_attacks = (direct_seconds / interval)
                 .ceil()
@@ -931,7 +932,7 @@ fn opening_volley_plans(
                 as usize;
             let detour = if closing_melee_count > screen_count && screen_count > 0 {
                 let formation_radius =
-                    screen_count as f32 * parameters.formation_spacing_metres * 0.5;
+                    screen_count as f32 * parameters.formation_spacing_metres.metres() * 0.5;
                 std::f32::consts::PI * formation_radius
             } else {
                 0.0
@@ -1431,13 +1432,13 @@ mod tests {
             preferred_melee_style: crate::combat_style::MeleeAttackStyle::Swing,
             weight: 1.5,
             precision: 1.0,
-            melee_reach: if ranged { 0.0 } else { 1.0 },
-            grip_to_tip_m: if ranged { 0.0 } else { 0.8 },
-            total_length_m: if ranged { 0.0 } else { 1.0 },
-            striking_head_length_m: if ranged { 0.0 } else { 0.8 },
+            melee_reach: fabelgeist_geometry::SignedLength::from_metres(if ranged { 0.0 } else { 1.0 }).unwrap(),
+            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(if ranged { 0.0 } else { 0.8 }).unwrap(),
+            total_length_m: fabelgeist_geometry::SignedLength::from_metres(if ranged { 0.0 } else { 1.0 }).unwrap(),
+            striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(if ranged { 0.0 } else { 0.8 }).unwrap(),
             body_material: (!ranged).then_some(EquipmentMaterial::RoughSteel),
             striking_material: (!ranged).then_some(EquipmentMaterial::RoughSteel),
-            ranged_range: if ranged { 20.0 } else { 0.0 },
+            ranged_range: fabelgeist_geometry::SignedLength::from_metres(if ranged { 20.0 } else { 0.0 }).unwrap(),
             attack_interval_seconds: crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap(),
             ranged_force_joules: 50.0,
             ..CombatWeapon::default()
@@ -1491,7 +1492,7 @@ mod tests {
 
         let mut longer = novice.clone();
         let weapon = longer.equipment.melee_weapon.as_mut().unwrap();
-        weapon.melee_reach *= 2.0;
+        weapon.melee_reach = weapon.melee_reach.scaled_by(2.0).unwrap();
         longer.equipment.weapon = longer.equipment.melee_weapon;
         assert!(autoresolve_combat_power(&longer) > autoresolve_combat_power(&novice));
 
@@ -1555,10 +1556,10 @@ mod tests {
             ..Default::default()
         };
         weapon.melee = true;
-        weapon.grip_to_tip_m = 0.8;
+        weapon.grip_to_tip_m = fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap();
         weapon.preferred_melee_style = crate::combat_style::MeleeAttackStyle::Swing;
         weapon.weight = 1.5;
-        weapon.melee_reach = 1.0;
+        weapon.melee_reach = fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap();
         weapon.attack_interval_seconds =
             crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap();
         attacker.equipment.weapon = Some(weapon);
@@ -1657,8 +1658,8 @@ mod tests {
         let mut enemy = fighter(22, 3.0, false);
         ally.melee_engagement_target = Some(enemy.id);
         enemy.melee_engagement_target = Some(ally.id);
-        ally.melee_engagement_distance_metres = 0.4;
-        enemy.melee_engagement_distance_metres = 0.4;
+        ally.melee_engagement_distance_metres = fabelgeist_geometry::SignedLength::from_metres(0.4).unwrap();
+        enemy.melee_engagement_distance_metres = fabelgeist_geometry::SignedLength::from_metres(0.4).unwrap();
         let mut allies = vec![ally];
         let mut enemies = vec![enemy];
         let mut recorder = BattleRecorder::default();
@@ -1990,7 +1991,7 @@ mod tests {
         let mut attacker = fighter(1, 5.0, true);
         attacker.skills.bow_hours = 100_000.0;
         let weapon = attacker.equipment.ranged_weapon.as_mut().unwrap();
-        weapon.grip_to_tip_m = 0.1;
+        weapon.grip_to_tip_m = fabelgeist_geometry::SignedLength::from_metres(0.1).unwrap();
         weapon.precision = 4.0;
 
         let mut defender = fighter(2, 1.0, false);
@@ -2038,7 +2039,7 @@ mod tests {
         let mut attacker = fighter(1, 5.0, false);
         attacker.skills.sword_hours = 100_000.0;
         let weapon = attacker.equipment.melee_weapon.as_mut().unwrap();
-        weapon.grip_to_tip_m = 0.1;
+        weapon.grip_to_tip_m = fabelgeist_geometry::SignedLength::from_metres(0.1).unwrap();
         weapon.precision = 4.0;
 
         let mut defender = fighter(2, 1.0, false);
@@ -2251,7 +2252,7 @@ mod tests {
             .ranged_weapon
             .as_mut()
             .unwrap()
-            .grip_to_tip_m = 0.1;
+            .grip_to_tip_m = fabelgeist_geometry::SignedLength::from_metres(0.1).unwrap();
         let mut allies = vec![archer];
         let mut enemies = vec![fighter(2, 1.0, false)];
 
@@ -2276,7 +2277,7 @@ mod tests {
             .ranged_weapon
             .as_mut()
             .unwrap()
-            .grip_to_tip_m = 0.1;
+            .grip_to_tip_m = fabelgeist_geometry::SignedLength::from_metres(0.1).unwrap();
         let screen = fighter(2, 3.0, false);
         let mut attackers = vec![archer, screen];
         let mut defenders = vec![fighter(3, 1.0, false), fighter(4, 1.0, false)];
@@ -2804,8 +2805,8 @@ mod tests {
         let mut defender = fighter(2, 3.0, false);
         attacker.melee_engagement_target = Some(defender.id);
         defender.melee_engagement_target = Some(attacker.id);
-        attacker.melee_engagement_distance_metres = 0.5;
-        defender.melee_engagement_distance_metres = 0.5;
+        attacker.melee_engagement_distance_metres = fabelgeist_geometry::SignedLength::from_metres(0.5).unwrap();
+        defender.melee_engagement_distance_metres = fabelgeist_geometry::SignedLength::from_metres(0.5).unwrap();
         attacker.melee_recovery_until_seconds = BattleTime::from_seconds(1.0).unwrap();
         attacker.melee_phase_adaptation_delay_seconds =
             crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap();

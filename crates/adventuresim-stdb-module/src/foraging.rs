@@ -468,7 +468,7 @@ fn acting_checks(
     ctx: &ReducerContext,
     character_id: u64,
     mixture: LocalTerrainMixture,
-) -> Result<(u16, u16), String> {
+) -> crate::StrategicOperationResult<(u16, u16)> {
     let attributes = ctx
         .db
         .character_attributes()
@@ -493,7 +493,7 @@ fn acting_checks(
         .character_id()
         .find(character_id)
         .ok_or("Character stats not found")?;
-    let equipment = StrategicEquipment::load(ctx, character_id);
+    let equipment = StrategicEquipment::load(ctx, character_id)?;
     let check = |skill| {
         skills.skill_check_by_parts(
             skill,
@@ -797,7 +797,7 @@ pub fn forage_current_vicinity(
     requested_minutes: u64,
     attempt_generation: u64,
     attestation: ForageEnvironmentAttestation,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     // Authentication must precede even replay lookup: otherwise a caller can
     // use receipt/readiness differences as a character-state oracle.
     crate::strategic::require_strategic_gateway(ctx)?;

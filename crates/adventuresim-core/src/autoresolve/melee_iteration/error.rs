@@ -10,6 +10,8 @@ pub type MeleeIterationResult<T> = Result<T, MeleeIterationError>;
 #[derive(Debug, thiserror::Error)]
 pub enum MeleeIterationError {
     #[error(transparent)]
+    Geometry(#[from] fabelgeist_geometry::GeometryError),
+    #[error(transparent)]
     Name(#[from] NameCatalogError),
     #[error(transparent)]
     Weapon(#[from] AuthoredMeleeWeaponError),

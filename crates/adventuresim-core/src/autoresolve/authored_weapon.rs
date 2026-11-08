@@ -5,11 +5,14 @@ use crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
 use crate::elapsed::ElapsedError;
 use crate::item_catalog_schema::ItemKind;
 use adventuresim_weapon_model::ValidationError;
+use fabelgeist_geometry::{CuboidDimensions, SignedLength};
 
 pub type AuthoredMeleeWeaponResult<T> = Result<T, AuthoredMeleeWeaponError>;
 
 #[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
 pub enum AuthoredMeleeWeaponError {
+    #[error(transparent)]
+    Geometry(#[from] fabelgeist_geometry::GeometryError),
     #[error("{weapon} is not a weapon")]
     NotWeapon { weapon: String },
     #[error("{weapon} is not melee-only")]
@@ -59,23 +62,23 @@ impl CombatWeapon {
         let grip_to_tip_m = definition
             .equipment
             .as_ref()
-            .map_or(0.0, |equipment| equipment.physical.grip_to_tip_m);
+            .map_or(SignedLength::ZERO, |equipment| equipment.physical.grip_to_tip_m);
         let dimensions_m = definition
             .equipment
             .as_ref()
-            .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);
-        let total_length_m = dimensions_m[1];
+            .map_or(CuboidDimensions::ZERO, |equipment| equipment.physical.dimensions_m);
+        let total_length_m = dimensions_m.y_length();
         let recipe = adventuresim_weapon_model::default_design(weapon_id).ok_or_else(|| {
             AuthoredMeleeWeaponError::MissingRecipe {
                 weapon: weapon_id.to_owned(),
             }
         })?;
-        let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)
+        let striking_head_length_m = SignedLength::from_metres(adventuresim_weapon_model::derive_properties(&recipe)
             .map_err(|violations| AuthoredMeleeWeaponError::Recipe {
                 weapon: weapon_id.to_owned(),
                 violations,
             })?
-            .striking_head_length_m;
+            .striking_head_length_m)?;
         let skill_distribution: crate::equipment::WeaponSkillDistribution = (*skills).into();
         Ok(Self {
             skills: skill_distribution,
@@ -109,7 +112,7 @@ impl CombatWeapon {
                 .equipment
                 .as_ref()
                 .and_then(|equipment| equipment.striking_material),
-            ranged_range: 0.0,
+            ranged_range: SignedLength::ZERO,
             // Autoresolve advances the same complete attack cycle as the tactical
             // bot: the authored server windup to contact plus inertia/style-based
             // recovery before another fresh attack may begin.

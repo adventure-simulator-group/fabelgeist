@@ -4,7 +4,7 @@ use super::*;
 pub(super) struct RangedPursuit {
     pub entity: Entity,
     pub target: Entity,
-    pub distance: f32,
+    pub distance: SignedLength,
 }
 
 pub(super) fn drive_ranged_pursuit(
@@ -15,17 +15,17 @@ pub(super) fn drive_ranged_pursuit(
     facts: &OffensiveFacts,
     config: &AiOffenseConfig,
 ) -> ElapsedResult<()> {
-    let standoff = (facts.weapon_reach * config.ranged_reach_fraction)
+    let standoff = (facts.weapon_reach.metres() * config.ranged_reach_fraction)
         .clamp(
-            config.ranged_standoff_min_metres,
-            config.ranged_standoff_max_metres,
+            config.ranged_standoff_min_metres.metres(),
+            config.ranged_standoff_max_metres.metres(),
         )
-        .min(facts.weapon_reach);
-    if pursuit.distance > facts.weapon_reach
-        || pursuit.distance > standoff + config.ranged_standoff_slop_metres
+        .min(facts.weapon_reach.metres());
+    if pursuit.distance.metres() > facts.weapon_reach.metres()
+        || pursuit.distance.metres() > standoff + config.ranged_standoff_slop_metres.metres()
     {
         input.0 = Some(Vec2::Y);
-    } else if pursuit.distance + config.ranged_standoff_slop_metres < standoff {
+    } else if pursuit.distance.metres() + config.ranged_standoff_slop_metres.metres() < standoff {
         input.0 = Some(-Vec2::Y);
     } else {
         input.0 = None;

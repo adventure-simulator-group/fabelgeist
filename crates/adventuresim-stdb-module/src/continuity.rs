@@ -294,7 +294,7 @@ fn promote_adult_descendant(
     ctx: &ReducerContext,
     character_id: u64,
     minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if effective_age_years(ctx, character_id, minute).unwrap_or(0) < ADULT_AGE_YEARS {
         return Ok(());
     }
@@ -323,7 +323,7 @@ pub(crate) fn settle_continuity_for_character(
     ctx: &ReducerContext,
     character_id: u64,
     minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     settle_child_training(ctx, character_id, minute)?;
     promote_adult_descendant(ctx, character_id, minute)?;
     settle_pending_inheritances_for_heir(ctx, character_id, minute)?;
@@ -383,7 +383,7 @@ pub(crate) fn record_estate_disposition_for_death(
     ctx: &ReducerContext,
     decedent_id: u64,
     death_minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if ctx
         .db
         .estate_disposition()
@@ -431,7 +431,7 @@ pub(crate) fn record_estate_disposition_for_death(
     Ok(())
 }
 
-fn unequip_personal_estate(ctx: &ReducerContext, decedent_id: u64) -> Result<(), String> {
+fn unequip_personal_estate(ctx: &ReducerContext, decedent_id: u64) -> crate::StrategicOperationResult<()> {
     let equipped = ctx
         .db
         .character_equipped_item()
@@ -450,7 +450,7 @@ fn transfer_personal_estate(
     ctx: &ReducerContext,
     decedent_id: u64,
     heir_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     // Tear down every body and item-attachment anchor before ownership moves.
     // Item IDs remain stable, preserving amounts, food lots, and condition.
     unequip_personal_estate(ctx, decedent_id)?;
@@ -470,8 +470,7 @@ fn transfer_personal_estate(
         .collect::<Vec<_>>();
     for object_id in object_roots {
         let destination =
-            adventuresim_core::physical_object::OperationalCustody::character(heir_id)
-                .map_err(|error| error.to_string())?;
+            adventuresim_core::physical_object::OperationalCustody::character(heir_id)?;
         crate::inventory_container::rehome_subtree(ctx, object_id, &destination)?;
     }
     let mut inventory = ctx
@@ -570,7 +569,7 @@ pub(crate) fn settle_pending_inheritances_for_heir(
     ctx: &ReducerContext,
     heir_id: u64,
     heir_frontier: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let heir_death_minute = ctx
         .db
         .character_death()

@@ -1,5 +1,6 @@
 use super::*;
 use adventuresim_core::combat::RecoveryTime;
+use adventuresim_building_generator::spatial_geometry::RigidRotation;
 use adventuresim_tactical_core::animation::{
     AnimationSampleSpan, AnimationSampleTick, AnimationValueResult,
 };
@@ -8,7 +9,7 @@ use attack_start::*;
 use lunge::{EntityMeleeLungeRequest, PlannedMeleeLunge, planned_melee_lunge_for_entities};
 pub(crate) use lunge::{MeleeLungeRequest, melee_surface_measure, melee_target_lunge_arrival};
 #[cfg(test)]
-use lunge::{melee_collision_clearance, planned_melee_lunge};
+use lunge::{melee_collision_clearance, MeleeMovementPlan};
 use timing::{MeleeAnimationTiming, ObservedMeleeStart, animation_tick};
 use work::*;
 
@@ -97,14 +98,25 @@ pub(crate) fn apply_defend_intent(
     let accepted = match event.choice {
         DefendRequest::Dodge { direction } if DodgeSpec::quickstep(direction).is_none() => false,
         DefendRequest::Dodge { .. } if skeleton.action_kind() == SkeletonAction::Dodge => true,
-        DefendRequest::Dodge { direction } => begin_authoritative_quickstep(
-            &mut skeleton,
-            &mut quickstep_push,
-            direction,
-            look.to_quat(),
-            transform.map_or(Vec3::ZERO, |transform| transform.translation),
-            &config,
-        ),
+        DefendRequest::Dodge { direction } => {
+            let accepted = (|| -> fabelgeist_geometry::GeometryResult<bool> {
+                let origin = match transform {
+                    Some(transform) => Position::from_metres(transform.translation)?,
+                    None => Position::ORIGIN,
+                };
+                let orientation = RigidRotation::from_quaternion(look.to_quat())?;
+                Ok(begin_authoritative_quickstep(
+                    &mut skeleton, &mut quickstep_push, direction, orientation, origin, &config,
+                ))
+            })();
+            match accepted {
+                Ok(accepted) => accepted,
+                Err(error) => {
+                    warn!(defender = ?event.defender, %error, "cannot admit defense quickstep pose");
+                    false
+                }
+            }
+        }
         DefendRequest::Roll if !accepts_roll_dodge(&skeleton) => false,
         DefendRequest::Roll => true,
     };
@@ -501,10 +513,10 @@ pub(super) fn authoritative_line_of_sight(
     scene_items: &Query<Entity, With<TacticalSceneItem>>,
     attacker: Entity,
     target: Entity,
-    origin: Vec3,
-    target_position: Vec3,
+    origin: Position<Scene>,
+    target_position: Position<Scene>,
 ) -> bool {
-    let offset = target_position - origin;
+    let offset = target_position.metres() - origin.metres();
     let distance = offset.length();
     let Ok(direction) = Dir3::new(offset) else {
         return false;
@@ -512,7 +524,7 @@ pub(super) fn authoritative_line_of_sight(
     let excluded: Vec<_> = scene_items.iter().chain([attacker]).collect();
     let filter = SpatialQueryFilter::from_excluded_entities(excluded);
     spatial
-        .cast_ray(origin, direction, distance, true, &filter)
+        .cast_ray(origin.metres(), direction, distance, true, &filter)
         .is_some_and(|hit| hit.entity == target)
 }
 
@@ -527,7 +539,7 @@ mod roll_tests {
     use std::time::Duration;
 
     #[derive(Resource, Default)]
-    struct ScheduledContactResults(Vec<Result<(), MeleeIntentRejection>>);
+    struct ScheduledContactResults(Vec<Result<(), MeleeIntentError>>);
 
     fn record_scheduled_contact_geometry(
         event: On<MeleeAttackIntent>,
@@ -538,15 +550,18 @@ mod roll_tests {
         let result = (|| {
             let attacker_transform = transforms
                 .get(event.attacker)
-                .map_err(|_| MeleeIntentRejection::OutOfRange)?;
+                .map_err(|_| MeleeIntentError::from(MeleeIntentRejection::OutOfRange))?;
             let target_transform = transforms
                 .get(event.target)
-                .map_err(|_| MeleeIntentRejection::OutOfRange)?;
+                .map_err(|_| MeleeIntentError::from(MeleeIntentRejection::OutOfRange))?;
             let dimensions = dimensions
                 .get(event.attacker)
-                .map_err(|_| MeleeIntentRejection::OutOfRange)?;
+                .map_err(|_| MeleeIntentError::from(MeleeIntentRejection::OutOfRange))?;
             let surface_distance =
-                melee_surface_measure(attacker_transform.translation, target_transform.translation);
+                melee_surface_measure(
+                    Position::from_metres(attacker_transform.translation).unwrap(),
+                    Position::from_metres(target_transform.translation).unwrap(),
+                ).unwrap();
             validate_melee_intent_cheap(MeleeIntentFacts {
                 attacker: event.attacker,
                 target: event.target,
@@ -557,13 +572,13 @@ mod roll_tests {
                 attack_capability: MeleeAttackCapability::Available,
                 reported_precision: event.reported_precision,
                 arm_reach: dimensions.arm_reach_metres,
-                weapon_reach: 0.0,
-                range_latency_tolerance: 0.0,
+                weapon_reach: SignedLength::ZERO,
+                range_latency_tolerance: SignedLength::ZERO,
                 separation: surface_distance,
                 authority_permits: true,
                 body_part: event.body_part,
-                attacker_position: attacker_transform.translation,
-                target_position: target_transform.translation,
+                attacker_position: Position::from_metres(attacker_transform.translation).unwrap(),
+                target_position: Position::from_metres(target_transform.translation).unwrap(),
                 attacker_yaw: 0.0,
                 target_yaw: 0.0,
             })
@@ -581,25 +596,16 @@ mod roll_tests {
             .add_systems(Update, resolve_pending_melee_contacts);
         let collider = Collider::cylinder(0.4, 1.9);
         let dimensions = CharacterDimensions::default();
-        let config = app.world().resource::<TacticalCombatConfig>().clone();
         let target_transform = Transform::from_xyz(1.25, 0.0, 0.0);
-        let movement = planned_melee_lunge(
-            MeleeLungeRequest {
-                attacker_position: Vec3::ZERO,
-                attacker_collider: &collider,
-                attacker_dimensions: dimensions,
-                target_transform: &target_transform,
-                target_collider: &collider,
-                weapon_reach_metres: 0.0,
-                quickstep_distance_metres: 1.0,
-            },
-            &config,
-        );
+        let movement = MeleeMovementPlan::admit(MeleeLungeRequest::observe(
+            &Transform::default(), &collider, dimensions, &target_transform, &collider,
+            SignedLength::ZERO, SignedLength::from_metres(1.0).unwrap(),
+        ).unwrap()).unwrap().movement;
         let arrived = movement.map_or(Vec3::ZERO, |movement| {
             Vec3::new(
-                movement.direction.x * movement.distance_metres,
+                movement.direction.vector().x * movement.distance_metres.metres(),
                 0.0,
-                movement.direction.y * movement.distance_metres,
+                movement.direction.vector().y * movement.distance_metres.metres(),
             )
         });
         let target = app
@@ -670,7 +676,7 @@ mod roll_tests {
 
         assert_eq!(
             app.world().resource::<ScheduledContactResults>().0,
-            [Err(MeleeIntentRejection::OutOfRange)]
+            [Err(MeleeIntentRejection::OutOfRange.into())]
         );
     }
 
@@ -739,7 +745,7 @@ mod roll_tests {
                 .max(1.0) as u64;
             let maximum_force = quickstep_peak_horizontal_force_newtons(70.0, 3.0, motor);
             for tick in 0..contact_ticks {
-                if displacement >= movement.distance_metres {
+                if displacement >= movement.distance_metres.metres() {
                     break;
                 }
                 let target = adventuresim_tactical_core::physics::quickstep_motion_target(
@@ -750,7 +756,7 @@ mod roll_tests {
                 )
                 .unwrap();
                 let force = adventuresim_tactical_core::physics::quickstep_tracking_force_newtons(
-                    displacement,
+                    SignedLength::from_metres(displacement).unwrap(),
                     adventuresim_core::linear_speed::SignedSpeed::from_metres_per_second(velocity)
                         .unwrap(),
                     target,
@@ -767,7 +773,7 @@ mod roll_tests {
                 .min(motor.gravity_metres_per_second_squared * motor.traction_coefficient);
             let run_speed = config.movement.speeds_metres_per_second.run;
             for _ in 0..contact_ticks {
-                if displacement >= movement.distance_metres {
+                if displacement >= movement.distance_metres.metres() {
                     break;
                 }
                 velocity = (velocity + drive_acceleration * dt).min(run_speed.metres_per_second());
@@ -786,7 +792,7 @@ mod roll_tests {
         let quickstep_distance = quickstep_target_displacement_metres(
             dimensions.leg_length_metres,
             &config.movement.motor,
-        );
+        ).unwrap();
         let cases = [
             (
                 "in-range",
@@ -917,14 +923,18 @@ mod roll_tests {
             expected_server_acceptance,
         ) in cases
         {
-            let reach = melee_interaction_range(dimensions.arm_reach_metres, weapon_reach);
+            let weapon_reach = SignedLength::from_metres(weapon_reach).unwrap();
+            let reach = melee_interaction_range(dimensions.arm_reach_metres, weapon_reach).unwrap();
             let attacker_origin = Vec3::ZERO;
             let mut low = 0.0;
             let mut high = 5.0;
             for _ in 0..40 {
                 let mid = (low + high) * 0.5;
                 let target = Transform::from_xyz(mid, 0.0, 0.0);
-                let gap = melee_surface_measure(attacker_origin, target.translation) - reach;
+                let gap = melee_surface_measure(
+                    Position::from_metres(attacker_origin).unwrap(),
+                    Position::from_metres(target.translation).unwrap(),
+                ).unwrap().metres() - reach.metres();
                 if gap < desired_gap {
                     low = mid;
                 } else {
@@ -933,25 +943,19 @@ mod roll_tests {
             }
             let target = Transform::from_xyz((low + high) * 0.5, 0.0, 0.0);
             let maximum_travel = quickstep_distance.min(melee_collision_clearance(
-                Vec3::ZERO,
+                Position::ORIGIN, &collider,
+                Position::from_metres(target.translation).unwrap(),
+                adventuresim_building_generator::spatial_geometry::RigidRotation::from_quaternion(target.rotation).unwrap(),
                 &collider,
-                &target,
-                &collider,
-            ));
-            let contact_reachable = melee_surface_measure(attacker_origin, target.translation)
-                <= reach + maximum_travel + 1.0e-5;
-            let movement = planned_melee_lunge(
-                MeleeLungeRequest {
-                    attacker_position: Vec3::ZERO,
-                    attacker_collider: &collider,
-                    attacker_dimensions: dimensions,
-                    target_transform: &target,
-                    target_collider: &collider,
-                    weapon_reach_metres: weapon_reach,
-                    quickstep_distance_metres: quickstep_distance,
-                },
-                &config,
-            );
+            ).unwrap());
+            let contact_reachable = melee_surface_measure(
+                Position::from_metres(attacker_origin).unwrap(),
+                Position::from_metres(target.translation).unwrap(),
+            ).unwrap().metres() <= reach.metres() + maximum_travel.metres() + 1.0e-5;
+            let movement = MeleeMovementPlan::admit(MeleeLungeRequest::observe(
+                &Transform::default(), &collider, dimensions, &target, &collider,
+                weapon_reach, quickstep_distance,
+            ).unwrap()).unwrap().movement;
             let actual_mode = match movement {
                 None => ExpectedLungeMode::None,
                 Some(movement) if movement.quickstep => ExpectedLungeMode::Quickstep,
@@ -964,32 +968,38 @@ mod roll_tests {
                 .unwrap_or(0.0);
             let arrived_position = movement.map_or(Vec3::ZERO, |movement| {
                 Vec3::new(
-                    movement.direction.x * actual_displacement,
+                    movement.direction.vector().x * actual_displacement,
                     0.0,
-                    movement.direction.y * actual_displacement,
+                    movement.direction.vector().y * actual_displacement,
                 )
             });
             let arrived_origin = arrived_position;
-            let surface_distance = melee_surface_measure(arrived_origin, target.translation);
+            let surface_distance = melee_surface_measure(
+                Position::from_metres(arrived_origin).unwrap(),
+                Position::from_metres(target.translation).unwrap(),
+            ).unwrap().metres();
             let server_accepts = surface_distance
-                <= reach
+                <= reach.metres()
                     + config
                         .realtime_authority
                         .melee
-                        .range_latency_tolerance_metres;
+                        .range_latency_tolerance_metres.metres();
             let in_reach_at_contact =
-                melee_surface_measure(arrived_origin, target.translation) <= reach + 1.0e-4;
+                melee_surface_measure(
+                    Position::from_metres(arrived_origin).unwrap(),
+                    Position::from_metres(target.translation).unwrap(),
+                ).unwrap().metres() <= reach.metres() + 1.0e-4;
             println!(
                 "{label:>14} gap={desired_gap:.3} mode={actual_mode:?} planned={:.3} actual={actual_displacement:.3} reachable={contact_reachable} in_reach={in_reach_at_contact} server={server_accepts}",
-                movement.map_or(0.0, |movement| movement.distance_metres),
+                movement.map_or(0.0, |movement| movement.distance_metres.metres()),
             );
             assert_eq!(
                 in_reach_at_contact, expected_in_reach_at_contact,
-                "{label}: authoritative reach mismatch at fixed-tick contact (surface={surface_distance:.4}, reach={reach:.4}, actual travel={actual_displacement:.4})"
+                "{label}: authoritative reach mismatch at fixed-tick contact (surface={surface_distance:.4}, reach={:.4}, actual travel={actual_displacement:.4})", reach.metres()
             );
             assert_eq!(
                 server_accepts, expected_server_acceptance,
-                "{label}: server validation mismatch at fixed-tick contact (surface={surface_distance:.4}, reach={reach:.4}, actual travel={actual_displacement:.4})"
+                "{label}: server validation mismatch at fixed-tick contact (surface={surface_distance:.4}, reach={:.4}, actual travel={actual_displacement:.4})", reach.metres()
             );
         }
     }
@@ -999,17 +1009,12 @@ mod roll_tests {
         let collider = Collider::cylinder(0.4, 1.9);
         let dimensions = CharacterDimensions::default();
         let target = Transform::from_xyz(2.4, 0.0, 0.0);
-        let request = MeleeLungeRequest {
-            attacker_position: Vec3::ZERO,
-            attacker_collider: &collider,
-            attacker_dimensions: dimensions,
-            target_transform: &target,
-            target_collider: &collider,
-            weapon_reach_metres: 0.8,
-            quickstep_distance_metres: 1.0,
-        };
+        let request = MeleeLungeRequest::observe(
+            &Transform::default(), &collider, dimensions, &target, &collider,
+            SignedLength::from_metres(0.8).unwrap(), SignedLength::from_metres(1.0).unwrap(),
+        ).unwrap();
         let base_config = TacticalCombatConfig::default();
-        let baseline = planned_melee_lunge(request, &base_config).expect("reachable with lunge");
+        let baseline = MeleeMovementPlan::admit(request).unwrap().movement.expect("reachable with lunge");
         let mut altered_config = base_config.clone();
         for (index, hitbox) in altered_config
             .targeting
@@ -1020,11 +1025,13 @@ mod roll_tests {
             hitbox.center_metres = [index as f32 * 10.0, 100.0, -100.0];
             hitbox.half_extents_metres = [0.001, 50.0, 20.0];
         }
-        let altered = planned_melee_lunge(request, &altered_config).expect("same center gap");
+        let altered = MeleeMovementPlan::admit(request).unwrap().movement.expect("same center gap");
         assert_eq!(altered.quickstep, baseline.quickstep);
         assert_eq!(altered.distance_metres, baseline.distance_metres);
 
-        let surface_measure = melee_surface_measure(Vec3::ZERO, target.translation);
+        let surface_measure = melee_surface_measure(
+            Position::ORIGIN, Position::from_metres(target.translation).unwrap(),
+        ).unwrap();
         for body_part in [
             BodyPart::Head,
             BodyPart::Chest,
@@ -1041,17 +1048,17 @@ mod roll_tests {
                 attack_capability: MeleeAttackCapability::Available,
                 reported_precision: ReportedPrecision::new(1.0).unwrap(),
                 arm_reach: dimensions.arm_reach_metres,
-                weapon_reach: 0.8,
-                range_latency_tolerance: 0.0,
+                weapon_reach: SignedLength::from_metres(0.8).unwrap(),
+                range_latency_tolerance: SignedLength::ZERO,
                 separation: surface_measure,
                 authority_permits: true,
                 body_part,
-                attacker_position: Vec3::ZERO,
-                target_position: target.translation,
+                attacker_position: Position::ORIGIN,
+                target_position: Position::from_metres(target.translation).unwrap(),
                 attacker_yaw: 0.0,
                 target_yaw: 0.0,
             });
-            assert!(matches!(result, Err(MeleeIntentRejection::OutOfRange)));
+            assert!(matches!(result, Err(MeleeIntentError::Rejected(MeleeIntentRejection::OutOfRange))));
         }
     }
 

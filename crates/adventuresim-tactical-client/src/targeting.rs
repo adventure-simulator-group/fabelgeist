@@ -1,4 +1,18 @@
 use bevy::prelude::*;
+use fabelgeist_geometry::SignedLength;
+
+#[derive(Clone, Copy)]
+pub(crate) enum TargetingRange {
+    Bounded(SignedLength),
+    MovementPrevalidated,
+}
+
+/// Native scene X/Y/Z metres at the final cursor-ranking numerical kernel.
+pub(crate) struct TargetingCandidate<T> {
+    pub(crate) candidate: T,
+    pub(crate) position: Vec3,
+    pub(crate) stable_key: u64,
+}
 
 /// Selects the in-range candidate closest to the camera's forward axis.
 /// Distance only breaks equal cursor alignment, matching ground-item auto aim.
@@ -6,16 +20,21 @@ pub(crate) fn auto_aim_candidate<T: Copy>(
     camera_origin: Vec3,
     camera_forward: Vec3,
     actor_origin: Vec3,
-    maximum_distance: f32,
-    candidates: impl IntoIterator<Item = (T, Vec3, u64)>,
+    range: TargetingRange,
+    candidates: impl IntoIterator<Item = TargetingCandidate<T>>,
 ) -> Option<T> {
     let camera_forward = camera_forward.try_normalize()?;
-    let maximum_distance_squared = maximum_distance.max(0.0).powi(2);
+    // Scene-vector alignment, squared distances and ordering stay in this
+    // complete native numerical kernel. Max-zero normalization is unchanged.
+    let maximum_distance_squared = match range {
+        TargetingRange::Bounded(distance) => Some(distance.metres().max(0.0).powi(2)),
+        TargetingRange::MovementPrevalidated => None,
+    };
     candidates
         .into_iter()
-        .filter_map(|(candidate, position, stable_key)| {
+        .filter_map(|TargetingCandidate { candidate, position, stable_key }| {
             let actor_distance_squared = position.distance_squared(actor_origin);
-            if actor_distance_squared > maximum_distance_squared {
+            if maximum_distance_squared.is_some_and(|maximum| actor_distance_squared > maximum) {
                 return None;
             }
             let alignment = (position - camera_origin)
@@ -44,10 +63,10 @@ mod tests {
                 Vec3::Y,
                 Vec3::NEG_Z,
                 Vec3::ZERO,
-                2.0,
+                TargetingRange::Bounded(SignedLength::from_metres(2.0).unwrap()),
                 [
-                    ("nearby side", Vec3::new(0.5, 0.0, 0.0), 1),
-                    ("pointed", Vec3::new(0.0, 0.0, -1.8), 2),
+                    TargetingCandidate { candidate: "nearby side", position: Vec3::new(0.5, 0.0, 0.0), stable_key: 1 },
+                    TargetingCandidate { candidate: "pointed", position: Vec3::new(0.0, 0.0, -1.8), stable_key: 2 },
                 ],
             ),
             Some("pointed")
@@ -61,8 +80,8 @@ mod tests {
                 Vec3::Y,
                 Vec3::NEG_Z,
                 Vec3::ZERO,
-                2.0,
-                [("behind", Vec3::new(0.0, 0.0, 1.5), 1)],
+                TargetingRange::Bounded(SignedLength::from_metres(2.0).unwrap()),
+                [TargetingCandidate { candidate: "behind", position: Vec3::new(0.0, 0.0, 1.5), stable_key: 1 }],
             ),
             Some("behind")
         );
@@ -75,8 +94,8 @@ mod tests {
                 Vec3::Y,
                 Vec3::NEG_Z,
                 Vec3::ZERO,
-                2.0,
-                [("far", Vec3::new(0.0, 0.0, -2.01), 1)],
+                TargetingRange::Bounded(SignedLength::from_metres(2.0).unwrap()),
+                [TargetingCandidate { candidate: "far", position: Vec3::new(0.0, 0.0, -2.01), stable_key: 1 }],
             ),
             None
         );

@@ -1,5 +1,6 @@
 #![allow(clippy::crate_in_macro_def)]
 
+use fabelgeist_geometry::SignedLength;
 use crate::elapsed::{AnimationElapsed, ElapsedResult};
 use crate::skill::Skill;
 use crate::{
@@ -439,18 +440,17 @@ impl WeaponSkillDistribution {
 pub fn weapon_balance_from_moment(
     moment_of_inertia_kg_m2: f32,
     mass_kg: f32,
-    grip_to_tip_m: f32,
+    grip_to_tip_m: SignedLength,
 ) -> f32 {
     if !moment_of_inertia_kg_m2.is_finite()
         || !mass_kg.is_finite()
-        || !grip_to_tip_m.is_finite()
         || moment_of_inertia_kg_m2 < 0.0
         || mass_kg <= 0.0
-        || grip_to_tip_m <= 0.0
+        || grip_to_tip_m.metres() <= 0.0
     {
         return 1.0;
     }
-    (moment_of_inertia_kg_m2 / mass_kg).sqrt() / grip_to_tip_m
+    (moment_of_inertia_kg_m2 / mass_kg).sqrt() / grip_to_tip_m.metres()
 }
 
 /// Canonical weapon-leaf distribution from the embedded authored catalog.
@@ -554,18 +554,18 @@ pub trait PlayerEquipment {
         MeleeAttackStyle::Swing
     }
     fn weapon_weight(&self) -> f32;
-    fn weapon_reach(&self) -> f32;
+    fn weapon_reach(&self) -> SignedLength;
     /// Distance from the controlling grip to the distal striking tip, in metres.
-    fn weapon_grip_to_tip(&self) -> f32 {
+    fn weapon_grip_to_tip(&self) -> SignedLength {
         self.weapon_reach()
     }
     /// Full authored end-to-end weapon length, in metres.
-    fn weapon_total_length(&self) -> f32 {
+    fn weapon_total_length(&self) -> SignedLength {
         self.weapon_grip_to_tip()
     }
     /// Longitudinal extent of a distinct distal striking head, in metres.
-    fn weapon_striking_head_length(&self) -> f32 {
-        0.0
+    fn weapon_striking_head_length(&self) -> SignedLength {
+        SignedLength::ZERO
     }
     fn weapon_body_material(&self) -> Option<crate::item_catalog_schema::EquipmentMaterial> {
         None
@@ -729,13 +729,13 @@ mod tests {
     #[test]
     fn instance_geometry_uses_grip_to_tip_reach_and_tracks_recipe_length() {
         let short =
-            ParametricWeaponCombatGeometry::new(2.0, 2.0, 1.8, 0.25, 2.5, 0.46, 1.0).unwrap();
+            ParametricWeaponCombatGeometry::new(2.0, SignedLength::from_metres(2.0).unwrap(), SignedLength::from_metres(1.8).unwrap(), SignedLength::from_metres(0.25).unwrap(), 2.5, 0.46, 1.0).unwrap();
         let long =
-            ParametricWeaponCombatGeometry::new(2.2, 2.3, 2.1, 0.25, 3.4, 0.44, 1.0).unwrap();
+            ParametricWeaponCombatGeometry::new(2.2, SignedLength::from_metres(2.3).unwrap(), SignedLength::from_metres(2.1).unwrap(), SignedLength::from_metres(0.25).unwrap(), 3.4, 0.44, 1.0).unwrap();
 
-        assert!((short.melee_reach_m() - 1.8).abs() < 1.0e-6);
-        assert!((long.melee_reach_m() - 2.1).abs() < 1.0e-6);
-        assert!((long.melee_reach_m() - short.melee_reach_m() - 0.3).abs() < 1.0e-6);
+        assert!((short.melee_reach_m().metres() - 1.8).abs() < 1.0e-6);
+        assert!((long.melee_reach_m().metres() - 2.1).abs() < 1.0e-6);
+        assert!((long.melee_reach_m().metres() - short.melee_reach_m().metres() - 0.3).abs() < 1.0e-6);
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
 
         let preferred = |geometry: ParametricWeaponCombatGeometry| {
@@ -745,14 +745,14 @@ mod tests {
                 geometry.striking_head_length_m,
                 true,
                 0.7,
-            )
+            ).unwrap()
         };
-        assert!(preferred(long) > preferred(short));
+        assert!(preferred(long).metres() > preferred(short).metres());
 
         let contact = |geometry: ParametricWeaponCombatGeometry| {
             crate::combat::resolve_melee_contact_at_time(crate::combat::MeleeContactAtTimeFacts {
-                scheduled_measure_metres: 2.1,
-                actual_measure_metres: 2.1,
+                scheduled_measure_metres: SignedLength::from_metres(2.1).unwrap(),
+                actual_measure_metres: SignedLength::from_metres(2.1).unwrap(),
                 ideal_measure_metres: preferred(geometry),
                 effective_reach_metres: geometry.melee_reach_m(),
                 grip_to_tip_metres: geometry.grip_to_tip_m,
@@ -762,7 +762,7 @@ mod tests {
                 attack_style: MeleeAttackStyle::Swing,
                 body_material: Some(crate::item_catalog_schema::EquipmentMaterial::Hardwood),
                 striking_material: Some(crate::item_catalog_schema::EquipmentMaterial::RoughSteel),
-            })
+            }).unwrap()
         };
         assert_eq!(
             contact(short).classification,
@@ -780,7 +780,7 @@ mod tests {
         let length: f32 = 0.9;
         let old_balance: f32 = 0.5;
         let moment = mass * (old_balance * length).powi(2);
-        assert!((weapon_balance_from_moment(moment, mass, length) - old_balance).abs() < 1.0e-6);
+        assert!((weapon_balance_from_moment(moment, mass, SignedLength::from_metres(length).unwrap()) - old_balance).abs() < 1.0e-6);
     }
 
     #[test]

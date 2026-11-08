@@ -852,7 +852,7 @@ fn materialize_patient_corpse(
     exposure: &adventuresim_core::quest_generation::OutbreakExposure,
     settlement_id: &str,
     death_minute: StrategicMinute,
-) -> Result<String, String> {
+) -> crate::StrategicOperationResult<String> {
     use adventuresim_core::{
         autopsy::SystemicPathologySnapshot,
         disease::{InfectionEpisode, Symptom, combined_state},
@@ -1027,7 +1027,7 @@ pub(crate) fn materialize_generated_outbreak(
     generated: &adventuresim_core::quest_generation::GeneratedCase,
     settlement_id: &str,
     now_minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     use adventuresim_core::quest_generation::OutbreakSource;
 
     let Some(outbreak) = &generated.outbreak else {

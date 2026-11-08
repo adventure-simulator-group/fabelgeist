@@ -2,13 +2,13 @@
 
 use super::*;
 
-fn injured_actor(ctx: &ReducerContext, id: u64) -> Result<(), String> {
+fn injured_actor(ctx: &ReducerContext, id: u64) -> crate::StrategicOperationResult<()> {
     crate::character::create_named_character_with_id(ctx, id, "Treatment Fixture".into())?;
     let mut actor = ctx.db.character().id().find(id).ok_or("Actor missing")?;
     actor.current_settlement_id = Some("riverdale".into());
     ctx.db.character().id().update(actor);
     crate::item::upsert_surgery_items(ctx);
-    crate::item::add_inventory_item_checked(ctx, id, "bandage", 1)?;
+    crate::item::add_inventory_item(ctx, id, "bandage", 1)?;
     let mut injury = blank_injury(id, BodyRegion::LeftArm);
     injury.cut_damage = 0.1;
     store_injury(ctx, injury);
@@ -19,7 +19,7 @@ fn injured_actor(ctx: &ReducerContext, id: u64) -> Result<(), String> {
 pub fn authority_test_treatment_receipts(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let actor = 732031;
     injured_actor(ctx, actor)?;

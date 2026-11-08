@@ -1,6 +1,7 @@
 //! In-process, fixed-step tactical-server melee duel harness.
 
 use fabelgeist_determinism::Seed;
+use fabelgeist_geometry::SignedLength;
 use std::time::Duration;
 
 use adventuresim_core::{
@@ -12,7 +13,7 @@ use adventuresim_core::{
     combat::MeleeContactClassification, item_catalog_schema::EquipmentMaterial,
 };
 use adventuresim_tactical_core::{
-    animation::{AnimationValueResult, NonnegativeLength},
+    animation::NonnegativeLength,
     physics::AdventureSimulatorPhysicsPlugin,
     prelude::*,
 };
@@ -47,7 +48,7 @@ pub fn resolve_tactical_server_melee_duel(
     left: &MeleeIterationBuild,
     right: &MeleeIterationBuild,
     seed: Seed,
-) -> AnimationValueResult<TacticalMeleeOutcome> {
+) -> MeleeGeometryResult<TacticalMeleeOutcome> {
     let mut app = tactical_iteration_app(seed);
     let left_entity = spawn_combatant(
         app.world_mut(),
@@ -93,7 +94,7 @@ pub fn resolve_tactical_server_melee_duel(
         resolution,
         simulated_ticks: final_tick + 1,
         simulated_seconds: TacticalElapsed::from_tick_count(final_tick + 1),
-        initial_center_separation_metres: 4.0,
+        initial_center_separation_metres: SignedLength::from_metres(4.0)?,
         final_center_separation_metres,
         attack_starts: log.attack_starts,
         resolved_attacks: log.events.len() as u32,
@@ -331,7 +332,7 @@ mod tests {
                 .iter()
                 .any(|event| { event.defender_decision != TacticalDecision::NoDefense })
         );
-        assert!(outcome.initial_center_separation_metres > 3.0);
+        assert!(outcome.initial_center_separation_metres.metres() > 3.0);
         assert!(
             outcome
                 .condition_events
@@ -373,7 +374,7 @@ mod tests {
                 && event.tick > 0
                 && event
                     .center_separation_metres
-                    .is_some_and(|distance| distance < outcome.initial_center_separation_metres)
+                    .is_some_and(|distance| distance.metres() < outcome.initial_center_separation_metres.metres())
         }));
     }
 

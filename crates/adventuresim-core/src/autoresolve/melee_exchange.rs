@@ -90,7 +90,7 @@ pub(super) fn melee_exchange(
     response: DefenderResponse,
     samples: MeleeExchangeSamples,
 ) -> FractionResult<MeleeExchangeOutcome> {
-    let measure = melee_effective_reach(attacker);
+    let measure = melee_effective_reach(attacker).unwrap();
     melee_exchange_at_contact(
         attacker,
         defender,
@@ -133,20 +133,20 @@ mod tests {
 
     fn contact_for(attacker: &Combatant, actual: f32, scheduled: f32) -> MeleeContactAtTime {
         let equipment = attacker.equipment.for_melee();
-        let reach = melee_effective_reach(attacker);
+        let reach = melee_effective_reach(attacker).unwrap();
         let grip = equipment.weapon_grip_to_tip();
         let head = equipment.weapon_striking_head_length();
         let distal = equipment.weapon.is_some_and(|weapon| weapon.distal_headed);
         resolve_melee_contact_at_time(MeleeContactAtTimeFacts {
-            scheduled_measure_metres: scheduled,
-            actual_measure_metres: actual,
+            scheduled_measure_metres: SignedLength::from_metres(scheduled).unwrap(),
+            actual_measure_metres: SignedLength::from_metres(actual).unwrap(),
             ideal_measure_metres: preferred_melee_striking_measure(
                 reach,
                 grip,
                 head,
                 distal,
                 EMBEDDED_AUTORESOLVE_PARAMETERS.melee_measure_reach_fraction,
-            ),
+            ).unwrap(),
             effective_reach_metres: reach,
             grip_to_tip_metres: grip,
             total_length_metres: equipment.weapon_total_length(),
@@ -155,7 +155,7 @@ mod tests {
             attack_style: equipment.weapon_preferred_melee_style(),
             body_material: equipment.weapon_body_material(),
             striking_material: equipment.weapon_striking_material(),
-        })
+        }).unwrap()
     }
 
     fn set_style(combatant: &mut Combatant, style: MeleeAttackStyle) {
@@ -203,7 +203,7 @@ mod tests {
                             for (precision, reflex, flanking) in
                                 [(0.45, 0.2, 0.0), (0.8, 0.65, 0.35), (1.0, 1.0, 1.0)]
                             {
-                                let reach = melee_effective_reach(&attacker);
+                                let reach = melee_effective_reach(&attacker).unwrap().metres();
                                 for actual in [0.0, reach * 0.7, reach] {
                                     let contact = contact_for(&attacker, actual, reach * 0.2);
                                     let response = DefenderResponse::Dodge {
@@ -268,7 +268,7 @@ mod tests {
     #[test]
     fn outside_absolute_reach_is_contactless_even_for_maximum_attack_quality() {
         let (john, opponents) = melee_iteration_roster().unwrap();
-        let reach = melee_effective_reach(&john.combatant);
+        let reach = melee_effective_reach(&john.combatant).unwrap().metres();
         let contact = contact_for(&john.combatant, reach + 0.01, reach);
         let exchange = melee_exchange_at_contact(
             &john.combatant,

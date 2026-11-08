@@ -104,7 +104,7 @@ fn consume_food_amount(
     inventory_id: u64,
     kcal: f32,
     explicit: bool,
-) -> Result<f32, String> {
+) -> crate::StrategicOperationResult<f32> {
     initialize_character_condition(ctx, character_id)?;
     let inventory = ctx
         .db
@@ -195,7 +195,7 @@ fn consume_food_amount(
     Ok(wanted)
 }
 
-pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
     initialize_character_condition(ctx, character_id)?;
     let actor = ctx
         .db
@@ -352,7 +352,7 @@ pub fn eat_food(
     ctx: &ReducerContext,
     character_id: u64,
     inventory_item_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     crate::character::require_living_character(ctx, character_id)?;
     let actor = ctx

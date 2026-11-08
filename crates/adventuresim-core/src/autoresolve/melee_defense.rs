@@ -176,7 +176,7 @@ pub(super) struct ScheduledMeleeTiming {
 }
 
 impl ScheduledMeleeTiming {
-    pub(super) fn commit(self, attacker: &mut Combatant, distance: f32, jitter: AnimationElapsed) {
+    pub(super) fn commit(self, attacker: &mut Combatant, distance: SignedLength, jitter: AnimationElapsed) {
         attacker.melee_interval_jitter_seconds = jitter;
         attacker.melee_attack_started_at_seconds = Some(self.started_at_seconds);
         attacker.melee_attack_contact_at_seconds = Some(self.contact_at_seconds);

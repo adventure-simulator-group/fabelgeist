@@ -1,0 +1,122 @@
+//! Admit embedded and generated physical catalogue data before retaining it.
+
+use super::*;
+use fabelgeist_geometry::{CuboidDimensions, GeometryError, SignedLength};
+
+type CatalogProjectionResult<T> = Result<T, CatalogProjectionError>;
+
+#[derive(Debug, thiserror::Error)]
+pub(super) enum CatalogProjectionError {
+    #[error(transparent)]
+    Decode(#[from] serde_json::Error),
+    #[error("melee catalogue weapon {item} requires a generated recipe")]
+    MissingRecipe { item: String },
+    #[error("invalid generated catalogue weapon {item}: {violations:?}")]
+    Recipe {
+        item: String,
+        violations: Vec<adventuresim_weapon_model::ValidationError>,
+    },
+    #[error(transparent)]
+    Geometry(#[from] GeometryError),
+}
+
+pub(super) fn load_catalog() -> CatalogProjectionResult<Vec<ItemDefinition>> {
+    let documents: Vec<ItemCatalogDocument> = serde_json::from_str(ITEM_CATALOG_JSON)?;
+    let mut items: Vec<_> = documents
+        .into_iter()
+        .flat_map(|document| document.items)
+        .collect();
+    for item in &mut items {
+        project_generated_weapon(item)?;
+        project_coverage(item);
+    }
+    items.sort_by(|a, b| a.id.cmp(&b.id));
+    Ok(items)
+}
+
+fn project_generated_weapon(item: &mut ItemDefinition) -> CatalogProjectionResult<()> {
+    let ItemKind::Weapon {
+        melee: true,
+        precision,
+        reach_m,
+        moment_of_inertia_kg_m2,
+        ..
+    } = &mut item.kind
+    else {
+        return Ok(());
+    };
+    let design = adventuresim_weapon_model::default_design(&item.id).ok_or_else(|| {
+        CatalogProjectionError::MissingRecipe {
+            item: item.id.clone(),
+        }
+    })?;
+    let physical = adventuresim_weapon_model::derive_properties(&design).map_err(|violations| {
+        CatalogProjectionError::Recipe {
+            item: item.id.clone(),
+            violations,
+        }
+    })?;
+    let grip_to_tip = SignedLength::from_metres(physical.grip_to_tip_m)?;
+    let total_length = SignedLength::from_metres(physical.length_m)?;
+    *precision = crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS
+        .contact
+        .precision_for_design(&design)
+        .value();
+    *reach_m = grip_to_tip;
+    *moment_of_inertia_kg_m2 = physical.moment_of_inertia_kg_m2;
+    item.weight_kg = physical.mass_kg;
+    if let Some(equipment) = &mut item.equipment {
+        equipment.physical.grip_to_tip_m = grip_to_tip;
+        let dimensions = equipment.physical.dimensions_m;
+        equipment.physical.dimensions_m = CuboidDimensions::from_axis_lengths(
+            dimensions.x_length(),
+            total_length,
+            dimensions.z_length(),
+        )?;
+    }
+    Ok(())
+}
+
+fn project_coverage(item: &mut ItemDefinition) {
+    let Some(equipment) = &item.equipment else {
+        return;
+    };
+    let placement_coverages = equipment
+        .placements
+        .iter()
+        .filter_map(|placement| {
+            let regions = placement
+                .surface
+                .iter()
+                .map(|span| span.regions.len())
+                .sum::<usize>();
+            (regions > 0).then(|| {
+                placement
+                    .surface
+                    .iter()
+                    .map(|span| span.coverage * span.regions.len() as f32)
+                    .sum::<f32>()
+                    / regions as f32
+            })
+        })
+        .collect::<Vec<_>>();
+    if placement_coverages.is_empty() {
+        return;
+    }
+    let coverage = placement_coverages.iter().sum::<f32>() / placement_coverages.len() as f32;
+    match &mut item.kind {
+        ItemKind::Armor {
+            coverage: authored, ..
+        } => *authored = coverage,
+        ItemKind::Clothing => {
+            if let Some(protection) = item
+                .equipment
+                .as_mut()
+                .and_then(|equipment| equipment.protection.as_mut())
+            {
+                protection.coverage = coverage;
+            }
+        }
+        _ => {}
+    }
+}

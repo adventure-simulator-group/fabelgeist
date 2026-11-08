@@ -6,7 +6,7 @@ use spacetimedb::ReducerContext;
 pub(super) fn load_allied_combatants(
     ctx: &ReducerContext,
     member_ids: &[u64],
-) -> Result<Vec<Combatant>, String> {
+) -> crate::StrategicOperationResult<Vec<Combatant>> {
     member_ids
         .iter()
         .map(|member_id| {

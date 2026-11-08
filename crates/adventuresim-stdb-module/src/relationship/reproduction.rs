@@ -139,7 +139,7 @@ fn refresh_spouse_pair_morale(
     second_id: u64,
     joint_minutes: u64,
     minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let earned = spouse_leisure_earned_milli(joint_minutes);
     if earned == 0 {
         return Ok(());
@@ -199,7 +199,7 @@ fn settle_spouse_leisure_pair(
     ctx: &ReducerContext,
     first_id: u64,
     second_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let (first_id, second_id) = canonical_pair(first_id, second_id);
     let pair_id = format!("spouse-leisure:{first_id}:{second_id}");
     let mut overlaps = Vec::new();
@@ -346,7 +346,7 @@ pub fn apply_spouse_leisure_conception(
     interval_start: StrategicMinute,
     interval_end: StrategicMinute,
     schedule: DailySchedule,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if interval_end <= interval_start {
         return Ok(());
     }
@@ -425,7 +425,7 @@ pub fn settle_due_births(
     ctx: &ReducerContext,
     mother_id: u64,
     now: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if let Some(pregnancy) = ctx
         .db
         .active_pregnancy()
@@ -671,7 +671,7 @@ pub fn settle_due_births_global(
     ctx: &ReducerContext,
     now: StrategicMinute,
     limit: usize,
-) -> Result<usize, String> {
+) -> crate::StrategicOperationResult<usize> {
     let mut due: Vec<_> = ctx
         .db
         .pregnancy()

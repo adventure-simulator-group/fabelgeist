@@ -339,7 +339,7 @@ pub fn transition_character_to_dead(
     cause: DeathCause,
     source: DeathSource,
     source_id: Option<String>,
-) -> Result<CharacterDeath, String> {
+) -> crate::StrategicOperationResult<CharacterDeath> {
     let strategic_minute = ctx
         .db
         .character_time()
@@ -365,7 +365,7 @@ pub fn transition_character_to_dead_at(
     source: DeathSource,
     source_id: Option<String>,
     strategic_minute: StrategicMinute,
-) -> Result<CharacterDeath, String> {
+) -> crate::StrategicOperationResult<CharacterDeath> {
     if let Some(death) = ctx.db.character_death().character_id().find(character_id) {
         crate::food::cleanup_fireplace_custody_for_death(ctx, character_id)?;
         return Ok(death);
@@ -789,14 +789,14 @@ pub(crate) fn restore_equipment_placement(
     )
 }
 
-fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
     crate::capability::refresh_character_capability(ctx, character_id)?;
     crate::condition::refresh_character_strategic_condition(ctx, character_id).map(|_| ())
 }
 
 /// Create a new random temporary character for the server.
 #[reducer]
-pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> Result<(), String> {
+pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> crate::StrategicOperationResult<()> {
     let tactical_server = ctx.db.tactical_server_authority().identity().find(server);
     if ctx.sender() != server || tactical_server.is_none() {
         return Err("Only a registered tactical server can create its temporary characters".into());
@@ -1247,7 +1247,7 @@ fn delete_character_data(
 
 /// Create a new character with generated name and add initial items to it
 #[reducer]
-pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
+pub fn create_character(ctx: &ReducerContext, id: u64) -> crate::StrategicOperationResult<()> {
     insert_new_character(ctx, "Pending generated name".into(), id, false)?;
     assign_generated_historical_name_for_age(
         ctx,
@@ -1273,7 +1273,7 @@ fn named_character_id(name: &str, created_micros: i64) -> u64 {
 
 /// Create a new character with name and add initial items to it
 #[reducer]
-pub fn create_named_character(ctx: &ReducerContext, name: String) -> Result<(), String> {
+pub fn create_named_character(ctx: &ReducerContext, name: String) -> crate::StrategicOperationResult<()> {
     let id = named_character_id(&name, ctx.timestamp.to_micros_since_unix_epoch());
 
     insert_new_character(ctx, name, id, false)
@@ -1285,7 +1285,7 @@ pub fn create_named_character_with_id(
     ctx: &ReducerContext,
     id: u64,
     name: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     insert_new_character(ctx, name, id, false)
 }
 
@@ -1299,7 +1299,7 @@ pub fn create_starting_character(
     seed: String,
     age_tier: StartingAgeTier,
     slot: u8,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let spec =
         adventuresim_core::starting_character::generate(generator_version, &seed, age_tier, slot)
@@ -1355,7 +1355,7 @@ pub fn create_starting_character(
 /// owner. The owner key namespaces identity only; the versioned generated
 /// build remains stable in every session and in tactical fixtures.
 #[reducer]
-pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Result<(), String> {
+pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let spec = adventuresim_core::starting_character::default_character(&owner_key);
     let version = adventuresim_core::starting_character::DEFAULT_CHARACTER_VERSION;
@@ -1407,7 +1407,7 @@ pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Resu
 }
 
 /// Seed an injured character for local UI development and visual verification.
-pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String> {
+pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
     const DAMAGED_CHARACTER_ID: u64 = 9_999_999_999_999_999;
 
     if ctx.db.character().id().find(DAMAGED_CHARACTER_ID).is_none() {
@@ -1502,9 +1502,9 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
         Some(crate::surgery::ProjectileKind::Ball),
     )?;
 
-    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "bandage", 8);
-    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "surgery_kit", 1);
-    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "splint", 3);
+    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "bandage", 8)?;
+    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "surgery_kit", 1)?;
+    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "splint", 3)?;
 
     // A wounded primary surgeon, a less-skilled backup, and a second critical
     // patient make clock alignment and parallel triage visible in one fixture.
@@ -1541,9 +1541,9 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
         ctx.db.character_time().character_id().update(time);
         crate::capability::refresh_character_capability(ctx, id)?;
     }
-    crate::add_inventory_item(ctx, 9_000_001, "bandage", 6);
-    crate::add_inventory_item(ctx, 9_000_001, "surgery_kit", 1);
-    crate::add_inventory_item(ctx, 9_000_001, "splint", 2);
+    crate::add_inventory_item(ctx, 9_000_001, "bandage", 6)?;
+    crate::add_inventory_item(ctx, 9_000_001, "surgery_kit", 1)?;
+    crate::add_inventory_item(ctx, 9_000_001, "splint", 2)?;
     crate::surgery::commit_hit_injury(
         ctx,
         9_000_002,
@@ -1606,9 +1606,12 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
             .character_id()
             .filter(DAMAGED_CHARACTER_ID)
             .find(|inventory| inventory.item_id == item_id)
-            .map(|inventory| inventory.id)
-            .or_else(|| add_inventory_item(ctx, DAMAGED_CHARACTER_ID, item_id, 1))
-            .ok_or_else(|| format!("Failed to add {item_id} to damaged demo inventory"))?;
+            .map(|inventory| inventory.id);
+        let inventory_item_id = match inventory_item_id {
+            Some(id) => id,
+            None => add_inventory_item(ctx, DAMAGED_CHARACTER_ID, item_id, 1)?
+                .ok_or_else(|| format!("Failed to add {item_id} to damaged demo inventory"))?,
+        };
         set_demo_item_damage(ctx, inventory_item_id, bins)?;
     }
 
@@ -1616,7 +1619,7 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
 }
 
 /// Seed a character with direct training in every religion for local UI development.
-pub(crate) fn seed_religion_scholar_character(ctx: &ReducerContext) -> Result<(), String> {
+pub(crate) fn seed_religion_scholar_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
     const RELIGION_SCHOLAR_CHARACTER_ID: u64 = 9_999_999_999_999_988;
 
     if ctx
@@ -1675,7 +1678,7 @@ pub(crate) fn seed_religion_scholar_character(ctx: &ReducerContext) -> Result<()
 /// Seed an isolated, selectable character for exercising every bounded
 /// Herbalism method, public grade, and terrain-backed foraging flow in the
 /// strategic UI.
-pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), String> {
+pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
     const HERBALISM_DEMO_CHARACTER_ID: u64 = 9_999_999_999_999_986;
     const HERBALISM_DEMO_SETTLEMENT_ID: &str = "dev-scenario-foraging";
     crate::strategic::ensure_foraging_demo_settlement(ctx)?;
@@ -1771,7 +1774,7 @@ pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), 
             .next()
             .is_none()
         {
-            add_inventory_item(ctx, HERBALISM_DEMO_CHARACTER_ID, item_id, quantity)
+            add_inventory_item(ctx, HERBALISM_DEMO_CHARACTER_ID, item_id, quantity)?
                 .ok_or_else(|| format!("Failed to add {item_id} to Herbalism and Foraging Demo"))?;
         }
     }
@@ -1781,7 +1784,7 @@ pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), 
 }
 
 /// Seed broad category knowledge for local Bestiary rail and evidence demos.
-pub(crate) fn seed_bestiary_scholar_character(ctx: &ReducerContext) -> Result<(), String> {
+pub(crate) fn seed_bestiary_scholar_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
     const BESTIARY_SCHOLAR_CHARACTER_ID: u64 = 9_999_999_999_999_987;
 
     if ctx
@@ -1884,7 +1887,7 @@ pub(crate) fn insert_new_character(
     name: String,
     id: u64,
     temporary: bool,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let mode = if temporary {
         CharacterCreationMode::TemporaryNpc
     } else {
@@ -1975,7 +1978,7 @@ pub(crate) fn insert_new_npc_character(
     name: String,
     id: u64,
     temporary: bool,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let mode = if temporary {
         CharacterCreationMode::TemporaryNpc
     } else {
@@ -2016,7 +2019,7 @@ pub(crate) fn insert_persistent_npc_character(
     initial_time_minute: Option<StrategicMinute>,
     life: &NpcLifeFacts,
     personality: &crate::personality::CharacterPersonality,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     insert_character_with_origin(
         ctx,
         name,
@@ -2044,7 +2047,7 @@ pub(crate) fn insert_persistent_field_character(
     id: u64,
     stable_seed: Seed,
     initial_time_minute: Option<StrategicMinute>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let life = NpcLifeFacts::from_stable_seed(stable_seed);
     insert_character_with_origin(
         ctx,
@@ -2068,7 +2071,7 @@ pub(crate) fn insert_persistent_field_character(
 pub(crate) fn insert_starting_character(
     ctx: &ReducerContext,
     spec: &StartingCharacterSpec,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     insert_character_with_origin(
         ctx,
         spec.native_everyday_name()
@@ -2170,7 +2173,7 @@ pub(crate) fn insert_character_with_origin(
     options: CharacterCreationOptions<'_>,
     starting: Option<&StartingCharacterSpec>,
     npc_life: Option<&NpcLifeFacts>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     log::info!("New character created: {name} (ID: {id})");
     let temporary = options.mode.temporary();
     let initial_name_identity = starting.map_or_else(
@@ -2554,15 +2557,15 @@ pub(crate) fn insert_character_with_origin(
             if let Some(slot) = item.equipped {
                 add_and_equip_starting_item(ctx, character.id, &item.item_id, slot)?;
                 if item.quantity > 1 {
-                    add_inventory_item(ctx, character.id, &item.item_id, item.quantity - 1);
+                    add_inventory_item(ctx, character.id, &item.item_id, item.quantity - 1)?;
                 }
             } else {
-                add_inventory_item(ctx, character.id, &item.item_id, item.quantity);
+                add_inventory_item(ctx, character.id, &item.item_id, item.quantity)?;
             }
         }
     } else if !newborn {
-        add_inventory_item(ctx, character.id, "torch", 1);
-        add_inventory_item(ctx, character.id, "bandage", 3);
+        add_inventory_item(ctx, character.id, "torch", 1)?;
+        add_inventory_item(ctx, character.id, "bandage", 3)?;
         add_and_equip_basic_clothing(ctx, character.id)?;
         for (item, slot) in [
             ("buckler", LoadoutSlot::LeftHand),
@@ -2789,7 +2792,7 @@ pub fn unequip_item(
     ctx: &ReducerContext,
     character_id: u64,
     inventory_item_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
     require_living_character(ctx, character_id)?;
@@ -3197,8 +3200,8 @@ fn add_and_equip_starting_item(
     character_id: u64,
     item_id: &str,
     slot: LoadoutSlot,
-) -> Result<(), String> {
-    let id = add_inventory_item(ctx, character_id, item_id, 1)
+) -> crate::StrategicOperationResult<()> {
+    let id = add_inventory_item(ctx, character_id, item_id, 1)?
         .ok_or_else(|| "Can't add item to inventory".to_string())?;
     // This helper is used only while materializing starter equipment. The
     // completed character runs the ordinary compliance pass once every starter
@@ -3218,7 +3221,7 @@ fn add_and_equip_starting_item(
 pub(crate) fn add_and_equip_basic_clothing(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     for (item, slot) in [
         ("linen_tunic", LoadoutSlot::Chest),
         ("linen_breeches", LoadoutSlot::LeftLeg),
@@ -3238,7 +3241,7 @@ pub(crate) fn replace_development_loadout(
     ctx: &ReducerContext,
     character_id: u64,
     loadout: &[(&str, LoadoutSlot)],
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     for inventory_item_id in equipped_wearable_ids(ctx, character_id) {
         unequip_wearable(ctx, inventory_item_id);
     }
@@ -3251,9 +3254,12 @@ pub(crate) fn replace_development_loadout(
             .character_and_item_id()
             .filter((character_id, *item_id))
             .find(|item| !selected.contains(&item.id))
-            .map(|item| item.id)
-            .or_else(|| add_inventory_item(ctx, character_id, item_id, 1))
-            .ok_or_else(|| format!("Failed to add {item_id} to development loadout"))?;
+            .map(|item| item.id);
+        let inventory_item_id = match inventory_item_id {
+            Some(id) => id,
+            None => add_inventory_item(ctx, character_id, item_id, 1)?
+                .ok_or_else(|| format!("Failed to add {item_id} to development loadout"))?,
+        };
         selected.insert(inventory_item_id);
         equip_equipment_internal(
             ctx,

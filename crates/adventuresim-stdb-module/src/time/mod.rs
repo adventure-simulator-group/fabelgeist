@@ -16,6 +16,7 @@ use adventuresim_world_schema::calendar::{MINUTES_PER_YEAR, StrategicMinute, WOR
 use spacetimedb::{ReducerContext, SpacetimeType, Table, reducer, table};
 
 use crate::capability::StrategicEquipment;
+use crate::StrategicOperationResult;
 use crate::character::character;
 use crate::condition::{character_condition as _, character_strategic_condition as _};
 use crate::disease::character_illness_status as _;
@@ -58,7 +59,7 @@ pub(crate) fn settle_lifecycle_after_character_time_write(
     ctx: &ReducerContext,
     character_id: u64,
     minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::relationship::settle_character_age(ctx, character_id, minute);
     crate::continuity::settle_continuity_for_character(ctx, character_id, minute)?;
     crate::residence::settle_residence_billing(ctx, character_id)?;

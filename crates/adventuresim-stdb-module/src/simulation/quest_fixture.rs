@@ -1,7 +1,7 @@
 //! Quest coverage fixture installation for an owned disposable simulation.
 
 use super::*;
-use crate::strategic::StrategicCombatResult;
+use crate::StrategicOperationResult;
 
 /// Install deterministic quest coverage through private authority only. The
 /// simulator must still discover, accept, travel, fight, and report through
@@ -12,7 +12,7 @@ pub fn seed_simulation_quest_fixture(
     nonce: String,
     direct_leader_id: u64,
     generated_leader_id: u64,
-) -> StrategicCombatResult<()> {
+) -> StrategicOperationResult<()> {
     let run = owned_run(ctx, &nonce)?;
     if direct_leader_id == generated_leader_id {
         return Err("Quest coverage requires two distinct party leaders".into());

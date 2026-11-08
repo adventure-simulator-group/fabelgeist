@@ -14,7 +14,14 @@ pub(crate) enum SceneSpawnError {
     #[error(transparent)]
     Geometry(#[from] GeometryError),
     #[error(transparent)]
+    Equipment(#[from] crate::player_projection::projection_equipment::EquipmentProjectionError),
+    #[error(transparent)]
     Support(#[from] TerrainSupportError),
+    #[error("connected character {character:?} has invalid body mass: {cause:?}")]
+    BodyMass {
+        character: CharacterId,
+        cause: adventuresim_core::physiology::BodyMassError,
+    },
     #[error("multiple authoritative terrains cannot own one tactical spawn batch")]
     AmbiguousTerrain,
     #[error("seeded enemy {character:?} is absent from the loaded enemy fixture")]

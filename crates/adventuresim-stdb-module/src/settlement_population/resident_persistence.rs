@@ -116,7 +116,7 @@ fn insert_identity(
     settlement_id: &str,
     draft: &ResidentDraft,
     prepared: &PreparedResident,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let birth_year = adventuresim_world_schema::calendar::StrategicMinute::ZERO
         .birth_year_for_age(prepared.exact_age(draft))
         .ok_or("Resident age predates the calendar")?;
@@ -268,7 +268,7 @@ pub(super) fn insert_resident_draft(
     ctx: &ReducerContext,
     settlement_id: &str,
     draft: ResidentDraft,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if reuse_existing(ctx, settlement_id, &draft)? {
         return Ok(());
     }

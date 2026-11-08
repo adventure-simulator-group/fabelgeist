@@ -55,10 +55,13 @@ pub(in crate::animation_viewer) fn quickstep_fixture_planar_speeds(
         QUICKSTEP_FIXTURE_LEG_STRENGTH,
         &config.movement.motor,
     );
-    let target_displacement = quickstep_target_displacement_metres(
+    let target_displacement = match quickstep_target_displacement_metres(
         CharacterDimensions::default().leg_length_metres,
         &config.movement.motor,
-    );
+    ) {
+        Ok(distance) => distance,
+        Err(error) => panic!("invalid authored quickstep displacement: {error}"),
+    };
     let duration = authored_frame_time(action_ticks as f32 / locomotion_sample_rate().hertz());
     let mut velocity: f32 = 0.0;
     let mut displacement: f32 = 0.0;
@@ -78,8 +81,12 @@ pub(in crate::animation_viewer) fn quickstep_fixture_planar_speeds(
                 Ok(target) => target,
                 Err(error) => panic!("invalid authored quickstep speed: {error}"),
             };
+            let observed_displacement = match fabelgeist_geometry::SignedLength::from_metres(displacement) {
+                Ok(displacement) => displacement,
+                Err(error) => panic!("invalid authored quickstep displacement: {error}"),
+            };
             let force = quickstep_tracking_force_newtons(
-                displacement,
+                observed_displacement,
                 authored_drive_speed(velocity),
                 target,
                 QUICKSTEP_FIXTURE_TOTAL_MASS_KG,

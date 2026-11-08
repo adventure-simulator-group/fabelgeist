@@ -107,7 +107,7 @@ pub fn autoresolve_mission(
     ctx: &ReducerContext,
     character_id: u64,
     mission_id: String,
-) -> StrategicCombatResult<()> {
+) -> StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
     crate::character::require_living_character(ctx, character_id)?;
@@ -317,7 +317,7 @@ pub fn cancel_mission_request(
 pub fn bootstrap_development_world(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> StrategicCombatResult<()> {
+) -> StrategicOperationResult<()> {
     if !adventuresim_core::simulation_security::simulation_bootstrap_authorized(
         COMPILED_DEV_BOOTSTRAP_TOKEN,
         &bootstrap_token,
@@ -437,7 +437,7 @@ pub fn dev_bootstrap_gallery(
     bootstrap_token: String,
     offset: u32,
     count: u32,
-) -> StrategicCombatResult<()> {
+) -> StrategicOperationResult<()> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     // Materialize a contiguous batch of gallery items in one transaction (a
     // batch of several stays well under the budget); stop early once past the
@@ -1849,7 +1849,7 @@ fn seed_outbreak_demo(ctx: &ReducerContext, character_id: u64) -> Result<String,
         .filter(character_id)
         .any(|row| row.item_id == "surgery_kit")
     {
-        crate::add_inventory_item(ctx, character_id, "surgery_kit", 1);
+        crate::add_inventory_item(ctx, character_id, "surgery_kit", 1)?;
     }
     if !ctx
         .db
@@ -1858,7 +1858,7 @@ fn seed_outbreak_demo(ctx: &ReducerContext, character_id: u64) -> Result<String,
         .filter(character_id)
         .any(|row| row.item_id == "cooking_pot")
     {
-        crate::add_inventory_item(ctx, character_id, "cooking_pot", 1);
+        crate::add_inventory_item(ctx, character_id, "cooking_pot", 1)?;
     }
     let cooking_pot = ctx
         .db

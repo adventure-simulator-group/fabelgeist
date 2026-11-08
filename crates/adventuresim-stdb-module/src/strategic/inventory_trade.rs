@@ -12,7 +12,7 @@ pub fn transfer_party_item(
     to_character_id: u64,
     inventory_item_id: u64,
     quantity: u32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_character_no_unresolved_encounter(ctx, from_character_id)?;
     crate::character::require_living_character(ctx, from_character_id)?;
     crate::character::require_living_character(ctx, to_character_id)?;
@@ -441,7 +441,7 @@ mod medication_custody_tests {
         let stable_object_policy = crate::production_source(include_str!("../item.rs"))
             .split("pub(crate) fn requires_stable_object")
             .nth(1)
-            .and_then(|tail| tail.split("pub(crate) fn add_inventory_item_checked").next())
+            .and_then(|tail| tail.split("pub fn add_inventory_item").next())
             .unwrap();
         assert!(stable_object_policy.contains("definition.kind == CatalogItemKind::Medication"));
 
@@ -1198,7 +1198,7 @@ pub(crate) fn commit_hostile_resolution_authority(
 fn commit_hostile_battle_resolution(
     ctx: &ReducerContext,
     commit: HostileBattleCommit<'_>,
-) -> Result<bool, String> {
+) -> crate::StrategicOperationResult<bool> {
     let HostileBattleCommit {
         outcome_source_id,
         battle_id,
@@ -1442,7 +1442,7 @@ pub fn store_battle_loot(
     battle_id: String,
     loot_item_ids: Vec<u64>,
     quantities: Vec<u32>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     adventuresim_core::mission::BattleId::new(battle_id.clone()).map_err(str::to_string)?;
     crate::character::require_living_character(ctx, character_id)?;
@@ -1562,7 +1562,7 @@ pub fn deposit_party_inventory_item(
     character_id: u64,
     inventory_item_id: u64,
     quantity: u32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_character_no_unresolved_encounter(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     let character = ctx
@@ -1801,7 +1801,7 @@ fn transfer_party_currency_to_personal(
     party_id: &str,
     character_id: u64,
     amount: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let mut stacks: Vec<_> = ctx
         .db
         .party_inventory_item()
@@ -1816,7 +1816,7 @@ fn transfer_party_currency_to_personal(
     let mut remaining = amount;
     for mut stack in stacks {
         let taken = remaining.min(u64::from(stack.quantity)) as u32;
-        crate::add_inventory_item(ctx, character_id, &stack.item_id, taken);
+        crate::add_inventory_item(ctx, character_id, &stack.item_id, taken)?;
         stack.quantity -= taken;
         remaining -= u64::from(taken);
         if stack.quantity == 0 {
@@ -1837,7 +1837,7 @@ pub fn withdraw_party_inventory_item(
     character_id: u64,
     party_inventory_item_id: u64,
     quantity: u32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_character_no_unresolved_encounter(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     let character = ctx
@@ -1933,7 +1933,7 @@ pub fn withdraw_party_inventory_item(
         crate::inventory_amount::move_party_to_personal(ctx, inventory.id, row.id)?;
         Some(row.id)
     } else {
-        crate::add_inventory_item(ctx, character_id, &inventory.item_id, quantity)
+        crate::add_inventory_item(ctx, character_id, &inventory.item_id, quantity)?
     };
     if let (Some(condition), Some(new_id)) = (preserved_condition, new_inventory_id) {
         ctx.db
@@ -1969,7 +1969,7 @@ pub fn liquidate_party_inventory(
     settlement_id: String,
     party_inventory_item_ids: Vec<u64>,
     quantities: Vec<u32>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::character::require_living_character(ctx, character_id)?;
     if party_inventory_item_ids.is_empty() || party_inventory_item_ids.len() != quantities.len() {
         return Err("Liquidation entries must be non-empty and aligned".into());
@@ -2076,7 +2076,7 @@ pub fn discard_inventory_items(
     character_id: u64,
     inventory_item_ids: Vec<u64>,
     quantities: Vec<u32>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_character_no_unresolved_encounter(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     if inventory_item_ids.is_empty() || inventory_item_ids.len() != quantities.len() {
@@ -2514,7 +2514,7 @@ struct StorefrontTradeExecution {
 fn finalize_storefront_trade_impl(
     ctx: &ReducerContext,
     execution: StorefrontTradeExecution,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let StorefrontTradeExecution {
         character_id,
         settlement_id,
@@ -2946,11 +2946,11 @@ fn finalize_storefront_trade_impl(
                 stack.quantity = merged;
                 ctx.db.inventory_item().id().update(stack);
             } else {
-                crate::item::add_inventory_item_checked(ctx, character_id, item_id, *quantity)?
+                crate::item::add_inventory_item(ctx, character_id, item_id, *quantity)?
                     .ok_or("Merchant purchase created no inventory item")?;
             }
         } else {
-            crate::item::add_inventory_item_checked(ctx, character_id, item_id, *quantity)?
+            crate::item::add_inventory_item(ctx, character_id, item_id, *quantity)?
                 .ok_or("Merchant purchase created no inventory item")?;
         }
     }

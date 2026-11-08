@@ -12,7 +12,7 @@ fn apply_activity_outcomes(
     schedule: &ScheduleAllocation,
     elapsed: u64,
     interval_end_minute: StrategicMinute,
-) -> Result<ActivityRisks, String> {
+) -> StrategicOperationResult<ActivityRisks> {
     apply_activity_outcomes_inner(
         ctx,
         character_id,
@@ -29,7 +29,7 @@ fn apply_activity_outcomes_without_leisure(
     schedule: &ScheduleAllocation,
     elapsed: u64,
     interval_end_minute: StrategicMinute,
-) -> Result<ActivityRisks, String> {
+) -> StrategicOperationResult<ActivityRisks> {
     apply_activity_outcomes_inner(
         ctx,
         character_id,
@@ -47,7 +47,7 @@ fn apply_activity_outcomes_inner(
     elapsed: u64,
     interval_end_minute: StrategicMinute,
     apply_leisure: bool,
-) -> Result<ActivityRisks, String> {
+) -> crate::StrategicOperationResult<ActivityRisks> {
     let location = activity_execution_location(ctx, character_id)?;
     let Some(settlement_id) = location.origin_settlement_id.as_ref() else {
         return Ok(ActivityRisks::default());
@@ -82,7 +82,7 @@ fn apply_activity_outcomes_inner(
         .character_id()
         .find(character_id)
         .ok_or("Character stats not found")?;
-    let equipment = StrategicEquipment::load(ctx, character_id);
+    let equipment = StrategicEquipment::load(ctx, character_id)?;
     let strength = attributes.limb_attr_by_weight_by_parts(
         LimbAttribute::Strength,
         &limbs,
@@ -212,7 +212,7 @@ pub fn perform_immediate_activity(
     activity: ImmediateActivity,
     requested_minutes: u64,
     organization_id: Option<&str>,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     let character = crate::character::require_living_character(ctx, character_id)?;
     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;

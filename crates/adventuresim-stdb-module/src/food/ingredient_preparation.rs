@@ -300,7 +300,7 @@ pub fn prepare_ingredient_lot(
     expected_revision: u64,
     attempt_generation: u64,
     action: IngredientPreparationAction,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     // Exact replay is resolved solely from the immutable submitted tuple and
     // durable receipt, before consulting any mutable live state.

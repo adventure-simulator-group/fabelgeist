@@ -87,7 +87,7 @@ fn advance_married_family_by(
     ctx: &ReducerContext,
     character_id: u64,
     elapsed: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if elapsed == 0
         || ctx
             .db

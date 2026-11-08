@@ -1,8 +1,9 @@
 use super::*;
+use fabelgeist_geometry::SignedLength;
 
 pub(super) struct OffensiveFacts {
-    pub(super) weapon_reach: f32,
-    pub(super) preferred_melee_measure: f32,
+    pub(super) weapon_reach: SignedLength,
+    pub(super) preferred_melee_measure: SignedLength,
     pub(super) weapon_is_melee: bool,
     pub(super) use_ranged: bool,
     pub(super) strike_family: StrikeFamily,
@@ -14,8 +15,8 @@ pub(super) struct OffensiveFacts {
 }
 
 struct WeaponFacts {
-    reach: f32,
-    preferred: f32,
+    reach: SignedLength,
+    preferred: SignedLength,
     melee: bool,
     ranged: bool,
     strike: StrikeFamily,
@@ -25,9 +26,9 @@ struct WeaponFacts {
 
 pub(in crate::bot) fn ranged_weapon_needs_ammo_lookup(
     weapon_is_ranged: bool,
-    weapon_reach: f32,
+    weapon_reach: SignedLength,
 ) -> bool {
-    weapon_is_ranged && weapon_reach.is_finite() && weapon_reach > 0.0
+    weapon_is_ranged && weapon_reach.metres() > 0.0
 }
 
 pub(in crate::bot) fn compare_target(
@@ -65,7 +66,7 @@ pub(super) fn offensive_facts(
     colliders: &Query<&Collider>,
     combat_config: &TacticalCombatConfig,
     config: &AiOffenseConfig,
-) -> AnimationValueResult<OffensiveFacts> {
+) -> MeleeGeometryResult<OffensiveFacts> {
     let dimensions = dimensions.get(entity).copied().unwrap_or_default();
     let WeaponFacts {
         reach,
@@ -84,7 +85,7 @@ pub(super) fn offensive_facts(
     let quickstep_distance = quickstep_target_displacement_metres(
         dimensions.leg_length_metres,
         &combat_config.movement.motor,
-    );
+    )?;
     let melee_lunge_delay = lunge_delay(
         entity,
         target,
@@ -100,7 +101,7 @@ pub(super) fn offensive_facts(
         weapon_reach: reach,
         preferred_melee_measure: preferred,
         weapon_is_melee: melee,
-        use_ranged: ranged && reach > 0.0 && has_ammo,
+        use_ranged: ranged && reach.metres() > 0.0 && has_ammo,
         strike_family: strike,
         melee_attack_available: available,
         melee_recovery_seconds: recovery,
@@ -114,14 +115,14 @@ fn weapon_facts(
     entity: Entity,
     state: &TacticalCombatState,
     viewer: &TacticalPlayerViewer<'_, '_>,
-    arm_reach_metres: f32,
+    arm_reach_metres: SignedLength,
     config: &AiOffenseConfig,
-) -> AnimationValueResult<WeaponFacts> {
+) -> MeleeGeometryResult<WeaponFacts> {
     viewer.get(entity).map_or_else(
         |_| {
             Ok(WeaponFacts {
-                reach: 0.0,
-                preferred: 0.0,
+                reach: SignedLength::ZERO,
+                preferred: SignedLength::ZERO,
                 melee: false,
                 ranged: false,
                 strike: StrikeFamily::Thrust,
@@ -147,12 +148,12 @@ fn weapon_facts(
             Ok(WeaponFacts {
                 reach,
                 preferred: preferred_melee_striking_measure(
-                    melee_interaction_range(arm_reach_metres, reach),
+                    melee_interaction_range(arm_reach_metres, reach)?,
                     grip,
                     head,
                     distal,
                     config.melee_measure_reach_fraction,
-                ),
+                )?,
                 melee: view.weapon_is_melee(),
                 ranged: view.weapon_is_ranged(),
                 strike: StrikeFamily::from_melee_style(view.weapon_preferred_melee_style()),
@@ -173,26 +174,26 @@ fn lunge_delay(
     transform: &Transform,
     target_transform: &Transform,
     dimensions: CharacterDimensions,
-    weapon_reach: f32,
-    quickstep_distance: f32,
+    weapon_reach: SignedLength,
+    quickstep_distance: SignedLength,
     colliders: &Query<&Collider>,
     combat_config: &TacticalCombatConfig,
-) -> AnimationValueResult<Option<MeleeLungeArrival>> {
+) -> MeleeGeometryResult<Option<MeleeLungeArrival>> {
     let (Ok(attacker_collider), Ok(target_collider)) =
         (colliders.get(entity), colliders.get(target))
     else {
         return Ok(None);
     };
     crate::combat::melee_target_lunge_arrival(
-        crate::combat::MeleeLungeRequest {
-            attacker_position: transform.translation,
+        crate::combat::MeleeLungeRequest::observe(
+            transform,
             attacker_collider,
-            attacker_dimensions: dimensions,
+            dimensions,
             target_transform,
             target_collider,
-            weapon_reach_metres: weapon_reach,
-            quickstep_distance_metres: quickstep_distance,
-        },
+            weapon_reach,
+            quickstep_distance,
+        )?,
         combat_config,
     )
 }

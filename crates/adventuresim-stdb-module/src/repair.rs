@@ -140,7 +140,7 @@ fn submit(
     settlement_id: &str,
     service: adventuresim_core::durability::RepairService,
     inventory_item_id: u64,
-) -> Result<u64, String> {
+) -> crate::StrategicOperationResult<u64> {
     let character = ctx
         .db
         .character()
@@ -284,7 +284,7 @@ pub fn submit_item_for_repair(
     settlement_id: String,
     service: String,
     inventory_item_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     submit(
         ctx,
         character_id,
@@ -301,7 +301,7 @@ pub fn submit_all_repairable_items(
     character_id: u64,
     settlement_id: String,
     service: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let service = repair_service(&service)?;
     let ids: Vec<u64> = ctx
         .db
@@ -315,8 +315,10 @@ pub fn submit_all_repairable_items(
         .collect();
     let mut submitted = 0;
     for id in ids {
-        if submit(ctx, character_id, &settlement_id, service, id).is_ok() {
-            submitted += 1;
+        match submit(ctx, character_id, &settlement_id, service, id) {
+            Ok(_) => submitted += 1,
+            Err(crate::StrategicOperationError::Operation(_)) => {}
+            Err(error) => return Err(error),
         }
     }
     if submitted == 0 {
@@ -330,11 +332,11 @@ pub fn retrieve_repaired_item(
     ctx: &ReducerContext,
     character_id: u64,
     order_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     retrieve(ctx, character_id, order_id)
 }
 
-fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> Result<(), String> {
+fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> crate::StrategicOperationResult<()> {
     let order = ctx
         .db
         .repair_order()
@@ -446,7 +448,7 @@ pub fn retrieve_repaired_items(
     service: String,
     item_id: Option<String>,
     limit: u32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let service = repair_service(&service)?;
     if limit == 0 {
         return Err("Retrieve count must be positive".into());
@@ -608,7 +610,7 @@ pub fn seed_simulation_equipment_damage(
     nonce: String,
     character_id: u64,
     inventory_item_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let run = crate::simulation::owned_run(ctx, &nonce)?;
     let simulation_character = ctx
         .db

@@ -3,7 +3,7 @@ pub fn travel_to_case_site(
     ctx: &ReducerContext,
     character_id: u64,
     case_site_id: CaseSiteId,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     travel_to_case_site_impl(ctx, character_id, case_site_id.into_string(), None)
 }
@@ -14,7 +14,7 @@ pub fn travel_to_case_site_planned(
     character_id: u64,
     case_site_id: CaseSiteId,
     route: JourneyRoutePlan,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     travel_to_case_site_impl(ctx, character_id, case_site_id.into_string(), Some(route))
 }
@@ -132,7 +132,7 @@ fn travel_to_case_site_impl(
     character_id: u64,
     case_site_id: String,
     route: Option<JourneyRoutePlan>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::character::require_living_character(ctx, character_id)?;
     let Some(character) = ctx.db.character().id().find(character_id) else {
         return Err("Character not found".into());
@@ -376,7 +376,7 @@ fn complete_settlement_arrival(
     departing_case_site: Option<&str>,
     travel_minutes_to_advance: Option<u64>,
     rest_temporary_companions: bool,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let canonical_excursion = party
         .as_ref()
         .and_then(|party| party.wilderness_canonical_anchor_minute)
@@ -473,7 +473,7 @@ pub fn travel_to_settlement(
     ctx: &ReducerContext,
     character_id: u64,
     settlement_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     require_strategic_character_authority(ctx, character_id)?;
     travel_to_settlement_impl(ctx, character_id, settlement_id, None)
@@ -485,7 +485,7 @@ pub fn travel_to_settlement_planned(
     character_id: u64,
     settlement_id: String,
     route: JourneyRoutePlan,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     require_strategic_character_authority(ctx, character_id)?;
     travel_to_settlement_impl(ctx, character_id, settlement_id, Some(route))
@@ -496,7 +496,7 @@ fn travel_to_settlement_impl(
     character_id: u64,
     settlement_id: String,
     route: Option<JourneyRoutePlan>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::character::require_living_character(ctx, character_id)?;
     let Some(destination) = ctx.db.settlement().id().find(&settlement_id) else {
         return Err("Settlement not found".into());
@@ -857,7 +857,7 @@ pub fn set_party_travel_itinerary(
 /// state, rather than a tactical simulation: the UI animates this instantaneous
 /// transition between pins.
 #[reducer]
-pub fn continue_camp_travel(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+pub fn continue_camp_travel(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     let character = ctx

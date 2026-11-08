@@ -329,34 +329,28 @@ pub(crate) fn combat_geometry(
     ctx: &ReducerContext,
     inventory_row_id: u64,
     item_id: &str,
-) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
-    let object = crate::inventory_container::object_for_row(
-        ctx,
-        CarriedInventoryScope::Personal,
-        inventory_row_id,
-    )
-    .ok()?
-    .filter(|object| object.item_id == item_id)?;
-    let instance = ctx
-        .db
-        .weapon_instance()
-        .physical_object_id()
-        .find(object.id)?;
-    let evaluated = evaluate_instance(&instance, item_id)?;
+) -> crate::StrategicOperationResult<Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>> {
+    let Some(object) = crate::inventory_container::object_for_row(
+        ctx, CarriedInventoryScope::Personal, inventory_row_id,
+    )?.filter(|object| object.item_id == item_id) else { return Ok(None); };
+    let Some(instance) = ctx.db.weapon_instance().physical_object_id().find(object.id) else {
+        return Ok(None);
+    };
+    let Some(evaluated) = evaluate_instance(&instance, item_id) else { return Ok(None); };
     let design = evaluated.design();
     let derived = evaluated.derived();
     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
         derived.mass_kg,
-        derived.length_m,
-        derived.grip_to_tip_m,
-        derived.striking_head_length_m,
+        fabelgeist_geometry::SignedLength::from_metres(derived.length_m)?,
+        fabelgeist_geometry::SignedLength::from_metres(derived.grip_to_tip_m)?,
+        fabelgeist_geometry::SignedLength::from_metres(derived.striking_head_length_m)?,
         derived.moment_of_inertia_kg_m2,
         derived.balance,
-        adventuresim_core::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS
-            .contact
-            .precision_for_design(design)
-            .value(),
-    )
+        adventuresim_core::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact
+            .precision_for_design(design).value(),
+    ).map(Some).ok_or_else(|| crate::StrategicOperationError::InvalidWeaponCombatGeometry {
+        item: item_id.to_owned(),
+    })
 }
 
 /// Unfitted holders use their catalog construction; fitted instances use their

@@ -96,7 +96,7 @@ pub(super) fn publish(
         attacker_weapon_contact: false,
         impact_recipient: response.impact_recipient,
         impact_velocity_change: response.impact_velocity_change,
-        contact_at_time: MeleeContactAtTime::intended(0.0),
+        contact_at_time: MeleeContactAtTime::intended(SignedLength::ZERO),
     });
     commands.server_trigger(ToClients {
         targets: SendTargets::All,

@@ -2029,7 +2029,7 @@ pub fn finish_disease_interval(
     ctx: &ReducerContext,
     character_id: u64,
     cause: Option<TerminalFailure>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let Some(cause) = cause else { return Ok(()) };
     crate::transition_character_to_dead(
         ctx,
@@ -2104,7 +2104,7 @@ fn commit_terminal_at_boundary(
     ctx: &ReducerContext,
     patient_id: u64,
     minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let episodes = character_episodes(ctx, patient_id)?;
     let immunity = ctx
         .db
@@ -2143,7 +2143,7 @@ pub fn administer_preparation(
     route: InterventionRoute,
     dose_milliunits: u32,
     region: Option<BodyRegion>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_intervention_relationship(ctx, actor_id, patient_id)?;
     administer_preparation_inner(
         ctx,
@@ -2164,7 +2164,7 @@ fn administer_preparation_inner(
     route: InterventionRoute,
     dose_milliunits: u32,
     region: Option<BodyRegion>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let dose = physiology::DoseMilliunits::try_new(dose_milliunits)
         .map_err(|_| "Intervention dose must be between 1 and 8000 milliunits")?;
     if dose.is_zero() {
@@ -2225,7 +2225,7 @@ pub(crate) fn administer_intervention_component(
     preparation_id: &str,
     profile_version: u16,
     dose: physiology::DoseMilliunits,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if dose.is_zero() {
         return Ok(());
     }
@@ -2393,7 +2393,7 @@ pub fn record_standing_cut_exposure(
 
 /// Create or reset the diagnostic party used by the default development seed.
 /// It includes a healthy physician and patients with staggered disease ages.
-pub(crate) fn seed_sick_character(ctx: &ReducerContext) -> Result<(), String> {
+pub(crate) fn seed_sick_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
     const SICK_CHARACTER_ID: u64 = 9_999_999_999_999_998;
     const PHYSICIAN_ID: u64 = 9_999_999_999_999_997;
     const AMBIGUOUS_PHYSICIAN_ID: u64 = 9_999_999_999_999_989;
@@ -2633,7 +2633,7 @@ pub fn purchase_from_herbalist(
     settlement_id: String,
     item_ids: Vec<String>,
     quantities: Vec<u32>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, patient_id)?;
     crate::strategic::require_settlement_service(
         ctx,
@@ -2699,7 +2699,7 @@ pub fn purchase_from_herbalist(
     for (item_id, quantity) in item_ids.iter().zip(&quantities) {
         // The shared helper keeps medication individual while creating one
         // fungible ingredient stack with the requested quantity.
-        crate::item::add_inventory_item_checked(ctx, patient_id, item_id, *quantity)?
+        crate::item::add_inventory_item(ctx, patient_id, item_id, *quantity)?
             .ok_or("Herbalist purchase did not create inventory")?;
     }
     Ok(())
@@ -2715,7 +2715,7 @@ mod herbalist_purchase_source_tests {
             .nth(1)
             .unwrap();
         let body = purchase.split("#[cfg(test)]").next().unwrap();
-        assert!(body.contains("add_inventory_item_checked(ctx, patient_id, item_id, *quantity)"));
+        assert!(body.contains("add_inventory_item(ctx, patient_id, item_id, *quantity)"));
         assert!(!body.contains("for _ in 0..*quantity"));
     }
 

@@ -1,6 +1,7 @@
 //! Admit the complete applicable connected-player batch before any entity commands.
 
 use super::{LoadingPlayer, player_collider, spawn_connected_player};
+use super::item_geometry::PreparedInventoryItem;
 use crate::{
     Args,
     bot::CombatantBehaviorPackages,
@@ -21,6 +22,8 @@ pub(super) struct AdmittedPlayer {
     pub(super) recipient: SpawnRecipient,
     pub(super) position: Position<Scene>,
     pub(super) collider: Collider,
+    pub(super) items: Vec<PreparedInventoryItem>,
+    pub(super) body_mass: adventuresim_core::physiology::BodyMassKg,
 }
 
 pub(super) enum SpawnRecipient {
@@ -37,7 +40,7 @@ impl PreparedPlayerSpawns {
         combat: &TacticalCombatConfig,
     ) -> SceneSpawnResult<Self> {
         let mut admitted = Vec::with_capacity(players.len());
-        for player in players {
+        for mut player in players {
             let recipient = if player.mission_side == TacticalMissionSide::Enemy {
                 let packages = if let Some(fixture) = args.enemy_fixture.as_ref() {
                     let enemy = fixture.enemy_named(&player.character.name).ok_or(
@@ -79,11 +82,20 @@ impl PreparedPlayerSpawns {
                 elevation.metres() + offset.metres(),
                 point.metres().y,
             ))?;
+            let body_mass = adventuresim_core::physiology::BodyMassKg::try_new(player.body_weight_kg)
+                .map_err(|cause| SceneSpawnError::BodyMass {
+                    character: CharacterId(player.character.id), cause,
+                })?;
+            let items = std::mem::take(&mut player.items).into_iter()
+                .map(|item| PreparedInventoryItem::observe(item, combat.resolution.contact))
+                .collect::<Result<Vec<_>, _>>()?;
             admitted.push(AdmittedPlayer {
                 player,
                 recipient,
                 position,
                 collider,
+                items,
+                body_mass,
             });
         }
         Ok(Self(admitted))
@@ -93,10 +105,9 @@ impl PreparedPlayerSpawns {
         self,
         args: &Args,
         commands: &mut Commands,
-        combat: &TacticalCombatConfig,
     ) {
         for admitted in self.0 {
-            spawn_connected_player(admitted, args.enemy_combat_scale_bps, commands, combat);
+            spawn_connected_player(admitted, args.enemy_combat_scale_bps, commands);
         }
     }
 }

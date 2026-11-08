@@ -614,7 +614,7 @@ pub fn retrieve_fireplace_dish(
     character_id: u64,
     fireplace_fixture_id: String,
     container_object_id: Option<u64>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let actor = crate::character::require_living_character(ctx, character_id)?;
     if actor.has_tactical_server_assignment() {

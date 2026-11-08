@@ -8,6 +8,7 @@ use spacetimedb::{ReducerContext, Table, reducer, table};
 use std::collections::BTreeMap;
 
 use crate::capability::StrategicEquipment;
+use crate::StrategicOperationResult;
 use crate::character::character;
 use crate::filth::character_filth;
 use crate::investigation::case_site_authority;
@@ -306,7 +307,7 @@ pub fn apply_weather_exposure(
     elapsed_minutes: u64,
     moving: bool,
     shelter: adventuresim_core::survival::ExposureShelter,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     initialize_character_condition(ctx, character_id)?;
     if elapsed_minutes == 0 {
         return Ok(());
@@ -317,7 +318,7 @@ pub fn apply_weather_exposure(
         .character_id()
         .find(character_id)
         .ok_or("Character exposure not found")?;
-    let clothing = StrategicEquipment::load(ctx, character_id).survival_clothing();
+    let clothing = StrategicEquipment::load(ctx, character_id)?.survival_clothing();
     let location = exposure_location(ctx, character_id);
     let wilderness_environment_start = ctx
         .db
@@ -505,7 +506,7 @@ pub fn apply_elapsed_needs(
     ctx: &ReducerContext,
     character_id: u64,
     elapsed_minutes: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     apply_elapsed_needs_with_provision(
         ctx,
         character_id,
@@ -521,7 +522,7 @@ pub(crate) fn apply_settlement_rest_elapsed_needs(
     character_id: u64,
     elapsed_minutes: u64,
     provision: crate::time::SettlementRestProvision,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     apply_elapsed_needs_with_provision(
         ctx,
         character_id,
@@ -610,7 +611,7 @@ fn apply_elapsed_needs_with_provision(
     character_id: u64,
     elapsed_minutes: u64,
     provision: ElapsedNeedsProvision,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     initialize_character_condition(ctx, character_id)?;
     let mut needs = ctx
         .db
@@ -694,7 +695,7 @@ pub(crate) fn mental_check(
     ctx: &ReducerContext,
     character_id: u64,
     skill: Skill,
-) -> Result<f32, String> {
+) -> crate::StrategicOperationResult<f32> {
     let attributes = ctx
         .db
         .character_attributes()
@@ -719,7 +720,7 @@ pub(crate) fn mental_check(
         .character_id()
         .find(character_id)
         .ok_or("Character skills not found")?;
-    let equipment = StrategicEquipment::load(ctx, character_id);
+    let equipment = StrategicEquipment::load(ctx, character_id)?;
     Ok(skills.skill_check_by_parts(
         skill,
         &attributes,
@@ -865,7 +866,7 @@ fn party_religion_context(
     ctx: &ReducerContext,
     character_id: u64,
     party_members: &[u64],
-) -> Result<Option<(String, PartyReligionContext)>, String> {
+) -> StrategicOperationResult<Option<(String, PartyReligionContext)>> {
     let mut cohorts: BTreeMap<String, Vec<f32>> = BTreeMap::new();
     let mut commands = Vec::with_capacity(party_members.len());
     for member_id in party_members.iter().copied() {
@@ -934,7 +935,7 @@ fn religion_cohort_pressure(cohorts: BTreeMap<String, Vec<f32>>, own_religion: &
 fn base_morale(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<(f32, Vec<ProjectedMoraleSource>), String> {
+) -> StrategicOperationResult<(f32, Vec<ProjectedMoraleSource>)> {
     let character = ctx
         .db
         .character()
@@ -1238,7 +1239,7 @@ pub fn record_mastery_training_morale(
 fn party_morale_support(
     ctx: &ReducerContext,
     party_members: &[u64],
-) -> Result<(f32, Vec<(u64, f32)>), String> {
+) -> StrategicOperationResult<(f32, Vec<(u64, f32)>)> {
     let mut commands = Vec::new();
     let mut surplus_weights = Vec::new();
     for member_id in party_members.iter().copied() {
@@ -1266,7 +1267,7 @@ fn evaluate_strategic_condition(
     character_id: u64,
     morale_bonus_cap: f32,
     morale_bonus_shares: &[(u64, f32)],
-) -> Result<(CharacterStrategicCondition, Vec<ProjectedMoraleSource>), String> {
+) -> StrategicOperationResult<(CharacterStrategicCondition, Vec<ProjectedMoraleSource>)> {
     initialize_character_condition(ctx, character_id)?;
     let condition = ctx
         .db
@@ -1403,7 +1404,7 @@ fn refresh_one_strategic_condition(
     character_id: u64,
     morale_bonus_cap: f32,
     morale_bonus_shares: &[(u64, f32)],
-) -> Result<CharacterStrategicCondition, String> {
+) -> StrategicOperationResult<CharacterStrategicCondition> {
     let (row, sources) =
         evaluate_strategic_condition(ctx, character_id, morale_bonus_cap, morale_bonus_shares)?;
     if let Some(existing) = ctx
@@ -1516,18 +1517,18 @@ fn ensure_holy_day_demand(
 fn refresh_character_strategic_condition_projection(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<CharacterStrategicCondition, String> {
+) -> StrategicOperationResult<CharacterStrategicCondition> {
     let party_members = party_character_ids(ctx, character_id)?;
     let rows = refresh_party_strategic_condition_projection(ctx, &party_members)?;
     rows.into_iter()
         .find(|row| row.character_id == character_id)
-        .ok_or_else(|| "Character is not a member of their party".to_string())
+        .ok_or_else(|| "Character is not a member of their party".into())
 }
 
 fn refresh_party_strategic_condition_projection(
     ctx: &ReducerContext,
     party_members: &[u64],
-) -> Result<Vec<CharacterStrategicCondition>, String> {
+) -> StrategicOperationResult<Vec<CharacterStrategicCondition>> {
     let (morale_bonus_cap, morale_bonus_shares) = party_morale_support(ctx, party_members)?;
     let rows = party_members
         .iter()
@@ -1548,7 +1549,7 @@ fn refresh_party_strategic_condition_projection(
 pub fn refresh_character_strategic_condition(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<CharacterStrategicCondition, String> {
+) -> StrategicOperationResult<CharacterStrategicCondition> {
     let mut requested = refresh_character_strategic_condition_projection(ctx, character_id)?;
     if refuse_expired_holy_day_demands(ctx, character_id, false)? {
         requested = refresh_character_strategic_condition_projection(ctx, character_id)?;
@@ -1565,7 +1566,7 @@ fn refuse_expired_holy_day_demands(
     ctx: &ReducerContext,
     character_id: u64,
     departing: bool,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     let current_minute = crate::time::refresh_clock(ctx)?;
     let current_day = current_minute.day_index();
     let pending: Vec<_> = ctx
@@ -1613,7 +1614,7 @@ pub fn resolve_religious_demand(
     ctx: &ReducerContext,
     demand_id: u64,
     choice: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let mut demand = ctx
         .db
         .religious_demand()
@@ -1698,7 +1699,7 @@ pub fn record_morale_event(
     kind: MoraleEventKind,
     magnitude: f32,
     source_id: Option<String>,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if magnitude == 0.0 || !magnitude.is_finite() {
         return Ok(());
     }
@@ -1836,7 +1837,7 @@ pub(crate) fn record_immediate_prayer_morale(
     ctx: &ReducerContext,
     character_id: u64,
     minutes: u16,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let party_members = party_character_ids(ctx, character_id)?;
     let (kind, magnitude) = if let Some((_religion_id, religion)) =
         party_religion_context(ctx, character_id, &party_members)?
@@ -1860,7 +1861,7 @@ pub(crate) fn record_immediate_prayer_morale(
     )
 }
 
-fn party_command(ctx: &ReducerContext, character_id: u64) -> Result<f32, String> {
+fn party_command(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<f32> {
     Ok(aggregate_party_command(
         party_character_ids(ctx, character_id)?
             .into_iter()
@@ -1886,7 +1887,7 @@ pub fn apply_travel_condition(
     starting_minute: StrategicMinute,
     elapsed_minutes: u64,
     prayer_minutes: u16,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if elapsed_minutes > adventuresim_core::alcohol::MAX_ALCOHOL_INTERVAL_MINUTES {
         return Err("Travel condition interval cannot exceed one year".into());
     }
@@ -1960,7 +1961,7 @@ pub(crate) fn apply_canonical_wilderness_observance(
     character_id: u64,
     canonical_start: StrategicMinute,
     canonical_end: StrategicMinute,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let elapsed = canonical_end.elapsed_since(canonical_start);
     if elapsed == 0 {
         return Ok(());
@@ -1995,7 +1996,7 @@ pub fn apply_rest_condition(
     ctx: &ReducerContext,
     character_id: u64,
     elapsed_minutes: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     initialize_character_condition(ctx, character_id)?;
     let _ = elapsed_minutes;
     refresh_character_strategic_condition(ctx, character_id).map(|_| ())
@@ -2083,7 +2084,7 @@ pub fn apply_settlement_leisure_condition(
     schedule: DailySchedule,
     elapsed_minutes: u64,
     interval_end_minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let mut stats = ctx
         .db
         .character_stats()
@@ -2115,7 +2116,7 @@ pub fn apply_camp_rest_condition(
     ctx: &ReducerContext,
     character_id: u64,
     elapsed_minutes: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     initialize_character_condition(ctx, character_id)?;
     apply_elapsed_needs(ctx, character_id, elapsed_minutes)?;
     apply_camp_rest_recovery_condition(ctx, character_id, elapsed_minutes)
@@ -2127,7 +2128,7 @@ pub fn apply_camp_rest_recovery_condition(
     ctx: &ReducerContext,
     character_id: u64,
     elapsed_minutes: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let days = elapsed_minutes as f32 / (24.0 * 60.0);
     let mut stats = ctx
         .db
@@ -2144,7 +2145,7 @@ pub fn apply_blood_loss(
     ctx: &ReducerContext,
     character_id: u64,
     fraction_of_maximum: f32,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     initialize_character_condition(ctx, character_id)?;
     let mut condition = ctx
         .db
@@ -2181,7 +2182,7 @@ pub fn set_blood_fraction(
     ctx: &ReducerContext,
     character_id: u64,
     fraction: f32,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     initialize_character_condition(ctx, character_id)?;
     let mut condition = ctx
         .db
@@ -2210,7 +2211,7 @@ pub fn set_blood_fraction(
     }
 }
 
-pub fn require_character_ready(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+pub fn require_character_ready(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<()> {
     crate::character::require_living_character(ctx, character_id)?;
     let condition = refresh_character_strategic_condition(ctx, character_id)?;
     if condition.status == IncapacitationStatus::Incapacitated {
@@ -2220,7 +2221,7 @@ pub fn require_character_ready(ctx: &ReducerContext, character_id: u64) -> Resul
     }
 }
 
-pub fn require_characters_ready(ctx: &ReducerContext, character_ids: &[u64]) -> Result<(), String> {
+pub fn require_characters_ready(ctx: &ReducerContext, character_ids: &[u64]) -> StrategicOperationResult<()> {
     for character_id in character_ids {
         crate::character::require_living_character(ctx, *character_id)?;
     }
@@ -2235,7 +2236,7 @@ pub fn require_characters_ready(ctx: &ReducerContext, character_ids: &[u64]) -> 
 }
 
 #[reducer]
-pub fn refresh_strategic_condition(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+pub fn refresh_strategic_condition(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<()> {
     refresh_character_strategic_condition(ctx, character_id).map(|_| ())
 }
 
@@ -2244,7 +2245,7 @@ pub fn set_character_religion(
     ctx: &ReducerContext,
     character_id: u64,
     religion_id: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     initialize_character_condition(ctx, character_id)?;

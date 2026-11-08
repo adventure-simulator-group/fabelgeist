@@ -139,7 +139,7 @@ pub fn advance_npc_personal_time(
     ctx: &ReducerContext,
     character_id: u64,
     target_minute: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if ctx
         .db
         .npc_policy()

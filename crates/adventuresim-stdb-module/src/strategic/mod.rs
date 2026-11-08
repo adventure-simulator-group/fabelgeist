@@ -14,7 +14,7 @@ use adventuresim_core::weather::Precipitation;
 use adventuresim_dialogue::{PromptMode, ResolutionPolicy};
 use approved_action::ApprovedPartyAction;
 use battle_combatants::load_allied_combatants;
-pub use combat_error::{StrategicCombatError, StrategicCombatResult};
+use crate::{StrategicOperationError, StrategicOperationResult};
 pub(crate) use development_gallery::{
     materialize_development_scenario_gallery, materialize_gallery_item,
     validate_gallery_postcondition,
@@ -23,7 +23,6 @@ use std::str::FromStr;
 mod approved_action;
 mod battle_combatants;
 mod challenge_state;
-mod combat_error;
 mod development_gallery;
 mod dialogue_policy;
 mod mission_roster;
@@ -37,7 +36,7 @@ pub use challenge_state::*;
 #[cfg(test)]
 pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("autoresolve.rs"),
-    include_str!("combat_error.rs"),
+    include_str!("../operation_error.rs"),
     include_str!("party_readiness.rs"),
     include_str!("world_import.rs"),
     include_str!("authority_model.rs"),

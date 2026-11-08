@@ -3,14 +3,14 @@ use super::*;
 struct MeleeEngagement {
     attacker_id: u64,
     target_id: u64,
-    initial_separation: f32,
-    distance: f32,
+    initial_separation: SignedLength,
+    distance: SignedLength,
 }
 
 struct AttackStartTrace {
     attacker_id: u64,
     target_id: u64,
-    distance: f32,
+    distance: SignedLength,
     readiness: BattleTime,
     window_start: BattleTime,
     adaptation: AnimationElapsed,
@@ -22,9 +22,9 @@ impl MeleeEngagement {
         attacker: &Combatant,
         defender: &Combatant,
         parameters: crate::combat::AutoresolveParameters,
-    ) -> Self {
+    ) -> fabelgeist_geometry::GeometryResult<Self> {
         let initial_separation =
-            maximum_melee_pair_surface_separation(attacker, defender, parameters);
+            maximum_melee_pair_surface_separation(attacker, defender, parameters)?;
         let attacker_distance = if attacker.melee_engagement_target == Some(defender.id) {
             attacker.melee_engagement_distance_metres
         } else {
@@ -35,12 +35,12 @@ impl MeleeEngagement {
         } else {
             initial_separation
         };
-        Self {
+        Ok(Self {
             attacker_id: attacker.id,
             target_id: defender.id,
             initial_separation,
-            distance: attacker_distance.min(defender_distance).max(0.0),
-        }
+            distance: attacker_distance.min(defender_distance).max(SignedLength::ZERO),
+        })
     }
     fn commit(self, attacker: &mut Combatant, defender: &mut Combatant) {
         if attacker.melee_engagement_target != Some(self.target_id) {
@@ -221,15 +221,15 @@ fn schedule_attacker(
         );
     }
     let engagement =
-        MeleeEngagement::observe(&attackers[index], &defenders[target_index], parameters);
+        MeleeEngagement::observe(&attackers[index], &defenders[target_index], parameters)?;
     let MeleeEngagement {
         attacker_id,
         target_id,
         distance,
         ..
     } = engagement;
-    let reach = melee_effective_reach(&attackers[index]);
-    if distance > reach + parameters.melee_lunge_maximum_travel_metres {
+    let reach = melee_effective_reach(&attackers[index])?;
+    if distance.metres() > reach.metres() + parameters.melee_lunge_maximum_travel_metres.metres() {
         engagement.commit(&mut attackers[index], &mut defenders[target_index]);
         return Ok(None);
     }

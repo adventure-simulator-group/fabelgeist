@@ -3,13 +3,13 @@
 use super::*;
 use crate::condition::character_condition;
 
-fn preparation_actor(ctx: &ReducerContext, id: u64) -> Result<u64, String> {
+fn preparation_actor(ctx: &ReducerContext, id: u64) -> crate::StrategicOperationResult<u64> {
     crate::character::create_named_character_with_id(ctx, id, "Preparation Fixture".into())?;
     let mut actor = ctx.db.character().id().find(id).ok_or("Actor missing")?;
     actor.current_settlement_id = Some("riverdale".into());
     ctx.db.character().id().update(actor);
-    crate::item::add_inventory_item_checked(ctx, id, "utility_knife", 1)?;
-    crate::item::add_inventory_item_checked(ctx, id, "apple", 1)?.ok_or("Ingredient missing".into())
+    crate::item::add_inventory_item(ctx, id, "utility_knife", 1)?;
+    crate::item::add_inventory_item(ctx, id, "apple", 1)?.ok_or("Ingredient missing".into())
 }
 
 fn prepare_and_replay(
@@ -18,7 +18,7 @@ fn prepare_and_replay(
     row_id: u64,
     action: IngredientPreparationAction,
     interrupted: bool,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let actor = ctx
         .db
         .character()
@@ -152,7 +152,7 @@ fn prepare_and_replay(
 pub fn authority_test_preparation_operations(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     for (action, digest) in [
         (
