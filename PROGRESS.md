@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:50:57.847102+00:00
+Updated: 2026-11-08T02:52:42.719612+00:00
 
-Latest verified checkpoint: **3713**. Goal: **active**.
+Latest verified checkpoint: **3714**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3713**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 587 / 3,866 marked | 3,279 other entries |
+| Queue entries explicitly marked source-discovery closed | 588 / 3,866 marked | 3,278 other entries |
 | Registered source ranges qualified, connected work open | 297 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified reflected component insertion and observer dispatch.
+Closed debug scene snapshot source discovery with repair policy open.
 
-Snapshot repair design and post-gate runtime validation remain open.
+Snapshot design, landform error-loss and post-gate validation remain open.
 
 ## Working on now
 
-Resolve snapshot repair and coordinated collider setup.
+Continue landform failure reachability and independent audit obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3713 publication record](CHECKPOINT-3713.json)
-- [Saved report for checkpoint 3713](PROGRESS-3713.md)
+- [Checkpoint 3714 publication record](CHECKPOINT-3714.json)
+- [Saved report for checkpoint 3714](PROGRESS-3714.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
