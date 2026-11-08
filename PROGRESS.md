@@ -1,11 +1,12 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:37:42.452564+00:00
+Updated: 2026-11-08T21:40:40.500748+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
+| Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -25,6 +26,19 @@ Updated: 2026-11-08T21:37:42.452564+00:00
 | Rest payment error sites corrected | 2 / 2 | Enclosing rest rollback open |
 | Tavern and inn failure paths exercised | 1 / 2 | Inn remains open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
+
+The handoff requires the audit ledger to be complete before code repairs. The
+ledger's implementation gate remains false; the incremental implementation
+work documented below was performed before that prerequisite was met. Future
+work is returning to audit discovery and reconciliation. The implementation
+branches are preserved as drafts, with their validation limits unchanged.
+
+A bounded current-source read of the existing expedition elapsed-time contract
+confirmed that the simulator subtracts maxima of member clocks, while camp rest
+advances living members individually. A later dead-member clock could mask a
+living member's elapsed time if that membership state is reachable. This is a
+conditional source finding; runtime reachability, aliases, and the intended
+interval remain open. The authoritative queue has not been marked closed.
 
 | Increment status | Count |
 | --- | ---: |
