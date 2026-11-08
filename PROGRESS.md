@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T19:31:42.805241+00:00
+Updated: 2026-11-08T19:43:25.520401+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -13,6 +13,7 @@ Updated: 2026-11-08T19:31:42.805241+00:00
 | Seed-party recruitment-role rejection | 1 / 1 on prior draft | Other obligation cases open |
 | Seed-party mission and case-site rejection | 1 / 1 on prior draft | Individual mission/incident branches open |
 | Direct and offer member-transfer scenarios | 2 / 2 passed | Missing-object rejection untested |
+| Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -140,14 +141,19 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `b5d7ba515`. Party
-offer lines now carry a personal row ID from parsing to transfer; the reducer
-admits raw IDs at its boundary. Missing physical objects for stable rows now
-return an error instead of using legacy transfer branches. Authority-feature
-compilation, the adapted request fixture, targeted quality and formatting
-passed. An isolated nested bottle/apple scenario passed direct transfer and
-party offer, including excessive-quantity rejection. The missing-object error
-has not been exercised; full lint is running.
+The inventory row-identity migration is a draft at P16 `de85048d3`. Fungible
+operations now reject rows with physical objects or persisted lot, amount or
+condition state. This check covers personal transfer sources and destinations,
+party merge sources and party-credit destinations. The existing stacking rule
+and party-credit operation moved to their owning fragments. Authority-feature
+compilation, targeted quality and formatting passed. Isolated nested-object,
+party-offer, party currency merge and direct currency transfer cases passed.
+Anomalous-backing rejection and other inventory paths remain unverified; full
+lint is running.
+
+On `b5d7ba515`, party offer lines began carrying a personal row ID from parsing
+through transfer; missing physical objects for stable rows return an error.
+The request fixture, isolated transfer checks and full lint passed there.
 
 An earlier seed helper could delete a solo party with inventory or active party
 obligations.
