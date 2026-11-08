@@ -1,40 +1,44 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T04:59:57.539869+00:00
+Updated: 2026-11-08T05:06:03.193431+00:00
 
 | Increment status | Count |
 | --- | ---: |
+| Queued candidates | 2 |
 | Auditing | 0 |
 | Implementing or awaiting build | 1 |
 | Awaiting review | 0 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
 
-| Backlog and prior audit | Count or status |
+| Historical audit measure | Count |
 | --- | --- |
 | Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed |
 | Ledger entries with source discovery explicitly closed | 588 / 3,866 |
-| Remaining ledger entries | 3,278, including overlapping obligations |
+| Other ledger entries | 3,278, including overlapping obligations |
 
-These historical counts are source-coverage measures, not completed repairs.
-The user revised the handoff: implementation proceeds in independently audited
-increments; the remaining ledger is a backlog rather than a global implementation
-gate. Final completion still requires the full intended refactor and validation.
+Historical coverage is not completed repair work. The revised user direction
+allows independently audited implementation increments while retaining the
+ledger as backlog. Full refactor completion and validation remain required.
 
-## Current increment: audio playback speed
+## Audio playback speed
 
-Status: **awaiting focused build**. An isolated implementation branch carries
-validated playback-speed and ordered pitch-range types through movement and
-combat audio. Foliage base pitch and randomization endpoints are checked for
-finite, positive composed speeds. The focused client check is running against
-the shared target with a process-held exclusive lock. No build result, review,
-commit or integration is claimed yet. Landform preparation and wedding capacity
-remain queued candidates, each requiring its own bounded audit and acceptance.
+Status: **focused tests running**. The isolated [implementation branch](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-audio-pitch)
+contains commit `2d318efbb21d044680070c525554cb04ee286437`. It carries checked playback-speed and ordered
+pitch-range values through movement and combat audio, and rejects foliage
+combinations whose endpoint products are zero or nonfinite. The focused client
+`cargo check` passed; existing audio configuration tests are running against the
+shared target under an exclusive process-held lock. Formatting was applied.
+Review, repository-wide gates and integration remain outstanding.
 
-## Previously published audit
+## Queued
 
-[Checkpoint 3737](CHECKPOINT-3737.json) and its report preserve the prior audit
-state. Its old global-gate language is superseded by the revised user direction;
-its evidence, unresolved questions and historical qualifications remain intact.
-No database schema changes or generated bindings are part of this increment.
+Landform preparation error outcome and wedding capacity atomicity are separate
+candidates. Each needs its own bounded audit, acceptance and implementation.
+
+## Historical evidence
+
+[Checkpoint 3737](CHECKPOINT-3737.json) preserves the earlier audit state. Its
+former global implementation gate has been superseded by user direction, while
+its evidence and unresolved questions remain part of the backlog.
