@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T20:21:42.511091+00:00
+Updated: 2026-11-08T20:31:40.419404+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,8 @@ Updated: 2026-11-08T20:21:42.511091+00:00
 | Direct and offer member-transfer scenarios | 2 / 2 passed | Missing-object rejection untested |
 | Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
 | Discard scenarios exercised | 2 / 2 | Corrupt rows and liquidation open |
-| Personal currency wedding fixture | 1 / 1 passed | Corrupt backing untested |
+| Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
+| Party debit paths live tested | 0 / 3 | 3 |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -143,7 +144,16 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `82109bfb3`.
+The inventory row-identity migration is a draft at P16 `29d66f56a`.
+Party currency consumption and both personal/party currency transfer paths now
+preflight each selected stack before mutation. Empty stacks are skipped. The
+currency code was extracted from the oversized trade file. Authority-feature
+compilation, `just fmt-check`, and full `just lint` passed. A guarded party
+inventory run passed nested merges, offers, and currency conservation, but did
+not establish coverage of the three newly guarded debit paths. Their normal
+behavior, corrupt-backing rejection, and independent review remain open.
+
+At parent `82109bfb3`,
 Personal currency withdrawal plans now carry typed personal row IDs and
 preflight every selected stack before mutation. Authority-feature compilation,
 `just fmt-check`, and full `just lint` passed. An isolated wedding authority
