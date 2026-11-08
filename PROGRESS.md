@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T09:19:29.903850+00:00
+Updated: 2026-11-08T09:21:19.115494+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,9 +14,9 @@ Updated: 2026-11-08T09:19:29.903850+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings remaining | 34 |
+| File and function size findings remaining | 32 |
 | Previously reported ingress size findings cleared | 2 |
-| Previously reported function-size findings cleared elsewhere | 7 |
+| Previously reported function-size findings cleared elsewhere | 8 |
 
 The quality counts are findings from the latest scan, not a count of defects
 or independent work items. Full lint stopped before Clippy.
@@ -90,7 +90,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `7bd60431c` (quality repairs after `623d52a`): the unfinished
+  commit `8bd6d2086` (quality repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -152,7 +152,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   compiled at `fcec86658` and the marriage file-size finding cleared. The
   wedding acceptance setup is now separate and compiles at the current commit;
   the guarded authority workflow passed again on a disposable local profile,
-  including wedding capacity and rollback fixtures.
+  including wedding capacity and rollback fixtures. Repair escrow restoration
+  was then separated and the authority-feature module compiles at the current
+  commit; both repair size findings cleared. Repair behavior has not been
+  rerun since the extraction.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
