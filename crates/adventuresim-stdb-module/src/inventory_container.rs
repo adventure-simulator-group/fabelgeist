@@ -25,6 +25,9 @@ use crate::{
     party_item_amount,
 };
 
+mod stacking;
+use stacking::{mergeable_object, stackable_empty_root};
+
 pub const WATER_ITEM_ID: &str = "water";
 fn empty_container_can_stack(has_contents: bool, is_nested: bool, has_condition: bool) -> bool {
     !has_contents && !is_nested && !has_condition
@@ -635,26 +638,9 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
     };
     let expected = crate::object_custody::carried_location_custody(&emptied.location)?;
     require_exact_carried_backing(ctx, &emptied, &expected)?;
-    if !empty_container_can_stack(
-        object_is_nonempty(ctx, emptied_id),
-        object_is_nested(ctx, emptied_id),
-        false,
-    ) {
+    if !stackable_empty_root(ctx, emptied_id) {
         return Ok(());
     }
-    let scope = emptied
-        .location
-        .scope()
-        .ok_or("Only carried containers can merge into inventory stacks")?;
-    let mergeable_object = |row_id| -> Result<bool, String> {
-        match object_for_row(ctx, CarriedInventoryRowId::from_raw(scope, row_id))? {
-            Some(object) => {
-                require_exact_carried_backing(ctx, &object, &expected)?;
-                Ok(!object_is_nonempty(ctx, object.id) && !object_is_nested(ctx, object.id))
-            }
-            None => Ok(true),
-        }
-    };
     let merged_object_id;
     match &emptied.location {
         InventoryLocation::Personal(location) => {
@@ -677,7 +663,11 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
             targets.sort_by_key(|row| row.id);
             let mut target = None;
             for row in targets {
-                if mergeable_object(row.id)? {
+                if mergeable_object(
+                    ctx,
+                    CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
+                    &expected,
+                )? {
                     target = Some(row);
                     break;
                 }
@@ -732,7 +722,11 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
             targets.sort_by_key(|row| row.id);
             let mut target = None;
             for row in targets {
-                if mergeable_object(row.id)? {
+                if mergeable_object(
+                    ctx,
+                    CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row.id)),
+                    &expected,
+                )? {
                     target = Some(row);
                     break;
                 }
@@ -805,8 +799,7 @@ mod tests {
             .nth(1)
             .and_then(|tail| tail.split("pub(crate) fn object_is_nonempty").next())
             .expect("physical object row lookup");
-        assert!(lookup.contains("InventoryLocation::Personal"));
-        assert!(lookup.contains("InventoryLocation::Party"));
+        assert!(lookup.contains("object.location.carried_row_id() == Some(row_id)"));
         assert!(!lookup.contains("location_kind"));
         assert!(!lookup.contains("location_owner"));
     }
@@ -871,9 +864,9 @@ mod tests {
         let source_validation = merge
             .find("require_exact_carried_backing(ctx, &emptied, &expected)?")
             .unwrap();
-        let target_validation = merge
-            .find("require_exact_carried_backing(ctx, &object, &expected)?")
-            .unwrap();
+        let target_validation = merge.find("mergeable_object(").unwrap();
+        let stacking = include_str!("inventory_container/stacking.rs");
+        assert!(stacking.contains("require_exact_carried_backing(ctx, &object, expected)?"));
         let first_delete = merge.find(".delete(source.id)").unwrap();
         assert!(source_validation < first_delete);
         assert!(target_validation < first_delete);
