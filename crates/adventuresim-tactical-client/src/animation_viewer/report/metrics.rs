@@ -1136,18 +1136,22 @@ pub(super) fn terrain_run_contacts_are_valid(frames: &[FrameSample]) -> bool {
         let support = if left.fraction().max(right.fraction()) < 0.5 {
             None
         } else {
-            Some(left.fraction() >= right.fraction())
+            Some(if left.fraction() >= right.fraction() {
+                LeadFoot::Left
+            } else {
+                LeadFoot::Right
+            })
         };
         if support != last {
-            if let Some(left) = support {
-                acquisitions.push(left);
+            if let Some(foot) = support {
+                acquisitions.push(foot);
             }
             last = support;
         }
     }
     acquisitions.len() >= 4
-        && acquisitions.contains(&true)
-        && acquisitions.contains(&false)
+        && acquisitions.contains(&LeadFoot::Left)
+        && acquisitions.contains(&LeadFoot::Right)
         && acquisitions.windows(2).all(|pair| pair[0] != pair[1])
         && (0.08..=0.20).contains(&maximum_no_support_seconds(&warmed))
 }
