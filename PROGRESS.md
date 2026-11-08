@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:01:06.548191+00:00
+Updated: 2026-11-08T07:08:03.522549+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -72,13 +72,14 @@ ledger as backlog. Full refactor completion and validation remain required.
   unshifted frames; a separate repair is drafted below. Dependencies,
   review, and final integrated gates also remain open.
 
-- [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-timing)
-  commit `96a20906e7e8e78c61dde90260fa16ecc5e47020`: corrects source-derived derivative timing and
-  records missing-parent, inconsistent-bone and non-finite evidence as
-  incomplete. The existing jitter tests are compiling; behavior of the new
-  failure cases has not been verified. The Rust quality checker found an
-  oversized analysis function and growth beyond the capture module ceiling;
-  both require refactoring before the quality gate can pass.
+- [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
+  commit `8b3da2e16be30895a7c65f8e31bd3c7614562096`: source-derived timing correction and
+  incomplete-evidence detection. Seven existing jitter tests passed on parent
+  `96a20906e7e8e78c61dde90260fa16ecc5e47020`; they do not cover the new
+  missing-evidence behavior. The size refactor compiled and passed the Rust
+  quality checker before its baseline reduction and unused-import cleanup.
+  The current commit's formatting gate and existing jitter tests are running;
+  behavioral verification, full lint, and review remain open.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been

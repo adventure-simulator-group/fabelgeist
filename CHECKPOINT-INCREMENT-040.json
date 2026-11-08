@@ -1,0 +1,73 @@
+{
+  "schema": "726-increment-checkpoint-v1",
+  "checkpoint": "increment-040",
+  "at": "2026-11-08T07:08:03.522549+00:00",
+  "historical_audit_checkpoint": 3737,
+  "audio": {
+    "commit": "2d318efbb21d044680070c525554cb04ee286437",
+    "focused_check": "passed",
+    "tests": "passed: 2"
+  },
+  "landform": {
+    "commit": "c40d70aeceeedfd87d7c9528628bf9c9bf87512b",
+    "status": "implementing",
+    "based_on": "2d318efbb21d044680070c525554cb04ee286437",
+    "refresh_and_late_arrival": "reconciliation drafted; behavior and pre-arrival readiness not verified",
+    "focused_check": "passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "focused_tests": "19 passed; 1 ignored at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "test_scope": "existing terrain presentation tests; failure and late-recipe paths not established",
+    "readiness": "failed terrain is excluded from presented count; failure path not dynamically tested",
+    "quality": "passed at parent 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "replication": "library documents atomic entity updates per tick; cross-tick arrival remains open",
+    "focused_clippy": "passed at c40d70aeceeedfd87d7c9528628bf9c9bf87512b"
+  },
+  "integration": "not started",
+  "report_sha256": "80440544e1d0eb080cf0b08cb9b2f7f44abd99d79911736bbe1d2c50cdd432c0",
+  "wedding": {
+    "status": "awaiting review",
+    "implementation": "unverified draft",
+    "worktree": "target/726-wedding-atomicity",
+    "base": "689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "joint_preflight": "projects delayed removal and admission transitions per participant; database behavior not verified",
+    "transaction": "unexpected post-write errors must propagate",
+    "branch": "codex/726-wedding-atomicity",
+    "commit": "4510a2685ea541dd3963bd22aa7a6df6ea29a2a5",
+    "focused_check": "authority-feature Clippy and Rust quality passed at e1ead67e986b55bf8ce8c10693d1ba0e2a0aa82d",
+    "quality": "passed at parent eafb67564a656be3bc6a1fb136c96c6a31443f4f",
+    "acceptance": "guarded disposable-database authority workflow passed at parent f33d5ebe37407718a2283dc9313924c32ab58973; current commit names fixture identifiers",
+    "reconciliation": "landform lint correction cherry-picked",
+    "format": "just fmt-check passed at 4510a2685ea541dd3963bd22aa7a6df6ea29a2a5 in non-nested worktree",
+    "nested_worktree_format": "failed: Cargo interpreted vendored crate as part of outer workspace",
+    "lint": "just lint passed at 4510a2685ea541dd3963bd22aa7a6df6ea29a2a5"
+  },
+  "sample_tick": {
+    "status": "existing report tests passed; review pending",
+    "branch": "codex/726-p17-restoration",
+    "commit": "dcd6ea1aaddb0e542a418ae7ebe35c0bf73d4ecc",
+    "base": "4510a2685ea541dd3963bd22aa7a6df6ea29a2a5",
+    "scope": "preserved P17 report work plus sample tick and LeadFoot fixes",
+    "validation": "26 existing report tests passed at dcd6ea1aaddb0e542a418ae7ebe35c0bf73d4ecc; focused compile and Rust quality passed before baseline reductions",
+    "source_audit": "capture drives a frame once; later view comparisons occur before the next frame drive",
+    "audit_evidence": "target/726-intake-20261030/P17-REPEATED-VIEW-AUDIT.md",
+    "preserved_p17": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696 cherry-picked as 3c7101a4c; unverified",
+    "reverted": "duplicate clearance extraction 1dca6e68776aeb4e0ba8f2d38513cf4f50cfcccd",
+    "jitter_source_finding": "position acceleration and jerk use unshifted reporting frames; position jerk also uses unshifted derivative intervals; source-derived, not reproduced",
+    "jitter_audit": "target/726-intake-20261030/P17-JITTER-TIMING-AUDIT.md"
+  },
+  "historical_family_counts": {
+    "total": 20,
+    "source_complete_or_preserved": 12,
+    "reopened": 6,
+    "implementing_at_handoff": 2,
+    "validated_current_combined_head": 0,
+    "qualification": "historical ledger states; not current-head acceptance"
+  },
+  "jitter": {
+    "status": "implementing",
+    "branch": "codex/726-jitter-quality",
+    "commit": "8b3da2e16be30895a7c65f8e31bd3c7614562096",
+    "base": "96a20906e7e8e78c61dde90260fa16ecc5e47020",
+    "validation": "7 existing jitter tests passed at parent; focused compile and quality passed before baseline reduction and unused import cleanup; current-head fmt and tests running; new failure behavior unverified",
+    "quality": "quality check passed before baseline reduction and unused import cleanup; extracted capture baseline reduced to 718"
+  }
+}
