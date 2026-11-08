@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:33:13.799241+00:00
+Updated: 2026-11-08T15:35:47.571164+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -89,10 +89,11 @@ focused checks and the guarded authority workflow passed as described below.
 | Equipment-law typed draft | Lint passed; runtime unverified |
 | Non-durable equipable items needing stable objects | 7 / 7 |
 | Shared instance policy tests | 2 / 2 passed |
-| Checked instance count and row-ID draft | Lint passed; database check running |
+| Checked instance count and row-ID draft | Lint and focused fixtures passed |
 | Persisted personal row-ID migration | Open |
 | Same-kind nested container catalog witness | 1 / 188 definitions |
 | Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
+| One selected nested container | 2 bottle rows deleted |
 | Belt addition, spare-first and cleanup database fixture | 1 / 1 passed |
 | Missing-inventory law preflight database fixture | 1 / 1 passed |
 | Isolated runner listener cleanup | 1 / 1 passed |
@@ -420,10 +421,14 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   Commit a54fec4f4 carries a bounded instance count and a distinct personal
   inventory row ID through selection, with primitive conversion at database
   boundaries. Two existing tests, authority-feature compilation, formatting
-  and full lint passed. The guarded database fixtures are running on this
-  commit; their prior pass applies to the parent. The persisted personal
-  inventory location still holds a raw row ID, and a shared accessor collapses personal, party and repair
-  IDs into one optional integer. The producer-to-consumer type migration and
+  and full lint passed. The guarded bottle, belt, enrollment and equipment-law
+  fixtures also passed on this commit. An additional isolated run requested
+  removal of one outer glass bottle containing another and observed both rows
+  deleted, consistent with the subtree helper. Whether that collateral
+  deletion is the intended quantity and contents policy remains unresolved.
+  The persisted personal inventory location still holds a raw row ID, and a
+  shared accessor collapses personal, party and repair IDs into one optional
+  integer. The producer-to-consumer type migration and
   schema/client-binding consequences remain open. A separate local record
   retains exact source hashes without claiming historical audit credit.
   This is not a completed repair. Remaining writer paths,
