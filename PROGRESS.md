@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:30:27.336702+00:00
+Updated: 2026-11-08T11:33:03.633482+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -28,6 +28,8 @@ Updated: 2026-11-08T11:30:27.336702+00:00
 | Tactical server equipment tests passed | 16 / 16 |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
+| Full-scale melee report | Failed in first matchup |
+| Full-scale autoresolve traces completed before failure | 467 / 1,000 |
 
 The quality counts describe the latest scan, not a count of defects. At P16
 parent `aaf0a66c7`, formatting, workspace Clippy, three standalone Clippy
@@ -125,7 +127,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   The movement report uses typed measurements and rejects missing required
   observations; the new failure behavior still needs behavioral validation.
   A one-seed smoke run completed five matchups and all 11 top-level audit
-  flags were true. It does not replace the full-scale acceptance run.
+  flags were true. The full-scale run then failed in the first matchup
+  after 467 autoresolve traces: seed 468 reproduced an unavailable recovery
+  interval. The report rejects `CannotRecover`, a valid combat state at zero
+  performance. Its aggregate needs correction before acceptance can pass;
+  the 3 GB bulk trace was removed after recording its size and record count.
   A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
   extractions and baseline reductions. At parent `aaf0a66c7`, formatting,
   workspace Clippy, all three standalone Clippy commands, and the guarded
