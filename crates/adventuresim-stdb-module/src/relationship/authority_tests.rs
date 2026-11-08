@@ -116,36 +116,7 @@ pub fn authority_test_wedding_capacity_atomicity(
     const DOWRY: u32 = 17;
     let ceremony = StrategicMinute::new(100);
     let now = crate::time::refresh_clock(ctx)?;
-    for character_id in [FIRST, SECOND, FATHER] {
-        crate::character::create_named_character_with_id(
-            ctx,
-            character_id,
-            format!("Wedding acceptance {character_id}"),
-        )?;
-        set_seeded_character_birth_from_age(ctx, character_id, 25);
-        let mut time = ctx
-            .db
-            .character_time()
-            .character_id()
-            .find(character_id)
-            .ok_or("Wedding acceptance clock missing")?;
-        time.minutes = now;
-        ctx.db.character_time().character_id().update(time);
-    }
-    ctx.db.household().insert(Household {
-        id: WEDDING_OLD_HOUSEHOLD.into(),
-        home_settlement_id: SETTLEMENT.into(),
-        created_minute: StrategicMinute::ZERO,
-    });
-    for character_id in [FIRST, SECOND] {
-        join_household(
-            ctx,
-            WEDDING_OLD_HOUSEHOLD,
-            character_id,
-            StrategicMinute::ZERO,
-            HouseholdRole::AdultChild,
-        );
-    }
+    prepare_wedding_acceptance_household(ctx, [FIRST, SECOND, FATHER], SETTLEMENT, now)?;
     crate::item::credit_personal_currency(ctx, FATHER, SETTLEMENT, DOWRY)?;
     crate::item::consume_personal_currency(ctx, FATHER, u64::from(DOWRY))?;
     let before_father = crate::item::personal_currency_total(ctx, FATHER);
@@ -223,6 +194,45 @@ pub fn authority_test_wedding_capacity_atomicity(
         })
     {
         return Err("Rejected wedding changed household or mishandled escrow".into());
+    }
+    Ok(())
+}
+
+fn prepare_wedding_acceptance_household(
+    ctx: &ReducerContext,
+    [first, second, father]: [u64; 3],
+    settlement: &str,
+    now: StrategicMinute,
+) -> crate::StrategicOperationResult<()> {
+    for character_id in [first, second, father] {
+        crate::character::create_named_character_with_id(
+            ctx,
+            character_id,
+            format!("Wedding acceptance {character_id}"),
+        )?;
+        set_seeded_character_birth_from_age(ctx, character_id, 25);
+        let mut time = ctx
+            .db
+            .character_time()
+            .character_id()
+            .find(character_id)
+            .ok_or("Wedding acceptance clock missing")?;
+        time.minutes = now;
+        ctx.db.character_time().character_id().update(time);
+    }
+    ctx.db.household().insert(Household {
+        id: WEDDING_OLD_HOUSEHOLD.into(),
+        home_settlement_id: settlement.into(),
+        created_minute: StrategicMinute::ZERO,
+    });
+    for character_id in [first, second] {
+        join_household(
+            ctx,
+            WEDDING_OLD_HOUSEHOLD,
+            character_id,
+            StrategicMinute::ZERO,
+            HouseholdRole::AdultChild,
+        );
     }
     Ok(())
 }
