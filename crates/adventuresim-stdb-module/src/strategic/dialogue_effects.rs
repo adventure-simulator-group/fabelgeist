@@ -78,7 +78,11 @@ fn apply_dialogue_effect(
         }
         adventuresim_dialogue::Effect::PayOrganizationDues => {
             let organization_id = dialogue_organization_id(ctx, session, &live_npc)?;
-            Ok(crate::organization::pay_organization_dues(ctx, character_id, organization_id)?)
+            Ok(crate::organization::pay_organization_dues(
+                ctx,
+                character_id,
+                organization_id,
+            )?)
         }
         adventuresim_dialogue::Effect::RequestOrganizationPromotion { to_role_id } => {
             let organization_id = dialogue_organization_id(ctx, session, &live_npc)?;
@@ -111,7 +115,11 @@ fn apply_dialogue_effect(
         }
         adventuresim_dialogue::Effect::PresentOrganization => {
             let organization_id = dialogue_organization_id(ctx, session, &live_npc)?;
-            Ok(crate::organization::present_organization(ctx, character_id, organization_id)?)
+            Ok(crate::organization::present_organization(
+                ctx,
+                character_id,
+                organization_id,
+            )?)
         }
         adventuresim_dialogue::Effect::ReceiveReferredTestimony => {
             let event_sequence = testimony_event_sequence
@@ -301,7 +309,7 @@ fn apply_dialogue_investigation_action(
     action: &adventuresim_dialogue::InvestigationAction,
     source_scope: &str,
     action_id: &str,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     use adventuresim_core::case::ObjectiveRequirement as R;
     use adventuresim_core::case::OutcomeFactKind as F;
 

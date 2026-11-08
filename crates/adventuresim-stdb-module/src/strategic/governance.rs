@@ -218,7 +218,7 @@ pub fn approve_party_action_request_planned(
     leader_id: u64,
     request_id: u64,
     route: JourneyRoutePlan,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     crate::character::require_living_character(ctx, leader_id)?;
     if let Some(resolved) = ctx.db.resolved_party_action().id().find(request_id) {
@@ -1344,7 +1344,7 @@ pub fn request_general_party_join(
     ctx: &ReducerContext,
     character_id: u64,
     target_party_id: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     let target_party = ctx
         .db

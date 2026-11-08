@@ -916,7 +916,8 @@ pub fn continue_camp_travel(
         return Err(adventuresim_core::reducer_error::coded_reducer_error(
             adventuresim_core::reducer_error::ReducerErrorCode::JourneyDaylightWindowRequired,
             "Rest until the party reaches its next daylight walking window",
-        ));
+        )
+        .into());
     }
     let traveler_ids = living_party_member_ids(ctx, &party_id);
     let (leg_minutes, encounter, narrative, next_roll) = advance_party_movement_until_encounter(

@@ -6,7 +6,7 @@ fn ingest_hostile_group_defeat_fact(
     party_id: &str,
     group: &HostileGroupAuthority,
     count: u32,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let site = ctx
         .db
         .case_site_authority()
@@ -110,8 +110,8 @@ fn custody_party_dispatch(
 
 fn apply_custody_party_continuity(
     dispatch: CustodyPartyDispatch,
-    ordinary_party_continuity: impl FnOnce() -> Result<(), String>,
-) -> Result<(), String> {
+    ordinary_party_continuity: impl FnOnce() -> StrategicOperationResult<()>,
+) -> StrategicOperationResult<()> {
     if dispatch == CustodyPartyDispatch::OrdinaryPartyContinuity {
         ordinary_party_continuity()
     } else {
@@ -249,7 +249,7 @@ fn transition_case_custody(
     holder_id: &str,
     version: u32,
     fact: Option<adventuresim_core::case::OutcomeFactKind>,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     let object = custody_object(object_kind, object_id)?;
     let next = adventuresim_core::case::CustodyRecord {
         case_id: adventuresim_core::case::CaseId::new(case_id)
@@ -377,7 +377,7 @@ fn seed_case_custody(
     case_id: &str,
     expression: &adventuresim_core::case::ObjectiveExpression,
     authored_custody: &[(String, adventuresim_core::quest_generation::SiteId)],
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     use adventuresim_core::case::ObjectiveRequirement as R;
     let mut kinds = BTreeMap::new();
     for requirement in expression
@@ -560,7 +560,7 @@ fn ensure_objective_continuity_guards(
 pub(crate) fn reconcile_party_objective_continuity(
     ctx: &ReducerContext,
     party_id: &str,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let Some(party) = ctx.db.party_authority().id().find(party_id.to_string()) else {
         return Ok(());
     };
@@ -674,7 +674,7 @@ fn commit_case_site_arrival_objectives(
     ctx: &ReducerContext,
     party_id: &str,
     site: &CaseSiteAuthority,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let Some(expression) = open_case_expression(ctx, &site.case_id)? else {
         return Ok(());
     };
@@ -739,7 +739,7 @@ fn emit_terminal_custody_impossibility(
     object_kind: CustodyObjectKind,
     object_id: &str,
     terminal_holder: CustodyHolderKind,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let Some(expression) = open_case_expression(ctx, case_id)? else {
         return Ok(());
     };
@@ -806,7 +806,7 @@ pub(crate) fn record_asset_retrieved(
     party_id: &str,
     asset_id: &str,
     version: u32,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     let asset = adventuresim_core::case::AssetId::new(asset_id)
         .map_err(|_| "Custody asset ID is invalid")?;
     transition_case_custody(
@@ -836,7 +836,7 @@ pub(crate) fn record_asset_returned_or_exchanged(
     recipient_id: &str,
     version: u32,
     exchange: bool,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     let asset = adventuresim_core::case::AssetId::new(asset_id)
         .map_err(|_| "Custody asset ID is invalid")?;
     let fact = if exchange {
@@ -872,7 +872,7 @@ pub(crate) fn record_subject_rescued_or_released(
     subject_id: &str,
     version: u32,
     release: bool,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     let subject = adventuresim_core::case::SubjectId::new(subject_id)
         .map_err(|_| "Custody subject ID is invalid")?;
     let fact = if release {

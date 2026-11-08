@@ -779,7 +779,7 @@ fn sample_mission_candidate(
 pub(crate) fn complete_bound_mission_success(
     ctx: &ReducerContext,
     mission_id: &str,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     let mut mission = ctx
         .db
         .mission_authority()
@@ -953,7 +953,7 @@ pub(crate) struct HostileResolutionCommit<'a> {
 pub(crate) fn commit_hostile_resolution_authority(
     ctx: &ReducerContext,
     commit: HostileResolutionCommit<'_>,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     let HostileResolutionCommit {
         receipt_id,
         party_id,
@@ -2605,7 +2605,8 @@ fn finalize_storefront_trade_impl(
         return Err(adventuresim_core::reducer_error::coded_reducer_error(
             adventuresim_core::reducer_error::ReducerErrorCode::MerchantProviderUnavailable,
             "Merchant service provider is not available",
-        ));
+        )
+        .into());
     }
     if default_merchant_provider(ctx, &settlement_id, &service_id, location_id)
         .map_err(|error| error.to_string())?
@@ -2999,7 +3000,7 @@ fn finalize_storefront_trade_impl(
 }
 
 #[reducer]
-pub fn leave_party(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+pub fn leave_party(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<()> {
     require_character_no_unresolved_encounter(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     remove_party_member(ctx, character_id, character_id)
@@ -3012,7 +3013,7 @@ pub fn remove_party_member(
     ctx: &ReducerContext,
     actor_character_id: u64,
     member_character_id: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_character_no_unresolved_encounter(ctx, actor_character_id)?;
     crate::character::require_living_character(ctx, actor_character_id)?;
     let Some(actor) = ctx.db.character().id().find(actor_character_id) else {
@@ -3095,7 +3096,7 @@ fn settle_temporary_member_stake(
     ctx: &ReducerContext,
     party_id: &str,
     member_character_id: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let stake_value = ctx
         .db
         .party_stake()
@@ -3110,7 +3111,11 @@ fn settle_temporary_member_stake(
 }
 
 #[reducer]
-pub fn disband_party(ctx: &ReducerContext, leader_id: u64, party_id: String) -> Result<(), String> {
+pub fn disband_party(
+    ctx: &ReducerContext,
+    leader_id: u64,
+    party_id: String,
+) -> StrategicOperationResult<()> {
     require_no_unresolved_encounter(ctx, &party_id)?;
     crate::character::require_living_character(ctx, leader_id)?;
     let Some(party) = ctx.db.party_authority().id().find(&party_id) else {

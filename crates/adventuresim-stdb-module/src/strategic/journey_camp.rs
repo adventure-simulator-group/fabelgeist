@@ -302,7 +302,7 @@ pub(crate) fn current_journey_camp_place(
     }
     adventuresim_core::strategic_place::StrategicPlaceId::journey_camp(
         party_id,
-journey.departure_minute,
+        journey.departure_minute,
         journey.completed_movement_minutes,
     )
     .map_err(|_| "Journey camp has an invalid canonical identity".into())
@@ -546,7 +546,7 @@ fn advance_party_movement(
     party_id: &str,
     traveler_ids: &[u64],
     requested_minutes: u64,
-) -> Result<(u64, bool), String> {
+) -> StrategicOperationResult<(u64, bool)> {
     let disease_plan =
         crate::disease::plan_party_disease_interval(ctx, traveler_ids, requested_minutes, false)?;
     let mut safe_prefixes = Vec::with_capacity(traveler_ids.len());
@@ -607,8 +607,7 @@ pub(crate) fn advance_party_wilderness_elapsed(
     if party.wilderness_canonical_anchor_minute.is_none() {
         return Err("Party wilderness clock is not initialized".into());
     }
-    party.wilderness_elapsed_minutes =
-        party.wilderness_elapsed_minutes.saturating_add(elapsed);
+    party.wilderness_elapsed_minutes = party.wilderness_elapsed_minutes.saturating_add(elapsed);
     ctx.db.party_authority().id().update(party);
     Ok(())
 }
