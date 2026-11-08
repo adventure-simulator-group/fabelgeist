@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:00:01.599884+00:00
+Updated: 2026-11-08T15:02:34.820859+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -90,6 +90,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Shared instance policy tests | 2 / 2 passed |
 | Same-kind nested container catalog witness | 1 / 188 definitions |
 | Stable inventory lifecycle draft | Compiled; runtime unverified |
+| Previous instance-draft full lint | Passed |
 
 | Named repair families in the historical handoff | Count |
 | --- | ---: |
@@ -379,15 +380,16 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   commit 882a4d024 moves the prior bounded change and spare-first selection
   rules to a shared instance policy and applies stable-object addition and
   removal to non-food, non-measured instances. The two relocated tests and
-  authority-feature compile passed, as did formatting; full lint is running.
+  authority-feature compile, formatting and full lint passed on 882a4d024.
   Database behavior, rollback and batches selecting a container and its own
   descendant are unverified. One authored definition, glass_bottle, has a
   250 ml exterior and 250 ml capacity; the containment reducer allows a
   same-kind child subject to custody and capacity checks. If selected parent
-  and child are deleted parent-first, the current draft can attempt to delete
-  the child twice. Plan descendant-first execution after instance selection;
-  database reproduction and the correction remain pending. This is not a
-  completed repair. Remaining writer paths,
+  and child are deleted parent-first, the earlier draft can attempt to delete
+  the child twice. Commit a17f710d2 plans selected removals in descendant-first
+  order. Its authority-feature compile and formatting passed; full lint is
+  running. Database reproduction, rollback and behavior remain unverified.
+  This is not a completed repair. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
   preflights all equipped rows before any unequip. The authority-feature
