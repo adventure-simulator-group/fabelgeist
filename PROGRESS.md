@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:48:24.941118+00:00
+Updated: 2026-11-08T18:58:41.401228+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -41,7 +41,8 @@ Updated: 2026-11-08T18:48:24.941118+00:00
 | Food lot lookup/deletion helpers typed | 4 / 4 |
 | Food lot creation APIs typed | 2 / 2; live validation open |
 | Error-discarding party inventory wrappers | 1 removed; rollback unverified |
-| Non-durable party merge custody concern | 1 source-derived; open |
+| Nested party merge row order scenarios | 2 / 2 passed on draft |
+| Corrupt backing merge failure scenarios | 0 validated; open |
 | Current quality size findings | 0 in targeted quality scan |
 | Existing core location fixture on previous draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
@@ -125,14 +126,19 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `5d33a1e9a`. A party
-inventory wrapper discarded creation errors even when callers subsequently
-removed source inventory. The draft removes the wrapper and propagates errors;
-authority-feature compilation and targeted quality passed. Full lint and the
-isolated transfer run are pending; an induced failure and rollback remain
-unverified. Party merge also handles physical objects specially only when
-durable; the implications for non-durable food and containers need review.
-This is a source-derived concern, not a reproduced data loss.
+The inventory row-identity migration is a draft at P16 `6bfbe3ea7`. A party
+merge reproduced loss of the original backing rows for a nested bottle and
+apple while their physical objects still referenced the former party. The draft
+moves root object trees before fungible rows and rejects stable rows lacking an
+object. The isolated scenario passes for both parent-first and child-first row
+orders, preserving backing rows, object IDs, containment and food-lot identity.
+Authority-feature compilation and targeted quality passed; full lint is
+running. Corrupt-backing rejection, broader merge cases and review remain open.
+
+A party inventory wrapper previously discarded creation errors even when callers
+subsequently removed source inventory. Commit `5d33a1e9a` propagates those
+errors. Formatting, full lint and isolated bottle/apple transfer passed there;
+an induced failure and rollback remain unverified.
 
 Personal and party food-lot creation now accept distinct row ID types at the
 database insert boundary. Formatting and full lint passed on parent `574c0e004`.
