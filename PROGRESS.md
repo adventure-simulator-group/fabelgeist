@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:53:36.683864+00:00
+Updated: 2026-11-08T05:58:01.876721+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
-| Implementing | 2 |
-| Awaiting or running checks | 0 |
+| Implementing | 1 |
+| Awaiting or running checks | 1 |
 | Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -41,11 +41,13 @@ ledger as backlog. Full refactor completion and validation remain required.
   Review and integration remain open.
 
 - [Wedding capacity atomicity](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-wedding-atomicity)
-  commit `eafb67564a656be3bc6a1fb136c96c6a31443f4f`: a draft with joint
+  commit `73023b1fb156bec552be6be8997839e61b708680`: a draft with joint
   effective-dated capacity preflight and propagation of unexpected settlement
   failures. The projection includes scoped future removals. The focused compile
-  and Rust quality checks passed; database behavior and review remain
-  unverified. It is based on the landform branch before the latest
+  and Rust quality checks passed at its parent; focused Clippy passed with the
+  authority feature at this commit. A guarded local database workflow is
+  running for joint capacity and scoped removal, not the full wedding
+  transaction. Review remains open. The branch precedes the latest landform
   lint-only commit and must be reconciled before integration.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
