@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T20:11:35.300603+00:00
+Updated: 2026-11-08T20:21:42.511091+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,6 +15,7 @@ Updated: 2026-11-08T20:11:35.300603+00:00
 | Direct and offer member-transfer scenarios | 2 / 2 passed | Missing-object rejection untested |
 | Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
 | Discard scenarios exercised | 2 / 2 | Corrupt rows and liquidation open |
+| Personal currency wedding fixture | 1 / 1 passed | Corrupt backing untested |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -142,7 +143,16 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `8431256e9`.
+The inventory row-identity migration is a draft at P16 `82109bfb3`.
+Personal currency withdrawal plans now carry typed personal row IDs and
+preflight every selected stack before mutation. Authority-feature compilation,
+`just fmt-check`, and full `just lint` passed. An isolated wedding authority
+run passed its currency setup, rollback and success fixtures. Deliberately
+corrupt currency backing and other payment scenarios remain untested. Party
+currency consumption and transfers still need the corresponding audit and
+repair; independent review remains open.
+
+At parent `8431256e9`,
 Storefront sale admission now rejects objectless stable or backed rows before
 quoting, and sale application no longer recreates legacy lot or amount cleanup
 paths. Authority-feature compilation, `just fmt-check`, and full `just lint`
