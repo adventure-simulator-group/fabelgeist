@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T03:22:26.064136+00:00
+Updated: 2026-11-08T03:25:00.612797+00:00
 
-Latest verified checkpoint: **3723**. Goal: **active**.
+Latest verified checkpoint: **3724**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -33,7 +33,8 @@ conditional historical-mitigation omission for lagging personal clocks. Cross-
 clock remediation semantics, alias reconciliation and post-gate validation
 remain open, alongside incident dialogue and physical evidence findings. The
 checkpoint 3130 evidence-integrity correction and unresolved checkpoint 3122
-note remain open for review.
+note remain open for review. Checkpoint 3724 corrects an earlier landform grid
+calculation; the underlying sizing finding remains.
 
 | Phase | Status |
 | --- | --- |
@@ -44,14 +45,15 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified the checked leaves and surface for a concrete fault recipe candidate.
+Corrected historical Lens 12 fault-grid arithmetic without changing the finding.
 
-Complete scene admission, earlier simulation outcomes and client reachability
-remain unproven.
+The earlier grid number was incorrect; the sizing policy and presentation paths
+remain open.
 
 ## Working on now
 
-Reconcile terrain admission and failure behavior across lenses.
+Continue connected ledger reconciliation, keeping the corrected Lens 12 sizing
+and presentation contracts distinct.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -219,8 +221,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3723 publication record](CHECKPOINT-3723.json)
-- [Saved report for checkpoint 3723](PROGRESS-3723.md)
+- [Checkpoint 3724 publication record](CHECKPOINT-3724.json)
+- [Saved report for checkpoint 3724](PROGRESS-3724.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
