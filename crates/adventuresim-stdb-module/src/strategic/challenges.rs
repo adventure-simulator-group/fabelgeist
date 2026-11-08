@@ -1274,7 +1274,7 @@ pub fn submit_puzzle_challenge(
     challenge_id: String,
     expected_revision: u32,
     submission_json: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     let character = crate::character::require_living_character(ctx, character_id)?;
     let party_id = character.party_id.ok_or("Must be in a party")?;
@@ -1316,7 +1316,8 @@ pub fn submit_puzzle_challenge(
             &party_id,
             character_id,
             &normalized_submission,
-        );
+        )
+        .map_err(Into::into);
     }
     let active_contract_id = party
         .active_contract_id
@@ -1573,7 +1574,8 @@ pub fn resolve_errantry_road_challenge(
     {
         return Err(format!(
             "This interaction is unavailable until follow-up {issue} provides shared authority"
-        ));
+        )
+        .into());
     }
     let ordinary_treatment = selected.requires_treatment();
     if ordinary_treatment && !crate::world_actor::context_patient_is_treated(ctx, &challenge.id) {
@@ -1886,7 +1888,7 @@ fn materialize_development_road_encounter(
     ctx: &ReducerContext,
     character_id: u64,
     catalog_id: &str,
-) -> Result<String, String> {
+) -> StrategicOperationResult<String> {
     if catalog_id.is_empty() || catalog_id.len() > 96 {
         return Err("Road encounter catalog ID is invalid".into());
     }

@@ -2295,7 +2295,7 @@ pub fn purchase_personal_storefront_with_party_stake(
     maximum_unit_price: u64,
     maximum_personal_payment: u64,
     maximum_stake_payment: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     let provider_resident_character_id =
         adventuresim_core::strategic_inventory::MerchantProviderId::try_from(
@@ -2435,7 +2435,8 @@ fn validate_personal_storefront_purchase(
         return Err(adventuresim_core::reducer_error::coded_reducer_error(
             adventuresim_core::reducer_error::ReducerErrorCode::MerchantProviderUnavailable,
             "Merchant service provider is not available",
-        ));
+        )
+        .into());
     }
     let speaker = ctx
         .db

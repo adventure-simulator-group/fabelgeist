@@ -1205,8 +1205,7 @@ fn require_open_recruitment_offer(
     if offer.status != RecruitmentOfferStatus::Open {
         return Err("This recruitment offer is no longer open".into());
     }
-    let bindings_are_live =
-        recruitment_offer_bindings_are_live(ctx, &offer, now);
+    let bindings_are_live = recruitment_offer_bindings_are_live(ctx, &offer, now);
     let refreshed = refreshed_recruitment_offer_status(
         offer.status,
         now,
@@ -1268,7 +1267,7 @@ pub fn request_to_join_party(
     ctx: &ReducerContext,
     character_id: u64,
     recruitment_role_id: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     let Some(character) = ctx.db.character().id().find(character_id) else {

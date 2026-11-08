@@ -533,7 +533,8 @@ fn travel_to_settlement_impl(
     if let Some(party) = party.as_mut()
         && party.camp_destination.is_some()
     {
-        return redirect_camped_party_to_settlement(ctx, party, &destination, route);
+        return redirect_camped_party_to_settlement(ctx, party, &destination, route)
+            .map_err(Into::into);
     }
 
     if let Some(party) = party.as_ref() {
@@ -857,7 +858,10 @@ pub fn set_party_travel_itinerary(
 /// state, rather than a tactical simulation: the UI animates this instantaneous
 /// transition between pins.
 #[reducer]
-pub fn continue_camp_travel(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
+pub fn continue_camp_travel(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> crate::StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     let character = ctx

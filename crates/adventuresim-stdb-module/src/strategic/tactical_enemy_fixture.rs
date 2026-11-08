@@ -10,14 +10,15 @@ fn configure_tactical_enemy_fixture(
     ctx: &ReducerContext,
     hostile_group_id: &str,
     fixture: &adventuresim_core::tactical_fixture::TacticalEnemyFixture,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let enemy_ids = crate::world_actor::context_character_ids(ctx, hostile_group_id);
     if enemy_ids.len() != fixture.enemies().len() {
         return Err(format!(
             "Enemy fixture requires exactly {} enemies, got {}",
             fixture.enemies().len(),
             enemy_ids.len()
-        ));
+        )
+        .into());
     }
     for (character_id, enemy) in enemy_ids.into_iter().zip(fixture.enemies()) {
         let mut character = ctx

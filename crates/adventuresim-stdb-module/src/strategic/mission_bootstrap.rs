@@ -362,7 +362,10 @@ fn sorted_settlement_ids(ctx: &ReducerContext) -> Vec<String> {
 /// [`dev_bootstrap_settlement_activity`]). Kept under the per-reducer compute
 /// budget so it can run as its own transaction.
 #[reducer]
-pub fn dev_bootstrap_base(ctx: &ReducerContext, bootstrap_token: String) -> Result<(), String> {
+pub fn dev_bootstrap_base(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> StrategicOperationResult<()> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     seed_world_rows(ctx, true, false)?;
     Ok(())
@@ -410,7 +413,10 @@ pub const DEV_BOOTSTRAP_FINALIZE_STEPS: u32 = 7;
 /// `bootstrap_development_world` exactly. Every sub-seed is idempotent, and an
 /// out-of-range `step` is a no-op so the caller can loop without racing.
 #[reducer]
-pub fn dev_bootstrap_finalize(ctx: &ReducerContext, bootstrap_token: String) -> Result<(), String> {
+pub fn dev_bootstrap_finalize(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> StrategicOperationResult<()> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     // The demo characters are individually cheap, so one call seeds them all.
     // The development scenario gallery stays separate (via `dev_bootstrap_gallery`
@@ -474,7 +480,10 @@ pub fn dev_bootstrap_gallery_validate(
 /// scripted attack is intended to validate. The standalone database is
 /// disposable, so this may replace the seeded character's equipped roots
 /// without affecting strategic state or player data.
-fn configure_diagnostic_player(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+fn configure_diagnostic_player(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> StrategicOperationResult<()> {
     use adventuresim_core::equipment::LoadoutSlot;
 
     const LONGSWORD_LOADOUT: &[(&str, LoadoutSlot)] = &[
@@ -501,7 +510,7 @@ pub fn seed_standalone_tactical_mission(
     scene_key: String,
     enemy_fixture_yaml: String,
     tactical_claim: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if !adventuresim_core::simulation_security::simulation_bootstrap_authorized(
         COMPILED_DEV_BOOTSTRAP_TOKEN,
         &bootstrap_token,

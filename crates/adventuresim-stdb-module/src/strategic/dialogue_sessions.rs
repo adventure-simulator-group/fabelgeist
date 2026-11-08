@@ -88,7 +88,8 @@ pub fn start_dialogue(
         return Err(adventuresim_core::reducer_error::coded_reducer_error(
             adventuresim_core::reducer_error::ReducerErrorCode::DialogueContactUnavailable,
             "Dialogue actor is not present at this time",
-        ));
+        )
+        .into());
     }
     if conversation_id != npc.conversation_id {
         return Err("Dialogue conversation is not valid for this NPC".into());
@@ -121,7 +122,9 @@ pub fn start_dialogue(
             && existing.location_id == location_id
             && existing.catalog_revision == catalog_revision
         {
-            require_live_dialogue_presence(ctx, &existing, character_id).map(|_| ())
+            require_live_dialogue_presence(ctx, &existing, character_id)
+                .map(|_| ())
+                .map_err(Into::into)
         } else {
             Err("Dialogue session ID conflicts with another request".into())
         };
@@ -161,12 +164,12 @@ pub fn start_dialogue(
                 character_id,
                 minute,
             )
-                .is_some_and(|candidate_presence| {
-                    adventuresim_core::strategic_presence::are_co_present(
-                        &actor_presence,
-                        candidate_presence.presence(),
-                    )
-                })
+            .is_some_and(|candidate_presence| {
+                adventuresim_core::strategic_presence::are_co_present(
+                    &actor_presence,
+                    candidate_presence.presence(),
+                )
+            })
         })
         .filter_map(|presence| {
             crate::settlement_population::resolve_settlement_resident(ctx, presence.character_id)

@@ -444,7 +444,7 @@ pub(crate) fn settle_injuries(
     character_id: u64,
     elapsed: u64,
     recovery: InjuryRecoveryMinutes,
-) -> Result<InjurySettlement, String> {
+) -> crate::StrategicOperationResult<InjurySettlement> {
     if elapsed == 0 {
         return Ok(InjurySettlement {
             elapsed: 0,

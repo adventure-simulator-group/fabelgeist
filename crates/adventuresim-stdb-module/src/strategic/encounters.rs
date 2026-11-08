@@ -816,7 +816,7 @@ fn commit_encounter_surrender(
     ctx: &ReducerContext,
     party_id: &str,
     current: &[StrategicEncounterLoss],
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     for loss in current {
         if loss.owner_kind == "party" {
             if crate::inventory_container::delete_carried_object_for_row(
@@ -943,7 +943,7 @@ fn commit_autoresolve_outcome(
     member_ids: &[u64],
     defeat_morale_penalty: f32,
     outcome: &adventuresim_core::autoresolve::BattleOutcome,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     record_autoresolve_report(ctx, source_id, party_id, outcome);
     for member_id in member_ids {
         crate::filth::deposit_now(
@@ -1379,7 +1379,7 @@ fn revalidate_party_after_departure_sync(
     expected_quest_location_id: Option<&str>,
     expected_active_contract_id: Option<&str>,
     allow_incapacitated_case_site_withdrawal: bool,
-) -> Result<Party, String> {
+) -> StrategicOperationResult<Party> {
     let party = ctx
         .db
         .party_authority()
