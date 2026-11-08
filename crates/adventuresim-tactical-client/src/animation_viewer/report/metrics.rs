@@ -4,10 +4,15 @@ use super::*;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 pub(super) use catastrophic_contacts::catastrophic_foot_displacement;
 use height_peaks::prominent_height_peaks;
+use foot_clearance::{contact_sole_clearance_range, minimum_toe_clearance, ToeContactSelection};
+pub(super) use foot_clearance::strict_transition_flight_toe_clearance_is_valid;
+#[cfg(test)]
+use foot_clearance::transition_flight_toe_sample_is_active;
 use support_slip::supported_foot_slip;
 
 mod catastrophic_contacts;
 mod height_peaks;
+mod foot_clearance;
 mod support_slip;
 
 pub(super) const RAISED_MINIMUM_INTER_FOOT_SEPARATION_METRES: f32 = 0.16;
@@ -21,6 +26,7 @@ pub(super) const RAISED_GUARD_VERTICAL_RANGE_LIMIT_METRES: f32 = 0.30;
 
 pub(super) const MINIMUM_GUARD_SWING_TRAVEL_METRES: f32 = 0.05;
 pub(super) const MINIMUM_GUARD_SWING_CLEARANCE_GAIN_METRES: f32 = 0.03;
+
 
 #[derive(Debug, Default)]
 pub(super) struct GuardStepLivenessMetrics {
@@ -230,8 +236,8 @@ pub(super) fn scenario_metrics(
                 minimum_flight_sole_clearance_metres: minimum_flight_sole_clearance(&metric_frames),
                 minimum_contact_sole_clearance_metres: contact_sole_range.0,
                 maximum_contact_sole_clearance_metres: contact_sole_range.1,
-                minimum_flight_toe_clearance_metres: minimum_toe_clearance(&metric_frames, false)?,
-                minimum_contact_toe_clearance_metres: minimum_toe_clearance(&metric_frames, true)?,
+                minimum_flight_toe_clearance_metres: minimum_toe_clearance(&metric_frames, ToeContactSelection::Flight)?,
+                minimum_contact_toe_clearance_metres: minimum_toe_clearance(&metric_frames, ToeContactSelection::Contact)?,
                 head_vertical_range_metres: root_relative_vertical_range(
                     &metric_frames,
                     BoneRole::Head,
@@ -961,103 +967,6 @@ pub(super) fn minimum_flight_sole_clearance(frames: &[&FrameSample]) -> f32 {
         })
         .fold(f32::INFINITY, f32::min);
     if minimum.is_finite() { minimum } else { 0.0 }
-}
-
-pub(super) fn contact_sole_clearance_range(
-    frames: &[&FrameSample],
-) -> AnimationValueResult<(f32, f32)> {
-    let mut minimum = f32::INFINITY;
-    let mut maximum = f32::NEG_INFINITY;
-    for frame in frames {
-        let procedural_solve_active =
-            frame.ik_left_solve_target.is_some() || frame.ik_right_solve_target.is_some();
-        let support = if procedural_solve_active {
-            Some(frame.required_ik_support()?)
-        } else {
-            None
-        };
-        for (foot, left) in [(BoneRole::FootLeft, true), (BoneRole::FootRight, false)] {
-            let is_contact = if let Some((left_support, right_support)) = support {
-                (if left { left_support } else { right_support }).fraction() >= 0.95
-            } else {
-                let phase = frame.gait_phase.cycles().rem_euclid(1.0);
-                let distance = if left {
-                    phase.min(1.0 - phase)
-                } else {
-                    (phase - 0.5).abs()
-                };
-                distance <= 0.035
-            };
-            if is_contact
-                && let Some(ankle) = frame
-                    .bones
-                    .get(foot)
-                    .and_then(|bone| bone.terrain_clearance_metres)
-            {
-                let clearance = ankle - measured_ankle_sole_offset_metres().metres();
-                minimum = minimum.min(clearance);
-                maximum = maximum.max(clearance);
-            }
-        }
-    }
-    Ok(if minimum.is_finite() && maximum.is_finite() {
-        (minimum, maximum)
-    } else {
-        (0.0, 0.0)
-    })
-}
-
-pub(super) fn minimum_toe_clearance(
-    frames: &[&FrameSample],
-    contact: bool,
-) -> AnimationValueResult<f32> {
-    let mut minimum = f32::INFINITY;
-    for frame in frames {
-        if !contact
-            && !transition_flight_toe_sample_is_active(
-                &frame.scenario,
-                frame.speed_metres_per_second,
-                frame.ik_settle_progress,
-            )
-        {
-            continue;
-        }
-        let (left_support, right_support) = if frame.scenario.procedural_solver() {
-            frame.required_ik_support()?
-        } else {
-            (frame.left_support_weight, frame.right_support_weight)
-        };
-        for (toe, support) in [
-            (BoneRole::ToeLeft, left_support),
-            (BoneRole::ToeRight, right_support),
-        ] {
-            if (support.fraction() > 0.05) == contact
-                && let Some(clearance) = frame
-                    .bones
-                    .get(toe)
-                    .and_then(|bone| bone.terrain_clearance_metres)
-            {
-                minimum = minimum.min(clearance);
-            }
-        }
-    }
-    Ok(if minimum.is_finite() { minimum } else { 0.0 })
-}
-
-pub(super) fn transition_flight_toe_sample_is_active(
-    scenario: &ScenarioMetadata<'_>,
-    speed_metres_per_second: SignedSpeed,
-    settle_progress: Option<f32>,
-) -> bool {
-    !matches!(
-        scenario.identity(),
-        Some(ScenarioId::TerrainRunFlightStop) | Some(ScenarioId::TerrainTapRestartCrossfade)
-    ) || speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
-        || settle_progress.is_some()
-}
-
-pub(super) fn strict_transition_flight_toe_clearance_is_valid(clearance_metres: f32) -> bool {
-    clearance_metres >= 0.01
 }
 
 pub(super) fn reported_support_contacts_are_valid(frames: &[FrameSample]) -> bool {
