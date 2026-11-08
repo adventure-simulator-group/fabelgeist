@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:34:19.138352+00:00
+Updated: 2026-11-08T16:37:27.422257+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -25,8 +25,8 @@ Updated: 2026-11-08T16:34:19.138352+00:00
 | Deletion and replacement scenarios validated live | 0; open |
 | Reconnect and abandonment grace relationship | 1 source-derived question; open |
 | Inventory row lookup references mapped | 33 in 12 files |
-| Persisted inventory row identity variants drafted | 3 / 3; migration incomplete |
-| Database module compile errors after caller migration | 40; unresolved |
+| Persisted row identity kinds drafted | 2; migration incomplete |
+| Database module compile errors after repair correction | 29; unresolved |
 | Database module compiler warnings | 3; unresolved |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 0 / 1; pending |
@@ -110,14 +110,14 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 before it can safely verify the new row-arrival case.
 
 The inventory row-identity migration is an incomplete, non-compiling draft at
-P16 `7b1ee2e87`. Personal, party and repair locations carry distinct row-ID
-types. The physical-object lookup and four helpers now accept a carried-row
-enum; direct scope-specific callers have been partly migrated. Some producers
-still carry raw IDs and need boundary review. The database module reports 40
-type errors and three unused-import warnings, versus 61 errors on the previous
-draft; these counts are not a completion measure. The existing core location
-fixture passed on the prior draft. Generated bindings have not been
-regenerated, and full lint has not run on this draft.
+P16 `e61bb404c`. Personal and party inventory rows have distinct IDs. Repair
+escrow retains the same personal inventory row, so its location now reuses
+that ID rather than inventing a repair-table identity. Duplicate-backing
+checks now compare personal and repair locations across variants; the added
+assertions in an existing fixture have not run. The latest database-module
+check reports 29 errors and three warnings. Callers and raw producer boundaries
+remain to be migrated, generated bindings have not been regenerated, and
+full lint has not run on this draft.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
