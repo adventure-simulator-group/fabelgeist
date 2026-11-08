@@ -1,17 +1,17 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:13:54.899468+00:00
+Updated: 2026-11-08T23:16:01.144432+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 594 / 3,866 | 3,272, including overlapping obligations |
+| Ledger source-discovery entries | 595 / 3,866 | 3,271, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
 | Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
-| Food conservation source packets | 8 adopted | 1 scoped discovery closed; conditional validation open |
+| Food conservation and event packets | 9 adopted | 2 scoped discoveries closed; conditional validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -287,7 +287,14 @@ conditional terminal and quantization policies. Exact historical lot, medicine
 and amount sources match the selected revision; selected consumption, transfer
 and event paths are qualified. The medicinal-death and tiny-dose scenarios
 remain unproven and require validation after the audit gate. Independent
-food-event and point-prevention entries remain open.
+point-prevention entry remains open; food-event discovery was subsequently
+dispositioned.
+
+Audit checkpoint 3776 closed food-water event source discovery with a
+conditional tiny-dose policy. Food and water share acquisition and canonical
+event validation but construct distinct provenance. Successful exposure below
+the event quantization threshold remains unproven; point-prevention history and
+runtime validation remain open.
 
 | Increment status | Count |
 | --- | ---: |
