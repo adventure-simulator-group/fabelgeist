@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T09:11:13.827530+00:00
+Updated: 2026-11-08T09:13:31.817152+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,9 +14,9 @@ Updated: 2026-11-08T09:11:13.827530+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings remaining | 37 |
+| File and function size findings remaining | 36 |
 | Previously reported ingress size findings cleared | 2 |
-| Previously reported function-size findings cleared elsewhere | 5 |
+| Previously reported function-size findings cleared elsewhere | 6 |
 
 The quality counts are findings from the latest scan, not a count of defects
 or independent work items. Full lint stopped before Clippy.
@@ -90,7 +90,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `cf29e5d97` (quality repairs after `623d52a`): the unfinished
+  commit `0ed3a3d62` (quality repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -145,7 +145,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   movement jump-height policy extraction compiles in tactical core at the
   `51b877a0c` and clears another function-size finding. Personal travel-food
   handling was separated from the party path; the authority-feature database
-  module compiles at the current commit, and its function ceiling was reduced.
+  module compiled at `cf29e5d97`, and its function ceiling was reduced. Item
+  equipment projection now has a separate owner; the authority-feature
+  database module compiles at the current commit, and related ceilings fell.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
