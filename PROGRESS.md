@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T19:53:54.985027+00:00
+Updated: 2026-11-08T20:02:48.870457+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -14,6 +14,7 @@ Updated: 2026-11-08T19:53:54.985027+00:00
 | Seed-party mission and case-site rejection | 1 / 1 on prior draft | Individual mission/incident branches open |
 | Direct and offer member-transfer scenarios | 2 / 2 passed | Missing-object rejection untested |
 | Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
+| Discard scenarios exercised | 2 / 2 | Corrupt rows and liquidation open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -141,7 +142,17 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `1b0b95c80`. A shared
+The inventory row-identity migration is a draft at P16 `0d2fb48ab`.
+Liquidation and discard now reject objectless stable or backed rows during
+staging instead of deleting their associated state through legacy paths.
+Authority-feature compilation, `just fmt-check`, and full `just lint` passed.
+A guarded isolated run confirmed apple row, object and food-lot deletion and
+partial fungible currency discard. Its first attempt passed the apple check but
+stopped in fixture setup because currency merged into an existing stack; the
+corrected retry passed both checks. Liquidation and corrupt-row failures have
+not been exercised at runtime, and independent review remains open.
+
+At parent `1b0b95c80`, A shared
 classification and backing-state guard now rejects objectless stable rows in
 deposit, withdrawal, direct transfer, and party merge. Object custody paths
 remain in place. Authority-feature compilation, `just fmt-check`, and full
