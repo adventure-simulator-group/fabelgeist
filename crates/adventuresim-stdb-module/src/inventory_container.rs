@@ -9,7 +9,8 @@ use adventuresim_core::{
     item_references::STANDARD_WATERSKIN_ID,
     material::{Microliters, Milliliters},
     physical_object::{
-        CarriedInventoryScope, InventoryLocation, OperationalCustody, PhysicalObjectId,
+        CarriedInventoryRowId, CarriedInventoryScope, InventoryLocation, OperationalCustody,
+        PhysicalObjectId,
     },
 };
 use spacetimedb::{ReducerContext, Table, reducer, table};
@@ -60,22 +61,13 @@ pub struct ContainerLiquid {
 
 pub(crate) fn object_for_row(
     ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
+    row_id: CarriedInventoryRowId,
 ) -> Result<Option<InventoryObject>, String> {
-    let mut matches =
-        ctx.db
-            .inventory_object()
-            .iter()
-            .filter(|object| match (&object.location, scope) {
-                (InventoryLocation::Personal(location), CarriedInventoryScope::Personal) => {
-                    location.row_id == row_id
-                }
-                (InventoryLocation::Party(location), CarriedInventoryScope::Party) => {
-                    location.row_id == row_id
-                }
-                _ => false,
-            });
+    let mut matches = ctx
+        .db
+        .inventory_object()
+        .iter()
+        .filter(|object| object.location.carried_row_id() == Some(row_id));
     let first = matches.next();
     if matches.next().is_some() {
         return Err("Inventory row has duplicate physical object identities".into());
@@ -88,13 +80,10 @@ fn insert_carried_object(
     item_id: &str,
     location: InventoryLocation,
 ) -> Result<InventoryObject, String> {
-    let scope = location
-        .scope()
-        .ok_or("Stable physical objects require carried custody at insertion")?;
     let row_id = location
-        .row_id()
-        .ok_or("Stable physical object has no backing inventory row")?;
-    if object_for_row(ctx, scope, row_id)?.is_some() {
+        .carried_row_id()
+        .ok_or("Stable physical objects require carried custody at insertion")?;
+    if object_for_row(ctx, row_id)?.is_some() {
         return Err("Inventory row already has a stable physical object identity".into());
     }
     Ok(ctx.db.inventory_object().insert(InventoryObject {
@@ -346,7 +335,7 @@ pub(crate) fn prevalidate_rehome_subtree(
                     .db
                     .inventory_item()
                     .id()
-                    .find(location.row_id)
+                    .find(location.row_id.get())
                     .ok_or("Inventory subtree row is missing")?;
                 if row.quantity != 1 {
                     return Err("Stable inventory objects must be quantity one".into());
@@ -357,7 +346,7 @@ pub(crate) fn prevalidate_rehome_subtree(
                     .db
                     .party_inventory_item()
                     .id()
-                    .find(location.row_id)
+                    .find(location.row_id.get())
                     .ok_or("Party inventory subtree row is missing")?;
                 if row.quantity != 1 {
                     return Err("Stable inventory objects must be quantity one".into());
@@ -438,7 +427,7 @@ pub(crate) fn rehome_subtree(
                     .db
                     .inventory_item()
                     .id()
-                    .find(location.row_id)
+                    .find(location.row_id.get())
                     .ok_or("Inventory subtree row is missing")?;
                 if source.quantity != 1 {
                     return Err("Stable inventory objects must be quantity one".into());
@@ -487,7 +476,7 @@ pub(crate) fn rehome_subtree(
                     .db
                     .party_inventory_item()
                     .id()
-                    .find(location.row_id)
+                    .find(location.row_id.get())
                     .ok_or("Party inventory subtree row is missing")?;
                 if source.quantity != 1 {
                     return Err("Stable inventory objects must be quantity one".into());
@@ -589,25 +578,28 @@ pub(crate) fn delete_subtree(ctx: &ReducerContext, root_object_id: u64) -> Resul
                 ctx.db
                     .inventory_item_amount()
                     .inventory_item_id()
-                    .delete(location.row_id);
+                    .delete(location.row_id.get());
                 ctx.db
                     .item_condition()
                     .inventory_item_id()
-                    .delete(location.row_id);
+                    .delete(location.row_id.get());
                 crate::food::delete_personal_food_lot(ctx, location.row_id);
-                ctx.db.inventory_item().id().delete(location.row_id);
+                ctx.db.inventory_item().id().delete(location.row_id.get());
             }
             InventoryLocation::Party(location) => {
                 ctx.db
                     .party_item_amount()
                     .party_inventory_item_id()
-                    .delete(location.row_id);
+                    .delete(location.row_id.get());
                 ctx.db
                     .party_item_condition()
                     .party_inventory_item_id()
-                    .delete(location.row_id);
+                    .delete(location.row_id.get());
                 crate::food::delete_party_food_lot(ctx, location.row_id);
-                ctx.db.party_inventory_item().id().delete(location.row_id);
+                ctx.db
+                    .party_inventory_item()
+                    .id()
+                    .delete(location.row_id.get());
             }
             _ => unreachable!("preflight accepts only carried deletion locations"),
         }
@@ -630,16 +622,11 @@ fn require_exact_carried_backing(
     if &resolved.root != expected_root {
         return Err("Physical object has conflicting authenticated root custody".into());
     }
-    let scope = object
-        .location
-        .scope()
-        .ok_or("Physical object backing is not a carried inventory")?;
     let row_id = object
         .location
-        .row_id()
-        .ok_or("Physical object has no backing inventory row")?;
-    let exact =
-        object_for_row(ctx, scope, row_id)?.ok_or("Physical object has no backing identity")?;
+        .carried_row_id()
+        .ok_or("Physical object backing is not a carried inventory")?;
+    let exact = object_for_row(ctx, row_id)?.ok_or("Physical object has no backing identity")?;
     if exact.id != object.id {
         return Err("Physical object conflicts with its backing identity".into());
     }
@@ -679,7 +666,7 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
                 .db
                 .inventory_item()
                 .id()
-                .find(location.row_id)
+                .find(location.row_id.get())
                 .ok_or("Emptied container row is missing")?;
             let mut targets = ctx
                 .db
@@ -731,7 +718,7 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
                 .db
                 .party_inventory_item()
                 .id()
-                .find(location.row_id)
+                .find(location.row_id.get())
                 .ok_or("Emptied party container row is missing")?;
             let mut targets = ctx
                 .db
@@ -960,13 +947,13 @@ fn measured_volume_ml(
             .db
             .inventory_item_amount()
             .inventory_item_id()
-            .find(location.row_id)
+            .find(location.row_id.get())
             .map(|row| row.remaining_fraction_micros),
         InventoryLocation::Party(location) => ctx
             .db
             .party_item_amount()
             .party_inventory_item_id()
-            .find(location.row_id)
+            .find(location.row_id.get())
             .map(|row| row.remaining_fraction_micros),
         _ => None,
     };

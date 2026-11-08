@@ -93,12 +93,11 @@ impl RepairInventoryRowId {
     }
 }
 
-/// A backing row together with the inventory table that owns its identity.
+/// A row in one of the two carried inventories.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub enum InventoryBackingRowId {
+pub enum CarriedInventoryRowId {
     Personal(PersonalInventoryRowId),
     Party(PartyInventoryRowId),
-    Repair(RepairInventoryRowId),
 }
 
 /// A physical object's persisted backing location.
@@ -179,12 +178,11 @@ impl InventoryLocation {
         }
     }
 
-    pub const fn row_id(&self) -> Option<InventoryBackingRowId> {
+    pub const fn carried_row_id(&self) -> Option<CarriedInventoryRowId> {
         match self {
-            Self::Personal(location) => Some(InventoryBackingRowId::Personal(location.row_id)),
-            Self::Party(location) => Some(InventoryBackingRowId::Party(location.row_id)),
-            Self::Repair(location) => Some(InventoryBackingRowId::Repair(location.row_id)),
-            Self::Fireplace(_) => None,
+            Self::Personal(location) => Some(CarriedInventoryRowId::Personal(location.row_id)),
+            Self::Party(location) => Some(CarriedInventoryRowId::Party(location.row_id)),
+            Self::Repair(_) | Self::Fireplace(_) => None,
         }
     }
 
@@ -408,19 +406,27 @@ mod tests {
 
     #[test]
     fn inventory_location_encodes_only_valid_state_shapes() {
-        let personal = InventoryLocation::personal(7, 11);
-        let party = InventoryLocation::party("party-red", 12);
+        let personal_id = PersonalInventoryRowId::from_raw(11);
+        let party_id = PartyInventoryRowId::from_raw(12);
+        let personal = InventoryLocation::personal(7, personal_id);
+        let party = InventoryLocation::party("party-red", party_id);
         let fireplace = InventoryLocation::fireplace("fireplace|settlement|lubeck");
-        let repair = InventoryLocation::repair("lubeck", 13);
+        let repair = InventoryLocation::repair("lubeck", RepairInventoryRowId::from_raw(13));
 
         assert_eq!(personal.scope(), Some(CarriedInventoryScope::Personal));
-        assert_eq!(personal.row_id(), Some(11));
+        assert_eq!(
+            personal.carried_row_id(),
+            Some(CarriedInventoryRowId::Personal(personal_id))
+        );
         assert_eq!(party.scope(), Some(CarriedInventoryScope::Party));
-        assert_eq!(party.row_id(), Some(12));
+        assert_eq!(
+            party.carried_row_id(),
+            Some(CarriedInventoryRowId::Party(party_id))
+        );
         assert_eq!(fireplace.scope(), None);
-        assert_eq!(fireplace.row_id(), None);
+        assert_eq!(fireplace.carried_row_id(), None);
         assert_eq!(repair.scope(), None);
-        assert_eq!(repair.row_id(), Some(13));
+        assert_eq!(repair.carried_row_id(), None);
         assert!(fireplace.is_fireplace());
     }
 

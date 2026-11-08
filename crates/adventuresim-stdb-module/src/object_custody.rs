@@ -178,7 +178,7 @@ fn persisted_location_custody(
                 .db
                 .inventory_item()
                 .id()
-                .find(location.row_id)
+                .find(location.row_id.get())
                 .ok_or("Inventory object personal row is missing")?;
             require_unique_backing_object(ctx, object)?;
             if row.character_id != location.character_id
@@ -205,7 +205,7 @@ fn persisted_location_custody(
                 .db
                 .party_inventory_item()
                 .id()
-                .find(location.row_id)
+                .find(location.row_id.get())
                 .ok_or("Inventory object party row is missing")?;
             require_unique_backing_object(ctx, object)?;
             if row.party_id != location.party_id
@@ -231,14 +231,14 @@ fn persisted_location_custody(
                 .db
                 .inventory_item()
                 .id()
-                .find(location.row_id)
+                .find(location.row_id.get())
                 .ok_or("Inventory object repair row is missing")?;
             require_unique_backing_object(ctx, object)?;
             let order = ctx
                 .db
                 .repair_order()
                 .inventory_item_id()
-                .find(location.row_id)
+                .find(location.row_id.get())
                 .ok_or("Inventory object repair order is missing")?;
             if row.character_id != 0
                 || row.item_id != object.item_id

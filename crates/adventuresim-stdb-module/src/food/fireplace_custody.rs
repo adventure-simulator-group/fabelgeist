@@ -545,10 +545,13 @@ pub fn place_fireplace_container(
     let persisted_source = crate::object_custody::encode_custody(&source_custody);
     match &object.location {
         InventoryLocation::Personal(location) => {
-            ctx.db.inventory_item().id().delete(location.row_id);
+            ctx.db.inventory_item().id().delete(location.row_id.get());
         }
         InventoryLocation::Party(location) => {
-            ctx.db.party_inventory_item().id().delete(location.row_id);
+            ctx.db
+                .party_inventory_item()
+                .id()
+                .delete(location.row_id.get());
         }
         _ => return Err("Container is not in carried inventory".into()),
     }

@@ -238,7 +238,7 @@ fn personal_subtree_value(ctx: &ReducerContext, root_object_id: u64) -> Result<u
                 .db
                 .inventory_item()
                 .id()
-                .find(location.row_id)
+                .find(location.row_id.get())
                 .ok_or("Inventory subtree row is missing")?;
             total
                 .checked_add(personal_inventory_value(ctx, &row, row.quantity)?)
@@ -263,7 +263,7 @@ fn party_subtree_value(ctx: &ReducerContext, root_object_id: u64) -> Result<u64,
                 .db
                 .party_inventory_item()
                 .id()
-                .find(location.row_id)
+                .find(location.row_id.get())
                 .ok_or("Party inventory subtree row is missing")?;
             total
                 .checked_add(party_inventory_value(ctx, &row, row.quantity)?)
