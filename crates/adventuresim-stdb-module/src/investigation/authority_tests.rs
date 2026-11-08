@@ -164,6 +164,7 @@ fn check_generated_binding(
         witness_candidates: test_witnesses(),
     };
     let manifest = generate(&context).map_err(|error| format!("{error:?}"))?;
+    check_developer_authority(ctx, prototype, &context, &manifest)?;
     let generated = manifest
         .actions
         .iter()
@@ -238,6 +239,62 @@ fn check_generated_binding(
         != GeneratedPatternAuthority::Invalid
     {
         return Err("Changed generated terrain passed snapshot binding".into());
+    }
+    Ok(())
+}
+
+fn check_developer_authority(
+    ctx: &ReducerContext,
+    prototype: &InvestigationActionCapability,
+    context: &adventuresim_core::quest_generation::GenerationContext,
+    generated: &adventuresim_core::quest_generation::GeneratedCase,
+) -> Result<(), String> {
+    use adventuresim_core::developer_quest::{
+        DeveloperGenerationContext, DeveloperQuestDefinition, compile,
+    };
+    let developer = DeveloperGenerationContext {
+        base: context.clone(),
+        definition: DeveloperQuestDefinition::from_generated(generated.clone()),
+        allow_implausible: true,
+    };
+    let manifest = compile(&developer).map_err(|error| format!("{error:?}"))?;
+    let context_snapshot_json =
+        serde_json::to_string(&developer).map_err(|error| error.to_string())?;
+    let authority = crate::strategic::QuestGenerationAuthority {
+        case_id: manifest.canonical_case_id.clone(),
+        public_case_id: manifest.public_case_id.clone(),
+        settlement_id: context.settlement_id.clone(),
+        settlement_name: context.settlement_name.clone(),
+        seed: context.seed,
+        catalog_revision: manifest.catalog_revision.clone(),
+        context_commitment: crate::strategic::quest_generation_context_commitment(
+            &context_snapshot_json,
+        )?,
+        context_snapshot_json,
+        manifest_json: serde_json::to_string(&manifest).map_err(|error| error.to_string())?,
+        factor_trace_json: serde_json::to_string(&manifest.factor_trace)
+            .map_err(|error| error.to_string())?,
+    };
+    ctx.db.quest_generation_authority().insert(authority);
+    let mut capability = prototype.clone();
+    capability.case_id = manifest.public_case_id.clone();
+    capability.generated_case_id = manifest.canonical_case_id.clone();
+    capability.provenance_kind = InvestigationProvenanceKind::Generated;
+    let admitted = generated_authority_reducer(ctx, &capability)
+        .map_err(|()| "Developer authority was ambiguous or invalid")?
+        .ok_or("Developer authority was not found")?;
+    if admitted.context != *context || admitted.manifest != manifest {
+        return Err("Developer authority lookup changed validated context or manifest".into());
+    }
+    let adventuresim_core::quest_generation::CanonicalCause::Hostile(threat) = manifest.cause
+    else {
+        return Err("Developer fixture must exercise hostile investigability".into());
+    };
+    let expected = adventuresim_core::bestiary::profile(threat)
+        .investigation
+        .investigability;
+    if generated_investigability(ctx, &capability) != Some(expected) {
+        return Err("Developer authority lost its investigability".into());
     }
     Ok(())
 }
