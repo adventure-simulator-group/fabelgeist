@@ -314,50 +314,15 @@ fn add_fireplace_ingredients_at(
         if fraction.is_zero() || !seen.insert(id) {
             return Err("Food lot selections must be unique and positive".into());
         }
-        let (item_id, available, lot) = match inventory_scope {
-            CarriedInventoryScope::Personal => {
-                let row = ctx
-                    .db
-                    .inventory_item()
-                    .id()
-                    .find(id)
-                    .ok_or("Ingredient inventory row not found")?;
-                if row.character_id != character_id
-                    || crate::character::wearable_is_equipped(ctx, id)
-                {
-                    return Err("Ingredient is equipped or not in this inventory".into());
-                }
-                (
-                    row.item_id,
-                    crate::inventory_amount::personal_fraction(ctx, id)
-                        .ok_or("Ingredient amount state is missing")?,
-                    personal_lot(ctx, PersonalInventoryRowId::from_raw(id))
-                        .ok_or("Food lot metadata not found")?,
-                )
-            }
-            CarriedInventoryScope::Party => {
-                let party_id = actor
-                    .party_id
-                    .as_deref()
-                    .ok_or("Character has no party inventory")?;
-                let row = ctx
-                    .db
-                    .party_inventory_item()
-                    .id()
-                    .find(id)
-                    .ok_or("Ingredient inventory row not found")?;
-                if row.party_id != party_id {
-                    return Err("Ingredient is not in this party inventory".into());
-                }
-                (
-                    row.item_id,
-                    crate::inventory_amount::party_fraction(ctx, id)
-                        .ok_or("Ingredient amount state is missing")?,
-                    party_lot(ctx, PartyInventoryRowId::from_raw(id))
-                        .ok_or("Food lot metadata not found")?,
-                )
-            }
-        };
+        let SelectedCookingIngredient {
+            item_id,
+            available,
+            lot,
+        } = resolve_cooking_ingredient(
+            ctx,
+            &actor,
+            CarriedInventoryRowId::from_raw(inventory_scope, id),
+        )?;
         if fraction > available {
             return Err("Ingredient is not available in that amount".into());
         }

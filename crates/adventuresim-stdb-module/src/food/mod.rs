@@ -49,6 +49,7 @@ include!("projections.rs");
 include!("material_backing.rs");
 include!("lot_inventory.rs");
 include!("fireplace_custody.rs");
+include!("cooking_selection.rs");
 include!("cooking.rs");
 include!("consumption.rs");
 #[cfg(feature = "authority-tests")]
@@ -65,6 +66,7 @@ pub(crate) const FOOD_SOURCE: &str = concat!(
     include_str!("material_backing.rs"),
     include_str!("lot_inventory.rs"),
     include_str!("fireplace_custody.rs"),
+    include_str!("cooking_selection.rs"),
     include_str!("cooking.rs"),
     include_str!("consumption.rs"),
     include_str!("mod.rs"),
