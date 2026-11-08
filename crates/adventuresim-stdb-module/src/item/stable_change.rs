@@ -36,6 +36,13 @@ fn plan_removals(
             selected_ancestors: 0,
         });
     }
+    let selected: std::collections::BTreeSet<_> = plans.iter().map(|plan| plan.object_id).collect();
+    if plans
+        .iter()
+        .any(|plan| plan.subtree.iter().any(|object| !selected.contains(object)))
+    {
+        return Err("Remove unselected contained items before deleting the container".into());
+    }
     let ancestor_counts: Vec<_> = plans
         .iter()
         .map(|plan| {

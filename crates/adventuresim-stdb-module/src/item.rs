@@ -522,6 +522,8 @@ fn merged_currency_quantity(existing: u32, credit: u32) -> Option<u32> {
     existing.checked_add(credit)
 }
 
+/// Adjust inventory quantity. Individually tracked containers can be removed
+/// only when every contained inventory object is included in the same removal.
 #[reducer]
 pub fn change_inventory_item(
     ctx: &ReducerContext,
