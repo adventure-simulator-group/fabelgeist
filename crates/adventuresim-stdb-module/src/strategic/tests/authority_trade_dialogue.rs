@@ -220,7 +220,9 @@ fn mission_binding_entropy_and_terminal_replays_fail_closed() {
     let replay = crate::production_source(include_str!("../mission_existing.rs"));
     assert!(replay.contains("existing.status == MissionAttemptStatus::Bound"));
     assert!(replay.contains("already terminal and cannot be reused"));
-    assert!(binding.contains("outcome_entropy: ctx.random()"));
+    assert!(binding.contains("MissionAuthority::capture("));
+    let capture = crate::production_source(include_str!("../mission_roster.rs"));
+    assert!(capture.contains("outcome_entropy: ctx.random()"));
     assert!(binding.contains("mission_approach_capability_id("));
 
     let cancel = source
