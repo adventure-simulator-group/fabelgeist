@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:31:34.678260+00:00
+Updated: 2026-11-08T22:33:14.142092+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -9,7 +9,7 @@ Updated: 2026-11-08T22:31:34.678260+00:00
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 4 adopted | Admission, transaction, and aliases open |
-| Fireplace custody source packets | 5 adopted | Initialization, merge, and writers open |
+| Fireplace custody source packets | 6 adopted | Initialization, merge, and writers open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -172,6 +172,12 @@ gateway-only view and selected strategic web routes and template. A future
 state-model change must coordinate these consumers and regenerate database
 bindings. The full consumer inventory remains open. Audit checkpoint 3756
 verified the bounded evidence without closing the contract.
+
+A registered consumer read found that selected station query failures become
+empty or absent UI data. Existing source tests check query escaping and use of
+gateway views, not changed-schema behavior. The refactor will need a query and
+UI verification that distinguishes failure from an empty result. Audit
+checkpoint 3757 verified the evidence; broader policy remains open.
 
 | Increment status | Count |
 | --- | ---: |
