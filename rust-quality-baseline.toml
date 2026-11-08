@@ -219,10 +219,6 @@ path = "crates/adventuresim-stdb-module/src/alcohol.rs"
 ceiling = 632
 
 [[files]]
-path = "crates/adventuresim-stdb-module/src/capability.rs"
-ceiling = 689
-
-[[files]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
 ceiling = 3037
 
@@ -529,10 +525,6 @@ ceiling = 711
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
 ceiling = 1034
-
-[[files]]
-path = "crates/adventuresim-tactical-client/src/player.rs"
-ceiling = 712
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
@@ -1244,11 +1236,6 @@ item = "available_stacks"
 ceiling = 108
 
 [[functions]]
-path = "crates/adventuresim-stdb-module/src/capability.rs"
-item = "StrategicEquipment::load"
-ceiling = 176
-
-[[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
 item = "delete_character_data"
 ceiling = 296
@@ -1885,11 +1872,6 @@ ceiling = 121
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
-item = "ensure_settlement_activity_batched"
-ceiling = 102
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
 item = "materialize_generated_quest"
 ceiling = 262
 
@@ -2272,11 +2254,6 @@ ceiling = 289
 path = "crates/adventuresim-tactical-client/src/main.rs"
 item = "run"
 ceiling = 155
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/player.rs"
-item = "CombatTargeting<'_,'_>::acquire"
-ceiling = 117
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
@@ -6856,8 +6833,8 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/capability.rs"
-item = "StrategicEquipment::combat_equipment"
+path = "crates/adventuresim-stdb-module/src/capability/equipment_projection.rs"
+item = "NativeHands::admit"
 fingerprint = "string:arquebus"
 occurrences = 1
 
