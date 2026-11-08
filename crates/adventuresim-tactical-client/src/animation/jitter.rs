@@ -57,6 +57,7 @@ pub(crate) struct JitterFrame<K> {
     pub(crate) scenario_frame: usize,
     pub(crate) time_seconds: AnimationElapsed,
     pub(crate) bones: BTreeMap<K, JitterBone>,
+    pub(crate) missing_parent_bones: Vec<K>,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -94,6 +95,12 @@ pub(crate) enum JitterClass {
     LocalPositionJerk,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum JitterEvidence {
+    Complete,
+    Incomplete,
+}
+
 pub(crate) trait JitterBoneIdentity: Clone + Ord {
     fn report_label(&self) -> Option<&str>;
 }
@@ -122,6 +129,7 @@ pub(crate) fn validate<K: JitterBoneIdentity>(
     thresholds: JitterThresholds,
 ) -> JitterValidationSummary<K> {
     let mut incidents = Vec::new();
+    let mut evidence = JitterEvidence::Complete;
     let mut start = 0;
     while start < frames.len() {
         let end = frames[start..]
@@ -152,11 +160,14 @@ pub(crate) fn validate<K: JitterBoneIdentity>(
             // every frame across the handoff.
             (start + contact_segment_warmup_frames(&frames[start].scenario)).min(end)
         };
-        analyze_scenario(
+        if analyze_scenario(
             &frames[analysis_start..end],
             &scenario_thresholds,
             &mut incidents,
-        );
+        ) == JitterEvidence::Incomplete
+        {
+            evidence = JitterEvidence::Incomplete;
+        }
         start = end;
     }
     incidents.sort_by(|a, b| b.severity.total_cmp(&a.severity));
@@ -166,7 +177,10 @@ pub(crate) fn validate<K: JitterBoneIdentity>(
         .count();
     let top_incidents = incidents.iter().take(20).cloned().collect();
     JitterValidationSummary {
-        diagnostics_complete: frames.iter().all(|frame| frame.bones.len() >= 3)
+        diagnostics_complete: evidence == JitterEvidence::Complete
+            && frames
+                .iter()
+                .all(|frame| frame.bones.len() >= 3 && frame.missing_parent_bones.is_empty())
             && frames.windows(2).all(|pair| {
                 (pair[1].scenario == pair[0].scenario
                     && pair[1].analysis_segment == pair[0].analysis_segment)
@@ -289,10 +303,11 @@ fn analyze_scenario<K: JitterBoneIdentity>(
     frames: &[JitterFrame<K>],
     t: &JitterThresholds,
     out: &mut Vec<JitterIncident<K>>,
-) {
+) -> JitterEvidence {
     if frames.len() < 4 {
-        return;
+        return JitterEvidence::Complete;
     }
+    let mut evidence = JitterEvidence::Complete;
     let mut names: Vec<_> = frames
         .iter()
         .flat_map(|frame| frame.bones.keys())
@@ -306,6 +321,7 @@ fn analyze_scenario<K: JitterBoneIdentity>(
             .map(|frame| frame.bones.get(name))
             .collect::<Option<Vec<_>>>()
         else {
+            evidence = JitterEvidence::Incomplete;
             continue;
         };
         let mut positions = Vec::with_capacity(samples.len());
@@ -313,6 +329,12 @@ fn analyze_scenario<K: JitterBoneIdentity>(
         for sample in samples {
             positions.push(Vec3::from_array(sample.position));
             angles.push(Quat::from_array(sample.rotation_xyzw));
+        }
+        if positions.iter().any(|position| !position.is_finite())
+            || angles.iter().any(|angle| !angle.is_finite())
+        {
+            evidence = JitterEvidence::Incomplete;
+            continue;
         }
         let position_velocity = vector_derivative(&positions, frames);
         let position_accel = vector_derivative(&position_velocity, &frames[1..])
@@ -327,6 +349,17 @@ fn analyze_scenario<K: JitterBoneIdentity>(
             .collect::<Vec<_>>();
         let angular_accel = derivative(&angular_velocity, &frames[1..]);
         let angular_jerk = derivative(&angular_accel, &frames[2..]);
+        if [
+            &position_accel,
+            &position_jerk,
+            &angular_accel,
+            &angular_jerk,
+        ]
+        .into_iter()
+        .any(|values| values.iter().any(|value| !value.is_finite()))
+        {
+            evidence = JitterEvidence::Incomplete;
+        }
         report(
             name,
             JitterClass::LocalPositionAcceleration,
@@ -376,6 +409,7 @@ fn analyze_scenario<K: JitterBoneIdentity>(
             out,
         );
     }
+    evidence
 }
 
 fn report<K: JitterBoneIdentity>(
@@ -467,6 +501,7 @@ mod tests {
                 analysis_segment: 0,
                 scenario_frame: index,
                 time_seconds: AnimationElapsed::from_seconds(index as f32 / 64.0).unwrap(),
+                missing_parent_bones: Vec::new(),
                 bones: [(
                     "foot".to_owned(),
                     JitterBone {

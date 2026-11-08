@@ -780,43 +780,52 @@ pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>
                 }
             }
             previous = Some(frame);
+            let mut missing_parent_bones = Vec::new();
+            let bones = frame
+                .bones
+                .iter()
+                .filter_map(|(name, bone)| {
+                    let parent = match parent_bone(name) {
+                        Some(parent_name) => match frame.bones.get(parent_name) {
+                            Some(parent) => Some(parent),
+                            None => {
+                                missing_parent_bones.push(*name);
+                                return None;
+                            }
+                        },
+                        None => None,
+                    };
+                    let position = if *name == BoneRole::Pelvis {
+                        // The capture root is authoritative locomotion, not a joint.
+                        Vec3::ZERO
+                    } else {
+                        Vec3::from_array(bone.position)
+                    };
+                    let rotation = Quat::from_array(bone.rotation_xyzw);
+                    let (position, rotation) = parent.map_or((position, rotation), |parent| {
+                        let parent_position = Vec3::from_array(parent.position);
+                        let parent_rotation = Quat::from_array(parent.rotation_xyzw);
+                        (
+                            parent_rotation.inverse() * (position - parent_position),
+                            parent_rotation.inverse() * rotation,
+                        )
+                    });
+                    Some((
+                        *name,
+                        JitterBone {
+                            position: position.to_array(),
+                            rotation_xyzw: rotation.to_array(),
+                        },
+                    ))
+                })
+                .collect();
             JitterFrame {
                 scenario: frame.scenario.clone(),
                 analysis_segment,
                 scenario_frame: frame.scenario_frame,
                 time_seconds: frame.time_seconds,
-                bones: frame
-                    .bones
-                    .iter()
-                    .map(|(name, bone)| {
-                        let position = if *name == BoneRole::Pelvis {
-                            // The capture root is authoritative locomotion, not
-                            // a skeletal joint. Exclude its world translation
-                            // from limb jitter while retaining pelvis rotation.
-                            Vec3::ZERO
-                        } else {
-                            Vec3::from_array(bone.position)
-                        };
-                        let rotation = Quat::from_array(bone.rotation_xyzw);
-                        let (position, rotation) = parent_bone(name)
-                            .and_then(|parent| frame.bones.get(parent))
-                            .map_or((position, rotation), |parent| {
-                                let parent_position = Vec3::from_array(parent.position);
-                                let parent_rotation = Quat::from_array(parent.rotation_xyzw);
-                                (
-                                    parent_rotation.inverse() * (position - parent_position),
-                                    parent_rotation.inverse() * rotation,
-                                )
-                            });
-                        (
-                            *name,
-                            JitterBone {
-                                position: position.to_array(),
-                                rotation_xyzw: rotation.to_array(),
-                            },
-                        )
-                    })
-                    .collect(),
+                bones,
+                missing_parent_bones,
             }
         })
         .collect()
