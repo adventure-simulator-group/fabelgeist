@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T00:55:49.934384+00:00
+Updated: 2026-11-08T00:57:57.222913+00:00
 
-Latest verified checkpoint: **3667**. Goal: **active**.
+Latest verified checkpoint: **3668**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,14 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified historical occupancy and patient interaction paths.
+Qualified native duplicate occupancy insertion semantics.
 
-Other historical interactions, return reachability and cross-lens aliases remain
-open.
+Return reachability and cross-lens ownership remain open.
 
 ## Working on now
 
-Qualify other historical interactions and reconcile site identity obligations.
+Qualify same-minute return reachability and reconcile site identity obligations.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3667 publication record](CHECKPOINT-3667.json)
-- [Saved report for checkpoint 3667](PROGRESS-3667.md)
+- [Checkpoint 3668 publication record](CHECKPOINT-3668.json)
+- [Saved report for checkpoint 3668](PROGRESS-3668.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
