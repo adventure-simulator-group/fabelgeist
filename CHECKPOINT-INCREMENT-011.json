@@ -1,0 +1,29 @@
+{
+  "schema": "726-increment-checkpoint-v1",
+  "checkpoint": "increment-011",
+  "at": "2026-11-08T05:42:02.598772+00:00",
+  "historical_audit_checkpoint": 3737,
+  "audio": {
+    "commit": "2d318efbb21d044680070c525554cb04ee286437",
+    "focused_check": "passed",
+    "tests": "passed: 2"
+  },
+  "landform": {
+    "commit": "689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "status": "focused tests running",
+    "based_on": "2d318efbb21d044680070c525554cb04ee286437",
+    "refresh_and_late_arrival": "reconciliation drafted; behavior and pre-arrival readiness not verified",
+    "focused_check": "passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "focused_tests": "rerun in progress; earlier run passed 19, ignored 1 at 079f9990618cfd87308bcff461f66d030ffd237a",
+    "test_scope": "existing terrain presentation tests; failure and late-recipe paths not established",
+    "readiness": "failed terrain is excluded from presented count; failure path not dynamically tested",
+    "quality": "repository Rust quality check passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "replication": "library documents atomic entity updates per tick; cross-tick arrival remains open"
+  },
+  "integration": "not started",
+  "report_sha256": "72a951d45afbe84319c81c62770805a92d1f8669628cc47cdf87b2ee835ab5b0",
+  "wedding": {
+    "status": "auditing",
+    "implementation": "not started"
+  }
+}
