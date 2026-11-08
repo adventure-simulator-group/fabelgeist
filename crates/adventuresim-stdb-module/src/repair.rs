@@ -1,5 +1,6 @@
 //! Persistent strategic equipment condition and settlement repair custody.
 
+mod escrow;
 mod smiths;
 use adventuresim_core::durability::DamageBins;
 use adventuresim_core::durability::{DurabilityProfile, damage_from_impact};
@@ -400,33 +401,7 @@ fn retrieve(
         .update(condition);
     inventory.character_id = character_id;
     ctx.db.inventory_item().id().update(inventory);
-    let mut escrow_objects = ctx
-        .db
-        .inventory_object()
-        .iter()
-        .filter(|object| {
-            matches!(
-                &object.location,
-                InventoryLocation::Repair(location)
-                    if location.row_id == order.inventory_item_id
-            )
-        })
-        .collect::<Vec<_>>();
-    if escrow_objects.len() > 1 {
-        return Err("Repair escrow has duplicate physical object identities".into());
-    }
-    if let Some(mut object) = escrow_objects.pop() {
-        let correct_escrow = matches!(
-            &object.location,
-            InventoryLocation::Repair(location)
-                if location.settlement_id == order.settlement_id
-        );
-        if !correct_escrow || object.item_id != order.item_id {
-            return Err("Repair escrow physical object does not match its order".into());
-        }
-        object.location = InventoryLocation::personal(character_id, order.inventory_item_id);
-        ctx.db.inventory_object().id().update(object);
-    }
+    escrow::restore_repair_object(ctx, &order, character_id)?;
     if let Some(placement_id) = order.equipped_placement_id.as_deref() {
         crate::character::restore_equipment_placement(
             ctx,
