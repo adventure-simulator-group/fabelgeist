@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T00:23:05.733990+00:00
+Updated: 2026-11-08T00:27:09.995338+00:00
 
-Latest verified checkpoint: **3653**. Goal: **active**.
+Latest verified checkpoint: **3654**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,13 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified native identifier decode admission.
+Qualified replay and materialized outbreak source boundaries.
 
-Native admission strategy, source consumers and aliases remain open.
+Native admission strategy, remaining source consumers and aliases remain open.
 
 ## Working on now
 
-Resolve native admission strategy and source consumers.
+Resolve native admission strategy and remaining source consumers.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3653 publication record](CHECKPOINT-3653.json)
-- [Saved report for checkpoint 3653](PROGRESS-3653.md)
+- [Checkpoint 3654 publication record](CHECKPOINT-3654.json)
+- [Saved report for checkpoint 3654](PROGRESS-3654.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
