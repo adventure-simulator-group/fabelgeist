@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:01:09.066209+00:00
+Updated: 2026-11-08T10:04:00.014699+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,12 +14,12 @@ Updated: 2026-11-08T10:01:09.066209+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings remaining | 1 |
+| File and function size findings remaining | 0 |
 | Previously reported ingress size findings cleared | 2 |
-| Previously reported function-size findings cleared elsewhere | 27 |
+| Previously reported function-size findings cleared elsewhere | 28 |
 
 The quality counts are findings from the latest scan, not a count of defects
-or independent work items. Full lint stopped before Clippy.
+or independent work items. The quality scan passed; full lint is running.
 
 | Historical audit measure | Count |
 | --- | --- |
@@ -90,7 +90,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `14fcc5389` (quality repairs after `623d52a`): the unfinished
+  commit `f22bd2c26` (quality repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -193,7 +193,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   authority-feature module compiled at `37a79c985`; their behavior has not
   been rerun. Bot windup cancellation was separated, clearing its size
   finding; iteration-feature server binaries compile at the current commit.
-  Bot behavior has not been rerun.
+  Bot behavior has not been rerun. Player input tracing was separated,
+  clearing the final size finding; iteration-feature server binaries compile
+  and the complete Rust quality scan passes at the current commit. Full
+  formatting and lint gates are running; input behavior has not been rerun.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
