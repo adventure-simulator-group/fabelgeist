@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:40:54.487984+00:00
+Updated: 2026-11-08T16:53:02.638348+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T16:40:54.487984+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings remaining | 0 |
+| File and function size findings on inventory draft | 30; lint failed |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
 | Loading reconnect mailbox gap | Draft; live validation open |
@@ -26,10 +26,10 @@ Updated: 2026-11-08T16:40:54.487984+00:00
 | Reconnect and abandonment grace relationship | 1 source-derived question; open |
 | Inventory row lookup references mapped | 33 in 12 files |
 | Persisted row identity kinds drafted | 2; migration incomplete |
-| Database module compile errors after food migration | 22; unresolved |
-| Database module compiler warnings | 3; unresolved |
+| Workspace production check | Passed |
+| Full lint quality size findings | 30; unresolved |
 | Existing core location fixture on prior draft | 1 / 1 passed |
-| Generated bindings refreshed for identity draft | 0 / 1; pending |
+| Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
@@ -50,7 +50,7 @@ Updated: 2026-11-08T16:40:54.487984+00:00
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
-| Full P16 lint on inventory identity draft | Not run; compile fails |
+| Full P16 lint on inventory identity draft | Failed on size ceilings |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -109,15 +109,16 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is an incomplete, non-compiling draft at
-P16 `8b0bb7cc6`. Personal and party inventory rows have distinct IDs; repair
-escrow retains the personal row identity. Food-lot object lookup and fireplace
-return paths now carry the inventory kind alongside the row ID. Duplicate-
-backing checks compare personal and repair locations across variants; their
-new assertions have not run. The latest database-module check reports 22
-errors and three warnings. Callers and raw producer boundaries remain to be
-migrated, generated bindings have not been regenerated, and full lint has not
-run on this draft.
+The inventory row-identity migration is a draft at P16 `bf4cee130`. Personal
+and party rows have distinct IDs; repair escrow retains the personal row
+identity. The database client was regenerated and `cargo check --workspace`
+passed for production targets. `just fmt-check` passed, but `just lint` failed
+at the quality gate with 30 file or function size findings; no ceilings were
+raised. Test-target compilation and runtime behavior are not established.
+Some food and inventory APIs still carry raw foreign keys internally and need
+review. The new personal/repair duplicate-backing assertions have not run.
+The generator emitted a Windows path-length warning before its wrapper's
+formatting step completed.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
