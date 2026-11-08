@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:18:18.483261+00:00
+Updated: 2026-11-08T06:19:58.678970+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -48,8 +48,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   `f33d5ebe37407718a2283dc9313924c32ab58973` for joint capacity, scoped
   removal, rejection, escrow refund, household preservation, rollback, and a
   successful wedding with both spouses admitted and the escrow paid. The landform lint correction is now included.
-  The formatting gate passed in a non-nested verification worktree; review
-  and integrated validation remain open.
+  The formatting gate passed in a non-nested verification worktree. Full
+  `just lint` is running under the shared build lock; review and integrated
+  validation remain open.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
