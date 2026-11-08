@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:47:30.863711+00:00
+Updated: 2026-11-08T06:50:08.169803+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -67,8 +67,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   commit `dcd6ea1aaddb0e542a418ae7ebe35c0bf73d4ecc`: the preserved report
   implementation is restored with sample-tick and `LeadFoot` fixes. The focused
   animation-viewer compile passed; the Rust quality check passed before the
-  relevant baseline reductions. Existing report tests are running. Dependencies,
-  behavioral validation, review, and final integrated gates remain open.
+  relevant baseline reductions. Existing report tests are running. Source
+  review found local-position jitter derivative timing and incident labels use
+  unshifted frames; a repair and runtime validation remain open. Dependencies,
+  review, and final integrated gates also remain open.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
