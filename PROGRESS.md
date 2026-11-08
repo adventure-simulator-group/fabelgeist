@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:24:10.568983+00:00
+Updated: 2026-11-08T01:26:30.552131+00:00
 
-Latest verified checkpoint: **3679**. Goal: **active**.
+Latest verified checkpoint: **3680**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,13 +43,14 @@ for review.
 
 ## Latest checkpoint
 
-Qualified lagging personal clock exposure path.
+Qualified lagging community outbreak exposure path.
 
-Exact source-mode witness, history bounds and interval-cap policy remain open.
+Historical mitigation semantics, history bounds and interval-cap policy remain
+open.
 
 ## Working on now
 
-Qualify historical source mode and bounded mitigation history.
+Qualify historical mitigation semantics and bounded outcome history.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3679 publication record](CHECKPOINT-3679.json)
-- [Saved report for checkpoint 3679](PROGRESS-3679.md)
+- [Checkpoint 3680 publication record](CHECKPOINT-3680.json)
+- [Saved report for checkpoint 3680](PROGRESS-3680.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
