@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:19:55.440052+00:00
+Updated: 2026-11-08T21:34:22.838099+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -16,7 +16,8 @@ Updated: 2026-11-08T21:19:55.440052+00:00
 | Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
 | Discard scenarios exercised | 2 / 2 on prior draft | Corrupt rows and liquidation open |
 | Generic nested removal scenarios | 2 / 2 passed | Broader cases open |
-| Measured drink adjustment | 3 / 3 passed | Corrupt backing open |
+| Measured drink adjustment | 3 / 3 passed on parent | Other cases open |
+| Personal corrupt-condition operations | 3 / 3 rejected | Other backing types open |
 | Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
 | Currency debit paths live tested | 3 / 3 | Broader cases open |
 | Corrupt party condition rejection | 1 / 1 on parent | Other corrupt backing cases open |
@@ -149,7 +150,17 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `edf0c4a36`.
+The inventory row-identity migration is a draft at P16 `8e63dde85`.
+A guarded fixture verified generic increase, generic decrease, and personal
+currency credit reject an unexpected condition record without changing the
+wallet; the same operations succeeded after removing that record. Party,
+personal, and tavern currency fixtures passed together in an isolated run and
+are now wired into the standard authority workflow. The isolated run stopped
+after those fixtures; the complete authority workflow has not been rerun.
+`just fmt-check` and full `just lint` passed. Other backing types and
+independent review remain open.
+
+At parent `edf0c4a36`,
 An isolated measured-drink scenario created two individual small-beer rows,
 verified zero adjustment left both intact, then removed them one at a time.
 The surviving row retained its amount record and physical object, and the
