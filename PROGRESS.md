@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:46:54.557413+00:00
+Updated: 2026-11-08T14:49:00.063205+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -86,6 +86,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Equipment-law question rechecked on current draft | 1 / 1; still open |
 | Authored equipable items without durability | 7 / 188 catalog items |
 | Equipment-law typed draft | Lint passed; runtime unverified |
+| Non-durable equipable items needing stable objects | 7 / 7 |
 
 | Named repair families in the historical handoff | Count |
 | --- | ---: |
@@ -365,7 +366,13 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   Seven of 188 authored catalog items have placements but no durability; all
   seven have attachment points. The generic positive-change branch can also
   merge an existing row rather than creating separate stable objects. This is
-  source evidence, not a database reproduction. Remaining writer paths,
+  source evidence, not a database reproduction. The catalog projection retains
+  attachment points, and the shared stable-object predicate consequently
+  selects all seven. Existing durable removal first unequips the selected root
+  and deletes its carried-object subtree; subtree deletion validates custody
+  and backing rows before mutation. The durable quantity limit and selection
+  helpers currently live in durability, so sharing their policy requires a
+  deliberate common owner and preserving the existing checked behavior. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
   preflights all equipped rows before any unequip. The authority-feature
