@@ -1,0 +1,28 @@
+{
+  "schema": "726-increment-checkpoint-v1",
+  "checkpoint": "increment-010",
+  "at": "2026-11-08T05:39:24.924008+00:00",
+  "historical_audit_checkpoint": 3737,
+  "audio": {
+    "commit": "2d318efbb21d044680070c525554cb04ee286437",
+    "focused_check": "passed",
+    "tests": "passed: 2"
+  },
+  "landform": {
+    "commit": "a62a6e41bf990ba42a5d0be9b0256e97e3ce20cf",
+    "status": "implementing",
+    "based_on": "2d318efbb21d044680070c525554cb04ee286437",
+    "refresh_and_late_arrival": "reconciliation drafted; behavior and pre-arrival readiness not verified",
+    "focused_check": "passed at a62a6e41bf990ba42a5d0be9b0256e97e3ce20cf",
+    "focused_tests": "19 passed; 1 ignored at parent 079f9990618cfd87308bcff461f66d030ffd237a",
+    "test_scope": "existing terrain presentation tests; failure and late-recipe paths not established",
+    "readiness": "failed terrain is excluded from presented count; failure path not dynamically tested",
+    "quality": "failed: present_pending_terrain 109 lines, limit 100"
+  },
+  "integration": "not started",
+  "report_sha256": "b5b1201ca28538bff6577d55a02843a460a88c98292f616db663b7df300d6b33",
+  "wedding": {
+    "status": "auditing",
+    "implementation": "not started"
+  }
+}

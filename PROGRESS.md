@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:32:36.879960+00:00
+Updated: 2026-11-08T05:39:24.924008+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -29,13 +29,14 @@ ledger as backlog. Full refactor completion and validation remain required.
   commit `2d318efbb21d044680070c525554cb04ee286437`: focused `cargo check` and two existing audio
   configuration tests passed. Review and integration remain open.
 - [Landform preparation outcome](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-landform-outcome)
-  commit `1122faa84c4ee58a7fae59a553fa0c82cfde3b03`: a draft based on the audio commit. It retains a typed
-  initial landform failure with scene and recipe identity and distinguishes
-  natural ground from a patch. Refresh and late-arrival behavior remain open.
-  The loading gate now excludes failed terrain from its readiness count. The
-  focused client check passed at this commit. At its parent, 19 existing
-  terrain tests passed and one benchmark was ignored; they did not prove the
-  failure path or late recipe behavior. Review and integration remain open.
+  commit `a62a6e41bf990ba42a5d0be9b0256e97e3ce20cf`: a draft based on the
+  audio commit. It retains typed landform failures and excludes failed scenes
+  from readiness. Recipe and patch arrivals now trigger reconciliation; changed
+  recipes rebuild terrain. The focused client check passed. The Rust quality
+  checker still reports one oversized function (109 lines; limit 100).
+  Existing terrain tests passed at an earlier commit, but this lifecycle change
+  and the failure path have not been dynamically exercised. Replication order,
+  pre-arrival readiness, review, and integration remain open.
 
 Wedding capacity atomicity is in bounded audit. Its preflight must account for
 both participants jointly across effective-dated occupancy intervals, including
