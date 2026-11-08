@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:15:39.869281+00:00
+Updated: 2026-11-08T18:21:47.692578+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -26,15 +26,16 @@ Updated: 2026-11-08T18:15:39.869281+00:00
 | Reconnect and abandonment grace relationship | 1 source-derived question; open |
 | Inventory row lookup references mapped | 33 in 12 files |
 | Persisted row identity kinds drafted | 2; migration incomplete |
+| Storefront request scope variants in adapted fixture | 2 / 2 passed |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Passed on current draft |
-| Isolated inventory acceptance on current draft | 1 / 1 targeted run passed |
-| Focused identity, simulation and web custody tests on current draft | 3 / 3 passed |
+| Workspace all-target all-feature Clippy | Running on current draft |
+| Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
+| Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
 | Food lot lookup/deletion helpers typed | 4 / 4; producers still open |
 | Current quality size findings | 0 in targeted quality scan |
-| Existing core location fixture on current draft | 1 / 1 passed |
+| Existing core location fixture on previous draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
@@ -57,7 +58,7 @@ Updated: 2026-11-08T18:15:39.869281+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Passed |
+| Full P16 lint on current identity draft | Running |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -116,15 +117,16 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `81531ce5d`. Storefront
-sale application now carries a personal or party row identity into the food and
-physical-object operations, and party liquidation reuses its typed row ID.
-The authority-feature module check and targeted Rust quality scan passed; the
-three trade size findings were cleared and the corresponding ceilings reduced.
-Formatting and full lint passed. Three focused identity and custody tests and
-the isolated inventory lifecycle acceptance passed on this commit. Cooking,
-storefront sales, broader transfer and repair behavior, and review remain
-unverified.
+The inventory row-identity migration is a draft at P16 `d042cfbfc`. Storefront
+requests now admit personal or party sale row IDs at parsing and carry them
+through validation and application. Private request fields keep the sale scope
+consistent with its rows. The adapted request fixture, authority-feature check,
+and targeted quality check passed; formatting passed and full lint is running.
+Three focused identity and custody tests and isolated inventory lifecycle
+acceptance passed on the preceding `81531ce5d`, not the current commit. Live
+storefront and cooking behavior, broader custody and repair, and review remain
+open. An existing trade source assertion expects an older time expression and
+is stale by source inspection; it has not been executed.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
