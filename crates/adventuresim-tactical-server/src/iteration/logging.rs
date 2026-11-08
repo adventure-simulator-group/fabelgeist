@@ -186,6 +186,7 @@ pub(super) struct IterationClock {
 
 #[derive(Resource, Default)]
 pub(super) struct IterationLog {
+    pub(super) failure: Option<MeleeGeometryError>,
     pub(super) attack_starts: u32,
     pub(super) events: Vec<TacticalMeleeLogEntry>,
     pub(super) decision_events: Vec<TacticalDecisionLogEntry>,
@@ -203,64 +204,69 @@ pub(super) fn record_attack_start(
     viewer: TacticalPlayerViewer,
     config: Res<TacticalCombatConfig>,
     mut log: ResMut<IterationLog>,
-) -> MeleeGeometryResult<()> {
-    log.attack_starts += 1;
-    let Ok((attacker, attacker_transform)) = players.get(event.attacker) else {
-        return Ok(());
-    };
-    let target = event.target.and_then(|entity| players.get(entity).ok());
-    let preferred_melee_measure_metres = viewer
-        .get(event.attacker)
-        .ok()
-        .map(|view| -> MeleeGeometryResult<SignedLength> {
-            let weapon_reach = view.weapon_reach();
-            let reach = melee_interaction_range(
-                dimensions
-                    .get(event.attacker)
-                    .copied()
-                    .unwrap_or_default()
-                    .arm_reach_metres,
-                weapon_reach,
-            )?;
-            let grip = view.weapon_grip_to_tip();
-            let head = view.weapon_striking_head_length();
-            let distal = adventuresim_core::combat::has_distal_striking_surface(
-                grip,
-                head,
-                view.weapon_body_material(),
-                view.weapon_striking_material(),
-            );
-            Ok(adventuresim_core::combat::preferred_melee_striking_measure(
-                reach,
-                grip,
-                head,
-                distal,
-                config.ai.ordinary.offense.melee_measure_reach_fraction,
-            )?)
-        })
-        .transpose()?;
-    log.decision_events.push(TacticalDecisionLogEntry {
-        tick: clock.tick,
-        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
-        combatant: attacker.name.clone(),
-        decision: TacticalDecision::Attack,
-        status: TacticalDecisionStatus::Started,
-        target: target.map(|(player, _)| player.name.clone()),
-        center_separation_metres: target
-            .map(|(_, transform)| {
-                SignedLength::from_metres(
-                    attacker_transform
-                        .translation
-                        .xz()
-                        .distance(transform.translation.xz()),
-                )
+) {
+    let result = (|| -> MeleeGeometryResult<()> {
+        log.attack_starts += 1;
+        let Ok((attacker, attacker_transform)) = players.get(event.attacker) else {
+            return Ok(());
+        };
+        let target = event.target.and_then(|entity| players.get(entity).ok());
+        let preferred_melee_measure_metres = viewer
+            .get(event.attacker)
+            .ok()
+            .map(|view| -> MeleeGeometryResult<SignedLength> {
+                let weapon_reach = view.weapon_reach();
+                let reach = melee_interaction_range(
+                    dimensions
+                        .get(event.attacker)
+                        .copied()
+                        .unwrap_or_default()
+                        .arm_reach_metres,
+                    weapon_reach,
+                )?;
+                let grip = view.weapon_grip_to_tip();
+                let head = view.weapon_striking_head_length();
+                let distal = adventuresim_core::combat::has_distal_striking_surface(
+                    grip,
+                    head,
+                    view.weapon_body_material(),
+                    view.weapon_striking_material(),
+                );
+                Ok(adventuresim_core::combat::preferred_melee_striking_measure(
+                    reach,
+                    grip,
+                    head,
+                    distal,
+                    config.ai.ordinary.offense.melee_measure_reach_fraction,
+                )?)
             })
-            .transpose()?,
-        preferred_melee_measure_metres,
-        attack_key: None,
-        cause: None,
-    });
-    Ok(())
+            .transpose()?;
+        log.decision_events.push(TacticalDecisionLogEntry {
+            tick: clock.tick,
+            elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+            combatant: attacker.name.clone(),
+            decision: TacticalDecision::Attack,
+            status: TacticalDecisionStatus::Started,
+            target: target.map(|(player, _)| player.name.clone()),
+            center_separation_metres: target
+                .map(|(_, transform)| {
+                    SignedLength::from_metres(
+                        attacker_transform
+                            .translation
+                            .xz()
+                            .distance(transform.translation.xz()),
+                    )
+                })
+                .transpose()?,
+            preferred_melee_measure_metres,
+            attack_key: None,
+            cause: None,
+        });
+        Ok(())
+    })();
+    if let Err(error) = result {
+        log.failure.get_or_insert(error);
+    }
 }
 
 pub(super) fn record_defense_resolution(
@@ -314,27 +320,32 @@ pub(super) fn record_resolved_attack(
     states: Query<(&TacticalCombatState, &Limbs)>,
     wounds: Query<&crate::combat::TacticalWounds>,
     mut log: ResMut<IterationLog>,
-) -> fabelgeist_geometry::GeometryResult<()> {
-    let Ok((attacker, attacker_transform)) = players.get(event.attacker) else {
-        return Ok(());
-    };
-    let Ok((defender, defender_transform)) = players.get(event.target) else {
-        return Ok(());
-    };
-    let sequence = log.events.len() as u32 + 1;
-    log.events.push(resolved_attack_entry(
-        sequence,
-        &clock,
-        &event,
-        attacker,
-        defender,
-        attacker_transform,
-        defender_transform,
-        &viewer,
-        &states,
-    )?);
-    log_new_wounds(&clock, defender, event.target, &wounds, &mut log);
-    Ok(())
+) {
+    let result = (|| -> MeleeGeometryResult<()> {
+        let Ok((attacker, attacker_transform)) = players.get(event.attacker) else {
+            return Ok(());
+        };
+        let Ok((defender, defender_transform)) = players.get(event.target) else {
+            return Ok(());
+        };
+        let sequence = log.events.len() as u32 + 1;
+        log.events.push(resolved_attack_entry(
+            sequence,
+            &clock,
+            &event,
+            attacker,
+            defender,
+            attacker_transform,
+            defender_transform,
+            &viewer,
+            &states,
+        )?);
+        log_new_wounds(&clock, defender, event.target, &wounds, &mut log);
+        Ok(())
+    })();
+    if let Err(error) = result {
+        log.failure.get_or_insert(error);
+    }
 }
 
 fn log_new_wounds(

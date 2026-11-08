@@ -68,6 +68,14 @@ pub fn resolve_tactical_server_melee_duel(
             .resource_mut::<Time<()>>()
             .advance_by(Duration::from_secs_f32(TACTICAL_TICK_SECONDS));
         app.update();
+        if let Some(error) = app
+            .world_mut()
+            .resource_mut::<IterationLog>()
+            .failure
+            .take()
+        {
+            return Err(error);
+        }
         let left_down = combatant_defeated(app.world(), left_entity);
         let right_down = combatant_defeated(app.world(), right_entity);
         if left_down || right_down {
