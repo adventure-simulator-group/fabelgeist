@@ -497,13 +497,9 @@ fn travel_to_settlement_impl(
     settlement_id: String,
     route: Option<JourneyRoutePlan>,
 ) -> crate::StrategicOperationResult<()> {
-    crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, character_id)?;
     let Some(destination) = ctx.db.settlement().id().find(&settlement_id) else {
         return Err("Settlement not found".into());
-    };
-
-    let Some(character) = ctx.db.character().id().find(character_id) else {
-        return Err("Character not found".into());
     };
     let mut party = character
         .party_id
@@ -863,13 +859,7 @@ pub fn continue_camp_travel(
     character_id: u64,
 ) -> crate::StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
-    crate::character::require_living_character(ctx, character_id)?;
-    let character = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or("Character not found")?;
+    let character = crate::character::require_living_character(ctx, character_id)?;
     let party_id = character.party_id.ok_or("Character is not in a party")?;
     let mut party = ctx
         .db
