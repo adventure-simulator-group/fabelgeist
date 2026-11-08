@@ -1,14 +1,14 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:27:20.444495+00:00
+Updated: 2026-11-08T05:30:20.707751+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 1 |
 | Implementing | 0 |
-| Awaiting or running checks | 2 |
-| Awaiting review | 0 |
+| Awaiting or running checks | 0 |
+| Awaiting review | 2 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
 
@@ -32,8 +32,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   commit `079f9990618cfd87308bcff461f66d030ffd237a`: an unvalidated draft based on the audio commit. It retains a typed
   initial landform failure with scene and recipe identity and distinguishes
   natural ground from a patch. Refresh and late-arrival behavior remain open.
-  The focused client check passed; terrain presentation tests are running under
-  the shared-target lock. Review and integration remain open.
+  The focused client check passed, and 19 existing terrain tests passed; one
+  benchmark was ignored. These tests do not prove the failure path or late
+  recipe behavior. Review and integration remain open.
 
 Wedding capacity atomicity is in bounded audit. Its preflight must account for
 both participants jointly across effective-dated occupancy intervals, including
