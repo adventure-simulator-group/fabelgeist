@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:10:48.970175+00:00
+Updated: 2026-11-08T18:11:45.979741+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -28,7 +28,7 @@ Updated: 2026-11-08T18:10:48.970175+00:00
 | Persisted row identity kinds drafted | 2; migration incomplete |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Passed on earlier draft |
+| Workspace all-target all-feature Clippy | Passed on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
@@ -57,7 +57,7 @@ Updated: 2026-11-08T18:10:48.970175+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Running; outcome pending |
+| Full P16 lint on current identity draft | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -121,7 +121,7 @@ sale application now carries a personal or party row identity into the food and
 physical-object operations, and party liquidation reuses its typed row ID.
 The authority-feature module check and targeted Rust quality scan passed; the
 three trade size findings were cleared and the corresponding ceilings reduced.
-Formatting passed, and full lint is running. Earlier full lint and isolated
+Formatting and full lint passed. Earlier full lint and isolated
 acceptance passed on `23640b3c3`, not this commit. Cooking, storefront sales,
 transfer, broader custody and repair behavior, and review remain unverified.
 
