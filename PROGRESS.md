@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:39:47.475422+00:00
+Updated: 2026-11-08T11:43:43.378160+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -139,7 +139,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   as does the mean. In a 20-seed batch across five matchups, all 100 trace
   aggregates matched; knife novice seed 465 timed out at 256 rounds, so
   10 of 11 audit flags passed. An existing core fixture permits this bounded
-  timeout while the report demands none; its cause remains to be assessed. The 3 GB bulk trace from the failed run was removed
+  timeout while the report demands none. The pre-restoration draft
+  `8ff11c82f` produced the same timeout, combatant outcomes, complete log
+  and timeline for this seed. The zero-timeout audit remains unsatisfied;
+  the comparison does not establish behavior for other seeds. The 3 GB bulk trace from the failed run was removed
   after recording its size and record count. Full-scale rerun remains open.
   A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
   extractions and baseline reductions. At parent `aaf0a66c7`, formatting,
