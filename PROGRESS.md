@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:35:07.472786+00:00
+Updated: 2026-11-08T18:39:40.674240+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -29,10 +29,12 @@ Updated: 2026-11-08T18:35:07.472786+00:00
 | Storefront request scope variants in adapted fixture | 2 / 2 passed on parent |
 | Live storefront sale scenarios reached | 0 / 2; seed exhausted energy |
 | Trade authority source checks present | 12 / 12; source inspected |
-| Transfer source row boundaries consolidated | 2 / 2; live behavior open |
+| Transfer source row boundaries consolidated | 2 / 2 |
+| Isolated bottle and apple deposit/withdrawal round trips | 2 / 2 passed |
+| Apple lot backing and value conservation round trip | 1 / 1 passed |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Running on current draft |
+| Workspace all-target all-feature Clippy | Passed on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
@@ -61,7 +63,7 @@ Updated: 2026-11-08T18:35:07.472786+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Running |
+| Full P16 lint on current identity draft | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -127,11 +129,14 @@ consistent with its rows. Deposit and withdrawal now each admit their source
 row ID once and reuse it through object and food operations. On `d042cfbfc`,
 the adapted request fixture, authority-feature check, formatting and full lint
 passed. Commit `cb4d21bb3` updates a stale trade time source assertion; its
-text was checked against the
-implementation, but the native module test has not run. Formatting and full
+text was checked against the implementation, but the native module test has not
+run. Formatting and full
 lint passed on `cb4d21bb3`; the current transfer draft passes authority-feature
-compilation, targeted quality and formatting, and full lint is running. An isolated
-live storefront attempt stopped before either sale when settlement seeding exhausted the module energy budget; the first
+compilation, targeted quality, formatting and full lint. Isolated bottle and
+apple deposit/withdrawal round trips preserved object identity; the apple lot
+also retained its identity, mass, nutrition and value while its backing changed
+with custody. A storefront attempt stopped before either sale when settlement
+seeding exhausted the module energy budget; the first
 attempt had a separate runner decoding error. Three focused custody tests and
 inventory lifecycle acceptance passed on `81531ce5d`. Live storefront and
 cooking behavior, broader custody and repair, and review remain open.
