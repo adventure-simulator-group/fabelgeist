@@ -57,8 +57,6 @@ pub(crate) enum MovementObservation {
 
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum ReportContractError {
-    #[error("autoresolve contact has no recoverable interval at this performance snapshot")]
-    UnavailableRecoveryInterval,
     #[error("autoresolve movement record {sequence} is missing its {observation:?} observation")]
     MissingMovementObservation {
         sequence: u64,

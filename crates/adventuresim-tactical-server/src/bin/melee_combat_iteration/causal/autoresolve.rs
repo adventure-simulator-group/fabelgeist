@@ -5,10 +5,6 @@ pub(in crate::melee_combat_iteration) fn record_autoresolve_telemetry(
     defender: &mut AutoresolveCombatantCausal,
     telemetry: &adventuresim_core::autoresolve::MeleeContactTelemetry,
 ) -> IterationResult<()> {
-    let interval = telemetry
-        .attack_interval_seconds
-        .available()
-        .ok_or(ReportContractError::UnavailableRecoveryInterval)?;
     *attacker
         .contact_classifications
         .entry(format!("{:?}", telemetry.contact_classification))
@@ -33,9 +29,18 @@ pub(in crate::melee_combat_iteration) fn record_autoresolve_telemetry(
         *distribution.entry(key).or_default() += 1;
     }
     attacker.attack_samples += 1;
-    attacker
-        .mean_attack_interval_seconds
-        .checked_add(Measurement::<AutoresolveSeconds>::from_elapsed(interval)?)?;
+    match telemetry.attack_interval_seconds {
+        adventuresim_core::combat::RecoveryTime::After(interval) => {
+            attacker.recoverable_interval_samples += 1;
+            attacker
+                .mean_attack_interval_seconds
+                .get_or_insert(Measurement::ZERO)
+                .checked_add(Measurement::<AutoresolveSeconds>::from_elapsed(interval)?)?;
+        }
+        adventuresim_core::combat::RecoveryTime::CannotRecover => {
+            attacker.unavailable_recovery_samples += 1;
+        }
+    }
     attacker.mean_attack_power_multiplier.checked_add(
         Measurement::<AttackPowerMultiplier>::from_native(telemetry.attack_power_multiplier)?,
     )?;

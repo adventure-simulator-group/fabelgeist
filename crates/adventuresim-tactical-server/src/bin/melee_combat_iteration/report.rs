@@ -184,7 +184,10 @@ pub(super) struct AutoresolveCombatantCausal {
     pub(super) maximum_actual_contact_measure_metres: Option<Measurement<ContactMetres>>,
     pub(super) minimum_actual_center_separation_metres: Option<Measurement<CenterSeparationMetres>>,
     pub(super) full_energy_intended_contacts_inside_ten_centimetres: u64,
-    pub(super) mean_attack_interval_seconds: Measurement<AutoresolveSeconds>,
+    pub(super) recoverable_interval_samples: u64,
+    pub(super) unavailable_recovery_samples: u64,
+    /// Mean of available intervals; absent when none were observed.
+    pub(super) mean_attack_interval_seconds: Option<Measurement<AutoresolveSeconds>>,
     pub(super) mean_attack_power_multiplier: Measurement<AttackPowerMultiplier>,
     pub(super) minimum_attack_incapacitation_performance:
         Option<Measurement<IncapacitationPerformance>>,
@@ -253,9 +256,9 @@ impl AutoresolveCombatantCausal {
     }
 
     pub(super) fn finish_means(&mut self) -> MeasurementResult<()> {
-        self.mean_attack_interval_seconds = self
-            .mean_attack_interval_seconds
-            .mean(self.attack_samples)?;
+        if let Some(interval) = self.mean_attack_interval_seconds.as_mut() {
+            *interval = interval.mean(self.recoverable_interval_samples)?;
+        }
         self.mean_attack_power_multiplier = self
             .mean_attack_power_multiplier
             .mean(self.attack_samples)?;
