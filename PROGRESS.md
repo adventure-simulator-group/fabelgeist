@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:54:24.721076+00:00
+Updated: 2026-11-08T15:00:01.599884+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -88,6 +88,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Equipment-law typed draft | Lint passed; runtime unverified |
 | Non-durable equipable items needing stable objects | 7 / 7 |
 | Shared instance policy tests | 2 / 2 passed |
+| Same-kind nested container catalog witness | 1 / 188 definitions |
 | Stable inventory lifecycle draft | Compiled; runtime unverified |
 
 | Named repair families in the historical handoff | Count |
@@ -380,7 +381,13 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   removal to non-food, non-measured instances. The two relocated tests and
   authority-feature compile passed, as did formatting; full lint is running.
   Database behavior, rollback and batches selecting a container and its own
-  descendant are unverified. This is not a completed repair. Remaining writer paths,
+  descendant are unverified. One authored definition, glass_bottle, has a
+  250 ml exterior and 250 ml capacity; the containment reducer allows a
+  same-kind child subject to custody and capacity checks. If selected parent
+  and child are deleted parent-first, the current draft can attempt to delete
+  the child twice. Plan descendant-first execution after instance selection;
+  database reproduction and the correction remain pending. This is not a
+  completed repair. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
   preflights all equipped rows before any unequip. The authority-feature
