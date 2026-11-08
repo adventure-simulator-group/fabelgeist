@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T17:57:45.465595+00:00
+Updated: 2026-11-08T18:00:43.168115+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T17:57:45.465595+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings on inventory draft | 7; unresolved |
+| File and function size findings on inventory draft | 5; unresolved |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
 | Loading reconnect mailbox gap | Draft; live validation open |
@@ -33,7 +33,7 @@ Updated: 2026-11-08T17:57:45.465595+00:00
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
 | Food lot lookup/deletion helpers typed | 4 / 4; producers still open |
-| Current quality size findings | 7; unresolved |
+| Current quality size findings | 5; unresolved |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
@@ -116,14 +116,14 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `372324b25`. Food-lot
-split, removal, and personal/party transfer APIs now carry distinct row IDs;
-the rehome path passes its existing typed source ID. Authority-feature module
-compilation passed. The quality scan reports seven size findings, and further
-producer-boundary review remains open. Earlier full lint, targeted isolated
-database acceptance, and focused tests passed on `23640b3c3`, not this
-commit. Broader custody and repair behavior and independent review remain
-unverified.
+The inventory row-identity migration is a draft at P16 `72483a221`. Food-lot
+split, removal, and personal/party transfer APIs carry distinct row IDs. The
+subtree cross-inventory transfer operations were extracted, retaining the
+existing preflight and reusing typed destination IDs. Authority-feature module
+compilation passed. The quality scan reported five size findings and a stale
+baseline before its reduction. Earlier full lint and targeted isolated
+acceptance passed on `23640b3c3`, not this commit. Transfer behavior, broader
+custody and repair behavior, and independent review remain unverified.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
