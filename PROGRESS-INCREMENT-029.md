@@ -1,0 +1,65 @@
+# Bespoke type refactor: progress
+
+Updated: 2026-11-08T06:27:25.377346+00:00
+
+| Increment status | Count |
+| --- | ---: |
+| Queued | 0 |
+| Auditing | 0 |
+| Implementing | 1 |
+| Awaiting or running checks | 2 |
+| Awaiting review | 1 |
+| Integrated and validated | 0 |
+| Blocked | 0 |
+
+| Historical audit measure | Count |
+| --- | --- |
+| Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted |
+| Registered revision-delta lens/path checks | 3,172 / 3,172 closed |
+| Ledger entries with source discovery explicitly closed | 588 / 3,866 |
+| Other ledger entries | 3,278, including overlapping obligations |
+
+Historical coverage is not completed repair work. The revised user direction
+allows independently audited implementation increments while retaining the
+ledger as backlog. Full refactor completion and validation remain required.
+
+## Active increments
+
+- [Audio playback speed](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-audio-pitch)
+  commit `2d318efbb21d044680070c525554cb04ee286437`: focused `cargo check` and two existing audio
+  configuration tests passed. Review and integration remain open.
+- [Landform preparation outcome](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-landform-outcome)
+  commit `c40d70aeceeedfd87d7c9528628bf9c9bf87512b`: a draft based on the
+  audio commit. It retains typed landform failures and excludes failed scenes
+  from readiness. Recipe and patch arrivals now trigger reconciliation; changed
+  recipes rebuild terrain. Focused Clippy passed at this commit; the focused
+  client check and Rust quality checker passed at its parent.
+  At the parent commit, 19 existing terrain tests passed and one benchmark
+  was ignored; they do not exercise the new lifecycle or failure path. The
+  replication library documents per-entity atomic updates
+  within a tick, but cross-tick arrival and pre-arrival readiness remain open.
+  Review and integration remain open.
+
+- [Wedding capacity atomicity](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-wedding-atomicity)
+  commit `4510a2685ea541dd3963bd22aa7a6df6ea29a2a5`: the draft performs
+  joint effective-dated capacity preflight and propagates unexpected settlement
+  errors. Focused Clippy and the Rust quality check passed before the landform
+  lint correction was added. The disposable-database workflow passed at
+  `f33d5ebe37407718a2283dc9313924c32ab58973` for joint capacity, scoped
+  removal, rejection, escrow refund, household preservation, rollback, and a
+  successful wedding with both spouses admitted and the escrow paid. The landform lint correction is now included.
+  The formatting gate passed in a non-nested verification worktree. Full
+  `just lint` is running under the shared build lock; review and integrated
+  validation remain open.
+
+- [Repeated animation sample tick](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-repeat-sample-tick)
+  commit `1dca6e68776aeb4e0ba8f2d38513cf4f50cfcccd`: a draft for the P17
+  repeated-view contract. It records and compares the authoritative locomotion
+  sample tick and includes it in mismatch diagnostics. Terrain-run contact
+  validation also retains `LeadFoot`; clearance measurement uses named contact
+  and flight roles in an extracted module. Formatting and checks are queued
+  behind combined lint; runtime behavior and review remain unverified.
+
+The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
+preserves the historical audit; its former global implementation gate has been
+superseded, while its evidence and unresolved questions remain in the backlog.

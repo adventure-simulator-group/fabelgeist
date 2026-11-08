@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:24:34.733560+00:00
+Updated: 2026-11-08T06:27:25.377346+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -53,10 +53,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   validation remain open.
 
 - [Repeated animation sample tick](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-repeat-sample-tick)
-  commit `17423a41bee395ef11ca9bcc5a35a671b64b5fbf`: a draft for the P17
+  commit `1dca6e68776aeb4e0ba8f2d38513cf4f50cfcccd`: a draft for the P17
   repeated-view contract. It records and compares the authoritative locomotion
   sample tick and includes it in mismatch diagnostics. Terrain-run contact
-  validation also retains `LeadFoot` rather than booleans. Checks are queued
+  validation also retains `LeadFoot`; clearance measurement uses named contact
+  and flight roles in an extracted module. Formatting and checks are queued
   behind combined lint; runtime behavior and review remain unverified.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
