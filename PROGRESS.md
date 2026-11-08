@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T03:32:55.654288+00:00
+Updated: 2026-11-08T03:35:29.115428+00:00
 
-Latest verified checkpoint: **3727**. Goal: **active**.
+Latest verified checkpoint: **3728**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -45,14 +45,13 @@ calculation; the underlying sizing finding remains.
 
 ## Latest checkpoint
 
-Qualified patch UV provenance and corrected the progress report checkpoint
-reference.
+Traced input grid refinement and generated terrain-patch provenance.
 
-Supported pairwise UV values and full native lifecycle remain open.
+Cross-variant numeric bounds and the native lifecycle remain open.
 
 ## Working on now
 
-Trace generated patch and terrain pairing, and native asset lifecycle.
+Qualify landform generator position bounds and native asset lifecycle.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -220,8 +219,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3727 publication record](CHECKPOINT-3727.json)
-- [Saved report for checkpoint 3727](PROGRESS-3727.md)
+- [Checkpoint 3728 publication record](CHECKPOINT-3728.json)
+- [Saved report for checkpoint 3728](PROGRESS-3728.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
