@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:48:35.958339+00:00
+Updated: 2026-11-08T13:52:45.868333+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -41,7 +41,8 @@ Updated: 2026-11-08T13:48:35.958339+00:00
 | Report tests on local jitter draft | 26 / 26 passed |
 | P17 jitter observation distinction | Committed draft |
 | Ragdoll jitter observation in actual viewer manifest | 1 / 1 correct |
-| Ragdoll viewer acceptance | Failed |
+| Previous ragdoll viewer acceptance | Failed |
+| Ragdoll physics-pause candidate viewer run | Running |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -146,7 +147,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   `not_applicable`, but overall acceptance failed: repeated evaluation changed
   the chest at scenario frame 0. The first logged differences were 0.0136 m
   and 3.81 degrees. This is a separate unresolved viewer failure; no threshold
-  was changed. The first lint run also found report validation had grown
+  was changed. A local candidate holds the presentation physics clock during
+  the three views of a ragdoll sample and resumes a pause it owns for the next
+  sample. A new ragdoll viewer run is in progress; the cause and fix are not
+  yet verified. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
   acceptance were extracted to a focused module; formatting and full lint
   passed without raising the ceilings. After extraction, all 26 existing
