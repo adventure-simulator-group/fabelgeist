@@ -13,6 +13,7 @@ use html::*;
 use landing_validation::*;
 use metrics::*;
 pub(super) use model::*;
+pub(super) use observation::Observation;
 pub(super) use observation::*;
 use validation::*;
 

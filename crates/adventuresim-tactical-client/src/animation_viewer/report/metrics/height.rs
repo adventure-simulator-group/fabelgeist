@@ -1,6 +1,7 @@
 //! Height measurements in the sampled controller and body frames.
 
 use super::*;
+use adventuresim_tactical_core::animation::AnimationValueError;
 use fabelgeist_geometry::SignedLength;
 
 impl ScenarioHeightMetrics {

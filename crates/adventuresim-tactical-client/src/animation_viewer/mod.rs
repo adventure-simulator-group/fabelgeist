@@ -52,6 +52,7 @@ pub(crate) use capture::frame_clock::capture_fixed_clock;
 use capture::*;
 pub(crate) use harness::ArmorHarness;
 pub(crate) use inspection::CaptureInspection;
+use report::Observation;
 use report::*;
 use scenarios::terrain_policy::{
     raised_scenario_requires_zero_flight, scenario_uses_terrain_ik, startup_terrain_ik_mode,
