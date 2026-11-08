@@ -1,15 +1,15 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:33:14.142092+00:00
+Updated: 2026-11-08T22:36:25.253581+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
+| Ledger source-discovery entries | 589 / 3,866 | 3,277, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 4 adopted | Admission, transaction, and aliases open |
-| Fireplace custody source packets | 6 adopted | Initialization, merge, and writers open |
+| Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -178,6 +178,14 @@ empty or absent UI data. Existing source tests check query escaping and use of
 gateway views, not changed-schema behavior. The refactor will need a query and
 UI verification that distinguishes failure from an empty result. Audit
 checkpoint 3757 verified the evidence; broader policy remains open.
+
+Audit checkpoint 3758 closed the fireplace custody source-discovery entry
+with a conditional policy, using prior full-body evidence whose bytes match the
+selected revision and newly qualified retrieval and death ordering. Normal
+writers pair a vessel with an object; the extra representable no-object
+instrument state still needs a product decision. Implementation, regenerated
+bindings, runtime validation, and related estate and cooking contracts remain
+open. No runtime failure is asserted.
 
 | Increment status | Count |
 | --- | ---: |
