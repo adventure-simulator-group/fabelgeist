@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:27:36.661957+00:00
+Updated: 2026-11-08T16:31:19.455479+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -26,7 +26,8 @@ Updated: 2026-11-08T16:27:36.661957+00:00
 | Reconnect and abandonment grace relationship | 1 source-derived question; open |
 | Inventory row lookup references mapped | 33 in 12 files |
 | Persisted inventory row identity variants drafted | 3 / 3; migration incomplete |
-| Database module compile errors after identity draft | 54; unresolved |
+| Database module compile errors after lookup migration | 61; unresolved |
+| Existing core location fixture | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 0 / 1; pending |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
@@ -108,15 +109,14 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 before it can safely verify the new row-arrival case.
 
 The inventory row-identity migration is an incomplete, non-compiling draft at
-P16 `b5c73f100`. Personal, party and repair locations now carry distinct
-row-ID types, and the generic accessor retains their scope. The personal ID
-type moved to the shared physical-object owner. SpacetimeDB's derive panicked
-on tuple newtypes; named-field records passed that derive. The database module
-then reported 54 type errors across unmigrated callers. These errors have not
-been resolved, generated bindings have not been regenerated, and full lint
-has not run on this draft. The prior textual scan found 33 lookup references,
-including its definition, in 12 handwritten Rust files; these are scoping
-counts, not completed migrations.
+P16 `f7f740416`. Personal, party and repair locations carry distinct row-ID
+types. The physical-object lookup now takes a carried-row enum instead of a
+separate scope and integer; several direct database-column accesses extract
+the raw value at that boundary. The existing core location fixture passed.
+The database module reported 61 type errors after the lookup signature change;
+the earlier draft reported 54, so those counts are not directly comparable.
+Callers remain to be migrated, generated bindings have not been regenerated,
+and full lint has not run on this draft.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
