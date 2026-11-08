@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T20:50:59.497217+00:00
+Updated: 2026-11-08T21:02:25.026081+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -18,7 +18,8 @@ Updated: 2026-11-08T20:50:59.497217+00:00
 | Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
 | Currency debit paths live tested | 3 / 3 | Broader cases open |
 | Corrupt party condition rejection | 1 / 1 on parent | Other corrupt backing cases open |
-| Rest payment error sites corrected | 2 / 2 | Runtime failure coverage open |
+| Rest payment error sites corrected | 2 / 2 | Enclosing rest rollback open |
+| Tavern and inn failure paths exercised | 1 / 2 | Inn remains open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -146,7 +147,16 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `1872b7bff`.
+The inventory row-identity migration is a draft at P16 `ba48c4958`.
+A bootstrap-protected isolated fixture confirmed that direct tavern purchase
+rejects a currency row with unexpected condition state without debiting the
+wallet, and that a normal purchase charges the expected price. The first run
+stopped during setup because the new character already had starting currency;
+the corrected fixture passed. `just fmt-check` and full `just lint` passed.
+Enclosing rest rollback, inn failure, other corrupt states, and independent
+review remain open.
+
+At parent `1872b7bff`,
 The currency caller audit found two rest-payment error handling sites: tavern
 purchases swallowed all debit failures, and inn payments labeled every debit
 failure as insufficient funds. Both now propagate the underlying error.
