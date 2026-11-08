@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:56:51.100648+00:00
+Updated: 2026-11-08T14:00:05.715785+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -43,7 +43,8 @@ Updated: 2026-11-08T13:56:51.100648+00:00
 | Ragdoll jitter observation in actual viewer manifest | 1 / 1 correct |
 | Previous ragdoll viewer acceptance | Failed |
 | First ragdoll physics-pause candidate | Failed |
-| Pause-before-baseline ragdoll viewer run | Running |
+| Pause-before-baseline repeated-view check | Passed |
+| Pause-before-baseline ragdoll continuity gate | Failed |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -155,9 +156,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   earlier run differed by 0.0136 m and 3.81 degrees at the first later view.
   The first candidate paused after sampling the baseline. A revised local
   candidate pauses before the baseline and lets the paused pose settle before
-  taking views; its viewer check is running. Source inspection also found
-  terrain correction runs outside the physics schedule; its causal role in
-  the earlier failure remains unverified. The first lint run also found report validation had grown
+  taking views. Its viewer manifest passed repeated evaluation and retained
+  jitter `not_applicable`, but failed the next continuity gate: right-hand
+  rotation was 63.97 degrees from frames 5 to 6, above the 60-degree limit.
+  Earlier captures also exceeded that limit. The candidate remains uncommitted;
+  do not treat the capture as accepted or relax the gate. Terrain correction
+  runs outside the physics schedule; its causal role remains unverified. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
   acceptance were extracted to a focused module; formatting and full lint
   passed without raising the ceilings. After extraction, all 26 existing
