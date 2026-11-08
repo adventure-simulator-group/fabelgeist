@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:23:02.417015+00:00
+Updated: 2026-11-08T16:24:36.025881+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -23,7 +23,9 @@ Updated: 2026-11-08T16:23:02.417015+00:00
 | Reconnect timing scenarios validated live | 0; open |
 | SDK callback ordering and cache timing inspected | 2 / 2 source checks |
 | Deletion and replacement scenarios validated live | 0; open |
-| Reconnect and abandonment grace conflict | 1 source-derived; open |
+| Reconnect and abandonment grace relationship | 1 source-derived question; open |
+| Inventory row lookup references mapped | 33 in 12 files |
+| Persisted inventory row identity variants to assess | 3 / 3 identified |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
@@ -101,6 +103,20 @@ these two grace periods have not been established. The existing tactical
 lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
+
+The inventory row-identity obligation remains open at P16 `9d8dd35c2`.
+Personal, party and repair locations each persist a raw row ID; the generic
+`row_id` accessor erases their distinction. The `object_for_row` lookup also
+accepts a scope and raw integer separately. A textual scan found 33 lookup
+references, including its definition, in 12 handwritten Rust files;
+`InventoryLocation` appears 152 times in 24 handwritten Rust files. These are
+scoping counts, not counts of defects or migrated callers. A clean migration
+must address persisted variants, their consumers, and generated bindings; no
+schema or source change was made in this investigation.
+
+The empty-party grace is explicitly configurable. The 10- and 30-second
+values therefore establish an observable policy question, not by themselves
+a proof that either duration is wrong.
 
 The quality counts describe the latest scan, not a count of defects. At P16
 commit `ea44c97b9`, the complete `just lint` recipe passed: binding checks,
