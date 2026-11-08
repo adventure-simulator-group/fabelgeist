@@ -151,12 +151,8 @@ pub(crate) fn ancestry_reaches_fireplace(ctx: &ReducerContext, object_id: u64) -
     true
 }
 
-pub(crate) fn row_is_fireplace_rooted(
-    ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
-) -> bool {
-    object_for_row(ctx, scope, row_id)
+pub(crate) fn row_is_fireplace_rooted(ctx: &ReducerContext, row_id: CarriedInventoryRowId) -> bool {
+    object_for_row(ctx, row_id)
         .map(|object| object.is_some_and(|object| ancestry_reaches_fireplace(ctx, object.id)))
         .unwrap_or(true)
 }
@@ -195,10 +191,9 @@ pub(crate) fn object_is_nested(ctx: &ReducerContext, object_id: u64) -> bool {
 /// first so per-object capability rows cannot be orphaned.
 pub(crate) fn delete_carried_object_for_row(
     ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
+    row_id: CarriedInventoryRowId,
 ) -> Result<bool, String> {
-    let Some(object) = object_for_row(ctx, scope, row_id)? else {
+    let Some(object) = object_for_row(ctx, row_id)? else {
         return Ok(false);
     };
     delete_subtree(ctx, object.id)?;
@@ -240,11 +235,10 @@ pub(crate) fn delete_repair_object_for_row(
 
 pub(crate) fn reconcile_consumed_row(
     ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
+    row_id: CarriedInventoryRowId,
     fully_consumed: bool,
 ) -> Result<(), String> {
-    let Some(object) = object_for_row(ctx, scope, row_id)? else {
+    let Some(object) = object_for_row(ctx, row_id)? else {
         return Ok(());
     };
     if ancestry_reaches_fireplace(ctx, object.id) {
@@ -272,10 +266,9 @@ pub(crate) fn reconcile_consumed_row(
 
 pub(crate) fn detach_row_for_action(
     ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
+    row_id: CarriedInventoryRowId,
 ) -> Result<(), String> {
-    if let Some(object) = object_for_row(ctx, scope, row_id)? {
+    if let Some(object) = object_for_row(ctx, row_id)? {
         detach_if_nested(ctx, object.id)?;
     }
     Ok(())
@@ -704,8 +697,13 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
             {
                 return Ok(());
             }
-            merged_object_id =
-                object_for_row(ctx, CarriedInventoryScope::Personal, target.id)?.map(|row| row.id);
+            merged_object_id = object_for_row(
+                ctx,
+                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(target.id),
+                ),
+            )?
+            .map(|row| row.id);
             target.quantity = target
                 .quantity
                 .checked_add(source.quantity)
@@ -756,8 +754,13 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
             {
                 return Ok(());
             }
-            merged_object_id =
-                object_for_row(ctx, CarriedInventoryScope::Party, target.id)?.map(|row| row.id);
+            merged_object_id = object_for_row(
+                ctx,
+                adventuresim_core::physical_object::CarriedInventoryRowId::Party(
+                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(target.id),
+                ),
+            )?
+            .map(|row| row.id);
             target.quantity = target
                 .quantity
                 .checked_add(source.quantity)

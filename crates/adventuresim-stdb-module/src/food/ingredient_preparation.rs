@@ -63,14 +63,18 @@ fn carried_item_rows(
         .character_id()
         .filter(character_id)
         .filter(|row| {
-            crate::inventory_container::object_for_row(ctx, CarriedInventoryScope::Personal, row.id)
-                .ok()
-                .flatten()
-                .is_some_and(|object| {
-                    crate::object_custody::require_actor_carried_object(ctx, &actor, &object)
-                        .is_ok()
-                        && !crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id)
-                })
+            crate::inventory_container::object_for_row(
+                ctx,
+                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
+                ),
+            )
+            .ok()
+            .flatten()
+            .is_some_and(|object| {
+                crate::object_custody::require_actor_carried_object(ctx, &actor, &object).is_ok()
+                    && !crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id)
+            })
         })
         .map(|row| (CarriedInventoryScope::Personal, row.id, row.item_id))
         .collect::<Vec<_>>();
@@ -89,8 +93,11 @@ fn carried_item_rows(
                 .filter(|row| {
                     crate::inventory_container::object_for_row(
                         ctx,
-                        CarriedInventoryScope::Party,
-                        row.id,
+                        adventuresim_core::physical_object::CarriedInventoryRowId::Party(
+                            adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
+                                row.id,
+                            ),
+                        ),
                     )
                     .ok()
                     .flatten()

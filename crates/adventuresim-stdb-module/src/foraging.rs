@@ -1037,8 +1037,11 @@ pub fn forage_current_vicinity(
             for row_id in rows {
                 let object = crate::inventory_container::object_for_row(
                     ctx,
-                    adventuresim_core::physical_object::CarriedInventoryScope::Personal,
-                    row_id,
+                    adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                        adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
+                            row_id,
+                        ),
+                    ),
                 )?
                 .ok_or("Foraged material has no stable object identity")?;
                 let lot = ctx

@@ -112,8 +112,9 @@ fn consume_food_amount(
     }
     crate::inventory_container::reconcile_consumed_row(
         ctx,
-        CarriedInventoryScope::Personal,
-        inventory_id,
+        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_id),
+        ),
         false,
     )?;
     let mut lot = lot_for_inventory(ctx, inventory_id)?;
@@ -150,8 +151,9 @@ fn consume_food_amount(
     if ratio >= 0.999_999 {
         crate::inventory_container::reconcile_consumed_row(
             ctx,
-            CarriedInventoryScope::Personal,
-            inventory.id,
+            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory.id),
+            ),
             true,
         )?;
         ctx.db
@@ -210,8 +212,11 @@ pub fn consume_travel_food_to_zero(
             .filter(|inventory| {
                 !crate::inventory_container::row_is_fireplace_rooted(
                     ctx,
-                    CarriedInventoryScope::Party,
-                    inventory.id,
+                    adventuresim_core::physical_object::CarriedInventoryRowId::Party(
+                        adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
+                            inventory.id,
+                        ),
+                    ),
                 )
             })
             .filter_map(|inventory| {
@@ -227,8 +232,9 @@ pub fn consume_travel_food_to_zero(
         for (_, _, inventory, mut lot) in candidates {
             crate::inventory_container::reconcile_consumed_row(
                 ctx,
-                CarriedInventoryScope::Party,
-                inventory.id,
+                adventuresim_core::physical_object::CarriedInventoryRowId::Party(
+                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(inventory.id),
+                ),
                 false,
             )?;
             let deficit = ctx
@@ -266,8 +272,11 @@ pub fn consume_travel_food_to_zero(
             if ratio >= 0.999_999 {
                 crate::inventory_container::reconcile_consumed_row(
                     ctx,
-                    CarriedInventoryScope::Party,
-                    inventory.id,
+                    adventuresim_core::physical_object::CarriedInventoryRowId::Party(
+                        adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
+                            inventory.id,
+                        ),
+                    ),
                     true,
                 )?;
                 ctx.db
@@ -320,8 +329,11 @@ fn consume_personal_travel_food(
         .filter(|inventory| {
             !crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
-                CarriedInventoryScope::Personal,
-                inventory.id,
+                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
+                        inventory.id,
+                    ),
+                ),
             )
         })
         .filter_map(|inventory| {

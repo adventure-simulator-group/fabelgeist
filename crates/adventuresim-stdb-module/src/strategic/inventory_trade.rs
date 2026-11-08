@@ -40,8 +40,9 @@ pub fn transfer_party_item(
 
     let container_object = crate::inventory_container::object_for_row(
         ctx,
-        CarriedInventoryScope::Personal,
-        source_item.id,
+        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(source_item.id),
+        ),
     )?;
     if let Some(object) = container_object {
         if !physical_object_row_is_atomic(true, quantity, source_item.quantity) {
@@ -1586,8 +1587,9 @@ pub fn deposit_party_inventory_item(
     }
     if let Some(object) = crate::inventory_container::object_for_row(
         ctx,
-        CarriedInventoryScope::Personal,
-        inventory.id,
+        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory.id),
+        ),
     )? {
         if !physical_object_row_is_atomic(true, quantity, inventory.quantity) {
             return Err("A physical object must be deposited as one exact inventory row".into());
@@ -1858,8 +1860,9 @@ pub fn withdraw_party_inventory_item(
     }
     let container_object = crate::inventory_container::object_for_row(
         ctx,
-        CarriedInventoryScope::Party,
-        inventory.id,
+        adventuresim_core::physical_object::CarriedInventoryRowId::Party(
+            adventuresim_core::physical_object::PartyInventoryRowId::from_raw(inventory.id),
+        ),
     )?;
     let container_subtree = container_object.as_ref().is_some_and(|object| {
         crate::inventory_container::object_is_nonempty(ctx, object.id)
@@ -2019,8 +2022,9 @@ pub fn liquidate_party_inventory(
         }
         let object = crate::inventory_container::object_for_row(
             ctx,
-            CarriedInventoryScope::Party,
-            entry.id,
+            adventuresim_core::physical_object::CarriedInventoryRowId::Party(
+                adventuresim_core::physical_object::PartyInventoryRowId::from_raw(entry.id),
+            ),
         )?;
         let subtree = object.as_ref().is_some_and(|object| {
             crate::inventory_container::object_is_nonempty(ctx, object.id)
@@ -2105,8 +2109,9 @@ pub fn discard_inventory_items(
         }
         let object = crate::inventory_container::object_for_row(
             ctx,
-            CarriedInventoryScope::Personal,
-            item.id,
+            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(item.id),
+            ),
         )?;
         if !physical_object_row_is_atomic(object.is_some(), quantity, item.quantity) {
             return Err("A physical object must be discarded as one exact inventory row".into());

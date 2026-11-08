@@ -223,8 +223,9 @@ fn submit(
     };
     if let Some(mut object) = crate::inventory_container::object_for_row(
         ctx,
-        CarriedInventoryScope::Personal,
-        inventory_item_id,
+        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_item_id),
+        ),
     )? {
         crate::inventory_container::detach_if_nested(ctx, object.id)?;
         object.location = InventoryLocation::repair(settlement_id, inventory_item_id);
@@ -232,8 +233,11 @@ fn submit(
     } else {
         crate::inventory_container::reconcile_consumed_row(
             ctx,
-            CarriedInventoryScope::Personal,
-            inventory_item_id,
+            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
+                    inventory_item_id,
+                ),
+            ),
             true,
         )?;
     }

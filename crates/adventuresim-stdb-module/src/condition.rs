@@ -427,8 +427,9 @@ fn inventory_quantity(ctx: &ReducerContext, character_id: u64, item_id: &str) ->
         .filter(|entry| {
             !crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
-                CarriedInventoryScope::Personal,
-                entry.id,
+                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(entry.id),
+                ),
             )
         })
         .map(|entry| entry.quantity)

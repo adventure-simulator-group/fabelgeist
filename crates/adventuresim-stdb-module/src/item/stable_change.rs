@@ -2,7 +2,7 @@
 
 use adventuresim_core::{
     inventory_instance::{InstanceQuantityChange, InstanceRemovalCandidate, select_removals},
-    physical_object::{CarriedInventoryScope, PersonalInventoryRowId},
+    physical_object::{CarriedInventoryRowId, PersonalInventoryRowId},
 };
 use spacetimedb::ReducerContext;
 
@@ -23,8 +23,7 @@ fn plan_removals(
     for candidate in candidates {
         let object = crate::inventory_container::object_for_row(
             ctx,
-            CarriedInventoryScope::Personal,
-            candidate.row_id.get(),
+            CarriedInventoryRowId::Personal(candidate.row_id),
         )?
         .ok_or("Inventory instance has no stable physical object")?;
         plans.push(PlannedRemoval {
