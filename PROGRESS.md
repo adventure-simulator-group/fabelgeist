@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:18:19.201801+00:00
+Updated: 2026-11-08T01:21:11.511802+00:00
 
-Latest verified checkpoint: **3677**. Goal: **active**.
+Latest verified checkpoint: **3678**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -10,7 +10,7 @@ Latest verified checkpoint: **3677**. Goal: **active**.
 | --- | --- | --- |
 | Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted | 0 original roles |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed | 0 in these registered deltas |
-| Queue entries explicitly marked source-discovery closed | 583 / 3,864 marked | 3,281 other entries |
+| Queue entries explicitly marked source-discovery closed | 583 / 3,865 marked | 3,282 other entries |
 | Registered source ranges qualified, connected work open | 297 entries | Connected contracts remain open |
 | Historical unread entries with recorded range evidence | 76 / 189 entries | 113 without these markers |
 | Entries with explicit repair status | 441 recorded | Implementation gate not yet passed |
@@ -43,13 +43,14 @@ for review.
 
 ## Latest checkpoint
 
-Qualified generated disease source ID ordering.
+Qualified historical mitigation exposure question.
 
-Exact multi-case displacement witness and interval-cap policy remain open.
+Lagging-character witness, historical mitigation policy and receipt bounds
+remain open.
 
 ## Working on now
 
-Qualify exact multi-case displacement and bounded interval-cap policy.
+Qualify lagging-character witness and historical mitigation policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -199,7 +200,7 @@ The newest source-revision batch contains 31 changed paths and 403 lens/path
 checks; 403 of those checks are closed. These are audit coverage obligations,
 not bug counts. Earlier revision evidence remains separately qualified.
 
-The canonical queue contains 3864 entries. Entries and views overlap, so this is
+The canonical queue contains 3865 entries. Entries and views overlap, so this is
 not a count of unique bugs or a meaningful completion percentage.
 
 No product files have been changed in this continuation.
@@ -217,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3677 publication record](CHECKPOINT-3677.json)
-- [Saved report for checkpoint 3677](PROGRESS-3677.md)
+- [Checkpoint 3678 publication record](CHECKPOINT-3678.json)
+- [Saved report for checkpoint 3678](PROGRESS-3678.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
