@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:28:00.406121+00:00
+Updated: 2026-11-08T11:30:27.336702+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -26,6 +26,8 @@ Updated: 2026-11-08T11:28:00.406121+00:00
 | Tactical server player-projection tests passed | 33 / 33 |
 | Tactical server bot tests passed | 13 / 13 |
 | Tactical server equipment tests passed | 16 / 16 |
+| One-seed melee report matchups completed | 5 / 5 |
+| Melee smoke report top-level audit flags true | 11 / 11 |
 
 The quality counts describe the latest scan, not a count of defects. At P16
 parent `aaf0a66c7`, formatting, workspace Clippy, three standalone Clippy
@@ -122,6 +124,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   and client visual, input and fixture behavior remain unverified.
   The movement report uses typed measurements and rejects missing required
   observations; the new failure behavior still needs behavioral validation.
+  A one-seed smoke run completed five matchups and all 11 top-level audit
+  flags were true. It does not replace the full-scale acceptance run.
   A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
   extractions and baseline reductions. At parent `aaf0a66c7`, formatting,
   workspace Clippy, all three standalone Clippy commands, and the guarded
