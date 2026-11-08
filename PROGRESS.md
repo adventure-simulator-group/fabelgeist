@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:23:02.607027+00:00
+Updated: 2026-11-08T15:27:20.695219+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -35,6 +35,7 @@ Updated: 2026-11-08T15:23:02.607027+00:00
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint on previous Rust commit | Passed |
+| Full P16 lint on current Rust commit | Running |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -88,6 +89,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Equipment-law typed draft | Lint passed; runtime unverified |
 | Non-durable equipable items needing stable objects | 7 / 7 |
 | Shared instance policy tests | 2 / 2 passed |
+| Checked instance count and row-ID draft | Compiled |
 | Same-kind nested container catalog witness | 1 / 188 definitions |
 | Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
 | Belt addition, spare-first and cleanup database fixture | 1 / 1 passed |
@@ -414,6 +416,11 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   missing-data variants and unrelated cases remain unverified.
   A local unadopted contract-revisit record preserves source hashes and these
   results without changing the historical queue or claiming audit closure.
+  Commit a54fec4f4 carries a bounded instance count and a distinct personal
+  inventory row ID through selection, with primitive conversion at database
+  boundaries. Two existing tests, authority-feature compilation and formatting
+  passed; full lint is running. The prior database fixtures have not been
+  rerun on this commit.
   This is not a completed repair. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
