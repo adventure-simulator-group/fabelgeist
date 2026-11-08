@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:36:50.982578+00:00
+Updated: 2026-11-08T10:38:35.089913+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -30,6 +30,9 @@ unused client re-export; native client Clippy passed after its removal.
 Workspace Clippy passed on the current commit. Full lint was stopped during
 standalone manifest checks when free disk fell below 3 GB; the disposable
 P16-only native build cache was removed, restoring about 8.6 GB free.
+Automatic approval review rejected a separate standalone target as conflicting
+with the shared-target requirement. The first standalone check is running
+under the shared build lock; artifact provenance needs verification.
 
 | Historical audit measure | Count |
 | --- | --- |
@@ -217,6 +220,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   Clippy passed at the current commit. The complete formatting check passed;
   full lint was interrupted during standalone manifest checks to protect disk
   space. The P16-only native build cache was removed to restore space.
+  Automatic approval review rejected a separate standalone target because of
+  the shared-target requirement. The first standalone check is running with
+  the shared target and lock; its artifact provenance needs verification.
   Behavior, full lint, and review remain open.
   Input behavior has not been rerun.
 
