@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:02:25.026081+00:00
+Updated: 2026-11-08T21:15:26.426069+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -14,7 +14,8 @@ Updated: 2026-11-08T21:02:25.026081+00:00
 | Seed-party mission and case-site rejection | 1 / 1 on prior draft | Individual mission/incident branches open |
 | Direct and offer member-transfer scenarios | 2 / 2 passed | Missing-object rejection untested |
 | Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
-| Discard scenarios exercised | 2 / 2 | Corrupt rows and liquidation open |
+| Discard scenarios exercised | 2 / 2 on prior draft | Corrupt rows and liquidation open |
+| Generic stable food removal | 1 / 1 apple passed | Other measured and nested cases open |
 | Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
 | Currency debit paths live tested | 3 / 3 | Broader cases open |
 | Corrupt party condition rejection | 1 / 1 on parent | Other corrupt backing cases open |
@@ -147,7 +148,17 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `ba48c4958`.
+The inventory row-identity migration is a draft at P16 `edf0c4a36`.
+Generic inventory adjustment now sends stable food and measured items through
+object-aware instance removal instead of deleting their backing rows directly.
+Fungible changes and personal currency credit also check existing backing state.
+An isolated apple-removal run confirmed deletion of the row, physical object,
+and food lot. The first full lint attempt found an unused import; formatting and
+full lint passed after its removal. The isolated run preceded that import-only
+correction. Other measured items, nested-container rejection, corrupt fungible
+rows, and independent review remain open.
+
+At parent `ba48c4958`,
 A bootstrap-protected isolated fixture confirmed that direct tavern purchase
 rejects a currency row with unexpected condition state without debiting the
 wallet, and that a normal purchase charges the expected price. The first run
