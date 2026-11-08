@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:53:50.339457+00:00
+Updated: 2026-11-08T16:12:27.811294+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -17,7 +17,10 @@ Updated: 2026-11-08T15:53:50.339457+00:00
 | File and function size findings remaining | 0 |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
-| Loading reconnect mailbox gap | Source-derived; open |
+| Loading reconnect mailbox gap | Draft; live validation open |
+| Reconnect-filtered tests after extraction | 7 / 7 passed |
+| Reconnect draft lint and formatting | 2 / 2 passed |
+| Reconnect timing scenarios validated live | 0; open |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
@@ -37,7 +40,7 @@ Updated: 2026-11-08T15:53:50.339457+00:00
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint on previous Rust commit | Passed |
-| Full P16 lint on current Rust commit | Passed |
+| Full P16 lint on reconnect draft | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -72,6 +75,15 @@ Updated: 2026-11-08T15:53:50.339457+00:00
 | Nearby autoresolve traces checked against aggregates | 100 / 100 |
 | Nearby batch top-level audit flags true | 10 / 11 |
 | Full-scale autoresolve traces completed before failure | 467 / 1,000 |
+
+Reconnect draft `4492156fc` retains a connected-player row while its loading
+session is disconnected within its reconnect window, coalescing callbacks by
+character. Existing reconnect-filtered tests passed after extraction; they do
+not cover the new row-arrival timing. Full `just lint` and `just fmt-check`
+passed after removing an unused import found by the first lint run. The live
+disconnect/reconnect case, stale or deleted subscription rows, event ordering,
+grace expiry, and whole-batch preparation failures remain open. This draft has
+not received independent review.
 
 The quality counts describe the latest scan, not a count of defects. At P16
 commit `ea44c97b9`, the complete `just lint` recipe passed: binding checks,
