@@ -25,7 +25,9 @@ use crate::{
     party_item_amount,
 };
 
+mod rehome;
 mod stacking;
+use rehome::{rehome_party_row, rehome_personal_row};
 use stacking::{mergeable_object, stackable_empty_root};
 
 pub const WATER_ITEM_ID: &str = "water";
@@ -393,28 +395,10 @@ pub(crate) fn rehome_subtree(
                 InventoryLocation::Personal(location),
                 OperationalCustody::Character(character_id),
             ) => {
-                let row_id = location.row_id;
-                let mut row = ctx
-                    .db
-                    .inventory_item()
-                    .id()
-                    .find(row_id.get())
-                    .ok_or("Inventory subtree row is missing")?;
-                row.character_id = character_id.get();
-                ctx.db.inventory_item().id().update(row);
-                object.location = InventoryLocation::personal(character_id.get(), row_id);
+                object.location = rehome_personal_row(ctx, location.row_id, *character_id)?;
             }
             (InventoryLocation::Party(location), OperationalCustody::Party(party_id)) => {
-                let row_id = location.row_id;
-                let mut row = ctx
-                    .db
-                    .party_inventory_item()
-                    .id()
-                    .find(row_id.get())
-                    .ok_or("Party inventory subtree row is missing")?;
-                row.party_id = party_id.as_str().into();
-                ctx.db.party_inventory_item().id().update(row);
-                object.location = InventoryLocation::party(party_id.as_str(), row_id);
+                object.location = rehome_party_row(ctx, location.row_id, party_id)?;
             }
             (InventoryLocation::Personal(location), OperationalCustody::Party(party_id)) => {
                 let source = ctx
