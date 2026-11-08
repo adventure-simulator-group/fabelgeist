@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:24:36.025881+00:00
+Updated: 2026-11-08T16:27:36.661957+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -25,7 +25,9 @@ Updated: 2026-11-08T16:24:36.025881+00:00
 | Deletion and replacement scenarios validated live | 0; open |
 | Reconnect and abandonment grace relationship | 1 source-derived question; open |
 | Inventory row lookup references mapped | 33 in 12 files |
-| Persisted inventory row identity variants to assess | 3 / 3 identified |
+| Persisted inventory row identity variants drafted | 3 / 3; migration incomplete |
+| Database module compile errors after identity draft | 54; unresolved |
+| Generated bindings refreshed for identity draft | 0 / 1; pending |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
@@ -45,7 +47,8 @@ Updated: 2026-11-08T16:24:36.025881+00:00
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint on previous Rust commit | Passed |
-| Full P16 lint on reconnect draft | Passed |
+| Full P16 lint on previous reconnect draft | Passed |
+| Full P16 lint on inventory identity draft | Not run; compile fails |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -104,15 +107,16 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity obligation remains open at P16 `9d8dd35c2`.
-Personal, party and repair locations each persist a raw row ID; the generic
-`row_id` accessor erases their distinction. The `object_for_row` lookup also
-accepts a scope and raw integer separately. A textual scan found 33 lookup
-references, including its definition, in 12 handwritten Rust files;
-`InventoryLocation` appears 152 times in 24 handwritten Rust files. These are
-scoping counts, not counts of defects or migrated callers. A clean migration
-must address persisted variants, their consumers, and generated bindings; no
-schema or source change was made in this investigation.
+The inventory row-identity migration is an incomplete, non-compiling draft at
+P16 `b5c73f100`. Personal, party and repair locations now carry distinct
+row-ID types, and the generic accessor retains their scope. The personal ID
+type moved to the shared physical-object owner. SpacetimeDB's derive panicked
+on tuple newtypes; named-field records passed that derive. The database module
+then reported 54 type errors across unmigrated callers. These errors have not
+been resolved, generated bindings have not been regenerated, and full lint
+has not run on this draft. The prior textual scan found 33 lookup references,
+including its definition, in 12 handwritten Rust files; these are scoping
+counts, not completed migrations.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
