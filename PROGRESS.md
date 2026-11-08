@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:49:40.556389+00:00
+Updated: 2026-11-08T15:51:51.971105+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -16,6 +16,7 @@ Updated: 2026-11-08T15:49:40.556389+00:00
 | --- | ---: |
 | File and function size findings remaining | 0 |
 | Previously reported ingress size findings cleared | 2 |
+| Pinned spawn error-handler source check | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
@@ -339,8 +340,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   view returns a developer-generated action under its public case ID. Native
   unit fixtures only compiled. Player spawn admission prepares all applicable players before
   issuing any spawn commands. The input queue is drained first and is not
-  requeued on preparation failure. Source indicates Bevy's default error handler would
-  panic on that error. The dispatcher does not monitor or restart its child
+  requeued on preparation failure. The pinned Bevy 0.19.1 source assigns
+  panic severity to ordinary converted errors and its default fallback
+  dispatches that severity to a panic handler. No server-local override was
+  found in the inspected code; deployment configuration remains unverified.
+  The dispatcher does not monitor or restart its child
   in the inspected source; deployed supervisor and row redelivery behavior
   remain unverified.
   The core build uses geometry without default engine features; an offline
