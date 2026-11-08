@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:55:10.459079+00:00
+Updated: 2026-11-08T01:58:53.518215+00:00
 
-Latest verified checkpoint: **3692**. Goal: **active**.
+Latest verified checkpoint: **3693**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified personal interval and source minute comparison.
+Qualified native volume operations under Lens 2.
 
-Cross-clock mapping, historical mitigation and aliases remain open.
+First-party audio ownership, other lenses and exact aliases remain open.
 
 ## Working on now
 
-Resolve supported cross-clock comparisons and historical mitigation aliases.
+Trace first-party audio producers and remaining independent native scopes.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3692 publication record](CHECKPOINT-3692.json)
-- [Saved report for checkpoint 3692](PROGRESS-3692.md)
+- [Checkpoint 3693 publication record](CHECKPOINT-3693.json)
+- [Saved report for checkpoint 3693](PROGRESS-3693.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
