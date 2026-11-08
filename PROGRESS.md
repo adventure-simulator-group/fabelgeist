@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:11:47.495809+00:00
+Updated: 2026-11-08T12:23:10.260401+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -115,7 +115,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `5837f86b5`: the 159-path snapshot is restored, with three textual
+  commit `4afaf7b59`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
@@ -164,9 +164,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   Two subsequent commits changed test fixtures, and `48682faff` changed
   report aggregation with the focused validation described above. Commit
   `c438e0abe` corrected an authority-runner success message. The
-  latest commit updates stale catalog fixture counts, kind totals and ID hash
-  to match the authored 188-item catalog. All 31 catalog tests, formatting
-  and Rust quality passed; full lint and integrated gates remain open.
+  commit `5837f86b5` updated stale catalog fixture counts, kind totals and ID
+  hash. All 31 catalog tests passed. The latest commit carries validated
+  investigation authority through its consumers; focused Clippy, formatting,
+  Rust quality, and the isolated authority workflow passed for the change.
   The repair passed formatting, focused report Clippy and Rust quality; full
   uninterrupted `just lint`, current-head validation, review and
   integration remain open.
@@ -191,12 +192,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   but their storage-to-consumer behavior is unverified. The authority runner
   previously labeled a catalog fixture as capability projection; it checks
   classification, not reach. The message now states the actual coverage.
-  Investigation authority still discards its validated aggregate and reparses
-  raw manifest/context strings. Developer contexts use a wrapper that the
-  downstream plain-context parser rejects; this source-derived defect needs
-  repair and database verification. Player spawn admission prepares all
-  applicable players before issuing any
-  spawn commands. The input queue is drained first and is not requeued on
+  Investigation consumers now retain the validated manifest and context,
+  including developer-context bases, and the reversed investigability tuple
+  lookup is removed. Existing guarded investigation cases passed; a developer
+  wrapper has not been dynamically exercised, and native unit fixtures only
+  compiled. Player spawn admission prepares all applicable players before
+  issuing any spawn commands. The input queue is drained first and is not requeued on
   preparation failure. Source indicates Bevy's default error handler would
   panic on that error. The dispatcher does not monitor or restart its child
   in the inspected source; deployed supervisor and row redelivery behavior
