@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:58:01.876721+00:00
+Updated: 2026-11-08T06:00:05.970407+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
-| Implementing | 1 |
-| Awaiting or running checks | 1 |
+| Implementing | 2 |
+| Awaiting or running checks | 0 |
 | Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -45,9 +45,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   effective-dated capacity preflight and propagation of unexpected settlement
   failures. The projection includes scoped future removals. The focused compile
   and Rust quality checks passed at its parent; focused Clippy passed with the
-  authority feature at this commit. A guarded local database workflow is
-  running for joint capacity and scoped removal, not the full wedding
-  transaction. Review remains open. The branch precedes the latest landform
+  authority feature at this commit. The guarded disposable-database authority
+  workflow passed, including joint capacity and scoped removal; it did not
+  exercise the full wedding transaction, escrow, or rollback. Review remains open. The branch precedes the latest landform
   lint-only commit and must be reconciled before integration.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
