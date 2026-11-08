@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:35:50.510187+00:00
+Updated: 2026-11-08T06:37:55.832495+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -18,6 +18,17 @@ Updated: 2026-11-08T06:35:50.510187+00:00
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed |
 | Ledger entries with source discovery explicitly closed | 588 / 3,866 |
 | Other ledger entries | 3,278, including overlapping obligations |
+
+| Named repair families in the historical handoff | Count |
+| --- | ---: |
+| Source marked complete or complete-preserved | 12 / 20 |
+| Source reopened for repair | 6 / 20 |
+| Source marked implementing | 2 / 20 |
+| Validated against the current combined draft | 0 / 20 |
+
+These family labels come from the historical ledger and are not current-head
+acceptance. P16 and P17 were the two marked implementing; the P17 restoration
+is now a draft and still needs its dependencies, review, and validation.
 
 Historical coverage is not completed repair work. The revised user direction
 allows independently audited implementation increments while retaining the
