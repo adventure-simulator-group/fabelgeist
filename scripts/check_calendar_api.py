@@ -223,7 +223,7 @@ REQUIRED_SHARED_FIELDS = {
 }
 REQUIRED_TYPED_RETURNS = {
     Path("crates/adventuresim-stdb-module/src/time/settlement_rest.rs"):
-        ") -> Result<Option<StrategicMinute>, String> {",
+        ") -> StrategicOperationResult<Option<StrategicMinute>> {",
     Path("crates/adventuresim-stdb-module/src/residence.rs"):
         ") -> Option<(String, StrategicMinute)> {",
 }
