@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:12:47.038778+00:00
+Updated: 2026-11-08T06:14:40.927743+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -41,14 +41,14 @@ ledger as backlog. Full refactor completion and validation remain required.
   Review and integration remain open.
 
 - [Wedding capacity atomicity](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-wedding-atomicity)
-  commit `f33d5ebe37407718a2283dc9313924c32ab58973`: the draft performs
+  commit `e1ead67e986b55bf8ce8c10693d1ba0e2a0aa82d`: the draft performs
   joint effective-dated capacity preflight and propagates unexpected settlement
-  errors. Focused Clippy passed with the authority feature. The guarded
-  disposable-database workflow passed at the parent for joint capacity, scoped
+  errors. Focused Clippy and the Rust quality check passed at this commit. The
+  guarded disposable-database workflow passed at the parent for joint capacity, scoped
   removal, rejection, escrow refund, household preservation, and rollback.
-  The current commit also passed a successful wedding with both spouses
-  admitted and the escrow paid. Review remains open. The
-  branch precedes the latest landform lint-only commit and needs reconciliation.
+  The parent commit also passed a successful wedding with both spouses
+  admitted and the escrow paid. Review remains open. The branch precedes the
+  latest landform lint-only commit and needs reconciliation.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
