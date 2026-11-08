@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:02:15.198159+00:00
+Updated: 2026-11-08T14:03:26.439045+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -164,7 +164,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   physics clock, advancing age and angular velocity while the solver is held.
   The candidate was removed because it could distort the simulation. The
   branch is clean; a coordinated fixed-step capture repair remains open.
-  Terrain correction also runs outside the physics schedule; its causal role
+  Bevy offers a fixed-timestep update strategy that may coordinate fixed
+  systems, but screenshot timing, settling and clock ownership require
+  verification before using it. Terrain correction runs outside the physics
+  schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
   acceptance were extracted to a focused module; formatting and full lint
