@@ -203,9 +203,7 @@ pub(super) fn prepare_landform(
     // Local scene producers supply a prepared patch; replicated scenes rebuild it.
     match (landform, prepared) {
         (None, None) => Ok(PreparedLandform::Natural),
-        (None, Some(_)) => Err(PreparationError::TerrainPatchWithoutRecipe {
-            scene: id.0.clone(),
-        }),
+        (None, Some(_)) => Err(PreparationError::TerrainPatchWithoutRecipe { scene: id.clone() }),
         (Some(recipe), Some(patch)) => Ok(PreparedLandform::Patch {
             recipe: *recipe,
             patch: patch.clone(),
@@ -216,7 +214,7 @@ pub(super) fn prepare_landform(
                 patch,
             })
             .map_err(|source| PreparationError::TerrainLandform {
-                scene: id.0.clone(),
+                scene: id.clone(),
                 recipe: Box::new(*recipe),
                 source,
             }),

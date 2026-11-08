@@ -4,6 +4,7 @@ use adventuresim_building_generator::{
     GenerationError, interior::InteriorLayoutError, spatial_geometry::GeometryError,
 };
 use adventuresim_tactical_core::{
+    scene::SceneId,
     scene_input::{SceneBuildingId, SceneInputError},
     volumetric_terrain::{TerrainLandformRecipe, TerrainRecipeError},
 };
@@ -49,15 +50,15 @@ pub(crate) enum PreparationError {
     Building(#[from] Box<GenerationError>),
     #[error(transparent)]
     Geometry(#[from] GeometryError),
-    #[error("landform preparation failed for scene {scene}: {source}")]
+    #[error("landform preparation failed for scene {scene:?} and recipe {recipe:?}: {source}")]
     TerrainLandform {
-        scene: String,
+        scene: SceneId,
         recipe: Box<TerrainLandformRecipe>,
         #[source]
         source: TerrainRecipeError,
     },
-    #[error("scene {scene} supplied a terrain patch without a landform recipe")]
-    TerrainPatchWithoutRecipe { scene: String },
+    #[error("scene {scene:?} supplied a terrain patch without a landform recipe")]
+    TerrainPatchWithoutRecipe { scene: SceneId },
     #[error(transparent)]
     VistaMesh(#[from] VistaMeshError),
     #[error(transparent)]
