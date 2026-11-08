@@ -48,6 +48,7 @@ include!("projections.rs");
 include!("chronology.rs");
 include!("family.rs");
 include!("commitments.rs");
+include!("wedding_preflight.rs");
 include!("marriage.rs");
 include!("reproduction.rs");
 #[cfg(feature = "authority-tests")]
@@ -142,6 +143,7 @@ pub(crate) const RELATIONSHIP_SOURCE: &str = concat!(
     include_str!("chronology.rs"),
     include_str!("family.rs"),
     include_str!("commitments.rs"),
+    include_str!("wedding_preflight.rs"),
     include_str!("marriage.rs"),
     include_str!("reproduction.rs"),
     include_str!("lifecycle.rs"),
