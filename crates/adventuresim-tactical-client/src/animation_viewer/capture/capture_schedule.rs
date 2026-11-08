@@ -1,5 +1,9 @@
 //! Capture-phase registration and its ordered readiness/terminal-consumption policy.
 
+use super::capture_time::{
+    CaptureTimeControl, arm_ragdoll_capture, capture_time_ready, finish_ragdoll_step,
+    schedule_ragdoll_step,
+};
 use super::overlay::draw_skeleton_overlay;
 use super::{
     CaptureSequence, capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid,
@@ -15,11 +19,14 @@ pub(in crate::animation_viewer) struct CapturePlugin;
 
 impl Plugin for CapturePlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, setup_viewer)
+        app.init_resource::<CaptureTimeControl>()
+            .add_systems(Startup, setup_viewer)
             .add_systems(
                 PreUpdate,
                 (
+                    finish_ragdoll_step,
                     drive_sequence.run_if(admission_is_open),
+                    schedule_ragdoll_step,
                     freeze_capture_look,
                 )
                     .chain(),
@@ -43,8 +50,12 @@ impl Plugin for CapturePlugin {
                     harness::update_readiness,
                     collect_locomotion_presentation_events,
                     reject_capture,
+                    arm_ragdoll_capture
+                        .run_if(harness::ready)
+                        .run_if(admission_is_open),
                     capture_frame
                         .run_if(harness::ready)
+                        .run_if(capture_time_ready)
                         .run_if(admission_is_open),
                 )
                     .chain(),

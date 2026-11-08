@@ -465,6 +465,8 @@ The report's `jitter_validation` is an observation: `measured` contains the
 diagnostics, `unavailable` identifies missing captured frames, and
 `not_applicable` identifies a ragdoll-only capture. Measured diagnostics are
 incomplete when no full post-warmup derivative window was available.
+Ragdoll views share a frozen fixed-update state; each subsequent ragdoll sample
+advances one fixed simulation interval after the initial settling period.
 
 The fixture synthesizes deterministic controller observations at the shared
 server projection boundary; it does not run the transport or physics character

@@ -12,6 +12,7 @@ use repeated_evaluation::RepeatedEvaluationSnapshot;
 
 mod admission;
 mod capture_schedule;
+mod capture_time;
 pub(super) mod frame_clock;
 mod global_bones;
 mod jitter_capture;
@@ -610,14 +611,7 @@ pub(super) fn capture_frame(
     }
     sequence.waiting = 0;
     sequence.settled += 1;
-    let required = if sequence.index == 0 {
-        sequence.settle_frames.max(60)
-    } else {
-        // A view change needs one complete render before requesting the next
-        // asynchronous screenshot; otherwise two paths may receive the same
-        // previously rendered camera image.
-        sequence.settle_frames.max(2)
-    };
+    let required = capture_time::required_settle_frames(&sequence);
     if sequence.settled < required {
         return;
     }
