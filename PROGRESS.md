@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:11:45.979741+00:00
+Updated: 2026-11-08T18:15:39.869281+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -29,12 +29,12 @@ Updated: 2026-11-08T18:11:45.979741+00:00
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
 | Workspace all-target all-feature Clippy | Passed on current draft |
-| Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
-| Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
+| Isolated inventory acceptance on current draft | 1 / 1 targeted run passed |
+| Focused identity, simulation and web custody tests on current draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
 | Food lot lookup/deletion helpers typed | 4 / 4; producers still open |
 | Current quality size findings | 0 in targeted quality scan |
-| Existing core location fixture on prior draft | 1 / 1 passed |
+| Existing core location fixture on current draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
@@ -121,9 +121,10 @@ sale application now carries a personal or party row identity into the food and
 physical-object operations, and party liquidation reuses its typed row ID.
 The authority-feature module check and targeted Rust quality scan passed; the
 three trade size findings were cleared and the corresponding ceilings reduced.
-Formatting and full lint passed. Earlier full lint and isolated
-acceptance passed on `23640b3c3`, not this commit. Cooking, storefront sales,
-transfer, broader custody and repair behavior, and review remain unverified.
+Formatting and full lint passed. Three focused identity and custody tests and
+the isolated inventory lifecycle acceptance passed on this commit. Cooking,
+storefront sales, broader transfer and repair behavior, and review remain
+unverified.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
