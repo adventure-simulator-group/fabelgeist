@@ -99,28 +99,10 @@ pub fn settle_due_lifecycle_events_global(
         match event {
             DueLifecycleEvent::Wedding {
                 effective_minute,
-                id,
                 participant_id,
+                ..
             } => {
-                if let Err(error) = settle_due_weddings(ctx, participant_id, effective_minute) {
-                    if let Some(commitment) = ctx.db.exclusive_commitment().id().find(&id) {
-                        transition_commitment_terminal(
-                            ctx,
-                            commitment,
-                            CommitmentStatus::Cancelled,
-                            CommitmentTerminalReason::ResidenceUnavailable,
-                            effective_minute,
-                        )?;
-                    }
-                    record_lifecycle_failure(
-                        ctx,
-                        LifecycleEventKind::Wedding,
-                        &id,
-                        effective_minute,
-                        now,
-                        error,
-                    );
-                }
+                settle_due_weddings(ctx, participant_id, effective_minute)?;
             }
             DueLifecycleEvent::Birth {
                 effective_minute,

@@ -262,33 +262,54 @@ pub(super) fn available_property(
     Ok(property)
 }
 
-pub(super) fn require_property_room_at(
+struct AdmissionInterval {
+    character_id: u64,
+    end: Option<StrategicMinute>,
+}
+
+pub(super) fn require_property_room_for(
     ctx: &ReducerContext,
-    occupant: &ResidenceOccupant,
+    property_id: &str,
+    occupants: &[ResidenceOccupant],
     minute: StrategicMinute,
-) -> Result<(), String> {
+) -> Result<(), ResidenceAdmissionError> {
+    let admissions: Vec<_> = occupants
+        .iter()
+        .filter(|occupant| {
+            !occupancy::at(ctx, occupant.character_id, minute).is_some_and(|home| {
+                home.property_id == occupant.property_id && home.holding_id == occupant.holding_id
+            })
+        })
+        .map(|occupant| AdmissionInterval {
+            character_id: occupant.character_id,
+            end: occupancy::admission_end(
+                occupant,
+                minute,
+                ctx.db
+                    .property_occupancy_transition()
+                    .character_id()
+                    .filter(occupant.character_id)
+                    .collect(),
+            ),
+        })
+        .collect();
+    if admissions.is_empty() {
+        return Ok(());
+    }
     let property = ctx
         .db
         .settlement_property()
         .id()
-        .find(occupant.property_id.clone())
-        .ok_or("Generated residence property not found")?;
-    let end = occupancy::admission_end(
-        occupant,
-        minute,
-        ctx.db
-            .property_occupancy_transition()
-            .character_id()
-            .filter(occupant.character_id)
-            .collect(),
-    );
+        .find(property_id.to_owned())
+        .ok_or(ResidenceAdmissionError::PropertyMissing)?;
     let mut boundaries = std::collections::BTreeSet::from([minute]);
+    boundaries.extend(admissions.iter().filter_map(|admission| admission.end));
     boundaries.extend(
         ctx.db
             .property_occupancy_transition()
             .property_id()
             .filter(&property.id)
-            .filter(|event| event.minute > minute && end.is_none_or(|end| event.minute < end))
+            .filter(|event| event.minute > minute)
             .map(|event| event.minute),
     );
     let aggregate: u64 = ctx
@@ -299,12 +320,20 @@ pub(super) fn require_property_room_at(
         .map(|occupancy| u64::from(occupancy.unmaterialized_residents))
         .sum();
     for boundary in boundaries {
-        let named = occupancy::residents_at(ctx, &property.id, boundary)
-            .into_iter()
-            .filter(|resident| *resident != occupant.character_id)
-            .count() as u64;
-        if named + aggregate >= u64::from(property.resident_capacity) {
-            return Err("Residence property has no remaining occupancy capacity".into());
+        let active: Vec<_> = admissions
+            .iter()
+            .filter(|admission| admission.end.is_none_or(|end| boundary < end))
+            .collect();
+        if active.is_empty() {
+            continue;
+        }
+        let mut residents: std::collections::BTreeSet<_> =
+            occupancy::residents_at(ctx, &property.id, boundary)
+                .into_iter()
+                .collect();
+        residents.extend(active.into_iter().map(|admission| admission.character_id));
+        if residents.len() as u64 + aggregate > u64::from(property.resident_capacity) {
+            return Err(ResidenceAdmissionError::CapacityExceeded);
         }
     }
     Ok(())

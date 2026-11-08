@@ -52,7 +52,13 @@ pub(super) fn admit(
     }) {
         return Ok(());
     }
-    properties::require_property_room_at(ctx, &occupant, minute)?;
+    properties::require_property_room_for(
+        ctx,
+        &occupant.property_id,
+        std::slice::from_ref(&occupant),
+        minute,
+    )
+    .map_err(|error| error.to_string())?;
     if let Some(previous) = previous {
         record(
             ctx,

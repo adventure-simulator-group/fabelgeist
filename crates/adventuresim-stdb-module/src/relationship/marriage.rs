@@ -132,6 +132,29 @@ pub fn settle_due_weddings(
             )?;
             continue;
         };
+        if let Err(error) = crate::residence::preflight_residence_occupants_at(
+            ctx,
+            &residence_holding_id,
+            [first.id, second.id],
+            effective_minute,
+        ) {
+            record_lifecycle_failure(
+                ctx,
+                LifecycleEventKind::Wedding,
+                &commitment.id,
+                effective_minute,
+                now,
+                error.to_string(),
+            );
+            transition_commitment_terminal(
+                ctx,
+                commitment,
+                CommitmentStatus::Cancelled,
+                CommitmentTerminalReason::ResidenceUnavailable,
+                effective_minute,
+            )?;
+            continue;
+        }
         let courtship_id = format!(
             "courtship:{}:{}",
             first.id.min(second.id),
