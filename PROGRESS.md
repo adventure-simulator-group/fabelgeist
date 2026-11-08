@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:27:50.373105+00:00
+Updated: 2026-11-08T08:33:02.804790+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -85,7 +85,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
-  an uncompiled recovery draft. Manifest dependency errors found by the
+  a partially compiled recovery draft. Manifest dependency errors found by the
   formatter were corrected; `just fmt` and `just fmt-check` passed at the
   earlier draft. The focused core compile passed at parent `20ed2a263`; the
   tactical-core check passed on this commit after fixing a duplicate import.
@@ -100,15 +100,18 @@ ledger as backlog. Full refactor completion and validation remain required.
   snapshots, not remaining defect counts. The latest draft stores a typed
   cause and settlement-stage context separately; its callers are still being
   migrated. Propagation through additional strategic reducers brought the
-  current formatted draft passes the focused database-module `cargo check`
+  formatted draft to a passing focused database-module `cargo check`
   without warnings at parent `bb63239b8`. The authority-test feature now
   compiles at this commit after adapting existing fixtures; neither check is
   behavioral validation. Typed failures now cross tactical, settlement, wedding,
   custody, party, encounter, trade, disease, and exposure callers. Wedding
   rollback behavior must be revalidated; the guarded isolated authority
-  workflow is running on this commit.
-  Runtime behavior, automatic merges, database compilation, lint, and review
-  remain open.
+  workflow stopped during the WebAssembly release build before any assertions.
+  Cargo reused a geometry artifact from the wedding worktree; its dependency
+  record explicitly names that worktree. A targeted WebAssembly check passed,
+  and a clean P16-specific release build is running to remove cross-worktree
+  artifact reuse. Runtime behavior, semantic review of automatic merges, full
+  formatting and lint, and integrated validation remain open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
