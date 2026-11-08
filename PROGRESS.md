@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:21:01.465757+00:00
+Updated: 2026-11-08T16:23:02.417015+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -23,6 +23,7 @@ Updated: 2026-11-08T16:21:01.465757+00:00
 | Reconnect timing scenarios validated live | 0; open |
 | SDK callback ordering and cache timing inspected | 2 / 2 source checks |
 | Deletion and replacement scenarios validated live | 0; open |
+| Reconnect and abandonment grace conflict | 1 source-derived; open |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
@@ -90,6 +91,16 @@ row-arrival timing. Full `just lint` passed before rustfmt adjusted the callback
 layout; `just fmt-check` then passed. Live disconnect and reconnect timing,
 deleted and replacement subscription rows, event ordering, grace expiry, and
 whole-batch preparation failures remain open. Independent review is pending.
+
+A separate source-derived lifecycle conflict remains open: the default empty-
+party abandonment grace is 10 seconds, while a disconnected player retains a
+reconnect capability for 30 seconds. A disconnected loading snapshot is not a
+`LoadingPlayer`, so the mission system can count the party as empty during
+that interval. Actual runtime timing and the intended relationship between
+these two grace periods have not been established. The existing tactical
+lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
+`.env.tactical` handling and uncontrolled event timing require adaptation
+before it can safely verify the new row-arrival case.
 
 The quality counts describe the latest scan, not a count of defects. At P16
 commit `ea44c97b9`, the complete `just lint` recipe passed: binding checks,
