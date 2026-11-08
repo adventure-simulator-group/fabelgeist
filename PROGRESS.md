@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:31:35.604457+00:00
+Updated: 2026-11-08T14:33:43.948323+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -54,6 +54,7 @@ Updated: 2026-11-08T14:31:35.604457+00:00
 | Ordinary viewer scenario | Jitter gate failed |
 | Immediate-parent comparison | Same jitter failure |
 | Ordinary first-frame clock investigation | Cause unconfirmed |
+| First upper-spine rotation, frames 0 to 1 | 10.50 degrees |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -199,7 +200,13 @@ ledger as backlog. Full refactor completion and validation remain required.
   animation interval; frame one uses one sample interval. The fixed-tick
   pose cache retains the first pose for repeated renders, and pose-buffer
   observations skip repeated ticks. These facts do not identify the source of
-  the initial pose jump. Current entry points select ragdoll alone; mixed-plan
+  the initial pose jump. A bounded global-bone projection shows the root
+  rotation unchanged while upper spine c_spine3 rotates 10.50 degrees
+  between frames 0 and 1; frames 1 and 2 show effectively no rotation.
+  This locates the change but does not identify its owner. Playback readiness
+  checks that the plan is not bind pose; it does not prove the pose buffer has
+  presented or settled that plan. Current entry points select ragdoll alone;
+  mixed-plan
   clock restoration is not runtime-verified.
   Terrain correction runs outside the physics schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
