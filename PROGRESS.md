@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:18:51.547840+00:00
+Updated: 2026-11-08T07:21:51.625366+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T07:18:51.547840+00:00
 
 | Historical audit measure | Count |
 | --- | --- |
-| Original inventory roles, lenses 11–13 | 8,559 / 8,559 accounted |
+| Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed |
 | Ledger entries with source discovery explicitly closed | 588 / 3,866 |
 | Other ledger entries | 3,278, including overlapping obligations |
@@ -75,28 +75,31 @@ ledger as backlog. Full refactor completion and validation remain required.
   commit `dcd6ea1aaddb0e542a418ae7ebe35c0bf73d4ecc`: the preserved report
   implementation is restored with sample-tick and `LeadFoot` fixes. The focused
   animation-viewer compile passed; the Rust quality check passed before the
-  relevant baseline reductions. Existing report tests passed: 26 passed, 0 failed at this commit. Source
-  review found local-position jitter derivative timing and incident labels use
+  relevant baseline reductions. Existing report tests passed: 26 passed,
+  0 failed at this commit. Source review found local-position jitter derivative timing and incident labels use
   unshifted frames; a separate repair is drafted below. Dependencies,
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `16783d3e752eafec566dbfa696bf3016d408ee11`: the unfinished 159-path snapshot is
-  restored on the current draft with its three textual conflicts reconciled.
+  commit `d47c34984d80c1e83f9f11eb14db61b902fb2fcf`: the unfinished
+  159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
-  an uncompiled recovery draft: automatic merges, remaining producer/consumer
-  obligations, behavior, quality gates, and review all remain open.
+  an uncompiled recovery draft. Manifest dependency errors found by the
+  formatter were corrected and `just fmt` completed. Automatic merges,
+  producer/consumer obligations, behavior, quality gates, and review remain
+  open; the first compile is queued behind the current full lint run.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
-  commit `8b3da2e16be30895a7c65f8e31bd3c7614562096`: source-derived timing correction and
-  incomplete-evidence detection. Seven existing jitter tests passed on parent
+  commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
+  correction and incomplete-evidence detection. Seven existing jitter tests passed on parent
   `96a20906e7e8e78c61dde90260fa16ecc5e47020`; they do not cover the new
   missing-evidence behavior. The size refactor compiled and passed the Rust
   quality checker before its baseline reduction and unused-import cleanup.
-  At the current commit, `just fmt-check` passed and seven existing jitter
-  tests passed. Full lint is running. Behavioral verification of the new
-  missing-evidence cases and review remain open.
+  At parent `8b3da2e16be30895a7c65f8e31bd3c7614562096`, `just fmt-check`
+  and seven existing jitter tests passed. Full lint found a redundant borrow;
+  the current commit fixes it and a full lint rerun is running. Behavioral
+  verification of missing-evidence cases and review remain open.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
