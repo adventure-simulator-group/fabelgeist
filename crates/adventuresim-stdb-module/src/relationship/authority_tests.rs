@@ -73,3 +73,89 @@ pub fn authority_test_conception_chronology(
     }
     Ok(())
 }
+
+/// Exercise a capacity-rejected wedding through the chronological queue.
+#[reducer]
+pub fn authority_test_wedding_capacity_atomicity(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    const FIRST: u64 = 726_001;
+    const SECOND: u64 = 726_002;
+    const FATHER: u64 = 726_004;
+    const COMMITMENT: &str = "authority-joint-capacity-wedding";
+    const OLD_HOUSEHOLD: &str = "authority-joint-capacity-old-household";
+    const SETTLEMENT: &str = "authority-joint-capacity";
+    const DOWRY: u32 = 17;
+    let ceremony = StrategicMinute::new(100);
+    let now = crate::time::refresh_clock(ctx)?;
+    for character_id in [FIRST, SECOND, FATHER] {
+        crate::character::create_named_character_with_id(
+            ctx, character_id, format!("Wedding acceptance {character_id}"),
+        )?;
+        set_seeded_character_birth_from_age(ctx, character_id, 25);
+        let mut time = ctx.db.character_time().character_id().find(character_id)
+            .ok_or("Wedding acceptance clock missing")?;
+        time.minutes = now;
+        ctx.db.character_time().character_id().update(time);
+    }
+    ctx.db.household().insert(Household {
+        id: OLD_HOUSEHOLD.into(), home_settlement_id: SETTLEMENT.into(),
+        created_minute: StrategicMinute::ZERO,
+    });
+    for character_id in [FIRST, SECOND] {
+        join_household(ctx, OLD_HOUSEHOLD, character_id, StrategicMinute::ZERO, HouseholdRole::AdultChild);
+    }
+    crate::item::credit_personal_currency(ctx, FATHER, SETTLEMENT, DOWRY)?;
+    crate::item::consume_personal_currency(ctx, FATHER, u64::from(DOWRY))?;
+    let before_father = crate::item::personal_currency_total(ctx, FATHER);
+    let before_recipient = crate::item::personal_currency_total(ctx, SECOND);
+    ctx.db.courtship().insert(CourtshipRecord {
+        id: format!("courtship:{FIRST}:{SECOND}"),
+        first_character_id: FIRST,
+        second_character_id: SECOND,
+        kind: CourtshipKind::Formal,
+        status: CourtshipStatus::Active,
+        secrecy_reason: None,
+        approved_father_id: Some(FATHER),
+        planned_dowry_amount: DOWRY,
+        weaker_deception_baseline: 0.0,
+        started_minute: StrategicMinute::ZERO,
+        next_discovery_day: 0,
+        resolved_minute: None,
+        terminal_reason: None,
+    });
+    ctx.db.exclusive_commitment().insert(ExclusiveCommitment {
+        id: COMMITMENT.into(), first_character_id: FIRST, second_character_id: SECOND,
+        kind: CommitmentKind::Engagement, status: CommitmentStatus::Reserved,
+        ceremony_settlement_id: SETTLEMENT.into(), effective_minute: ceremony,
+        created_minute: StrategicMinute::ZERO, resolved_minute: None, terminal_reason: None,
+    });
+    for character_id in [FIRST, SECOND] {
+        ctx.db.exclusive_commitment_participant().insert(ExclusiveCommitmentParticipant {
+            character_id, commitment_id: COMMITMENT.into(),
+        });
+    }
+    ctx.db.dowry_escrow().insert(DowryEscrow {
+        commitment_id: COMMITMENT.into(), father_id: FATHER, amount: DOWRY,
+        reserved_minute: StrategicMinute::ZERO,
+    });
+    settle_due_lifecycle_events_global(ctx, now, usize::MAX)?;
+    let commitment = ctx.db.exclusive_commitment().id().find(COMMITMENT.to_owned())
+        .ok_or("Wedding acceptance commitment missing")?;
+    if commitment.status != CommitmentStatus::Cancelled
+        || commitment.terminal_reason != Some(CommitmentTerminalReason::ResidenceUnavailable)
+        || ctx.db.dowry_escrow().commitment_id().find(COMMITMENT.to_owned()).is_some()
+        || crate::item::personal_currency_total(ctx, FATHER) != before_father + u64::from(DOWRY)
+        || crate::item::personal_currency_total(ctx, SECOND) != before_recipient
+        || ctx.db.marriage().id().find(format!("marriage:{COMMITMENT}")).is_some()
+        || [FIRST, SECOND].into_iter().any(|character_id| {
+            ctx.db.household_member().character_id().find(character_id)
+                .is_none_or(|member| member.household_id != OLD_HOUSEHOLD)
+        })
+    {
+        return Err("Rejected wedding changed household or mishandled escrow".into());
+    }
+    Ok(())
+}

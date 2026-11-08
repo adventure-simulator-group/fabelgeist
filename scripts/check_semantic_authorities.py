@@ -217,6 +217,7 @@ def run(profile: str, base_port: int) -> None:
             resident_checks(client)
             client.fixture("authority_test_context_intervals")
             client.fixture("authority_test_joint_residence_capacity")
+            client.fixture("authority_test_wedding_capacity_atomicity")
             print("PASS context intervals, historical membership, idempotent closure", flush=True)
             client.fixture("authority_test_conception_chronology")
             print("PASS conception birth/death chronology and stale display projections", flush=True)
