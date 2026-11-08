@@ -13,7 +13,7 @@ pub(super) fn restore_repair_object(
             matches!(
                 &object.location,
                 InventoryLocation::Repair(location)
-                    if location.row_id == order.inventory_item_id
+                    if location.row_id.get() == order.inventory_item_id
             )
         })
         .collect::<Vec<_>>();
@@ -29,7 +29,12 @@ pub(super) fn restore_repair_object(
         if !correct_escrow || object.item_id != order.item_id {
             return Err("Repair escrow physical object does not match its order".into());
         }
-        object.location = InventoryLocation::personal(character_id, order.inventory_item_id);
+        object.location = InventoryLocation::personal(
+            character_id,
+            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
+                order.inventory_item_id,
+            ),
+        );
         ctx.db.inventory_object().id().update(object);
     }
     Ok(())

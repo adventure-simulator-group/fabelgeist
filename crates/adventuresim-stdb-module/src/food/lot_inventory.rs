@@ -1,4 +1,3 @@
-
 // Owns food-lot creation, splitting, transfer, and contamination provenance.
 fn current_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute {
     ctx.db
@@ -23,7 +22,10 @@ fn ensure_food_material_object(
                 .ok_or("Food inventory row is missing")?;
             (
                 row.item_id,
-                InventoryLocation::personal(row.character_id, row.id),
+                InventoryLocation::personal(
+                    row.character_id,
+                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
+                ),
                 row.quantity,
             )
         }
@@ -36,7 +38,10 @@ fn ensure_food_material_object(
                 .ok_or("Party food inventory row is missing")?;
             (
                 row.item_id,
-                InventoryLocation::party(row.party_id, row.id),
+                InventoryLocation::party(
+                    row.party_id,
+                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(row.id),
+                ),
                 row.quantity,
             )
         }
@@ -94,7 +99,12 @@ pub fn create_personal_food_lot(
     ctx.db.food_contamination().insert(FoodContamination {
         food_lot_id: lot.id,
         concentration_anchor: food::deterministic_initial_contamination(
-            fabelgeist_determinism::StreamId::new("food.lot-consumption").rng(ctx.random::<fabelgeist_determinism::Seed>(), &[lot.id, character_id]).next_seed(),
+            fabelgeist_determinism::StreamId::new("food.lot-consumption")
+                .rng(
+                    ctx.random::<fabelgeist_determinism::Seed>(),
+                    &[lot.id, character_id],
+                )
+                .next_seed(),
         ),
         growth_per_hour: definition.growth_per_hour,
         anchor_minute: minute,
@@ -138,7 +148,9 @@ pub fn create_party_food_lot(
     ctx.db.food_contamination().insert(FoodContamination {
         food_lot_id: lot.id,
         concentration_anchor: food::deterministic_initial_contamination(
-            fabelgeist_determinism::StreamId::new("food.lot-update").rng(ctx.random::<fabelgeist_determinism::Seed>(), &[lot.id]).next_seed(),
+            fabelgeist_determinism::StreamId::new("food.lot-update")
+                .rng(ctx.random::<fabelgeist_determinism::Seed>(), &[lot.id])
+                .next_seed(),
         ),
         growth_per_hour: definition.growth_per_hour,
         anchor_minute: minute,

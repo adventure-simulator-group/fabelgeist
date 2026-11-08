@@ -283,6 +283,12 @@ fn same_backing_row(
         (InventoryLocation::Repair(left), InventoryLocation::Repair(right)) => {
             left.row_id == right.row_id
         }
+        (InventoryLocation::Personal(left), InventoryLocation::Repair(right)) => {
+            left.row_id == right.row_id
+        }
+        (InventoryLocation::Repair(left), InventoryLocation::Personal(right)) => {
+            left.row_id == right.row_id
+        }
         (InventoryLocation::Fireplace(_), InventoryLocation::Fireplace(_)) => false,
         _ => false,
     }
@@ -494,8 +500,19 @@ mod tests {
 
     #[test]
     fn backing_alias_multiplicity_fails_closed() {
+        use adventuresim_core::physical_object::{
+            InventoryLocation, PartyInventoryRowId, PersonalInventoryRowId,
+        };
+
         assert!(require_exactly_one_backing_alias(0).is_err());
         assert_eq!(require_exactly_one_backing_alias(1), Ok(()));
         assert!(require_exactly_one_backing_alias(2).is_err());
+        let personal_id = PersonalInventoryRowId::from_raw(17);
+        let personal = InventoryLocation::personal(7, personal_id);
+        let repair = InventoryLocation::repair("lubeck", personal_id);
+        let party = InventoryLocation::party("party", PartyInventoryRowId::from_raw(17));
+        assert!(same_backing_row(&personal, &repair));
+        assert!(same_backing_row(&repair, &personal));
+        assert!(!same_backing_row(&personal, &party));
     }
 }

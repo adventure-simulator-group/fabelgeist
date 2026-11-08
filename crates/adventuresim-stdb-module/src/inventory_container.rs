@@ -10,7 +10,7 @@ use adventuresim_core::{
     material::{Microliters, Milliliters},
     physical_object::{
         CarriedInventoryRowId, CarriedInventoryScope, InventoryLocation, OperationalCustody,
-        PhysicalObjectId,
+        PersonalInventoryRowId, PhysicalObjectId,
     },
 };
 use spacetimedb::{ReducerContext, Table, reducer, table};
@@ -103,7 +103,10 @@ pub(crate) fn insert_personal_object(
     insert_carried_object(
         ctx,
         &row.item_id,
-        InventoryLocation::personal(row.character_id, row.id),
+        InventoryLocation::personal(
+            row.character_id,
+            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
+        ),
     )
 }
 
@@ -117,7 +120,10 @@ pub(crate) fn insert_party_object(
     insert_carried_object(
         ctx,
         &row.item_id,
-        InventoryLocation::party(row.party_id.clone(), row.id),
+        InventoryLocation::party(
+            row.party_id.clone(),
+            adventuresim_core::physical_object::PartyInventoryRowId::from_raw(row.id),
+        ),
     )
 }
 
@@ -205,7 +211,7 @@ pub(crate) fn delete_carried_object_for_row(
 /// children.
 pub(crate) fn delete_repair_object_for_row(
     ctx: &ReducerContext,
-    row_id: u64,
+    row_id: PersonalInventoryRowId,
 ) -> Result<bool, String> {
     let matches = ctx
         .db
@@ -354,20 +360,16 @@ pub(crate) fn prevalidate_rehome_subtree(
 
 pub(crate) fn carried_location_for_row(
     destination: &OperationalCustody,
-    row_id: u64,
+    row_id: CarriedInventoryRowId,
 ) -> Result<InventoryLocation, String> {
-    match destination {
-        OperationalCustody::Character(character_id) => {
+    match (destination, row_id) {
+        (OperationalCustody::Character(character_id), CarriedInventoryRowId::Personal(row_id)) => {
             Ok(InventoryLocation::personal(character_id.get(), row_id))
         }
-        OperationalCustody::Party(party_id) => {
+        (OperationalCustody::Party(party_id), CarriedInventoryRowId::Party(row_id)) => {
             Ok(InventoryLocation::party(party_id.as_str(), row_id))
         }
-        OperationalCustody::Container(_)
-        | OperationalCustody::Place(_)
-        | OperationalCustody::Fixture(_) => {
-            Err("Inventory row destination must be a character or party".into())
-        }
+        _ => Err("Inventory row destination does not match its carried inventory".into()),
     }
 }
 
@@ -397,7 +399,7 @@ pub(crate) fn rehome_subtree(
                     .db
                     .inventory_item()
                     .id()
-                    .find(row_id)
+                    .find(row_id.get())
                     .ok_or("Inventory subtree row is missing")?;
                 row.character_id = character_id.get();
                 ctx.db.inventory_item().id().update(row);
@@ -409,7 +411,7 @@ pub(crate) fn rehome_subtree(
                     .db
                     .party_inventory_item()
                     .id()
-                    .find(row_id)
+                    .find(row_id.get())
                     .ok_or("Party inventory subtree row is missing")?;
                 row.party_id = party_id.as_str().into();
                 ctx.db.party_inventory_item().id().update(row);
@@ -462,7 +464,12 @@ pub(crate) fn rehome_subtree(
                         });
                 }
                 ctx.db.inventory_item().id().delete(source.id);
-                object.location = InventoryLocation::party(party_id.as_str(), destination_row.id);
+                object.location = InventoryLocation::party(
+                    party_id.as_str(),
+                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
+                        destination_row.id,
+                    ),
+                );
             }
             (InventoryLocation::Party(location), OperationalCustody::Character(character_id)) => {
                 let source = ctx
@@ -518,8 +525,12 @@ pub(crate) fn rehome_subtree(
                         });
                 }
                 ctx.db.party_inventory_item().id().delete(source.id);
-                object.location =
-                    InventoryLocation::personal(character_id.get(), destination_row.id);
+                object.location = InventoryLocation::personal(
+                    character_id.get(),
+                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
+                        destination_row.id,
+                    ),
+                );
             }
             _ => return Err("Inventory subtree has an unsupported location transition".into()),
         }

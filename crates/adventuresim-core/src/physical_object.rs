@@ -76,23 +76,6 @@ impl PartyInventoryRowId {
     }
 }
 
-/// A row in the repair inventory table.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
-pub struct RepairInventoryRowId {
-    value: u64,
-}
-
-impl RepairInventoryRowId {
-    pub const fn from_raw(value: u64) -> Self {
-        Self { value }
-    }
-
-    pub const fn get(self) -> u64 {
-        self.value
-    }
-}
-
 /// A row in one of the two carried inventories.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum CarriedInventoryRowId {
@@ -130,7 +113,7 @@ pub struct FireplaceInventoryLocation {
 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
 pub struct RepairInventoryLocation {
     pub settlement_id: String,
-    pub row_id: RepairInventoryRowId,
+    pub row_id: PersonalInventoryRowId,
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -163,7 +146,7 @@ impl InventoryLocation {
         })
     }
 
-    pub fn repair(settlement_id: impl Into<String>, row_id: RepairInventoryRowId) -> Self {
+    pub fn repair(settlement_id: impl Into<String>, row_id: PersonalInventoryRowId) -> Self {
         Self::Repair(RepairInventoryLocation {
             settlement_id: settlement_id.into(),
             row_id,
@@ -411,7 +394,7 @@ mod tests {
         let personal = InventoryLocation::personal(7, personal_id);
         let party = InventoryLocation::party("party-red", party_id);
         let fireplace = InventoryLocation::fireplace("fireplace|settlement|lubeck");
-        let repair = InventoryLocation::repair("lubeck", RepairInventoryRowId::from_raw(13));
+        let repair = InventoryLocation::repair("lubeck", PersonalInventoryRowId::from_raw(13));
 
         assert_eq!(personal.scope(), Some(CarriedInventoryScope::Personal));
         assert_eq!(

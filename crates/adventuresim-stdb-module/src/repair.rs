@@ -228,7 +228,10 @@ fn submit(
         ),
     )? {
         crate::inventory_container::detach_if_nested(ctx, object.id)?;
-        object.location = InventoryLocation::repair(settlement_id, inventory_item_id);
+        object.location = InventoryLocation::repair(
+            settlement_id,
+            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_item_id),
+        );
         ctx.db.inventory_object().id().update(object);
     } else {
         crate::inventory_container::reconcile_consumed_row(

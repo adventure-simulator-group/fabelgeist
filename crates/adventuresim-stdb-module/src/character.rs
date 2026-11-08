@@ -976,7 +976,12 @@ fn delete_character_data(
         .filter(character.id)
         .collect::<Vec<_>>()
     {
-        crate::inventory_container::delete_repair_object_for_row(ctx, order.inventory_item_id)?;
+        crate::inventory_container::delete_repair_object_for_row(
+            ctx,
+            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
+                order.inventory_item_id,
+            ),
+        )?;
         if ctx
             .db
             .item_condition()
