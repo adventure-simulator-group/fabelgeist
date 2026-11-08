@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:57:27.738397+00:00
+Updated: 2026-11-08T11:02:14.846033+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -108,7 +108,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `aaf0a66c7` (quality and fixture repairs after `623d52a`): the unfinished
+  commit `1c0f6299b` (quality and fixture repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -204,7 +204,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   been rerun since these changes. Mission replay and visibility admission were
   separated, clearing two findings; the authority-feature module compiles at
   the current commit. An adapted source guard remains unrun: Cargo reported
-  that this package has no `--tests` target. Mission host and recruitment
+  that the initial `--tests` selection had no target. Explicit `--lib`
+  selection compiled but could not link SpacetimeDB host functions. A direct
+  audit found and corrected a stale entropy assertion; its revised source
+  assertions pass in that audit and the test compiles under Clippy. The native
+  test itself remains unrun. Mission host and recruitment
   setup were separated, clearing three findings; the authority-feature module
   compiled at `5f6e076a3`; their behavior has not been rerun. Trade and
   party-disband checks were simplified, clearing four findings. The
@@ -242,7 +246,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   the module build passed and all nine selected local records postdate the
   rebuild with none naming the wedding worktree. A guarded authority rerun is
   passed on a disposable local profile at the current commit, including
-  wedding, investigation retry, puzzle, mission, and outbreak checks. Repair,
+  wedding, investigation retry, puzzle, mission, and outbreak checks at
+  parent `aaf0a66c7`. Repair,
   dialogue, and development-fixture behavior remain to be verified.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
