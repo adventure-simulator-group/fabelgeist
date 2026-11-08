@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:30:20.158854+00:00
+Updated: 2026-11-08T06:33:12.226666+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -54,13 +54,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   validation remain open.
 
 - [Repeated animation sample tick](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-repeat-sample-tick)
-  commit `1dca6e68776aeb4e0ba8f2d38513cf4f50cfcccd`: a draft for the P17
-  repeated-view contract. It records and compares the authoritative locomotion
-  sample tick and includes it in mismatch diagnostics. Source tracing confirms
-  capture drives a frame once before comparing subsequent views. Terrain-run
-  contact validation retains `LeadFoot`; clearance measurement uses named contact
-  and flight roles in an extracted module. Formatting and checks are queued
-  behind combined lint; runtime behavior and review remain unverified.
+  commit `c87e2b54a6af6a9f2e0dc0ecd37d055ec90fe3e6`: an unverified P17
+  draft retains the sample tick and `LeadFoot` in repeated-view and support
+  checks. A clearance extraction was reverted after review found that preserved
+  P17 commit `90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696` already owns typed
+  clearance and missing-observation handling. That larger preserved change and
+  the two draft fixes still require reconciliation and validation.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
