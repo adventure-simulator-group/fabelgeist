@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:46:11.834883+00:00
+Updated: 2026-11-08T13:48:35.958339+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -39,12 +39,13 @@ Updated: 2026-11-08T13:46:11.834883+00:00
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
 | Report tests on local jitter draft | 26 / 26 passed |
-| P17 jitter observation distinction | Drafted locally |
+| P17 jitter observation distinction | Committed draft |
 | Ragdoll jitter observation in actual viewer manifest | 1 / 1 correct |
 | Ragdoll viewer acceptance | Failed |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
-| Extracted draft report and jitter tests | Running |
+| Extracted draft report tests | 26 / 26 passed |
+| Extracted draft jitter tests | 7 / 7 passed |
 | Previous draft native capture and attack excursion | Passed |
 | Revised draft native capture and attack excursion | Passed |
 | One-seed melee report matchups completed | 5 / 5 |
@@ -134,10 +135,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   remain open.
   Source inspection found that empty jitter frames report complete diagnostics:
   this can mean absent samples or an intentionally excluded ragdoll-only
-  capture. A local, uncommitted draft uses the report observation type to
+  capture. Commit `ab1f7568a` uses the report observation type to
   distinguish unavailable evidence, measured diagnostics and ragdoll-only
   non-applicability. It requires a derivative window before claiming complete
-  diagnostics. The local draft now checks each contiguous scenario, preventing
+  diagnostics. The draft checks each contiguous scenario, preventing
   one scenario from masking another with no complete window. An adapted
   existing focused fixture passed for a complete scenario followed by a short
   one. Seven jitter and 26 report tests passed on the previous draft;
@@ -148,8 +149,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   was changed. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
   acceptance were extracted to a focused module; formatting and full lint
-  passed without raising the ceilings. Existing report and jitter tests are
-  rerunning after the extraction. The native diagnostic
+  passed without raising the ceilings. After extraction, all 26 existing
+  report tests and all seven existing jitter tests passed. The native diagnostic
   captured successfully in 859.9 seconds; its compact attack analyzer passed
   with 12 attack frames and a maximum forward hand excursion of 0.472 m,
   exceeding the 0.05 m minimum. This checks the native attack, not the viewer's
@@ -160,7 +161,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   against the 0.05 m minimum. This does not exercise viewer jitter output.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `7e169b976`: the 159-path snapshot is restored, with three textual
+  commit `ab1f7568a`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
