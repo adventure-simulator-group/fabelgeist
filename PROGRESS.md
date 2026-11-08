@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:10:23.748202+00:00
+Updated: 2026-11-08T11:13:12.446960+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -21,6 +21,7 @@ Updated: 2026-11-08T11:10:23.748202+00:00
 | Existing melee iteration tests passed | 9 / 9 |
 | Tactical server ingress tests passed, including range matrix | 9 / 9 |
 | Tactical server player-projection tests passed | 33 / 33 |
+| Tactical server bot tests passed | 13 / 13 |
 
 The quality counts are findings from the latest scan, not a count of defects
 or independent work items. The quality scan and WebAssembly client Clippy
@@ -110,7 +111,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `1c0f6299b` (quality and fixture repairs after `623d52a`): the unfinished
+  commit `e9c405a77` (quality and fixture repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -255,7 +256,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   selected local records postdate the validation sequence and none names the
   wedding worktree. All nine existing tactical ingress tests passed using the
   same fingerprint-checked server test binary. All 33 existing player-
-  projection tests also passed using that binary.
+  projection tests also passed using that binary. The bot suite initially
+  failed two tests because their attackers lacked required Player components;
+  after fixing those existing fixtures, all 13 bot tests passed. No production
+  reaction logic changed.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
