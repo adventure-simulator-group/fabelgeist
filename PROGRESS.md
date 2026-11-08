@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:31:26.913217+00:00
+Updated: 2026-11-08T23:34:56.269175+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T23:31:26.913217+00:00
 | Food conservation and event packets | 9 adopted | 2 scoped discoveries closed; conditional validation open |
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
-| Corpse-pathology source packets | 1 adopted | Discovery, native reachability and policy open |
+| Corpse-pathology source packets | 2 adopted | Discovery, native reachability and policy open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -52,6 +52,12 @@ Whether ordinary supported encounters lose wound evidence remains unverified.
 The related combat obligation stays independent. Numeric admission and other
 native writers remain open. No source-discovery closure or runtime pass is
 claimed for this entry.
+
+Checkpoint 3781 traced fresh field-character injury initialization. Blank
+injury rows are copied to corpse evidence, and the surgery reader can select a
+zero-damage row. A player-visible finding depends on combat state, access and
+examination quality; the source trace does not establish native execution.
+The pathology entry remains open, with no new source-discovery closure.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
