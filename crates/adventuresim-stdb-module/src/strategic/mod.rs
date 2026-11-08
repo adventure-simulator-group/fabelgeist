@@ -46,6 +46,7 @@ pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("dialogue_provenance.rs"),
     include_str!("dialogue_bindings.rs"),
     include_str!("dialogue_prompts.rs"),
+    include_str!("dialogue_topics.rs"),
     include_str!("dialogue_effects.rs"),
     include_str!("governance.rs"),
     include_str!("inventory_trade.rs"),
@@ -75,6 +76,7 @@ include!("dialogue_sessions.rs");
 include!("dialogue_provenance.rs");
 include!("dialogue_bindings.rs");
 include!("dialogue_prompts.rs");
+include!("dialogue_topics.rs");
 include!("dialogue_effects.rs");
 include!("governance.rs");
 include!("inventory_trade.rs");
