@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:03:26.439045+00:00
+Updated: 2026-11-08T14:05:36.671798+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -45,6 +45,7 @@ Updated: 2026-11-08T14:03:26.439045+00:00
 | First ragdoll physics-pause candidate | Failed |
 | Removed candidate repeated-view check | Passed |
 | Removed candidate ragdoll continuity gate | Failed |
+| Coordinated fixed-step ragdoll viewer run | Running |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -166,8 +167,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   branch is clean; a coordinated fixed-step capture repair remains open.
   Bevy offers a fixed-timestep update strategy that may coordinate fixed
   systems, but screenshot timing, settling and clock ownership require
-  verification before using it. Terrain correction runs outside the physics
-  schedule; its causal role
+  verification before using it. A new local candidate now controls the viewer
+  time strategy around ragdoll views and requests one fixed update for each
+  subsequent sample; its ragdoll viewer check is running. Terrain correction
+  runs outside the physics schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
   acceptance were extracted to a focused module; formatting and full lint
