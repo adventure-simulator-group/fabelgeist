@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:37:29.312287+00:00
+Updated: 2026-11-08T11:39:47.475422+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -30,6 +30,8 @@ Updated: 2026-11-08T11:37:29.312287+00:00
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
 | Reproduced failing seed after repair | 1 / 1 completed |
+| Nearby autoresolve traces checked against aggregates | 100 / 100 |
+| Nearby batch top-level audit flags true | 10 / 11 |
 | Full-scale autoresolve traces completed before failure | 467 / 1,000 |
 
 The quality counts describe the latest scan, not a count of defects. At P16
@@ -134,7 +136,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   The repair counts unavailable recovery separately and computes the mean
   only from available intervals, with no mean when none exist. Seed 468 now
   completes: its 11 available and one unavailable samples match the trace,
-  as does the mean. The 3 GB bulk trace from the failed run was removed
+  as does the mean. In a 20-seed batch across five matchups, all 100 trace
+  aggregates matched; knife novice seed 465 timed out at 256 rounds, so
+  10 of 11 audit flags passed. An existing core fixture permits this bounded
+  timeout while the report demands none; its cause remains to be assessed. The 3 GB bulk trace from the failed run was removed
   after recording its size and record count. Full-scale rerun remains open.
   A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
   extractions and baseline reductions. At parent `aaf0a66c7`, formatting,
