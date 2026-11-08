@@ -3,12 +3,14 @@ use super::{
     PendingTerrainPresentation, VistaTerrain,
     ground_scatter::{GroundScatterPresented, InstancedGrassPresented},
     obstacles::tree::PendingTreePresentation,
+    terrain::TerrainPresentationFailure,
 };
 use adventuresim_tactical_core::prelude::SceneTerrain;
 use bevy::{ecs::system::SystemParam, prelude::*};
 
 type ScenePresentationState = (
     Has<PendingTerrainPresentation>,
+    Has<TerrainPresentationFailure>,
     Has<GroundScatterPresented>,
     Has<InstancedGrassPresented>,
 );
@@ -39,9 +41,9 @@ impl SceneReadiness<'_, '_> {
             vista_presented: !self.vista.is_empty(),
             ..default()
         };
-        for (terrain_pending, scatter, grass) in &self.scenes {
+        for (terrain_pending, terrain_failed, scatter, grass) in &self.scenes {
             counts.scenes += 1;
-            counts.terrain_presented += usize::from(!terrain_pending);
+            counts.terrain_presented += usize::from(!terrain_pending && !terrain_failed);
             counts.ground_layers_presented += usize::from(scatter) + usize::from(grass);
         }
         counts
