@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T20:34:02.081288+00:00
+Updated: 2026-11-08T20:43:57.977310+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -16,7 +16,8 @@ Updated: 2026-11-08T20:34:02.081288+00:00
 | Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
 | Discard scenarios exercised | 2 / 2 | Corrupt rows and liquidation open |
 | Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
-| Currency debit paths live tested | 1 / 3 | 2 |
+| Currency debit paths live tested | 3 / 3 | Broader cases open |
+| Corrupt party condition rejection | 1 / 1 | Other corrupt backing cases open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -144,7 +145,16 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `29d66f56a`.
+The inventory row-identity migration is a draft at P16 `f61abf752`.
+A bootstrap-protected authority-feature fixture exercised normal party currency
+consumption and party-to-personal transfer. It also placed unexpected condition
+state on the second of two party stacks and verified that both operations
+rejected it before partially debiting either stack or crediting the recipient.
+The isolated run passed before a module-order-only formatting correction;
+`just fmt-check` and full `just lint` passed after that correction. Other
+corrupt backing forms, broader currency cases, and independent review are open.
+
+At parent `29d66f56a`,
 A guarded isolated withdrawal exhausted the leader's stake, then withdrew a
 bottle and its contents using a personal-currency top-up. Personal and party
 coin changes matched, exercising one of the three newly guarded debit paths.
