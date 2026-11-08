@@ -2,12 +2,12 @@
 
 use super::*;
 use acceptance_limits::*;
-use body_response_validation::*;
 use biomechanics_validation::*;
-use continuity_validation::*;
+use body_response_validation::*;
 pub(super) use bones::{
     CapturedBones, REPORT_BONES, parent_bone, report_bone_label, serialize_report_bone,
 };
+use continuity_validation::*;
 use height_validation::*;
 use html::*;
 use landing_validation::*;
@@ -17,10 +17,10 @@ pub(super) use observation::*;
 use validation::*;
 
 mod acceptance_limits;
-mod body_response_validation;
 mod biomechanics_validation;
-mod continuity_validation;
+mod body_response_validation;
 mod bones;
+mod continuity_validation;
 mod height_validation;
 mod html;
 mod landing_validation;
@@ -183,13 +183,18 @@ mod tests {
             body_acceleration: Vec3::ZERO.to_array(),
             world_acceleration: Vec3::ZERO.to_array(),
             bouncy_active_springs: 0,
-            bouncy_maximum_deflection_radians: adventuresim_building_generator::spatial_geometry::Radians::ZERO,
+            bouncy_maximum_deflection_radians:
+                adventuresim_building_generator::spatial_geometry::Radians::ZERO,
             contact_sequence: ContactSequence::ZERO,
             contact_foot: LeadFoot::Left,
             landing_sequence: adventuresim_tactical_core::animation::LandingSequence::ZERO,
             landing_impact_speed: LandingImpactSpeed::ZERO,
-            body_lean_pitch_degrees: Some(adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO),
-            body_lean_roll_degrees: Some(adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO),
+            body_lean_pitch_degrees: Some(
+                adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO,
+            ),
+            body_lean_roll_degrees: Some(
+                adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO,
+            ),
             landing_compression_metres: Some(HeightDistance::ZERO),
             root_distance_metres: fabelgeist_geometry::SignedLength::ZERO,
             root_position_metres: Vec3::ZERO.to_array(),
@@ -222,8 +227,12 @@ mod tests {
             ik_left_release_target: None,
             ik_right_release_target: None,
             ik_settle_progress: None,
-            ik_left_knee_foot_yaw_offset_degrees: Some(adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO),
-            ik_right_knee_foot_yaw_offset_degrees: Some(adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO),
+            ik_left_knee_foot_yaw_offset_degrees: Some(
+                adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO,
+            ),
+            ik_right_knee_foot_yaw_offset_degrees: Some(
+                adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO,
+            ),
             semantic_route_requested_path: SemanticRoutePath::GeneralPose,
             semantic_route_selected_path: SemanticRoutePath::GeneralPose,
             semantic_route_runtime_evaluated: false,

@@ -9,9 +9,11 @@ pub(super) fn supported_foot_slip(
     after: &FrameSample,
 ) -> AnimationValueResult<Observation<NonnegativeLength>> {
     let mut maximum_slip: Option<NonnegativeLength> = None;
-    let body_turn = AngularMagnitudeDegrees::from_degrees(Quat::from_array(before.body_rotation_xyzw)
-        .angle_between(Quat::from_array(after.body_rotation_xyzw))
-        .to_degrees())?;
+    let body_turn = AngularMagnitudeDegrees::from_degrees(
+        Quat::from_array(before.body_rotation_xyzw)
+            .angle_between(Quat::from_array(after.body_rotation_xyzw))
+            .to_degrees(),
+    )?;
     for (foot, support) in [
         (
             BoneRole::FootLeft,
@@ -37,9 +39,13 @@ pub(super) fn supported_foot_slip(
             continue;
         }
         let Some((a, b)) = before.bones.get(foot).zip(after.bones.get(foot)) else {
-            return Ok(Observation::Unavailable(UnavailableReason::MissingBone { bone: foot }));
+            return Ok(Observation::Unavailable(UnavailableReason::MissingBone {
+                bone: foot,
+            }));
         };
-        let distance = (Vec3::from_array(b.position) - Vec3::from_array(a.position)).xz().length();
+        let distance = (Vec3::from_array(b.position) - Vec3::from_array(a.position))
+            .xz()
+            .length();
         let distance = NonnegativeLength::from_arithmetic(distance)?;
         maximum_slip = Some(maximum_slip.map_or(distance, |maximum| maximum.max(distance)));
     }

@@ -4,7 +4,9 @@ use super::*;
 use adventuresim_tactical_core::animation::AngularMagnitudeDegrees;
 
 impl ScenarioFacingMetrics {
-    pub(in crate::animation_viewer::report) fn measure(frames: &[&FrameSample]) -> AnimationValueResult<Self> {
+    pub(in crate::animation_viewer::report) fn measure(
+        frames: &[&FrameSample],
+    ) -> AnimationValueResult<Self> {
         Ok(Self {
             maximum_facing_motion_error_degrees: maximum_facing_error(frames)?,
             maximum_facing_tracking_excess_degrees: maximum_facing_tracking_excess(frames)?,
@@ -15,7 +17,9 @@ impl ScenarioFacingMetrics {
     }
 }
 
-pub(in crate::animation_viewer::report) fn maximum_facing_error(frames: &[&FrameSample]) -> AnimationValueResult<Observation<AngularMagnitudeDegrees>> {
+pub(in crate::animation_viewer::report) fn maximum_facing_error(
+    frames: &[&FrameSample],
+) -> AnimationValueResult<Observation<AngularMagnitudeDegrees>> {
     if frames.is_empty() {
         return Ok(Observation::Unavailable(UnavailableReason::NoFrames));
     }
@@ -31,12 +35,18 @@ pub(in crate::animation_viewer::report) fn maximum_facing_error(frames: &[&Frame
         })
         .map(AngularMagnitudeDegrees::from_degrees)
         .collect::<AnimationValueResult<Vec<_>>>()?;
-    if maximum.is_empty() { return Ok(Observation::NotApplicable); }
-    let maximum = maximum.into_iter().fold(AngularMagnitudeDegrees::ZERO, AngularMagnitudeDegrees::max);
+    if maximum.is_empty() {
+        return Ok(Observation::NotApplicable);
+    }
+    let maximum = maximum
+        .into_iter()
+        .fold(AngularMagnitudeDegrees::ZERO, AngularMagnitudeDegrees::max);
     Ok(Observation::Measured(maximum))
 }
 
-pub(in crate::animation_viewer::report) fn maximum_facing_tracking_excess(frames: &[&FrameSample]) -> AnimationValueResult<Observation<AngularMagnitudeDegrees>> {
+pub(in crate::animation_viewer::report) fn maximum_facing_tracking_excess(
+    frames: &[&FrameSample],
+) -> AnimationValueResult<Observation<AngularMagnitudeDegrees>> {
     if frames.is_empty() {
         return Ok(Observation::Unavailable(UnavailableReason::NoFrames));
     }
@@ -57,12 +67,18 @@ pub(in crate::animation_viewer::report) fn maximum_facing_tracking_excess(frames
         })
         .map(AngularMagnitudeDegrees::from_degrees)
         .collect::<AnimationValueResult<Vec<_>>>()?;
-    if maximum.is_empty() { return Ok(Observation::NotApplicable); }
-    let maximum = maximum.into_iter().fold(AngularMagnitudeDegrees::ZERO, AngularMagnitudeDegrees::max);
+    if maximum.is_empty() {
+        return Ok(Observation::NotApplicable);
+    }
+    let maximum = maximum
+        .into_iter()
+        .fold(AngularMagnitudeDegrees::ZERO, AngularMagnitudeDegrees::max);
     Ok(Observation::Measured(maximum))
 }
 
-pub(in crate::animation_viewer::report) fn maximum_guard_facing_error(frames: &[&FrameSample]) -> AnimationValueResult<Observation<AngularMagnitudeDegrees>> {
+pub(in crate::animation_viewer::report) fn maximum_guard_facing_error(
+    frames: &[&FrameSample],
+) -> AnimationValueResult<Observation<AngularMagnitudeDegrees>> {
     if frames.is_empty() {
         return Ok(Observation::Unavailable(UnavailableReason::NoFrames));
     }
@@ -80,12 +96,18 @@ pub(in crate::animation_viewer::report) fn maximum_guard_facing_error(frames: &[
         })
         .map(AngularMagnitudeDegrees::from_degrees)
         .collect::<AnimationValueResult<Vec<_>>>()?;
-    if maximum.is_empty() { return Ok(Observation::NotApplicable); }
-    let maximum = maximum.into_iter().fold(AngularMagnitudeDegrees::ZERO, AngularMagnitudeDegrees::max);
+    if maximum.is_empty() {
+        return Ok(Observation::NotApplicable);
+    }
+    let maximum = maximum
+        .into_iter()
+        .fold(AngularMagnitudeDegrees::ZERO, AngularMagnitudeDegrees::max);
     Ok(Observation::Measured(maximum))
 }
 
-pub(in crate::animation_viewer::report) fn final_facing_error(frames: &[&FrameSample]) -> AnimationValueResult<Observation<AngularMagnitudeDegrees>> {
+pub(in crate::animation_viewer::report) fn final_facing_error(
+    frames: &[&FrameSample],
+) -> AnimationValueResult<Observation<AngularMagnitudeDegrees>> {
     if frames.is_empty() {
         return Ok(Observation::Unavailable(UnavailableReason::NoFrames));
     }
@@ -103,7 +125,9 @@ pub(in crate::animation_viewer::report) fn final_facing_error(frames: &[&FrameSa
     let Some(measurement) = measurement else {
         return Ok(Observation::NotApplicable);
     };
-    Ok(Observation::Measured(AngularMagnitudeDegrees::from_degrees(measurement)?))
+    Ok(Observation::Measured(
+        AngularMagnitudeDegrees::from_degrees(measurement)?,
+    ))
 }
 
 pub(in crate::animation_viewer::report) fn maximum_dive_axis_motion_error(
@@ -114,13 +138,20 @@ pub(in crate::animation_viewer::report) fn maximum_dive_axis_motion_error(
     }
     let mut applicable = false;
     let mut maximum: Option<AngularMagnitudeDegrees> = None;
-    for frame in frames.iter().filter(|frame| frame.scenario.has(ScenarioFeature::Dive)) {
+    for frame in frames
+        .iter()
+        .filter(|frame| frame.scenario.has(ScenarioFeature::Dive))
+    {
         applicable = true;
         let Some(head) = frame.bones.get(BoneRole::Head) else {
-            return Ok(Observation::Unavailable(UnavailableReason::MissingBone { bone: BoneRole::Head }));
+            return Ok(Observation::Unavailable(UnavailableReason::MissingBone {
+                bone: BoneRole::Head,
+            }));
         };
         let Some(pelvis) = frame.bones.get(BoneRole::Pelvis) else {
-            return Ok(Observation::Unavailable(UnavailableReason::MissingBone { bone: BoneRole::Pelvis }));
+            return Ok(Observation::Unavailable(UnavailableReason::MissingBone {
+                bone: BoneRole::Pelvis,
+            }));
         };
         let head = Vec3::from_array(head.position);
         let pelvis = Vec3::from_array(pelvis.position);
@@ -140,7 +171,9 @@ pub(in crate::animation_viewer::report) fn maximum_dive_axis_motion_error(
         return Ok(Observation::NotApplicable);
     }
     let Some(maximum) = maximum else {
-        return Ok(Observation::Unavailable(UnavailableReason::NoStableDiveAxis));
+        return Ok(Observation::Unavailable(
+            UnavailableReason::NoStableDiveAxis,
+        ));
     };
     Ok(Observation::Measured(maximum))
 }

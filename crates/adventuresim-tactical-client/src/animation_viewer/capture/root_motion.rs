@@ -4,11 +4,11 @@ use super::*;
 use adventuresim_building_generator::spatial_geometry::{
     CoordinateAxis, GeometryError, GeometryRole, Position,
 };
-use fabelgeist_geometry::{GeometryResult, SignedLength};
 use adventuresim_tactical_core::{
     city_layout::grounding::SupportElevation,
     scene_coordinates::{Scene, ScenePlanPoint},
 };
+use fabelgeist_geometry::{GeometryResult, SignedLength};
 
 #[derive(Clone, Copy)]
 pub(super) enum CaptureGround {
@@ -42,7 +42,9 @@ impl CaptureGround {
                         rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
                         terrain_clearance_metres: elevation
                             .map(|height| {
-                                SignedLength::from_metres(transform.translation().y - height.metres())
+                                SignedLength::from_metres(
+                                    transform.translation().y - height.metres(),
+                                )
                             })
                             .transpose()?,
                     },

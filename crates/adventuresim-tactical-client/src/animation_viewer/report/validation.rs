@@ -3,9 +3,7 @@
 use super::*;
 use adventuresim_tactical_core::animation::{AnimationEventSpan, STATIONARY_ANIMATION_SPEED_LIMIT};
 
-pub(super) fn build_completed_report(
-    completed: CompletedCapture,
-) -> ReportResult<CompletedReport> {
+pub(super) fn build_completed_report(completed: CompletedCapture) -> ReportResult<CompletedReport> {
     let CompletedCapture {
         output,
         plan,
@@ -41,25 +39,49 @@ pub(super) fn build_completed_report(
             // the sampled surface without moving the visible contact. Keep a
             // strict five-centimetre raw-joint guard while the dedicated gate
             // verifies the actual ball plant and its slip separately.
-            metrics.clearance.minimum_foot_clearance_metres.measured().is_some_and(|value| value.metres() >= -0.05)
+            metrics
+                .clearance
+                .minimum_foot_clearance_metres
+                .measured()
+                .is_some_and(|value| value.metres() >= -0.05)
         } else if metrics.scenario.kind() == ScenarioKind::Terrain
             && !metrics.scenario.is(ScenarioId::TerrainToggleMidStride)
         {
             // Only a contact foot is ground-constrained. Gate those contacts;
             // an airborne authored foot is intentionally not projected onto
             // every terrain feature underneath its swing path.
-            metrics.clearance.contact_sole_clearance_metres.measured().is_some_and(|range| range.minimum().metres() >= -0.01)
+            metrics
+                .clearance
+                .contact_sole_clearance_metres
+                .measured()
+                .is_some_and(|range| range.minimum().metres() >= -0.01)
                 && (!scenario_requires_strict_terrain_toe_clearance(&metrics.scenario)
-                    || metrics.clearance.minimum_contact_toe_clearance_metres.measured().is_some_and(|value| value.metres() >= -0.01))
+                    || metrics
+                        .clearance
+                        .minimum_contact_toe_clearance_metres
+                        .measured()
+                        .is_some_and(|value| value.metres() >= -0.01))
         } else if is_quickstep_scenario(&metrics.scenario) {
             // After impact the ordinary guard follower owns contact again. Its
             // compressed landing pose may put the modeled ankle/sole estimate
             // just over four centimetres below the flat reference plane.
-            metrics.clearance.contact_sole_clearance_metres.measured().is_some_and(|range| range.minimum().metres() >= -0.05)
+            metrics
+                .clearance
+                .contact_sole_clearance_metres
+                .measured()
+                .is_some_and(|range| range.minimum().metres() >= -0.05)
         } else if metrics.scenario.has(ScenarioFeature::RaisedTapStopAny) {
-            metrics.clearance.contact_sole_clearance_metres.measured().is_some_and(|range| range.minimum().metres() >= -0.04)
+            metrics
+                .clearance
+                .contact_sole_clearance_metres
+                .measured()
+                .is_some_and(|range| range.minimum().metres() >= -0.04)
         } else {
-            metrics.clearance.contact_sole_clearance_metres.measured().is_some_and(|range| range.minimum().metres() >= -0.02)
+            metrics
+                .clearance
+                .contact_sole_clearance_metres
+                .measured()
+                .is_some_and(|range| range.minimum().metres() >= -0.02)
         }
     });
     let raised_guard_fixed_support = frames.windows(2).all(|pair| {
@@ -81,7 +103,11 @@ pub(super) fn build_completed_report(
             || scenario_uses_terrain_ik(&metrics.scenario)
             || metrics.scenario.has(ScenarioFeature::TerrainNamed)
             || is_quickstep_scenario(&metrics.scenario)
-            || metrics.height.controller_vertical_range_metres.measured().is_some_and(|range| range.metres() <= 0.0001)
+            || metrics
+                .height
+                .controller_vertical_range_metres
+                .measured()
+                .is_some_and(|range| range.metres() <= 0.0001)
     });
     let phase_owned_height_valid = phase_owned_height_valid(&scenarios)?;
     let run_flight_valid = scenarios.iter().all(|metrics| {
@@ -91,9 +117,21 @@ pub(super) fn build_completed_report(
                 | Some(ScenarioId::TerrainSteadyRun55)
                 | Some(ScenarioId::FlatGridRun55)
         ) {
-            metrics.height.maximum_no_support_seconds.measured().is_some_and(|elapsed| (0.08..=0.20).contains(&elapsed.seconds()))
-                && metrics.clearance.minimum_flight_sole_clearance_metres.measured().is_some_and(|value| (0.05..=0.20).contains(&value.metres()))
-                && metrics.clearance.minimum_flight_toe_clearance_metres.measured().is_some_and(|value| value.metres() >= 0.01)
+            metrics
+                .height
+                .maximum_no_support_seconds
+                .measured()
+                .is_some_and(|elapsed| (0.08..=0.20).contains(&elapsed.seconds()))
+                && metrics
+                    .clearance
+                    .minimum_flight_sole_clearance_metres
+                    .measured()
+                    .is_some_and(|value| (0.05..=0.20).contains(&value.metres()))
+                && metrics
+                    .clearance
+                    .minimum_flight_toe_clearance_metres
+                    .measured()
+                    .is_some_and(|value| value.metres() >= 0.01)
         } else if matches!(
             metrics.scenario.identity(),
             Some(ScenarioId::TerrainRunFlightStop) | Some(ScenarioId::TerrainTapRestartCrossfade)
@@ -102,15 +140,30 @@ pub(super) fn build_completed_report(
             // a sampled zero-weight frame. If a true flight frame remains,
             // retain the toe-clearance gate; otherwise the ordinary contact
             // and penetration gates own the transition.
-            metrics.height.maximum_no_support_seconds.measured().is_some_and(|elapsed| {
-                elapsed.is_zero() || metrics.clearance.minimum_flight_toe_clearance_metres.measured().is_some_and(|clearance| strict_transition_flight_toe_clearance_is_valid(*clearance))
-            })
+            metrics
+                .height
+                .maximum_no_support_seconds
+                .measured()
+                .is_some_and(|elapsed| {
+                    elapsed.is_zero()
+                        || metrics
+                            .clearance
+                            .minimum_flight_toe_clearance_metres
+                            .measured()
+                            .is_some_and(|clearance| {
+                                strict_transition_flight_toe_clearance_is_valid(*clearance)
+                            })
+                })
         } else if matches!(
             metrics.scenario.identity(),
             Some(ScenarioId::SteadyWalk20) | Some(ScenarioId::FlatGridWalk20)
         ) || raised_scenario_requires_zero_flight(&metrics.scenario)
         {
-            metrics.height.maximum_no_support_seconds.measured().is_some_and(|elapsed| elapsed.is_zero())
+            metrics
+                .height
+                .maximum_no_support_seconds
+                .measured()
+                .is_some_and(|elapsed| elapsed.is_zero())
         } else {
             true
         }
@@ -333,8 +386,8 @@ pub(super) fn build_completed_report(
             })
     });
     let hard_stop_maximum_pelvis_step_metres = hard_stop_pelvis_vertical_step(&frames)?;
-    let hard_stop_height_continuity_valid =
-        hard_stop_maximum_pelvis_step_metres.when_applicable(|maximum_step| maximum_step.metres() <= 0.02);
+    let hard_stop_height_continuity_valid = hard_stop_maximum_pelvis_step_metres
+        .when_applicable(|maximum_step| maximum_step.metres() <= 0.02);
     let biomechanics_within_review_bounds = biomechanics_within_review_bounds(&scenarios);
     let views_are_distinct = duplicate_view_frames.is_empty();
     let semantic_route_paths_exercised = frames.iter().all(|frame| {
@@ -352,13 +405,17 @@ pub(super) fn build_completed_report(
     // scenario delivers: every deflection must stay finite, inside the
     // authored clamp, and at rest when no spring is active.
     let bouncy_bones_valid = frames.iter().all(|frame| {
-        frame.bouncy_maximum_deflection_radians.radians().is_finite()
+        frame
+            .bouncy_maximum_deflection_radians
+            .radians()
+            .is_finite()
             && frame.bouncy_maximum_deflection_radians.radians()
                 <= runtime_animation_config()
                     .bouncy_bones
                     .maximum_angle_radians
                     + 1.0e-4
-            && (frame.bouncy_active_springs > 0 || frame.bouncy_maximum_deflection_radians.radians() == 0.0)
+            && (frame.bouncy_active_springs > 0
+                || frame.bouncy_maximum_deflection_radians.radians() == 0.0)
     });
     let validation = AnimationCaptureValidation {
         finite_transforms,
@@ -462,11 +519,31 @@ pub(super) fn quality_score(
     let catastrophic_foot_displacement_failed = catastrophic_foot_displacement(frames);
     let anatomical_invalid_joints_failed = scenarios.iter().any(|metrics| {
         procedural_leg_solver_gates_apply(&metrics.scenario)
-            && !(metrics.pose.minimum_knee_flexion_degrees.measured().is_some_and(|angle| angle.degrees() >= 3.9)
-                && metrics.pose.minimum_knee_hemisphere_dot.measured().is_some_and(|dot| dot.value() >= 0.0)
-                && metrics.pose.minimum_signed_foot_track_metres.measured().is_some_and(|value| value.metres() >= -0.01)
-                && metrics.pose.minimum_inter_foot_separation_metres.measured().is_some_and(|value| *value >= metrics.expected.inter_foot_separation)
-                && metrics.pose.maximum_knee_foot_yaw_offset_degrees.measured().is_some_and(|angle| angle.degrees() <= 22.6))
+            && !(metrics
+                .pose
+                .minimum_knee_flexion_degrees
+                .measured()
+                .is_some_and(|angle| angle.degrees() >= 3.9)
+                && metrics
+                    .pose
+                    .minimum_knee_hemisphere_dot
+                    .measured()
+                    .is_some_and(|dot| dot.value() >= 0.0)
+                && metrics
+                    .pose
+                    .minimum_signed_foot_track_metres
+                    .measured()
+                    .is_some_and(|value| value.metres() >= -0.01)
+                && metrics
+                    .pose
+                    .minimum_inter_foot_separation_metres
+                    .measured()
+                    .is_some_and(|value| *value >= metrics.expected.inter_foot_separation)
+                && metrics
+                    .pose
+                    .maximum_knee_foot_yaw_offset_degrees
+                    .measured()
+                    .is_some_and(|angle| angle.degrees() <= 22.6))
     });
     let contact_foot_airborne_failed = !validation.no_ground_penetration
         || !validation.run_flight_valid
@@ -476,8 +553,12 @@ pub(super) fn quality_score(
     let guard_step_liveness_failed = !validation.raised_guard_step_liveness_valid;
     let foot_dragging_failed = scenarios.iter().any(|metrics| {
         !metrics.continuity.measured().is_some_and(|continuity| {
-            continuity.maximum_supported_foot_slip_metres_per_frame.when_applicable(|slip| *slip <= metrics.expected.supported_slip)
-        }) || !metrics.maximum_planted_foot_drift_metres.when_applicable(|drift| *drift <= metrics.expected.planted_drift)
+            continuity
+                .maximum_supported_foot_slip_metres_per_frame
+                .when_applicable(|slip| *slip <= metrics.expected.supported_slip)
+        }) || !metrics
+            .maximum_planted_foot_drift_metres
+            .when_applicable(|drift| *drift <= metrics.expected.planted_drift)
     });
     let jitter_and_jerk_failed = !validation.jitter_validation.diagnostics_complete
         || validation
@@ -612,7 +693,10 @@ mod tests {
             note: "test",
         };
         let score = quality_score(&[], &[], &validation).unwrap();
-        assert_eq!(score.quality_percent, Observation::Unavailable(UnavailableReason::IncompleteCapture));
+        assert_eq!(
+            score.quality_percent,
+            Observation::Unavailable(UnavailableReason::IncompleteCapture)
+        );
         assert!(!score.acceptance_passed);
     }
 }

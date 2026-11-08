@@ -23,7 +23,21 @@ pub(super) struct CaptureSample<'a> {
 
 impl FrameSample {
     pub(super) fn capture(sample: CaptureSample<'_>) -> CaptureSampleResult<Self> {
-        let CaptureSample { frame, skeleton, subject_global, bouncy_bones_telemetry, raised_footwork, body_response, height_state, leg_ik, semantic_route, root_distance_metres, left_support_weight, right_support_weight, evaluation_bones } = sample;
+        let CaptureSample {
+            frame,
+            skeleton,
+            subject_global,
+            bouncy_bones_telemetry,
+            raised_footwork,
+            body_response,
+            height_state,
+            leg_ik,
+            semantic_route,
+            root_distance_metres,
+            left_support_weight,
+            right_support_weight,
+            evaluation_bones,
+        } = sample;
         let desired_left_foot_target = raised_footwork.and_then(|state| state.left_solve_target);
         let desired_right_foot_target = raised_footwork.and_then(|state| state.right_solve_target);
         Ok(Self {
@@ -37,7 +51,9 @@ impl FrameSample {
                 .to_array(),
             world_acceleration: skeleton.world_acceleration.to_array(),
             bouncy_active_springs: bouncy_bones_telemetry.active_springs,
-            bouncy_maximum_deflection_radians: bouncy_bones_telemetry.maximum_deflection_radians.clone()
+            bouncy_maximum_deflection_radians: bouncy_bones_telemetry
+                .maximum_deflection_radians
+                .clone()
                 .map_err(RejectedCaptureAdmission::Geometry)?,
             // Raised guard owns its visual contacts locally. Segment its
             // diagnostics by the sequence that actually changed the rendered
@@ -57,13 +73,18 @@ impl FrameSample {
             landing_sequence: skeleton.landing_sequence,
             landing_impact_speed: skeleton.landing_impact_speed,
             body_lean_pitch_degrees: body_response
-                .map(|state| SignedAngleDegrees::from_degrees(state.pitch_radians.radians().to_degrees()))
-                .transpose().map_err(RejectedCaptureAdmission::Locomotion)?,
+                .map(|state| {
+                    SignedAngleDegrees::from_degrees(state.pitch_radians.radians().to_degrees())
+                })
+                .transpose()
+                .map_err(RejectedCaptureAdmission::Locomotion)?,
             body_lean_roll_degrees: body_response
-                .map(|state| SignedAngleDegrees::from_degrees(state.roll_radians.radians().to_degrees()))
-                .transpose().map_err(RejectedCaptureAdmission::Locomotion)?,
-            landing_compression_metres: height_state
-                .map(|state| state.landing_compression),
+                .map(|state| {
+                    SignedAngleDegrees::from_degrees(state.roll_radians.radians().to_degrees())
+                })
+                .transpose()
+                .map_err(RejectedCaptureAdmission::Locomotion)?,
+            landing_compression_metres: height_state.map(|state| state.landing_compression),
             root_distance_metres,
             root_position_metres: subject_global.translation().to_array(),
             world_travel_direction: (controller_yaw(Quat::from_rotation_y(
@@ -103,22 +124,43 @@ impl FrameSample {
             right_support_weight,
             desired_left_foot_target: desired_left_foot_target.map(|value| value.to_array()),
             desired_right_foot_target: desired_right_foot_target.map(|value| value.to_array()),
-            ik_left_authored_target: leg_ik.and_then(|diagnostics| diagnostics.left_authored_target).map(|value| value.to_array()),
-            ik_right_authored_target: leg_ik.and_then(|diagnostics| diagnostics.right_authored_target).map(|value| value.to_array()),
-            ik_left_planned_contact: leg_ik.and_then(|diagnostics| diagnostics.left_planned_contact).map(|value| value.to_array()),
-            ik_right_planned_contact: leg_ik.and_then(|diagnostics| diagnostics.right_planned_contact).map(|value| value.to_array()),
-            ik_settle_capture_point: leg_ik.and_then(|diagnostics| diagnostics.settle_capture_point).map(|value| value.to_array()),
-            ik_left_solve_target: leg_ik.and_then(|diagnostics| diagnostics.left_solve_target).map(|value| value.to_array()),
-            ik_right_solve_target: leg_ik.and_then(|diagnostics| diagnostics.right_solve_target).map(|value| value.to_array()),
+            ik_left_authored_target: leg_ik
+                .and_then(|diagnostics| diagnostics.left_authored_target)
+                .map(|value| value.to_array()),
+            ik_right_authored_target: leg_ik
+                .and_then(|diagnostics| diagnostics.right_authored_target)
+                .map(|value| value.to_array()),
+            ik_left_planned_contact: leg_ik
+                .and_then(|diagnostics| diagnostics.left_planned_contact)
+                .map(|value| value.to_array()),
+            ik_right_planned_contact: leg_ik
+                .and_then(|diagnostics| diagnostics.right_planned_contact)
+                .map(|value| value.to_array()),
+            ik_settle_capture_point: leg_ik
+                .and_then(|diagnostics| diagnostics.settle_capture_point)
+                .map(|value| value.to_array()),
+            ik_left_solve_target: leg_ik
+                .and_then(|diagnostics| diagnostics.left_solve_target)
+                .map(|value| value.to_array()),
+            ik_right_solve_target: leg_ik
+                .and_then(|diagnostics| diagnostics.right_solve_target)
+                .map(|value| value.to_array()),
             ik_left_support_weight: leg_ik.and_then(|diagnostics| diagnostics.left_support_weight),
-            ik_right_support_weight: leg_ik.and_then(|diagnostics| diagnostics.right_support_weight),
+            ik_right_support_weight: leg_ik
+                .and_then(|diagnostics| diagnostics.right_support_weight),
             ik_left_release_active: leg_ik.map(|diagnostics| diagnostics.left_release_active),
             ik_right_release_active: leg_ik.map(|diagnostics| diagnostics.right_release_active),
-            ik_left_release_target: leg_ik.and_then(|diagnostics| diagnostics.left_release_target).map(|value| value.to_array()),
-            ik_right_release_target: leg_ik.and_then(|diagnostics| diagnostics.right_release_target).map(|value| value.to_array()),
+            ik_left_release_target: leg_ik
+                .and_then(|diagnostics| diagnostics.left_release_target)
+                .map(|value| value.to_array()),
+            ik_right_release_target: leg_ik
+                .and_then(|diagnostics| diagnostics.right_release_target)
+                .map(|value| value.to_array()),
             ik_settle_progress: leg_ik.and_then(|diagnostics| diagnostics.settle_progress),
-            ik_left_knee_foot_yaw_offset_degrees: leg_ik.map(|diagnostics| diagnostics.left_knee_foot_yaw_offset_degrees),
-            ik_right_knee_foot_yaw_offset_degrees: leg_ik.map(|diagnostics| diagnostics.right_knee_foot_yaw_offset_degrees),
+            ik_left_knee_foot_yaw_offset_degrees: leg_ik
+                .map(|diagnostics| diagnostics.left_knee_foot_yaw_offset_degrees),
+            ik_right_knee_foot_yaw_offset_degrees: leg_ik
+                .map(|diagnostics| diagnostics.right_knee_foot_yaw_offset_degrees),
             semantic_route_requested_path: semantic_route.requested_path,
             semantic_route_selected_path: semantic_route.path,
             semantic_route_runtime_evaluated: true,

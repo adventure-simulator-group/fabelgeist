@@ -101,30 +101,53 @@ impl VisualHeightPeaks {
         let maximum_count = cycles.iter().map(|cycle| cycle.count).max()?;
         Some(Self {
             maximum_count,
-            each_cycle_has_two_passing_peaks: cycles.iter().all(|cycle| cycle.count == 2 && cycle.in_passing_windows),
+            each_cycle_has_two_passing_peaks: cycles
+                .iter()
+                .all(|cycle| cycle.count == 2 && cycle.in_passing_windows),
         })
     }
-    pub(super) fn maximum_count(self) -> usize { self.maximum_count }
-    pub(super) fn each_cycle_has_two_passing_peaks(self) -> bool { self.each_cycle_has_two_passing_peaks }
+    pub(super) fn maximum_count(self) -> usize {
+        self.maximum_count
+    }
+    pub(super) fn each_cycle_has_two_passing_peaks(self) -> bool {
+        self.each_cycle_has_two_passing_peaks
+    }
 }
 
 impl HeightSample {
     pub(super) fn new(phase: CyclePhase, height: SignedLength) -> Self {
-        Self { phase: phase.wrapped(), height }
+        Self {
+            phase: phase.wrapped(),
+            height,
+        }
     }
-    pub(super) fn phase(self) -> CyclePhase { self.phase }
-    pub(super) fn height(self) -> SignedLength { self.height }
+    pub(super) fn phase(self) -> CyclePhase {
+        self.phase
+    }
+    pub(super) fn height(self) -> SignedLength {
+        self.height
+    }
 }
 
 impl SignedLengthRange {
     pub(super) fn from_sample(sample: SignedLength) -> Self {
-        Self { minimum: sample, maximum: sample }
+        Self {
+            minimum: sample,
+            maximum: sample,
+        }
     }
     pub(super) fn include(self, sample: SignedLength) -> Self {
-        Self { minimum: self.minimum.min(sample), maximum: self.maximum.max(sample) }
+        Self {
+            minimum: self.minimum.min(sample),
+            maximum: self.maximum.max(sample),
+        }
     }
-    pub(super) fn minimum(self) -> SignedLength { self.minimum }
-    pub(super) fn maximum(self) -> SignedLength { self.maximum }
+    pub(super) fn minimum(self) -> SignedLength {
+        self.minimum
+    }
+    pub(super) fn maximum(self) -> SignedLength {
+        self.maximum
+    }
 }
 
 impl QualityPercent {

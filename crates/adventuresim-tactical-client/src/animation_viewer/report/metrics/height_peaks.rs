@@ -7,15 +7,21 @@ use super::*;
 const HEIGHT_PEAK_PROMINENCE_METRES: f32 = 0.003;
 const PASSING_PEAK_PHASE_WINDOW: f32 = 0.10;
 
-pub(super) fn prominent_height_peaks(samples: &[HeightSample]) -> ReportResult<Observation<HeightPeaks>> {
+pub(super) fn prominent_height_peaks(
+    samples: &[HeightSample],
+) -> ReportResult<Observation<HeightPeaks>> {
     if samples.len() < 3 {
-        return Ok(Observation::Unavailable(UnavailableReason::InsufficientHeightSamples));
+        return Ok(Observation::Unavailable(
+            UnavailableReason::InsufficientHeightSamples,
+        ));
     }
     let mut peaks = Vec::new();
     for (index, sample) in samples.iter().enumerate() {
         let phase = sample.phase().cycles();
         let height = sample.height().metres();
-        let previous = samples[(index + samples.len() - 1) % samples.len()].height().metres();
+        let previous = samples[(index + samples.len() - 1) % samples.len()]
+            .height()
+            .metres();
         let next = samples[(index + 1) % samples.len()].height().metres();
         if height <= previous || height < next {
             continue;
@@ -28,9 +34,12 @@ pub(super) fn prominent_height_peaks(samples: &[HeightSample]) -> ReportResult<O
                 let distance = (phase - candidate_phase).rem_euclid(1.0);
                 (distance > 0.0 && distance <= 0.125).then_some(candidate_height)
             })
-            .reduce(f32::min) else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingHeightNeighborhood));
-            };
+            .reduce(f32::min)
+        else {
+            return Ok(Observation::Unavailable(
+                UnavailableReason::MissingHeightNeighborhood,
+            ));
+        };
         let Some(right_minimum) = samples
             .iter()
             .filter_map(|candidate| {
@@ -39,10 +48,15 @@ pub(super) fn prominent_height_peaks(samples: &[HeightSample]) -> ReportResult<O
                 let distance = (candidate_phase - phase).rem_euclid(1.0);
                 (distance > 0.0 && distance <= 0.125).then_some(candidate_height)
             })
-            .reduce(f32::min) else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingHeightNeighborhood));
-            };
-        let prominence = fabelgeist_geometry::SignedLength::from_metres(height - left_minimum.max(right_minimum))?;
+            .reduce(f32::min)
+        else {
+            return Ok(Observation::Unavailable(
+                UnavailableReason::MissingHeightNeighborhood,
+            ));
+        };
+        let prominence = fabelgeist_geometry::SignedLength::from_metres(
+            height - left_minimum.max(right_minimum),
+        )?;
         if prominence.metres() >= HEIGHT_PEAK_PROMINENCE_METRES {
             peaks.push(phase);
         }

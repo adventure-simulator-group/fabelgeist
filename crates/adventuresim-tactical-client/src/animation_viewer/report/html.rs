@@ -15,7 +15,10 @@ pub(super) fn review_html(
     )?;
     let quality_summary = format!(
         "Quality score: {} ({}/31 weighted defect points); acceptance: {}",
-        describe_observation(&manifest.quality_score.quality_percent, |quality| format!("{:.2}%", quality.percent())),
+        describe_observation(&manifest.quality_score.quality_percent, |quality| format!(
+            "{:.2}%",
+            quality.percent()
+        )),
         manifest.quality_score.weighted_defect_score,
         if manifest.quality_score.acceptance_passed {
             "passed"
@@ -34,8 +37,12 @@ pub(super) fn review_html(
             )
         })
         .collect::<String>();
-    let metrics = manifest.scenarios.iter().map(scenario_measurements_html)
-        .collect::<Result<Vec<_>, _>>()?.join("");
+    let metrics = manifest
+        .scenarios
+        .iter()
+        .map(scenario_measurements_html)
+        .collect::<Result<Vec<_>, _>>()?
+        .join("");
     let height_metrics = height_metrics_html(manifest);
     Ok(format!(
         r#"<!doctype html>
@@ -59,11 +66,19 @@ fn describe<T>(
     worst: &Option<ContinuityLocation<T>>,
     measured: impl FnOnce(&T) -> String,
 ) -> Result<String, serde_json::Error> {
-    let Some(worst) = worst else { return Ok("none".to_owned()); };
+    let Some(worst) = worst else {
+        return Ok("none".to_owned());
+    };
     let label = report_bone_label(worst.bone).ok_or_else(|| {
         <serde_json::Error as serde::ser::Error>::custom("uncaptured semantic bone in HTML report")
     })?;
-    Ok(format!("{} {}&rarr;{} ({})", label, worst.from_frame, worst.to_frame, measured(&worst.value)))
+    Ok(format!(
+        "{} {}&rarr;{} ({})",
+        label,
+        worst.from_frame,
+        worst.to_frame,
+        measured(&worst.value)
+    ))
 }
 
 fn scenario_measurements_html(metrics: &ScenarioMetrics) -> Result<String, serde_json::Error> {
@@ -76,9 +91,18 @@ fn scenario_measurements_html(metrics: &ScenarioMetrics) -> Result<String, serde
             continuity.maximum_knee_root_relative_step_metres.metres(),
             continuity.maximum_bone_rotation_step_degrees.degrees(),
             continuity.maximum_foot_rotation_step_degrees.degrees(),
-            describe(&continuity.worst_displacement, |value| format!("{:.4} m", value.metres()))?,
-            describe(&continuity.worst_rotation, |value| format!("{:.2} deg", value.degrees()))?,
-            describe_observation(&continuity.maximum_supported_foot_slip_metres_per_frame, |value| format!("{:.4} m/frame", value.metres())),
+            describe(&continuity.worst_displacement, |value| format!(
+                "{:.4} m",
+                value.metres()
+            ))?,
+            describe(&continuity.worst_rotation, |value| format!(
+                "{:.2} deg",
+                value.degrees()
+            ))?,
+            describe_observation(
+                &continuity.maximum_supported_foot_slip_metres_per_frame,
+                |value| format!("{:.4} m/frame", value.metres())
+            ),
         ),
         Observation::NotApplicable => "not applicable".to_owned(),
         Observation::Unavailable(reason) => format!("unavailable: {}", reason.description()),
@@ -106,7 +130,11 @@ fn scenario_measurements_html(metrics: &ScenarioMetrics) -> Result<String, serde
         ("final facing error", describe_observation(&metrics.facing.final_facing_motion_error_degrees, |value| format!("{:.2} deg", value.degrees()))),
         ("dive axis/travel error", describe_observation(&metrics.facing.maximum_dive_axis_motion_error_degrees, |value| format!("{:.2} deg", value.degrees()))),
     ].into_iter().map(|(name, value)| format!("<tr><th>{name}</th><td>{value}</td></tr>")).collect::<String>();
-    Ok(format!("<h2>{}</h2><p>{} captured frames</p><table>{rows}</table>", metrics.scenario.label(), metrics.frame_count))
+    Ok(format!(
+        "<h2>{}</h2><p>{} captured frames</p><table>{rows}</table>",
+        metrics.scenario.label(),
+        metrics.frame_count
+    ))
 }
 
 fn height_metrics_html(manifest: &AnimationCaptureManifest) -> String {
@@ -127,7 +155,9 @@ fn height_metrics_html(manifest: &AnimationCaptureManifest) -> String {
             describe_observation(&metrics.height.maximum_no_support_seconds, |value| format!("{:.4}", value.seconds())),
         )
     }).collect::<String>();
-    format!("<h2>Height evidence</h2><p>Hard-stop maximum pelvis step: {hard_stop}</p><table><thead><tr><th>scenario</th><th>pelvis range m</th><th>maximum pelvis step m</th><th>controller range m</th><th>phase range m</th><th>contact-to-passing gain m</th><th>height peaks</th><th>maximum unsupported seconds</th></tr></thead><tbody>{rows}</tbody></table>")
+    format!(
+        "<h2>Height evidence</h2><p>Hard-stop maximum pelvis step: {hard_stop}</p><table><thead><tr><th>scenario</th><th>pelvis range m</th><th>maximum pelvis step m</th><th>controller range m</th><th>phase range m</th><th>contact-to-passing gain m</th><th>height peaks</th><th>maximum unsupported seconds</th></tr></thead><tbody>{rows}</tbody></table>"
+    )
 }
 
 fn describe_observation<T>(

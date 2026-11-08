@@ -127,7 +127,11 @@ impl CaptureSequence {
     }
 
     /// Admit the existing distance + speed*elapsed kernel before retaining it.
-    pub(super) fn advance_distance(&mut self, speed: SignedSpeed, elapsed: AnimationElapsed) -> bool {
+    pub(super) fn advance_distance(
+        &mut self,
+        speed: SignedSpeed,
+        elapsed: AnimationElapsed,
+    ) -> bool {
         match fabelgeist_geometry::SignedLength::from_metres(
             self.scenario_distance.metres() + speed.metres_per_second() * elapsed.seconds(),
         ) {
@@ -136,7 +140,8 @@ impl CaptureSequence {
                 true
             }
             Err(error) => {
-                self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+                self.admission =
+                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
                 false
             }
         }

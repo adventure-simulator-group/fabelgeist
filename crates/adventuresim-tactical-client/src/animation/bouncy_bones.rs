@@ -205,9 +205,11 @@ impl BouncyBones {
     fn maximum_deflection_radians(&self) -> GeometryResult<Radians> {
         // Spring offsets are native world rotation vectors; their lengths are
         // radians. Admit each observed length before the same ordered maximum.
-        self.springs.iter().try_fold(Radians::ZERO, |maximum, spring| {
-            Ok(maximum.max(Radians::new(spring.offset.length())?))
-        })
+        self.springs
+            .iter()
+            .try_fold(Radians::ZERO, |maximum, spring| {
+                Ok(maximum.max(Radians::new(spring.offset.length())?))
+            })
     }
 }
 

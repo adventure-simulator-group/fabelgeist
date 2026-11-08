@@ -10,8 +10,14 @@ impl ScenarioClearanceMetrics {
         Ok(Self {
             minimum_flight_sole_clearance_metres: minimum_flight_sole_clearance(frames)?,
             contact_sole_clearance_metres: contact_sole_clearance_range(frames)?,
-            minimum_flight_toe_clearance_metres: minimum_toe_clearance(frames, ContactSample::Flight)?,
-            minimum_contact_toe_clearance_metres: minimum_toe_clearance(frames, ContactSample::Contact)?,
+            minimum_flight_toe_clearance_metres: minimum_toe_clearance(
+                frames,
+                ContactSample::Flight,
+            )?,
+            minimum_contact_toe_clearance_metres: minimum_toe_clearance(
+                frames,
+                ContactSample::Contact,
+            )?,
             foot_terrain_relief_metres: foot_terrain_relief(frames)?,
             minimum_foot_clearance_metres: minimum_foot_clearance(frames),
         })
@@ -31,10 +37,14 @@ pub(in crate::animation_viewer::report) fn minimum_flight_sole_clearance(
     }) {
         for foot in [BoneRole::FootLeft, BoneRole::FootRight] {
             let Some(bone) = frame.bones.get(foot) else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingBone { bone: foot }));
+                return Ok(Observation::Unavailable(UnavailableReason::MissingBone {
+                    bone: foot,
+                }));
             };
             let Some(ankle) = bone.terrain_clearance_metres else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingTerrainClearance { bone: foot }));
+                return Ok(Observation::Unavailable(
+                    UnavailableReason::MissingTerrainClearance { bone: foot },
+                ));
             };
             // Preserve the capture's existing flight-sole numerical offset.
             let clearance = SignedLength::from_metres(ankle.metres() - 0.085)?;
@@ -72,15 +82,23 @@ pub(in crate::animation_viewer::report) fn contact_sole_clearance_range(
                 continue;
             }
             let Some(bone) = frame.bones.get(foot) else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingBone { bone: foot }));
+                return Ok(Observation::Unavailable(UnavailableReason::MissingBone {
+                    bone: foot,
+                }));
             };
             let Some(ankle) = bone.terrain_clearance_metres else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingTerrainClearance { bone: foot }));
+                return Ok(Observation::Unavailable(
+                    UnavailableReason::MissingTerrainClearance { bone: foot },
+                ));
             };
             let clearance = SignedLength::from_metres(
                 ankle.metres() - measured_ankle_sole_offset_metres().metres(),
             )?;
-            bounds = Some(bounds.map_or(SignedLengthRange::from_sample(clearance), |range| range.include(clearance)));
+            bounds = Some(
+                bounds.map_or(SignedLengthRange::from_sample(clearance), |range| {
+                    range.include(clearance)
+                }),
+            );
         }
     }
     Ok(bounds.map_or(
@@ -112,24 +130,33 @@ pub(in crate::animation_viewer::report) fn minimum_toe_clearance(
         } else {
             (frame.left_support_weight, frame.right_support_weight)
         };
-        for (toe, support) in [(BoneRole::ToeLeft, left_support), (BoneRole::ToeRight, right_support)] {
+        for (toe, support) in [
+            (BoneRole::ToeLeft, left_support),
+            (BoneRole::ToeRight, right_support),
+        ] {
             if (support.fraction() > 0.05) != (sample == ContactSample::Contact) {
                 continue;
             }
             let Some(bone) = frame.bones.get(toe) else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingBone { bone: toe }));
+                return Ok(Observation::Unavailable(UnavailableReason::MissingBone {
+                    bone: toe,
+                }));
             };
             let Some(clearance) = bone.terrain_clearance_metres else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingTerrainClearance { bone: toe }));
+                return Ok(Observation::Unavailable(
+                    UnavailableReason::MissingTerrainClearance { bone: toe },
+                ));
             };
             minimum = Some(minimum.map_or(clearance, |value| value.min(clearance)));
         }
     }
     Ok(minimum.map_or_else(
-        || if sample == ContactSample::Flight {
-            Observation::NotApplicable
-        } else {
-            Observation::Unavailable(UnavailableReason::NoContactSamples)
+        || {
+            if sample == ContactSample::Flight {
+                Observation::NotApplicable
+            } else {
+                Observation::Unavailable(UnavailableReason::NoContactSamples)
+            }
         },
         Observation::Measured,
     ))
@@ -144,15 +171,23 @@ pub(in crate::animation_viewer::report) fn foot_terrain_relief(
     for frame in frames {
         for foot in [BoneRole::FootLeft, BoneRole::FootRight] {
             let Some(bone) = frame.bones.get(foot) else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingBone { bone: foot }));
+                return Ok(Observation::Unavailable(UnavailableReason::MissingBone {
+                    bone: foot,
+                }));
             };
             let Some(clearance) = bone.terrain_clearance_metres else {
-                return Ok(Observation::Unavailable(UnavailableReason::MissingTerrainClearance { bone: foot }));
+                return Ok(Observation::Unavailable(
+                    UnavailableReason::MissingTerrainClearance { bone: foot },
+                ));
             };
             let terrain_height = bone.position[1] - clearance.metres();
             let root_ground = frame.root_position_metres[1] - CAPTURE_ROOT_GROUND_OFFSET_METRES;
             let value = SignedLength::from_metres(terrain_height - root_ground)?;
-            bounds = Some(bounds.map_or(SignedLengthRange::from_sample(value), |range| range.include(value)));
+            bounds = Some(
+                bounds.map_or(SignedLengthRange::from_sample(value), |range| {
+                    range.include(value)
+                }),
+            );
         }
     }
     let Some(bounds) = bounds else {
@@ -173,10 +208,15 @@ pub(in crate::animation_viewer::report) fn minimum_foot_clearance(
                 return Observation::Unavailable(UnavailableReason::MissingBone { bone: foot });
             };
             let Some(clearance) = bone.terrain_clearance_metres else {
-                return Observation::Unavailable(UnavailableReason::MissingTerrainClearance { bone: foot });
+                return Observation::Unavailable(UnavailableReason::MissingTerrainClearance {
+                    bone: foot,
+                });
             };
             minimum = Some(minimum.map_or(clearance, |value| value.min(clearance)));
         }
     }
-    minimum.map_or(Observation::Unavailable(UnavailableReason::NoFrames), Observation::Measured)
+    minimum.map_or(
+        Observation::Unavailable(UnavailableReason::NoFrames),
+        Observation::Measured,
+    )
 }

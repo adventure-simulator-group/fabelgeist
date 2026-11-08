@@ -78,9 +78,7 @@ pub(super) fn both_feet_behind_hips(frames: &[FrameSample]) -> bool {
     false
 }
 
-pub(super) fn scenario_metrics(
-    frames: &[FrameSample],
-) -> ReportResult<Vec<ScenarioMetrics>> {
+pub(super) fn scenario_metrics(frames: &[FrameSample]) -> ReportResult<Vec<ScenarioMetrics>> {
     let mut grouped = BTreeMap::<&ScenarioMetadata<'static>, Vec<&FrameSample>>::new();
     for frame in frames {
         grouped.entry(&frame.scenario).or_default().push(frame);
@@ -97,7 +95,10 @@ pub(super) fn scenario_metrics(
                 .collect::<Vec<_>>();
             let guard_liveness = GuardStepLivenessMetrics::measure(&metric_frames)?;
             let clearance = ScenarioClearanceMetrics::measure(&metric_frames)?;
-            let expected = ExpectedScenarioBounds::for_scenario(metadata, &clearance.foot_terrain_relief_metres)?;
+            let expected = ExpectedScenarioBounds::for_scenario(
+                metadata,
+                &clearance.foot_terrain_relief_metres,
+            )?;
             Ok(ScenarioMetrics {
                 scenario: (*scenario).clone(),
                 frame_count: frames.len(),
@@ -108,7 +109,10 @@ pub(super) fn scenario_metrics(
                 clearance,
                 pose: ScenarioPoseMetrics::measure(metadata, &metric_frames, &procedural_frames)?,
                 facing: ScenarioFacingMetrics::measure(&metric_frames)?,
-                maximum_planted_foot_drift_metres: maximum_planted_foot_drift(metadata, &metric_frames)?,
+                maximum_planted_foot_drift_metres: maximum_planted_foot_drift(
+                    metadata,
+                    &metric_frames,
+                )?,
                 guard_step_liveness: guard_liveness,
             })
         })
@@ -182,14 +186,16 @@ pub(super) fn ordinary_swing_frame_is_owned(frame: &FrameSample) -> bool {
     .into_iter()
     .all(
         |(_side, support, authored, solved, planned, release_active)| {
-            support.zip(release_active).is_some_and(|(support, release_active)| {
-                support.fraction() > 0.05
-                    || authored.zip(solved).is_some_and(|(authored, solved)| {
-                        let authored = Vec3::from_array(authored);
-                        let solved = Vec3::from_array(solved);
-                        planned.is_some() || release_active || solved.distance(authored) <= 0.03
-                    })
-            })
+            support
+                .zip(release_active)
+                .is_some_and(|(support, release_active)| {
+                    support.fraction() > 0.05
+                        || authored.zip(solved).is_some_and(|(authored, solved)| {
+                            let authored = Vec3::from_array(authored);
+                            let solved = Vec3::from_array(solved);
+                            planned.is_some() || release_active || solved.distance(authored) <= 0.03
+                        })
+                })
         },
     )
 }
@@ -299,7 +305,9 @@ pub(super) fn transition_flight_toe_sample_is_active(
         || settle_progress.is_some()
 }
 
-pub(super) fn strict_transition_flight_toe_clearance_is_valid(clearance_metres: fabelgeist_geometry::SignedLength) -> bool {
+pub(super) fn strict_transition_flight_toe_clearance_is_valid(
+    clearance_metres: fabelgeist_geometry::SignedLength,
+) -> bool {
     clearance_metres.metres() >= 0.01
 }
 
@@ -346,7 +354,9 @@ pub(super) fn reported_support_contacts_are_valid(frames: &[FrameSample]) -> boo
                         .get(foot)
                         .and_then(|bone| bone.terrain_clearance_metres)
                         .is_some_and(|ankle_clearance| {
-                            (ankle_clearance.metres() - measured_ankle_sole_offset_metres().metres()).abs()
+                            (ankle_clearance.metres()
+                                - measured_ankle_sole_offset_metres().metres())
+                            .abs()
                                 <= if frame.scenario.is(ScenarioId::RaisedGuardStationaryTurn) {
                                     // The combat stance is deliberately
                                     // non-flat-footed; its planted pole target
@@ -394,9 +404,9 @@ pub(super) fn terrain_run_contacts_are_valid(frames: &[FrameSample]) -> Animatio
         && acquisitions.contains(&LeadFoot::Left)
         && acquisitions.contains(&LeadFoot::Right)
         && acquisitions.windows(2).all(|pair| pair[0] != pair[1])
-        && maximum_no_support_seconds(&warmed)?.measured().is_some_and(|elapsed| {
-                (0.08..=0.20).contains(&elapsed.seconds())
-            }))
+        && maximum_no_support_seconds(&warmed)?
+            .measured()
+            .is_some_and(|elapsed| (0.08..=0.20).contains(&elapsed.seconds())))
 }
 
 fn metric_frames_after_warmup<'a>(
@@ -425,7 +435,9 @@ mod tests {
         let foot = |x: f32, terrain_height: f32| BoneSample {
             position: Vec3::new(x, terrain_height, 0.0).to_array(),
             rotation_xyzw: Quat::IDENTITY.to_array(),
-            terrain_clearance_metres: Some(fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap()),
+            terrain_clearance_metres: Some(
+                fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap(),
+            ),
         };
         FrameSample {
             scenario: "metric-test".into(),
@@ -440,13 +452,18 @@ mod tests {
             body_acceleration: Vec3::ZERO.to_array(),
             world_acceleration: Vec3::ZERO.to_array(),
             bouncy_active_springs: 0,
-            bouncy_maximum_deflection_radians: adventuresim_building_generator::spatial_geometry::Radians::ZERO,
+            bouncy_maximum_deflection_radians:
+                adventuresim_building_generator::spatial_geometry::Radians::ZERO,
             contact_sequence: ContactSequence::ZERO,
             contact_foot: LeadFoot::Left,
             landing_sequence: adventuresim_tactical_core::animation::LandingSequence::ZERO,
             landing_impact_speed: LandingImpactSpeed::ZERO,
-            body_lean_pitch_degrees: Some(adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO),
-            body_lean_roll_degrees: Some(adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO),
+            body_lean_pitch_degrees: Some(
+                adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO,
+            ),
+            body_lean_roll_degrees: Some(
+                adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO,
+            ),
             landing_compression_metres: Some(HeightDistance::ZERO),
             root_distance_metres: fabelgeist_geometry::SignedLength::ZERO,
             root_position_metres: Vec3::new(0.0, CAPTURE_ROOT_GROUND_OFFSET_METRES, 0.0).to_array(),
@@ -479,8 +496,12 @@ mod tests {
             ik_left_release_target: None,
             ik_right_release_target: None,
             ik_settle_progress: None,
-            ik_left_knee_foot_yaw_offset_degrees: Some(adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO),
-            ik_right_knee_foot_yaw_offset_degrees: Some(adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO),
+            ik_left_knee_foot_yaw_offset_degrees: Some(
+                adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO,
+            ),
+            ik_right_knee_foot_yaw_offset_degrees: Some(
+                adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO,
+            ),
             semantic_route_requested_path: SemanticRoutePath::GeneralPose,
             semantic_route_selected_path: SemanticRoutePath::GeneralPose,
             semantic_route_runtime_evaluated: false,
@@ -496,49 +517,72 @@ mod tests {
     fn complete_run_cycles_use_the_run_foot_continuity_budget_only() {
         assert!(
             0.149
-                <= foot_continuity_limit(&ScenarioMetadata::from_label("terrain-run-flight-stop")).unwrap().metres()
+                <= foot_continuity_limit(&ScenarioMetadata::from_label("terrain-run-flight-stop"))
+                    .unwrap()
+                    .metres()
         );
         assert!(
-            0.151 > foot_continuity_limit(&ScenarioMetadata::from_label("terrain-run-flight-stop")).unwrap().metres()
+            0.151
+                > foot_continuity_limit(&ScenarioMetadata::from_label("terrain-run-flight-stop"))
+                    .unwrap()
+                    .metres()
         );
         assert!(
             0.149
                 <= foot_continuity_limit(&ScenarioMetadata::from_label(
                     "terrain-tap-restart-crossfade"
-                )).unwrap().metres()
+                ))
+                .unwrap()
+                .metres()
         );
         assert!(
             0.151
                 > foot_continuity_limit(&ScenarioMetadata::from_label(
                     "terrain-tap-restart-crossfade"
-                )).unwrap().metres()
+                ))
+                .unwrap()
+                .metres()
         );
         assert!(
             0.056
-                > foot_continuity_limit(&ScenarioMetadata::from_label("terrain-tap-stop-forward")).unwrap().metres()
+                > foot_continuity_limit(&ScenarioMetadata::from_label("terrain-tap-stop-forward"))
+                    .unwrap()
+                    .metres()
         );
         assert_eq!(
-            foot_continuity_limit(&ScenarioMetadata::from_label("terrain-steady-run-5.5")).unwrap().metres(),
+            foot_continuity_limit(&ScenarioMetadata::from_label("terrain-steady-run-5.5"))
+                .unwrap()
+                .metres(),
             0.15
         );
         assert_eq!(
-            knee_continuity_limit(&ScenarioMetadata::from_label("terrain-steady-run-5.5")).unwrap().metres(),
+            knee_continuity_limit(&ScenarioMetadata::from_label("terrain-steady-run-5.5"))
+                .unwrap()
+                .metres(),
             0.16
         );
         assert_eq!(
-            knee_continuity_limit(&ScenarioMetadata::from_label("steady-run-5.5")).unwrap().metres(),
+            knee_continuity_limit(&ScenarioMetadata::from_label("steady-run-5.5"))
+                .unwrap()
+                .metres(),
             0.13
         );
         assert_eq!(
-            knee_continuity_limit(&ScenarioMetadata::from_label("steady-walk")).unwrap().metres(),
+            knee_continuity_limit(&ScenarioMetadata::from_label("steady-walk"))
+                .unwrap()
+                .metres(),
             0.10
         );
         assert_eq!(
-            loop_seam_position_limit(&ScenarioMetadata::from_label("steady-run-5.5")).unwrap().metres(),
+            loop_seam_position_limit(&ScenarioMetadata::from_label("steady-run-5.5"))
+                .unwrap()
+                .metres(),
             0.03
         );
         assert_eq!(
-            loop_seam_position_limit(&ScenarioMetadata::from_label("steady-walk")).unwrap().metres(),
+            loop_seam_position_limit(&ScenarioMetadata::from_label("steady-walk"))
+                .unwrap()
+                .metres(),
             0.015
         );
     }
@@ -578,7 +622,10 @@ mod tests {
             assert!(transition_flight_toe_sample_is_active(
                 &scenario,
                 SignedSpeed::ZERO,
-                Some(adventuresim_tactical_core::animation::SettleProgress::from_progress(0.25).unwrap())
+                Some(
+                    adventuresim_tactical_core::animation::SettleProgress::from_progress(0.25)
+                        .unwrap()
+                )
             ));
         }
         assert!(transition_flight_toe_sample_is_active(
@@ -586,8 +633,12 @@ mod tests {
             SignedSpeed::ZERO,
             None
         ));
-        assert!(strict_transition_flight_toe_clearance_is_valid(fabelgeist_geometry::SignedLength::from_metres(0.01).unwrap()));
-        assert!(!strict_transition_flight_toe_clearance_is_valid(fabelgeist_geometry::SignedLength::from_metres(-0.001).unwrap()));
+        assert!(strict_transition_flight_toe_clearance_is_valid(
+            fabelgeist_geometry::SignedLength::from_metres(0.01).unwrap()
+        ));
+        assert!(!strict_transition_flight_toe_clearance_is_valid(
+            fabelgeist_geometry::SignedLength::from_metres(-0.001).unwrap()
+        ));
     }
 
     #[test]
@@ -595,7 +646,9 @@ mod tests {
         let bone = |position: Vec3| BoneSample {
             position: position.to_array(),
             rotation_xyzw: Quat::IDENTITY.to_array(),
-            terrain_clearance_metres: Some(fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap()),
+            terrain_clearance_metres: Some(
+                fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap(),
+            ),
         };
         let bones = CapturedBones::from_iter([
             (BoneRole::ThighLeft, bone(Vec3::new(-0.15, 1.0, 0.0))),
@@ -615,13 +668,18 @@ mod tests {
             body_acceleration: Vec3::ZERO.to_array(),
             world_acceleration: Vec3::ZERO.to_array(),
             bouncy_active_springs: 0,
-            bouncy_maximum_deflection_radians: adventuresim_building_generator::spatial_geometry::Radians::ZERO,
+            bouncy_maximum_deflection_radians:
+                adventuresim_building_generator::spatial_geometry::Radians::ZERO,
             contact_sequence: ContactSequence::ZERO,
             contact_foot: LeadFoot::Left,
             landing_sequence: adventuresim_tactical_core::animation::LandingSequence::ZERO,
             landing_impact_speed: LandingImpactSpeed::ZERO,
-            body_lean_pitch_degrees: Some(adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO),
-            body_lean_roll_degrees: Some(adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO),
+            body_lean_pitch_degrees: Some(
+                adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO,
+            ),
+            body_lean_roll_degrees: Some(
+                adventuresim_tactical_core::animation::SignedAngleDegrees::ZERO,
+            ),
             landing_compression_metres: Some(HeightDistance::ZERO),
             root_distance_metres: fabelgeist_geometry::SignedLength::ZERO,
             root_position_metres: Vec3::ZERO.to_array(),
@@ -654,8 +712,12 @@ mod tests {
             ik_left_release_target: None,
             ik_right_release_target: None,
             ik_settle_progress: None,
-            ik_left_knee_foot_yaw_offset_degrees: Some(adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO),
-            ik_right_knee_foot_yaw_offset_degrees: Some(adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO),
+            ik_left_knee_foot_yaw_offset_degrees: Some(
+                adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO,
+            ),
+            ik_right_knee_foot_yaw_offset_degrees: Some(
+                adventuresim_tactical_core::animation::AngularMagnitudeDegrees::ZERO,
+            ),
             semantic_route_requested_path: SemanticRoutePath::GeneralPose,
             semantic_route_selected_path: SemanticRoutePath::GeneralPose,
             semantic_route_runtime_evaluated: false,
@@ -663,20 +725,58 @@ mod tests {
             bones,
         };
         let frames = [&frame];
-        assert!(minimum_signed_foot_track(&frames).unwrap().measured().unwrap().metres() < 0.0);
-        assert!(maximum_facing_error(&frames).unwrap().measured().unwrap().degrees() > 179.0);
+        assert!(
+            minimum_signed_foot_track(&frames)
+                .unwrap()
+                .measured()
+                .unwrap()
+                .metres()
+                < 0.0
+        );
+        assert!(
+            maximum_facing_error(&frames)
+                .unwrap()
+                .measured()
+                .unwrap()
+                .degrees()
+                > 179.0
+        );
 
         let mut previous = frame.clone();
         previous.desired_body_forward_direction = Vec3::Z.to_array();
         frame.scenario_frame = 1;
         frame.time_seconds = locomotion_sample_rate().interval().elapsed();
-        assert!(maximum_facing_tracking_excess(&[&previous, &frame]).unwrap().measured().unwrap().degrees() > 8.0);
+        assert!(
+            maximum_facing_tracking_excess(&[&previous, &frame])
+                .unwrap()
+                .measured()
+                .unwrap()
+                .degrees()
+                > 8.0
+        );
 
         frame.guard_action = true;
-        assert!(maximum_guard_facing_error(&[&frame]).unwrap().measured().unwrap().degrees() > 179.0);
+        assert!(
+            maximum_guard_facing_error(&[&frame])
+                .unwrap()
+                .measured()
+                .unwrap()
+                .degrees()
+                > 179.0
+        );
 
-        frame.ik_left_knee_foot_yaw_offset_degrees = Some(adventuresim_tactical_core::animation::AngularMagnitudeDegrees::from_degrees(90.0).unwrap());
-        assert!(maximum_knee_foot_yaw_offset(&[&frame]).unwrap().measured().unwrap().degrees() > 45.0);
+        frame.ik_left_knee_foot_yaw_offset_degrees = Some(
+            adventuresim_tactical_core::animation::AngularMagnitudeDegrees::from_degrees(90.0)
+                .unwrap(),
+        );
+        assert!(
+            maximum_knee_foot_yaw_offset(&[&frame])
+                .unwrap()
+                .measured()
+                .unwrap()
+                .degrees()
+                > 45.0
+        );
     }
 
     #[test]
@@ -704,12 +804,28 @@ mod tests {
         ];
         assert!(
             (root_relative_vertical_step(&frames.iter().collect::<Vec<_>>(), BoneRole::Pelvis)
-                .unwrap().measured().unwrap().metres() - 0.03)
+                .unwrap()
+                .measured()
+                .unwrap()
+                .metres()
+                - 0.03)
                 .abs()
                 < 0.0001
         );
-        assert!((hard_stop_pelvis_vertical_step(&frames).unwrap().measured().unwrap().metres() - 0.015).abs() < 0.0001);
-        assert_eq!(hard_stop_pelvis_vertical_step(&[]).unwrap(), Observation::NotApplicable);
+        assert!(
+            (hard_stop_pelvis_vertical_step(&frames)
+                .unwrap()
+                .measured()
+                .unwrap()
+                .metres()
+                - 0.015)
+                .abs()
+                < 0.0001
+        );
+        assert_eq!(
+            hard_stop_pelvis_vertical_step(&[]).unwrap(),
+            Observation::NotApplicable
+        );
     }
 
     #[test]
@@ -870,7 +986,12 @@ mod tests {
             (maximum_planted_foot_drift(
                 &ScenarioMetadata::from_label("cross-slope-walk"),
                 &references
-            ).unwrap().measured().unwrap().metres() - 0.02)
+            )
+            .unwrap()
+            .measured()
+            .unwrap()
+            .metres()
+                - 0.02)
                 .abs()
                 < 0.0001
         );
@@ -912,19 +1033,24 @@ mod tests {
             .bones
             .get_mut(BoneRole::FootLeft)
             .unwrap()
-            .terrain_clearance_metres = Some(fabelgeist_geometry::SignedLength::from_metres(0.161).unwrap());
+            .terrain_clearance_metres =
+            Some(fabelgeist_geometry::SignedLength::from_metres(0.161).unwrap());
         frame
             .bones
             .get_mut(BoneRole::FootRight)
             .unwrap()
-            .terrain_clearance_metres = Some(fabelgeist_geometry::SignedLength::from_metres(0.085).unwrap());
+            .terrain_clearance_metres =
+            Some(fabelgeist_geometry::SignedLength::from_metres(0.085).unwrap());
 
         // Gait phase zero identifies the left foot, but the solver reports it
         // airborne and the right foot supported. Only the supported sole is a
         // contact-clearance sample.
         let clearance = contact_sole_clearance_range(&[&frame]).unwrap();
         let range = clearance.measured().unwrap();
-        assert_eq!((range.minimum().metres(), range.maximum().metres()), (0.0, 0.0));
+        assert_eq!(
+            (range.minimum().metres(), range.maximum().metres()),
+            (0.0, 0.0)
+        );
     }
 
     #[test]
@@ -934,12 +1060,14 @@ mod tests {
             .bones
             .get_mut(BoneRole::FootLeft)
             .unwrap()
-            .terrain_clearance_metres = Some(fabelgeist_geometry::SignedLength::from_metres(0.095).unwrap());
+            .terrain_clearance_metres =
+            Some(fabelgeist_geometry::SignedLength::from_metres(0.095).unwrap());
         frame
             .bones
             .get_mut(BoneRole::FootRight)
             .unwrap()
-            .terrain_clearance_metres = Some(fabelgeist_geometry::SignedLength::from_metres(0.145).unwrap());
+            .terrain_clearance_metres =
+            Some(fabelgeist_geometry::SignedLength::from_metres(0.145).unwrap());
 
         let clearance = contact_sole_clearance_range(&[&frame]).unwrap();
         let range = clearance.measured().unwrap();
@@ -956,21 +1084,28 @@ mod tests {
             .bones
             .get_mut(BoneRole::FootLeft)
             .unwrap()
-            .terrain_clearance_metres = Some(fabelgeist_geometry::SignedLength::from_metres(
-            measured_ankle_sole_offset_metres().metres() + sole_contact_tolerance_metres().metres()
-                - 0.00001,
-        ).unwrap());
+            .terrain_clearance_metres = Some(
+            fabelgeist_geometry::SignedLength::from_metres(
+                measured_ankle_sole_offset_metres().metres()
+                    + sole_contact_tolerance_metres().metres()
+                    - 0.00001,
+            )
+            .unwrap(),
+        );
         assert!(reported_support_contacts_are_valid(&[frame.clone()]));
 
         frame
             .bones
             .get_mut(BoneRole::FootLeft)
             .unwrap()
-            .terrain_clearance_metres = Some(fabelgeist_geometry::SignedLength::from_metres(
-            measured_ankle_sole_offset_metres().metres()
-                + sole_contact_tolerance_metres().metres()
-                + 0.0001,
-        ).unwrap());
+            .terrain_clearance_metres = Some(
+            fabelgeist_geometry::SignedLength::from_metres(
+                measured_ankle_sole_offset_metres().metres()
+                    + sole_contact_tolerance_metres().metres()
+                    + 0.0001,
+            )
+            .unwrap(),
+        );
         assert!(!reported_support_contacts_are_valid(&[frame]));
     }
 
@@ -984,7 +1119,8 @@ mod tests {
             .bones
             .get_mut(BoneRole::FootLeft)
             .unwrap()
-            .terrain_clearance_metres = Some(fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap());
+            .terrain_clearance_metres =
+            Some(fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap());
         assert!(reported_support_contacts_are_valid(&[frame]));
     }
 
@@ -1045,13 +1181,33 @@ mod tests {
     fn terrain_vertical_allowance_is_derived_from_sampled_foot_relief() {
         let frame = foot_metric_frame(0, 0.0, 1.0, -0.04, 0.04);
 
-        assert!((foot_terrain_relief(&[&frame]).unwrap().measured().unwrap().metres() - 0.08).abs() < 0.0001);
+        assert!(
+            (foot_terrain_relief(&[&frame])
+                .unwrap()
+                .measured()
+                .unwrap()
+                .metres()
+                - 0.08)
+                .abs()
+                < 0.0001
+        );
         assert_eq!(
-            vertical_range_limit(&ScenarioMetadata::from_label("steady-walk"), HeightDistance::from_metres(0.08).unwrap()).unwrap().metres(),
+            vertical_range_limit(
+                &ScenarioMetadata::from_label("steady-walk"),
+                HeightDistance::from_metres(0.08).unwrap()
+            )
+            .unwrap()
+            .metres(),
             ORDINARY_VERTICAL_RANGE_LIMIT_METRES
         );
         assert!(
-            (vertical_range_limit(&ScenarioMetadata::from_label("cross-slope-walk"), HeightDistance::from_metres(0.08).unwrap()).unwrap().metres() - 0.28)
+            (vertical_range_limit(
+                &ScenarioMetadata::from_label("cross-slope-walk"),
+                HeightDistance::from_metres(0.08).unwrap()
+            )
+            .unwrap()
+            .metres()
+                - 0.28)
                 .abs()
                 < 0.0001
         );
@@ -1071,7 +1227,12 @@ mod tests {
 
         assert!(
             (root_relative_vertical_step(&[&first, &second], BoneRole::Pelvis)
-                .unwrap().measured().unwrap().metres() - 0.14).abs()
+                .unwrap()
+                .measured()
+                .unwrap()
+                .metres()
+                - 0.14)
+                .abs()
                 < 0.0001
         );
     }
@@ -1088,11 +1249,20 @@ mod tests {
                 )
             })
             .collect::<Vec<_>>();
-        assert_eq!(prominent_height_peaks(&clean).unwrap(), Observation::Measured(HeightPeaks { count: 2, in_passing_windows: true }));
+        assert_eq!(
+            prominent_height_peaks(&clean).unwrap(),
+            Observation::Measured(HeightPeaks {
+                count: 2,
+                in_passing_windows: true
+            })
+        );
 
         // A visible contact beat is a third gait-height peak even though the
         // intended passing peaks remain correctly positioned.
-        clean[0] = HeightSample::new(clean[0].phase(), fabelgeist_geometry::SignedLength::from_metres(0.01).unwrap());
+        clean[0] = HeightSample::new(
+            clean[0].phase(),
+            fabelgeist_geometry::SignedLength::from_metres(0.01).unwrap(),
+        );
         let measurement = prominent_height_peaks(&clean).unwrap();
         let peaks = measurement.measured().unwrap();
         assert!(peaks.in_passing_windows);
@@ -1120,29 +1290,41 @@ mod scenario_policy_tests {
     #[test]
     fn raised_guard_uses_strict_plant_and_separation_gates() {
         assert_eq!(
-            inter_foot_separation_limit(&ScenarioMetadata::from_label("quickstep-right")).unwrap().metres(),
+            inter_foot_separation_limit(&ScenarioMetadata::from_label("quickstep-right"))
+                .unwrap()
+                .metres(),
             0.04
         );
         assert_eq!(
-            planted_drift_limit(&ScenarioMetadata::from_label("raised-guard-right")).unwrap().metres(),
+            planted_drift_limit(&ScenarioMetadata::from_label("raised-guard-right"))
+                .unwrap()
+                .metres(),
             0.01
         );
         assert_eq!(
-            inter_foot_separation_limit(&ScenarioMetadata::from_label("raised-guard-right")).unwrap().metres(),
+            inter_foot_separation_limit(&ScenarioMetadata::from_label("raised-guard-right"))
+                .unwrap()
+                .metres(),
             0.08
         );
         assert_eq!(
             inter_foot_separation_limit(&ScenarioMetadata::from_label(
                 "raised-guard-stationary-turn"
-            )).unwrap().metres(),
+            ))
+            .unwrap()
+            .metres(),
             0.16
         );
         assert_eq!(
-            planted_drift_limit(&ScenarioMetadata::from_label("steady-walk-2.0")).unwrap().metres(),
+            planted_drift_limit(&ScenarioMetadata::from_label("steady-walk-2.0"))
+                .unwrap()
+                .metres(),
             0.035
         );
         assert_eq!(
-            inter_foot_separation_limit(&ScenarioMetadata::from_label("steady-walk-2.0")).unwrap().metres(),
+            inter_foot_separation_limit(&ScenarioMetadata::from_label("steady-walk-2.0"))
+                .unwrap()
+                .metres(),
             0.08
         );
         assert!(!procedural_leg_solver_gates_apply(

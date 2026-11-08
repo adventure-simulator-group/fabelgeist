@@ -18,21 +18,30 @@ pub(super) struct RepeatedEvaluationSnapshot {
 
 #[derive(Debug)]
 pub(super) enum RepeatedBoneMismatch {
-    MissingBone { bone: BoneRole },
-    UnexpectedBone { bone: BoneRole },
+    MissingBone {
+        bone: BoneRole,
+    },
+    UnexpectedBone {
+        bone: BoneRole,
+    },
     Transform {
         bone: BoneRole,
         position_delta: NonnegativeLength,
         rotation_delta: AngularMagnitudeDegrees,
     },
-    InvalidObservation { bone: BoneRole, cause: AnimationValueError },
+    InvalidObservation {
+        bone: BoneRole,
+        cause: AnimationValueError,
+    },
 }
 
 impl RepeatedBoneMismatch {
     fn bone(&self) -> BoneRole {
         match self {
-            Self::MissingBone { bone } | Self::UnexpectedBone { bone }
-            | Self::Transform { bone, .. } | Self::InvalidObservation { bone, .. } => *bone,
+            Self::MissingBone { bone }
+            | Self::UnexpectedBone { bone }
+            | Self::Transform { bone, .. }
+            | Self::InvalidObservation { bone, .. } => *bone,
         }
     }
 }
@@ -63,8 +72,11 @@ impl CaptureSequence {
             self.repeated_evaluation_valid &= repeated_evaluation_matches;
         } else {
             self.repeated_evaluation_valid = false;
-            warn!(scenario = frame.scenario.label(), scenario_frame = frame.scenario_frame,
-                "repeated animation evaluation has no baseline observation");
+            warn!(
+                scenario = frame.scenario.label(),
+                scenario_frame = frame.scenario_frame,
+                "repeated animation evaluation has no baseline observation"
+            );
         }
     }
 }
@@ -88,14 +100,17 @@ impl RepeatedEvaluationSnapshot {
             && self.landing_sequence == skeleton.landing_sequence
             && self.event_count == event_count
             && repeated_leg_ik_matches(self.leg_ik, leg_ik);
-        if !repeated_evaluation_matches
-            && let Some(mismatch) = &bone_mismatch
-        {
+        if !repeated_evaluation_matches && let Some(mismatch) = &bone_mismatch {
             let bone = mismatch.bone();
             let (position_delta, rotation_delta) = match mismatch {
-                RepeatedBoneMismatch::Transform { position_delta, rotation_delta, .. } => {
-                    (Some(position_delta.metres()), Some(rotation_delta.degrees()))
-                }
+                RepeatedBoneMismatch::Transform {
+                    position_delta,
+                    rotation_delta,
+                    ..
+                } => (
+                    Some(position_delta.metres()),
+                    Some(rotation_delta.degrees()),
+                ),
                 _ => (None, None),
             };
             let invalid_cause = match mismatch {
@@ -145,36 +160,47 @@ pub(super) fn repeated_bone_mismatch(
         return Some(RepeatedBoneMismatch::UnexpectedBone { bone: *bone });
     }
     // Equal key sets retain the same lexical report order in both captures.
-    expected.iter().zip(actual.iter()).find_map(|((name, expected), (_, actual))| {
-        let position_delta =
-            Vec3::from_array(expected.position).distance(Vec3::from_array(actual.position));
-        let expected_rotation = Quat::from_array(expected.rotation_xyzw);
-        let actual_rotation = Quat::from_array(actual.rotation_xyzw);
-        // `acos` quantizes identical f32 quaternions to roughly 0.056-0.079
-        // degrees on some frames. Treat a direct dot match as identity, then
-        // retain the angular report for genuine changes.
-        let rotation_dot = expected_rotation.dot(actual_rotation).abs();
-        let rotation_delta = if rotation_dot >= 1.0 - 0.000_001 {
-            0.0
-        } else {
-            expected_rotation
-                .angle_between(actual_rotation)
-                .to_degrees()
-        };
-        // Re-evaluating one logical tick must be visually identical. Keep only
-        // sub-half-millimetre/sub-twentieth-degree numeric noise.
-        let position_delta = match NonnegativeLength::from_metres(position_delta) {
-            Ok(delta) => delta,
-            Err(cause) => return Some(RepeatedBoneMismatch::InvalidObservation { bone: *name, cause }),
-        };
-        let rotation_delta = match AngularMagnitudeDegrees::from_degrees(rotation_delta) {
-            Ok(delta) => delta,
-            Err(cause) => return Some(RepeatedBoneMismatch::InvalidObservation { bone: *name, cause }),
-        };
-        (position_delta.metres() > 0.0005 || rotation_delta.degrees() > 0.05).then_some(
-            RepeatedBoneMismatch::Transform { bone: *name, position_delta, rotation_delta },
-        )
-    })
+    expected
+        .iter()
+        .zip(actual.iter())
+        .find_map(|((name, expected), (_, actual))| {
+            let position_delta =
+                Vec3::from_array(expected.position).distance(Vec3::from_array(actual.position));
+            let expected_rotation = Quat::from_array(expected.rotation_xyzw);
+            let actual_rotation = Quat::from_array(actual.rotation_xyzw);
+            // `acos` quantizes identical f32 quaternions to roughly 0.056-0.079
+            // degrees on some frames. Treat a direct dot match as identity, then
+            // retain the angular report for genuine changes.
+            let rotation_dot = expected_rotation.dot(actual_rotation).abs();
+            let rotation_delta = if rotation_dot >= 1.0 - 0.000_001 {
+                0.0
+            } else {
+                expected_rotation
+                    .angle_between(actual_rotation)
+                    .to_degrees()
+            };
+            // Re-evaluating one logical tick must be visually identical. Keep only
+            // sub-half-millimetre/sub-twentieth-degree numeric noise.
+            let position_delta = match NonnegativeLength::from_metres(position_delta) {
+                Ok(delta) => delta,
+                Err(cause) => {
+                    return Some(RepeatedBoneMismatch::InvalidObservation { bone: *name, cause });
+                }
+            };
+            let rotation_delta = match AngularMagnitudeDegrees::from_degrees(rotation_delta) {
+                Ok(delta) => delta,
+                Err(cause) => {
+                    return Some(RepeatedBoneMismatch::InvalidObservation { bone: *name, cause });
+                }
+            };
+            (position_delta.metres() > 0.0005 || rotation_delta.degrees() > 0.05).then_some(
+                RepeatedBoneMismatch::Transform {
+                    bone: *name,
+                    position_delta,
+                    rotation_delta,
+                },
+            )
+        })
 }
 
 pub(super) fn repeated_leg_ik_matches(
@@ -242,7 +268,9 @@ mod tests {
         let sample = BoneSample {
             position: Vec3::ZERO.to_array(),
             rotation_xyzw: Quat::IDENTITY.to_array(),
-            terrain_clearance_metres: Some(fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap()),
+            terrain_clearance_metres: Some(
+                fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap(),
+            ),
         };
         let expected = CapturedBones::from_iter([(BoneRole::FootLeft, sample)]);
         let missing = CapturedBones::default();

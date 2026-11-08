@@ -4,8 +4,8 @@ use super::*;
 pub(super) use admission::reject_capture;
 use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
-use fabelgeist_geometry::SignedLength;
 pub(super) use capture_schedule::CapturePlugin;
+use fabelgeist_geometry::SignedLength;
 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 use repeated_evaluation::RepeatedEvaluationSnapshot;
 
@@ -677,8 +677,7 @@ pub(super) fn capture_frame(
         }) {
             Ok(sample) => sample,
             Err(error) => {
-                sequence.admission =
-                    CaptureAdmission::Rejected(error);
+                sequence.admission = CaptureAdmission::Rejected(error);
                 return;
             }
         };

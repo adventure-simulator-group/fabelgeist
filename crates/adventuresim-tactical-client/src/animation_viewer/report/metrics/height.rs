@@ -49,7 +49,11 @@ pub(in crate::animation_viewer::report) fn root_relative_vertical_range(
             }));
         };
         let value = SignedLength::from_metres(sample.position[1] - frame.root_position_metres[1])?;
-        bounds = Some(bounds.map_or(SignedLengthRange::from_sample(value), |bounds| bounds.include(value)));
+        bounds = Some(
+            bounds.map_or(SignedLengthRange::from_sample(value), |bounds| {
+                bounds.include(value)
+            }),
+        );
     }
     let Some(bounds) = bounds else {
         return Ok(Observation::Unavailable(UnavailableReason::NoFrames));
@@ -112,10 +116,18 @@ pub(in crate::animation_viewer::report) fn controller_vertical_range(
     let mut bounds: Option<SignedLengthRange> = None;
     for frame in frames {
         let value = SignedLength::from_metres(frame.root_position_metres[1])?;
-        bounds = Some(bounds.map_or(SignedLengthRange::from_sample(value), |bounds| bounds.include(value)));
+        bounds = Some(
+            bounds.map_or(SignedLengthRange::from_sample(value), |bounds| {
+                bounds.include(value)
+            }),
+        );
     }
-    let Some(bounds) = bounds else { return Ok(Observation::Unavailable(UnavailableReason::NoFrames)); };
-    Ok(Observation::Measured(HeightDistance::from_metres(bounds.maximum().metres() - bounds.minimum().metres())?))
+    let Some(bounds) = bounds else {
+        return Ok(Observation::Unavailable(UnavailableReason::NoFrames));
+    };
+    Ok(Observation::Measured(HeightDistance::from_metres(
+        bounds.maximum().metres() - bounds.minimum().metres(),
+    )?))
 }
 
 pub(in crate::animation_viewer::report) fn contact_to_passing_height_gain(
@@ -198,7 +210,10 @@ pub(in crate::animation_viewer::report) fn visual_height_peaks(
                         bone: BoneRole::Pelvis,
                     }));
                 };
-                samples.push(HeightSample::new(frame.gait_phase, SignedLength::from_metres(pelvis.y)?));
+                samples.push(HeightSample::new(
+                    frame.gait_phase,
+                    SignedLength::from_metres(pelvis.y)?,
+                ));
             }
             match prominent_height_peaks(&samples)? {
                 Observation::Measured(measurement) => measurements.push(measurement),
@@ -209,7 +224,9 @@ pub(in crate::animation_viewer::report) fn visual_height_peaks(
         cycle_start = cycle_end;
     }
     let Some(peaks) = VisualHeightPeaks::from_cycles(&measurements) else {
-        return Ok(Observation::Unavailable(UnavailableReason::NoCompletedCycle));
+        return Ok(Observation::Unavailable(
+            UnavailableReason::NoCompletedCycle,
+        ));
     };
     Ok(Observation::Measured(peaks))
 }
