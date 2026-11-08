@@ -1,4 +1,5 @@
 use super::*;
+use crate::presentation::preparation::{PreparationError, PreparationResult};
 use adventuresim_building_generator::spatial_geometry::GeometryResult;
 
 pub(super) type PendingScenes<'w, 's> = Query<
@@ -92,7 +93,8 @@ pub(super) fn spawn_presentation(
     ground: Option<&SceneGround>,
     landform: Option<&TerrainLandformRecipe>,
     prepared: Option<&SceneTerrainPatch>,
-) -> GeometryResult<()> {
+) -> PreparationResult<()> {
+    let prepared = prepare_landform(id, terrain, landform, prepared)?;
     let transition_collar = landform.map(|recipe| recipe.transition_collar());
     let material = terrain_material(
         terrain,
@@ -114,7 +116,6 @@ pub(super) fn spawn_presentation(
         id,
         terrain,
         material,
-        landform,
         prepared,
         urban::GroundCoverage::new(terrain, environment, vista),
     );
@@ -148,18 +149,16 @@ pub(super) fn spawn_base_and_fault(
     id: &SceneId,
     terrain: &SceneTerrain,
     material: TacticalTerrainMaterial,
-    landform: Option<&TerrainLandformRecipe>,
-    prepared: Option<&SceneTerrainPatch>,
+    landform: PreparedLandform,
     coverage: urban::GroundCoverage,
 ) {
-    // Local scene producers supply the exact patch already generated off-thread.
-    // Replicated tactical scenes deliver terrain and a recipe, without a mesh.
-    let fault_patch = prepared
-        .cloned()
-        .or_else(|| landform.and_then(|recipe| terrain_landform_patch(terrain, *recipe).ok()));
+    let recipe = match &landform {
+        PreparedLandform::Natural => None,
+        PreparedLandform::Patch { recipe, .. } => Some(recipe),
+    };
     let mut fault_material = material.clone();
     let material = materials.add(material);
-    let playable_mesh = coverage.mesh(terrain, landform);
+    let playable_mesh = coverage.mesh(terrain, recipe);
     let triangle_count = mesh_triangle_count(&playable_mesh);
     commands.spawn((
         Name::new(format!("{} terrain mesh", id.0)),
@@ -170,9 +169,7 @@ pub(super) fn spawn_base_and_fault(
         Mesh3d(meshes.add(playable_mesh)),
         MeshMaterial3d(material),
     ));
-    if let Some(patch) = fault_patch
-        && let Some(recipe) = landform
-    {
+    if let PreparedLandform::Patch { recipe, patch } = landform {
         // The patch owns its zero-offset rim, so it uses refined-terrain
         // presentation instead of the coarse heightfield discard path.
         fault_material.extension.detail_patch.x = 0.0;
@@ -186,6 +183,43 @@ pub(super) fn spawn_base_and_fault(
             Mesh3d(meshes.add(terrain_patch_mesh(patch, terrain))),
             MeshMaterial3d(materials.add(fault_material)),
         ));
+    }
+}
+
+pub(super) enum PreparedLandform {
+    Natural,
+    Patch {
+        recipe: TerrainLandformRecipe,
+        patch: SceneTerrainPatch,
+    },
+}
+
+pub(super) fn prepare_landform(
+    id: &SceneId,
+    terrain: &SceneTerrain,
+    landform: Option<&TerrainLandformRecipe>,
+    prepared: Option<&SceneTerrainPatch>,
+) -> PreparationResult<PreparedLandform> {
+    // Local scene producers supply a prepared patch; replicated scenes rebuild it.
+    match (landform, prepared) {
+        (None, None) => Ok(PreparedLandform::Natural),
+        (None, Some(_)) => Err(PreparationError::TerrainPatchWithoutRecipe {
+            scene: id.0.clone(),
+        }),
+        (Some(recipe), Some(patch)) => Ok(PreparedLandform::Patch {
+            recipe: *recipe,
+            patch: patch.clone(),
+        }),
+        (Some(recipe), None) => terrain_landform_patch(terrain, *recipe)
+            .map(|patch| PreparedLandform::Patch {
+                recipe: *recipe,
+                patch,
+            })
+            .map_err(|source| PreparationError::TerrainLandform {
+                scene: id.0.clone(),
+                recipe: Box::new(*recipe),
+                source,
+            }),
     }
 }
 
@@ -308,8 +342,13 @@ mod tests {
                 &SceneId("one-cliff-draw".into()),
                 &terrain,
                 material,
-                Some(&recipe),
-                Some(&terrain_landform_patch(&terrain, recipe).unwrap()),
+                prepare_landform(
+                    &SceneId("one-cliff-draw".into()),
+                    &terrain,
+                    Some(&recipe),
+                    Some(&terrain_landform_patch(&terrain, recipe).unwrap()),
+                )
+                .unwrap(),
                 urban::GroundCoverage::new(&terrain, &environment, &ActiveVistaSurface::default()),
             );
         }

@@ -3,7 +3,10 @@ use crate::presentation::vista::VistaMeshError;
 use adventuresim_building_generator::{
     GenerationError, interior::InteriorLayoutError, spatial_geometry::GeometryError,
 };
-use adventuresim_tactical_core::scene_input::{SceneBuildingId, SceneInputError};
+use adventuresim_tactical_core::{
+    scene_input::{SceneBuildingId, SceneInputError},
+    volumetric_terrain::{TerrainLandformRecipe, TerrainRecipeError},
+};
 use thiserror::Error;
 
 pub(crate) type PreparationResult<T> = std::result::Result<T, PreparationError>;
@@ -46,6 +49,15 @@ pub(crate) enum PreparationError {
     Building(#[from] Box<GenerationError>),
     #[error(transparent)]
     Geometry(#[from] GeometryError),
+    #[error("landform preparation failed for scene {scene}: {source}")]
+    TerrainLandform {
+        scene: String,
+        recipe: Box<TerrainLandformRecipe>,
+        #[source]
+        source: TerrainRecipeError,
+    },
+    #[error("scene {scene} supplied a terrain patch without a landform recipe")]
+    TerrainPatchWithoutRecipe { scene: String },
     #[error(transparent)]
     VistaMesh(#[from] VistaMeshError),
     #[error(transparent)]
@@ -84,6 +96,8 @@ impl PreparationError {
             Self::SceneInput(_) => "generation/scene-input",
             Self::Building(_) => "generation/building",
             Self::Geometry(_) => "generation/geometry",
+            Self::TerrainLandform { .. } => "generation/terrain-landform",
+            Self::TerrainPatchWithoutRecipe { .. } => "generation/terrain-patch-without-recipe",
             Self::VistaMesh(_) => "generation/vista-mesh",
             Self::Interior(_) => "generation/interior",
             Self::GraphicsConfiguration { .. } => "generation/graphics-configuration",

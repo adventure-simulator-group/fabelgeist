@@ -1,4 +1,5 @@
 use super::*;
+use crate::presentation::preparation::PreparationError;
 use adventuresim_procedural_textures::{
     FOREST_LITTER_HEIGHT_RANGE_METRES, FOREST_LITTER_TILE_METRES, FOREST_SOIL_HEIGHT_RANGE_METRES,
     FOREST_SOIL_TILE_METRES, ROCK_HEIGHT_RANGE_METRES, ROCK_TILE_METRES,
@@ -62,6 +63,10 @@ struct DetailRockInfluence {
 
 #[derive(Component)]
 pub(crate) struct PendingTerrainPresentation;
+
+/// A rejected terrain preparation retains its owned cause until a retry succeeds.
+#[derive(Component)]
+pub(crate) struct TerrainPresentationFailure(pub(crate) PreparationError);
 
 pub(in crate::presentation) fn on_game_scene_added(
     event: On<Add, SceneId>,
@@ -134,6 +139,7 @@ pub(in crate::presentation) fn present_pending_terrain(
                 &mut materials,
                 &mut images,
             )
+            .map_err(PreparationError::from)
         } else {
             info!(?entity, "Spawning a scene {id:?}");
             volumetric::spawn_presentation(
@@ -159,10 +165,22 @@ pub(in crate::presentation) fn present_pending_terrain(
                 prepared_first_terrain = true;
                 commands
                     .entity(entity)
-                    .remove::<PendingTerrainPresentation>();
+                    .remove::<PendingTerrainPresentation>()
+                    .remove::<TerrainPresentationFailure>();
             }
             Ok(false) => {}
-            Err(error) => warn!(%error, ?entity, "Invalid terrain ground texture"),
+            Err(
+                error @ (PreparationError::TerrainLandform { .. }
+                | PreparationError::TerrainPatchWithoutRecipe { .. }),
+            ) => {
+                let failure = TerrainPresentationFailure(error);
+                warn!(error = %failure.0, ?entity, "Terrain presentation preparation failed");
+                commands
+                    .entity(entity)
+                    .remove::<PendingTerrainPresentation>()
+                    .insert(failure);
+            }
+            Err(error) => warn!(%error, ?entity, "Terrain presentation preparation failed"),
         }
     }
     if prepared_first_terrain && let Some(startup) = startup.as_mut() {

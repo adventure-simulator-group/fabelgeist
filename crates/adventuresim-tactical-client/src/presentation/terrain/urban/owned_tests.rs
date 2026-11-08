@@ -78,8 +78,13 @@ impl GroundFixture {
                 &SceneId("owned-no-streets".into()),
                 &terrain,
                 material,
-                landform.as_ref(),
-                None,
+                super::super::volumetric::prepare_landform(
+                    &SceneId("owned-no-streets".into()),
+                    &terrain,
+                    landform.as_ref(),
+                    None,
+                )
+                .unwrap(),
                 coverage,
             );
         }
