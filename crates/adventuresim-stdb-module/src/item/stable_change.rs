@@ -1,7 +1,9 @@
 //! Individually tracked inventory changes preserve equipment and custody.
 
 use adventuresim_core::{
-    inventory_instance::{InstanceQuantityChange, InstanceRemovalCandidate, select_removals},
+    inventory_instance::{
+        InstanceQuantityChange, InstanceRemovalCandidate, PersonalInventoryRowId, select_removals,
+    },
     physical_object::CarriedInventoryScope,
 };
 use spacetimedb::ReducerContext;
@@ -24,7 +26,7 @@ fn plan_removals(
         let object = crate::inventory_container::object_for_row(
             ctx,
             CarriedInventoryScope::Personal,
-            candidate.row_id,
+            candidate.row_id.get(),
         )?
         .ok_or("Inventory instance has no stable physical object")?;
         plans.push(PlannedRemoval {
@@ -60,7 +62,7 @@ pub(super) fn change_instances(
 ) -> crate::StrategicOperationResult<()> {
     match InstanceQuantityChange::try_from(quantity)? {
         InstanceQuantityChange::Add(count) => {
-            add_inventory_item(ctx, character_id, item_id, count)?;
+            add_inventory_item(ctx, character_id, item_id, count.get())?;
         }
         InstanceQuantityChange::Remove(count) => {
             let instances = ctx
@@ -69,13 +71,13 @@ pub(super) fn change_instances(
                 .character_and_item_id()
                 .filter((character_id, item_id))
                 .collect::<Vec<_>>();
-            if instances.len() < count as usize {
+            if instances.len() < count.get() as usize {
                 return Err("not enough inventory instances to remove".into());
             }
             let candidates = instances
                 .into_iter()
                 .map(|item| InstanceRemovalCandidate {
-                    row_id: item.id,
+                    row_id: PersonalInventoryRowId::from_raw(item.id),
                     equipped: crate::character::wearable_is_equipped(ctx, item.id),
                 })
                 .collect();
@@ -83,7 +85,7 @@ pub(super) fn change_instances(
             let plans = plan_removals(ctx, select_removals(candidates, count))?;
             for plan in plans {
                 if plan.candidate.equipped {
-                    crate::character::unequip_wearable(ctx, plan.candidate.row_id);
+                    crate::character::unequip_wearable(ctx, plan.candidate.row_id.get());
                     equipment_changed = true;
                 }
                 crate::inventory_container::delete_subtree(ctx, plan.object_id)?;

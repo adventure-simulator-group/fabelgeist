@@ -3,10 +3,34 @@
 /// Each change can create at most this many separate persisted objects.
 pub const MAX_INSTANCE_QUANTITY_CHANGE: u32 = 64;
 
+/// The number of individual objects admitted in one change.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct InstanceCount(u32);
+
+impl InstanceCount {
+    pub const fn get(self) -> u32 {
+        self.0
+    }
+}
+
+/// A personal inventory row identifier at the persistence boundary.
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+pub struct PersonalInventoryRowId(u64);
+
+impl PersonalInventoryRowId {
+    pub const fn from_raw(value: u64) -> Self {
+        Self(value)
+    }
+
+    pub const fn get(self) -> u64 {
+        self.0
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum InstanceQuantityChange {
-    Add(u32),
-    Remove(u32),
+    Add(InstanceCount),
+    Remove(InstanceCount),
 }
 
 impl TryFrom<i32> for InstanceQuantityChange {
@@ -18,9 +42,9 @@ impl TryFrom<i32> for InstanceQuantityChange {
             return Err("instance quantity change exceeds the per-call limit");
         }
         Ok(if change >= 0 {
-            Self::Add(amount)
+            Self::Add(InstanceCount(amount))
         } else {
-            Self::Remove(amount)
+            Self::Remove(InstanceCount(amount))
         })
     }
 }
@@ -28,17 +52,17 @@ impl TryFrom<i32> for InstanceQuantityChange {
 /// An inventory row selected at the database boundary and its equipment state.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct InstanceRemovalCandidate {
-    pub row_id: u64,
+    pub row_id: PersonalInventoryRowId,
     pub equipped: bool,
 }
 
 /// Prefer unequipped instances, then the lowest persisted row identifier.
 pub fn select_removals(
     mut candidates: Vec<InstanceRemovalCandidate>,
-    count: u32,
+    count: InstanceCount,
 ) -> Vec<InstanceRemovalCandidate> {
     candidates.sort_by_key(|candidate| (candidate.equipped, candidate.row_id));
-    candidates.truncate(count as usize);
+    candidates.truncate(count.get() as usize);
     candidates
 }
 
@@ -48,7 +72,10 @@ mod tests {
 
     #[test]
     fn instance_removal_prefers_spares_before_equipped_instances() {
-        let candidate = |row_id, equipped| InstanceRemovalCandidate { row_id, equipped };
+        let candidate = |row_id, equipped| InstanceRemovalCandidate {
+            row_id: PersonalInventoryRowId::from_raw(row_id),
+            equipped,
+        };
         assert_eq!(
             select_removals(
                 vec![
@@ -56,12 +83,15 @@ mod tests {
                     candidate(12, false),
                     candidate(11, false)
                 ],
-                2
+                InstanceCount(2)
             ),
             vec![candidate(11, false), candidate(12, false)]
         );
         assert_eq!(
-            select_removals(vec![candidate(10, true), candidate(11, false)], 2),
+            select_removals(
+                vec![candidate(10, true), candidate(11, false)],
+                InstanceCount(2)
+            ),
             vec![candidate(11, false), candidate(10, true)]
         );
     }
@@ -70,11 +100,11 @@ mod tests {
     fn instance_quantity_changes_are_bounded_and_exact() {
         assert_eq!(
             InstanceQuantityChange::try_from(3),
-            Ok(InstanceQuantityChange::Add(3))
+            Ok(InstanceQuantityChange::Add(InstanceCount(3)))
         );
         assert_eq!(
             InstanceQuantityChange::try_from(-2),
-            Ok(InstanceQuantityChange::Remove(2))
+            Ok(InstanceQuantityChange::Remove(InstanceCount(2)))
         );
         assert!(InstanceQuantityChange::try_from(65).is_err());
         assert!(InstanceQuantityChange::try_from(i32::MIN).is_err());
