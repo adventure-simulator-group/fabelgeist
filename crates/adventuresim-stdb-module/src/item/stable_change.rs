@@ -1,10 +1,8 @@
 //! Individually tracked inventory changes preserve equipment and custody.
 
 use adventuresim_core::{
-    inventory_instance::{
-        InstanceQuantityChange, InstanceRemovalCandidate, PersonalInventoryRowId, select_removals,
-    },
-    physical_object::CarriedInventoryScope,
+    inventory_instance::{InstanceQuantityChange, InstanceRemovalCandidate, select_removals},
+    physical_object::{CarriedInventoryScope, PersonalInventoryRowId},
 };
 use spacetimedb::ReducerContext;
 

@@ -42,6 +42,65 @@ impl TryFrom<&str> for CarriedInventoryScope {
     }
 }
 
+/// A row in the personal inventory table.
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+pub struct PersonalInventoryRowId {
+    value: u64,
+}
+
+impl PersonalInventoryRowId {
+    pub const fn from_raw(value: u64) -> Self {
+        Self { value }
+    }
+
+    pub const fn get(self) -> u64 {
+        self.value
+    }
+}
+
+/// A row in the party inventory table.
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+pub struct PartyInventoryRowId {
+    value: u64,
+}
+
+impl PartyInventoryRowId {
+    pub const fn from_raw(value: u64) -> Self {
+        Self { value }
+    }
+
+    pub const fn get(self) -> u64 {
+        self.value
+    }
+}
+
+/// A row in the repair inventory table.
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+pub struct RepairInventoryRowId {
+    value: u64,
+}
+
+impl RepairInventoryRowId {
+    pub const fn from_raw(value: u64) -> Self {
+        Self { value }
+    }
+
+    pub const fn get(self) -> u64 {
+        self.value
+    }
+}
+
+/// A backing row together with the inventory table that owns its identity.
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub enum InventoryBackingRowId {
+    Personal(PersonalInventoryRowId),
+    Party(PartyInventoryRowId),
+    Repair(RepairInventoryRowId),
+}
+
 /// A physical object's persisted backing location.
 ///
 /// Each variant contains exactly the identity required by that state, so a
@@ -52,14 +111,14 @@ impl TryFrom<&str> for CarriedInventoryScope {
 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
 pub struct PersonalInventoryLocation {
     pub character_id: u64,
-    pub row_id: u64,
+    pub row_id: PersonalInventoryRowId,
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
 pub struct PartyInventoryLocation {
     pub party_id: String,
-    pub row_id: u64,
+    pub row_id: PartyInventoryRowId,
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -72,7 +131,7 @@ pub struct FireplaceInventoryLocation {
 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
 pub struct RepairInventoryLocation {
     pub settlement_id: String,
-    pub row_id: u64,
+    pub row_id: RepairInventoryRowId,
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -85,14 +144,14 @@ pub enum InventoryLocation {
 }
 
 impl InventoryLocation {
-    pub const fn personal(character_id: u64, row_id: u64) -> Self {
+    pub const fn personal(character_id: u64, row_id: PersonalInventoryRowId) -> Self {
         Self::Personal(PersonalInventoryLocation {
             character_id,
             row_id,
         })
     }
 
-    pub fn party(party_id: impl Into<String>, row_id: u64) -> Self {
+    pub fn party(party_id: impl Into<String>, row_id: PartyInventoryRowId) -> Self {
         Self::Party(PartyInventoryLocation {
             party_id: party_id.into(),
             row_id,
@@ -105,7 +164,7 @@ impl InventoryLocation {
         })
     }
 
-    pub fn repair(settlement_id: impl Into<String>, row_id: u64) -> Self {
+    pub fn repair(settlement_id: impl Into<String>, row_id: RepairInventoryRowId) -> Self {
         Self::Repair(RepairInventoryLocation {
             settlement_id: settlement_id.into(),
             row_id,
@@ -120,11 +179,11 @@ impl InventoryLocation {
         }
     }
 
-    pub const fn row_id(&self) -> Option<u64> {
+    pub const fn row_id(&self) -> Option<InventoryBackingRowId> {
         match self {
-            Self::Personal(location) => Some(location.row_id),
-            Self::Party(location) => Some(location.row_id),
-            Self::Repair(location) => Some(location.row_id),
+            Self::Personal(location) => Some(InventoryBackingRowId::Personal(location.row_id)),
+            Self::Party(location) => Some(InventoryBackingRowId::Party(location.row_id)),
+            Self::Repair(location) => Some(InventoryBackingRowId::Repair(location.row_id)),
             Self::Fireplace(_) => None,
         }
     }

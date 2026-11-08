@@ -1,5 +1,7 @@
 //! Bounded changes and removal order for individually tracked inventory.
 
+use crate::physical_object::PersonalInventoryRowId;
+
 /// Each change can create at most this many separate persisted objects.
 pub const MAX_INSTANCE_QUANTITY_CHANGE: u32 = 64;
 
@@ -9,20 +11,6 @@ pub struct InstanceCount(u32);
 
 impl InstanceCount {
     pub const fn get(self) -> u32 {
-        self.0
-    }
-}
-
-/// A personal inventory row identifier at the persistence boundary.
-#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
-pub struct PersonalInventoryRowId(u64);
-
-impl PersonalInventoryRowId {
-    pub const fn from_raw(value: u64) -> Self {
-        Self(value)
-    }
-
-    pub const fn get(self) -> u64 {
         self.0
     }
 }
