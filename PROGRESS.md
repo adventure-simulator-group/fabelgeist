@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:17:18.593426+00:00
+Updated: 2026-11-08T14:18:10.259376+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -51,7 +51,7 @@ Updated: 2026-11-08T14:17:18.593426+00:00
 | Fixed-step draft report tests | 26 / 26 passed |
 | Ragdoll within-sample save intervals with zero physics steps | 18 / 18 |
 | Ragdoll between-sample save intervals with one physics step | 8 / 8 |
-| Ordinary viewer scenario | Running |
+| Ordinary viewer scenario | Jitter gate failed |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -182,8 +182,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   passing ragdoll capture traced the physics schedule: between logged view
   saves there were zero steps in all 18 within-sample intervals and one in
   all eight between-sample intervals. This evidence uses save-log ordering.
-  An ordinary scenario is running. Current entry points select the ragdoll
-  plan alone; mixed-plan clock restoration is not runtime-verified.
+  The 65-frame ordinary camera-pitch capture completed but failed its jitter
+  gate: chest position acceleration at frame 2 was 71.40 against an 18.0
+  threshold; the worst incident was chest jerk at frame 3, 4569.44 against
+  900.0. Source shows the clock candidate arms only for ragdoll, but no prior
+  ordinary-scenario baseline has been compared. Current entry points select
+  ragdoll alone; mixed-plan clock restoration is not runtime-verified.
   Terrain correction runs outside the physics schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
