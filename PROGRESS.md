@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:03:16.371733+00:00
+Updated: 2026-11-08T18:10:48.970175+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T18:03:16.371733+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings on inventory draft | 3; unresolved |
+| File and function size findings on inventory draft | 0; 3 cleared |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
 | Loading reconnect mailbox gap | Draft; live validation open |
@@ -28,12 +28,12 @@ Updated: 2026-11-08T18:03:16.371733+00:00
 | Persisted row identity kinds drafted | 2; migration incomplete |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Passed |
+| Workspace all-target all-feature Clippy | Passed on earlier draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
 | Food lot lookup/deletion helpers typed | 4 / 4; producers still open |
-| Current quality size findings | 3; unresolved |
+| Current quality size findings | 0 in targeted quality scan |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
@@ -57,7 +57,7 @@ Updated: 2026-11-08T18:03:16.371733+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Not rerun |
+| Full P16 lint on current identity draft | Running; outcome pending |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -116,12 +116,13 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `d9f3d02da`. Cooking
-ingredient resolution now accepts a typed carried-row identity and preserves
-its ownership and equipment checks in a focused helper. Authority-feature
-module compilation passed. The quality scan reported three strategic trade
-size findings before the cooking baseline reductions. Earlier full lint and
-targeted isolated acceptance passed on `23640b3c3`, not this commit. Cooking,
+The inventory row-identity migration is a draft at P16 `81531ce5d`. Storefront
+sale application now carries a personal or party row identity into the food and
+physical-object operations, and party liquidation reuses its typed row ID.
+The authority-feature module check and targeted Rust quality scan passed; the
+three trade size findings were cleared and the corresponding ceilings reduced.
+Formatting passed, and full lint is running. Earlier full lint and isolated
+acceptance passed on `23640b3c3`, not this commit. Cooking, storefront sales,
 transfer, broader custody and repair behavior, and review remain unverified.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
