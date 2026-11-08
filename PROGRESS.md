@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:42:02.598772+00:00
+Updated: 2026-11-08T05:44:32.545389+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 1 |
-| Implementing | 0 |
-| Awaiting or running checks | 1 |
+| Implementing | 1 |
+| Awaiting or running checks | 0 |
 | Awaiting review | 1 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -34,14 +34,16 @@ ledger as backlog. Full refactor completion and validation remain required.
   from readiness. Recipe and patch arrivals now trigger reconciliation; changed
   recipes rebuild terrain. The focused client check passed. The Rust quality
   checker passed after extracting named presentation queries.
-  Existing terrain tests are being rerun; they do not exercise the new lifecycle
-  or failure path. The replication library documents per-entity atomic updates
+  At this commit, 19 existing terrain tests passed and one benchmark was
+  ignored; they do not exercise the new lifecycle or failure path. The replication library documents per-entity atomic updates
   within a tick, but cross-tick arrival and pre-arrival readiness remain open.
   Review and integration remain open.
 
-Wedding capacity atomicity is in bounded audit. Its preflight must account for
-both participants jointly across effective-dated occupancy intervals, including
-existing residents and later moves; the implementation has not started.
+Wedding capacity atomicity is in bounded audit. Its joint preflight must overlay
+both participants on the effective resident set at each relevant boundary,
+including their individual interval ends, and preserve same-holding no-ops.
+Unexpected errors after writes must abort the transaction. An isolated
+worktree is prepared; implementation and database validation remain open.
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
 superseded, while its evidence and unresolved questions remain in the backlog.

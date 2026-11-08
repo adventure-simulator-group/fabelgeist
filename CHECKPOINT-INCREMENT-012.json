@@ -1,0 +1,33 @@
+{
+  "schema": "726-increment-checkpoint-v1",
+  "checkpoint": "increment-012",
+  "at": "2026-11-08T05:44:32.545389+00:00",
+  "historical_audit_checkpoint": 3737,
+  "audio": {
+    "commit": "2d318efbb21d044680070c525554cb04ee286437",
+    "focused_check": "passed",
+    "tests": "passed: 2"
+  },
+  "landform": {
+    "commit": "689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "status": "implementing",
+    "based_on": "2d318efbb21d044680070c525554cb04ee286437",
+    "refresh_and_late_arrival": "reconciliation drafted; behavior and pre-arrival readiness not verified",
+    "focused_check": "passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "focused_tests": "19 passed; 1 ignored at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "test_scope": "existing terrain presentation tests; failure and late-recipe paths not established",
+    "readiness": "failed terrain is excluded from presented count; failure path not dynamically tested",
+    "quality": "repository Rust quality check passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "replication": "library documents atomic entity updates per tick; cross-tick arrival remains open"
+  },
+  "integration": "not started",
+  "report_sha256": "c5a0a949bbbafbeb3d99ef87dfd798a1f782e7aa090c591a29dccba75e05f273",
+  "wedding": {
+    "status": "auditing",
+    "implementation": "not started",
+    "worktree": "target/726-wedding-atomicity",
+    "base": "689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "joint_preflight": "overlay proposed residents at all effective boundaries, including individual ends; preserve no-ops",
+    "transaction": "unexpected post-write errors must propagate"
+  }
+}
