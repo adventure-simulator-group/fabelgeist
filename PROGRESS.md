@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:21:47.229674+00:00
+Updated: 2026-11-08T08:26:42.625664+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -81,7 +81,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `bb63239b898b0522b4d3a8addce64b4ff64a505c`: the unfinished
+  commit `623d52a58337438f1b5f217e532f2228647c61c7`: the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -101,8 +101,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   cause and settlement-stage context separately; its callers are still being
   migrated. Propagation through additional strategic reducers brought the
   current formatted draft passes the focused database-module `cargo check`
-  without warnings. This is not a feature-complete
-  or behavioral check. Typed failures now cross tactical, settlement, wedding,
+  without warnings at parent `bb63239b8`. The authority-test feature now
+  compiles at this commit after adapting existing fixtures; neither check is
+  behavioral validation. Typed failures now cross tactical, settlement, wedding,
   custody, party, encounter, trade, disease, and exposure callers. Wedding
   rollback behavior must be revalidated.
   Runtime behavior, automatic merges, database compilation, lint, and review
