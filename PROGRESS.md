@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:19:41.549956+00:00
+Updated: 2026-11-08T14:22:37.607375+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -52,6 +52,7 @@ Updated: 2026-11-08T14:19:41.549956+00:00
 | Ragdoll within-sample save intervals with zero physics steps | 18 / 18 |
 | Ragdoll between-sample save intervals with one physics step | 8 / 8 |
 | Ordinary viewer scenario | Jitter gate failed |
+| Immediate-parent comparison | Running |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -188,7 +189,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   900.0. A bounded projection shows the chest and pelvis change between frames
   0 and 1, then remain nearly stationary through frame 7. Source shows the
   clock candidate arms only for ragdoll, but no prior ordinary-scenario
-  baseline has been compared and the cause is not yet established. Current entry points select
+  baseline has been compared and the cause is not yet established. A fresh
+  detached worktree at immediate parent `ab1f7568a` is running the same
+  scenario with the shared target and build lock for comparison. Current entry points select
   ragdoll alone; mixed-plan clock restoration is not runtime-verified.
   Terrain correction runs outside the physics schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
