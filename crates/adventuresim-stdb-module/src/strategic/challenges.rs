@@ -777,7 +777,7 @@ pub(crate) fn materialize_chance_narrative_encounter(
     party_id: &str,
     selection: &adventuresim_core::encounter::NarrativeSelection,
     origin: NarrativeEncounterOrigin,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_no_unresolved_encounter(ctx, party_id)?;
     let journey = ctx
         .db
@@ -900,7 +900,7 @@ fn materialize_narrative_combat(
     archetype: adventuresim_core::road_encounter_catalog::RoadCombatArchetype,
     count: u16,
     outcomes: &adventuresim_core::road_encounter_catalog::CombatOutcomeSet,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     use adventuresim_core::encounter::{Awareness, EncounterArchetype};
     let _journey = ctx
         .db
@@ -1070,8 +1070,7 @@ pub(crate) fn resolve_narrative_combat_followup(
         )?;
     }
     let recognized_virtue =
-        adventuresim_core::road_encounter_catalog::exemplified_virtue(&payload.personality)
-            ;
+        adventuresim_core::road_encounter_catalog::exemplified_virtue(&payload.personality);
     for development in &payload.personality {
         let virtue = development.virtue;
         crate::personality::apply_personality_development(
@@ -1680,8 +1679,7 @@ pub fn resolve_errantry_road_challenge(
         apply_narrative_effect(ctx, &challenge.id, &party_id, now, effect)?;
     }
     let recognized_virtue =
-        adventuresim_core::road_encounter_catalog::exemplified_virtue(&selected.personality)
-            ;
+        adventuresim_core::road_encounter_catalog::exemplified_virtue(&selected.personality);
     for development in &selected.personality {
         let virtue = development.virtue;
         crate::personality::apply_personality_development(
@@ -2131,21 +2129,24 @@ fn materialize_order_errantry(
         .challenge_authority()
         .party_id()
         .filter(&party_id)
-        .filter(|challenge| match (launch, ErrantryChallengeId::parse(&challenge.id)) {
-            (ErrantryLaunch::NormalTravel, Some(identity)) => {
-                identity.namespace == ErrantryChallengeNamespace::Order
-                    && identity.puzzle_kind == puzzle_kind.slug()
-                    && identity.character_id == character_id
-            }
-            (ErrantryLaunch::DirectDemoCamp(_), Some(identity)) => {
-                identity.namespace == ErrantryChallengeNamespace::Demo
-                    && identity.character_id == character_id
-            }
-            (_, None) => false,
-        })
+        .filter(
+            |challenge| match (launch, ErrantryChallengeId::parse(&challenge.id)) {
+                (ErrantryLaunch::NormalTravel, Some(identity)) => {
+                    identity.namespace == ErrantryChallengeNamespace::Order
+                        && identity.puzzle_kind == puzzle_kind.slug()
+                        && identity.character_id == character_id
+                }
+                (ErrantryLaunch::DirectDemoCamp(_), Some(identity)) => {
+                    identity.namespace == ErrantryChallengeNamespace::Demo
+                        && identity.character_id == character_id
+                }
+                (_, None) => false,
+            },
+        )
         .count() as u64;
     let suffix = errantry_suffix(character_id, ordinal, launch);
-    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id.into(), &[ordinal]);
+    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter")
+        .seed(character_id.into(), &[ordinal]);
     let road_definition =
         adventuresim_core::road_encounter_catalog::select_quest_eligible(seed, ordinal)
             .ok_or("No quest-eligible road encounter is available")?;
@@ -2735,7 +2736,10 @@ mod challenge_source_boundary_tests {
 
     #[test]
     fn courier_catalog_binds_distinct_material_and_personality_routes() {
-        use adventuresim_core::{personality::ChivalricVirtue, road_encounter_catalog::{Effect, Requirement}};
+        use adventuresim_core::{
+            personality::ChivalricVirtue,
+            road_encounter_catalog::{Effect, Requirement},
+        };
         let definition =
             adventuresim_core::road_encounter_catalog::encounter("wounded_order_courier_v1")
                 .unwrap();
@@ -2754,12 +2758,18 @@ mod challenge_source_boundary_tests {
             choice("rally").requirements[0],
             Requirement::Skill { .. }
         ));
-        assert_eq!(choice("rally").personality[0].virtue, ChivalricVirtue::Courage);
+        assert_eq!(
+            choice("rally").personality[0].virtue,
+            ChivalricVirtue::Courage
+        );
         assert!(matches!(
             choice("consecrate").requirements[0],
             Requirement::Religion { .. }
         ));
-        assert_eq!(choice("consecrate").personality[0].virtue, ChivalricVirtue::Faith);
+        assert_eq!(
+            choice("consecrate").personality[0].virtue,
+            ChivalricVirtue::Faith
+        );
         assert!(choice("rob").personality[0].delta < 0);
         assert!(choice("ignore").effects.is_empty() && choice("ignore").personality.is_empty());
     }

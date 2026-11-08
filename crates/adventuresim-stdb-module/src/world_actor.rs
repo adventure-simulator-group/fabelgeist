@@ -426,7 +426,7 @@ pub(crate) fn rebind_road_cast_to_strategic_encounter(
     road_context_id: &str,
     encounter_id: &str,
     count: u32,
-) -> Result<Vec<u64>, String> {
+) -> crate::StrategicOperationResult<Vec<u64>> {
     let entered_at = crate::time::refresh_clock(ctx)?;
     let mut eligible = context_members(ctx, road_context_id)
         .into_iter()

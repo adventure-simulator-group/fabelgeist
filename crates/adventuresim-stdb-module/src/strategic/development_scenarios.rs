@@ -175,7 +175,7 @@ fn ensure_scenario_character(
     ctx: &ReducerContext,
     character_id: u64,
     name: &str,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if ctx.db.character().id().find(character_id).is_none() {
         crate::character::insert_new_character(ctx, name.into(), character_id, false)?;
     }

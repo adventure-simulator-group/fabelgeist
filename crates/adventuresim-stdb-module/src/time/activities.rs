@@ -102,7 +102,10 @@ fn apply_activity_outcomes_inner(
         settlement.population_level,
         settlement.population_estimate,
     );
-    let combat = capability.weapon_precision.max(capability.athletics).max(capability.endurance);
+    let combat = capability
+        .weapon_precision
+        .max(capability.athletics)
+        .max(capability.endurance);
     let outcome = settlement_activity_outcome(
         core_schedule(schedule),
         elapsed,
@@ -375,7 +378,7 @@ fn apply_organization_outcomes(
     schedule: &ScheduleAllocation,
     elapsed: u64,
     settlement_id: &str,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if schedule.apprenticeship_minutes > 0 {
         let organization_id = schedule
             .apprenticeship_organization_id
