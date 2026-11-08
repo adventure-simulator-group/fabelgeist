@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T03:20:29.932146+00:00
+Updated: 2026-11-08T03:22:26.064136+00:00
 
-Latest verified checkpoint: **3722**. Goal: **active**.
+Latest verified checkpoint: **3723**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,15 +44,14 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified explicit fault and collar admission inequalities and scene error
-propagation.
+Qualified the checked leaves and surface for a concrete fault recipe candidate.
 
-Complete construction, earlier generation outcomes and client reachability
+Complete scene admission, earlier simulation outcomes and client reachability
 remain unproven.
 
 ## Working on now
 
-Qualify checked geometry leaves and reconcile terrain admission across lenses.
+Reconcile terrain admission and failure behavior across lenses.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -220,8 +219,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3722 publication record](CHECKPOINT-3722.json)
-- [Saved report for checkpoint 3722](PROGRESS-3722.md)
+- [Checkpoint 3723 publication record](CHECKPOINT-3723.json)
+- [Saved report for checkpoint 3723](PROGRESS-3723.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
