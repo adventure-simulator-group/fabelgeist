@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:42:36.111102+00:00
+Updated: 2026-11-08T12:50:24.174533+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -32,6 +32,7 @@ Updated: 2026-11-08T12:42:36.111102+00:00
 | Client equipment fit and selection fixtures passed | 5 / 5 |
 | Core catalog tests passed | 31 / 31 |
 | Guarded developer authority, investigability and view fixture | Passed |
+| Full P16 lint recipe on current commit | Passed |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -41,11 +42,11 @@ Updated: 2026-11-08T12:42:36.111102+00:00
 | Full-scale autoresolve traces completed before failure | 467 / 1,000 |
 
 The quality counts describe the latest scan, not a count of defects. At P16
-parent `aaf0a66c7`, formatting, workspace Clippy, three standalone Clippy
-commands and the guarded authority workflow passed. The uninterrupted full
-lint recipe remains open: it was stopped when free disk fell below 3 GB.
-An isolated P16 cache was removed to restore space. The standalone commands
-subsequently passed using the shared target and checked dependency fingerprints.
+commit `ea44c97b9`, the complete `just lint` recipe passed: binding checks,
+quality checks, WebAssembly and workspace Clippy, and three standalone Clippy
+commands. The build used a shared target directory; selected artifact
+provenance for this complete run has not been independently rechecked. Earlier
+focused checks and the guarded authority workflow passed as described below.
 
 | Historical audit measure | Count |
 | --- | --- |
