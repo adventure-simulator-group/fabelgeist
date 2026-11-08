@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:33:03.633482+00:00
+Updated: 2026-11-08T11:37:29.312287+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -28,7 +28,8 @@ Updated: 2026-11-08T11:33:03.633482+00:00
 | Tactical server equipment tests passed | 16 / 16 |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
-| Full-scale melee report | Failed in first matchup |
+| Full-scale melee report at previous draft | Failed in first matchup |
+| Reproduced failing seed after repair | 1 / 1 completed |
 | Full-scale autoresolve traces completed before failure | 467 / 1,000 |
 
 The quality counts describe the latest scan, not a count of defects. At P16
@@ -107,7 +108,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `e9c405a77`: the 159-path snapshot is restored, with three textual
+  commit `48682faff`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
@@ -129,17 +130,22 @@ ledger as backlog. Full refactor completion and validation remain required.
   A one-seed smoke run completed five matchups and all 11 top-level audit
   flags were true. The full-scale run then failed in the first matchup
   after 467 autoresolve traces: seed 468 reproduced an unavailable recovery
-  interval. The report rejects `CannotRecover`, a valid combat state at zero
-  performance. Its aggregate needs correction before acceptance can pass;
-  the 3 GB bulk trace was removed after recording its size and record count.
+  interval. The report rejected `CannotRecover`, a valid combat state.
+  The repair counts unavailable recovery separately and computes the mean
+  only from available intervals, with no mean when none exist. Seed 468 now
+  completes: its 11 available and one unavailable samples match the trace,
+  as does the mean. The 3 GB bulk trace from the failed run was removed
+  after recording its size and record count. Full-scale rerun remains open.
   A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
   extractions and baseline reductions. At parent `aaf0a66c7`, formatting,
   workspace Clippy, all three standalone Clippy commands, and the guarded
   disposable-database authority workflow passed. The workflow included wedding
   capacity and rollback, investigation retry, puzzle, mission and outbreak
   checks. Repair, dialogue and development-fixture behavior remain unverified.
-  The two later commits change existing test fixtures, not production code.
-  Full uninterrupted `just lint`, current-head validation, review and
+  Two subsequent commits changed test fixtures; the latest commit changes
+  report aggregation and has the focused validation described above.
+  The repair passed formatting, focused report Clippy and Rust quality; full
+  uninterrupted `just lint`, current-head validation, review and
   integration remain open.
 
   Existing tests passed: 11 contact-geometry and 9 melee iteration tests at
