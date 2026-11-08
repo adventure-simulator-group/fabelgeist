@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:38:50.791163+00:00
+Updated: 2026-11-08T06:39:47.960352+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -64,12 +64,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   worktree at this commit. Review and final integrated validation remain open.
 
 - [P17 report restoration](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p17-restoration)
-  commit `66dc0827827a74f7f5828d48b86d112eeafd1988`: the preserved report
+  commit `426213596a08ec7690b12509608fd6ee7cc4f2fb`: the preserved report
   implementation `90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696` was applied over
   the combined draft, followed by sample-tick and `LeadFoot` fixes. One
   support-validation conflict was resolved while retaining typed errors.
-  Formatting and a focused compile check are running. P17 dependencies, review,
-  and behavioral validation remain open.
+  Formatting completed and a focused compile check is running. P17
+  dependencies, review, and behavioral validation remain open.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
