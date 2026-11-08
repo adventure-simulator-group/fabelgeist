@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:57:00.739986+00:00
+Updated: 2026-11-08T22:59:27.408953+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -11,6 +11,7 @@ Updated: 2026-11-08T22:57:00.739986+00:00
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
 | Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
+| Food conservation source packets | 1 adopted | Medicine, events, and transfers open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -239,6 +240,12 @@ conditional estimate policy. For a cut apple the displayed pre-chef baseline
 uses five safety minutes while authoritative cooking uses four after the cut
 factor. Exact versus conservative preview semantics and runtime validation
 remain open; no runtime failure is asserted.
+
+A registered food-conservation read traced personal and party consumption,
+partial amount flooring, contamination provenance and medicinal components.
+Terminal medicine effects, native events and complete transfer callers remain
+open. Audit checkpoint 3768 verified the bounded evidence without closing the
+food-lot contract.
 
 | Increment status | Count |
 | --- | ---: |
