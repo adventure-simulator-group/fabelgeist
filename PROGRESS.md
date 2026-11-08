@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:52:42.719612+00:00
+Updated: 2026-11-08T02:55:40.778248+00:00
 
-Latest verified checkpoint: **3714**. Goal: **active**.
+Latest verified checkpoint: **3715**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Closed debug scene snapshot source discovery with repair policy open.
+Qualified client terrain component arrival observations.
 
-Snapshot design, landform error-loss and post-gate validation remain open.
+Transport ordering, landform reachability and independent repair remain open.
 
 ## Working on now
 
-Continue landform failure reachability and independent audit obligations.
+Trace terrain component delivery and scheduling.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3714 publication record](CHECKPOINT-3714.json)
-- [Saved report for checkpoint 3714](PROGRESS-3714.md)
+- [Checkpoint 3715 publication record](CHECKPOINT-3715.json)
+- [Saved report for checkpoint 3715](PROGRESS-3715.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
