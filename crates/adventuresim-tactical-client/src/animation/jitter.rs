@@ -308,19 +308,8 @@ fn analyze_scenario<K: JitterBoneIdentity>(
         return JitterEvidence::Complete;
     }
     let mut evidence = JitterEvidence::Complete;
-    let mut names: Vec<_> = frames
-        .iter()
-        .flat_map(|frame| frame.bones.keys())
-        .collect::<std::collections::BTreeSet<_>>()
-        .into_iter()
-        .collect();
-    names.sort_by(|left, right| left.report_label().cmp(&right.report_label()));
-    for name in names {
-        let Some(samples) = frames
-            .iter()
-            .map(|frame| frame.bones.get(name))
-            .collect::<Option<Vec<_>>>()
-        else {
+    for name in scenario_bones(frames) {
+        let Some(samples) = bone_samples(frames, name) else {
             evidence = JitterEvidence::Incomplete;
             continue;
         };
@@ -330,9 +319,7 @@ fn analyze_scenario<K: JitterBoneIdentity>(
             positions.push(Vec3::from_array(sample.position));
             angles.push(Quat::from_array(sample.rotation_xyzw));
         }
-        if positions.iter().any(|position| !position.is_finite())
-            || angles.iter().any(|angle| !angle.is_finite())
-        {
+        if !samples_are_finite(&positions, &angles) {
             evidence = JitterEvidence::Incomplete;
             continue;
         }
@@ -410,6 +397,29 @@ fn analyze_scenario<K: JitterBoneIdentity>(
         );
     }
     evidence
+}
+
+fn samples_are_finite(positions: &[Vec3], angles: &[Quat]) -> bool {
+    positions.iter().all(|position| position.is_finite())
+        && angles.iter().all(|angle| angle.is_finite())
+}
+
+fn bone_samples<'a, K: JitterBoneIdentity>(
+    frames: &'a [JitterFrame<K>],
+    name: &K,
+) -> Option<Vec<&'a JitterBone>> {
+    frames.iter().map(|frame| frame.bones.get(name)).collect()
+}
+
+fn scenario_bones<K: JitterBoneIdentity>(frames: &[JitterFrame<K>]) -> Vec<&K> {
+    let mut names: Vec<_> = frames
+        .iter()
+        .flat_map(|frame| frame.bones.keys())
+        .collect::<std::collections::BTreeSet<_>>()
+        .into_iter()
+        .collect();
+    names.sort_by(|left, right| left.report_label().cmp(&right.report_label()));
+    names
 }
 
 fn report<K: JitterBoneIdentity>(

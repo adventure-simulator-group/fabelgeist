@@ -1,8 +1,6 @@
 //! Report evidence keeps applicability, absence and checked quantities distinct.
 
-use adventuresim_tactical_core::animation::{
-    AnimationValueError, CyclePhase, HeightDistance, UnitInterval,
-};
+use adventuresim_tactical_core::animation::{AnimationValueError, CyclePhase, UnitInterval};
 use fabelgeist_geometry::{GeometryError, SignedLength};
 use serde::Serialize;
 
