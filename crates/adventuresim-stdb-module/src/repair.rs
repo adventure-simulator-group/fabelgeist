@@ -1,5 +1,6 @@
 //! Persistent strategic equipment condition and settlement repair custody.
 
+use adventuresim_core::physical_object::{CarriedInventoryRowId, PersonalInventoryRowId};
 mod escrow;
 mod smiths;
 use adventuresim_core::durability::DamageBins;
@@ -223,24 +224,18 @@ fn submit(
     };
     if let Some(mut object) = crate::inventory_container::object_for_row(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_item_id),
-        ),
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_item_id)),
     )? {
         crate::inventory_container::detach_if_nested(ctx, object.id)?;
         object.location = InventoryLocation::repair(
             settlement_id,
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_item_id),
+            PersonalInventoryRowId::from_raw(inventory_item_id),
         );
         ctx.db.inventory_object().id().update(object);
     } else {
         crate::inventory_container::reconcile_consumed_row(
             ctx,
-            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                    inventory_item_id,
-                ),
-            ),
+            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_item_id)),
             true,
         )?;
     }

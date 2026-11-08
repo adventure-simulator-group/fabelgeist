@@ -1,6 +1,7 @@
 //! Authoritative recipe-driven smithing transactions.
 
 use adventuresim_core::inventory_measurement::ConsumableFractionMicros;
+use adventuresim_core::physical_object::{CarriedInventoryRowId, PersonalInventoryRowId};
 use adventuresim_weapon_model::decode;
 use spacetimedb::{ReducerContext, reducer};
 
@@ -109,9 +110,7 @@ pub fn forge_weapon(
         .ok_or("Could not create forged weapon")?;
     let object = crate::inventory_container::object_for_row(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_id),
-        ),
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_id)),
     )?
     .ok_or("Forged weapon has no physical identity")?;
     Ok(crate::weapon_instance::replace_design(

@@ -818,11 +818,7 @@ fn commit_encounter_surrender(
         if loss.owner_kind == "party" {
             if crate::inventory_container::delete_carried_object_for_row(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
-                        loss.inventory_id,
-                    ),
-                ),
+                CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(loss.inventory_id)),
             )? {
                 continue;
             }
@@ -835,11 +831,9 @@ fn commit_encounter_surrender(
             crate::character::unequip_wearable(ctx, loss.inventory_id);
             if crate::inventory_container::delete_carried_object_for_row(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                        loss.inventory_id,
-                    ),
-                ),
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(
+                    loss.inventory_id,
+                )),
             )? {
                 continue;
             }

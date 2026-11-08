@@ -579,9 +579,7 @@ pub(crate) fn delete_temporary_character_party(
     {
         if crate::inventory_container::delete_carried_object_for_row(
             ctx,
-            adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                adventuresim_core::physical_object::PartyInventoryRowId::from_raw(row.id),
-            ),
+            CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row.id)),
         )? {
             continue;
         }
@@ -1456,9 +1454,7 @@ pub fn accept_party_join_request(
         if item_is_durable(ctx, &entry.item_id) {
             if let Some(object) = crate::inventory_container::object_for_row(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(entry.id),
-                ),
+                CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(entry.id)),
             )? {
                 let destination = adventuresim_core::physical_object::OperationalCustody::party(
                     request.party_id.clone(),

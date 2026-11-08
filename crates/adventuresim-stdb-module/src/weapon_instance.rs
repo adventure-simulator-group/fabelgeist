@@ -1,5 +1,8 @@
 //! Durable parametric weapon recipes keyed by stable physical-object identity.
 
+use adventuresim_core::physical_object::{
+    CarriedInventoryRowId, PartyInventoryRowId, PersonalInventoryRowId,
+};
 use adventuresim_core::physical_object::{CarriedInventoryScope, InventoryLocation};
 use adventuresim_weapon_model::{
     GENERATOR_VERSION, HOLDER_GENERATOR_VERSION, WeaponDesign, WeaponHolderDesign, default_design,
@@ -156,9 +159,7 @@ pub(crate) fn initialize_personal_weapon(
     }
     let object = crate::inventory_container::object_for_row(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory.id),
-        ),
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory.id)),
     )?
     .ok_or("Parametric weapon has no stable physical object identity")?;
     replace_design(ctx, object.id, &design)?;
@@ -183,9 +184,7 @@ pub(crate) fn initialize_party_weapon(
     }
     let object = crate::inventory_container::object_for_row(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-            adventuresim_core::physical_object::PartyInventoryRowId::from_raw(inventory.id),
-        ),
+        CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(inventory.id)),
     )?
     .ok_or("Parametric party weapon has no stable physical object identity")?;
     replace_design(ctx, object.id, &design)?;
@@ -217,11 +216,7 @@ pub(crate) fn fit_personal_holder(
     )?;
     let weapon_object = crate::inventory_container::object_for_row(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                weapon_inventory_row_id,
-            ),
-        ),
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(weapon_inventory_row_id)),
     )?
     .ok_or("Fitted weapon has no physical identity")?;
     let weapon = ctx
@@ -339,9 +334,7 @@ pub(crate) fn combat_geometry(
 > {
     let Some(object) = crate::inventory_container::object_for_row(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_row_id),
-        ),
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_row_id)),
     )?
     .filter(|object| object.item_id == item_id) else {
         return Ok(None);
@@ -389,9 +382,7 @@ pub(crate) fn fitted_holder_mass(
 ) -> Result<Option<f32>, String> {
     let Some(object) = crate::inventory_container::object_for_row(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_row_id),
-        ),
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_row_id)),
     )?
     else {
         return Ok(None);

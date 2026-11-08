@@ -1,6 +1,7 @@
 //! Authenticated carried construction mass, including food and fractional stock.
 
 use super::*;
+use adventuresim_core::physical_object::{CarriedInventoryRowId, PersonalInventoryRowId};
 
 pub(super) fn dry_inventory_weight(
     ctx: &ReducerContext,
@@ -15,11 +16,7 @@ pub(super) fn dry_inventory_weight(
             |inventory: InventoryItem| -> StrategicOperationResult<Option<f32>> {
                 if crate::inventory_container::row_is_fireplace_rooted(
                     ctx,
-                    adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                        adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                            inventory.id,
-                        ),
-                    ),
+                    CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory.id)),
                 ) {
                     return Ok(None);
                 }

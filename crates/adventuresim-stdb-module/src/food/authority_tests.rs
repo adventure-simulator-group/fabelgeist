@@ -28,9 +28,7 @@ fn prepare_and_replay(
     let lot = personal_lot(ctx, row_id).ok_or("Lot missing")?;
     let object = crate::inventory_container::object_for_row(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row_id),
-        ),
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row_id)),
     )?
     .ok_or("Object missing")?;
     let place = preparation_place(ctx, &actor)?.to_string();

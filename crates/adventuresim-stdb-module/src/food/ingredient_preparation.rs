@@ -65,9 +65,7 @@ fn carried_item_rows(
         .filter(|row| {
             crate::inventory_container::object_for_row(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
-                ),
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
             )
             .ok()
             .flatten()
@@ -93,11 +91,7 @@ fn carried_item_rows(
                 .filter(|row| {
                     crate::inventory_container::object_for_row(
                         ctx,
-                        adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                            adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
-                                row.id,
-                            ),
-                        ),
+                        CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row.id)),
                     )
                     .ok()
                     .flatten()

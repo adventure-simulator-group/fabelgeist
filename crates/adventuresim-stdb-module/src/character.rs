@@ -1,3 +1,4 @@
+use adventuresim_core::physical_object::{CarriedInventoryRowId, PersonalInventoryRowId};
 use adventuresim_world_schema::calendar::StrategicMinute;
 use attachment_capacity::{AttachmentCapacity, first_free_attachment_capacity};
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
@@ -978,9 +979,7 @@ fn delete_character_data(
     {
         crate::inventory_container::delete_repair_object_for_row(
             ctx,
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                order.inventory_item_id,
-            ),
+            PersonalInventoryRowId::from_raw(order.inventory_item_id),
         )?;
         if ctx
             .db
@@ -1007,9 +1006,7 @@ fn delete_character_data(
     for row in inventory {
         if crate::inventory_container::delete_carried_object_for_row(
             ctx,
-            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
-            ),
+            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
         )? {
             continue;
         }
@@ -2877,9 +2874,7 @@ fn equip_equipment_internal(
     }
     crate::inventory_container::detach_row_for_action(
         ctx,
-        adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(inventory_item_id),
-        ),
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_item_id)),
     )?;
     let root_occupancies = placement
         .occupancy

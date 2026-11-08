@@ -1,5 +1,8 @@
 //! Measured alcohol consumption, durable evening history, and shared selection.
 
+use adventuresim_core::physical_object::{
+    CarriedInventoryRowId, PartyInventoryRowId, PersonalInventoryRowId,
+};
 mod rest_ledger;
 use rest_ledger::mark_evening_evaluated;
 
@@ -122,11 +125,7 @@ fn available_item_micros(
                     .filter(|row| {
                         !crate::inventory_container::row_is_fireplace_rooted(
                             ctx,
-                            adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                                adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
-                                    row.id,
-                                ),
-                            ),
+                            CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row.id)),
                         )
                     })
                     .map(|row| {
@@ -147,11 +146,7 @@ fn available_item_micros(
             .filter(|row| {
                 !crate::inventory_container::row_is_fireplace_rooted(
                     ctx,
-                    adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                        adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                            row.id,
-                        ),
-                    ),
+                    CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
                 )
             })
             .map(|row| {
@@ -190,9 +185,7 @@ fn available_stacks(
         for stack in ctx.db.party_inventory_item().party_id().filter(party_id) {
             if crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(stack.id),
-                ),
+                CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(stack.id)),
             ) {
                 continue;
             }
@@ -228,9 +221,7 @@ fn available_stacks(
     for stack in ctx.db.inventory_item().character_id().filter(character_id) {
         if crate::inventory_container::row_is_fireplace_rooted(
             ctx,
-            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(stack.id),
-            ),
+            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(stack.id)),
         ) {
             continue;
         }
@@ -290,15 +281,11 @@ fn consume_stack(
 ) -> Result<ConsumableFractionMicros, String> {
     let (row_id, available) = match &stack {
         Stack::Party(row) => (
-            adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                adventuresim_core::physical_object::PartyInventoryRowId::from_raw(row.id),
-            ),
+            CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row.id)),
             crate::inventory_amount::party_fraction(ctx, row.id),
         ),
         Stack::Personal(row) => (
-            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
-            ),
+            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
             crate::inventory_amount::personal_fraction(ctx, row.id),
         ),
     };
@@ -366,9 +353,7 @@ fn ordinary_potable_exists(ctx: &ReducerContext, character_id: u64) -> bool {
         .any(|row| {
             !crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
-                ),
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
             ) && row.quantity > 0
                 && ctx.db.item().id().find(&row.item_id).is_some_and(|def| {
                     def.alcohol_potable
@@ -391,11 +376,7 @@ fn ordinary_potable_exists(ctx: &ReducerContext, character_id: u64) -> bool {
                     .any(|row| {
                         !crate::inventory_container::row_is_fireplace_rooted(
                             ctx,
-                            adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                                adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
-                                    row.id,
-                                ),
-                            ),
+                            CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row.id)),
                         ) && row.quantity > 0
                             && ctx.db.item().id().find(&row.item_id).is_some_and(|def| {
                                 def.alcohol_potable
@@ -588,9 +569,7 @@ pub fn best_disinfectant(ctx: &ReducerContext, character_id: u64) -> Option<(u64
         .filter(|row| {
             !crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
-                ),
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
             )
         })
         .filter_map(|row| ctx.db.item().id().find(&row.item_id).map(|def| (row, def)))
@@ -626,9 +605,7 @@ pub fn disinfectant_count(ctx: &ReducerContext, character_id: u64) -> u32 {
         .filter(|row| {
             !crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
-                ),
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
             )
         })
         .filter_map(|row| {

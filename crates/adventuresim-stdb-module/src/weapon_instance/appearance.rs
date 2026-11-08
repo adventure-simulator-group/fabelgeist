@@ -1,4 +1,5 @@
 //! Authenticated connected-client appearance projections.
+
 use super::*;
 use adventuresim_core::physical_object::PersonalInventoryRowId;
 pub(crate) fn connected_appearance(

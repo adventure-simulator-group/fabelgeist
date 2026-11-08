@@ -1,9 +1,11 @@
 //! Stable inventory-object identity and generic litre-based containment.
+
 //!
 //! Inventory rows provide carried custody and storage. Discrete items receive
 //! their stable object identity when the row is created, and containment edges
 //! use that identity so a whole subtree can travel atomically.
 
+use adventuresim_core::physical_object::PartyInventoryRowId;
 use adventuresim_core::{
     inventory_containers::{ContainmentGraph, Object},
     item_references::STANDARD_WATERSKIN_ID,
@@ -103,10 +105,7 @@ pub(crate) fn insert_personal_object(
     insert_carried_object(
         ctx,
         &row.item_id,
-        InventoryLocation::personal(
-            row.character_id,
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
-        ),
+        InventoryLocation::personal(row.character_id, PersonalInventoryRowId::from_raw(row.id)),
     )
 }
 
@@ -120,10 +119,7 @@ pub(crate) fn insert_party_object(
     insert_carried_object(
         ctx,
         &row.item_id,
-        InventoryLocation::party(
-            row.party_id.clone(),
-            adventuresim_core::physical_object::PartyInventoryRowId::from_raw(row.id),
-        ),
+        InventoryLocation::party(row.party_id.clone(), PartyInventoryRowId::from_raw(row.id)),
     )
 }
 
@@ -466,9 +462,7 @@ pub(crate) fn rehome_subtree(
                 ctx.db.inventory_item().id().delete(source.id);
                 object.location = InventoryLocation::party(
                     party_id.as_str(),
-                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(
-                        destination_row.id,
-                    ),
+                    PartyInventoryRowId::from_raw(destination_row.id),
                 );
             }
             (InventoryLocation::Party(location), OperationalCustody::Character(character_id)) => {
@@ -527,9 +521,7 @@ pub(crate) fn rehome_subtree(
                 ctx.db.party_inventory_item().id().delete(source.id);
                 object.location = InventoryLocation::personal(
                     character_id.get(),
-                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                        destination_row.id,
-                    ),
+                    PersonalInventoryRowId::from_raw(destination_row.id),
                 );
             }
             _ => return Err("Inventory subtree has an unsupported location transition".into()),
@@ -710,9 +702,7 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
             }
             merged_object_id = object_for_row(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
-                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(target.id),
-                ),
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(target.id)),
             )?
             .map(|row| row.id);
             target.quantity = target
@@ -767,9 +757,7 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
             }
             merged_object_id = object_for_row(
                 ctx,
-                adventuresim_core::physical_object::CarriedInventoryRowId::Party(
-                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(target.id),
-                ),
+                CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(target.id)),
             )?
             .map(|row| row.id);
             target.quantity = target

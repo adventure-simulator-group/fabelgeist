@@ -1,3 +1,4 @@
+use adventuresim_core::physical_object::PersonalInventoryRowId;
 use adventuresim_world_schema::calendar::StrategicMinute;
 use sha2::{Digest, Sha256};
 use spacetimedb::{
@@ -413,10 +414,7 @@ fn connected_player_items(
         .filter(character_id)
         .filter_map(move |inventory_item| {
             let mut item = ctx.db.item().id().find(&inventory_item.item_id)?;
-            let inventory_row_id =
-                adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                    inventory_item.id,
-                );
+            let inventory_row_id = PersonalInventoryRowId::from_raw(inventory_item.id);
             let weapon_appearance = crate::weapon_instance::connected_appearance(
                 ctx,
                 inventory_row_id,

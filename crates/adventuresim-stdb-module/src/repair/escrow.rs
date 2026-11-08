@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_core::physical_object::PersonalInventoryRowId;
 
 pub(super) fn restore_repair_object(
     ctx: &ReducerContext,
@@ -31,9 +32,7 @@ pub(super) fn restore_repair_object(
         }
         object.location = InventoryLocation::personal(
             character_id,
-            adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                order.inventory_item_id,
-            ),
+            PersonalInventoryRowId::from_raw(order.inventory_item_id),
         );
         ctx.db.inventory_object().id().update(object);
     }
