@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:31:06.062968+00:00
+Updated: 2026-11-08T15:33:13.799241+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -35,7 +35,7 @@ Updated: 2026-11-08T15:31:06.062968+00:00
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint on previous Rust commit | Passed |
-| Full P16 lint on current Rust commit | Running |
+| Full P16 lint on current Rust commit | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -89,7 +89,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Equipment-law typed draft | Lint passed; runtime unverified |
 | Non-durable equipable items needing stable objects | 7 / 7 |
 | Shared instance policy tests | 2 / 2 passed |
-| Checked instance count and row-ID draft | Compiled |
+| Checked instance count and row-ID draft | Lint passed; database check running |
 | Persisted personal row-ID migration | Open |
 | Same-kind nested container catalog witness | 1 / 188 definitions |
 | Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
@@ -419,10 +419,10 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   results without changing the historical queue or claiming audit closure.
   Commit a54fec4f4 carries a bounded instance count and a distinct personal
   inventory row ID through selection, with primitive conversion at database
-  boundaries. Two existing tests, authority-feature compilation and formatting
-  passed; full lint is running. The prior database fixtures have not been
-  rerun on this commit. The persisted personal inventory location still holds
-  a raw row ID, and a shared accessor collapses personal, party and repair
+  boundaries. Two existing tests, authority-feature compilation, formatting
+  and full lint passed. The guarded database fixtures are running on this
+  commit; their prior pass applies to the parent. The persisted personal
+  inventory location still holds a raw row ID, and a shared accessor collapses personal, party and repair
   IDs into one optional integer. The producer-to-consumer type migration and
   schema/client-binding consequences remain open. A separate local record
   retains exact source hashes without claiming historical audit credit.
