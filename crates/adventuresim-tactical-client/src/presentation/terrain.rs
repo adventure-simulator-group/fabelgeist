@@ -96,7 +96,6 @@ pub(in crate::presentation) fn on_game_scene_added(
 
 #[expect(
     clippy::too_many_arguments,
-    clippy::type_complexity,
     reason = "the Bevy terrain system independently borrows source scenes, presentations, asset stores, and obstacle inputs"
 )]
 pub(in crate::presentation) fn present_pending_terrain(
