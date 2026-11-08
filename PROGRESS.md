@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:22:24.624874+00:00
+Updated: 2026-11-08T02:24:51.417988+00:00
 
-Latest verified checkpoint: **3702**. Goal: **active**.
+Latest verified checkpoint: **3703**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified grass numeric admission and selected consumers.
+Qualified grass clamp bound and installed native contract.
 
-Infinity policy, optional settings and independent lens obligations remain open.
+Infinity policy, optional settings and exact aliases remain open.
 
 ## Working on now
 
-Trace grass maximum-push and optional width semantics.
+Reconcile grass numeric policy and related aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3702 publication record](CHECKPOINT-3702.json)
-- [Saved report for checkpoint 3702](PROGRESS-3702.md)
+- [Checkpoint 3703 publication record](CHECKPOINT-3703.json)
+- [Saved report for checkpoint 3703](PROGRESS-3703.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
