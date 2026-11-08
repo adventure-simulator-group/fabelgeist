@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:52:45.868333+00:00
+Updated: 2026-11-08T13:55:02.351248+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -42,7 +42,7 @@ Updated: 2026-11-08T13:52:45.868333+00:00
 | P17 jitter observation distinction | Committed draft |
 | Ragdoll jitter observation in actual viewer manifest | 1 / 1 correct |
 | Previous ragdoll viewer acceptance | Failed |
-| Ragdoll physics-pause candidate viewer run | Running |
+| Ragdoll physics-pause candidate viewer run | Failed |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -149,8 +149,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   and 3.81 degrees. This is a separate unresolved viewer failure; no threshold
   was changed. A local candidate holds the presentation physics clock during
   the three views of a ragdoll sample and resumes a pause it owns for the next
-  sample. A new ragdoll viewer run is in progress; the cause and fix are not
-  yet verified. The first lint run also found report validation had grown
+  sample. The new viewer run still failed repeated evaluation at frame 0:
+  chest differed by 0.000726 m and 0.483 degrees in both later views. The
+  earlier run differed by 0.0136 m and 3.81 degrees at the first later view.
+  The candidate is uncommitted; pausing the solver alone is insufficient.
+  Source inspection also found terrain correction runs in Update outside the
+  physics schedule; whether it causes the remaining change is unverified. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
   acceptance were extracted to a focused module; formatting and full lint
   passed without raising the ceilings. After extraction, all 26 existing
