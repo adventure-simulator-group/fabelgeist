@@ -41,3 +41,20 @@ pub(crate) fn require_fungible_row(
     }
     Ok(())
 }
+
+/// Require a row without an object to be classified and stored as fungible.
+pub(crate) fn require_fungible_inventory_row(
+    ctx: &ReducerContext,
+    row_id: CarriedInventoryRowId,
+    item_id: &str,
+) -> Result<(), String> {
+    let definition = ctx.db.item().id().find(item_id.to_owned());
+    let food =
+        crate::item::inventory_food_definition(definition.as_ref().map(|item| item.kind), item_id)?
+            .is_some();
+    let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
+    if crate::item::requires_stable_object(definition.as_ref(), food, measured) {
+        return Err("Stable inventory row has no physical object".into());
+    }
+    require_fungible_row(ctx, row_id)
+}

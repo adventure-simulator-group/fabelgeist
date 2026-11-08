@@ -75,20 +75,10 @@ fn transfer_party_item_typed(
         return Ok(());
     }
 
-    let definition = ctx.db.item().id().find(&source_item.item_id);
-    let food = crate::item::inventory_food_definition(
-        definition.as_ref().map(|item| item.kind),
-        &source_item.item_id,
-    )?
-    .is_some();
-    let measured = crate::inventory_amount::is_measured_item(ctx, &source_item.item_id);
-    if crate::item::requires_stable_object(definition.as_ref(), food, measured) {
-        return Err("Stable personal inventory row has no physical object".into());
-    }
-
-    crate::inventory_container::require_fungible_row(
+    crate::inventory_container::require_fungible_inventory_row(
         ctx,
         CarriedInventoryRowId::Personal(inventory_item_id),
+        &source_item.item_id,
     )?;
 
     let destination_item = ctx
@@ -251,14 +241,6 @@ fn item_is_durable(ctx: &ReducerContext, item_id: &str) -> bool {
         .is_some_and(|definition| definition.repairable)
 }
 
-fn item_is_medication(ctx: &ReducerContext, item_id: &str) -> bool {
-    ctx.db
-        .item()
-        .id()
-        .find(item_id.to_owned())
-        .is_some_and(|definition| definition.kind == crate::CatalogItemKind::Medication)
-}
-
 #[cfg(test)]
 mod durable_custody_tests {
     #[test]
@@ -276,7 +258,7 @@ mod durable_custody_tests {
             .split("fn item_is_durable")
             .nth(1)
             .unwrap()
-            .split("fn item_is_medication")
+            .split("#[cfg(test)]")
             .next()
             .unwrap();
         assert!(durable_policy.contains("definition.repairable"));
@@ -301,7 +283,8 @@ mod durable_custody_tests {
                 .next()
                 .unwrap();
             assert!(
-                custody_path.contains("item_is_durable"),
+                custody_path.contains("require_fungible_inventory_row")
+                    && custody_path.contains("rehome_subtree"),
                 "{start} must preserve condition custody for repairable clothing"
             );
         }
@@ -398,10 +381,12 @@ mod medication_custody_tests {
             .split("fn objective_item_value")
             .next()
             .unwrap();
+        assert!(direct_transfer.contains("require_fungible_inventory_row"));
+        let backing_policy = include_str!("../inventory_container/backing_state.rs");
         assert!(
-            direct_transfer.contains("requires_stable_object(definition.as_ref(), food, measured)")
+            backing_policy.contains("requires_stable_object(definition.as_ref(), food, measured)")
         );
-        assert!(direct_transfer.contains("Stable personal inventory row has no physical object"));
+        assert!(backing_policy.contains("Stable inventory row has no physical object"));
         assert!(direct_transfer.contains("rehome_subtree"));
 
         let party_add = include_str!("party_inventory_credit.rs");
@@ -422,8 +407,8 @@ mod medication_custody_tests {
             .split("pub fn liquidate_party_inventory")
             .next()
             .unwrap();
-        assert!(withdrawal.contains("item_is_medication"));
-        assert!(withdrawal.contains("Medication must be withdrawn as an individual course"));
+        assert!(withdrawal.contains("require_fungible_inventory_row"));
+        assert!(withdrawal.contains("rehome_subtree"));
         assert!(withdrawal.contains("crate::add_inventory_item"));
 
         let deposit = source
@@ -433,8 +418,8 @@ mod medication_custody_tests {
             .split("pub(crate) fn consume_personal_gold")
             .next()
             .unwrap();
-        assert!(deposit.contains("item_is_medication"));
-        assert!(deposit.contains("Medication must be deposited as an individual course"));
+        assert!(deposit.contains("require_fungible_inventory_row"));
+        assert!(deposit.contains("rehome_subtree"));
         assert!(deposit.contains("add_to_party_inventory"));
     }
 }
@@ -1486,82 +1471,13 @@ pub fn deposit_party_inventory_item(
         crate::capability::refresh_character_capability(ctx, character_id)?;
         return Ok(());
     }
-    let medication = item_is_medication(ctx, &inventory.item_id);
-    if medication && (quantity != 1 || inventory.quantity != 1) {
-        return Err("Medication must be deposited as an individual course".into());
-    }
+    crate::inventory_container::require_fungible_inventory_row(
+        ctx,
+        CarriedInventoryRowId::Personal(source_row),
+        &inventory.item_id,
+    )?;
     let value = personal_inventory_value(ctx, &inventory, quantity)?;
-    let durable = item_is_durable(ctx, &inventory.item_id);
-    if durable && (quantity != 1 || inventory.quantity != 1) {
-        return Err("Equipment instances must be deposited individually".into());
-    }
-    let preserved_condition = if durable {
-        ctx.db
-            .item_condition()
-            .inventory_item_id()
-            .find(inventory.id)
-    } else {
-        None
-    };
-    let food = crate::food::personal_lot(ctx, source_row).is_some();
-    let measured = crate::inventory_amount::personal_fraction(ctx, inventory.id).is_some();
-    let inserted_party_row = if measured {
-        if quantity != 1 || inventory.quantity != 1 {
-            return Err("Measured items must be deposited as complete rows".into());
-        }
-        let party_row = ctx.db.party_inventory_item().insert(PartyInventoryItem {
-            id: 0,
-            party_id: party_id.clone(),
-            item_id: inventory.item_id.clone(),
-            quantity,
-        });
-        if food {
-            crate::food::move_or_split_to_party(
-                ctx,
-                source_row,
-                PartyInventoryRowId::from_raw(party_row.id),
-                quantity,
-                inventory.quantity,
-            )?;
-        }
-        crate::inventory_amount::move_personal_to_party(ctx, inventory.id, party_row.id)?;
-        Some(party_row)
-    } else {
-        add_to_party_inventory(ctx, &party_id, &inventory.item_id, quantity)?;
-        None
-    };
-    if let Some(condition) = preserved_condition {
-        let party_row = inserted_party_row
-            .or_else(|| {
-                ctx.db
-                    .party_inventory_item()
-                    .party_id()
-                    .filter(&party_id)
-                    .filter(|row| row.item_id == inventory.item_id)
-                    .max_by_key(|row| row.id)
-            })
-            .ok_or_else(|| {
-                format!(
-                    "Durable party inventory row was not found after depositing item {} into party {}",
-                    inventory.item_id, party_id
-                )
-            })?;
-        ctx.db
-            .party_item_condition()
-            .party_inventory_item_id()
-            .update(PartyItemCondition {
-                party_inventory_item_id: party_row.id,
-                tier_1: condition.tier_1,
-                tier_2: condition.tier_2,
-                tier_3: condition.tier_3,
-                tier_4: condition.tier_4,
-                tier_5: condition.tier_5,
-            });
-        ctx.db
-            .item_condition()
-            .inventory_item_id()
-            .delete(inventory.id);
-    }
+    add_to_party_inventory(ctx, &party_id, &inventory.item_id, quantity)?;
     credit_party_stake(ctx, &party_id, character_id, value)?;
     if inventory.quantity == quantity {
         ctx.db.inventory_item().id().delete(inventory.id);
@@ -1737,6 +1653,13 @@ pub fn withdraw_party_inventory_item(
     }
     let container_object =
         crate::inventory_container::object_for_row(ctx, CarriedInventoryRowId::Party(source_row))?;
+    if container_object.is_none() {
+        crate::inventory_container::require_fungible_inventory_row(
+            ctx,
+            CarriedInventoryRowId::Party(source_row),
+            &inventory.item_id,
+        )?;
+    }
     let container_subtree = container_object.as_ref().is_some_and(|object| {
         crate::inventory_container::object_is_nonempty(ctx, object.id)
             || crate::inventory_container::object_is_nested(ctx, object.id)
@@ -1772,62 +1695,7 @@ pub fn withdraw_party_inventory_item(
         crate::capability::refresh_character_capability(ctx, character_id)?;
         return Ok(());
     }
-    let durable = item_is_durable(ctx, &inventory.item_id);
-    let medication = item_is_medication(ctx, &inventory.item_id);
-    if medication && (quantity != 1 || inventory.quantity != 1) {
-        return Err("Medication must be withdrawn as an individual course".into());
-    }
-    if durable && (quantity != 1 || inventory.quantity != 1) {
-        return Err("Equipment instances must be withdrawn individually".into());
-    }
-    let preserved_condition = ctx
-        .db
-        .party_item_condition()
-        .party_inventory_item_id()
-        .find(inventory.id);
-    let food = crate::food::party_lot(ctx, source_row).is_some();
-    let measured = crate::inventory_amount::party_fraction(ctx, inventory.id).is_some();
-    let new_inventory_id = if measured {
-        if quantity != 1 || inventory.quantity != 1 {
-            return Err("Measured items must be withdrawn as complete rows".into());
-        }
-        let row = ctx.db.inventory_item().insert(InventoryItem {
-            id: 0,
-            character_id,
-            item_id: inventory.item_id.clone(),
-            quantity,
-        });
-        if food {
-            crate::food::move_or_split_to_personal(
-                ctx,
-                source_row,
-                PersonalInventoryRowId::from_raw(row.id),
-                quantity,
-                inventory.quantity,
-            )?;
-        }
-        crate::inventory_amount::move_party_to_personal(ctx, inventory.id, row.id)?;
-        Some(row.id)
-    } else {
-        crate::add_inventory_item(ctx, character_id, &inventory.item_id, quantity)?
-    };
-    if let (Some(condition), Some(new_id)) = (preserved_condition, new_inventory_id) {
-        ctx.db
-            .item_condition()
-            .inventory_item_id()
-            .update(crate::repair::ItemCondition {
-                inventory_item_id: new_id,
-                tier_1: condition.tier_1,
-                tier_2: condition.tier_2,
-                tier_3: condition.tier_3,
-                tier_4: condition.tier_4,
-                tier_5: condition.tier_5,
-            });
-        ctx.db
-            .party_item_condition()
-            .party_inventory_item_id()
-            .delete(inventory.id);
-    }
+    crate::add_inventory_item(ctx, character_id, &inventory.item_id, quantity)?;
     if inventory.quantity == quantity {
         ctx.db.party_inventory_item().id().delete(inventory.id);
     } else {

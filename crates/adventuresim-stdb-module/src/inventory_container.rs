@@ -28,7 +28,7 @@ use crate::{
 mod backing_state;
 mod rehome;
 mod stacking;
-pub(crate) use backing_state::require_fungible_row;
+pub(crate) use backing_state::{require_fungible_inventory_row, require_fungible_row};
 use rehome::{rehome_party_row, rehome_personal_row, transfer_party_row, transfer_personal_row};
 use stacking::{mergeable_object, stackable_empty_root};
 

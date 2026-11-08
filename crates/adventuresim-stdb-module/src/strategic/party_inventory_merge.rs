@@ -42,19 +42,10 @@ fn merge_party_inventory(
         {
             return Err("Nested party inventory object was not moved with its root".into());
         }
-        let definition = ctx.db.item().id().find(&row.item_id);
-        let food = crate::item::inventory_food_definition(
-            definition.as_ref().map(|item| item.kind),
-            &row.item_id,
-        )?
-        .is_some();
-        let measured = crate::inventory_amount::is_measured_item(ctx, &row.item_id);
-        if crate::item::requires_stable_object(definition.as_ref(), food, measured) {
-            return Err("Stable party inventory row has no physical object".into());
-        }
-        crate::inventory_container::require_fungible_row(
+        crate::inventory_container::require_fungible_inventory_row(
             ctx,
             CarriedInventoryRowId::Party(row_id),
+            &row.item_id,
         )?;
         add_to_party_inventory(ctx, destination_party_id, &row.item_id, row.quantity)?;
         ctx.db.party_inventory_item().id().delete(row.id);
