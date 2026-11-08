@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:09:03.539640+00:00
+Updated: 2026-11-08T23:11:16.203074+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -11,7 +11,7 @@ Updated: 2026-11-08T23:09:03.539640+00:00
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
 | Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
-| Food conservation source packets | 6 adopted | Medicine, events, and transfers open |
+| Food conservation source packets | 7 adopted | Medicine, events, and transfers open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -275,6 +275,12 @@ consequence checks, preflight and episode insertion. Very small positive doses
 can round to zero at the event boundary; successful acquisition at such doses
 is unproven. Audit checkpoint 3773 verified the bounded evidence without
 closing the food-lot contract.
+
+A registered acquisition read found a continuous dose-based chance and a
+deterministic sampler capable of representing zero. A specific successful
+sub-microunit exposure remains unproven. Selected personal transfer admission
+requires atomic physical-object moves. Audit checkpoint 3774 verified the
+evidence without closing the food-lot contract.
 
 | Increment status | Count |
 | --- | ---: |
