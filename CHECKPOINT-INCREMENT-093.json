@@ -1,0 +1,101 @@
+{
+  "schema": "726-increment-checkpoint-v1",
+  "checkpoint": "increment-093",
+  "at": "2026-11-08T09:44:11.216411+00:00",
+  "historical_audit_checkpoint": 3737,
+  "audio": {
+    "commit": "2d318efbb21d044680070c525554cb04ee286437",
+    "focused_check": "passed",
+    "tests": "passed: 2"
+  },
+  "landform": {
+    "commit": "c40d70aeceeedfd87d7c9528628bf9c9bf87512b",
+    "status": "implementing",
+    "based_on": "2d318efbb21d044680070c525554cb04ee286437",
+    "refresh_and_late_arrival": "reconciliation drafted; behavior and pre-arrival readiness not verified",
+    "focused_check": "passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "focused_tests": "19 passed; 1 ignored at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "test_scope": "existing terrain presentation tests; failure and late-recipe paths not established",
+    "readiness": "failed terrain is excluded from presented count; failure path not dynamically tested",
+    "quality": "passed at parent 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "replication": "library documents atomic entity updates per tick; cross-tick arrival remains open",
+    "focused_clippy": "passed at c40d70aeceeedfd87d7c9528628bf9c9bf87512b"
+  },
+  "integration": "not started",
+  "report_sha256": "a060f6dbae2a5e47bdbb9a7d73925ed75190877c814e66ea08112a1839c1be1c",
+  "wedding": {
+    "status": "awaiting review",
+    "implementation": "unverified draft",
+    "worktree": "target/726-wedding-atomicity",
+    "base": "689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "joint_preflight": "projects delayed removal and admission transitions per participant; database behavior not verified",
+    "transaction": "unexpected post-write errors must propagate",
+    "branch": "codex/726-wedding-atomicity",
+    "commit": "4510a2685ea541dd3963bd22aa7a6df6ea29a2a5",
+    "focused_check": "authority-feature Clippy and Rust quality passed at e1ead67e986b55bf8ce8c10693d1ba0e2a0aa82d",
+    "quality": "passed at parent eafb67564a656be3bc6a1fb136c96c6a31443f4f",
+    "acceptance": "guarded disposable-database authority workflow passed at parent f33d5ebe37407718a2283dc9313924c32ab58973; current commit names fixture identifiers",
+    "reconciliation": "landform lint correction cherry-picked",
+    "format": "just fmt-check passed at 4510a2685ea541dd3963bd22aa7a6df6ea29a2a5 in non-nested worktree",
+    "nested_worktree_format": "failed: Cargo interpreted vendored crate as part of outer workspace",
+    "lint": "just lint passed at 4510a2685ea541dd3963bd22aa7a6df6ea29a2a5"
+  },
+  "sample_tick": {
+    "status": "existing report tests passed; review pending",
+    "branch": "codex/726-p17-restoration",
+    "commit": "dcd6ea1aaddb0e542a418ae7ebe35c0bf73d4ecc",
+    "base": "4510a2685ea541dd3963bd22aa7a6df6ea29a2a5",
+    "scope": "preserved P17 report work plus sample tick and LeadFoot fixes",
+    "validation": "26 existing report tests passed at dcd6ea1aaddb0e542a418ae7ebe35c0bf73d4ecc; focused compile and Rust quality passed before baseline reductions",
+    "source_audit": "capture drives a frame once; later view comparisons occur before the next frame drive",
+    "audit_evidence": "target/726-intake-20261030/P17-REPEATED-VIEW-AUDIT.md",
+    "preserved_p17": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696 cherry-picked as 3c7101a4c; unverified",
+    "reverted": "duplicate clearance extraction 1dca6e68776aeb4e0ba8f2d38513cf4f50cfcccd",
+    "jitter_source_finding": "position acceleration and jerk use unshifted reporting frames; position jerk also uses unshifted derivative intervals; source-derived, not reproduced",
+    "jitter_audit": "target/726-intake-20261030/P17-JITTER-TIMING-AUDIT.md"
+  },
+  "historical_family_counts": {
+    "total": 20,
+    "source_complete_or_preserved": 12,
+    "reopened": 6,
+    "implementing_at_handoff": 2,
+    "validated_current_combined_head": 0,
+    "qualification": "historical ledger states; not current-head acceptance"
+  },
+  "jitter": {
+    "status": "awaiting behavioral validation and review",
+    "branch": "codex/726-jitter-quality",
+    "commit": "8ff11c82fb4430ee17a170c61bea72c3d5173625",
+    "base": "96a20906e7e8e78c61dde90260fa16ecc5e47020",
+    "validation": "parent fmt-check and seven tests passed; full lint passed on current commit; new failure behavior unverified",
+    "quality": "quality check passed before baseline reduction and unused import cleanup; extracted capture baseline reduced to 718",
+    "lint": "full just lint passed at 8ff11c82fb4430ee17a170c61bea72c3d5173625"
+  },
+  "p16_scope": "historical ledger identifies melee geometry and targeting-range policy with 17 historical source gaps; current-head reconciliation required",
+  "p16_recovery": {
+    "snapshot": "039329518e264f19206cf5b0b98d177433f40c17",
+    "parent": "a120390947c89b703dc74c4255a13c035d054c50",
+    "compared_current": "8b3da2e16be30895a7c65f8e31bd3c7614562096",
+    "changed_paths": 159,
+    "also_changed_against_parent": 23,
+    "qualification": "three textual conflicts in explicit-base preview; other automatic merges require semantic review",
+    "local_evidence": "target/726-intake-20261030/P16-RECOVERY-OVERLAP.md",
+    "merge_preview_conflicts": [
+      "crates/adventuresim-core/Cargo.toml",
+      "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs"
+    ],
+    "merge_preview": "target/726-intake-20261030/P16-MERGE-TREE.txt",
+    "branch": "codex/726-p16-restoration",
+    "commit": "5e85d4f7c",
+    "status": "implementing; partially compiled draft",
+    "conflicts": "three textual conflicts resolved; all merged content still needs semantic review",
+    "movement_observations": "missing required displacement and before/after distances now return typed report errors; unverified",
+    "validation": "authority workflow passed at 7bd60431c; fmt-check passed at 71ffc473d; isolated core check passed at b41391400; server bins check passed at f844072ef; client check passed at 6f71aad45; tactical-core check passed at 51b877a0c; authority-feature database check passed at 5e85d4f7c; changed behaviors not rerun; 14 quality size findings remain; clippy not reached",
+    "next_action": "resolve remaining Rust quality size findings, rerun lint, review merges and revalidate shared-target checks",
+    "authority_workflow": "passed at 7bd60431c against disposable local profile p16-726-finalcheck on port 25999 with P16-specific build artifacts, including wedding capacity and rollback fixtures",
+    "isolated_build": "P16-specific wasm release build passed",
+    "cross_worktree_artifacts": "shared wasm target dependency records for geometry, math, determinism, puzzles, and weapon model point to wedding worktree; shared-target results need revalidation",
+    "quality_size_findings_remaining": 14
+  }
+}
