@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:30:39.129994+00:00
+Updated: 2026-11-08T10:36:50.982578+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -27,8 +27,9 @@ is pushed and focused core/database Clippy passed. Workspace Clippy then
 found tactical fixture type errors and a lint issue; those corrections are
 pushed and focused tactical Clippy passed. The next workspace run found an
 unused client re-export; native client Clippy passed after its removal.
-Workspace Clippy passed on the current commit; the complete formatting and
-lint recipes are running, with roughly 4 GB free.
+Workspace Clippy passed on the current commit. Full lint was stopped during
+standalone manifest checks when free disk fell below 3 GB; the disposable
+P16-only native build cache was removed, restoring about 8.6 GB free.
 
 | Historical audit measure | Count |
 | --- | --- |
@@ -213,8 +214,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   found tactical fixture type errors and a lint issue; corrections are pushed
   and focused tactical Clippy passed. Workspace retry then found an unused
   client re-export; native client Clippy passed after the fix. Workspace
-  Clippy passed at the current commit. The complete formatting and lint
-  recipes are running; behavior and review remain open.
+  Clippy passed at the current commit. The complete formatting check passed;
+  full lint was interrupted during standalone manifest checks to protect disk
+  space. The P16-only native build cache was removed to restore space.
+  Behavior, full lint, and review remain open.
   Input behavior has not been rerun.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
