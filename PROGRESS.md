@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:44:34.839147+00:00
+Updated: 2026-11-08T14:46:54.557413+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -34,7 +34,7 @@ Updated: 2026-11-08T14:44:34.839147+00:00
 | Guarded developer authority, investigability and view fixture | Passed |
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
-| Full P16 lint recipe on current commit | Running |
+| Full P16 lint recipe on current commit | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -85,7 +85,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Other ledger entries | 3,278, including overlapping obligations |
 | Equipment-law question rechecked on current draft | 1 / 1; still open |
 | Authored equipable items without durability | 7 / 188 catalog items |
-| Equipment-law typed draft | Compiled; runtime unverified |
+| Equipment-law typed draft | Lint passed; runtime unverified |
 
 | Named repair families in the historical handoff | Count |
 | --- | ---: |
@@ -362,11 +362,13 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   is non-durable, has an authored worn placement and attachment points, and
   the generic inventory-change reducer deletes its depleted inventory row
   without the durable branch's unequip operation or stable-object deletion.
-  Seven of 188 authored catalog items have placements but no durability. This
-  is source evidence, not a database reproduction. Remaining writer paths,
+  Seven of 188 authored catalog items have placements but no durability; all
+  seven have attachment points. The generic positive-change branch can also
+  merge an existing row rather than creating separate stable objects. This is
+  source evidence, not a database reproduction. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
   preflights all equipped rows before any unequip. The authority-feature
-  package check and formatting check passed. Full lint is running; no database
-  behavior has been tested. The historical ledger is not marked closed.
+  package check, formatting check and full lint passed. No database behavior
+  has been tested. The historical ledger is not marked closed.
 
