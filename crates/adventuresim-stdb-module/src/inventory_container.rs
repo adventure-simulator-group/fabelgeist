@@ -27,7 +27,7 @@ use crate::{
 
 mod rehome;
 mod stacking;
-use rehome::{rehome_party_row, rehome_personal_row};
+use rehome::{rehome_party_row, rehome_personal_row, transfer_party_row, transfer_personal_row};
 use stacking::{mergeable_object, stackable_empty_root};
 
 pub const WATER_ITEM_ID: &str = "water";
@@ -401,121 +401,10 @@ pub(crate) fn rehome_subtree(
                 object.location = rehome_party_row(ctx, location.row_id, party_id)?;
             }
             (InventoryLocation::Personal(location), OperationalCustody::Party(party_id)) => {
-                let source = ctx
-                    .db
-                    .inventory_item()
-                    .id()
-                    .find(location.row_id.get())
-                    .ok_or("Inventory subtree row is missing")?;
-                if source.quantity != 1 {
-                    return Err("Stable inventory objects must be quantity one".into());
-                }
-                let destination_row =
-                    ctx.db
-                        .party_inventory_item()
-                        .insert(crate::strategic::PartyInventoryItem {
-                            id: 0,
-                            party_id: party_id.as_str().into(),
-                            item_id: source.item_id.clone(),
-                            quantity: 1,
-                        });
-                if crate::food::personal_lot(ctx, location.row_id).is_some() {
-                    crate::food::move_or_split_to_party(
-                        ctx,
-                        location.row_id,
-                        PartyInventoryRowId::from_raw(destination_row.id),
-                        1,
-                        1,
-                    )?;
-                }
-                if crate::inventory_amount::personal_fraction(ctx, source.id).is_some() {
-                    crate::inventory_amount::move_personal_to_party(
-                        ctx,
-                        source.id,
-                        destination_row.id,
-                    )?;
-                }
-                if let Some(condition) = ctx.db.item_condition().inventory_item_id().find(source.id)
-                {
-                    ctx.db
-                        .item_condition()
-                        .inventory_item_id()
-                        .delete(source.id);
-                    ctx.db
-                        .party_item_condition()
-                        .insert(crate::strategic::PartyItemCondition {
-                            party_inventory_item_id: destination_row.id,
-                            tier_1: condition.tier_1,
-                            tier_2: condition.tier_2,
-                            tier_3: condition.tier_3,
-                            tier_4: condition.tier_4,
-                            tier_5: condition.tier_5,
-                        });
-                }
-                ctx.db.inventory_item().id().delete(source.id);
-                object.location = InventoryLocation::party(
-                    party_id.as_str(),
-                    PartyInventoryRowId::from_raw(destination_row.id),
-                );
+                object.location = transfer_personal_row(ctx, location.row_id, party_id)?;
             }
             (InventoryLocation::Party(location), OperationalCustody::Character(character_id)) => {
-                let source = ctx
-                    .db
-                    .party_inventory_item()
-                    .id()
-                    .find(location.row_id.get())
-                    .ok_or("Party inventory subtree row is missing")?;
-                if source.quantity != 1 {
-                    return Err("Stable inventory objects must be quantity one".into());
-                }
-                let destination_row = ctx.db.inventory_item().insert(crate::InventoryItem {
-                    id: 0,
-                    character_id: character_id.get(),
-                    item_id: source.item_id.clone(),
-                    quantity: 1,
-                });
-                if crate::food::party_lot(ctx, location.row_id).is_some() {
-                    crate::food::move_or_split_to_personal(
-                        ctx,
-                        location.row_id,
-                        PersonalInventoryRowId::from_raw(destination_row.id),
-                        1,
-                        1,
-                    )?;
-                }
-                if crate::inventory_amount::party_fraction(ctx, source.id).is_some() {
-                    crate::inventory_amount::move_party_to_personal(
-                        ctx,
-                        source.id,
-                        destination_row.id,
-                    )?;
-                }
-                if let Some(condition) = ctx
-                    .db
-                    .party_item_condition()
-                    .party_inventory_item_id()
-                    .find(source.id)
-                {
-                    ctx.db
-                        .party_item_condition()
-                        .party_inventory_item_id()
-                        .delete(source.id);
-                    ctx.db
-                        .item_condition()
-                        .insert(crate::repair::ItemCondition {
-                            inventory_item_id: destination_row.id,
-                            tier_1: condition.tier_1,
-                            tier_2: condition.tier_2,
-                            tier_3: condition.tier_3,
-                            tier_4: condition.tier_4,
-                            tier_5: condition.tier_5,
-                        });
-                }
-                ctx.db.party_inventory_item().id().delete(source.id);
-                object.location = InventoryLocation::personal(
-                    character_id.get(),
-                    PersonalInventoryRowId::from_raw(destination_row.id),
-                );
+                object.location = transfer_party_row(ctx, location.row_id, *character_id)?;
             }
             _ => return Err("Inventory subtree has an unsupported location transition".into()),
         }
