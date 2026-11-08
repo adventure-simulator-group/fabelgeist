@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T01:13:32.612803+00:00
+Updated: 2026-11-08T01:16:20.629090+00:00
 
-Latest verified checkpoint: **3675**. Goal: **active**.
+Latest verified checkpoint: **3676**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,13 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified generated expiry and exposure-cap ordering.
+Qualified generated source population constraints.
 
-Supported displaced-source population and interval-cap policy remain open.
+Combined displacement witness and interval-cap policy remain open.
 
 ## Working on now
 
-Qualify displaced-source population and bounded interval-cap policy.
+Qualify combined displacement witness and bounded interval-cap policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -217,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3675 publication record](CHECKPOINT-3675.json)
-- [Saved report for checkpoint 3675](PROGRESS-3675.md)
+- [Checkpoint 3676 publication record](CHECKPOINT-3676.json)
+- [Saved report for checkpoint 3676](PROGRESS-3676.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
