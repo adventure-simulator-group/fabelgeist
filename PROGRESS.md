@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:57:51.934117+00:00
+Updated: 2026-11-08T12:58:20.212592+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -34,7 +34,7 @@ Updated: 2026-11-08T12:57:51.934117+00:00
 | Guarded developer authority, investigability and view fixture | Passed |
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
-| Full P16 lint recipe on current commit | Running |
+| Full P16 lint recipe on current commit | Passed |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -199,7 +199,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   the combat equipment returns the instance reach, then restores the row.
   This passed for one equipped melee weapon in an isolated local database;
   it does not establish every weapon or error path. Focused authority-feature
-  Clippy and formatting passed; full lint is running on `7e169b976`.
+  Clippy, formatting and the full lint recipe passed on `7e169b976`. The
+  shared target provenance qualification applies to the full run.
   Investigation consumers now retain the validated manifest and context,
   including developer-context bases, and the reversed investigability tuple
   lookup is removed. Existing guarded cases passed; the extended guarded
