@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:46:40.152309+00:00
+Updated: 2026-11-08T08:48:14.889598+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -81,7 +81,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `548ba2e0a` (format and calendar guard changes after `623d52a`): the unfinished
+  commit `f97cd28fc` (format, calendar guard, and baseline changes after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -119,7 +119,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   calendar guard expecting the former string error; the guard now requires
   the typed strategic error. On retry, lint passed that guard and stopped at
   Rust quality: file and function growth, one moved raw-string finding, and
-  stale baseline entries require repair. Clippy has not yet run.
+  stale baseline entries require repair. Five stale entries were removed, and
+  the existing raw-string finding was moved to its new owner without raising
+  a ceiling. The size findings remain; Clippy has not yet run.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
