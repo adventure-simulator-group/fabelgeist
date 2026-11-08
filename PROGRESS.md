@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:41:28.728326+00:00
+Updated: 2026-11-08T02:45:42.388867+00:00
 
-Latest verified checkpoint: **3711**. Goal: **active**.
+Latest verified checkpoint: **3712**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified debug scene component snapshot representations.
+Qualified native snapshot reflection and insertion contracts.
 
-Snapshot owner, component ordering and post-gate validation remain open.
+Snapshot owner, observer ordering and post-gate validation remain open.
 
 ## Working on now
 
-Determine supported snapshot reconstruction and reflection ownership.
+Resolve snapshot and observer ordering repair policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3711 publication record](CHECKPOINT-3711.json)
-- [Saved report for checkpoint 3711](PROGRESS-3711.md)
+- [Checkpoint 3712 publication record](CHECKPOINT-3712.json)
+- [Saved report for checkpoint 3712](PROGRESS-3712.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
