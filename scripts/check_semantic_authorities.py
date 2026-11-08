@@ -255,6 +255,27 @@ def run(profile: str, base_port: int) -> None:
             client.fixture("authority_test_catalog_item_classification")
             print("PASS authored and materialized catalog item classifications", flush=True)
             client.fixture("authority_test_investigation_keys")
+            authorities = {
+                tuple(row) for row in client.rows(
+                    "SELECT case_id, public_case_id FROM quest_generation_authority"
+                )
+            }
+            visible_actions = {
+                tuple(row) for row in client.rows(
+                    "SELECT action_id, case_id FROM backend_investigation_actions "
+                    "WHERE owner_character_id = 732940"
+                )
+            }
+            generated_actions = client.rows(
+                "SELECT id, case_id, generated_case_id FROM investigation_action_capability "
+                "WHERE owner_character_id = 732940"
+            )
+            assert any(
+                (action_id, public_id) in visible_actions
+                and (canonical_id, public_id) in authorities
+                for action_id, public_id, canonical_id in generated_actions
+                if canonical_id
+            ), "Developer-generated action was not projected with its public case ID"
             for method, terrain, error in [("", "road", "Unknown investigation action method"),
                                             ("FollowTracks", "road", "Unknown investigation action method"),
                                             ("watch", "", "Unknown investigation terrain"),

@@ -296,6 +296,110 @@ fn check_developer_authority(
     if generated_investigability(ctx, &capability) != Some(expected) {
         return Err("Developer authority lost its investigability".into());
     }
+    record_developer_view_fixture(ctx, prototype, context, &manifest)?;
+    Ok(())
+}
+
+fn record_developer_view_fixture(
+    ctx: &ReducerContext,
+    prototype: &InvestigationActionCapability,
+    context: &adventuresim_core::quest_generation::GenerationContext,
+    manifest: &adventuresim_core::quest_generation::GeneratedCase,
+) -> Result<(), String> {
+    use adventuresim_core::quest_generation::{GeneratedActionOutput, observer_scoped_id};
+    let generated = manifest
+        .actions
+        .iter()
+        .find(|candidate| {
+            let kind = candidate
+                .kind
+                .stable_id()
+                .parse::<InvestigationActionKind>();
+            let Ok(kind) = kind else { return false };
+            let prerequisites = action::prerequisites(kind);
+            candidate.active_initially
+                && candidate.prerequisite.is_none()
+                && !prerequisites.requires_approximate_destination
+                && !prerequisites.requires_tracks
+                && !(kind == InvestigationActionKind::InspectSite
+                    && candidate.target_kind == action::InvestigationTargetKind::Site)
+                && !candidate.outputs.iter().any(|output| {
+                    matches!(
+                        output,
+                        GeneratedActionOutput::PatternCondition { .. }
+                            | GeneratedActionOutput::Consequence { .. }
+                    )
+                })
+        })
+        .ok_or("Developer fixture has no directly projectable action")?;
+    let remap = |id: &adventuresim_core::quest_generation::ActionId| {
+        observer_scoped_id(
+            context,
+            "capability",
+            &format!("{}:{}", prototype.owner_character_id, id.0),
+        )
+    };
+    let mut capability = prototype.clone();
+    capability.id = remap(&generated.id);
+    capability.case_id = manifest.public_case_id.clone();
+    capability.generated_case_id = manifest.canonical_case_id.clone();
+    capability.provenance_kind = InvestigationProvenanceKind::Generated;
+    capability.active = generated.active_initially;
+    capability.method = generated.kind.stable_id().into();
+    capability.target_kind = generated.target_kind;
+    capability.target_id = generated.target_id.clone();
+    capability.target_terrain = generated_action_terrain(manifest, generated)
+        .stable_id()
+        .into();
+    capability.required_action_id = String::new();
+    capability.alternate_route_action_id = remap(&generated.alternate);
+    capability.safe_summary = generated.safe_summary.clone();
+    (
+        capability.known_prerequisites,
+        capability.safe_result_on_success,
+    ) = generated_capability_safe_text(manifest, generated);
+    capability.consequence_json = serde_json::to_string(&InvestigationActionConsequence::None)
+        .map_err(|error| error.to_string())?;
+    ctx.db
+        .investigation_generated_action_output()
+        .insert(InvestigationGeneratedActionOutput {
+            capability_id: capability.id.clone(),
+            outputs_json: serde_json::to_string(&generated.outputs)
+                .map_err(|error| error.to_string())?,
+        });
+    if action::prerequisites(
+        generated
+            .kind
+            .stable_id()
+            .parse::<InvestigationActionKind>()
+            .map_err(|error| error.to_string())?,
+    )
+    .requires_contact_referral
+    {
+        ctx.db.investigation_lead().insert(InvestigationLead {
+            id: "authority-developer-view-referral".into(),
+            owner_character_id: capability.owner_character_id,
+            case_id: manifest.public_case_id.clone(),
+            proposition_id: String::new(),
+            summary: "Fixture referral".into(),
+            source_label: "Fixture".into(),
+            confidence_bps: 0,
+            destination_stage: adventuresim_core::investigation::DestinationKnowledgeStage::Textual,
+            directions: String::new(),
+            exact_location_id: String::new(),
+            latitude_e7: 0,
+            longitude_e7: 0,
+            witness_name: "Fixture witness".into(),
+            witness_description: String::new(),
+            witness_occupation_or_relationship: String::new(),
+            expected_location: String::new(),
+            current_learned_location: String::new(),
+            contradiction_group: String::new(),
+            corrected_by: String::new(),
+            recorded_at: StrategicMinute::ZERO,
+        });
+    }
+    ctx.db.investigation_action_capability().insert(capability);
     Ok(())
 }
 
