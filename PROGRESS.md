@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:51:51.971105+00:00
+Updated: 2026-11-08T15:53:50.339457+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -17,6 +17,7 @@ Updated: 2026-11-08T15:51:51.971105+00:00
 | File and function size findings remaining | 0 |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
+| Loading reconnect mailbox gap | Source-derived; open |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
@@ -344,7 +345,12 @@ ledger as backlog. Full refactor completion and validation remain required.
   panic severity to ordinary converted errors and its default fallback
   dispatches that severity to a panic handler. No server-local override was
   found in the inspected code; deployment configuration remains unverified.
-  The dispatcher does not monitor or restart its child
+  A separate source-derived reconnect gap exists if the database row arrives
+  after the disconnected loading entity is gone: admission skips the row,
+  while reconnect restores the saved loading state without a new enrollment
+  request. The subscription registers an insert callback; redelivery and the
+  precise event timing need a live check. The dispatcher does not monitor or
+  restart its child
   in the inspected source; deployed supervisor and row redelivery behavior
   remain unverified.
   The core build uses geometry without default engine features; an offline
