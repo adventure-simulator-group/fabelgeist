@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:57:25.268179+00:00
+Updated: 2026-11-08T11:59:38.906634+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -184,6 +184,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   but their storage-to-consumer behavior is unverified. The authority runner
   previously labeled a catalog fixture as capability projection; it checks
   classification, not reach. The message now states the actual coverage.
+  Player spawn admission prepares all applicable players before issuing any
+  spawn commands. The input queue is drained first and is not requeued on
+  preparation failure; the runtime handler and restart behavior are unverified.
   The iteration observer source retains the first typed error for readback;
   ten existing harness tests passed on unchanged iteration production code,
   but they do not inject an observer failure. Remaining review, behavior
