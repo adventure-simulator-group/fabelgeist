@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:37:40.105591+00:00
+Updated: 2026-11-08T14:39:31.344398+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -84,6 +84,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Ledger entries with source discovery explicitly closed | 588 / 3,866 |
 | Other ledger entries | 3,278, including overlapping obligations |
 | Equipment-law question rechecked on current draft | 1 / 1; still open |
+| Authored equipable items without durability | 7 / 188 catalog items |
 
 | Named repair families in the historical handoff | Count |
 | --- | ---: |
@@ -356,7 +357,12 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   has no settlement or its policy is unknown, inventory and definition checks
   are skipped. Presentation changes and reconciliation call this function.
   The equipment table has an inventory-item primary key and character index;
-  this limited source read has not proved a supported stale-row witness or
-  excluded one. Native writers, transaction behavior, error ownership and
-  remedy remain open; the historical ledger is not marked closed.
+  a source-derived stale-row sequence is now identified: an equipped belt
+  is non-durable, has an authored worn placement and attachment points, and
+  the generic inventory-change reducer deletes its depleted inventory row
+  without the durable branch's unequip operation or stable-object deletion.
+  Seven of 188 authored catalog items have placements but no durability. This
+  is source evidence, not a database reproduction. Remaining writer paths,
+  transaction behavior, error ownership and remedy remain open; the historical
+  ledger is not marked closed.
 
