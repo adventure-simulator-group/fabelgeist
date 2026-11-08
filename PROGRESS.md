@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T03:49:53.228676+00:00
+Updated: 2026-11-08T03:51:38.024146+00:00
 
-Latest verified checkpoint: **3733**. Goal: **active**.
+Latest verified checkpoint: **3734**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -45,13 +45,14 @@ calculation; the underlying sizing finding remains.
 
 ## Latest checkpoint
 
-Located historical owned-terrain test source and qualified current assertions.
+Qualified selected catalogue fields and the separately injected fault recipe.
 
-Catalogue, generator and native dependencies remain open; no test was run.
+Only selected JSON fields were inspected; full admission and native dependencies
+remain open.
 
 ## Working on now
 
-Qualify owned-terrain fixture and catalogue provenance.
+Qualify full catalogue admission and independent patch outcome.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -219,8 +220,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3733 publication record](CHECKPOINT-3733.json)
-- [Saved report for checkpoint 3733](PROGRESS-3733.md)
+- [Checkpoint 3734 publication record](CHECKPOINT-3734.json)
+- [Saved report for checkpoint 3734](PROGRESS-3734.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
