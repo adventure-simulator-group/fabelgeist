@@ -6,6 +6,7 @@
 use std::{fmt, num::NonZeroU64};
 
 use crate::inventory_measurement::ItemQuantity;
+use crate::physical_object::{CarriedInventoryRowId, CarriedInventoryScope};
 use crate::settlement_economy::Storefront;
 
 /// A non-zero amount of coin in a validated payment plan.
@@ -220,24 +221,26 @@ pub struct BuyLine {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct SellLine {
-    pub inventory_item_id: u64,
+    pub inventory_item_id: CarriedInventoryRowId,
     pub quantity: TradeQuantity,
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum TradeScope {
-    Personal,
-    Party,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct StorefrontTradeRequest {
     pub buys: Vec<BuyLine>,
-    pub sells: Vec<SellLine>,
-    pub scope: TradeScope,
+    sells: Vec<SellLine>,
+    scope: CarriedInventoryScope,
 }
 
 impl StorefrontTradeRequest {
+    pub fn sells(&self) -> &[SellLine] {
+        &self.sells
+    }
+
+    pub fn scope(&self) -> CarriedInventoryScope {
+        self.scope
+    }
+
     pub fn parse(
         buy_item_ids: Vec<String>,
         buy_quantities: Vec<u32>,
@@ -260,25 +263,22 @@ impl StorefrontTradeRequest {
                 })
             })
             .collect::<Result<_, _>>()?;
+        let scope = if party_scope {
+            CarriedInventoryScope::Party
+        } else {
+            CarriedInventoryScope::Personal
+        };
         let sells = sell_inventory_ids
             .into_iter()
             .zip(sell_quantities)
             .map(|(inventory_item_id, quantity)| {
                 Ok(SellLine {
-                    inventory_item_id,
+                    inventory_item_id: CarriedInventoryRowId::from_raw(scope, inventory_item_id),
                     quantity: TradeQuantity::try_from(quantity)?,
                 })
             })
             .collect::<Result<_, _>>()?;
-        Ok(Self {
-            buys,
-            sells,
-            scope: if party_scope {
-                TradeScope::Party
-            } else {
-                TradeScope::Personal
-            },
-        })
+        Ok(Self { buys, sells, scope })
     }
 }
 
@@ -447,6 +447,21 @@ mod tests {
             StorefrontTradeRequest::parse(vec!["bread".into()], vec![0], vec![], vec![], false),
             Err(TradeRequestError::ZeroQuantity)
         );
+        for party_scope in [false, true] {
+            let request =
+                StorefrontTradeRequest::parse(vec![], vec![], vec![42], vec![1], party_scope)
+                    .unwrap();
+            let expected_scope = if party_scope {
+                CarriedInventoryScope::Party
+            } else {
+                CarriedInventoryScope::Personal
+            };
+            assert_eq!(request.scope(), expected_scope);
+            assert_eq!(
+                request.sells()[0].inventory_item_id,
+                CarriedInventoryRowId::from_raw(expected_scope, 42),
+            );
+        }
         assert_eq!(
             parse_party_offer(vec![], vec![], vec![], vec![]),
             Err(TradeRequestError::EmptyOffer)

@@ -2525,15 +2525,7 @@ fn finalize_storefront_trade_impl(
         provider_resident_character_id,
         request,
     } = execution;
-    let party_scope = matches!(
-        request.scope,
-        adventuresim_core::strategic_inventory::TradeScope::Party
-    );
-    let carried_scope = if party_scope {
-        CarriedInventoryScope::Party
-    } else {
-        CarriedInventoryScope::Personal
-    };
+    let party_scope = matches!(request.scope(), CarriedInventoryScope::Party);
     let buy_item_ids = request
         .buys
         .iter()
@@ -2541,16 +2533,6 @@ fn finalize_storefront_trade_impl(
         .collect::<Vec<_>>();
     let buy_quantities = request
         .buys
-        .iter()
-        .map(|line| line.quantity.get())
-        .collect::<Vec<_>>();
-    let sell_inventory_ids = request
-        .sells
-        .iter()
-        .map(|line| line.inventory_item_id)
-        .collect::<Vec<_>>();
-    let sell_quantities = request
-        .sells
         .iter()
         .map(|line| line.quantity.get())
         .collect::<Vec<_>>();
@@ -2647,9 +2629,10 @@ fn finalize_storefront_trade_impl(
     // and quantity rather than netting by item ID, which can assign the whole
     // net sale to every matching stack.
     let mut seen_sale_ids = HashSet::new();
-    if !sell_inventory_ids
+    if !request
+        .sells()
         .iter()
-        .all(|inventory_id| seen_sale_ids.insert(*inventory_id))
+        .all(|line| seen_sale_ids.insert(line.inventory_item_id))
     {
         return Err("Merchant sale inventory IDs must be unique".into());
     }
@@ -2695,49 +2678,52 @@ fn finalize_storefront_trade_impl(
             .ok_or("Merchant purchase total overflow")?;
     }
     let mut proceeds = 0_u64;
-    for (inventory_id, quantity) in sell_inventory_ids.iter().zip(&sell_quantities) {
-        let container_object = crate::inventory_container::object_for_row(
-            ctx,
-            CarriedInventoryRowId::from_raw(carried_scope, *inventory_id),
-        )?;
+    for line in request.sells() {
+        let row_id = line.inventory_item_id;
+        let quantity = line.quantity.get();
+        let inventory_id = match row_id {
+            CarriedInventoryRowId::Personal(id) => id.get(),
+            CarriedInventoryRowId::Party(id) => id.get(),
+        };
+        let container_object = crate::inventory_container::object_for_row(ctx, row_id)?;
         let container_subtree = container_object.as_ref().is_some_and(|object| {
             crate::inventory_container::object_is_nonempty(ctx, object.id)
                 || crate::inventory_container::object_is_nested(ctx, object.id)
         });
-        let (item_id, available, food_value) = if party_scope {
-            let inventory = ctx
-                .db
-                .party_inventory_item()
-                .id()
-                .find(*inventory_id)
-                .ok_or("Party inventory item not found")?;
-            if Some(&inventory.party_id) != party_id.as_ref() {
-                return Err("Invalid party inventory sale".into());
+        let (item_id, available, food_value) = match row_id {
+            CarriedInventoryRowId::Party(party_row) => {
+                let inventory = ctx
+                    .db
+                    .party_inventory_item()
+                    .id()
+                    .find(inventory_id)
+                    .ok_or("Party inventory item not found")?;
+                if Some(&inventory.party_id) != party_id.as_ref() {
+                    return Err("Invalid party inventory sale".into());
+                }
+                let food_value = crate::food::party_lot(ctx, party_row).map(|lot| lot.total_value);
+                (inventory.item_id, inventory.quantity, food_value)
             }
-            let food_value =
-                crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(inventory.id))
-                    .map(|lot| lot.total_value);
-            (inventory.item_id, inventory.quantity, food_value)
-        } else {
-            let inventory = ctx
-                .db
-                .inventory_item()
-                .id()
-                .find(*inventory_id)
-                .ok_or("Inventory item not found")?;
-            if inventory.character_id != character_id {
-                return Err("Invalid merchant sale".into());
+            CarriedInventoryRowId::Personal(personal_row) => {
+                let inventory = ctx
+                    .db
+                    .inventory_item()
+                    .id()
+                    .find(inventory_id)
+                    .ok_or("Inventory item not found")?;
+                if inventory.character_id != character_id {
+                    return Err("Invalid merchant sale".into());
+                }
+                let food_value =
+                    crate::food::personal_lot(ctx, personal_row).map(|lot| lot.total_value);
+                (inventory.item_id, inventory.quantity, food_value)
             }
-            let food_value =
-                crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id))
-                    .map(|lot| lot.total_value);
-            (inventory.item_id, inventory.quantity, food_value)
         };
         let Some(item) = ctx.db.item().id().find(&item_id) else {
             return Err("Item definition not found".into());
         };
-        if available < *quantity
-            || *quantity == 0
+        if available < quantity
+            || quantity == 0
             || matches!(
                 item.kind,
                 crate::CatalogItemKind::Currency | crate::CatalogItemKind::Medication
@@ -2745,11 +2731,11 @@ fn finalize_storefront_trade_impl(
         {
             return Err("Invalid merchant sale".into());
         }
-        if !physical_object_row_is_atomic(container_object.is_some(), *quantity, available) {
+        if !physical_object_row_is_atomic(container_object.is_some(), quantity, available) {
             return Err("A physical object must be sold as one exact inventory row".into());
         }
         if !party_scope
-            && crate::character::inventory_item_is_equipped(ctx, character_id, *inventory_id)
+            && crate::character::inventory_item_is_equipped(ctx, character_id, inventory_id)
         {
             return Err("Unequip an item before selling it".into());
         }
@@ -2770,7 +2756,7 @@ fn finalize_storefront_trade_impl(
                 -problem_effects.sell_penalty_bps,
             ))
         } else if let Some(value) = food_value {
-            if *quantity != available || !value.is_finite() || value < 0.0 {
+            if quantity != available || !value.is_finite() || value < 0.0 {
                 return Err("Food batches must be sold as complete valid lots".into());
             }
             let base = adventuresim_core::strategic_economy::merchant_sell_food_lot_value(value)
@@ -2785,11 +2771,11 @@ fn finalize_storefront_trade_impl(
             ))
         } else {
             let measured_amount = if party_scope {
-                crate::inventory_amount::party_fraction(ctx, *inventory_id)
+                crate::inventory_amount::party_fraction(ctx, inventory_id)
             } else {
-                crate::inventory_amount::personal_fraction(ctx, *inventory_id)
+                crate::inventory_amount::personal_fraction(ctx, inventory_id)
             };
-            if measured_amount.is_some() && *quantity != available {
+            if measured_amount.is_some() && quantity != available {
                 return Err("Measured inventory must be sold as a complete row".into());
             }
             let intrinsic = measured_amount.map_or(item.base_value.unwrap_or(1), |amount| {
@@ -2810,7 +2796,7 @@ fn finalize_storefront_trade_impl(
                 quoted,
                 -problem_effects.sell_penalty_bps,
             );
-            adventuresim_core::strategic_economy::checked_merchant_line_total(quoted, *quantity)
+            adventuresim_core::strategic_economy::checked_merchant_line_total(quoted, quantity)
                 .ok_or("Merchant sale total overflow")?
         };
         proceeds = adventuresim_core::strategic_economy::checked_add_merchant_total(proceeds, line)
@@ -2830,12 +2816,8 @@ fn finalize_storefront_trade_impl(
     {
         return Err("Not enough coin".into());
     }
-    for (inventory_id, quantity) in sell_inventory_ids.iter().zip(&sell_quantities) {
-        apply_storefront_sale(
-            ctx,
-            CarriedInventoryRowId::from_raw(carried_scope, *inventory_id),
-            *quantity,
-        )?;
+    for line in request.sells() {
+        apply_storefront_sale(ctx, line.inventory_item_id, line.quantity.get())?;
     }
     for (item_id, quantity) in buy_item_ids.iter().zip(&buy_quantities) {
         if party_scope {
