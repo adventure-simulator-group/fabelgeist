@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:20:29.801394+00:00
+Updated: 2026-11-08T10:23:59.587327+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -23,7 +23,9 @@ or independent work items. The quality scan and WebAssembly client Clippy
 passed on a tree with two unstaged formatter-only files. Full workspace Clippy
 found test compilation and two redundant conversions; corrections are pushed
 and the workspace retry found one more fixture type qualification. That fix
-is pushed; focused Clippy is running. Available disk fell to roughly 4.5 GB.
+is pushed and focused core/database Clippy passed. Workspace Clippy then
+found tactical fixture type errors and a lint issue; those corrections are
+pushed and focused tactical Clippy is running. Roughly 4.4 GB remains free.
 
 | Historical audit measure | Count |
 | --- | --- |
@@ -94,7 +96,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `90a47d198` (quality and fixture repairs after `623d52a`): the unfinished
+  commit `e18e7cd9e` (quality and fixture repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -204,7 +206,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   formatter-only files, now included in the current commit. Full workspace
   Clippy found existing fixtures needing typed API adaptations and two
   redundant conversions. The retry exposed a fixture type qualification;
-  that correction is pushed and focused Clippy is running.
+  that correction passed focused core/database Clippy. A workspace retry
+  found tactical fixture type errors and a lint issue; corrections are pushed
+  and focused tactical Clippy is running.
   Input behavior has not been rerun.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
