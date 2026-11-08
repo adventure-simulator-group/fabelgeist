@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:34:57.508408+00:00
+Updated: 2026-11-08T14:37:40.105591+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -83,6 +83,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed |
 | Ledger entries with source discovery explicitly closed | 588 / 3,866 |
 | Other ledger entries | 3,278, including overlapping obligations |
+| Equipment-law question rechecked on current draft | 1 / 1; still open |
 
 | Named repair families in the historical handoff | Count |
 | --- | ---: |
@@ -344,3 +345,18 @@ ledger as backlog. Full refactor completion and validation remain required.
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
 superseded, while its evidence and unresolved questions remain in the backlog.
+
+## Current source reconciliation
+
+- Rechecked the equipment-law error-classification question on commit
+  57b146829. In a settlement with a known policy, the legality function can
+  return errors for a missing character, inventory row or item definition as
+  well as a prohibited item. Compliance treats every error as prohibition
+  and removes the equipped item and any attached descendants. If the character
+  has no settlement or its policy is unknown, inventory and definition checks
+  are skipped. Presentation changes and reconciliation call this function.
+  The equipment table has an inventory-item primary key and character index;
+  this limited source read has not proved a supported stale-row witness or
+  excluded one. Native writers, transaction behavior, error ownership and
+  remedy remain open; the historical ledger is not marked closed.
+
