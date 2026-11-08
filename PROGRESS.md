@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T20:02:48.870457+00:00
+Updated: 2026-11-08T20:11:35.300603+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -142,7 +142,15 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `0d2fb48ab`.
+The inventory row-identity migration is a draft at P16 `8431256e9`.
+Storefront sale admission now rejects objectless stable or backed rows before
+quoting, and sale application no longer recreates legacy lot or amount cleanup
+paths. Authority-feature compilation, `just fmt-check`, and full `just lint`
+passed. Live storefront sale and corrupt-row behavior remain unverified; an
+older storefront setup exhausted energy while seeding. Currency movement
+paths still need an invariant audit, and independent review remains open.
+
+At parent `0d2fb48ab`,
 Liquidation and discard now reject objectless stable or backed rows during
 staging instead of deleting their associated state through legacy paths.
 Authority-feature compilation, `just fmt-check`, and full `just lint` passed.
