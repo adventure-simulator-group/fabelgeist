@@ -1,11 +1,11 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:25:16.157696+00:00
+Updated: 2026-11-08T05:27:20.444495+00:00
 
 | Increment status | Count |
 | --- | ---: |
-| Queued | 1 |
-| Auditing | 0 |
+| Queued | 0 |
+| Auditing | 1 |
 | Implementing | 0 |
 | Awaiting or running checks | 2 |
 | Awaiting review | 0 |
@@ -35,7 +35,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   The focused client check passed; terrain presentation tests are running under
   the shared-target lock. Review and integration remain open.
 
-Wedding capacity atomicity remains queued for a separate bounded increment.
+Wedding capacity atomicity is in bounded audit. Its preflight must account for
+both participants jointly across effective-dated occupancy intervals, including
+existing residents and later moves; the implementation has not started.
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
 superseded, while its evidence and unresolved questions remain in the backlog.
