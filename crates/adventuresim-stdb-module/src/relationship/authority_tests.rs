@@ -1,5 +1,7 @@
 // Guarded acceptance of canonical chronology at historical conception trials.
 
+const WEDDING_OLD_HOUSEHOLD: &str = "authority-joint-capacity-old-household";
+
 #[reducer]
 pub fn authority_test_conception_chronology(
     ctx: &ReducerContext,
@@ -85,7 +87,6 @@ pub fn authority_test_wedding_capacity_atomicity(
     const SECOND: u64 = 726_002;
     const FATHER: u64 = 726_004;
     const COMMITMENT: &str = "authority-joint-capacity-wedding";
-    const OLD_HOUSEHOLD: &str = "authority-joint-capacity-old-household";
     const SETTLEMENT: &str = "authority-joint-capacity";
     const DOWRY: u32 = 17;
     let ceremony = StrategicMinute::new(100);
@@ -101,11 +102,11 @@ pub fn authority_test_wedding_capacity_atomicity(
         ctx.db.character_time().character_id().update(time);
     }
     ctx.db.household().insert(Household {
-        id: OLD_HOUSEHOLD.into(), home_settlement_id: SETTLEMENT.into(),
+        id: WEDDING_OLD_HOUSEHOLD.into(), home_settlement_id: SETTLEMENT.into(),
         created_minute: StrategicMinute::ZERO,
     });
     for character_id in [FIRST, SECOND] {
-        join_household(ctx, OLD_HOUSEHOLD, character_id, StrategicMinute::ZERO, HouseholdRole::AdultChild);
+        join_household(ctx, WEDDING_OLD_HOUSEHOLD, character_id, StrategicMinute::ZERO, HouseholdRole::AdultChild);
     }
     crate::item::credit_personal_currency(ctx, FATHER, SETTLEMENT, DOWRY)?;
     crate::item::consume_personal_currency(ctx, FATHER, u64::from(DOWRY))?;
@@ -152,7 +153,7 @@ pub fn authority_test_wedding_capacity_atomicity(
         || ctx.db.marriage().id().find(format!("marriage:{COMMITMENT}")).is_some()
         || [FIRST, SECOND].into_iter().any(|character_id| {
             ctx.db.household_member().character_id().find(character_id)
-                .is_none_or(|member| member.household_id != OLD_HOUSEHOLD)
+                .is_none_or(|member| member.household_id != WEDDING_OLD_HOUSEHOLD)
         })
     {
         return Err("Rejected wedding changed household or mishandled escrow".into());
@@ -216,7 +217,7 @@ pub fn authority_test_verify_wedding_rollback(
         || ctx.db.household().id().find(format!("household:{COMMITMENT}")).is_some()
         || [726_001, 726_002].into_iter().any(|character_id| {
             ctx.db.household_member().character_id().find(character_id)
-                .is_none_or(|member| member.household_id != "authority-joint-capacity-old-household")
+                .is_none_or(|member| member.household_id != WEDDING_OLD_HOUSEHOLD)
         })
     {
         return Err("Unexpected wedding error committed partial settlement".into());

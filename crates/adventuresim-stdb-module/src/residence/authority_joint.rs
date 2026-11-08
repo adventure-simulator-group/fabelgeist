@@ -2,14 +2,16 @@
 use super::*;
 use crate::residence::occupancy::property_occupancy_transition;
 
+const PROPERTY: &str = "authority-joint-capacity-property";
+const HOLDING: &str = "authority-joint-capacity-holding";
+const PRIOR_HOLDING: &str = "authority-prior-holding";
+
 #[reducer]
 pub fn authority_test_joint_residence_capacity(
     ctx: &ReducerContext,
     bootstrap_token: String,
 ) -> Result<(), String> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
-    const PROPERTY: &str = "authority-joint-capacity-property";
-    const HOLDING: &str = "authority-joint-capacity-holding";
     const FIRST: u64 = 726_001;
     const SECOND: u64 = 726_002;
     const OTHER: u64 = 726_003;
@@ -69,7 +71,7 @@ pub fn authority_test_joint_residence_capacity(
     let previous = ResidenceOccupant {
         character_id: FIRST,
         property_id: PROPERTY.into(),
-        holding_id: Some("authority-prior-holding".into()),
+        holding_id: Some(PRIOR_HOLDING.into()),
         admitted_minute: StrategicMinute::ZERO,
     };
     occupancy::record(
@@ -111,7 +113,7 @@ pub fn authority_test_prepare_wedding_rollback_home(
         .db
         .settlement_property()
         .id()
-        .find("authority-joint-capacity-property".to_owned())
+        .find(PROPERTY.to_owned())
         .ok_or("Rollback property missing")?;
     property.resident_capacity = 3;
     ctx.db.settlement_property().id().update(property);
@@ -127,8 +129,8 @@ pub fn authority_test_verify_wedding_rollback_home(
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let minute = StrategicMinute::new(100);
     let first = occupancy::at(ctx, 726_001, minute).ok_or("Original home missing")?;
-    if first.property_id != "authority-joint-capacity-property"
-        || first.holding_id.as_deref() != Some("authority-prior-holding")
+    if first.property_id != PROPERTY
+        || first.holding_id.as_deref() != Some(PRIOR_HOLDING)
         || occupancy::at(ctx, 726_002, minute).is_some()
     {
         return Err("Failed wedding changed occupancy history".into());
@@ -144,9 +146,9 @@ pub fn authority_test_verify_wedding_success_home(
 ) -> Result<(), String> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     for character_id in [726_001, 726_002] {
-        if occupancy::at(ctx, character_id, StrategicMinute::new(100)).is_none_or(|home| {
-            home.holding_id.as_deref() != Some("authority-joint-capacity-holding")
-        }) {
+        if occupancy::at(ctx, character_id, StrategicMinute::new(100))
+            .is_none_or(|home| home.holding_id.as_deref() != Some(HOLDING))
+        {
             return Err("Successful wedding did not admit both spouses".into());
         }
     }
