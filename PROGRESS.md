@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:18:49.093540+00:00
+Updated: 2026-11-08T22:20:35.089814+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -8,7 +8,7 @@ Updated: 2026-11-08T22:18:49.093540+00:00
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
-| Estate custody source packets | 2 adopted | Admission, transaction, and aliases open |
+| Estate custody source packets | 3 adopted | Admission, transaction, and aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -125,6 +125,13 @@ global containment graph and custody resolution checks ancestry and carried
 backing. Inspected direct death callers propagate errors; malformed-state
 reachability and transitive transaction behavior remain open. Audit checkpoint
 3749 verified the bounded evidence without closing the estate contract.
+
+A registered containment read found that the normal insertion reducer
+checks custody, graph invariants and capacity. It removes a prior edge before
+fallible validation, making rollback material. Selected encounter and camp-rest
+paths propagate death-related errors, but other mutations and complete outer
+transaction chains remain open. Audit checkpoint 3750 verified the bounded
+evidence without closing the estate contract.
 
 | Increment status | Count |
 | --- | ---: |
