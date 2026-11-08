@@ -1,7 +1,10 @@
 //! Guarded puzzle and road-choice lifecycle acceptance checks.
 use super::super::*;
 
-fn puzzle_lifecycle(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+fn puzzle_lifecycle(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> crate::StrategicOperationResult<()> {
     let issuance = materialize_order_errantry(
         ctx,
         character_id,
@@ -96,7 +99,7 @@ fn puzzle_lifecycle(ctx: &ReducerContext, character_id: u64) -> Result<(), Strin
     Ok(())
 }
 
-fn road_lifecycle(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+fn road_lifecycle(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
     let id =
         materialize_development_road_encounter(ctx, character_id, "unlawful_bridge_custom_v1")?;
     let initial = ctx
@@ -185,7 +188,7 @@ fn road_lifecycle(ctx: &ReducerContext, character_id: u64) -> Result<(), String>
 pub fn authority_test_challenge_lifecycle(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     let character_id = 732073;
     crate::character::create_named_character_with_id(

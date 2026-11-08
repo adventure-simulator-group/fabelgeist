@@ -8,7 +8,7 @@ use crate::reputation::{settle_offenses, snapshot_arrest_charges, unsettled_arre
 pub fn authority_test_offense_policy(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let actor = 732083;
     crate::character::create_named_character_with_id(ctx, actor, "Offense Fixture".into())?;

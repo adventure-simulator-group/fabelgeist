@@ -1,7 +1,9 @@
 //! Guarded storage vocabulary, generated binding, and prerequisite acceptance.
 use super::*;
 
-fn stored_methods(ctx: &ReducerContext) -> Result<Vec<InvestigationActionCapability>, String> {
+fn stored_methods(
+    ctx: &ReducerContext,
+) -> crate::StrategicOperationResult<Vec<InvestigationActionCapability>> {
     let owner = 732940;
     crate::character::create_named_character_with_id(
         ctx,
@@ -242,11 +244,11 @@ fn check_generated_binding(
 pub fn authority_test_investigation_keys(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let rows = stored_methods(ctx)?;
     check_tracking(ctx, &rows[0])?;
-    check_generated_binding(ctx, &rows[0])
+    check_generated_binding(ctx, &rows[0]).map_err(Into::into)
 }
 
 #[reducer]

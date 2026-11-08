@@ -6,7 +6,7 @@ use super::*;
 pub fn authority_test_projectile_identity(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let character_id = 732063;
     crate::character::create_named_character_with_id(

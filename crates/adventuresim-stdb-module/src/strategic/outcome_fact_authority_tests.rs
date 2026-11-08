@@ -9,7 +9,7 @@ use adventuresim_core::case::{
 pub fn authority_test_outcome_fact_payload(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     let case_id = "case:authority-fact-payload";
     let party_id = "party:authority-fact-payload";

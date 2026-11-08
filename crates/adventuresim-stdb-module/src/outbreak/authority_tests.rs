@@ -28,7 +28,7 @@ fn membership(
 pub fn authority_test_outbreak_patient_lifecycle(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let actor = 732004;
     let now = crate::time::refresh_clock(ctx)?.saturating_add_minutes(1_000);

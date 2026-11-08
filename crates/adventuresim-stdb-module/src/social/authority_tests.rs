@@ -5,7 +5,7 @@ use super::*;
 fn witness_session(
     ctx: &ReducerContext,
     observer: u64,
-) -> Result<crate::strategic::DialogueSession, String> {
+) -> crate::StrategicOperationResult<crate::strategic::DialogueSession> {
     use crate::strategic::{
         DialogueEvent, DialogueParticipant, DialogueSession, dialogue_participant,
     };
@@ -98,7 +98,7 @@ fn witness_session(
 pub fn authority_test_witness_resolutions(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     use adventuresim_core::social::{ClaimChallengeOutcome, WitnessClaimOutcome};
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let observer = 732041;
@@ -249,7 +249,7 @@ fn authored_claim(session: &crate::strategic::DialogueSession, key: &str) -> Dia
 pub fn authority_test_witness_request_keys(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let observer = 732960;
     let mut session = witness_session(ctx, observer)?;
@@ -354,7 +354,7 @@ pub fn authority_test_witness_request_keys(
             "rejected".into(),
             session.revision,
         );
-        if result.as_ref().map_err(String::as_str) != Err(expected)
+        if result.as_ref().map_err(|error| error.to_string()) != Err(expected.to_owned())
             || ctx
                 .db
                 .witness_social_action_receipt()
@@ -372,7 +372,8 @@ pub fn authority_test_witness_request_keys(
         {
             return Err(format!(
                 "Witness request {key:?} did not reject without effects: {result:?}"
-            ));
+            )
+            .into());
         }
     }
     Ok(())

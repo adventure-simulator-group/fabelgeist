@@ -5,7 +5,7 @@ use super::*;
 pub fn authority_test_automatic_chat_preferences(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let actor = 732071;
     let target = 732072;

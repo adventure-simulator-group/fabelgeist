@@ -14,7 +14,7 @@ pub fn authority_test_property_setup(
     bootstrap_token: String,
     catalog_json: String,
     economy_json: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     crate::strategic::require_strategic_gateway(ctx)?;
     let catalog =
@@ -191,7 +191,7 @@ pub fn authority_test_property_contract(
 pub fn authority_test_property_capacity(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     crate::strategic::require_strategic_gateway(ctx)?;
     let start = residence_now(ctx, ACTOR)?;

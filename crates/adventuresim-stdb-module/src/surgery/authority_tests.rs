@@ -73,7 +73,12 @@ pub fn authority_test_treatment_receipts(
     {
         return Err("Exact treatment replay reapplied effects".into());
     }
-    if treat("completed".into(), true).err().as_deref() != Some("Conflicting treatment retry") {
+    if treat("completed".into(), true)
+        .err()
+        .map(|error| error.to_string())
+        .as_deref()
+        != Some("Conflicting treatment retry")
+    {
         return Err("Treatment receipt accepted conflicting parameters".into());
     }
     let interrupted = 732032;

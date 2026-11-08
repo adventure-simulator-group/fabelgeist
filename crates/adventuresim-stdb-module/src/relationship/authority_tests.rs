@@ -6,8 +6,8 @@ const WEDDING_OLD_HOUSEHOLD: &str = "authority-joint-capacity-old-household";
 pub fn authority_test_conception_chronology(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
-    use crate::character::{character, character_death, CharacterDeath, DeathCause, DeathSource};
+) -> crate::StrategicOperationResult<()> {
+    use crate::character::{CharacterDeath, DeathCause, DeathSource, character, character_death};
     use crate::personality::character_personality;
     use crate::time::character_time;
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
@@ -15,10 +15,23 @@ pub fn authority_test_conception_chronology(
     let father = 732012;
     for (id, sex) in [(mother, Sex::Female), (father, Sex::Male)] {
         crate::character::create_named_character_with_id(ctx, id, "Chronology Fixture".into())?;
-        let mut personality = ctx.db.character_personality().character_id().find(id).ok_or("Personality missing")?;
+        let mut personality = ctx
+            .db
+            .character_personality()
+            .character_id()
+            .find(id)
+            .ok_or("Personality missing")?;
         personality.sex = sex;
-        ctx.db.character_personality().character_id().update(personality);
-        let mut birth = ctx.db.character_birth().character_id().find(id).ok_or("Birth missing")?;
+        ctx.db
+            .character_personality()
+            .character_id()
+            .update(personality);
+        let mut birth = ctx
+            .db
+            .character_birth()
+            .character_id()
+            .find(id)
+            .ok_or("Birth missing")?;
         birth.birth_minute = 10;
         ctx.db.character_birth().character_id().update(birth);
     }
@@ -52,11 +65,21 @@ pub fn authority_test_conception_chronology(
         strategic_minute: death,
     });
     for id in [mother, father] {
-        let mut clock = ctx.db.character_time().character_id().find(id).ok_or("Clock missing")?;
+        let mut clock = ctx
+            .db
+            .character_time()
+            .character_id()
+            .find(id)
+            .ok_or("Clock missing")?;
         clock.minutes = death.saturating_add_minutes(1);
         ctx.db.character_time().character_id().update(clock);
     }
-    let mut row = ctx.db.character().id().find(mother).ok_or("Mother missing")?;
+    let mut row = ctx
+        .db
+        .character()
+        .id()
+        .find(mother)
+        .ok_or("Mother missing")?;
     row.alive = false;
     row.age_years = 0;
     ctx.db.character().id().update(row);
@@ -64,7 +87,9 @@ pub fn authority_test_conception_chronology(
         || conception_parents(ctx, mother, father, death)?.is_some()
         || conception_parents(ctx, mother, father, death.saturating_add_minutes(1))?.is_some()
     {
-        return Err("Conception trusted current fields instead of historical death authority".into());
+        return Err(
+            "Conception trusted current fields instead of historical death authority".into(),
+        );
     }
     ctx.db.character_birth().character_id().delete(father);
     if effective_age_years(ctx, father, adulthood).is_some()
@@ -81,7 +106,7 @@ pub fn authority_test_conception_chronology(
 pub fn authority_test_wedding_capacity_atomicity(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     const FIRST: u64 = 726_001;
     const SECOND: u64 = 726_002;
@@ -93,20 +118,33 @@ pub fn authority_test_wedding_capacity_atomicity(
     let now = crate::time::refresh_clock(ctx)?;
     for character_id in [FIRST, SECOND, FATHER] {
         crate::character::create_named_character_with_id(
-            ctx, character_id, format!("Wedding acceptance {character_id}"),
+            ctx,
+            character_id,
+            format!("Wedding acceptance {character_id}"),
         )?;
         set_seeded_character_birth_from_age(ctx, character_id, 25);
-        let mut time = ctx.db.character_time().character_id().find(character_id)
+        let mut time = ctx
+            .db
+            .character_time()
+            .character_id()
+            .find(character_id)
             .ok_or("Wedding acceptance clock missing")?;
         time.minutes = now;
         ctx.db.character_time().character_id().update(time);
     }
     ctx.db.household().insert(Household {
-        id: WEDDING_OLD_HOUSEHOLD.into(), home_settlement_id: SETTLEMENT.into(),
+        id: WEDDING_OLD_HOUSEHOLD.into(),
+        home_settlement_id: SETTLEMENT.into(),
         created_minute: StrategicMinute::ZERO,
     });
     for character_id in [FIRST, SECOND] {
-        join_household(ctx, WEDDING_OLD_HOUSEHOLD, character_id, StrategicMinute::ZERO, HouseholdRole::AdultChild);
+        join_household(
+            ctx,
+            WEDDING_OLD_HOUSEHOLD,
+            character_id,
+            StrategicMinute::ZERO,
+            HouseholdRole::AdultChild,
+        );
     }
     crate::item::credit_personal_currency(ctx, FATHER, SETTLEMENT, DOWRY)?;
     crate::item::consume_personal_currency(ctx, FATHER, u64::from(DOWRY))?;
@@ -128,31 +166,59 @@ pub fn authority_test_wedding_capacity_atomicity(
         terminal_reason: None,
     });
     ctx.db.exclusive_commitment().insert(ExclusiveCommitment {
-        id: COMMITMENT.into(), first_character_id: FIRST, second_character_id: SECOND,
-        kind: CommitmentKind::Engagement, status: CommitmentStatus::Reserved,
-        ceremony_settlement_id: SETTLEMENT.into(), effective_minute: ceremony,
-        created_minute: StrategicMinute::ZERO, resolved_minute: None, terminal_reason: None,
+        id: COMMITMENT.into(),
+        first_character_id: FIRST,
+        second_character_id: SECOND,
+        kind: CommitmentKind::Engagement,
+        status: CommitmentStatus::Reserved,
+        ceremony_settlement_id: SETTLEMENT.into(),
+        effective_minute: ceremony,
+        created_minute: StrategicMinute::ZERO,
+        resolved_minute: None,
+        terminal_reason: None,
     });
     for character_id in [FIRST, SECOND] {
-        ctx.db.exclusive_commitment_participant().insert(ExclusiveCommitmentParticipant {
-            character_id, commitment_id: COMMITMENT.into(),
-        });
+        ctx.db
+            .exclusive_commitment_participant()
+            .insert(ExclusiveCommitmentParticipant {
+                character_id,
+                commitment_id: COMMITMENT.into(),
+            });
     }
     ctx.db.dowry_escrow().insert(DowryEscrow {
-        commitment_id: COMMITMENT.into(), father_id: FATHER, amount: DOWRY,
+        commitment_id: COMMITMENT.into(),
+        father_id: FATHER,
+        amount: DOWRY,
         reserved_minute: StrategicMinute::ZERO,
     });
     settle_due_lifecycle_events_global(ctx, now, usize::MAX)?;
-    let commitment = ctx.db.exclusive_commitment().id().find(COMMITMENT.to_owned())
+    let commitment = ctx
+        .db
+        .exclusive_commitment()
+        .id()
+        .find(COMMITMENT.to_owned())
         .ok_or("Wedding acceptance commitment missing")?;
     if commitment.status != CommitmentStatus::Cancelled
         || commitment.terminal_reason != Some(CommitmentTerminalReason::ResidenceUnavailable)
-        || ctx.db.dowry_escrow().commitment_id().find(COMMITMENT.to_owned()).is_some()
+        || ctx
+            .db
+            .dowry_escrow()
+            .commitment_id()
+            .find(COMMITMENT.to_owned())
+            .is_some()
         || crate::item::personal_currency_total(ctx, FATHER) != before_father + u64::from(DOWRY)
         || crate::item::personal_currency_total(ctx, SECOND) != before_recipient
-        || ctx.db.marriage().id().find(format!("marriage:{COMMITMENT}")).is_some()
+        || ctx
+            .db
+            .marriage()
+            .id()
+            .find(format!("marriage:{COMMITMENT}"))
+            .is_some()
         || [FIRST, SECOND].into_iter().any(|character_id| {
-            ctx.db.household_member().character_id().find(character_id)
+            ctx.db
+                .household_member()
+                .character_id()
+                .find(character_id)
                 .is_none_or(|member| member.household_id != WEDDING_OLD_HOUSEHOLD)
         })
     {
@@ -175,18 +241,29 @@ pub fn authority_test_prepare_wedding_rollback(
     let ceremony = StrategicMinute::new(100);
     crate::item::consume_personal_currency(ctx, FATHER, 17)?;
     ctx.db.exclusive_commitment().insert(ExclusiveCommitment {
-        id: COMMITMENT.into(), first_character_id: FIRST, second_character_id: SECOND,
-        kind: CommitmentKind::Engagement, status: CommitmentStatus::Reserved,
-        ceremony_settlement_id: "authority-joint-capacity".into(), effective_minute: ceremony,
-        created_minute: StrategicMinute::ZERO, resolved_minute: Some(ceremony), terminal_reason: None,
+        id: COMMITMENT.into(),
+        first_character_id: FIRST,
+        second_character_id: SECOND,
+        kind: CommitmentKind::Engagement,
+        status: CommitmentStatus::Reserved,
+        ceremony_settlement_id: "authority-joint-capacity".into(),
+        effective_minute: ceremony,
+        created_minute: StrategicMinute::ZERO,
+        resolved_minute: Some(ceremony),
+        terminal_reason: None,
     });
     for character_id in [FIRST, SECOND] {
-        ctx.db.exclusive_commitment_participant().insert(ExclusiveCommitmentParticipant {
-            character_id, commitment_id: COMMITMENT.into(),
-        });
+        ctx.db
+            .exclusive_commitment_participant()
+            .insert(ExclusiveCommitmentParticipant {
+                character_id,
+                commitment_id: COMMITMENT.into(),
+            });
     }
     ctx.db.dowry_escrow().insert(DowryEscrow {
-        commitment_id: COMMITMENT.into(), father_id: FATHER, amount: 17,
+        commitment_id: COMMITMENT.into(),
+        father_id: FATHER,
+        amount: 17,
         reserved_minute: StrategicMinute::ZERO,
     });
     Ok(())
@@ -197,7 +274,7 @@ pub fn authority_test_prepare_wedding_rollback(
 pub fn authority_test_execute_wedding_rollback(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let now = crate::time::refresh_clock(ctx)?;
     settle_due_lifecycle_events_global(ctx, now, usize::MAX)?;
@@ -212,11 +289,29 @@ pub fn authority_test_verify_wedding_rollback(
 ) -> Result<(), String> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     const COMMITMENT: &str = "authority-joint-capacity-rollback";
-    if ctx.db.dowry_escrow().commitment_id().find(COMMITMENT.to_owned()).is_none()
-        || ctx.db.marriage().id().find(format!("marriage:{COMMITMENT}")).is_some()
-        || ctx.db.household().id().find(format!("household:{COMMITMENT}")).is_some()
+    if ctx
+        .db
+        .dowry_escrow()
+        .commitment_id()
+        .find(COMMITMENT.to_owned())
+        .is_none()
+        || ctx
+            .db
+            .marriage()
+            .id()
+            .find(format!("marriage:{COMMITMENT}"))
+            .is_some()
+        || ctx
+            .db
+            .household()
+            .id()
+            .find(format!("household:{COMMITMENT}"))
+            .is_some()
         || [726_001, 726_002].into_iter().any(|character_id| {
-            ctx.db.household_member().character_id().find(character_id)
+            ctx.db
+                .household_member()
+                .character_id()
+                .find(character_id)
                 .is_none_or(|member| member.household_id != WEDDING_OLD_HOUSEHOLD)
         })
     {
@@ -230,16 +325,34 @@ pub fn authority_test_verify_wedding_rollback(
 pub fn authority_test_cleanup_wedding_rollback(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     const COMMITMENT: &str = "authority-joint-capacity-rollback";
-    let escrow = ctx.db.dowry_escrow().commitment_id().find(COMMITMENT.to_owned())
+    let escrow = ctx
+        .db
+        .dowry_escrow()
+        .commitment_id()
+        .find(COMMITMENT.to_owned())
         .ok_or("Rollback escrow missing")?;
-    crate::item::credit_personal_currency(ctx, escrow.father_id, "authority-joint-capacity", escrow.amount)?;
-    ctx.db.dowry_escrow().commitment_id().delete(COMMITMENT.to_owned());
-    ctx.db.exclusive_commitment().id().delete(COMMITMENT.to_owned());
+    crate::item::credit_personal_currency(
+        ctx,
+        escrow.father_id,
+        "authority-joint-capacity",
+        escrow.amount,
+    )?;
+    ctx.db
+        .dowry_escrow()
+        .commitment_id()
+        .delete(COMMITMENT.to_owned());
+    ctx.db
+        .exclusive_commitment()
+        .id()
+        .delete(COMMITMENT.to_owned());
     for character_id in [726_001, 726_002] {
-        ctx.db.exclusive_commitment_participant().character_id().delete(character_id);
+        ctx.db
+            .exclusive_commitment_participant()
+            .character_id()
+            .delete(character_id);
     }
     Ok(())
 }
@@ -249,7 +362,7 @@ pub fn authority_test_cleanup_wedding_rollback(
 pub fn authority_test_wedding_capacity_success(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     const FIRST: u64 = 726_001;
     const SECOND: u64 = 726_002;
@@ -263,34 +376,62 @@ pub fn authority_test_wedding_capacity_success(
     let before_father = crate::item::personal_currency_total(ctx, FATHER);
     crate::item::consume_personal_currency(ctx, FATHER, u64::from(DOWRY))?;
     ctx.db.exclusive_commitment().insert(ExclusiveCommitment {
-        id: COMMITMENT.into(), first_character_id: FIRST, second_character_id: SECOND,
-        kind: CommitmentKind::Engagement, status: CommitmentStatus::Reserved,
-        ceremony_settlement_id: "authority-joint-capacity".into(), effective_minute: ceremony,
-        created_minute: StrategicMinute::ZERO, resolved_minute: None, terminal_reason: None,
+        id: COMMITMENT.into(),
+        first_character_id: FIRST,
+        second_character_id: SECOND,
+        kind: CommitmentKind::Engagement,
+        status: CommitmentStatus::Reserved,
+        ceremony_settlement_id: "authority-joint-capacity".into(),
+        effective_minute: ceremony,
+        created_minute: StrategicMinute::ZERO,
+        resolved_minute: None,
+        terminal_reason: None,
     });
     for character_id in [FIRST, SECOND] {
-        ctx.db.exclusive_commitment_participant().insert(ExclusiveCommitmentParticipant {
-            character_id, commitment_id: COMMITMENT.into(),
-        });
+        ctx.db
+            .exclusive_commitment_participant()
+            .insert(ExclusiveCommitmentParticipant {
+                character_id,
+                commitment_id: COMMITMENT.into(),
+            });
     }
     ctx.db.dowry_escrow().insert(DowryEscrow {
-        commitment_id: COMMITMENT.into(), father_id: FATHER, amount: DOWRY,
+        commitment_id: COMMITMENT.into(),
+        father_id: FATHER,
+        amount: DOWRY,
         reserved_minute: StrategicMinute::ZERO,
     });
     settle_due_lifecycle_events_global(ctx, now, usize::MAX)?;
-    let commitment = ctx.db.exclusive_commitment().id().find(COMMITMENT.to_owned())
+    let commitment = ctx
+        .db
+        .exclusive_commitment()
+        .id()
+        .find(COMMITMENT.to_owned())
         .ok_or("Successful wedding commitment missing")?;
     let household_id = format!("household:{COMMITMENT}");
     if commitment.status != CommitmentStatus::Fulfilled
         || commitment.terminal_reason != Some(CommitmentTerminalReason::WeddingCompleted)
-        || ctx.db.dowry_escrow().commitment_id().find(COMMITMENT.to_owned()).is_some()
-        || ctx.db.marriage().id().find(format!("marriage:{COMMITMENT}")).is_none()
+        || ctx
+            .db
+            .dowry_escrow()
+            .commitment_id()
+            .find(COMMITMENT.to_owned())
+            .is_some()
+        || ctx
+            .db
+            .marriage()
+            .id()
+            .find(format!("marriage:{COMMITMENT}"))
+            .is_none()
         || crate::item::personal_currency_total(ctx, FATHER) + u64::from(DOWRY) != before_father
         || crate::item::personal_currency_total(ctx, FIRST)
             + crate::item::personal_currency_total(ctx, SECOND)
             != before_first + before_second + u64::from(DOWRY)
         || [FIRST, SECOND].into_iter().any(|character_id| {
-            ctx.db.household_member().character_id().find(character_id)
+            ctx.db
+                .household_member()
+                .character_id()
+                .find(character_id)
                 .is_none_or(|member| member.household_id != household_id)
         })
     {

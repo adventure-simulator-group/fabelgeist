@@ -1,6 +1,6 @@
 // Guarded acceptance of existence-owned contact and encounter awareness.
 
-fn contact_fixture(ctx: &ReducerContext) -> Result<(), String> {
+fn contact_fixture(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
     use crate::strategic::StrategicEncounter;
     let actor = 732061;
     let target = 732062;
@@ -61,7 +61,7 @@ fn contact_fixture(ctx: &ReducerContext) -> Result<(), String> {
 pub fn authority_test_contact_existence(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     contact_fixture(ctx)?;
     let party = "authority-contact-party";
@@ -94,8 +94,16 @@ pub fn authority_test_contact_existence(
         );
     }
     contact(1, "first")?;
-    if contact(2, "first").err().as_deref() != Some("Conflicting contextual contact retry")
-        || contact(1, "stale").err().as_deref() != Some("Context contact revision is stale")
+    if contact(2, "first")
+        .err()
+        .map(|error| error.to_string())
+        .as_deref()
+        != Some("Conflicting contextual contact retry")
+        || contact(1, "stale")
+            .err()
+            .map(|error| error.to_string())
+            .as_deref()
+            != Some("Context contact revision is stale")
         || ctx
             .db
             .party_context_contact_authority()

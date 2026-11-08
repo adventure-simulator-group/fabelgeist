@@ -5,7 +5,7 @@ use super::*;
 pub fn authority_test_seed_resident(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     insert_resident_draft(
         ctx,
@@ -31,7 +31,7 @@ pub fn authority_test_seed_resident(
 pub fn authority_test_seed_errantry_issuer(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let order = adventuresim_core::organization::organization(
         crate::strategic::ERRANTRY_ISSUER_ORGANIZATION_ID,
@@ -92,7 +92,7 @@ pub fn authority_test_materialize_property_household(
     ctx: &ReducerContext,
     bootstrap_token: String,
     settlement_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     crate::strategic::require_strategic_gateway(ctx)?;
     let (drafts, groups) = settlement_resident_drafts(ctx, &settlement_id)?;

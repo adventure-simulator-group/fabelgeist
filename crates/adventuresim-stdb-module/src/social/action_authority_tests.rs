@@ -2,7 +2,11 @@
 use super::*;
 use adventuresim_core::morale::MoraleSourceKind;
 
-fn prepare_pair(ctx: &ReducerContext, actor: u64, target: u64) -> Result<(), String> {
+fn prepare_pair(
+    ctx: &ReducerContext,
+    actor: u64,
+    target: u64,
+) -> crate::StrategicOperationResult<()> {
     use crate::personality::MutablePersonalityAxis;
     use adventuresim_world_schema::OfficialReligion;
     for id in [actor, target] {
@@ -50,7 +54,7 @@ fn prepare_pair(ctx: &ReducerContext, actor: u64, target: u64) -> Result<(), Str
 pub fn authority_test_social_action_keys(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     for (index, key) in [
         "reflect",
@@ -146,7 +150,7 @@ pub fn authority_test_social_action_keys(
     for key in ["", "unknown", "rally", "reframe", "Command"] {
         let error = perform_social_action(ctx, 0, 0, "absent".into(), key.into())
             .expect_err("Unknown key must reject");
-        if error != "Unknown social action" {
+        if error.to_string() != "Unknown social action" {
             return Err("Unknown action reached character admission".into());
         }
     }

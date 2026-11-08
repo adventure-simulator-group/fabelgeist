@@ -6,7 +6,7 @@ use super::*;
 pub fn authority_test_leisure_checkpoints(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let first = 732021;
     let second = 732022;
