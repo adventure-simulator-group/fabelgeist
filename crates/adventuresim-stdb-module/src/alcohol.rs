@@ -399,9 +399,13 @@ fn had_recent_heavy(ctx: &ReducerContext, character_id: u64, evening: u64) -> bo
         })
 }
 
-fn tavern_purchase(ctx: &ReducerContext, character_id: u64, target: u32) -> u32 {
+fn tavern_purchase(
+    ctx: &ReducerContext,
+    character_id: u64,
+    target: u32,
+) -> crate::StrategicOperationResult<u32> {
     let Some(def) = ctx.db.item().id().find(TAVERN_DRINK_ITEM_ID.to_string()) else {
-        return 0;
+        return Ok(0);
     };
     let each = ethanol_ml(properties(&def));
     let price = u64::from(def.base_value.unwrap_or(0));
@@ -415,12 +419,10 @@ fn tavern_purchase(ctx: &ReducerContext, character_id: u64, target: u32) -> u32 
     for _ in 0..units {
         // Affordability was computed from the same personal-only balance. Keep
         // the reducer transaction authoritative if inventory changed.
-        if crate::item::consume_personal_currency(ctx, character_id, price).is_err() {
-            break;
-        }
+        crate::item::consume_personal_currency(ctx, character_id, price)?;
         bought = bought.saturating_add(each);
     }
-    bought
+    Ok(bought)
 }
 
 pub fn process_rest_evenings(
@@ -489,7 +491,7 @@ pub fn process_rest_evenings(
         }
         if settled && consumed < target {
             consumed =
-                consumed.saturating_add(tavern_purchase(ctx, character_id, target - consumed));
+                consumed.saturating_add(tavern_purchase(ctx, character_id, target - consumed)?);
         }
         mark_evening_evaluated(ctx, character_id, evening, &id, consumed);
         let effect =

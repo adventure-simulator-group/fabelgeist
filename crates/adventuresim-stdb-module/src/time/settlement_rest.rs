@@ -341,8 +341,7 @@ fn rest_for_minutes(
     let elapsed = settled.elapsed;
     character_time.minutes = starting_minute
         .checked_add_minutes(elapsed)
-        .ok_or("Character clock overflow")?
-        ;
+        .ok_or("Character clock overflow")?;
     ctx.db
         .character_time()
         .character_id()
@@ -363,12 +362,10 @@ fn rest_for_minutes(
         let patient_contribution =
             crate::item::personal_currency_total(ctx, character_id).min(elapsed_cost);
         let sponsor_contribution = elapsed_cost.saturating_sub(patient_contribution);
-        crate::item::consume_personal_currency(ctx, character_id, patient_contribution)
-            .map_err(|_| "Not enough coin to pay for the inn stay".to_string())?;
+        crate::item::consume_personal_currency(ctx, character_id, patient_contribution)?;
         if sponsor_contribution > 0 {
             let sponsor_id = inn_sponsor_id.ok_or("Inn sponsorship became unavailable")?;
-            crate::item::consume_personal_currency(ctx, sponsor_id, sponsor_contribution)
-                .map_err(|_| "Not enough coin to pay for the inn stay".to_string())?;
+            crate::item::consume_personal_currency(ctx, sponsor_id, sponsor_contribution)?;
         }
     }
     crate::social::settle_shared_party_time(ctx, character_id);
