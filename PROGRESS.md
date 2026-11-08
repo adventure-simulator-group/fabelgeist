@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:43:43.378160+00:00
+Updated: 2026-11-08T11:50:26.373912+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -26,6 +26,7 @@ Updated: 2026-11-08T11:43:43.378160+00:00
 | Tactical server player-projection tests passed | 33 / 33 |
 | Tactical server bot tests passed | 13 / 13 |
 | Tactical server equipment tests passed | 16 / 16 |
+| Client targeting and acquisition helper tests passed | 6 / 6 |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -126,7 +127,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   retains the typed pickup range and revision admission. The strategic
   character and lockfile comparisons complete the 23-path bounded review.
   Full dependency resolution, independent review, the other recovered paths,
-  and client visual, input and fixture behavior remain unverified.
+  and client visual, input and fixture behavior remain unverified. The
+  targeting and lunge-acquisition source paths were also reviewed; six
+  existing helper tests passed, though six selected shared dependency
+  records were older than the approximate build start.
   The movement report uses typed measurements and rejects missing required
   observations; the new failure behavior still needs behavioral validation.
   A one-seed smoke run completed five matchups and all 11 top-level audit
