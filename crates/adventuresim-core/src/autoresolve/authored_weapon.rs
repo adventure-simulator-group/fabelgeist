@@ -86,6 +86,11 @@ impl CombatWeapon {
                 .striking_head_length_m,
         )?;
         let skill_distribution: crate::equipment::WeaponSkillDistribution = (*skills).into();
+        let body_material = definition.equipment.as_ref().and_then(|item| item.material);
+        let striking_material = definition
+            .equipment
+            .as_ref()
+            .and_then(|item| item.striking_material);
         Ok(Self {
             skills: skill_distribution,
             melee: true,
@@ -101,23 +106,11 @@ impl CombatWeapon {
             distal_headed: crate::combat::has_distal_striking_surface(
                 grip_to_tip_m,
                 striking_head_length_m,
-                definition
-                    .equipment
-                    .as_ref()
-                    .and_then(|equipment| equipment.material),
-                definition
-                    .equipment
-                    .as_ref()
-                    .and_then(|equipment| equipment.striking_material),
+                body_material,
+                striking_material,
             ),
-            body_material: definition
-                .equipment
-                .as_ref()
-                .and_then(|equipment| equipment.material),
-            striking_material: definition
-                .equipment
-                .as_ref()
-                .and_then(|equipment| equipment.striking_material),
+            body_material,
+            striking_material,
             ranged_range: SignedLength::ZERO,
             // Autoresolve advances the same complete attack cycle as the tactical
             // bot: the authored server windup to contact plus inertia/style-based
