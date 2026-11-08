@@ -9,13 +9,27 @@ use crate::{
     item::{inventory_item, item},
 };
 
+#[derive(Debug, thiserror::Error)]
+pub enum EquipmentLawError {
+    #[error("Character not found")]
+    MissingCharacter,
+    #[error("Inventory item not found")]
+    MissingInventoryItem,
+    #[error("Item definition not found")]
+    MissingItemDefinition,
+    #[error("{0} restricts armor; present a recognized organization with the right to wear armor")]
+    ArmorProhibited(String),
+    #[error("{0} restricts arms; present a recognized organization with the right to bear arms")]
+    ArmsProhibited(String),
+}
+
 pub fn require_item_legal(
     ctx: &ReducerContext,
     character_id: u64,
     inventory_item_id: u64,
-) -> Result<(), String> {
+) -> Result<(), EquipmentLawError> {
     let Some(character) = ctx.db.character().id().find(character_id) else {
-        return Err("Character not found".into());
+        return Err(EquipmentLawError::MissingCharacter);
     };
     let Some(settlement_id) = character.current_settlement_id else {
         return Ok(());
@@ -29,13 +43,13 @@ pub fn require_item_legal(
         .character_and_id()
         .filter((character_id, inventory_item_id))
         .next()
-        .ok_or("Inventory item not found")?;
+        .ok_or(EquipmentLawError::MissingInventoryItem)?;
     let definition = ctx
         .db
         .item()
         .id()
         .find(&inventory.item_id)
-        .ok_or("Item definition not found")?;
+        .ok_or(EquipmentLawError::MissingItemDefinition)?;
     let privilege = match definition.kind {
         CatalogItemKind::Weapon | CatalogItemKind::Shield if policy.restrict_arms => {
             Some(Privilege::BearArms)
@@ -47,14 +61,8 @@ pub fn require_item_legal(
         !crate::organization::presented_privilege(ctx, character_id, &settlement_id, privilege)
     }) {
         return Err(match definition.kind {
-            CatalogItemKind::Armor => format!(
-                "{} restricts armor; present a recognized organization with the right to wear armor",
-                settlement_id
-            ),
-            _ => format!(
-                "{} restricts arms; present a recognized organization with the right to bear arms",
-                settlement_id
-            ),
+            CatalogItemKind::Armor => EquipmentLawError::ArmorProhibited(settlement_id),
+            _ => EquipmentLawError::ArmsProhibited(settlement_id),
         });
     }
     Ok(())
@@ -68,10 +76,16 @@ pub fn enforce_equipment_compliance(
     let equipped = crate::character::equipped_wearable_ids(ctx, character_id);
     let mut removed = Vec::new();
     for inventory_item_id in equipped {
-        if require_item_legal(ctx, character_id, inventory_item_id).is_err() {
-            crate::character::unequip_wearable(ctx, inventory_item_id);
-            removed.push(inventory_item_id);
+        match require_item_legal(ctx, character_id, inventory_item_id) {
+            Ok(()) => {}
+            Err(EquipmentLawError::ArmorProhibited(_) | EquipmentLawError::ArmsProhibited(_)) => {
+                removed.push(inventory_item_id);
+            }
+            Err(error) => return Err(error.into()),
         }
+    }
+    for &inventory_item_id in &removed {
+        crate::character::unequip_wearable(ctx, inventory_item_id);
     }
     if !removed.is_empty() {
         crate::capability::refresh_character_capability(ctx, character_id)?;

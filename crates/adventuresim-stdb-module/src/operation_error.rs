@@ -25,6 +25,8 @@ struct SettlementActivityContext {
 #[derive(Debug, thiserror::Error)]
 pub enum StrategicOperationCause {
     #[error(transparent)]
+    EquipmentLaw(#[from] crate::equipment_law::EquipmentLawError),
+    #[error(transparent)]
     AuthoredThreat(#[from] AuthoredThreatError),
     #[error(transparent)]
     Resolution(#[from] BattleResolutionError),
@@ -104,6 +106,7 @@ macro_rules! operation_cause_from {
 }
 
 operation_cause_from! {
+    crate::equipment_law::EquipmentLawError => EquipmentLaw,
     AuthoredThreatError => AuthoredThreat,
     BattleResolutionError => Resolution,
     GeometryError => Geometry,
