@@ -1276,17 +1276,11 @@ pub fn submit_puzzle_challenge(
     submission_json: String,
 ) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
-    let character = crate::character::require_living_character(ctx, character_id)?;
-    let party_id = character.party_id.ok_or("Must be in a party")?;
-    let party = ctx
-        .db
-        .party_authority()
-        .id()
-        .find(&party_id)
-        .ok_or("Party not found")?;
-    if party.leader_id != character_id {
-        return Err("Only the party leader can answer this challenge".into());
-    }
+    let (_, party_id, party) = require_errantry_party_leader(
+        ctx,
+        character_id,
+        "Only the party leader can answer this challenge",
+    )?;
     let mut challenge = ctx
         .db
         .challenge_authority()
@@ -2070,17 +2064,11 @@ fn materialize_order_errantry(
     )>,
     launch: ErrantryLaunch,
 ) -> StrategicOperationResult<MaterializedErrantry> {
-    let character = crate::character::require_living_character(ctx, character_id)?;
-    let party_id = character.party_id.clone().ok_or("Must be in a party")?;
-    let mut party = ctx
-        .db
-        .party_authority()
-        .id()
-        .find(&party_id)
-        .ok_or("Party not found")?;
-    if party.leader_id != character_id {
-        return Err("Only the party leader can accept or load this errantry".into());
-    }
+    let (character, party_id, mut party) = require_errantry_party_leader(
+        ctx,
+        character_id,
+        "Only the party leader can accept or load this errantry",
+    )?;
     if let ErrantryLaunch::DirectDemoCamp(puzzle_kind) = launch
         && let Some((challenge, contract)) =
             active_puzzle_demo(ctx, &party_id, character_id, puzzle_kind)
