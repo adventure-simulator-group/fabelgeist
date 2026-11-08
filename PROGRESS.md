@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:06:30.792895+00:00
+Updated: 2026-11-08T15:10:57.490810+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -89,7 +89,8 @@ focused checks and the guarded authority workflow passed as described below.
 | Non-durable equipable items needing stable objects | 7 / 7 |
 | Shared instance policy tests | 2 / 2 passed |
 | Same-kind nested container catalog witness | 1 / 188 definitions |
-| Stable inventory lifecycle draft | Database check running |
+| Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
+| Stable inventory lifecycle draft | 1 database fixture passed |
 | Previous instance-draft full lint | Passed |
 
 | Named repair families in the historical handoff | Count |
@@ -388,10 +389,13 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   and child are deleted parent-first, the earlier draft can attempt to delete
   the child twice. Commit a17f710d2 plans selected removals in descendant-first
   order. Its authority-feature compile, formatting and full lint passed. A
-  guarded check in a uniquely named disposable local profile is running for
-  nested bottles and insufficient-quantity rollback. The first attempt exited
-  before server startup because the profile name did not meet the naming rule;
-  the corrected run is active. Database behavior remains unverified.
+  guarded check in a uniquely named disposable local profile passed: two
+  bottles were created as separate rows, nested, preserved after an excessive
+  removal request, then removed without extra physical-object or containment
+  rows. Initial harness attempts failed on profile naming, character lookup
+  and SQL aggregate syntax before reaching the fixture; an owned listener was
+  cleaned up and the runner was corrected. This single scenario does not prove
+  equipment-law failure handling, all custody cases or post-write rollback.
   This is not a completed repair. Remaining writer paths,
   transaction behavior and the inventory lifecycle repair remain open. Draft
   commit 9711eae2e distinguishes policy prohibitions from missing records and
