@@ -411,8 +411,10 @@ mod physical_object_custody_tests {
             .next()
             .unwrap();
         assert!(storefront.contains("physical_object_row_is_atomic(container_object.is_some()"));
-        assert!(storefront.contains("if let Some(object) = object"));
-        assert!(storefront.contains("delete_subtree"));
+        assert!(storefront.contains("apply_storefront_sale("));
+        let sale = include_str!("storefront_apply.rs");
+        assert!(sale.contains("if let Some(object) = object"));
+        assert!(sale.contains("delete_subtree"));
     }
 }
 
@@ -2049,15 +2051,9 @@ pub fn liquidate_party_inventory(
             crate::inventory_container::delete_subtree(ctx, object.id)?;
             continue;
         }
-        let is_food =
-            crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(entry.id)).is_some();
-        if is_food {
-            crate::food::remove_party_lot_quantity(
-                ctx,
-                PartyInventoryRowId::from_raw(entry.id),
-                quantity,
-                entry.quantity,
-            )?;
+        let row_id = PartyInventoryRowId::from_raw(entry.id);
+        if crate::food::party_lot(ctx, row_id).is_some() {
+            crate::food::remove_party_lot_quantity(ctx, row_id, quantity, entry.quantity)?;
         }
         if entry.quantity == quantity {
             ctx.db
@@ -2835,86 +2831,11 @@ fn finalize_storefront_trade_impl(
         return Err("Not enough coin".into());
     }
     for (inventory_id, quantity) in sell_inventory_ids.iter().zip(&sell_quantities) {
-        let object = crate::inventory_container::object_for_row(
+        apply_storefront_sale(
             ctx,
             CarriedInventoryRowId::from_raw(carried_scope, *inventory_id),
+            *quantity,
         )?;
-        if let Some(object) = object {
-            crate::inventory_container::detach_if_nested(ctx, object.id)?;
-            crate::inventory_container::delete_subtree(ctx, object.id)?;
-            continue;
-        }
-        if party_scope {
-            let mut inventory = ctx
-                .db
-                .party_inventory_item()
-                .id()
-                .find(*inventory_id)
-                .ok_or("Party inventory item disappeared before trade application")?;
-            if inventory.quantity == *quantity {
-                crate::food::delete_party_food_lot(
-                    ctx,
-                    PartyInventoryRowId::from_raw(*inventory_id),
-                );
-                ctx.db
-                    .party_item_amount()
-                    .party_inventory_item_id()
-                    .delete(*inventory_id);
-                ctx.db.party_inventory_item().id().delete(*inventory_id);
-                ctx.db
-                    .party_item_condition()
-                    .party_inventory_item_id()
-                    .delete(*inventory_id);
-            } else {
-                if crate::food::party_lot(ctx, PartyInventoryRowId::from_raw(inventory.id))
-                    .is_some()
-                {
-                    crate::food::remove_party_lot_quantity(
-                        ctx,
-                        PartyInventoryRowId::from_raw(*inventory_id),
-                        *quantity,
-                        inventory.quantity,
-                    )?;
-                }
-                inventory.quantity -= quantity;
-                ctx.db.party_inventory_item().id().update(inventory);
-            }
-        } else {
-            let mut inventory = ctx
-                .db
-                .inventory_item()
-                .id()
-                .find(*inventory_id)
-                .ok_or("Inventory item disappeared before trade application")?;
-            if inventory.quantity == *quantity {
-                crate::food::delete_personal_food_lot(
-                    ctx,
-                    PersonalInventoryRowId::from_raw(*inventory_id),
-                );
-                ctx.db
-                    .inventory_item_amount()
-                    .inventory_item_id()
-                    .delete(*inventory_id);
-                ctx.db.inventory_item().id().delete(*inventory_id);
-                ctx.db
-                    .item_condition()
-                    .inventory_item_id()
-                    .delete(*inventory_id);
-            } else {
-                if crate::food::personal_lot(ctx, PersonalInventoryRowId::from_raw(inventory.id))
-                    .is_some()
-                {
-                    crate::food::remove_lot_quantity(
-                        ctx,
-                        PersonalInventoryRowId::from_raw(*inventory_id),
-                        *quantity,
-                        inventory.quantity,
-                    )?;
-                }
-                inventory.quantity -= quantity;
-                ctx.db.inventory_item().id().update(inventory);
-            }
-        }
     }
     for (item_id, quantity) in buy_item_ids.iter().zip(&buy_quantities) {
         if party_scope {
