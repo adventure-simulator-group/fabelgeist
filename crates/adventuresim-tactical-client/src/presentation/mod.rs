@@ -314,14 +314,14 @@ impl Plugin for TacticalPresentationPlugin {
                         .after(present_pending_trees),
                 ),
             )
-            .add_observer(on_game_scene_added)
             .add_observer(activate_tactical_scene)
-            .add_observer(terrain::on_environment_added)
-            .add_observer(terrain::on_ground_added)
             .add_observer(on_scene_obstacle_added)
             .add_plugins(BuildingPresentationPlugin)
             .add_plugins(furniture::FurniturePresentationPlugin)
-            .add_plugins(terrain::UrbanGroundCoveragePlugin)
+            .add_plugins((
+                terrain::UrbanGroundCoveragePlugin,
+                terrain::TerrainObservers,
+            ))
             .add_observer(on_scene_vista_bundle)
             .add_systems(Update, vista::streets::streaming::update)
             // Bevy prepares probe components with deferred commands in Update.

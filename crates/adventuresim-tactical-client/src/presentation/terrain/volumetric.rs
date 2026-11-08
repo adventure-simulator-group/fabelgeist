@@ -164,6 +164,7 @@ pub(super) fn spawn_base_and_fault(
         Name::new(format!("{} terrain mesh", id.0)),
         ScenePresentationOf(entity),
         TerrainMaterialPresentation,
+        PresentedLandform(recipe.copied()),
         coverage,
         TerrainTriangleCount(triangle_count),
         Mesh3d(meshes.add(playable_mesh)),

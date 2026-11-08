@@ -41,11 +41,28 @@ const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 #[cfg(test)]
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
 
+pub(in crate::presentation) struct TerrainObservers;
+
+impl Plugin for TerrainObservers {
+    fn build(&self, app: &mut App) {
+        app.add_observer(on_game_scene_added)
+            .add_observer(on_environment_added)
+            .add_observer(on_ground_added)
+            .add_observer(on_landform_added)
+            .add_observer(on_landform_removed)
+            .add_observer(on_patch_added)
+            .add_observer(on_patch_removed);
+    }
+}
+
 #[derive(Component)]
 pub(in crate::presentation) struct ScenePresentationOf(pub(in crate::presentation) Entity);
 
 #[derive(Component)]
 pub(crate) struct TerrainMaterialPresentation;
+
+#[derive(Component)]
+pub(in crate::presentation) struct PresentedLandform(Option<TerrainLandformRecipe>);
 
 /// Camera-local render LOD of the authoritative terrain surface.
 #[derive(Component, Debug, Clone, Copy)]
@@ -89,9 +106,11 @@ pub(in crate::presentation) fn present_pending_terrain(
         (
             &ScenePresentationOf,
             &MeshMaterial3d<TacticalTerrainMaterial>,
+            &PresentedLandform,
         ),
         With<TerrainMaterialPresentation>,
     >,
+    existing_presentation_entities: Query<(Entity, &ScenePresentationOf)>,
     mut detail_presentations: Query<
         (
             &ScenePresentationOf,
@@ -113,11 +132,18 @@ pub(in crate::presentation) fn present_pending_terrain(
     let mut prepared_first_terrain = false;
     for (entity, id, terrain, environment, ground, landform, prepared) in &query {
         let transition_collar = landform.map(|recipe| recipe.transition_collar());
+        let base = presentations
+            .iter()
+            .find(|(source, _, _)| source.0 == entity);
+        let landform_changed = base
+            .as_ref()
+            .is_some_and(|(_, _, presented)| presented.0.as_ref() != landform);
+        let inconsistent_patch = prepared.is_some() && landform.is_none();
         let presented = if let (
-            Some((_, handle)),
+            Some((_, handle, _)),
             Some((_, detail_handle, mut patch, mesh_handle, mut triangle_count)),
         ) = (
-            presentations.iter().find(|(source, _)| source.0 == entity),
+            base.filter(|_| !landform_changed && !inconsistent_patch),
             detail_presentations
                 .iter_mut()
                 .find(|(source, _, _, _, _)| source.0 == entity),
@@ -158,33 +184,73 @@ pub(in crate::presentation) fn present_pending_terrain(
                 landform,
                 prepared,
             )
-            .map(|()| true)
+            .map(|()| {
+                if landform_changed {
+                    despawn_presentation(&mut commands, entity, &existing_presentation_entities);
+                }
+                true
+            })
         };
-        match presented {
-            Ok(true) => {
-                prepared_first_terrain = true;
-                commands
-                    .entity(entity)
-                    .remove::<PendingTerrainPresentation>()
-                    .remove::<TerrainPresentationFailure>();
-            }
-            Ok(false) => {}
-            Err(
-                error @ (PreparationError::TerrainLandform { .. }
-                | PreparationError::TerrainPatchWithoutRecipe { .. }),
-            ) => {
-                let failure = TerrainPresentationFailure(error);
-                warn!(error = %failure.0, ?entity, "Terrain presentation preparation failed");
-                commands
-                    .entity(entity)
-                    .remove::<PendingTerrainPresentation>()
-                    .insert(failure);
-            }
-            Err(error) => warn!(%error, ?entity, "Terrain presentation preparation failed"),
-        }
+        prepared_first_terrain |= finish_presentation(
+            &mut commands,
+            entity,
+            presented,
+            landform_changed || inconsistent_patch,
+            &existing_presentation_entities,
+        );
     }
     if prepared_first_terrain && let Some(startup) = startup.as_mut() {
         startup.mark_terrain_prepared_once();
+    }
+}
+
+fn finish_presentation(
+    commands: &mut Commands,
+    entity: Entity,
+    presented: Result<bool, PreparationError>,
+    replace_existing: bool,
+    existing: &Query<(Entity, &ScenePresentationOf)>,
+) -> bool {
+    match presented {
+        Ok(true) => {
+            commands
+                .entity(entity)
+                .remove::<PendingTerrainPresentation>()
+                .remove::<TerrainPresentationFailure>();
+            true
+        }
+        Ok(false) => false,
+        Err(
+            error @ (PreparationError::TerrainLandform { .. }
+            | PreparationError::TerrainPatchWithoutRecipe { .. }),
+        ) => {
+            if replace_existing {
+                despawn_presentation(commands, entity, existing);
+            }
+            let failure = TerrainPresentationFailure(error);
+            warn!(error = %failure.0, ?entity, "Terrain presentation preparation failed");
+            commands
+                .entity(entity)
+                .remove::<PendingTerrainPresentation>()
+                .insert(failure);
+            false
+        }
+        Err(error) => {
+            warn!(%error, ?entity, "Terrain presentation preparation failed");
+            false
+        }
+    }
+}
+
+fn despawn_presentation(
+    commands: &mut Commands,
+    scene: Entity,
+    existing: &Query<(Entity, &ScenePresentationOf)>,
+) {
+    for (entity, source) in existing {
+        if source.0 == scene {
+            commands.entity(entity).despawn();
+        }
     }
 }
 
@@ -742,6 +808,33 @@ pub(super) fn on_ground_added(event: On<Add, SceneGround>, mut commands: Command
     commands
         .entity(event.entity)
         .insert(PendingTerrainPresentation);
+}
+
+pub(super) fn on_landform_added(event: On<Add, TerrainLandformRecipe>, mut commands: Commands) {
+    commands
+        .entity(event.entity)
+        .insert(PendingTerrainPresentation);
+}
+
+pub(super) fn on_landform_removed(
+    event: On<Remove, TerrainLandformRecipe>,
+    mut commands: Commands,
+) {
+    commands
+        .entity(event.entity)
+        .try_insert(PendingTerrainPresentation);
+}
+
+pub(super) fn on_patch_added(event: On<Add, SceneTerrainPatch>, mut commands: Commands) {
+    commands
+        .entity(event.entity)
+        .insert(PendingTerrainPresentation);
+}
+
+pub(super) fn on_patch_removed(event: On<Remove, SceneTerrainPatch>, mut commands: Commands) {
+    commands
+        .entity(event.entity)
+        .try_insert(PendingTerrainPresentation);
 }
 
 #[cfg(test)]
