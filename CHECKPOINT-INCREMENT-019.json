@@ -1,0 +1,39 @@
+{
+  "schema": "726-increment-checkpoint-v1",
+  "checkpoint": "increment-019",
+  "at": "2026-11-08T06:07:50.773147+00:00",
+  "historical_audit_checkpoint": 3737,
+  "audio": {
+    "commit": "2d318efbb21d044680070c525554cb04ee286437",
+    "focused_check": "passed",
+    "tests": "passed: 2"
+  },
+  "landform": {
+    "commit": "c40d70aeceeedfd87d7c9528628bf9c9bf87512b",
+    "status": "implementing",
+    "based_on": "2d318efbb21d044680070c525554cb04ee286437",
+    "refresh_and_late_arrival": "reconciliation drafted; behavior and pre-arrival readiness not verified",
+    "focused_check": "passed at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "focused_tests": "19 passed; 1 ignored at 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "test_scope": "existing terrain presentation tests; failure and late-recipe paths not established",
+    "readiness": "failed terrain is excluded from presented count; failure path not dynamically tested",
+    "quality": "passed at parent 689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "replication": "library documents atomic entity updates per tick; cross-tick arrival remains open",
+    "focused_clippy": "passed at c40d70aeceeedfd87d7c9528628bf9c9bf87512b"
+  },
+  "integration": "not started",
+  "report_sha256": "c68d226d3e19c88577a5bfecda6b15f8b238b194f1e03e6a25342927e7ff16cb",
+  "wedding": {
+    "status": "rollback authority workflow running",
+    "implementation": "unverified draft",
+    "worktree": "target/726-wedding-atomicity",
+    "base": "689710cc3d7a0631bde03a33dcaa4927734aab74",
+    "joint_preflight": "projects delayed removal and admission transitions per participant; database behavior not verified",
+    "transaction": "unexpected post-write errors must propagate",
+    "branch": "codex/726-wedding-atomicity",
+    "commit": "1bf3b1c36e582b493f6b0635dee78a73e913926b",
+    "focused_check": "authority-feature Clippy passed at 1bf3b1c36e582b493f6b0635dee78a73e913926b",
+    "quality": "passed at parent eafb67564a656be3bc6a1fb136c96c6a31443f4f",
+    "acceptance": "parent 52160594 passed rejected wedding, escrow refund and household preservation; unexpected-error rollback workflow running"
+  }
+}
