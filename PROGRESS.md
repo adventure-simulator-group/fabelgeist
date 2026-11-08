@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:28:38.792035+00:00
+Updated: 2026-11-08T14:31:35.604457+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -53,6 +53,7 @@ Updated: 2026-11-08T14:28:38.792035+00:00
 | Ragdoll between-sample save intervals with one physics step | 8 / 8 |
 | Ordinary viewer scenario | Jitter gate failed |
 | Immediate-parent comparison | Same jitter failure |
+| Ordinary first-frame clock investigation | Cause unconfirmed |
 | Previous draft lint quality gate | Failed on size ceilings |
 | Extracted draft formatting and lint gates | Passed |
 | Extracted draft report tests | 26 / 26 passed |
@@ -193,8 +194,13 @@ ledger as backlog. Full refactor completion and validation remain required.
   first eight frames, chest/pelvis position components differed by at most
   0.0000006 m and rotations matched. A trace of 42 selected parent records
   found none of three known other-worktree markers; broader shared-target
-  provenance is not proved. The cause remains unestablished. Current entry points select
-  ragdoll alone; mixed-plan clock restoration is not runtime-verified.
+  provenance is not proved. Source inspection confirms the camera-pitch
+  scenario has no required-motion readiness gate. Frame zero uses a zero
+  animation interval; frame one uses one sample interval. The fixed-tick
+  pose cache retains the first pose for repeated renders, and pose-buffer
+  observations skip repeated ticks. These facts do not identify the source of
+  the initial pose jump. Current entry points select ragdoll alone; mixed-plan
+  clock restoration is not runtime-verified.
   Terrain correction runs outside the physics schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
   beyond existing file and function size ceilings. Jitter applicability and
