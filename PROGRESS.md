@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T09:13:31.817152+00:00
+Updated: 2026-11-08T09:15:26.130644+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T09:13:31.817152+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings remaining | 36 |
+| File and function size findings remaining | 35 |
 | Previously reported ingress size findings cleared | 2 |
 | Previously reported function-size findings cleared elsewhere | 6 |
 
@@ -90,7 +90,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `0ed3a3d62` (quality repairs after `623d52a`): the unfinished
+  commit `fcec86658` (quality repairs after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -147,7 +147,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   handling was separated from the party path; the authority-feature database
   module compiled at `cf29e5d97`, and its function ceiling was reduced. Item
   equipment projection now has a separate owner; the authority-feature
-  database module compiles at the current commit, and related ceilings fell.
+  database module compiled at `0ed3a3d62`, and related ceilings fell. Wedding
+  preflight helpers were separated; the authority-feature database module
+  compiles at the current commit and the marriage file-size finding cleared.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
