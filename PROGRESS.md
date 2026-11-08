@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:51:44.810513+00:00
+Updated: 2026-11-08T07:01:06.548191+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
-| Implementing | 1 |
-| Awaiting or running checks | 2 |
+| Implementing | 2 |
+| Awaiting or running checks | 1 |
 | Awaiting review | 2 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -67,16 +67,18 @@ ledger as backlog. Full refactor completion and validation remain required.
   commit `dcd6ea1aaddb0e542a418ae7ebe35c0bf73d4ecc`: the preserved report
   implementation is restored with sample-tick and `LeadFoot` fixes. The focused
   animation-viewer compile passed; the Rust quality check passed before the
-  relevant baseline reductions. Existing report tests are running. Source
+  relevant baseline reductions. Existing report tests passed: 26 passed, 0 failed at this commit. Source
   review found local-position jitter derivative timing and incident labels use
   unshifted frames; a separate repair is drafted below. Dependencies,
   review, and final integrated gates also remain open.
 
-- [Jitter timing correction](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-timing)
-  commit `026f74a40c18369732b7627af415add7b50fb104`: a draft aligning
-  position-jerk intervals and position incident frames with their derivative
-  samples. This is source-derived and has not been compiled or behaviorally
-  verified; its checks are queued after the running P17 report tests.
+- [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-timing)
+  commit `96a20906e7e8e78c61dde90260fa16ecc5e47020`: corrects source-derived derivative timing and
+  records missing-parent, inconsistent-bone and non-finite evidence as
+  incomplete. The existing jitter tests are compiling; behavior of the new
+  failure cases has not been verified. The Rust quality checker found an
+  oversized analysis function and growth beyond the capture module ceiling;
+  both require refactoring before the quality gate can pass.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
