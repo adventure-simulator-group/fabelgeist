@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T17:01:14.378664+00:00
+Updated: 2026-11-08T17:03:37.711129+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T17:01:14.378664+00:00
 
 | Current P16 quality scan | Count |
 | --- | ---: |
-| File and function size findings on inventory draft | 14; quality check failed |
+| File and function size findings on inventory draft | 12; quality check failed |
 | Previously reported ingress size findings cleared | 2 |
 | Pinned spawn error-handler source check | 1 / 1 |
 | Loading reconnect mailbox gap | Draft; live validation open |
@@ -28,7 +28,7 @@ Updated: 2026-11-08T17:01:14.378664+00:00
 | Persisted row identity kinds drafted | 2; migration incomplete |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Current quality size findings | 14; unresolved |
+| Current quality size findings | 12; unresolved |
 | Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
 | Previously reported function-size findings cleared elsewhere | 28 |
@@ -110,15 +110,15 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `6bc58ec51`. Personal
+The inventory row-identity migration is a draft at P16 `82e78e1c6`. Personal
 and party rows have distinct IDs; repair escrow retains the personal row
-identity. Food backing was extracted into a focused source fragment, and
-cooked-meal creation now carries one typed row identity. The database module
-compiles; the quality scan reports 14 size findings, down from 17. Relevant
-size baselines were reduced after the extraction. The prior draft passed a
-production workspace check and formatting. Full lint, current-head test-target
-compilation, isolated database behavior, remaining raw foreign-key paths,
-and the personal/repair duplicate-backing assertions remain unverified.
+identity. Food backing and fireplace inventory return were extracted into
+focused helpers. The database module compiles; the quality scan reported 12
+size findings before lowering the affected baselines, down from 14. Relevant
+size baselines were reduced after extraction. Full lint, current-head
+test-target compilation, isolated database behavior, remaining raw
+foreign-key paths, and the personal/repair duplicate-backing assertions remain
+unverified.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
