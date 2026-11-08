@@ -227,15 +227,14 @@ pub(super) fn resolve_ranged_attack(
         ..
     } = validated.impact()
     {
-        let line_of_sight = authoritative_line_of_sight(
+        if !authoritative_line_of_sight(
             &spatial,
             &q_scene_items,
             validated.attacker(),
             target,
             validated.attacker_position(),
             target_position,
-        );
-        if !line_of_sight {
+        ) {
             debug!(
                 "Rejected ranged intent from {attacker:?}: {:?}",
                 RangedIntentRejection::BlockedLineOfSight
