@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:15:08.754619+00:00
+Updated: 2026-11-08T02:17:42.979060+00:00
 
-Latest verified checkpoint: **3699**. Goal: **active**.
+Latest verified checkpoint: **3700**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,14 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Closed audio configuration error source discovery with repair scope open.
+Qualified graphics configuration and browser error boundaries.
 
-Graphics and independent audio lenses remain open; implementation and tests are
-gated.
+Worker-pool transport and independent config aliases remain open.
 
 ## Working on now
 
-Continue graphics configuration and independent audio obligations.
+Trace worker-pool error transport and graphics aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -219,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3699 publication record](CHECKPOINT-3699.json)
-- [Saved report for checkpoint 3699](PROGRESS-3699.md)
+- [Checkpoint 3700 publication record](CHECKPOINT-3700.json)
+- [Saved report for checkpoint 3700](PROGRESS-3700.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
