@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:02:14.846033+00:00
+Updated: 2026-11-08T11:06:56.972007+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -248,7 +248,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   passed on a disposable local profile at the current commit, including
   wedding, investigation retry, puzzle, mission, and outbreak checks at
   parent `aaf0a66c7`. Repair,
-  dialogue, and development-fixture behavior remain to be verified.
+  dialogue, and development-fixture behavior remain to be verified. The existing
+  tactical-server melee-range matrix test is building in the shared target.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
