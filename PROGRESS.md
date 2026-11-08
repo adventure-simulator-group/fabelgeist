@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:37:45.691701+00:00
+Updated: 2026-11-08T02:39:42.413676+00:00
 
-Latest verified checkpoint: **3709**. Goal: **active**.
+Latest verified checkpoint: **3710**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,9 +44,9 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Recorded conditional debug scene restore question.
+Qualified debug scene restoration and readiness scope.
 
-Supported scene reconstruction, readiness and aliases remain open.
+Indirect reconstruction and runtime scene round-trip remain open.
 
 ## Working on now
 
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3709 publication record](CHECKPOINT-3709.json)
-- [Saved report for checkpoint 3709](PROGRESS-3709.md)
+- [Checkpoint 3710 publication record](CHECKPOINT-3710.json)
+- [Saved report for checkpoint 3710](PROGRESS-3710.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
