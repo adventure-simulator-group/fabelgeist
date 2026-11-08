@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:49:35.012285+00:00
+Updated: 2026-11-08T21:53:04.483948+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
-| Registered expedition source packets | 2 adopted | Contract and wider aliases open |
+| Registered duration source packets | 3 adopted | Contracts and wider aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -52,6 +52,14 @@ the rest metric; generated investigation uses separate maximum-clock
 consumers for progress and action duration. The shared arithmetic does not
 make these exact aliases. Both entries remain independent and open; no new
 population coverage or contract closure was claimed.
+
+A registered server-side investigation read found that exact retries, stale
+capability reissue, and incomplete synchronization can return successfully
+without a new outcome; clipped intervals also do so. The outcome projection
+can additionally omit rows. Thus an absent new projected outcome is not a
+unique source-level witness for clipping. Generated-flow reachability, timing,
+remaining aliases, and runtime acceptance remain open. The scoped evidence was
+adopted and verified at audit checkpoint 3740 without closing the contract.
 
 | Increment status | Count |
 | --- | ---: |
