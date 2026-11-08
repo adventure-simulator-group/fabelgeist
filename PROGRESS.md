@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:26:42.625664+00:00
+Updated: 2026-11-08T08:27:50.373105+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -105,7 +105,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   compiles at this commit after adapting existing fixtures; neither check is
   behavioral validation. Typed failures now cross tactical, settlement, wedding,
   custody, party, encounter, trade, disease, and exposure callers. Wedding
-  rollback behavior must be revalidated.
+  rollback behavior must be revalidated; the guarded isolated authority
+  workflow is running on this commit.
   Runtime behavior, automatic merges, database compilation, lint, and review
   remain open.
 
