@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:12:27.811294+00:00
+Updated: 2026-11-08T16:16:59.406514+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -21,6 +21,8 @@ Updated: 2026-11-08T16:12:27.811294+00:00
 | Reconnect-filtered tests after extraction | 7 / 7 passed |
 | Reconnect draft lint and formatting | 2 / 2 passed |
 | Reconnect timing scenarios validated live | 0; open |
+| SDK callback dispatch ordering inspected | 1 / 1 source check |
+| Deletion and replacement scenarios validated live | 0; open |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
@@ -76,12 +78,15 @@ Updated: 2026-11-08T16:12:27.811294+00:00
 | Nearby batch top-level audit flags true | 10 / 11 |
 | Full-scale autoresolve traces completed before failure | 467 / 1,000 |
 
-Reconnect draft `4492156fc` retains a connected-player row while its loading
+Reconnect draft `c1ee2c0ad` retains a connected-player row while its loading
 session is disconnected within its reconnect window, coalescing callbacks by
-character. Existing reconnect-filtered tests passed after extraction; they do
-not cover the new row-arrival timing. Full `just lint` and `just fmt-check`
+character. It removes a deferred row on an exact matching delete; the pinned
+SDK dispatches inserts before deletes in one diff, so a newer replacement must
+survive the old row deletion. This equality-based handling requires runtime
+validation, including non-finite floating-point values. Existing reconnect-
+filtered tests passed; they do not cover callbacks or row-arrival timing. Full `just lint` and `just fmt-check`
 passed after removing an unused import found by the first lint run. The live
-disconnect/reconnect case, stale or deleted subscription rows, event ordering,
+disconnect/reconnect case, deleted and replacement subscription rows, event ordering,
 grace expiry, and whole-batch preparation failures remain open. This draft has
 not received independent review.
 
