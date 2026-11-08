@@ -576,7 +576,8 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
             "missing merchant authority check: {authority_check}"
         );
     }
-    assert!(trade.contains("let problem_minute = StrategicMinute::new("));
+    assert!(trade.contains(".character_time()"));
+    assert!(trade.contains(".map_or(StrategicMinute::ZERO, |time| time.minutes)"));
     assert!(
         !trade.contains("let storefront = match catalog_kind"),
         "the reducer must not infer a different storefront from item kind"
