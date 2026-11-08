@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T10:48:54.342582+00:00
+Updated: 2026-11-08T10:50:11.326913+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -18,6 +18,7 @@ Updated: 2026-11-08T10:48:54.342582+00:00
 | Previously reported ingress size findings cleared | 2 |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Existing contact-geometry tests passed | 11 / 11 |
+| Existing melee iteration tests passed | 9 / 9 |
 
 The quality counts are findings from the latest scan, not a count of defects
 or independent work items. The quality scan and WebAssembly client Clippy
@@ -234,7 +235,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   Input behavior has not been rerun. Eleven existing core contact-geometry
   tests passed at the current commit after refreshing older selected shared
   dependencies; all 22 selected local fingerprint records postdate the
-  validation sequence.
+  validation sequence. Nine existing melee iteration tests also passed using
+  the same fingerprint-checked test binary.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
