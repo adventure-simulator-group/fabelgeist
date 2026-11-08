@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T16:31:19.455479+00:00
+Updated: 2026-11-08T16:34:19.138352+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -26,8 +26,9 @@ Updated: 2026-11-08T16:31:19.455479+00:00
 | Reconnect and abandonment grace relationship | 1 source-derived question; open |
 | Inventory row lookup references mapped | 33 in 12 files |
 | Persisted inventory row identity variants drafted | 3 / 3; migration incomplete |
-| Database module compile errors after lookup migration | 61; unresolved |
-| Existing core location fixture | 1 / 1 passed |
+| Database module compile errors after caller migration | 40; unresolved |
+| Database module compiler warnings | 3; unresolved |
+| Existing core location fixture on prior draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 0 / 1; pending |
 | Previously reported function-size findings cleared elsewhere | 28 |
 | Textual-conflict paths reviewed against both inputs | 3 / 3 |
@@ -109,14 +110,14 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 before it can safely verify the new row-arrival case.
 
 The inventory row-identity migration is an incomplete, non-compiling draft at
-P16 `f7f740416`. Personal, party and repair locations carry distinct row-ID
-types. The physical-object lookup now takes a carried-row enum instead of a
-separate scope and integer; several direct database-column accesses extract
-the raw value at that boundary. The existing core location fixture passed.
-The database module reported 61 type errors after the lookup signature change;
-the earlier draft reported 54, so those counts are not directly comparable.
-Callers remain to be migrated, generated bindings have not been regenerated,
-and full lint has not run on this draft.
+P16 `7b1ee2e87`. Personal, party and repair locations carry distinct row-ID
+types. The physical-object lookup and four helpers now accept a carried-row
+enum; direct scope-specific callers have been partly migrated. Some producers
+still carry raw IDs and need boundary review. The database module reports 40
+type errors and three unused-import warnings, versus 61 errors on the previous
+draft; these counts are not a completion measure. The existing core location
+fixture passed on the prior draft. Generated bindings have not been
+regenerated, and full lint has not run on this draft.
 
 The empty-party grace is explicitly configurable. The 10- and 30-second
 values therefore establish an observable policy question, not by themselves
