@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:33:02.804790+00:00
+Updated: 2026-11-08T08:37:42.730388+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -108,10 +108,13 @@ ledger as backlog. Full refactor completion and validation remain required.
   rollback behavior must be revalidated; the guarded isolated authority
   workflow stopped during the WebAssembly release build before any assertions.
   Cargo reused a geometry artifact from the wedding worktree; its dependency
-  record explicitly names that worktree. A targeted WebAssembly check passed,
-  and a clean P16-specific release build is running to remove cross-worktree
-  artifact reuse. Runtime behavior, semantic review of automatic merges, full
-  formatting and lint, and integrated validation remain open.
+  record explicitly names that worktree; four other local crates have matching
+  records. Shared-target results need revalidation on their proper worktrees.
+  A P16-specific WebAssembly release build passed. The guarded authority
+  workflow is running again with those isolated build artifacts on another
+  local port; an earlier retry found its chosen port occupied. Runtime behavior,
+  semantic review of automatic merges, full formatting and lint, and integrated
+  validation remain open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
