@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:05:02.870595+00:00
+Updated: 2026-11-08T23:06:50.026570+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -11,7 +11,7 @@ Updated: 2026-11-08T23:05:02.870595+00:00
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
 | Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
-| Food conservation source packets | 4 adopted | Medicine, events, and transfers open |
+| Food conservation source packets | 5 adopted | Medicine, events, and transfers open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -264,6 +264,11 @@ can carry oral medicinal components with potentially adverse meter effects.
 The private variation, dose and patient state needed for a terminal crossing
 remain unproven. Audit checkpoint 3771 verified this bounded evidence without
 closing the food-lot contract.
+
+A registered food-event read traced infection event construction and
+selected transfer, liquidation and sale branches. Full event validation and
+enclosing transfer preflight remain open. Audit checkpoint 3772 verified the
+bounded evidence without closing the food-lot contract.
 
 | Increment status | Count |
 | --- | ---: |
