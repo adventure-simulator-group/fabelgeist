@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:11:40.138225+00:00
+Updated: 2026-11-08T08:21:47.229674+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T08:11:40.138225+00:00
 
 | Historical audit measure | Count |
 | --- | --- |
-| Original inventory roles, lenses 11â€“13 | 8,559 / 8,559 accounted |
+| Original inventory roles, lenses 11Ã¢â‚¬â€œ13 | 8,559 / 8,559 accounted |
 | Registered revision-delta lens/path checks | 3,172 / 3,172 closed |
 | Ledger entries with source discovery explicitly closed | 588 / 3,866 |
 | Other ledger entries | 3,278, including overlapping obligations |
@@ -81,7 +81,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `15acf2fb058c83efbe903f60d3cb7ded40622940`: the unfinished
+  commit `bb63239b898b0522b4d3a8addce64b4ff64a505c`: the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -100,9 +100,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   snapshots, not remaining defect counts. The latest draft stores a typed
   cause and settlement-stage context separately; its callers are still being
   migrated. Propagation through additional strategic reducers brought the
-  latest check to 17 errors before formatting. Tactical, settlement, wedding,
-  custody, party, encounter, and trade paths now retain typed failures through
-  additional callers. Wedding rollback behavior must be revalidated.
+  current formatted draft passes the focused database-module `cargo check`
+  without warnings. This is not a feature-complete
+  or behavioral check. Typed failures now cross tactical, settlement, wedding,
+  custody, party, encounter, trade, disease, and exposure callers. Wedding
+  rollback behavior must be revalidated.
   Runtime behavior, automatic merges, database compilation, lint, and review
   remain open.
 
