@@ -669,7 +669,11 @@ mod tests {
         {
             let elapsed = movement.movement_elapsed_seconds.unwrap().seconds();
             assert!(elapsed <= 1.0 / 64.0 + 1.0e-6);
-            let displacement = movement.movement_displacement_metres.unwrap().abs();
+            let displacement = movement
+                .movement_displacement_metres
+                .unwrap()
+                .metres()
+                .abs();
             let speed_limit = movement
                 .movement_speed_limit_metres_per_second
                 .unwrap()
@@ -860,7 +864,7 @@ mod tests {
         }));
         assert!(evidence.all_weapon_contact_bands.iter().any(|contact| {
             contact.weapon == "longsword"
-                && contact.surface_measure_metres <= 0.000_1
+                && contact.surface_measure_metres.metres() <= 0.000_1
                 && contact.energy_fraction < 1.0
         }));
     }

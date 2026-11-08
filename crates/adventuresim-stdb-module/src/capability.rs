@@ -501,6 +501,7 @@ impl PlayerEquipment for StrategicEquipment {
 
 #[cfg(test)]
 mod tests {
+    use super::equipment_projection::{CheckedStrategicWeapon, combat_weapon};
     use super::*;
 
     #[test]

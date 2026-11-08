@@ -2435,8 +2435,7 @@ fn validate_personal_storefront_purchase(
         return Err(adventuresim_core::reducer_error::coded_reducer_error(
             adventuresim_core::reducer_error::ReducerErrorCode::MerchantProviderUnavailable,
             "Merchant service provider is not available",
-        )
-        .into());
+        ));
     }
     let speaker = ctx
         .db

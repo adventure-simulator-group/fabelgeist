@@ -101,12 +101,8 @@ mod tests {
         );
         assert_eq!(StandaloneMissionFamily::Animation.case_site_distance_m(), 0);
         assert_eq!(
-            standalone_case_site_northward_offset(
-                STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
-                true,
-            ),
-            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M as f64
-                / METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
+            standalone_case_site_northward_offset(STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M, true,),
+            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M as f64 / METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
         );
     }
 }

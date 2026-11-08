@@ -2467,7 +2467,7 @@ mod tests {
         else {
             panic!("halberd must be a weapon")
         };
-        assert!(reach_m + crate::combat::HUMANOID_REFERENCE_ARM_REACH_METRES > 1.7);
+        assert!(reach_m.metres() + crate::combat::HUMANOID_REFERENCE_ARM_REACH_METRES > 1.7);
         assert!(precision > 1.0);
         let tagged =
             |route: &EncounterChoice, tag| route.outcome_tags.iter().any(|found| found == tag);

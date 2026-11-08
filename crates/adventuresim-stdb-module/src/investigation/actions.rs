@@ -314,7 +314,7 @@ fn validate_tracking_action_origin(
                 .any(|attempt| attempt.success)
         },
     ) {
-        return Err(invalid_investigation_route_error().into());
+        return Err(invalid_investigation_route_error());
     }
     let predecessor = ctx
         .db

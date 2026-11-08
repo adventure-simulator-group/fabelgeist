@@ -15,7 +15,8 @@ pub(super) const PHYSIOLOGY: StreamId = StreamId::new("recruiting-party.physiolo
 pub(super) const RELIGION: StreamId = StreamId::new("recruiting-party.religion");
 pub(super) const ROLE: StreamId = StreamId::new("recruiting-party.role");
 pub(super) const QUEST_COUNT: StreamId = StreamId::new("settlement.quest-count");
-pub(super) const RECRUITING_PARTY_COUNT: StreamId = StreamId::new("settlement.recruiting-party-count");
+pub(super) const RECRUITING_PARTY_COUNT: StreamId =
+    StreamId::new("settlement.recruiting-party-count");
 
 pub(super) fn recruiting_role(seed: Seed) -> adventuresim_core::capability::RoleRequirements {
     let mut requirements = adventuresim_core::capability::RoleRequirements::default();
@@ -35,12 +36,8 @@ pub(super) fn recruiting_role(seed: Seed) -> adventuresim_core::capability::Role
 }
 
 pub(super) fn site_bearing(seed: Seed, site_id: &str) -> f64 {
-    fabelgeist_determinism::Seed::derive(
-        &seed.to_le_bytes(),
-        SITE_BEARING,
-        &[site_id.as_bytes()],
-    )
-    .rng()
-    .unit_f64()
+    fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(), SITE_BEARING, &[site_id.as_bytes()])
+        .rng()
+        .unit_f64()
         * std::f64::consts::TAU
 }

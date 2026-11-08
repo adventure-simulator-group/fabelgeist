@@ -861,7 +861,7 @@ fn generated_activity_is_contract_free_and_counted_by_open_case_authority() {
 #[test]
 fn settlement_activity_failures_identify_the_settlement_and_stage() {
     assert_eq!(
-        settlement_activity_stage_error("viabundus-0", "NPC recruiting parties", "Party not found"),
+        settlement_activity_stage_error("viabundus-0", "NPC recruiting parties", "Party not found").to_string(),
         "Settlement activity for viabundus-0 failed during NPC recruiting parties: Party not found"
     );
 

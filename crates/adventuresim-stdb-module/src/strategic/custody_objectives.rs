@@ -160,7 +160,7 @@ mod custody_party_dispatch_tests {
         let dispatch = custody_party_dispatch("npc-party:resident-company", false, true).unwrap();
         assert_eq!(dispatch, CustodyPartyDispatch::ResidentNpcAuthority);
 
-        apply_custody_party_continuity(dispatch, || -> Result<(), String> {
+        apply_custody_party_continuity(dispatch, || -> StrategicOperationResult<()> {
             panic!("resident NPC Retrieve/Return path reached player continuity")
         })
         .unwrap();
