@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:42:03.629912+00:00
+Updated: 2026-11-08T07:46:01.415345+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -81,7 +81,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `261b3a4190f5565f282da58d2702192f72c152b9`: the unfinished
+  commit `371f94f37aee4b0e976a16f39c93111c0a79ec28`: the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -97,8 +97,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   The database-module check initially reported 81 errors; after typed-error
   propagation through four paths, it reported 72. Typed quest materialization
   reduced the next snapshot to 71 before formatting; these are compiler
-  snapshots, not remaining defect counts. A settlement-stage adapter still
-  converts an underlying typed cause to text and must be repaired. Runtime
+  snapshots, not remaining defect counts. The latest draft stores a typed
+  cause and settlement-stage context separately; its callers are still being
+  migrated. The next check reported 83 errors before formatting. Runtime
   behavior, automatic merges, database compilation, lint, and review remain
   open.
 
