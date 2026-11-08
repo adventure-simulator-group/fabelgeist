@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T14:18:10.259376+00:00
+Updated: 2026-11-08T14:19:41.549956+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -173,8 +173,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   branch is clean; a coordinated fixed-step capture repair remains open.
   Bevy offers a fixed-timestep update strategy that may coordinate fixed
   systems, but screenshot timing, settling and clock ownership require
-  verification before using it. A new local candidate now controls the viewer
-  time strategy around ragdoll views and requests one fixed update for each
+  verification before using it. Commit `57b146829` controls the viewer time
+  strategy around ragdoll views and requests one fixed update for each
   subsequent sample. Its nine-frame ragdoll viewer run passed all acceptance
   gates: repeated views were stable, jitter was not applicable, and the worst
   rotation was 42.88 degrees against the 60-degree limit. Formatting and full
@@ -185,8 +185,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   The 65-frame ordinary camera-pitch capture completed but failed its jitter
   gate: chest position acceleration at frame 2 was 71.40 against an 18.0
   threshold; the worst incident was chest jerk at frame 3, 4569.44 against
-  900.0. Source shows the clock candidate arms only for ragdoll, but no prior
-  ordinary-scenario baseline has been compared. Current entry points select
+  900.0. A bounded projection shows the chest and pelvis change between frames
+  0 and 1, then remain nearly stationary through frame 7. Source shows the
+  clock candidate arms only for ragdoll, but no prior ordinary-scenario
+  baseline has been compared and the cause is not yet established. Current entry points select
   ragdoll alone; mixed-plan clock restoration is not runtime-verified.
   Terrain correction runs outside the physics schedule; its causal role
   in the failure remains unverified. Do not relax the continuity gate. The first lint run also found report validation had grown
@@ -204,7 +206,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   against the 0.05 m minimum. This does not exercise viewer jitter output.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `ab1f7568a`: the 159-path snapshot is restored, with three textual
+  commit `57b146829`: the 159-path snapshot is restored, with three textual
   conflicts resolved. A bounded source review compared all three conflict
   paths with both inputs. It found the typed values preserved, the speed
   conversion value-preserving, and all required movement observations set
