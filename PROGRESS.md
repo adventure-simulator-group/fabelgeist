@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:30:14.827816+00:00
+Updated: 2026-11-08T13:33:32.359607+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -41,7 +41,7 @@ Updated: 2026-11-08T13:30:14.827816+00:00
 | Report tests on local jitter draft | 26 / 26 passed |
 | P17 jitter observation distinction | Drafted locally |
 | Previous draft native capture and attack excursion | Passed |
-| Revised draft native diagnostic | Running |
+| Revised draft native capture and attack excursion | Passed |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -142,7 +142,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   exceeding the 0.05 m minimum. This checks the native attack, not the viewer's
   jitter output. The first invocation failed before startup due to an invalid
   command argument; the corrected invocation completed. A native diagnostic
-  for the revised per-scenario draft is running.
+  for the revised per-scenario draft completed in 202.0 seconds. Its attack
+  analyzer passed with 10 attack frames and 0.470 m maximum forward excursion
+  against the 0.05 m minimum. This does not exercise viewer jitter output.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
   commit `7e169b976`: the 159-path snapshot is restored, with three textual
