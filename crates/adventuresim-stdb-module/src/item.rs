@@ -2,7 +2,7 @@
 #[path = "item/authority_tests.rs"]
 mod authority_tests;
 
-use crate::{inventory_amount::inventory_item_amount, strategic::settlement};
+use crate::strategic::settlement;
 pub use adventuresim_core::item_classification::CatalogItemKind;
 use adventuresim_core::{
     combat_style::MeleeAttackStyle,
@@ -533,6 +533,13 @@ pub fn credit_personal_currency(
         .filter((character_id, &currency_id))
         .next()
     {
+        crate::inventory_container::require_fungible_inventory_row(
+            ctx,
+            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                PersonalInventoryRowId::from_raw(stack.id),
+            ),
+            &currency_id,
+        )?;
         if let Some(quantity) = merged_currency_quantity(stack.quantity, amount) {
             stack.quantity = quantity;
             ctx.db.inventory_item().id().update(stack);
@@ -577,58 +584,8 @@ pub fn change_inventory_item(
         .is_some_and(|definition| definition.kind == CatalogItemKind::Food)
         || adventuresim_core::food::definition(item_id).is_some();
     let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
-    if definition.as_ref().is_some_and(|item| item.repairable)
-        || (!food && !measured && requires_stable_object(definition.as_ref(), food, measured))
-    {
+    if requires_stable_object(definition.as_ref(), food, measured) {
         return stable_change::change_instances(ctx, character_id, item_id, by_quantity);
-    }
-    if measured {
-        if by_quantity > 0 {
-            add_inventory_item(ctx, character_id, item_id, by_quantity as u32)?
-                .ok_or("food definition not found")?;
-            return Ok(());
-        }
-        if by_quantity < 0 {
-            let mut remaining = by_quantity.unsigned_abs();
-            let mut items: Vec<_> = ctx
-                .db
-                .inventory_item()
-                .character_and_item_id()
-                .filter((character_id, item_id))
-                .collect();
-            items.sort_by_key(|row| row.id);
-            if items.iter().map(|row| row.quantity as u64).sum::<u64>() < remaining as u64 {
-                return Err("not enough inventory quantity to remove".into());
-            }
-            for mut row in items {
-                let take = row.quantity.min(remaining);
-                if food {
-                    crate::food::remove_lot_quantity(
-                        ctx,
-                        adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(
-                            row.id,
-                        ),
-                        take,
-                        row.quantity,
-                    )?;
-                }
-                row.quantity -= take;
-                remaining -= take;
-                if row.quantity == 0 {
-                    ctx.db
-                        .inventory_item_amount()
-                        .inventory_item_id()
-                        .delete(row.id);
-                    ctx.db.inventory_item().id().delete(row.id);
-                } else {
-                    ctx.db.inventory_item().id().update(row);
-                }
-                if remaining == 0 {
-                    break;
-                }
-            }
-        }
-        return Ok(());
     }
     let mut items = ctx
         .db
@@ -640,6 +597,13 @@ pub fn change_inventory_item(
     if by_quantity > 0 {
         let addition = by_quantity as u32;
         if let Some(mut item) = items.into_iter().next() {
+            crate::inventory_container::require_fungible_inventory_row(
+                ctx,
+                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                    PersonalInventoryRowId::from_raw(item.id),
+                ),
+                &item.item_id,
+            )?;
             if let Some(quantity) = item.quantity.checked_add(addition) {
                 item.quantity = quantity;
                 ctx.db.inventory_item().id().update(item);
@@ -658,8 +622,29 @@ pub fn change_inventory_item(
         if available < remaining {
             return Err("not enough inventory quantity to remove".into());
         }
+        let mut preflight_remaining = remaining;
+        for item in &items {
+            if preflight_remaining == 0 {
+                break;
+            }
+            let taken = preflight_remaining.min(u64::from(item.quantity));
+            if taken == 0 {
+                continue;
+            }
+            crate::inventory_container::require_fungible_inventory_row(
+                ctx,
+                adventuresim_core::physical_object::CarriedInventoryRowId::Personal(
+                    PersonalInventoryRowId::from_raw(item.id),
+                ),
+                &item.item_id,
+            )?;
+            preflight_remaining -= taken;
+        }
         for mut item in items {
             let taken = remaining.min(u64::from(item.quantity)) as u32;
+            if taken == 0 {
+                continue;
+            }
             item.quantity -= taken;
             remaining -= u64::from(taken);
             if item.quantity == 0 {
