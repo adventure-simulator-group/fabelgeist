@@ -1497,11 +1497,7 @@ pub(crate) fn perform_investigation_action_authorized(
         &expected_version.to_string(),
     ]);
     if let Some(attempt) = ctx.db.investigation_action_attempt().id().find(&attempt_id) {
-        return if attempt.owner_character_id == actor_id
-            && attempt.capability_id == action_id
-            && attempt.method == method
-            && attempt.expected_version == expected_version
-        {
+        return if exact_action_retry(&attempt, actor_id, &action_id, &method, expected_version) {
             Ok(())
         } else {
             Err("Investigation attempt id conflicts with an earlier action".into())

@@ -17,6 +17,7 @@ pub(crate) const INVESTIGATION_SOURCE: &str = concat!(
     include_str!("projections.rs"),
     include_str!("projections/site_context.rs"),
     include_str!("capabilities.rs"),
+    include_str!("action_retry.rs"),
     include_str!("actions.rs"),
     include_str!("actions/result_provenance.rs"),
     include_str!("actions/route_admission.rs"),
@@ -40,6 +41,7 @@ use geometry::coordinate_area_contains_e7;
 include!("model.rs");
 include!("projections.rs");
 include!("capabilities.rs");
+include!("action_retry.rs");
 include!("actions.rs");
 include!("sites.rs");
 include!("claims.rs");
