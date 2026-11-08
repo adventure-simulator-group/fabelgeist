@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:21:51.625366+00:00
+Updated: 2026-11-08T07:23:41.186720+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
-| Implementing | 3 |
-| Awaiting or running checks | 1 |
+| Implementing | 2 |
+| Awaiting or running checks | 2 |
 | Awaiting review | 2 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -86,9 +86,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
   an uncompiled recovery draft. Manifest dependency errors found by the
-  formatter were corrected and `just fmt` completed. Automatic merges,
-  producer/consumer obligations, behavior, quality gates, and review remain
-  open; the first compile is queued behind the current full lint run.
+  formatter were corrected; `just fmt` and `just fmt-check` passed. The first
+  focused core compile is running. Automatic merges, producer/consumer
+  obligations, behavior, lint, and review remain open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
@@ -98,8 +98,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   quality checker before its baseline reduction and unused-import cleanup.
   At parent `8b3da2e16be30895a7c65f8e31bd3c7614562096`, `just fmt-check`
   and seven existing jitter tests passed. Full lint found a redundant borrow;
-  the current commit fixes it and a full lint rerun is running. Behavioral
-  verification of missing-evidence cases and review remain open.
+  the current commit fixes it, and full `just lint` passed at that commit.
+  Behavioral verification of missing-evidence cases and review remain open.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
