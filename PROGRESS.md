@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T00:33:43.805310+00:00
+Updated: 2026-11-08T00:35:56.808356+00:00
 
-Latest verified checkpoint: **3657**. Goal: **active**.
+Latest verified checkpoint: **3658**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -43,15 +43,13 @@ for review.
 
 ## Latest checkpoint
 
-Qualified hostile fact producers and native codec precedent.
+Qualified hostile outer callers and fallible native decode option.
 
-Outer resolution callers, fallible native admission and broader aliases remain
-open.
+Battle-origin authority, native implementation and broader aliases remain open.
 
 ## Working on now
 
-Qualify outer resolution callers, fallible native admission and remaining
-aliases.
+Qualify battle-origin authority, native implementation and remaining aliases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -219,8 +217,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3657 publication record](CHECKPOINT-3657.json)
-- [Saved report for checkpoint 3657](PROGRESS-3657.md)
+- [Checkpoint 3658 publication record](CHECKPOINT-3658.json)
+- [Saved report for checkpoint 3658](PROGRESS-3658.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
