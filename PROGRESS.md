@@ -1,14 +1,14 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:37:55.832495+00:00
+Updated: 2026-11-08T06:38:50.791163+00:00
 
 | Increment status | Count |
 | --- | ---: |
 | Queued | 0 |
 | Auditing | 0 |
 | Implementing | 1 |
-| Awaiting or running checks | 2 |
-| Awaiting review | 1 |
+| Awaiting or running checks | 1 |
+| Awaiting review | 2 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
 
@@ -60,17 +60,16 @@ ledger as backlog. Full refactor completion and validation remain required.
   removal, rejection, escrow refund, household preservation, rollback, and a
   successful wedding with both spouses admitted and the escrow paid. The
   landform lint correction is now included.
-  The formatting gate passed in a non-nested verification worktree. Full
-  `just lint` is running under the shared build lock; review and integrated
-  validation remain open.
+  `just fmt-check` and full `just lint` passed in a non-nested verification
+  worktree at this commit. Review and final integrated validation remain open.
 
 - [P17 report restoration](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p17-restoration)
   commit `66dc0827827a74f7f5828d48b86d112eeafd1988`: the preserved report
   implementation `90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696` was applied over
   the combined draft, followed by sample-tick and `LeadFoot` fixes. One
   support-validation conflict was resolved while retaining typed errors.
-  This restoration is unformatted and uncompiled; P17 dependencies, review,
-  and validation remain open. Checks are queued behind the combined lint run.
+  Formatting and a focused compile check are running. P17 dependencies, review,
+  and behavioral validation remain open.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
