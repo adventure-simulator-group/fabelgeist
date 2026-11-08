@@ -252,8 +252,8 @@ def run(profile: str, base_port: int) -> None:
             print("PASS contact existence, scoped awareness, surprise choice and revision retries", flush=True)
             client.fixture("authority_test_projectile_identity")
             print("PASS both projectile kinds, retained injury facts and zero-damage rejection", flush=True)
-            client.fixture("authority_test_catalog_item_classification")
-            print("PASS authored and materialized catalog item classifications", flush=True)
+            client.fixture("authority_test_catalog_item_classification", 732002)
+            print("PASS catalog classifications and distinct selected/instance weapon reach", flush=True)
             client.fixture("authority_test_investigation_keys")
             authorities = {
                 tuple(row) for row in client.rows(
