@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:40:44.832373+00:00
+Updated: 2026-11-08T15:43:29.420359+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -35,7 +35,7 @@ Updated: 2026-11-08T15:40:44.832373+00:00
 | Persisted selected and instance reach distinction | 1 / 1 fixture passed |
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint on previous Rust commit | Passed |
-| Full P16 lint on current Rust commit | Running |
+| Full P16 lint on current Rust commit | Passed |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -95,6 +95,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
 | Previous one-container removal | 2 bottle rows deleted |
 | Unselected nested inventory protection fixture | 1 / 1 passed |
+| Liquid and medicine removal policy | Open |
 | Belt addition, spare-first and cleanup database fixture | 1 / 1 passed |
 | Missing-inventory law preflight database fixture | 1 / 1 passed |
 | Isolated runner listener cleanup | 1 / 1 passed |
@@ -429,8 +430,11 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   selected subtrees and rejects deletion of an unselected inventory object.
   The isolated check passed for rejecting one selected outer bottle while
   preserving both, then explicitly removing both. Belt and equipment-law
-  fixtures also passed. Formatting passed; full lint is running. Liquid and
-  other non-inventory contents are outside this fixture and remain open.
+  fixtures also passed. Formatting and full lint passed. Source inspection
+  shows subtree deletion removes liquid, water-contribution and medicine
+  records, and the quantity path does not call the helper that protects
+  active cooking, immature tinctures and fireplace ancestry. Intended
+  disposal policy and a live water or tincture witness remain open.
   The persisted personal inventory location still holds a raw row ID, and a
   shared accessor collapses personal, party and repair IDs into one optional
   integer. The producer-to-consumer type migration and
