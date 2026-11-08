@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T12:08:26.060794+00:00
+Updated: 2026-11-08T12:10:10.778003+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -21,7 +21,8 @@ Updated: 2026-11-08T12:08:26.060794+00:00
 | Additional overlapping paths reviewed against both inputs | 20 / 20 |
 | Overlapping paths still awaiting bounded comparison | 0 / 23 |
 | Existing contact-geometry tests passed | 11 / 11 |
-| Existing melee iteration tests passed | 9 / 9 |
+| Existing autoresolve tests passed, including 9 melee iteration tests | 76 / 76 |
+| Existing core equipment tests passed | 19 / 19 |
 | Tactical server ingress tests passed, including range matrix | 9 / 9 |
 | Tactical server player-projection tests passed | 33 / 33 |
 | Tactical server bot tests passed | 13 / 13 |
@@ -171,7 +172,9 @@ ledger as backlog. Full refactor completion and validation remain required.
   integration remain open.
 
   Existing tests passed: 11 contact-geometry and 9 melee iteration tests at
-  `aaf0a66c7`; 9 tactical ingress and 33 player-projection tests at
+  `aaf0a66c7`. At `5837f86b5`, all 76 autoresolve tests passed, including
+  those nine, as did 19 core equipment tests. Nine tactical ingress and 33
+  player-projection tests passed at
   `1c0f6299b`; and 13 bot tests at `e9c405a77` after correcting two existing
   attacker fixtures. The range matrix is included in the ingress count.
   Selected local dependency fingerprints were checked for these shared-target
