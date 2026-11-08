@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T19:11:42.739441+00:00
+Updated: 2026-11-08T19:16:56.966293+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -10,6 +10,7 @@ Updated: 2026-11-08T19:11:42.739441+00:00
 | Fungible currency merge scenario | 1 / 1 on prior draft | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
 | Seed-party populated-inventory rejection | 1 / 1 | Stake-only and reserve-only cases open |
+| Seed-party recruitment-role rejection | 1 / 1 | Other obligation cases open |
 | Storefront live-sale scenarios reached | 0 / 2 | 2 |
 
 | Increment status | Count |
@@ -44,7 +45,7 @@ Updated: 2026-11-08T19:11:42.739441+00:00
 | Apple lot backing and value conservation on previous draft | 1 / 1 passed |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Passed on current draft |
+| Workspace all-target all-feature Clippy | Running on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
@@ -78,7 +79,7 @@ Updated: 2026-11-08T19:11:42.739441+00:00
 | Full P16 lint on previous Rust commit | Passed |
 | Full P16 lint on previous reconnect draft | Passed |
 | Full P16 lint on previous identity draft | Passed |
-| Full P16 lint on current identity draft | Passed |
+| Full P16 lint on current identity draft | Running |
 | P17 current-head report tests | 26 / 26 passed |
 | Previous jitter draft focused tests | 7 / 7 passed |
 | Revised per-scenario focused fixture | 1 / 1 passed |
@@ -137,14 +138,15 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `d25fb6d46`. A seed
-helper could delete a solo party without checking its inventory or stake rows.
-The draft rejects reassignment when inventory, stake or reserve state exists.
-Authority-feature compilation, formatting and full lint passed. An isolated
-empty-source fixture passed. A populated party containing an apple was rejected;
-the party inventory, object, food lot, membership and prior bootstrap clock
-value remained intact after the failed reducer. Stake-only, reserve-only and
-other seeded-party metadata cases remain unverified.
+The inventory row-identity migration is a draft at P16 `1d2c4f963`. A seed
+helper could delete a solo party with inventory or active party obligations.
+The draft rejects reassignment when inventory, stake, reserve, active travel,
+contract, encounter, fireplace or recruitment/action records are present. An
+isolated empty-source fixture passed; separate inventory and recruitment-role
+rejections preserved the checked state and prior bootstrap clock. Other
+obligation and stake-only/reserve-only cases remain unverified. Authority-feature
+compilation, targeted quality and formatting passed; full lint is running. A
+misplaced helper comment was also restored to its owning function.
 
 On `5d33a1e9a`, a party merge lost the original backing rows for a nested
 bottle and apple while their physical objects still referenced the former party.
