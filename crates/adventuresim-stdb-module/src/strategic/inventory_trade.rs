@@ -16,6 +16,22 @@ pub fn transfer_party_item(
     inventory_item_id: u64,
     quantity: u32,
 ) -> crate::StrategicOperationResult<()> {
+    transfer_party_item_typed(
+        ctx,
+        from_character_id,
+        to_character_id,
+        PersonalInventoryRowId::from_raw(inventory_item_id),
+        quantity,
+    )
+}
+
+fn transfer_party_item_typed(
+    ctx: &ReducerContext,
+    from_character_id: u64,
+    to_character_id: u64,
+    inventory_item_id: PersonalInventoryRowId,
+    quantity: u32,
+) -> crate::StrategicOperationResult<()> {
     require_character_no_unresolved_encounter(ctx, from_character_id)?;
     crate::character::require_living_character(ctx, from_character_id)?;
     crate::character::require_living_character(ctx, to_character_id)?;
@@ -31,19 +47,20 @@ pub fn transfer_party_item(
     if from.party_id.is_none() || from.party_id != to.party_id {
         return Err("Characters must belong to the same party".into());
     }
-    let Some(source_item) = ctx.db.inventory_item().id().find(inventory_item_id) else {
+    let Some(source_item) = ctx.db.inventory_item().id().find(inventory_item_id.get()) else {
         return Err("Inventory item not found".into());
     };
     if source_item.character_id != from_character_id || source_item.quantity < quantity {
         return Err("Source character does not have that quantity".into());
     }
-    if crate::character::inventory_item_is_equipped(ctx, from_character_id, inventory_item_id) {
+    if crate::character::inventory_item_is_equipped(ctx, from_character_id, inventory_item_id.get())
+    {
         return Err("Unequip an item before transferring it".into());
     }
 
     let container_object = crate::inventory_container::object_for_row(
         ctx,
-        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(source_item.id)),
+        CarriedInventoryRowId::Personal(inventory_item_id),
     )?;
     if let Some(object) = container_object {
         if !physical_object_row_is_atomic(true, quantity, source_item.quantity) {
@@ -58,75 +75,15 @@ pub fn transfer_party_item(
         return Ok(());
     }
 
-    let measured = crate::inventory_amount::personal_fraction(ctx, source_item.id).is_some();
-    if measured {
-        if quantity != 1 || source_item.quantity != 1 {
-            return Err("Measured items must be transferred as complete rows".into());
-        }
-        let mut transferred = source_item;
-        transferred.character_id = to_character_id;
-        ctx.db.inventory_item().id().update(transferred);
-        crate::capability::refresh_character_capability(ctx, from_character_id)?;
-        crate::capability::refresh_character_capability(ctx, to_character_id)?;
-        return Ok(());
-    }
-
-    if item_is_medication(ctx, &source_item.item_id) {
-        if quantity != 1 || source_item.quantity != 1 {
-            return Err("Medication must be transferred as an individual course".into());
-        }
-        let mut transferred = source_item;
-        transferred.character_id = to_character_id;
-        ctx.db.inventory_item().id().update(transferred);
-        return Ok(());
-    }
-
-    let durable = item_is_durable(ctx, &source_item.item_id);
-    if durable {
-        if quantity != 1 || source_item.quantity != 1 {
-            return Err("Equipment instances must be transferred individually".into());
-        }
-        let mut transferred = source_item;
-        transferred.character_id = to_character_id;
-        ctx.db.inventory_item().id().update(transferred);
-        return Ok(());
-    }
-
-    let food = ctx
-        .db
-        .item()
-        .id()
-        .find(&source_item.item_id)
-        .is_some_and(|row| row.kind == crate::CatalogItemKind::Food)
-        || adventuresim_core::food::definition(&source_item.item_id).is_some();
-    if food {
-        if source_item.quantity == quantity {
-            let mut moved = source_item;
-            moved.character_id = to_character_id;
-            ctx.db.inventory_item().id().update(moved);
-        } else {
-            let original_quantity = source_item.quantity;
-            let item_id = source_item.item_id.clone();
-            let mut remaining = source_item;
-            remaining.quantity -= quantity;
-            ctx.db.inventory_item().id().update(remaining);
-            let destination = ctx.db.inventory_item().insert(InventoryItem {
-                id: 0,
-                character_id: to_character_id,
-                item_id,
-                quantity,
-            });
-            crate::food::split_lot(
-                ctx,
-                PersonalInventoryRowId::from_raw(inventory_item_id),
-                PersonalInventoryRowId::from_raw(destination.id),
-                quantity,
-                original_quantity,
-            )?;
-        }
-        crate::capability::refresh_character_capability(ctx, from_character_id)?;
-        crate::capability::refresh_character_capability(ctx, to_character_id)?;
-        return Ok(());
+    let definition = ctx.db.item().id().find(&source_item.item_id);
+    let food = crate::item::inventory_food_definition(
+        definition.as_ref().map(|item| item.kind),
+        &source_item.item_id,
+    )?
+    .is_some();
+    let measured = crate::inventory_amount::is_measured_item(ctx, &source_item.item_id);
+    if crate::item::requires_stable_object(definition.as_ref(), food, measured) {
+        return Err("Stable personal inventory row has no physical object".into());
     }
 
     let destination_item = ctx
@@ -140,7 +97,7 @@ pub fn transfer_party_item(
         .and_then(|destination| destination.quantity.checked_add(quantity));
 
     if source_item.quantity == quantity {
-        ctx.db.inventory_item().id().delete(inventory_item_id);
+        ctx.db.inventory_item().id().delete(inventory_item_id.get());
     } else {
         let mut updated = source_item.clone();
         updated.quantity -= quantity;
@@ -430,9 +387,11 @@ mod medication_custody_tests {
             .split("fn objective_item_value")
             .next()
             .unwrap();
-        assert!(direct_transfer.contains("item_is_medication"));
-        assert!(direct_transfer.contains("source_item.quantity != 1"));
-        assert!(direct_transfer.contains("transferred.character_id = to_character_id"));
+        assert!(
+            direct_transfer.contains("requires_stable_object(definition.as_ref(), food, measured)")
+        );
+        assert!(direct_transfer.contains("Stable personal inventory row has no physical object"));
+        assert!(direct_transfer.contains("rehome_subtree"));
 
         let party_add = source
             .rsplit("fn add_to_party_inventory")
@@ -2167,7 +2126,12 @@ pub fn finalize_party_offer(
         let Some(to) = ctx.db.character().id().find(to_id) else {
             return Err("Recipient character not found".into());
         };
-        let Some(item) = ctx.db.inventory_item().id().find(line.inventory_item_id) else {
+        let Some(item) = ctx
+            .db
+            .inventory_item()
+            .id()
+            .find(line.inventory_item_id.get())
+        else {
             return Err("Inventory item not found".into());
         };
         if quantity == 0
@@ -2184,7 +2148,7 @@ pub fn finalize_party_offer(
         }
     }
     for line in offer {
-        transfer_party_item(
+        transfer_party_item_typed(
             ctx,
             line.from_character_id,
             line.to_character_id,

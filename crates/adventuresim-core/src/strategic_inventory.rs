@@ -6,7 +6,9 @@
 use std::{fmt, num::NonZeroU64};
 
 use crate::inventory_measurement::ItemQuantity;
-use crate::physical_object::{CarriedInventoryRowId, CarriedInventoryScope};
+use crate::physical_object::{
+    CarriedInventoryRowId, CarriedInventoryScope, PersonalInventoryRowId,
+};
 use crate::settlement_economy::Storefront;
 
 /// A non-zero amount of coin in a validated payment plan.
@@ -286,7 +288,7 @@ impl StorefrontTradeRequest {
 pub struct PartyOfferLine {
     pub from_character_id: u64,
     pub to_character_id: u64,
-    pub inventory_item_id: u64,
+    pub inventory_item_id: PersonalInventoryRowId,
     pub quantity: TradeQuantity,
 }
 
@@ -312,7 +314,7 @@ pub fn parse_party_offer(
                 Ok(PartyOfferLine {
                     from_character_id,
                     to_character_id,
-                    inventory_item_id,
+                    inventory_item_id: PersonalInventoryRowId::from_raw(inventory_item_id),
                     quantity: TradeQuantity::try_from(quantity)?,
                 })
             },
@@ -462,6 +464,11 @@ mod tests {
                 CarriedInventoryRowId::from_raw(expected_scope, 42),
             );
         }
+        let offer = parse_party_offer(vec![7], vec![8], vec![42], vec![1]).unwrap();
+        assert_eq!(
+            offer[0].inventory_item_id,
+            PersonalInventoryRowId::from_raw(42)
+        );
         assert_eq!(
             parse_party_offer(vec![], vec![], vec![], vec![]),
             Err(TradeRequestError::EmptyOffer)
