@@ -5,6 +5,7 @@
 #[cfg(feature = "authority-tests")]
 mod authority_tests;
 mod patient_chronology;
+mod source_kind;
 mod water_time;
 use patient_chronology::resolve_patient_death;
 use water_time::concentration_at_collection;
@@ -1028,8 +1029,6 @@ pub(crate) fn materialize_generated_outbreak(
     settlement_id: &str,
     now_minute: StrategicMinute,
 ) -> crate::StrategicOperationResult<()> {
-    use adventuresim_core::quest_generation::OutbreakSource;
-
     let Some(outbreak) = &generated.outbreak else {
         return Ok(());
     };
@@ -1037,12 +1036,7 @@ pub(crate) fn materialize_generated_outbreak(
         return Err("Generated outbreak exceeds bounded patient materialization".into());
     }
     let exact_remediation_id = remediation_id(generated)?;
-    let (source_kind, carrier) = match &outbreak.source {
-        OutbreakSource::Sanitation { .. } => ("sanitation", None),
-        OutbreakSource::Behavior { .. } => ("behavior", None),
-        OutbreakSource::ThreatVector { threat } => ("threat_vector", Some(threat.as_str())),
-        OutbreakSource::Environmental { .. } => ("environmental", None),
-    };
+    let (source_kind, carrier) = source_kind::project(&outbreak.source);
     let responsible = outbreak.responsible_npc.as_ref();
     let physical_source_fixture = outbreak_source_fixture(
         &generated.canonical_case_id,
