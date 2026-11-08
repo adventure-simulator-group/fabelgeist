@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:13:12.446960+00:00
+Updated: 2026-11-08T11:16:06.119898+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -23,24 +23,12 @@ Updated: 2026-11-08T11:13:12.446960+00:00
 | Tactical server player-projection tests passed | 33 / 33 |
 | Tactical server bot tests passed | 13 / 13 |
 
-The quality counts are findings from the latest scan, not a count of defects
-or independent work items. The quality scan and WebAssembly client Clippy
-passed on a tree with two unstaged formatter-only files. Full workspace Clippy
-found test compilation and two redundant conversions; corrections are pushed
-and the workspace retry found one more fixture type qualification. That fix
-is pushed and focused core/database Clippy passed. Workspace Clippy then
-found tactical fixture type errors and a lint issue; those corrections are
-pushed and focused tactical Clippy passed. The next workspace run found an
-unused client re-export; native client Clippy passed after its removal.
-Workspace Clippy passed on the current commit. Full lint was stopped during
-standalone manifest checks when free disk fell below 3 GB; the disposable
-P16-only native build cache was removed, restoring about 8.6 GB free.
-Automatic approval review rejected a separate standalone target as conflicting
-with the shared-target requirement. All three standalone Clippy commands passed
-under the shared build lock. Selected local fingerprint records for creator
-and MHR postdate that validation sequence; NumPy-storage was rechecked after
-refreshing its P16 source timestamps, and all eight selected local records
-postdate that recheck.
+The quality counts describe the latest scan, not a count of defects. At P16
+parent `aaf0a66c7`, formatting, workspace Clippy, three standalone Clippy
+commands and the guarded authority workflow passed. The uninterrupted full
+lint recipe remains open: it was stopped when free disk fell below 3 GB.
+An isolated P16 cache was removed to restore space. The standalone commands
+subsequently passed using the shared target and checked dependency fingerprints.
 
 | Historical audit measure | Count |
 | --- | --- |
@@ -111,155 +99,36 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `e9c405a77` (quality and fixture repairs after `623d52a`): the unfinished
-  159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
-  The movement report retains typed measurements and rejects absent required
-  displacement and distance observations instead of assuming zero. This is
-  a partially compiled recovery draft. Manifest dependency errors found by the
-  formatter were corrected; `just fmt` and `just fmt-check` passed at the
-  earlier draft. The focused core compile passed at parent `20ed2a263`; the
-  tactical-core check passed on this commit after fixing a duplicate import.
-  The tactical-client binary check passed at `09ae853ff`. Default server
-  binaries compiled after the impact-position fix. The iteration-feature
-  check then found unsupported observer return types and a trace conversion.
-  The current commit retains the first typed observer failure for the duel
-  runner; feature-gated server binaries compiled at parent `89962dc0d`.
-  The database-module check initially reported 81 errors; after typed-error
-  propagation through four paths, it reported 72. Typed quest materialization
-  reduced the next snapshot to 71 before formatting; these are compiler
-  snapshots, not remaining defect counts. The latest draft stores a typed
-  cause and settlement-stage context separately; its callers are still being
-  migrated. Propagation through additional strategic reducers brought the
-  formatted draft to a passing focused database-module `cargo check`
-  without warnings at parent `bb63239b8`. The authority-test feature now
-  compiles at this commit after adapting existing fixtures; neither check is
-  behavioral validation. Typed failures now cross tactical, settlement, wedding,
-  custody, party, encounter, trade, disease, and exposure callers. Wedding
-  rollback behavior must be revalidated; the guarded isolated authority
-  workflow stopped during the WebAssembly release build before any assertions.
-  Cargo reused a geometry artifact from the wedding worktree; its dependency
-  record explicitly names that worktree; four other local crates have matching
-  records. Shared-target results need revalidation on their proper worktrees.
-  A P16-specific WebAssembly release build and the guarded local authority
-  workflow passed at parent `623d52a`, including the wedding capacity and rollback
-  fixtures. An earlier retry found its chosen port occupied. Other runtime
-  behavior, semantic review of automatic merges, full formatting and lint,
-  and integrated validation remain open. `just fmt-check` passed at parent
-  `71ffc473d`. Lint confirmed generated bindings, then found an exact-text
-  calendar guard expecting the former string error; the guard now requires
-  the typed strategic error. On retry, lint passed that guard and stopped at
-  Rust quality: file and function growth, one moved raw-string finding, and
-  stale baseline entries require repair. Five stale entries were removed, and
-  the existing raw-string finding was moved to its new owner without raising
-  a ceiling. A small authored-weapon cleanup removed one oversized function
-  finding; a fresh quality scan confirms those specific findings cleared. Other
-  size findings remain, and Clippy has not yet run. The isolated core check
-  passed at `b41391400`. Ranged observers were split from combat ingress and
-  repeated defense rejection handling was consolidated; the iteration-feature
-  server binaries compile and both ingress size findings cleared in a rescan.
-  A ranged sight simplification cleared another function-size finding; the
-  iteration-feature server binaries compiled at `f844072ef`. Tactical
-  authority configuration validation is now separate; tactical core compiles
-  at `1273ffded`, and its file and function ceilings were reduced. Equipment
-  input handling now has its own module; the isolated client binary check
-  passed at `6f71aad45`, and the equipment file ceiling was reduced. A
-  movement jump-height policy extraction compiles in tactical core at the
-  `51b877a0c` and clears another function-size finding. Personal travel-food
-  handling was separated from the party path; the authority-feature database
-  module compiled at `cf29e5d97`, and its function ceiling was reduced. Item
-  equipment projection now has a separate owner; the authority-feature
-  database module compiled at `0ed3a3d62`, and related ceilings fell. Wedding
-  preflight helpers were separated; the authority-feature database module
-  compiled at `fcec86658` and the marriage file-size finding cleared. The
-  wedding acceptance setup is now separate and compiles at the current commit;
-  the guarded authority workflow passed again on a disposable local profile,
-  including wedding capacity and rollback fixtures. Repair escrow restoration
-  was then separated and the authority-feature module compiles at the current
-  commit; both repair size findings cleared. Repair behavior has not been
-  rerun since the extraction. Dialogue topic handling was separated; the
-  authority-feature database module compiles at the current commit and both
-  dialogue size findings cleared. Outbreak source projection was separated;
-  the authority-feature database module compiles at the current commit and
-  both outbreak size findings cleared. Dialogue and outbreak behavior have
-  not been rerun since these extractions. Development fixture loadouts were
-  separated, clearing three findings; the authority-feature module compiles
-  at `72ac60c2b`, but those fixture behaviors have not been rerun. The
-  investigation retry comparison was separated; the authority-feature module
-  compiles at the current commit and its function-size finding cleared.
-  Retry behavior has not been rerun since the extraction. Tactical request
-  conflict detection was separated, clearing two size findings; the
-  authority-feature database module compiles at the current commit. Tactical
-  request behavior has not been rerun since the extraction. Incident
-  coordinate admission was separated, clearing two findings; the
-  authority-feature module compiles at the current commit. Incident behavior
-  has not been rerun since this extraction. Morale duration and decay helpers
-  were separated, clearing one file-size finding; the authority-feature module
-  compiled at `4e4a8704f`; morale behavior has not been rerun. Social clock
-  lookup was separated, clearing a file-size finding. The authority-feature
-  module compiled at `9e4853a26`; social behavior has not been rerun. Dialogue
-  startup now reuses the admitted living character instead of looking it up
-  again. The authority-feature module compiles at the current commit; dialogue
-  startup behavior has not been rerun. Puzzle and errantry leader admission
-  now shares a helper; three size findings cleared and the authority-feature
-  module compiled at `5e85d4f7c`. Travel paths now reuse their admitted living
-  character; three size findings cleared and the authority-feature module
-  compiles at the current commit. Challenge and travel behaviors have not
-  been rerun since these changes. Mission replay and visibility admission were
-  separated, clearing two findings; the authority-feature module compiles at
-  the current commit. An adapted source guard remains unrun: Cargo reported
-  that the initial `--tests` selection had no target. Explicit `--lib`
-  selection compiled but could not link SpacetimeDB host functions. A direct
-  audit found and corrected a stale entropy assertion; its revised source
-  assertions pass in that audit and the test compiles under Clippy. The native
-  test itself remains unrun. Mission host and recruitment
-  setup were separated, clearing three findings; the authority-feature module
-  compiled at `5f6e076a3`; their behavior has not been rerun. Trade and
-  party-disband checks were simplified, clearing four findings. The
-  authority-feature module compiled at `37a79c985`; their behavior has not
-  been rerun. Bot windup cancellation was separated, clearing its size
-  finding; iteration-feature server binaries compile at the current commit.
-  Bot behavior has not been rerun. Player input tracing was separated,
-  clearing the final size finding; iteration-feature server binaries compile
-  and the complete Rust quality scan passes at the current commit. Full
-  formatting check and WebAssembly client Clippy passed with two unstaged
-  formatter-only files, now included in the current commit. Full workspace
-  Clippy found existing fixtures needing typed API adaptations and two
-  redundant conversions. The retry exposed a fixture type qualification;
-  that correction passed focused core/database Clippy. A workspace retry
-  found tactical fixture type errors and a lint issue; corrections are pushed
-  and focused tactical Clippy passed. Workspace retry then found an unused
-  client re-export; native client Clippy passed after the fix. Workspace
-  Clippy passed at the current commit. The complete formatting check passed;
-  full lint was interrupted during standalone manifest checks to protect disk
-  space. The P16-only native build cache was removed to restore space.
-  Automatic approval review rejected a separate standalone target because of
-  the shared-target requirement. The first standalone check is running with
-  the shared target and lock; all three standalone Clippy commands passed.
-  Selected creator and MHR local fingerprint records postdate the validation
-  sequence. NumPy-storage was rechecked after refreshing P16 source timestamps;
-  all eight selected local records postdate that recheck. Behavior, a single
-  uninterrupted full lint run, and review remain open.
-  Eleven existing core contact-geometry
-  tests passed at the current commit after refreshing older selected shared
-  dependencies; all 22 selected local fingerprint records postdate the
-  validation sequence. Nine existing melee iteration tests also passed using
-  the same fingerprint-checked test binary. The shared WebAssembly build
-  reproduced five stale wedding-worktree records. Those exact fingerprint
-  markers were invalidated under the build lock; after rebuilding dependencies,
-  the module build passed and all nine selected local records postdate the
-  rebuild with none naming the wedding worktree. A guarded authority rerun is
-  passed on a disposable local profile at the current commit, including
-  wedding, investigation retry, puzzle, mission, and outbreak checks at
-  parent `aaf0a66c7`. Repair,
-  dialogue, and development-fixture behavior remain to be verified. The existing
-  tactical-server melee-range matrix test passed in the shared target; all 21
-  selected local records postdate the validation sequence and none names the
-  wedding worktree. All nine existing tactical ingress tests passed using the
-  same fingerprint-checked server test binary. All 33 existing player-
-  projection tests also passed using that binary. The bot suite initially
-  failed two tests because their attackers lacked required Player components;
-  after fixing those existing fixtures, all 13 bot tests passed. No production
-  reaction logic changed.
+  commit `e9c405a77`: the 159-path snapshot is restored, with three textual
+  conflicts resolved. Semantic review of the resulting changes remains open.
+  The movement report uses typed measurements and rejects missing required
+  observations; the new failure behavior still needs behavioral validation.
+  A Rust quality scan passed at `f22bd2c26`, after behavior-preserving
+  extractions and baseline reductions. At parent `aaf0a66c7`, formatting,
+  workspace Clippy, all three standalone Clippy commands, and the guarded
+  disposable-database authority workflow passed. The workflow included wedding
+  capacity and rollback, investigation retry, puzzle, mission and outbreak
+  checks. Repair, dialogue and development-fixture behavior remain unverified.
+  The two later commits change existing test fixtures, not production code.
+  Full uninterrupted `just lint`, current-head validation, review and
+  integration remain open.
+
+  Existing tests passed: 11 contact-geometry and 9 melee iteration tests at
+  `aaf0a66c7`; 9 tactical ingress and 33 player-projection tests at
+  `1c0f6299b`; and 13 bot tests at `e9c405a77` after correcting two existing
+  attacker fixtures. The range matrix is included in the ingress count.
+  Selected local dependency fingerprints were checked for these shared-target
+  runs. A prior authority attempt used stale artifacts from a different
+  worktree; five specific fingerprint markers were invalidated under the
+  build lock, and the subsequent authority build selected nine refreshed local
+  records without the other worktree marker.
+
+  An existing mission source guard was updated after its assertion moved with
+  the extracted code. Its revised assertions passed a direct source audit and
+  compiled under Clippy. Its native test could not link SpacetimeDB host
+  functions, so the test itself has not run. The semantic review of all
+  recovered overlaps, remaining behavior checks and integrated gates remain
+  open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
