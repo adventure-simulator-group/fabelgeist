@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T13:25:12.157657+00:00
+Updated: 2026-11-08T13:30:14.827816+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -36,10 +36,12 @@ Updated: 2026-11-08T13:25:12.157657+00:00
 | Full P16 lint recipe on parent commit | Passed |
 | Full P16 lint recipe on current commit | Passed |
 | P17 current-head report tests | 26 / 26 passed |
-| Jitter focused tests on local draft | 7 / 7 passed |
+| Previous jitter draft focused tests | 7 / 7 passed |
+| Revised per-scenario focused fixture | 1 / 1 passed |
 | Report tests on local jitter draft | 26 / 26 passed |
 | P17 jitter observation distinction | Drafted locally |
-| Native diagnostic capture and attack excursion | Passed |
+| Previous draft native capture and attack excursion | Passed |
+| Revised draft native diagnostic | Running |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -130,15 +132,17 @@ ledger as backlog. Full refactor completion and validation remain required.
   capture. A local, uncommitted draft uses the report observation type to
   distinguish unavailable evidence, measured diagnostics and ragdoll-only
   non-applicability. It requires a derivative window before claiming complete
-  diagnostics. This window check is global: one scenario can mask another
-  without a complete window, so per-scenario completeness remains open.
-  Seven existing jitter tests and 26 report tests passed on the draft;
+  diagnostics. The local draft now checks each contiguous scenario, preventing
+  one scenario from masking another with no complete window. An adapted
+  existing focused fixture passed for a complete scenario followed by a short
+  one. Seven jitter and 26 report tests passed on the previous draft;
   ragdoll-only report behavior remains unverified. The native diagnostic
   captured successfully in 859.9 seconds; its compact attack analyzer passed
   with 12 attack frames and a maximum forward hand excursion of 0.472 m,
   exceeding the 0.05 m minimum. This checks the native attack, not the viewer's
   jitter output. The first invocation failed before startup due to an invalid
-  command argument; the corrected invocation completed.
+  command argument; the corrected invocation completed. A native diagnostic
+  for the revised per-scenario draft is running.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
   commit `7e169b976`: the 159-path snapshot is restored, with three textual
