@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T06:33:12.226666+00:00
+Updated: 2026-11-08T06:35:50.510187+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -53,13 +53,13 @@ ledger as backlog. Full refactor completion and validation remain required.
   `just lint` is running under the shared build lock; review and integrated
   validation remain open.
 
-- [Repeated animation sample tick](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-repeat-sample-tick)
-  commit `c87e2b54a6af6a9f2e0dc0ecd37d055ec90fe3e6`: an unverified P17
-  draft retains the sample tick and `LeadFoot` in repeated-view and support
-  checks. A clearance extraction was reverted after review found that preserved
-  P17 commit `90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696` already owns typed
-  clearance and missing-observation handling. That larger preserved change and
-  the two draft fixes still require reconciliation and validation.
+- [P17 report restoration](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p17-restoration)
+  commit `66dc0827827a74f7f5828d48b86d112eeafd1988`: the preserved report
+  implementation `90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696` was applied over
+  the combined draft, followed by sample-tick and `LeadFoot` fixes. One
+  support-validation conflict was resolved while retaining typed errors.
+  This restoration is unformatted and uncompiled; P17 dependencies, review,
+  and validation remain open. Checks are queued behind the combined lint run.
 
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
 preserves the historical audit; its former global implementation gate has been
