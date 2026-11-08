@@ -660,8 +660,6 @@ pub(crate) fn delete_temporary_character_party(
     Ok(())
 }
 
-/// Move a deterministic development fixture into another fixture's party
-/// without going through the player-facing recruitment workflow.
 #[reducer]
 pub fn create_recruitment_role(
     ctx: &ReducerContext,

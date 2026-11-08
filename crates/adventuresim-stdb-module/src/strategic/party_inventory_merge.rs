@@ -58,6 +58,8 @@ fn merge_party_inventory(
     Ok(())
 }
 
+/// Move a deterministic development fixture into another fixture's party
+/// without going through the player-facing recruitment workflow.
 pub(crate) fn attach_seeded_party_member(
     ctx: &ReducerContext,
     leader_id: u64,
@@ -102,13 +104,15 @@ pub(crate) fn attach_seeded_party_member(
             .party_id()
             .filter(&source_party_id)
             .collect();
-        if source_members
-            .iter()
-            .any(|membership| membership.character_id != member_id)
+        if source_members.len() != 1
+            || source_members
+                .iter()
+                .any(|membership| membership.character_id != member_id)
         {
             return Err("Seed party member belongs to a non-solo party".into());
         }
         require_seed_party_inventory_empty(ctx, &source_party_id)?;
+        require_seed_party_unengaged(ctx, &source_party_id, member_id)?;
         for membership in source_members {
             ctx.db.party_member().id().delete(membership.id);
         }
@@ -175,6 +179,77 @@ fn require_seed_party_inventory_empty(
             .is_some()
     {
         return Err("Seed party member has unsettled party inventory".into());
+    }
+    Ok(())
+}
+
+fn require_seed_party_unengaged(
+    ctx: &ReducerContext,
+    party_id: &String,
+    member_id: u64,
+) -> Result<(), String> {
+    let party = ctx
+        .db
+        .party_authority()
+        .id()
+        .find(party_id)
+        .ok_or("Seed party member's party is missing")?;
+    if party.leader_id != member_id
+        || party.active_contract_id.is_some()
+        || party.current_case_site_id.is_some()
+        || party.wilderness_canonical_anchor_minute.is_some()
+    {
+        return Err("Seed party member has active party obligations".into());
+    }
+    require_no_unresolved_encounter(ctx, party_id)?;
+    require_party_fireplace_clear(ctx, party_id)?;
+    if ctx
+        .db
+        .party_journey_authority()
+        .party_id()
+        .find(party_id)
+        .is_some()
+        || ctx
+            .db
+            .party_journey_route_authority()
+            .party_id()
+            .find(party_id)
+            .is_some()
+        || ctx
+            .db
+            .party_journey_encounter_authority()
+            .party_id()
+            .find(party_id)
+            .is_some()
+        || ctx
+            .db
+            .party_action_request_authority()
+            .party_id()
+            .filter(party_id)
+            .next()
+            .is_some()
+        || ctx
+            .db
+            .party_join_request()
+            .party_id()
+            .filter(party_id)
+            .next()
+            .is_some()
+        || ctx
+            .db
+            .party_recruitment_role()
+            .party_id()
+            .filter(party_id)
+            .next()
+            .is_some()
+        || ctx
+            .db
+            .recruitment_offer()
+            .recruiting_party_id()
+            .find(party_id)
+            .is_some()
+    {
+        return Err("Seed party member has active party obligations".into());
     }
     Ok(())
 }
