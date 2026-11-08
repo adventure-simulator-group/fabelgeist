@@ -218,6 +218,21 @@ def run(profile: str, base_port: int) -> None:
             client.fixture("authority_test_context_intervals")
             client.fixture("authority_test_joint_residence_capacity")
             client.fixture("authority_test_wedding_capacity_atomicity")
+            client.fixture("authority_test_prepare_wedding_rollback_home")
+            client.fixture("authority_test_prepare_wedding_rollback")
+            wedding_wallets = {
+                character: client.rows(f"SELECT * FROM inventory_item WHERE character_id = {character}")
+                for character in (726001, 726002, 726004)
+            }
+            client.fixture("authority_test_execute_wedding_rollback",
+                           error="commitment status and terminal fields disagree")
+            client.fixture("authority_test_verify_wedding_rollback")
+            client.fixture("authority_test_verify_wedding_rollback_home")
+            assert wedding_wallets == {
+                character: client.rows(f"SELECT * FROM inventory_item WHERE character_id = {character}")
+                for character in wedding_wallets
+            }
+            client.fixture("authority_test_cleanup_wedding_rollback")
             print("PASS context intervals, historical membership, idempotent closure", flush=True)
             client.fixture("authority_test_conception_chronology")
             print("PASS conception birth/death chronology and stale display projections", flush=True)

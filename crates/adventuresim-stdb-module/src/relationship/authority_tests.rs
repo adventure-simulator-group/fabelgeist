@@ -159,3 +159,86 @@ pub fn authority_test_wedding_capacity_atomicity(
     }
     Ok(())
 }
+
+/// Seed an inconsistent terminal marker so final settlement fails after writes.
+#[reducer]
+pub fn authority_test_prepare_wedding_rollback(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    const FIRST: u64 = 726_001;
+    const SECOND: u64 = 726_002;
+    const FATHER: u64 = 726_004;
+    const COMMITMENT: &str = "authority-joint-capacity-rollback";
+    let ceremony = StrategicMinute::new(100);
+    crate::item::consume_personal_currency(ctx, FATHER, 17)?;
+    ctx.db.exclusive_commitment().insert(ExclusiveCommitment {
+        id: COMMITMENT.into(), first_character_id: FIRST, second_character_id: SECOND,
+        kind: CommitmentKind::Engagement, status: CommitmentStatus::Reserved,
+        ceremony_settlement_id: "authority-joint-capacity".into(), effective_minute: ceremony,
+        created_minute: StrategicMinute::ZERO, resolved_minute: Some(ceremony), terminal_reason: None,
+    });
+    for character_id in [FIRST, SECOND] {
+        ctx.db.exclusive_commitment_participant().insert(ExclusiveCommitmentParticipant {
+            character_id, commitment_id: COMMITMENT.into(),
+        });
+    }
+    ctx.db.dowry_escrow().insert(DowryEscrow {
+        commitment_id: COMMITMENT.into(), father_id: FATHER, amount: 17,
+        reserved_minute: StrategicMinute::ZERO,
+    });
+    Ok(())
+}
+
+/// This must return an error after the wedding commit path has begun.
+#[reducer]
+pub fn authority_test_execute_wedding_rollback(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    let now = crate::time::refresh_clock(ctx)?;
+    settle_due_lifecycle_events_global(ctx, now, usize::MAX)?;
+    Err("Expected malformed wedding settlement to fail".into())
+}
+
+/// Check the state visible in a later transaction after the failed call.
+#[reducer]
+pub fn authority_test_verify_wedding_rollback(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    const COMMITMENT: &str = "authority-joint-capacity-rollback";
+    if ctx.db.dowry_escrow().commitment_id().find(COMMITMENT.to_owned()).is_none()
+        || ctx.db.marriage().id().find(format!("marriage:{COMMITMENT}")).is_some()
+        || ctx.db.household().id().find(format!("household:{COMMITMENT}")).is_some()
+        || [726_001, 726_002].into_iter().any(|character_id| {
+            ctx.db.household_member().character_id().find(character_id)
+                .is_none_or(|member| member.household_id != "authority-joint-capacity-old-household")
+        })
+    {
+        return Err("Unexpected wedding error committed partial settlement".into());
+    }
+    Ok(())
+}
+
+/// Remove the deliberately malformed fixture after its rollback is verified.
+#[reducer]
+pub fn authority_test_cleanup_wedding_rollback(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    const COMMITMENT: &str = "authority-joint-capacity-rollback";
+    let escrow = ctx.db.dowry_escrow().commitment_id().find(COMMITMENT.to_owned())
+        .ok_or("Rollback escrow missing")?;
+    crate::item::credit_personal_currency(ctx, escrow.father_id, "authority-joint-capacity", escrow.amount)?;
+    ctx.db.dowry_escrow().commitment_id().delete(COMMITMENT.to_owned());
+    ctx.db.exclusive_commitment().id().delete(COMMITMENT.to_owned());
+    for character_id in [726_001, 726_002] {
+        ctx.db.exclusive_commitment_participant().character_id().delete(character_id);
+    }
+    Ok(())
+}

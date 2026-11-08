@@ -99,3 +99,39 @@ pub fn authority_test_joint_residence_capacity(
         .map_err(|error| format!("Scoped removal projection rejected valid capacity: {error}"))?;
     Ok(())
 }
+
+/// Prepare an admissible home for the separate rollback transaction.
+#[reducer]
+pub fn authority_test_prepare_wedding_rollback_home(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    let mut property = ctx
+        .db
+        .settlement_property()
+        .id()
+        .find("authority-joint-capacity-property".to_owned())
+        .ok_or("Rollback property missing")?;
+    property.resident_capacity = 3;
+    ctx.db.settlement_property().id().update(property);
+    Ok(())
+}
+
+/// Verify the failed transaction left both occupancy histories untouched.
+#[reducer]
+pub fn authority_test_verify_wedding_rollback_home(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    let minute = StrategicMinute::new(100);
+    let first = occupancy::at(ctx, 726_001, minute).ok_or("Original home missing")?;
+    if first.property_id != "authority-joint-capacity-property"
+        || first.holding_id.as_deref() != Some("authority-prior-holding")
+        || occupancy::at(ctx, 726_002, minute).is_some()
+    {
+        return Err("Failed wedding changed occupancy history".into());
+    }
+    Ok(())
+}
