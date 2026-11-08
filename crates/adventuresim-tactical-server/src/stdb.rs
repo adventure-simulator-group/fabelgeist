@@ -92,19 +92,23 @@ impl SpacetimeDb {
             });
 
         let connected_players = self.connected_players.clone();
-        self.conn
-            .db
-            .connected_players()
-            .on_delete(move |_ctx, row| {
-                let Ok(mut pending) = connected_players.lock() else {
-                    error!("Connected-player mailbox is poisoned; admission will fail");
-                    return;
-                };
-                // The SDK dispatches inserts before deletes in one diff. A
-                // replacement for this character must survive deletion of the
-                // old row, so compare the complete row rather than its ID.
-                pending.retain(|existing| existing != row);
-            });
+        self.conn.db.connected_players().on_delete(move |ctx, row| {
+            // The SDK applies the entire diff before invoking callbacks.
+            // An inserted replacement may therefore already be queued.
+            if ctx
+                .db
+                .connected_players()
+                .iter()
+                .any(|current| current.character.id == row.character.id)
+            {
+                return;
+            }
+            let Ok(mut pending) = connected_players.lock() else {
+                error!("Connected-player mailbox is poisoned; admission will fail");
+                return;
+            };
+            pending.retain(|existing| existing.character.id != row.character.id);
+        });
 
         self.conn
             .subscription_builder()
