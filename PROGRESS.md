@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:50:26.373912+00:00
+Updated: 2026-11-08T11:52:04.658155+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -27,6 +27,7 @@ Updated: 2026-11-08T11:50:26.373912+00:00
 | Tactical server bot tests passed | 13 / 13 |
 | Tactical server equipment tests passed | 16 / 16 |
 | Client targeting and acquisition helper tests passed | 6 / 6 |
+| Client equipment fit and selection fixtures passed | 5 / 5 |
 | One-seed melee report matchups completed | 5 / 5 |
 | Melee smoke report top-level audit flags true | 11 / 11 |
 | Full-scale melee report at previous draft | Failed in first matchup |
@@ -129,8 +130,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   Full dependency resolution, independent review, the other recovered paths,
   and client visual, input and fixture behavior remain unverified. The
   targeting and lunge-acquisition source paths were also reviewed; six
-  existing helper tests passed, though six selected shared dependency
-  records were older than the approximate build start.
+  existing helper tests passed. Five older selected shared dependency
+  records match a previously checked server selection; one client build
+  script record remains unverified. Five equipment fit and selection
+  fixtures also passed with the same provenance qualification.
   The movement report uses typed measurements and rejects missing required
   observations; the new failure behavior still needs behavioral validation.
   A one-seed smoke run completed five matchups and all 11 top-level audit
