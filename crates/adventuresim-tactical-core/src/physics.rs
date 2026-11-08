@@ -406,22 +406,8 @@ fn apply_character_motor(
         // posture-transition states. Their configured speeds are already the
         // final physical targets, so the collider must not scale speed again.
         controller.crouch_speed_scale = 1.0;
-        let maneuver_jump_height = skeleton.and_then(|skeleton| {
-            match skeleton
-                .posture_transition()
-                .map(|transition| transition.kind())
-            {
-                Some(crate::animation::PostureTransitionKind::DiveToDowned {
-                    trajectory: crate::animation::DiveTrajectory::Airborne,
-                    ..
-                }) => Some(movement_config.jump_heights_metres.dive),
-                Some(crate::animation::PostureTransitionKind::DiveToDowned {
-                    trajectory: crate::animation::DiveTrajectory::GroundedSlide,
-                    ..
-                }) => Some(0.0),
-                _ => None,
-            }
-        });
+        let maneuver_jump_height =
+            controller_config::maneuver_jump_height(skeleton, &movement_config.jump_heights_metres);
         let motor = &movement_config.motor;
         controller_config::apply_motor_config(&mut controller, motor);
         let guard = skeleton.map_or(WeaponGuardState::Lowered, SkeletonState::weapon_guard);
