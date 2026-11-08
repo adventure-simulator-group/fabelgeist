@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:28:57.390113+00:00
+Updated: 2026-11-08T02:31:23.008475+00:00
 
-Latest verified checkpoint: **3705**. Goal: **active**.
+Latest verified checkpoint: **3706**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified landform error propagation and presentation fallback.
+Qualified landform cutout and terrain readiness propagation.
 
-Replicated admission, coverage and error ownership remain open.
+Replicated admission and supported failing witnesses remain open.
 
 ## Working on now
 
-Trace replicated landform admission and terrain coverage.
+Trace replicated landform admission and supported failure cases.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3705 publication record](CHECKPOINT-3705.json)
-- [Saved report for checkpoint 3705](PROGRESS-3705.md)
+- [Checkpoint 3706 publication record](CHECKPOINT-3706.json)
+- [Saved report for checkpoint 3706](PROGRESS-3706.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
