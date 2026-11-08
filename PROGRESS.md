@@ -1,15 +1,15 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:42:24.157546+00:00
+Updated: 2026-11-08T22:44:50.255254+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 590 / 3,866 | 3,276, including overlapping obligations |
+| Ledger source-discovery entries | 591 / 3,866 | 3,275, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
-| Death-cascade source packets | 2 adopted | Child continuations and mapping open |
+| Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -204,6 +204,12 @@ cleanup. The exact historical death-transition function matches the selected
 revision, although the full source files differ. All-dead party teardown and
 other child dependencies remain open. Audit checkpoint 3761 verified the
 evidence without closing the cascade.
+
+Audit checkpoint 3762 closed death-cascade source discovery with a
+conditional policy. All-dead teardown retires strategic travel and input
+state while retaining tactical mission authority and pooled assets. Repeated
+death, malformed partial-state policy, and runtime rollback still require
+validation; independent child contracts remain tracked.
 
 | Increment status | Count |
 | --- | ---: |
