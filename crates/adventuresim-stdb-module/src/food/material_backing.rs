@@ -91,3 +91,39 @@ fn insert_cooked_meal_backing(
     ensure_food_material_object(ctx, backing)?;
     Ok(backing)
 }
+
+fn insert_fireplace_return_row(
+    ctx: &ReducerContext,
+    destination: &OperationalCustody,
+    item_id: &str,
+) -> Result<CarriedInventoryRowId, String> {
+    Ok(match destination {
+        OperationalCustody::Party(party_id) => {
+            CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(
+                ctx.db
+                    .party_inventory_item()
+                    .insert(PartyInventoryItem {
+                        id: 0,
+                        party_id: party_id.as_str().into(),
+                        item_id: item_id.into(),
+                        quantity: 1,
+                    })
+                    .id,
+            ))
+        }
+        OperationalCustody::Character(character) => {
+            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(
+                ctx.db
+                    .inventory_item()
+                    .insert(crate::InventoryItem {
+                        id: 0,
+                        character_id: character.get(),
+                        item_id: item_id.into(),
+                        quantity: 1,
+                    })
+                    .id,
+            ))
+        }
+        _ => return Err("Fireplace return destination is not carried inventory".into()),
+    })
+}

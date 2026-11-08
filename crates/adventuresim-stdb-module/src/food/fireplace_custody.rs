@@ -265,35 +265,7 @@ pub(crate) fn cleanup_fireplace_custody_for_death(
             continue;
         };
         if let Some(object_id) = object_id {
-            let row_id = match &destination {
-                OperationalCustody::Party(party_id) => {
-                    CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(
-                        ctx.db
-                            .party_inventory_item()
-                            .insert(PartyInventoryItem {
-                                id: 0,
-                                party_id: party_id.as_str().into(),
-                                item_id: item_id.clone(),
-                                quantity: 1,
-                            })
-                            .id,
-                    ))
-                }
-                OperationalCustody::Character(character) => {
-                    CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(
-                        ctx.db
-                            .inventory_item()
-                            .insert(crate::InventoryItem {
-                                id: 0,
-                                character_id: character.get(),
-                                item_id: item_id.clone(),
-                                quantity: 1,
-                            })
-                            .id,
-                    ))
-                }
-                _ => return Err("Fireplace return destination is not carried inventory".into()),
-            };
+            let row_id = insert_fireplace_return_row(ctx, &destination, &item_id)?;
             let mut object = ctx
                 .db
                 .inventory_object()
