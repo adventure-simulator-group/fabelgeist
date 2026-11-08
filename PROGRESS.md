@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T18:43:34.001613+00:00
+Updated: 2026-11-08T18:48:24.941118+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -33,13 +33,15 @@ Updated: 2026-11-08T18:43:34.001613+00:00
 | Isolated bottle and apple deposit/withdrawal on previous draft | 2 / 2 passed |
 | Apple lot backing and value conservation on previous draft | 1 / 1 passed |
 | Workspace production check on prior draft | Passed |
-| Database module production check on current draft | Passed before final call compaction |
+| Database module production check on current draft | Passed |
 | Workspace all-target all-feature Clippy | Running on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
 | Food lot lookup/deletion helpers typed | 4 / 4 |
 | Food lot creation APIs typed | 2 / 2; live validation open |
+| Error-discarding party inventory wrappers | 1 removed; rollback unverified |
+| Non-durable party merge custody concern | 1 source-derived; open |
 | Current quality size findings | 0 in targeted quality scan |
 | Existing core location fixture on previous draft | 1 / 1 passed |
 | Generated bindings refreshed for identity draft | 1 / 1 |
@@ -123,25 +125,33 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `574c0e004`. Personal
-and party food-lot creation now accept their distinct row ID types at the
-database insert boundary. The authority-feature check passed before the final
-call compaction, the targeted quality check passed afterward, and full lint is
-running. Live party food creation remains unverified. Storefront requests now
-admit personal or party sale row IDs at parsing and carry them
-through validation and application. Private request fields keep the sale scope
+The inventory row-identity migration is a draft at P16 `5d33a1e9a`. A party
+inventory wrapper discarded creation errors even when callers subsequently
+removed source inventory. The draft removes the wrapper and propagates errors;
+authority-feature compilation and targeted quality passed. Full lint and the
+isolated transfer run are pending; an induced failure and rollback remain
+unverified. Party merge also handles physical objects specially only when
+durable; the implications for non-durable food and containers need review.
+This is a source-derived concern, not a reproduced data loss.
+
+Personal and party food-lot creation now accept distinct row ID types at the
+database insert boundary. Formatting and full lint passed on parent `574c0e004`.
+Live party food creation remains unverified. Storefront requests now admit
+personal or party sale row IDs at parsing and carry them through validation and
+application. Private request fields keep the sale scope
 consistent with its rows. Deposit and withdrawal now each admit their source
 row ID once and reuse it through object and food operations. On `d042cfbfc`,
 the adapted request fixture, authority-feature check, formatting and full lint
 passed. Commit `cb4d21bb3` updates a stale trade time source assertion; its
 text was checked against the implementation, but the native module test has not
 run. Formatting and full lint passed on `cb4d21bb3`; transfer draft `9dc0de32c`
-passed authority-feature
-compilation, targeted quality, formatting and full lint. Isolated bottle and
+passed authority-feature compilation, targeted quality, formatting and full
+lint. Isolated bottle and
 apple deposit/withdrawal round trips preserved object identity; the apple lot
 also retained its identity, mass, nutrition and value while its backing changed
 with custody. A storefront attempt stopped before either sale when settlement
-seeding exhausted the module energy budget; the first attempt had a separate runner decoding error. Three focused custody tests and
+seeding exhausted the module energy budget; the first attempt had a separate
+runner decoding error. Three focused custody tests and
 inventory lifecycle acceptance passed on `81531ce5d`. Live storefront and
 cooking behavior, broader custody and repair, and review remain open.
 
