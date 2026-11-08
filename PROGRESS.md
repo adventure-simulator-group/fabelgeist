@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T03:06:34.914819+00:00
+Updated: 2026-11-08T03:09:25.190219+00:00
 
-Latest verified checkpoint: **3718**. Goal: **active**.
+Latest verified checkpoint: **3719**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified conditional client recipe decode error handling.
+Qualified replicate-once bookkeeping after decode errors.
 
-Retry, readiness and client generator failure reachability remain open.
+Visibility, reconnect and client generator failure reachability remain open.
 
 ## Working on now
 
-Trace client codec retry and failure boundaries.
+Reconcile once-mode recovery paths and landform error ownership.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3718 publication record](CHECKPOINT-3718.json)
-- [Saved report for checkpoint 3718](PROGRESS-3718.md)
+- [Checkpoint 3719 publication record](CHECKPOINT-3719.json)
+- [Saved report for checkpoint 3719](PROGRESS-3719.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
