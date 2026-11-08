@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:55:39.179274+00:00
+Updated: 2026-11-08T23:58:55.684427+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-08T23:55:39.179274+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Equipment compliance source packets | 1 adopted | Classification and backing invariants open |
+| Equipment compliance source packets | 2 adopted | Classification and backing invariants open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -98,6 +98,12 @@ Compliance treats missing backing records and prohibited items alike. Normal
 equip checks backing first, and selected transfer, deposit and surrender paths
 protect equipped rows. Remaining deletion and catalog cases, intended error
 policy and runtime reachability remain open. No discovery closure is claimed.
+
+Checkpoint 3789 qualified a conditional equipped-belt backing gap. The
+authored belt is equippable, non-durable and non-measured; generic inventory
+removal can delete its backing row without unequipping it. A later compliance
+pass can interpret the missing inventory as illegality. Row selection, native
+execution and intended error policy remain unverified; no closure is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
