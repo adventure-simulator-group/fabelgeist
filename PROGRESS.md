@@ -1,12 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:43:00.612493+00:00
+Updated: 2026-11-08T21:46:53.732629+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
+| Registered expedition source packet | 1 adopted | Contract and aliases remain open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -40,8 +41,10 @@ clock can therefore mask a living member's elapsed time when the relevant
 unequal clocks and projections occur. The pinned SDK applies a successful
 reducer update before its callback. This remains a conditional source finding:
 runtime reproduction, projection completeness, aliases, and the intended
-interval are open. The exploratory reads have no preregistered body credit, and
-the authoritative queue has not been marked closed.
+interval are open. A subsequent preregistered reread of 10 project files and
+the pinned SDK passed preflight, adoption, and verification at audit checkpoint
+3738. It adds scoped evidence without closing the contract or claiming new
+population coverage.
 
 | Increment status | Count |
 | --- | ---: |
