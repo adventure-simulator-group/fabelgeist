@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:43:29.420359+00:00
+Updated: 2026-11-08T15:46:26.585635+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -95,6 +95,7 @@ focused checks and the guarded authority workflow passed as described below.
 | Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
 | Previous one-container removal | 2 bottle rows deleted |
 | Unselected nested inventory protection fixture | 1 / 1 passed |
+| Tincture-spirit removal observation | 150 ml removed with bottle |
 | Liquid and medicine removal policy | Open |
 | Belt addition, spare-first and cleanup database fixture | 1 / 1 passed |
 | Missing-inventory law preflight database fixture | 1 / 1 passed |
@@ -434,7 +435,10 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   shows subtree deletion removes liquid, water-contribution and medicine
   records, and the quantity path does not call the helper that protects
   active cooking, immature tinctures and fireplace ancestry. Intended
-  disposal policy and a live water or tincture witness remain open.
+  disposal policy remains open. A guarded database run used the normal pour
+  reducer to put 150 ml of tincture spirit in a bottle; removing the bottle
+  also removed that liquid. This is an unprocessed spirit case, not evidence
+  about an active or completed tincture or about water.
   The persisted personal inventory location still holds a raw row ID, and a
   shared accessor collapses personal, party and repair IDs into one optional
   integer. The producer-to-consumer type migration and
