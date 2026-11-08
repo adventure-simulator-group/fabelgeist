@@ -1,10 +1,10 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:18:45.577662+00:00
+Updated: 2026-11-08T23:21:28.928296+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 596 / 3,866 | 3,270, including overlapping obligations |
+| Ledger source-discovery entries | 597 / 3,866 | 3,269, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
@@ -13,6 +13,7 @@ Updated: 2026-11-08T23:18:45.577662+00:00
 | Cooking amount and preview packets | 5 adopted | 2 scoped discoveries closed; runtime and policy open |
 | Food conservation and event packets | 9 adopted | 2 scoped discoveries closed; conditional validation open |
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
+| Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -300,6 +301,12 @@ Audit checkpoint 3777 closed point-prevention source discovery with a
 conditional policy. A covered historical zero and missing history both fall
 back to current capability. Whether zero must remain authoritative and how
 point-action timing behaves require a decision and runtime validation.
+
+Audit checkpoint 3778 closed corpse-family source discovery with a
+conditional policy. Ordinary corpse creation supplies no family bindings even
+though explicit child and marriage authorities exist; bindings affect family
+permission and social consequences. Eligible-relative policy and runtime
+validation remain open.
 
 | Increment status | Count |
 | --- | ---: |
