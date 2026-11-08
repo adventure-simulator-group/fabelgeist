@@ -1444,32 +1444,7 @@ pub fn accept_party_join_request(
     // Preserve the source party's jointly-owned assets and each member's absolute
     // stake. Combining the ledgers does not dilute either party; only future loot
     // is shared among the newly combined membership.
-    for mut entry in ctx
-        .db
-        .party_inventory_item()
-        .party_id()
-        .filter(&source_party_id)
-        .collect::<Vec<_>>()
-    {
-        if item_is_durable(ctx, &entry.item_id) {
-            if let Some(object) = crate::inventory_container::object_for_row(
-                ctx,
-                CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(entry.id)),
-            )? {
-                let destination = adventuresim_core::physical_object::OperationalCustody::party(
-                    request.party_id.clone(),
-                )
-                .map_err(|error| error.to_string())?;
-                crate::inventory_container::rehome_subtree(ctx, object.id, &destination)?;
-            } else {
-                entry.party_id = request.party_id.clone();
-                ctx.db.party_inventory_item().id().update(entry);
-            }
-        } else {
-            add_to_party_inventory(ctx, &request.party_id, &entry.item_id, entry.quantity)?;
-            ctx.db.party_inventory_item().id().delete(entry.id);
-        }
-    }
+    merge_party_inventory(ctx, &source_party_id, &request.party_id)?;
     for stake in ctx
         .db
         .party_stake()
