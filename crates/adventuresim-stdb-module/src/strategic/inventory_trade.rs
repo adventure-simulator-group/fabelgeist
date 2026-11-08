@@ -495,8 +495,7 @@ pub(crate) fn add_to_party_inventory_checked(
     }
     let definition = ctx.db.item().id().find(item_id.to_string());
     let kind = definition.as_ref().map(|row| row.kind);
-    let food_definition = crate::item::inventory_food_definition(kind, item_id)?;
-    let food = food_definition.is_some();
+    let food = crate::item::inventory_food_definition(kind, item_id)?.is_some();
     let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
     let durable = item_is_durable(ctx, item_id);
     let individual = crate::item::requires_stable_object(definition.as_ref(), food, measured);
@@ -520,7 +519,8 @@ pub(crate) fn add_to_party_inventory_checked(
                 crate::inventory_amount::initialize_party(ctx, row.id);
             }
             if food {
-                crate::food::create_party_food_lot(ctx, row.id, item_id, 1, minute)
+                let food_row = PartyInventoryRowId::from_raw(row.id);
+                crate::food::create_party_food_lot(ctx, food_row, item_id, 1, minute)
                     .ok_or_else(|| format!("Could not create party food lot for {item_id}"))?;
             }
             if durable {

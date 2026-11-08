@@ -590,7 +590,8 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
         .expect("party inventory purchase implementation");
     assert!(party_purchase.contains("inventory_food_definition(kind, item_id)?"));
     assert!(party_purchase.contains("for _ in 0..quantity"));
-    assert!(party_purchase.contains("create_party_food_lot(ctx, row.id, item_id, 1, minute)"));
+    assert!(party_purchase.contains("create_party_food_lot("));
+    assert!(party_purchase.contains("PartyInventoryRowId::from_raw(row.id)"));
 }
 
 #[test]

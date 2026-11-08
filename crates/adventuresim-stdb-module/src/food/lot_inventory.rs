@@ -10,19 +10,16 @@ fn current_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute {
 pub fn create_personal_food_lot(
     ctx: &ReducerContext,
     character_id: u64,
-    inventory_item_id: u64,
+    inventory_item_id: PersonalInventoryRowId,
     item_id: &str,
     quantity: u32,
 ) -> Result<FoodLot, String> {
     let definition = food::definition(item_id).ok_or("Food definition not found")?;
     let minute = current_minute(ctx, character_id);
-    ensure_food_material_object(
-        ctx,
-        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_item_id)),
-    )?;
+    ensure_food_material_object(ctx, CarriedInventoryRowId::Personal(inventory_item_id))?;
     let lot = ctx.db.food_lot().insert(FoodLot {
         id: 0,
-        inventory_item_id: Some(inventory_item_id),
+        inventory_item_id: Some(inventory_item_id.get()),
         party_inventory_item_id: None,
         material_revision: 1,
         display_name: definition.name.into(),
@@ -62,21 +59,17 @@ pub fn create_personal_food_lot(
 
 pub fn create_party_food_lot(
     ctx: &ReducerContext,
-    inventory_item_id: u64,
+    inventory_item_id: PartyInventoryRowId,
     item_id: &str,
     quantity: u32,
     minute: StrategicMinute,
 ) -> Option<FoodLot> {
     let definition = food::definition(item_id)?;
-    ensure_food_material_object(
-        ctx,
-        CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(inventory_item_id)),
-    )
-    .ok()?;
+    ensure_food_material_object(ctx, CarriedInventoryRowId::Party(inventory_item_id)).ok()?;
     let lot = ctx.db.food_lot().insert(FoodLot {
         id: 0,
         inventory_item_id: None,
-        party_inventory_item_id: Some(inventory_item_id),
+        party_inventory_item_id: Some(inventory_item_id.get()),
         material_revision: 1,
         display_name: definition.name.into(),
         preparation: if definition.class == food::FoodClass::Ration {

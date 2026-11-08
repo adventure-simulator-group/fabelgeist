@@ -10,6 +10,7 @@ use adventuresim_core::{
     item_catalog::{
         EquipmentBodyPart, EquipmentChannel, OccupancyRequirement, ParentRequirement, Slot,
     },
+    physical_object::PersonalInventoryRowId,
 };
 use spacetimedb::{ReducerContext, SpacetimeType, Table, reducer, table};
 
@@ -366,7 +367,7 @@ pub fn add_inventory_item(
             crate::food::create_personal_food_lot(
                 ctx,
                 character_id,
-                item.id,
+                PersonalInventoryRowId::from_raw(item.id),
                 item_id,
                 if individual { 1 } else { quantity },
             )
