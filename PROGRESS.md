@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T03:44:20.408737+00:00
+Updated: 2026-11-08T03:46:36.797371+00:00
 
-Latest verified checkpoint: **3731**. Goal: **active**.
+Latest verified checkpoint: **3732**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -45,14 +45,14 @@ calculation; the underlying sizing finding remains.
 
 ## Latest checkpoint
 
-Reconciled terrain digest consumers with existing vista outcome and ring owners.
+Qualified terrain handle lifetime and narrowed the startup marker to a CPU log.
 
-Patch UV bounds, native lifecycle and existing vista repair policies remain
+Full asset release timing, patch UV bounds and vista repair policies remain
 open.
 
 ## Working on now
 
-Qualify supported patch UV bounds and asset lifecycle.
+Qualify supported patch UV bounds and render-world asset lifecycle.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -220,8 +220,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3731 publication record](CHECKPOINT-3731.json)
-- [Saved report for checkpoint 3731](PROGRESS-3731.md)
+- [Checkpoint 3732 publication record](CHECKPOINT-3732.json)
+- [Saved report for checkpoint 3732](PROGRESS-3732.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
