@@ -239,6 +239,8 @@ use occupancy::property_occupancy_transition__view;
 pub use occupancy::{PropertyOccupancyKind, PropertyOccupancyTransition};
 mod acquisition;
 #[cfg(feature = "authority-tests")]
+mod authority_joint;
+#[cfg(feature = "authority-tests")]
 mod authority_tests;
 use acquisition::acquire_residence_internal;
 pub use acquisition::{buy_residence, rent_residence};
