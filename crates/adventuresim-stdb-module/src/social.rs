@@ -7,6 +7,7 @@ mod admission;
 mod authority_tests;
 #[cfg(feature = "authority-tests")]
 mod automatic_authority_tests;
+mod clock;
 mod discovery;
 mod draws;
 use adventuresim_core::skill::Skill;
@@ -25,6 +26,7 @@ use adventuresim_core::social::{
     should_replace_belief, social_source_eligible, topic_for_source_kind,
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
+use clock::social_clock_or;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::StrategicOperationResult;
@@ -32,17 +34,6 @@ use crate::character::{character, character__view, character_limbs, character_st
 use crate::condition::character_strategic_condition__view;
 use crate::condition::{character_condition, character_morale_source__view, morale_event};
 
-fn social_clock_or(
-    ctx: &ReducerContext,
-    character_id: u64,
-    fallback: StrategicMinute,
-) -> StrategicMinute {
-    ctx.db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .map_or(fallback, |time| time.minutes)
-}
 use crate::relationship::{KinshipKind, active_courtship_between_view, character_kinship__view};
 use crate::settlement_population::settlement_resident_profile__view;
 use crate::strategic::{
