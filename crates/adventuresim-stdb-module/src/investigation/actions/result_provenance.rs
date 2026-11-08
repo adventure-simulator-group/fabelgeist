@@ -17,14 +17,7 @@ impl ActionResultProvenance {
     ) -> Result<Self, String> {
         let public_case_id = generated_authority_reducer(ctx, capability)
             .map_err(|()| "Generated action authority is invalid")?
-            .map(|(manifest, _)| {
-                serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(
-                    &manifest,
-                )
-                .map(|generated| generated.public_case_id)
-                .map_err(|_| "Validated generated manifest became invalid")
-            })
-            .transpose()?
+            .map(|authority| authority.manifest.public_case_id)
             .unwrap_or_else(|| capability.case_id.clone());
         let kind = capability
             .method

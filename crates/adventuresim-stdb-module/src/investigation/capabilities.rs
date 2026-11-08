@@ -565,9 +565,7 @@ fn capability_has_live_pattern_support_reducer(
     };
     let evidence_id = match generated_pattern_authority(
         capability,
-        authority
-            .as_ref()
-            .map(|(manifest, context)| (manifest.as_str(), context.as_str())),
+        authority.as_ref(),
         output.as_ref().map(|output| output.outputs_json.as_str()),
     ) {
         GeneratedPatternAuthority::Manual | GeneratedPatternAuthority::GeneratedWithoutPattern => {
@@ -605,9 +603,7 @@ fn validate_capability_blueprint_reducer(
         .map_err(|()| "Generated action authority is ambiguous or invalid")?;
     match generated_pattern_authority(
         capability,
-        authority
-            .as_ref()
-            .map(|(manifest, context)| (manifest.as_str(), context.as_str())),
+        authority.as_ref(),
         output.as_ref().map(|output| output.outputs_json.as_str()),
     ) {
         GeneratedPatternAuthority::Invalid => {
@@ -653,13 +649,8 @@ fn validate_referred_contact_authority(
     let authority = generated_authority_reducer(ctx, root)
         .map_err(|()| "Generated contact authority is ambiguous or invalid")?
         .ok_or("Generated contact authority is missing")?;
-    let manifest =
-        serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(&authority.0)
-            .map_err(|_| "Generated contact manifest is invalid")?;
-    let context = serde_json::from_str::<adventuresim_core::quest_generation::GenerationContext>(
-        &authority.1,
-    )
-    .map_err(|_| "Generated contact context is invalid")?;
+    let manifest = authority.manifest;
+    let context = authority.context;
     let generated_root = manifest
         .actions
         .iter()

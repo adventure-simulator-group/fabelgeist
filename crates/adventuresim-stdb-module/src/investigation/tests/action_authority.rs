@@ -476,9 +476,11 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         ),
         active: true,
     };
-    let manifest_json = serde_json::to_string(&manifest).unwrap();
-    let context_json = serde_json::to_string(&context).unwrap();
-    let authority = Some((manifest_json.as_str(), context_json.as_str()));
+    let validated = crate::strategic::ValidatedQuestGenerationAuthority {
+        manifest: manifest.clone(),
+        context: context.clone(),
+    };
+    let authority = Some(&validated);
     let exact_outputs = serde_json::to_string(&generated.outputs).unwrap();
     assert!(matches!(
         generated_pattern_authority(&capability, authority, Some(&exact_outputs)),
@@ -496,8 +498,11 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
     absent_action_manifest
         .actions
         .retain(|action| action.id != generated.id);
-    let absent_action_json = serde_json::to_string(&absent_action_manifest).unwrap();
-    let absent_action_authority = Some((absent_action_json.as_str(), context_json.as_str()));
+    let absent_action = crate::strategic::ValidatedQuestGenerationAuthority {
+        manifest: absent_action_manifest,
+        context: context.clone(),
+    };
+    let absent_action_authority = Some(&absent_action);
     assert_eq!(
         generated_pattern_authority(&capability, absent_action_authority, None),
         GeneratedPatternAuthority::Invalid
@@ -575,13 +580,16 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         }
     }
     let night_outputs = serde_json::to_string(&night_action.outputs).unwrap();
-    let night_manifest_json = serde_json::to_string(&night_manifest).unwrap();
+    let night_authority = crate::strategic::ValidatedQuestGenerationAuthority {
+        manifest: night_manifest,
+        context: context.clone(),
+    };
     let mut wrong_night_geography = capability.clone();
     wrong_night_geography.target_terrain = "water".into();
     assert_eq!(
         generated_pattern_authority(
             &wrong_night_geography,
-            Some((night_manifest_json.as_str(), context_json.as_str())),
+            Some(&night_authority),
             Some(&night_outputs),
         ),
         GeneratedPatternAuthority::Invalid
@@ -597,37 +605,26 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         generated_pattern_authority(&manual, None, None),
         GeneratedPatternAuthority::Manual
     );
+    assert_eq!(exactly_one_generated_authority([]), Ok(None));
     assert_eq!(
-        exactly_one_generated_authority(Vec::<(String, String, String)>::new()),
-        Ok(None)
+        exactly_one_generated_authority([validated.clone()]),
+        Ok(Some(validated.clone()))
     );
+    // Canonical and public lookup paths can return the same row.
     assert_eq!(
-        exactly_one_generated_authority([("case".into(), "manifest".into(), "context".into())]),
-        Ok(Some(("manifest".into(), "context".into())))
+        exactly_one_generated_authority([validated.clone(), validated.clone()]),
+        Ok(Some(validated.clone()))
     );
-    // Canonical and public lookup paths can return the same row; row
-    // identity deduplicates it rather than manufacturing ambiguity.
+    // Distinct authority rows fail closed, including public-ID collisions.
+    let mut other = validated.clone();
+    other.manifest.canonical_case_id = "other-case".into();
     assert_eq!(
-        exactly_one_generated_authority([
-            ("same-case".into(), "manifest".into(), "context".into()),
-            ("same-case".into(), "manifest".into(), "context".into()),
-        ]),
-        Ok(Some(("manifest".into(), "context".into())))
-    );
-    // Canonical/public and public/public collisions both contain distinct
-    // private authority rows and therefore fail closed.
-    assert_eq!(
-        exactly_one_generated_authority([
-            ("case-a".into(), "manifest-a".into(), "context-a".into()),
-            ("case-b".into(), "manifest-b".into(), "context-b".into()),
-        ]),
+        exactly_one_generated_authority([validated.clone(), other.clone()]),
         Err(())
     );
+    other.manifest.public_case_id = "another-public-case".into();
     assert_eq!(
-        exactly_one_generated_authority([
-            ("public-a".into(), "manifest-a".into(), "context-a".into()),
-            ("public-b".into(), "manifest-b".into(), "context-b".into()),
-        ]),
+        exactly_one_generated_authority([validated.clone(), other]),
         Err(())
     );
 

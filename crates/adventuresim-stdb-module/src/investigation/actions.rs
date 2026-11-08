@@ -472,9 +472,7 @@ fn validate_generated_pattern_condition(
         .map_err(|()| "Generated action authority is ambiguous")?;
     let (evidence_id, condition) = match generated_pattern_authority(
         capability,
-        authority
-            .as_ref()
-            .map(|(manifest, context)| (manifest.as_str(), context.as_str())),
+        authority.as_ref(),
         output.as_ref().map(|output| output.outputs_json.as_str()),
     ) {
         GeneratedPatternAuthority::Manual | GeneratedPatternAuthority::GeneratedWithoutPattern => {
@@ -1232,12 +1230,8 @@ fn dependent_capability_ids_for_exact_lead(
             let aliases = generated_authority_reducer(ctx, capability)
                 .ok()
                 .flatten()
-                .and_then(|(manifest, _)| {
-                    serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(
-                        &manifest,
-                    )
-                    .ok()
-                    .map(|generated| (generated.canonical_case_id, generated.public_case_id))
+                .map(|authority| {
+                    (authority.manifest.canonical_case_id, authority.manifest.public_case_id)
                 });
             capability_progress_depends_on_exact_lead(
                 capability,

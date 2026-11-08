@@ -211,11 +211,13 @@ fn check_generated_binding(
         .id()
         .find(&capability.id)
         .ok_or("Generated capability missing")?;
-    let manifest_json = serde_json::to_string(&manifest).map_err(|error| error.to_string())?;
-    let context_json = serde_json::to_string(&context).map_err(|error| error.to_string())?;
+    let validated = crate::strategic::ValidatedQuestGenerationAuthority {
+        manifest: manifest.clone(),
+        context: context.clone(),
+    };
     let outputs_json =
         serde_json::to_string(&generated.outputs).map_err(|error| error.to_string())?;
-    let authority = Some((manifest_json.as_str(), context_json.as_str()));
+    let authority = Some(&validated);
     if !matches!(
         generated_pattern_authority(&persisted, authority, Some(&outputs_json)),
         GeneratedPatternAuthority::Pattern { .. }

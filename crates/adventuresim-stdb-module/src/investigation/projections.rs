@@ -504,12 +504,7 @@ fn projected_action_public_case_id(
             Some(capability.case_id.clone())
         }
         InvestigationProvenanceKind::Generated if !capability.generated_case_id.is_empty() => {
-            let (manifest_json, _) = generated_authority_view(ctx, capability).ok()??;
-            let manifest =
-                serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(
-                    &manifest_json,
-                )
-                .ok()?;
+            let manifest = generated_authority_view(ctx, capability).ok()??.manifest;
             (manifest.canonical_case_id == capability.generated_case_id
                 && (capability.case_id == manifest.canonical_case_id
                     || capability.case_id == manifest.public_case_id))
@@ -642,7 +637,7 @@ fn generated_action_terrain(
 
 fn generated_pattern_authority(
     capability: &InvestigationActionCapability,
-    authority: Option<(&str, &str)>,
+    authority: Option<&crate::strategic::ValidatedQuestGenerationAuthority>,
     persisted_outputs_json: Option<&str>,
 ) -> GeneratedPatternAuthority {
     match capability.provenance_kind {
@@ -656,21 +651,11 @@ fn generated_pattern_authority(
         InvestigationProvenanceKind::Generated if !capability.generated_case_id.is_empty() => {}
         _ => return GeneratedPatternAuthority::Invalid,
     }
-    let Some((manifest_json, context_json)) = authority else {
+    let Some(authority) = authority else {
         return GeneratedPatternAuthority::Invalid;
     };
-    // `authority` is supplied only by the unique-row wrappers after the
-    // centralized commitment, replay, and semantic validation succeeds.
-    let Ok(manifest) =
-        serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(manifest_json)
-    else {
-        return GeneratedPatternAuthority::Invalid;
-    };
-    let Ok(context) = serde_json::from_str::<adventuresim_core::quest_generation::GenerationContext>(
-        context_json,
-    ) else {
-        return GeneratedPatternAuthority::Invalid;
-    };
+    let manifest = &authority.manifest;
+    let context = &authority.context;
     if capability.case_id != manifest.canonical_case_id
         && capability.case_id != manifest.public_case_id
         || capability.generated_case_id != manifest.canonical_case_id
@@ -679,7 +664,7 @@ fn generated_pattern_authority(
     }
     let generated = manifest.actions.iter().find(|action| {
         adventuresim_core::quest_generation::observer_scoped_id(
-            &context,
+            context,
             "capability",
             &format!("{}:{}", capability.owner_character_id, action.id.0),
         ) == capability.id
@@ -689,7 +674,7 @@ fn generated_pattern_authority(
     };
     let remap = |id: &adventuresim_core::quest_generation::ActionId| {
         adventuresim_core::quest_generation::observer_scoped_id(
-            &context,
+            context,
             "capability",
             &format!("{}:{}", capability.owner_character_id, id.0),
         )
@@ -700,8 +685,8 @@ fn generated_pattern_authority(
         .map_or_else(String::new, remap);
     let expected_alternate = remap(&generated.alternate);
     let (expected_known_prerequisites, expected_safe_result) =
-        generated_capability_safe_text(&manifest, generated);
-    let expected_terrain = generated_action_terrain(&manifest, generated);
+        generated_capability_safe_text(manifest, generated);
+    let expected_terrain = generated_action_terrain(manifest, generated);
     if capability.method != generated.kind.stable_id()
         || capability.target_kind != generated.target_kind
         || capability.target_id != generated.target_id
@@ -774,13 +759,14 @@ fn generated_pattern_authority(
 }
 
 fn exactly_one_generated_authority(
-    matches: impl IntoIterator<Item = (String, String, String)>,
-) -> Result<Option<(String, String)>, ()> {
+    matches: impl IntoIterator<Item = crate::strategic::ValidatedQuestGenerationAuthority>,
+) -> Result<Option<crate::strategic::ValidatedQuestGenerationAuthority>, ()> {
     let mut unique = BTreeMap::new();
-    for (case_id, manifest, context) in matches {
+    for authority in matches {
+        let case_id = authority.manifest.canonical_case_id.clone();
         if unique
-            .insert(case_id, (manifest.clone(), context.clone()))
-            .is_some_and(|existing| existing != (manifest, context))
+            .insert(case_id, authority.clone())
+            .is_some_and(|existing| existing != authority)
         {
             return Err(());
         }
@@ -797,19 +783,14 @@ fn exactly_one_generated_authority(
 
 fn validated_generated_authority_candidate(
     authority: crate::strategic::QuestGenerationAuthority,
-) -> Result<(String, String, String), ()> {
-    validate_quest_generation_authority(&authority).map_err(|_| ())?;
-    Ok((
-        authority.case_id,
-        authority.manifest_json,
-        authority.context_snapshot_json,
-    ))
+) -> Result<crate::strategic::ValidatedQuestGenerationAuthority, ()> {
+    validate_quest_generation_authority(&authority).map_err(|_| ())
 }
 
 fn generated_authority_view(
     ctx: &ViewContext,
     capability: &InvestigationActionCapability,
-) -> Result<Option<(String, String)>, ()> {
+) -> Result<Option<crate::strategic::ValidatedQuestGenerationAuthority>, ()> {
     match capability.provenance_kind {
         InvestigationProvenanceKind::Manual if capability.generated_case_id.is_empty() => {
             return Ok(None);
@@ -818,38 +799,25 @@ fn generated_authority_view(
         _ => return Err(()),
     }
     let mut candidates = Vec::new();
+    let mut queried = std::collections::BTreeSet::new();
     for alias in [&capability.generated_case_id, &capability.case_id] {
-        if candidates
-            .iter()
-            .any(|(queried, _, _, _): &(String, String, String, String)| queried == alias)
-        {
+        if !queried.insert(alias) {
             continue;
         }
         if let Some(authority) = ctx.db.quest_generation_authority().case_id().find(alias) {
-            let candidate = validated_generated_authority_candidate(authority)?;
-            candidates.push((alias.clone(), candidate.0, candidate.1, candidate.2));
+            candidates.push(validated_generated_authority_candidate(authority)?);
         }
-        for authority in ctx
-            .db
-            .quest_generation_authority()
-            .public_case_id()
-            .filter(alias)
-        {
-            let candidate = validated_generated_authority_candidate(authority)?;
-            candidates.push((alias.clone(), candidate.0, candidate.1, candidate.2));
+        for authority in ctx.db.quest_generation_authority().public_case_id().filter(alias) {
+            candidates.push(validated_generated_authority_candidate(authority)?);
         }
     }
-    exactly_one_generated_authority(
-        candidates
-            .into_iter()
-            .map(|(_, case_id, manifest, context)| (case_id, manifest, context)),
-    )
+    exactly_one_generated_authority(candidates)
 }
 
 fn generated_authority_reducer(
     ctx: &ReducerContext,
     capability: &InvestigationActionCapability,
-) -> Result<Option<(String, String)>, ()> {
+) -> Result<Option<crate::strategic::ValidatedQuestGenerationAuthority>, ()> {
     match capability.provenance_kind {
         InvestigationProvenanceKind::Manual if capability.generated_case_id.is_empty() => {
             return Ok(None);
@@ -858,32 +826,19 @@ fn generated_authority_reducer(
         _ => return Err(()),
     }
     let mut candidates = Vec::new();
+    let mut queried = std::collections::BTreeSet::new();
     for alias in [&capability.generated_case_id, &capability.case_id] {
-        if candidates
-            .iter()
-            .any(|(queried, _, _, _): &(String, String, String, String)| queried == alias)
-        {
+        if !queried.insert(alias) {
             continue;
         }
         if let Some(authority) = ctx.db.quest_generation_authority().case_id().find(alias) {
-            let candidate = validated_generated_authority_candidate(authority)?;
-            candidates.push((alias.clone(), candidate.0, candidate.1, candidate.2));
+            candidates.push(validated_generated_authority_candidate(authority)?);
         }
-        for authority in ctx
-            .db
-            .quest_generation_authority()
-            .public_case_id()
-            .filter(alias)
-        {
-            let candidate = validated_generated_authority_candidate(authority)?;
-            candidates.push((alias.clone(), candidate.0, candidate.1, candidate.2));
+        for authority in ctx.db.quest_generation_authority().public_case_id().filter(alias) {
+            candidates.push(validated_generated_authority_candidate(authority)?);
         }
     }
-    exactly_one_generated_authority(
-        candidates
-            .into_iter()
-            .map(|(_, case_id, manifest, context)| (case_id, manifest, context)),
-    )
+    exactly_one_generated_authority(candidates)
 }
 
 fn reducer_action_public_case_id(
@@ -895,12 +850,7 @@ fn reducer_action_public_case_id(
             Some(capability.case_id.clone())
         }
         InvestigationProvenanceKind::Generated if !capability.generated_case_id.is_empty() => {
-            let (manifest_json, _) = generated_authority_reducer(ctx, capability).ok()??;
-            let manifest =
-                serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(
-                    &manifest_json,
-                )
-                .ok()?;
+            let manifest = generated_authority_reducer(ctx, capability).ok()??.manifest;
             (manifest.canonical_case_id == capability.generated_case_id
                 && (capability.case_id == manifest.canonical_case_id
                     || capability.case_id == manifest.public_case_id))
@@ -914,10 +864,7 @@ fn generated_investigability(
     ctx: &ReducerContext,
     capability: &InvestigationActionCapability,
 ) -> Option<u8> {
-    let (_, manifest_json) = generated_authority_reducer(ctx, capability).ok()??;
-    let manifest =
-        serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(&manifest_json)
-            .ok()?;
+    let manifest = generated_authority_reducer(ctx, capability).ok()??.manifest;
     let adventuresim_core::quest_generation::CanonicalCause::Hostile(threat) = manifest.cause
     else {
         return None;
@@ -1004,9 +951,7 @@ fn capability_has_live_pattern_support_view(
     };
     let evidence_id = match generated_pattern_authority(
         capability,
-        authority
-            .as_ref()
-            .map(|(manifest, context)| (manifest.as_str(), context.as_str())),
+        authority.as_ref(),
         output.as_ref().map(|output| output.outputs_json.as_str()),
     ) {
         GeneratedPatternAuthority::Manual | GeneratedPatternAuthority::GeneratedWithoutPattern => {
@@ -1391,14 +1336,10 @@ fn referred_contact_is_current_view(
     let Ok(resident_character_id) = capability.target_id.parse::<u64>() else {
         return false;
     };
-    let Some((_, context_json)) = generated_authority_view(ctx, capability).ok().flatten() else {
+    let Some(authority) = generated_authority_view(ctx, capability).ok().flatten() else {
         return false;
     };
-    let Ok(context) = serde_json::from_str::<adventuresim_core::quest_generation::GenerationContext>(
-        &context_json,
-    ) else {
-        return false;
-    };
+    let context = authority.context;
     let Some(expected) = context
         .witness_candidates
         .iter()
@@ -1535,9 +1476,7 @@ fn projected_night_window_wait_minutes(
         condition,
     } = generated_pattern_authority(
         capability,
-        authority
-            .as_ref()
-            .map(|(manifest, context)| (manifest.as_str(), context.as_str())),
+        authority.as_ref(),
         output.as_ref().map(|output| output.outputs_json.as_str()),
     )
     else {
@@ -1629,9 +1568,7 @@ fn victim_cohort_is_current_view(
         ..
     } = generated_pattern_authority(
         capability,
-        authority
-            .as_ref()
-            .map(|(manifest, context)| (manifest.as_str(), context.as_str())),
+        authority.as_ref(),
         output.as_ref().map(|row| row.outputs_json.as_str()),
     )
     else {

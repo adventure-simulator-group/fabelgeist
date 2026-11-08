@@ -41,7 +41,7 @@ pub struct QuestGenerationAuthority {
     pub factor_trace_json: String,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub(crate) struct ValidatedQuestGenerationAuthority {
     pub context: adventuresim_core::quest_generation::GenerationContext,
     pub manifest: adventuresim_core::quest_generation::GeneratedCase,
