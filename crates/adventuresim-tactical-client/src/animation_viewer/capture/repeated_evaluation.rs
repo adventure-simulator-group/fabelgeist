@@ -8,6 +8,7 @@ use adventuresim_tactical_core::animation::{
 pub(super) struct RepeatedEvaluationSnapshot {
     scenario: ScenarioMetadata<'static>,
     scenario_frame: usize,
+    locomotion_sample_tick: AnimationSampleTick,
     bones: CapturedBones,
     contact_sequence: ContactSequence,
     landing_sequence: adventuresim_tactical_core::animation::LandingSequence,
@@ -49,6 +50,7 @@ impl CaptureSequence {
             self.repeated_evaluation_baseline = Some(RepeatedEvaluationSnapshot {
                 scenario: frame.scenario.clone(),
                 scenario_frame: frame.scenario_frame,
+                locomotion_sample_tick: skeleton.locomotion_sample_tick,
                 bones: bones.clone(),
                 contact_sequence: skeleton.contact_sequence,
                 landing_sequence: skeleton.landing_sequence,
@@ -80,6 +82,7 @@ impl RepeatedEvaluationSnapshot {
         let bones_match = bone_mismatch.is_none();
         let repeated_evaluation_matches = self.scenario == frame.scenario
             && self.scenario_frame == frame.scenario_frame
+            && self.locomotion_sample_tick == skeleton.locomotion_sample_tick
             && bones_match
             && self.contact_sequence == skeleton.contact_sequence
             && self.landing_sequence == skeleton.landing_sequence
@@ -116,6 +119,8 @@ impl RepeatedEvaluationSnapshot {
             warn!(
                 scenario = frame.scenario.label(),
                 scenario_frame = frame.scenario_frame,
+                baseline_tick = self.locomotion_sample_tick.encoded(),
+                tick = skeleton.locomotion_sample_tick.encoded(),
                 baseline_contact = self.contact_sequence.encoded(),
                 contact = skeleton.contact_sequence.encoded(),
                 baseline_landing = self.landing_sequence.encoded(),
