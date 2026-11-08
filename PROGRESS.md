@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T23:48:22.207099+00:00
+Updated: 2026-11-08T23:50:19.285900+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -14,7 +14,7 @@ Updated: 2026-11-08T23:48:22.207099+00:00
 | Food conservation and event packets | 9 adopted | 2 scoped discoveries closed; conditional validation open |
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
-| Corpse-pathology source packets | 7 adopted | Discovery, native reachability and policy open |
+| Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -86,6 +86,11 @@ Checkpoint 3786 qualified ordinary injury-row cardinality. Initialization
 creates seven region-keyed rows, and the selected damage writer updates them;
 under that normal state corpse sequences are 0 through 6. Extra malformed rows,
 other writers and runtime remain open. No discovery closure is claimed.
+
+Checkpoint 3787 qualified selected injury-table references and character
+component validation. The validator checks for seven rows but does not itself
+check distinct regions or canonical keys. Malformed-row reachability and
+policy remain open; no discovery closure or runtime failure is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
