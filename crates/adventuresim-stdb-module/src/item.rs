@@ -418,28 +418,47 @@ pub fn personal_currency_total(ctx: &ReducerContext, character_id: u64) -> u64 {
         .sum()
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct CurrencyStack {
+    item_id: String,
+    row_id: PersonalInventoryRowId,
+    quantity: u32,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct CurrencyDebit {
+    row_id: PersonalInventoryRowId,
+    quantity: u32,
+}
+
 fn currency_withdrawal_plan(
-    mut stacks: Vec<(String, u64, u32)>,
+    mut stacks: Vec<CurrencyStack>,
     amount: u64,
-) -> Option<Vec<(u64, u32)>> {
+) -> Option<Vec<CurrencyDebit>> {
     if stacks
         .iter()
-        .map(|(_, _, quantity)| u64::from(*quantity))
+        .map(|stack| u64::from(stack.quantity))
         .sum::<u64>()
         < amount
     {
         return None;
     }
-    stacks.sort_by(|a, b| (&a.0, a.1).cmp(&(&b.0, b.1)));
+    stacks.sort_by(|a, b| (&a.item_id, a.row_id.get()).cmp(&(&b.item_id, b.row_id.get())));
     let mut remaining = amount;
     let mut plan = Vec::new();
-    for (_, id, quantity) in stacks {
+    for stack in stacks {
         if remaining == 0 {
             break;
         }
-        let taken = remaining.min(u64::from(quantity)) as u32;
+        let taken = remaining.min(u64::from(stack.quantity)) as u32;
+        if taken == 0 {
+            continue;
+        }
         remaining -= u64::from(taken);
-        plan.push((id, taken));
+        plan.push(CurrencyDebit {
+            row_id: stack.row_id,
+            quantity: taken,
+        });
     }
     Some(plan)
 }
@@ -461,14 +480,33 @@ pub fn consume_personal_currency(
     let plan = currency_withdrawal_plan(
         stacks
             .iter()
-            .map(|stack| (stack.item_id.clone(), stack.id, stack.quantity))
+            .map(|stack| CurrencyStack {
+                item_id: stack.item_id.clone(),
+                row_id: PersonalInventoryRowId::from_raw(stack.id),
+                quantity: stack.quantity,
+            })
             .collect(),
         amount,
     )
     .ok_or_else(|| "Not enough coin to cover this payment".to_string())?;
-    for (id, taken) in plan {
-        let mut stack = stacks.iter().find(|stack| stack.id == id).cloned().unwrap();
-        stack.quantity -= taken;
+    for debit in &plan {
+        let stack = stacks
+            .iter()
+            .find(|stack| stack.id == debit.row_id.get())
+            .ok_or("Currency stack disappeared during payment planning")?;
+        crate::inventory_container::require_fungible_inventory_row(
+            ctx,
+            adventuresim_core::physical_object::CarriedInventoryRowId::Personal(debit.row_id),
+            &stack.item_id,
+        )?;
+    }
+    for debit in plan {
+        let mut stack = stacks
+            .iter()
+            .find(|stack| stack.id == debit.row_id.get())
+            .cloned()
+            .ok_or("Currency stack disappeared during payment planning")?;
+        stack.quantity -= debit.quantity;
         if stack.quantity == 0 {
             ctx.db.inventory_item().id().delete(stack.id);
         } else {
@@ -753,10 +791,30 @@ mod tests {
 
     #[test]
     fn mixed_currency_withdrawal_plan_is_deterministic_and_atomic() {
-        let stacks = vec![("lubeck_mark".into(), 4, 3), ("danish_mark".into(), 9, 2)];
+        let stacks = vec![
+            CurrencyStack {
+                item_id: "lubeck_mark".into(),
+                row_id: PersonalInventoryRowId::from_raw(4),
+                quantity: 3,
+            },
+            CurrencyStack {
+                item_id: "danish_mark".into(),
+                row_id: PersonalInventoryRowId::from_raw(9),
+                quantity: 2,
+            },
+        ];
         assert_eq!(
             currency_withdrawal_plan(stacks.clone(), 4),
-            Some(vec![(9, 2), (4, 2)])
+            Some(vec![
+                CurrencyDebit {
+                    row_id: PersonalInventoryRowId::from_raw(9),
+                    quantity: 2
+                },
+                CurrencyDebit {
+                    row_id: PersonalInventoryRowId::from_raw(4),
+                    quantity: 2
+                },
+            ])
         );
         assert_eq!(currency_withdrawal_plan(stacks, 6), None);
     }
