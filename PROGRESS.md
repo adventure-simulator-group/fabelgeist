@@ -1,8 +1,8 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T02:09:24.562219+00:00
+Updated: 2026-11-08T02:11:36.893977+00:00
 
-Latest verified checkpoint: **3696**. Goal: **active**.
+Latest verified checkpoint: **3697**. Goal: **active**.
 
 ## Quantitative summary
 
@@ -44,13 +44,13 @@ note remain open for review.
 
 ## Latest checkpoint
 
-Qualified native playback-speed receiving chain.
+Qualified other audio pitch producers and startup paths.
 
-Other pitch producers, exact aliases and repair policy remain open.
+Cross-lens aliases and repair policy remain open.
 
 ## Working on now
 
-Reconcile remaining pitch producers and alias scopes.
+Reconcile historical audio aliases and define pitch repair policy.
 
 - Finish capture rotation, asset scale, report serialization and native boundary
   reconciliation.
@@ -218,8 +218,8 @@ independent review.
 
 Selected source revision: `ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04`.
 
-- [Checkpoint 3696 publication record](CHECKPOINT-3696.json)
-- [Saved report for checkpoint 3696](PROGRESS-3696.md)
+- [Checkpoint 3697 publication record](CHECKPOINT-3697.json)
+- [Saved report for checkpoint 3697](PROGRESS-3697.md)
 
 PROGRESS.md is the latest working report. It is updated during ongoing work and
 whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved
