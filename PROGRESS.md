@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:33:39.606093+00:00
+Updated: 2026-11-08T07:38:01.636438+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -81,7 +81,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `89962dc0d2311ed770287c45c185c8da2263ab06`: the unfinished
+  commit `3d6e969b8de8ab2d06062505cf495cc5d628a431`: the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -93,8 +93,11 @@ ledger as backlog. Full refactor completion and validation remain required.
   binaries compiled after the impact-position fix. The iteration-feature
   check then found unsupported observer return types and a trace conversion.
   The current commit retains the first typed observer failure for the duel
-  runner and the feature-gated server binaries compile. Runtime failure
-  propagation, automatic merges, lint, and review remain unverified.
+  runner; feature-gated server binaries compiled at parent `89962dc0d`.
+  The database-module check initially reported 81 errors; after typed-error
+  propagation through four paths, it reported 72 before formatting. These
+  are compiler snapshots, not remaining defect counts. Runtime behavior,
+  automatic merges, database compilation, lint, and review remain open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
