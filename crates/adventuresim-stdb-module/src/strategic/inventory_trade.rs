@@ -86,12 +86,23 @@ fn transfer_party_item_typed(
         return Err("Stable personal inventory row has no physical object".into());
     }
 
+    crate::inventory_container::require_fungible_row(
+        ctx,
+        CarriedInventoryRowId::Personal(inventory_item_id),
+    )?;
+
     let destination_item = ctx
         .db
         .inventory_item()
         .character_and_item_id()
         .filter((to_character_id, &source_item.item_id))
         .next();
+    if let Some(destination) = &destination_item {
+        crate::inventory_container::require_fungible_row(
+            ctx,
+            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(destination.id)),
+        )?;
+    }
     let merged_quantity = destination_item
         .as_ref()
         .and_then(|destination| destination.quantity.checked_add(quantity));
@@ -271,8 +282,8 @@ mod durable_custody_tests {
         assert!(durable_policy.contains("definition.repairable"));
         assert!(!durable_policy.contains("ItemKind::"));
         let custody_source = include_str!("inventory_trade.rs");
+        assert!(include_str!("party_inventory_credit.rs").contains("item_is_durable"));
         for (start, end) in [
-            ("fn add_to_party_inventory", "fn credit_party_stake"),
             (
                 "pub fn deposit_party_inventory_item",
                 "pub(crate) fn consume_personal_gold",
@@ -393,13 +404,7 @@ mod medication_custody_tests {
         assert!(direct_transfer.contains("Stable personal inventory row has no physical object"));
         assert!(direct_transfer.contains("rehome_subtree"));
 
-        let party_add = source
-            .rsplit("fn add_to_party_inventory")
-            .next()
-            .unwrap()
-            .split("fn credit_party_stake")
-            .next()
-            .unwrap();
+        let party_add = include_str!("party_inventory_credit.rs");
         assert!(party_add.contains("requires_stable_object(definition.as_ref(), food, measured)"));
         assert!(party_add.contains("for _ in 0..quantity"));
         assert!(party_add.contains("quantity: 1"));
@@ -432,88 +437,6 @@ mod medication_custody_tests {
         assert!(deposit.contains("Medication must be deposited as an individual course"));
         assert!(deposit.contains("add_to_party_inventory"));
     }
-}
-
-pub(crate) fn add_to_party_inventory(
-    ctx: &ReducerContext,
-    party_id: &str,
-    item_id: &str,
-    quantity: u32,
-) -> Result<(), String> {
-    if quantity == 0 {
-        return Ok(());
-    }
-    let definition = ctx.db.item().id().find(item_id.to_string());
-    let kind = definition.as_ref().map(|row| row.kind);
-    let food = crate::item::inventory_food_definition(kind, item_id)?.is_some();
-    let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
-    let durable = item_is_durable(ctx, item_id);
-    let individual = crate::item::requires_stable_object(definition.as_ref(), food, measured);
-    if individual {
-        let minute = ctx
-            .db
-            .party_authority()
-            .id()
-            .find(party_id.to_string())
-            .and_then(|party| ctx.db.character_time().character_id().find(party.leader_id))
-            .map_or(StrategicMinute::ZERO, |time| time.minutes);
-        for _ in 0..quantity {
-            let row = ctx.db.party_inventory_item().insert(PartyInventoryItem {
-                id: 0,
-                party_id: party_id.into(),
-                item_id: item_id.into(),
-                quantity: 1,
-            });
-            crate::inventory_container::insert_party_object(ctx, &row)?;
-            if measured {
-                crate::inventory_amount::initialize_party(ctx, row.id);
-            }
-            if food {
-                let food_row = PartyInventoryRowId::from_raw(row.id);
-                crate::food::create_party_food_lot(ctx, food_row, item_id, 1, minute)
-                    .ok_or_else(|| format!("Could not create party food lot for {item_id}"))?;
-            }
-            if durable {
-                ctx.db.party_item_condition().insert(PartyItemCondition {
-                    party_inventory_item_id: row.id,
-                    tier_1: 0.0,
-                    tier_2: 0.0,
-                    tier_3: 0.0,
-                    tier_4: 0.0,
-                    tier_5: 0.0,
-                });
-            }
-            crate::weapon_instance::initialize_party_weapon(ctx, &row)?;
-        }
-        return Ok(());
-    }
-    if let Some(mut stack) = ctx
-        .db
-        .party_inventory_item()
-        .party_id()
-        .filter(party_id)
-        .find(|stack| stack.item_id == item_id)
-    {
-        if let Some(merged) = stack.quantity.checked_add(quantity) {
-            stack.quantity = merged;
-            ctx.db.party_inventory_item().id().update(stack);
-        } else {
-            ctx.db.party_inventory_item().insert(PartyInventoryItem {
-                id: 0,
-                party_id: party_id.to_string(),
-                item_id: item_id.to_string(),
-                quantity,
-            });
-        }
-    } else {
-        ctx.db.party_inventory_item().insert(PartyInventoryItem {
-            id: 0,
-            party_id: party_id.to_string(),
-            item_id: item_id.to_string(),
-            quantity,
-        });
-    }
-    Ok(())
 }
 
 fn credit_party_stake(

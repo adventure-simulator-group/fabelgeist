@@ -583,11 +583,7 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
         "the reducer must not infer a different storefront from item kind"
     );
 
-    let party_purchase = source
-        .rsplit("fn add_to_party_inventory")
-        .next()
-        .and_then(|tail| tail.split("fn credit_party_stake").next())
-        .expect("party inventory purchase implementation");
+    let party_purchase = include_str!("../party_inventory_credit.rs");
     assert!(party_purchase.contains("inventory_food_definition(kind, item_id)?"));
     assert!(party_purchase.contains("for _ in 0..quantity"));
     assert!(party_purchase.contains("create_party_food_lot("));

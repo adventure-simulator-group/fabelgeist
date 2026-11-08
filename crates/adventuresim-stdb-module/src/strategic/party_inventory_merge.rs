@@ -52,6 +52,10 @@ fn merge_party_inventory(
         if crate::item::requires_stable_object(definition.as_ref(), food, measured) {
             return Err("Stable party inventory row has no physical object".into());
         }
+        crate::inventory_container::require_fungible_row(
+            ctx,
+            CarriedInventoryRowId::Party(row_id),
+        )?;
         add_to_party_inventory(ctx, destination_party_id, &row.item_id, row.quantity)?;
         ctx.db.party_inventory_item().id().delete(row.id);
     }

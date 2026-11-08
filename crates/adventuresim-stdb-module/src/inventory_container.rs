@@ -25,16 +25,14 @@ use crate::{
     party_item_amount,
 };
 
+mod backing_state;
 mod rehome;
 mod stacking;
+pub(crate) use backing_state::require_fungible_row;
 use rehome::{rehome_party_row, rehome_personal_row, transfer_party_row, transfer_personal_row};
 use stacking::{mergeable_object, stackable_empty_root};
 
 pub const WATER_ITEM_ID: &str = "water";
-fn empty_container_can_stack(has_contents: bool, is_nested: bool, has_condition: bool) -> bool {
-    !has_contents && !is_nested && !has_condition
-}
-
 #[derive(Clone, Debug)]
 #[table(accessor = inventory_object, public)]
 pub struct InventoryObject {
@@ -651,16 +649,6 @@ pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Re
 
 #[cfg(test)]
 mod tests {
-    use super::empty_container_can_stack;
-
-    #[test]
-    fn only_empty_root_containers_without_instance_condition_stack() {
-        assert!(empty_container_can_stack(false, false, false));
-        assert!(!empty_container_can_stack(true, false, false));
-        assert!(!empty_container_can_stack(false, true, false));
-        assert!(!empty_container_can_stack(false, false, true));
-    }
-
     #[test]
     fn generic_solid_containers_are_authoring_driven() {
         let source = include_str!("inventory_container.rs")
