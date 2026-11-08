@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:11:59.367687+00:00
+Updated: 2026-11-08T22:14:27.385360+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
-| Registered duration source packets | 9 adopted | Contracts and wider aliases open |
+| Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -104,6 +104,13 @@ rejects observed symptomatic or critical illness but treats a missing illness
 status as neither. Medical-check internals and coexistence with a private
 terminal state remain unverified. The evidence was adopted and verified at
 audit checkpoint 3746 without closing the contract.
+
+A registered medical policy read found that an alive character with an
+observed ready condition and no observed symptoms selects the ready path.
+Missing illness status counts as no symptoms, and private infection episodes
+are excluded from the policy. First-aid and schedule-restoration effects and
+private terminal coexistence remain unverified. Audit checkpoint 3747 adopted
+and verified this bounded evidence without closing the contract.
 
 | Increment status | Count |
 | --- | ---: |
