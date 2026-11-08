@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:23:23.118707+00:00
+Updated: 2026-11-08T05:25:16.157696+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -32,8 +32,8 @@ ledger as backlog. Full refactor completion and validation remain required.
   commit `079f9990618cfd87308bcff461f66d030ffd237a`: an unvalidated draft based on the audio commit. It retains a typed
   initial landform failure with scene and recipe identity and distinguishes
   natural ground from a patch. Refresh and late-arrival behavior remain open.
-  The focused client check is running under the shared-target lock; review and
-  integration remain open.
+  The focused client check passed; terrain presentation tests are running under
+  the shared-target lock. Review and integration remain open.
 
 Wedding capacity atomicity remains queued for a separate bounded increment.
 The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
