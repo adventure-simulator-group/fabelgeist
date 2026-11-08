@@ -319,7 +319,7 @@ fn analyze_scenario<K: JitterBoneIdentity>(
             .into_iter()
             .map(Vec3::length)
             .collect::<Vec<_>>();
-        let position_jerk = derivative(&position_accel, frames);
+        let position_jerk = derivative(&position_accel, &frames[2..]);
         let angular_velocity = angles
             .windows(2)
             .enumerate()
@@ -331,7 +331,7 @@ fn analyze_scenario<K: JitterBoneIdentity>(
             name,
             JitterClass::LocalPositionAcceleration,
             &position_accel,
-            frames,
+            &frames[2..],
             JitterLimit {
                 absolute: t.local_position_acceleration_absolute,
                 relative: t.local_position_acceleration_relative,
@@ -343,7 +343,7 @@ fn analyze_scenario<K: JitterBoneIdentity>(
             name,
             JitterClass::LocalPositionJerk,
             &position_jerk,
-            frames,
+            &frames[3..],
             JitterLimit {
                 absolute: t.local_position_jerk_absolute,
                 relative: t.local_position_jerk_relative,
