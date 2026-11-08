@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:34:22.838099+00:00
+Updated: 2026-11-08T21:37:42.452564+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -18,6 +18,7 @@ Updated: 2026-11-08T21:34:22.838099+00:00
 | Generic nested removal scenarios | 2 / 2 passed | Broader cases open |
 | Measured drink adjustment | 3 / 3 passed on parent | Other cases open |
 | Personal corrupt-condition operations | 3 / 3 rejected | Other backing types open |
+| Guarded authority workflow groups | 26 / 26 passed | Coverage is scenario-specific |
 | Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
 | Currency debit paths live tested | 3 / 3 | Broader cases open |
 | Corrupt party condition rejection | 1 / 1 on parent | Other corrupt backing cases open |
@@ -151,12 +152,20 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 before it can safely verify the new row-arrival case.
 
 The inventory row-identity migration is a draft at P16 `8e63dde85`.
+The complete guarded authority workflow passed all 26 reported groups on this
+revision, including the newly integrated currency custody fixtures. It used a
+separate local profile and stopped its listener afterward. This is regression
+evidence for the covered scenarios; it does not close the historical repair
+families or establish the missing storefront cases and independent review.
+
+At the same revision,
 A guarded fixture verified generic increase, generic decrease, and personal
 currency credit reject an unexpected condition record without changing the
 wallet; the same operations succeeded after removing that record. Party,
 personal, and tavern currency fixtures passed together in an isolated run and
-are now wired into the standard authority workflow. The isolated run stopped
-after those fixtures; the complete authority workflow has not been rerun.
+are now wired into the standard authority workflow. The earlier isolated run stopped
+after those fixtures; the complete authority workflow later passed as noted
+above.
 `just fmt-check` and full `just lint` passed. Other backing types and
 independent review remain open.
 
