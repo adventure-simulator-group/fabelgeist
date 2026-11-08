@@ -323,13 +323,7 @@ pub(super) fn resolve_ranged_attack(
         attacker_weapon_slot,
         defender_blocking_slot,
     }
-    .publish(
-        &mut cmd,
-        &viewer,
-        &attacker_view,
-        &defender_view,
-        &config,
-    );
+    .publish(&mut cmd, &viewer, &attacker_view, &defender_view, &config);
 }
 
 fn ranged_flanking(attacker_yaw: f32, target_yaw: f32) -> f32 {

@@ -142,8 +142,12 @@ fn authoritative_impact(
         &config.realtime_authority.impact,
     );
     let recipient = if hits_attacker { attacker } else { target };
-    let (point, normal) =
-        canonical_impact_surface(attacker_position.metres(), target_transform, body_part, config);
+    let (point, normal) = canonical_impact_surface(
+        attacker_position.metres(),
+        target_transform,
+        body_part,
+        config,
+    );
     (recipient, velocity_change, point, normal)
 }
 
