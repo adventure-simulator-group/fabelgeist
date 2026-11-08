@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T08:38:13.167230+00:00
+Updated: 2026-11-08T08:40:49.024149+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -81,7 +81,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   review, and final integrated gates also remain open.
 
 - [P16 recovery draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-p16-restoration)
-  commit `623d52a58337438f1b5f217e532f2228647c61c7`: the unfinished
+  commit `71ffc473d` (format-only changes after `623d52a`): the unfinished
   159-path snapshot is restored on the current draft with its three textual conflicts reconciled.
   The movement report retains typed measurements and rejects absent required
   displacement and distance observations instead of assuming zero. This is
@@ -111,7 +111,7 @@ ledger as backlog. Full refactor completion and validation remain required.
   record explicitly names that worktree; four other local crates have matching
   records. Shared-target results need revalidation on their proper worktrees.
   A P16-specific WebAssembly release build and the guarded local authority
-  workflow passed on this commit, including the wedding capacity and rollback
+  workflow passed at parent `623d52a`, including the wedding capacity and rollback
   fixtures. An earlier retry found its chosen port occupied. Other runtime
   behavior, semantic review of automatic merges, full formatting and lint,
   and integrated validation remain open.
