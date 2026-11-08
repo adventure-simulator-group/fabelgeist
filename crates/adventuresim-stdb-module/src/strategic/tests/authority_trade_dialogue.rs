@@ -44,8 +44,8 @@ fn unready_members_keep_their_burden_but_lose_carrying_capacity() {
     let unchanged_body_and_load_burden = 95.0;
     let ready_capacity =
         100.0 * carrying_capacity_multiplier_for_condition(IncapacitationStatus::Ready);
-    let incapacitated_capacity = 100.0
-        * carrying_capacity_multiplier_for_condition(IncapacitationStatus::Incapacitated);
+    let incapacitated_capacity =
+        100.0 * carrying_capacity_multiplier_for_condition(IncapacitationStatus::Incapacitated);
     assert!(ready_capacity >= unchanged_body_and_load_burden);
     assert!(incapacitated_capacity < unchanged_body_and_load_burden);
 }
@@ -80,9 +80,12 @@ fn forged_recruitment_mutations_must_cross_character_authority() {
 
 #[test]
 fn incident_sources_are_retry_stable_and_group_resolution_is_exact() {
-    let first = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1440));
-    let retry = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1440));
-    let next = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1441));
+    let first =
+        activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1440));
+    let retry =
+        activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1440));
+    let next =
+        activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1441));
     assert_eq!(first, retry);
     assert_ne!(first, next);
     assert!(incident_group_matches(
@@ -213,8 +216,10 @@ fn mission_binding_entropy_and_terminal_replays_fail_closed() {
         .nth(1)
         .and_then(|tail| tail.split("#[reducer]").next())
         .expect("mission binding");
-    assert!(binding.contains("existing.status == MissionAttemptStatus::Bound"));
-    assert!(binding.contains("already terminal and cannot be reused"));
+    assert!(binding.contains("validate_existing_mission("));
+    let replay = crate::production_source(include_str!("../mission_existing.rs"));
+    assert!(replay.contains("existing.status == MissionAttemptStatus::Bound"));
+    assert!(replay.contains("already terminal and cannot be reused"));
     assert!(binding.contains("outcome_entropy: ctx.random()"));
     assert!(binding.contains("mission_approach_capability_id("));
 

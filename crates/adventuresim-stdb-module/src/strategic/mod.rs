@@ -59,6 +59,7 @@ pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("journey_camp.rs"),
     include_str!("encounters.rs"),
     include_str!("travel_reducers.rs"),
+    include_str!("mission_existing.rs"),
     include_str!("custody_objectives.rs"),
     include_str!("development_gallery.rs"),
     include_str!("development_scenarios.rs"),
@@ -92,6 +93,7 @@ include!("journey_camp.rs");
 include!("encounters.rs");
 include!("travel_tests.rs");
 include!("travel_reducers.rs");
+include!("mission_existing.rs");
 include!("custody_objectives.rs");
 include!("development_scenarios.rs");
 include!("tactical_enemy_fixture.rs");
