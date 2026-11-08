@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T15:10:57.490810+00:00
+Updated: 2026-11-08T15:13:06.744218+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -90,7 +90,8 @@ focused checks and the guarded authority workflow passed as described below.
 | Shared instance policy tests | 2 / 2 passed |
 | Same-kind nested container catalog witness | 1 / 188 definitions |
 | Nested bottle and insufficient-removal database fixture | 1 / 1 passed |
-| Stable inventory lifecycle draft | 1 database fixture passed |
+| Belt addition, spare-first and cleanup database fixture | 1 / 1 passed |
+| Stable inventory lifecycle draft | 2 database fixtures passed |
 | Previous instance-draft full lint | Passed |
 
 | Named repair families in the historical handoff | Count |
@@ -392,7 +393,12 @@ superseded, while its evidence and unresolved questions remain in the backlog.
   guarded check in a uniquely named disposable local profile passed: two
   bottles were created as separate rows, nested, preserved after an excessive
   removal request, then removed without extra physical-object or containment
-  rows. Initial harness attempts failed on profile naming, character lookup
+  rows. The same isolated runner also passed separate belt additions, removal
+  of an unequipped spare before an equipped belt, and removal of the equipped
+  belt with no remaining equipment occupancy or extra physical object. Its
+  first setup attempted to replace an existing belt with attached items and
+  was correctly rejected; the retry cleared the fixture's belt first. Initial
+  harness attempts failed on profile naming, character lookup
   and SQL aggregate syntax before reaching the fixture; an owned listener was
   cleaned up and the runner was corrected. This single scenario does not prove
   equipment-law failure handling, all custody cases or post-write rollback.
