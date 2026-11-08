@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T22:49:46.240456+00:00
+Updated: 2026-11-08T22:52:03.553233+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -10,7 +10,7 @@ Updated: 2026-11-08T22:49:46.240456+00:00
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
 | Estate custody source packets | 5 adopted | 1 scoped discovery closed; policy and validation open |
 | Death-cascade source packets | 3 adopted | 1 scoped discovery closed; validation open |
-| Cooking amount source packets | 2 adopted | Vessel capacity and preview open |
+| Cooking amount source packets | 3 adopted | Vessel capacity and preview open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
@@ -219,11 +219,13 @@ The preview uses different inputs from the cooking path, with applicability
 and intent still open. Audit checkpoint 3763 verified the bounded evidence
 without closing the cooking contract.
 
-A source-derived cooking example exposes a capacity risk: a 2,500 ml pan
-can hold a 1,875 ml mortar and a 225 ml apple, but the 813 ml cooked output
-plus retained mortar totals 2,688 ml. Retrieval inserts that output edge
-directly. Scenario construction and runtime behavior remain unverified. Audit
-checkpoint 3764 verified the evidence without closing the contract.
+The initial pan-and-mortar capacity example was not established as
+constructible: the mortar may lack the required stable object. A subsequent
+read found an unequipped longsword has stable identity and the same 1,875 ml
+volume. With a 225 ml apple it fits a 2,500 ml pan, but the retained sword
+and 813 ml cooked output would total 2,688 ml. The sequence and later graph
+failure remain source-derived and unverified at runtime. Audit checkpoints
+3764 and 3765 recorded the evidence without closing the contract.
 
 | Increment status | Count |
 | --- | ---: |
