@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:55:17.722938+00:00
+Updated: 2026-11-08T21:58:24.692278+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
-| Registered duration source packets | 4 adopted | Contracts and wider aliases open |
+| Registered duration source packets | 5 adopted | Contracts and wider aliases open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
 | Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
@@ -68,6 +68,13 @@ investigation receipt uses a maximum participant end time relative to that
 leader start. The zero-preview boundary and unequal-clock runtime behavior
 remain open. This scoped evidence was adopted and verified at audit checkpoint
 3741 without closing the contract.
+
+A registered boundary read found that disease preview can identify a terminal
+crossing at the current minute, while zero-minute disease clipping returns no
+terminal and zero-minute injury settlement returns alive without wound work.
+Other lifecycle effects and actual reachability remain unverified; this is a
+conditional source finding, not a demonstrated runtime failure. The evidence
+was adopted and verified at audit checkpoint 3742 without closing the contract.
 
 | Increment status | Count |
 | --- | ---: |
