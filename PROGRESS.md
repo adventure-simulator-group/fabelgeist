@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T07:12:10.950478+00:00
+Updated: 2026-11-08T07:14:02.040628+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -31,7 +31,10 @@ acceptance. P16 and P17 were the two marked implementing; the P17 restoration
 is now a draft and still needs its dependencies, review, and validation.
 P16 covers melee geometry and targeting-range policy; the historical ledger
 identifies 17 source gaps and shared dependencies that still need current-head
-reconciliation. That historical count is not a current defect count.
+reconciliation. That historical count is not a current defect count. The
+unfinished P16 recovery snapshot changes 159 paths; 23 of those also differ
+between its original parent and the current draft. This is a path overlap,
+not a count of conflicts; reconciliation and validation remain open.
 
 Historical coverage is not completed repair work. The revised user direction
 allows independently audited implementation increments while retaining the
