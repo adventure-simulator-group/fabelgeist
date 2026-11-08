@@ -253,7 +253,7 @@ def run(profile: str, base_port: int) -> None:
             client.fixture("authority_test_projectile_identity")
             print("PASS both projectile kinds, retained injury facts and zero-damage rejection", flush=True)
             client.fixture("authority_test_catalog_item_classification")
-            print("PASS all materialized catalog kinds and authored capability projection", flush=True)
+            print("PASS authored and materialized catalog item classifications", flush=True)
             client.fixture("authority_test_investigation_keys")
             for method, terrain, error in [("", "road", "Unknown investigation action method"),
                                             ("FollowTracks", "road", "Unknown investigation action method"),
