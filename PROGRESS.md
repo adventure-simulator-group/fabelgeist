@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T21:18:26.257328+00:00
+Updated: 2026-11-08T21:19:55.440052+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,8 @@ Updated: 2026-11-08T21:18:26.257328+00:00
 | Direct and offer member-transfer scenarios | 2 / 2 passed | Missing-object rejection untested |
 | Normal direct fungible transfer | 1 / 1 passed | Anomalous backing cases open |
 | Discard scenarios exercised | 2 / 2 on prior draft | Corrupt rows and liquidation open |
-| Generic nested removal scenarios | 2 / 2 passed | Other measured items open |
+| Generic nested removal scenarios | 2 / 2 passed | Broader cases open |
+| Measured drink adjustment | 3 / 3 passed | Corrupt backing open |
 | Personal currency wedding fixture | 1 / 1 passed on parent | Corrupt backing untested |
 | Currency debit paths live tested | 3 / 3 | Broader cases open |
 | Corrupt party condition rejection | 1 / 1 on parent | Other corrupt backing cases open |
@@ -149,6 +150,13 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 before it can safely verify the new row-arrival case.
 
 The inventory row-identity migration is a draft at P16 `edf0c4a36`.
+An isolated measured-drink scenario created two individual small-beer rows,
+verified zero adjustment left both intact, then removed them one at a time.
+The surviving row retained its amount record and physical object, and the
+second removal cleared both objects. This adds one non-food measured item to
+runtime coverage. Corrupt backing and independent review remain open.
+
+At the same revision,
 A guarded isolated scenario verified generic removal rejects a nonempty bottle
 without changing the apple's containment, then removes the measured apple and
 the empty bottle in order. It checked the apple amount row, food lot, both
