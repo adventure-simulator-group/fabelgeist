@@ -1,13 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T19:43:25.520401+00:00
+Updated: 2026-11-08T19:53:54.985027+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 588 / 3,866 | 3,278, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
-| Nested party merge row orders exercised | 2 / 2 on prior draft | Broader cases open |
-| Fungible currency merge scenario | 1 / 1 on prior draft | Other stack cases open |
+| Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
+| Fungible currency merge scenario | 1 / 1 passed | Other stack cases open |
 | Corrupt-backing merge failure scenario | 0 / 1 | 1 |
 | Seed-party populated-inventory rejection | 1 / 1 on prior draft | Stake-only and reserve-only cases open |
 | Seed-party recruitment-role rejection | 1 / 1 on prior draft | Other obligation cases open |
@@ -48,7 +48,7 @@ Updated: 2026-11-08T19:43:25.520401+00:00
 | Apple lot backing and value conservation on previous draft | 1 / 1 passed |
 | Workspace production check on prior draft | Passed |
 | Database module production check on current draft | Passed |
-| Workspace all-target all-feature Clippy | Running on current draft |
+| Workspace all-target all-feature Clippy | Passed on current draft |
 | Isolated inventory acceptance on previous draft | 1 / 1 targeted run passed |
 | Focused identity, simulation and web custody tests on previous draft | 3 / 3 passed |
 | Focused web custody retry | 1 / 1 passed |
@@ -141,7 +141,16 @@ lifecycle fixture uses an isolated SpacetimeDB-backed mission, but its shared
 `.env.tactical` handling and uncontrolled event timing require adaptation
 before it can safely verify the new row-arrival case.
 
-The inventory row-identity migration is a draft at P16 `de85048d3`. Fungible
+The inventory row-identity migration is a draft at P16 `1b0b95c80`. A shared
+classification and backing-state guard now rejects objectless stable rows in
+deposit, withdrawal, direct transfer, and party merge. Object custody paths
+remain in place. Authority-feature compilation, `just fmt-check`, and full
+`just lint` passed. Two guarded isolated database runs passed bottle and apple
+deposit and withdrawal, nested merges and member transfers, party offers, and
+fungible currency transfers. Missing-object and corrupt-backing rejection have
+not been exercised at runtime; independent review remains open.
+
+At parent `de85048d3`, full `just lint` also passed. Fungible
 operations now reject rows with physical objects or persisted lot, amount or
 condition state. This check covers personal transfer sources and destinations,
 party merge sources and party-credit destinations. The existing stacking rule
