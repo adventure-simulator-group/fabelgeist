@@ -711,7 +711,13 @@ pub fn retrieve_fireplace_dish(
         _ => return Err("Invalid retrieval inventory".into()),
     };
     if let Some(parent_object_id) = container_object_id {
-        let row_id = personal_id.or(party_id).expect("cooked meal inventory row");
+        let row_id = match (personal_id, party_id) {
+            (Some(id), None) => {
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(id))
+            }
+            (None, Some(id)) => CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(id)),
+            _ => return Err("Cooked meal must have exactly one inventory row".into()),
+        };
         let meal = ctx.db.inventory_object().insert(crate::InventoryObject {
             id: 0,
             item_id: "cooked_meal".into(),
@@ -725,10 +731,16 @@ pub fn retrieve_fireplace_dish(
             });
     }
     if let Some(row_id) = personal_id {
-        ensure_food_material_object(ctx, CarriedInventoryScope::Personal, row_id)?;
+        ensure_food_material_object(
+            ctx,
+            CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row_id)),
+        )?;
     }
     if let Some(row_id) = party_id {
-        ensure_food_material_object(ctx, CarriedInventoryScope::Party, row_id)?;
+        ensure_food_material_object(
+            ctx,
+            CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row_id)),
+        )?;
     }
     let lot = ctx.db.food_lot().insert(FoodLot {
         id: 0,

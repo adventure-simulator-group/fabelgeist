@@ -20,23 +20,14 @@ pub struct BackendIngredientPreparationPlan {
 
 fn view_object_for_row(
     ctx: &ViewContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
+    row_id: CarriedInventoryRowId,
 ) -> Option<crate::InventoryObject> {
     let mut matches = ctx
         .db
         .inventory_object()
         .item_id()
         .filter(""..)
-        .filter(|object| match (&object.location, scope) {
-            (InventoryLocation::Personal(location), CarriedInventoryScope::Personal) => {
-                location.row_id == row_id
-            }
-            (InventoryLocation::Party(location), CarriedInventoryScope::Party) => {
-                location.row_id == row_id
-            }
-            _ => false,
-        });
+        .filter(|object| object.location.carried_row_id() == Some(row_id));
     let object = matches.next()?;
     matches.next().is_none().then_some(object)
 }
@@ -71,17 +62,19 @@ fn view_carried_item_rows(
         .character_id()
         .filter(actor.id)
         .filter(|row| {
-            view_object_for_row(ctx, CarriedInventoryScope::Personal, row.id).is_some_and(
-                |object| {
-                    !view_ancestry_reaches_fireplace(ctx, object.id)
-                        && view_carried_custody_is_fully_resolved(
-                            ctx,
-                            actor,
-                            CarriedInventoryScope::Personal,
-                            &object,
-                        )
-                },
+            view_object_for_row(
+                ctx,
+                CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row.id)),
             )
+            .is_some_and(|object| {
+                !view_ancestry_reaches_fireplace(ctx, object.id)
+                    && view_carried_custody_is_fully_resolved(
+                        ctx,
+                        actor,
+                        CarriedInventoryScope::Personal,
+                        &object,
+                    )
+            })
         })
         .map(|row| (CarriedInventoryScope::Personal, row.id, row.item_id))
         .collect::<Vec<_>>();
@@ -92,17 +85,19 @@ fn view_carried_item_rows(
                 .party_id()
                 .filter(party_id)
                 .filter(|row| {
-                    view_object_for_row(ctx, CarriedInventoryScope::Party, row.id).is_some_and(
-                        |object| {
-                            !view_ancestry_reaches_fireplace(ctx, object.id)
-                                && view_carried_custody_is_fully_resolved(
-                                    ctx,
-                                    actor,
-                                    CarriedInventoryScope::Party,
-                                    &object,
-                                )
-                        },
+                    view_object_for_row(
+                        ctx,
+                        CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row.id)),
                     )
+                    .is_some_and(|object| {
+                        !view_ancestry_reaches_fireplace(ctx, object.id)
+                            && view_carried_custody_is_fully_resolved(
+                                ctx,
+                                actor,
+                                CarriedInventoryScope::Party,
+                                &object,
+                            )
+                    })
                 })
                 .map(|row| (CarriedInventoryScope::Party, row.id, row.item_id)),
         );
@@ -183,34 +178,34 @@ fn view_carried_custody_is_fully_resolved(
             (InventoryLocation::Personal(location), CarriedInventoryScope::Personal)
                 if location.character_id == actor.id =>
             {
-                location.row_id
+                CarriedInventoryRowId::Personal(location.row_id)
             }
             (InventoryLocation::Party(location), CarriedInventoryScope::Party)
                 if actor.party_id.as_deref() == Some(location.party_id.as_str()) =>
             {
-                location.row_id
+                CarriedInventoryRowId::Party(location.row_id)
             }
             _ => return false,
         };
-        if !view_object_for_row(ctx, scope, row_id).is_some_and(|unique| unique.id == cursor.id) {
+        if !view_object_for_row(ctx, row_id).is_some_and(|unique| unique.id == cursor.id) {
             return false;
         }
-        let row_matches = match scope {
-            CarriedInventoryScope::Personal => ctx
+        let row_matches = match row_id {
+            CarriedInventoryRowId::Personal(row_id) => ctx
                 .db
                 .inventory_item()
                 .id()
-                .find(row_id)
+                .find(row_id.get())
                 .is_some_and(|row| {
                     row.character_id == actor.id
                         && row.item_id == cursor.item_id
                         && row.quantity == 1
                 }),
-            CarriedInventoryScope::Party => ctx
+            CarriedInventoryRowId::Party(row_id) => ctx
                 .db
                 .party_inventory_item()
                 .id()
-                .find(row_id)
+                .find(row_id.get())
                 .is_some_and(|row| {
                     actor.party_id.as_deref() == Some(row.party_id.as_str())
                         && row.item_id == cursor.item_id
@@ -377,7 +372,15 @@ pub fn backend_ingredient_preparation_plans(
                 None
             };
             let Some((scope, row_id)) = row else { continue };
-            let Some(object) = view_object_for_row(ctx, scope, row_id) else {
+            let backing = match scope {
+                CarriedInventoryScope::Personal => {
+                    CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(row_id))
+                }
+                CarriedInventoryScope::Party => {
+                    CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(row_id))
+                }
+            };
+            let Some(object) = view_object_for_row(ctx, backing) else {
                 continue;
             };
             if view_ancestry_reaches_fireplace(ctx, object.id)

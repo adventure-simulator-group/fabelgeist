@@ -9,7 +9,8 @@ use adventuresim_core::{
     inventory_measurement::ConsumableFractionMicros,
     material::Microliters,
     physical_object::{
-        CarriedInventoryScope, InventoryLocation, OperationalCustody, PhysicalObjectId,
+        CarriedInventoryRowId, CarriedInventoryScope, InventoryLocation, OperationalCustody,
+        PartyInventoryRowId, PersonalInventoryRowId, PhysicalObjectId,
     },
     prelude::{PlayerSkills, Skill, apply_direct_training},
     strategic_place::{StrategicFixtureId, StrategicPlaceId},

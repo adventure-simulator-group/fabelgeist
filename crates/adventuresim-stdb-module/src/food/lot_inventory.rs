@@ -9,39 +9,32 @@ fn current_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute {
 
 fn ensure_food_material_object(
     ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
+    row_id: CarriedInventoryRowId,
 ) -> Result<crate::InventoryObject, String> {
-    let (item_id, location, quantity) = match scope {
-        CarriedInventoryScope::Personal => {
+    let (item_id, location, quantity) = match row_id {
+        CarriedInventoryRowId::Personal(row_id) => {
             let row = ctx
                 .db
                 .inventory_item()
                 .id()
-                .find(row_id)
+                .find(row_id.get())
                 .ok_or("Food inventory row is missing")?;
             (
                 row.item_id,
-                InventoryLocation::personal(
-                    row.character_id,
-                    adventuresim_core::physical_object::PersonalInventoryRowId::from_raw(row.id),
-                ),
+                InventoryLocation::personal(row.character_id, row_id),
                 row.quantity,
             )
         }
-        CarriedInventoryScope::Party => {
+        CarriedInventoryRowId::Party(row_id) => {
             let row = ctx
                 .db
                 .party_inventory_item()
                 .id()
-                .find(row_id)
+                .find(row_id.get())
                 .ok_or("Party food inventory row is missing")?;
             (
                 row.item_id,
-                InventoryLocation::party(
-                    row.party_id,
-                    adventuresim_core::physical_object::PartyInventoryRowId::from_raw(row.id),
-                ),
+                InventoryLocation::party(row.party_id, row_id),
                 row.quantity,
             )
         }
@@ -49,7 +42,7 @@ fn ensure_food_material_object(
     if quantity != 1 {
         return Err("Every food lot requires a quantity-one stable inventory object".into());
     }
-    if let Some(object) = crate::inventory_container::object_for_row(ctx, scope, row_id)? {
+    if let Some(object) = crate::inventory_container::object_for_row(ctx, row_id)? {
         if object.item_id != item_id || object.location != location {
             return Err("Food inventory row has a mismatched stable object identity".into());
         }
@@ -71,7 +64,10 @@ pub fn create_personal_food_lot(
 ) -> Result<FoodLot, String> {
     let definition = food::definition(item_id).ok_or("Food definition not found")?;
     let minute = current_minute(ctx, character_id);
-    ensure_food_material_object(ctx, CarriedInventoryScope::Personal, inventory_item_id)?;
+    ensure_food_material_object(
+        ctx,
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(inventory_item_id)),
+    )?;
     let lot = ctx.db.food_lot().insert(FoodLot {
         id: 0,
         inventory_item_id: Some(inventory_item_id),
@@ -120,7 +116,11 @@ pub fn create_party_food_lot(
     minute: StrategicMinute,
 ) -> Option<FoodLot> {
     let definition = food::definition(item_id)?;
-    ensure_food_material_object(ctx, CarriedInventoryScope::Party, inventory_item_id).ok()?;
+    ensure_food_material_object(
+        ctx,
+        CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(inventory_item_id)),
+    )
+    .ok()?;
     let lot = ctx.db.food_lot().insert(FoodLot {
         id: 0,
         inventory_item_id: None,
@@ -324,8 +324,7 @@ pub fn split_lot(
         .ok_or("Food contamination state not found")?;
     ensure_food_material_object(
         ctx,
-        CarriedInventoryScope::Personal,
-        destination_inventory_id,
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(destination_inventory_id)),
     )?;
     let child = ctx.db.food_lot().insert(child);
     split_food_contamination_provenance(ctx, source.id, child.id, ratio)?;
@@ -389,7 +388,10 @@ pub fn move_or_split_to_party(
         .food_lot_id()
         .find(source.id)
         .ok_or("Food contamination state not found")?;
-    ensure_food_material_object(ctx, CarriedInventoryScope::Party, destination_party_id)?;
+    ensure_food_material_object(
+        ctx,
+        CarriedInventoryRowId::Party(PartyInventoryRowId::from_raw(destination_party_id)),
+    )?;
     let child = ctx.db.food_lot().insert(child);
     split_food_contamination_provenance(ctx, source.id, child.id, ratio)?;
     crate::herbalism::split_food_medicine(ctx, source.id, child.id, ratio)?;
@@ -439,8 +441,7 @@ pub fn move_or_split_to_personal(
         .ok_or("Food contamination state not found")?;
     ensure_food_material_object(
         ctx,
-        CarriedInventoryScope::Personal,
-        destination_inventory_id,
+        CarriedInventoryRowId::Personal(PersonalInventoryRowId::from_raw(destination_inventory_id)),
     )?;
     let child = ctx.db.food_lot().insert(child);
     split_food_contamination_provenance(ctx, source.id, child.id, ratio)?;
