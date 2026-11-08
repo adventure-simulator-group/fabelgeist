@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T11:55:56.261019+00:00
+Updated: 2026-11-08T11:57:25.268179+00:00
 
 | Increment status | Count |
 | --- | ---: |
@@ -26,6 +26,7 @@ Updated: 2026-11-08T11:55:56.261019+00:00
 | Tactical server player-projection tests passed | 33 / 33 |
 | Tactical server bot tests passed | 13 / 13 |
 | Tactical server equipment tests passed | 16 / 16 |
+| Tactical iteration harness tests passed | 10 / 10 |
 | Client targeting and acquisition helper tests passed | 6 / 6 |
 | Client equipment fit and selection fixtures passed | 5 / 5 |
 | One-seed melee report matchups completed | 5 / 5 |
@@ -183,7 +184,10 @@ ledger as backlog. Full refactor completion and validation remain required.
   but their storage-to-consumer behavior is unverified. The authority runner
   previously labeled a catalog fixture as capability projection; it checks
   classification, not reach. The message now states the actual coverage.
-  Remaining review, behavior checks and integrated gates stay open.
+  The iteration observer source retains the first typed error for readback;
+  ten existing harness tests passed on unchanged iteration production code,
+  but they do not inject an observer failure. Remaining review, behavior
+  checks and integrated gates stay open.
 
 - [Jitter diagnostics draft](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-jitter-quality)
   commit `8ff11c82fb4430ee17a170c61bea72c3d5173625`: source-derived timing
