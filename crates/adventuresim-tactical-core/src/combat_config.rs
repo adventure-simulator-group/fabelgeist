@@ -1,4 +1,3 @@
-use fabelgeist_geometry::SignedLength;
 use crate::animation::{
     AngularMagnitudeDegrees, KneeTargetAmplification, ResponseRate, ResponseShapingTime,
     SignedAngleDegrees, SignedAngularSpeedDegrees,
@@ -14,6 +13,7 @@ use adventuresim_core::{
     combat::{AutoresolveParameters, CombatResolutionParameters},
 };
 use bevy::prelude::Resource;
+use fabelgeist_geometry::SignedLength;
 pub use landing::AnimationLandingConfig;
 pub use locomotion::{AnimationGaitConfig, AnimationLocomotionConfig};
 pub use maneuvers::ManeuverTimingConfig;
@@ -469,8 +469,12 @@ impl TacticalCombatConfig {
                 .quickstep_maximum_supported_root_displacement_metres,
             movement
                 .motor
-                .reference_quickstep_target_displacement_metres.metres(),
-            movement.motor.reference_quickstep_leg_length_metres.metres(),
+                .reference_quickstep_target_displacement_metres
+                .metres(),
+            movement
+                .motor
+                .reference_quickstep_leg_length_metres
+                .metres(),
             movement.motor.quickstep_takeoff_angle_degrees,
             movement.motor.reference_leg_strength,
             movement.motor.reference_leg_agility,

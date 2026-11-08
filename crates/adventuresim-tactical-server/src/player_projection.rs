@@ -1,8 +1,8 @@
 use adventuresim_building_generator::spatial_geometry::{Position, Radians, RigidRotation};
-use adventuresim_tactical_core::scene_coordinates::Scene;
 use adventuresim_tactical_core::animation::{
     AnimationElapsed, AnimationSampleSpan, AnimationSampleTick,
 };
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use std::collections::BTreeMap;
 
 use adventuresim_core::{
@@ -40,18 +40,17 @@ use dive_launch::{DiveLaunch, apply_dive_launch_velocity};
 use input::AccumulatedInput;
 use posture_facing::advance_projected_posture;
 use projection_equipment::{
-    projected_armor, projected_holder_appearance,
-    projected_weapon_appearance,
+    projected_armor, projected_holder_appearance, projected_weapon_appearance,
 };
 
-use spawn_admission::{AdmittedPlayer, PreparedPlayerSpawns, SpawnRecipient};
 use item_geometry::PreparedInventoryItem;
+use spawn_admission::{AdmittedPlayer, PreparedPlayerSpawns, SpawnRecipient};
 
 mod dive_launch;
+mod item_geometry;
 mod posture_facing;
 pub(crate) mod projection_equipment;
 mod spawn_admission;
-mod item_geometry;
 
 type PlayerInputStateQuery<'world, 'state> = Query<
     'world,
@@ -779,7 +778,8 @@ fn spawn_connected_player(
     // Reserve every tactical entity before projecting topology so attachment
     // edges map to replicated ECS identities even when their parent appears
     // later in the durable snapshot. Durable row IDs remain server-only.
-    let tactical_items: BTreeMap<u64, Entity> = items.iter()
+    let tactical_items: BTreeMap<u64, Entity> = items
+        .iter()
         .map(|item| (item.inventory_id(), cmd.spawn_empty().id()))
         .collect();
     for item in items {
@@ -791,7 +791,11 @@ fn spawn_connected_player(
                 );
                 continue;
             }
-            PreparedInventoryItem::Admitted { item, quantity, geometry } => (item, quantity, geometry),
+            PreparedInventoryItem::Admitted {
+                item,
+                quantity,
+                geometry,
+            } => (item, quantity, geometry),
         };
         let item = &item;
         let item_entity = tactical_items[&item.inventory_item_id];
@@ -809,7 +813,9 @@ fn spawn_connected_player(
             },
             Transform::default(),
         ));
-        if let Some(physical) = geometry.physical { item_cmd.insert(physical); }
+        if let Some(physical) = geometry.physical {
+            item_cmd.insert(physical);
+        }
         if let Some(appearance) = weapon_appearance {
             item_cmd.insert(appearance);
         }
@@ -857,7 +863,9 @@ fn spawn_connected_player(
             | CatalogItemKind::Medication
             | CatalogItemKind::Food => {}
             CatalogItemKind::Weapon => {
-                if let Some(weapon) = geometry.weapon { item_cmd.insert(weapon); }
+                if let Some(weapon) = geometry.weapon {
+                    item_cmd.insert(weapon);
+                }
             }
             CatalogItemKind::Armor | CatalogItemKind::Clothing => {}
             CatalogItemKind::Shield => {
@@ -1218,9 +1226,14 @@ pub(crate) fn on_player_input(
                 {
                     let accepted = (|| -> fabelgeist_geometry::GeometryResult<bool> {
                         let origin = Position::from_metres(transform.translation)?;
-                        let orientation = RigidRotation::from_quaternion(Quat::from_rotation_y(look.yaw))?;
+                        let orientation =
+                            RigidRotation::from_quaternion(Quat::from_rotation_y(look.yaw))?;
                         Ok(begin_authoritative_quickstep(
-                            &mut skeleton, &mut quickstep_push, direction, orientation, origin,
+                            &mut skeleton,
+                            &mut quickstep_push,
+                            direction,
+                            orientation,
+                            origin,
                             &combat_config,
                         ))
                     })();
@@ -2329,7 +2342,10 @@ mod tests {
         assert!(long.melee_reach_m().metres() > short.melee_reach_m().metres() + 0.10);
         assert!(long.mass_kg > short.mass_kg);
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
-        assert!((long.striking_head_length_m.metres() - short.striking_head_length_m.metres()).abs() < 1.0e-6);
+        assert!(
+            (long.striking_head_length_m.metres() - short.striking_head_length_m.metres()).abs()
+                < 1.0e-6
+        );
     }
     use adventuresim_tactical_netcode::aeronet::io::connection::{DisconnectReason, Disconnected};
     use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
@@ -3131,7 +3147,8 @@ mod tests {
                         0u64,
                     ),
                     direction: Vec2::X,
-                    orientation: adventuresim_building_generator::spatial_geometry::RigidRotation::IDENTITY,
+                    orientation:
+                        adventuresim_building_generator::spatial_geometry::RigidRotation::IDENTITY,
                     origin: adventuresim_building_generator::spatial_geometry::Position::ORIGIN,
                     active: true,
                 },
@@ -3161,7 +3178,10 @@ mod tests {
             &mut push,
             Vec2::X,
             adventuresim_building_generator::spatial_geometry::RigidRotation::IDENTITY,
-            adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(2.0, 0.0, 3.0)).unwrap(),
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(
+                2.0, 0.0, 3.0
+            ))
+            .unwrap(),
             &TacticalCombatConfig::default(),
         ));
         assert_eq!(skeleton.action_kind(), SkeletonAction::Dodge);

@@ -47,7 +47,8 @@ impl MeleeAcquisitionTiming {
         geometry: MeleeLungeGeometry,
     ) -> MeleeGeometryResult<Option<MeleeLungeArrival>> {
         let closure = (geometry.separation.metres() - geometry.interaction_range.metres()).max(0.0);
-        if closure > geometry.maximum_travel.metres() + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres() {
+        if closure > geometry.maximum_travel.metres() + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres()
+        {
             return Ok(None);
         }
         let arrival = melee_lunge_arrival(

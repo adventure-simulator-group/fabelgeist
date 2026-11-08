@@ -71,10 +71,12 @@ pub(super) fn resolved_attack_entry(
         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
         attacker: attacker.name.clone(),
         defender: defender.name.clone(),
-        center_separation_metres: SignedLength::from_metres(attacker_transform
-            .translation
-            .xz()
-            .distance(defender_transform.translation.xz()))?,
+        center_separation_metres: SignedLength::from_metres(
+            attacker_transform
+                .translation
+                .xz()
+                .distance(defender_transform.translation.xz()),
+        )?,
         attacker_decision: TacticalDecision::Attack,
         defender_decision: defender_decision(event.defender_response),
         defensive_implement: event.defender_blocking_slot.and_then(|slot| {

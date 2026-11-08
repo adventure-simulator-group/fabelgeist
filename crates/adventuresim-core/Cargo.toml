@@ -32,7 +32,7 @@ spacetimedb = { workspace = true, optional = true }
 [build-dependencies]
 fabelgeist-math.workspace = true
 thiserror.workspace = true
-fabelgeist-geometry = { workspace = true, default-features = false }
+fabelgeist-geometry = { path = "../fabelgeist-geometry", default-features = false }
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 serde-saphyr.workspace = true

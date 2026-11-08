@@ -36,9 +36,13 @@ pub enum StrategicOperationError {
 }
 
 impl From<String> for StrategicOperationError {
-    fn from(message: String) -> Self { Self::Operation(message) }
+    fn from(message: String) -> Self {
+        Self::Operation(message)
+    }
 }
 
 impl From<&str> for StrategicOperationError {
-    fn from(message: &str) -> Self { Self::Operation(message.to_owned()) }
+    fn from(message: &str) -> Self {
+        Self::Operation(message.to_owned())
+    }
 }

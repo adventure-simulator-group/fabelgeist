@@ -1,8 +1,8 @@
 use super::{CombatFatigueParameters, WeaponContactParameters};
 use crate::elapsed::AnimationElapsed;
 use crate::linear_speed::PositiveSpeed;
-use serde::{Deserialize, Serialize};
 use fabelgeist_geometry::SignedLength;
+use serde::{Deserialize, Serialize};
 
 /// Physical tuning projected from the canonical tactical combat configuration.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]

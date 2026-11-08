@@ -23,7 +23,10 @@ pub(crate) enum EquipmentProjectionError {
     #[error("weapon recipe hash differs from the native observation")]
     DesignHash,
     #[error("weapon {item_id} has invalid derived properties: {errors:?}")]
-    DerivedProperties { item_id: String, errors: Vec<adventuresim_weapon_model::ValidationError> },
+    DerivedProperties {
+        item_id: String,
+        errors: Vec<adventuresim_weapon_model::ValidationError>,
+    },
     #[error("weapon {item_id} has invalid combat geometry")]
     CombatGeometry { item_id: String },
     #[error("weapon {item_id} has no authored equipment metadata")]
@@ -32,14 +35,16 @@ pub(crate) enum EquipmentProjectionError {
     MissingStrikingMaterial { item_id: String },
 }
 
-
 pub(super) fn projected_parametric_weapon(
     item: &ConnectedPlayerItem,
     parameters: adventuresim_core::combat::WeaponContactParameters,
-) -> EquipmentProjectionResult<Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>> {
+) -> EquipmentProjectionResult<Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>>
+{
     let Some(appearance) = item.weapon_appearance.as_ref() else {
         if adventuresim_weapon_model::default_design(&item.item.id).is_some() {
-            return Err(EquipmentProjectionError::MissingRecipe { item_id: item.item.id.clone() });
+            return Err(EquipmentProjectionError::MissingRecipe {
+                item_id: item.item.id.clone(),
+            });
         }
         return Ok(None);
     };
@@ -54,18 +59,24 @@ pub(super) fn parametric_combat_geometry(
     use adventuresim_weapon_model::{GENERATOR_VERSION, decode, derive_properties, design_hash};
     if appearance.generator_version != GENERATOR_VERSION {
         return Err(EquipmentProjectionError::GeneratorVersion {
-            found: appearance.generator_version, expected: GENERATOR_VERSION,
+            found: appearance.generator_version,
+            expected: GENERATOR_VERSION,
         });
     }
     let design = decode(&appearance.recipe)?;
     if design.catalog_id != item_id {
-        return Err(EquipmentProjectionError::CatalogIdentity { item_id: item_id.to_owned() });
+        return Err(EquipmentProjectionError::CatalogIdentity {
+            item_id: item_id.to_owned(),
+        });
     }
     if design_hash(&design).0.as_slice() != appearance.design_hash {
         return Err(EquipmentProjectionError::DesignHash);
     }
-    let derived = derive_properties(&design).map_err(|errors| EquipmentProjectionError::DerivedProperties {
-        item_id: item_id.to_owned(), errors,
+    let derived = derive_properties(&design).map_err(|errors| {
+        EquipmentProjectionError::DerivedProperties {
+            item_id: item_id.to_owned(),
+            errors,
+        }
     })?;
     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
         derived.mass_kg,
@@ -75,7 +86,10 @@ pub(super) fn parametric_combat_geometry(
         derived.moment_of_inertia_kg_m2,
         derived.balance,
         parameters.precision_for_design(&design).value(),
-    ).ok_or_else(|| EquipmentProjectionError::CombatGeometry { item_id: item_id.to_owned() })
+    )
+    .ok_or_else(|| EquipmentProjectionError::CombatGeometry {
+        item_id: item_id.to_owned(),
+    })
 }
 
 pub(super) fn projected_weapon_appearance(item: &ConnectedPlayerItem) -> Option<WeaponAppearance> {

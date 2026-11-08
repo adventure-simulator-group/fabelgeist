@@ -7,8 +7,8 @@ use adventuresim_core::{
 use spacetimedb::{ReducerContext, Table, reducer, table};
 use std::collections::BTreeMap;
 
-use crate::capability::StrategicEquipment;
 use crate::StrategicOperationResult;
+use crate::capability::StrategicEquipment;
 use crate::character::character;
 use crate::filth::character_filth;
 use crate::investigation::case_site_authority;
@@ -2211,7 +2211,10 @@ pub fn set_blood_fraction(
     }
 }
 
-pub fn require_character_ready(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<()> {
+pub fn require_character_ready(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> StrategicOperationResult<()> {
     crate::character::require_living_character(ctx, character_id)?;
     let condition = refresh_character_strategic_condition(ctx, character_id)?;
     if condition.status == IncapacitationStatus::Incapacitated {
@@ -2221,7 +2224,10 @@ pub fn require_character_ready(ctx: &ReducerContext, character_id: u64) -> Strat
     }
 }
 
-pub fn require_characters_ready(ctx: &ReducerContext, character_ids: &[u64]) -> StrategicOperationResult<()> {
+pub fn require_characters_ready(
+    ctx: &ReducerContext,
+    character_ids: &[u64],
+) -> StrategicOperationResult<()> {
     for character_id in character_ids {
         crate::character::require_living_character(ctx, *character_id)?;
     }
@@ -2236,7 +2242,10 @@ pub fn require_characters_ready(ctx: &ReducerContext, character_ids: &[u64]) -> 
 }
 
 #[reducer]
-pub fn refresh_strategic_condition(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<()> {
+pub fn refresh_strategic_condition(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> StrategicOperationResult<()> {
     refresh_character_strategic_condition(ctx, character_id).map(|_| ())
 }
 

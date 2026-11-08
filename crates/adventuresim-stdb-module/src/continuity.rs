@@ -431,7 +431,10 @@ pub(crate) fn record_estate_disposition_for_death(
     Ok(())
 }
 
-fn unequip_personal_estate(ctx: &ReducerContext, decedent_id: u64) -> crate::StrategicOperationResult<()> {
+fn unequip_personal_estate(
+    ctx: &ReducerContext,
+    decedent_id: u64,
+) -> crate::StrategicOperationResult<()> {
     let equipped = ctx
         .db
         .character_equipped_item()

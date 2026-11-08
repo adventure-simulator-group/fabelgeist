@@ -2,8 +2,8 @@
 
 use super::*;
 use adventuresim_world_schema::{BestiaryCategory, BestiaryHours};
-use serde::Serialize;
 use fabelgeist_geometry::SignedLength;
+use serde::Serialize;
 
 #[derive(Clone, Debug, Serialize)]
 pub struct CombatBody {
@@ -293,13 +293,16 @@ impl PlayerEquipment for CombatEquipment {
         self.weapon.map_or(0.0, |weapon| weapon.precision)
     }
     fn weapon_reach(&self) -> SignedLength {
-        self.weapon.map_or(SignedLength::ZERO, |weapon| weapon.melee_reach)
+        self.weapon
+            .map_or(SignedLength::ZERO, |weapon| weapon.melee_reach)
     }
     fn weapon_grip_to_tip(&self) -> SignedLength {
-        self.weapon.map_or(SignedLength::ZERO, |weapon| weapon.grip_to_tip_m)
+        self.weapon
+            .map_or(SignedLength::ZERO, |weapon| weapon.grip_to_tip_m)
     }
     fn weapon_total_length(&self) -> SignedLength {
-        self.weapon.map_or(SignedLength::ZERO, |weapon| weapon.total_length_m)
+        self.weapon
+            .map_or(SignedLength::ZERO, |weapon| weapon.total_length_m)
     }
     fn weapon_striking_head_length(&self) -> SignedLength {
         self.weapon

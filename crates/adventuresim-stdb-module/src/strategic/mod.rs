@@ -6,6 +6,7 @@
 //! ordinary child modules elsewhere; these ordered files preserve the exact
 //! reducer/view/table ABI while keeping each gameplay domain navigable.
 
+use crate::{StrategicOperationError, StrategicOperationResult};
 use adventuresim_core::encounter::EncounterChoice;
 use adventuresim_core::strategic_state::vocabulary::{
     CourtshipStatus, HostileResolutionKind, MissionAttemptStatus,
@@ -14,7 +15,6 @@ use adventuresim_core::weather::Precipitation;
 use adventuresim_dialogue::{PromptMode, ResolutionPolicy};
 use approved_action::ApprovedPartyAction;
 use battle_combatants::load_allied_combatants;
-use crate::{StrategicOperationError, StrategicOperationResult};
 pub(crate) use development_gallery::{
     materialize_development_scenario_gallery, materialize_gallery_item,
     validate_gallery_postcondition,

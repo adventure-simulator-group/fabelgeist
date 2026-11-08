@@ -155,49 +155,54 @@ pub(super) fn resolve_ranged_attack(
     };
     let facts = (|| -> fabelgeist_geometry::GeometryResult<RangedIntentFacts> {
         Ok(RangedIntentFacts {
-        attacker,
-        target: event.target,
-        attacker_side: q_sides.get(attacker).ok().copied(),
-        target_side: event
-            .target
-            .and_then(|target| q_sides.get(target).ok().copied()),
-        attacker_incapacitated: q_states
-            .get(attacker)
-            .ok()
-            .map(TacticalCombatState::is_incapacitated),
-        target_incapacitated: event.target.and_then(|target| {
-            q_states
-                .get(target)
+            attacker,
+            target: event.target,
+            attacker_side: q_sides.get(attacker).ok().copied(),
+            target_side: event
+                .target
+                .and_then(|target| q_sides.get(target).ok().copied()),
+            attacker_incapacitated: q_states
+                .get(attacker)
                 .ok()
-                .map(TacticalCombatState::is_incapacitated)
-        }),
-        reported_precision: event.reported_precision,
-        weapon_is_ranged: attacker_view.weapon_is_ranged(),
-        weapon_range: attacker_view.weapon_reach(),
-        range_latency_tolerance: config
-            .realtime_authority
-            .ranged
-            .range_latency_tolerance_metres,
-        separation: target_character.map(|(_, transform)| {
-            SignedLength::from_metres(
-            attacker_transform
-                .translation
-                .distance(transform.translation))
-        }).transpose()?,
-        target_in_aim_cone: target_character.map(|(_, transform)| {
-            ranged_target_in_aim_cone(
-                attacker_look.yaw,
-                attacker_transform.translation,
-                transform.translation,
-                config.realtime_authority.ranged.aim_half_angle_degrees,
-            )
-        }),
-        authority_permits: authority.permits(now),
-        body_part: event.body_part,
-        attacker_position: Position::from_metres(attacker_transform.translation)?,
-        target_position: target_character.map(|(_, transform)| Position::from_metres(transform.translation)).transpose()?,
-        attacker_yaw: attacker_look.yaw,
-        target_yaw: target_character.map(|(look, _)| look.yaw),
+                .map(TacticalCombatState::is_incapacitated),
+            target_incapacitated: event.target.and_then(|target| {
+                q_states
+                    .get(target)
+                    .ok()
+                    .map(TacticalCombatState::is_incapacitated)
+            }),
+            reported_precision: event.reported_precision,
+            weapon_is_ranged: attacker_view.weapon_is_ranged(),
+            weapon_range: attacker_view.weapon_reach(),
+            range_latency_tolerance: config
+                .realtime_authority
+                .ranged
+                .range_latency_tolerance_metres,
+            separation: target_character
+                .map(|(_, transform)| {
+                    SignedLength::from_metres(
+                        attacker_transform
+                            .translation
+                            .distance(transform.translation),
+                    )
+                })
+                .transpose()?,
+            target_in_aim_cone: target_character.map(|(_, transform)| {
+                ranged_target_in_aim_cone(
+                    attacker_look.yaw,
+                    attacker_transform.translation,
+                    transform.translation,
+                    config.realtime_authority.ranged.aim_half_angle_degrees,
+                )
+            }),
+            authority_permits: authority.permits(now),
+            body_part: event.body_part,
+            attacker_position: Position::from_metres(attacker_transform.translation)?,
+            target_position: target_character
+                .map(|(_, transform)| Position::from_metres(transform.translation))
+                .transpose()?,
+            attacker_yaw: attacker_look.yaw,
+            target_yaw: target_character.map(|(look, _)| look.yaw),
         })
     })();
     let facts = match facts {

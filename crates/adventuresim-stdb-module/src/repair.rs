@@ -336,7 +336,11 @@ pub fn retrieve_repaired_item(
     retrieve(ctx, character_id, order_id)
 }
 
-fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> crate::StrategicOperationResult<()> {
+fn retrieve(
+    ctx: &ReducerContext,
+    character_id: u64,
+    order_id: u64,
+) -> crate::StrategicOperationResult<()> {
     let order = ctx
         .db
         .repair_order()

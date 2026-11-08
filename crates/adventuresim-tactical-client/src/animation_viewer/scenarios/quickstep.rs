@@ -81,10 +81,11 @@ pub(in crate::animation_viewer) fn quickstep_fixture_planar_speeds(
                 Ok(target) => target,
                 Err(error) => panic!("invalid authored quickstep speed: {error}"),
             };
-            let observed_displacement = match fabelgeist_geometry::SignedLength::from_metres(displacement) {
-                Ok(displacement) => displacement,
-                Err(error) => panic!("invalid authored quickstep displacement: {error}"),
-            };
+            let observed_displacement =
+                match fabelgeist_geometry::SignedLength::from_metres(displacement) {
+                    Ok(displacement) => displacement,
+                    Err(error) => panic!("invalid authored quickstep displacement: {error}"),
+                };
             let force = quickstep_tracking_force_newtons(
                 observed_displacement,
                 authored_drive_speed(velocity),

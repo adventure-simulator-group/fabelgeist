@@ -96,9 +96,7 @@ pub fn forge_weapon(
     }
     for (item_id, required) in &quote.requirements {
         if available(ctx, character_id, item_id) < *required {
-            return Err(format!(
-                "Insufficient {item_id}: {required} milliunits required"
-            ).into());
+            return Err(format!("Insufficient {item_id}: {required} milliunits required").into());
         }
     }
     for (item_id, required) in &quote.requirements {
@@ -115,5 +113,7 @@ pub fn forge_weapon(
         inventory_id,
     )?
     .ok_or("Forged weapon has no physical identity")?;
-    Ok(crate::weapon_instance::replace_design(ctx, object.id, &design)?)
+    Ok(crate::weapon_instance::replace_design(
+        ctx, object.id, &design,
+    )?)
 }

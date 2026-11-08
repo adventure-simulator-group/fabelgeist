@@ -240,7 +240,9 @@ fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefiniti
             let grip_to_tip_m = definition
                 .equipment
                 .as_ref()
-                .map_or(fabelgeist_geometry::SignedLength::ZERO, |equipment| equipment.physical.grip_to_tip_m);
+                .map_or(fabelgeist_geometry::SignedLength::ZERO, |equipment| {
+                    equipment.physical.grip_to_tip_m
+                });
             item.balance = adventuresim_core::equipment::weapon_balance_from_moment(
                 *moment_of_inertia_kg_m2,
                 definition.weight_kg,
@@ -755,10 +757,7 @@ mod tests {
         let stable_object_policy = source
             .split("pub(crate) fn requires_stable_object")
             .nth(1)
-            .and_then(|tail| {
-                tail.split("pub fn add_inventory_item")
-                    .next()
-            })
+            .and_then(|tail| tail.split("pub fn add_inventory_item").next())
             .expect("stable-object policy");
         assert!(stable_object_policy.contains("definition.kind == CatalogItemKind::Medication"));
         assert!(checked.contains("let count = if individual { quantity } else { 1 }"));

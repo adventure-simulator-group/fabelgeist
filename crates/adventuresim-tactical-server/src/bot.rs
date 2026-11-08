@@ -449,7 +449,8 @@ mod tests {
             prefers_stab: false,
             precision: 1.0,
             reach: fabelgeist_geometry::SignedLength::from_metres(KATZBALGER_REACH).unwrap(),
-            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(KATZBALGER_REACH).unwrap(),
+            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(KATZBALGER_REACH)
+                .unwrap(),
             moment_of_inertia_kg_m2: 0.0,
 
             melee: true,
@@ -808,9 +809,18 @@ mod tests {
 
     #[test]
     fn ranged_ai_fires_then_falls_back_to_melee_when_ammo_is_exhausted() {
-        assert!(!ranged_weapon_needs_ammo_lookup(false, fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap()));
-        assert!(!ranged_weapon_needs_ammo_lookup(true, fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap()));
-        assert!(ranged_weapon_needs_ammo_lookup(true, fabelgeist_geometry::SignedLength::from_metres(8.0).unwrap()));
+        assert!(!ranged_weapon_needs_ammo_lookup(
+            false,
+            fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap()
+        ));
+        assert!(!ranged_weapon_needs_ammo_lookup(
+            true,
+            fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap()
+        ));
+        assert!(ranged_weapon_needs_ammo_lookup(
+            true,
+            fabelgeist_geometry::SignedLength::from_metres(8.0).unwrap()
+        ));
         let mut app = test_app();
         let (actor, ammo) = spawn_test_ranged_ai(
             app.world_mut(),
@@ -931,14 +941,18 @@ mod tests {
                 .motor
                 .reference_quickstep_leg_length_metres,
             &combat_config.movement.motor,
-        ).unwrap();
+        )
+        .unwrap();
         assert!(
             separation
                 <= maximum_melee_lunge_range(
                     CharacterDimensions::default().arm_reach_metres,
                     fabelgeist_geometry::SignedLength::from_metres(KATZBALGER_REACH).unwrap(),
                     quickstep_distance,
-                ).unwrap().metres() + TWO_CHARACTER_COLLIDER_RADII,
+                )
+                .unwrap()
+                .metres()
+                    + TWO_CHARACTER_COLLIDER_RADII,
             "AI stopped outside reachable lunge range: {separation}"
         );
         assert!(
@@ -946,7 +960,10 @@ mod tests {
                 > melee_interaction_range(
                     CharacterDimensions::default().arm_reach_metres,
                     fabelgeist_geometry::SignedLength::from_metres(KATZBALGER_REACH).unwrap(),
-                ).unwrap().metres() + TWO_CHARACTER_COLLIDER_RADII,
+                )
+                .unwrap()
+                .metres()
+                    + TWO_CHARACTER_COLLIDER_RADII,
             "AI should commit its attack while the lunge still has a gap to close: {separation}"
         );
         assert!(

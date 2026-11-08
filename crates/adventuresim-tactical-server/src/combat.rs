@@ -1,6 +1,7 @@
 use adventuresim_core::elapsed::{AnimationElapsed, ElapsedResult};
 use adventuresim_core::unit_interval::UnitInterval;
 
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_core::{
     combat::{
         CommittedThreatChoice, CommittedThreatFacts, MeleeAttackCapability, MeleeContactAtTime,
@@ -13,6 +14,7 @@ use adventuresim_core::{
 use adventuresim_tactical_core::inventory::InventoryViewer;
 pub(crate) use adventuresim_tactical_core::player::TacticalCombatSide;
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::{FromClient, SendTargets, ServerTriggerExt, ToClients},
     message::{
@@ -21,8 +23,6 @@ use adventuresim_tactical_netcode::{
     },
 };
 use bevy::prelude::*;
-use adventuresim_building_generator::spatial_geometry::Position;
-use adventuresim_tactical_core::scene_coordinates::Scene;
 use fabelgeist_geometry::SignedLength;
 use std::collections::HashMap;
 
@@ -604,7 +604,10 @@ mod tests {
         assert_eq!(
             validate_melee_intent_cheap(MeleeIntentFacts {
                 weapon_reach: SignedLength::from_metres(0.0).unwrap(),
-                separation: SignedLength::from_metres(valid.arm_reach.metres() + valid.range_latency_tolerance.metres() + 0.01).unwrap(),
+                separation: SignedLength::from_metres(
+                    valid.arm_reach.metres() + valid.range_latency_tolerance.metres() + 0.01
+                )
+                .unwrap(),
                 ..valid
             })
             .unwrap_err(),
@@ -676,7 +679,10 @@ mod tests {
             ),
         ];
         for (facts, expected) in cases {
-            assert_eq!(validate_melee_intent_cheap(facts).unwrap_err(), expected.into());
+            assert_eq!(
+                validate_melee_intent_cheap(facts).unwrap_err(),
+                expected.into()
+            );
         }
     }
 

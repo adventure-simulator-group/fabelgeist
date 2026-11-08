@@ -1,4 +1,5 @@
-use fabelgeist_geometry::SignedLength;
+use crate::scene_coordinates::Scene;
+use adventuresim_building_generator::spatial_geometry::{PlanDirection, Position, RigidRotation};
 use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
 use adventuresim_core::prelude::*;
 use avian3d::prelude::*;
@@ -6,8 +7,7 @@ use bevy::prelude::*;
 use bevy_ahoy::{
     CharacterController, CharacterControllerState, CharacterLook, input::AccumulatedInput,
 };
-use adventuresim_building_generator::spatial_geometry::{PlanDirection, Position, RigidRotation};
-use crate::scene_coordinates::Scene;
+use fabelgeist_geometry::SignedLength;
 
 use movement_speed::*;
 pub use movement_speed::{
@@ -170,7 +170,10 @@ impl Default for QuickstepPush {
     }
 }
 
-fn melee_lunge_has_arrived(travelled_metres: SignedLength, planned_distance_metres: SignedLength) -> bool {
+fn melee_lunge_has_arrived(
+    travelled_metres: SignedLength,
+    planned_distance_metres: SignedLength,
+) -> bool {
     travelled_metres.metres() >= planned_distance_metres.metres()
 }
 
@@ -240,8 +243,16 @@ pub fn quickstep_target_displacement_metres(
     };
     // Preserve the original product-then-division order and nonpositive-leg
     // reference policy at this complete biomechanical scaling kernel.
-    SignedLength::from_metres(motor.reference_quickstep_target_displacement_metres.metres() * leg_length / reference_leg_length)
-        .map_err(|_| AnimationValueError::Overflow { quantity: AnimationQuantity::Length })
+    SignedLength::from_metres(
+        motor
+            .reference_quickstep_target_displacement_metres
+            .metres()
+            * leg_length
+            / reference_leg_length,
+    )
+    .map_err(|_| AnimationValueError::Overflow {
+        quantity: AnimationQuantity::Length,
+    })
 }
 
 /// Samples a monotone cubic through the authored 0/3/6/9/12 root positions.
@@ -296,7 +307,10 @@ pub fn quickstep_motion_target(
         + (6.0 * u - 2.0) * m1;
     let duration = duration.seconds();
     Ok(QuickstepMotionTarget {
-        displacement_metres: SignedLength::from_metres(position * target_displacement_metres).map_err(|_| AnimationValueError::Overflow { quantity: AnimationQuantity::Length })?,
+        displacement_metres: SignedLength::from_metres(position * target_displacement_metres)
+            .map_err(|_| AnimationValueError::Overflow {
+                quantity: AnimationQuantity::Length,
+            })?,
         velocity_metres_per_second: SignedSpeed::from_metres_per_second(
             derivative_u * 4.0 * target_displacement_metres / duration,
         )?,
@@ -520,12 +534,17 @@ fn apply_character_motor(
                 if mismatch_logged {
                     commands.entity(entity).remove::<QuickstepMismatchLogged>();
                 }
-                let displacement = match SignedLength::from_metres((transform.translation - push.origin.metres())
-                    .xz()
-                    .dot(world_direction)
-                    .max(0.0)) {
+                let displacement = match SignedLength::from_metres(
+                    (transform.translation - push.origin.metres())
+                        .xz()
+                        .dot(world_direction)
+                        .max(0.0),
+                ) {
                     Ok(distance) => distance,
-                    Err(error) => { warn!(%error, ?entity, "Rejected quickstep observed travel"); continue; }
+                    Err(error) => {
+                        warn!(%error, ?entity, "Rejected quickstep observed travel");
+                        continue;
+                    }
                 };
                 if let Some(lunge) = melee_lunge
                     && lunge.quickstep
@@ -544,10 +563,15 @@ fn apply_character_motor(
                     .map_or(motor.reference_quickstep_leg_length_metres, |dimensions| {
                         dimensions.leg_length_metres
                     });
-                let target_displacement = match quickstep_target_displacement_metres(leg_length, motor) {
-                    Ok(distance) => melee_lunge.map_or(distance, |lunge| distance.min(lunge.distance_metres)),
-                    Err(error) => { warn!(%error, ?entity, "Rejected quickstep target displacement"); continue; }
-                };
+                let target_displacement =
+                    match quickstep_target_displacement_metres(leg_length, motor) {
+                        Ok(distance) => melee_lunge
+                            .map_or(distance, |lunge| distance.min(lunge.distance_metres)),
+                        Err(error) => {
+                            warn!(%error, ?entity, "Rejected quickstep target displacement");
+                            continue;
+                        }
+                    };
                 let target = match quickstep_motion_target(
                     phase,
                     target_displacement,
@@ -596,8 +620,10 @@ fn apply_character_motor(
                         .ceil()
                         .max(1.0) as u64,
                 );
-                let length_scale =
-                    target_displacement.metres() / motor.reference_quickstep_target_displacement_metres.metres();
+                let length_scale = target_displacement.metres()
+                    / motor
+                        .reference_quickstep_target_displacement_metres
+                        .metres();
                 if elapsed_ticks < support_ticks
                     && displacement.metres()
                         < motor.quickstep_maximum_supported_root_displacement_metres * length_scale
@@ -693,12 +719,17 @@ fn apply_character_motor(
         let forward = (orientation * Vec3::NEG_Z).with_y(0.0).normalize_or_zero();
         let right = (orientation * Vec3::X).with_y(0.0).normalize_or_zero();
         let desired_direction = if let Some(lunge) = melee_lunge {
-            let travelled = match SignedLength::from_metres((transform.translation - lunge.origin.metres())
-                .xz()
-                .dot(lunge.direction.vector())
-                .max(0.0)) {
+            let travelled = match SignedLength::from_metres(
+                (transform.translation - lunge.origin.metres())
+                    .xz()
+                    .dot(lunge.direction.vector())
+                    .max(0.0),
+            ) {
                 Ok(distance) => distance,
-                Err(error) => { warn!(%error, ?entity, "Rejected melee observed travel"); continue; }
+                Err(error) => {
+                    warn!(%error, ?entity, "Rejected melee observed travel");
+                    continue;
+                }
             };
             if melee_lunge_has_arrived(travelled, lunge.distance_metres) {
                 commands.entity(entity).remove::<MeleeLungeMovement>();
@@ -955,10 +986,22 @@ mod tests {
 
     #[test]
     fn melee_lunge_does_not_stop_one_centimetre_before_strike_ready_distance() {
-        assert!(!melee_lunge_has_arrived(SignedLength::from_metres(0.990).unwrap(), SignedLength::from_metres(1.0).unwrap()));
-        assert!(!melee_lunge_has_arrived(SignedLength::from_metres(0.999_9).unwrap(), SignedLength::from_metres(1.0).unwrap()));
-        assert!(melee_lunge_has_arrived(SignedLength::from_metres(1.0).unwrap(), SignedLength::from_metres(1.0).unwrap()));
-        assert!(melee_lunge_has_arrived(SignedLength::from_metres(1.01).unwrap(), SignedLength::from_metres(1.0).unwrap()));
+        assert!(!melee_lunge_has_arrived(
+            SignedLength::from_metres(0.990).unwrap(),
+            SignedLength::from_metres(1.0).unwrap()
+        ));
+        assert!(!melee_lunge_has_arrived(
+            SignedLength::from_metres(0.999_9).unwrap(),
+            SignedLength::from_metres(1.0).unwrap()
+        ));
+        assert!(melee_lunge_has_arrived(
+            SignedLength::from_metres(1.0).unwrap(),
+            SignedLength::from_metres(1.0).unwrap()
+        ));
+        assert!(melee_lunge_has_arrived(
+            SignedLength::from_metres(1.01).unwrap(),
+            SignedLength::from_metres(1.0).unwrap()
+        ));
     }
 
     #[test]
@@ -1392,7 +1435,8 @@ mod tests {
         let target_distance = quickstep_target_displacement_metres(
             crate::player::CharacterDimensions::default().leg_length_metres,
             motor,
-        ).unwrap();
+        )
+        .unwrap();
         let duration = config.movement.maneuvers.quickstep_duration_seconds;
         let ticks = (duration.seconds() * locomotion_sample_rate().hertz()).round() as usize;
         let delta_seconds = locomotion_sample_rate().interval().seconds();
@@ -1449,7 +1493,9 @@ mod tests {
         let maximum_gap = quickstep_target_displacement_metres(
             motor.reference_quickstep_leg_length_metres,
             motor,
-        ).unwrap().metres();
+        )
+        .unwrap()
+        .metres();
         for gap in [0.501, 0.70, maximum_gap - 0.01] {
             let mut displacement = 0.0;
             let mut velocity = 0.0;
@@ -1496,7 +1542,8 @@ mod tests {
             quickstep_target_displacement_metres(
                 crate::player::CharacterDimensions::default().leg_length_metres,
                 motor,
-            ).unwrap(),
+            )
+            .unwrap(),
             duration.elapsed(),
             motor.quickstep_authored_displacement_profile,
         )
@@ -1530,12 +1577,29 @@ mod tests {
         let config = crate::combat_config::TacticalCombatConfig::default();
         let motor = &config.movement.motor;
         let reference = motor.reference_quickstep_leg_length_metres;
-        assert!((quickstep_target_displacement_metres(reference, motor).unwrap().metres() - 1.0).abs() < 1.0e-6);
         assert!(
-            (quickstep_target_displacement_metres(reference.scaled_by(1.2).unwrap(), motor).unwrap().metres() - 1.2).abs() < 1.0e-6
+            (quickstep_target_displacement_metres(reference, motor)
+                .unwrap()
+                .metres()
+                - 1.0)
+                .abs()
+                < 1.0e-6
         );
         assert!(
-            (quickstep_target_displacement_metres(reference.scaled_by(0.8).unwrap(), motor).unwrap().metres() - 0.8).abs() < 1.0e-6
+            (quickstep_target_displacement_metres(reference.scaled_by(1.2).unwrap(), motor)
+                .unwrap()
+                .metres()
+                - 1.2)
+                .abs()
+                < 1.0e-6
+        );
+        assert!(
+            (quickstep_target_displacement_metres(reference.scaled_by(0.8).unwrap(), motor)
+                .unwrap()
+                .metres()
+                - 0.8)
+                .abs()
+                < 1.0e-6
         );
     }
 

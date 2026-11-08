@@ -842,7 +842,8 @@ mod tests {
                 .is_empty()
         );
         assert!(evidence.all_weapon_contact_bands.iter().all(|contact| {
-            contact.center_separation_metres.metres() >= HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES
+            contact.center_separation_metres.metres()
+                >= HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES
                 && (contact.transformed_energy_joules
                     - contact.incident_energy_joules * contact.energy_fraction)
                     .abs()

@@ -25,12 +25,7 @@ impl ParametricWeaponCombatGeometry {
         balance: f32,
         precision: f32,
     ) -> Option<Self> {
-        let values = [
-            mass_kg,
-            moment_of_inertia_kg_m2,
-            balance,
-            precision,
-        ];
+        let values = [mass_kg, moment_of_inertia_kg_m2, balance, precision];
         (values.into_iter().all(f32::is_finite)
             && mass_kg > 0.0
             && total_length_m.metres() > 0.0

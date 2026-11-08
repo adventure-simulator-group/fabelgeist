@@ -8,10 +8,11 @@ pub use attack_key::MeleeAttackKey;
 
 mod attack_key;
 
-pub const MELEE_LUNGE_DISTANCE_EPSILON_METRES: SignedLength = match SignedLength::from_metres(1.0e-5) {
-    Ok(value) => value,
-    Err(_) => panic!("authored melee lunge distance tolerance must be finite"),
-};
+pub const MELEE_LUNGE_DISTANCE_EPSILON_METRES: SignedLength =
+    match SignedLength::from_metres(1.0e-5) {
+        Ok(value) => value,
+        Err(_) => panic!("authored melee lunge distance tolerance must be finite"),
+    };
 
 pub type MeleeGeometryResult<T> = Result<T, MeleeGeometryError>;
 
@@ -115,7 +116,10 @@ pub fn melee_lunge_quickstep_threshold_metres() -> SignedLength {
     crate::combat_config::runtime_melee_authority_config().lunge_quickstep_threshold_metres
 }
 
-pub fn melee_interaction_range(arm_reach: SignedLength, weapon_reach: SignedLength) -> MeleeGeometryResult<SignedLength> {
+pub fn melee_interaction_range(
+    arm_reach: SignedLength,
+    weapon_reach: SignedLength,
+) -> MeleeGeometryResult<SignedLength> {
     // Preserve the existing max-zero normalization and f32 sum at this kernel.
     checked_lunge_metres(arm_reach.metres().max(0.0) + weapon_reach.metres().max(0.0))
 }
@@ -178,17 +182,31 @@ pub fn conservative_forward_lunge_acceleration(
 /// range. Targets farther away than one complete quickstep remain valid attack
 /// attempts, but do not cause movement.
 pub fn melee_lunge(geometry: MeleeLungeGeometry) -> MeleeGeometryResult<MeleeLunge> {
-    let gap = (geometry.separation.metres() - geometry.interaction_range.metres().max(0.0)).max(0.0);
+    let gap =
+        (geometry.separation.metres() - geometry.interaction_range.metres().max(0.0)).max(0.0);
     let gap = checked_lunge_metres(gap)?;
-    Ok(if gap.metres() <= melee_lunge_range_window_metres().metres() + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres()
-        || gap.metres() > geometry.maximum_travel.metres().max(0.0) + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres()
-    {
-        MeleeLunge::None
-    } else if gap.metres() > melee_lunge_quickstep_threshold_metres().metres() + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres() {
-        MeleeLunge::Quickstep { distance_metres: gap }
-    } else {
-        MeleeLunge::Forward { distance_metres: gap }
-    })
+    Ok(
+        if gap.metres()
+            <= melee_lunge_range_window_metres().metres()
+                + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres()
+            || gap.metres()
+                > geometry.maximum_travel.metres().max(0.0)
+                    + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres()
+        {
+            MeleeLunge::None
+        } else if gap.metres()
+            > melee_lunge_quickstep_threshold_metres().metres()
+                + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres()
+        {
+            MeleeLunge::Quickstep {
+                distance_metres: gap,
+            }
+        } else {
+            MeleeLunge::Forward {
+                distance_metres: gap,
+            }
+        },
+    )
 }
 
 pub fn maximum_melee_lunge_range(
@@ -203,9 +221,12 @@ pub fn maximum_melee_lunge_range(
 fn checked_lunge_metres(value: f32) -> MeleeGeometryResult<SignedLength> {
     // All input leaves are finite. A nonfinite completed arithmetic result is
     // overflow of this owned calculation, rather than invalid external input.
-    SignedLength::from_metres(value).map_err(|_| AnimationValueError::Overflow {
-        quantity: AnimationQuantity::Length,
-    }.into())
+    SignedLength::from_metres(value).map_err(|_| {
+        AnimationValueError::Overflow {
+            quantity: AnimationQuantity::Length,
+        }
+        .into()
+    })
 }
 
 #[cfg(test)]
@@ -214,8 +235,25 @@ mod tests {
 
     #[test]
     fn melee_lunge_respects_window_mode_threshold_and_maximum_travel() {
-        let range = melee_interaction_range(SignedLength::from_metres(0.55).unwrap(), SignedLength::from_metres(0.8).unwrap()).unwrap().metres();
-        assert_eq!(melee_lunge(MeleeLungeGeometry { separation: SignedLength::from_metres(range + 0.10).unwrap(), interaction_range: melee_interaction_range(SignedLength::from_metres(0.55).unwrap(), SignedLength::from_metres(0.8).unwrap()).unwrap(), maximum_travel: SignedLength::from_metres(1.0).unwrap() }).unwrap(), MeleeLunge::None);
+        let range = melee_interaction_range(
+            SignedLength::from_metres(0.55).unwrap(),
+            SignedLength::from_metres(0.8).unwrap(),
+        )
+        .unwrap()
+        .metres();
+        assert_eq!(
+            melee_lunge(MeleeLungeGeometry {
+                separation: SignedLength::from_metres(range + 0.10).unwrap(),
+                interaction_range: melee_interaction_range(
+                    SignedLength::from_metres(0.55).unwrap(),
+                    SignedLength::from_metres(0.8).unwrap()
+                )
+                .unwrap(),
+                maximum_travel: SignedLength::from_metres(1.0).unwrap()
+            })
+            .unwrap(),
+            MeleeLunge::None
+        );
         assert!(matches!(
             melee_lunge(MeleeLungeGeometry { separation: SignedLength::from_metres(range + 0.11).unwrap(), interaction_range: melee_interaction_range(SignedLength::from_metres(0.55).unwrap(), SignedLength::from_metres(0.8).unwrap()).unwrap(), maximum_travel: SignedLength::from_metres(1.0).unwrap() }).unwrap(),
             MeleeLunge::Forward { distance_metres } if (distance_metres.metres() - 0.11).abs() < 1.0e-5
@@ -224,14 +262,55 @@ mod tests {
             melee_lunge(MeleeLungeGeometry { separation: SignedLength::from_metres(range + 0.51).unwrap(), interaction_range: melee_interaction_range(SignedLength::from_metres(0.55).unwrap(), SignedLength::from_metres(0.8).unwrap()).unwrap(), maximum_travel: SignedLength::from_metres(1.0).unwrap() }).unwrap(),
             MeleeLunge::Quickstep { distance_metres } if (distance_metres.metres() - 0.51).abs() < 1.0e-5
         ));
-        assert_eq!(melee_lunge(MeleeLungeGeometry { separation: SignedLength::from_metres(range + 1.01).unwrap(), interaction_range: melee_interaction_range(SignedLength::from_metres(0.55).unwrap(), SignedLength::from_metres(0.8).unwrap()).unwrap(), maximum_travel: SignedLength::from_metres(1.0).unwrap() }).unwrap(), MeleeLunge::None);
-        assert_eq!(maximum_melee_lunge_range(SignedLength::from_metres(0.55).unwrap(), SignedLength::from_metres(0.8).unwrap(), SignedLength::from_metres(1.0).unwrap()).unwrap().metres(), range + 1.0);
+        assert_eq!(
+            melee_lunge(MeleeLungeGeometry {
+                separation: SignedLength::from_metres(range + 1.01).unwrap(),
+                interaction_range: melee_interaction_range(
+                    SignedLength::from_metres(0.55).unwrap(),
+                    SignedLength::from_metres(0.8).unwrap()
+                )
+                .unwrap(),
+                maximum_travel: SignedLength::from_metres(1.0).unwrap()
+            })
+            .unwrap(),
+            MeleeLunge::None
+        );
+        assert_eq!(
+            maximum_melee_lunge_range(
+                SignedLength::from_metres(0.55).unwrap(),
+                SignedLength::from_metres(0.8).unwrap(),
+                SignedLength::from_metres(1.0).unwrap()
+            )
+            .unwrap()
+            .metres(),
+            range + 1.0
+        );
     }
 
     #[test]
     fn fist_and_weapon_ranges_add_anatomy_exactly_once() {
-        assert!((melee_interaction_range(SignedLength::from_metres(0.526_801).unwrap(), SignedLength::from_metres(0.0).unwrap()).unwrap().metres() - 0.526_801).abs() < 1.0e-6);
-        assert!((melee_interaction_range(SignedLength::from_metres(0.526_801).unwrap(), SignedLength::from_metres(0.8).unwrap()).unwrap().metres() - 1.326_801).abs() < 1.0e-6);
+        assert!(
+            (melee_interaction_range(
+                SignedLength::from_metres(0.526_801).unwrap(),
+                SignedLength::from_metres(0.0).unwrap()
+            )
+            .unwrap()
+            .metres()
+                - 0.526_801)
+                .abs()
+                < 1.0e-6
+        );
+        assert!(
+            (melee_interaction_range(
+                SignedLength::from_metres(0.526_801).unwrap(),
+                SignedLength::from_metres(0.8).unwrap()
+            )
+            .unwrap()
+            .metres()
+                - 1.326_801)
+                .abs()
+                < 1.0e-6
+        );
     }
 
     #[test]

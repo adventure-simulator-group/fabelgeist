@@ -104,8 +104,15 @@ fn precision_changes_concentration_and_resistance_monotonically() {
 #[test]
 fn condition_scales_custom_geometry_once() {
     let base = crate::item_catalog::weapon_precision("arming_sword").unwrap();
-    let geometry =
-        crate::equipment::ParametricWeaponCombatGeometry::new(1.0, fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap(), fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap(), fabelgeist_geometry::SignedLength::from_metres(0.7).unwrap(), 0.2, 0.4, 2.0)
-            .unwrap();
+    let geometry = crate::equipment::ParametricWeaponCombatGeometry::new(
+        1.0,
+        fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap(),
+        fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap(),
+        fabelgeist_geometry::SignedLength::from_metres(0.7).unwrap(),
+        0.2,
+        0.4,
+        2.0,
+    )
+    .unwrap();
     assert!((geometry.conditioned_precision("arming_sword", base * 0.5) - 1.0).abs() < 0.0001);
 }

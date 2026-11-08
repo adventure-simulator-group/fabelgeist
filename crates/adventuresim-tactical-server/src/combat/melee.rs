@@ -2,12 +2,12 @@ use super::authority::{AuthorizedMeleeAttack, ValidatedMeleeAttack};
 use super::*;
 
 use active_defense::{commit_active_defense, commit_defense_during_attack, prepare_active_defense};
-use outcome::emit_melee_outcome;
 use geometry::{CompletionActors, CompletionAuthorization, MeleeCompletionGeometry};
+use outcome::emit_melee_outcome;
 
 mod active_defense;
-mod outcome;
 mod geometry;
+mod outcome;
 
 /// Read-only contact admission; authority is consumed only after defense preparation.
 struct MeleeCompletion {
@@ -215,10 +215,22 @@ pub(super) fn resolve_melee_attack(
     };
     let now = CombatInstant::from_elapsed(&time);
     let geometry = match MeleeCompletionGeometry::observe(
-        CompletionActors { attacker_look, attacker_transform, defender_look, defender_transform,
-            dimensions: attacker_dimensions },
-        CompletionAuthorization { event: &event, authority, now },
-        &attacker_view, &q_sides, &q_states, &config,
+        CompletionActors {
+            attacker_look,
+            attacker_transform,
+            defender_look,
+            defender_transform,
+            dimensions: attacker_dimensions,
+        },
+        CompletionAuthorization {
+            event: &event,
+            authority,
+            now,
+        },
+        &attacker_view,
+        &q_sides,
+        &q_states,
+        &config,
     ) {
         Ok(geometry) => geometry,
         Err(error) => {
@@ -226,7 +238,12 @@ pub(super) fn resolve_melee_attack(
             return;
         }
     };
-    let MeleeCompletionGeometry { surface_distance, reach, contact_at_time, facts } = geometry;
+    let MeleeCompletionGeometry {
+        surface_distance,
+        reach,
+        contact_at_time,
+        facts,
+    } = geometry;
     let contact_sample = event.contact_sample;
     let defense_alignment_sample = event.defense_alignment_sample;
     let Some(completion) = MeleeCompletion::prepare(

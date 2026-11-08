@@ -358,8 +358,8 @@ fn attack_force(
         attr.limb_attr_by_weight_by_parts(LimbAttribute::Strength, body, LimbWeights::both_arms());
     let upper_muscle_kg = strength * UPPER_MUSCLE_KG_PER_STRENGTH;
     let punch_kg = UPPER_MUSCLE_KG_TO_PUNCH_KG * upper_muscle_kg;
-    let striking_mass_kg =
-        punch_kg + equip.weapon_weight() * (1.0 + equip.weapon_balance() * equip.weapon_reach().metres());
+    let striking_mass_kg = punch_kg
+        + equip.weapon_weight() * (1.0 + equip.weapon_balance() * equip.weapon_reach().metres());
     let weapon_transfer = if equip.weapon_is_unarmed() {
         1.0
     } else {
@@ -1016,12 +1016,14 @@ mod tests {
             effective_reach_metres: fabelgeist_geometry::SignedLength::from_metres(2.0).unwrap(),
             grip_to_tip_metres: fabelgeist_geometry::SignedLength::from_metres(1.9).unwrap(),
             total_length_metres: fabelgeist_geometry::SignedLength::from_metres(2.1).unwrap(),
-            striking_head_length_metres: fabelgeist_geometry::SignedLength::from_metres(0.16).unwrap(),
+            striking_head_length_metres: fabelgeist_geometry::SignedLength::from_metres(0.16)
+                .unwrap(),
             distal_headed: true,
             attack_style: crate::combat_style::MeleeAttackStyle::Swing,
             body_material: Some(crate::item_catalog_schema::EquipmentMaterial::Hardwood),
             striking_material: Some(crate::item_catalog_schema::EquipmentMaterial::RoughSteel),
-        }).unwrap();
+        })
+        .unwrap();
         let result = calculate_damage_from_force(
             1.0,
             101.4 * contact.energy_fraction,

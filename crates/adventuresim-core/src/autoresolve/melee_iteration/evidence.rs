@@ -181,7 +181,8 @@ fn all_weapon_contact_band_evidence(
         // Native local-axis band samples are authored evidence observations.
         let grip_origin = (reach.metres() - grip.metres()).max(0.0);
         let butt = (equipment.weapon_total_length().metres() - grip.metres()).max(0.0);
-        let head_boundary = grip_origin + (grip.metres() - equipment.weapon_striking_head_length().metres()).max(0.0);
+        let head_boundary = grip_origin
+            + (grip.metres() - equipment.weapon_striking_head_length().metres()).max(0.0);
         for surface_measure_metres in [
             reach.metres(),
             (head_boundary + 0.000_1).min(reach.metres()),
@@ -213,8 +214,10 @@ fn all_weapon_contact_band_evidence(
             evidence.push(WeaponContactBandEvidence {
                 weapon,
                 surface_measure_metres,
-                center_separation_metres: SignedLength::from_metres(surface_measure_metres.metres()
-                    + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)?,
+                center_separation_metres: SignedLength::from_metres(
+                    surface_measure_metres.metres()
+                        + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
+                )?,
                 classification: contact.classification,
                 lever_arm_metres: contact.lever_arm_metres,
                 contact_material: contact.contact_material,
@@ -236,8 +239,8 @@ fn polearm_contact_revalidation_evidence(
     let effective_reach = melee_effective_reach(&veteran.combatant)?;
     let grip_to_tip = equipment.weapon_grip_to_tip();
     let grip_origin = (effective_reach.metres() - grip_to_tip.metres()).max(0.0);
-    let head_boundary =
-        grip_origin + (grip_to_tip.metres() - equipment.weapon_striking_head_length().metres()).max(0.0);
+    let head_boundary = grip_origin
+        + (grip_to_tip.metres() - equipment.weapon_striking_head_length().metres()).max(0.0);
     let ideal_measure_metres = preferred_melee_striking_measure(
         effective_reach,
         grip_to_tip,

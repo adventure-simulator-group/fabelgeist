@@ -70,8 +70,13 @@ pub(super) fn integrate_opposed_movement(
     )?;
     // Complete native centre-distance integration and collision clipping. The
     // ordered additions and signed contributions remain f32 throughout.
-    let raw_after = distance_metres.metres() + first.displacement_metres.metres() + second.displacement_metres.metres();
-    let bounded_after = raw_after.clamp(minimum_distance_metres.metres(), maximum_distance_metres.metres());
+    let raw_after = distance_metres.metres()
+        + first.displacement_metres.metres()
+        + second.displacement_metres.metres();
+    let bounded_after = raw_after.clamp(
+        minimum_distance_metres.metres(),
+        maximum_distance_metres.metres(),
+    );
     let raw_delta = raw_after - distance_metres.metres();
     let bounded_delta = bounded_after - distance_metres.metres();
     if (raw_after - bounded_after).abs() > 0.0 && raw_delta.abs() > 0.0 {
@@ -144,7 +149,9 @@ fn integrate_axis(
         velocity_before_metres_per_second: SignedSpeed::from_metres_per_second(before)?,
         velocity_after_metres_per_second: SignedSpeed::from_metres_per_second(after)?,
         speed_limit_metres_per_second: maximum_speed,
-        displacement_metres: SignedLength::from_metres(accelerating_displacement + constant_displacement)?,
+        displacement_metres: SignedLength::from_metres(
+            accelerating_displacement + constant_displacement,
+        )?,
     })
 }
 
@@ -203,7 +210,10 @@ mod tests {
                 AnimationElapsed::from_seconds(0.25).unwrap(),
             )
             .unwrap();
-            assert!(motion.displacement_metres.metres().abs() <= SPEED.metres_per_second() * 0.25 + 1.0e-6);
+            assert!(
+                motion.displacement_metres.metres().abs()
+                    <= SPEED.metres_per_second() * 0.25 + 1.0e-6
+            );
         }
     }
 
@@ -234,8 +244,9 @@ mod tests {
         )
         .unwrap();
         assert!(
-            (whole.displacement_metres.metres() - (first.displacement_metres.metres() + second.displacement_metres.metres()))
-                .abs()
+            (whole.displacement_metres.metres()
+                - (first.displacement_metres.metres() + second.displacement_metres.metres()))
+            .abs()
                 < 1.0e-6
         );
         assert!(
@@ -335,8 +346,12 @@ mod tests {
                 .metres_per_second()
                 >= 0.0
         );
-        assert!(movement.first.displacement_metres.metres().abs() <= SPEED.metres_per_second() * 0.1);
-        assert!(movement.second.displacement_metres.metres().abs() <= SPEED.metres_per_second() * 0.1);
+        assert!(
+            movement.first.displacement_metres.metres().abs() <= SPEED.metres_per_second() * 0.1
+        );
+        assert!(
+            movement.second.displacement_metres.metres().abs() <= SPEED.metres_per_second() * 0.1
+        );
     }
 
     #[test]

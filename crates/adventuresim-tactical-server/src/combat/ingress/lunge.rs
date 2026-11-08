@@ -69,24 +69,32 @@ impl MeleeMovementPlan {
                 request.attacker_dimensions.arm_reach_metres,
                 request.weapon_reach_metres,
             )?,
-            maximum_travel: request.quickstep_distance_metres.min(melee_collision_clearance(
-                request.attacker_position,
-                request.attacker_collider,
-                request.target_position,
-                request.target_rotation,
-                request.target_collider,
-            )?),
+            maximum_travel: request
+                .quickstep_distance_metres
+                .min(melee_collision_clearance(
+                    request.attacker_position,
+                    request.attacker_collider,
+                    request.target_position,
+                    request.target_rotation,
+                    request.target_collider,
+                )?),
             separation: melee_surface_measure(request.attacker_position, request.target_position)?,
         };
         // Scene X/Z direction is normalized by the original native kernel;
         // admission retains that represented direction without renormalizing.
         let direction = (request.target_position.metres() - request.attacker_position.metres())
-            .xz().normalize_or_zero();
+            .xz()
+            .normalize_or_zero();
         let movement = if direction == Vec2::ZERO {
             None
         } else {
             let (distance_metres, quickstep) = match melee_lunge(geometry)? {
-                MeleeLunge::None => return Ok(Self { geometry, movement: None }),
+                MeleeLunge::None => {
+                    return Ok(Self {
+                        geometry,
+                        movement: None,
+                    });
+                }
                 MeleeLunge::Forward { distance_metres } => (distance_metres, false),
                 MeleeLunge::Quickstep { distance_metres } => (distance_metres, true),
             };
@@ -102,10 +110,14 @@ impl MeleeMovementPlan {
 }
 
 impl PlannedMeleeLunge {
-    fn admit(request: MeleeLungeRequest<'_>, config: &TacticalCombatConfig) -> MeleeGeometryResult<Self> {
+    fn admit(
+        request: MeleeLungeRequest<'_>,
+        config: &TacticalCombatConfig,
+    ) -> MeleeGeometryResult<Self> {
         let plan = MeleeMovementPlan::admit(request)?;
-        let closure = SignedLength::from_metres((plan.geometry.separation.metres()
-            - plan.geometry.interaction_range.metres()).max(0.0))?;
+        let closure = SignedLength::from_metres(
+            (plan.geometry.separation.metres() - plan.geometry.interaction_range.metres()).max(0.0),
+        )?;
         let lunge = match plan.movement {
             Some(movement) if movement.quickstep => MeleeLunge::Quickstep {
                 distance_metres: movement.distance_metres,
@@ -141,7 +153,9 @@ impl PlannedMeleeLunge {
         attack_key: MeleeAttackKey,
         start_tick: AnimationSampleTick,
     ) {
-        commands.entity(request.attacker).remove::<MeleeLungeMovement>();
+        commands
+            .entity(request.attacker)
+            .remove::<MeleeLungeMovement>();
         let Some(movement) = self.movement else {
             let outcome = if self.closure.metres() <= MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres() {
                 "already_in_reach"
@@ -173,13 +187,20 @@ pub(super) fn planned_melee_lunge_for_entities(
     colliders: &Query<&Collider>,
     config: &TacticalCombatConfig,
 ) -> MeleeGeometryResult<Option<PlannedMeleeLunge>> {
-    let Ok([attacker_transform, target_transform]) = transforms.get_many([request.attacker, request.target]) else {
+    let Ok([attacker_transform, target_transform]) =
+        transforms.get_many([request.attacker, request.target])
+    else {
         return Ok(None);
     };
-    let Ok([attacker_collider, target_collider]) = colliders.get_many([request.attacker, request.target]) else {
+    let Ok([attacker_collider, target_collider]) =
+        colliders.get_many([request.attacker, request.target])
+    else {
         return Ok(None);
     };
-    let dimensions = dimensions.get(request.attacker).copied().unwrap_or_default();
+    let dimensions = dimensions
+        .get(request.attacker)
+        .copied()
+        .unwrap_or_default();
     let observed = MeleeLungeRequest::observe(
         attacker_transform,
         attacker_collider,
@@ -196,8 +217,14 @@ pub(crate) fn melee_surface_measure(
     attacker_position: Position<Scene>,
     target_position: Position<Scene>,
 ) -> MeleeGeometryResult<SignedLength> {
-    Ok(SignedLength::from_metres((attacker_position.metres().xz().distance(target_position.metres().xz())
-        - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES).max(0.0))?)
+    Ok(SignedLength::from_metres(
+        (attacker_position
+            .metres()
+            .xz()
+            .distance(target_position.metres().xz())
+            - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
+            .max(0.0),
+    )?)
 }
 
 pub(crate) fn melee_collision_clearance(
@@ -214,20 +241,31 @@ pub(crate) fn melee_collision_clearance(
     let b = target_collider.aabb(target, Rotation(target_rotation.quaternion()));
     let ar = ((a.max - a.min) * 0.5).xz().max_element();
     let br = ((b.max - b.min) * 0.5).xz().max_element();
-    Ok(SignedLength::from_metres((attacker.xz().distance(target.xz()) - ar - br).max(0.0))?)
+    Ok(SignedLength::from_metres(
+        (attacker.xz().distance(target.xz()) - ar - br).max(0.0),
+    )?)
 }
 
 pub(crate) fn melee_target_reachable(request: MeleeLungeRequest<'_>) -> MeleeGeometryResult<bool> {
-    let maximum_travel = request.quickstep_distance_metres.min(melee_collision_clearance(
-        request.attacker_position,
-        request.attacker_collider,
-        request.target_position,
-        request.target_rotation,
-        request.target_collider,
-    )?);
-    Ok(melee_surface_measure(request.attacker_position, request.target_position)?.metres()
-        <= melee_interaction_range(request.attacker_dimensions.arm_reach_metres, request.weapon_reach_metres)?.metres()
-            + maximum_travel.metres() + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres())
+    let maximum_travel = request
+        .quickstep_distance_metres
+        .min(melee_collision_clearance(
+            request.attacker_position,
+            request.attacker_collider,
+            request.target_position,
+            request.target_rotation,
+            request.target_collider,
+        )?);
+    Ok(
+        melee_surface_measure(request.attacker_position, request.target_position)?.metres()
+            <= melee_interaction_range(
+                request.attacker_dimensions.arm_reach_metres,
+                request.weapon_reach_metres,
+            )?
+            .metres()
+                + maximum_travel.metres()
+                + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres(),
+    )
 }
 
 pub(crate) fn melee_target_lunge_arrival(
@@ -248,15 +286,20 @@ mod tests {
         let collider = Collider::cylinder(0.4, 1.9);
         let dimensions = CharacterDimensions::default();
         let plan = |target_x| {
-            MeleeMovementPlan::admit(MeleeLungeRequest::observe(
-                &Transform::from_translation(Vec3::ZERO),
-                &collider,
-                dimensions,
-                &Transform::from_xyz(target_x, 0.0, 0.0),
-                &collider,
-                SignedLength::from_metres(0.8).unwrap(),
-                SignedLength::from_metres(1.0).unwrap(),
-            ).unwrap()).unwrap().movement
+            MeleeMovementPlan::admit(
+                MeleeLungeRequest::observe(
+                    &Transform::from_translation(Vec3::ZERO),
+                    &collider,
+                    dimensions,
+                    &Transform::from_xyz(target_x, 0.0, 0.0),
+                    &collider,
+                    SignedLength::from_metres(0.8).unwrap(),
+                    SignedLength::from_metres(1.0).unwrap(),
+                )
+                .unwrap(),
+            )
+            .unwrap()
+            .movement
         };
 
         assert!(plan(2.4).is_some(), "reachable target should plan movement");
@@ -277,8 +320,11 @@ mod tests {
                 &collider,
                 SignedLength::from_metres(0.0).unwrap(),
                 SignedLength::from_metres(1.0).unwrap(),
-            ).unwrap(),
-        ).unwrap().movement;
+            )
+            .unwrap(),
+        )
+        .unwrap()
+        .movement;
         assert!(
             fist.is_none(),
             "fist target is already within center-based reach"

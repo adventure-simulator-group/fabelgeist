@@ -68,10 +68,10 @@ pub mod prelude {
         MAX_CITY_STREET_PATCHES, MAX_CITY_YARD_PATCHES,
     };
     pub use crate::combat::{
-        MELEE_LUNGE_DISTANCE_EPSILON_METRES,
-        Attack, Dodge, ForwardLungeAcceleration, MeleeAttackKey, MeleeContactTiming, MeleeLunge, MeleeGeometryError, MeleeGeometryResult, MeleeLungeGeometry,
-        MeleeLungeArrival, conservative_forward_lunge_acceleration, maximum_melee_lunge_range,
-        melee_interaction_range, melee_lunge, melee_lunge_arrival,
+        Attack, Dodge, ForwardLungeAcceleration, MELEE_LUNGE_DISTANCE_EPSILON_METRES,
+        MeleeAttackKey, MeleeContactTiming, MeleeGeometryError, MeleeGeometryResult, MeleeLunge,
+        MeleeLungeArrival, MeleeLungeGeometry, conservative_forward_lunge_acceleration,
+        maximum_melee_lunge_range, melee_interaction_range, melee_lunge, melee_lunge_arrival,
         melee_lunge_quickstep_threshold_metres, melee_lunge_range_window_metres,
     };
     pub use crate::combat_config::*;

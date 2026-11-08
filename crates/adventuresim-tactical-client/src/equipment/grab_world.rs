@@ -7,7 +7,7 @@ use bevy_mod_outline::OutlineVolume;
 
 use crate::{
     presentation::{GrabTargetOutline, TacticalGameplayCamera},
-    targeting::{auto_aim_candidate, TargetingCandidate, TargetingRange},
+    targeting::{TargetingCandidate, TargetingRange, auto_aim_candidate},
 };
 
 use super::{GrabSelection, GrabSession, PICKUP_RANGE_M};
@@ -43,11 +43,12 @@ impl WorldGrabTargets<'_, '_> {
                 .iter()
                 .filter_map(|(entity, transform, physical)| {
                     let position = transform.transform_point(-physical.anchor_offset_m);
-                    self.visible(origin, position).then_some(TargetingCandidate {
-                        candidate: GrabSelection::SceneItem(entity),
-                        position,
-                        stable_key: entity.to_bits(),
-                    })
+                    self.visible(origin, position)
+                        .then_some(TargetingCandidate {
+                            candidate: GrabSelection::SceneItem(entity),
+                            position,
+                            stable_key: entity.to_bits(),
+                        })
                 })
                 .chain(self.doors.iter().filter_map(|(entity, transform, door)| {
                     can_grab_door_from_inside(
@@ -59,7 +60,11 @@ impl WorldGrabTargets<'_, '_> {
                     )
                     .then(|| transform.translation())
                     .filter(|position| self.visible(origin, *position))
-                    .map(|position| TargetingCandidate { candidate: GrabSelection::Door(entity), position, stable_key: entity.to_bits() })
+                    .map(|position| TargetingCandidate {
+                        candidate: GrabSelection::Door(entity),
+                        position,
+                        stable_key: entity.to_bits(),
+                    })
                 }))
                 .chain(
                     self.windows
@@ -74,8 +79,10 @@ impl WorldGrabTargets<'_, '_> {
                             )
                             .then(|| transform.translation())
                             .filter(|position| self.visible(origin, *position))
-                            .map(|position| {
-                                TargetingCandidate { candidate: GrabSelection::Window(entity), position, stable_key: entity.to_bits() }
+                            .map(|position| TargetingCandidate {
+                                candidate: GrabSelection::Window(entity),
+                                position,
+                                stable_key: entity.to_bits(),
                             })
                         }),
                 ),

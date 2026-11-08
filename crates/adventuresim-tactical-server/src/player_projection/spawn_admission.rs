@@ -1,7 +1,7 @@
 //! Admit the complete applicable connected-player batch before any entity commands.
 
-use super::{LoadingPlayer, player_collider, spawn_connected_player};
 use super::item_geometry::PreparedInventoryItem;
+use super::{LoadingPlayer, player_collider, spawn_connected_player};
 use crate::{
     Args,
     bot::CombatantBehaviorPackages,
@@ -82,11 +82,15 @@ impl PreparedPlayerSpawns {
                 elevation.metres() + offset.metres(),
                 point.metres().y,
             ))?;
-            let body_mass = adventuresim_core::physiology::BodyMassKg::try_new(player.body_weight_kg)
-                .map_err(|cause| SceneSpawnError::BodyMass {
-                    character: CharacterId(player.character.id), cause,
-                })?;
-            let items = std::mem::take(&mut player.items).into_iter()
+            let body_mass = adventuresim_core::physiology::BodyMassKg::try_new(
+                player.body_weight_kg,
+            )
+            .map_err(|cause| SceneSpawnError::BodyMass {
+                character: CharacterId(player.character.id),
+                cause,
+            })?;
+            let items = std::mem::take(&mut player.items)
+                .into_iter()
                 .map(|item| PreparedInventoryItem::observe(item, combat.resolution.contact))
                 .collect::<Result<Vec<_>, _>>()?;
             admitted.push(AdmittedPlayer {
@@ -101,11 +105,7 @@ impl PreparedPlayerSpawns {
         Ok(Self(admitted))
     }
 
-    pub(super) fn project(
-        self,
-        args: &Args,
-        commands: &mut Commands,
-    ) {
+    pub(super) fn project(self, args: &Args, commands: &mut Commands) {
         for admitted in self.0 {
             spawn_connected_player(admitted, args.enemy_combat_scale_bps, commands);
         }

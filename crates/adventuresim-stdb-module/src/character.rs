@@ -789,14 +789,20 @@ pub(crate) fn restore_equipment_placement(
     )
 }
 
-fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
+fn refresh_equipment_dependents(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> crate::StrategicOperationResult<()> {
     crate::capability::refresh_character_capability(ctx, character_id)?;
     crate::condition::refresh_character_strategic_condition(ctx, character_id).map(|_| ())
 }
 
 /// Create a new random temporary character for the server.
 #[reducer]
-pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> crate::StrategicOperationResult<()> {
+pub fn create_temporary_character(
+    ctx: &ReducerContext,
+    server: Identity,
+) -> crate::StrategicOperationResult<()> {
     let tactical_server = ctx.db.tactical_server_authority().identity().find(server);
     if ctx.sender() != server || tactical_server.is_none() {
         return Err("Only a registered tactical server can create its temporary characters".into());
@@ -1273,7 +1279,10 @@ fn named_character_id(name: &str, created_micros: i64) -> u64 {
 
 /// Create a new character with name and add initial items to it
 #[reducer]
-pub fn create_named_character(ctx: &ReducerContext, name: String) -> crate::StrategicOperationResult<()> {
+pub fn create_named_character(
+    ctx: &ReducerContext,
+    name: String,
+) -> crate::StrategicOperationResult<()> {
     let id = named_character_id(&name, ctx.timestamp.to_micros_since_unix_epoch());
 
     insert_new_character(ctx, name, id, false)
@@ -1355,7 +1364,10 @@ pub fn create_starting_character(
 /// owner. The owner key namespaces identity only; the versioned generated
 /// build remains stable in every session and in tactical fixtures.
 #[reducer]
-pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> crate::StrategicOperationResult<()> {
+pub fn create_default_character(
+    ctx: &ReducerContext,
+    owner_key: String,
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let spec = adventuresim_core::starting_character::default_character(&owner_key);
     let version = adventuresim_core::starting_character::DEFAULT_CHARACTER_VERSION;
@@ -1619,7 +1631,9 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> crate::StrategicOp
 }
 
 /// Seed a character with direct training in every religion for local UI development.
-pub(crate) fn seed_religion_scholar_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
+pub(crate) fn seed_religion_scholar_character(
+    ctx: &ReducerContext,
+) -> crate::StrategicOperationResult<()> {
     const RELIGION_SCHOLAR_CHARACTER_ID: u64 = 9_999_999_999_999_988;
 
     if ctx
@@ -1678,7 +1692,9 @@ pub(crate) fn seed_religion_scholar_character(ctx: &ReducerContext) -> crate::St
 /// Seed an isolated, selectable character for exercising every bounded
 /// Herbalism method, public grade, and terrain-backed foraging flow in the
 /// strategic UI.
-pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
+pub(crate) fn seed_herbalism_demo_character(
+    ctx: &ReducerContext,
+) -> crate::StrategicOperationResult<()> {
     const HERBALISM_DEMO_CHARACTER_ID: u64 = 9_999_999_999_999_986;
     const HERBALISM_DEMO_SETTLEMENT_ID: &str = "dev-scenario-foraging";
     crate::strategic::ensure_foraging_demo_settlement(ctx)?;
@@ -1784,7 +1800,9 @@ pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> crate::Stra
 }
 
 /// Seed broad category knowledge for local Bestiary rail and evidence demos.
-pub(crate) fn seed_bestiary_scholar_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
+pub(crate) fn seed_bestiary_scholar_character(
+    ctx: &ReducerContext,
+) -> crate::StrategicOperationResult<()> {
     const BESTIARY_SCHOLAR_CHARACTER_ID: u64 = 9_999_999_999_999_987;
 
     if ctx

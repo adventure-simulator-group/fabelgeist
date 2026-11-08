@@ -19,11 +19,13 @@ mod armor;
 mod combatant;
 mod equipment_projection;
 mod mass;
+use crate::{StrategicOperationError, StrategicOperationResult};
 use armor::*;
 pub(crate) use combatant::load_combatant;
-use equipment_projection::{CheckedStrategicWeapon, NativeHands, StrategicHeldEquipment, combat_weapon};
+use equipment_projection::{
+    CheckedStrategicWeapon, NativeHands, StrategicHeldEquipment, combat_weapon,
+};
 use fabelgeist_geometry::SignedLength;
-use crate::{StrategicOperationError, StrategicOperationResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[table(accessor = character_capability)]
@@ -163,7 +165,10 @@ pub fn refresh_character_capability(
 }
 
 #[reducer]
-pub fn refresh_capabilities(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<()> {
+pub fn refresh_capabilities(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> StrategicOperationResult<()> {
     refresh_character_capability(ctx, character_id).map(|_| ())
 }
 
@@ -363,9 +368,7 @@ impl StrategicEquipment {
         self.survival_clothing
     }
 
-    pub(crate) fn combat_equipment(
-        &self,
-    ) -> CombatEquipment {
+    pub(crate) fn combat_equipment(&self) -> CombatEquipment {
         let mut armor = [CombatArmor {
             flexibility: 1.0,
             range_of_motion: 1.0,
@@ -392,7 +395,10 @@ impl StrategicEquipment {
             melee_weapon_id: self.held.melee_weapon_inventory_id,
             ranged_weapon_id: self.held.ranged_weapon_inventory_id,
             ranged_projectile_kind: self.held.ranged_projectile_kind,
-            defense_item_id: self.held.shield_inventory_id.or(self.held.melee_weapon_inventory_id),
+            defense_item_id: self
+                .held
+                .shield_inventory_id
+                .or(self.held.melee_weapon_inventory_id),
             ammunition: self.ammunition,
             holding_side: self.held.weapon_side.unwrap_or(BodySide::Right),
             melee_holding_side: self.held.melee_weapon_side.unwrap_or(BodySide::Right),
@@ -428,7 +434,8 @@ fn runtime_body_part(part: EquipmentBodyPart) -> BodyPart {
 
 impl PlayerEquipment for StrategicEquipment {
     fn weapon_skill_distribution(&self) -> adventuresim_core::equipment::WeaponSkillDistribution {
-        self.held.weapon
+        self.held
+            .weapon
             .as_ref()
             .map_or_else(Default::default, |item| item.weapon_skills)
     }
@@ -442,7 +449,8 @@ impl PlayerEquipment for StrategicEquipment {
         self.held.weapon.is_none()
     }
     fn weapon_preferred_melee_style(&self) -> MeleeAttackStyle {
-        self.held.weapon
+        self.held
+            .weapon
             .as_ref()
             .map_or(MeleeAttackStyle::Swing, |item| item.preferred_melee_style)
     }
@@ -453,7 +461,10 @@ impl PlayerEquipment for StrategicEquipment {
         self.held.weapon.as_ref().map_or(0.0, |item| item.precision)
     }
     fn weapon_reach(&self) -> SignedLength {
-        self.held.weapon.as_ref().map_or(SignedLength::ZERO, |item| item.reach)
+        self.held
+            .weapon
+            .as_ref()
+            .map_or(SignedLength::ZERO, |item| item.reach)
     }
     fn weapon_holding_side(&self) -> Option<BodySide> {
         self.held.weapon_side
@@ -462,7 +473,8 @@ impl PlayerEquipment for StrategicEquipment {
         self.held.weapon.as_ref().map_or(0.0, |item| item.balance)
     }
     fn weapon_moment_of_inertia(&self) -> f32 {
-        self.held.weapon
+        self.held
+            .weapon
             .as_ref()
             .map_or(0.0, |item| item.moment_of_inertia_kg_m2)
     }
@@ -506,10 +518,17 @@ mod tests {
         let equipment = definition.equipment.as_ref().unwrap();
 
         assert_eq!(weapon.grip_to_tip_m, equipment.physical.grip_to_tip_m);
-        assert_eq!(weapon.total_length_m, equipment.physical.dimensions_m.y_length());
+        assert_eq!(
+            weapon.total_length_m,
+            equipment.physical.dimensions_m.y_length()
+        );
         assert_eq!(
             weapon.striking_head_length_m,
-            equipment.physical.dimensions_m.x_length().max(equipment.physical.dimensions_m.z_length())
+            equipment
+                .physical
+                .dimensions_m
+                .x_length()
+                .max(equipment.physical.dimensions_m.z_length())
         );
         assert!(weapon.distal_headed);
         assert_eq!(weapon.body_material, equipment.material);
@@ -527,15 +546,29 @@ mod tests {
             ..Item::default()
         };
         let short = adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
-            2.1, SignedLength::from_metres(1.9).unwrap(), SignedLength::from_metres(1.7).unwrap(), SignedLength::from_metres(0.25).unwrap(), 3.2, 0.52, 1.2,
+            2.1,
+            SignedLength::from_metres(1.9).unwrap(),
+            SignedLength::from_metres(1.7).unwrap(),
+            SignedLength::from_metres(0.25).unwrap(),
+            3.2,
+            0.52,
+            1.2,
         )
         .unwrap();
         let long = adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
-            2.5, SignedLength::from_metres(2.3).unwrap(), SignedLength::from_metres(2.1).unwrap(), SignedLength::from_metres(0.25).unwrap(), 5.1, 0.49, 0.9,
+            2.5,
+            SignedLength::from_metres(2.3).unwrap(),
+            SignedLength::from_metres(2.1).unwrap(),
+            SignedLength::from_metres(0.25).unwrap(),
+            5.1,
+            0.49,
+            0.9,
         )
         .unwrap();
-        let short = combat_weapon(CheckedStrategicWeapon::admit(&item).unwrap(), Some(short)).unwrap();
-        let long = combat_weapon(CheckedStrategicWeapon::admit(&item).unwrap(), Some(long)).unwrap();
+        let short =
+            combat_weapon(CheckedStrategicWeapon::admit(&item).unwrap(), Some(short)).unwrap();
+        let long =
+            combat_weapon(CheckedStrategicWeapon::admit(&item).unwrap(), Some(long)).unwrap();
 
         assert!((short.precision - 1.2).abs() < 1e-6);
         assert!((long.precision - 0.9).abs() < 1e-6);

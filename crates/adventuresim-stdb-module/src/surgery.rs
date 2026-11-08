@@ -996,9 +996,9 @@ pub fn treat_limb(
         }
     };
     if skill < dc {
-        return Err(format!(
-            "Insufficient procedure skill: this procedure requires {dc:.1}"
-        ).into());
+        return Err(
+            format!("Insufficient procedure skill: this procedure requires {dc:.1}").into(),
+        );
     }
     if procedure == SurgeryProcedure::Stitch && item_quantity(ctx, actor_id, "surgery_kit") == 0 {
         return Err("Stitching requires a surgery kit".into());

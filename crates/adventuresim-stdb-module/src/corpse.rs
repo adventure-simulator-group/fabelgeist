@@ -31,8 +31,8 @@ use crate::{
     settlement_population::{SettlementResidentProfile, settlement_resident_profile},
     social::{character_familiarity, current_affinity},
     strategic::{
-        StrategicEncounterStatus, settlement,
-        strategic_encounter, strategic_gateway_authority__view,
+        StrategicEncounterStatus, settlement, strategic_encounter,
+        strategic_gateway_authority__view,
     },
     surgery::{limb_injury, retained_projectile},
     time::{advance_character_wait_time, character_time, character_time__view},
@@ -816,7 +816,10 @@ fn persist_autopsy_demo_body(
 /// Prepare the selected character and three deterministic bodies for a local
 /// visual demo. Every wound is produced by ordinary strategic autoresolve;
 /// only custody time and identity are staged by the fixture.
-pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> StrategicOperationResult<()> {
+pub(crate) fn seed_autopsy_demo(
+    ctx: &ReducerContext,
+    actor_id: u64,
+) -> StrategicOperationResult<()> {
     let actor = crate::character::require_living_character(ctx, actor_id)?;
     let settlement_id = actor
         .current_settlement_id

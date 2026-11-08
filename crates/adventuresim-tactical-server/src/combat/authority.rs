@@ -5,15 +5,15 @@ use std::time::Duration;
 
 pub(crate) use clock::{CombatDuration, CombatInstant};
 
-use adventuresim_tactical_core::prelude::{BodyPart, MeleeAttackKey, melee_interaction_range};
-use bevy::prelude::*;
 use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::prelude::{BodyPart, MeleeAttackKey, melee_interaction_range};
 use adventuresim_tactical_core::scene_coordinates::Scene;
+use bevy::prelude::*;
 use fabelgeist_geometry::SignedLength;
 
 use super::{
-    MeleeIntentError, MeleeIntentFacts, MeleeIntentRejection, RangedIntentFacts, RangedIntentRejection,
-    TacticalCombatSide,
+    MeleeIntentError, MeleeIntentFacts, MeleeIntentRejection, RangedIntentFacts,
+    RangedIntentRejection, TacticalCombatSide,
 };
 
 pub(crate) use ranged::RangedAttackAuthority;
@@ -594,7 +594,8 @@ pub(super) fn validate_ranged_intent(
             return Err(RangedIntentRejection::Incapacitated);
         }
         if !facts.separation.is_some_and(|distance| {
-            distance.metres() <= facts.weapon_range.metres() + facts.range_latency_tolerance.metres()
+            distance.metres()
+                <= facts.weapon_range.metres() + facts.range_latency_tolerance.metres()
         }) {
             return Err(RangedIntentRejection::OutOfRange);
         }

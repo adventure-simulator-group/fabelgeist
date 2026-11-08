@@ -27,8 +27,8 @@ use adventuresim_core::social::{
 use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
-use crate::character::{character, character__view, character_limbs, character_stats};
 use crate::StrategicOperationResult;
+use crate::character::{character, character__view, character_limbs, character_stats};
 use crate::condition::character_strategic_condition__view;
 use crate::condition::{character_condition, character_morale_source__view, morale_event};
 
@@ -1860,7 +1860,9 @@ fn observe_presentation_on_contact(ctx: &ReducerContext, observer_id: u64, subje
     ) {
         (Ok(insight), Ok(deception)) => (insight, deception),
         (Err(error), _) | (_, Err(error)) => {
-            log::warn!("Cannot observe social presentation for {observer_id}/{subject_id}: {error}");
+            log::warn!(
+                "Cannot observe social presentation for {observer_id}/{subject_id}: {error}"
+            );
             return;
         }
     };

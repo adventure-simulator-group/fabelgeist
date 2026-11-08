@@ -14,8 +14,8 @@ use bevy::{
     },
     prelude::*,
 };
-use serde::{Deserialize, Serialize};
 use fabelgeist_geometry::{CuboidDimensions, SignedLength};
+use serde::{Deserialize, Serialize};
 use strum::{Display, EnumCount, VariantArray};
 
 use crate::animation::AttackHand;
@@ -201,7 +201,8 @@ impl TacticalEquipmentPhysical {
     pub fn is_valid(self) -> bool {
         self.dimensions_m.metres().cmpgt(Vec3::ZERO).all()
             && self.grip_to_tip_m.metres() >= 0.0
-            && (0.0..=self.dimensions_m.y_length().metres()).contains(&self.striking_head_length_m.metres())
+            && (0.0..=self.dimensions_m.y_length().metres())
+                .contains(&self.striking_head_length_m.metres())
             && self.anchor_offset_m.is_finite()
     }
 }
@@ -463,7 +464,9 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
     fn weapon_striking_head_length(&self) -> SignedLength {
         self.equipped_weapon()
             .and_then(|item| item.physical)
-            .map_or(SignedLength::ZERO, |physical| physical.striking_head_length_m)
+            .map_or(SignedLength::ZERO, |physical| {
+                physical.striking_head_length_m
+            })
     }
 
     fn weapon_body_material(&self) -> Option<EquipmentMaterial> {

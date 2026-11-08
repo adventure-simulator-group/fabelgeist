@@ -146,7 +146,8 @@ mod tests {
                 head,
                 distal,
                 EMBEDDED_AUTORESOLVE_PARAMETERS.melee_measure_reach_fraction,
-            ).unwrap(),
+            )
+            .unwrap(),
             effective_reach_metres: reach,
             grip_to_tip_metres: grip,
             total_length_metres: equipment.weapon_total_length(),
@@ -155,7 +156,8 @@ mod tests {
             attack_style: equipment.weapon_preferred_melee_style(),
             body_material: equipment.weapon_body_material(),
             striking_material: equipment.weapon_striking_material(),
-        }).unwrap()
+        })
+        .unwrap()
     }
 
     fn set_style(combatant: &mut Combatant, style: MeleeAttackStyle) {

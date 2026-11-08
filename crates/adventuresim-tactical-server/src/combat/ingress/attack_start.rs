@@ -195,8 +195,11 @@ pub(super) fn scheduled_attack_measure(
     weapon_reach: SignedLength,
     transforms: &Query<&Transform>,
 ) -> MeleeGeometryResult<SignedLength> {
-    let Some(target) = event.target else { return Ok(weapon_reach); };
-    let (Ok(attacker), Ok(target)) = (transforms.get(event.attacker), transforms.get(target)) else {
+    let Some(target) = event.target else {
+        return Ok(weapon_reach);
+    };
+    let (Ok(attacker), Ok(target)) = (transforms.get(event.attacker), transforms.get(target))
+    else {
         return Ok(weapon_reach);
     };
     melee_surface_measure(

@@ -1,6 +1,5 @@
 #![allow(clippy::crate_in_macro_def)]
 
-use fabelgeist_geometry::SignedLength;
 use crate::elapsed::{AnimationElapsed, ElapsedResult};
 use crate::skill::Skill;
 use crate::{
@@ -11,6 +10,7 @@ use crate::{
     combat_style::MeleeAttackStyle,
     item_catalog_schema::{EquipmentChannel, EquipmentLocation, OccupancyRequirement},
 };
+use fabelgeist_geometry::SignedLength;
 use std::collections::{BTreeMap, BTreeSet};
 
 pub use armor::*;
@@ -728,14 +728,32 @@ mod tests {
 
     #[test]
     fn instance_geometry_uses_grip_to_tip_reach_and_tracks_recipe_length() {
-        let short =
-            ParametricWeaponCombatGeometry::new(2.0, SignedLength::from_metres(2.0).unwrap(), SignedLength::from_metres(1.8).unwrap(), SignedLength::from_metres(0.25).unwrap(), 2.5, 0.46, 1.0).unwrap();
-        let long =
-            ParametricWeaponCombatGeometry::new(2.2, SignedLength::from_metres(2.3).unwrap(), SignedLength::from_metres(2.1).unwrap(), SignedLength::from_metres(0.25).unwrap(), 3.4, 0.44, 1.0).unwrap();
+        let short = ParametricWeaponCombatGeometry::new(
+            2.0,
+            SignedLength::from_metres(2.0).unwrap(),
+            SignedLength::from_metres(1.8).unwrap(),
+            SignedLength::from_metres(0.25).unwrap(),
+            2.5,
+            0.46,
+            1.0,
+        )
+        .unwrap();
+        let long = ParametricWeaponCombatGeometry::new(
+            2.2,
+            SignedLength::from_metres(2.3).unwrap(),
+            SignedLength::from_metres(2.1).unwrap(),
+            SignedLength::from_metres(0.25).unwrap(),
+            3.4,
+            0.44,
+            1.0,
+        )
+        .unwrap();
 
         assert!((short.melee_reach_m().metres() - 1.8).abs() < 1.0e-6);
         assert!((long.melee_reach_m().metres() - 2.1).abs() < 1.0e-6);
-        assert!((long.melee_reach_m().metres() - short.melee_reach_m().metres() - 0.3).abs() < 1.0e-6);
+        assert!(
+            (long.melee_reach_m().metres() - short.melee_reach_m().metres() - 0.3).abs() < 1.0e-6
+        );
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
 
         let preferred = |geometry: ParametricWeaponCombatGeometry| {
@@ -745,7 +763,8 @@ mod tests {
                 geometry.striking_head_length_m,
                 true,
                 0.7,
-            ).unwrap()
+            )
+            .unwrap()
         };
         assert!(preferred(long).metres() > preferred(short).metres());
 
@@ -762,7 +781,8 @@ mod tests {
                 attack_style: MeleeAttackStyle::Swing,
                 body_material: Some(crate::item_catalog_schema::EquipmentMaterial::Hardwood),
                 striking_material: Some(crate::item_catalog_schema::EquipmentMaterial::RoughSteel),
-            }).unwrap()
+            })
+            .unwrap()
         };
         assert_eq!(
             contact(short).classification,
@@ -780,7 +800,12 @@ mod tests {
         let length: f32 = 0.9;
         let old_balance: f32 = 0.5;
         let moment = mass * (old_balance * length).powi(2);
-        assert!((weapon_balance_from_moment(moment, mass, SignedLength::from_metres(length).unwrap()) - old_balance).abs() < 1.0e-6);
+        assert!(
+            (weapon_balance_from_moment(moment, mass, SignedLength::from_metres(length).unwrap())
+                - old_balance)
+                .abs()
+                < 1.0e-6
+        );
     }
 
     #[test]

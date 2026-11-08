@@ -39,7 +39,9 @@ impl MeleeEngagement {
             attacker_id: attacker.id,
             target_id: defender.id,
             initial_separation,
-            distance: attacker_distance.min(defender_distance).max(SignedLength::ZERO),
+            distance: attacker_distance
+                .min(defender_distance)
+                .max(SignedLength::ZERO),
         })
     }
     fn commit(self, attacker: &mut Combatant, defender: &mut Combatant) {

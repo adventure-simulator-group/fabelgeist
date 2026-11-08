@@ -5,8 +5,8 @@
 //! In production code, you would implement the traits for your own types.
 #![doc(hidden)]
 
-use fabelgeist_geometry::SignedLength;
 use crate::prelude::*;
+use fabelgeist_geometry::SignedLength;
 
 #[derive(Default, Debug)]
 pub struct StubAttributes;

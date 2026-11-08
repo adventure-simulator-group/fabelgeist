@@ -171,9 +171,23 @@ impl PredictedRangedAttack {
             start,
         } = self;
         let spec = AttackSpec { curve, ..default() };
-        let acquired = targeting.acquire(entity, AttackAcquisitionRange { reach, maximum_travel: SignedLength::ZERO }, None)?;
-        let attack_state =
-            AttackState::new(windup, windup, reach, true, acquired.target, acquired.position, acquired.direction)?;
+        let acquired = targeting.acquire(
+            entity,
+            AttackAcquisitionRange {
+                reach,
+                maximum_travel: SignedLength::ZERO,
+            },
+            None,
+        )?;
+        let attack_state = AttackState::new(
+            windup,
+            windup,
+            reach,
+            true,
+            acquired.target,
+            acquired.position,
+            acquired.direction,
+        )?;
         let contact = start.saturating_add(animation_ticks(windup)?);
         let end = start.saturating_add(animation_ticks(windup.checked_add(recovery)?)?);
         if skeleton

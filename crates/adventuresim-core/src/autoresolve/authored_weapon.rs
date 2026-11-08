@@ -62,23 +62,29 @@ impl CombatWeapon {
         let grip_to_tip_m = definition
             .equipment
             .as_ref()
-            .map_or(SignedLength::ZERO, |equipment| equipment.physical.grip_to_tip_m);
+            .map_or(SignedLength::ZERO, |equipment| {
+                equipment.physical.grip_to_tip_m
+            });
         let dimensions_m = definition
             .equipment
             .as_ref()
-            .map_or(CuboidDimensions::ZERO, |equipment| equipment.physical.dimensions_m);
+            .map_or(CuboidDimensions::ZERO, |equipment| {
+                equipment.physical.dimensions_m
+            });
         let total_length_m = dimensions_m.y_length();
         let recipe = adventuresim_weapon_model::default_design(weapon_id).ok_or_else(|| {
             AuthoredMeleeWeaponError::MissingRecipe {
                 weapon: weapon_id.to_owned(),
             }
         })?;
-        let striking_head_length_m = SignedLength::from_metres(adventuresim_weapon_model::derive_properties(&recipe)
-            .map_err(|violations| AuthoredMeleeWeaponError::Recipe {
-                weapon: weapon_id.to_owned(),
-                violations,
-            })?
-            .striking_head_length_m)?;
+        let striking_head_length_m = SignedLength::from_metres(
+            adventuresim_weapon_model::derive_properties(&recipe)
+                .map_err(|violations| AuthoredMeleeWeaponError::Recipe {
+                    weapon: weapon_id.to_owned(),
+                    violations,
+                })?
+                .striking_head_length_m,
+        )?;
         let skill_distribution: crate::equipment::WeaponSkillDistribution = (*skills).into();
         Ok(Self {
             skills: skill_distribution,

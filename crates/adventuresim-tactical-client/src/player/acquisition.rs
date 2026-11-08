@@ -1,9 +1,9 @@
 //! Checked target acquisition and collision-aware assisted-contact preparation.
 
 use super::*;
+use crate::targeting::{TargetingCandidate, TargetingRange, auto_aim_candidate};
 use adventuresim_building_generator::spatial_geometry::GeometryFrame;
 use bevy::ecs::system::SystemParam;
-use crate::targeting::{auto_aim_candidate, TargetingCandidate, TargetingRange};
 
 #[derive(Debug, Clone, Copy)]
 pub(super) struct AttackTarget {
@@ -56,7 +56,11 @@ fn body_stable_auto_aim<T: Copy>(
             choices
                 .iter()
                 .filter(|choice| !exhausted.contains(&choice.body))
-                .map(|choice| TargetingCandidate { candidate: choice.body, position: choice.ideal_position.metres(), stable_key: choice.stable_key }),
+                .map(|choice| TargetingCandidate {
+                    candidate: choice.body,
+                    position: choice.ideal_position.metres(),
+                    stable_key: choice.stable_key,
+                }),
         )?;
         if let Some(resolved) = auto_aim_candidate(
             camera_origin,
@@ -67,9 +71,11 @@ fn body_stable_auto_aim<T: Copy>(
                 .iter()
                 .filter(|choice| choice.body == body)
                 .filter_map(|choice| {
-                    choice
-                        .resolved
-                        .map(|resolved| TargetingCandidate { candidate: resolved, position: resolved.position.metres(), stable_key: choice.stable_key })
+                    choice.resolved.map(|resolved| TargetingCandidate {
+                        candidate: resolved,
+                        position: resolved.position.metres(),
+                        stable_key: choice.stable_key,
+                    })
                 }),
         ) {
             return Some(resolved);
@@ -146,7 +152,9 @@ impl CombatTargeting<'_, '_> {
     pub(super) fn arm_reach(&self, attacker: Entity) -> SignedLength {
         self.attackers
             .get(attacker)
-            .map_or(SignedLength::ZERO, |(_, _, dimensions, _, _)| dimensions.arm_reach_metres)
+            .map_or(SignedLength::ZERO, |(_, _, dimensions, _, _)| {
+                dimensions.arm_reach_metres
+            })
     }
 
     pub(super) fn melee_acquisition_range(
@@ -161,7 +169,10 @@ impl CombatTargeting<'_, '_> {
         );
         Ok(AttackAcquisitionRange {
             reach: melee_interaction_range(self.arm_reach(attacker), weapon_reach)?,
-            maximum_travel: quickstep_target_displacement_metres(leg_length, &config.movement.motor)?,
+            maximum_travel: quickstep_target_displacement_metres(
+                leg_length,
+                &config.movement.motor,
+            )?,
         })
     }
 
@@ -174,10 +185,18 @@ impl CombatTargeting<'_, '_> {
         let Ok((transform, collider, dimensions, attacker_side, camera)) =
             self.attackers.get(attacker)
         else {
-            return Ok(AttackAcquisition { target: None, position: None, direction: Dir3::NEG_Z });
+            return Ok(AttackAcquisition {
+                target: None,
+                position: None,
+                direction: Dir3::NEG_Z,
+            });
         };
         let Ok(camera_transform) = self.cameras.get(camera.get()) else {
-            return Ok(AttackAcquisition { target: None, position: None, direction: Dir3::NEG_Z });
+            return Ok(AttackAcquisition {
+                target: None,
+                position: None,
+                direction: Dir3::NEG_Z,
+            });
         };
         let origin = attack_origin(transform, collider, *dimensions)?;
         let excluded: Vec<_> = self.scene_items.iter().chain([attacker]).collect();
@@ -192,12 +211,24 @@ impl CombatTargeting<'_, '_> {
             lunge_timing,
             obstruction_filter,
         };
-        let choices: Vec<_> = self.hitboxes.iter()
-            .map(|(entity, transform, _, collider_of, limb)| self.hitbox_choice(
-                &frame, TargetHitboxObservation { entity, transform, collider_of, limb },
-            ))
+        let choices: Vec<_> = self
+            .hitboxes
+            .iter()
+            .map(|(entity, transform, _, collider_of, limb)| {
+                self.hitbox_choice(
+                    &frame,
+                    TargetHitboxObservation {
+                        entity,
+                        transform,
+                        collider_of,
+                        limb,
+                    },
+                )
+            })
             .collect::<MeleeGeometryResult<Vec<_>>>()?
-            .into_iter().flatten().collect();
+            .into_iter()
+            .flatten()
+            .collect();
         let selected = body_stable_auto_aim(
             camera_transform.translation,
             camera_transform.forward().as_vec3(),
@@ -231,32 +262,60 @@ impl CombatTargeting<'_, '_> {
         let position = Position::from_metres(hitbox.transform.translation())?;
         let sight = position.metres() - frame.origin.metres();
         let distance = sight.length();
-        let Ok(direction) = Dir3::new(sight) else { return Ok(None); };
-        let Some(impact) = (distance > 0.0).then(|| self.spatial.cast_ray(
-            frame.origin.metres(), direction, distance, true, &frame.obstruction_filter,
-        )).flatten() else { return Ok(None); };
-        let visible = impact.entity == target || impact.entity == hitbox.entity
-            || self.hitboxes.get(impact.entity).is_ok_and(|(_, _, _, collider, _)| collider.body == target);
+        let Ok(direction) = Dir3::new(sight) else {
+            return Ok(None);
+        };
+        let Some(impact) = (distance > 0.0)
+            .then(|| {
+                self.spatial.cast_ray(
+                    frame.origin.metres(),
+                    direction,
+                    distance,
+                    true,
+                    &frame.obstruction_filter,
+                )
+            })
+            .flatten()
+        else {
+            return Ok(None);
+        };
+        let visible = impact.entity == target
+            || impact.entity == hitbox.entity
+            || self
+                .hitboxes
+                .get(impact.entity)
+                .is_ok_and(|(_, _, _, collider, _)| collider.body == target);
         let surface_distance = SignedLength::from_metres(impact.distance)?;
         let arrival = frame.movement_arrival(body_transform, body_collider)?;
         if !attack_target_within_angular_threshold(
-            frame.camera.forward().as_vec3(), position.metres() - frame.camera.translation, surface_distance,
+            frame.camera.forward().as_vec3(),
+            position.metres() - frame.camera.translation,
+            surface_distance,
         )? {
             return Ok(None);
         }
-        let resolved = arrival.map(|arrival| -> MeleeGeometryResult<ResolvedChoice<AttackTarget>> {
-            Ok(ResolvedChoice {
-                value: AttackTarget {
-                    body: target,
-                    hitbox: hitbox.entity,
-                    body_part: hitbox.limb.0,
-                    local_strike_point: Position::from_metres(hitbox.transform.affine()
-                        .inverse().transform_point3(position.metres()))?,
-                    arrival,
+        let resolved = arrival
+            .map(
+                |arrival| -> MeleeGeometryResult<ResolvedChoice<AttackTarget>> {
+                    Ok(ResolvedChoice {
+                        value: AttackTarget {
+                            body: target,
+                            hitbox: hitbox.entity,
+                            body_part: hitbox.limb.0,
+                            local_strike_point: Position::from_metres(
+                                hitbox
+                                    .transform
+                                    .affine()
+                                    .inverse()
+                                    .transform_point3(position.metres()),
+                            )?,
+                            arrival,
+                        },
+                        position,
+                    })
                 },
-                position,
-            })
-        }).transpose()?;
+            )
+            .transpose()?;
         Ok(visible.then_some(BodyStableChoice {
             body: target,
             resolved,
@@ -264,7 +323,6 @@ impl CombatTargeting<'_, '_> {
             stable_key: hitbox.entity.to_bits(),
         }))
     }
-
 }
 
 impl TargetAcquisitionFrame<'_> {
@@ -282,16 +340,19 @@ impl TargetAcquisitionFrame<'_> {
             body_transform,
             body_collider,
         )?);
-        let surface_measure = (self.attacker_transform.translation.xz()
+        let surface_measure = (self
+            .attacker_transform
+            .translation
+            .xz()
             .distance(body_transform.translation.xz())
-            - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES).max(0.0);
+            - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
+            .max(0.0);
         timing.contact_arrival(MeleeLungeGeometry {
             separation: SignedLength::from_metres(surface_measure)?,
             interaction_range: self.range.reach,
             maximum_travel,
         })
     }
-
 }
 
 fn horizontal_collider_clearance(
@@ -311,12 +372,21 @@ fn horizontal_collider_clearance(
     let target_radius = ((target_bounds.max - target_bounds.min) * 0.5)
         .xz()
         .max_element();
-    SignedLength::from_metres((attacker.xz().distance(target_transform.translation.xz()) - attacker_radius - target_radius)
-        .max(0.0)).map_err(Into::into)
+    SignedLength::from_metres(
+        (attacker.xz().distance(target_transform.translation.xz())
+            - attacker_radius
+            - target_radius)
+            .max(0.0),
+    )
+    .map_err(Into::into)
 }
 
-fn attack_target_angular_threshold_degrees(surface_distance_metres: SignedLength) -> AnimationValueResult<adventuresim_tactical_core::animation::SignedAngleDegrees> {
-    adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(90.0 / surface_distance_metres.metres().max(0.5))
+fn attack_target_angular_threshold_degrees(
+    surface_distance_metres: SignedLength,
+) -> AnimationValueResult<adventuresim_tactical_core::animation::SignedAngleDegrees> {
+    adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(
+        90.0 / surface_distance_metres.metres().max(0.5),
+    )
 }
 
 fn attack_target_within_angular_threshold(
@@ -351,13 +421,19 @@ mod tests {
             },
             BodyStableChoice {
                 body: preferred,
-                resolved: Some(ResolvedChoice { value: BodyPart::Chest, position: Position::from_metres(Vec3::new(0.0, 1.2, -2.0)).unwrap() }),
+                resolved: Some(ResolvedChoice {
+                    value: BodyPart::Chest,
+                    position: Position::from_metres(Vec3::new(0.0, 1.2, -2.0)).unwrap(),
+                }),
                 ideal_position: Position::from_metres(Vec3::new(0.0, 1.2, -2.0)).unwrap(),
                 stable_key: 2,
             },
             BodyStableChoice {
                 body: other,
-                resolved: Some(ResolvedChoice { value: BodyPart::Head, position: Position::from_metres(Vec3::new(0.05, 1.8, -1.8)).unwrap() }),
+                resolved: Some(ResolvedChoice {
+                    value: BodyPart::Head,
+                    position: Position::from_metres(Vec3::new(0.05, 1.8, -1.8)).unwrap(),
+                }),
                 ideal_position: Position::from_metres(Vec3::new(0.05, 1.8, -1.8)).unwrap(),
                 stable_key: 3,
             },
@@ -367,43 +443,87 @@ mod tests {
                 Vec3::new(0.0, 1.8, 0.0),
                 Vec3::NEG_Z,
                 Vec3::ZERO,
-                TargetingRange::Bounded(fabelgeist_geometry::SignedLength::from_metres(10.0).unwrap()),
+                TargetingRange::Bounded(
+                    fabelgeist_geometry::SignedLength::from_metres(10.0).unwrap()
+                ),
                 &choices
             ),
-            Some(ResolvedChoice { value: BodyPart::Chest, position: Position::from_metres(Vec3::new(0.0, 1.2, -2.0)).unwrap() })
+            Some(ResolvedChoice {
+                value: BodyPart::Chest,
+                position: Position::from_metres(Vec3::new(0.0, 1.2, -2.0)).unwrap()
+            })
         );
     }
 
     #[test]
     fn attack_target_threshold_scales_with_surface_distance() {
-        assert_eq!(attack_target_angular_threshold_degrees(SignedLength::from_metres(0.0).unwrap()).unwrap().degrees(), 180.0);
-        assert_eq!(attack_target_angular_threshold_degrees(SignedLength::from_metres(0.5).unwrap()).unwrap().degrees(), 180.0);
-        assert_eq!(attack_target_angular_threshold_degrees(SignedLength::from_metres(1.0).unwrap()).unwrap().degrees(), 90.0);
-        assert_eq!(attack_target_angular_threshold_degrees(SignedLength::from_metres(2.0).unwrap()).unwrap().degrees(), 45.0);
-        assert!((attack_target_angular_threshold_degrees(SignedLength::from_metres(1_000.0).unwrap()).unwrap().degrees() - 0.09).abs() < 1.0e-6);
+        assert_eq!(
+            attack_target_angular_threshold_degrees(SignedLength::from_metres(0.0).unwrap())
+                .unwrap()
+                .degrees(),
+            180.0
+        );
+        assert_eq!(
+            attack_target_angular_threshold_degrees(SignedLength::from_metres(0.5).unwrap())
+                .unwrap()
+                .degrees(),
+            180.0
+        );
+        assert_eq!(
+            attack_target_angular_threshold_degrees(SignedLength::from_metres(1.0).unwrap())
+                .unwrap()
+                .degrees(),
+            90.0
+        );
+        assert_eq!(
+            attack_target_angular_threshold_degrees(SignedLength::from_metres(2.0).unwrap())
+                .unwrap()
+                .degrees(),
+            45.0
+        );
+        assert!(
+            (attack_target_angular_threshold_degrees(SignedLength::from_metres(1_000.0).unwrap())
+                .unwrap()
+                .degrees()
+                - 0.09)
+                .abs()
+                < 1.0e-6
+        );
     }
 
     #[test]
     fn attack_target_threshold_accepts_wide_nearby_and_narrow_distant_aim() {
-        assert!(attack_target_within_angular_threshold(
-            Vec3::NEG_Z,
-            Vec3::Z,
-            SignedLength::from_metres(0.0).unwrap(),
-        ).unwrap());
-        assert!(attack_target_within_angular_threshold(
-            Vec3::NEG_Z,
-            Vec3::X,
-            SignedLength::from_metres(1.0).unwrap(),
-        ).unwrap());
-        assert!(attack_target_within_angular_threshold(
-            Vec3::NEG_Z,
-            Vec3::new(1.0, 0.0, -1.0),
-            SignedLength::from_metres(2.0).unwrap(),
-        ).unwrap());
-        assert!(!attack_target_within_angular_threshold(
-            Vec3::NEG_Z,
-            Quat::from_rotation_y(0.1_f32.to_radians()) * Vec3::NEG_Z,
-            SignedLength::from_metres(1_000.0).unwrap(),
-        ).unwrap());
+        assert!(
+            attack_target_within_angular_threshold(
+                Vec3::NEG_Z,
+                Vec3::Z,
+                SignedLength::from_metres(0.0).unwrap(),
+            )
+            .unwrap()
+        );
+        assert!(
+            attack_target_within_angular_threshold(
+                Vec3::NEG_Z,
+                Vec3::X,
+                SignedLength::from_metres(1.0).unwrap(),
+            )
+            .unwrap()
+        );
+        assert!(
+            attack_target_within_angular_threshold(
+                Vec3::NEG_Z,
+                Vec3::new(1.0, 0.0, -1.0),
+                SignedLength::from_metres(2.0).unwrap(),
+            )
+            .unwrap()
+        );
+        assert!(
+            !attack_target_within_angular_threshold(
+                Vec3::NEG_Z,
+                Quat::from_rotation_y(0.1_f32.to_radians()) * Vec3::NEG_Z,
+                SignedLength::from_metres(1_000.0).unwrap(),
+            )
+            .unwrap()
+        );
     }
 }

@@ -15,8 +15,8 @@ use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use adventuresim_world_schema::calendar::{MINUTES_PER_YEAR, StrategicMinute, WORLD_START_MINUTE};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, reducer, table};
 
-use crate::capability::StrategicEquipment;
 use crate::StrategicOperationResult;
+use crate::capability::StrategicEquipment;
 use crate::character::character;
 use crate::condition::{character_condition as _, character_strategic_condition as _};
 use crate::disease::character_illness_status as _;

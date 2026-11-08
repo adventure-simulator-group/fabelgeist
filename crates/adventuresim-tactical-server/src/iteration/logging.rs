@@ -209,32 +209,36 @@ pub(super) fn record_attack_start(
         return Ok(());
     };
     let target = event.target.and_then(|entity| players.get(entity).ok());
-    let preferred_melee_measure_metres = viewer.get(event.attacker).ok().map(|view| -> MeleeGeometryResult<SignedLength> {
-        let weapon_reach = view.weapon_reach();
-        let reach = melee_interaction_range(
-            dimensions
-                .get(event.attacker)
-                .copied()
-                .unwrap_or_default()
-                .arm_reach_metres,
-            weapon_reach,
-        )?;
-        let grip = view.weapon_grip_to_tip();
-        let head = view.weapon_striking_head_length();
-        let distal = adventuresim_core::combat::has_distal_striking_surface(
-            grip,
-            head,
-            view.weapon_body_material(),
-            view.weapon_striking_material(),
-        );
-        Ok(adventuresim_core::combat::preferred_melee_striking_measure(
-            reach,
-            grip,
-            head,
-            distal,
-            config.ai.ordinary.offense.melee_measure_reach_fraction,
-        )?)
-    }).transpose()?;
+    let preferred_melee_measure_metres = viewer
+        .get(event.attacker)
+        .ok()
+        .map(|view| -> MeleeGeometryResult<SignedLength> {
+            let weapon_reach = view.weapon_reach();
+            let reach = melee_interaction_range(
+                dimensions
+                    .get(event.attacker)
+                    .copied()
+                    .unwrap_or_default()
+                    .arm_reach_metres,
+                weapon_reach,
+            )?;
+            let grip = view.weapon_grip_to_tip();
+            let head = view.weapon_striking_head_length();
+            let distal = adventuresim_core::combat::has_distal_striking_surface(
+                grip,
+                head,
+                view.weapon_body_material(),
+                view.weapon_striking_material(),
+            );
+            Ok(adventuresim_core::combat::preferred_melee_striking_measure(
+                reach,
+                grip,
+                head,
+                distal,
+                config.ai.ordinary.offense.melee_measure_reach_fraction,
+            )?)
+        })
+        .transpose()?;
     log.decision_events.push(TacticalDecisionLogEntry {
         tick: clock.tick,
         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
@@ -242,13 +246,16 @@ pub(super) fn record_attack_start(
         decision: TacticalDecision::Attack,
         status: TacticalDecisionStatus::Started,
         target: target.map(|(player, _)| player.name.clone()),
-        center_separation_metres: target.map(|(_, transform)| {
-            SignedLength::from_metres(
-            attacker_transform
-                .translation
-                .xz()
-                .distance(transform.translation.xz()))
-        }).transpose()?,
+        center_separation_metres: target
+            .map(|(_, transform)| {
+                SignedLength::from_metres(
+                    attacker_transform
+                        .translation
+                        .xz()
+                        .distance(transform.translation.xz()),
+                )
+            })
+            .transpose()?,
         preferred_melee_measure_metres,
         attack_key: None,
         cause: None,

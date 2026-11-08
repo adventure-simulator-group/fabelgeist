@@ -1,7 +1,9 @@
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::animation::{
     AnimationElapsed, AnimationSampleSpan, AnimationSampleTick, AnimationValueResult,
 };
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::ClientTriggerExt,
     client::{DirectControlState, WeaponGuardInputState},
@@ -9,8 +11,6 @@ use adventuresim_tactical_netcode::{
 };
 use bevy::prelude::*;
 use fabelgeist_geometry::SignedLength;
-use adventuresim_building_generator::spatial_geometry::Position;
-use adventuresim_tactical_core::scene_coordinates::Scene;
 
 use crate::{
     animation::fallback::spawn_fallback_t_pose,
@@ -141,9 +141,9 @@ fn attack_origin(
         .aabb(transform.translation, Rotation(transform.rotation))
         .min
         .y;
-    Ok(Position::from_metres(transform
-        .translation
-        .with_y(body_base + dimensions.body_height_metres.metres() * (2.0 / 3.0)))?)
+    Ok(Position::from_metres(transform.translation.with_y(
+        body_base + dimensions.body_height_metres.metres() * (2.0 / 3.0),
+    ))?)
 }
 
 #[expect(
@@ -317,11 +317,14 @@ fn update_attack_state_system(
     q_scene_items: Query<Entity, With<TacticalSceneItem>>,
     combat_config: Res<TacticalCombatConfig>,
 ) {
-    for (attacker, attacker_transform, attacker_collider, dimensions, mut state) in &mut q_attacker {
+    for (attacker, attacker_transform, attacker_collider, dimensions, mut state) in &mut q_attacker
+    {
         if let Some(target) = state.target
             && let Ok((transform, _, _)) = q_collider.get(target.hitbox)
         {
-            match Position::from_metres(transform.transform_point(target.local_strike_point.metres())) {
+            match Position::from_metres(
+                transform.transform_point(target.local_strike_point.metres()),
+            ) {
                 Ok(position) => {
                     state.target_position = Some(position);
                 }
@@ -350,10 +353,18 @@ fn update_attack_state_system(
                 continue;
             }
         };
-        let contact = attack_origin(attacker_transform, attacker_collider, *dimensions)
-            .and_then(|origin| PredictedAttackContact::observe(
-                attacker, origin, reach, &state, &spatial, &q_collider, &q_scene_items,
-            ));
+        let contact =
+            attack_origin(attacker_transform, attacker_collider, *dimensions).and_then(|origin| {
+                PredictedAttackContact::observe(
+                    attacker,
+                    origin,
+                    reach,
+                    &state,
+                    &spatial,
+                    &q_collider,
+                    &q_scene_items,
+                )
+            });
         let contact = match contact {
             Ok(contact) => contact,
             Err(error) => {
@@ -382,7 +393,12 @@ struct AttackStartRequest {
     hand: AttackHand,
 }
 
-fn attack_reach_is_usable(ranged: bool, melee: bool, weapon_reach: SignedLength, arm_reach: SignedLength) -> bool {
+fn attack_reach_is_usable(
+    ranged: bool,
+    melee: bool,
+    weapon_reach: SignedLength,
+    arm_reach: SignedLength,
+) -> bool {
     if ranged {
         weapon_reach.metres() > 0.0
     } else {
@@ -516,11 +532,36 @@ mod tests {
 
     #[test]
     fn fists_are_usable_from_anatomy_while_ranged_attacks_require_weapon_reach() {
-        assert!(attack_reach_is_usable(false, true, SignedLength::from_metres(0.0).unwrap(), SignedLength::from_metres(0.526_801).unwrap()));
-        assert!(attack_reach_is_usable(false, true, SignedLength::from_metres(0.8).unwrap(), SignedLength::from_metres(0.526_801).unwrap()));
-        assert!(!attack_reach_is_usable(false, true, SignedLength::from_metres(0.0).unwrap(), SignedLength::from_metres(0.0).unwrap()));
-        assert!(!attack_reach_is_usable(true, false, SignedLength::from_metres(0.0).unwrap(), SignedLength::from_metres(0.526_801).unwrap()));
-        assert!(attack_reach_is_usable(true, false, SignedLength::from_metres(20.0).unwrap(), SignedLength::from_metres(0.526_801).unwrap()));
+        assert!(attack_reach_is_usable(
+            false,
+            true,
+            SignedLength::from_metres(0.0).unwrap(),
+            SignedLength::from_metres(0.526_801).unwrap()
+        ));
+        assert!(attack_reach_is_usable(
+            false,
+            true,
+            SignedLength::from_metres(0.8).unwrap(),
+            SignedLength::from_metres(0.526_801).unwrap()
+        ));
+        assert!(!attack_reach_is_usable(
+            false,
+            true,
+            SignedLength::from_metres(0.0).unwrap(),
+            SignedLength::from_metres(0.0).unwrap()
+        ));
+        assert!(!attack_reach_is_usable(
+            true,
+            false,
+            SignedLength::from_metres(0.0).unwrap(),
+            SignedLength::from_metres(0.526_801).unwrap()
+        ));
+        assert!(attack_reach_is_usable(
+            true,
+            false,
+            SignedLength::from_metres(20.0).unwrap(),
+            SignedLength::from_metres(0.526_801).unwrap()
+        ));
     }
 
     #[test]
@@ -544,7 +585,9 @@ mod tests {
         };
 
         assert_eq!(
-            attack_origin(&transform, &collider, dimensions).unwrap().metres(),
+            attack_origin(&transform, &collider, dimensions)
+                .unwrap()
+                .metres(),
             Vec3::new(2.0, 6.2, -3.0)
         );
     }
@@ -554,7 +597,9 @@ mod tests {
         let dimensions = CharacterDimensions::default();
         let attacker_collider = Collider::cylinder(0.4, dimensions.body_height_metres.metres());
         let attacker = Transform::from_xyz(0.0, dimensions.body_height_metres.metres() * 0.5, 0.0);
-        let origin = attack_origin(&attacker, &attacker_collider, dimensions).unwrap().metres();
+        let origin = attack_origin(&attacker, &attacker_collider, dimensions)
+            .unwrap()
+            .metres();
         let target_collider = Collider::cylinder(0.4, dimensions.body_height_metres.metres());
         let target_position = Vec3::new(0.9, dimensions.body_height_metres.metres() * 0.5, 0.0);
 
@@ -570,6 +615,4 @@ mod tests {
         let (surface_distance, _) = hit.expect("50 cm collider surface is within fist reach");
         assert!((surface_distance - 0.5).abs() < 1.0e-5);
     }
-
-
 }

@@ -283,20 +283,26 @@ mod tests {
 
     #[test]
     fn polearm_retreats_below_authored_head_band_center_not_generic_seventy_percent() {
-        let preferred =
-            adventuresim_core::combat::preferred_melee_striking_measure(
-                SignedLength::from_metres(2.0).unwrap(),
-                SignedLength::from_metres(1.9).unwrap(),
-                SignedLength::from_metres(0.16).unwrap(), true, 0.7,
-            ).unwrap();
+        let preferred = adventuresim_core::combat::preferred_melee_striking_measure(
+            SignedLength::from_metres(2.0).unwrap(),
+            SignedLength::from_metres(1.9).unwrap(),
+            SignedLength::from_metres(0.16).unwrap(),
+            true,
+            0.7,
+        )
+        .unwrap();
         assert!((preferred.metres() - 1.92).abs() < 1.0e-6);
         assert!(below_preferred_long_weapon_measure(
-            SignedLength::from_metres(2.0).unwrap(), preferred,
-            SignedLength::from_metres(2.6).unwrap(), SignedLength::from_metres(1.2).unwrap()
+            SignedLength::from_metres(2.0).unwrap(),
+            preferred,
+            SignedLength::from_metres(2.6).unwrap(),
+            SignedLength::from_metres(1.2).unwrap()
         ));
         assert!(!below_preferred_long_weapon_measure(
-            SignedLength::from_metres(2.0).unwrap(), preferred,
-            SignedLength::from_metres(2.8).unwrap(), SignedLength::from_metres(1.2).unwrap()
+            SignedLength::from_metres(2.0).unwrap(),
+            preferred,
+            SignedLength::from_metres(2.8).unwrap(),
+            SignedLength::from_metres(1.2).unwrap()
         ));
     }
 }

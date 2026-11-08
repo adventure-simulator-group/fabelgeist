@@ -13,9 +13,7 @@ use adventuresim_core::{
     combat::MeleeContactClassification, item_catalog_schema::EquipmentMaterial,
 };
 use adventuresim_tactical_core::{
-    animation::NonnegativeLength,
-    physics::AdventureSimulatorPhysicsPlugin,
-    prelude::*,
+    animation::NonnegativeLength, physics::AdventureSimulatorPhysicsPlugin, prelude::*,
 };
 use adventuresim_tactical_netcode::replication::AdventureSimulatorReplicationPlugin;
 use bevy::{prelude::*, time::TimeUpdateStrategy};
@@ -372,9 +370,9 @@ mod tests {
         assert!(outcome.decision_events.iter().any(|event| {
             event.decision == TacticalDecision::Attack
                 && event.tick > 0
-                && event
-                    .center_separation_metres
-                    .is_some_and(|distance| distance.metres() < outcome.initial_center_separation_metres.metres())
+                && event.center_separation_metres.is_some_and(|distance| {
+                    distance.metres() < outcome.initial_center_separation_metres.metres()
+                })
         }));
     }
 

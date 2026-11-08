@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use fabelgeist_geometry::{GeometryResult, SignedLength};
+use serde::{Deserialize, Serialize};
 
 use crate::combat_style::MeleeAttackStyle;
 use crate::item_catalog_schema::EquipmentMaterial;
@@ -81,7 +81,8 @@ pub fn preferred_melee_striking_measure(
     }
     let grip = grip_to_tip_metres.metres().min(reach);
     let grip_origin = (reach - grip).max(0.0);
-    let head_start = grip_origin + (grip - striking_head_length_metres.metres().clamp(0.0, grip)).max(0.0);
+    let head_start =
+        grip_origin + (grip - striking_head_length_metres.metres().clamp(0.0, grip)).max(0.0);
     SignedLength::from_metres((head_start + reach) * 0.5)
 }
 
@@ -138,7 +139,9 @@ impl MeleeContactAtTime {
 /// This never adjudicates an in-reach hit: a polearm contacted inside its
 /// distal band can meet shaft or butt, but cannot deliver unchanged head-edge
 /// energy intended for outer measure.
-pub fn resolve_melee_contact_at_time(facts: MeleeContactAtTimeFacts) -> GeometryResult<MeleeContactAtTime> {
+pub fn resolve_melee_contact_at_time(
+    facts: MeleeContactAtTimeFacts,
+) -> GeometryResult<MeleeContactAtTime> {
     if let Some(cause) = invalid_contact_cause(facts) {
         return Ok(MeleeContactAtTime::invalid(facts, cause));
     }
@@ -147,9 +150,13 @@ pub fn resolve_melee_contact_at_time(facts: MeleeContactAtTimeFacts) -> Geometry
         return Ok(unarmed_contact(facts, measure_accuracy_multiplier));
     }
 
-    let grip_origin_measure = (facts.effective_reach_metres.metres() - facts.grip_to_tip_metres.metres()).max(0.0);
-    let lever_arm = SignedLength::from_metres(facts.actual_measure_metres.metres() - grip_origin_measure)?;
-    let butt_length = SignedLength::from_metres((facts.total_length_metres.metres() - facts.grip_to_tip_metres.metres()).max(0.0))?;
+    let grip_origin_measure =
+        (facts.effective_reach_metres.metres() - facts.grip_to_tip_metres.metres()).max(0.0);
+    let lever_arm =
+        SignedLength::from_metres(facts.actual_measure_metres.metres() - grip_origin_measure)?;
+    let butt_length = SignedLength::from_metres(
+        (facts.total_length_metres.metres() - facts.grip_to_tip_metres.metres()).max(0.0),
+    )?;
     if lever_arm.metres() <= 0.0 {
         return close_contact(facts, lever_arm, butt_length, measure_accuracy_multiplier);
     }
@@ -167,9 +174,7 @@ fn invalid_contact_cause(facts: MeleeContactAtTimeFacts) -> Option<MeleeContactI
         facts.total_length_metres,
         facts.striking_head_length_metres,
     ];
-    if values
-        .into_iter()
-        .any(|value| value.metres() < 0.0)
+    if values.into_iter().any(|value| value.metres() < 0.0)
         || facts.effective_reach_metres.metres() <= 0.0
     {
         return Some(MeleeContactInvalidationCause::InvalidGeometry);
@@ -203,7 +208,8 @@ fn close_contact(
     butt_length: SignedLength,
     measure_accuracy_multiplier: f32,
 ) -> GeometryResult<MeleeContactAtTime> {
-    if -lever_arm.metres() <= butt_length.metres() && facts.attack_style == MeleeAttackStyle::Swing {
+    if -lever_arm.metres() <= butt_length.metres() && facts.attack_style == MeleeAttackStyle::Swing
+    {
         let fraction = (-lever_arm.metres() / facts.grip_to_tip_metres.metres()).clamp(0.0, 1.0);
         return Ok(MeleeContactAtTime {
             classification: MeleeContactClassification::Pommel,
@@ -246,7 +252,8 @@ fn resolve_positive_lever_contact(
 ) -> GeometryResult<MeleeContactAtTime> {
     let head_length = if facts.distal_headed {
         facts
-            .striking_head_length_metres.metres()
+            .striking_head_length_metres
+            .metres()
             .clamp(0.0, facts.grip_to_tip_metres.metres())
     } else {
         // A sword/knife has a continuous striking blade from guard to tip;
@@ -286,7 +293,8 @@ fn resolve_positive_lever_contact(
 
 fn measure_accuracy_multiplier(facts: MeleeContactAtTimeFacts) -> f32 {
     let ideal = facts
-        .ideal_measure_metres.metres()
+        .ideal_measure_metres
+        .metres()
         .clamp(0.0, facts.effective_reach_metres.metres());
     let deviation = (facts.actual_measure_metres.metres() - ideal).abs();
     let style_tolerance = match facts.attack_style {
@@ -392,7 +400,8 @@ mod tests {
     fn sword_at_body_contact_cannot_deliver_full_tip_energy() {
         let contact = resolve_melee_contact_at_time(arming_sword(
             HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
-        )).unwrap();
+        ))
+        .unwrap();
         assert_eq!(
             contact.classification,
             MeleeContactClassification::IntendedSurface
@@ -454,11 +463,27 @@ mod tests {
 
     #[test]
     fn distal_preferred_measure_is_head_band_center_not_generic_fraction() {
-        let preferred = preferred_melee_striking_measure(SignedLength::from_metres(2.0).unwrap(), SignedLength::from_metres(1.9).unwrap(), SignedLength::from_metres(0.16).unwrap(), true, 0.7).unwrap().metres();
+        let preferred = preferred_melee_striking_measure(
+            SignedLength::from_metres(2.0).unwrap(),
+            SignedLength::from_metres(1.9).unwrap(),
+            SignedLength::from_metres(0.16).unwrap(),
+            true,
+            0.7,
+        )
+        .unwrap()
+        .metres();
         assert!((preferred - 1.92).abs() < 1.0e-6);
         assert!(preferred > 2.0 * 0.7);
         assert_eq!(
-            preferred_melee_striking_measure(SignedLength::from_metres(1.25).unwrap(), SignedLength::from_metres(1.0).unwrap(), SignedLength::from_metres(1.0).unwrap(), false, 0.7).unwrap().metres(),
+            preferred_melee_striking_measure(
+                SignedLength::from_metres(1.25).unwrap(),
+                SignedLength::from_metres(1.0).unwrap(),
+                SignedLength::from_metres(1.0).unwrap(),
+                false,
+                0.7
+            )
+            .unwrap()
+            .metres(),
             0.875
         );
     }

@@ -59,9 +59,11 @@ mod tests {
         let item = app
             .world_mut()
             .spawn(TacticalEquipmentPhysical {
-                dimensions_m: fabelgeist_geometry::CuboidDimensions::from_metres(Vec3::ONE).unwrap(),
+                dimensions_m: fabelgeist_geometry::CuboidDimensions::from_metres(Vec3::ONE)
+                    .unwrap(),
                 grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap(),
-                striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap(),
+                striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(0.0)
+                    .unwrap(),
                 anchor_offset_m: Vec3::ZERO,
             })
             .id();

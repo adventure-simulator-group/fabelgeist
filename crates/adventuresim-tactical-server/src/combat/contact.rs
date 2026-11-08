@@ -65,7 +65,9 @@ pub(super) fn initial_melee_contact(
 ) -> InitialMeleeContact {
     let sample = random.unit_f32();
     let attacker = viewer.get_for_attack(event.attacker, event.hand).ok();
-    let weapon_reach = attacker.as_ref().map_or(SignedLength::ZERO, |view| view.weapon_reach());
+    let weapon_reach = attacker
+        .as_ref()
+        .map_or(SignedLength::ZERO, |view| view.weapon_reach());
     let body_part = event.target.and_then(|target| {
         let attacker = attacker.as_ref()?;
         let defender = viewer.get(target).ok()?;

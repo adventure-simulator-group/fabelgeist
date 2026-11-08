@@ -109,9 +109,11 @@ fn record_movement_event(
         .movement_elapsed_seconds
         .checked_add(elapsed_measurement)?;
     combatant.movement_segments += 1;
-    combatant.movement_absolute_displacement_metres.checked_add(
-        Measurement::<MovementMetres>::from_absolute_displacement(displacement),
-    )?;
+    combatant
+        .movement_absolute_displacement_metres
+        .checked_add(Measurement::<MovementMetres>::from_absolute_displacement(
+            displacement,
+        ))?;
     combatant.maximum_movement_speed_metres_per_second = combatant
         .maximum_movement_speed_metres_per_second
         .max(Measurement::<MovementSpeed>::from_speed(velocity)?);
@@ -164,9 +166,10 @@ fn record_contact_measures(
     attacker.mean_scheduled_contact_measure_metres.checked_add(
         Measurement::<ContactMetres>::from_length(telemetry.scheduled_contact_measure_metres),
     )?;
-    let actual =
-        Measurement::<ContactMetres>::from_length(telemetry.actual_contact_measure_metres);
-    attacker.mean_actual_contact_measure_metres.checked_add(actual)?;
+    let actual = Measurement::<ContactMetres>::from_length(telemetry.actual_contact_measure_metres);
+    attacker
+        .mean_actual_contact_measure_metres
+        .checked_add(actual)?;
     let separation = Measurement::<CenterSeparationMetres>::from_length(
         telemetry.actual_center_separation_metres,
     );

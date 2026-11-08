@@ -1,9 +1,9 @@
 //! Framework-neutral, deterministic combat simulation for strategic autoresolve.
 
-use fabelgeist_geometry::SignedLength;
 use crate::battle_time::BattleTime;
 use crate::elapsed::{AnimationElapsed, ElapsedResult};
 use crate::unit_interval::{FractionResult, UnitInterval};
+use fabelgeist_geometry::SignedLength;
 
 use crate::prelude::*;
 use adventuresim_world_schema::BestiaryCategory;
@@ -1432,13 +1432,38 @@ mod tests {
             preferred_melee_style: crate::combat_style::MeleeAttackStyle::Swing,
             weight: 1.5,
             precision: 1.0,
-            melee_reach: fabelgeist_geometry::SignedLength::from_metres(if ranged { 0.0 } else { 1.0 }).unwrap(),
-            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(if ranged { 0.0 } else { 0.8 }).unwrap(),
-            total_length_m: fabelgeist_geometry::SignedLength::from_metres(if ranged { 0.0 } else { 1.0 }).unwrap(),
-            striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(if ranged { 0.0 } else { 0.8 }).unwrap(),
+            melee_reach: fabelgeist_geometry::SignedLength::from_metres(if ranged {
+                0.0
+            } else {
+                1.0
+            })
+            .unwrap(),
+            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(if ranged {
+                0.0
+            } else {
+                0.8
+            })
+            .unwrap(),
+            total_length_m: fabelgeist_geometry::SignedLength::from_metres(if ranged {
+                0.0
+            } else {
+                1.0
+            })
+            .unwrap(),
+            striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(if ranged {
+                0.0
+            } else {
+                0.8
+            })
+            .unwrap(),
             body_material: (!ranged).then_some(EquipmentMaterial::RoughSteel),
             striking_material: (!ranged).then_some(EquipmentMaterial::RoughSteel),
-            ranged_range: fabelgeist_geometry::SignedLength::from_metres(if ranged { 20.0 } else { 0.0 }).unwrap(),
+            ranged_range: fabelgeist_geometry::SignedLength::from_metres(if ranged {
+                20.0
+            } else {
+                0.0
+            })
+            .unwrap(),
             attack_interval_seconds: crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap(),
             ranged_force_joules: 50.0,
             ..CombatWeapon::default()
@@ -1658,8 +1683,10 @@ mod tests {
         let mut enemy = fighter(22, 3.0, false);
         ally.melee_engagement_target = Some(enemy.id);
         enemy.melee_engagement_target = Some(ally.id);
-        ally.melee_engagement_distance_metres = fabelgeist_geometry::SignedLength::from_metres(0.4).unwrap();
-        enemy.melee_engagement_distance_metres = fabelgeist_geometry::SignedLength::from_metres(0.4).unwrap();
+        ally.melee_engagement_distance_metres =
+            fabelgeist_geometry::SignedLength::from_metres(0.4).unwrap();
+        enemy.melee_engagement_distance_metres =
+            fabelgeist_geometry::SignedLength::from_metres(0.4).unwrap();
         let mut allies = vec![ally];
         let mut enemies = vec![enemy];
         let mut recorder = BattleRecorder::default();
@@ -2805,8 +2832,10 @@ mod tests {
         let mut defender = fighter(2, 3.0, false);
         attacker.melee_engagement_target = Some(defender.id);
         defender.melee_engagement_target = Some(attacker.id);
-        attacker.melee_engagement_distance_metres = fabelgeist_geometry::SignedLength::from_metres(0.5).unwrap();
-        defender.melee_engagement_distance_metres = fabelgeist_geometry::SignedLength::from_metres(0.5).unwrap();
+        attacker.melee_engagement_distance_metres =
+            fabelgeist_geometry::SignedLength::from_metres(0.5).unwrap();
+        defender.melee_engagement_distance_metres =
+            fabelgeist_geometry::SignedLength::from_metres(0.5).unwrap();
         attacker.melee_recovery_until_seconds = BattleTime::from_seconds(1.0).unwrap();
         attacker.melee_phase_adaptation_delay_seconds =
             crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap();

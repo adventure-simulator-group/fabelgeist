@@ -34,20 +34,41 @@ impl MeleeCompletionGeometry {
         states: &Query<&mut TacticalCombatState>,
         config: &TacticalCombatConfig,
     ) -> MeleeGeometryResult<Self> {
-        let reach = melee_interaction_range(actors.dimensions.arm_reach_metres, attacker.weapon_reach())?;
-        let center_separation = actors.attacker_transform.translation.xz()
+        let reach =
+            melee_interaction_range(actors.dimensions.arm_reach_metres, attacker.weapon_reach())?;
+        let center_separation = actors
+            .attacker_transform
+            .translation
+            .xz()
             .distance(actors.defender_transform.translation.xz());
-        let surface_distance = SignedLength::from_metres((center_separation
-            - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES).max(0.0))?;
+        let surface_distance = SignedLength::from_metres(
+            (center_separation
+                - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
+                .max(0.0),
+        )?;
         let contact_at_time = contact_at_completion(
-            attacker, authorization.authority, surface_distance, reach,
+            attacker,
+            authorization.authority,
+            surface_distance,
+            reach,
             authorization.event.strike_family.melee_style(),
             config.ai.ordinary.offense.melee_measure_reach_fraction,
         )?;
         let facts = completion_intent_facts(
-            actors, authorization, attacker, surface_distance, sides, states, config,
+            actors,
+            authorization,
+            attacker,
+            surface_distance,
+            sides,
+            states,
+            config,
         )?;
-        Ok(Self { surface_distance, reach, contact_at_time, facts })
+        Ok(Self {
+            surface_distance,
+            reach,
+            contact_at_time,
+            facts,
+        })
     }
 }
 
@@ -101,9 +122,18 @@ fn completion_intent_facts(
     states: &Query<&mut TacticalCombatState>,
     config: &TacticalCombatConfig,
 ) -> fabelgeist_geometry::GeometryResult<MeleeIntentFacts> {
-    let CompletionActors { attacker_look, attacker_transform, defender_look, defender_transform,
-        dimensions: attacker_dimensions } = actors;
-    let CompletionAuthorization { event, authority, now } = authorization;
+    let CompletionActors {
+        attacker_look,
+        attacker_transform,
+        defender_look,
+        defender_transform,
+        dimensions: attacker_dimensions,
+    } = actors;
+    let CompletionAuthorization {
+        event,
+        authority,
+        now,
+    } = authorization;
     Ok(MeleeIntentFacts {
         attacker: event.attacker,
         target: event.target,

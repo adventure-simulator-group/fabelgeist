@@ -53,7 +53,8 @@ pub(super) fn provision_generated_weapon_carry(
                 return Err(format!(
                     "Sheathable weapon {} has no procedural holder",
                     weapon.item_id
-                ).into());
+                )
+                .into());
             }
         };
         let holder = add_inventory_item(ctx, character_id, holder_id, 1)?

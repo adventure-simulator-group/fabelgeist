@@ -33,8 +33,8 @@ fn weapon_output(
     let contact = if weapon.ranged {
         weapon.ranged_force_joules.max(0.0).sqrt() / 5.0
     } else {
-        let striking_mass =
-            weapon.weight.max(0.0) * (1.0 + weapon.balance.max(0.0) * weapon.melee_reach.metres().max(0.0));
+        let striking_mass = weapon.weight.max(0.0)
+            * (1.0 + weapon.balance.max(0.0) * weapon.melee_reach.metres().max(0.0));
         (arm_strength.max(0.0) * (1.0 + striking_mass)).sqrt()
     };
     let concentration = ContactPrecision::new(weapon.precision).concentrated_fraction();
