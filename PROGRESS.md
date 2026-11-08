@@ -1,12 +1,13 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-08T05:06:03.193431+00:00
+Updated: 2026-11-08T05:17:56.424892+00:00
 
 | Increment status | Count |
 | --- | ---: |
-| Queued candidates | 2 |
+| Queued | 1 |
 | Auditing | 0 |
-| Implementing or awaiting build | 1 |
+| Implementing | 0 |
+| Awaiting or running checks | 2 |
 | Awaiting review | 0 |
 | Integrated and validated | 0 |
 | Blocked | 0 |
@@ -22,23 +23,18 @@ Historical coverage is not completed repair work. The revised user direction
 allows independently audited implementation increments while retaining the
 ledger as backlog. Full refactor completion and validation remain required.
 
-## Audio playback speed
+## Active increments
 
-Status: **focused tests running**. The isolated [implementation branch](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-audio-pitch)
-contains commit `2d318efbb21d044680070c525554cb04ee286437`. It carries checked playback-speed and ordered
-pitch-range values through movement and combat audio, and rejects foliage
-combinations whose endpoint products are zero or nonfinite. The focused client
-`cargo check` passed; existing audio configuration tests are running against the
-shared target under an exclusive process-held lock. Formatting was applied.
-Review, repository-wide gates and integration remain outstanding.
+- [Audio playback speed](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-audio-pitch)
+  commit `2d318efbb21d044680070c525554cb04ee286437`: focused `cargo check` passed; existing audio tests are
+  compiling under the shared-target lock. Review and integration remain open.
+- [Landform preparation outcome](https://github.com/adventure-simulator-group/fabelgeist/tree/codex/726-landform-outcome)
+  commit `33a43f0ce44c76b09db3128eead2659367f61811`: unvalidated draft based on the audio commit. It retains a
+  typed initial landform failure and distinguishes natural ground from an
+  admitted patch. Refresh and late-arrival behavior remain open; no build,
+  review or integration is claimed for this draft.
 
-## Queued
-
-Landform preparation error outcome and wedding capacity atomicity are separate
-candidates. Each needs its own bounded audit, acceptance and implementation.
-
-## Historical evidence
-
-[Checkpoint 3737](CHECKPOINT-3737.json) preserves the earlier audit state. Its
-former global implementation gate has been superseded by user direction, while
-its evidence and unresolved questions remain part of the backlog.
+Wedding capacity atomicity remains queued for a separate bounded increment.
+The build queue remains serialized. Earlier [checkpoint 3737](CHECKPOINT-3737.json)
+preserves the historical audit; its former global implementation gate has been
+superseded, while its evidence and unresolved questions remain in the backlog.
