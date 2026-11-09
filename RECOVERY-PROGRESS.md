@@ -6,6 +6,7 @@
 - **7,196** public progress files checked against the pinned manifest.
 - **212** historical JSON file versions reconstructed to recorded path and
   SHA-256 references; their latest-state authority and dependencies remain open.
+- **70** late-audit write command bodies preserved without replay.
 - **37** unresolved patches for **30** paths preserved without applying.
 - **54** other Rust, JSON, TOML and JavaScript literal writes preserved.
 - **89** other file-change candidates preserved; **4** copied-source
