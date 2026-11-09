@@ -18,8 +18,8 @@
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
-- 6,233 source/registration-related command and output records prepared
-  locally; public export was rejected, and 338 others await privacy review.
+- 6,233 source/registration-related command and output records published
+  after explicit user approval; 338 others await privacy review.
 - 57 overlapping late source-related records separately preserved.
 - 5,623 audit write command bodies preserved as inert historical text;
   265 have machine-specific paths redacted.

@@ -6,9 +6,9 @@
 - **7,196** public progress files checked against the pinned manifest.
 - **212** historical JSON file versions reconstructed to recorded path and
   SHA-256 references; their latest-state authority and dependencies remain open.
-- **6,233** source/registration-related records prepared locally; public
-  export was rejected by automatic approval review. **338** additional
-  records await privacy review. The **57** published late records overlap.
+- **6,233** source/registration-related records published after explicit
+  user approval; **338** additional records await privacy review. The
+  **57** published late records overlap.
 - **5,623** audit write command bodies preserved without replay; **265**
   have paths redacted. The **70** late commands overlap.
 - **37** unresolved patches for **30** paths preserved without applying.
