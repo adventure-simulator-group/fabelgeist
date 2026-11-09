@@ -14,6 +14,20 @@ new authoritative baseline and distinguish newly assessed work from historical
 summaries. Do not fabricate receipts, close obligations from summary prose,
 or claim the reported counts as an independently recovered ledger.
 
+Keep the complete recoverable audit state on a remote branch, including the
+authoritative ledger, queues, selected states, registrations, receipts and
+restoration metadata. At every checkpoint, update the quantitative progress
+report, commit and push the evidence, and verify the remote commit and its
+recovery procedure. Summaries and hashes alone are insufficient. Review the
+publication for secrets and private data before pushing.
+
+Rebase the active working branch onto current `main` early in the
+continuation, and repeat as needed to keep the audit from becoming stale.
+First preserve work and checkpoint references in an isolated worktree. After
+each rebase, record the new source revision and reconcile changed files and
+affected lens obligations. Preserve historical evidence at its original
+revision; a rebase does not itself establish audit coverage or validation.
+
 Preserve implementation drafts and their recorded validation limits. Do not
 perform product repairs before the original handoff's audit gate is complete.
 Do not reset shared or player-bearing databases, merge into main, or use an

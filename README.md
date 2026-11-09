@@ -27,6 +27,10 @@ convenience; their originals remain at the pinned progress commit. The original
 handoff remains authoritative for its own checkpoint. See
 [VALIDATION.md](VALIDATION.md) for the checks actually performed.
 
+Future checkpoints must publish the complete recoverable audit state to a
+remote branch, not just summaries. Rebase the active working branch onto
+current `main` early and reconcile source changes so the audit stays current.
+
 Run `python restore.py DESTINATION` to clone the two pinned public sources,
 verify the original manifests and restore its evidence, and verify every file
 in the progress manifest. The destination must not already exist. The base

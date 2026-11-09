@@ -26,6 +26,16 @@
 5. Preserve the existing drafts as unverified drafts. No product code repair
    is authorized before the handoff's audit gate is satisfied. Reconcile main
    and the selected source pin before any future source assessment.
+6. Keep the complete, recoverable audit state on a remote branch. At every
+   checkpoint, publish the ledger, queues, selected states and supporting
+   evidence alongside the quantitative progress report; verify the pushed
+   commit and its restoration procedure. Review material for secrets and
+   private data first. A report or a list of hashes is not a backup.
+7. Rebase the active working branch onto current `main` early, then regularly
+   as needed. Preserve existing work and checkpoint references in an isolated
+   worktree first. Record the new source pin and reconcile the changed files
+   and their lens obligations after each rebase. Historical evidence stays
+   tied to its original revision; rebasing grants no audit or test credit.
 
 The original frozen revision was `6533e444fa37552927070cc8d8190907fd3b413e`.
 The latest reported selected source was
