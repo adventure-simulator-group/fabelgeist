@@ -11,7 +11,7 @@ use bevy_replicon::{
     },
 };
 
-use crate::FIXED_TIMESTEP_HZ;
+use crate::TACTICAL_TICK_HZ;
 use crate::message::{
     DebugDumpWorldRequest, DebugGameTimeScaleRequest, DefendRequest, EquipmentActionRequest,
     JoinRequest, MeleeActionRequest, PlayerInputRequest, RangedActionRequest, ReconnectCapability,
@@ -28,7 +28,7 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             app.add_plugins(StatesPlugin);
         }
 
-        app.insert_resource(Time::<Fixed>::from_hz(FIXED_TIMESTEP_HZ))
+        app.insert_resource(Time::<Fixed>::from_hz(f64::from(TACTICAL_TICK_HZ)))
             .add_plugins(RepliconPlugins)
             .replicate::<Player>()
             .replicate::<CharacterId>()
