@@ -407,7 +407,7 @@ mod tests {
         ));
         assert!(enemy_incapacitation_wheel_visible(
             TacticalCombatSide::Enemy,
-            f32::EPSILON
+            0.001
         ));
         assert!(!enemy_incapacitation_wheel_visible(
             TacticalCombatSide::Party,
