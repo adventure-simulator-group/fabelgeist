@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:05:32.121613+00:00
+Updated: 2026-11-09T00:07:51.667723+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:05:32.121613+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Inventory admission source packets | 1 adopted | Transaction and authority remain open |
+| Inventory admission source packets | 2 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
@@ -123,6 +123,12 @@ item can reach an insert before a missing-definition error is discarded by a
 wrapper; the inspected generic reducer can return success. Whether the write
 commits and how the reducer is exposed require validation. No access, runtime
 failure or discovery closure is claimed.
+
+Checkpoint 3793 qualified the pinned reducer transaction contract: successful
+reducers commit their database updates, while failed reducers roll back. This
+supports the conditional unknown-item partial-write analysis when the outer
+reducer returns success. Actual platform access and retained state remain
+unverified; no discovery closure or native execution is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
