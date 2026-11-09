@@ -14,7 +14,7 @@
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
 - 2,363 unverified helper candidates and 155 Markdown write fragments
-  preserved as transcript-derived text; 23 helpers await privacy review.
+  preserved as transcript-derived text; 23 more helpers have redacted paths.
 - 19 late audit notes recovered as transcript text, with original bytes
   and supporting evidence unverified.
 - 2,480 candidate file states and 519 literal-write records extracted for

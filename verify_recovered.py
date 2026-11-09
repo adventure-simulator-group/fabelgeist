@@ -67,4 +67,11 @@ with (root / "recovered/transcript-helper-candidates/CANDIDATES.jsonl").open(enc
         if hashlib.sha256(item["candidate_text"].encode("utf-8")).hexdigest() != item["candidate_sha256"]:
             raise ValueError("Helper candidate hash mismatch")
         helper_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes and", helper_count, "helper candidates; claims remain qualified")
+redacted_count = 0
+with (root / "recovered/transcript-helper-candidates/REDACTED-CANDIDATES.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        if hashlib.sha256(item["redacted_text"].encode("utf-8")).hexdigest() != item["redacted_sha256"]:
+            raise ValueError("Redacted helper hash mismatch")
+        redacted_count += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates and", redacted_count, "redacted helpers; claims remain qualified")
