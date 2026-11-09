@@ -7,8 +7,9 @@
 - **212** historical JSON file versions reconstructed to recorded path and
   SHA-256 references; their latest-state authority and dependencies remain open.
 - **54** other Rust, JSON, TOML and JavaScript literal writes preserved.
-- **89** other file-change candidates preserved; **5** copied-source
-  or local-path candidates remain excluded.
+- **89** other file-change candidates preserved; **4** copied-source
+  candidates have verified upstream locators, and **1** local-path candidate
+  remains excluded.
 - **310** historical Python literal-write drafts preserved, including **5**
   with paths redacted; validation remains unverified.
 - **2,363** unverified helper candidates preserved as inert text, plus

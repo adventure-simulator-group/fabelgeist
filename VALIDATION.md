@@ -29,6 +29,11 @@
   normalized output fragments are explicitly distinguished from original
   file bytes.
 
+- Four upstream source candidates were recreated from a fresh filtered
+  SpacetimeDB clone at the pinned commit. The Git blob, source SHA-256 and
+  transformed candidate SHA-256 all matched. The restorer refused an
+  existing destination.
+
 These checks do not prove that a different machine has performed a restore,
 that the deleted continuation can be reconstructed, or that any product
 tests, audits or repairs have passed. No product source or database was
