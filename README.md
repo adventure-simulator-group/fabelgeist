@@ -35,6 +35,8 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
+- [Historical helper candidates](recovered/transcript-helper-candidates/README.md),
+  explicitly unverified and not to be executed.
 - A [corpus of Markdown write fragments](recovered/transcript-markdown-writes/README.md).
 - A [collection of printed audit documents](recovered/printed-audit-documents/README.md).
 - A [registered source-object manifest and restorer](recovered/registered-source-objects/README.md).

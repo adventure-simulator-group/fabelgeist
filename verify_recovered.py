@@ -60,4 +60,11 @@ with (root / "recovered/transcript-markdown-writes/WRITES.jsonl").open(encoding=
         if hashlib.sha256(data).hexdigest() != item["normalized_sha256"]:
             raise ValueError("Markdown write hash mismatch")
         markdown_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents and", markdown_count, "Markdown writes; claims remain qualified")
+helper_count = 0
+with (root / "recovered/transcript-helper-candidates/CANDIDATES.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        if hashlib.sha256(item["candidate_text"].encode("utf-8")).hexdigest() != item["candidate_sha256"]:
+            raise ValueError("Helper candidate hash mismatch")
+        helper_count += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes and", helper_count, "helper candidates; claims remain qualified")
