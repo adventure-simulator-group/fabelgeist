@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T01:14:14.416481+00:00
+Updated: 2026-11-09T01:16:22.101054+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -172,6 +172,10 @@ Checkpoint 3801 qualified selected procedural holder-fit checks. The authored
 katzbalger recipe and recommended scabbard align with generated carry; recipe
 evaluation and native creation remain unverified. No discovery closure is
 claimed.
+
+Checkpoint 3821 qualifies all four identified puzzle-lab renderer call
+sites: generated ordered-sigil authorities or validated replay feed them.
+The standalone clue API and broader contracts remain open.
 
 Checkpoint 3820 qualifies the puzzle-lab replay consumer: it validates
 authority before rendering. Other renderer entry points and production
