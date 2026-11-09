@@ -13,6 +13,8 @@
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
+- 89 other historical file-change candidates preserved; five
+  copied-source or private-path candidates remain excluded.
 - 310 Python literal-write drafts preserved, including 5 path-redacted texts.
 - 2,363 unverified helper candidates and 155 Markdown write fragments
   preserved as transcript-derived text; 23 more helpers have redacted paths.
@@ -38,6 +40,8 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
+- [Other file-change candidates](recovered/transcript-other-candidates/README.md),
+  with limitations and exclusions.
 - [Historical Python literal-write drafts](recovered/transcript-python-writes/README.md),
   with no acceptance claim.
 - [Historical helper candidates](recovered/transcript-helper-candidates/README.md),
