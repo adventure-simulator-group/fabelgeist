@@ -546,14 +546,14 @@ building-capture fixture="town-house" view="exterior" output="target/building-ca
 
 # Capture a deterministic semantic-route preview through pose-buffer playback.
 animation-preview scenario="steady-walk-2.0" output="target/animation-captures/animation-preview":
-    @cargo run -p adventuresim-tactical-client --bin animation-viewer -- --scenario {{ quote(scenario) }} --output {{ quote(output) }}
+    @cargo run -p adventuresim-tactical-client --features capture-label --bin animation-viewer -- --scenario {{ quote(scenario) }} --output {{ quote(output) }}
 
 # Run the deterministic animation regression suite and capture the complete
 # viewer scenario matrix. The manifest is the machine-readable result; PNGs
 # and index.html are retained for visual follow-up.
 animation-test output="target/animation-captures/animation-regression":
-    @cargo test -p adventuresim-tactical-client --bin animation-viewer
-    @cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output {{ quote(output) }}
+    @cargo test -p adventuresim-tactical-client --features capture-label --bin animation-viewer
+    @cargo run -p adventuresim-tactical-client --features capture-label --bin animation-viewer -- --output {{ quote(output) }}
 
 # Report whether the supervised tactical database, claim, authority, listener,
 # and recorded child identities are healthy.

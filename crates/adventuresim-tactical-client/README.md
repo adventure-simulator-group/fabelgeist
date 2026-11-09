@@ -80,8 +80,10 @@ contact correction are separate work.
 Spawning a tactical client, on native startup or browser `enter-tactical`,
 starts a load. An opaque overlay with one progress bar per stage covers the
 scene while it builds behind it, because render pipelines only compile for
-what is actually drawn. Player input, cursor capture and the egui overlays stay
-held until the reveal.
+what is actually drawn. Player input, cursor capture and the equipment slot HUD
+stay held until the reveal. The browser page draws the overlay (see
+[the HUD](#the-hud-is-dom)); the native client has no HUD, so there the gate
+holds gameplay without showing anything and a failure is only logged.
 
 The stages are connection, joining the scene, textures, terrain, distant
 landscape, trees, ground cover, sky, equipment, the local character's pose and
@@ -96,19 +98,46 @@ asset cannot be loaded, or no stage changes for 90 seconds of game time, which
 stops while a browser tab is in the background. The equipment stage finishes
 once generation has fitted or failed everything characters carry, so an item
 that cannot be generated is logged and left out rather than ending the load.
-Failure shows the reason with Retry, which spawns a new client for the same
-server and character, and Exit, which quits the native client or calls the host
-page's `window.exitTactical()` in the browser.
+Failure shows the reason with Retry, which the page sends back as the
+`retry-tactical-load` browser command and which spawns a new client for the
+same server and character, and Exit, which calls the host page's
+`window.exitTactical()`.
 
 Pipelines first used after the reveal, such as those for objects outside the
-initial view, can still compile during play. A connection lost after the reveal
-keeps the HUD's existing "Disconnected" status. Headless clients run without
-the screen, so automation controls input from the first frame.
+initial view, can still compile during play. Headless clients run without the
+screen, so automation controls input from the first frame.
+
+## The HUD is DOM
+
+The client links no Bevy UI, text or stylesheet crates. Its HUD is HTML, CSS
+and SVG in the browser page: `tactical-hud.js` and `tactical-hud.css` in
+`crates/adventuresim-stdb-module/static/`, which both `tactical.html` and the
+strategic page's persistent renderer install over the game canvas before the
+client boots.
+
+`src/hud.rs` is the bridge. On wasm each of its functions is one
+`#[wasm_bindgen]` call into a `window.hud_*` function; the systems in
+`src/ui.rs`, `src/ui/wheel.rs`, `src/equipment/slot_hud.rs` and
+`src/loading_screen/view.rs` compute what the HUD shows and push it only when
+it changed, so an idle frame crosses nothing into JavaScript. Structured views
+cross as JSON. Clicks on the slot HUD and the loading screen's Retry return as
+browser commands (`press-slot-hud`, `retry-tactical-load`).
+
+The HUD shows the incapacitation wheels, the aim reticle, the weapon guard, the
+attack timer and result, limb condition, the controls line, the tactical
+outcome banner, the equipment slot grid and the loading screen. Debug readouts
+(position, frame rate, connection, the player list and the F6 to F8 states) are
+gone; F6, F7 and F8 log their state instead. The native client has no HUD.
+
+The browser build (`just build-wasm`) leaves out the `debug` feature. With
+`debug`, `bevy_remote` links `bevy_dev_tools`, which links `bevy_ui` and
+`bevy_text`; no UI plugin runs. Only the animation viewer draws Bevy text, its
+capture labels, through the `capture-label` feature.
 
 ## Browser release builds
 
-`just build-wasm` keeps the gameplay client on the workspace `release` profile
-and builds the art demo separately with the size-oriented `wasm-release`
+`just build-wasm` keeps the gameplay client on the workspace `release` profile,
+without the `debug` feature, and builds the art demo separately with the size-oriented `wasm-release`
 profile and no default features. The demo therefore excludes client audio and
 debug tooling without removing either from ordinary client builds. The build
 requires the exact `wasm-bindgen` version in `Cargo.lock` and the Binaryen
@@ -156,14 +185,13 @@ the client selects and blends authored poses, then applies procedural look and
 terrain leg IK.
 
 The equipment HUD shows procedural weapons, holders, and armor as color
-portraits on black squares. Weapon recipes render into a transient image cache;
-armor loads the baked portrait for its manifest placement. See the
+portraits on black squares. Weapon recipes render once per design and cross to
+the page as RGBA; armor shows the baked portrait for its manifest placement. See the
 [portrait workflow](../adventuresim-weapon-model/README.md#equipment-portraits)
 for lighting and regeneration commands.
 
-EGUI renders the centered incapacitation wheel without taking pointer input.
-The segmented arc surrounds the retained Bevy UI crosshair, starts at 12
-o'clock, and uses the strategic condition colors for live pain and blood loss
+The page draws the centered incapacitation wheel in SVG without taking pointer
+input. The segmented arc surrounds the crosshair, starts at 12 o'clock, and uses the strategic condition colors for live pain and blood loss
 plus enrolled fear, fatigue, hunger, thirst, and temperature; tactical
 imbalance is white. Zero incapacitation draws nothing and a full revolution is
 the visible maximum.
@@ -194,7 +222,7 @@ checked admission. Blend and profile results are prepared before replacing
 their retained filter values; this does not make all camera updates atomic.
 
 The tactical workspace targets Bevy 0.19, Avian 0.7, Ahoy 0.2, Replicon
-0.41, Aeronet 0.21, Enhanced Input 0.26, and Flair 0.8. The engine upgrade does
+0.41, Aeronet 0.21, and Enhanced Input 0.26. The engine upgrade does
 not move animation or movement authority: `SkeletonState` and controller state
 remain server-owned, while authored pose evaluation, lighting, and the Bevy
 world-asset scene attachment are client presentation. Native and Wasm builds
@@ -418,7 +446,7 @@ out with `failure.txt` rather than hanging.
 Run it from the repository root:
 
 ```powershell
-cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output target/animation-captures/locomotion-review
+cargo run -p adventuresim-tactical-client --features capture-label --bin animation-viewer -- --output target/animation-captures/locomotion-review
 ```
 
 Use `--armor-harness close-helmet` to generate the close helmet through
@@ -615,7 +643,7 @@ Terrain conformity defaults to `TerrainIkMode::Enabled`. In debug builds,
 press `F8` to toggle its height, slope, and pelvis corrections. The animation
 viewer separately starts without terrain conformity unless its selected scenario
 requests terrain; per-frame scenario policy also permits raised tap-stop captures
-and preserves the mid-stride comparison window. The HUD reports on or off;
+and preserves the mid-stride comparison window. The log reports on or off;
 authored FK, gait endpoint blending, torso stabilization, and procedural guard
 stepping remain active. Ordinary flat-ground locomotion does not run the terrain
 leg solver while the toggle is off.

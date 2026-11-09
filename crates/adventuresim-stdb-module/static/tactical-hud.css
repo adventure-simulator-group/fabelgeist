@@ -1,0 +1,327 @@
+/* Tactical HUD and loading screen, built by tactical-hud.js and driven by the
+ * client through window.hud_* (crates/adventuresim-tactical-client/src/hud.rs).
+ * Both overlays sit over the game canvas inside its parent element. */
+
+@font-face {
+  font-family: "SN Pro";
+  src: url("assets/SNPro-VariableFont_wght.ttf");
+}
+
+@keyframes hud-show-in {
+  from { scale: 0.95; }
+  to { scale: 1; }
+}
+
+.tactical-hud,
+.tactical-loading {
+  --success: rgb(129, 199, 132);
+  --primary: rgb(144, 202, 249);
+  --error: rgb(229, 115, 115);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-family: "SN Pro", system-ui, sans-serif;
+  font-size: 16px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.tactical-hud *,
+.tactical-loading * {
+  box-sizing: border-box;
+}
+
+.tactical-hud {
+  z-index: 5;
+  color: #fffa;
+  text-shadow: #0007 1px 1px;
+}
+
+.tactical-hud[hidden],
+.tactical-loading[hidden],
+.tactical-hud [hidden],
+.tactical-loading [hidden] {
+  display: none !important;
+}
+
+.tactical-hud .success { color: var(--success); }
+.tactical-hud .error { color: var(--error); }
+
+.hud-wheels {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hud-wheels .track { stroke: rgba(16, 18, 22, 0.588); fill: none; }
+.hud-wheels .incapacitated { stroke: rgba(200, 71, 71, 0.275); fill: none; }
+.hud-wheels .arc { fill: none; stroke-linecap: butt; }
+
+.hud-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+  background-image: url("assets/crosshair.png");
+}
+
+.hud-aim-blocked {
+  position: absolute;
+  top: 54px;
+  left: -54px;
+  width: 180px;
+  color: var(--error);
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  text-shadow: #000 2px 2px;
+}
+
+.hud-outcome {
+  position: absolute;
+  top: calc(28% + 20px);
+  width: 100%;
+  font-size: 64px;
+  font-weight: 800;
+  text-align: center;
+  text-shadow: #000 3px 3px;
+  animation: 0.4s ease-out hud-show-in;
+}
+
+.hud-attack-info {
+  position: absolute;
+  top: calc(50% + 20px);
+  left: 50%;
+  width: 500px;
+  margin-left: -250px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 20px;
+  text-align: center;
+  text-shadow: #000 2px 2px;
+}
+
+.hud-attack-info > * {
+  min-height: 30px;
+  white-space: pre-line;
+}
+
+.hud-attack-result.showing { animation: 0.4s ease-out hud-show-in; }
+.hud-attack-result .target { color: var(--player-color); }
+
+.hud-guard {
+  position: absolute;
+  bottom: 68px;
+  width: 100%;
+  text-align: center;
+}
+
+.hud-controls {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.hud-player {
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  width: 330px;
+  padding: 15px;
+  border-radius: 15px;
+  background: #0009;
+}
+
+.hud-limbs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hud-limbs > * { width: 50%; padding-bottom: 2px; }
+
+.hud-limbs > .title {
+  width: 100%;
+  padding-bottom: 8px;
+  font-size: 18px;
+  color: var(--success);
+}
+
+/* Equipment slot grid, bottom centre while a hand grabs. */
+.hud-slots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-shadow: none;
+}
+
+.hud-slot-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 72px);
+  grid-template-rows: repeat(var(--rows), 56px);
+  gap: 5px;
+}
+
+.hud-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.353);
+  /* Strokes as inset shadows, so a state change never moves the layout. */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.11);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.hud-slot.eligible {
+  background: rgba(255, 255, 255, 0.086);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.706);
+}
+
+.hud-slot.selected {
+  background: rgba(45, 105, 170, 0.41);
+  box-shadow: inset 0 0 0 2px rgb(105, 175, 255);
+}
+
+.hud-slot.refused { box-shadow: inset 0 0 0 2px rgb(190, 45, 45); }
+
+.hud-slot .key {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.294);
+}
+
+.hud-slot.eligible .key { color: #fff; }
+
+.hud-slot .hud-icon { width: 27px; height: 27px; opacity: 0.294; }
+.hud-slot.eligible .hud-icon { opacity: 1; }
+
+.hud-slot-join {
+  position: absolute;
+  background: rgb(75, 115, 165);
+  pointer-events: none;
+}
+
+.hud-hands {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-hands .active { width: 28px; height: 28px; }
+
+.hud-hands button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.hud-hands button:hover { background: rgba(255, 255, 255, 0.1); }
+.hud-hands button .hud-icon,
+.hud-hands .pickup { width: 24px; height: 24px; }
+
+.hud-icon {
+  flex: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.hud-icon.generated { background-color: #000; }
+
+/* Loading screen: opaque until the scene is ready, then fades out. */
+.tactical-loading {
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: rgb(5, 6, 8);
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 1;
+}
+
+.tactical-loading.revealing {
+  opacity: 0;
+  transition: opacity var(--reveal-seconds) linear;
+}
+
+.tactical-loading .title {
+  margin-bottom: 24px;
+  font-size: 40px;
+}
+
+.tactical-loading .stage {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 440px;
+  max-width: 90%;
+}
+
+.tactical-loading .track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tactical-loading .fill {
+  width: 0;
+  height: 100%;
+  background: rgb(144, 202, 249);
+}
+
+.tactical-loading .fill.finished { background: rgb(129, 199, 132); }
+
+.tactical-loading .failure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 90%;
+  margin-top: 20px;
+}
+
+.tactical-loading .message {
+  color: rgb(229, 115, 115);
+  white-space: pre-line;
+  text-align: center;
+}
+
+.tactical-loading .buttons { display: flex; gap: 12px; }
+
+.tactical-loading button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.tactical-loading button:hover { background: rgba(255, 255, 255, 0.2); }
