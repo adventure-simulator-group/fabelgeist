@@ -1067,7 +1067,7 @@ def verify_bindings(
         generated.mkdir()
         result = run_checked([
             "spacetime", "generate", "--lang", "rust", "--out-dir", str(generated),
-            "--module-path", str(MODULE_DIR), "--yes",
+            "--module-path", str(MODULE_DIR), "--build-options=--debug", "--yes",
         ])
         if result.returncode:
             write_console(result.stdout)

@@ -763,3 +763,11 @@ lint: verify-db-client
 
 clean:
     @cargo clean
+
+# Measure development profiles across the main and independent Cargo workspaces.
+artifacts:
+    @{{ python_bin }} scripts/cargo_artifacts.py report
+
+# Preview age/budget cleanup; pass --apply to execute the printed Cargo commands.
+artifacts-prune *args:
+    @{{ python_bin }} scripts/cargo_artifacts.py prune {{ args }}
