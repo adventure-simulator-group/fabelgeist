@@ -252,8 +252,9 @@ The canvas accepts tactical input only while tactical play is active. In
 strategic play, HTML retains names, focus, route links, panels, forms and
 chat. The canvas is clipped to dedicated visual windows and ignores pointer
 events. Talking to a smith selects their character; editing the weapon recipe
-selects the forge preview. The primary egui context belongs exclusively to
-the gameplay camera.
+selects the forge preview. The tactical HUD is DOM over the canvas
+(`/tactical/tactical-hud.js`), installed before the renderer boots and shown
+only during tactical play.
 
 ## Loading and navigation
 

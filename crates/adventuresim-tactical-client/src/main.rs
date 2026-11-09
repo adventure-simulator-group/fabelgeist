@@ -69,6 +69,7 @@ mod debug;
 #[cfg(not(target_family = "wasm"))]
 mod diagnostics;
 mod equipment;
+mod hud;
 mod loading_screen;
 mod movement_audio;
 #[expect(
@@ -499,7 +500,6 @@ fn validate_native_presentation_assets(asset_root: &std::path::Path) -> Result<(
         "shaders/tactical_terrain.wgsl",
         "shaders/tactical_weather.wgsl",
         "shaders/tactical_tree_impostor.wgsl",
-        "tactical-equipment-icons.png",
         "textures/moon/lroc_color_2k.jpg",
     ];
     let missing = REQUIRED_ASSETS

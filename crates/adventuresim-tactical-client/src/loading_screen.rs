@@ -5,6 +5,10 @@
 //! screen so that its render pipelines compile before the player can see or
 //! control it. Losing the connection, a failed required asset and a stage that
 //! stops advancing all end in a failure panel with retry and exit actions.
+//!
+//! The browser page draws the screen (`view`); the native client has no HUD,
+//! so there the gate holds gameplay without showing anything and a failure is
+//! only logged.
 use crate::{
     equipment::{EquipmentHudSet, settlement::EquipmentSettlement},
     player::ClientPlayer,
@@ -18,7 +22,6 @@ use adventuresim_tactical_netcode::prelude::{
     AdventureSimulatorClient, DisconnectReason, Disconnected,
 };
 use bevy::{asset::UntypedAssetLoadFailedEvent, prelude::*};
-use bevy_egui::EguiPrimaryContextPass;
 use progress::{LoadingFailure, LoadingRun, RunVerdict};
 use sources::LoadingSources;
 
@@ -73,16 +76,14 @@ impl Plugin for LoadingScreenPlugin {
         app.init_resource::<LoadingScreen>()
             .add_observer(begin_load)
             .add_observer(fail_on_disconnect)
-            .add_systems(Startup, view::spawn)
+            .add_observer(retry_load)
             .add_systems(
                 Update,
                 (
                     fail_on_required_asset,
                     advance_load,
                     hold_new_players,
-                    view::handle_actions,
-                    view::sync_stage_bars,
-                    view::sync_overlay,
+                    view::push_overlay,
                 )
                     .chain(),
             );
@@ -96,10 +97,7 @@ pub(crate) fn install(app: &mut App, headless: bool) {
     if !headless {
         app.add_plugins(LoadingScreenPlugin);
     }
-    app.configure_sets(
-        EguiPrimaryContextPass,
-        EquipmentHudSet.run_if(gameplay_unlocked),
-    );
+    app.configure_sets(Update, EquipmentHudSet.run_if(gameplay_unlocked));
 }
 
 /// Run condition for systems that must wait for the scene to be revealed.
@@ -108,12 +106,27 @@ pub(crate) fn gameplay_unlocked(screen: Option<Res<LoadingScreen>>) -> bool {
     screen.is_none_or(|screen| screen.gameplay_unlocked())
 }
 
-/// Run condition for overlays of the local player's own state.
-pub(crate) fn local_player_revealed(
-    screen: Option<Res<LoadingScreen>>,
-    players: Query<(), With<ClientPlayer>>,
-) -> bool {
-    !players.is_empty() && gameplay_unlocked(screen)
+/// The failure panel's Retry button, sent by the browser page.
+#[derive(Event, Debug)]
+pub(crate) struct RetryLoad;
+
+/// Reconnects with the failed session's connection; a load can fail with its
+/// session still open, so that one goes first.
+fn retry_load(
+    _retry: On<RetryLoad>,
+    mut commands: Commands,
+    screen: Res<LoadingScreen>,
+    clients: Query<Entity, With<AdventureSimulatorClient>>,
+) {
+    if !matches!(screen.phase, LoadingPhase::Failed(_)) {
+        return;
+    }
+    if let Some(connection) = &screen.connection {
+        for client in &clients {
+            commands.entity(client).despawn();
+        }
+        commands.spawn(connection.clone());
+    }
 }
 
 fn begin_load(

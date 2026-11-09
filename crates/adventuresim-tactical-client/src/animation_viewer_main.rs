@@ -11,6 +11,7 @@ mod animation;
 mod animation_viewer;
 mod camera;
 mod equipment;
+mod hud;
 mod player;
 mod presentation;
 mod targeting;

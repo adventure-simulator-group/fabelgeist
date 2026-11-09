@@ -7,7 +7,7 @@ license = "AGPL-3.0"
 
 [features]
 default = ["offline-creator"]
-offline-creator = ["dep:burn", "dep:fabelgeist-mhr", "bevy/default"]
+offline-creator = ["dep:burn", "dep:fabelgeist-mhr", "dep:bevy_egui", "dep:egui_extras", "bevy/default"]
 
 [[bin]]
 name = "adventuresim-character-creator"
@@ -28,8 +28,38 @@ async-lock = "3"
 base64 = "0.22"
 fabelgeist-armor = { path = "../fabelgeist-armor" }
 image = { version = "0.25.10", default-features = false, features = ["png"] }
-bevy = { version = "0.19.0", default-features = false, features = ["std", "3d_bevy_render"] }
-bevy_egui = "0.40.1"
+# `3d_bevy_render` without its `common_api` text: the library half links into
+# the tactical client, which has no Bevy UI or text. The studio's egui and
+# fonts come with `offline-creator`.
+bevy = { version = "0.19.0", default-features = false, features = [
+    "std",
+    "bevy_render",
+    "bevy_core_pipeline",
+    "bevy_anti_alias",
+    "bevy_gltf",
+    "bevy_pbr",
+    "bevy_post_process",
+    "gltf_animation",
+    "bevy_light",
+    "bevy_mikktspace",
+    "ktx2",
+    "morph_animation",
+    "morph",
+    "smaa_luts",
+    "tonemapping_luts",
+    "zstd_rust",
+    "bevy_animation",
+    "bevy_camera",
+    "bevy_color",
+    "bevy_image",
+    "bevy_mesh",
+    "bevy_shader",
+    "bevy_material",
+    "bevy_window",
+    "hdr",
+    "png",
+] }
+bevy_egui = { version = "0.40.1", optional = true }
 blake3 = "1"
 burn = { optional = true, git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
     "std",
@@ -55,7 +85,7 @@ fabelgeist-bvh = { path = "../fabelgeist-bvh" }
 fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
 fabelgeist-compute = { path = "../fabelgeist-compute" }
 tokio = { version = "1", features = ["rt", "time"] }
-egui_extras = { version = "0.34", default-features = false, features = ["svg"] }
+egui_extras = { version = "0.34", default-features = false, features = ["svg"], optional = true }
 
 [dev-dependencies]
 gltf = { version = "1.4", default-features = false }
