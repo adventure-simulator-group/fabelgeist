@@ -8,7 +8,7 @@
   distinct source blobs; a restoration script is included.
 - 212 historical JSON versions recovered from the transcript and matched to
   recorded path and SHA-256 references.
-- 80 printed ledger-related JSON values preserved as historical fragments.
+- 117 printed ledger-related JSON values and arrays preserved as historical fragments.
 - 538 normalized historical audit documents preserved;
   8 additional values are published with personal paths redacted.
 - 3,422 historical printed contract observations indexed, covering 1,722

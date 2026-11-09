@@ -1,6 +1,6 @@
 # Printed ledger fragments
 
-These 80 normalized JSON values were printed by historical commands that
+These 117 normalized JSON values and arrays were printed by historical commands that
 mentioned the audit ledger. They include historical repair-family records,
 but some commands printed selected fields or other values. They are not the
 complete ledger, original ledger bytes, latest state, or validation evidence.
