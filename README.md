@@ -15,8 +15,8 @@
   unverified audit claims.
 - 54 additional Rust, JSON, TOML and JavaScript literal writes preserved.
 - 89 other historical file-change candidates preserved; five
-  personal-path candidate remains excluded; four copied-source candidates
-  have independently verified upstream locators.
+  one personal-path candidate is preserved in redacted form; four
+  copied-source candidates have verified upstream locators.
 - 310 Python literal-write drafts preserved, including 5 path-redacted texts.
 - 2,363 unverified helper candidates and 155 Markdown write fragments
   preserved as transcript-derived text; 23 more helpers have redacted paths.

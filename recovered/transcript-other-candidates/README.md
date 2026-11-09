@@ -6,6 +6,7 @@ Hashes cover candidate bytes, not necessarily original or final file contents.
 The text is inert evidence: do not execute it or adopt audit claims without
 independent review. Source references and helper validation remain incomplete.
 
-Four copied third-party source files and one candidate containing a local-path
-pattern were excluded; they remain private. Public URL references were
-reviewed. This collection overlaps other recovered evidence.
+Four copied third-party source files have pinned upstream restoration
+locators. A portability review is preserved separately with local paths
+redacted; its original candidate bytes remain private. Public URL references
+were reviewed. This collection overlaps other recovered evidence.

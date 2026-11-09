@@ -88,6 +88,10 @@ with (root / "recovered/transcript-other-candidates/CANDIDATES.jsonl").open(enco
         if hashlib.sha256(item["candidate_text"].encode("utf-8")).hexdigest() != item["candidate_sha256"]:
             raise ValueError("Other candidate hash mismatch")
         other_count += 1
+directory = root / "recovered/transcript-other-candidates"
+item = json.loads((directory / "portability-review.manifest.json").read_text(encoding="utf-8"))
+if hashlib.sha256((directory / item["file"]).read_bytes()).hexdigest() != item["redacted_sha256"]:
+    raise ValueError("Redacted portability review hash mismatch")
 other_writes_count = 0
 with (root / "recovered/transcript-other-writes/WRITES.jsonl").open(encoding="utf-8") as stream:
     for line in stream:

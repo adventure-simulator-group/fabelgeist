@@ -9,7 +9,7 @@
 - **54** other Rust, JSON, TOML and JavaScript literal writes preserved.
 - **89** other file-change candidates preserved; **4** copied-source
   candidates have verified upstream locators, and **1** local-path candidate
-  remains excluded.
+  is preserved in redacted form.
 - **310** historical Python literal-write drafts preserved, including **5**
   with paths redacted; validation remains unverified.
 - **2,363** unverified helper candidates preserved as inert text, plus
