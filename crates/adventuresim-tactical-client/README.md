@@ -138,11 +138,11 @@ capture labels, through the `capture-label` feature.
 
 `just build-wasm` keeps the gameplay client on the workspace `release` profile,
 without the `debug` feature, and builds the art demo separately with the
-size-oriented `wasm-release` profile and no default features. The demo therefore excludes client audio and
-debug tooling without removing either from ordinary client builds. The build
-requires the exact `wasm-bindgen` version in `Cargo.lock` and the Binaryen
-version pinned in the root `package-lock.json`; run `npm ci` to install the
-latter.
+size-oriented `wasm-release` profile and no default features. The demo therefore
+excludes client audio and debug tooling without removing either from ordinary
+client builds. The build requires the exact `wasm-bindgen` version in
+`Cargo.lock` and the Binaryen version pinned in the root `package-lock.json`;
+run `npm ci` to install the latter.
 
 The build applies `wasm-opt -Oz` only to the art demo after `wasm-bindgen` and
 writes raw, gzip level 6, and Brotli level 11 sizes to
