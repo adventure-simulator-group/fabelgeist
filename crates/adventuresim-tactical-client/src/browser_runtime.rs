@@ -18,12 +18,19 @@ use bevy::{
     prelude::*,
 };
 use serde::Deserialize;
+use wasm_bindgen::prelude::*;
 
 use crate::weapon_preview_material::preview_material;
 
 use crate::{
     Args, player::LocalCharacterId, presentation::TacticalGameplayCamera, ui::TacticalUiRoot,
 };
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(catch, js_namespace = window, js_name = exitTactical)]
+    fn exit_tactical() -> Result<(), JsValue>;
+}
 
 static COMMANDS: OnceLock<Mutex<VecDeque<BrowserCommand>>> = OnceLock::new();
 
@@ -142,7 +149,11 @@ impl Plugin for BrowserRuntimePlugin {
             .add_systems(Update, forge_view::sync)
             .add_systems(
                 Update,
-                (drain_browser_commands, sync_tactical_ui_visibility),
+                (
+                    drain_browser_commands,
+                    sync_tactical_ui_visibility,
+                    dismiss_loading_outside_tactical,
+                ),
             )
             .add_systems(
                 PostUpdate,
@@ -281,6 +292,13 @@ fn drain_browser_commands(
                 *mode = BrowserMode::Strategic;
             }
         }
+    }
+}
+
+/// Asks the host page to leave tactical play; each page owns where that goes.
+pub(crate) fn request_tactical_exit() {
+    if let Err(error) = exit_tactical() {
+        warn!(?error, "Host page did not accept the tactical exit request");
     }
 }
 
@@ -447,6 +465,17 @@ fn sync_tactical_ui_visibility(
     };
     for mut current in &mut roots {
         *current = visibility;
+    }
+}
+
+fn dismiss_loading_outside_tactical(
+    mode: Res<BrowserMode>,
+    screen: Option<ResMut<crate::loading_screen::LoadingScreen>>,
+) {
+    if *mode != BrowserMode::Tactical
+        && let Some(mut screen) = screen
+    {
+        screen.dismiss();
     }
 }
 

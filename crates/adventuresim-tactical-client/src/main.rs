@@ -69,6 +69,7 @@ mod debug;
 #[cfg(not(target_family = "wasm"))]
 mod diagnostics;
 mod equipment;
+mod loading_screen;
 mod movement_audio;
 #[expect(
     dead_code,
@@ -374,10 +375,7 @@ fn run(
         .add_systems(
             Update,
             (
-                capture_cursor.run_if(
-                    input_just_pressed(MouseButton::Left)
-                        .and_then(any_with_component::<CharacterController>),
-                ),
+                capture_cursor.run_if(cursor_capture_requested()),
                 release_cursor.run_if(
                     input_just_pressed(KeyCode::Escape)
                         .and_then(any_with_component::<CharacterController>),
@@ -389,6 +387,7 @@ fn run(
         .insert_resource(args.clone());
     #[cfg(target_family = "wasm")]
     app.add_plugins(browser_runtime::BrowserRuntimePlugin::new(initial_tactical));
+    loading_screen::install(&mut app, headless);
     #[cfg(feature = "debug")]
     app.add_plugins(debug::DebugPlugin);
 
@@ -532,6 +531,12 @@ fn setup_initial_client(
         server_url: args.server_addr.clone(),
     });
     startup.mark("startup schedule complete; connection requested");
+}
+
+fn cursor_capture_requested() -> impl SystemCondition<()> {
+    input_just_pressed(MouseButton::Left)
+        .and_then(any_with_component::<CharacterController>)
+        .and_then(loading_screen::gameplay_unlocked)
 }
 
 fn capture_cursor(

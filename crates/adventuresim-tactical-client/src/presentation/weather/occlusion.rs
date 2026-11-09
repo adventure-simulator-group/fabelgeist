@@ -221,6 +221,7 @@ mod tests {
             primary_group: 0,
             secondary_group: 0,
             is_limb_tip: false,
+            foliage: None,
         };
         let mut heights = vec![
             None;

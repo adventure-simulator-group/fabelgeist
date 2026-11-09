@@ -1,6 +1,8 @@
 //! Surface-root placement and species-specific root morphology.
+use super::root_profile::{oak_root_fork_points, oak_root_points};
 use super::*;
 use fabelgeist_determinism::Seed;
+use libm::{cosf, sinf};
 
 pub(super) fn root_plan_angles(plan_seed: Seed, crown_phase: f32, root_count: usize) -> Vec<f32> {
     // Allocate the full circle as unequal positive gaps. Normalizing the
@@ -129,6 +131,47 @@ pub(super) fn procedural_oak_root_specs_with_gnarling(
     roots
 }
 
+pub(super) fn append_oak_roots(
+    branches: &mut Vec<TreeBranchSegment>,
+    seed: Seed,
+    crown_phase: f32,
+    trunk_base: Vec3,
+    gnarling: OakGnarlingParameters,
+) {
+    // Unequal surface roots visually carry the weight of the low, spreading
+    // scaffold limbs without changing the authoritative collider. Their plan
+    // is presentation-only: a bounded irregular partition avoids a radial
+    // star, while the broadest buttresses share the major scaffold azimuths.
+    let root_specs = procedural_oak_root_specs_with_gnarling(seed, crown_phase, gnarling);
+    debug_assert!(oak_root_segment_count(&root_specs) <= OAK_ROOT_MAX_SEGMENTS);
+    for root in root_specs {
+        // Roots begin below grade, expose a shoulder according to the site's
+        // gnarling recipe, and taper back into the soil.
+        let points = oak_root_points(trunk_base - Vec3::Y * 0.07, root, gnarling);
+        append_branch_curve(
+            branches,
+            &points,
+            [root.base_radius, root.tip_radius],
+            0,
+            u8::MAX,
+            u16::MAX,
+            None,
+        );
+        if let Some(fork) = root.fork {
+            let fork_points = oak_root_fork_points(&points, root, fork);
+            append_branch_curve(
+                branches,
+                &fork_points,
+                [root.base_radius * 0.34, root.tip_radius * 0.72],
+                0,
+                u8::MAX,
+                u16::MAX,
+                None,
+            );
+        }
+    }
+}
+
 pub(super) fn append_beech_roots(
     branches: &mut Vec<TreeBranchSegment>,
     seed: Seed,
@@ -147,8 +190,8 @@ pub(super) fn append_beech_roots(
         let phase = crown_phase
             + root_index as f32 * 2.399_963_1
             + (root_unit_draw(streams::BEECH_ROOT_PHASE) - 0.5) * 0.32;
-        let outward = Vec3::new(phase.cos(), 0.0, phase.sin());
-        let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());
+        let outward = Vec3::new(cosf(phase), 0.0, sinf(phase));
+        let tangent = Vec3::new(-sinf(phase), 0.0, cosf(phase));
         let reach = 0.3 + root_unit_draw(streams::BEECH_ROOT_REACH) * 0.16;
         let shoulder = trunk_base
             + outward * (0.3 + root_unit_draw(streams::BEECH_ROOT_SHOULDER) * 0.025)
@@ -167,11 +210,14 @@ pub(super) fn append_beech_roots(
         append_branch_curve(
             branches,
             &root_points,
-            0.11 + root_unit_draw(streams::BEECH_ROOT_RADIUS) * 0.025,
-            0.006 + root_unit_draw(streams::BEECH_ROOT_TIP_RADIUS) * 0.004,
+            [
+                0.11 + root_unit_draw(streams::BEECH_ROOT_RADIUS) * 0.025,
+                0.006 + root_unit_draw(streams::BEECH_ROOT_TIP_RADIUS) * 0.004,
+            ],
             0,
             u8::MAX,
             u16::MAX,
+            None,
         );
     }
 }

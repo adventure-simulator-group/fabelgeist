@@ -1,9 +1,16 @@
-//! Construct retained GPU instance batches from the procedural tuft lattice.
+//! Construct chunk-instanced batches from the procedural tuft lattice.
 use super::*;
 use fabelgeist_determinism::Seed;
 
-/// Turns filled instance batches into one entity per (tier, species), each
-/// carrying `marker` on top of the shared instanced-draw components.
+use crate::presentation::chunk_instancing::{ChunkSize, InstanceBatch};
+
+/// Ground cells of the dense near tiers, which fade out within ~20 m.
+const NEAR_CHUNK_SIZE: ChunkSize = ChunkSize(16.0);
+/// Ground cells of the sparse far tiers, which reach ~70 m.
+const FAR_CHUNK_SIZE: ChunkSize = ChunkSize(32.0);
+
+/// Turns filled instance batches into chunk entities per (tier, species),
+/// each carrying `marker` on top of the chunk-instanced draw components.
 pub(in crate::presentation) fn spawn_tuft_batches(
     world: GrassWorld<'_, '_, '_>,
     batches: &mut TierSpeciesBatches,
@@ -45,42 +52,28 @@ pub(in crate::presentation) fn spawn_tuft_batches(
                     grass,
                 ),
             );
-            let metadata = culling::metadata(
-                meshes.get(&mesh).expect("generated tuft"),
-                lod.width_compensation(pigment.density),
-                pigment.wind_scale,
-                grass.interaction.maximum_push,
-            );
-            let mut entity = commands.spawn((
-                Name::new(format!(
-                    "{label} {species:?} {lod:?} tufts ({})",
-                    instances.len()
-                )),
-                GroundScatterLayer::Grass,
-                triangle_count,
-                GpuCullCompute,
-                // Batches span the whole scene, so CPU frustum culling can
-                // only ever hide them wholesale - and worse, a culled frame
-                // drops the batch from `RenderMeshInstances`, which makes
-                // eidolon free and re-upload the retained instance buffers
-                // every time the camera pitch crosses the horizon. Culling
-                // belongs solely to the GPU compute pass.
-                NoFrustumCulling,
-                Mesh3d(mesh),
-                InstancedMeshMaterial(material.clone()),
-                fitted_batch_aabb(&instances, configured_tuft_footprint_metres(lod, grass)),
-                InstanceMaterialData {
-                    instances: Arc::new(instances),
-                    color: metadata,
-                    visibility_range: configured_tier_visibility_range(lod, grass),
+            InstanceBatch {
+                mesh,
+                material: material.clone(),
+                instances,
+                band: configured_tier_band(lod, grass),
+                reach: ground_scatter_reach(configured_tuft_footprint_metres(lod, grass)),
+                chunk_size: match lod {
+                    GrassMeshLod::Near | GrassMeshLod::NearEdge => NEAR_CHUNK_SIZE,
+                    GrassMeshLod::Far | GrassMeshLod::Vista => FAR_CHUNK_SIZE,
                 },
-                Transform::default(),
-                Visibility::Inherited,
-            ));
-            entity.insert(marker.clone());
-            if !diagnostics::casts_shadows(lod, grass) {
-                entity.insert(NotShadowCaster);
             }
+            .spawn(commands, |chunk| {
+                (
+                    Name::new(format!(
+                        "{label} {species:?} {lod:?} tufts ({})",
+                        chunk.len()
+                    )),
+                    GroundScatterLayer::Grass,
+                    triangle_count,
+                    marker.clone(),
+                )
+            });
         }
     }
 }

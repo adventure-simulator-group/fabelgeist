@@ -8,12 +8,17 @@ pub(super) fn sync_procedural_equipment_skins(
     items: Query<(Option<&ItemOf>, Option<&EquipSlot>, Has<TacticalSceneItem>)>,
     bones: Query<(Entity, &MhrBone, &AuthoredRigJoint)>,
 ) {
-    let mut rig_bones = HashMap::<Entity, HashMap<RigJointName, Entity>>::new();
+    if parts.is_empty() {
+        return;
+    }
+    // Borrow the joint names rather than owning them: this index is rebuilt every
+    // frame, and cloning each name cost one heap allocation per bone per rig.
+    let mut rig_bones = HashMap::<Entity, HashMap<&RigJointName, Entity>>::new();
     for (entity, bone, name) in &bones {
         rig_bones
             .entry(bone.owner)
             .or_default()
-            .insert(name.name().clone(), entity);
+            .insert(name.name(), entity);
     }
     for (entity, part, current_skin) in &parts {
         let desired_joints = items

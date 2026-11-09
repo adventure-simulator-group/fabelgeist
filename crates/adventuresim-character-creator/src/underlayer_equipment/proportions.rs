@@ -4,7 +4,10 @@ use adventuresim_core::character_proportions::BodyProportion;
 use fabelgeist_mhr::math::rotate_vector;
 mod probe_bounds;
 
-pub(super) fn samples(model: &BodyModel, body: &GeneratedCharacter) -> Vec<ForearmMorphSample> {
+pub(super) fn samples(
+    model: &BodyModel,
+    body: &GeneratedCharacter,
+) -> Result<Vec<ForearmMorphSample>> {
     use BodyProportion::{HipWidth, ShoulderWidth, UpperArmLength};
     // Population endpoints can fold an individual wearer's armpits or cross
     // their thighs. Bound the hypothetical probes before freezing offsets;
@@ -41,21 +44,23 @@ pub(super) fn samples(model: &BodyModel, body: &GeneratedCharacter) -> Vec<Forea
             .iter()
             .enumerate()
             .map(|(v, p)| {
+                let vertex =
+                    fabelgeist_mhr::character::MeshVertexIndex::from_native_vertex_index(v);
                 let skin = character
                     .skin_weights
-                    .index
-                    .weighted_vertex(v, character.skin_weights.weight[v])
+                    .vertex(vertex)
+                    .context("skeletal probe references a missing body skin vertex")?
                     .strongest_four();
-                std::array::from_fn(|i| {
+                Ok(std::array::from_fn(|i| {
                     p[i] + skin
                         .joints
                         .into_iter()
                         .zip(skin.weights)
                         .map(|(joint, weight)| shifts[joint][i] * weight)
                         .sum::<f32>()
-                })
+                }))
             })
-            .collect();
+            .collect::<Result<_>>()?;
         let mut fraction = probe_bounds::oriented_area_fraction(
             &body.positions,
             &positions,
@@ -84,13 +89,13 @@ pub(super) fn samples(model: &BodyModel, body: &GeneratedCharacter) -> Vec<Forea
                 result
             })
             .collect();
-        ForearmMorphSample {
+        Ok(ForearmMorphSample {
             name: format!("unposed-{}", proportion.mhr_parameter()),
             positions,
             normals: body.normals.clone(),
             global_joint_states,
             device: Default::default(),
-        }
+        })
     })
     .collect()
 }

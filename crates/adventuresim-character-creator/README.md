@@ -33,6 +33,13 @@ for the saved body. Use `just export-mhr-base <staging-path>` to export the cano
 body without opening the studio, then prepare its runtime copy as described
 below.
 
+GLB framing checks both padded chunk lengths and the complete container against
+the format's unsigned 32-bit lengths before opening the GLB file. Serialization,
+layout, final frame allocation and filesystem failures retain their concrete
+causes through `export::glb::GlbError`. Shared texture images may already have
+been written by the preceding export stage, and filesystem writes are not
+transactional.
+
 The zero-weight attachment joints follow MHR's side-prefix naming convention:
 `l_weapon` is parented to `l_wrist`, `r_weapon` to `r_wrist`, and `c_camera` to
 `c_head`. Each weapon joint is positioned halfway from its wrist toward the

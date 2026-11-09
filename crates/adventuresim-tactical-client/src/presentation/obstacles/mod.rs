@@ -53,15 +53,14 @@ pub(crate) fn oak_review_terminal_specimen(
     let preferred_height = 2.5;
     let (shoot_id, shoot) = branches
         .iter()
-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
-        .enumerate()
+        .filter_map(|branch| branch.foliage.map(|identity| (identity, branch)))
         .max_by(|(_, left), (_, right)| {
             let score = |branch: &TreeBranchSegment| {
                 branch.end.dot(camera_direction) - (branch.end.y - preferred_height).abs() * 0.35
             };
             score(left).total_cmp(&score(right))
         })
-        .map(|(_, branch)| (tree::shoot_identity(branch), *branch))
+        .map(|(identity, branch)| (identity, *branch))
         .expect("procedural oak has terminal shoots");
     let offset = -shoot.start;
     let mut specimen_shoot = shoot;

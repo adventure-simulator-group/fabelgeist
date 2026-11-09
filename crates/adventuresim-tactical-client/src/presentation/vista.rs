@@ -37,6 +37,7 @@ mod strategic;
 mod streams;
 pub(super) mod streets;
 mod surface;
+pub(super) mod tree_cards;
 
 const VISTA_GRASS_BOUNDARY_STITCH_METRES: f32 = 12.0;
 // Chunking is a CPU/ECS submission boundary, not a visual tessellation
@@ -93,7 +94,7 @@ pub(super) fn on_scene_vista_bundle(
     mut materials: ResMut<Assets<TacticalVistaMaterial>>,
     mut grass_materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
     mut standard_materials: ResMut<Assets<StandardMaterial>>,
-    mut tree_materials: ResMut<Assets<TacticalTreeImpostorMaterial>>,
+    mut tree_materials: tree_cards::VistaTreeMaterials,
     mut images: ResMut<Assets<Image>>,
     mut vista_tree_cache: ResMut<VistaTreePresentationCache>,
     prepared_tree_impostors: PreparedTreeImpostors,

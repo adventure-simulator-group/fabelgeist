@@ -26,6 +26,8 @@ pub mod prelude {
     };
     #[cfg(feature = "server")]
     pub use crate::server::AdventureSimulatorServer;
+    #[cfg(feature = "client")]
+    pub use aeronet::io::connection::{DisconnectReason, Disconnected};
 }
 
 const FIXED_TIMESTEP_HZ: f64 = 64.0;

@@ -11,6 +11,8 @@
 
 mod atmosphere;
 mod buildings;
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod canvas_view;
 mod cloud_bake_assets;
 mod clouds;
 mod config;
@@ -25,6 +27,8 @@ mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
 mod building_closures;
+mod celestial_materials;
+pub(crate) mod chunk_instancing;
 mod environment;
 mod ground_palette;
 pub(crate) mod ground_scatter;
@@ -35,13 +39,16 @@ pub(crate) mod regional_map;
 use ground_palette::{TACTICAL_DIRT_SRGB, scene_ground_color};
 pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
+use celestial_materials::update_celestial_material_lighting;
 mod materials;
 mod obstacles;
 pub(crate) mod ownership;
+pub(crate) mod pipeline_readiness;
 pub(crate) mod preparation;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
 pub(crate) mod recipe_mesh;
+pub(crate) mod scene_readiness;
 mod sky;
 mod strategic_scene_assets;
 mod terrain;
@@ -57,8 +64,6 @@ pub(crate) use building_closures::{BuildingClosureVisibility, PresentedBuildingC
 
 use adventuresim_procedural_textures::LeafTextureSet;
 pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;
-#[cfg(test)]
-use adventuresim_procedural_textures::generate_procedural_textures;
 pub(crate) use atmosphere::AtmosphereIblCache;
 use atmosphere::*;
 pub(crate) use buildings::BuildingRenderLevel;
@@ -73,6 +78,7 @@ use obstacles::rock::TacticalRockMaterial;
 use obstacles::tree::*;
 use procedural::*;
 use procedural_texture_setup::setup_procedural_texture_assets;
+pub(crate) use scene_readiness::is_required_scene_asset;
 use sky::*;
 pub(crate) use terrain::PendingTerrainPresentation;
 use terrain::*;
@@ -220,9 +226,6 @@ fn tactical_global_ambient_light() -> GlobalAmbientLight {
 
 impl Plugin for TacticalPresentationPlugin {
     fn build(&self, app: &mut App) {
-        // GPU-instanced grass renders through bevy_eidolon on native and wasm
-        // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
-        // multi-draw-indirect on the browser backend).
         app.add_plugins((
             ground_scatter::InstancedGrassPlugin,
             ground_scatter::gardens::GardenPresentationPlugin,
@@ -295,6 +298,7 @@ impl Plugin for TacticalPresentationPlugin {
                         present_pending_trees,
                         stream_tree_lod_children,
                         update_tree_projected_lod_ranges,
+                        cull_tree_roots,
                     )
                         .chain(),
                     keep_celestial_visuals_centered.after(update_presented_celestial_lighting),

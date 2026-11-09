@@ -29,6 +29,8 @@ pub mod animation_pack_id;
 pub mod elapsed;
 #[path = "src/linear_speed.rs"]
 pub mod linear_speed;
+#[path = "src/unit_interval.rs"]
+pub mod unit_interval;
 
 #[path = "build/combat_resolution.rs"]
 mod combat_resolution;

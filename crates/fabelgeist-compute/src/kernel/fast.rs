@@ -119,11 +119,7 @@ impl CompiledLayout {
         entry_point: &str,
     ) -> Result<Self> {
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let error_scope = context.validation_observation.start_scope(&context.device);
         let layout = context
             .device
             .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {

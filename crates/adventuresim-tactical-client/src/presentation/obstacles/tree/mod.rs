@@ -4,6 +4,7 @@ mod impostor_assets;
 mod lod;
 mod materials;
 mod presentation;
+mod root_cull;
 mod source;
 pub(in crate::presentation) mod specimen;
 
@@ -20,7 +21,7 @@ pub(in crate::presentation) use geometry::{
     procedural_woody_branch_mesh, procedural_woody_cambered_leaf_mesh, procedural_woody_crown_mesh,
     procedural_woody_leaf_card_mesh, procedural_woody_mid_trunk_mesh,
     procedural_woody_plant_leaves, procedural_woody_plant_skeleton,
-    procedural_woody_sparse_leaf_card_mesh, shoot_identity,
+    procedural_woody_sparse_leaf_card_mesh,
 };
 pub(crate) use impostor::TreeImpostorProvenance;
 pub(in crate::presentation) use impostor_assets::PreparedTreeImpostorLoader;
@@ -53,5 +54,6 @@ pub(in crate::presentation) use presentation::{
 pub(crate) use presentation::{
     PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,
 };
+pub(in crate::presentation) use root_cull::cull_tree_roots;
 pub(crate) use source::{TreePresentationSpecies, tree_species_for_site};
 pub(in crate::presentation) use source::{canopy_competition, vista_tree_species};

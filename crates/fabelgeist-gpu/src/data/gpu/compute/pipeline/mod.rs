@@ -1,14 +1,14 @@
-mod compute_shader;
-mod reflection;
-pub use compute_shader::*;
-
 use crate::data::TextureFormat;
 use crate::data::gpu::shader::{ReflectionData, parse_naga};
-use crate::globals::WgpuContext;
+use crate::globals::{ValidationObservation, WgpuContext};
 use anyhow::{Result, anyhow};
+pub use compute_shader::*;
 
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
+
+mod compute_shader;
+mod reflection;
 
 #[derive(Clone, Debug)]
 pub struct ComputePipeline {
@@ -39,21 +39,24 @@ impl ComputePipeline {
         device: &wgpu::Device,
         entry_point: &str,
     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
-        self.get_or_create_pipeline_validated(device, entry_point, true)
+        self.get_or_create_pipeline_validated(
+            device,
+            entry_point,
+            ValidationObservation::BlockingScopes,
+        )
     }
 
     /// The same, with control over whether the validation error scope is read
     /// back. Draining the queue to read it is only safe on a device nothing
-    /// else is submitting to -- see `WgpuContext::blocking_validation`.
+    /// else is submitting to -- see `WgpuContext::validation_observation`.
     pub fn get_or_create_pipeline_validated(
         &self,
         device: &wgpu::Device,
         entry_point: &str,
-        // The web never blocks to read the scope back.
-        #[cfg_attr(target_arch = "wasm32", allow(unused_variables))] blocking_validation: bool,
+        validation_observation: ValidationObservation,
     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
         #[cfg(target_arch = "wasm32")]
-        let _ = blocking_validation;
+        let _ = validation_observation;
         use std::collections::hash_map::DefaultHasher;
         use std::hash::{Hash, Hasher};
 
@@ -79,8 +82,7 @@ impl ComputePipeline {
 
         // Create Pipeline
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope =
-            blocking_validation.then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
+        let error_scope = validation_observation.start_scope(device);
 
         let module = self
             .shader
@@ -172,7 +174,7 @@ impl ComputePipeline {
         let pipeline = self.get_or_create_pipeline_validated(
             &context.device,
             &reflection.vertex_entry_point,
-            context.blocking_validation,
+            context.validation_observation,
         )?;
         let validation = self
             .validation_error

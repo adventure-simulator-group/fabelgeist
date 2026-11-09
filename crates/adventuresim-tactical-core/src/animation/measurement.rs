@@ -1,7 +1,10 @@
 //! Checked animation measurements shared by configuration and presentation.
 
-use super::{AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult};
+use super::{
+    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
+};
 use adventuresim_building_generator::spatial_geometry::PositiveLength;
+use bevy::math::FloatExt;
 use serde::{Deserialize, Serialize};
 
 #[derive(
@@ -35,6 +38,10 @@ impl NonnegativeLength {
     }
     pub fn metres(self) -> f32 {
         self.0
+    }
+    /// Metre scalars and the admitted fraction meet at Bevy's native interpolation kernel.
+    pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
+        Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
     }
     /// Halving remains finite/nonnegative; subnormal underflow may validly reach zero.
     pub fn half(self) -> Self {

@@ -4,6 +4,7 @@ use super::*;
 use adventuresim_character_creator::clothing::ClothingShell;
 use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
 use adventuresim_core::skeletal_fit::SkeletalFitMorph;
+use fabelgeist_mhr::character::{MeshVertexIndex, MeshVertexTable};
 
 mod draped;
 mod hair;
@@ -19,7 +20,7 @@ pub(super) struct CharacterMorphs {
     pub body: Vec<MorphDelta>,
     reference_joints: fabelgeist_rig::RigJointTable<[f32; 8]>,
     joint_indices: fabelgeist_rig::PackedRigSkin<8>,
-    joint_weights: Vec<[f32; 8]>,
+    joint_weights: MeshVertexTable<[f32; 8]>,
 }
 
 /// A piece's shells: its plates, and the bands along their edges.
@@ -113,8 +114,8 @@ impl CharacterMorphs {
             samples,
             body,
             reference_joints: base.global_joint_states.clone(),
-            joint_indices: model.mhr.character.skin_weights.index.clone(),
-            joint_weights: model.mhr.character.skin_weights.weight.clone(),
+            joint_indices: model.mhr.character.skin_weights.indices().clone(),
+            joint_weights: model.mhr.character.skin_weights.weights().clone(),
         })
     }
 
@@ -140,7 +141,9 @@ impl CharacterMorphs {
                             sample,
                             &self.reference_joints,
                             &self.joint_indices,
-                            &self.joint_weights,
+                            self.joint_weights
+                                .indexed()
+                                .map(|(vertex, weights)| (vertex, *weights)),
                         );
                         Ok(delta)
                     })
@@ -162,7 +165,13 @@ pub(super) fn correct_armor_fit(
                 sample,
                 &reference.global_joint_states,
                 &armor.joint_indices,
-                &armor.joint_weights,
+                armor
+                    .joint_weights
+                    .iter()
+                    .enumerate()
+                    .map(|(vertex, weights)| {
+                        (MeshVertexIndex::from_native_vertex_index(vertex), *weights)
+                    }),
             );
         }
     }
@@ -286,13 +295,15 @@ fn remove_skeletal_translation(
     sample: &ForearmMorphSample,
     reference: &fabelgeist_rig::RigJointTable<[f32; 8]>,
     indices: &fabelgeist_rig::PackedRigSkin<8>,
-    weights: &[[f32; 8]],
+    weights: impl IntoIterator<Item = (MeshVertexIndex, [f32; 8])>,
 ) {
     if SkeletalFitMorph::from_name(&sample.name).is_none() {
         return;
     }
-    for (vertex, (delta, weights)) in deltas.iter_mut().zip(weights).enumerate() {
-        let skin = indices.weighted_vertex(vertex, *weights).strongest_four();
+    for (delta, (vertex, weights)) in deltas.iter_mut().zip(weights) {
+        let skin = indices
+            .weighted_vertex(vertex.native_vertex_index(), weights)
+            .strongest_four();
         for (joint, weight) in skin.joints.into_iter().zip(skin.weights) {
             if weight == 0.0 {
                 continue;
@@ -328,7 +339,10 @@ mod tests {
                 sample.global_joint_states.joint_count(),
             )
             .unwrap(),
-            &[[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+            [(
+                MeshVertexIndex::from_native_vertex_index(0),
+                [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            )],
         );
         assert!((deltas[0][1] - 0.02).abs() < 1e-6);
         assert!((deltas[0][1] + 0.1 - 0.12).abs() < 1e-6);
@@ -365,7 +379,7 @@ mod tests {
             &reference,
             &fabelgeist_rig::PackedRigSkin::from_native(vec![indices], reference.joint_count())
                 .unwrap(),
-            &[weights],
+            [(MeshVertexIndex::from_native_vertex_index(0), weights)],
         );
         let exported = fabelgeist_rig::RigInfluences {
             joints: indices.map(fabelgeist_rig::RigJointOrdinal::from),

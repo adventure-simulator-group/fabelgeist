@@ -39,8 +39,8 @@ pub(super) fn spawn_clothing(
         .with_inserted_indices(Indices::U32(indices));
         animation_preview::skin_mesh(
             &mut mesh,
-            &model.mhr.character.skin_weights.index,
-            &model.mhr.character.skin_weights.weight,
+            model.mhr.character.skin_weights.indices(),
+            model.mhr.character.skin_weights.weights().as_native_slice(),
         )?;
         let [red, green, blue, alpha] = specification.base_color;
         commands.spawn((
@@ -168,16 +168,22 @@ pub(super) fn spawn_body(
 ) -> Result<()> {
     animation_preview::skin_mesh(
         &mut mesh,
-        &model.mhr.character.skin_weights.index,
-        &model.mhr.character.skin_weights.weight,
+        model.mhr.character.skin_weights.indices(),
+        model.mhr.character.skin_weights.weights().as_native_slice(),
     )?;
     commands.spawn((
         CharacterMesh,
         animation_preview::BodySkin {
             positions: generated.positions.clone(),
             faces: model.mhr.character.mesh.faces.clone(),
-            indices: model.mhr.character.skin_weights.index.clone(),
-            weights: model.mhr.character.skin_weights.weight.clone(),
+            indices: model.mhr.character.skin_weights.indices().clone(),
+            weights: model
+                .mhr
+                .character
+                .skin_weights
+                .weights()
+                .as_native_slice()
+                .to_vec(),
         },
         animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
         Mesh3d(meshes.add(mesh)),

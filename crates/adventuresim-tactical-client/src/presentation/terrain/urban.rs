@@ -192,13 +192,7 @@ mod tests {
         let coarse_count = coarse_mesh.count_vertices();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("late-city");
         let mut images = Assets::<Image>::default();
-        let textures = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters {
-                resolution: adventuresim_procedural_textures::BakeResolution::Draft,
-                ..default()
-            },
-            &mut images,
-        );
+        let textures = ProceduralTextureAssets::reserve(&mut Default::default(), &mut images);
         let material = terrain_material(
             &terrain,
             &environment,

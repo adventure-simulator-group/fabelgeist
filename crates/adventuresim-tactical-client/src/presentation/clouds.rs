@@ -1,23 +1,23 @@
 //! A single, baked optical cloud shell for the grounded tactical camera.
 
-mod noise;
-use fabelgeist_determinism::Seed;
-use noise::{
-    ActiveCloudLayerOrdinal, CloudDensityCoordinate, cloud_seed, non_periodic_value_noise_3d,
-};
-mod streams;
-use super::cloud_bake_assets::{
-    CLOUD_BAKE_AZIMUTH_SEGMENTS, CLOUD_BAKE_CHANNELS, CLOUD_BAKE_ELEVATION_SEGMENTS,
-    CLOUD_BAKE_TEXTURE_HEIGHT, CLOUD_BAKE_TEXTURE_WIDTH, image_from_rgba8,
-};
+use super::cloud_bake_assets::image_from_rgba8;
 use super::*;
+use bake::cloud_bake_image;
 use bevy::{
     camera::{ClearColorConfig, RenderTarget, visibility::RenderLayers},
     render::render_resource::{TextureDescriptor, TextureUsages},
 };
+use fabelgeist_determinism::Seed;
+use noise::{
+    ActiveCloudLayerOrdinal, CloudDensityCoordinate, cloud_seed, non_periodic_value_noise_3d,
+};
 
 #[cfg(not(target_family = "wasm"))]
 use bevy::tasks::{AsyncComputeTaskPool, Task, block_on};
+
+mod bake;
+mod noise;
+mod streams;
 
 const CLOUD_SHADER: &str = "shaders/tactical_clouds.wgsl";
 const CLOUD_COMPOSITE_SHADER: &str = "shaders/tactical_cloud_composite.wgsl";
@@ -521,118 +521,6 @@ pub(in crate::presentation) fn setup_tactical_clouds(
     });
 }
 
-/// Bakes one endpoint from a stable tactical eye point into the upper dome's
-/// angular coordinates. Runtime sees the same coherent clouds as a ray march
-/// without repeating that integration every frame.
-fn cloud_bake_image(request: &CloudBakeRequest) -> Image {
-    let mut pixels = Vec::with_capacity(
-        CLOUD_BAKE_TEXTURE_WIDTH as usize
-            * CLOUD_BAKE_TEXTURE_HEIGHT as usize
-            * CLOUD_BAKE_CHANNELS,
-    );
-    let reference_eye = Vec3::new(0.0, CLOUD_BAKE_REFERENCE_EYE_METRES, 0.0);
-    let advection_metres = request.advection_metres();
-    let evolution = request.evolution();
-    for y in 0..CLOUD_BAKE_TEXTURE_HEIGHT {
-        for x in 0..CLOUD_BAKE_TEXTURE_WIDTH {
-            let direction = cloud_bake_direction(x, y);
-            let mut optical_depth = 0.0;
-            let mut lighting = 0.0;
-            let mut variation = 0.0;
-            for (slot, layer) in request.key.layers.iter().flatten().enumerate() {
-                let Some((start, end)) = cloud_ray_layer_interval(reference_eye, direction, *layer)
-                else {
-                    continue;
-                };
-                let step = (end - start) / CLOUD_BAKE_VERTICAL_SAMPLES as f32;
-                for sample in 0..CLOUD_BAKE_VERTICAL_SAMPLES {
-                    let distance = start + (sample as f32 + 0.5) * step;
-                    let position = reference_eye + direction * distance;
-                    let height = ((cloud_shell_altitude(position) - layer.bottom_metres)
-                        / layer.thickness_metres)
-                        .clamp(0.0, 1.0);
-                    let density = baked_cloud_density(
-                        position.xz() - advection_metres,
-                        height,
-                        *layer,
-                        request.key.seed,
-                        ActiveCloudLayerOrdinal::new(slot),
-                        evolution,
-                    );
-                    let contribution = density * step * 0.001_45;
-                    optical_depth += contribution;
-                    let detail = cloud_bake_lighting_variation(
-                        position.xz() - advection_metres,
-                        height,
-                        *layer,
-                        request.key.seed,
-                        ActiveCloudLayerOrdinal::new(slot),
-                        evolution,
-                    );
-                    lighting += contribution * (0.18 + height * 0.76) * (0.18 + detail * 0.82);
-                    variation += contribution * detail;
-                }
-            }
-            let alpha = 1.0 - (-optical_depth).exp();
-            let lighting = if optical_depth > 0.0001 {
-                lighting / optical_depth
-            } else {
-                0.0
-            };
-            let variation = if optical_depth > 0.0001 {
-                variation / optical_depth
-            } else {
-                0.0
-            };
-            let sun_transmission = (-optical_depth * (0.45 + variation * 0.55)).exp();
-            pixels.extend([
-                (alpha * 255.0).round() as u8,
-                (lighting.clamp(0.0, 1.0) * 255.0).round() as u8,
-                (sun_transmission * 255.0).round() as u8,
-                (variation.clamp(0.0, 1.0) * 255.0).round() as u8,
-            ]);
-        }
-    }
-    let mut image = Image::new(
-        Extent3d {
-            width: CLOUD_BAKE_TEXTURE_WIDTH,
-            height: CLOUD_BAKE_TEXTURE_HEIGHT,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        pixels,
-        TextureFormat::Rgba8Unorm,
-        RenderAssetUsages::RENDER_WORLD,
-    );
-    use bevy::image::{ImageAddressMode, ImageSamplerDescriptor};
-    image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
-        address_mode_u: ImageAddressMode::ClampToEdge,
-        address_mode_v: ImageAddressMode::ClampToEdge,
-        ..ImageSamplerDescriptor::linear()
-    });
-    image
-}
-
-/// Maps the same equirectangular UV as the dome mesh: U is azimuth and V is
-/// elevation. The first and final columns intentionally evaluate the exact
-/// same ray, allowing clamp sampling to cross the visible seam continuously.
-fn cloud_bake_direction(x: u32, y: u32) -> Vec3 {
-    let azimuth_index = if x == CLOUD_BAKE_AZIMUTH_SEGMENTS {
-        0
-    } else {
-        x
-    };
-    let azimuth =
-        (azimuth_index as f32 / CLOUD_BAKE_AZIMUTH_SEGMENTS as f32 - 0.5) * core::f32::consts::TAU;
-    let elevation = y as f32 / CLOUD_BAKE_ELEVATION_SEGMENTS as f32 * core::f32::consts::FRAC_PI_2;
-    let horizontal = elevation.cos();
-    Vec3::new(
-        horizontal * azimuth.cos(),
-        elevation.sin(),
-        horizontal * azimuth.sin(),
-    )
-}
-
 fn cloud_shell_altitude(position: Vec3) -> f32 {
     (position - Vec3::new(0.0, -CLOUD_CURVATURE_RADIUS_METRES, 0.0)).length()
         - CLOUD_CURVATURE_RADIUS_METRES
@@ -921,7 +809,7 @@ pub(in crate::presentation) fn update_tactical_clouds(
             bake_state.end_ready = false;
 
             if let Some(prebaked) = prebaked.as_deref() {
-                let initial = image_from_rgba8(prebaked.rgba8);
+                let initial = image_from_rgba8(prebaked.rgba8.to_vec());
                 if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
                     *image = initial.clone();
                 }
@@ -1159,7 +1047,12 @@ fn cloud_solar_color(sun_altitude_degrees: f32) -> Vec3 {
 
 #[cfg(test)]
 mod tests {
+    use super::bake::cloud_bake_direction;
     use super::*;
+    use crate::presentation::cloud_bake_assets::{
+        CLOUD_BAKE_AZIMUTH_SEGMENTS, CLOUD_BAKE_CHANNELS, CLOUD_BAKE_ELEVATION_SEGMENTS,
+        CLOUD_BAKE_TEXTURE_HEIGHT, CLOUD_BAKE_TEXTURE_WIDTH,
+    };
 
     fn environment() -> SceneEnvironment {
         SceneEnvironment {
@@ -1392,7 +1285,7 @@ mod tests {
     }
 
     #[test]
-    fn cloud_bake_is_deterministic_finite_and_clamp_filtered() {
+    fn cloud_ray_integration_is_deterministic_and_image_is_clamp_filtered() {
         use bevy::{image::ImageAddressMode, render::render_resource::FilterMode};
 
         let request = CloudBakeRequest {
@@ -1403,8 +1296,33 @@ mod tests {
             endpoint: 0,
             wind_velocity: Vec2::ZERO,
         };
-        let first = cloud_bake_image(&request);
-        let second = cloud_bake_image(&request);
+        // Exercise real integration across horizon, middle and zenith rays.
+        // Native texture allocation and filtering do not require integrating
+        // every interior texel three times during the presentation suite.
+        let [first_pixels, second_pixels] = [(); 2].map(|()| {
+            [
+                0,
+                1,
+                CLOUD_BAKE_ELEVATION_SEGMENTS / 2,
+                CLOUD_BAKE_ELEVATION_SEGMENTS,
+            ]
+            .into_iter()
+            .flat_map(|row| {
+                [
+                    0,
+                    1,
+                    CLOUD_BAKE_AZIMUTH_SEGMENTS / 2,
+                    CLOUD_BAKE_AZIMUTH_SEGMENTS,
+                ]
+                .map(|column| request.integrated_pixel(cloud_bake_direction(column, row)))
+            })
+            .collect::<Vec<_>>()
+        });
+        assert_eq!(first_pixels, second_pixels);
+        let first = image_from_rgba8(
+            first_pixels[0]
+                .repeat(CLOUD_BAKE_TEXTURE_WIDTH as usize * CLOUD_BAKE_TEXTURE_HEIGHT as usize),
+        );
         let data = first.data.as_ref().expect("generated bake has pixels");
         let extent = first.texture_descriptor.size;
         assert_eq!(extent.width, CLOUD_BAKE_TEXTURE_WIDTH);
@@ -1418,7 +1336,6 @@ mod tests {
                 * CLOUD_BAKE_TEXTURE_HEIGHT as usize
                 * CLOUD_BAKE_CHANNELS
         );
-        assert_eq!(first.data, second.data);
         let ImageSampler::Descriptor(sampler) = &first.sampler else {
             panic!("cloud bake must use an explicit clamp sampler");
         };
@@ -1448,22 +1365,18 @@ mod tests {
                 0.0,
             )
         );
-        let image = cloud_bake_image(&CloudBakeRequest {
+        let request = CloudBakeRequest {
             key: CloudBakeKey {
                 layers: CloudLayerParameters::layers_from_environment(&environment(), None),
                 seed: fabelgeist_determinism::Seed::from_u64(42),
             },
             endpoint: 0,
             wind_velocity: Vec2::ZERO,
-        });
-        let data = image.data.expect("generated bake has pixels");
-        for row in 0..CLOUD_BAKE_TEXTURE_HEIGHT as usize {
-            let first = row * CLOUD_BAKE_TEXTURE_WIDTH as usize * CLOUD_BAKE_CHANNELS;
-            let final_column =
-                first + (CLOUD_BAKE_TEXTURE_WIDTH as usize - 1) * CLOUD_BAKE_CHANNELS;
+        };
+        for row in 0..CLOUD_BAKE_TEXTURE_HEIGHT {
             assert_eq!(
-                &data[first..first + CLOUD_BAKE_CHANNELS],
-                &data[final_column..final_column + CLOUD_BAKE_CHANNELS],
+                request.integrated_pixel(cloud_bake_direction(0, row)),
+                request.integrated_pixel(cloud_bake_direction(CLOUD_BAKE_AZIMUTH_SEGMENTS, row)),
             );
         }
     }

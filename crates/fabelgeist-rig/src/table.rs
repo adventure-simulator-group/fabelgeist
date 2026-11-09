@@ -42,7 +42,7 @@ impl<T> RigJointTable<T> {
     }
 
     pub fn ordinals(&self) -> impl Iterator<Item = RigJointOrdinal> + use<T> {
-        (0..self.len()).map(RigJointOrdinal::from)
+        self.joint_count().ordinals()
     }
 
     /// Checked lookup for an ordinal whose membership has not been established.

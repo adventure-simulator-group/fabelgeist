@@ -28,6 +28,9 @@ thread_local! {
     static CACHED_ANIMATION_CONFIG: Cell<Option<(u64, TacticalAnimationConfig)>> = const {
         Cell::new(None)
     };
+    static CACHED_INVERSE_KINEMATICS_CONFIG: Cell<Option<(u64, InverseKinematicsConfig)>> = const {
+        Cell::new(None)
+    };
 }
 
 fn runtime_config_lock() -> &'static RwLock<TacticalCombatConfig> {
@@ -48,6 +51,30 @@ pub fn runtime_animation_config() -> TacticalAnimationConfig {
             .read()
             .expect("tactical combat config lock should not be poisoned")
             .animation;
+        cache.set(Some((version, config)));
+        config
+    })
+}
+
+/// Returns the active inverse-kinematics tuning.
+///
+/// Cached separately from [`runtime_animation_config`] because the leg solver
+/// reads this dozens of times per leg per frame. Projecting it out of the whole
+/// animation config copied every other subsystem's tuning on each of those
+/// reads, which `Cell::get` cannot avoid.
+pub fn runtime_inverse_kinematics_config() -> InverseKinematicsConfig {
+    let version = RUNTIME_CONFIG_VERSION.load(Ordering::Acquire);
+    CACHED_INVERSE_KINEMATICS_CONFIG.with(|cache| {
+        if let Some((cached_version, config)) = cache.get()
+            && cached_version == version
+        {
+            return config;
+        }
+        let config = runtime_config_lock()
+            .read()
+            .expect("tactical combat config lock should not be poisoned")
+            .animation
+            .inverse_kinematics;
         cache.set(Some((version, config)));
         config
     })

@@ -1,0 +1,87 @@
+//! Private admission of GLB chunk padding and unsigned 32-bit header lengths.
+
+use super::{GlbLayoutError, GlbLengthRole};
+
+const ALIGNMENT: usize = 4;
+const HEADER_BYTES: usize = 12;
+const CHUNK_HEADER_BYTES: usize = 8;
+const FRAME_OVERHEAD: usize = HEADER_BYTES + CHUNK_HEADER_BYTES * 2;
+
+type Result<T> = std::result::Result<T, GlbLayoutError>;
+
+struct ChunkLayout {
+    padding: usize,
+    encoded_length: u32,
+}
+
+pub(super) struct GlbLayout {
+    json: ChunkLayout,
+    binary: ChunkLayout,
+    byte_length: usize,
+    encoded_length: u32,
+}
+
+impl ChunkLayout {
+    fn new(bytes: usize, role: GlbLengthRole) -> Result<Self> {
+        let padded = bytes
+            .checked_next_multiple_of(ALIGNMENT)
+            .ok_or(GlbLayoutError::Overflow { role })?;
+        Ok(Self {
+            padding: padded - bytes,
+            encoded_length: encode_length(padded, role)?,
+        })
+    }
+}
+
+impl GlbLayout {
+    pub(super) fn new(json_bytes: usize, binary_bytes: usize) -> Result<Self> {
+        let json = ChunkLayout::new(json_bytes, GlbLengthRole::Json)?;
+        let binary = ChunkLayout::new(binary_bytes, GlbLengthRole::Binary)?;
+        let byte_length = FRAME_OVERHEAD
+            .checked_add(json_bytes)
+            .and_then(|length| length.checked_add(json.padding))
+            .and_then(|length| length.checked_add(binary_bytes))
+            .and_then(|length| length.checked_add(binary.padding))
+            .ok_or(GlbLayoutError::Overflow {
+                role: GlbLengthRole::Container,
+            })?;
+        Ok(Self {
+            json,
+            binary,
+            byte_length,
+            encoded_length: encode_length(byte_length, GlbLengthRole::Container)?,
+        })
+    }
+
+    pub(super) fn byte_length(&self) -> usize {
+        self.byte_length
+    }
+
+    pub(super) fn encoded_length(&self) -> u32 {
+        self.encoded_length
+    }
+
+    pub(super) fn json_length(&self) -> u32 {
+        self.json.encoded_length
+    }
+
+    pub(super) fn binary_length(&self) -> u32 {
+        self.binary.encoded_length
+    }
+
+    pub(super) fn json_padding(&self) -> usize {
+        self.json.padding
+    }
+
+    pub(super) fn binary_padding(&self) -> usize {
+        self.binary.padding
+    }
+}
+
+fn encode_length(bytes: usize, role: GlbLengthRole) -> Result<u32> {
+    u32::try_from(bytes).map_err(|source| GlbLayoutError::Width {
+        role,
+        bytes,
+        source,
+    })
+}

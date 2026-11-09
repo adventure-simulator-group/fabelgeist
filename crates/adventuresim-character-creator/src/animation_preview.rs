@@ -327,7 +327,7 @@ pub fn deform_cloth(
             let ClothBinding::Weighted { indices, weights } = &skin.binding else {
                 return None;
             };
-            if indices.joint_count().len() != matrices.len() {
+            if indices.joint_count() != matrices.joint_count() {
                 return None;
             }
             Some(Some(skinned_positions(
