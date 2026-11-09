@@ -13,3 +13,8 @@ ledger, or the final checkpoint. For separately hash-matched original bytes,
 see `../transcript-hash-matched/`. The raw transcript remains private. The
 batch was screened for common credentials, private paths and email addresses;
 individual audit claims and dependencies have not been independently reviewed.
+
+`REDACTED-VALUES.jsonl` additionally preserves eight printed documents with
+machine-specific paths removed or converted to relative project paths. Their
+original normalized hashes identify the private versions; the published
+redacted hashes cover changed content.

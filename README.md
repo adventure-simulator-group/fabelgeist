@@ -9,7 +9,7 @@
 - 212 historical JSON versions recovered from the transcript and matched to
   recorded path and SHA-256 references.
 - 538 normalized historical audit documents preserved;
-  8 additional values with personal local paths remain private.
+  8 additional values are published with personal paths redacted.
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.

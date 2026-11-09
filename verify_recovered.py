@@ -92,6 +92,14 @@ directory = root / "recovered/transcript-other-candidates"
 item = json.loads((directory / "portability-review.manifest.json").read_text(encoding="utf-8"))
 if hashlib.sha256((directory / item["file"]).read_bytes()).hexdigest() != item["redacted_sha256"]:
     raise ValueError("Redacted portability review hash mismatch")
+redacted_documents_count = 0
+with (root / "recovered/printed-audit-documents/REDACTED-VALUES.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        data = (json.dumps(item["value"], indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+        if hashlib.sha256(data).hexdigest() != item["redacted_sha256"]:
+            raise ValueError("Redacted printed document hash mismatch")
+        redacted_documents_count += 1
 other_writes_count = 0
 with (root / "recovered/transcript-other-writes/WRITES.jsonl").open(encoding="utf-8") as stream:
     for line in stream:
@@ -106,4 +114,4 @@ with (root / "recovered/transcript-unresolved-patches/PATCHES.jsonl").open(encod
         if hashlib.sha256(item["patch_text"].encode("utf-8")).hexdigest() != item["patch_sha256"]:
             raise ValueError("Unresolved patch hash mismatch")
         patch_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes and", patch_count, "unresolved patches; claims remain qualified")
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches and", redacted_documents_count, "redacted documents; claims remain qualified")
