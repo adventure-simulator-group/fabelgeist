@@ -8,6 +8,8 @@
   distinct source blobs; a restoration script is included.
 - 212 historical JSON versions recovered from the transcript and matched to
   later recorded path and SHA-256 references.
+- 486 normalized historical audit documents preserved;
+  four additional values with personal local paths remain private.
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
@@ -33,6 +35,7 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
+- A [collection of printed audit documents](recovered/printed-audit-documents/README.md).
 - A [registered source-object manifest and restorer](recovered/registered-source-objects/README.md).
 - Five [historical queue and selected-lens values](recovered/transcript-queue-fragments/README.md)
   and an index of further printed contract candidates.
