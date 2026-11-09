@@ -18,7 +18,7 @@ use bevy::{
     camera::RenderTarget,
     camera::{Exposure, visibility::VisibilityRange},
     core_pipeline::tonemapping::Tonemapping,
-    ecs::system::SystemParam,
+    ecs::{entity_disabling::Disabled, system::SystemParam},
     light::{EnvironmentMapLight, NotShadowCaster},
     pbr::{AtmosphereSettings, wireframe::WireframePlugin},
     prelude::*,
@@ -1883,12 +1883,13 @@ fn benchmark_scene_performance(
                 Without<PresentedTree>,
                 Without<MeshMaterial3d<TacticalTreeLeafCardMaterial>>,
                 Without<GroundScatterLayer>,
+                Allow<Disabled>,
             ),
         >,
         Query<(&GroundScatterLayer, &mut Visibility)>,
         Query<&mut Visibility, With<ProceduralRockVisual>>,
         Query<&mut Visibility, Or<(With<TerrainMaterialPresentation>, With<TerrainDetailPatch>)>>,
-        Query<&mut Visibility, With<VistaTerrain>>,
+        Query<&mut Visibility, (With<VistaTerrain>, Allow<Disabled>)>,
         Query<
             (
                 &mut Visibility,
@@ -2710,7 +2711,7 @@ fn capture_views(
     meshes: Res<Assets<Mesh>>,
     mut scene_visibility: ParamSet<(
         vista_validation::VistaQuery<'_, '_>,
-        Query<&mut Visibility, (With<VistaTerrain>, Without<CaptureOverlay>)>,
+        Query<&mut Visibility, (With<VistaTerrain>, Without<CaptureOverlay>, Allow<Disabled>)>,
         ResMut<Assets<TacticalTreeLeafCardMaterial>>,
         Query<
             (Entity, Option<&GroundScatterLayer>),

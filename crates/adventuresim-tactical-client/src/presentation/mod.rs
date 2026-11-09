@@ -47,6 +47,7 @@ pub(crate) mod pipeline_readiness;
 pub(crate) mod preparation;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
+mod range_dormancy;
 pub(crate) mod recipe_mesh;
 pub(crate) mod scene_readiness;
 mod sky;

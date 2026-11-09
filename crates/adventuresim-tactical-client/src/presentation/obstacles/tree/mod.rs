@@ -30,13 +30,13 @@ pub(in crate::presentation) use impostor_assets::PreparedTreeImpostors;
 #[cfg(test)]
 pub(crate) use impostor_assets::prepare_art_demo_tree_impostor_asset;
 pub(crate) use impostor_assets::{PreparedTreeImpostorAsset, PreparedTreeImpostorAssets};
-pub(in crate::presentation) use lod::update_tree_projected_lod_ranges;
 pub(crate) use lod::{
     PlayableTreeAggregateWood, PlayableTreeBuds, PlayableTreeCanopyCard,
     PlayableTreeDetailedLeaves, PlayableTreeDetailedTrunk, PlayableTreeDetailedWood,
     PlayableTreeMidTrunk, PlayableTreeTrunk, TacticalTreeBenchmarkIsolation,
     TreeLeafRepresentation, TreeLod, TreeLodCluster, TreeLodRenderOverride, TreeTrunkLod,
 };
+pub(in crate::presentation) use lod::{tree_focal_scale, update_tree_projected_lod_ranges};
 pub(crate) use materials::{
     TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial, TacticalTreeLeafCardMaterial,
     oak_aggregate_bark_material, oak_bark_material, oak_leaf_material,

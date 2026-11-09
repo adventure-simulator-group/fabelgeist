@@ -28,6 +28,7 @@ use crate::presentation::chunk_instancing::{
 
 use super::{VistaLod, VistaTerrain};
 use crate::presentation::obstacles::tree::TacticalTreeImpostorMaterial;
+use crate::presentation::range_dormancy::RangeDormancy;
 
 const VISTA_TREE_SHADER: &str = "shaders/tactical_vista_tree_instanced.wgsl";
 /// Vista rings span kilometres of sparse stands; wide cells keep the entity
@@ -162,6 +163,8 @@ impl VistaCardBatches {
                     Name::new(format!("Instanced vista tree cards ({})", chunk.len())),
                     VistaTerrain(level),
                     super::VistaTreePresentation,
+                    // Thousands of chunks lie kilometres beyond their band.
+                    RangeDormancy,
                 )
             });
         }

@@ -1,8 +1,8 @@
 use super::impostor::{
-    BEECH_TREE_BAKE_STYLE, OAK_TREE_BAKE_STYLE, TREE_LEAF_HANDOFF_END, TREE_LEAF_HANDOFF_START,
-    TreeImpostorProvenance, TreeLodBake, bake_tree_lod, bake_tree_lod_with_style,
-    tree_impostor_material, tree_leaf_visibility, tree_lod_name, tree_lod_visibility,
-    tree_mid_trunk_visibility, tree_trunk_visibility, validate_tree_bake_provenance,
+    BEECH_TREE_BAKE_STYLE, OAK_TREE_BAKE_STYLE, TreeImpostorProvenance, TreeLodBake, bake_tree_lod,
+    bake_tree_lod_with_style, tree_impostor_material, tree_leaf_visibility, tree_lod_name,
+    tree_lod_visibility, tree_mid_trunk_visibility, tree_trunk_visibility,
+    validate_tree_bake_provenance,
 };
 use super::source::{
     TreePresentationSpecies, canopy_competition, oak_gnarling_for_site, oak_site_key,
@@ -22,7 +22,7 @@ use super::{
     procedural_oak_skeleton_with_gnarling, procedural_oak_textured_leaf_group_mesh,
     procedural_tree_branch_group_mesh, procedural_tree_branch_mesh, procedural_tree_skeleton,
     procedural_woody_crown_mesh, procedural_woody_mid_trunk_mesh, procedural_woody_plant_leaves,
-    procedural_woody_plant_skeleton,
+    procedural_woody_plant_skeleton, tree_focal_scale,
 };
 use crate::presentation::TacticalGameplayCamera;
 use crate::presentation::{
@@ -32,6 +32,7 @@ use adventuresim_tactical_core::prelude::SceneTerrain;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::{
     camera::{primitives::Aabb, visibility::NoFrustumCulling},
+    ecs::entity_disabling::Disabled,
     light::NotShadowCaster,
     prelude::*,
 };
@@ -41,12 +42,17 @@ use fabelgeist_determinism::StreamId;
 pub(crate) use diagnostics::TreeAssetResidencyDiagnostics;
 pub(in crate::presentation) use residency::RetainedTreePresentations;
 use residency::{CachedTerrainContactHeightmap, TerrainBarkBinding};
+use streaming::{
+    StreamedTreeChild, StreamedTreeChildState, TreeTiers, apply_tree_child_dormancy,
+    tree_leaf_mask, tree_streamed_leaf_representation, tree_streaming_mask,
+};
 
 #[cfg(test)]
 use super::TREE_PRIMARY_GROUP_COUNT;
 
 mod diagnostics;
 mod residency;
+mod streaming;
 
 #[derive(Component)]
 pub(in crate::presentation) struct PendingTreePresentation;
@@ -142,6 +148,8 @@ pub(in crate::presentation) struct StreamedTreePresentation {
     resident_leaf_mask: u8,
     active_mask: u8,
     active_leaf: Option<TreeLeafRepresentation>,
+    /// Tiers whose resident children are enabled.
+    retained: TreeTiers,
 }
 
 impl StreamedTreePresentation {
@@ -149,9 +157,6 @@ impl StreamedTreePresentation {
         self.cache_key
     }
 }
-
-#[derive(Component)]
-pub(in crate::presentation) struct StreamedTreeChild;
 
 fn spawn_cached_tree(
     commands: &mut Commands,
@@ -170,6 +175,7 @@ fn spawn_cached_tree(
             resident_leaf_mask: 0,
             active_mask: u8::MAX,
             active_leaf: None,
+            retained: TreeTiers::ALL,
         },
     ));
 }
@@ -188,7 +194,7 @@ fn spawn_streamed_tree_children(
         if new_mask & 1 != 0 {
             parent.spawn((
                 Name::new(format!("{} detailed trunk and roots", cached.species_name)),
-                StreamedTreeChild,
+                StreamedTreeChild::TRUNK,
                 TreeTrunkLod,
                 PlayableTreeTrunk,
                 PlayableTreeDetailedTrunk,
@@ -203,7 +209,7 @@ fn spawn_streamed_tree_children(
             ));
             parent.spawn((
                 Name::new(format!("{} mid-distance trunk", cached.species_name)),
-                StreamedTreeChild,
+                StreamedTreeChild::TRUNK,
                 TreeTrunkLod,
                 PlayableTreeTrunk,
                 PlayableTreeMidTrunk,
@@ -240,7 +246,7 @@ fn spawn_streamed_tree_children(
                             "{} scaffold {} cambered PBR leaves",
                             cached.species_name, cluster.primary_group
                         )),
-                        StreamedTreeChild,
+                        StreamedTreeChild::TEXTURED_LEAVES,
                         TreeLod(0),
                         cluster_marker,
                         cluster_aabb,
@@ -267,7 +273,7 @@ fn spawn_streamed_tree_children(
                             "{} scaffold {} PBR leaf cards",
                             cached.species_name, cluster.primary_group
                         )),
-                        StreamedTreeChild,
+                        StreamedTreeChild::LEAF_CARDS,
                         TreeLod(0),
                         cluster_marker,
                         cluster_aabb,
@@ -294,7 +300,7 @@ fn spawn_streamed_tree_children(
                             "{} scaffold {} terminal buds",
                             cached.species_name, cluster.primary_group
                         )),
-                        StreamedTreeChild,
+                        StreamedTreeChild::DETAILED_CROWN,
                         TreeLod(0),
                         PlayableTreeBuds,
                         cluster_marker,
@@ -313,7 +319,7 @@ fn spawn_streamed_tree_children(
                             "{} scaffold {} detailed wood",
                             cached.species_name, cluster.primary_group
                         )),
-                        StreamedTreeChild,
+                        StreamedTreeChild::DETAILED_CROWN,
                         TreeLod(0),
                         PlayableTreeDetailedWood,
                         cluster_marker,
@@ -339,7 +345,7 @@ fn spawn_streamed_tree_children(
                 .expect("requested aggregate tree card is resident");
             parent.spawn((
                 Name::new(tree_lod_name(lod, true)),
-                StreamedTreeChild,
+                StreamedTreeChild::aggregate(lod),
                 TreeLod(lod),
                 PlayableTreeCanopyCard,
                 NotShadowCaster,
@@ -350,7 +356,7 @@ fn spawn_streamed_tree_children(
             if lod <= 2 {
                 let mut aggregate_wood = parent.spawn((
                     Name::new(tree_lod_name(lod, false)),
-                    StreamedTreeChild,
+                    StreamedTreeChild::aggregate(lod),
                     TreeLod(lod),
                     PlayableTreeAggregateWood,
                     Mesh3d(
@@ -372,7 +378,7 @@ fn spawn_streamed_tree_children(
                 .expect("requested whole-tree card is resident");
             parent.spawn((
                 Name::new(tree_lod_name(4, true)),
-                StreamedTreeChild,
+                StreamedTreeChild::aggregate(4),
                 TreeLod(4),
                 PlayableTreeCanopyCard,
                 NoFrustumCulling,
@@ -662,9 +668,15 @@ fn generate_tree_assets_resident(
 )]
 pub(in crate::presentation) fn stream_tree_lod_children(
     mut commands: Commands,
-    camera: Single<(&GlobalTransform, &Projection), With<TacticalGameplayCamera>>,
+    camera: Single<(&Camera, &GlobalTransform, &Projection), With<TacticalGameplayCamera>>,
     lod_override: Res<TreeLodRenderOverride>,
-    mut trees: Query<(Entity, &GlobalTransform, &mut StreamedTreePresentation)>,
+    mut trees: Query<(
+        Entity,
+        &GlobalTransform,
+        &mut StreamedTreePresentation,
+        Option<&Children>,
+    )>,
+    child_states: Query<StreamedTreeChildState, Allow<Disabled>>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut tree_materials: ResMut<Assets<TacticalTreeImpostorMaterial>>,
     mut images: ResMut<Assets<Image>>,
@@ -672,15 +684,12 @@ pub(in crate::presentation) fn stream_tree_lod_children(
     mut residency: ResMut<TreeAssetResidencyDiagnostics>,
     prepared: PreparedTreeImpostors,
 ) {
-    let focal_scale = match camera.1 {
-        Projection::Perspective(projection) => {
-            (80.0_f32.to_radians() * 0.5).tan() / (projection.fov * 0.5).tan()
-        }
-        _ => 1.0,
-    } * lod_override.projected_scale.unwrap_or(1.0);
-    for (entity, transform, mut presentation) in &mut trees {
-        let distance = camera.0.translation().distance(transform.translation());
-        let scaled = distance / focal_scale.max(0.25);
+    // Residency must scale with the same projected size as the visibility
+    // ranges, or a tier could go dormant while its range still shows it.
+    let focal_scale = tree_focal_scale(camera.0, camera.2, &lod_override);
+    for (entity, transform, mut presentation, children) in &mut trees {
+        let distance = camera.1.translation().distance(transform.translation());
+        let scaled = distance / focal_scale;
         let mask = if let Some(lod) = lod_override.lod {
             (1 << (lod + 1)) | u8::from(lod < 4)
         } else {
@@ -689,6 +698,17 @@ pub(in crate::presentation) fn stream_tree_lod_children(
         let selected_leaf = lod_override
             .leaf
             .or_else(|| tree_streamed_leaf_representation(scaled));
+        let desired_leaf_mask = tree_leaf_mask(mask, selected_leaf);
+        let requested = TreeTiers {
+            mask,
+            leaf: desired_leaf_mask,
+        };
+        let retained = TreeTiers::retained(scaled, &lod_override, requested);
+        if presentation.retained != retained {
+            presentation.retained = children.map_or(retained, |children| {
+                apply_tree_child_dormancy(&mut commands, children, &child_states, retained)
+            });
+        }
         if presentation.active_mask == mask && presentation.active_leaf == selected_leaf {
             continue;
         }
@@ -714,15 +734,6 @@ pub(in crate::presentation) fn stream_tree_lod_children(
             &mut images,
             &mut residency,
         );
-        let desired_leaf_mask = if mask & (1 << 1) == 0 {
-            0
-        } else {
-            match selected_leaf {
-                Some(TreeLeafRepresentation::TexturedMesh) => 1,
-                Some(TreeLeafRepresentation::AlphaCard) => 2,
-                None => 3,
-            }
-        };
         let new_mask = mask & !presentation.resident_mask;
         let new_leaf_mask = desired_leaf_mask & !presentation.resident_leaf_mask;
         spawn_streamed_tree_children(&mut commands, entity, cached, new_mask, new_leaf_mask);
@@ -731,35 +742,6 @@ pub(in crate::presentation) fn stream_tree_lod_children(
         presentation.active_mask = mask;
         presentation.active_leaf = selected_leaf;
     }
-}
-
-fn tree_streamed_leaf_representation(scaled_distance: f32) -> Option<TreeLeafRepresentation> {
-    // Keep residency decisions on the same projected-scale-aware base band as
-    // tree_leaf_visibility. The cluster-specific visibility range may widen
-    // this overlap, but it must never request a representation after its
-    // corresponding visibility range has become active.
-    if scaled_distance < TREE_LEAF_HANDOFF_START {
-        Some(TreeLeafRepresentation::TexturedMesh)
-    } else if scaled_distance > TREE_LEAF_HANDOFF_END {
-        Some(TreeLeafRepresentation::AlphaCard)
-    } else {
-        None
-    }
-}
-
-fn tree_streaming_mask(scaled_distance: f32) -> u8 {
-    // Generate each incoming crown tier one full outgoing LOD band before it
-    // becomes visible. Mesh/material insertion is asynchronous in the render
-    // world: the old four-metre lead could leave only the already-resident
-    // trunk on a first approach, while a second approach was correct because
-    // the crown assets remained cached. This changes when eventual residency
-    // is paid, not which tiers are drawn or retained.
-    u8::from(scaled_distance < 75.0)
-        | (u8::from(scaled_distance < 24.0) << 1)
-        | (u8::from((3.0..44.0).contains(&scaled_distance)) << 2)
-        | (u8::from((8.0..75.0).contains(&scaled_distance)) << 3)
-        | (u8::from((18.0..100.0).contains(&scaled_distance)) << 4)
-        | (u8::from((40.0..220.0).contains(&scaled_distance)) << 5)
 }
 
 fn tree_cluster_aabb(center: Vec3, radius: f32) -> Aabb {
@@ -1032,44 +1014,6 @@ mod tests {
             )
         );
         assert_eq!(oak_site_key(&site), oak_site_key(&storm));
-    }
-
-    #[test]
-    fn streaming_keeps_adjacent_tree_lods_resident_through_every_handoff() {
-        for (distance, required_bits) in [
-            (7.0, (1 << 1) | (1 << 2)),
-            (14.0, (1 << 2) | (1 << 3)),
-            (28.0, (1 << 3) | (1 << 4)),
-            (55.0, (1 << 4) | (1 << 5)),
-        ] {
-            assert_eq!(tree_streaming_mask(distance) & required_bits, required_bits);
-        }
-    }
-
-    #[test]
-    fn streaming_prefetches_each_incoming_crown_one_outgoing_band_early() {
-        for (distance, incoming_lod_bit) in [
-            (90.0, 1 << 4),
-            (72.0, 1 << 3),
-            (42.0, 1 << 2),
-            (22.0, 1 << 1),
-        ] {
-            assert_ne!(tree_streaming_mask(distance) & incoming_lod_bit, 0);
-        }
-        assert_eq!(tree_streaming_mask(120.0), 1 << 5);
-    }
-
-    #[test]
-    fn leaf_residency_only_overlaps_near_the_representation_handoff() {
-        assert_eq!(
-            tree_streamed_leaf_representation(1.4),
-            Some(TreeLeafRepresentation::TexturedMesh)
-        );
-        assert_eq!(tree_streamed_leaf_representation(2.0), None);
-        assert_eq!(
-            tree_streamed_leaf_representation(2.6),
-            Some(TreeLeafRepresentation::AlphaCard)
-        );
     }
 
     #[test]

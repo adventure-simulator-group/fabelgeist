@@ -68,6 +68,27 @@ pub(crate) struct TreeLodRenderOverride {
     pub(crate) projected_scale: Option<f32>,
 }
 
+/// How much larger than the 720-pixel, 80-degree reference view a tree
+/// appears. Every tree LOD distance, both residency and visibility, scales by
+/// it.
+pub(in crate::presentation) fn tree_focal_scale(
+    camera: &Camera,
+    projection: &Projection,
+    lod_override: &TreeLodRenderOverride,
+) -> f32 {
+    let viewport_height = camera
+        .physical_viewport_size()
+        .map_or(720.0, |size| size.y as f32);
+    let reference_focal = 720.0 / (2.0 * (80.0_f32.to_radians() * 0.5).tan());
+    let focal = match projection {
+        Projection::Perspective(perspective) => {
+            viewport_height / (2.0 * (perspective.fov * 0.5).tan())
+        }
+        _ => reference_focal,
+    };
+    (focal / reference_focal * lod_override.projected_scale.unwrap_or(1.0)).clamp(0.25, 4.0)
+}
+
 #[expect(
     clippy::type_complexity,
     reason = "the Bevy queries encode the exact tree representation markers controlled by projected LOD"
@@ -104,18 +125,7 @@ pub(in crate::presentation) fn update_tree_projected_lod_ranges(
     let Ok((camera, projection)) = cameras.single() else {
         return;
     };
-    let viewport_height = camera
-        .physical_viewport_size()
-        .map_or(720.0, |size| size.y as f32);
-    let reference_focal = 720.0 / (2.0 * (80.0_f32.to_radians() * 0.5).tan());
-    let focal = match projection {
-        Projection::Perspective(perspective) => {
-            viewport_height / (2.0 * (perspective.fov * 0.5).tan())
-        }
-        _ => reference_focal,
-    };
-    let focal_scale =
-        (focal / reference_focal * lod_override.projected_scale.unwrap_or(1.0)).clamp(0.25, 4.0);
+    let focal_scale = tree_focal_scale(camera, projection, &lod_override);
     for (
         lod,
         cluster,

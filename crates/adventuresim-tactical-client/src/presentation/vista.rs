@@ -5,6 +5,7 @@ use adventuresim_tactical_core::city_layout::grounding::SupportElevation;
 use adventuresim_tactical_core::scene_coordinates::{PlanDisplacement, ScenePlanPoint};
 use adventuresim_tactical_core::scene_input::VistaLevelIndex;
 use adventuresim_tactical_core::vista_surface::*;
+use bevy::ecs::entity_disabling::Disabled;
 use details::*;
 pub(crate) use error::{VistaMeshError, VistaMeshResult};
 use fabelgeist_determinism::Seed;
@@ -82,7 +83,7 @@ pub(super) fn on_scene_vista_bundle(
     mut commands: Commands,
     mut active_surface: ResMut<ActiveVistaSurface>,
     mut pending: ResMut<pending::PendingVista>,
-    existing: Query<Entity, With<VistaTerrain>>,
+    existing: Query<Entity, (With<VistaTerrain>, Allow<Disabled>)>,
     playable_scenes: Query<(
         &SceneTerrain,
         &SceneGround,

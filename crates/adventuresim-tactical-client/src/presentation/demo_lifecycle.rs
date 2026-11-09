@@ -1,6 +1,7 @@
 //! Clear exhibit scenery and scene-specific caches while retaining the renderer.
 
 use super::*;
+use bevy::ecs::entity_disabling::Disabled;
 
 pub(crate) fn clear_demo_scene(world: &mut World) {
     clear_scene_entities(world);
@@ -26,23 +27,26 @@ pub(crate) fn clear_scene_entities(world: &mut World) {
     world.remove_resource::<PendingCityBuildings>();
     world.remove_resource::<vista::streets::streaming::CityTrafficResidency>();
     let mut entities = world
-        .query_filtered::<Entity, Or<(
-            With<SceneTerrain>,
-            With<SceneObstacle>,
-            With<SceneBuilding>,
-            With<SceneFurniture>,
-            With<SceneDoor>,
-            With<SceneWindow>,
-            With<terrain::ScenePresentationOf>,
-            With<GroundScatterLayer>,
-            With<GroundLitterCaptureAnchors>,
-            With<GroundLitterDiagnostics>,
-            With<VistaTerrain>,
-            With<buildings::DistantCityBuildingPresentation>,
-            With<VistaTreePresentation>,
-            With<vista::VistaGrassPresentation>,
-            With<vista::VistaRockPresentation>,
-        )>>()
+        .query_filtered::<Entity, (
+            Or<(
+                With<SceneTerrain>,
+                With<SceneObstacle>,
+                With<SceneBuilding>,
+                With<SceneFurniture>,
+                With<SceneDoor>,
+                With<SceneWindow>,
+                With<terrain::ScenePresentationOf>,
+                With<GroundScatterLayer>,
+                With<GroundLitterCaptureAnchors>,
+                With<GroundLitterDiagnostics>,
+                With<VistaTerrain>,
+                With<buildings::DistantCityBuildingPresentation>,
+                With<VistaTreePresentation>,
+                With<vista::VistaGrassPresentation>,
+                With<vista::VistaRockPresentation>,
+            )>,
+            Allow<Disabled>,
+        )>()
         .iter(world)
         .collect::<Vec<_>>();
     entities.extend(

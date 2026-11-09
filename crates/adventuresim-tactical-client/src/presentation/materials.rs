@@ -29,6 +29,8 @@ impl Plugin for TacticalMaterialsPlugin {
             chunk_instancing::ChunkMaterialPlugin::<
                 crate::presentation::vista::tree_cards::TacticalVistaTreeInstancedMaterial,
             >::default(),
+            // Vista card chunks far beyond their band leave every query.
+            range_dormancy::RangeDormancyPlugin,
             MaterialPlugin::<CityGroundMaterial>::default(),
             MaterialPlugin::<TacticalWeatherMaterial>::default(),
             DoorPresentationPlugin,
