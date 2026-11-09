@@ -6,6 +6,8 @@
 - **7,196** public progress files checked against the pinned manifest.
 - **212** historical JSON file versions reconstructed to recorded path and
   SHA-256 references; their latest-state authority and dependencies remain open.
+- **155** historical Markdown write fragments preserved, overlapping with
+  other recovered notes; appends are individual fragments.
 - **19** late audit notes and **5** queue or lens values preserved as
   transcript-derived text or normalized values, not original file bytes.
 - **3,146** normalized printed contract values spanning **1,722** distinct

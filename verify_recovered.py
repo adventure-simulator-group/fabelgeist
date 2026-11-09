@@ -51,4 +51,13 @@ with (directory / "VALUES.jsonl").open(encoding="utf-8") as stream:
         found.add(sha)
 if found != expected:
     raise ValueError("Printed audit document corpus and index differ")
-print("Verified", count, "evidence files,", contract_count, "contract values and", len(found), "audit documents; claims remain qualified")
+document_count = len(found)
+markdown_count = 0
+with (root / "recovered/transcript-markdown-writes/WRITES.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        data = item["literal_text"].encode("utf-8")
+        if hashlib.sha256(data).hexdigest() != item["normalized_sha256"]:
+            raise ValueError("Markdown write hash mismatch")
+        markdown_count += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents and", markdown_count, "Markdown writes; claims remain qualified")

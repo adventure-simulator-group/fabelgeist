@@ -35,6 +35,7 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
+- A [corpus of Markdown write fragments](recovered/transcript-markdown-writes/README.md).
 - A [collection of printed audit documents](recovered/printed-audit-documents/README.md).
 - A [registered source-object manifest and restorer](recovered/registered-source-objects/README.md).
 - Five [historical queue and selected-lens values](recovered/transcript-queue-fragments/README.md)
