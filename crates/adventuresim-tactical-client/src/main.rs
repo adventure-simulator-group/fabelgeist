@@ -81,6 +81,8 @@ mod player;
     reason = "the gameplay binary shares presentation review data with the native capture viewers"
 )]
 mod presentation;
+#[cfg(all(feature = "tracy", not(target_family = "wasm")))]
+mod single_threaded;
 #[cfg(any(target_family = "wasm", test))]
 #[cfg_attr(
     not(target_family = "wasm"),
@@ -351,6 +353,11 @@ fn run(
             }),
             ..default()
         });
+    // Profile native the way the browser runs: render inline on the main
+    // thread instead of on a pipelined render thread.
+    #[cfg(all(feature = "tracy", not(target_family = "wasm")))]
+    let default_plugins =
+        default_plugins.disable::<bevy::render::pipelined_rendering::PipelinedRenderingPlugin>();
     app.add_plugins((
         default_plugins,
         FrameTimeDiagnosticsPlugin::default(),
@@ -427,6 +434,9 @@ fn run(
     if headless {
         app.add_systems(Update, configure_headless_render_target);
     }
+
+    #[cfg(all(feature = "tracy", not(target_family = "wasm")))]
+    app.add_plugins(single_threaded::SingleThreadedSchedulesPlugin);
 
     #[cfg(not(target_family = "wasm"))]
     eprintln!(

@@ -10,7 +10,9 @@ license.workspace = true
 default = ["debug", "client-audio"]
 debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
 client-audio = ["bevy/audio"]
-tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber"]
+# Tracy profile with per-system spans, scheduled single-threaded like the
+# browser (see src/single_threaded.rs).
+tracy = ["bevy/trace_tracy", "bevy/trace"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
 remote-types = ["debug"]
 
@@ -50,8 +52,6 @@ serde-saphyr.workspace = true
 postcard.workspace = true
 tracing.workspace = true
 web-time.workspace = true
-tracing-tracy = { version = "0.11", optional = true }
-tracing-subscriber = { version = "0.3", optional = true }
 
 [target."cfg(not(target_family = \"wasm\"))".dependencies]
 bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
