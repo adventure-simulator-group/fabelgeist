@@ -21,6 +21,14 @@
   On a case-insensitive directory full extraction was refused; the original
   evidence contains two pairs of paths that differ only in case.
 
+- The source-object restorer verified 268 registered revision/path/hash
+  identities representing 264 distinct Git blobs using both the shared Git
+  repository and an independent clone. It refused an existing destination.
+- The transcript-derived evidence verifier checks the published JSON and
+  note files against their manifests. Hash-matched records remain historical;
+  normalized output fragments are explicitly distinguished from original
+  file bytes.
+
 These checks do not prove that a different machine has performed a restore,
 that the deleted continuation can be reconstructed, or that any product
 tests, audits or repairs have passed. No product source or database was

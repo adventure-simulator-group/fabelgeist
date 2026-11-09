@@ -14,10 +14,13 @@ new authoritative baseline and distinguish newly assessed work from historical
 summaries. Do not fabricate receipts, close obligations from summary prose,
 or claim the reported counts as an independently recovered ledger.
 
-The originating Codex chat's history tool has exposed pre-compaction turns,
-including checkpoint commands and bounded source outputs. Investigate that
-transcript as a potential recovery source before assuming all continuation
-details are lost. Its completeness and cross-machine availability are unknown;
+The originating Codex chat and a private transcript snapshot have yielded
+212 hash-matched historical JSON files, 19 late notes and five printed queue
+or lens values, plus indexes of additional private candidates. The package
+also provides a restorer for 268 hash-verified registered source identities.
+Run `python verify_recovered.py` and review the files and their limitations.
+Continue investigating the transcript where accessible before assuming all
+continuation details are lost. Its completeness and cross-machine availability are unknown;
 outputs may be truncated. Do not blindly replay commands or publish a raw
 transcript. Review sensitive material and verify provenance and hashes before
 using reconstructed evidence.
