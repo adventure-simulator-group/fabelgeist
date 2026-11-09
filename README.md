@@ -13,8 +13,8 @@
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
-- 5,342 audit write command bodies preserved as inert historical text;
-  281 command records require privacy review.
+- 5,623 audit write command bodies preserved as inert historical text;
+  265 have machine-specific paths redacted.
 - 70 overlapping late-audit write commands separately preserved.
 - 37 unresolved patch fragments preserved for 30 historical paths.
 - 54 additional Rust, JSON, TOML and JavaScript literal writes preserved.
