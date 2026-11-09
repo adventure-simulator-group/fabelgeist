@@ -172,4 +172,13 @@ with (root / "recovered/ledger-command-outputs/COMMANDS.jsonl").open(encoding="u
         ledger_context_count += 1
 if ledger_context_count != ledger_output_count + redacted_ledger_outputs:
     raise ValueError("Ledger command and output counts differ")
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", ledger_context_count, "ledger outputs with context,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")
+queue_records_count = 0
+with (root / "recovered/queue-command-outputs/RECORDS.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        if hashlib.sha256(item["command_text"].encode("utf-8")).hexdigest() != item["published_command_sha256"]:
+            raise ValueError("Queue command hash mismatch")
+        if hashlib.sha256(item["output_text"].encode("utf-8")).hexdigest() != item["published_output_sha256"]:
+            raise ValueError("Queue output hash mismatch")
+        queue_records_count += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", ledger_context_count, "ledger outputs,", queue_records_count, "queue outputs,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")

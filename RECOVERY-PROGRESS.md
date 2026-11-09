@@ -23,6 +23,8 @@
   transcript-derived text or normalized values, not original file bytes.
 - **3,146** normalized printed contract values spanning **1,722** distinct
   contract IDs preserved; values overlap and may be field projections.
+- **4,080** queue-related outputs and command contexts preserved;
+  **0** records remain deferred.
 - **1,699** ledger-related outputs and matching command bodies preserved;
   machine-specific paths were redacted where present.
 - **117** printed ledger-related JSON values and arrays preserved as historical fragments.
