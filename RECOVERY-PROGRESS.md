@@ -6,6 +6,8 @@
 - **7,196** public progress files checked against the pinned manifest.
 - **212** historical JSON file versions reconstructed to recorded path and
   SHA-256 references; their latest-state authority and dependencies remain open.
+- **310** historical Python literal-write drafts preserved, including **5**
+  with paths redacted; validation remains unverified.
 - **2,363** unverified helper candidates preserved as inert text, plus
   **23** with machine-specific paths redacted; their originals remain private.
 - **155** historical Markdown write fragments preserved, overlapping with

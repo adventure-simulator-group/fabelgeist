@@ -74,4 +74,11 @@ with (root / "recovered/transcript-helper-candidates/REDACTED-CANDIDATES.jsonl")
         if hashlib.sha256(item["redacted_text"].encode("utf-8")).hexdigest() != item["redacted_sha256"]:
             raise ValueError("Redacted helper hash mismatch")
         redacted_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates and", redacted_count, "redacted helpers; claims remain qualified")
+python_writes_count = 0
+with (root / "recovered/transcript-python-writes/WRITES.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        if hashlib.sha256(item["literal_text"].encode("utf-8")).hexdigest() != item["published_sha256"]:
+            raise ValueError("Python literal write hash mismatch")
+        python_writes_count += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers and", python_writes_count, "Python writes; claims remain qualified")
