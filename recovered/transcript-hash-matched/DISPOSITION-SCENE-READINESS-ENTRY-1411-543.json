@@ -1,0 +1,23 @@
+{
+  "schema": "726-granular-current-contract-source-view-v1",
+  "kind": "scene-readiness-population-and-native-marker-query",
+  "at": "2026-11-03T00:30:13.753489+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+    "sha256": "5f3378e8fc047acfa7d1bb4cb6ad817b8b7a7acb63ca63a7c7a5602beab4fff0"
+  },
+  "facts": [
+    "The native Has query yields marker presence and matches entities regardless of that marker; the scene query is filtered only by SceneTerrain. Terrain presence without PendingTerrainPresentation contributes a completed terrain count.",
+    "The loading consumer keeps an unknown or empty scene population pending. Scatter and grass each require scene ID, terrain, ground and environment; grass disabled explicitly inserts its settled marker.",
+    "Tree pending and vista are queried globally; current counts do not prove expected replicated population, active-scene ownership, error causes or GPU presentation."
+  ],
+  "remaining_evidence": [
+    "Qualify expected scene population, component delivery, observer and reset ordering, scene ownership and native presentation acknowledgment.",
+    "Preserve disabled/empty policy, failure cause and relevant later runtime acceptance."
+  ],
+  "reference_relationship": "Connected current source and native query evidence; no whole-contract closure.",
+  "whole_contract_closed": false,
+  "new_accepted_unique_count": 0,
+  "implementation_gate_complete": false,
+  "product_execution": false
+}

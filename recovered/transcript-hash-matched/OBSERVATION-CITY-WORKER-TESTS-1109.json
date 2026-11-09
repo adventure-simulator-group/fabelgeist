@@ -1,0 +1,22 @@
+{
+  "schema": "726-scoped-city-worker-tests-v1",
+  "at": "2026-11-03T18:26:49.991662+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-CITY-ACK-1108.json",
+    "sha256": "a8b46ddb8f7d73fe8c57b508b7a413b820c736af08179889c7cfa96ec6c21ecb"
+  },
+  "test_transcript": {
+    "path": "target/726-intake-20261030/city-worker-tests-1109.txt",
+    "sha256": "621fc058af29bf2a45ac306310313647482889d43d7148a7fbe1fd57849c61a9"
+  },
+  "whole_contract_closed": false,
+  "source_trace": [
+    "The focused Node suites passed 24 tests covering ticket-matched acknowledgement, mocked cancellation and replacement, stale worker dispatches, malformed worker results, failure causes and deadlines. The four exercised source and test files match the selected product revision.",
+    "These suites use mocked workers and native map responses; they do not prove actual native failure rollback, browser scheduling or GPU presentation."
+  ],
+  "remaining_evidence": [
+    "Actual native failure lifecycle and browser integration, exact source identities and the full renderer family remain open."
+  ],
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

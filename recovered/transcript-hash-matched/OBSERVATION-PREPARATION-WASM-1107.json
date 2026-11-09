@@ -1,0 +1,19 @@
+{
+  "schema": "726-scoped-preparation-transport-v1",
+  "at": "2026-11-03T18:21:27.508142+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-PREPARATION-WASM-1107.json",
+    "sha256": "079045b1bb5ed50aa48084eefa65f3cd2513cfae16b509a3eb5507c449735a88"
+  },
+  "whole_contract_closed": false,
+  "source_trace": [
+    "The wasm boundary serializes opaque tickets and maps PreparationError to a JavaScript Error with its stable code in name and display text in message. Browser orchestration passes each product to Rust receipt before cache admission and finishes only after preparation completes.",
+    "A cached product is removed and regenerated only for product-decode or product-mismatch codes; other receipt errors propagate. The finally path closes the pool and cancels an unfinished preparation, while cache closure does not delay readiness.",
+    "Regional city requests serialize preparations for the same document owner, distinguish superseded from failed requests, and await the installation acknowledgement before publishing prepared. The previous resident marker is cleared before replacement installation; failed or cancelled installation may already have displaced prior content."
+  ],
+  "remaining_evidence": [
+    "Inspect actual worker pool transport and installation acknowledgement implementation; test cancellation and cache failures in the browser without assuming source sequencing proves runtime behavior."
+  ],
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

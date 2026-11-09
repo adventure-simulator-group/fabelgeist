@@ -1,0 +1,41 @@
+{
+  "schema": "726-scoped-source-disposition-v1",
+  "at": "2026-11-04T03:46:04.050171+00:00",
+  "contract_id": "ADLER-L11-XPBD-SUBSTEP-ADMISSION",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "remote_main_at_check": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "owner": "XPBD solver and direct substep duration admission",
+  "source_discovery_scope": "Named Lens11 solver frame and direct substep duration through inspected shell caller and shader divisions. Numerical minimum, other callers/lenses, aliases and runtime acceptance remain open.",
+  "disposition": "record_step and step_interleaved return early for delta<=0 or zero count/substeps but do not reject NaN or infinity; record_substep accepts an unchecked f32. Shell rejects nonfinite/nonpositive frame delta but divides by a count before directly recording. Shader compliance divides by substep squared and final velocity divides by substep. Finite positive frame division can underflow to zero; no live solver incident asserted.",
+  "explicit_alias_comparison": [
+    {
+      "entry_index": 177,
+      "contract_id": "ADLER-L11-XPBD-SPRING-DAMPING-CONTROL"
+    }
+  ],
+  "alias_result": "Spring damping control is a distinct connected contract; global aliases remain open.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-XPBD-TIME-L11-1389.json",
+      "sha256": "8dbcf5bc373e256dd4661006d2d9e3149b68f7021a3067cfad4725f3bef3f65c"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-XPBD-TIME-L11-1389.json",
+      "sha256": "bdc6f03b1af4e3d212bf9f828c0adbacf9ca2d1db1b1f31908db671f5002bcef"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-XPBD-CALLER-L11-1389.json",
+      "sha256": "692e98a28a300a1ca77d803308b1a111834ae04283df5ca7ae49f3129b2a099e"
+    }
+  ],
+  "owned_repair": {
+    "path": "adler-continuation-20261030/REPAIR-PLAN-XPBD-TIME-1389.json",
+    "sha256": "532c39fa81cc97967fd24e5095ba96ff114a11aa157a2679484c3b791d88820d"
+  },
+  "remaining_after_discovery": [
+    "Select representable minimum and zero/no-op policy against shader behavior and all time producers.",
+    "Resolve other lenses, global aliases and runtime acceptance after audit gate."
+  ],
+  "global_alias_inventory_complete": false,
+  "product_execution": false
+}

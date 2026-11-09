@@ -1,0 +1,31 @@
+{
+  "schema": "726-independent-own-lens-current-read-v1",
+  "lens": 6,
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L6-CURRENT-SCATTER-SHADERS-001.json",
+    "sha256": "ca254720e3a691693ec497c0f02c6f536cce74ec193d8135f808eac0b24ad7e9"
+  },
+  "assessed_ranges": [
+    {
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "assets/shaders/tactical_grass_cull.wgsl",
+      "source_sha256": "a6f23cd340f962c7323c929b1f552324b50bad4034471c6c871b3585b8dff9ad",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    }
+  ],
+  "source_packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L6-CURRENT-SCATTER-SHADERS-PACKET-002.json",
+    "sha256": "20343bfe6edc71d0b56dd3e457f1c149a54e4a9e543ac5077ea501433f5bbbe4"
+  },
+  "source_conclusion": "These shaders own transient renderer vertex/fragment data and native material bindings. Current transforms and range uniforms belong to the local chunk renderer; typed Rust material handles and traits select each implementation. Deleted files have explicit owner retirement/replacement; do not preserve old per-entity/eidolon compatibility paths or move this data to strategic persistence. Deleted entire old compute shader, including reset and main cull entry points and eidolon buffer imports. Current GrassInstancedMaterial source removes cull_shader selection; shared current chunk path owns CPU culling and shader per-instance fading. This is retirement, not an empty current shader read or proof of equivalent culling/visual behavior.",
+  "body_output_truncated": false,
+  "other_lens_verdict_transfer": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "at": "2026-11-04T07:45:55.680795+00:00",
+  "lenses": [
+    12
+  ],
+  "purpose": "Trace regular GPU bind group wrong-kind buffer parameter.",
+  "rows": [
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "source_sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "actual_EOF": 303,
+      "source_object": "adler-continuation-20261030/objects/e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "prospective_ranges": [
+        [
+          1,
+          303
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "source_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "actual_EOF": 129,
+      "source_object": "adler-continuation-20261030/objects/8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "prospective_ranges": [
+        [
+          1,
+          129
+        ]
+      ]
+    }
+  ]
+}

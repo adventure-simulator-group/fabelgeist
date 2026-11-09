@@ -1,0 +1,23 @@
+{
+  "schema": "726-provisional-connected-repair-plan-v1",
+  "at": "2026-11-04T02:37:31.444718+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-STAGED-PARENT-L11-1357.json",
+    "sha256": "866fd5958032757e365147df26ae9f8a5d33b40a69edcfae57cd89a0761e0c64"
+  },
+  "child_plan": {
+    "path": "adler-continuation-20261030/REPAIR-PLAN-STAGED-IDENTITY-1356.json",
+    "sha256": "9f83eff63133b2db04b74f6c36dd42f82f9bc9f75bf6205903fb2c0d9afdfd05"
+  },
+  "status": "session and publication association policy with checked shapes; audit gate incomplete",
+  "problem": "Public staged ordinals and finish slots do not prove their session, part and required role/count association.",
+  "constraints": [
+    "Choose a type-linked or checked session association and independently preserve part and correspondence role/count identity.",
+    "Preserve one batched map, ordinary same-session multi-part/morph ordering and padded readback semantics.",
+    "Reject zero-sized element accesses safely and preserve existing typed readback errors."
+  ],
+  "acceptance": [
+    "After the audit gate cover wrong session, wrong part within a session, correspondence roles, short data, zero-sized elements and ordinary multi-part/morph readback."
+  ],
+  "implementation_gate_complete": false
+}

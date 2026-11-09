@@ -1,0 +1,44 @@
+{
+  "schema": "726-scoped-source-disposition-v1",
+  "at": "2026-11-05T20:04:55.744224+00:00",
+  "contract_id": "SEGOVB-L12-COND-IMMEDIATE-ACTIVITY-AMBIENT-LANGUAGE-SPAN",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "remote_main_at_check": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "owner": "Immediate activity ambient language exposure span",
+  "source_discovery_scope": "Immediate schedule evaluation and actual language exposure",
+  "disposition": "Immediate activity intentionally represents its selected actual duration as a daily allocation and calls apply_training with MINUTES_PER_DAY as the schedule evaluation span. The same elapsed argument independently computes two-thirds of elapsed settlement hours for ambient oral language learning. A one-hour surviving settlement activity therefore supplies 16 ambient hours rather than two-thirds of one hour, conditional on positive settlement language coefficient and aptitude/cap allowing gain. Normal settlement rest, camp and stationary callers pass their actual training or downtime span. No live character result has been executed.",
+  "explicit_alias_comparison": [],
+  "alias_result": "Keep broader training and language allocation contracts independently tracked.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-STREAMING-FAILURE-L12-2537.json",
+      "sha256": "82ca62d2f47bf0f4843f4b34b9a5144947796d758d93bd5376e2b2fd05c0ef9a"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-TIME-FRAGMENTS-L12-2531.json",
+      "sha256": "579a2ade75e68d226d84b1f248b419b799897243724696deeb9953c89a3f86fb"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-AMBIENT-SKILL-L12-2537.json",
+      "sha256": "e4a4d739921554b29961d4391aabea514b437c16478eda1a90d36ac4631946ca"
+    },
+    {
+      "path": "workflow-20261030/CLOSURE-QUEUE-2871.json",
+      "sha256": "6f5fed8d5222c5076c1cecd91fb03643a9dd0d0cb73b2eac80f78edceccc604a"
+    },
+    {
+      "path": "workflow-20261030/CLOSURE-QUEUE-2871.json",
+      "sha256": "6f5fed8d5222c5076c1cecd91fb03643a9dd0d0cb73b2eac80f78edceccc604a"
+    }
+  ],
+  "policy": {
+    "path": "adler-continuation-20261030/PARTIAL-PLAN-BATCH-REUSE-L12-2537.json",
+    "sha256": "71ea4ad6330bce1628c890b53e4505d2029cd0eeb3dfe981e377c42378ac187d"
+  },
+  "remaining_after_discovery": [
+    "After audit gate, distinguish schedule evaluation span from actual ambient exposure span using existing time and schedule owners, preserve selected activity training and clipped clock behavior, and test short, full-day, clipped, zero-coefficient and capped-language cases. Reconcile other training and settlement-language contracts independently."
+  ],
+  "global_alias_inventory_complete": false,
+  "source_discovery_scope_complete": true,
+  "product_execution": false
+}

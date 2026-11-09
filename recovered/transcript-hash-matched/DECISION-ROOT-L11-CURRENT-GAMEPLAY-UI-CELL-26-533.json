@@ -1,0 +1,35 @@
+{
+  "schema": "726-own-lens-current-cell-disposition-v1",
+  "lens": 11,
+  "delta_index": 2,
+  "path_index": 26,
+  "git_path": "crates/adventuresim-tactical-client/src/ui/gameplay_camera.rs",
+  "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "at": "2026-11-02T23:12:06.340936+00:00",
+  "assessed_rows": [
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-CURRENT-FF9C-LOADING-READINESS-001.json",
+        "sha256": "a36deded8e07ed8e4e3055923f8981472d98db59940ef51bb6d7c300811257ab"
+      },
+      "row_index": 10,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    }
+  ],
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-CURRENT-GAMEPLAY-UI-BINDING-ALL13-001.json",
+    "sha256": "64f44ce4faf1653810ca0ddaf079938440dd3d0d52eb3c5429a963aba34dd481"
+  },
+  "disposition": "Native granularity/error: actual bevy_egui0.40.1 and bevy_ui0.19.1 declarations/selection/required-component APIs are qualified against Cargo.lock archives. Native Entity/markers are appropriate; Egui primary ambiguity yields typed QuerySingleError, default UI ambiguity warns and falls back. These distinct behaviors must remain visible in the owner/lifecycle policy. This source adapter verdict does not certify render-target format, full plugin initialization or GPU presentation.",
+  "exact_current_path_complete": true,
+  "other_lens_or_global_closure": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

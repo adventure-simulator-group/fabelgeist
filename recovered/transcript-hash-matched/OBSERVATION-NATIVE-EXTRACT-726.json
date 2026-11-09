@@ -1,0 +1,21 @@
+{
+  "schema": "726-scoped-native-extract-observation-v1",
+  "at": "2026-11-03T07:11:03.303456+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-NATIVE-EXTRACT-726.json",
+    "sha256": "c351171ec79e7f7038dabbb66321a1af3f12f024ad1aa3a5658f284c1aa5b4fb"
+  },
+  "whole_contract_closed": false,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "source_trace": [
+    "The locked extract plugin sets the render sub-app extraction callback to synchronize entities and run ExtractSchedule.",
+    "ExtractSchedule defers commands; the render schedule applies them in ExtractCommands, ordered before Queue and its QueueMeshes subset.",
+    "Together with the project queue and native phase registrations, this supports extraction and deferred camera component application before queue processing for the corresponding render update. It does not establish actual visible chunks or a runtime outcome."
+  ],
+  "remaining_evidence": [
+    "Qualify actual camera and chunk visibility, destruction and resource lifetime before deciding the retained map policy.",
+    "Retain exact alias reconciliation and later acceptance for the remaining audit."
+  ]
+}

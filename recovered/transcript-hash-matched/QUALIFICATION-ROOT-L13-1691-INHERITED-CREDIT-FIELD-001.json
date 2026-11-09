@@ -1,0 +1,82 @@
+{
+  "schema": "726-exact1691-inherited-credit-field-qualification-v1",
+  "at": "2026-10-31T13:22:32.065367+00:00",
+  "original": 1691,
+  "prior_adoption": {
+    "path": "segovb/READ-L13-PARALLEL-053.json",
+    "sha256": "8431831f2604bbc9f0612de606d801c572a68ca90cbee188437445bc5d8de3ac"
+  },
+  "prior_raw_receipt": {
+    "path": "parallel-l13-20261029/READ-PL13-055.json",
+    "sha256": "70a0acec64a672b92f2d30ff764dbd718c84fab12d34ea9318cea3dd56a3a01e"
+  },
+  "registration": {
+    "path": "parallel-l13-20261029/REGISTRATION-PL13-055-CONNECTED-CLEARANCE-CALLERS.json",
+    "sha256": "fb4ed196dd3ccd09cd67cadf031778b98e501d3852d4fd9f4c2abcb9f3fc67c2"
+  },
+  "source": {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+    "sha256": "a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+    "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+    "actual_eof": 130,
+    "prospective_ranges": [
+      [
+        1,
+        130
+      ]
+    ],
+    "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "purpose": "Necessary actual StandingClearance consumers and native physical/architectural frame admission; no extreme-coordinate gameplay claim without actual caller proof.",
+    "ordered_credit_proposed": 0,
+    "original": 1691,
+    "fresh_personal_assessed_ranges": [
+      [
+        1,
+        130
+      ]
+    ],
+    "untruncated_body_outputs": true,
+    "registration": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-055-CONNECTED-CLEARANCE-CALLERS.json",
+      "sha256": "fb4ed196dd3ccd09cd67cadf031778b98e501d3852d4fd9f4c2abcb9f3fc67c2"
+    },
+    "registration_pointer": "/sources/0"
+  },
+  "future_proof": {
+    "receipt": "parallel-l13-20261029/READ-PL13-055.json",
+    "receipt_sha256": "70a0acec64a672b92f2d30ff764dbd718c84fab12d34ea9318cea3dd56a3a01e",
+    "row_pointer": "/connected_source_reads/3",
+    "registration": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-055-CONNECTED-CLEARANCE-CALLERS.json",
+      "sha256": "fb4ed196dd3ccd09cd67cadf031778b98e501d3852d4fd9f4c2abcb9f3fc67c2"
+    },
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+    "source_sha256": "a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+    "actual_EOF": 130,
+    "assessed_ranges": [
+      [
+        1,
+        130
+      ]
+    ],
+    "attribution": "Delegated independent L13 personal read; no other-lens/current/root reread transfer",
+    "ordered_credit_now": 0,
+    "original": 1691,
+    "future_rule": "At exact future original frontier qualify sourceID/revision/hash/Gitpath/object/EOF/prospective registration+receipt+rowpointer/ranges/attribution; zero new rereads then count original once."
+  },
+  "historical_zero_credit_field": "ordered_credit_proposed",
+  "historical_zero_credit_value": 0,
+  "absent_later_field_names": [
+    "original_credit_now",
+    "original_role_credit_now"
+  ],
+  "effective_prior_ordered_credit": 0,
+  "reason": "Exact historical source and prospective registration declare ordered_credit_proposed=0. Later readers used two different field names. This exact qualification preserves the prior bytes and proves no prior ordered application; it does not infer missing source reads or enable a generic schema fallback.",
+  "historical_receipts_unchanged": true,
+  "root_personal_source_lines": 0,
+  "new_body_credit": 0,
+  "other_population_credit": 0,
+  "authority_changes": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

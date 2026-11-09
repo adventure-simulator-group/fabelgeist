@@ -1,0 +1,31 @@
+{
+  "schema": "726-independent-own-lens-current-read-v1",
+  "lens": 6,
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L6-CURRENT-POSE-CULL-SMALL-001.json",
+    "sha256": "04d471ee1edfc12ccb9aab5e87c9ab10d040829e1272335092d71d0f9e02913c"
+  },
+  "assessed_ranges": [
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/pose_cull.rs",
+      "source_sha256": "c86b700372c2622f894cbf960eabd7a616326360d8ab561ee4932012b7188540",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    }
+  ],
+  "source_packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L6-CURRENT-POSE-CULL-SMALL-PACKET-001.json",
+    "sha256": "1072cd17ff5208453c329e12533e863c211a1f41d13c7149b76581a13484d563"
+  },
+  "source_conclusion": "Culling state, pose metrics and rig buffers belong to transient presentation. PoseCulled lives on the same rig owner as the canonical visibility decision; schedule resources/components retain their current owners. Equipment borrows rig-name keys only within the local immutable query pass and publishes owned native handles/entity vectors. No borrowed names escape into deferred state or tactical tick data into strategic persistence. Added private cull helper and PoseCulled component; complete37linebody observed. Existingvisibility remainscanonical, metricscount increments perculledrig. Resume andphysics exemption traced inactualcaller, but allwriter/lifecycle/runtime proof notclaimed.",
+  "body_output_truncated": false,
+  "other_lens_verdict_transfer": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false
+}

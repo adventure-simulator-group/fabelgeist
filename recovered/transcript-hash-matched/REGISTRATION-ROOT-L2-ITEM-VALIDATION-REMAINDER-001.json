@@ -1,0 +1,48 @@
+{
+  "schema": "726-root-l2-prospective-source-registration-v1",
+  "registered_at": "2026-11-02T16:02:15.051224+00:00",
+  "author": "/root",
+  "lens": 2,
+  "prospective": true,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "b36b1f0bf97a9af07b62f452b9906bcc8ace100151522102d2b4ce04c498df39"
+  },
+  "selected_l2_state": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-015.json",
+    "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8"
+  },
+  "sources": [
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+      "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "source_object": "adler-continuation-20261030/objects/97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "bytes": 72750,
+      "actual_EOF": 2059,
+      "ranges": [
+        [
+          546,
+          1147
+        ],
+        [
+          1494,
+          2059
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 1168,
+      "prior_body_join": "Exact selected L2 state has these two unassessed bodies. Prior assessed1..545/1148..1493 and attribution preserved, bytes equal current337/previouse275; no fresh/population/unique credit claimed or other-lens verdict transferred."
+    }
+  ],
+  "fresh_lines_registered": 0,
+  "uncredited_total_source_lines_registered": 1168,
+  "skill": {
+    "revision": "eb407672813424d64ec31f208193969f5a62620c",
+    "git_path": "handoff/726-audit-20261027-adler/skills/audit-existing-type-owners/SKILL.md",
+    "sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f"
+  },
+  "purpose": "Existing-type-owner lens2 actual outstanding item validation equipment/carry/weapon/numeric/surface/schema helper bodies and remaining tail, every scoped primitive role and concrete fit by definition/use-site. Prospective read only, no original-role/whole-current/all20/global closure."
+}

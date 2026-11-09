@@ -1,0 +1,41 @@
+{
+  "schema": "726-scoped-source-disposition-v1",
+  "at": "2026-11-04T07:46:49.003316+00:00",
+  "contract_id": "SEGOVB-L12-GPU-BIND-BUFFER-PARAMETER-KIND-REASON",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "remote_main_at_check": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "owner": "GPU bind-group buffer parameter kind admission",
+  "source_discovery_scope": "Current regular bind-group buffer kind check and PassParameter variants; all callers and fast-path reconciliation remain open.",
+  "disposition": "After a successful parameter lookup, create_bind_groups accepts PassParameter::Buffer and otherwise returns an anyhow message containing pass and parameter name. PassParameter also includes numeric, vector, matrix, transform, texture and sampler cases. The missing parameter is handled by a preceding distinct check.",
+  "explicit_alias_comparison": [
+    {
+      "entry_index": 319,
+      "contract_id": "SEGOVB-L12-GPU-BIND-BUFFER-PARAMETER-MISSING-REASON"
+    },
+    {
+      "entry_index": 294,
+      "contract_id": "SEGOVB-L12-COMPUTE-BUFFER-PARAMETER-REASON"
+    }
+  ],
+  "alias_result": "Regular-path wrong-kind and missing checks are sequential distinct predicates; fast-path combined check is a connected separate implementation. Global aliases remain open.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-GPU-BUFFER-KIND-L12-1531.json",
+      "sha256": "d8dcbe04a0320842ae31993b67e82db8bc6b7dec7ea077ab55d691bf8040f96f"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-GPU-BUFFER-KIND-L12-1531.json",
+      "sha256": "a53e6369e02b65e5bf71533114f46e221b98a9d3c63f128373943c7304d91832"
+    }
+  ],
+  "owned_repair": {
+    "path": "adler-continuation-20261030/REPAIR-PLAN-GPU-BUFFER-KIND-1531.json",
+    "sha256": "7be517e73d2f82e9c94e556846f538c40910593828e11dc2aec96a7b63759b47"
+  },
+  "remaining_after_discovery": [
+    "Qualify pass consumers, actual parameter producers, fast-path policy and aliases.",
+    "Resolve remaining lenses and validate typed binding errors after audit gate."
+  ],
+  "global_alias_inventory_complete": false,
+  "product_execution": false
+}

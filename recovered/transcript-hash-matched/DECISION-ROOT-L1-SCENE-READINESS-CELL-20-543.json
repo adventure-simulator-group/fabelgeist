@@ -1,0 +1,35 @@
+{
+  "schema": "726-own-lens-current-cell-disposition-v1",
+  "lens": 1,
+  "delta_index": 2,
+  "path_index": 20,
+  "git_path": "crates/adventuresim-tactical-client/src/presentation/scene_readiness.rs",
+  "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "at": "2026-11-03T00:30:13.753489+00:00",
+  "assessed_rows": [
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+        "sha256": "c4c38c1021c74d9d259fa7f2f754e3101aaaa1c0525305cfc6442165922ba94c"
+      },
+      "row_index": 0,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ]
+    }
+  ],
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+    "sha256": "5f3378e8fc047acfa7d1bb4cb6ad817b8b7a7acb63ca63a7c7a5602beab4fff0"
+  },
+  "disposition": "Producer propagation: SceneId, environment and ground observers can mark terrain pending; successful terrain presentation removes the marker. Scatter and grass producers require scene identity, terrain, ground and environment and insert separate settled markers; disabled grass explicitly settles. Tree obstacle adds pending and the tree producer removes it after preparation. SceneReadiness counts current components and LoadingSources turns them into stages. Replication completeness and native presentation remain separate open obligations.",
+  "exact_current_path_complete": true,
+  "other_lens_or_global_closure": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-02T11:29:20.581333+00:00",
+  "author": "/root",
+  "contract_id": "SEGOVB-L12-WORLD-EVENT-CONSEQUENCE-TEXT-KEY",
+  "evidence_packets": [
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-001.json",
+      "sha256": "19fc4d812554a0e3c570f2230d0a95be70c73afe2ddb7aec3326df5430fe0b3b"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-002.json",
+      "sha256": "8676b08e1c8b1a9d46c02ef0b0fb36d6cd0cfabdafd93542646bbc8ec6dc80c7"
+    }
+  ],
+  "source_dependencies": [],
+  "owner": "Canonical purpose-specific consequence identity view owned by existing core WorldEventConsequence; identity variants project only their actual ID payloads. Native mechanical uniqueness uses that key, while final collision diagnostics format it at the native error/report port.",
+  "required_repair": [
+    "Add one canonical WorldEventConsequence identity operation in the existing core owner, yielding a closed purpose-specific identity key/view for Reputation, DiscoveredOffense, LocalProblemOutcome, CaseParticipantSnapshot and InfectionEpisode. This is an identity projection, not a duplicate full consequence payload enum or a generic string-tag dispatch framework. No applicable key is used on the actual current raw tuple producer/API/consumer path; do not assert global type absence.",
+    "Retain each actual identity payload in its existing/concurrently reconciled role: event_id, offense_id, source_outcome_id, snapshot_id and integer episode_id. Use borrowed opaque ID references where appropriate instead of cloning private Strings; episode identity stays integer, never decimal to_string. A key view does not itself establish existence/nonzero/source/permission admission; those belong to actual consequence producers and broader Q3718.",
+    "Replace native consequence_identity tuple helper and validate_consequences BTreeSet membership with canonical typed keys. Same ID text across different consequence variants remains distinct; equal ID in the same variant is duplicate even if other consequence fields differ. Remove obsolete closed category tag tuple/forwarding API, not keep a raw/typed dual path.",
+    "Use the same key to describe a preflight native row conflict, formatting kind/ID only at actual final diagnostic/error formatter. Diagnostic labels/prose may change cleanly; do not preserve old tags as private fields, stale Box/String APIs or compatibility aliases. Broader private typed commit error/cause transport remains separately required, not falsely closed by a key.",
+    "Preserve validate_consequence_order before uniqueness checking, all actual vector order and generated participant ordering, source/envelope/request semantic binding and native row equivalence policy. BTreeSet order is only key-set bookkeeping here: never sort/reorder consequence vectors to match enum Ord or change the digest input sequence. Preserve request replay before commit build closure/mutable participant read, preflight/apply/receipt-last and private receipt visibility.",
+    "Update actual core/native consumers and existing owning acceptance to the clean key API. Keep actual native DB field projection/serialization separate from private key retention; no data migration/legacy fallback or blanket ID/number wrapping. Q3718 identity/fingerprint/exposure origin/optional finale/typed error/schema/current/alias and native authority/runtime work stays open."
+  ],
+  "later_acceptance": [
+    "After full audit gate, inspect producer/identity operation/native BTreeSet/preflight diagnostic to show one canonical core typed key, no private category String tuple or numeric-to-text episode identity, and no duplicate full consequence enum.",
+    "Use existing owning world-event consequence/authority acceptance: same textual ID across distinct variants is permitted; equal same-variant ID rejects duplication even when other payload fields differ; distinct same-variant IDs stay distinct. No new object unit tests.",
+    "Verify integer infection episode keys retain exact equality and remain separate from text IDs under other variants, including representation-level0/maxu64 without claiming those values pass native episode admission. Do not add NonZero/sentinel policy in key projection.",
+    "Verify existing order/semantic-binding/replay/row-preflight/collision acceptance still enforces actual vector and participant order, mutable settled-state exclusion and receipt-last/privacy. No vector reordering or digest algorithm/input-sequence changes.",
+    "Verify native final collision diagnostic has the real variant/ID and owning failure result; no need to preserve obsolete wording, raw tags or stringify/reparse compatibility API. Other private native error/source causes remain separately audited.",
+    "Run applicable final-revision core/native module and isolated existing world-event authority acceptance after audit/implementation, with independent review. Source identity proof does not establish native transaction/rollback/runtime/permission correctness."
+  ],
+  "source_discovery_repair_specification_complete": true,
+  "remaining_independent_obligations": [
+    "Broad Q3718 world-event occurrence/source/subject/place/payload/canonical IDs and bounds, receipt fingerprint domains, exposure-source sum, optional selected finale and private error/serialization/native schema require separate reconciliation.",
+    "Q896/Q2299 food/water producer roles/numeric/physiology/native commit, Q964 reputation source and participant/public-case/private-case graph remain open; no whole-case alias.",
+    "All13/all20/current59path767cell/global aliases/live-main/implementation/independent review/runtime remain mandatory."
+  ],
+  "repair_complete": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

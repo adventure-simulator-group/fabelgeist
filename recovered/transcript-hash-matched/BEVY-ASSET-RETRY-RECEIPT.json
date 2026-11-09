@@ -1,0 +1,85 @@
+{
+  "schema": "726-native-asset-exploratory-read-v1",
+  "registrations": [
+    {
+      "path": "BEVY-ASSET-RETRY-REGISTRATION.json",
+      "sha256": "5cd868b280c3d549b0fb070f4ce30793c2c3e9a14a4455d5a1b493d9891eec1c"
+    },
+    {
+      "path": "BEVY-ASSET-FAILURE-REGISTRATION.json",
+      "sha256": "c5531b55cc34e7059c51550a2d01a40776715974dccb4534d44461abfd41f15c"
+    }
+  ],
+  "observations": [
+    {
+      "member": "bevy_asset-0.19.1/src/server/mod.rs",
+      "ranges": [
+        [
+          930,
+          975
+        ],
+        [
+          1210,
+          1305
+        ]
+      ],
+      "tool_chunk": "1b8a27"
+    },
+    {
+      "member": "bevy_asset-0.19.1/src/server/info.rs",
+      "ranges": [
+        [
+          210,
+          250
+        ],
+        [
+          635,
+          660
+        ]
+      ],
+      "tool_chunk": "872d2d"
+    },
+    {
+      "member": "bevy_asset-0.19.1/src/server/mod.rs",
+      "ranges": [
+        [
+          2240,
+          2280
+        ]
+      ],
+      "tool_chunk": "872d2d"
+    },
+    {
+      "member": "bevy_asset-0.19.1/src/server/mod.rs",
+      "ranges": [
+        [
+          2350,
+          2445
+        ]
+      ],
+      "tool_chunk": "7c17d9"
+    },
+    {
+      "member": "bevy_asset-0.19.1/src/event.rs",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "tool_chunk": "1fe622"
+    }
+  ],
+  "status": "unadopted",
+  "archive_and_source_hashes_verified": true,
+  "new_body_credit": 0,
+  "implementation_gate_complete": false,
+  "additional_plan": {
+    "path": "BEVY-ASSET-ERROR-PLAN.json",
+    "sha256": "156bf520adc5b1693d2d956496766f0c0a12d92f290f8cbeaf406065775b9923"
+  },
+  "event_type_plan": {
+    "path": "BEVY-ASSET-EVENT-TYPE-PLAN.json",
+    "sha256": "dfaee2bc1a08cadeb48bc0aa3c8e73bc87ffa93b42d4fefe41646b4e01b7842a"
+  }
+}

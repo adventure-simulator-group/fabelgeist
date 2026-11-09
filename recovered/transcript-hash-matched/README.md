@@ -12,3 +12,7 @@ file was the final version or that its supporting evidence survives. The
 records do not restore checkpoint 3821 or authorize audit credit. Review
 individual records and dependencies before using them. The raw transcript
 remains private; do not execute historical commands or helpers blindly.
+
+The expanded batch was screened for common credential, personal-path and
+email patterns, with flagged references reviewed. Individual audit claims
+and all dependencies have not been independently reviewed.

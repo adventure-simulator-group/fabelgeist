@@ -1,0 +1,36 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "at": "2026-11-05T05:53:09.507315+00:00",
+  "lenses": [
+    1
+  ],
+  "purpose": "Trace autoresolve report persistence and combat error projection under Lens 1.",
+  "rows": [
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "source_sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "actual_EOF": 235,
+      "source_object": "adler-continuation-20261030/objects/b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "prospective_ranges": [
+        [
+          1,
+          235
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "source_sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "actual_EOF": 29,
+      "source_object": "adler-continuation-20261030/objects/58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "prospective_ranges": [
+        [
+          1,
+          29
+        ]
+      ]
+    }
+  ]
+}

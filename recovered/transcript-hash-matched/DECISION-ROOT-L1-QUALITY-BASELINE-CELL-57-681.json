@@ -1,0 +1,48 @@
+{
+  "schema": "726-own-lens-current-cell-disposition-v1",
+  "lens": 1,
+  "delta_index": 1,
+  "path_index": 57,
+  "git_path": "rust-quality-baseline.toml",
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "at": "2026-11-03T06:06:39.584316+00:00",
+  "assessed_rows": [
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-QUALITY-BASELINE-609.json",
+        "sha256": "d0004f4304f9d62d01250cc5853e840882682bceae7a7f98c7a616f70e695afa"
+      },
+      "row_index": 0,
+      "ranges": [
+        [
+          1,
+          12833
+        ]
+      ]
+    },
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-QUALITY-BASELINE-609.json",
+        "sha256": "d0004f4304f9d62d01250cc5853e840882682bceae7a7f98c7a616f70e695afa"
+      },
+      "row_index": 1,
+      "ranges": [
+        [
+          1,
+          12833
+        ]
+      ]
+    }
+  ],
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-QUALITY-DELTA-681.json",
+    "sha256": "996d80d2ac6c06e13661b84db5d9befe7ff80881042035fdde26f64a736ed8f7"
+  },
+  "disposition": "The changed record supplies a tighter function-length ceiling to the quality analyzer; it does not alter the underlying function.",
+  "exact_current_path_complete": true,
+  "other_lens_or_global_closure": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

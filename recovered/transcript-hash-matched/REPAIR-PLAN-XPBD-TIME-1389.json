@@ -1,0 +1,20 @@
+{
+  "schema": "726-provisional-connected-repair-plan-v1",
+  "at": "2026-11-04T03:46:04.050171+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-XPBD-TIME-L11-1389.json",
+    "sha256": "8dbcf5bc373e256dd4661006d2d9e3149b68f7021a3067cfad4725f3bef3f65c"
+  },
+  "status": "required after complete audit",
+  "problem": "Public solver and direct substep paths permit nonfinite or numerically unusable time to reach divisive GPU calculations.",
+  "constraints": [
+    "Admit one shared finite positive substep quantity with a defined representable range for division and squared-substep compliance before any command recording.",
+    "Apply the same admission to direct substep, frame and interleaved shell paths; define zero-frame/no-particle no-op policy explicitly.",
+    "Preserve hook, lambda clear, solve and finalize ordering and avoid hidden movement penalties or new fatigue behavior.",
+    "Reuse existing duration or compliance owners where their semantics match; qualify native shader precision and numerical boundaries."
+  ],
+  "acceptance": [
+    "After audit cover NaN, infinity, zero, negative, tiny division/square underflow, valid direct and frame substeps, and unchanged ordering."
+  ],
+  "implementation_gate_complete": false
+}

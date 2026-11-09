@@ -1,0 +1,32 @@
+{
+  "schema": "726-granular-current-contract-source-view-v1",
+  "kind": "scene-marker-producer-input-and-disabled-layer-policy",
+  "at": "2026-11-02T23:18:09.045318+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-CURRENT-SCENE-MARKER-PRODUCERS-001.json",
+    "sha256": "f51d933ee9419f9877aab4058b6b78c985a7ef227d3e270b18f973b0722017f3"
+  },
+  "facts": [
+    "SceneReadiness counts every current SceneTerrain entity, interprets absence of PendingTerrainPresentation as terrain-presented, counts GroundScatterPresented and InstancedGrassPresented separately, counts pending trees globally and tests for any VistaTerrain. LoadingSources separately requires a known nonzero scene population and expects two ground-stage markers per scene. These are CPU marker observations, not proof of complete replication, correct active-scene population or GPU presentation.",
+    "Terrain Pending is inserted by SceneId addition, SceneEnvironment addition on an entity with SceneId, and SceneGround addition. present_pending_terrain selects SceneId/SceneTerrain/SceneEnvironment plus optional ground/landform/prepared patch under PendingTerrainPresentation. Only Ok(true) removes Pending; Ok(false) and warning-producing errors leave it. Thus normal producer error does not directly mark terrain complete. Whether every counted SceneTerrain has the required SceneId/observer lifecycle is still a connected population question.",
+    "The refresh helper checks the two material assets, rebuilds material/detail data and returns false if required materials are absent; it updates a detail mesh if available and returns true afterward. The spawn helper prepares terrain material and queues base/detail presentation, with optional fault patch. These CPU outcomes do not certify current device assets. Full material/geometry/native lifetime guarantees and the optional fault-patch error-to-absence branch remain independently unqualified; no missing-mesh incident is asserted.",
+    "Both GroundScatterSceneQuery and InstancedGrassSceneQuery require SceneId, SceneTerrain, SceneGround and SceneEnvironment, and exclude their own Presented marker. This differs from terrain generation, where ground is optional. A disabled grass setting is checked only after a row matches that query. Establish actual admitted tactical scene input and replication/spawn ordering before deciding whether absent ground is transient waiting or an allowed permanent omission. No supported ground-free load or loading stall was executed.",
+    "Disabled grass explicitly inserts InstancedGrassPresented and continues without generating tufts. Therefore the specific suspicion that disabled grass necessarily leaves this marker absent is rejected by current source. The marker denotes settled generation policy, not necessarily drawn grass. For enabled grass, prepare_scene_tufts failure logs and leaves the marker absent; success calls spawn_tuft_batches and then inserts the marker. Empty-batch and deeper mask/resource semantics still require the helper bodies; they are not inferred from imports.",
+    "A terrain/grass/tree error warning retains pending work without attaching an owned failure outcome in these observed branches. Loader stall reporting can therefore be a different signal from the original preparation cause. Keep missing input, intentional disabled work, pending native assets, failed preparation and completed generation distinct where the final work owner requires it. Reuse existing typed geometry/scene/native owners; do not turn disabled/empty optional layers into required rendering.",
+    "SceneObstacle::Tree addition inserts PendingTreePresentation. present_pending_trees reads the active environment/terrain, returns while those or terrain contact are unavailable, retains pending on contact error or nonfinite footprint, and removes Pending only after source/cache preparation and queuing a cached tree. Pending tree selection is global while its environment is selected from ActiveTacticalScene; exact scene/retained-root membership is a separate contract, not proven by an empty global count.",
+    "No full terrain1506, tree presentation1392, groundscatter466 or grass548 path/lens verdict is assigned here. Query declarations and the relevant complete producer functions are the assessed scope. Nested material, mask, cached asset, geometry, scene input and network lifecycle bodies remain required where they determine admission or native correctness. This packet changes four existing journal source views but closes no matrix cells or full primary cases."
+  ],
+  "status": "named-producer-boundaries-qualified-scene-population-and-native-outcomes-open",
+  "reference_relationship": "Exact current caller/producer evidence only; no child-source verdict transfer or alias merge.",
+  "source_discovery_complete_within_named_scope": true,
+  "whole_contract_closed": false,
+  "remaining_evidence": [
+    "Actual admitted scene-ground/SceneId completeness and replication/spawn/reset lifecycle.",
+    "Current nested grass mask/batch, understory/litter cache and material/native outcome owners where needed.",
+    "Scene-specific versus global retained population and native presentation acknowledgement, exact aliases and ordered repair ledger.",
+    "No disabled-grass stall, missing native asset or GPU failure witness was executed; relevant acceptance follows implementation."
+  ],
+  "new_accepted_unique_count": 0,
+  "implementation_gate_complete": false,
+  "product_execution": false
+}
