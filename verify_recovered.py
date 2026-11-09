@@ -121,4 +121,11 @@ with (root / "recovered/late-audit-write-commands/COMMANDS.jsonl").open(encoding
         if hashlib.sha256(item["command_text"].encode("utf-8")).hexdigest() != item["command_sha256"]:
             raise ValueError("Late command hash mismatch")
         command_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents and", command_count, "late commands; claims remain qualified")
+audit_commands_count = 0
+with (root / "recovered/audit-write-command-candidates/COMMANDS.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        if hashlib.sha256(item["command_text"].encode("utf-8")).hexdigest() != item["command_sha256"]:
+            raise ValueError("Audit command hash mismatch")
+        audit_commands_count += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count, "audit commands; claims remain qualified")

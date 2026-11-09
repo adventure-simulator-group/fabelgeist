@@ -13,7 +13,9 @@
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
-- 70 late-audit write commands preserved as inert historical text.
+- 5,342 audit write command bodies preserved as inert historical text;
+  281 command records require privacy review.
+- 70 overlapping late-audit write commands separately preserved.
 - 37 unresolved patch fragments preserved for 30 historical paths.
 - 54 additional Rust, JSON, TOML and JavaScript literal writes preserved.
 - 89 other historical file-change candidates preserved; five
@@ -46,6 +48,8 @@ The recoverable material consists of:
 
 - [Upstream source locators](recovered/upstream-source-locators/README.md)
   for four independently verified source-copy candidates.
+- [Historical audit write command candidates](recovered/audit-write-command-candidates/README.md),
+  preserved without replay.
 - [Late-audit write commands](recovered/late-audit-write-commands/README.md),
   preserved without replaying them.
 - [Unresolved historical patches](recovered/transcript-unresolved-patches/README.md)
