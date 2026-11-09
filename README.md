@@ -9,7 +9,8 @@
 - 212 historical JSON versions recovered from the transcript and matched to
   later recorded path and SHA-256 references.
 - 3,422 historical printed contract observations indexed, covering 1,722
-  distinct contract IDs; most object contents remain private and unverified.
+  distinct contract IDs; 3,146 normalized values are preserved with
+  unverified audit claims.
 - 19 late audit notes recovered as transcript text, with original bytes
   and supporting evidence unverified.
 - 2,480 candidate file states and 519 literal-write records extracted for

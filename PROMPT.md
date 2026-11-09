@@ -16,7 +16,7 @@ or claim the reported counts as an independently recovered ledger.
 
 The originating Codex chat and a private transcript snapshot have yielded
 212 hash-matched historical JSON files, 19 late notes and five printed queue
-or lens values, plus indexes of additional private candidates. The package
+or lens values, plus 3,146 historical printed contract values and their provenance index. The package
 also provides a restorer for 268 hash-verified registered source identities.
 Run `python verify_recovered.py` and review the files and their limitations.
 Continue investigating the transcript where accessible before assuming all
