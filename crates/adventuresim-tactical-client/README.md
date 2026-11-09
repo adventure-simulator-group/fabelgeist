@@ -120,8 +120,12 @@ client boots.
 `src/ui.rs`, `src/ui/wheel.rs`, `src/equipment/slot_hud.rs` and
 `src/loading_screen/view.rs` compute what the HUD shows and push it only when
 it changed, so an idle frame crosses nothing into JavaScript. Structured views
-cross as JSON. Clicks on the slot HUD and the loading screen's Retry return as
-browser commands (`press-slot-hud`, `retry-tactical-load`).
+cross as JSON. An enemy's incapacitation wheel is the exception that moves
+every frame: its shape crosses as JSON only when an arc changes, and its
+position crosses alone as numbers, which the page applies as a CSS transform
+without rebuilding, restyling or laying out the wheel. Clicks on the slot HUD
+and the loading screen's Retry return as browser commands (`press-slot-hud`,
+`retry-tactical-load`).
 
 The HUD shows the incapacitation wheels, the aim reticle, the weapon guard, the
 attack timer and result, limb condition, the controls line, the tactical

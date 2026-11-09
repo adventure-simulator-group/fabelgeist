@@ -153,8 +153,10 @@ fn wheel_arcs(
 
 #[derive(Debug, PartialEq, Serialize)]
 struct WheelView {
-    /// Viewport position in CSS pixels; `None` is the screen centre.
-    center: Option<[i32; 2]>,
+    /// Whether the wheel follows a character. Its position then arrives
+    /// separately every frame it moves (`hud::wheel_positions`); otherwise it
+    /// sits at the screen centre.
+    follows: bool,
     radius: f32,
     width: f32,
     incapacitated: bool,
@@ -163,13 +165,13 @@ struct WheelView {
 
 impl WheelView {
     fn new(
-        center: Option<Vec2>,
+        follows: bool,
         size: WheelSize,
         state: &TacticalCombatState,
         sources: TacticalIncapacitationSources,
     ) -> Self {
         Self {
-            center: center.map(|center| [center.x.round() as i32, center.y.round() as i32]),
+            follows,
             radius: size.radius,
             width: size.width,
             incapacitated: state.is_incapacitated(),
@@ -181,6 +183,12 @@ impl WheelView {
 #[derive(Debug, Default, PartialEq, Serialize)]
 struct WheelsView {
     wheels: Vec<WheelView>,
+    /// Viewport centres of the following wheels, x then y, in whole CSS
+    /// pixels. Pushed apart from the shapes: a moving enemy changes them every
+    /// frame, and the page moves its wheel with a transform instead of
+    /// redrawing it.
+    #[serde(skip)]
+    positions: Vec<f32>,
 }
 
 type EnemyWheelQuery<'w, 's> = Query<
@@ -197,8 +205,15 @@ type EnemyWheelQuery<'w, 's> = Query<
     (With<Player>, Without<ClientPlayer>),
 >;
 
-/// Pushes the wheels when any arc, state or on-screen position changed. Until
-/// the local player is revealed the view is empty.
+#[derive(Default)]
+pub(super) struct LastPushedWheels {
+    view: LastPushed<String>,
+    positions: LastPushed<Vec<f32>>,
+}
+
+/// Pushes the wheels' shapes when any arc or state changed, and their
+/// on-screen positions when one moved. Until the local player is revealed the
+/// view is empty.
 pub(super) fn push_incapacitation_wheels(
     revealed: Option<Res<crate::loading_screen::LoadingScreen>>,
     player: Query<(Entity, &TacticalCombatState, &Limbs), With<ClientPlayer>>,
@@ -206,7 +221,7 @@ pub(super) fn push_incapacitation_wheels(
     bone_transforms: Query<&GlobalTransform, Without<Player>>,
     camera: Query<(&Camera, &GlobalTransform), With<TacticalGameplayCamera>>,
     viewer: TacticalPlayerViewer,
-    mut last: Local<LastPushed<String>>,
+    mut last: Local<LastPushedWheels>,
 ) {
     let mut view = WheelsView::default();
     if crate::loading_screen::gameplay_unlocked(revealed)
@@ -217,7 +232,7 @@ pub(super) fn push_incapacitation_wheels(
         if state.incapacitation > 0.0 {
             let sources = state.incapacitation_sources(limbs.total_damage(), will);
             view.wheels
-                .push(WheelView::new(None, PLAYER_WHEEL, state, sources));
+                .push(WheelView::new(false, PLAYER_WHEEL, state, sources));
         }
         if let Ok((camera, camera_transform)) = camera.single() {
             push_enemy_wheels(
@@ -233,8 +248,13 @@ pub(super) fn push_incapacitation_wheels(
     let Ok(json) = serde_json::to_string(&view) else {
         return;
     };
-    if let Some(json) = last.update(json) {
+    if let Some(json) = last.view.update(json) {
         hud::view(HudView::Wheels, json);
+        // A redrawn view places its following wheels from scratch.
+        last.positions = LastPushed::default();
+    }
+    if let Some(positions) = last.positions.update(view.positions) {
+        hud::wheel_positions(positions);
     }
 }
 
@@ -271,7 +291,8 @@ fn push_enemy_wheels(
         };
         if bounds.contains(center) {
             view.wheels
-                .push(WheelView::new(Some(center), ENEMY_WHEEL, state, sources));
+                .push(WheelView::new(true, ENEMY_WHEEL, state, sources));
+            view.positions.extend([center.x.round(), center.y.round()]);
         }
     }
 }

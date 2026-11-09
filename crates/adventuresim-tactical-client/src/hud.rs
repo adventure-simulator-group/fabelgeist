@@ -128,6 +128,10 @@ mod js {
         /// An icon image the slot HUD refers to by `key`, as straight RGBA8.
         #[wasm_bindgen(js_namespace = window)]
         pub fn hud_icon(key: &str, width: u32, height: u32, rgba: &[u8]);
+        /// Viewport centres (x, y in CSS pixels) of the wheels that follow a
+        /// character, in the order the last `wheels` view listed them.
+        #[wasm_bindgen(js_namespace = window)]
+        pub fn hud_wheel_positions(centres: &[f32]);
     }
 }
 
@@ -172,6 +176,14 @@ pub(crate) fn icon(key: &str, width: u32, height: u32, rgba: &[u8]) {
     js::hud_icon(key, width, height, rgba);
     #[cfg(not(target_family = "wasm"))]
     let _ = (key, width, height, rgba);
+}
+
+/// Moves the wheels that follow characters without redrawing them.
+pub(crate) fn wheel_positions(centres: &[f32]) {
+    #[cfg(target_family = "wasm")]
+    js::hud_wheel_positions(centres);
+    #[cfg(not(target_family = "wasm"))]
+    let _ = centres;
 }
 
 #[cfg(test)]

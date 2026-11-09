@@ -40,7 +40,7 @@ export function installTacticalHud({ container, command }) {
 
   const root = element("div", "tactical-hud", container);
   root.hidden = true;
-  const wheels = svgElement("svg", { class: "hud-wheels" }, root);
+  const wheels = element("div", "hud-wheels", root);
   const outcome = element("div", "hud-outcome", root);
   outcome.hidden = true;
   const crosshair = element("div", "hud-crosshair", root);
@@ -86,7 +86,7 @@ export function installTacticalHud({ container, command }) {
 
   const loading = createLoadingScreen(container, command);
   const icons = new Map();
-  let wheelView = { wheels: [] };
+  let following = [];
   let attackResultTimer;
 
   window.hud_visible = (on) => { root.hidden = !on; };
@@ -109,8 +109,7 @@ export function installTacticalHud({ container, command }) {
   };
   const views = {
     wheels(view) {
-      wheelView = view;
-      drawWheels(wheels, view, root);
+      following = drawWheels(wheels, view);
     },
     outcome(view) {
       outcome.hidden = !view;
@@ -145,41 +144,60 @@ export function installTacticalHud({ container, command }) {
     loading: loading.show,
   };
   window.hud_view = (id, json) => views[id](JSON.parse(json));
-  new ResizeObserver(() => drawWheels(wheels, wheelView, root)).observe(root);
+  // Called every frame an enemy's wheel moves: only a transform changes, so
+  // the browser recomposites without restyling, laying out or repainting.
+  window.hud_wheel_positions = (centres) => {
+    following.forEach((wheel, index) => {
+      const x = centres[index * 2] - wheel.half;
+      const y = centres[index * 2 + 1] - wheel.half;
+      wheel.node.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  };
 }
 
 /** Incapacitation wheels: a dark track, a red glow while incapacitated, then
- *  the arcs clockwise from the top, as the client clipped them. */
-function drawWheels(svg, view, root) {
-  const centerX = root.clientWidth / 2;
-  const centerY = root.clientHeight / 2;
-  svg.replaceChildren();
+ *  the arcs clockwise from the top, as the client clipped them. Each wheel is
+ *  its own small SVG drawn around its centre: the player's sits at the screen
+ *  centre and each enemy's is moved by hud_wheel_positions. Returns the
+ *  following wheels in the order their positions arrive. */
+function drawWheels(container, view) {
+  const following = [];
+  container.replaceChildren();
   for (const wheel of view.wheels) {
-    const [x, y] = wheel.center ?? [centerX, centerY];
     const r = wheel.radius;
-    svgElement("circle", { class: "track", cx: x, cy: y, r, "stroke-width": wheel.width }, svg);
+    const half = Math.ceil(r + wheel.width / 2 + 3);
+    const svg = svgElement("svg", {
+      class: wheel.follows ? "hud-wheel" : "hud-wheel centred",
+      width: half * 2,
+      height: half * 2,
+      viewBox: `${-half} ${-half} ${half * 2} ${half * 2}`,
+    }, container);
+    if (wheel.follows) {
+      svg.style.transform = "translate(-9999px, -9999px)";
+      following.push({ node: svg, half });
+    }
+    svgElement("circle", { class: "track", r, "stroke-width": wheel.width }, svg);
     if (wheel.incapacitated) {
-      svgElement("circle", {
-        class: "incapacitated", cx: x, cy: y, r, "stroke-width": wheel.width + 6,
-      }, svg);
+      svgElement("circle", { class: "incapacitated", r, "stroke-width": wheel.width + 6 }, svg);
     }
     let angle = -Math.PI / 2;
     for (const arc of wheel.arcs) {
       const end = angle + arc.share * Math.PI * 2;
       const attributes = { class: "arc", stroke: arc.color, "stroke-width": wheel.width };
       if (arc.share >= 0.9999) {
-        svgElement("circle", { ...attributes, cx: x, cy: y, r }, svg);
+        svgElement("circle", { ...attributes, r }, svg);
       } else {
         const large = arc.share > 0.5 ? 1 : 0;
         svgElement("path", {
           ...attributes,
-          d: `M ${x + r * Math.cos(angle)} ${y + r * Math.sin(angle)} ` +
-            `A ${r} ${r} 0 ${large} 1 ${x + r * Math.cos(end)} ${y + r * Math.sin(end)}`,
+          d: `M ${r * Math.cos(angle)} ${r * Math.sin(angle)} ` +
+            `A ${r} ${r} 0 ${large} 1 ${r * Math.cos(end)} ${r * Math.sin(end)}`,
         }, svg);
       }
       angle = end;
     }
   }
+  return following;
 }
 
 function iconElement(icon, className, icons) {
