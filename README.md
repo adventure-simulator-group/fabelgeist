@@ -30,7 +30,7 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
-- Two [historical queue and selected-lens values](recovered/transcript-queue-fragments/README.md)
+- Five [historical queue and selected-lens values](recovered/transcript-queue-fragments/README.md)
   and an index of further printed contract candidates.
 - Nineteen [late audit notes](recovered/transcript-notes/README.md)
   transcribed from recorded commands, with explicit evidence limitations.
