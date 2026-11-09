@@ -1,0 +1,27 @@
+{
+  "schema": "726-recovery-current-v1",
+  "status": "partial-recovery-not-authoritative-continuation",
+  "goal_status_at_handoff": "paused",
+  "original_handoff_commit": "eb407672813424d64ec31f208193969f5a62620c",
+  "original_handoff_checkpoint": "059",
+  "progress_commit": "78b1d089cb5ee52df0b01c0bf6a020f049b8a126",
+  "latest_reported_audit_checkpoint": 3821,
+  "latest_reported_increment": 348,
+  "latest_reported_audit_checkpoint_sha256": "5344407a722fb44ddde7ac5ffcf5fc77e63ee31e3e35253548f157c65d55e541",
+  "latest_reported_closure_queue_sha256": "f8cae3846353303bb996c4206c152260bee1b88be0ce0816a3b70a1cfb27c6ea",
+  "reported_queue_entries": 3866,
+  "reported_source_discovery_closed": 599,
+  "reported_not_explicitly_closed": 3267,
+  "reported_repair_families_validated_on_combined_head": 0,
+  "historical_repair_families": 20,
+  "implementation_gate_complete": false,
+  "selected_source_revision_as_reported": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "frozen_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "missing": [
+    "post-handoff authoritative continuation ledger and selected-state pointers",
+    "post-handoff closure and delta queues, including the checkpoint 3821 queue",
+    "post-handoff source registrations, receipts, qualifications and correction evidence unless independently recovered",
+    "full original checkpoint 3821 and its verification transcript"
+  ],
+  "interpretation": "Reported numbers overlap and are not a unique finding count or proof of audit completion."
+}
