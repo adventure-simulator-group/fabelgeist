@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:52:47.046103+00:00
+Updated: 2026-11-09T00:54:33.607977+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:52:47.046103+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Terminal-boundary source packets | 11 adopted | Admissibility and iteration order open |
+| Terminal-boundary source packets | 12 adopted | Admissibility and iteration order open |
 | Inventory admission source packets | 10 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
@@ -171,6 +171,10 @@ Checkpoint 3801 qualified selected procedural holder-fit checks. The authored
 katzbalger recipe and recommended scabbard align with generated carry; recipe
 evaluation and native creation remain unverified. No discovery closure is
 claimed.
+
+Checkpoint 3813 compares the terminal boundary with four related ledger
+contracts and retains each independently. Global alias reconciliation and
+native reachability remain open.
 
 Checkpoint 3812 qualifies the fresh strong-tincture measured-item checks:
 the selected item is not food, soap or a listed smithing material. Actual
