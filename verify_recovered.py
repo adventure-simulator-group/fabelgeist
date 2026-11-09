@@ -135,4 +135,18 @@ with (root / "recovered/audit-write-command-candidates/REVIEWED-COMMANDS.jsonl")
         if hashlib.sha256(item["command_text"].encode("utf-8")).hexdigest() != item["published_sha256"]:
             raise ValueError("Reviewed audit command hash mismatch")
         reviewed_command_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")
+directory = root / "recovered/printed-ledger-fragments"
+index = json.loads((directory / "INDEX.json").read_text(encoding="utf-8"))
+expected = {item["normalized_sha256"] for item in index["entries"]}
+found = set()
+with (directory / "VALUES.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        data = (json.dumps(item["value"], indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+        sha = hashlib.sha256(data).hexdigest()
+        if sha != item["normalized_sha256"] or sha in found:
+            raise ValueError("Printed ledger fragment hash mismatch")
+        found.add(sha)
+if found != expected:
+    raise ValueError("Printed ledger fragment index differs")
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")
