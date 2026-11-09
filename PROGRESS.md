@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:13:56.788868+00:00
+Updated: 2026-11-09T00:15:59.623396+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:13:56.788868+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Inventory admission source packets | 5 adopted | Transaction and authority remain open |
+| Inventory admission source packets | 6 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
@@ -146,6 +146,11 @@ can discard an add-helper error for a new or overflow stack; missing catalog
 reachability and transaction effects remain unverified. Contract and wedding
 callers have distinct settlement and authority conditions. No discovery closure
 is claimed.
+
+Checkpoint 3797 qualified currency catalog validation and initialization.
+The selected build validator checks the supported currency set, and module
+initialization projects catalog definitions. Existing database lifecycle and
+alternate writers remain open; no discovery closure is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
