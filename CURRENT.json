@@ -15,7 +15,14 @@
   "reported_repair_families_validated_on_combined_head": 0,
   "historical_repair_families": 20,
   "implementation_gate_complete": false,
-  "transcript_recovery": "Originating Codex chat history exposes some pre-compaction commands and outputs; completeness and cross-machine access are unverified.",
+  "transcript_recovery": {
+    "snapshot_sha256": "d9fe8bef817fea966bf869df3dbde5dd006f350f5aeef58f09f541a296c1c68f",
+    "snapshot_bytes": 907955742,
+    "hash_matched_historical_json_published": 6,
+    "candidate_file_states_unverified": 2480,
+    "literal_write_records_unverified": 519,
+    "qualification": "Counts overlap; matching historical bytes does not establish current state or dependency completeness. Raw transcript is private."
+  },
   "selected_source_revision_as_reported": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
   "frozen_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
   "missing": [

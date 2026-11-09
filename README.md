@@ -1,5 +1,14 @@
 # #726 audit recovery handoff
 
+## Recovery counts
+
+- 36,487 original evidence files restored and hash-verified.
+- 7,196 later public progress files verified against the recovery manifest.
+- 6 historical JSON versions recovered from the transcript and matched to
+  later recorded path and SHA-256 references.
+- 2,480 candidate file states and 519 literal-write records extracted for
+  further investigation; these counts overlap and are not verified totals.
+
 This is a **partial recovery**, not a lossless handoff of the latest audit
 state. The continuation's local ledger, queues, receipts, source registrations
 and checkpoint 3821 evidence were deleted before they were published. Their
@@ -8,13 +17,17 @@ package as the authoritative checkpoint 3821 or resume its writer from it.
 
 The originating Codex chat's history tool was subsequently confirmed to
 expose older turns, including some commands and tool outputs from before
-compaction. That transcript is a potential additional recovery source, but
-its completeness has not been assessed and it is not included in this
-package. Some outputs or argument previews may be truncated. Review any
+compaction. A bounded private snapshot contains recorded commands, file changes and
+outputs; its completeness remains unverified and the transcript itself is
+not included in this package. Some outputs or argument previews may be truncated. Review any
 recovered material for sensitive data and verify its provenance and hashes
 before publishing or adopting it.
 
 The recoverable material consists of:
+
+- Six [historical transcript-derived records](recovered/transcript-hash-matched/README.md)
+  with matching later path and hash references. Their dependencies and
+  authority as current state remain unverified.
 
 - Segovb's original, lossless checkpoint 059 package at commit
   `eb407672813424d64ec31f208193969f5a62620c`. Its transport manifest covers

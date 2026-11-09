@@ -1,0 +1,20 @@
+{
+  "scope": "Only the two exact base_authority_snapshot references in the immutable 303-310 proposal manifest",
+  "manifest": {
+    "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-303-310.json",
+    "sha256": "9fc796d3441a606501e44000b1e0b44732db347b0748f4048a2df18332c37d3b"
+  },
+  "manifest_snapshot_only_not_guard_against_other_lens_progress": true,
+  "archive": {
+    "path": "checkpoint-history/3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac.json",
+    "sha256": "320c5949e1ed31c6260818290f1c6b39d5e8d4395e5f287a3e89b866ed7f2ec4"
+  },
+  "exact_reconstruction": "json.dumps(archive[key], indent=2) plus LF, encoded UTF-8",
+  "ledger_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+  "selector_sha256": "5fbb66fcc7789b337d3c14bc4c7bd3018095f4ac17f64f48df5ff4d859e9dc04",
+  "historical_records_unchanged": true,
+  "active_authority_checks_unchanged": true,
+  "source_identity_scope_chronology_checks_unchanged": true,
+  "new_coverage_credit": 0,
+  "reason": "The proposal intentionally records its creation-time authority snapshot. Other-lens progress changed the active ledger before adoption. Exact archived reconstruction proves both original byte hashes; neither historical reference is replaced by current authority or ignored."
+}

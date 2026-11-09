@@ -25,8 +25,11 @@
    do not silently promote summaries into evidence or repeat audit credit.
    The originating Codex chat can be paged through the chat-history tool:
    older checkpoint commands, verification outputs and bounded source reads
-   have been observed. Inventory that transcript as another possible source;
-   its completeness and accessibility from another machine are unverified.
+   have been observed. Six historical records have been recovered and independently matched to
+   later transcript path and hash references; see
+   `recovered/transcript-hash-matched/README.md`. Further candidates remain
+   unverified, and transcript completeness and accessibility from another
+   machine are unverified.
    Do not blindly replay old commands or publish the transcript: review
    sensitive content, preserve attribution, and validate reconstructed bytes
    and evidence against surviving hashes and the original protocol.
