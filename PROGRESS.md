@@ -1,10 +1,10 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:00:53.395133+00:00
+Updated: 2026-11-09T00:03:20.585165+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
-| Ledger source-discovery entries | 598 / 3,866 | 3,268, including overlapping obligations |
+| Ledger source-discovery entries | 599 / 3,866 | 3,267, including overlapping obligations |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:00:53.395133+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Equipment compliance source packets | 3 adopted | Classification and backing invariants open |
+| Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
 | Nested party merge row orders exercised | 2 / 2 passed | Broader cases open |
@@ -110,6 +110,12 @@ normal belt receives a physical object because it has attachment points, but
 the generic non-durable removal path omits equipment and object cleanup.
 Transaction outcome, dependent attachments and runtime behavior remain open;
 no discovery closure is claimed.
+
+Checkpoint 3791 closed one scoped equipment-compliance source-discovery
+entry with a conditional backing policy. The object owner requires subtree
+cleanup before backing-row deletion, while the selected generic belt-removal
+path omits it. Native execution, error policy and independent catalog and
+equipment-law obligations remain open; no repair or runtime pass is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
