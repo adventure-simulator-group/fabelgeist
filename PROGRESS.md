@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:09:55.202322+00:00
+Updated: 2026-11-09T00:11:54.741067+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:09:55.202322+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Inventory admission source packets | 3 adopted | Transaction and authority remain open |
+| Inventory admission source packets | 4 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
@@ -134,6 +134,12 @@ Checkpoint 3794 qualified the generated inventory reducer client surface.
 The selected source body checks that a target character is alive; deployment
 access and external authorization remain unverified. No live database was
 probed and no discovery closure is claimed.
+
+Checkpoint 3795 qualified selected currency and catalog lookups. Core and
+module currency classification use authored and persisted catalog authorities,
+respectively; missing settlement lookup derives a currency. Projection
+divergence, caller admission and fallback policy remain open. No discovery
+closure is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
