@@ -96,11 +96,14 @@ that costs on a machine that has only done debug builds so far:
 | Release wasm build directory for all three bundles | about 0.8 GB |
 | Output site (`target/showcase/site`) | about 0.35 GB |
 
-The build directory stays this small because `.cargo/config.toml` already
-turns off incremental artifacts and debug info for every profile. A cold
-build takes on the order of half an hour; rebuilding after a change to one
-bundle takes a few minutes. Pass `--dev` to `scripts/showcase.py` for a debug
-build while iterating locally, but deploy release.
+The release profiles omit debug information by default, and
+`.cargo/config.toml` disables incremental artifacts. Development profiles also
+disable debug information in each workspace manifest. See
+[the build artifact guide](scripts/build-artifacts.md) for local measurement
+and cleanup. A cold build takes on the order of half an hour; rebuilding after
+a change to one bundle takes a few minutes. Pass `--dev` to
+`scripts/showcase.py` for a debug build while iterating locally, but deploy
+release.
 
 ## Building and deploying from Windows
 

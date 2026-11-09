@@ -189,6 +189,9 @@ unused_qualifications = "warn"
 
 [profile.dev]
 opt-level = 1
+debug = "none"
+incremental = false
+strip = "debuginfo"
 
 [profile.dev.package."*"]
 opt-level = 3

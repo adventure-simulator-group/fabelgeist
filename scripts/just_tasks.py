@@ -264,6 +264,7 @@ def generate_bindings(module_dir: Path) -> int:
     code = run([
         executable("spacetime"), "generate", "--lang", "rust", "--out-dir",
         "crates/adventuresim-stdb-client/src", "--module-path", str(module_dir),
+        "--build-options=--debug",
     ])
     if code:
         return code

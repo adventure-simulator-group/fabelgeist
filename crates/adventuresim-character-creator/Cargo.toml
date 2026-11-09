@@ -62,6 +62,11 @@ gltf = { version = "1.4", default-features = false }
 
 [workspace]
 
+[profile.dev]
+debug = "none"
+incremental = false
+strip = "debuginfo"
+
 # Swept surface contacts execute on the CPU between GPU substeps. Keep their
 # geometry kernels optimized in the interactive development application.
 [profile.dev.package.fabelgeist-cloth]

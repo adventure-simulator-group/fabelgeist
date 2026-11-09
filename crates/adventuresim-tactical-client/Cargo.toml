@@ -7,7 +7,9 @@ repository.workspace = true
 license.workspace = true
 
 [features]
-default = ["debug", "client-audio"]
+default = ["gameplay", "debug", "client-audio"]
+
+gameplay = []
 debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
 client-audio = ["bevy/audio"]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
@@ -101,6 +103,7 @@ path = "src/lib.rs"
 [[bin]]
 name = "adventuresim-tactical-client"
 doc = false
+required-features = ["gameplay"]
 
 [[bin]]
 name = "art-demo"

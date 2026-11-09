@@ -30,7 +30,7 @@ mod ground_palette;
 pub(crate) mod ground_scatter;
 #[cfg(any(target_family = "wasm", test))]
 mod regional_lighting;
-#[cfg(target_family = "wasm")]
+#[cfg(all(target_family = "wasm", feature = "gameplay"))]
 pub(crate) mod regional_map;
 use ground_palette::{TACTICAL_DIRT_SRGB, scene_ground_color};
 pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
