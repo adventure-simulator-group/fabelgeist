@@ -6,7 +6,7 @@
 - 7,196 later public progress files verified against the recovery manifest.
 - 6 historical JSON versions recovered from the transcript and matched to
   later recorded path and SHA-256 references.
-- 2,968 historical printed contract objects indexed, covering 1,564
+- 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; most object contents remain private and unverified.
 - 19 late audit notes recovered as transcript text, with original bytes
   and supporting evidence unverified.

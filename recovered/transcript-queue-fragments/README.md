@@ -13,3 +13,9 @@ covering 1,564 distinct contract IDs. The named queues are command context,
 not proof of each object's origin. The index contains hashes of normalized
 values, not the values themselves; the private candidate corpus needs further
 review and dependency verification before publication or adoption.
+
+`EXTENDED-INDEX.json` expands the search to all command outputs and printed
+array members: 3,422 observations, 3,146 distinct normalized values and
+1,722 distinct IDs. These counts overlap, include field projections, and
+do not represent complete or current queue entries. Verify the source
+command, output and dependencies individually.
