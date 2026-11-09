@@ -137,8 +137,8 @@ capture labels, through the `capture-label` feature.
 ## Browser release builds
 
 `just build-wasm` keeps the gameplay client on the workspace `release` profile,
-without the `debug` feature, and builds the art demo separately with the size-oriented `wasm-release`
-profile and no default features. The demo therefore excludes client audio and
+without the `debug` feature, and builds the art demo separately with the
+size-oriented `wasm-release` profile and no default features. The demo therefore excludes client audio and
 debug tooling without removing either from ordinary client builds. The build
 requires the exact `wasm-bindgen` version in `Cargo.lock` and the Binaryen
 version pinned in the root `package-lock.json`; run `npm ci` to install the
@@ -186,15 +186,15 @@ terrain leg IK.
 
 The equipment HUD shows procedural weapons, holders, and armor as color
 portraits on black squares. Weapon recipes render once per design and cross to
-the page as RGBA; armor shows the baked portrait for its manifest placement. See the
-[portrait workflow](../adventuresim-weapon-model/README.md#equipment-portraits)
+the page as RGBA; armor shows the baked portrait for its manifest placement.
+See the [portrait workflow](../adventuresim-weapon-model/README.md#equipment-portraits)
 for lighting and regeneration commands.
 
 The page draws the centered incapacitation wheel in SVG without taking pointer
-input. The segmented arc surrounds the crosshair, starts at 12 o'clock, and uses the strategic condition colors for live pain and blood loss
-plus enrolled fear, fatigue, hunger, thirst, and temperature; tactical
-imbalance is white. Zero incapacitation draws nothing and a full revolution is
-the visible maximum.
+input. The segmented arc surrounds the crosshair, starts at 12 o'clock, and
+uses the strategic condition colors for live pain and blood loss plus enrolled
+fear, fatigue, hunger, thirst, and temperature; tactical imbalance is white.
+Zero incapacitation draws nothing and a full revolution is the visible maximum.
 
 The gameplay camera is likewise client presentation. A single retained rig
 blends from centered lowered-guard exploration to raised-guard right-shoulder
