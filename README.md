@@ -7,12 +7,14 @@
 - 268 registered source identities verified against Git, representing 264
   distinct source blobs; a restoration script is included.
 - 212 historical JSON versions recovered from the transcript and matched to
-  later recorded path and SHA-256 references.
+  recorded path and SHA-256 references.
 - 538 normalized historical audit documents preserved;
   8 additional values with personal local paths remain private.
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
+- 2,363 unverified helper candidates and 155 Markdown write fragments
+  preserved as transcript-derived text; 23 helpers await privacy review.
 - 19 late audit notes recovered as transcript text, with original bytes
   and supporting evidence unverified.
 - 2,480 candidate file states and 519 literal-write records extracted for
@@ -27,10 +29,10 @@ package as the authoritative checkpoint 3821 or resume its writer from it.
 
 The originating Codex chat's history tool was subsequently confirmed to
 expose older turns, including some commands and tool outputs from before
-compaction. A bounded private snapshot contains recorded commands, file changes and
-outputs; its completeness remains unverified and the transcript itself is
-not included in this package. Some outputs or argument previews may be truncated. Review any
-recovered material for sensitive data and verify its provenance and hashes
+compaction. A bounded private snapshot contains recorded commands, file changes
+and outputs; its completeness remains unverified and the transcript itself is
+not included in this package. Some outputs or argument previews may be
+truncated. Review any recovered material for sensitive data and verify its provenance and hashes
 before publishing or adopting it.
 
 The recoverable material consists of:
