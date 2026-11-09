@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T01:06:55.606021+00:00
+Updated: 2026-11-09T01:09:50.771689+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -172,6 +172,10 @@ Checkpoint 3801 qualified selected procedural holder-fit checks. The authored
 katzbalger recipe and recommended scabbard align with generated carry; recipe
 evaluation and native creation remain unverified. No discovery closure is
 claimed.
+
+Checkpoint 3818 traces clue positions through authority validation and web
+speech. The inspected backend validates before projection; the standalone
+clue API accepts raw positions. Other producers and acceptance remain open.
 
 Checkpoint 3817 combines a hash-verified Lens 4 historical receipt with a
 new test-tail read for the full errantry file. The existing clue-position
