@@ -1,0 +1,455 @@
+{
+  "schema": "726-adler-local-current-v1",
+  "at": "2026-10-31T07:29:21.363107+00:00",
+  "status": "Goal active. Lens13 advanced through original1380/root348. Queue176 records raised footwork, reach, settle, solver and retained state evidence as five qualified views. Full audit and connected repair ledger remain incomplete.",
+  "authoritative_writer": "/root",
+  "handoff_commit": "eb407672813424d64ec31f208193969f5a62620c",
+  "continuation_workspace": "target/726-audit-continuation-20261030",
+  "evidence_root": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027",
+  "ledger": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+    "sha256": "b3b7f8c08dc3bba4e543498e0d071c745f5fe761b606e26087b34a4051522aa0"
+  },
+  "selector": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+    "sha256": "7dca005f17f8b05cef9d417e4894f142235adede2fa3fe996bf6e2255abb331f"
+  },
+  "closure_queue": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-176.json",
+    "sha256": "916b11468625f95895870aaacbceef4af00af123419b54feb7853002674066a5"
+  },
+  "selected_lenses": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-040.json",
+    "sha256": "f7515aac4c07fcb5aec7cd7e7ada61b4fa0e06ed3596867e657d7b2bedc6c60c"
+  },
+  "preservation_checkpoint": {
+    "path": "target/726-intake-20261030/CHECKPOINT-042.json",
+    "sha256": "98510211fbf4b02bb99edf4fa7215c7e7ac8e36a0b76543d523832cbbb6de606"
+  },
+  "adoption_verification": {
+    "path": "target/726-intake-20261030/VERIFICATION-L13-1375-1380.json",
+    "sha256": "86a705f326059326f72b1844bec88e0310553d5c557201b9fb5de5b7e9b3d334"
+  },
+  "progress": {
+    "lens11_original": {
+      "accounted": 2853,
+      "total": 2853,
+      "next_root_batch": 734,
+      "next_registration": 3448
+    },
+    "lens12_original": {
+      "accounted": 2736,
+      "total": 2853,
+      "remaining": 117,
+      "next_batch": 957,
+      "next_registration": 1773
+    },
+    "lens13_original": {
+      "accounted": 1381,
+      "total": 2853,
+      "remaining": 1472,
+      "next_root_batch": 349,
+      "historical_parallel_namespace_last_adopted": 314
+    },
+    "new_lens12_ordered_roles": 47,
+    "ordered_batches_adopted": [
+      933,
+      956
+    ],
+    "connected_team025_adopted_separately": true,
+    "inherited_author_fresh_lines_ordered": 6648,
+    "inherited_author_fresh_lines_connected": 2,
+    "new_root_personal_product_source_lines": 56618,
+    "primary_records_not_unique_findings": 551,
+    "closure_queue_entries_not_unique_findings": 3791,
+    "new_lens13_ordered_roles": 160,
+    "lens13_own_batches_adopted": [
+      303,
+      314
+    ],
+    "lens13_inherited_fresh_ordered_lines": 9865,
+    "lens13_inherited_fresh_connected_lines": 5200,
+    "lens13_historical_current_e275_scopes": 7,
+    "lens13_historical_current_e275_lines": 787,
+    "root_ordered_source_lines": 55187,
+    "root_connected_reread_lines": 1194,
+    "lens13_root_batches_adopted": [
+      301,
+      348
+    ],
+    "lens13_prior_connected_lines_applied_to_ordered_frontier": 3005,
+    "root_fresh_connected_source_lines": 237
+  },
+  "current_source": {
+    "selected_target": "33714256b6313ce86fdfbb534c54d92d024d7726",
+    "previous_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "new_delta_paths": 59,
+    "new_pending_lens_cells": 767,
+    "new_cells_closed": 0,
+    "prior_154_path_delta_and_84_lens11_closures_preserved": true,
+    "older_revision_proofs_remain_revision_and_lens_specific": true,
+    "transition": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+      "sha256": "8b723e58afad6c01e10967209c6f6d6de8e7499035d35a69cd4a020e63d2033a"
+    }
+  },
+  "pending_exact_recovery": {
+    "lens11": "SOURCE023 then SOURCE024 remain unadopted. Keep target-lock PL11-1253/1254 unread obligations until strict validated adoption; CELL009 remains deferred.",
+    "lens12": "Original2736 build1..121 and2737 schema1..199 have inherited partial receipts only, no ordered frontier credit. Partial958 original2738 has1..180 of requested1..411 assessed, next181..411 unread; actual EOF576,412..576 outside prior registration. Registrations802..817 remain unmapped. Original frontiers for all other lenses unchanged.",
+    "lens13": "Next original1381 unregistered and unread; state/publication.rs is an explicitly pending child source, not credited by state.rs. Root348 fully read1375..1380 (2359 lines), unchanged v10 passed. Queue176 adds five qualified views; no new questions. Raised topology couples one swing/support but finite-target validation does not validate all vectors or contact freshness, and pose updates are explicitly separate. ReachLimit preserves native intermediate policy; analytic solver rejects tiny lengths and nonfinite final knee/end. Apply writes upper/lower/end sequentially with silent later early returns, so analytic Some is not complete application proof. Moderate twist-hierarchy test read verifies actual knee/end and unchanged twist locals, not failure path. Settle landing/capture checked before candidate commit; terminal finish requires both cached ankle and toe contact, with freshness dependent on observer schedule. State guard exactly fixed&&!advances; quickstep seed checks both projected targets before commit. support_was_acquired requires plant flag and current positive observation. finish_terrain_release leaves planned contacts while clearing starts/phases and retains selected other handoff fields; actual re-enable policy pending. Diagnostics directly copies yaw/support and projects release target without final check. All current/alias/population/extension/connected repair gates remain incomplete; no product execution or edits.",
+    "global": "All13 lenses, each mandatory extension, all20 migration families, original/overlay/merged/shared populations, exact aliases, current-source and connected producer/API/state/consumer/native contracts still require their exact independent closure."
+  },
+  "portability": {
+    "all36487_files_verified_and_exactly_restored": true,
+    "case_sensitive_output_required": true,
+    "failed_partial_preserved": true,
+    "historical_helpers_and_receipts_unchanged": true,
+    "new_writers_use_versioned_portable_reference_adapters": true,
+    "sats_attribution_exact_pair_qualification": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-SATS-ATTRIBUTION-001.json",
+      "sha256": "64941d8077860be482ffc9ab5d439a425f807723f1276e166871dab019590c05"
+    },
+    "old_head_stash_native_cache_checks_not_repurposed": true,
+    "lens13_path_and_exact_snapshot_qualification": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/windows_l13_303_310_v2.py",
+      "sha256": "f403b99eb8b30776a77a17209e1fe644ad5af1134a88535399f0a783eb13e5b4"
+    },
+    "lens13_historical_current_target_qualification": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_stable_row_e275.py",
+      "sha256": "20b8342bacf19ddd78895bb0d16517197088fe31859b4b670de04d7ac78ff99a"
+    },
+    "lens13_incremental_adoption": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_311_313.py",
+      "sha256": "56d9425eb82413bc5fa80709af395e5d7a1e29dd95f0c81ef95937ebcde5dc43"
+    },
+    "lens13_mixed_author_source_adoption": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_surgery_composite.py",
+      "sha256": "4d0fb634fa60a8eca54f1546f80259c32d6f0936c312533a846361293c8de725"
+    },
+    "environment_checkpoint_helper": {
+      "path": "target/726-intake-20261030/checkpoint_v36.py",
+      "sha256": "394a1313fa7e49209cf3b5758c8ad97f2d0f039f6d728d442f71cf3f16feb1b8"
+    },
+    "root_lens13_packet_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_root_l13_packet_v10.py",
+      "sha256": "972b569ef05ac7139774c7c79dbc0f930e0bb25fe72e5d140578c7c96bf32438"
+    },
+    "exact1243_registry_range_shape": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L13-1243-RANGE-SHAPE-001.json",
+      "sha256": "bb749f6a96f44146e3c5a49e4a3ef22cf8a7d8f16257ddd38a20ade2c80e7507"
+    },
+    "exact_time_transport_locators": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L13-TIME-LOCATORS-002.json",
+      "sha256": "6c8f2001bb6b9c9bb5dc8159b9df246ee044899ac35f3d79bad1244a3e075e8c"
+    },
+    "lifecycle_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_lifecycle_revisits.py",
+      "sha256": "bd33ad2a87838597584caaa5c3913061687e6c4029e48cf03f9d5f3ec0098af0"
+    },
+    "contact_event_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_contact_event_revisits_v2.py",
+      "sha256": "f71247a8f717622a670ae1935d154bebdca6119a56bf12c0a9ef8460957f8b89"
+    },
+    "exact_historical_food_event_acceptance": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L13-FOOD-EVENT-ACCEPTANCE-001.json",
+      "sha256": "bc93b1f074bbe07ef859ae3e4b3b66db47a56ce3522d81f584b2c1fc7879d5a3"
+    },
+    "exact_snapshot_transport_locators": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L13-SNAPSHOT-LOCATORS-006.json",
+      "sha256": "1af19f98643c7733fd74c494cf8740d80153dc5b08da0b8ef32aa2ef85856edf"
+    },
+    "exact1273_nonexistent_tail": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L13-1273-NONEXISTENT-TAIL-001.json",
+      "sha256": "dbbcf9753680e3944dd55d238283827f4d73ffd209750873a930a377d00f248c"
+    },
+    "equipment_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_equipment_revisit.py",
+      "sha256": "3945aaba9b829392f91f722bf283a2d1399587286c67389b3ae51a03c6f30d12"
+    },
+    "expedition_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_expedition_revisits.py",
+      "sha256": "14d5ae044b2679da347686ec864ef52a20cf55f1fdb75b242b227bdfe17959bb"
+    },
+    "exact1280_nonexistent_tail": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L13-1280-NONEXISTENT-TAIL-001.json",
+      "sha256": "1f1e87b84e99c18bffe2536cc39bf6c946cdb1ae1225d6940e18455eefc5c282"
+    },
+    "failure_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_failure_revisits.py",
+      "sha256": "537649f8f200c390468f918bda5fe345c2ce48a1472d7d764ac5195007005fe0"
+    },
+    "generated_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_generated_revisits.py",
+      "sha256": "5947a4d60fe048a7a102cb3a513f9b9a6706ac2b765438fac62d8c5dd66deb14"
+    },
+    "policy_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_policy_revisits.py",
+      "sha256": "ed2004264c53e20cbde1e54e6637ca89680a882d40fab4e0757f62fb2d1c883c"
+    },
+    "report_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_report_revisits.py",
+      "sha256": "f1ccf7d033bac660acb29a0d3b648d9becdcee83f2f69f84c7b3e1287deda1ed"
+    },
+    "settlement_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_settlement_revisits.py",
+      "sha256": "14a338a94a038774a2a9e4a83e7e24f04e1b73f0bc42863bf93c9542a41a2b3f"
+    },
+    "survival_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_survival_revisits.py",
+      "sha256": "64bfa805cf27367de4ac827212bf445bb093f720bddc5b5be8b40b292342c15c"
+    },
+    "thermal_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_thermal_revisits.py",
+      "sha256": "e5847e6b12db707032b8f9f4dd3fab9a4a753b55221c07ef740dd66c08dc2802"
+    },
+    "travel_profile_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_travel_profile_revisits.py",
+      "sha256": "dd32f6ea53a27ae024119b244504ef23b97d999e69152615118a52a58d05c99a"
+    },
+    "camera_doc_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_camera_doc_revisit.py",
+      "sha256": "631c750d7abb7c7b1ccf8bcc5dcbb7805c51bf2331d615d74d76bb70092382b3"
+    },
+    "armor_cadence_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_armor_cadence_revisits.py",
+      "sha256": "5b44e3cc59d4639a20ace20d8c6f5a11e11dcf3d348360ddda5a22b4eb820851"
+    },
+    "shell_connected_evidence_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_shell_connected.py",
+      "sha256": "fe3735339f00ff732378cfba6adb474beb7714483876e2804b9ea3e207c125f5"
+    },
+    "diagnostic_projection_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_diagnostic_projection_revisits.py",
+      "sha256": "50cbd20c183a6acd36fca870d2f90065eb89d1d9f6ff34fd1ea3a6c6e47845a7"
+    },
+    "diagnostic_measurement_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_diagnostic_measurement_revisits.py",
+      "sha256": "178b3fa8ceec2ad34c2b97f385c4bc53d4474b1f7292cbebf1af738b2f2bb324"
+    },
+    "loading_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_loading_revisits.py",
+      "sha256": "7230babd7627e1cb2beba50cdf9b2533bd9029f9357854f2dbac301c5341ac6c"
+    },
+    "pose_buffer_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_pose_buffer_revisits.py",
+      "sha256": "b4e73bdf63e27a07ee2736f04db8954c394da15e66c2189c230348ef990630fd"
+    },
+    "inertial_calibration_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_inertial_calibration_revisits.py",
+      "sha256": "6b78ec11da438d14e072808163ca0cd65cedf889ecd9ed8c91538f6fbb79f393"
+    },
+    "phase_physics_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_phase_physics_revisits.py",
+      "sha256": "1b6e3874baf5e335c6f5c9bbe15b7d20ff082dde90ff949c74b3ea4d8f6c85bf"
+    },
+    "rig_clock_stride_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_rig_clock_stride_revisits.py",
+      "sha256": "e195d105bc8887c26781e16d1509d98eccf5dd2cf1a6d9b7298182b0871e1e53"
+    },
+    "presentation_cadence_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_presentation_cadence_revisits.py",
+      "sha256": "2b2fc88ddce06879c77cf4f1210f3e550dd93e02465231692b9e965b4d33e216"
+    },
+    "schedule_events_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_schedule_events_revisits.py",
+      "sha256": "28e4ff30a2bb23b6cb502fcc3e54848cc7ba6b605eba33591d06675823c9d16e"
+    },
+    "procedural_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_procedural_revisits.py",
+      "sha256": "27b1ccb130036de0e3ba69fb6ec3aee19c6db68d66fa004659488f3b2c95cd50"
+    },
+    "body_response_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_body_response_revisits.py",
+      "sha256": "ff52e9ebba430f5f56492483c69bed33a79768a6279fc0112bdfbdf1208c2473"
+    },
+    "height_ik_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_height_ik_revisits.py",
+      "sha256": "56a4c0aa4f75842566c791973fa2a3d9497c3cf954d877a2510717108f46e665"
+    },
+    "terrain_hands_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_terrain_hands_revisits.py",
+      "sha256": "038223fc84393c56edf6822f3e169688fed454b31f948ca15ade7f230e2fabab"
+    },
+    "ik_coordinator_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_ik_coordinator_revisits.py",
+      "sha256": "fc50c99a745acf3398769225c697c72a5885ba419e73682668c0f47d7a2284ee"
+    },
+    "observation_orientation_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_observation_orientation_revisits.py",
+      "sha256": "e8a2aee0fa3388c597df43fa89544e6d88f635b00f6160cdd24706a543b27b91"
+    },
+    "solver_settle_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_solver_settle_revisits.py",
+      "sha256": "2f5a14839a65eb0f4f6009287994595696c447154512a9e6b855e59fc1de19ea"
+    }
+  },
+  "publication": "Local ignored evidence only; no PR, issue update, merge, or message sent.",
+  "product_edits": false,
+  "product_execution": false,
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "prior_adoption_verifications": [
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-CONTINUATION.json",
+      "sha256": "3fb47dc9905b634596e062ea81fbdf935a3d083ccfdd3ba392899639cd175c47"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-303-310.json",
+      "sha256": "5c02f208db692524e80469adb76a82e218ada4041ddd9630b21c7132df471e0e"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-STABLE-311-313.json",
+      "sha256": "651eeecb95f4ff55e98641ff18bede0a2f2327605a98c685a37a0e0195ba8026"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-SURGERY-COMPOSITE.json",
+      "sha256": "8cd46b5cc86605567599c85b8739b6af84b8cd5eab48ccdc8b2749a85380f795"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1239-1243.json",
+      "sha256": "ae377676c519e66564a33edbb771f29bf6866e28a8b71ec0097af5fa52dd9053"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1244-1249.json",
+      "sha256": "f8846c9e57280fdd74380c83591a549cb2c625b693f2f649c0cc2adafc423f53"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1250-1256.json",
+      "sha256": "99b44cf675f4754e1483e593143898cce4fe97d96521fdc6eb3bcd9bf0c1e79c"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1257-1261.json",
+      "sha256": "30611a5840ba3f087039a8f9c74617b34f654ed0c5cd9665cd2ef3e69524e4bb"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1262-1265.json",
+      "sha256": "76571daa24b3f4f4b5536fdc0d7987b48d24a8f229fccbca29c6e1b47ae69f2f"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1266-1269.json",
+      "sha256": "5ad5057017ed0653eae745420acdd8335fd351119b0cadab65c7752b51cc9100"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1270-1273.json",
+      "sha256": "ab3481f88fa5ec9e531dcd29f966d676c8085c3fbb805b7c52d53d9473ad3fd6"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1274-1277.json",
+      "sha256": "5ffe21cf66de7e7d5aff21effd1c0ee0c071d2b2e5f05697d77c71f6671c69c2"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1278-1280.json",
+      "sha256": "46f0f005de8d951eef3cab6f4b89971ea1f0d847e6378fc06784a3e544cd6896"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1281.json",
+      "sha256": "db6e8fa688681cc66210c8f95e7ae3064053a89d0e6da8c4ccae4c2ce5f3543d"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1282-1285.json",
+      "sha256": "8422536eef6abf0a9c53015d52ae072164d457194517b07731fca71e4716dd86"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1286-1289.json",
+      "sha256": "a55575e34203af0aff705877736b83ca996aaa1eb291bf49a70e5087a92b5947"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1290-1291.json",
+      "sha256": "8d93a0fa82c7459a01016e406600239053db0496d060d87de42e734154406f56"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1292-1293.json",
+      "sha256": "0963075466932e93e84ce97a2a55103b9d6950a6b1b8ca7c9de29f1a9f0d3e7e"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1294-1296.json",
+      "sha256": "a33f7c993aa668ff4e70df920f4986681973ba3d8edae6faef4a12824d85fba4"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1297-1300.json",
+      "sha256": "64f13fa21e2cfe483f4816b375548f4419f27edbdc172dd6e6f63bc950205142"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1301-1305.json",
+      "sha256": "c70394621021b6cf054f396a254d0e16eb33dcf616c624d263ba76e358c1bcf2"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1306-1313.json",
+      "sha256": "7be89d37790a3934efe18210a0dbbb62a3dba79230dd50ef9fbe5fe98d2083b1"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-SHELL-CONNECTED.json",
+      "sha256": "4be1b535a2550f81eb4f23fd07fd6c6a0cd868f5cce3e80fc91d3e733a16e8c9"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1314-1321.json",
+      "sha256": "3bb192264b74328609e45fa3df7f6148bbc110a42cadb4ae0fe5428c3c91d0a0"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1322-1329.json",
+      "sha256": "098f754dfa417f14592be37bc34e28e5e3789b1968f2773dd8c5e1b1c2ab9e30"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1330-1333.json",
+      "sha256": "44258cf6de469f5570fb4f5ab470215af971df47dcb57019b9c4185304c0e449"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1334-1339.json",
+      "sha256": "4281e22a085b12fa438f4dff23c183f4ce4536b69e8b606f598edbe68afd964f"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1340-1344.json",
+      "sha256": "08c21934320185ee59de2f8bd1c4483188554281aba2dc18f279626a52bd1044"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1345-1348.json",
+      "sha256": "73e236de7175982f17be9d51de86a258964a5e7806b9abc10f124c087f652a52"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1349-1352.json",
+      "sha256": "8581ca3a588503beba5c1010dc137b93fa82eec2ac7e8d24ab4fd914b68a0614"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1353-1355.json",
+      "sha256": "f3282a3f0889e0a5332882dda05c58034ab8e7d84bb49351805002fabffa4780"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1356.json",
+      "sha256": "f44d77c5df3571764c729549f4d12c3c5e2e58edd33059bee2a37e0400860130"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1357-1360.json",
+      "sha256": "e225acc3e54593cc562b26fcbab77579fff74891812b52d5cdf5869299657768"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1361-1364.json",
+      "sha256": "23d4e8db6846a41c3585784135f98b4f166c085ae5d9e0569c24f8f62927b5a7"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1365-1369.json",
+      "sha256": "a039f8430d0e26de264bec4892cb0dc35a37eef20532c089f8896bd7e3a8d7cd"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1370.json",
+      "sha256": "fc0686d563927406f712b365e79b0293d12844339b0d385a0b55cba04dfae631"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1371-1374.json",
+      "sha256": "e0f7360321665fd74a0ea430ccc4d7595d10b392d51d2efd9ba8f877f5805980"
+    }
+  ],
+  "goal": {
+    "status": "active",
+    "phase": "audit gate",
+    "implementation_authorized_after_gate": true,
+    "review": {
+      "path": "target/726-intake-20261030/REVIEW-L13-1375-1380.json",
+      "sha256": "2a16b7181b2356ea3ec8dac216f9c114af1f08b89d12f84b6b76ee7d036d6631"
+    },
+    "previous_turn_classification": "progress"
+  },
+  "previous_local_selector": {
+    "path": "target/726-intake-20261030/CURRENT-before-L13-1375-1380-f37fbdd0d1e4168fa0dcab0a72bd20c1864f21b98b2b2b3a3554bea16830800c.json",
+    "sha256": "f37fbdd0d1e4168fa0dcab0a72bd20c1864f21b98b2b2b3a3554bea16830800c"
+  }
+}

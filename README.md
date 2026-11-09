@@ -6,7 +6,7 @@
 - 7,196 later public progress files verified against the recovery manifest.
 - 268 registered source identities verified against Git, representing 264
   distinct source blobs; a restoration script is included.
-- 130 historical JSON versions recovered from the transcript and matched to
+- 212 historical JSON versions recovered from the transcript and matched to
   later recorded path and SHA-256 references.
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; most object contents remain private and unverified.

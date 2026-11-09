@@ -1,0 +1,26 @@
+{
+  "schema": "726-granular-contract-view-v1",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-P09-SKIN-916.json",
+    "sha256": "4012fd158accb5180157d7eb8963ea93686e319589e9ba56c06b5d1ad366cd4c"
+  },
+  "connected_source_qualifications": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-MHR-CHAR-906.json",
+      "sha256": "1d39e66b52a03deecb29bf9f1c445c106888990432676fe132b8377a24bbe89e"
+    }
+  ],
+  "whole_contract_closed": false,
+  "assessment": "P09 historical RIG-PP-001 remains source-supported at the selected revision: parse_skin constructs raw u32 influence rows from typed ordinals before calling from_native. Existing PackedRigSkin::push is a typed encoding boundary candidate. This view is connected to MHR skin admission entry 167 but does not alias its distinct numeric weight first failure.",
+  "later_repair_acceptance_requirements": [
+    "Keep RigJointOrdinal through influence selection and use a checked typed packed-skin owner at actual packing.",
+    "Preserve strongest-influence ordering, truncation, zero slots, normalization, rig bound and native output.",
+    "Exercise valid and invalid source influences and connected receivers; treat numeric weight validation as a separate contract."
+  ],
+  "remaining_evidence": [
+    "Reconcile all P09 receivers, fixture, current family paths and global aliases; run product and native acceptance after audit."
+  ],
+  "body_or_population_credit": 0,
+  "accepted_unique_count_change": 0,
+  "repair_runtime_passed": false
+}

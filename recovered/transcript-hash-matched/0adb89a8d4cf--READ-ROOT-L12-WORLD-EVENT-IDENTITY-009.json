@@ -1,0 +1,257 @@
+{
+  "schema": "726-root-l12-bounded-connected-source-read-v1",
+  "at": "2026-11-02T11:52:57.359039+00:00",
+  "author": "/root",
+  "lens": 12,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "33281dc536964bc18179a93ea169694df64b917a33db071798d783175462845d"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-WORLD-EVENT-IDENTITY-009.json",
+    "sha256": "cc8036ee92acc823d1d1524c4022fdf12e7eedcbc7ac3393d5966c186dd919a7"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-core/src/local_problem.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-core/src/local_problem.rs",
+        "source_sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+        "source_object": "adler-continuation-20261030/objects/42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+        "bytes": 29321,
+        "actual_EOF": 865,
+        "ranges": [
+          [
+            65,
+            165
+          ],
+          [
+            320,
+            345
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 127,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve historical authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-core/src/local_problem.rs",
+      "source_sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "assessed_ranges": [
+        [
+          65,
+          165
+        ],
+        [
+          320,
+          345
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "6d44e4"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 127,
+      "semantic_assessment": "Existing core local_problem::ProblemId76 owns problem identity and LocalProblem.id149 uses it; do not introduce another LocalProblemId solely for event references. It is currently public String tuple with derived serde and no checked constructor in reached definition, so nominal role is not an automatic value-admission guarantee. Source generator332 constructs problem:16hex, but generated-case/problem native identifiers need their owning format rather than hard-code this one generator shape. Scope stores open settlement/route ID data; problem Cause/Symptom/Effects/numeric/intensity/time remain separate. Reuse/harden existing ProblemId at actual admission, no global absence proof."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-core/src/disease.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-core/src/disease.rs",
+        "source_sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+        "source_object": "adler-continuation-20261030/objects/67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+        "bytes": 125549,
+        "actual_EOF": 3842,
+        "ranges": [
+          [
+            1315,
+            1345
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 31,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve historical authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-core/src/disease.rs",
+      "source_sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "assessed_ranges": [
+        [
+          1315,
+          1345
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "6d44e4"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 31,
+      "semantic_assessment": "Existing core InfectionEpisode1321 stores raw id/character_id u64 and typed DiseaseId/StrategicMinute. Native event producer derives nonzero episode ID from Seed, native row is u64 auto-inc, but episode identity is not Seed/physical-object/material/food-lot identity. Add the checked episode role in its actual disease owner if no applicable role exists on this reached raw API; preserve native adapter and quantify no runtime collision. definition1316 enum ordinal indexing and outbreak seed1341 numerical identity kernel remain independent."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-stdb-module/src/local_problem.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-stdb-module/src/local_problem.rs",
+        "source_sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+        "source_object": "adler-continuation-20261030/objects/49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+        "bytes": 95282,
+        "actual_EOF": 2518,
+        "ranges": [
+          [
+            20,
+            70
+          ],
+          [
+            200,
+            225
+          ],
+          [
+            950,
+            1028
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 156,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve historical authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "source_sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "assessed_ranges": [
+        [
+          20,
+          70
+        ],
+        [
+          200,
+          225
+        ],
+        [
+          950,
+          1028
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "8559a4"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 156,
+      "semantic_assessment": "Actual native LocalProblemAuthority.idString is storage projection of problem referent; source cause/consequence fields/privacy are other contracts. LocalProblemOutcomeInput950 retains source_outcome_idString and minute/BPS/resolve; apply_outcome source-nonempty/max160 and mitigation cap963 are actual separate admission, not identical to event generic max192. Receipt payload_fingerprint969 is serialized JSON, NOT a SHA digest: do not wrap it with event fingerprint types. Native replay uses exact JSON before official-time and mutable problem read; receipt key combines problem and source, then max mitigation/earliest resolution/native symptom update and receipt last. Coherent typed source/admission must preserve these rules and propagate source/serialization failures; broader chronology/cause/current/allwriter/native transaction remain separate. No observed missing receipt/collision/partial update asserted."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+        "source_sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+        "source_object": "adler-continuation-20261030/objects/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+        "bytes": 51546,
+        "actual_EOF": 1586,
+        "ranges": [
+          [
+            290,
+            332
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 43,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve historical authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "source_sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "assessed_ranges": [
+        [
+          290,
+          332
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "6d44e4"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 43,
+      "semantic_assessment": "Native CaseOutcome307 erases optional selected finale into String; shared CaseId/CustodyPartyId and optional runtime finale key should survive application state and schema. Native CaseOutcomeFact stores indexed ID columns plus actual fact JSON together; case/source/party columns are native projection, not proof of observer-public authority. This is separate from adding a WorldEvent bus or tactical tick persistence."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-stdb-module/src/reputation.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-stdb-module/src/reputation.rs",
+        "source_sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+        "source_object": "adler-continuation-20261030/objects/054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+        "bytes": 13386,
+        "actual_EOF": 440,
+        "ranges": [
+          [
+            65,
+            150
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 86,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve historical authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/reputation.rs",
+      "source_sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "assessed_ranges": [
+        [
+          65,
+          150
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "8559a4"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 86,
+      "semantic_assessment": "Actual reputation.case_resolution_participant_ids91 queries backend battle by PUBLIC case identifier and party, otherwise living members, then core canonical selector sorts/dedups. snapshot_case_resolution_participant121 uses CANONICAL case ID plus character for a PRIVATE table; these are not interchangeable case roles. Preserve generated stable request before participant read in event commit. Source snapshot key is derived canonical-case/character pair, not quest FinaleId or occurrence ID; downstream reputation kind policy/all native writers remain Q964."
+    }
+  ],
+  "fresh_root_personal_source_lines": 0,
+  "uncredited_total_source_lines": 443,
+  "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve historical authors/other-lens views.",
+  "related_queue_contract": "L12-CLOSURE-WORLD-EVENT-IDENTITY-OWNERS",
+  "observations": [
+    "Existing core local_problem::ProblemId76 owns problem identity and LocalProblem.id149 uses it; do not introduce another LocalProblemId solely for event references. It is currently public String tuple with derived serde and no checked constructor in reached definition, so nominal role is not an automatic value-admission guarantee. Source generator332 constructs problem:16hex, but generated-case/problem native identifiers need their owning format rather than hard-code this one generator shape. Scope stores open settlement/route ID data; problem Cause/Symptom/Effects/numeric/intensity/time remain separate. Reuse/harden existing ProblemId at actual admission, no global absence proof.",
+    "Existing core InfectionEpisode1321 stores raw id/character_id u64 and typed DiseaseId/StrategicMinute. Native event producer derives nonzero episode ID from Seed, native row is u64 auto-inc, but episode identity is not Seed/physical-object/material/food-lot identity. Add the checked episode role in its actual disease owner if no applicable role exists on this reached raw API; preserve native adapter and quantify no runtime collision. definition1316 enum ordinal indexing and outbreak seed1341 numerical identity kernel remain independent.",
+    "Actual native LocalProblemAuthority.idString is storage projection of problem referent; source cause/consequence fields/privacy are other contracts. LocalProblemOutcomeInput950 retains source_outcome_idString and minute/BPS/resolve; apply_outcome source-nonempty/max160 and mitigation cap963 are actual separate admission, not identical to event generic max192. Receipt payload_fingerprint969 is serialized JSON, NOT a SHA digest: do not wrap it with event fingerprint types. Native replay uses exact JSON before official-time and mutable problem read; receipt key combines problem and source, then max mitigation/earliest resolution/native symptom update and receipt last. Coherent typed source/admission must preserve these rules and propagate source/serialization failures; broader chronology/cause/current/allwriter/native transaction remain separate. No observed missing receipt/collision/partial update asserted.",
+    "Native CaseOutcome307 erases optional selected finale into String; shared CaseId/CustodyPartyId and optional runtime finale key should survive application state and schema. Native CaseOutcomeFact stores indexed ID columns plus actual fact JSON together; case/source/party columns are native projection, not proof of observer-public authority. This is separate from adding a WorldEvent bus or tactical tick persistence.",
+    "Actual reputation.case_resolution_participant_ids91 queries backend battle by PUBLIC case identifier and party, otherwise living members, then core canonical selector sorts/dedups. snapshot_case_resolution_participant121 uses CANONICAL case ID plus character for a PRIVATE table; these are not interchangeable case roles. Preserve generated stable request before participant read in event commit. Source snapshot key is derived canonical-case/character pair, not quest FinaleId or occurrence ID; downstream reputation kind policy/all native writers remain Q964."
+  ],
+  "remaining_evidence": [
+    "Final exact owner map/repair, all20/current/non-alias qualification and native schema/acceptance specification. Broader reputation/local-problem errors/numeric/permissions/disclosure/runtime stay independent."
+  ],
+  "new_body_population_unique_credit": 0,
+  "new_primary_findings": 0,
+  "source_adoption_performed": false,
+  "whole_contracts_closed": false,
+  "independent_agent_review": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false
+}

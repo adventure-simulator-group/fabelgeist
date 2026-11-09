@@ -1,0 +1,140 @@
+{
+  "schema": "726-root-l13-partial-source-read-v1",
+  "at": "2026-10-31T13:34:11.804720+00:00",
+  "lens": 13,
+  "author": "/root",
+  "source": {
+    "original": 1699,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+    "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+    "actual_eof": 4477,
+    "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+    "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "prospective_ranges": [
+      [
+        1,
+        4477
+      ]
+    ],
+    "purpose": "Full Lens13 tactical scene viewer inputs, capture/readiness, presentation and diagnostics. Read in bounded sections; no credit for undisplayed sections."
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1699-001.json",
+    "sha256": "ca16a64b74f42b3c210fa0d9c4fa2371e6a0471142f775902fda774149e6d9b9"
+  },
+  "registration_pointer": "/sources/0",
+  "assessed_ranges": [
+    [
+      1,
+      1260
+    ]
+  ],
+  "untruncated_body_outputs": true,
+  "next_unread_line": 1261,
+  "actual_eof": 4477,
+  "ordered_frontier_credit": 0,
+  "source_lines_pending_full_adoption": 1260,
+  "authority_changes": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "observations": [
+    {
+      "ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "assessment": "Imports/module declarations and capture observation queries are read but do not credit imported bodies. Fixed2560x1440,60FPS/1000ms budget and1e6 area conversion define benchmark/native units. Profile/version48,camera31 and frozen phase2s are provenance/control constants. SceneSetup stores parsed input/generated scene/environment, scalar sample/settle counts and typed azimuth alongside raw profile/view names; actual CLI admission still needed."
+    },
+    {
+      "ranges": [
+        [
+          220,
+          354
+        ]
+      ],
+      "assessment": "Leaf benchmark has two explicit representations and8/2triangle labels; warmup60 doubled initially, tree lighting warmup90 doubled, four authored AO0/.62 and shadow combinations. Private modeusize and Vec capacity sample_frames originate run inputs; actual positive/bounded parser and state transitions still unread. Triangle metadata must match actual representation geometry before report authority; no arbitrary capacity failure asserted."
+    },
+    {
+      "ranges": [
+        [
+          356,
+          644
+        ]
+      ],
+      "assessment": "Twenty-seven fixed performance modes combine optional LOD0..4/leaf variant and14named bits of u16 hide mask. ScenePerformanceModeIndex gives baseline0 semantic distinction, constructor from native position; actual enumeration and diagnostic attribution consumers later unread. Mode names are display labels, mask zero means no hidden layers, allscatter union four relevant bits; not combat state."
+    },
+    {
+      "ranges": [
+        [
+          646,
+          757
+        ]
+      ],
+      "assessment": "Benchmark state retains per-path Vec<f64> diagnostic samples, optional baseline entity counts and results/stopmode. Report has separate wall/GPU/combined optional acceptance, hardware evidence and host match. Field names alone do not establish aggregation semantics or exact target identity; existing diagnostic and hardware findings remain required."
+    },
+    {
+      "ranges": [
+        [
+          758,
+          837
+        ]
+      ],
+      "assessment": "run admits azimuth through SignedAngleDegrees; exactly one fixture/path is assumed from parser, input load and camera-contract generation fallible then panic. Canopy u16 override writes environment directly; minute u64 wraps StrategicMinute. Actual argument bounds and environment/digest override provenance required. Fresh output is prepared and input files written before requested-view validation; this is source behavior, not execution/destructive reset."
+    },
+    {
+      "ranges": [
+        [
+          838,
+          971
+        ]
+      ],
+      "assessment": "Capture selection records every nonwarmup selected slug, enables optional benchmark modes, and builds hidden fixed window or unpaced offscreen performance runner. Physics and presentation simulation disabled, production plugin defaults with possible overrides. Wireframe/census/leaf/tree/performance/capture priority is an else-if chain; parser exclusivity and supported combinations needed. Capture run gates building/furniture readiness, native AppExit failure exits1. No plugin/system execution."
+    },
+    {
+      "ranges": [
+        [
+          973,
+          1035
+        ]
+      ],
+      "assessment": "Performance target is fixed RGBA8 sRGB2560x1440. capture_presentation_plugin accepts environment toggles for shadows/bloom and parses f32 grass/cloud quality/resolution scales without local finite/range check; downstream config admission and actual supported environment contract needed. Requested feature contract always default, observed settings reflect overrides, map size64 hardcoded provenance; no automatic claim all overrides retain default equivalence."
+    },
+    {
+      "ranges": [
+        [
+          1037,
+          1116
+        ]
+      ],
+      "assessment": "Observed features join real camera envmap/image dimensions/intensity/exposure/tonemap/ambient and atmosphere presence. Match requires settings default,64square map/intensity1, exposure finite[-1.35,15], AcesFitted and ambient finite near0 within.01. It does not consume _celestial parameter; actual provenance owner and supported capture scope needed. weather/water/cloud/cave iteration and character flags fixedfalse are reporting scope, not proof those effects absent."
+    },
+    {
+      "ranges": [
+        [
+          1118,
+          1193
+        ]
+      ],
+      "assessment": "Profile dispatch to fixed lists rejects unknown profile; no requests returns full list. Cold traversal validates unique nonwarmup slugs and returns entire prefix through furthest requested index to preserve temporal approach/retreat. Other profiles prepend first view and append requested unique known views in request order. Nonempty first-warmup list invariant requires exact view_specs owners; no blanket fallback."
+    },
+    {
+      "ranges": [
+        [
+          1195,
+          1260
+        ]
+      ],
+      "assessment": "Clock advances authored2s then pauses. Relative paths resolve currentdir; default output timestamp+first12digest bytes assumes canonical digest length/UTF8. Fresh output refuses any existing path then creates directory, preserving unrelated files. setup_scene takes one-shot Option before later work; only signature/destructure through1260 read, rest unread and no outcome claimed."
+    }
+  ],
+  "existing_contracts_not_closed": [
+    "CONT08-Q005",
+    "ADLER-L11-PERFORMANCE-DIAGNOSTIC-AGGREGATE-AUTHORITY",
+    "ADLER-L11-PERFORMANCE-TARGET-IDENTITY-ADMISSION",
+    "SEGOVB-L12-SCENE-CAPTURE-PERSISTENCE-OUTCOME",
+    "SEGOVB-L12-UNDERSTORY-REVIEW-SPECIES-LABEL-AUTHORITY"
+  ],
+  "limits": "Registered full4477, personally assessed only1..1260. No current/native/runtime or imported-source credit. Prior authority remains root431 original1699."
+}

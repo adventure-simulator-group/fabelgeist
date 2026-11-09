@@ -1,0 +1,50 @@
+{
+  "schema": "726-l13-connected-revisit-proposal-v1",
+  "at": "2026-10-31T15:56:23.943674+00:00",
+  "author": "/root",
+  "source_adoption": {
+    "path": "segovb/READ-L13-PARALLEL-467.json",
+    "sha256": "3f88f068d2897552f0514478fb511598d5aa1aeb6539acc04914a0322113f864"
+  },
+  "source_packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-1813-1815-001.json",
+    "sha256": "ef2d69ec082c2336059c6341b6db0e1e2c4274af94a45822afc5ab501d7adfe8"
+  },
+  "updates": [
+    {
+      "contract_id": "ADLER-L11-FOUNDATION-VOLUME-ARITHMETIC",
+      "status": "open-reconciliation",
+      "canonical_owner": "Existing PropertyFoundationMesh::volume_cubic_metres complete native measurement kernel and admitted prism contract; preserve valid finite geometry ratherthan adding unrelated gameplaybounds or a duplicate schema owner.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/1",
+          "ranges": [
+            [
+              84,
+              124
+            ],
+            [
+              146,
+              173
+            ],
+            [
+              206,
+              223
+            ]
+          ]
+        }
+      ],
+      "prior_selected_adoptions": [],
+      "disposition": "volume_cubic_metres promotes plan coordinates before area differences but computes each vertical span as f64::from(f32 top - f32 bottom). The unnecessary f32 intermediate can overflow for opposite-sign finite endpoints even when the represented f64 volume is finite. This is source corroboration of the existing volume-arithmetic item; exact prism admission and actual supported operand/caller/current contracts remain required before a reachable failure or completed repair claim. Preserve ordinary volume precision, structural geometry and separate zero-area/native collider policies.",
+      "remaining_evidence": [
+        "Actualvolumeconsumers/intendedreporting/finitequantitycontract",
+        "Current/all20geometrymeasurement/aliases reconciliation",
+        "Distinguish validzeroheightvertices/nonzeroarea wedge fromzeroareasolidpolicy",
+        "Preserve geometricoperandorder/precision andordinaryvolumevalues"
+      ],
+      "accepted_unique_count_change": 0,
+      "body_or_population_credit": 0
+    }
+  ],
+  "implementation_gate_complete": false
+}

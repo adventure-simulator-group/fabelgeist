@@ -1,0 +1,18 @@
+{
+  "schema": "726-partial-connected-repair-plan-v1",
+  "at": "2026-11-04T13:47:02.835768+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ROOM-STOREY-L13-1736.json",
+    "sha256": "08a3ed288d1c1c06cfaddeda3360a54bc38fd97e247bfa3bb0e52c7af6791d49"
+  },
+  "status": "partial source evidence; broader contract open",
+  "observed_behavior": "The historical item schema defines item identity, kind and optional capabilities, including a Book with a typed target. Actual compiler and runtime consumers remain open.",
+  "constraints": [
+    "Trace authoring admission and runtime consumption.",
+    "Preserve the existing schedule owner until connected contracts and aliases are qualified."
+  ],
+  "acceptance": [
+    "After audit, validate supported book targets, quality and optional capabilities at the owning admission."
+  ],
+  "implementation_gate_complete": false
+}

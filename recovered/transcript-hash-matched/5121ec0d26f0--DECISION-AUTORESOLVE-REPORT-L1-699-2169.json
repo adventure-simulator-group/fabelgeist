@@ -1,0 +1,39 @@
+{
+  "schema": "726-scoped-source-disposition-v1",
+  "at": "2026-11-05T06:13:01.579484+00:00",
+  "contract_id": "Q-L1-cf7fda2595aa1b37d33d",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "remote_main_at_check": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "owner": "Mission roster error owner and strategic combat reducer boundary",
+  "source_discovery_scope": "Selected mission roster validation and combat error conversion under Lens 1",
+  "disposition": "The mission roster owner distinguishes invalid roster, group-count mismatch and missing character as MissionRosterError variants. The autoresolve mission reducer converts enemy_roster errors into String before the generic StrategicCombatError::Operation variant; its authored-threat and battle-resolution failures instead retain dedicated typed variants. The same roster conversion appears in a separate mission preparation path. This establishes a source-level cause-preservation requirement for the already identified roster obligation; the reducer runtime rendering and consumers remain to be traced. Entry 696 observes the same conversion while investigating report semantics, and entry 996 is a separate Lens 12 roster obligation; neither is automatically closed or counted as a duplicate.",
+  "explicit_alias_comparison": [],
+  "alias_result": "No exact canonical alias established; no unique finding promoted.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-ROSTER-CAUSE-L1-2169.json",
+      "sha256": "0ebf518fcca7f93a5fc3f772191dfc17c1a0fadd23c388219331c235e77d75cb"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-AUTORESOLVE-REPORT-L1-2160.json",
+      "sha256": "79933dcca08112868358df2eff64afffa4c8b8ef075cf7c9dcfa7168d18de4bf"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-AUTORESOLVE-AUTHORITY-L1-2161.json",
+      "sha256": "a0e610fb5355438644e1d0f17936b39b27f740f8d4e437e7f11e8414cf11caa8"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-COMBAT-ERROR-L1-2167.json",
+      "sha256": "c1ba466117d65d8c8380f1eec752d42b09f5c0972647bb881021e5e755044cd4"
+    }
+  ],
+  "policy": {
+    "path": "adler-continuation-20261030/PARTIAL-PLAN-AUTORESOLVE-REPORT-L1-2169.json",
+    "sha256": "2422183ad2fb5bf61205701c853e5ee5663ec1b2c3138a5b4453a8f9a2c890e6"
+  },
+  "remaining_after_discovery": [
+    "Preserve MissionRosterError as the structured source through first-party combat context, trace reducer/native rendering and consumers, and complete the distinct threat, reward, currency, level and raw-action-tag questions in this broader entry."
+  ],
+  "global_alias_inventory_complete": false,
+  "product_execution": false
+}

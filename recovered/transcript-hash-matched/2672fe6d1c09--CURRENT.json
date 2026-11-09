@@ -1,0 +1,194 @@
+{
+  "schema": "726-adler-local-current-v1",
+  "at": "2026-10-31T04:40:10.667228+00:00",
+  "status": "Goal active. L13 advanced through original1256/root317 and queue115; strict lifecycle endpoint suspicion scoped rejected in frozen graph. Full audit and implementation gate remain incomplete.",
+  "authoritative_writer": "/root",
+  "handoff_commit": "eb407672813424d64ec31f208193969f5a62620c",
+  "continuation_workspace": "target/726-audit-continuation-20261030",
+  "evidence_root": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027",
+  "ledger": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+    "sha256": "4d6d77ddf4bb9412bf22f1f772dca2efc4d72d588507b96e9791f79b04e5cee1"
+  },
+  "selector": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+    "sha256": "e91c50a7fe31ea76ac7e335b3c497158a1385a96f3588f3d84865b85909a4a86"
+  },
+  "closure_queue": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-115.json",
+    "sha256": "23f0e09886f9e471254b782667cd7f18f68f3f71d55f0e3433f5a384575bc0e7"
+  },
+  "selected_lenses": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-009.json",
+    "sha256": "4196de964529d5702bcf89edfa620eb77aece2eb41afd8e95870ff3f77741b67"
+  },
+  "preservation_checkpoint": {
+    "path": "target/726-intake-20261030/CHECKPOINT-011.json",
+    "sha256": "6bfb2780d0f10d2f7899fefbbeb084c815ca3401af7d8c3a54c20fc5c0f42ac2"
+  },
+  "adoption_verification": {
+    "path": "target/726-intake-20261030/VERIFICATION-L13-1250-1256.json",
+    "sha256": "99b44cf675f4754e1483e593143898cce4fe97d96521fdc6eb3bcd9bf0c1e79c"
+  },
+  "progress": {
+    "lens11_original": {
+      "accounted": 2853,
+      "total": 2853,
+      "next_root_batch": 734,
+      "next_registration": 3448
+    },
+    "lens12_original": {
+      "accounted": 2736,
+      "total": 2853,
+      "remaining": 117,
+      "next_batch": 957,
+      "next_registration": 1773
+    },
+    "lens13_original": {
+      "accounted": 1257,
+      "total": 2853,
+      "remaining": 1596,
+      "next_root_batch": 318,
+      "historical_parallel_namespace_last_adopted": 314
+    },
+    "new_lens12_ordered_roles": 47,
+    "ordered_batches_adopted": [
+      933,
+      956
+    ],
+    "connected_team025_adopted_separately": true,
+    "inherited_author_fresh_lines_ordered": 6648,
+    "inherited_author_fresh_lines_connected": 2,
+    "new_root_personal_product_source_lines": 4383,
+    "primary_records_not_unique_findings": 551,
+    "closure_queue_entries_not_unique_findings": 3736,
+    "new_lens13_ordered_roles": 36,
+    "lens13_own_batches_adopted": [
+      303,
+      314
+    ],
+    "lens13_inherited_fresh_ordered_lines": 9865,
+    "lens13_inherited_fresh_connected_lines": 5200,
+    "lens13_historical_current_e275_scopes": 7,
+    "lens13_historical_current_e275_lines": 787,
+    "root_ordered_source_lines": 3316,
+    "root_connected_reread_lines": 1067,
+    "lens13_root_batches_adopted": [
+      301,
+      317
+    ],
+    "lens13_prior_connected_lines_applied_to_ordered_frontier": 3005
+  },
+  "current_source": {
+    "selected_target": "33714256b6313ce86fdfbb534c54d92d024d7726",
+    "previous_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "new_delta_paths": 59,
+    "new_pending_lens_cells": 767,
+    "new_cells_closed": 0,
+    "prior_154_path_delta_and_84_lens11_closures_preserved": true,
+    "older_revision_proofs_remain_revision_and_lens_specific": true,
+    "transition": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+      "sha256": "8b723e58afad6c01e10967209c6f6d6de8e7499035d35a69cd4a020e63d2033a"
+    }
+  },
+  "pending_exact_recovery": {
+    "lens11": "SOURCE023 then SOURCE024 remain unadopted. Keep target-lock PL11-1253/1254 unread obligations until strict validated adoption; CELL009 remains deferred.",
+    "lens12": "Original2736 build1..121 and2737 schema1..199 have inherited partial receipts only, no ordered frontier credit. Partial958 original2738 has1..180 of requested1..411 assessed, next181..411 unread; actual EOF576,412..576 outside prior registration. Registrations802..817 remain unmapped. Original frontiers for all other lenses unchanged.",
+    "lens13": "Next originals1257 weapon_instance.rs,1258 weapon_instance/appearance.rs,1259 weapon_instance/evaluation.rs,1260 world_actor.rs,1261 world_actor/authority_tests.rs. Inspect selected same-lens/future evidence before fresh prospective reads. Originals1250..1252 exact future proofs applied once atroot316;1253..1256 fully read byroot and adopted atroot317. Connected1153 chronology full200 and2158 calendar full698 root rereads close only frozen strict-interior endpoint premise; calendar future2158 still has zero early original credit. Queue115 appends scoped rejection toROOT-L13-1246-LIFECYCLE-SEGMENT-PROGRESS and fresh postwrite corroboration toPL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING; current and NPC initialization remain open. Earlier condition-exposure/camp-policy notes, current/all20/extensions/aliases and all other connected questions remain independent.",
+    "global": "All13 lenses, each mandatory extension, all20 migration families, original/overlay/merged/shared populations, exact aliases, current-source and connected producer/API/state/consumer/native contracts still require their exact independent closure."
+  },
+  "portability": {
+    "all36487_files_verified_and_exactly_restored": true,
+    "case_sensitive_output_required": true,
+    "failed_partial_preserved": true,
+    "historical_helpers_and_receipts_unchanged": true,
+    "new_writers_use_versioned_portable_reference_adapters": true,
+    "sats_attribution_exact_pair_qualification": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-SATS-ATTRIBUTION-001.json",
+      "sha256": "64941d8077860be482ffc9ab5d439a425f807723f1276e166871dab019590c05"
+    },
+    "old_head_stash_native_cache_checks_not_repurposed": true,
+    "lens13_path_and_exact_snapshot_qualification": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/windows_l13_303_310_v2.py",
+      "sha256": "f403b99eb8b30776a77a17209e1fe644ad5af1134a88535399f0a783eb13e5b4"
+    },
+    "lens13_historical_current_target_qualification": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_stable_row_e275.py",
+      "sha256": "20b8342bacf19ddd78895bb0d16517197088fe31859b4b670de04d7ac78ff99a"
+    },
+    "lens13_incremental_adoption": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_311_313.py",
+      "sha256": "56d9425eb82413bc5fa80709af395e5d7a1e29dd95f0c81ef95937ebcde5dc43"
+    },
+    "lens13_mixed_author_source_adoption": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_surgery_composite.py",
+      "sha256": "4d0fb634fa60a8eca54f1546f80259c32d6f0936c312533a846361293c8de725"
+    },
+    "environment_checkpoint_helper": {
+      "path": "target/726-intake-20261030/checkpoint_v5.py",
+      "sha256": "f21dbbbdc1007337889aa2d0b2619d60a6312021431083237f3ed3a2f0e7713d"
+    },
+    "root_lens13_packet_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_root_l13_packet_v5.py",
+      "sha256": "fb480699e6c1916eb2df8d8fef4aa84771e9848550128109a25786ed1f8af023"
+    },
+    "exact1243_registry_range_shape": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L13-1243-RANGE-SHAPE-001.json",
+      "sha256": "bb749f6a96f44146e3c5a49e4a3ef22cf8a7d8f16257ddd38a20ade2c80e7507"
+    },
+    "exact_time_transport_locators": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L13-TIME-LOCATORS-002.json",
+      "sha256": "6c8f2001bb6b9c9bb5dc8159b9df246ee044899ac35f3d79bad1244a3e075e8c"
+    },
+    "lifecycle_queue_writer": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_lifecycle_revisits.py",
+      "sha256": "bd33ad2a87838597584caaa5c3913061687e6c4029e48cf03f9d5f3ec0098af0"
+    }
+  },
+  "publication": "Local ignored evidence only; no PR, issue update, merge, or message sent.",
+  "product_edits": false,
+  "product_execution": false,
+  "audit_complete": false,
+  "implementation_gate_complete": false,
+  "prior_adoption_verifications": [
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-CONTINUATION.json",
+      "sha256": "3fb47dc9905b634596e062ea81fbdf935a3d083ccfdd3ba392899639cd175c47"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-303-310.json",
+      "sha256": "5c02f208db692524e80469adb76a82e218ada4041ddd9630b21c7132df471e0e"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-STABLE-311-313.json",
+      "sha256": "651eeecb95f4ff55e98641ff18bede0a2f2327605a98c685a37a0e0195ba8026"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-SURGERY-COMPOSITE.json",
+      "sha256": "8cd46b5cc86605567599c85b8739b6af84b8cd5eab48ccdc8b2749a85380f795"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1239-1243.json",
+      "sha256": "ae377676c519e66564a33edbb771f29bf6866e28a8b71ec0097af5fa52dd9053"
+    },
+    {
+      "path": "target/726-intake-20261030/VERIFICATION-L13-1244-1249.json",
+      "sha256": "f8846c9e57280fdd74380c83591a549cb2c625b693f2f649c0cc2adafc423f53"
+    }
+  ],
+  "goal": {
+    "status": "active",
+    "phase": "audit gate",
+    "implementation_authorized_after_gate": true,
+    "review": {
+      "path": "target/726-intake-20261030/REVIEW-L13-1250-1256.json",
+      "sha256": "eef284dcf9d2b39ea8a864c87f0b8277fba39f63faa32aac533543cf90fc2576"
+    },
+    "previous_turn_classification": "progress"
+  },
+  "previous_local_selector": {
+    "path": "target/726-intake-20261030/CURRENT-before-L13-1250-1256-e13f2a4914e9b5dc03fa0038fd0287f7dae57b3351b3309a12581ce01cec5146.json",
+    "sha256": "e13f2a4914e9b5dc03fa0038fd0287f7dae57b3351b3309a12581ce01cec5146"
+  }
+}

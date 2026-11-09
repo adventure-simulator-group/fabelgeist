@@ -1,0 +1,174 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T13:30:39.828247+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1697,
+  "original_after": 1699,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 391,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "ordered": [
+    {
+      "source": {
+        "original": 1697,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/visibility.rs",
+        "sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+        "actual_eof": 214,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            214
+          ]
+        ],
+        "purpose": "Full Lens13 strategic frustum visibility and world preparation/replacement ownership. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1697-1698-001.json",
+        "sha256": "48620dc33a35e5499c6acd13cfd6b4cccfedc3de7871c4760cd5d1823b096559"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              60
+            ]
+          ],
+          "assessment": "PostUpdate runs far-plane filtering then installation gate after CheckVisibility. Gate resets on root change, ignores old readiness on that frame, then latches open when installed; later same-root rebakes never close it. While closed with strategic request, only Mesh3d visible lists for non-regional strategic/gameplay cameras are cleared; light visibility/atmosphere/uploads can continue. Actual native extraction and root generation policy required, not generic render shutdown."
+        },
+        {
+          "ranges": [
+            [
+              62,
+              86
+            ]
+          ],
+          "assessment": "Per active strategic camera uses native Frustum.half_spaces[5] as far plane and world-transformed AABB center plus projected half-extent radius, retaining inclusive intersection. Missing AABB/transform or NoFrustumCulling mesh stays visible. Aggregate ViewVisibility and shadow lists unchanged intentionally. Actual SDK plane index/order/orientation and finite transformed AABB contract required; native six-plane index is ABI, not arbitrary semantic scalar."
+        },
+        {
+          "ranges": [
+            [
+              88,
+              214
+            ]
+          ],
+          "assessment": "Unexecuted fixtures preserve point-light lists and regional map mesh lists, open once per city and reset on replacement despite stale readiness. Far5/far10 fixture at distances2/5.5/8 with unit extents retains crossing second box only for near camera and all for far camera. Source proof limited to authored positive extents/identity projection; no GPU/SDK execution."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1698,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+        "sha256": "d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
+        "actual_eof": 177,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            177
+          ]
+        ],
+        "purpose": "Full Lens13 strategic frustum visibility and world preparation/replacement ownership. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1697-1698-001.json",
+        "sha256": "48620dc33a35e5499c6acd13cfd6b4cccfedc3de7871c4760cd5d1823b096559"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              49
+            ]
+          ],
+          "assessment": "SceneDocument parses TacticalSceneInput and calls input.validate before retaining owned Arc preparation failure or input. Generated scene uses wasm preparation ticket activate or native generate and preserves typed causes. Location remains raw private String. Actual input.validate and ticket/catalog producers still determine admission; JSON parsing is not itself full graph proof."
+        },
+        {
+          "ranges": [
+            [
+              51,
+              82
+            ]
+          ],
+          "assessment": "retain_scene requires view/document/materials, matching document location and all procedural textures ready. Same-location retained error returns permanently here. Rebuild only when location differs or root absent, not document/digest/settings change alone. Generation failure stores scene.error before clearing previous root/location; on differing requested location this can retry each update, while same-location errors latch. Actual delivery and retry policy required; no claim every same-location document change is supported."
+        },
+        {
+          "ranges": [
+            [
+              83,
+              120
+            ]
+          ],
+          "assessment": "After generation succeeds, queues old root despawn and shared scene clear, resets retained state to new location, then prepares and stores typed failure. Pending queue consumes one building per update before fallible spawn; error keeps prior queued parent/closure commands and latches same-location error next update. Actual command application/cleanup and terminal failure display remain open; no implied rollback. No root present after early preparation failure prevents normal installed readiness."
+        },
+        {
+          "ranges": [
+            [
+              122,
+              141
+            ]
+          ],
+          "assessment": "prepare takes generated by value, constructs StrategicBackdrop/PreparedBackdrop first, then prepare_venues with mutable local generated and retained.street. This rejects the broad suspicion that partial generated building/furniture mutation automatically escapes after Err: scratch generated is dropped. retained.street can still change before later venue failure; retained.venues assignment waits for full success. Keep this narrow disposition separate from old-root removal and native queued spawn failures."
+        },
+        {
+          "ranges": [
+            [
+              142,
+              162
+            ]
+          ],
+          "assessment": "Only successful venue preparation publishes generated digest and spawns new root, then queues street/props/backdrop/city, moves recipe cache via queued closure, transfers buildings to pending and sets next_place. Thus actual successful location transition changes root and cache selection can observe it; same-location replacement/environment remains upstream policy question. No fallible return after this publication in local function; downstream observers/native preparation can still fail."
+        },
+        {
+          "ranges": [
+            [
+              164,
+              177
+            ]
+          ],
+          "assessment": "Unexecuted parse fixture requires u64MAX tactical seed round-trip and rejects empty object using external massive-city input. Native-only call form has no wasm ticket in fixture; target-specific test compilation not run/current not reconciled. No source execution."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [],
+  "remaining_connected_obligations": [
+    "Existing Q-L12-a602f93eef04eec65498 and Q-L12-2919a78560526f910dee unresolved owners/absent acceptance retained. No duplicate/cross-lens closure.",
+    "Actual browser SceneDocument/StrategicView delivery and same-location document/environment/settings changes, terminal rejection/retry policy, preparation ticket activation and input.validate contracts.",
+    "Generated building/furniture prefix mutation is confined to by-value scratch on prepare Err; retained.street and old-root teardown/queued partial building spawn remain distinct obligations. Do not preserve an overbroad generated-mutation defect claim.",
+    "Actual native Commands application/recursive teardown, clear_scene_entities and shared resource/cache ownership, typed status consumer and capture readiness sequencing.",
+    "Native frustum plane index/orientation/AABB and extraction contracts; installed visibility latch intentional same-root rebake behavior, no runtime/current proof. All13/current/aliases/extensions/populations/repair gates incomplete."
+  ]
+}

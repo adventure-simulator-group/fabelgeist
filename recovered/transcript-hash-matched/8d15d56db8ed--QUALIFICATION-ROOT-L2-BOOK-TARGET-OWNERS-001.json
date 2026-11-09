@@ -1,0 +1,114 @@
+{
+  "schema": "726-root-l2-book-target-owner-disposition-v1",
+  "at": "2026-11-02T18:14:03.243331+00:00",
+  "author": "/root",
+  "lens": 2,
+  "read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-BOOK-NATIVE-035.json",
+    "sha256": "75e95365b575d299da37d9a5eefe297ca913ac23a2b561b809de3dea28777a1f"
+  },
+  "canonical_contract_id": "L2-BOOK-TARGET-SKILL-TERRAIN-OWNER-QUESTION",
+  "canonical_revisit_identity": {
+    "queue": {
+      "path": "workflow-20261030/CLOSURE-QUEUE-821.json",
+      "sha256": "b0cc6e8d5f05d84c79cb1d467dc70135457c55affc34c8476a014e66e29e67a8"
+    },
+    "entry_pointer": "/entries/2492",
+    "first_contract": "BookTarget Skill/Terrain retain strings; ordinary_skill285..313 maps bounded subset of canonical Skill. Broad Skill alone does not preserve book rank/subset admission. Actual build/admission and separate authoring schema identity must connect before alias or owner choice.",
+    "operation": "Shared authored BookTarget retained through embedded catalog, selection, snapshot and exact target progress update.",
+    "unchanged_core_book_sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+    "changed_schema_narrow_declaration_bridge": [
+      {
+        "declaration": "pub struct Book {",
+        "frozen_range": [
+          507,
+          514
+        ],
+        "selected_current_range": [
+          503,
+          510
+        ],
+        "exact_declaration_bytes_equal": true,
+        "declaration_sha256": "4590f22aaa2c8738298eb0d3de0f4fd1b2df0c8c922b91be2275a9eb5859bee1"
+      },
+      {
+        "declaration": "pub enum BookTarget {",
+        "frozen_range": [
+          518,
+          534
+        ],
+        "selected_current_range": [
+          514,
+          530
+        ],
+        "exact_declaration_bytes_equal": true,
+        "declaration_sha256": "86b4d39c7571849c8b560e0ad1a5b625b335795e691dad2e75944ff5a7869ca5"
+      }
+    ],
+    "identity_reason": "Same canonical raw Skill/Terrain book-target retention question and unchanged core book operation. Actual Book/BookTarget declarations match across changed whole-schema revisions and are directly imported/reexported by core/native consumers; no separate equivalent runtime wrapper is established.",
+    "canonical_alias_application": false,
+    "new_accepted_unique_count": 0
+  },
+  "owner_comparisons": [
+    {
+      "role": "shared-schema-and-runtime-owner",
+      "decision": "core book.rs directly imports item_catalog_schema::{Book,BookTarget}; item_catalog reexports that schema, deserializes embedded ItemCatalogDocument and exposes ItemDefinition capabilities; native target_snapshot/apply_selected_book receive the same schema types. Existing named Book and BookTarget own authored/runtime roles. Strengthen/move them as needed for portable build admission rather than introducing a second book-target wrapper or a compatibility alias. Source import/body and exact declaration bridge resolve the earlier separate-schema/runtime-owner uncertainty."
+    },
+    {
+      "role": "ordinary-skill-and-terrain-identities",
+      "decision": "BookTarget already retains typed WrittenLanguage/OfficialReligion/BestiaryCategory. Skill and Terrain remain strings, then ordinary_skill maps21 supported ordinary Skill variants and native terrain_book_skill maps six terrain Skill variants. Reuse canonical Skill with book-specific checked subset/admission, retaining distinct ordinary/terrain roles. Broad Skill alone would admit unsupported mental/meta targets or terrain through the wrong band policy. Geographical terrain classes are not an exact training target owner merely by name."
+    },
+    {
+      "role": "target-dependent-quality-and-band",
+      "decision": "Both actual authored validator and core book mechanics enforce exact target-dependent maxima:5 for written/religion/bestiary,4 for physiology/herbalism,2 for six terrain skills and surgery/cooking/tailoring/smithing/command/charm,1 for13 combat/physical skills. Quality must be1..maximum and defines rank N-1..N. Reuse an exact quality leaf if established, but admit quality together with target and expose a named band rather than an independent broad u8 or positional pair. Do not widen book skill support to every Skill, impose the organization's four-terrain subset, or preserve quality0 as an admitted book merely because rank_band saturates."
+    },
+    {
+      "role": "native-target-snapshot-and-update",
+      "decision": "target_snapshot maps the complete target into current effective rank and governing aptitude, preserving typed category/language. apply_selected_book writes the actual direct progress destination; category branches project correlated effective progress from a copied baseline and ordinary/terrain branches preserve their distinct transfer rules. The snapshot (rank,aptitude) is a semantic record, not two interchangeable f32 values. Existing BoundedBookGain already names accepted effective versus unused real hours and is not equivalent to TrainingGain's excess-effective-hour result."
+    },
+    {
+      "role": "admitted-ordinary-progress-destination",
+      "decision": "direct_skill_hours_mut covers ordinary and terrain fields but has an unreachable Religion/Bestiary arm. The inspected callers obtain Skill only through ordinary_skill or terrain_book_skill, which exclude those meta variants. No ordinary meta-target panic is established. Carry the admitted non-meta subset to this internal API or structurally separate progress destinations; do not invent a runtime missing-leaf error for a combination excluded by construction."
+    },
+    {
+      "role": "candidate-identity-and-access-priority",
+      "decision": "Existing BookCandidate groups borrowed title definition ID, Book and personal access. Native construction obtains ID/book from the same catalog item and availability from positive-quantity personal titles or an on-site bookstore. personal is retained access-priority state: personal first, then ascending quality, then stable title ID; duplicates collapse by title definition, not inventory instance. Strengthen/reuse this candidate and appropriate catalog identity rather than copying a selection tuple or substituting tactical inventory-instance identity. Keep ordinary membership predicates bool; make retained access role explicit where required by crate rules."
+    },
+    {
+      "role": "settlement-access-and-continued-reading",
+      "decision": "Empty settlement_allowlist means any eligible bookstore; personal ownership remains sufficient independently of on-site allowlist. Validator bounds the authored allowlist to64 unique nonempty IDs of at most96 lowercase/digit/underscore/hyphen bytes. Native reading repeatedly selects a useful candidate, applies the book, marks nonproductive titles unusable and continues with unused real hours. Preserve this actual availability/priority/remainder behavior and zero-progress termination, not an inferred inventory-count or world location ordering."
+    }
+  ],
+  "required_repair": [
+    "Strengthen existing shared BookTarget with admitted canonical Skill leaves for exact ordinary/terrain subsets while preserving already typed written/religion/bestiary payloads. Keep target-dependent quality/band admission in one canonical policy shared by authored validation and runtime construction; no duplicated book wrapper, string fallback, migration or compatibility alias.",
+    "Retain complete target/category identity through snapshot, effective-progress projection and update. Use named rank/aptitude and lower/upper band records with appropriate existing leaves. Strengthen existing BoundedBookGain's two distinct hour roles; do not substitute a generic duration or TrainingGain result.",
+    "Retain actual catalog-title identity, book association and explicit personal/on-site priority in the existing candidate owner. Preserve title deduplication, allowlist semantics, literacy prerequisite, exact lower-band admission, upper/aptitude cap, correlated progress and unused-time continuation.",
+    "Keep numerical hours/rank tolerance policies owned by their quantities. Native1e-5 rank and real-hour comparisons have different units even where the literal matches; preserve current thresholds during a type-only repair rather than adding a universal EPSILON or silently tuning study behavior.",
+    "Remove production panic/string-reparse paths in the reached owning APIs under crate rules by retaining admitted target/destination relationships or actual typed fallible native boundaries. Existing catalog parse expects and native unsupported-target String errors are separate error/initialization contracts; no ordinary invalid embedded book or observed crash is established."
+  ],
+  "conditional_and_rejected_cases": [
+    "No separate core-versus-authoring BookTarget wrapper is established: they share the schema owner and direct imports. Whole schema bytes changed, but the exact Book/BookTarget declaration blocks are unchanged and core book bytes match.",
+    "No malformed ordinary book, missing supported skill, quality-overflow incident or unstable candidate-order bug is proved. Authored/current subset and precedence policies are explicit; source tests are not executed acceptance.",
+    "Book six-terrain support and organization four-terrain curriculum admission differ intentionally in scope unless a separate product decision changes them. Do not merge those policies because both eventually map to Skill."
+  ],
+  "later_acceptance": [
+    "After the full audit gate, use applicable existing authored/native book checks for each target family and boundary quality, unsupported ordinary/meta targets, all six book terrain targets, typed category/language storage and exact lower/upper band behavior.",
+    "Preserve existing tests for correlated effective caps, literacy rate, bulk/partition written bridges, personal/title ordering and deduplication, zero-progress termination and continuation with unused real hours. Six existing test bodies were read but not executed; no new object unit test was added."
+  ],
+  "remaining_evidence": [
+    "Canonical source disposition/adoption against the existing named L2 book-target entry remains required. Other lens/error/numeric views and all20/global/current-delta obligations remain independent.",
+    "Actual shared quality, rank/hour and catalog/settlement identity owner placement must join the corresponding canonical repair records where not already qualified; this packet is not global owner-absence proof.",
+    "Any retained reading inventory/settlement eligibility, storage/native attribute-admission or catalog-initialization repair beyond these exact bodies needs its own producer evidence. No whole native time module or reading-family/global closure."
+  ],
+  "scoped_book_target_producer_runtime_existing_owner_question_answered": true,
+  "canonical_source_case_closed": false,
+  "canonical_alias_applied": false,
+  "new_primary_or_unique_credit": 0,
+  "current_delta_cells_closed": 0,
+  "source_adoption_performed": false,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

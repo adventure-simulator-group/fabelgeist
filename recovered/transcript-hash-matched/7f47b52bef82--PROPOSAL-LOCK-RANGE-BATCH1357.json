@@ -1,0 +1,61 @@
+{
+  "schema": "726-scoped-baseline-range-batch-v1",
+  "checkpoint": 1357,
+  "queue_number": 1692,
+  "at": "2026-11-04T02:37:31.444718+00:00",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "base_authority_snapshot": [
+    {
+      "path": "target/726-intake-20261030/CURRENT.json",
+      "sha256": "02ac8e1ff74891326648ff3faa4b18f6cfc2720c42f6ef7c38032c633cbe3c92"
+    },
+    {
+      "path": "CURRENT-ADLER.json",
+      "sha256": "b3b09409fc981e26b7280652d38fc88f9e9b3201a474931a1b6bec1943662950"
+    },
+    {
+      "path": "evidence/continuation-segovb/ledger.json",
+      "sha256": "a34cddc9b88085857482f02e6b98dfa32e9ea4090a2c4a0fabf0be337d1525ae"
+    },
+    {
+      "path": "workflow-20261030/CLOSURE-QUEUE-1691.json",
+      "sha256": "c03f364eed90b107316f125a3e9c851fb17c1845d208398e699dce08df0a00a3"
+    },
+    {
+      "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-440.json",
+      "sha256": "eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232"
+    }
+  ],
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-STAGED-PARENT-L11-1357.json",
+    "sha256": "866fd5958032757e365147df26ae9f8a5d33b40a69edcfae57cd89a0761e0c64"
+  },
+  "scoped_observation": {
+    "path": "adler-continuation-20261030/OBSERVATION-STAGED-PARENT-DISPOSITION-1357.json",
+    "sha256": "f362fe3c999627327e712961034a815007979461574723e688676a9ea533816a"
+  },
+  "named_contract_updates": [
+    {
+      "entry_index": 140,
+      "contract_id": "ADLER-L11-STAGED-READBACK-IDENTITY",
+      "view": {
+        "path": "adler-continuation-20261030/VIEW-STAGED-PARENT-DISPOSITION-140-1357.json",
+        "sha256": "b0c714fed7d49682ea35d2494dbbcb272e10ca093909ff8d31515b25eeb94f15"
+      }
+    }
+  ],
+  "validation_ruleset": {
+    "path": "adler-continuation-20261030/adopt_lock_range_batch1357.py",
+    "sha256": "8638ed0c044d46a34fe3ab0bc01e0dbc52e8a57e9bd5c72257b0558dd28c6345"
+  },
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "new_current_cells_closed": 0,
+  "implementation_gate_complete": false,
+  "product_execution": false,
+  "closure_queue": "workflow-20261030/CLOSURE-QUEUE-1692.json",
+  "family_view": {
+    "path": "adler-continuation-20261030/VIEW-PARTY-COUNT-967.json",
+    "sha256": "62675bd42954d30540994e4d93e4f903f2ccc2fa002bddac974710a8e90ada45"
+  }
+}

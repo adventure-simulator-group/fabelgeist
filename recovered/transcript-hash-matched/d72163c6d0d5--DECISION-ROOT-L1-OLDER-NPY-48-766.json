@@ -1,0 +1,32 @@
+{
+  "schema": "726-independent-own-lens-current-cell-decision-v1",
+  "lens": 1,
+  "delta_index": 0,
+  "path_index": 48,
+  "git_path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-OLDER-NUMPY-BOUNDARY-762.json",
+    "sha256": "78711bfc7ed95cbed9101a21ec72465d5b4b3a4a1a8cd034721fec412e118184"
+  },
+  "connected_same_lens_evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-OLDER-NUMPY-BOUNDARY-762.json",
+      "sha256": "78711bfc7ed95cbed9101a21ec72465d5b4b3a4a1a8cd034721fec412e118184"
+    },
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-OLDER-NPY-BEFORE-764.json",
+      "sha256": "0182d358893c4917e25e6a91105066f36165c813db0b179b02c13ecac55f472c"
+    },
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-OLDER-NPY-HELPERS-765.json",
+      "sha256": "a845eb6db63ddcfda9a6a64623b3df790877d4fbabfbd4c699d084b9fc4ee023"
+    }
+  ],
+  "effective_disposition": "Array: the old public shape and dtype become private admitted metadata with typed projections and fixed-rank adapters. Producer flow: direct parser and consumer flow are traced; full external callers remain separate.",
+  "exact_current_path_complete": true,
+  "scope_limit": "Only this source file and lens is assessed. Header and value tests, fixture bodies, complete format edge cases, Burn native semantics, resource limits, exact aliases and runtime acceptance remain separate.",
+  "other_lens_or_global_closure": false,
+  "runtime_validation": "Not run; separate later acceptance",
+  "body_or_population_credit": 0,
+  "implementation_gate_complete": false
+}
