@@ -6,6 +6,7 @@
 - **7,196** public progress files checked against the pinned manifest.
 - **212** historical JSON file versions reconstructed to recorded path and
   SHA-256 references; their latest-state authority and dependencies remain open.
+- **57** late source-related command/output records preserved with context.
 - **5,623** audit write command bodies preserved without replay; **265**
   have paths redacted. The **70** late commands overlap.
 - **37** unresolved patches for **30** paths preserved without applying.

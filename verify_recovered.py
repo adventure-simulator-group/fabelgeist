@@ -181,4 +181,13 @@ with (root / "recovered/queue-command-outputs/RECORDS.jsonl").open(encoding="utf
         if hashlib.sha256(item["output_text"].encode("utf-8")).hexdigest() != item["published_output_sha256"]:
             raise ValueError("Queue output hash mismatch")
         queue_records_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", ledger_context_count, "ledger outputs,", queue_records_count, "queue outputs,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")
+late_source_count = 0
+with (root / "recovered/late-source-read-records/RECORDS.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        if hashlib.sha256(item["command_text"].encode("utf-8")).hexdigest() != item["command_sha256"]:
+            raise ValueError("Late source command hash mismatch")
+        if hashlib.sha256(item["output_text"].encode("utf-8")).hexdigest() != item["output_sha256"]:
+            raise ValueError("Late source output hash mismatch")
+        late_source_count += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", ledger_context_count, "ledger outputs,", queue_records_count, "queue outputs,", late_source_count, "late source records,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")
