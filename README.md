@@ -6,10 +6,13 @@
 - 7,196 later public progress files verified against the recovery manifest.
 - 6 historical JSON versions recovered from the transcript and matched to
   later recorded path and SHA-256 references.
+- 2,968 historical printed contract objects indexed, covering 1,564
+  distinct contract IDs; most object contents remain private and unverified.
 - 19 late audit notes recovered as transcript text, with original bytes
   and supporting evidence unverified.
 - 2,480 candidate file states and 519 literal-write records extracted for
-  further investigation; these counts overlap and are not verified totals.
+  further investigation; 2,386 candidate states are Python scripts. These
+  counts overlap and are not verified totals.
 
 This is a **partial recovery**, not a lossless handoff of the latest audit
 state. The continuation's local ledger, queues, receipts, source registrations
@@ -27,6 +30,8 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
+- Two [historical queue and selected-lens values](recovered/transcript-queue-fragments/README.md)
+  and an index of further printed contract candidates.
 - Nineteen [late audit notes](recovered/transcript-notes/README.md)
   transcribed from recorded commands, with explicit evidence limitations.
 - Six [historical transcript-derived records](recovered/transcript-hash-matched/README.md)
