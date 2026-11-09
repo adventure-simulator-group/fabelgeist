@@ -6,5 +6,5 @@ from the ledger. The local Python startup warning was removed; remaining text
 is preserved with its transcript ordinal, hash and possible-truncation flag.
 Other output may have been intentionally sliced by its command. This is not a
 reconstructed ledger or verification of its latest state. The values overlap
-other recovery collections. Twenty-two outputs with local-path patterns
-remain private pending review.
+other recovery collections. Another 22 outputs are preserved in `REDACTED-OUTPUTS.jsonl` with local
+paths removed; their original hashes identify private versions.

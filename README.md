@@ -8,8 +8,8 @@
   distinct source blobs; a restoration script is included.
 - 212 historical JSON versions recovered from the transcript and matched to
   recorded path and SHA-256 references.
-- 1677 screened ledger-related command outputs preserved, with
-  22 deferred for privacy review.
+- 1,699 ledger-related command outputs preserved, including 22 with
+  machine-specific paths redacted.
 - 117 printed ledger-related JSON values and arrays preserved as historical fragments.
 - 538 normalized historical audit documents preserved;
   8 additional values are published with personal paths redacted.

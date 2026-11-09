@@ -156,4 +156,11 @@ with (root / "recovered/ledger-command-outputs/OUTPUTS.jsonl").open(encoding="ut
         if hashlib.sha256(item["output_text"].encode("utf-8")).hexdigest() != item["output_sha256"]:
             raise ValueError("Ledger-related output hash mismatch")
         ledger_output_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", ledger_output_count, "ledger outputs,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")
+redacted_ledger_outputs = 0
+with (root / "recovered/ledger-command-outputs/REDACTED-OUTPUTS.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        if hashlib.sha256(item["output_text"].encode("utf-8")).hexdigest() != item["published_sha256"]:
+            raise ValueError("Redacted ledger output hash mismatch")
+        redacted_ledger_outputs += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", ledger_output_count + redacted_ledger_outputs, "ledger outputs,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")
