@@ -138,15 +138,38 @@ The browser build (`just build-wasm`) leaves out the `debug` feature. With
 `bevy_text`; no UI plugin runs. Only the animation viewer draws Bevy text, its
 capture labels, through the `capture-label` feature.
 
+## Sound
+
+Gameplay systems decide what plays, where, how loud and at what speed, and
+`src/sound_output.rs` hands that to the platform. The browser client plays
+through Web Audio: `crates/adventuresim-stdb-module/static/sfx.js` defines the
+`window.sfx*` functions the client calls. The browser decodes each file once
+with its own decoder, and one AudioWorklet mixer (`sfx_worklet.js`) plays every
+voice on the audio thread. No decoding or mixing runs on the frame loop, and a
+sound creates no Web Audio nodes. Any page that runs the client must load
+`/tactical/sfx.js` as a classic script before the client module starts.
+`tactical.html` and the strategic shell both do.
+
+Native builds are silent. They serve development and profiling, and the wasm
+build carries no Bevy audio, rodio, lewton or cpal.
+
+One-shots are spatial. Their channels are summed to one and sent to each ear
+with Bevy audio's former spatial law: inverse-square falloff from a fixed pair
+of ears 4 m apart at the world origin. The client never placed a listener, so
+that default is what it has always used. Wind and the rain beds are endless
+stereo loops at a volume set every frame. A loop's file loads the first time
+it is asked to be heard. One-shots are preloaded at startup and dropped, not
+queued, until the browser's audio is unlocked by a click or key press.
+
 ## Browser release builds
 
 `just build-wasm` keeps the gameplay client on the workspace `release` profile,
 without the `debug` feature, and builds the art demo separately with the
 size-oriented `wasm-release` profile and no default features. The demo therefore
-excludes client audio and debug tooling without removing either from ordinary
-client builds. The build requires the exact `wasm-bindgen` version in
-`Cargo.lock` and the Binaryen version pinned in the root `package-lock.json`;
-run `npm ci` to install the latter.
+excludes debug tooling without removing it from ordinary client builds. The
+build requires the exact `wasm-bindgen` version in `Cargo.lock` and the Binaryen
+version pinned in the root `package-lock.json`; run `npm ci` to install the
+latter.
 
 The build applies `wasm-opt -Oz` only to the art demo after `wasm-bindgen` and
 writes raw, gzip level 6, and Brotli level 11 sizes to

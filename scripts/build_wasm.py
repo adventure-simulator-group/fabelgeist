@@ -82,7 +82,7 @@ def main(argv: list[str] | None = None) -> int:
         # so Cargo cannot unify gameplay-only features into its size-oriented
         # binary.
         run([*common, "--bin", "adventuresim-tactical-client", "--release",
-             "--no-default-features", "--features", "gameplay,client-audio"])
+             "--no-default-features", "--features", "gameplay"])
         run([*common, "--bin", "art-demo", "--profile", "wasm-release",
              "--no-default-features"])
         build_seconds = time.perf_counter() - started

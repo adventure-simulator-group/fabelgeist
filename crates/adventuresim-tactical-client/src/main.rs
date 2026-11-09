@@ -84,6 +84,7 @@ mod player;
 mod presentation;
 #[cfg(all(feature = "tracy", not(target_family = "wasm")))]
 mod single_threaded;
+mod sound_output;
 #[cfg(any(target_family = "wasm", test))]
 #[cfg_attr(
     not(target_family = "wasm"),

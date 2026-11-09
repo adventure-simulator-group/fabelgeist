@@ -7,12 +7,11 @@ repository.workspace = true
 license.workspace = true
 
 [features]
-default = ["gameplay", "debug", "client-audio"]
+default = ["gameplay", "debug"]
 
 gameplay = []
 # Gizmos only draw debug overlays (debug.rs, the viewers, avian_debug).
 debug = ["bevy/debug", "bevy/bevy_remote", "bevy/bevy_gizmos", "bevy/bevy_gizmos_render", "adventuresim-tactical-core/avian_debug"]
-client-audio = ["bevy/audio"]
 # Tracy profile with per-system spans, scheduled single-threaded like the
 # browser (see src/single_threaded.rs).
 tracy = ["bevy/trace_tracy", "bevy/trace"]
