@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:20:37.102958+00:00
+Updated: 2026-11-09T00:22:31.893370+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:20:37.102958+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Inventory admission source packets | 8 adopted | Transaction and authority remain open |
+| Inventory admission source packets | 9 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
@@ -160,6 +160,11 @@ removal remain untested; the wider attachment obligation stays open.
 Checkpoint 3799 qualified authored weapon-carry validation. The build checks
 carry mode, placement and tag structure; generated kit cross-references and
 native execution remain open. No source-discovery closure is claimed.
+
+Checkpoint 3800 compared selected generated carry-kit catalog fields. Belt,
+scabbard, weapon-loop and katzbalger names, placements and attachment tags
+align at the authored-field level. Procedural fit and native creation remain
+unverified; the structured comparison adds no full-body or population credit.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
