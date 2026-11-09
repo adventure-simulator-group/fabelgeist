@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T01:09:50.771689+00:00
+Updated: 2026-11-09T01:12:00.781915+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -172,6 +172,10 @@ Checkpoint 3801 qualified selected procedural holder-fit checks. The authored
 katzbalger recipe and recommended scabbard align with generated carry; recipe
 evaluation and native creation remain unverified. No discovery closure is
 claimed.
+
+Checkpoint 3819 compares the Lens 3 and Lens 4 clue-position evidence and
+retains their shared boundary without a new unique finding. Neighboring
+minimizer and permutation preconditions remain independent.
 
 Checkpoint 3818 traces clue positions through authority validation and web
 speech. The inspected backend validates before projection; the standalone
