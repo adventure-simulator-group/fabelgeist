@@ -102,6 +102,8 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             }
             @if scripts == ScriptProfile::Strategic {
                 script src="/static/strategic-navigation.js?v=places-scroll-1" defer {}
+                // Before the renderer: the client calls window.sfx* from its first frame.
+                script src="/tactical/sfx.js?v=web-audio-1" {}
                 script type="module" src="/static/strategic-renderer.js?v=tactical-exit-1" {}
                 script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
                 script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}

@@ -1,14 +1,21 @@
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_world_schema::UnitBasisPoints;
-use bevy::audio::{AudioSink, AudioSinkPlayback, PlaybackMode, Volume};
 use bevy::prelude::*;
 
-use crate::{audio_config::TacticalAudioConfig, player::ClientPlayer};
+use crate::{
+    audio_config::TacticalAudioConfig,
+    player::ClientPlayer,
+    sound_output::{self, LinearVolume},
+};
 
 pub struct WeatherAudioPlugin;
 
-#[derive(Component, Clone, Copy, Debug, Eq, PartialEq)]
+/// The volume each rain loop currently plays at, eased toward its target.
+#[derive(Resource, Default)]
+struct RainLayerVolumes([LinearVolume; RainAudioLayer::ALL.len()]);
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 enum RainAudioLayer {
     Surface(RainSurface),
     HeavyStorm,
@@ -24,19 +31,29 @@ enum RainSurface {
 
 impl Plugin for WeatherAudioPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_rain_layers)
+        app.init_resource::<RainLayerVolumes>()
             .add_systems(Update, update_rain_layers);
     }
 }
 
-impl RainSurface {
-    const ALL: [Self; 4] = [
-        Self::SoftGround,
-        Self::Foliage,
-        Self::HardGround,
-        Self::Water,
+impl RainAudioLayer {
+    const ALL: [Self; 5] = [
+        Self::Surface(RainSurface::SoftGround),
+        Self::Surface(RainSurface::Foliage),
+        Self::Surface(RainSurface::HardGround),
+        Self::Surface(RainSurface::Water),
+        Self::HeavyStorm,
     ];
 
+    fn asset_path(self) -> &'static str {
+        match self {
+            Self::Surface(surface) => surface.asset_path(),
+            Self::HeavyStorm => "audio/weather/rain/rain-heavy.ogg",
+        }
+    }
+}
+
+impl RainSurface {
     fn asset_path(self) -> &'static str {
         match self {
             Self::SoftGround => "audio/weather/rain/soft-ground.ogg",
@@ -64,47 +81,12 @@ impl RainSurface {
     }
 }
 
-fn spawn_rain_layers(mut commands: Commands, asset_server: Res<AssetServer>) {
-    for surface in RainSurface::ALL {
-        spawn_rain_layer(
-            &mut commands,
-            &asset_server,
-            RainAudioLayer::Surface(surface),
-            surface.asset_path(),
-        );
-    }
-    spawn_rain_layer(
-        &mut commands,
-        &asset_server,
-        RainAudioLayer::HeavyStorm,
-        "audio/weather/rain/rain-heavy.ogg",
-    );
-}
-
-fn spawn_rain_layer(
-    commands: &mut Commands,
-    asset_server: &AssetServer,
-    layer: RainAudioLayer,
-    path: &'static str,
-) {
-    commands.spawn((
-        Name::new(format!("tactical-rain-{layer:?}")),
-        layer,
-        AudioPlayer::new(asset_server.load(path)),
-        PlaybackSettings {
-            mode: PlaybackMode::Loop,
-            volume: Volume::SILENT,
-            ..default()
-        },
-    ));
-}
-
 fn update_rain_layers(
     time: Res<Time>,
     environments: Query<&SceneEnvironment>,
     grounds: Query<&SceneGround>,
     listeners: Query<&GlobalTransform, With<ClientPlayer>>,
-    mut layers: Query<(&RainAudioLayer, &mut AudioSink)>,
+    mut volumes: ResMut<RainLayerVolumes>,
     config: Res<TacticalAudioConfig>,
 ) {
     let weather = environments
@@ -127,14 +109,14 @@ fn update_rain_layers(
     }));
     let (surface_volume, storm_volume) = rain_mix(intensity, &config);
     let response = 1.0 - (-config.weather.volume_response_per_second * time.delta_secs()).exp();
-    for (layer, mut sink) in &mut layers {
+    for (layer, volume) in RainAudioLayer::ALL.into_iter().zip(&mut volumes.0) {
         let target = match layer {
-            RainAudioLayer::Surface(candidate) if *candidate == surface => surface_volume,
+            RainAudioLayer::Surface(candidate) if candidate == surface => surface_volume,
             RainAudioLayer::Surface(_) => 0.0,
             RainAudioLayer::HeavyStorm => storm_volume,
         };
-        let volume = sink.volume().to_linear().lerp(target, response);
-        sink.set_volume(Volume::Linear(volume));
+        *volume = LinearVolume::new(volume.linear().lerp(target, response));
+        sound_output::set_loop_volume(layer.asset_path(), *volume);
     }
 }
 

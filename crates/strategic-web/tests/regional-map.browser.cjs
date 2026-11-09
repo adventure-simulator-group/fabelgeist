@@ -36,6 +36,8 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     let roots, suffix;
     if (relative.startsWith("/tactical/wasm/")) {
       roots = [path.resolve(root, wasm)]; suffix = relative.slice(15);
+    } else if (relative === "/tactical/sfx.js" || relative === "/tactical/sfx_worklet.js") {
+      roots = [path.join(root, "crates/adventuresim-stdb-module/static")]; suffix = relative.slice(10);
     } else if (relative.startsWith("/tactical/assets/")) {
       roots = assetRoots; suffix = relative.slice(17);
     } else if (relative.startsWith("/static/")) {
@@ -60,6 +62,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     response.setHeader("Content-Type", "text/html");
     response.end(`<!doctype html><html><body style="margin:0;background:#201815">
       <div style="width:100vw;height:100vh"><canvas id="game-canvas"></canvas></div>
+      <script src="/tactical/sfx.js"></script>
       <script type="module">
         import init, * as runtime from "/tactical/wasm/adventuresim-tactical-client.js";
         import {prepareGeneratedScene,prepareRegionalCity} from "/static/strategic-generation.js";

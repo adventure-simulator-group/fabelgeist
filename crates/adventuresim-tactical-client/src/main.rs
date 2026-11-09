@@ -81,6 +81,7 @@ mod player;
     reason = "the gameplay binary shares presentation review data with the native capture viewers"
 )]
 mod presentation;
+mod sound_output;
 #[cfg(any(target_family = "wasm", test))]
 #[cfg_attr(
     not(target_family = "wasm"),

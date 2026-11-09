@@ -34,7 +34,7 @@ function fixture(url) {
     <!-- strategic-page-start --><div id="strategic-page" data-strategic-workspace data-script-profile="strategic" data-page-title="Journal">
       <main id="journal-fixture">Journal remains HTML</main><a href="${town}/places/inn">Return</a>
     </div><!-- strategic-page-end --><script src="/static/strategic-navigation.js"></script>
-    <script type="module" src="/static/strategic-renderer.js"></script></body></html>`;
+    <script src="/tactical/sfx.js"></script><script type="module" src="/static/strategic-renderer.js"></script></body></html>`;
   const selected = url.pathname.split("/places/")[1] || "map";
   const nav = ["map", ...services].map(id => `<a href="${id === "map" ? town : `${town}/places/${id}`}" class="nav-tab ${selected === id ? "active" : ""}" data-building-id="${id}" data-service-id="${id}" aria-label="${id}"><span class="service-tab-label">${id}</span></a>`).join("");
   const portraits = residents.map(offset => `<button data-person="${personId(selected, offset, settlement)}" aria-label="Talk to resident ${offset}" class="party-portrait-select"><span class="party-portrait-initial"><span data-bevy-character="${personId(selected, offset, settlement)}"></span></span><span>Resident ${offset}</span></button>`).join("");
@@ -49,7 +49,7 @@ function fixture(url) {
     <aside data-chat-dock><section class="settlement-chat">Conversation</section></aside></div><!-- strategic-page-end -->
     <script>document.addEventListener('click',event=>{const target=event.target.closest('[data-person]');if(target)document.dispatchEvent(new CustomEvent('strategic-character-selected',{detail:{id:target.dataset.person}}));});</script>
     <script src="/static/location-urls.js"></script><script src="/static/strategic-navigation.js"></script>
-    <script type="module" src="/static/strategic-renderer.js"></script></body></html>`;
+    <script src="/tactical/sfx.js"></script><script type="module" src="/static/strategic-renderer.js"></script></body></html>`;
 }
 
 async function serve() {
