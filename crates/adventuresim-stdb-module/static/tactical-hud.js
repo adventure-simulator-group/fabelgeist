@@ -62,6 +62,27 @@ export function installTacticalHud({ container, command }) {
   });
   const slots = element("div", "hud-slots", root);
   slots.hidden = true;
+  // A left click selects a slot while a hand still grabs. The grab's held
+  // button gives the canvas pointer capture and the client cancels its
+  // pointerdown, so the click reaches no slot node and fires no mouse event:
+  // it arrives as a pointermove whose button changed (pointerdown when no
+  // other button is held). Hit-test the slot HUD at the pointer instead.
+  // With the pointer locked in play the position is frozen, so this only
+  // works with the cursor free (Esc).
+  const pressSlotHud = (event) => {
+    const leftPressed = event.button === 0 && (event.buttons & 1) === 1;
+    if (!leftPressed || root.hidden || slots.hidden || document.pointerLockElement) return;
+    const target = document.elementsFromPoint(event.clientX, event.clientY)
+      .find((node) => slots.contains(node) && node.closest("[data-press]"))
+      ?.closest("[data-press]");
+    if (!target) return;
+    const press = target.dataset.press === "other-hand"
+      ? { kind: "other-hand" }
+      : { kind: "slot", input: target.dataset.press };
+    command({ type: "press-slot-hud", press });
+  };
+  window.addEventListener("pointerdown", pressSlotHud, true);
+  window.addEventListener("pointermove", pressSlotHud, true);
 
   const loading = createLoadingScreen(container, command);
   const icons = new Map();
@@ -119,7 +140,7 @@ export function installTacticalHud({ container, command }) {
     },
     slots(view) {
       slots.hidden = !view;
-      if (view) drawSlots(slots, view, icons, command);
+      if (view) drawSlots(slots, view, icons);
     },
     loading: loading.show,
   };
@@ -180,7 +201,7 @@ function iconElement(icon, className, icons) {
 
 /** The QWERTY slot grid and the hands row. Cells of one item that spans
  *  several locations are joined between their icons. */
-function drawSlots(slots, view, icons, command) {
+function drawSlots(slots, view, icons) {
   const grid = element("div", "hud-slot-grid");
   grid.style.setProperty("--columns", view.columns);
   grid.style.setProperty("--rows", view.rows);
@@ -199,8 +220,7 @@ function drawSlots(slots, view, icons, command) {
       node.append(icon);
       if (cell.join !== null) joined.push({ cell, icon });
     }
-    node.addEventListener("click", () =>
-      command({ type: "press-slot-hud", press: { kind: "slot", input: cell.input } }));
+    node.dataset.press = cell.input;
   }
 
   const hands = element("div", "hud-hands");
@@ -211,8 +231,7 @@ function drawSlots(slots, view, icons, command) {
   other.type = "button";
   other.title = "Move or swap with the other hand";
   other.append(iconElement(view.other, "", icons));
-  other.addEventListener("click", () =>
-    command({ type: "press-slot-hud", press: { kind: "other-hand" } }));
+  other.dataset.press = "other-hand";
   if (view.pickup) {
     const pickup = iconElement(view.pickup.icon, "pickup", icons);
     pickup.title = view.pickup.tooltip;
