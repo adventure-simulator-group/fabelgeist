@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:11:54.741067+00:00
+Updated: 2026-11-09T00:13:56.788868+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:11:54.741067+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Inventory admission source packets | 4 adopted | Transaction and authority remain open |
+| Inventory admission source packets | 5 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
@@ -140,6 +140,12 @@ module currency classification use authored and persisted catalog authorities,
 respectively; missing settlement lookup derives a currency. Projection
 divergence, caller admission and fallback policy remain open. No discovery
 closure is claimed.
+
+Checkpoint 3796 qualified selected currency-credit callers. Personal credit
+can discard an add-helper error for a new or overflow stack; missing catalog
+reachability and transaction effects remain unverified. Contract and wedding
+callers have distinct settlement and authority conditions. No discovery closure
+is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
