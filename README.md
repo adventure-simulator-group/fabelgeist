@@ -56,7 +56,9 @@ The recoverable material consists of:
 - Published implementation draft branches listed in `SOURCE-LOCATORS.json`.
   Their existence does not imply review, integration or current-head tests.
 
-`CURRENT.json` records the latest *reported* numbers and known missing state.
+[Recovery progress](RECOVERY-PROGRESS.md) and `RECOVERY-CHECKPOINT.json`
+record the latest recovery counts and remaining work. `CURRENT.json` records
+the latest *reported* audit numbers and known missing state.
 `AUDIT-RESUME.md` and `PROMPT.md` explain how to proceed without overstating
 recovery. The latest public [progress report](PROGRESS.md) and
 [incremental checkpoint](CHECKPOINT-INCREMENT-348.json) are copied here for
