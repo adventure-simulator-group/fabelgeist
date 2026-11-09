@@ -42,8 +42,9 @@ Build the database module and browser client in separate Cargo invocations.
 Selecting both packages together combines their features even when both target
 WebAssembly, and the browser does not provide the database host's imports.
 
-The tactical client's browser build selects `gameplay` without `debug`. The standalone art demo uses `--no-default-features`. Build
-them separately so Cargo preserves each application's feature selection.
+The tactical client's browser build selects `gameplay` without `debug`. The
+standalone art demo uses `--no-default-features`. Build them separately so Cargo
+preserves each application's feature selection.
 
 ## Measure and retain compiler output
 
