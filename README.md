@@ -4,6 +4,8 @@
 
 - 36,487 original evidence files restored and hash-verified.
 - 7,196 later public progress files verified against the recovery manifest.
+- 268 registered source identities verified against Git, representing 264
+  distinct source blobs; a restoration script is included.
 - 13 historical JSON versions recovered from the transcript and matched to
   later recorded path and SHA-256 references.
 - 3,422 historical printed contract observations indexed, covering 1,722
@@ -30,6 +32,7 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
+- A [registered source-object manifest and restorer](recovered/registered-source-objects/README.md).
 - Five [historical queue and selected-lens values](recovered/transcript-queue-fragments/README.md)
   and an index of further printed contract candidates.
 - Nineteen [late audit notes](recovered/transcript-notes/README.md)
