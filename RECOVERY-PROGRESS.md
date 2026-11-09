@@ -14,7 +14,7 @@
   transcript-derived text or normalized values, not original file bytes.
 - **3,146** normalized printed contract values spanning **1,722** distinct
   contract IDs preserved; values overlap and may be field projections.
-- **486** normalized printed audit documents preserved; **4** values with
+- **538** normalized printed audit documents preserved; **8** values with
   personal local paths remain private.
 - **268** source identities, representing **264** distinct blobs, verified
   against Git and recoverable through the source-object restorer.
