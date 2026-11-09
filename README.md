@@ -8,6 +8,8 @@
   distinct source blobs; a restoration script is included.
 - 212 historical JSON versions recovered from the transcript and matched to
   recorded path and SHA-256 references.
+- 1677 screened ledger-related command outputs preserved, with
+  22 deferred for privacy review.
 - 117 printed ledger-related JSON values and arrays preserved as historical fragments.
 - 538 normalized historical audit documents preserved;
   8 additional values are published with personal paths redacted.
@@ -63,6 +65,8 @@ The recoverable material consists of:
 - [Historical helper candidates](recovered/transcript-helper-candidates/README.md),
   explicitly unverified and not to be executed.
 - A [corpus of Markdown write fragments](recovered/transcript-markdown-writes/README.md).
+- [Ledger-related command outputs](recovered/ledger-command-outputs/README.md),
+  with truncation caveats.
 - [Printed ledger fragments](recovered/printed-ledger-fragments/README.md)
   from historical ledger-reading commands.
 - A [collection of printed audit documents](recovered/printed-audit-documents/README.md).
