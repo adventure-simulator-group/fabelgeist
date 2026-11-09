@@ -342,9 +342,6 @@ dependencies = [
  "thiserror 2.0.20",
  "toml",
  "tracing",
- "tracing-subscriber",
- "tracing-tracy",
- "tracy-client-sys 0.28.0",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-time",
@@ -10874,17 +10871,7 @@ checksum = "6131992ff3e2cb96f407eb4eb005427ba15e2687260d99089b90e60e33169ce0"
 dependencies = [
  "loom",
  "once_cell",
- "tracy-client-sys 0.29.0",
-]
-
-[[package]]
-name = "tracy-client-sys"
-version = "0.28.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c5f7c95348f20c1c913d72157b3c6dee6ea3e30b3d19502c5a7f6d3f160dacbf"
-dependencies = [
- "cc",
- "windows-targets 0.52.6",
+ "tracy-client-sys",
 ]
 
 [[package]]

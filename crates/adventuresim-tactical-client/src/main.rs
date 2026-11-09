@@ -82,6 +82,8 @@ mod player;
     reason = "the gameplay binary shares presentation review data with the native capture viewers"
 )]
 mod presentation;
+#[cfg(all(feature = "tracy", not(target_family = "wasm")))]
+mod single_threaded;
 #[cfg(any(target_family = "wasm", test))]
 #[cfg_attr(
     not(target_family = "wasm"),
@@ -352,6 +354,8 @@ fn run(
             }),
             ..default()
         });
+    #[cfg(all(feature = "tracy", not(target_family = "wasm")))]
+    let default_plugins = single_threaded::browser_shaped(default_plugins);
     app.add_plugins((
         default_plugins,
         FrameTimeDiagnosticsPlugin::default(),
