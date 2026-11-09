@@ -13,6 +13,7 @@
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
+- 54 additional Rust, JSON, TOML and JavaScript literal writes preserved.
 - 89 other historical file-change candidates preserved; five
   copied-source or private-path candidates remain excluded.
 - 310 Python literal-write drafts preserved, including 5 path-redacted texts.
@@ -40,6 +41,7 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
+- [Other literal-write drafts](recovered/transcript-other-writes/README.md).
 - [Other file-change candidates](recovered/transcript-other-candidates/README.md),
   with limitations and exclusions.
 - [Historical Python literal-write drafts](recovered/transcript-python-writes/README.md),

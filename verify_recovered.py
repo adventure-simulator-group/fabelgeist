@@ -88,4 +88,11 @@ with (root / "recovered/transcript-other-candidates/CANDIDATES.jsonl").open(enco
         if hashlib.sha256(item["candidate_text"].encode("utf-8")).hexdigest() != item["candidate_sha256"]:
             raise ValueError("Other candidate hash mismatch")
         other_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes and", other_count, "other candidates; claims remain qualified")
+other_writes_count = 0
+with (root / "recovered/transcript-other-writes/WRITES.jsonl").open(encoding="utf-8") as stream:
+    for line in stream:
+        item = json.loads(line)
+        if hashlib.sha256(item["literal_text"].encode("utf-8")).hexdigest() != item["normalized_sha256"]:
+            raise ValueError("Other literal write hash mismatch")
+        other_writes_count += 1
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates and", other_writes_count, "other writes; claims remain qualified")
