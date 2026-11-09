@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:15:59.623396+00:00
+Updated: 2026-11-09T00:18:20.868399+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:15:59.623396+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Inventory admission source packets | 6 adopted | Transaction and authority remain open |
+| Inventory admission source packets | 7 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
@@ -151,6 +151,11 @@ Checkpoint 3797 qualified currency catalog validation and initialization.
 The selected build validator checks the supported currency set, and module
 initialization projects catalog definitions. Existing database lifecycle and
 alternate writers remain open; no discovery closure is claimed.
+
+Checkpoint 3798 qualified selected attachment admission and generated carry.
+A default sheathable starter weapon can lead to an equipped belt and dependent
+holder when generated carry is enabled. Native creation and subsequent belt
+removal remain untested; the wider attachment obligation stays open.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
