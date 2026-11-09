@@ -1,10 +1,11 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T01:02:38.449921+00:00
+Updated: 2026-11-09T01:06:55.606021+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
 | Ledger source-discovery entries | 599 / 3,866 | 3,267, including overlapping obligations |
+| Lens 4 errantry file range | 827 / 827 lines qualified | Connected contracts open |
 | Historical repair families validated on combined head | 0 / 20 | 20 |
 | Handoff audit gate | Not complete | Connected ledger and reconciliation open |
 | Registered duration source packets | 10 adopted | Contracts and wider aliases open |
@@ -171,6 +172,10 @@ Checkpoint 3801 qualified selected procedural holder-fit checks. The authored
 katzbalger recipe and recommended scabbard align with generated carry; recipe
 evaluation and native creation remain unverified. No discovery closure is
 claimed.
+
+Checkpoint 3817 combines a hash-verified Lens 4 historical receipt with a
+new test-tail read for the full errantry file. The existing clue-position
+finding and connected producer, consumer and admission work remain open.
 
 Checkpoint 3816 qualifies positive duration in the selected foraging and
 preparation paths, including injury preview. Maximum-clock saturation and
