@@ -77,10 +77,12 @@ def main(argv: list[str] | None = None) -> int:
         started = time.perf_counter()
         common = ["cargo", "build", "--package", "adventuresim-tactical-client",
                   "--target", "wasm32-unknown-unknown"]
-        # Preserve the ordinary tactical client's release build exactly. Build
-        # the demo separately so Cargo cannot unify gameplay-only features into
-        # its size-oriented binary.
-        run([*common, "--bin", "adventuresim-tactical-client", "--release"])
+        # The shipped client leaves out `debug` (BRP, avian debug rendering
+        # and the bevy_ui that bevy_remote links). Build the demo separately
+        # so Cargo cannot unify gameplay-only features into its size-oriented
+        # binary.
+        run([*common, "--bin", "adventuresim-tactical-client", "--release",
+             "--no-default-features", "--features", "gameplay"])
         run([*common, "--bin", "art-demo", "--profile", "wasm-release",
              "--no-default-features"])
         build_seconds = time.perf_counter() - started

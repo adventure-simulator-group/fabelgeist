@@ -16,7 +16,9 @@ use adventuresim_tactical_core::{
     physics::AdventureSimulatorPhysicsPlugin,
     prelude::*,
 };
-use adventuresim_tactical_netcode::replication::AdventureSimulatorReplicationPlugin;
+use adventuresim_tactical_netcode::{
+    TACTICAL_TICK_HZ, replication::AdventureSimulatorReplicationPlugin,
+};
 use bevy::{prelude::*, time::TimeUpdateStrategy};
 
 pub use clock::TacticalElapsed;
@@ -39,7 +41,6 @@ use crate::{
     },
 };
 
-const TACTICAL_TICK_HZ: u64 = 64;
 const TACTICAL_TICK_SECONDS: f32 = 1.0 / TACTICAL_TICK_HZ as f32;
 const MAX_DUEL_SECONDS: u64 = 180;
 
@@ -61,7 +62,7 @@ pub fn resolve_tactical_server_melee_duel(
         TacticalCombatSide::Enemy,
         Vec3::new(0.0, 0.95, 2.0),
     );
-    let maximum_ticks = MAX_DUEL_SECONDS * TACTICAL_TICK_HZ;
+    let maximum_ticks = MAX_DUEL_SECONDS * u64::from(TACTICAL_TICK_HZ);
     let mut final_tick = maximum_ticks;
     for tick in 0..maximum_ticks {
         app.world_mut().resource_mut::<IterationClock>().tick = tick;

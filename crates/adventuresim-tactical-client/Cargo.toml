@@ -7,11 +7,20 @@ repository.workspace = true
 license.workspace = true
 
 [features]
-default = ["debug"]
-debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
-tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
+default = ["gameplay", "debug"]
+
+gameplay = []
+# Gizmos only draw debug overlays (debug.rs, the viewers, avian_debug).
+debug = ["bevy/debug", "bevy/bevy_remote", "bevy/bevy_gizmos", "bevy/bevy_gizmos_render", "adventuresim-tactical-core/avian_debug"]
+# Tracy profile with per-system spans, scheduled single-threaded like the
+# browser (see src/single_threaded.rs).
+tracy = ["bevy/trace_tracy", "bevy/trace"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
 remote-types = ["debug"]
+# The animation viewer burns scenario labels into its review captures with
+# bevy_ui. The game has no Bevy UI (its HUD is DOM, see src/hud.rs), so only
+# that native capture tool enables it.
+capture-label = ["debug", "bevy/bevy_ui", "bevy/bevy_ui_render", "bevy/bevy_text", "bevy/default_font"]
 
 [dependencies]
 fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
@@ -25,9 +34,43 @@ fabelgeist-armor = { path = "../fabelgeist-armor" }
 
 adventuresim-procedural-materials.workspace = true
 anyhow = "1"
-bevy.workspace = true
-bevy_flair.workspace = true
-bevy_egui.workspace = true
+# Explicit 2D + 3D rendering set instead of bevy's umbrella features: their
+# shared `common_api` adds bevy_text, and `ui` adds bevy_ui. The HUD is DOM in
+# the browser page (src/hud.rs), so neither is linked.
+bevy = { workspace = true, features = [
+    "default_app",
+    "std",
+    "bevy_animation",
+    "bevy_camera",
+    "bevy_color",
+    "bevy_image",
+    "bevy_mesh",
+    "bevy_shader",
+    "bevy_material",
+    "bevy_window",
+    "hdr",
+    "png",
+    "jpeg",
+    "bevy_sprite",
+    "bevy_render",
+    "bevy_core_pipeline",
+    "bevy_post_process",
+    "bevy_sprite_render",
+    "bevy_light",
+    "bevy_mikktspace",
+    "ktx2",
+    "morph_animation",
+    "morph",
+    "smaa_luts",
+    "tonemapping_luts",
+    "zstd_rust",
+    "bevy_anti_alias",
+    "bevy_gltf",
+    "bevy_pbr",
+    "gltf_animation",
+    "scene",
+    "bevy_winit",
+] }
 bevy_mod_outline.workspace = true
 adventuresim-core.workspace = true
 adventuresim-tactical-core = { workspace = true, features = ["meshgen"] }
@@ -49,34 +92,24 @@ serde-saphyr.workspace = true
 postcard.workspace = true
 tracing.workspace = true
 web-time.workspace = true
-tracing-tracy = { version = "0.11", optional = true }
-tracing-subscriber = { version = "0.3", optional = true }
-tracy-client-sys = { version = "=0.28.0", optional = true }
 
 [target."cfg(not(target_family = \"wasm\"))".dependencies]
-bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
+# bevy's `default_platform` without `default_font` (bevy_text).
+bevy = { workspace = true, features = [
+    "bevy_gilrs",
+    "bevy_clipboard",
+    "multi_threaded",
+    "x11",
+    "wayland",
+    "custom_cursor",
+    "sysinfo_plugin",
+    "file_watcher",
+] }
 
 [target."cfg(target_family = \"wasm\")".dependencies]
 # Select the shared hashing backend only for the browser renderer graph.
 blake3 = { workspace = true, features = ["wasm32_simd"] }
-bevy = { workspace = true, default-features = false, features = [
-    "default_app",
-    "std",
-    "bevy_winit",
-    "web",
-    "webgpu",
-    "2d_bevy_render",
-    "3d_bevy_render",
-    "bevy_anti_alias",
-    "ui_bevy_render",
-    "scene",
-    "picking",
-    "jpeg",
-    "png",
-    "smaa_luts",
-    "tonemapping_luts",
-    "zstd_rust",
-] }
+bevy = { workspace = true, features = ["web", "webgpu"] }
 console_error_panic_hook.workspace = true
 wasm-bindgen.workspace = true
 wasm-bindgen-futures = "0.4"
@@ -97,6 +130,7 @@ path = "src/lib.rs"
 [[bin]]
 name = "adventuresim-tactical-client"
 doc = false
+required-features = ["gameplay"]
 
 [[bin]]
 name = "art-demo"
@@ -107,7 +141,7 @@ doc = false
 name = "animation-viewer"
 path = "src/animation_viewer_main.rs"
 doc = false
-required-features = ["debug"]
+required-features = ["capture-label"]
 
 [[bin]]
 name = "tactical-scene-viewer"

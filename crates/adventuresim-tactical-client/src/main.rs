@@ -69,6 +69,7 @@ mod debug;
 #[cfg(not(target_family = "wasm"))]
 mod diagnostics;
 mod equipment;
+mod hud;
 mod loading_screen;
 mod movement_audio;
 #[expect(
@@ -81,6 +82,8 @@ mod player;
     reason = "the gameplay binary shares presentation review data with the native capture viewers"
 )]
 mod presentation;
+#[cfg(all(feature = "tracy", not(target_family = "wasm")))]
+mod single_threaded;
 mod sound_output;
 #[cfg(any(target_family = "wasm", test))]
 #[cfg_attr(
@@ -352,6 +355,8 @@ fn run(
             }),
             ..default()
         });
+    #[cfg(all(feature = "tracy", not(target_family = "wasm")))]
+    let default_plugins = single_threaded::browser_shaped(default_plugins);
     app.add_plugins((
         default_plugins,
         FrameTimeDiagnosticsPlugin::default(),
@@ -496,7 +501,6 @@ fn validate_native_presentation_assets(asset_root: &std::path::Path) -> Result<(
         "shaders/tactical_terrain.wgsl",
         "shaders/tactical_weather.wgsl",
         "shaders/tactical_tree_impostor.wgsl",
-        "tactical-equipment-icons.png",
         "textures/moon/lroc_color_2k.jpg",
     ];
     let missing = REQUIRED_ASSETS

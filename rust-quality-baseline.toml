@@ -532,7 +532,7 @@ ceiling = 711
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-ceiling = 1034
+ceiling = 639
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
@@ -569,10 +569,6 @@ ceiling = 514
 [[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 ceiling = 676
-
-[[files]]
-path = "crates/adventuresim-tactical-client/src/ui.rs"
-ceiling = 857
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/animation/state.rs"
@@ -2278,11 +2274,6 @@ item = "drive_scripted_input"
 ceiling = 267
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "draw_slot_hud"
-ceiling = 289
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/main.rs"
 item = "run"
 ceiling = 155
@@ -2381,11 +2372,6 @@ ceiling = 170
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 item = "capture_view"
 ceiling = 158
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/ui.rs"
-item = "setup_ui"
-ceiling = 185
 
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
@@ -8630,13 +8616,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-tactical-client/src/diagnostics.rs"
 item = "diagnostic_command_pace"
 fingerprint = "string:slide"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "draw_slot_hud"
-fingerprint = "string:Move or swap with the other hand"
 occurrences = 1
 
 [[findings]]

@@ -142,6 +142,7 @@ fn toggle_camera_debug(
 ) {
     if keyboard.just_pressed(KeyCode::F6) {
         enabled.0 = !enabled.0;
+        info!(enabled = enabled.0, "Camera rig debug toggled");
     }
 }
 

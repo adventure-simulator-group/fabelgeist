@@ -22,6 +22,10 @@ use crate::{
     party_item_amount,
 };
 
+mod object_lookup;
+
+pub(crate) use object_lookup::object_for_row;
+
 pub const WATER_ITEM_ID: &str = "water";
 fn empty_container_can_stack(has_contents: bool, is_nested: bool, has_condition: bool) -> bool {
     !has_contents && !is_nested && !has_condition
@@ -56,31 +60,6 @@ pub struct ContainerLiquid {
     /// implicitly. The volume is counted exactly once by capacity checks.
     pub liquid_item_id: String,
     pub water_ml: u64,
-}
-
-pub(crate) fn object_for_row(
-    ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
-) -> Result<Option<InventoryObject>, String> {
-    let mut matches =
-        ctx.db
-            .inventory_object()
-            .iter()
-            .filter(|object| match (&object.location, scope) {
-                (InventoryLocation::Personal(location), CarriedInventoryScope::Personal) => {
-                    location.row_id == row_id
-                }
-                (InventoryLocation::Party(location), CarriedInventoryScope::Party) => {
-                    location.row_id == row_id
-                }
-                _ => false,
-            });
-    let first = matches.next();
-    if matches.next().is_some() {
-        return Err("Inventory row has duplicate physical object identities".into());
-    }
-    Ok(first)
 }
 
 fn insert_carried_object(

@@ -143,6 +143,8 @@
     </div>
 
     <script type="module">
+        import { installTacticalHud } from './tactical-hud.js';
+
         const params = new URLSearchParams(window.location.search);
         const serverInput = document.getElementById('server');
         const playerIdInput = document.getElementById('player-id');
@@ -152,6 +154,13 @@
         const toggleBtn = document.getElementById('toggle');
 
         let started = false;
+        let runtime;
+
+        // The HUD must exist before the client's first frame calls into it.
+        installTacticalHud({
+            container: document.body,
+            command: (payload) => runtime?.wasm_command(JSON.stringify(payload)),
+        });
 
         // The game's loading screen calls this from its Exit button.
         window.exitTactical = () => history.back();
@@ -200,8 +209,7 @@
             const playerId = playerIdInput.value.trim() || '2';
             setStatus(`Connecting to ${server} as player ${playerId}...`);
 
-            // Collapse the panel out of the way so it stops overlaying the
-            // in-game debug overlay once play begins.
+            // Collapse the panel out of the way of the HUD once play begins.
             setCollapsed(true);
 
             const url = new URL(window.location.href);
@@ -216,6 +224,7 @@
 
                 const module = await import('./wasm/adventuresim-tactical-client.js');
                 await module.default();
+                runtime = module;
                 const [graphics, audio] = await Promise.all([
                     fetch('./assets/config/tactical-graphics.yaml'),
                     fetch('./assets/config/tactical-audio.yaml'),

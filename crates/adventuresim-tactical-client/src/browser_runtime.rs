@@ -18,19 +18,10 @@ use bevy::{
     prelude::*,
 };
 use serde::Deserialize;
-use wasm_bindgen::prelude::*;
 
 use crate::weapon_preview_material::preview_material;
 
-use crate::{
-    Args, player::LocalCharacterId, presentation::TacticalGameplayCamera, ui::TacticalUiRoot,
-};
-
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(catch, js_namespace = window, js_name = exitTactical)]
-    fn exit_tactical() -> Result<(), JsValue>;
-}
+use crate::{Args, player::LocalCharacterId, presentation::TacticalGameplayCamera};
 
 static COMMANDS: OnceLock<Mutex<VecDeque<BrowserCommand>>> = OnceLock::new();
 
@@ -71,6 +62,12 @@ enum BrowserCommand {
         character_id: u64,
     },
     ExitTactical,
+    /// The loading screen's Retry button.
+    RetryTacticalLoad,
+    /// A click on the equipment slot HUD.
+    PressSlotHud {
+        press: crate::equipment::SlotHudPress,
+    },
 }
 
 #[derive(Debug, Deserialize)]
@@ -151,7 +148,7 @@ impl Plugin for BrowserRuntimePlugin {
                 Update,
                 (
                     drain_browser_commands,
-                    sync_tactical_ui_visibility,
+                    sync_tactical_hud_visibility,
                     dismiss_loading_outside_tactical,
                 ),
             )
@@ -291,14 +288,9 @@ fn drain_browser_commands(
                 }
                 *mode = BrowserMode::Strategic;
             }
+            BrowserCommand::RetryTacticalLoad => commands.trigger(crate::loading_screen::RetryLoad),
+            BrowserCommand::PressSlotHud { press } => commands.trigger(press),
         }
-    }
-}
-
-/// Asks the host page to leave tactical play; each page owns where that goes.
-pub(crate) fn request_tactical_exit() {
-    if let Err(error) = exit_tactical() {
-        warn!(?error, "Host page did not accept the tactical exit request");
     }
 }
 
@@ -454,17 +446,11 @@ pub(crate) fn quote_design_json(json: &str) -> Result<String, String> {
     serde_json::to_string(&quote).map_err(|error| error.to_string())
 }
 
-fn sync_tactical_ui_visibility(
-    mode: Res<BrowserMode>,
-    mut roots: Query<&mut Visibility, With<TacticalUiRoot>>,
-) {
-    let visibility = if *mode == BrowserMode::Tactical {
-        Visibility::Inherited
-    } else {
-        Visibility::Hidden
-    };
-    for mut current in &mut roots {
-        *current = visibility;
+/// The page keeps the tactical HUD while the canvas shows strategic scenes,
+/// hidden.
+fn sync_tactical_hud_visibility(mode: Res<BrowserMode>) {
+    if mode.is_changed() {
+        crate::hud::visible(*mode == BrowserMode::Tactical);
     }
 }
 

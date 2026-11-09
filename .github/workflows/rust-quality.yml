@@ -1449,7 +1449,7 @@ jobs:
       - name: Test existing animation report consumers
         run: |
           set -euo pipefail
-          cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::report:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation-reports.log
+          cargo test --locked --package adventuresim-tactical-client --features capture-label --bin animation-viewer animation_viewer::report:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation-reports.log
       - name: Test tactical equipment contracts
         run: |
           set -o pipefail
@@ -1522,7 +1522,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
           cargo test --locked --package adventuresim-tactical-client --features debug --bin tactical-scene-viewer tactical_scene_viewer:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-viewer.log
           cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-art-demo.log
-          cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::capture:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-animation-capture.log
+          cargo test --locked --package adventuresim-tactical-client --features capture-label --bin animation-viewer animation_viewer::capture:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-animation-capture.log
       - name: Test dispatcher terrain selection and inspection consumers
         env:
           EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
