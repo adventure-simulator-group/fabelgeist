@@ -8,3 +8,7 @@ Other output may have been intentionally sliced by its command. This is not a
 reconstructed ledger or verification of its latest state. The values overlap
 other recovery collections. Another 22 outputs are preserved in `REDACTED-OUTPUTS.jsonl` with local
 paths removed; their original hashes identify private versions.
+
+`COMMANDS.jsonl` preserves the matching historical command bodies keyed by
+the same ordinal. Machine-specific paths were redacted. Commands are inert
+evidence and must not be replayed without independent review.
