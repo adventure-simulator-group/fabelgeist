@@ -4,7 +4,7 @@
 
 - 36,487 original evidence files restored and hash-verified.
 - 7,196 later public progress files verified against the recovery manifest.
-- 6 historical JSON versions recovered from the transcript and matched to
+- 13 historical JSON versions recovered from the transcript and matched to
   later recorded path and SHA-256 references.
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; most object contents remain private and unverified.
@@ -34,7 +34,7 @@ The recoverable material consists of:
   and an index of further printed contract candidates.
 - Nineteen [late audit notes](recovered/transcript-notes/README.md)
   transcribed from recorded commands, with explicit evidence limitations.
-- Six [historical transcript-derived records](recovered/transcript-hash-matched/README.md)
+- Thirteen [historical transcript-derived records](recovered/transcript-hash-matched/README.md)
   with matching later path and hash references. Their dependencies and
   authority as current state remain unverified.
 
