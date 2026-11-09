@@ -190,4 +190,28 @@ with (root / "recovered/late-source-read-records/RECORDS.jsonl").open(encoding="
         if hashlib.sha256(item["output_text"].encode("utf-8")).hexdigest() != item["output_sha256"]:
             raise ValueError("Late source output hash mismatch")
         late_source_count += 1
-print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", ledger_context_count, "ledger outputs,", queue_records_count, "queue outputs,", late_source_count, "late source records,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")
+directory = root / "recovered/source-registration-outputs"
+manifest = json.loads((directory / "MANIFEST.json").read_text(encoding="utf-8"))
+source_records_count = 0
+for part in manifest["parts"]:
+    name = part["file"]
+    if Path(name).name != name:
+        raise ValueError("Unsafe source record part name")
+    path = directory / name
+    if hashlib.sha256(path.read_bytes()).hexdigest() != part["sha256"]:
+        raise ValueError("Source record part hash mismatch")
+    part_count = 0
+    with path.open(encoding="utf-8") as stream:
+        for line in stream:
+            item = json.loads(line)
+            if hashlib.sha256(item["command_text"].encode("utf-8")).hexdigest() != item["command_sha256"]:
+                raise ValueError("Source command hash mismatch")
+            if hashlib.sha256(item["output_text"].encode("utf-8")).hexdigest() != item["output_sha256"]:
+                raise ValueError("Source output hash mismatch")
+            part_count += 1
+    if part_count != part["records"]:
+        raise ValueError("Source record part count mismatch")
+    source_records_count += part_count
+if source_records_count != manifest["screened_records"]:
+    raise ValueError("Source record total mismatch")
+print("Verified", count, "evidence files,", contract_count, "contract values,", document_count, "audit documents,", len(found), "ledger fragments,", ledger_context_count, "ledger outputs,", queue_records_count, "queue outputs,", source_records_count, "source records,", late_source_count, "late source records,", markdown_count, "Markdown writes,", helper_count, "helper candidates,", redacted_count, "redacted helpers,", python_writes_count, "Python writes,", other_count, "other candidates,", other_writes_count, "other writes,", patch_count, "unresolved patches,", redacted_documents_count, "redacted documents,", command_count, "late commands and", audit_commands_count + reviewed_command_count, "audit commands; claims remain qualified")

@@ -18,7 +18,9 @@
 - 3,422 historical printed contract observations indexed, covering 1,722
   distinct contract IDs; 3,146 normalized values are preserved with
   unverified audit claims.
-- 57 late source-related command/output records preserved for context.
+- 6,233 source/registration-related command and output records
+  preserved; 338 records await privacy review.
+- 57 overlapping late source-related records separately preserved.
 - 5,623 audit write command bodies preserved as inert historical text;
   265 have machine-specific paths redacted.
 - 70 overlapping late-audit write commands separately preserved.
@@ -68,6 +70,8 @@ The recoverable material consists of:
 - [Historical helper candidates](recovered/transcript-helper-candidates/README.md),
   explicitly unverified and not to be executed.
 - A [corpus of Markdown write fragments](recovered/transcript-markdown-writes/README.md).
+- [Source and registration output records](recovered/source-registration-outputs/README.md),
+  with screening and truncation limits.
 - [Late source-related records](recovered/late-source-read-records/README.md),
   with their commands and output limits.
 - [Queue-related command outputs](recovered/queue-command-outputs/README.md),
