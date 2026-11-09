@@ -6,6 +6,8 @@
 - 7,196 later public progress files verified against the recovery manifest.
 - 6 historical JSON versions recovered from the transcript and matched to
   later recorded path and SHA-256 references.
+- 19 late audit notes recovered as transcript text, with original bytes
+  and supporting evidence unverified.
 - 2,480 candidate file states and 519 literal-write records extracted for
   further investigation; these counts overlap and are not verified totals.
 
@@ -25,6 +27,8 @@ before publishing or adopting it.
 
 The recoverable material consists of:
 
+- Nineteen [late audit notes](recovered/transcript-notes/README.md)
+  transcribed from recorded commands, with explicit evidence limitations.
 - Six [historical transcript-derived records](recovered/transcript-hash-matched/README.md)
   with matching later path and hash references. Their dependencies and
   authority as current state remain unverified.
