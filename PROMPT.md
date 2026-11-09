@@ -14,6 +14,14 @@ new authoritative baseline and distinguish newly assessed work from historical
 summaries. Do not fabricate receipts, close obligations from summary prose,
 or claim the reported counts as an independently recovered ledger.
 
+The originating Codex chat's history tool has exposed pre-compaction turns,
+including checkpoint commands and bounded source outputs. Investigate that
+transcript as a potential recovery source before assuming all continuation
+details are lost. Its completeness and cross-machine availability are unknown;
+outputs may be truncated. Do not blindly replay commands or publish a raw
+transcript. Review sensitive material and verify provenance and hashes before
+using reconstructed evidence.
+
 Keep the complete recoverable audit state on a remote branch, including the
 authoritative ledger, queues, selected states, registrations, receipts and
 restoration metadata. At every checkpoint, update the quantitative progress

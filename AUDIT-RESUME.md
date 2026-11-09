@@ -23,6 +23,13 @@
    Otherwise a human and the continuing agent must decide how to re-establish
    an authoritative ledger from the original package and public summaries;
    do not silently promote summaries into evidence or repeat audit credit.
+   The originating Codex chat can be paged through the chat-history tool:
+   older checkpoint commands, verification outputs and bounded source reads
+   have been observed. Inventory that transcript as another possible source;
+   its completeness and accessibility from another machine are unverified.
+   Do not blindly replay old commands or publish the transcript: review
+   sensitive content, preserve attribution, and validate reconstructed bytes
+   and evidence against surviving hashes and the original protocol.
 5. Preserve the existing drafts as unverified drafts. No product code repair
    is authorized before the handoff's audit gate is satisfied. Reconcile main
    and the selected source pin before any future source assessment.

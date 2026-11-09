@@ -6,6 +6,14 @@ and checkpoint 3821 evidence were deleted before they were published. Their
 hashes and summaries cannot reconstruct their bytes. Do not represent this
 package as the authoritative checkpoint 3821 or resume its writer from it.
 
+The originating Codex chat's history tool was subsequently confirmed to
+expose older turns, including some commands and tool outputs from before
+compaction. That transcript is a potential additional recovery source, but
+its completeness has not been assessed and it is not included in this
+package. Some outputs or argument previews may be truncated. Review any
+recovered material for sensitive data and verify its provenance and hashes
+before publishing or adopting it.
+
 The recoverable material consists of:
 
 - Segovb's original, lossless checkpoint 059 package at commit
