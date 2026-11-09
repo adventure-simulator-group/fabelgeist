@@ -6,8 +6,9 @@
 - **7,196** public progress files checked against the pinned manifest.
 - **212** historical JSON file versions reconstructed to recorded path and
   SHA-256 references; their latest-state authority and dependencies remain open.
-- **6,233** source/registration-related records preserved; **338**
-  await privacy review. The **57** late source records overlap.
+- **6,233** source/registration-related records prepared locally; public
+  export was rejected by automatic approval review. **338** additional
+  records await privacy review. The **57** published late records overlap.
 - **5,623** audit write command bodies preserved without replay; **265**
   have paths redacted. The **70** late commands overlap.
 - **37** unresolved patches for **30** paths preserved without applying.
@@ -51,9 +52,9 @@ new audit credit was performed during recovery.
 The [recovery README](README.md) and [resume instructions](AUDIT-RESUME.md)
 explain provenance, restrictions and restoration. The older [progress
 report](PROGRESS.md) is a historical audit report, not this recovery report.
-A fresh shallow clone of commit `a53d425cff091ae19833e16e2b9d235109911b7c`
-verified 236 individually manifested files, all 3,146 contract values and all
-486 printed documents. A separate original-source clone restored 268 source
+A fresh shallow clone of commit `2183aa1f43ac04b31a47ebd6061e9e4a54340a4b`
+verified the published evidence collections, including 236 individually
+manifested files, 3,146 contract values and 538 printed documents. A separate original-source clone restored 268 source
 identities and rejected an existing destination. These checks do not restore
 or verify the missing final ledger.
 
