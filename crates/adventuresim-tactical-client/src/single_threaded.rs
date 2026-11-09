@@ -6,11 +6,24 @@
 //! behind 32 cores and adds executor overhead the browser never pays, so the
 //! `tracy` build runs native the way the browser does.
 
-use bevy::{app::Plugin, ecs::schedule::SingleThreadedExecutor, prelude::*};
+use bevy::{
+    app::{Plugin, PluginGroupBuilder},
+    ecs::schedule::SingleThreadedExecutor,
+    prelude::*,
+    render::pipelined_rendering::PipelinedRenderingPlugin,
+};
+
+/// Renders inline on the main thread instead of on a pipelined render thread,
+/// and runs every schedule on one thread, as the browser does.
+pub(crate) fn browser_shaped(plugins: PluginGroupBuilder) -> PluginGroupBuilder {
+    plugins
+        .disable::<PipelinedRenderingPlugin>()
+        .add(SingleThreadedSchedulesPlugin)
+}
 
 /// Replaces the executor of every schedule in every sub-app with
 /// [`SingleThreadedExecutor`] once all plugins have added their schedules.
-pub(crate) struct SingleThreadedSchedulesPlugin;
+struct SingleThreadedSchedulesPlugin;
 
 impl Plugin for SingleThreadedSchedulesPlugin {
     fn build(&self, _app: &mut App) {}
