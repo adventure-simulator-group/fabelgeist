@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:03:20.585165+00:00
+Updated: 2026-11-09T00:05:32.121613+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,6 +15,7 @@ Updated: 2026-11-09T00:03:20.585165+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
+| Inventory admission source packets | 1 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Fireplace custody source packets | 7 adopted | 1 scoped discovery closed; policy and validation open |
@@ -116,6 +117,12 @@ entry with a conditional backing policy. The object owner requires subtree
 cleanup before backing-row deletion, while the selected generic belt-removal
 path omits it. Native execution, error policy and independent catalog and
 equipment-law obligations remain open; no repair or runtime pass is claimed.
+
+Checkpoint 3792 qualified a separate inventory-admission trace. An unknown
+item can reach an insert before a missing-definition error is discarded by a
+wrapper; the inspected generic reducer can return success. Whether the write
+commits and how the reducer is exposed require validation. No access, runtime
+failure or discovery closure is claimed.
 
 The handoff requires the audit ledger to be complete before code repairs. The
 ledger's implementation gate remains false; the incremental implementation
