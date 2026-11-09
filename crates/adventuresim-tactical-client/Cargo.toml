@@ -8,7 +8,8 @@ license.workspace = true
 
 [features]
 default = ["debug", "client-audio"]
-debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
+# Gizmos only draw debug overlays (debug.rs, the viewers, avian_debug).
+debug = ["bevy/debug", "bevy/bevy_remote", "bevy/bevy_gizmos", "bevy/bevy_gizmos_render", "adventuresim-tactical-core/avian_debug"]
 client-audio = ["bevy/audio"]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
@@ -39,7 +40,6 @@ bevy = { workspace = true, features = [
     "bevy_animation",
     "bevy_camera",
     "bevy_color",
-    "bevy_gizmos",
     "bevy_image",
     "bevy_mesh",
     "bevy_shader",
@@ -53,7 +53,6 @@ bevy = { workspace = true, features = [
     "bevy_core_pipeline",
     "bevy_post_process",
     "bevy_sprite_render",
-    "bevy_gizmos_render",
     "bevy_light",
     "bevy_mikktspace",
     "ktx2",
@@ -67,7 +66,6 @@ bevy = { workspace = true, features = [
     "bevy_pbr",
     "gltf_animation",
     "scene",
-    "picking",
     "bevy_winit",
 ] }
 bevy_mod_outline.workspace = true
