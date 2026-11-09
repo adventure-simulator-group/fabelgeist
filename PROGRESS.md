@@ -1,6 +1,6 @@
 # Bespoke type refactor: progress
 
-Updated: 2026-11-09T00:40:09.943796+00:00
+Updated: 2026-11-09T00:42:05.887492+00:00
 
 | Overall measure | Done | Remaining |
 | --- | ---: | ---: |
@@ -15,7 +15,7 @@ Updated: 2026-11-09T00:40:09.943796+00:00
 | Point-prevention source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
 | Corpse-handling source packets | 1 adopted | 1 scoped discovery closed; runtime and policy open |
 | Corpse-pathology source packets | 8 adopted | Discovery, native reachability and policy open |
-| Terminal-boundary source packets | 5 adopted | Admissibility and iteration order open |
+| Terminal-boundary source packets | 6 adopted | Admissibility and iteration order open |
 | Inventory admission source packets | 10 adopted | Transaction and authority remain open |
 | Equipment compliance source packets | 4 adopted | 1 scoped discovery closed; policy and runtime open |
 | Corpse-family source packets | 1 adopted | 1 scoped discovery closed; policy and validation open |
@@ -171,6 +171,10 @@ Checkpoint 3801 qualified selected procedural holder-fit checks. The authored
 katzbalger recipe and recommended scabbard align with generated carry; recipe
 evaluation and native creation remain unverified. No discovery closure is
 claimed.
+
+Checkpoint 3807 identifies strong poppy tincture and bounds a range of
+hypothetical inputs producing the same endpoint pattern. Actual secret-derived
+inputs and patient access remain unverified.
 
 Checkpoint 3806 records an authored influenza and medication calculation:
 with hypothetical phenotype values, loss crosses 1 before expiration and
