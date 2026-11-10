@@ -1,0 +1,223 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_source_roles": [
+    {
+      "original_index": 81,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/81",
+      "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "lines": 489,
+      "new_personal_read_ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read at this exact physical-p16 role only. Source tests were read, not run. Current applicability, connected trace, other historical roles and every independent lens remain open."
+    },
+    {
+      "original_index": 82,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/82",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "lines": 57,
+      "new_personal_read_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read at this exact physical-p16 role only. Source tests were read, not run. Current applicability, connected trace, other historical roles and every independent lens remain open."
+    },
+    {
+      "original_index": 83,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/defense.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/83",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "lines": 444,
+      "new_personal_read_ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read at this exact physical-p16 role only. Source tests were read, not run. Current applicability, connected trace, other historical roles and every independent lens remain open."
+    },
+    {
+      "original_index": 84,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/84",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "lines": 263,
+      "new_personal_read_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read at this exact physical-p16 role only. Source tests were read, not run. Current applicability, connected trace, other historical roles and every independent lens remain open."
+    },
+    {
+      "original_index": 86,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/86",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "lines": 115,
+      "new_personal_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read at this exact physical-p16 role only. Source tests were read, not run. Current applicability, connected trace, other historical roles and every independent lens remain open."
+    },
+    {
+      "original_index": 87,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/87",
+      "sha256": "6490cee01f9eeb43f5cb7201d193a93cb59f9e053ba093d3689c94008a24d140",
+      "lines": 113,
+      "new_personal_read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read at this exact physical-p16 role only. Source tests were read, not run. Current applicability, connected trace, other historical roles and every independent lens remain open."
+    },
+    {
+      "original_index": 88,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/88",
+      "sha256": "1f06000f7544b5eef15b06fbce033930014e96dc50812d8b9dadfd3c2b850af9",
+      "lines": 111,
+      "new_personal_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read at this exact physical-p16 role only. Source tests were read, not run. Current applicability, connected trace, other historical roles and every independent lens remain open."
+    }
+  ],
+  "historical_read_observations": {
+    "81": "Physical-p16 contact geometry carries SignedLength fields and operations and then checks nonnegative facts and positive effective reach. The old variant is evidence of a historical design, not current authority.",
+    "82": "Physical-p16 ContactTimingOffset represents finite signed seconds, checks subtractive overflow between BattleTime coordinates, and provides serde conversion. The current file was separately read and has identical bytes.",
+    "83": "Physical-p16 defense uses ContactTimingOffset and AnimationElapsed for timing, but carries several probabilities, skill values and weapon inertia as primitives. Its test source was read only; complete callers and value roles remain open.",
+    "84": "Physical-p16 workload and fatigue functions use AnimationElapsed and NonnegativeSpeed alongside raw mass, energy and fraction values. Its tests were read only; connected validation and consumers remain open.",
+    "86": "Physical-p16 incapacitation obtains UnitInterval performance from total incapacitation and models unavailable recovery explicitly. Tests were read as source only; callers and current behavior remain open.",
+    "87": "Physical-p16 weapon contact returns checked ContactPrecision, and historical handling obtains metres from the historical typed weapon-length interface. It is distinct from the current raw PlayerEquipment interface traced in the existing precision assessment.",
+    "88": "The physical-p16 weapon-contact tests construct historical SignedLength weapon geometry and exercise source assertions; they were not executed and cannot establish current behavior."
+  },
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "git_blob": "0cc7a809becdfcc5e2ea4af7e6441dc17134f55f",
+      "bytes": 19525,
+      "lines": 488,
+      "ranges": [
+        [
+          1,
+          302
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-geometry/current/crates/adventuresim-core/src/combat/contact_geometry.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/contact_timing.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "git_blob": "f397c68da9e17bd819438a795af6180e0c74c087",
+      "bytes": 1881,
+      "lines": 57,
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-geometry/current/crates/adventuresim-core/src/combat/contact_timing.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "git_blob": "2baf681e104881b9b0ddf67f258ffcd96fc478f7",
+      "bytes": 22474,
+      "lines": 595,
+      "ranges": [
+        [
+          357,
+          420
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-geometry/current/crates/adventuresim-core/src/autoresolve/melee_round/mod.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "git_blob": "d0eb217d6cf8558fc2040438f8632dec03a3bb19",
+      "bytes": 17181,
+      "lines": 473,
+      "ranges": [
+        [
+          50,
+          125
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-geometry/current/crates/adventuresim-tactical-server/src/combat/melee.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "trace": [
+    "The current MeleeContactAtTimeFacts carries seven metre values as public f32 fields. At resolve_melee_contact_at_time, invalid_contact_cause rejects non-finite or negative facts and nonpositive reach, while actual measure beyond reach becomes a separate invalidation. The derived result retains raw metre values and fractions; the preferred-measure helper also takes and returns f32.",
+    "The strategic autoresolve exchange obtains measures and equipment dimensions and calls the same resolver. The tactical server independently obtains current surface distance, reach and equipment dimensions and calls it at attack completion. These two code paths motivate a connected owner and boundary review, not persisting tactical state or assuming that all distances have identical sign/zero policies.",
+    "The historical contact geometry has SignedLength fields, unlike the current source; its historical form is not restored into, or credited as, the current tree or checkpoint 3821. Current ContactTimingOffset independently admits finite signed time and checks subtraction; signed timing is a separate quantity from geometry."
+  ],
+  "connected_ledger_entries": [
+    "NEW-AUTORESOLVE-WEAPON-LENGTH-001",
+    "NEW-MELEE-MOVEMENT-LENGTH-001",
+    "NEW-CONTACT-PRECISION-PROPAGATION-001"
+  ],
+  "repair_direction": "Continue the existing weapon-length and movement traces through all strategic and tactical producers, the contact result, serialization and native boundaries. Distinguish nonnegative measures and signed displacements; preserve invalid-geometry and outside-reach outcomes, accepted zero cases and arithmetic order. Do not adopt the historical implementation uncritically or create duplicate repair entries.",
+  "later_acceptance": [
+    "After separate implementation authorization, compare valid contact classifications, material and energy calculations for zero, close and reach-boundary inputs across both authorities, and preserve explicit invalid-geometry behavior.",
+    "Verify signed contact offsets and timing overflow independently; investigate precision and fatigue/injury behavior only in their own connected contracts."
+  ],
+  "remaining": [
+    "All callers, source admissions, wire consumers and exact historical queue aliases remain open. Read and reconcile each snapshot role separately.",
+    "No source repair, build, test, simulation or product runtime probe was performed."
+  ],
+  "discovery_status": "partial; extends existing ledger families without closing them",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

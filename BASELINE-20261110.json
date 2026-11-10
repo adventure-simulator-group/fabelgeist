@@ -632,7 +632,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
       "lens_status": [
-        "unassessed",
+        "partial tree LOD/residency source trace; remaining file and connected scopes open; ASSESSMENT-L1-TREE-RESIDENCY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -727,7 +727,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs",
       "lens_status": [
-        "unassessed",
+        "partial tree LOD/residency source trace; remaining file and connected scopes open; ASSESSMENT-L1-TREE-RESIDENCY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1450,6 +1450,9 @@
         "validation": "not performed",
         "dependencies": [
           "NEW-COMBAT-STEP-RATE-001"
+        ],
+        "additional_assessments": [
+          "ASSESSMENT-L1-CONTACT-GEOMETRY.json"
         ]
       },
       {
@@ -1473,6 +1476,9 @@
         "validation": "not performed",
         "dependencies": [
           "NEW-MELEE-MOVEMENT-LENGTH-001"
+        ],
+        "additional_assessments": [
+          "ASSESSMENT-L1-CONTACT-GEOMETRY.json"
         ]
       },
       {
@@ -1519,6 +1525,9 @@
         "connected_candidates": [
           "NEW-AUTORESOLVE-WEAPON-LENGTH-001",
           "NEW-RECRUITMENT-ROLE-FIELDS-001"
+        ],
+        "additional_assessments": [
+          "ASSESSMENT-L1-CONTACT-GEOMETRY.json"
         ]
       },
       {
@@ -1528,12 +1537,20 @@
         "discovery": "partial; actual boundaries, semantics, consumers and historical aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "REVIEW-TREE-LOD-STATE-001",
+        "record": "ASSESSMENT-L1-TREE-RESIDENCY.json",
+        "classification": "representable unchecked internal tree LOD and unresolved distinct residency mask roles; runtime reachability not established",
+        "discovery": "partial; actual admission, lifecycle, policy and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 changed role 81 and current delta tree presentation; keep contact precision, triangle-count owner, presentation and prior connected traces open.",
+  "next_step": "Continue original Lens 1 role 90 and current delta ui.rs. Keep contact geometry, all historical bodies, tree residency and prior connected traces open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
