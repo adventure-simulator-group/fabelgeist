@@ -1,0 +1,162 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded terrain skill-hour aggregation and tooltip source chain; independent lens coverage remains incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "112b3aac2da0828be2b60c23e7989ecac422dd81",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "bytes": 159242,
+      "lines": 3812,
+      "ranges": [
+        [
+          88,
+          107
+        ],
+        [
+          999,
+          1058
+        ],
+        [
+          1180,
+          1192
+        ],
+        [
+          1260,
+          1358
+        ],
+        [
+          1911,
+          2011
+        ],
+        [
+          2013,
+          2045
+        ],
+        [
+          3337,
+          3352
+        ]
+      ],
+      "preserved_bytes": "/home/brunosegovia/.codex/worktrees/7dfd/adventure-simulator/target/726-audit-baseline/publication/main-advance-95e/terrain-hours-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/skill.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "bytes": 41590,
+      "lines": 1165,
+      "ranges": [
+        [
+          90,
+          107
+        ],
+        [
+          829,
+          889
+        ],
+        [
+          1098,
+          1125
+        ]
+      ],
+      "preserved_bytes": "/home/brunosegovia/.codex/worktrees/7dfd/adventure-simulator/target/726-audit-baseline/publication/main-advance-95e/terrain-hours-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_skills/rank.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34ad55f7daac0c80d8bb2b4e61c7018e58b439e6",
+      "sha256": "e9f11b0fa05841fb640d4c44507b6b8628ea52fdabffb0e657c88c96d888489c",
+      "bytes": 3181,
+      "lines": 82,
+      "ranges": [
+        [
+          31,
+          75
+        ]
+      ],
+      "preserved_bytes": "/home/brunosegovia/.codex/worktrees/7dfd/adventure-simulator/target/726-audit-baseline/publication/main-advance-95e/terrain-hours-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/static/tooltips.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a4266399710eb632a935df5f0d609ca88c3ad847",
+      "sha256": "a227f594bbd2e088c1093965b6b71c2ff8c77a7eec6527c69a46cb043e889d29",
+      "bytes": 16074,
+      "lines": 396,
+      "ranges": [
+        [
+          65,
+          105
+        ],
+        [
+          188,
+          195
+        ]
+      ],
+      "preserved_bytes": "/home/brunosegovia/.codex/worktrees/7dfd/adventure-simulator/target/726-audit-baseline/publication/main-advance-95e/terrain-hours-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8aca6fb872937ce7d1a1c18f29b3feb3638f18bf",
+      "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+      "bytes": 41269,
+      "lines": 1065,
+      "ranges": [
+        [
+          45,
+          68
+        ],
+        [
+          140,
+          170
+        ]
+      ],
+      "preserved_bytes": "/home/brunosegovia/.codex/worktrees/7dfd/adventure-simulator/target/726-audit-baseline/publication/main-advance-95e/terrain-hours-sources/04.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected current source ranges personally inspected in the c100 checkout after current and predecessor Git tree identity; historical physical-p16 skill file is byte-identical. Source tests were read, not run.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_id": "ADLER-L11-TERRAIN-FAMILY-HOURS-CARDINALITY",
+    "historical_source_role": {
+      "index": 465,
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "relation": "byte-match"
+    },
+    "qualification": "The original finding and its independent Lens 3 facet retain their revision, attribution and status; no checkpoint 3821 credit is inferred."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-TERRAIN-FAMILY-HOURS-CARDINALITY-001",
+      "severity": "P3 provisional; aggregate tooltip overstates effective and correlated hours, no rendering observed",
+      "classification": "same first-failure family as checkpoint 059 terrain family hours cardinality, with current effective-hour and tooltip consumers traced",
+      "detail": "The six terrain entries each contribute direct and effective hours. The direct sum is divided by six; the effective sum is divided by five. SkillTooltip derives correlated hours as the effective aggregate minus direct aggregate and describes their sum as effective hours. For a positive finite effective sum S, S/5 is 20 percent above the six-entry mean S/6; the extra amount is presented as correlation. Both the accessible description and serialized skill tooltip feed the rank-bar markup, and the client tooltip reads those same serialized values. These are source-derived consequences; no HTML, browser or product execution was observed.",
+      "example": "For the source-test-shaped input of 1000 direct forest hours and zero for the other five terrain skills, the one-pass 20-percent correlations yield 1000 effective forest hours and 200 for each other entry, sum 2000. The displayed aggregate is approximately 166.7 direct, 400.0 effective and 233.3 correlated hours; a six-entry mean would be approximately 166.7 direct, 333.3 effective and 166.7 correlated. This is arithmetic from inspected source, not a run of the source test, rendering or a product numerical probe.",
+      "safeguards": "terrain_family_rank separately averages six individually capped ranks; the displayed aggregate-hour denominator is not used by that rank function or the leaf skill projections on this traced path. Do not claim inflated gameplay rank, stored training or gameplay impairment. The source test checks leaf strings for cross-habitat projection but does not assert the aggregate tooltip values; it was read, not run. The skills rail renders the table only when a skills view is supplied.",
+      "connected_scope": "Six terrain skill identities and direct fields; one-pass effective correlation; common aggregate cardinality; SkillTooltip direct/effective/correlated semantics; accessible markup and client tooltip; separately averaged rank and leaf details.",
+      "proposed_repair": "After the full audit and implementation authorization, derive both aggregate means from the same six-entry collection cardinality and preserve the individual skill correlation and rank behavior. Verify nonuniform inputs, including snow, and make the distinction between an average of hours and an average of capped ranks explicit.",
+      "later_acceptance": "When product validation is authorized, cover zero, nonuniform and snow-containing skill inputs, direct and correlated aggregate values in accessible and client tooltip representations, leaf values and separately averaged rank. Preserve current skill accumulation and native correlation semantics.",
+      "historical_related_candidates": [
+        "ADLER-L11-TERRAIN-FAMILY-HOURS-CARDINALITY"
+      ],
+      "relationship_qualification": "The recovered 059 finding has the same source hash, function, denominator and first failed display-cardinality contract. It retains its historical attribution, independent Lens 3 facet, current_reconciled false and zero accepted unique-count change. This separate 95e source trace does not grant independent lens credit or restore checkpoint 3821.",
+      "discovery": "partial; other aggregate consumers, producer admission, exact historical aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace other family aggregates, producer admission, all relevant paths and aliases, and independently assess all lenses. No product validation."
+}

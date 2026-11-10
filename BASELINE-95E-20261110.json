@@ -485,6 +485,18 @@
           "SEGOVB-L12-QUEST-LOOT-QUANTITIES-PARSE-CAUSE-ERASURE"
         ],
         "record": "ASSESSMENT-L01-LOOT-PAIR-95E.json"
+      },
+      {
+        "id": "REVIEW-TERRAIN-FAMILY-HOURS-CARDINALITY-001",
+        "record": "ASSESSMENT-L01-TERRAIN-HOURS-95E.json",
+        "classification": "same first-failure family as checkpoint 059 terrain family hours cardinality, with current effective-hour and tooltip consumers traced",
+        "discovery": "partial; other aggregate consumers, producer admission, exact historical aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "historical_related_candidates": [
+          "ADLER-L11-TERRAIN-FAMILY-HOURS-CARDINALITY"
+        ],
+        "relationship_qualification": "The recovered 059 finding has the same source hash, function, denominator and first failed display-cardinality contract. It retains its historical attribution, independent Lens 3 facet, current_reconciled false and zero accepted unique-count change. This separate 95e source trace does not grant independent lens credit or restore checkpoint 3821."
       }
     ]
   }
