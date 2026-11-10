@@ -1,0 +1,30 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 321,
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/321",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "lines": 1325,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1325
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; no simulator, database, product build, test or runtime probe was executed and no current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical live-core runner validates config, obtains a bootstrap credential from its environment, subscribes to an enumerated observation surface, refuses an existing simulation run and checks imported or fixture world provenance before claiming a run. It then registers the strategic gateway and resubscribes gateway-only projections. These source guards do not prove a particular database is isolated or authorize any database operation.",
+    "The runner constructs character profiles and deterministic identities, seeds through explicit reducers, forms parties with ordinary request/accept flows, designates optional direct and generated quest lanes, and uses public observations and a bounded cycle/duration policy. The file was read only: no simulator, database, fixture or reducer was invoked.",
+    "Fixture selection rejects missing, duplicate or wrong-run/party public provenance; quest coverage uses semantic event keys associated with the designated parties and contracts/cases. Final report identifies deployment by origin, database and nonce while explicitly stating that the SDK does not expose a module binary digest. Evidence meaning, privacy, completeness and native event producer correctness require independent review.",
+    "Equipment scoring and slot matching use raw measurements and categorical profiles; admission, finite arithmetic, unit ownership and the connected model must be traced before a type or behavior disposition. No product build, test or runtime probe ran."
+  ],
+  "remaining": "Trace current config isolation and bootstrap authentication, complete observation visibility, all fixture and reducer receipts, cycle/progress termination, equipment/profile admission, event/report semantics and historical aliases; independently assess all lenses without running the simulator."
+}
