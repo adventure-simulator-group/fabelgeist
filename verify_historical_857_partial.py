@@ -19,8 +19,15 @@ assert doc['current_comparison']['sha256']==doc['historical_sha256']
 assert doc['new_personal_read_ranges']==[[1,500]] and doc['next_unread_line']==501
 role=json.loads((root/'COVERAGE-L01-ROLES.json').read_text())['roles'][857]
 assert role['source_id']==doc['source_id'] and role['historical_sha256']==doc['historical_sha256']
-assert role['status']=='bounded-current-trace-only' and role['current_observations']
+assert role['status'] in ('bounded-current-trace-only','full-historical-body-trace-open') and role['current_observations']
+if role['status']=='full-historical-body-trace-open':
+    full=json.loads((root/role['historical_assessment']).read_text())
+    row=next(x for x in full['historical_source_roles'] if x['original_index']==857)
+    assert row['previous_partial_assessment']==name
+    assert row['previous_personal_read_ranges']==[[1,500]]
+    assert row['new_personal_read_ranges']==[[501,2878]]
+    assert row['personal_read_ranges_union']==[[1,2878]]
 assert {'assessment':name,'ranges':[[1,500]]} in role['historical_partial_observations']
 progress=json.loads((root/'CONTINUATION-PROGRESS-95E.json').read_text())
 assert name in progress['post_transition_historical_partial_body_reads']
-print('verified partial historical autoresolve body; no full-role or independent-lens credit')
+print('verified preserved partial and cumulative history; no independent-lens or connected-scope closure')

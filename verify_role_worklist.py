@@ -136,8 +136,28 @@ for role in roles:
                 or matches[0]['sha256'] != role['historical_sha256']):
             raise ValueError('historical body assessment identity mismatch')
         source_lines = len(objects[role['historical_sha256']].splitlines())
-        if (matches[0]['lines'] != source_lines
-                or matches[0]['new_personal_read_ranges'] != [[1, source_lines]]):
+        item = matches[0]
+        if item['lines'] != source_lines:
+            raise ValueError('historical body line-count mismatch')
+        if 'personal_read_ranges_union' in item:
+            partial_name = item['previous_partial_assessment']
+            if Path(partial_name).name != partial_name:
+                raise ValueError('unsafe partial assessment name')
+            partial = json.loads((root / partial_name).read_text())
+            if (partial['original_index'] != role['original_index']
+                    or partial['source_id'] != role['source_id']
+                    or partial['historical_sha256'] != role['historical_sha256']
+                    or partial['new_personal_read_ranges'] != item['previous_personal_read_ranges']
+                    or item['personal_read_ranges_union'] != [[1, source_lines]]):
+                raise ValueError('historical partial lineage mismatch')
+            cursor = 1
+            for lo, hi in sorted(item['previous_personal_read_ranges'] + item['new_personal_read_ranges']):
+                if lo != cursor or hi < lo:
+                    raise ValueError('historical range union gap or overlap')
+                cursor = hi + 1
+            if cursor != source_lines + 1:
+                raise ValueError('historical range union incomplete')
+        elif item['new_personal_read_ranges'] != [[1, source_lines]]:
             raise ValueError('historical body range mismatch')
     elif status == 'deleted-base-trace-open':
         original = registry[role['original_index']]

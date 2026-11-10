@@ -130,6 +130,9 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-HISTORICAL-857-862.json` records the completed frozen
+autoresolve and adjacent source reads. Its separately published 1–500 partial
+record and predecessor bounded observations remain intact; tests were read only.
 `ASSESSMENT-L01-AUTOPSY-EVIDENCE-95E.json` traces conditional lost
 autoresolve wounds, zero-damage trauma findings and an unsupported scene
 claim, with earlier corpse receipts separately attributed. No battle or
