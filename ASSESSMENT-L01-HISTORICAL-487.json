@@ -1,0 +1,32 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 487,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/487",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "lines": 1293,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1293
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered native source; matches current lock-checksum archive. Actual features, application use, tree implementation and independent lenses remain open. Examples were read, not run."
+    }
+  ],
+  "observations": [
+    "SpatialQuery traverses collider trees, applies query filters and fetches global Position, Rotation and Collider before native ray or shape queries. Closest-hit and multi-hit paths differ; shape cast converts native local witnesses through poses and translates the moving witness by travel distance. Native broadphase tree, Parry semantics, schedule and application query frames remain to be traced.",
+    "Multi-hit callback paths iterate each collider tree and pass callback results into each traversal; whether a false result stops all trees or only the current traversal requires the tree implementation and callers. The shape intersection path treats native contact-query errors as non-intersections via is_ok_and; supported shapes, actual error cases and caller policy are open. No missed hit or error was observed.",
+    "AABB intersection is a broad-phase bounding-box result with a tighter AABB check, whereas shape intersection performs a native contact query; do not interchange their semantics. Exact registered bytes match the current lock-checksum archive but do not establish feature resolution, runtime scheduling or current lens completion. Examples were read, not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace collider tree traversal, spatial query filters, actual application shape/ray use and local-world frames, native contact errors, feature selection and all historical aliases. Independently assess all lenses."
+}
