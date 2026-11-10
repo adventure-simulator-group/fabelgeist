@@ -1,0 +1,81 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 220,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/220",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "lines": 1451,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; test and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 221,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/221",
+      "sha256": "ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+      "lines": 946,
+      "new_personal_read_ranges": [
+        [
+          1,
+          946
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; test and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 222,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/222",
+      "sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "lines": 44,
+      "new_personal_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; test and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 223,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/223",
+      "sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "lines": 95,
+      "new_personal_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; test and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical inventory containment uses stable object identities and validates custody, quantity-one backing, graph relationships and volume before rehoming or deletion. Water, measured amounts, condition, food and medicine are connected authorities; all actual mutation callers remain open.",
+    "Historical item projection converts authored definitions into flattened durable fields, while insertion gives measured and non-fungible units stable identity. Quantity, raw physical values and display projections require independent owner, admission and operations analysis.",
+    "The historical change_inventory_item reducer checks that a character is alive while modifying inventory; its current authorization, callers, item admission and external access require a separate current trace. This historical observation alone is not proof of misuse.",
+    "Historical catalog and containment test/guarded fixture bodies were read but not executed. Module registration lists source owners; it does not prove build configuration or current coverage."
+  ],
+  "remaining": "Trace current containment aliases, backing and root custody, measured data and subtree transitions, inventory mutation authorization and all callers; reconcile historical aliases and independently assess each lens."
+}
