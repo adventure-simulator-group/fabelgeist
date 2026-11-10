@@ -399,6 +399,22 @@
           "L11-CURRENT-TACTICAL-CLOTHING-CONTACT-RECEIPT-ADMISSION"
         ],
         "record": "ASSESSMENT-L01-PROTECTIVE-CONTACT-95E.json"
+      },
+      {
+        "id": "REVIEW-TACTICAL-PROTECTION-TOPOLOGY-DRIFT-001",
+        "severity": "P2 provisional; source-derived retained or absent protection after a conditional equipment action",
+        "classification": "newly assessed 95e aggregate-state candidate; exact historical aliases and complete lifecycle remain open",
+        "discovery": "partial; untraced reconciliation systems, all placement transitions, native transport, ordinary live action histories and exact historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "The current slotless-query finding and historical clothing receipt-admission packet concern contact recording and native eligibility, respectively; this candidate concerns stale effective protection after a topology transition. They share equipment/receipt dependencies but are not silently collapsed or counted as distinct historical unique defects. The historical packet remains unchanged; the physical-p16 transfer role 405 and pr-working 2053 match 95e bytes, while role 400 differs.",
+        "historical_related_candidates": [
+          "L11-CURRENT-TACTICAL-CLOTHING-CONTACT-RECEIPT-ADMISSION"
+        ],
+        "related_current_candidates": [
+          "REVIEW-SLOTLESS-PROTECTIVE-CONTACT-OMISSION-001"
+        ],
+        "record": "ASSESSMENT-L01-PROTECTION-TOPOLOGY-95E.json"
       }
     ]
   }

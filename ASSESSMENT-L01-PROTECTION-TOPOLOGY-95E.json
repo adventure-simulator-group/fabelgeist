@@ -1,0 +1,481 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded client-to-server hand/worn protection-state trace; independent lens coverage and complete equipment lifecycle remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b00f33154bbef769ede5059715d8c85e41c05498",
+      "sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+      "bytes": 50170,
+      "lines": 1341,
+      "ranges": [
+        [
+          205,
+          292
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "bytes": 15949,
+      "lines": 475,
+      "ranges": [
+        [
+          85,
+          151
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "572b8fbbc7128b2450769629c320ad2ae9bea463",
+      "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+      "bytes": 39728,
+      "lines": 1126,
+      "ranges": [
+        [
+          25,
+          220
+        ],
+        [
+          265,
+          435
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad82a0196ecabc574093336d8011da8e4712a249",
+      "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+      "bytes": 3659,
+      "lines": 95,
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1c8e039ec137ef036eea9a22b872a5d7a291560e",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "bytes": 4982,
+      "lines": 130,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          405,
+          490
+        ],
+        [
+          1095,
+          1130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          777,
+          810
+        ],
+        [
+          835,
+          940
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0418cbc7c2c6f3a8f05c8a02683a25cff956803c",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "bytes": 5818,
+      "lines": 139,
+      "ranges": [
+        [
+          94,
+          139
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "bytes": 28617,
+      "lines": 862,
+      "ranges": [
+        [
+          38,
+          44
+        ],
+        [
+          105,
+          124
+        ],
+        [
+          272,
+          284
+        ],
+        [
+          578,
+          587
+        ],
+        [
+          602,
+          651
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "761d0ea891ad888fc25ab9bbf42b4a05ea944777",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "bytes": 1688,
+      "lines": 53,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4cf8ab4c3b20cffa9fe65fdf08a836e2b8f9ba2d",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "bytes": 643,
+      "lines": 21,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "770d486f0ab23312de1950f04cc86ac0b7a0fb79",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "bytes": 7745,
+      "lines": 205,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3998872ad3b16a55e7e79d12d2100b8c79645a16",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "bytes": 10796,
+      "lines": 308,
+      "ranges": [
+        [
+          1,
+          13
+        ],
+        [
+          112,
+          175
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          2983,
+          3066
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/starting_character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "552ccde3ca27d125ef75b3609a3bd3bb76d5db83",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "bytes": 70536,
+      "lines": 1936,
+      "ranges": [
+        [
+          362,
+          375
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          1783,
+          1790
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protection-topology-sources/15.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_sources": [
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "archive_sha256": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "inspected_members": [
+        {
+          "path": "bevy_ecs-0.19.1/src/system/commands/mod.rs",
+          "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+          "bytes": 111800,
+          "ranges": [
+            [
+              1390,
+              1438
+            ],
+            [
+              1705,
+              1729
+            ]
+          ]
+        },
+        {
+          "path": "bevy_ecs-0.19.1/src/system/commands/entity_command.rs",
+          "sha256": "8e10e33284c85a46b680bb7084082269fd1098102d93082354a5ee2df89501c1",
+          "bytes": 14392,
+          "ranges": [
+            [
+              124,
+              140
+            ],
+            [
+              204,
+              216
+            ]
+          ]
+        }
+      ],
+      "qualification": "Pinned archive and source-body inspection only; no feature resolution, compilation or product execution."
+    }
+  ],
+  "inspection_provenance": "Selected current source ranges personally read in the predecessor checkout with identical 95e blobs. Pinned Bevy command semantics were inspected as source, not executed.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "related_id": "L11-CURRENT-TACTICAL-CLOTHING-CONTACT-RECEIPT-ADMISSION",
+    "historical_source_roles": [
+      {
+        "index": 400,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment.rs",
+        "sha256": "56528e5adcad8261b414b53f196d12dee6548aa5f75c494b6a92c087d016446a",
+        "current_sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+        "relation": "different"
+      },
+      {
+        "index": 2048,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment.rs",
+        "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+        "current_sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+        "relation": "byte-match"
+      },
+      {
+        "index": 405,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+        "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+        "current_sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2053,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+        "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+        "current_sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+        "relation": "byte-match"
+      },
+      {
+        "index": 1880,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+        "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+        "current_sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+        "relation": "byte-match"
+      },
+      {
+        "index": 328,
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment.rs",
+        "sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+        "current_sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+        "relation": "different"
+      },
+      {
+        "index": 1474,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment.rs",
+        "sha256": "c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+        "current_sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+        "relation": "different"
+      },
+      {
+        "index": 1975,
+        "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs",
+        "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+        "current_sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+        "relation": "byte-match"
+      },
+      {
+        "index": 411,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+        "current_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "relation": "different"
+      },
+      {
+        "index": 2067,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "current_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "relation": "byte-match"
+      },
+      {
+        "index": 415,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+        "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+        "current_sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+        "relation": "different"
+      },
+      {
+        "index": 2070,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+        "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+        "current_sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2813,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+        "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+        "current_sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2818,
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+        "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+        "current_sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+        "relation": "byte-match"
+      },
+      {
+        "index": 385,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+        "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "current_sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2032,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+        "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "current_sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "relation": "byte-match"
+      }
+    ],
+    "qualification": "Historical records retain their original revision, attribution and status. The new current trace does not reconstruct checkpoint 3821."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-TACTICAL-PROTECTION-TOPOLOGY-DRIFT-001",
+      "severity": "P2 provisional; source-derived retained or absent protection after a conditional equipment action",
+      "classification": "newly assessed 95e aggregate-state candidate; exact historical aliases and complete lifecycle remain open",
+      "detail": "The tactical connected-player projection attaches ArmorItem only when the initial strategic placement supplies protected body parts. A client can request a Slot transfer; after controlled-actor, sequence, revision, hand and destination checks, transfer_slot can move an occupied worn item to an empty hand by inserting a held topology and hand slot. That branch does not remove or recompute ArmorItem or ItemOf. The slot hooks only adjust held-weapon/shield caches, and pinned Bevy source describes insert as adding or replacing the supplied components. InventoryView still iterates owned items and selects ArmorItem by covered part and coverage, without checking the new EquipmentTopology. Thus, assuming no separate reconciliation before the next consumer, a formerly worn item can remain a protective layer while its topology says it is held.",
+      "conditional_witness": "The authored linen_breeches worn placement protects both legs and the ordinary starting loadout includes it. Given a connected party character whose matching worn entity has no children, an empty hand, a reachable left-leg destination and a fresh request with matching expected state, transfer_slot selects the entity and replaces its topology with the held hand. After the queued mutation is applied, the same owned ArmorItem still covers the leg at the previously admitted 0.5 sample; a later eligible hit can therefore use its old protective surface while the item is held. No input event, mutation, hit or runtime result was observed.",
+      "reverse_case": "Conversely, an initially unworn connected item has no selected placement-derived protected parts, so projected_armor returns None. If such an item is subsequently held and a supported Slot transfer commits a worn topology, that branch changes topology and removes EquipSlot but does not construct ArmorItem. Absent another untraced reconciliation, it cannot newly participate in armor_layer_chain. Exact acquisition and successful wear sequences remain conditional.",
+      "safeguards": "Queue ownership, expected hand/destination and optimistic revision checks narrow allowed actions; transfer refuses items with children and conflicting or invalid placements. Dropping removes ItemOf and therefore removes the entity from the ordinary owned inventory view. The issue concerns retained or absent protection across a successful hand/worn transition, not a claim that every request succeeds or that movement should be disabled.",
+      "connected_scope": "Client grab selection and request, ordered topology and attachment/fit admission, server transfer and Bevy component hooks, initial strategic projection and per-placement ArmorItem, protection layering and combat, slot-required consequence query, terminal receipt and strategic equipment custody. Reconcile both unworn-to-worn and worn-to-held directions, attached/multi-location items and reconnect/scene lifecycles.",
+      "proposed_repair": "After exhaustive discovery, make current worn/attached topology the single authority for effective protective layers or update their derived projection atomically on every transition. Preserve item identity, held weapon/shield cache behavior, authored geometry and conflict rules. Coordinate with the distinct slotless contact-query and native clothing receipt issues; do not persist tactical tick state or add legacy parallel authority.",
+      "later_acceptance": "When product validation is authorized, verify worn-to-hand removes protection, hand-to-worn adds the correct authored protection, swapped and reattached/multi-location gear follows actual placement, drops and reconnects remain correct, and exact contact identity and durable wear follow the resulting state without double counting.",
+      "historical_related_candidates": [
+        "L11-CURRENT-TACTICAL-CLOTHING-CONTACT-RECEIPT-ADMISSION"
+      ],
+      "related_current_candidates": [
+        "REVIEW-SLOTLESS-PROTECTIVE-CONTACT-OMISSION-001"
+      ],
+      "relationship_qualification": "The current slotless-query finding and historical clothing receipt-admission packet concern contact recording and native eligibility, respectively; this candidate concerns stale effective protection after a topology transition. They share equipment/receipt dependencies but are not silently collapsed or counted as distinct historical unique defects. The historical packet remains unchanged; the physical-p16 transfer role 405 and pr-working 2053 match 95e bytes, while role 400 differs.",
+      "discovery": "partial; untraced reconciliation systems, all placement transitions, native transport, ordinary live action histories and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all topology/protection producers and lifecycle hooks, current inventory selection and native contact admission, actual input and transport, and historical aliases. Independently assess all lenses; no repair or product validation."
+}
