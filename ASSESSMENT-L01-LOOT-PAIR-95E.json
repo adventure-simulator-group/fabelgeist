@@ -1,0 +1,137 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded loot form pair and empty-selection source chain; independent lens coverage remains incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/strategic-web/src/routes/quests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "930f0ade0ae2988b8774ccdc1e2da315c0c5c816",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "bytes": 69463,
+      "lines": 2102,
+      "ranges": [
+        [
+          90,
+          93
+        ],
+        [
+          438,
+          488
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/loot-pair-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/quest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ffedd6cab340e8ac5986fa50cba60b5a66e19de9",
+      "sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+      "bytes": 48487,
+      "lines": 1067,
+      "ranges": [
+        [
+          470,
+          497
+        ],
+        [
+          578,
+          586
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/loot-pair-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/static/party-trade.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d5d970168872800c0dafa7ec3d23d104ec0d4f1b",
+      "sha256": "8bf14d47ad93735cea07acc1e20ad479d0edb2abffc2fd4cd3a6b2b1545c570f",
+      "bytes": 34531,
+      "lines": 677,
+      "ranges": [
+        [
+          369,
+          399
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/loot-pair-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          472,
+          485
+        ],
+        [
+          1439,
+          1557
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/loot-pair-sources/03.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected current source ranges personally inspected at c100 and 95e Git object identity; no product request or execution occurred.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_ids": [
+      "ADLER-L11-LOOT-PAIR-ADMISSION",
+      "PL13-LOOT-HTTP-PAIR-ADMISSION",
+      "SEGOVB-L12-QUEST-LOOT-ITEM-IDS-PARSE-CAUSE-ERASURE",
+      "SEGOVB-L12-QUEST-LOOT-QUANTITIES-PARSE-CAUSE-ERASURE"
+    ],
+    "historical_source_roles": [
+      {
+        "index": 459,
+        "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+        "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+        "current_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+        "relation": "byte-match"
+      },
+      {
+        "index": 287,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+        "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+        "current_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+        "relation": "different"
+      }
+    ],
+    "qualification": "Original 059 status and revision remain unchanged; no checkpoint 3821 credit is inferred."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-LOOT-PAIR-AND-EMPTY-ADMISSION-001",
+      "severity": "P2 provisional; malformed authorized form can change selected loot, no observed request",
+      "classification": "same first-failure family as checkpoint 059 loot-pair admission, with current native empty-selection consequence traced",
+      "detail": "The quest loot HTTP handler accepts two defaulted comma-separated strings, independently drops every token that fails u64/u32 parsing, and forwards two vectors. This loses pair positions and erases malformed input before the native reducer can compare the resulting lengths. The reducer checks equal lengths, unique IDs, selected battle ownership and positive quantities against available rows, but cannot recover discarded positions.",
+      "paired_case": "As source reasoning, item_ids \"17,bad,42\" and quantities \"bad,5,7\" become IDs [17,42] and quantities [5,7]. If both IDs belong to the authorized battle and have at least those quantities, the reducer pairs 17 with 5 and 42 with 7; the 5 occupied the malformed ID position in the original input. No form or reducer was executed.",
+      "empty_case": "If both supplied strings consist only of invalid tokens, both filtered vectors are empty. The native reducer explicitly treats an empty ID vector as a request for all available battle loot after equal-length, actor, party, battle and participant checks. Given nonempty available loot and successful remaining value/grant/transaction paths, this malformed input would select all rows rather than reject the malformed form. No such request, database mutation, grant or transaction result was observed.",
+      "safeguards": "The ordinary UI renders numeric row IDs and quantities and its staging JavaScript builds both lists from the same ordered Map; its confirmation button starts disabled. No normal UI-generated malformed form is established. The reducer rejects mismatched resulting lengths, duplicate IDs, foreign battle rows and zero/excess quantities for explicit selections. Its independent empty-vector take-all behavior may be an intentional native API contract and must be assessed with every caller, not silently removed.",
+      "connected_scope": "Staged loot row identity/quantity, HTTP parsing and error reporting, explicit empty versus take-all intent, native authorization/availability/duplicate and quantity checks, party inventory grant/error behavior, loot debit, participant stake and transactional publication.",
+      "proposed_repair": "After audit completion, admit a complete collection of typed item/quantity pairs at the HTTP boundary, reject malformed fields without dropping tokens, and represent any supported take-all operation explicitly while preserving the native authority and valid-selection semantics.",
+      "later_acceptance": "When product validation is authorized, cover invalid tokens in either position, both-invalid and missing inputs, unequal lengths, duplicate/zero/excess selections, valid ordered selections and any explicitly supported take-all action through the authorized native transfer path.",
+      "historical_related_candidates": [
+        "ADLER-L11-LOOT-PAIR-ADMISSION",
+        "PL13-LOOT-HTTP-PAIR-ADMISSION",
+        "SEGOVB-L12-QUEST-LOOT-ITEM-IDS-PARSE-CAUSE-ERASURE",
+        "SEGOVB-L12-QUEST-LOOT-QUANTITIES-PARSE-CAUSE-ERASURE"
+      ],
+      "relationship_qualification": "The 059 records and source-only qualifications retain their original revision and zero accepted unique-count change. This separate 95e trace supplies the native empty-vector branch and current UI staging; it does not count an additional unique historical finding or restore checkpoint 3821. The grant wrapper has a separately recorded error-erasure family and does not prove successful storage.",
+      "discovery": "partial; actual malformed form reachability, native all-loot intent, transaction/grant outcomes and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish normal and non-UI ingress, valid native all-selection policy, transaction and grant outcomes, complete aliases and all independent lenses. No product validation."
+}

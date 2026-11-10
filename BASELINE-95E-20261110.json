@@ -469,6 +469,22 @@
           "ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC"
         ],
         "record": "ASSESSMENT-L01-DAILY-SHARE-95E.json"
+      },
+      {
+        "id": "REVIEW-LOOT-PAIR-AND-EMPTY-ADMISSION-001",
+        "severity": "P2 provisional; malformed authorized form can change selected loot, no observed request",
+        "classification": "same first-failure family as checkpoint 059 loot-pair admission, with current native empty-selection consequence traced",
+        "discovery": "partial; actual malformed form reachability, native all-loot intent, transaction/grant outcomes and exact historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "The 059 records and source-only qualifications retain their original revision and zero accepted unique-count change. This separate 95e trace supplies the native empty-vector branch and current UI staging; it does not count an additional unique historical finding or restore checkpoint 3821. The grant wrapper has a separately recorded error-erasure family and does not prove successful storage.",
+        "historical_related_candidates": [
+          "ADLER-L11-LOOT-PAIR-ADMISSION",
+          "PL13-LOOT-HTTP-PAIR-ADMISSION",
+          "SEGOVB-L12-QUEST-LOOT-ITEM-IDS-PARSE-CAUSE-ERASURE",
+          "SEGOVB-L12-QUEST-LOOT-QUANTITIES-PARSE-CAUSE-ERASURE"
+        ],
+        "record": "ASSESSMENT-L01-LOOT-PAIR-95E.json"
       }
     ]
   }

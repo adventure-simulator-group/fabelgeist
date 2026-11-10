@@ -81,6 +81,8 @@ component identity through current holder construction and selected callers.
 deserialization and records selected consumers that establish their own bounds.
 `ASSESSMENT-L01-DAILY-SHARE-95E.json` traces an extreme clock
 intermediate-saturation case to selected settlement recovery consumers.
+`ASSESSMENT-L01-LOOT-PAIR-95E.json` connects malformed form pairing
+to current native selection while preserving the ordinary staging safeguards.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
