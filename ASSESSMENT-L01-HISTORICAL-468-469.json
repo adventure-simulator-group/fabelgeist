@@ -1,0 +1,53 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 468,
+      "source_id": "pinned-avian3d-0.7.0:src/collision/collider/mod.rs",
+      "snapshot": "pinned-avian3d-0.7.0",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/468",
+      "sha256": "ca5bb9f61dfc7660c62dc29f09ae251c62a366a405904fbb3bff2a418dd30d6f",
+      "lines": 715,
+      "new_personal_read_ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/collision/collider/mod.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this registered pinned native role. Bytes also match this member of the checksum-bound current lock archive; feature resolution, application usage, schedules and independent lens coverage remain open. Examples were read, not run."
+    },
+    {
+      "original_index": 469,
+      "source_id": "pinned-avian3d-0.7.0:src/dynamics/rigid_body/mod.rs",
+      "snapshot": "pinned-avian3d-0.7.0",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/469",
+      "sha256": "eb3a7e85f3ce1aca1e6959e5d335dc72a1f1fdcf3cd4835344c9d410efb247bd",
+      "lines": 662,
+      "new_personal_read_ranges": [
+        [
+          1,
+          662
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/dynamics/rigid_body/mod.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this registered pinned native role. Bytes also match this member of the checksum-bound current lock archive; feature resolution, application usage, schedules and independent lens coverage remain open. Examples were read, not run."
+    }
+  ],
+  "observations": [
+    "The collider interface computes AABBs and contact manifolds from explicit position, rotation and context. Its default swept AABB merges endpoint AABBs; the native implementation and any intermediate-rotation guarantee need separate tracing. ColliderAabb publicly exposes minimum and maximum, and grow/shrink use debug assertions after arithmetic; concrete supported callers, invalid inputs and profiles remain open.",
+    "The pinned source distinguishes a disabled collider, which its documentation says remains part of attached mass properties, a sensor, which its documentation says does not contribute mass, and a disabled rigid body, which its documentation says does not disable collision detection or spatial queries. Those are native contract distinctions, not proof of an application bug or actual physics scheduling.",
+    "RigidBody supplies dynamic, static and kinematic variants, required physics components and an add hook that initializes physics transforms. The actual implementation of transform initialization, native scheduling, enabled features and application collider/rigid-body producers must be traced before inferring rotation, pickup or mass behavior.",
+    "Both registered historical objects match exact members of the current lock-checksum-bound Avian archive; this does not establish feature resolution, execution or a current lens verdict. Code examples were read, not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace physics transform/collider implementation, enabled features, schedules, application callers, frame conversions and all historical aliases. Independently assess every lens."
+}
