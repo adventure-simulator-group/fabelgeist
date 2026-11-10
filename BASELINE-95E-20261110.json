@@ -3,7 +3,7 @@
   "status": "discovery incomplete; implementation and product validation prohibited",
   "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
   "previous_source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
-  "main_observation": "origin/main fetched at this revision on 2026-11-10 and directly rechecked by ls-remote at 21:59 UTC; it may advance.",
+  "main_observation": "origin/main fetched at this revision on 2026-11-10 and directly rechecked by ls-remote at 22:06 UTC; it may advance.",
   "transition_evidence": "MAIN-ADVANCE-95E.json",
   "predecessor": {
     "baseline": "main-advance-95e/predecessor-baseline.json.gz",
@@ -637,8 +637,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-POLYGON-PRECISION-95E.json"
+      },
+      {
+        "id": "REVIEW-SIGN-UNSUPPORTED-NAME-GLYPH-001",
+        "severity": "P2 provisional; an admitted operator name can trigger an unconditional missing-glyph assertion when its nearby shop lettering is painted",
+        "classification": "new 95e producer-to-render source trace with independently inspected bundled font bytes; actual populated scene and runtime outcome remain unverified",
+        "historical_related_candidates": [
+          "SEGOVB-L13-SIGN-SITE-PHYSICAL-RETENTION"
+        ],
+        "relationship_qualification": "The recovered 059 record concerns sign site geometry and image-size admission, not this name/glyph first failure; both share the paint path but are not automatically aliases. A bounded 059 ledger/queue term search found no missing-glyph assertion record, not proof of global absence. No checkpoint 3821 recovery or historical unique count change is inferred.",
+        "discovery": "partial; actual operator population and assignment, all supported names and fonts, scene/render execution, panic policy, full aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-SIGN-GLYPH-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261110-2159.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261110-2206.json"
 }
