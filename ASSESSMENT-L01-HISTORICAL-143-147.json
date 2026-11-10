@@ -1,0 +1,97 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 143,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/143",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "lines": 1909,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1909
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 144,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/action_kind.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/144",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "lines": 264,
+      "new_personal_read_ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 145,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/affinity.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/145",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "lines": 60,
+      "new_personal_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 146,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/146",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "lines": 69,
+      "new_personal_read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 147,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/witness.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/147",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "lines": 233,
+      "new_personal_read_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical social rules define directional affinity, symmetric familiarity, personality and topic projections, deterministic social outcomes and opt-in target selection.",
+    "Separate historical modules own the closed social-action vocabulary, affinity decay and realized deltas, immutable witness resolution and noisy claim challenge vocabulary.",
+    "Public primitive and aggregate inputs, source selection and persistence authority require current producer and consumer tracing. Historical source tests were read without execution."
+  ],
+  "remaining": "Inspect current reducers, persistence, personality and witness producers, connected callers, admission and all independent lenses; historical role identities remain distinct."
+}
