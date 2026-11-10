@@ -1,0 +1,81 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 324,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/324",
+      "sha256": "301ac4dfe279a9dde47a582987736d16158cea960a0398b2a59f57a63859511d",
+      "lines": 511,
+      "new_personal_read_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and fixture code were read, not run, and included modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 325,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/325",
+      "sha256": "760ecbcf0a6723b9624547541159758a8e9e117606b3c827969cbd9733645aab",
+      "lines": 190,
+      "new_personal_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and fixture code were read, not run, and included modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 326,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/326",
+      "sha256": "7a8b095a7fa6c14074686fd57c5fbfb86cafbc3e5fad5e78a0db2531b6c2d3f8",
+      "lines": 247,
+      "new_personal_read_ranges": [
+        [
+          1,
+          247
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and fixture code were read, not run, and included modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 327,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/debug.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/327",
+      "sha256": "f86ccdaa306872d20b45f9b648814e7402ce790ec333f451406062e7ca0af0d7",
+      "lines": 341,
+      "new_personal_read_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and fixture code were read, not run, and included modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical animation harness enumerates authored armor catalog items and placements, spawns visual fixture entities and waits for independently reported asset/skin readiness before capture or failure. Source tests describe topology and camera assertions; the harness, renderer and tests were not executed and referenced child modules remain separate roles.",
+    "The quickstep fixture derives a planned frame sequence from named masses, agility, force and locomotion sample timing, with separate release and landing calculations. The source includes test assertions for timing and displacement; those are unexecuted statements, not evidence of tactical motion or product validation.",
+    "The camera path receives typed scene position, velocity and elapsed values, applies analytic horizontal and vertical damping, reconstructs admitted outputs, and uses projected screen-space bounds for the sweet spot. Projection, non-finite values, scalar assumptions and actual camera consumers need connected review.",
+    "The debug plugin wires input toggles, transient gizmos and requests for speed, world dump and screenshots. Reading request code does not authorize sending those requests or prove server authority, path safety or rendering behavior. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current catalog fixture ownership, asset readiness and topology, actual quickstep motor/frame and unit boundaries, camera projection admission/consumer behavior, debug request authorization and source aliases; independently assess all thirteen lenses."
+}
