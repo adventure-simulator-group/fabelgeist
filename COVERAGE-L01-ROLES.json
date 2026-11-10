@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2278,
+    "unassessed": 2277,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 183,
+    "bounded-current-trace-only": 182,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 387,
+    "full-historical-body-trace-open": 389,
     "deleted-base-trace-open": 1
   },
-  "first_unfinished": "Physical-p16 weapon model roles 421 through 438 now have full historical body reads. Continue at role 439; earlier dependencies and independent lenses remain open.",
+  "first_unfinished": "Physical-p16 basis-point and calendar roles 439 and 440 now have full historical body reads. Prior bounded c100 calendar observations retain their exact linked ranges. Continue at role 441; earlier dependencies and independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -5886,7 +5886,9 @@
       "historical_sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
       "registry_pointer": "/files/439",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-439-440.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 440,
@@ -5896,7 +5898,7 @@
       "historical_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
       "registry_pointer": "/files/440",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-world-schema/src/calendar.rs",
       "current_git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
       "current_observations": [
@@ -5927,7 +5929,8 @@
           ]
         }
       ],
-      "qualification": "Only cited current ranges were inspected; equality does not assess historical role, connected scope or any lens."
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-439-440.json"
     },
     {
       "original_index": 441,

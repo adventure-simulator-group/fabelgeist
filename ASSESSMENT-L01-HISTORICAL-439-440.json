@@ -1,0 +1,48 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 439,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/basis_points.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/439",
+      "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "lines": 151,
+      "new_personal_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run. Any previously linked bounded c100 observations retain their exact ranges and attribution. No current 95e coverage, historical alias, connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 440,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/440",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "lines": 698,
+      "new_personal_read_ranges": [
+        [
+          1,
+          698
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run. Any previously linked bounded c100 observations retain their exact ranges and attribution. No current 95e coverage, historical alias, connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical UnitBasisPoints and SignedUnitBasisPoints own bounded constructor ranges but derive transparent deserialization over private primitive fields. Complement and scaling assume the unsigned invariant. This matches the recovered conditional 059 wire-admission record, without claiming native SpacetimeDB deserialization or an observed decode.",
+    "Historical StrategicMinute deliberately exposes checked and saturating advances, explicit boundary behavior and calendar operations. Its cumulative daily-share method saturates the intermediate product before division, matching a separate recovered 059 arithmetic concern at large admitted minutes; actual consumers and policy remain open.",
+    "Prior bounded c100 calendar observations on role 440 retain their original path, blob and exact ranges. A full historical body read does not enlarge that current assessment or grant current or independent-lens credit. Source tests were read, not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current Serde and native schema admission, serialized fraction consumers and bounded operations; trace calendar share callers, exhaustion horizons and intended final overflow policy. Reconcile historical aliases and independently assess every lens."
+}
