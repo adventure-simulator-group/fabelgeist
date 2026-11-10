@@ -1,0 +1,64 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 371,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/371",
+      "sha256": "7484685c90ececcfe299b8e5e8c4c4f361fe53ed917ec14e15c28affe40669df",
+      "lines": 237,
+      "new_personal_read_ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 372,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/372",
+      "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "lines": 261,
+      "new_personal_read_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 373,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/373",
+      "sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "lines": 319,
+      "new_personal_read_ranges": [
+        [
+          1,
+          319
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical report Measurement stores an f64 with a role marker, rejects nonfinite native values and arithmetic overflow, and preserves a zero mean for zero samples. Win-rate division relies on its callers to admit a nonzero run count.",
+    "The historical command entry point explicitly rejects zero tactical or autoresolve seed counts before batching and builds summary rows from each returned opponent. That check narrows the prior empty-sample question but does not establish that the separately produced opponent roster is nonempty or that any report was generated.",
+    "The historical batch source records representative and newline-delimited traces, rejects an unknown tactical victor, and derives separate tactical and autoresolve causal counters. Outcome structure, roster identity and all event production dependencies remain open.",
+    "Only source code was read. No combat iteration, product build, test, simulation or runtime probe ran, and no report or acceptance result is claimed."
+  ],
+  "remaining": "Trace roster nonemptiness and identity, all report consumers and metric admission, upstream outcome and event contracts, and current source applicability. Reconcile historical aliases and independently assess every lens without product validation."
+}
