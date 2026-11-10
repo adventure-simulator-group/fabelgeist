@@ -1,0 +1,531 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded source-derived protective surface to equipment-contact and receipt trace; other producers and all independent lens discovery remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          300,
+          313
+        ],
+        [
+          405,
+          490
+        ],
+        [
+          1037,
+          1132
+        ],
+        [
+          1218,
+          1225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          140,
+          202
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/repair.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b38ce0ebc126d7e780dfbdcd10eae48cd6719969",
+      "sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+      "bytes": 24120,
+      "lines": 724,
+      "ranges": [
+        [
+          560,
+          601
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          777,
+          810
+        ],
+        [
+          835,
+          940
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0418cbc7c2c6f3a8f05c8a02683a25cff956803c",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "bytes": 5818,
+      "lines": 139,
+      "ranges": [
+        [
+          94,
+          139
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "bytes": 28617,
+      "lines": 862,
+      "ranges": [
+        [
+          38,
+          44
+        ],
+        [
+          272,
+          284
+        ],
+        [
+          578,
+          587
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4cf8ab4c3b20cffa9fe65fdf08a836e2b8f9ba2d",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "bytes": 643,
+      "lines": 21,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "770d486f0ab23312de1950f04cc86ac0b7a0fb79",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "bytes": 7745,
+      "lines": 205,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "bytes": 22289,
+      "lines": 614,
+      "ranges": [
+        [
+          27,
+          108
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          2983,
+          3066
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/coverage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1e9acdb65785b2a35098289da1104be6a484de5f",
+      "sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+      "bytes": 13928,
+      "lines": 347,
+      "ranges": [
+        [
+          14,
+          27
+        ],
+        [
+          67,
+          112
+        ],
+        [
+          144,
+          177
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3ca56e4d56b5b0012e70bc5c506497e8a50fe745",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "bytes": 38950,
+      "lines": 1137,
+      "ranges": [
+        [
+          260,
+          315
+        ],
+        [
+          409,
+          468
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/armor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d19dbccc2afe4850de90faf99a0435df2da5e742",
+      "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "bytes": 4720,
+      "lines": 138,
+      "ranges": [
+        [
+          13,
+          20
+        ],
+        [
+          35,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "bytes": 10459,
+      "lines": 325,
+      "ranges": [
+        [
+          260,
+          315
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db",
+      "sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+      "bytes": 3428,
+      "lines": 105,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3998872ad3b16a55e7e79d12d2100b8c79645a16",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "bytes": 10796,
+      "lines": 308,
+      "ranges": [
+        [
+          1,
+          175
+        ],
+        [
+          245,
+          272
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "dbd49f0b04b844d012a2edf1ffebdd618a3bf0e6",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "bytes": 3852,
+      "lines": 102,
+      "ranges": [
+        [
+          21,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/16.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6b0d326ea39e5ed1fce99e7e9740433ab99e5a17",
+      "sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "bytes": 6430,
+      "lines": 163,
+      "ranges": [
+        [
+          90,
+          151
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/17.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/starting_character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "552ccde3ca27d125ef75b3609a3bd3bb76d5db83",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "bytes": 70536,
+      "lines": 1936,
+      "ranges": [
+        [
+          362,
+          375
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/18.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          1783,
+          1790
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/protective-contact-sources/19.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_sources": [
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "archive_sha256": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "inspected_members": [
+        {
+          "path": "bevy_ecs-0.19.1/src/query/fetch.rs",
+          "sha256": "d9b99714f83b7172204e850298ced48ea4f26aa0e46bdce387fb6d90b3371b4c",
+          "bytes": 153306,
+          "ranges": [
+            [
+              1773,
+              1779
+            ],
+            [
+              1838,
+              1870
+            ],
+            [
+              3086,
+              3123
+            ]
+          ]
+        },
+        {
+          "path": "bevy_ecs-0.19.1/src/query/world_query.rs",
+          "sha256": "62d12864d2b9ce0e1f9f0005b2075c4db249776e56653ee1781c2ed27e7eb8d4",
+          "bytes": 13614,
+          "ranges": [
+            [
+              175,
+              190
+            ],
+            [
+              245,
+              256
+            ]
+          ]
+        }
+      ],
+      "qualification": "Pinned archive and source-body inspection only; no feature resolution, compilation or product execution."
+    }
+  ],
+  "inspection_provenance": "Selected current source ranges personally read from c100 checkout with identical 95e blobs. Bevy query semantics were inspected in the lock-checksum-matched archived source; no product test or runtime probe ran.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "related_id": "L11-CURRENT-TACTICAL-CLOTHING-CONTACT-RECEIPT-ADMISSION",
+    "historical_source_roles": [
+      {
+        "index": 385,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+        "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "current_sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2032,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+        "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "current_sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "relation": "byte-match"
+      },
+      {
+        "index": 411,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+        "current_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "relation": "different"
+      },
+      {
+        "index": 2067,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "current_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "relation": "byte-match"
+      },
+      {
+        "index": 415,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+        "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+        "current_sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+        "relation": "different"
+      },
+      {
+        "index": 2070,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+        "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+        "current_sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+        "relation": "byte-match"
+      },
+      {
+        "index": 355,
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+        "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+        "current_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "relation": "different"
+      },
+      {
+        "index": 1877,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+        "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "current_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2813,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+        "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+        "current_sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2818,
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+        "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+        "current_sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+        "relation": "byte-match"
+      },
+      {
+        "index": 1242,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+        "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "current_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2788,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+        "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "current_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "relation": "byte-match"
+      }
+    ],
+    "qualification": "Earlier packet retains its original revision, attribution and status. The new current observation is separately recorded and does not reconstruct checkpoint 3821."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-SLOTLESS-PROTECTIVE-CONTACT-OMISSION-001",
+      "severity": "P2 provisional; source-derived missing equipment stress, impact and frequency unverified",
+      "classification": "newly assessed 95e first-failure candidate; related to, but not the same contract as, a checkpoint 059 clothing receipt-admission record; global deduplication remains open",
+      "detail": "The connected-player projection creates one entity per personal item, assigns its tactical inventory identity, ItemOf and optional ArmorItem, but inserts EquipSlot only for a Held left- or right-hand occupancy. InventoryView ItemQuery makes EquipSlot optional and armor_layer_chain can select a protective ArmorItem and retain its exact inventory ID without that component. EquipmentContactQuery instead requires &EquipSlot for every candidate row, even in the branch that matches the exact ArmorImpact inventory ID. The pinned Bevy ECS source requires that component for an &T query and combines tuple predicates conjunctively. Consequently a normally projected worn protective entity with no held occupancy and no later EquipSlot insertion can protect the wearer yet cannot be found by that contact query for its own positive armor impact.",
+      "source_derived_example": "Authored linen_breeches has a worn placement with left/right leg base_clothing occupancies, positive protection and proximal coverage 0.94; the starting loadout also names it. Assuming an authorized party wearer has that exact selected placement, its connected occupancy reflects those authored rows, its entity and inventory ID are unique, no later system adds EquipSlot, and its layer is selected at left-leg surface coordinate 0.5, a positive non-avoided contact produces ArmorImpact carrying that ID. The source query excludes the slotless entity, so this function adds no defender equipment-contact entry for it. This is a conditional source trace, not a claimed executed encounter, observed receipt, or measured wear difference.",
+      "downstream": "The terminal receipt serializes only accumulated equipment contacts; the strategic application loop calls apply_impact only for receipt contacts. Thus the traced omission prevents this contact from supplying wear through that route if no other event records the same item. Actual terminal enrollment, item condition rows, other contacts and wear magnitudes remain unverified.",
+      "safeguards": "Held weapon/shield entities do receive HoldingLeft or HoldingRight slots, and a selected armor entity with an independently inserted slot can satisfy the query. The separate headless melee-iteration fixture explicitly inserts a legacy armor EquipSlot; that fixture source does not establish normal projection behavior. Hit selection, damage/injury application and terminal validation are distinct from this missing contact, and no live product behavior was tested.",
+      "historical_relationship": "A recovered checkpoint 059 packet L11-CURRENT-TACTICAL-CLOTHING-CONTACT-RECEIPT-ADMISSION asserts that a protective clothing contact can reach native receipt admission and be rejected because Clothing is not Armor. The current source trace exposes an earlier slot-required query gate for the specified ordinary projection, so that historical normal-projection route must be re-evaluated before accepting it for this case. A slotful or independently constructed receipt may still encounter the separate categorical admission rule; neither the old record nor its attribution/status is rewritten, and no checkpoint 3821 evidence is inferred.",
+      "connected_scope": "Authored protective placement and quantity/custody, connected-player projection and equipment topology, optional slot ownership, armor surface/identity selection, melee and ranged contact application, Bevy query matching, accumulator and receipt transport, native role eligibility and durable wear. Include re-equip/drop/scene reload, held/shield contact behavior and iteration fixture differences.",
+      "proposed_repair": "After exhaustive discovery, derive protective contact recording from the authoritative selected inventory identity and protective component without requiring an unrelated held-slot component. Reconcile the independent native protective-clothing eligibility rule in the same connected change while preserving actor, custody, placement, finite stress and held-weapon/shield safeguards. Avoid reintroducing legacy slot authority or persisting tactical tick state.",
+      "later_acceptance": "When product validation is authorized, exercise normal projected worn Armor and protective Clothing without EquipSlot, multi-location and attached layers, nonprotected gaps, held weapon/shield contacts and exact item custody. Verify positive accepted contact reaches the intended durable wear boundary exactly once; separately reject unrelated or nonprotective items and preserve terminal outcomes.",
+      "historical_related_candidates": [
+        "L11-CURRENT-TACTICAL-CLOTHING-CONTACT-RECEIPT-ADMISSION"
+      ],
+      "relationship_qualification": "The checkpoint 059 clothing packet describes a later categorical native-admission concern, whereas this 95e candidate identifies an earlier query-component exclusion in a specified projection. The historical packet remains unchanged and may describe another slotful/constructed route. Physical-p16 consequence role 385 and pr-working 2032 byte-match the current body; source-role relations are explicit below and do not grant checkpoint 3821 or full-lens credit.",
+      "discovery": "partial; later component mutation, all equipment transitions and contact producers, supported live encounters, terminal transport, native receipt policy and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace every source of protective contacts, slot mutation, owner lifecycle, native eligibility and terminal transport; reconcile historical aliases, including the prior clothing receipt claim, without rewriting recovery evidence. Independently assess all thirteen lenses."
+}
