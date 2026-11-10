@@ -1,0 +1,47 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 419,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/419",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "lines": 2059,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2059
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 420,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/420",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "lines": 344,
+      "new_personal_read_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical terrain loader bounds and hashes the manifest and compressed pack, validates chunk metadata and ranges, and verifies decoded length, digest and discriminants lazily. Manifest geometry completeness, cache resource accounting and all malformed input paths remain to be traced.",
+    "Historical routing admits bounded profile and weather values at its public entry points, coarsens a geographic window to a node cap, uses a deterministic A* search and reconstructs compacted path and exposure spans. Arithmetic bounds, zero-distance and crossing semantics, deadline coverage, route simplification and consumers of the resulting spans require connected assessment.",
+    "The historical road package binds its source and full-precision geometry digest to a final terrain pack, bounds metadata and payload, rejects malformed tags/counts and converts checked coordinates to E7. It keeps classification in the payload while its geometry digest covers point lists; the intended identity of classification and native-to-presentation handoff need independent examination.",
+    "The 95e release-lock change and any current road deployment are separately attributed; these historical bodies alone do not prove which artifact or byte stream was deployed. Source tests were read, not run. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current package provenance and release-lock bindings, classification and road-mask authority, geographic and native arithmetic bounds, path simplification and exposure consumers, cache memory accounting and all historical aliases. Independently assess every lens."
+}

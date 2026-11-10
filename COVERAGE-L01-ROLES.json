@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2298,
+    "unassessed": 2296,
     "lock-metadata-partial": 2,
     "bounded-current-trace-only": 183,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 367,
+    "full-historical-body-trace-open": 369,
     "deleted-base-trace-open": 1
   },
-  "first_unfinished": "Physical-p16 projection helpers, spawn admission and terrain digest roles 412 through 418 now have full historical body reads. Continue at role 419; earlier dependencies and independent lenses remain open.",
+  "first_unfinished": "Physical-p16 terrain routing and road package roles 419 and 420 now have full historical body reads. Continue at role 421; earlier dependencies and independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -5646,7 +5646,9 @@
       "historical_sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
       "registry_pointer": "/files/419",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-419-420.json",
+      "qualification": "Full body read only for this physical-p16 role; current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 420,
@@ -5656,7 +5658,9 @@
       "historical_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
       "registry_pointer": "/files/420",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-419-420.json",
+      "qualification": "Full body read only for this physical-p16 role; current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 421,
