@@ -541,7 +541,7 @@
         "discovery": "partial; intended spelling of each marked item, originating content transformation, complete scope, runtime display and historical aliases remain open",
         "repair": "not started",
         "validation": "not performed",
-        "relationship_qualification": "The 059 ledger and queue were searched only for selected L\u00fcbeck, lubeck and mojibake terms, with no matching text; broader historical aliases remain open. The frozen pr-working role 525 has distinct bytes and distinct decoded mojibake; its source is not checkpoint 3821 or current evidence. At this assessment checkpoint its full historical body remained unassessed.",
+        "relationship_qualification": "The 059 ledger and queue were searched only for selected Lübeck, lubeck and mojibake terms, with no matching text; broader historical aliases remain open. The frozen pr-working role 525 has distinct bytes and distinct decoded mojibake; its source is not checkpoint 3821 or current evidence. At this assessment checkpoint its full historical body remained unassessed.",
         "historical_related_candidates": [],
         "record": "ASSESSMENT-L01-CATALOG-TEXT-95E.json"
       },
@@ -687,8 +687,19 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-EDITOR-COMPAT-95E.json"
+      },
+      {
+        "id": "REVIEW-CREATOR-DESIGN-SET-PARTIAL-SAVE-001",
+        "severity": "P3; a failed multi-file save can leave an earlier design file overwritten and the saved set mixed",
+        "classification": "new 95e source trace; exact historical aliases, accepted failure policy and complete save lifecycle remain open",
+        "historical_related_candidates": [],
+        "relationship_qualification": "A bounded exact-term search in the recovered checkpoint 059 ledger and queue found no armor_design_output, DesignPaths or Save all catalog designs text. Broader aliases remain open. Frozen pr-working role 689 has identical bytes but retains its original source attribution; no historical unique-count or checkpoint 3821 credit follows.",
+        "discovery": "partial; failure policy, filesystem and crash behavior, other callers, complete aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-CREATOR-SAVE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261110-2212.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261110-2216.json"
 }

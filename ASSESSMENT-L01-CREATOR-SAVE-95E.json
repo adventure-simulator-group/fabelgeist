@@ -1,0 +1,126 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Newly reached creator design-set producer, sequential output and UI error path; other lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "77e18677cdd3092bfd5f6c992c5ee55687e39d94",
+      "sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb",
+      "bytes": 90272,
+      "lines": 1468,
+      "ranges": [
+        [
+          920,
+          942
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/creator-save-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_ui.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bf09ba91b3c3fb2f4d0c34d938e722af28564cc",
+      "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "bytes": 16293,
+      "lines": 435,
+      "ranges": [
+        [
+          271,
+          293
+        ],
+        [
+          341,
+          354
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/creator-save-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/item_design.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "75e333cc2fe0a57d83754fecd700e0ffcb8ba808",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "bytes": 8214,
+      "lines": 232,
+      "ranges": [
+        [
+          56,
+          83
+        ],
+        [
+          89,
+          117
+        ],
+        [
+          120,
+          143
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/creator-save-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "58668720205e731e1543bac0767ec7907e31c8a7",
+      "sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "bytes": 14639,
+      "lines": 400,
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/creator-save-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3789b9144511b2834e2a5025a5280074fc11b20f",
+      "sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "bytes": 3875,
+      "lines": 118,
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/creator-save-sources/04.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 689,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "relation": "identical bytes; original pr-working source remains separately attributed"
+    }
+  ],
+  "source_reasoning": "Static control-flow reading only. No file-save action, filesystem fault injection, GUI, product build, test or runtime probe was performed.",
+  "candidates": [
+    {
+      "id": "REVIEW-CREATOR-DESIGN-SET-PARTIAL-SAVE-001",
+      "severity": "P3; a failed multi-file save can leave an earlier design file overwritten and the saved set mixed",
+      "classification": "new 95e source trace; exact historical aliases, accepted failure policy and complete save lifecycle remain open",
+      "detail": "DesignPaths::save validates the three values, resolves distinct paths and serializes the set before iterating catalog, bracer and breastplate paths. Each std::fs::write is performed immediately and propagates its error; there is no rollback of earlier writes. If the catalog write succeeds but the bracer write fails, the function returns an error after the catalog file has changed and before the breastplate write. A concrete conditional input is a writable catalog file and a distinct existing directory supplied as the bracer path: canonicalization can succeed, while writing a regular file to that directory fails on ordinary filesystem semantics. No paths were created or written to exercise this example.",
+      "consumer_and_safeguards": "The Output tab allows all three paths to be edited and sends the catalog defaults through CatalogDesigns::save. Its status reports failure but does not report which earlier files changed. Validation, serialization, parent canonicalization and duplicate canonical path detection occur before writes, so malformed designs and the checked path aliases fail before the write loop; they do not guarantee later I/O success or transactionality. The README describes the three files as the set needed to reproduce defaults. Existing source test covers rejected path aliases before writes and a successful three-file reload; its body was read, not run.",
+      "connected_scope": "DesignPaths save protocol, three editable destination paths, error reporting, separate catalog/bracer/breastplate load and save boundaries, and documentation of recovery and filesystem limitations.",
+      "proposed_repair": "After discovery is complete and implementation is authorized, establish an explicit coherent multi-file save and failure-recovery contract. Stage and verify outputs and preserve or recover prior files across ordinary write/rename failures, or expose precise committed-path state and a deliberate recovery protocol if atomic publication across distinct directories cannot be guaranteed. Do not assume independent temporary-file renames alone make the entire set atomic.",
+      "later_acceptance": "When product validation is authorized, cover validation rejection, path alias handling, a failure after the first write, later rename/write failures and recovery/reporting with distinct paths and directories. Show that a failed operation does not silently present a mixed set as recoverable as a single successful save; document crash and cross-filesystem limits.",
+      "historical_related_candidates": [],
+      "relationship_qualification": "A bounded exact-term search in the recovered checkpoint 059 ledger and queue found no armor_design_output, DesignPaths or Save all catalog designs text. Broader aliases remain open. Frozen pr-working role 689 has identical bytes but retains its original source attribution; no historical unique-count or checkpoint 3821 credit follows.",
+      "discovery": "partial; failure policy, filesystem and crash behavior, other callers, complete aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ]
+}
