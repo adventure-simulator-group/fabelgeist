@@ -1,0 +1,114 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 503,
+      "source_id": "pr-working:assets/shaders/tactical_city.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/503",
+      "sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "lines": 109,
+      "new_personal_read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen shader only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 504,
+      "source_id": "pr-working:assets/shaders/tactical_city_cull.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/504",
+      "sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "lines": 80,
+      "new_personal_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen shader only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 505,
+      "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/505",
+      "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "lines": 189,
+      "new_personal_read_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen shader only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 506,
+      "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/506",
+      "sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "lines": 20,
+      "new_personal_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen shader only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 507,
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/507",
+      "sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "lines": 177,
+      "new_personal_read_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen shader only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 503 indexes per-instance visible clusters, draw ranges, owners and geometry buffers; its component flag and shifted field address a second building transform. It uses a city-frame normal transform and handedness for shading. Nonzero range divisors, buffer capacities, encoded flags and transform contracts depend on producers not yet traced.",
+    "Role 504 chooses buildings using packed levels, frustum planes and distance thresholds; separate retained-view history adjusts level thresholds. It atomically reserves cluster output space per draw and writes visible entries. Producer-side bounds, atomic capacity, flags, work dispatch and consistency with role 503 remain unverified.",
+    "Role 505 derives procedural city-ground color, wear, wetness, snow and normal relief from packed material uniforms, mesh channels and textures. It divides world coordinates by ground.surface.y; admission and units for that field and the producer meaning of footprint and traffic channels require independent tracing.",
+    "Role 506 samples a reduced-resolution cloud target using viewport-relative coordinates. Role 507 uses six packed cloud uniforms and two baked textures, ray/sphere intersections, wind-compensated sampling and optical-depth interpolation. Their producers, viewport dimensions, input ranges, resource lifetimes and view/depth integration are not established by the shader bodies alone.",
+    "These are historical source observations, not confirmed defects or current product behavior. No shader compilation, rendering, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace the corresponding historical and current host-side producers, buffer layout and capacities, bitfield ownership, pipeline dispatch, uniform admission and consumer contracts. Reconcile original historical candidates separately and assess all independent lenses."
+}

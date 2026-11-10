@@ -83,8 +83,18 @@ deserialization and records selected consumers that establish their own bounds.
 intermediate-saturation case to selected settlement recovery consumers.
 `ASSESSMENT-L01-LOOT-PAIR-95E.json` connects malformed form pairing
 to current native selection while preserving the ordinary staging safeguards.
+`ASSESSMENT-L01-TERRAIN-HOURS-95E.json` traces terrain tooltip arithmetic
+against a separately attributed checkpoint 059 finding.
+`ASSESSMENT-L01-REPLICON-BUFFER-95E.json` records a conditional generic
+dependency buffer contract and the bounded safeguard in selected `Bytes` paths;
+product exposure is not established.
+`ASSESSMENT-L01-PICKUP-FRAME-95E.json` traces a conditional rotated-item
+pickup disagreement while preserving its earlier finding separately.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
+`ASSESSMENT-L01-DELETED-501.json` and `ASSESSMENT-L01-DELETED-2416.json`
+prove two distinct pre-deletion icon paths; their deleted-snapshot bodies
+remain absent and the matching bytes do not establish a rename.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
