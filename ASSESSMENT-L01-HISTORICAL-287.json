@@ -1,0 +1,31 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 287,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/287",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "lines": 3250,
+      "new_personal_read_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical personal, party and merchant inventory paths distinguish stable objects, measured fractions, food lots, medication and repairable equipment, with explicit subtree transfers and value calculations. Item, amount, custody, value and actor ownership must be checked as connected relationships rather than inferred from the row quantity alone.",
+    "The historical party grant wrapper discards the checked grant result; loot, deposits, currency and merge consumers include different follow-on effects. Checkpoint 059 already records the separate party-grant error-erasure family. Successful food reinitialization at the current merge is separately recorded and is not inferred from this historical body.",
+    "Mission outcome selection revalidates candidate authority and custody, commits a bounded strategic battle/hostile result and associated receipts; loot, morale and tactical state remain separate boundaries. Current temporal and transaction callers require independent tracing.",
+    "Party withdrawal and liquidation use stake/value and physical-custody checks; storefront preflight and execution bind provider, location, language, stock, price and payment. Temporary companion removal has an already recorded checkpoint 059 stake-settlement concern. All sender, authorization, physical object, value and rollback paths remain open.",
+    "Historical source tests and inline fixture bodies were read, not executed. No historical alias, current scope, independent lens or checkpoint 3821 status follows from this read."
+  ],
+  "remaining": "Trace current personal and pooled inventory admission, physical object/food/amount conservation, all grant errors, party stake and currency, storefront authorization and quote transitions, mission outcome identity and transaction boundaries; reconcile aliases and independently assess all lenses."
+}
