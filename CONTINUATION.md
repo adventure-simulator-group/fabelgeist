@@ -40,6 +40,8 @@ checkpoint 059 record. Its earlier physical-p16 body is distinct.
 `ASSESSMENT-L01-RESIDENCE-CLOCK-95E.json` records a conditional repeated
 billing case at the maximum clock, related to a broader historical open
 question without claiming supported production reachability.
+`ASSESSMENT-L01-PRESENCE-SAFEGUARD-95E.json` records a rejected death-presence
+suspicion and a separately qualified missing-birth view/reducer question.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its

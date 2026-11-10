@@ -1,0 +1,155 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded resident historical-presence suppression and investigation projection; not a full source or lens assessment.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34d3a48a63c21a8a80f83c6df853cf5d689f1755",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "bytes": 27326,
+      "lines": 759,
+      "ranges": [
+        [
+          461,
+          570
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/presence-safeguard-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "bytes": 80288,
+      "lines": 2111,
+      "ranges": [
+        [
+          1542,
+          1649
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/presence-safeguard-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18f0d1bdc2189552642b19d8acae7ef75a025abb",
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "bytes": 6706,
+      "lines": 200,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/presence-safeguard-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_presence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e38a52c6d3ad7d15a8a101fcda9729970eb9c23f",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "bytes": 21057,
+      "lines": 662,
+      "ranges": [
+        [
+          250,
+          335
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/presence-safeguard-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          2166,
+          2214
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/presence-safeguard-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bd1ffdf65672c95c22b7b04d463887fee2f124f5",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "bytes": 63916,
+      "lines": 1801,
+      "ranges": [
+        [
+          445,
+          496
+        ],
+        [
+          1323,
+          1360
+        ],
+        [
+          1386,
+          1488
+        ],
+        [
+          1564,
+          1612
+        ],
+        [
+          1614,
+          1686
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/presence-safeguard-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d7a19ff713ecd625d5f9abe11524c2df61ac58d9",
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "bytes": 72039,
+      "lines": 1861,
+      "ranges": [
+        [
+          336,
+          371
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/presence-safeguard-sources/06.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges personally inspected directly from 95e Git source; the preserved c100 and 95e tree inventories bind identical blobs.",
+  "dispositions": [
+    {
+      "question": "Does the reducer duration path ignore death because npc_is_present delegates to a duration helper?",
+      "result": "Rejected for the traced path: patient_presence_suppression_at calls character_alive_at and sets health_suppressed when false; DailyPresenceWindow::remaining_minutes rejects suppressed presence. A dead or not-yet-born character with valid life records is therefore not accepted by this path. Other presence consumers remain independently open."
+    },
+    {
+      "question": "Do the reducer and view agree if the birth record is missing?",
+      "result": "Open conditional policy/state question. The reducer character_alive_at requires a birth row, whereas patient_presence_suppression_at_view treats an absent birth row as satisfying its birth-time check. If a character exists, has no birth or death row, no active patient suppression, a valid in-window presence and otherwise satisfies the investigation projection, the view can report available while the traced LocateContact reducer rejects the same presence. The ordinary insert_character_with_origin path records birth. Missing-birth supported reachability, every constructor/deletion path, intended fail-closed policy and full projection filters remain unproved; no user-facing failure or product result is asserted."
+    }
+  ],
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "pointer": "/segovb_continuation/lens12/pending_connected_contracts/78",
+    "original_index": 1188,
+    "qualification": "Recovered historical pending question, not a restored checkpoint 3821 finding; no global alias or independent lens credit is implied."
+  },
+  "remaining": "Trace all character/birth constructors and deletions, view and reducer presence owners and consumers, supported missing-birth states and privacy policy; reconcile the historical pending scope and assess every lens independently. No product execution."
+}
