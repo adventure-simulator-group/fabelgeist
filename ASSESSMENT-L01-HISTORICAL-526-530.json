@@ -1,0 +1,115 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 526,
+      "source_id": "pr-working:content/tactical/combat.yaml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/526",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "lines": 344,
+      "new_personal_read_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen source only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 527,
+      "source_id": "pr-working:content/tactical/garden-hazel-envelope.json",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/527",
+      "sha256": "1743fa13a7526af557706f78d50f5d61e3f8bcd8f82d5b1b2f3a0e6e1370bc65",
+      "lines": 77,
+      "new_personal_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen source only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 528,
+      "source_id": "pr-working:crates/adventuresim-building-generator/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/528",
+      "sha256": "7b2672843eec305915871c4ba93c1e4c617e555e5a354eea2abc565b654b665f",
+      "lines": 55,
+      "new_personal_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen source only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 529,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/arch_geometry.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/529",
+      "sha256": "49ed35940c0cf6b1c49c55b2cd39464e8751b3774c3ab722ca10e5130d24ccc6",
+      "lines": 138,
+      "new_personal_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen source only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 530,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/530",
+      "sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+      "lines": 73,
+      "new_personal_read_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen source only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 526 records combat, movement, AI, targeting, animation and presentation tuning with units and cross-field bounds. Its historical ordinary AI defaults are precision 1.0 and ranged slop 0.5; the separately assessed current AI admission concern does not infer that those authored defaults fail. Actual parser, validation, shared owners and all consumers remain open.",
+    "Role 527 is a frozen garden-hazel envelope with a seed, geometry revision, hull points, height limits and vertex count. The bytes are data evidence, not a generated output proven fresh or a runtime geometry verification.",
+    "Role 528 declares building-generator dependencies and opt-in viewer/sign-render features. Cargo feature resolution and compilation were not performed; this manifest alone does not prove the effective feature set.",
+    "Role 529 builds arch strips from resolved solid dimensions and an optional wall frame; normalization, arc calculations and division by rise rely on source admission contracts not established by this body. Mesh/collider consumers and invalid/degenerate inputs remain untraced.",
+    "Role 530 is an audit module root that includes or declares many separate audit files. Only this root body was read; none of its included or declared module bodies are credited by this record.",
+    "No product build, generator, test, simulation, rendering or runtime probe ran."
+  ],
+  "remaining": "Trace tactical configuration parsing and consumers; establish envelope provenance and owner; inspect resolved building solids, arch admission and every included audit module independently. Assess all current roles and other lenses separately."
+}
