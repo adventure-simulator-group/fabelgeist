@@ -100,7 +100,7 @@
       "status": "M",
       "path": "Cargo.lock",
       "lens_status": [
-        "unassessed",
+        "partial mechanical package delta only; feature, native and producer scope open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1384,11 +1384,21 @@
         "discovery": "partial; valid-plan numerical reachability and complete receiver/alias graph open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "Q-L1-4bf8b628e17b292c3fab",
+        "record": "ASSESSMENT-L1-COMBAT-PROJECTION.json",
+        "classification": "historical authored combat projection ownership question with newly inspected current source",
+        "discovery": "partial; policy, producers, consumers, admission and exact aliases open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Recover or verify original evidence and selected states, enumerate and register original and current scopes, then assess sequentially by lens and populate connected ledger. Publish full new evidence at each checkpoint.",
-  "continuation_orientation": "CONTINUATION.md"
+  "next_step": "Continue Lens 1 with the first unassessed current-source delta .github/workflows/rust-quality.yml and original source roles listed in COVERAGE-L01-ROLES.json; keep the lockfile dependency and other populations open.",
+  "continuation_orientation": "CONTINUATION.md",
+  "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
+  "lockfile_inventory": "LOCKFILE-DELTA.json"
 }

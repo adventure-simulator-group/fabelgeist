@@ -1,0 +1,2038 @@
+{
+  "schema": "726-lockfile-package-delta-v1",
+  "qualification": "Mechanical TOML comparison using package name, version and source as identity. Lockfiles do not encode resolved feature selections or demonstrate actual calls, builds, semantic behavior, historical adoption, source coverage, or validation. Multiple versions and sources remain distinct. Raw lockfiles are preserved or recoverable as indicated; the historical p16 and pr-working roles are never promoted into the later checkpoint.",
+  "inputs": {
+    "physical_p16": {
+      "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "bytes": 306149,
+      "package_records": 1126,
+      "original_registry_index": 39,
+      "source_id": "physical-p16:Cargo.lock",
+      "object_archive": "recovered/original-registry-source-archive/objects.tar.gz"
+    },
+    "pr_working": {
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "bytes": 306125,
+      "package_records": 1126,
+      "original_registry_index": 497,
+      "source_id": "pr-working:Cargo.lock",
+      "object_archive": "recovered/original-registry-source-archive/objects.tar.gz"
+    },
+    "reported_selected": {
+      "sha256": "b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+      "bytes": 305636,
+      "package_records": 1125,
+      "source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "preserved_bytes": "lock-evidence/selected-Cargo.lock",
+      "qualification": "latest reported selected source, not the missing final ledger or checkpoint",
+      "tree_inventory": "lock-evidence/selected-tree.tsv",
+      "tree_inventory_sha256": "e95309777b291eb55968164a9bb407dd858986c077442c6d5e1d356b8960509a",
+      "tree_git_sha1": "911ce6a8630da6a88dd365b710195206e087fb45",
+      "tree_association": "Local Git commit/tree lookup; commit is the reported selected source, not a recovered final checkpoint."
+    },
+    "current": {
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "package_records": 1083,
+      "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "preserved_bytes": "lock-evidence/current-Cargo.lock",
+      "tree_inventory": "CURRENT-TREE.tsv",
+      "tree_inventory_sha256": "6fb76da46318d2880c531434a8877d9a6b0b425991cc041b77d221e0071031b7",
+      "tree_git_sha1": "eebc90135f93a17ab8a8f7ae238866fb37176409",
+      "tree_association": "Local Git commit/tree lookup; current source revision."
+    }
+  },
+  "comparisons": [
+    {
+      "from": "physical_p16",
+      "to": "pr_working",
+      "added_records": 0,
+      "removed_records": 0,
+      "modified_records": 1,
+      "unchanged_records": 1125,
+      "changes": [
+        {
+          "key": [
+            "adventuresim-stdb-module",
+            "0.1.0",
+            ""
+          ],
+          "before": {
+            "name": "adventuresim-stdb-module",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-dialogue",
+              "adventuresim-puzzles",
+              "adventuresim-weapon-model",
+              "adventuresim-world-schema",
+              "fabelgeist-determinism",
+              "fabelgeist-geometry",
+              "log",
+              "petname",
+              "serde",
+              "serde_json",
+              "sha2",
+              "spacetimedb",
+              "thiserror 2.0.20"
+            ]
+          },
+          "after": {
+            "name": "adventuresim-stdb-module",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-dialogue",
+              "adventuresim-puzzles",
+              "adventuresim-weapon-model",
+              "adventuresim-world-schema",
+              "fabelgeist-determinism",
+              "log",
+              "petname",
+              "serde",
+              "serde_json",
+              "sha2",
+              "spacetimedb",
+              "thiserror 2.0.20"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "from": "pr_working",
+      "to": "reported_selected",
+      "added_records": 0,
+      "removed_records": 1,
+      "modified_records": 4,
+      "unchanged_records": 1121,
+      "changes": [
+        {
+          "key": [
+            "adventuresim-character-creator",
+            "0.1.0",
+            ""
+          ],
+          "before": {
+            "name": "adventuresim-character-creator",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-world-schema",
+              "anyhow",
+              "async-lock",
+              "base64 0.22.1",
+              "bevy",
+              "bevy_egui",
+              "blake3",
+              "bytemuck",
+              "clap",
+              "derive_more 2.1.1",
+              "egui_extras",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-cloth",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-garment-code",
+              "fabelgeist-garment-fit",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-hair",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "fabelgeist-shell",
+              "image",
+              "pollster",
+              "rand 0.9.5",
+              "rayon",
+              "serde",
+              "serde_json",
+              "thiserror 2.0.20",
+              "tokio"
+            ]
+          },
+          "after": {
+            "name": "adventuresim-character-creator",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-world-schema",
+              "anyhow",
+              "async-lock",
+              "base64 0.22.1",
+              "bevy",
+              "bevy_egui",
+              "blake3",
+              "bytemuck",
+              "clap",
+              "derive_more 2.1.1",
+              "egui_extras",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-cloth",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-garment-code",
+              "fabelgeist-garment-fit",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-hair",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "fabelgeist-shell",
+              "image",
+              "pollster",
+              "rand 0.9.5",
+              "rayon",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20",
+              "tokio"
+            ]
+          }
+        },
+        {
+          "key": [
+            "adventuresim-core",
+            "0.1.0",
+            ""
+          ],
+          "before": {
+            "name": "adventuresim-core",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-dialogue",
+              "adventuresim-puzzles",
+              "adventuresim-weapon-model",
+              "adventuresim-world-schema",
+              "ambassador",
+              "blanket",
+              "enum-assoc",
+              "enumflags2",
+              "fabelgeist-determinism",
+              "fabelgeist-geometry",
+              "serde",
+              "serde-saphyr",
+              "serde_json",
+              "sha2",
+              "spacetimedb",
+              "spacetimedb-sats",
+              "thiserror 2.0.20"
+            ]
+          },
+          "after": {
+            "name": "adventuresim-core",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-dialogue",
+              "adventuresim-puzzles",
+              "adventuresim-weapon-model",
+              "adventuresim-world-schema",
+              "ambassador",
+              "blanket",
+              "enum-assoc",
+              "enumflags2",
+              "fabelgeist-determinism",
+              "fabelgeist-geometry",
+              "fabelgeist-math",
+              "serde",
+              "serde-saphyr",
+              "serde_json",
+              "sha2",
+              "spacetimedb",
+              "spacetimedb-sats",
+              "thiserror 2.0.20"
+            ]
+          }
+        },
+        {
+          "key": [
+            "adventuresim-tactical-client",
+            "0.1.0",
+            ""
+          ],
+          "before": {
+            "name": "adventuresim-tactical-client",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-building-generator",
+              "adventuresim-character-creator",
+              "adventuresim-core",
+              "adventuresim-plant-generator",
+              "adventuresim-procedural-materials",
+              "adventuresim-procedural-textures",
+              "adventuresim-tactical-core",
+              "adventuresim-tactical-netcode",
+              "adventuresim-weapon-model",
+              "adventuresim-world-schema",
+              "anyhow",
+              "bevy",
+              "bevy_egui",
+              "bevy_eidolon",
+              "bevy_flair",
+              "bevy_mod_outline",
+              "blake3",
+              "bytemuck",
+              "ciborium",
+              "clap",
+              "console_error_panic_hook",
+              "derive_more 2.1.1",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-determinism",
+              "fabelgeist-geometry",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "flate2",
+              "gltf",
+              "pollster",
+              "postcard",
+              "semver",
+              "serde",
+              "serde-saphyr",
+              "serde_json",
+              "strum 0.27.2",
+              "thiserror 2.0.20",
+              "toml",
+              "tracing",
+              "tracing-subscriber",
+              "tracing-tracy",
+              "tracy-client-sys 0.28.0",
+              "wasm-bindgen",
+              "wasm-bindgen-futures",
+              "web-time"
+            ]
+          },
+          "after": {
+            "name": "adventuresim-tactical-client",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-building-generator",
+              "adventuresim-character-creator",
+              "adventuresim-core",
+              "adventuresim-plant-generator",
+              "adventuresim-procedural-materials",
+              "adventuresim-procedural-textures",
+              "adventuresim-tactical-core",
+              "adventuresim-tactical-netcode",
+              "adventuresim-weapon-model",
+              "adventuresim-world-schema",
+              "anyhow",
+              "bevy",
+              "bevy_egui",
+              "bevy_flair",
+              "bevy_mod_outline",
+              "blake3",
+              "bytemuck",
+              "ciborium",
+              "clap",
+              "console_error_panic_hook",
+              "derive_more 2.1.1",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-determinism",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "flate2",
+              "gltf",
+              "libm",
+              "pollster",
+              "postcard",
+              "semver",
+              "serde",
+              "serde-saphyr",
+              "serde_json",
+              "strum 0.27.2",
+              "thiserror 2.0.20",
+              "toml",
+              "tracing",
+              "tracing-subscriber",
+              "tracing-tracy",
+              "tracy-client-sys 0.28.0",
+              "wasm-bindgen",
+              "wasm-bindgen-futures",
+              "web-time"
+            ]
+          }
+        },
+        {
+          "key": [
+            "bevy_eidolon",
+            "0.5.0",
+            "git+https://github.com/barsoosayque/bevy_eidolon?branch=fablegeist-0.19#1a5aff8d4809287e5f5713fb4cf72181b2285fff"
+          ],
+          "before": {
+            "name": "bevy_eidolon",
+            "version": "0.5.0",
+            "source": "git+https://github.com/barsoosayque/bevy_eidolon?branch=fablegeist-0.19#1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+            "dependencies": [
+              "bevy_app",
+              "bevy_asset",
+              "bevy_camera",
+              "bevy_color",
+              "bevy_core_pipeline",
+              "bevy_derive",
+              "bevy_ecs",
+              "bevy_light",
+              "bevy_math",
+              "bevy_mesh",
+              "bevy_pbr",
+              "bevy_platform",
+              "bevy_reflect",
+              "bevy_render",
+              "bevy_shader",
+              "bevy_transform",
+              "bevy_utils",
+              "bitflags 2.13.1",
+              "bytemuck",
+              "derive_more 2.1.1",
+              "offset-allocator",
+              "tracing"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "fabelgeist-gpu",
+            "0.1.0",
+            ""
+          ],
+          "before": {
+            "name": "fabelgeist-gpu",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "async-lock",
+              "bytemuck",
+              "fabelgeist-color",
+              "fabelgeist-fs",
+              "fabelgeist-math",
+              "fabelgeist-timer",
+              "futures-channel",
+              "image",
+              "indexmap 2.14.1",
+              "naga",
+              "parking_lot",
+              "pollster",
+              "regex",
+              "serde",
+              "serde_json",
+              "strum 0.27.2",
+              "tokio",
+              "wasm-bindgen-futures",
+              "web-sys",
+              "wgpu"
+            ]
+          },
+          "after": {
+            "name": "fabelgeist-gpu",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "async-lock",
+              "bytemuck",
+              "derive_more 2.1.1",
+              "fabelgeist-color",
+              "fabelgeist-fs",
+              "fabelgeist-math",
+              "fabelgeist-timer",
+              "futures-channel",
+              "image",
+              "indexmap 2.14.1",
+              "naga",
+              "parking_lot",
+              "pollster",
+              "regex",
+              "serde",
+              "serde_json",
+              "strum 0.27.2",
+              "tokio",
+              "wasm-bindgen-futures",
+              "web-sys",
+              "wgpu"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "from": "reported_selected",
+      "to": "current",
+      "added_records": 0,
+      "removed_records": 42,
+      "modified_records": 13,
+      "unchanged_records": 1070,
+      "changes": [
+        {
+          "key": [
+            "adventuresim-character-creator",
+            "0.1.0",
+            ""
+          ],
+          "before": {
+            "name": "adventuresim-character-creator",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-world-schema",
+              "anyhow",
+              "async-lock",
+              "base64 0.22.1",
+              "bevy",
+              "bevy_egui",
+              "blake3",
+              "bytemuck",
+              "clap",
+              "derive_more 2.1.1",
+              "egui_extras",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-cloth",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-garment-code",
+              "fabelgeist-garment-fit",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-hair",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "fabelgeist-shell",
+              "image",
+              "pollster",
+              "rand 0.9.5",
+              "rayon",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20",
+              "tokio"
+            ]
+          },
+          "after": {
+            "name": "adventuresim-character-creator",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-world-schema",
+              "anyhow",
+              "async-lock",
+              "base64 0.22.1",
+              "bevy",
+              "blake3",
+              "bytemuck",
+              "clap",
+              "derive_more 2.1.1",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-cloth",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-garment-code",
+              "fabelgeist-garment-fit",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-hair",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "fabelgeist-shell",
+              "image",
+              "pollster",
+              "rand 0.9.5",
+              "rayon",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20",
+              "tokio"
+            ]
+          }
+        },
+        {
+          "key": [
+            "adventuresim-tactical-client",
+            "0.1.0",
+            ""
+          ],
+          "before": {
+            "name": "adventuresim-tactical-client",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-building-generator",
+              "adventuresim-character-creator",
+              "adventuresim-core",
+              "adventuresim-plant-generator",
+              "adventuresim-procedural-materials",
+              "adventuresim-procedural-textures",
+              "adventuresim-tactical-core",
+              "adventuresim-tactical-netcode",
+              "adventuresim-weapon-model",
+              "adventuresim-world-schema",
+              "anyhow",
+              "bevy",
+              "bevy_egui",
+              "bevy_flair",
+              "bevy_mod_outline",
+              "blake3",
+              "bytemuck",
+              "ciborium",
+              "clap",
+              "console_error_panic_hook",
+              "derive_more 2.1.1",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-determinism",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "flate2",
+              "gltf",
+              "libm",
+              "pollster",
+              "postcard",
+              "semver",
+              "serde",
+              "serde-saphyr",
+              "serde_json",
+              "strum 0.27.2",
+              "thiserror 2.0.20",
+              "toml",
+              "tracing",
+              "tracing-subscriber",
+              "tracing-tracy",
+              "tracy-client-sys 0.28.0",
+              "wasm-bindgen",
+              "wasm-bindgen-futures",
+              "web-time"
+            ]
+          },
+          "after": {
+            "name": "adventuresim-tactical-client",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-building-generator",
+              "adventuresim-character-creator",
+              "adventuresim-core",
+              "adventuresim-plant-generator",
+              "adventuresim-procedural-materials",
+              "adventuresim-procedural-textures",
+              "adventuresim-tactical-core",
+              "adventuresim-tactical-netcode",
+              "adventuresim-weapon-model",
+              "adventuresim-world-schema",
+              "anyhow",
+              "bevy",
+              "bevy_mod_outline",
+              "blake3",
+              "bytemuck",
+              "ciborium",
+              "clap",
+              "console_error_panic_hook",
+              "derive_more 2.1.1",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-determinism",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "flate2",
+              "gltf",
+              "libm",
+              "pollster",
+              "postcard",
+              "semver",
+              "serde",
+              "serde-saphyr",
+              "serde_json",
+              "strum 0.27.2",
+              "thiserror 2.0.20",
+              "toml",
+              "tracing",
+              "wasm-bindgen",
+              "wasm-bindgen-futures",
+              "web-time"
+            ]
+          }
+        },
+        {
+          "key": [
+            "arboard",
+            "3.6.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "arboard",
+            "version": "3.6.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "0348a1c054491f4bfe6ab86a7b6ab1e44e45d899005de92f58b3df180b36ddaf",
+            "dependencies": [
+              "clipboard-win",
+              "image",
+              "log",
+              "objc2 0.6.4",
+              "objc2-app-kit 0.3.2",
+              "objc2-core-foundation",
+              "objc2-core-graphics",
+              "objc2-foundation 0.3.2",
+              "parking_lot",
+              "percent-encoding",
+              "windows-sys 0.60.2",
+              "wl-clipboard-rs",
+              "x11rb"
+            ]
+          },
+          "after": {
+            "name": "arboard",
+            "version": "3.6.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "0348a1c054491f4bfe6ab86a7b6ab1e44e45d899005de92f58b3df180b36ddaf",
+            "dependencies": [
+              "clipboard-win",
+              "log",
+              "objc2 0.6.4",
+              "objc2-app-kit 0.3.2",
+              "objc2-foundation 0.3.2",
+              "parking_lot",
+              "percent-encoding",
+              "windows-sys 0.60.2",
+              "wl-clipboard-rs",
+              "x11rb"
+            ]
+          }
+        },
+        {
+          "key": [
+            "ariadne",
+            "0.6.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "ariadne",
+            "version": "0.6.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "8454c8a44ce2cb9cc7e7fae67fc6128465b343b92c6631e94beca3c8d1524ea5",
+            "dependencies": [
+              "unicode-width",
+              "yansi"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "bevy_egui",
+            "0.40.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "bevy_egui",
+            "version": "0.40.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "7466095822999850fc52074c0b65e9f8b42da100bf7bbd10e5dc87415c6b3401",
+            "dependencies": [
+              "arboard",
+              "bevy_app",
+              "bevy_asset",
+              "bevy_camera",
+              "bevy_color",
+              "bevy_core_pipeline",
+              "bevy_derive",
+              "bevy_ecs",
+              "bevy_image",
+              "bevy_input",
+              "bevy_log",
+              "bevy_math",
+              "bevy_mesh",
+              "bevy_picking",
+              "bevy_platform",
+              "bevy_reflect",
+              "bevy_render",
+              "bevy_shader",
+              "bevy_time",
+              "bevy_transform",
+              "bevy_ui_render",
+              "bevy_utils",
+              "bevy_window",
+              "bevy_winit",
+              "bytemuck",
+              "crossbeam-channel",
+              "egui",
+              "encase",
+              "getrandom 0.4.3",
+              "image",
+              "itertools 0.14.0",
+              "js-sys",
+              "smithay-clipboard",
+              "thread_local",
+              "wasm-bindgen",
+              "wasm-bindgen-futures",
+              "web-sys",
+              "webbrowser",
+              "wgpu-types",
+              "winit"
+            ]
+          },
+          "after": {
+            "name": "bevy_egui",
+            "version": "0.40.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "7466095822999850fc52074c0b65e9f8b42da100bf7bbd10e5dc87415c6b3401",
+            "dependencies": [
+              "bevy_app",
+              "bevy_asset",
+              "bevy_camera",
+              "bevy_color",
+              "bevy_core_pipeline",
+              "bevy_derive",
+              "bevy_ecs",
+              "bevy_image",
+              "bevy_input",
+              "bevy_log",
+              "bevy_math",
+              "bevy_mesh",
+              "bevy_platform",
+              "bevy_reflect",
+              "bevy_render",
+              "bevy_shader",
+              "bevy_time",
+              "bevy_transform",
+              "bevy_ui_render",
+              "bevy_utils",
+              "bevy_window",
+              "bevy_winit",
+              "bytemuck",
+              "crossbeam-channel",
+              "egui",
+              "encase",
+              "getrandom 0.4.3",
+              "image",
+              "itertools 0.14.0",
+              "js-sys",
+              "wasm-bindgen",
+              "wasm-bindgen-futures",
+              "web-sys",
+              "wgpu-types",
+              "winit"
+            ]
+          }
+        },
+        {
+          "key": [
+            "bevy_flair",
+            "0.8.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "bevy_flair",
+            "version": "0.8.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "0ac4f2b077566c1e0017c3ce9465275821b63aabc8c755f5403345d67ef877f4",
+            "dependencies": [
+              "bevy_app",
+              "bevy_ecs",
+              "bevy_flair_core",
+              "bevy_flair_css_parser",
+              "bevy_flair_style"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "bevy_flair_core",
+            "0.8.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "bevy_flair_core",
+            "version": "0.8.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "957c5a1fa6854c10e3c80941ee8522ee2b5fa5fe5c88d68e5bdfae5a56a7c26e",
+            "dependencies": [
+              "bevy_app",
+              "bevy_asset",
+              "bevy_camera",
+              "bevy_color",
+              "bevy_ecs",
+              "bevy_flair_core_macros",
+              "bevy_image",
+              "bevy_math",
+              "bevy_reflect",
+              "bevy_text",
+              "bevy_ui",
+              "rustc-hash 2.1.3",
+              "serde",
+              "smallvec",
+              "thiserror 2.0.20",
+              "tracing"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "bevy_flair_core_macros",
+            "0.8.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "bevy_flair_core_macros",
+            "version": "0.8.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "988095c6b7fe9f80cea250168ccdfbc4c38e31142cbd382837f2fd16b53b45e9",
+            "dependencies": [
+              "proc-macro-crate",
+              "proc-macro2",
+              "quote",
+              "syn 2.0.119"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "bevy_flair_css_parser",
+            "0.8.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "bevy_flair_css_parser",
+            "version": "0.8.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "85b7a11ea31cfc26672238921eba4be22d037bdb2f47b57e5b68accf5121cb3a",
+            "dependencies": [
+              "ariadne",
+              "bevy_app",
+              "bevy_asset",
+              "bevy_camera",
+              "bevy_color",
+              "bevy_ecs",
+              "bevy_flair_core",
+              "bevy_flair_style",
+              "bevy_image",
+              "bevy_math",
+              "bevy_reflect",
+              "bevy_text",
+              "bevy_ui",
+              "cssparser",
+              "cssparser-color",
+              "derive_more 2.1.1",
+              "linked-hash-map",
+              "rustc-hash 2.1.3",
+              "selectors",
+              "serde",
+              "smallvec",
+              "smol_str",
+              "thiserror 2.0.20",
+              "tracing",
+              "variadics_please 2.0.0"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "bevy_flair_style",
+            "0.8.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "bevy_flair_style",
+            "version": "0.8.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "f1ca465c60bdac460c03a9f1f1907ec160bb69ae2d4c04bdeab56c30f3d4f760",
+            "dependencies": [
+              "bevy_app",
+              "bevy_asset",
+              "bevy_camera",
+              "bevy_color",
+              "bevy_ecs",
+              "bevy_flair_core",
+              "bevy_image",
+              "bevy_input_focus",
+              "bevy_math",
+              "bevy_picking",
+              "bevy_reflect",
+              "bevy_text",
+              "bevy_time",
+              "bevy_ui",
+              "bevy_utils",
+              "bevy_window",
+              "bitflags 2.13.1",
+              "cssparser",
+              "derive_more 2.1.1",
+              "itertools 0.15.0",
+              "precomputed-hash",
+              "rustc-hash 2.1.3",
+              "selectors",
+              "smallvec",
+              "smol_str",
+              "thiserror 2.0.20",
+              "tracing"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "calloop",
+            "0.14.4",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "calloop",
+            "version": "0.14.4",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "4dbf9978365bac10f54d1d4b04f7ce4427e51f71d61f2fe15e3fed5166474df7",
+            "dependencies": [
+              "bitflags 2.13.1",
+              "polling",
+              "rustix 1.1.4",
+              "slab",
+              "tracing"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "calloop-wayland-source",
+            "0.3.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "calloop-wayland-source",
+            "version": "0.3.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "95a66a987056935f7efce4ab5668920b5d0dac4a7c99991a67395f13702ddd20",
+            "dependencies": [
+              "calloop 0.13.0",
+              "rustix 0.38.44",
+              "wayland-backend",
+              "wayland-client"
+            ]
+          },
+          "after": {
+            "name": "calloop-wayland-source",
+            "version": "0.3.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "95a66a987056935f7efce4ab5668920b5d0dac4a7c99991a67395f13702ddd20",
+            "dependencies": [
+              "calloop",
+              "rustix 0.38.44",
+              "wayland-backend",
+              "wayland-client"
+            ]
+          }
+        },
+        {
+          "key": [
+            "calloop-wayland-source",
+            "0.4.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "calloop-wayland-source",
+            "version": "0.4.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "138efcf0940a02ebf0cc8d1eff41a1682a46b431630f4c52450d6265876021fa",
+            "dependencies": [
+              "calloop 0.14.4",
+              "rustix 1.1.4",
+              "wayland-backend",
+              "wayland-client"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "cssparser",
+            "0.37.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "cssparser",
+            "version": "0.37.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "8c9cdaae01d5ed7882b04d795e7f752f46ff52d2fa3b50a20d28c464510bba98",
+            "dependencies": [
+              "cssparser-macros",
+              "dtoa-short",
+              "itoa",
+              "phf",
+              "smallvec"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "cssparser-color",
+            "0.5.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "cssparser-color",
+            "version": "0.5.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "bbaa233e1dcd9c13a5d3e3a8a2c0f5a727bac380398345dbcb31db4597edc86b",
+            "dependencies": [
+              "cssparser"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "cssparser-macros",
+            "0.7.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "cssparser-macros",
+            "version": "0.7.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "10a2a99df6e410a8ff4245aa2006499ea662245f967cc7c0a38c83ef8eb44dbf",
+            "dependencies": [
+              "quote",
+              "syn 2.0.119"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "data-url",
+            "0.3.2",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "data-url",
+            "version": "0.3.2",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "be1e0bca6c3637f992fc1cc7cbc52a78c1ef6db076dbf1059c4323d6a2048376"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "dtoa",
+            "1.0.11",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "dtoa",
+            "version": "1.0.11",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "4c3cf4824e2d5f025c7b531afcb2325364084a16806f6d47fbc1f5fbd9960590"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "dtoa-short",
+            "0.3.5",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "dtoa-short",
+            "version": "0.3.5",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "cd1511a7b6a56299bd043a9c167a6d2bfb37bf84a6dfceaba651168adfb43c87",
+            "dependencies": [
+              "dtoa"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "egui_extras",
+            "0.34.3",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "egui_extras",
+            "version": "0.34.3",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "598d8675f6fd9088db8a93d8c7aacda936b2f3d0c2b0660ad1744a45b5caf922",
+            "dependencies": [
+              "ahash",
+              "egui",
+              "enum-map",
+              "log",
+              "profiling",
+              "resvg"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "float-cmp",
+            "0.9.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "float-cmp",
+            "version": "0.9.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "image",
+            "0.25.10",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "image",
+            "version": "0.25.10",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "85ab80394333c02fe689eaf900ab500fbd0c2213da414687ebf995a65d5a6104",
+            "dependencies": [
+              "bytemuck",
+              "byteorder-lite",
+              "moxcms",
+              "num-traits",
+              "png 0.18.1",
+              "ravif",
+              "rgb",
+              "tiff",
+              "zune-core",
+              "zune-jpeg"
+            ]
+          },
+          "after": {
+            "name": "image",
+            "version": "0.25.10",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "85ab80394333c02fe689eaf900ab500fbd0c2213da414687ebf995a65d5a6104",
+            "dependencies": [
+              "bytemuck",
+              "byteorder-lite",
+              "moxcms",
+              "num-traits",
+              "png 0.18.1",
+              "ravif",
+              "rgb",
+              "zune-core",
+              "zune-jpeg"
+            ]
+          }
+        },
+        {
+          "key": [
+            "imagesize",
+            "0.13.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "imagesize",
+            "version": "0.13.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "edcd27d72f2f071c64249075f42e205ff93c9a4c5f6c6da53e79ed9f9832c285"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "kurbo",
+            "0.11.3",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "kurbo",
+            "version": "0.11.3",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "c62026ae44756f8a599ba21140f350303d4f08dcdcc71b5ad9c9bb8128c13c62",
+            "dependencies": [
+              "arrayvec",
+              "euclid",
+              "smallvec"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "linked-hash-map",
+            "0.5.6",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "linked-hash-map",
+            "version": "0.5.6",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "0717cef1bc8b636c6e1c1bbdefc09e6322da8a9321966e8928ef80d20f7f770f"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "peniko",
+            "0.6.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "peniko",
+            "version": "0.6.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "839c8299360d2e998bdb106dc0a6cd71dcc5f4df51df1b620361bf50e283cca6",
+            "dependencies": [
+              "bytemuck",
+              "color",
+              "kurbo 0.13.1",
+              "linebender_resource_handle",
+              "smallvec"
+            ]
+          },
+          "after": {
+            "name": "peniko",
+            "version": "0.6.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "839c8299360d2e998bdb106dc0a6cd71dcc5f4df51df1b620361bf50e283cca6",
+            "dependencies": [
+              "bytemuck",
+              "color",
+              "kurbo",
+              "linebender_resource_handle",
+              "smallvec"
+            ]
+          }
+        },
+        {
+          "key": [
+            "phf",
+            "0.13.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "phf",
+            "version": "0.13.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "c1562dc717473dbaa4c1f85a36410e03c047b2e7df7f45ee938fbef64ae7fadf",
+            "dependencies": [
+              "phf_macros",
+              "phf_shared",
+              "serde"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "phf_codegen",
+            "0.13.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "phf_codegen",
+            "version": "0.13.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "49aa7f9d80421bca176ca8dbfebe668cc7a2684708594ec9f3c0db0805d5d6e1",
+            "dependencies": [
+              "phf_generator",
+              "phf_shared"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "phf_generator",
+            "0.13.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "phf_generator",
+            "version": "0.13.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "135ace3a761e564ec88c03a77317a7c6b80bb7f7135ef2544dbe054243b89737",
+            "dependencies": [
+              "fastrand",
+              "phf_shared"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "phf_macros",
+            "0.13.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "phf_macros",
+            "version": "0.13.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "812f032b54b1e759ccd5f8b6677695d5268c588701effba24601f6932f8269ef",
+            "dependencies": [
+              "phf_generator",
+              "phf_shared",
+              "proc-macro2",
+              "quote",
+              "syn 2.0.119"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "phf_shared",
+            "0.13.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "phf_shared",
+            "version": "0.13.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "e57fef6bc5981e38c2ce2d63bfa546861309f875b8a75f092d1d54ae2d64f266",
+            "dependencies": [
+              "siphasher"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "pico-args",
+            "0.5.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "pico-args",
+            "version": "0.5.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "5be167a7af36ee22fe3115051bc51f6e6c7054c9348e28deb4f49bd6f705a315"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "precomputed-hash",
+            "0.1.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "precomputed-hash",
+            "version": "0.1.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "925383efa346730478fb4838dbe9137d2a47675ad789c546d150a6e1dd4ab31c"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "resvg",
+            "0.45.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "resvg",
+            "version": "0.45.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "a8928798c0a55e03c9ca6c4c6846f76377427d2c1e1f7e6de3c06ae57942df43",
+            "dependencies": [
+              "log",
+              "pico-args",
+              "rgb",
+              "svgtypes",
+              "tiny-skia",
+              "usvg"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "rgb",
+            "0.8.53",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "rgb",
+            "version": "0.8.53",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "47b34b781b31e5d73e9fbc8689c70551fd1ade9a19e3e28cfec8580a79290cc4",
+            "dependencies": [
+              "bytemuck"
+            ]
+          },
+          "after": {
+            "name": "rgb",
+            "version": "0.8.53",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "47b34b781b31e5d73e9fbc8689c70551fd1ade9a19e3e28cfec8580a79290cc4"
+          }
+        },
+        {
+          "key": [
+            "roxmltree",
+            "0.20.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "roxmltree",
+            "version": "0.20.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "6c20b6793b5c2fa6553b250154b78d6d0db37e72700ae35fad9387a46f487c97"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "sctk-adwaita",
+            "0.10.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "sctk-adwaita",
+            "version": "0.10.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "b6277f0217056f77f1d8f49f2950ac6c278c0d607c45f5ee99328d792ede24ec",
+            "dependencies": [
+              "ab_glyph",
+              "log",
+              "memmap2",
+              "smithay-client-toolkit 0.19.2",
+              "tiny-skia"
+            ]
+          },
+          "after": {
+            "name": "sctk-adwaita",
+            "version": "0.10.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "b6277f0217056f77f1d8f49f2950ac6c278c0d607c45f5ee99328d792ede24ec",
+            "dependencies": [
+              "ab_glyph",
+              "log",
+              "memmap2",
+              "smithay-client-toolkit",
+              "tiny-skia"
+            ]
+          }
+        },
+        {
+          "key": [
+            "selectors",
+            "0.38.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "selectors",
+            "version": "0.38.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "8adfa1c298912827b8a28b223b3b874357397ae706e6190acd9bf28cee99114d",
+            "dependencies": [
+              "bitflags 2.13.1",
+              "cssparser",
+              "derive_more 2.1.1",
+              "log",
+              "new_debug_unreachable",
+              "phf",
+              "phf_codegen",
+              "precomputed-hash",
+              "rustc-hash 2.1.3",
+              "servo_arc",
+              "smallvec"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "servo_arc",
+            "0.4.3",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "servo_arc",
+            "version": "0.4.3",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "170fb83ab34de17dc69aa7c67482b22218ddb85da56546f9bd6b929e32a05930",
+            "dependencies": [
+              "stable_deref_trait"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "simplecss",
+            "0.2.2",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "simplecss",
+            "version": "0.2.2",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "7a9c6883ca9c3c7c90e888de77b7a5c849c779d25d74a1269b0218b14e8b136c",
+            "dependencies": [
+              "log"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "siphasher",
+            "1.0.3",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "siphasher",
+            "version": "1.0.3",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "8ee5873ec9cce0195efcb7a4e9507a04cd49aec9c83d0389df45b1ef7ba2e649"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "smithay-client-toolkit",
+            "0.19.2",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "smithay-client-toolkit",
+            "version": "0.19.2",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "3457dea1f0eb631b4034d61d4d8c32074caa6cd1ab2d59f2327bd8461e2c0016",
+            "dependencies": [
+              "bitflags 2.13.1",
+              "calloop 0.13.0",
+              "calloop-wayland-source 0.3.0",
+              "cursor-icon",
+              "libc",
+              "log",
+              "memmap2",
+              "rustix 0.38.44",
+              "thiserror 1.0.69",
+              "wayland-backend",
+              "wayland-client",
+              "wayland-csd-frame",
+              "wayland-cursor",
+              "wayland-protocols",
+              "wayland-protocols-wlr",
+              "wayland-scanner",
+              "xkeysym"
+            ]
+          },
+          "after": {
+            "name": "smithay-client-toolkit",
+            "version": "0.19.2",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "3457dea1f0eb631b4034d61d4d8c32074caa6cd1ab2d59f2327bd8461e2c0016",
+            "dependencies": [
+              "bitflags 2.13.1",
+              "calloop",
+              "calloop-wayland-source",
+              "cursor-icon",
+              "libc",
+              "log",
+              "memmap2",
+              "rustix 0.38.44",
+              "thiserror 1.0.69",
+              "wayland-backend",
+              "wayland-client",
+              "wayland-csd-frame",
+              "wayland-cursor",
+              "wayland-protocols",
+              "wayland-protocols-wlr",
+              "wayland-scanner",
+              "xkeysym"
+            ]
+          }
+        },
+        {
+          "key": [
+            "smithay-client-toolkit",
+            "0.20.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "smithay-client-toolkit",
+            "version": "0.20.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "0512da38f5e2b31201a93524adb8d3136276fa4fe4aafab4e1f727a82b534cc0",
+            "dependencies": [
+              "bitflags 2.13.1",
+              "calloop 0.14.4",
+              "calloop-wayland-source 0.4.1",
+              "cursor-icon",
+              "libc",
+              "log",
+              "memmap2",
+              "rustix 1.1.4",
+              "thiserror 2.0.20",
+              "wayland-backend",
+              "wayland-client",
+              "wayland-csd-frame",
+              "wayland-cursor",
+              "wayland-protocols",
+              "wayland-protocols-experimental",
+              "wayland-protocols-misc",
+              "wayland-protocols-wlr",
+              "wayland-scanner",
+              "xkeysym"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "smithay-clipboard",
+            "0.7.3",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "smithay-clipboard",
+            "version": "0.7.3",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "71704c03f739f7745053bde45fa203a46c58d25bc5c4efba1d9a60e9dba81226",
+            "dependencies": [
+              "libc",
+              "smithay-client-toolkit 0.20.0",
+              "wayland-backend"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "strict-num",
+            "0.1.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "strict-num",
+            "version": "0.1.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "6637bab7722d379c8b41ba849228d680cc12d0a45ba1fa2b48f2a30577a06731",
+            "dependencies": [
+              "float-cmp"
+            ]
+          },
+          "after": {
+            "name": "strict-num",
+            "version": "0.1.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "6637bab7722d379c8b41ba849228d680cc12d0a45ba1fa2b48f2a30577a06731"
+          }
+        },
+        {
+          "key": [
+            "svgtypes",
+            "0.15.3",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "svgtypes",
+            "version": "0.15.3",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "68c7541fff44b35860c1a7a47a7cadf3e4a304c457b58f9870d9706ece028afc",
+            "dependencies": [
+              "kurbo 0.11.3",
+              "siphasher"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "tracy-client",
+            "0.18.5",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "tracy-client",
+            "version": "0.18.5",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "6131992ff3e2cb96f407eb4eb005427ba15e2687260d99089b90e60e33169ce0",
+            "dependencies": [
+              "loom",
+              "once_cell",
+              "tracy-client-sys 0.29.0"
+            ]
+          },
+          "after": {
+            "name": "tracy-client",
+            "version": "0.18.5",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "6131992ff3e2cb96f407eb4eb005427ba15e2687260d99089b90e60e33169ce0",
+            "dependencies": [
+              "loom",
+              "once_cell",
+              "tracy-client-sys"
+            ]
+          }
+        },
+        {
+          "key": [
+            "tracy-client-sys",
+            "0.28.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "tracy-client-sys",
+            "version": "0.28.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "c5f7c95348f20c1c913d72157b3c6dee6ea3e30b3d19502c5a7f6d3f160dacbf",
+            "dependencies": [
+              "cc",
+              "windows-targets 0.52.6"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "usvg",
+            "0.45.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "usvg",
+            "version": "0.45.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "80be9b06fbae3b8b303400ab20778c80bbaf338f563afe567cf3c9eea17b47ef",
+            "dependencies": [
+              "base64 0.22.1",
+              "data-url",
+              "flate2",
+              "imagesize",
+              "kurbo 0.11.3",
+              "log",
+              "pico-args",
+              "roxmltree",
+              "simplecss",
+              "siphasher",
+              "strict-num",
+              "svgtypes",
+              "tiny-skia-path",
+              "xmlwriter"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "wayland-protocols-experimental",
+            "20250721.0.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "wayland-protocols-experimental",
+            "version": "20250721.0.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "40a1f863128dcaaec790d7b4b396cc9b9a7a079e878e18c47e6c2d2c5a8dcbb1",
+            "dependencies": [
+              "bitflags 2.13.1",
+              "wayland-backend",
+              "wayland-client",
+              "wayland-protocols",
+              "wayland-scanner"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "wayland-protocols-misc",
+            "0.3.12",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "wayland-protocols-misc",
+            "version": "0.3.12",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "6e9567599ef23e09b8dad6e429e5738d4509dfc46b3b21f32841a304d16b29c8",
+            "dependencies": [
+              "bitflags 2.13.1",
+              "wayland-backend",
+              "wayland-client",
+              "wayland-protocols",
+              "wayland-scanner"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "webbrowser",
+            "1.2.4",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "webbrowser",
+            "version": "1.2.4",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "62c35be770821a214dbc362fc26908c853e776c0004294d0b10b8a6bad582f94",
+            "dependencies": [
+              "jni 0.22.4",
+              "log",
+              "ndk-context",
+              "objc2 0.6.4",
+              "objc2-app-kit 0.3.2",
+              "objc2-foundation 0.3.2",
+              "url",
+              "web-sys"
+            ]
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "winit",
+            "0.30.13",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "winit",
+            "version": "0.30.13",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "a6755fa58a9f8350bd1e472d4c3fcc25f824ec358933bba33306d0b63df5978d",
+            "dependencies": [
+              "ahash",
+              "android-activity",
+              "atomic-waker",
+              "bitflags 2.13.1",
+              "block2 0.5.1",
+              "bytemuck",
+              "calloop 0.13.0",
+              "cfg_aliases",
+              "concurrent-queue",
+              "core-foundation 0.9.4",
+              "core-graphics",
+              "cursor-icon",
+              "dpi",
+              "js-sys",
+              "libc",
+              "memmap2",
+              "ndk",
+              "objc2 0.5.2",
+              "objc2-app-kit 0.2.2",
+              "objc2-foundation 0.2.2",
+              "objc2-ui-kit",
+              "orbclient",
+              "percent-encoding",
+              "pin-project",
+              "raw-window-handle",
+              "redox_syscall 0.4.1",
+              "rustix 0.38.44",
+              "sctk-adwaita",
+              "smithay-client-toolkit 0.19.2",
+              "smol_str",
+              "tracing",
+              "unicode-segmentation",
+              "wasm-bindgen",
+              "wasm-bindgen-futures",
+              "wayland-backend",
+              "wayland-client",
+              "wayland-protocols",
+              "wayland-protocols-plasma",
+              "web-sys",
+              "web-time",
+              "windows-sys 0.52.0",
+              "x11-dl",
+              "x11rb",
+              "xkbcommon-dl"
+            ]
+          },
+          "after": {
+            "name": "winit",
+            "version": "0.30.13",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "a6755fa58a9f8350bd1e472d4c3fcc25f824ec358933bba33306d0b63df5978d",
+            "dependencies": [
+              "ahash",
+              "android-activity",
+              "atomic-waker",
+              "bitflags 2.13.1",
+              "block2 0.5.1",
+              "bytemuck",
+              "calloop",
+              "cfg_aliases",
+              "concurrent-queue",
+              "core-foundation 0.9.4",
+              "core-graphics",
+              "cursor-icon",
+              "dpi",
+              "js-sys",
+              "libc",
+              "memmap2",
+              "ndk",
+              "objc2 0.5.2",
+              "objc2-app-kit 0.2.2",
+              "objc2-foundation 0.2.2",
+              "objc2-ui-kit",
+              "orbclient",
+              "percent-encoding",
+              "pin-project",
+              "raw-window-handle",
+              "redox_syscall 0.4.1",
+              "rustix 0.38.44",
+              "sctk-adwaita",
+              "smithay-client-toolkit",
+              "smol_str",
+              "tracing",
+              "unicode-segmentation",
+              "wasm-bindgen",
+              "wasm-bindgen-futures",
+              "wayland-backend",
+              "wayland-client",
+              "wayland-protocols",
+              "wayland-protocols-plasma",
+              "web-sys",
+              "web-time",
+              "windows-sys 0.52.0",
+              "x11-dl",
+              "x11rb",
+              "xkbcommon-dl"
+            ]
+          }
+        },
+        {
+          "key": [
+            "xmlwriter",
+            "0.1.0",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "xmlwriter",
+            "version": "0.1.0",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "ec7a2a501ed189703dba8b08142f057e887dfc4b2cc4db2d343ac6376ba3e0b9"
+          },
+          "after": null
+        },
+        {
+          "key": [
+            "yansi",
+            "1.0.1",
+            "registry+https://github.com/rust-lang/crates.io-index"
+          ],
+          "before": {
+            "name": "yansi",
+            "version": "1.0.1",
+            "source": "registry+https://github.com/rust-lang/crates.io-index",
+            "checksum": "cfe53a6657fd280eaa890a3bc59152892ffa3e30101319d168b781ed6529b049"
+          },
+          "after": null
+        }
+      ]
+    }
+  ],
+  "next_work": "Use changed and retained dependency entries as navigation for relevant native bodies and feature-boundary questions in each lens; do not infer current findings from presence or absence in a lockfile."
+}

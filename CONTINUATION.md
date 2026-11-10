@@ -7,6 +7,8 @@ missing checkpoint 3821. All thirteen lenses and the connected repair ledger
 remain open; no implementation or product validation is authorized here.
 
 `CONTINUATION-PROGRESS.json` gives the present counts and qualifications.
+`COVERAGE-L01-ROLES.json` is the Lens 1 worklist of distinct original roles;
+`LOCKFILE-DELTA.json` preserves separate historical and current comparisons.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
 entries into present findings. The `ASSESSMENT-*.json` records distinguish
 bounded current source observations from historical proposals and name the
@@ -27,9 +29,12 @@ For the recoverable evidence on this branch, verify from its root:
 ```sh
 python3 verify_recovered.py
 python3 verify_selected_states.py
+python3 verify_lock_inventory.py
+python3 verify_role_worklist.py
 python3 native-evidence/bevy-replicon-0.41.1/verify.py
 python3 native-evidence/rust-nightly-2026-07-13/verify.py
 python3 native-evidence/serde-saphyr-1.2.0/verify.py
+python3 native-evidence/serde-derive-1.0.229/verify.py
 ```
 
 These commands verify evidence bytes, not product behavior. The original
