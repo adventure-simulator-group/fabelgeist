@@ -1,0 +1,212 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded native inventory grant producer, error propagation and remote mutation entry. Other callers and independent lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          45,
+          58
+        ],
+        [
+          322,
+          408
+        ],
+        [
+          429,
+          438
+        ],
+        [
+          518,
+          545
+        ],
+        [
+          563,
+          719
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-grant-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          317,
+          331
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-grant-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "bytes": 7706,
+      "lines": 241,
+      "ranges": [
+        [
+          33,
+          47
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-grant-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "bytes": 15554,
+      "lines": 445,
+      "ranges": [
+        [
+          141,
+          165
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-grant-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/durability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6f06c6eddec598916ce434decfa5fc0a5e97b527",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "bytes": 15617,
+      "lines": 454,
+      "ranges": [
+        [
+          94,
+          104
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-grant-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/change_inventory_item_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "afdc969fbf3a071aaf45e750083b632506f9be8e",
+      "sha256": "61fd26ed24743a97adcfe339598f59c3289d36de023e14f492eae13c817d2856",
+      "bytes": 3116,
+      "lines": 91,
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-grant-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          940,
+          966
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-grant-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "50c62bddee2b88c9d07e1a8ef6512648adf772e4",
+      "sha256": "6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "bytes": 2207,
+      "lines": 93,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-grant-sources/07.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected in the c100 source checkout; preserved 95e and c100 tree inventories bind identical current blobs. Physical-p16 role 221 is a different historical body and retains its original attribution.",
+  "native_source": {
+    "package_manifest": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+    "archive_member": "spacetimedb-2.6.1/src/lib.rs",
+    "ranges": [
+      [
+        456,
+        466
+      ],
+      [
+        528,
+        531
+      ]
+    ],
+    "qualification": "Pinned source documentation only; no deployed server, macro expansion, product execution or network policy established."
+  },
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-INVENTORY-GRANT-ERROR-ERASURE",
+    "original_source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+    "original_source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+    "qualification": "Recovered historical record, not checkpoint 3821. Its original open status and attribution remain unchanged."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-INVENTORY-MUTATION-AUTHORITY-001",
+      "classification": "source-level caller-authorization gap at a remote inventory mutation reducer; deployment exposure and actual unauthorized invocation unverified",
+      "detail": "At the pinned source revision, change_inventory_item accepts a character ID, item ID and signed quantity and invokes only require_living_character before its add/remove branches. The traced check tests existence and alive state, not ctx.sender. The reducer body does not use the strategic-character authority gate. The generated client exposes the remote reducer, and pinned SpacetimeDB documentation describes reducers as remotely invokable. If an independent caller reaches the database, source predicts it can request changes for an eligible target without the gateway/owner check; no invocation or database operation was performed.",
+      "safeguards": "The target must exist and be alive; durable quantity change has a per-call bound and removal checks available instances. These do not establish caller ownership. Network exposure, external access policy, target-ID availability and the intended role of this general grant/remove reducer remain unverified.",
+      "connected_scope": "Reducer exposure and purpose, strategic gateway and simulation owner policy, all real call sites, item/quantity admission, removal/custody/equipment side effects, native bindings and external access controls. A gateway check alone does not justify unrestricted item grants; determine the intended authority or removal of the entry point.",
+      "proposed_repair": "After complete discovery, restrict or remove the generic mutation entry point according to its intended production authority, preserving legitimate grant/debit flows through their owning contracts and no compatibility shim.",
+      "later_acceptance": "After product validation is authorized, verify permitted production and isolated simulation flows, deny distinct unauthorized callers, and verify grants/removals cannot bypass item, ownership, inventory or tactical authority.",
+      "related_candidates": [
+        "REVIEW-CHARACTER-RENAME-AUTHORITY-001",
+        "REVIEW-INVENTORY-GRANT-ERROR-ERASURE-001"
+      ],
+      "relationship_qualification": "Shared character mutation authority theme, but distinct endpoints and failure mechanisms; no duplicate or exact historical alias established.",
+      "discovery": "partial; all callers, policy, deployment exposure, native behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-INVENTORY-GRANT-ERROR-ERASURE-001",
+      "classification": "source-derived conditional partial inventory insertion and false success caused by erased positive-grant error; product execution unverified",
+      "detail": "Assume a positive generic request for an item ID absent from both the Item table and the food catalog, with no preexisting matching inventory row. The nonmeasured branch calls add_inventory_item. Its checked helper accepts the missing definition through inventory_food_definition, inserts an InventoryItem row, then initialize_personal_weapon returns an unknown-definition error. The wrapper converts that error to None via .ok().flatten(), while the reducer ignores the None and returns Ok. Pinned SpacetimeDB documentation says a successful reducer commits its transaction, so source predicts a committed unknown-item row and false success for these premises. No reducer or database was run.",
+      "safeguards": "Measured positive additions propagate a missing result as an error; the checked helper propagates internal failures when its Result is actually used. The example assumes an absent item and food definition, no existing matching row and a live character; it does not demonstrate a deployed malformed row or all grant paths. Native transaction behavior is documented source, not observed runtime evidence.",
+      "connected_scope": "add_inventory_item_checked, the Option-erasing wrapper, weapon initializer and item/food/amount admission, generic and durable reducer branches, currency credit and every other success-bearing grant caller. Trace failure-before/after-mutation, transaction and no-op policy separately; retain zero-quantity behavior where intentional.",
+      "proposed_repair": "After complete discovery, carry the checked grant error to every success-bearing owner and enforce item admission before mutation, preserving explicit zero-quantity no-op semantics. Remove the erasing API directly where warranted and reconcile all callers without a forwarding shim.",
+      "later_acceptance": "After product validation is authorized, exercise an unknown positive item request and post-insert grant failures in an isolated environment: the caller must receive an error and no row, object, amount, lot or debit may survive. Verify valid grants, currency transfers and zero no-ops across actual callers.",
+      "historical_related_candidates": [
+        "SEGOVB-L12-INVENTORY-GRANT-ERROR-ERASURE"
+      ],
+      "relationship_qualification": "Recovered checkpoint 059 identifies the same item.rs source hash and the same grant-wrapper first-failure family. This 95e trace adds the concrete conditional weapon-initializer path and documented transaction interpretation; the historical record keeps its original revision, attribution, open status and qualifications. No global alias, lens closure or checkpoint 3821 state is asserted.",
+      "discovery": "partial; all callers, policy, deployment exposure, native behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace item/food catalog admission, all grant callers, failure paths, external authorization and exact historical aliases; assess authority, behavior, admission and operations lenses independently. No product validation or repair."
+}

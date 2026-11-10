@@ -28,6 +28,9 @@ authority concern; deployed exposure and unauthorized invocation remain
 unverified.
 `ASSESSMENT-L01-RELIGIOUS-DEMAND-95E.json` records a conditional strategic
 demand failure and an unresolved demand-to-session ownership boundary.
+`ASSESSMENT-L01-INVENTORY-GRANT-95E.json` records a conditional caller
+authority concern and a source-derived grant-error erasure path linked to,
+but not substituted for, a recovered checkpoint 059 finding.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its

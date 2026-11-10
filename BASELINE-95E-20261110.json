@@ -169,6 +169,31 @@
           "REVIEW-CHARACTER-RENAME-AUTHORITY-001"
         ],
         "relationship_qualification": "Both concern strategic character mutation authority but affect distinct reducer and browser boundaries; they are not established duplicates. No exact historical alias is established; historical queue remains unreconciled."
+      },
+      {
+        "id": "REVIEW-INVENTORY-MUTATION-AUTHORITY-001",
+        "record": "ASSESSMENT-L01-INVENTORY-GRANT-95E.json",
+        "classification": "source-level caller-authorization gap at a remote inventory mutation reducer; deployment exposure and actual unauthorized invocation unverified",
+        "discovery": "partial; all callers, policy, deployment exposure, native behavior and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Shared character mutation authority theme, but distinct endpoints and failure mechanisms; no duplicate or exact historical alias established.",
+        "related_candidates": [
+          "REVIEW-CHARACTER-RENAME-AUTHORITY-001",
+          "REVIEW-INVENTORY-GRANT-ERROR-ERASURE-001"
+        ]
+      },
+      {
+        "id": "REVIEW-INVENTORY-GRANT-ERROR-ERASURE-001",
+        "record": "ASSESSMENT-L01-INVENTORY-GRANT-95E.json",
+        "classification": "source-derived conditional partial inventory insertion and false success caused by erased positive-grant error; product execution unverified",
+        "discovery": "partial; all callers, policy, deployment exposure, native behavior and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Recovered checkpoint 059 identifies the same item.rs source hash and the same grant-wrapper first-failure family. This 95e trace adds the concrete conditional weapon-initializer path and documented transaction interpretation; the historical record keeps its original revision, attribution, open status and qualifications. No global alias, lens closure or checkpoint 3821 state is asserted.",
+        "historical_related_candidates": [
+          "SEGOVB-L12-INVENTORY-GRANT-ERROR-ERASURE"
+        ]
       }
     ]
   }
