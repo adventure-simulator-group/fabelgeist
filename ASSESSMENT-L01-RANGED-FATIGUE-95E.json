@@ -1,0 +1,446 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected tactical and strategic ranged-action work, general fatigue and defense handoff; not complete combat, workload policy, UI or post-battle persistence review.",
+  "authority": "The user-provided and source-pinned root AGENTS.md requires one general fatigue value receiving weapon work, defenses, dodges and strenuous movement, with performance derived through total incapacitation and no separate pre-incapacitation speed penalty.",
+  "source_reasoning": "Static source inspection only. No shot, defense, combat simulation, UI, build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bcbd30c924ef6af16333fc0a7f34bcc322efcd67",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "bytes": 6412,
+      "lines": 113,
+      "ranges": [
+        [
+          20,
+          34
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          10,
+          21
+        ],
+        [
+          25,
+          52
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          129,
+          181
+        ],
+        [
+          202,
+          220
+        ],
+        [
+          231,
+          275
+        ],
+        [
+          637,
+          678
+        ],
+        [
+          751,
+          765
+        ],
+        [
+          774,
+          815
+        ],
+        [
+          818,
+          890
+        ],
+        [
+          965,
+          1102
+        ],
+        [
+          1104,
+          1141
+        ],
+        [
+          1151,
+          1211
+        ],
+        [
+          1237,
+          1317
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76810b6057bd6a1206cb4d84dc4e4f6495c96991",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "bytes": 8871,
+      "lines": 263,
+      "ranges": [
+        [
+          1,
+          59
+        ],
+        [
+          61,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2baf681e104881b9b0ddf67f258ffcd96fc478f7",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "bytes": 22474,
+      "lines": 595,
+      "ranges": [
+        [
+          38,
+          103
+        ],
+        [
+          240,
+          268
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c1688817265d07fa00b804ff37a2e76922eb3e78",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "bytes": 8629,
+      "lines": 239,
+      "ranges": [
+        [
+          142,
+          157
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "82a90be2dd1a5050199ba36597e88dc4493fa022",
+      "sha256": "85a9cdeb34de89b6b81a65c512747b50771666aae4d1e6616345a617767a6706",
+      "bytes": 723,
+      "lines": 24,
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42e662da5494c9cb649b3965eb09f7c1d3188141",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "bytes": 3765,
+      "lines": 111,
+      "ranges": [
+        [
+          5,
+          81
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "bytes": 26410,
+      "lines": 694,
+      "ranges": [
+        [
+          347,
+          365
+        ],
+        [
+          501,
+          534
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          105,
+          136
+        ],
+        [
+          198,
+          249
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "89fec648992f7d805e4ebc7797a3447b336fc9c5",
+      "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+      "bytes": 41432,
+      "lines": 1210,
+      "ranges": [
+        [
+          200,
+          272
+        ],
+        [
+          349,
+          497
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ea9117bf8aa6ba065688bae4db3347b097385f2b",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "bytes": 1524,
+      "lines": 50,
+      "ranges": [
+        [
+          21,
+          50
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "bytes": 5752,
+      "lines": 160,
+      "ranges": [
+        [
+          23,
+          48
+        ],
+        [
+          63,
+          79
+        ],
+        [
+          104,
+          159
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "bytes": 10459,
+      "lines": 325,
+      "ranges": [
+        [
+          5,
+          31
+        ],
+        [
+          34,
+          81
+        ],
+        [
+          126,
+          143
+        ],
+        [
+          239,
+          290
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "44f0357c8b9f507b16f398baf5ae612bcf65374d",
+      "sha256": "60b6f6c4256b2ef4d61e7c1c1cc052ef163e78deb6cb260504820e365ec76c5b",
+      "bytes": 1408,
+      "lines": 43,
+      "ranges": [
+        [
+          10,
+          42
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0d7f18a63279bccc60edfc24de24dfb42c0482ae",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "bytes": 7093,
+      "lines": 211,
+      "ranges": [
+        [
+          5,
+          25
+        ],
+        [
+          48,
+          59
+        ],
+        [
+          61,
+          81
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          944,
+          950
+        ],
+        [
+          1582,
+          1587
+        ],
+        [
+          1852,
+          1861
+        ],
+        [
+          1931,
+          1955
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-fatigue-sources/16.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 857,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "historical_sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-857-862.json",
+      "historical_partial_assessment": "ASSESSMENT-L01-HISTORICAL-857-PARTIAL-001.json",
+      "current_sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "qualification": "Earlier PR-working role, its partial checkpoint and predecessor current observations retain their separate attribution; this selected 95e trace is independently Git-bound."
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-013.json",
+      "sha256": "bef6d7e90684f9d38f107da27c338715151b12ed17430a8330abcb14401fa355",
+      "bytes": 8406,
+      "preserved_bytes": "recovered/ranged-fatigue-059/bef6d7e90684f9d38f107da27c338715151b12ed17430a8330abcb14401fa355.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original manifest-verified e275 Lens 1 receipt. Its original source scope, pending post-battle fatigue/carryover and attribution remain unchanged; this current source trace concerns in-battle action work, not proof of carryover."
+    }
+  ],
+  "historical_queue_links": [
+    {
+      "pointer": "/entries/702",
+      "id": "Q-L1-755a7e04782814748be6",
+      "qualification": "The earlier e275 source packet left condition and post-battle fatigue carryover policy open. This in-battle trace supplies partial related evidence without deciding carryover or an alias."
+    },
+    {
+      "pointer": "/entries/1563",
+      "id": "Q-L12-b0f1f9efd53a0c86df44",
+      "qualification": "The recovered 059 general-fatigue, encumbrance and tactical wheel enrollment contract remains open with its own Lens 12 attribution."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-RANGED-WEAPON-WORK-FATIGUE-001",
+      "severity": "P2 source-level missing action-work accounting; actual gameplay outcome not observed",
+      "trace": "The strategic Combatant starts with one fatigue value, includes it in total incapacitation, and charge_action_work applies CombatActionWork to that value and marks active work. Melee contact calls it for Attack. The selected opening volley and planned ranged-round paths consume ammunition and record an attack, while their range-exchange and attack-result functions contain no action-work charge. For an admitted shot, the selected attack branch adds no weapon-work fatigue; other movement, melee or defenses may still affect fatigue. During a subsequent round, advance_condition counts unmarked time as recovery, so when no other active work was marked, recovery can occur despite the shot.",
+      "tactical_trace": "The selected client or bot starts a RangedAttackStartedIntent. on_ranged_attack_started admits an attack animation and records authority but has no mutable TacticalCombatState query or action-work charge. The selected ranged resolver consumes ammunition and calculates performance from total incapacitation, without charging attack work. In contrast, a successfully admitted melee start calls charge_started_attack_work when its view and state exist. Tactical update_fatigue separately charges movement and suppresses stationary recovery while a SkeletonAction::Attack is active; suppression is not a charge for the shot.",
+      "limits": "No assumption is made that every start reaches an authorized shot, that no other system can alter fatigue, that every selected view/state exists, or that a player experienced a particular outcome. No whole-repository tactical/strategic fatigue or post-battle carryover closure is claimed. Ranged draw, projectile and duration energy policy remains to be designed; blindly using the current melee-weapon mass helper is not established correct.",
+      "connected_repair": "Define the admitted ranged-work event and physically appropriate inputs for each weapon, then connect both selected tactical and strategic producers once to the existing general fatigue and total-incapacitation authority. Coordinate draw/shot timing, dry fire, interruptions and repeated requests; preserve the transient tactical authority boundary, one fatigue pool, existing wheel semantics and no separate movement-speed penalty.",
+      "acceptance": "A future review must cover selected ranged starts, real shots, repeated/failed/aborted actions and other work without double charging; verify fatigue and total-incapacitation presentation and behavior later, after authorization.",
+      "discovery": "partial; complete actor admission, timing/energy policy, cross-system outcomes, historical aliases and other lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-AUTORESOLVE-RANGED-DEFENSE-WORK-FATIGUE-001",
+      "severity": "P2 source-level missing conditional defense-work accounting; actual selected response and player effect not observed",
+      "trace": "autoresolve_optimal_ranged_exchange calculates neutral, dodge and applicable block outcomes from immutable combatants, selects the least harmful AttackResult and returns only that result. If a dodge or block result is selected, the selected ranged paths apply the result and record MeleeResponseChoice::None without carrying or charging the chosen action. Melee handling instead carries a response to charge_defensive_work, which charges WeaponDefense or ExplosiveDodge. The policy question is whether the counterfactual optimum represents a performed defense; a real chosen defense must not be invented merely from an evaluated but unselected candidate.",
+      "limits": "The actual selected result, tactical response behavior, repeated actions, defense timing, chance and displayed effect are unobserved. Tactical defense can be charged through its own intent path and is not asserted free by this finding. This is separate from the attacker work omission, although both depend on the same general-fatigue contract.",
+      "connected_repair": "If the selected ranged outcome represents an actual defense, retain its semantic response and charge one corresponding action with the correct timing/energy policy, including simultaneous ranged planning. Coordinate with attacker work and existing melee/tactical defense authority; do not charge unselected candidates or introduce a parallel fatigue pool.",
+      "acceptance": "A future review must distinguish no defense from a selected dodge or block and preserve causal order, simultaneous plans, total incapacitation and display; product validation remains deferred.",
+      "discovery": "partial; complete actor admission, timing/energy policy, cross-system outcomes, historical aliases and other lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

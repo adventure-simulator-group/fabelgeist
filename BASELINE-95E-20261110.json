@@ -1029,8 +1029,42 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-AUTOPSY-EVIDENCE-95E.json"
+      },
+      {
+        "id": "REVIEW-RANGED-WEAPON-WORK-FATIGUE-001",
+        "severity": "P2 source-level missing action-work accounting; actual gameplay outcome not observed",
+        "classification": "new bounded 95e trace against the explicit one-pool combat-work rule; source reachability and full historical alias review remain open",
+        "historical_related_candidates": [
+          "Q-L1-755a7e04782814748be6",
+          "Q-L12-b0f1f9efd53a0c86df44"
+        ],
+        "related_current_candidates": [
+          "REVIEW-AUTORESOLVE-RANGED-DEFENSE-WORK-FATIGUE-001"
+        ],
+        "relationship_qualification": "The attack and defense obligations share fatigue authority but represent different actions and necessary inputs. The earlier e275 post-battle carryover and 059 Lens 12 aggregate contracts remain unchanged and incomplete; no unique historical increment, alias or checkpoint 3821 adoption is asserted.",
+        "discovery": "partial; complete actor admission, timing/energy policy, cross-system outcomes, historical aliases and other lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-RANGED-FATIGUE-95E.json"
+      },
+      {
+        "id": "REVIEW-AUTORESOLVE-RANGED-DEFENSE-WORK-FATIGUE-001",
+        "severity": "P2 source-level missing conditional defense-work accounting; actual selected response and player effect not observed",
+        "classification": "new bounded 95e trace against the explicit one-pool combat-work rule; source reachability and full historical alias review remain open",
+        "historical_related_candidates": [
+          "Q-L1-755a7e04782814748be6",
+          "Q-L12-b0f1f9efd53a0c86df44"
+        ],
+        "related_current_candidates": [
+          "REVIEW-RANGED-WEAPON-WORK-FATIGUE-001"
+        ],
+        "relationship_qualification": "The attack and defense obligations share fatigue authority but represent different actions and necessary inputs. The earlier e275 post-battle carryover and 059 Lens 12 aggregate contracts remain unchanged and incomplete; no unique historical increment, alias or checkpoint 3821 adoption is asserted.",
+        "discovery": "partial; complete actor admission, timing/energy policy, cross-system outcomes, historical aliases and other lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-RANGED-FATIGUE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261110-2317.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261110-2320.json"
 }

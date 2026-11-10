@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-RANGED-FATIGUE-95E.json` traces missing selected ranged
+attack work in tactical and strategic paths and conditional strategic ranged
+defense work. Earlier general-fatigue and carryover records remain open.
+No shot, combat simulation or product validation ran.
 `ASSESSMENT-L01-HISTORICAL-857-862.json` records the completed frozen
 autoresolve and adjacent source reads. Its separately published 1–500 partial
 record and predecessor bounded observations remain intact; tests were read only.
