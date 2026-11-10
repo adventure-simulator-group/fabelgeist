@@ -1,0 +1,98 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 173,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/173",
+      "sha256": "78dedc50a9d6ed96ba7f2bb88a85ff2c1f762296d8c7867acc99ea2e7aed98bd",
+      "lines": 555,
+      "new_personal_read_ranges": [
+        [
+          1,
+          555
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, full producer-consumer trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 174,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/174",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "lines": 103,
+      "new_personal_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, full producer-consumer trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 175,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/175",
+      "sha256": "70185e2b1fa6e8e4ca7406ef36aa13c78ac0517e4ff69e7132036a63fcb7d2f2",
+      "lines": 109,
+      "new_personal_read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, full producer-consumer trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 176,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/176",
+      "sha256": "4a77425e90eace3b800f13d7f8e81ad2ba781bfda422b9a0decbba0de870eae9",
+      "lines": 266,
+      "new_personal_read_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, full producer-consumer trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 177,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/177",
+      "sha256": "f041c03c0717ed86e0918d7002f19d097d720976ff98ad591ad80a10711add01",
+      "lines": 31,
+      "new_personal_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, full producer-consumer trace, or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical capability code projects persistent strategic rows into CharacterCapability, supplies character attributes, skills and body adapters, and constructs strategic equipment and transient battle Combatant values.",
+    "Historical armor projection maps placements, wear, material and coverage. Equipment projection admits finite SignedLength reach and chooses hands while retaining other primitive geometry fields.",
+    "Historical mass projection computes carried dry inventory while excluding fireplace-rooted rows. The current strategic and tactical authority boundary remains governed by AGENTS.md; these reads alone do not validate runtime behavior or complete producer-consumer coverage.",
+    "Historical source tests were read where present, not executed. These findings do not establish any current source behavior or recovered checkpoint 3821 status."
+  ],
+  "remaining": "Trace all historical variants, current native row admissions and downstream consumers, body and equipment identity, authority, dependencies and aliases; assess each independent lens separately."
+}
