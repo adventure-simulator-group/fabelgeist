@@ -1,0 +1,282 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded party merge, measured food and stable-object conservation trace. Other inventory paths and all independent lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          1382,
+          1530
+        ],
+        [
+          1600,
+          1635
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          274,
+          280
+        ],
+        [
+          472,
+          561
+        ],
+        [
+          1560,
+          1620
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          70,
+          93
+        ],
+        [
+          140,
+          150
+        ],
+        [
+          190,
+          200
+        ],
+        [
+          270,
+          280
+        ],
+        [
+          322,
+          347
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9b3721a9f00be8183915424b975aba69c9eda0ac",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "bytes": 18640,
+      "lines": 534,
+      "ranges": [
+        [
+          10,
+          53
+        ],
+        [
+          105,
+          146
+        ],
+        [
+          167,
+          181
+        ],
+        [
+          225,
+          241
+        ],
+        [
+          251,
+          255
+        ],
+        [
+          349,
+          361
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5ed3ad5655e51693f0ed66989bcf03b63a39c613",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "bytes": 5515,
+      "lines": 151,
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "28a834828b3966fd7438565f3866c82ed869a5e3",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "bytes": 12553,
+      "lines": 369,
+      "ranges": [
+        [
+          198,
+          255
+        ],
+        [
+          274,
+          305
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "bytes": 7706,
+      "lines": 241,
+      "ranges": [
+        [
+          11,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          85,
+          114
+        ],
+        [
+          289,
+          345
+        ],
+        [
+          371,
+          421
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/food.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1b8f2794a247f5b894ee708ca699162f08c3d012",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "bytes": 30041,
+      "lines": 848,
+      "ranges": [
+        [
+          263,
+          310
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          5678,
+          5710
+        ],
+        [
+          6256,
+          6290
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-merge-food-sources/09.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected in the predecessor checkout and current Git source; preserved c100 and 95e trees bind identical blobs. The historical pr-working governance and inventory-trade roles match, while the full physical-p16 governance body differs.",
+  "native_source": {
+    "package_manifest": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+    "archive_member": "spacetimedb-2.6.1/src/lib.rs",
+    "ranges": [
+      [
+        456,
+        466
+      ],
+      [
+        528,
+        531
+      ]
+    ],
+    "qualification": "Pinned dependency source documentation only; no deployed database, transaction or product execution was observed."
+  },
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-PARTY-GRANT-ERROR-ERASURE",
+    "matching_governance_role_index": 1220,
+    "matching_governance_sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+    "different_physical_p16_role_index": 282,
+    "different_physical_p16_sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+    "matching_grant_role_index": 1225,
+    "matching_grant_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+    "qualification": "The older grant error-erasure and subtree lifecycle records are related but do not establish the success-path food finding; historical status and revision remain unchanged."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-PARTY-MERGE-FOOD-REINITIALIZATION-001",
+      "severity": "P2 provisional; source-derived state conservation failure with actual reducer execution unverified",
+      "classification": "conditional source-derived food amount and provenance reset during successful party merge; no product execution",
+      "detail": "The party-join acceptance reducer snapshots every source party inventory row. For an item whose catalog projection is not repairable, it grants the target party entry.quantity of that item and deletes the source row, without selecting the existing stable object, amount or food lot. Food is a measured, stable-object item, so the checked grant for a positive quantity creates a new quantity-one row, new object, whole amount and fresh catalog-derived FoodLot and contamination state. This happens even if the grant succeeds; error erasure is a separate connected concern. Under an authorized otherwise-successful merge with one source travel_ration row whose amount and food lot have been partly consumed, the destination row is initialized as a full catalog ration rather than receiving the original remainder. The pinned SpacetimeDB dependency documents that a successful reducer commits; actual transaction and user-visible behavior were not executed.",
+      "source_derived_example": "The authored travel_ration has 2,500 kcal and no durability capability, so its projected Item is non-repairable. The party travel-food consumer retains the same quantity-one row when partially consumed and scales its FoodLot material and PartyItemAmount. Assuming a valid source lot with 1,250 kcal and half its material remaining, a later successful qualifying party merge calls the new-item grant with quantity one: that source path initializes a whole amount and a 2,500-kcal lot. The original age, food-lot identity, preparation, ingredient and contamination provenance are not transferred to that new lot. The exact admitted sequence, resulting database rows and any observed player impact remain unverified.",
+      "safeguards": "Acceptance checks authenticated strategic actor, living leader, open recruitment offer as applicable, available role, same simulation scope, no unresolved encounter, no active source quest and same synchronized settlement. A later propagated error would roll back the transaction under the pinned documented reducer semantics. Durable rows with stable objects take the rehome_subtree path, and other deposit code uses stable-object rehoming. Full merge caller, item admission, source lot state, nested-object ordering and database side-row behavior remain open.",
+      "connected_scope": "Party merge inventory loop and snapshot ordering; every stable physical object including food, measured material and nested containers; whole and fractional amount, food material, preparation, contamination, provenance and medicine; rehome_subtree and old backing-row cleanup; grant error propagation, stakes/reserve and transaction semantics; current UI and all merge callers.",
+      "proposed_repair": "After complete discovery, transfer each existing stable object and its authoritative side state through the existing custody operation, processing roots and descendants once, while moving truly fungible stacks with a fallible checked operation. Preserve remaining amount, food identity, provenance, containment and stake conservation; do not rebuild existing material from a catalog or introduce compatibility paths.",
+      "later_acceptance": "After product validation is authorized, verify successful merges retain a partially consumed food lot and its amount, identity, preparation and contamination provenance, preserve other measured and nested objects exactly once, reject or roll back failures without loss, and conserve party inventory, stake and reserve.",
+      "historical_related_candidates": [
+        "SEGOVB-L12-PARTY-GRANT-ERROR-ERASURE",
+        "PL13-248-FIREPLACE-SUBTREE-DEATH-ESTATE-LIFECYCLE-PENDING"
+      ],
+      "relationship_qualification": "Checkpoint 059 records the same party grant helper and notes merge as an error-erasure caller, and separately qualifies the subtree custody helper in a different lifecycle contract. The current food reconstruction occurs on a successful grant and is a distinct first-failure question, not an automatic alias of either historical record. The old party-grant record retains pr-working source attribution, open status and zero accepted unique-count change. Pr-working governance role 1220 and inventory-trade role 1225 match the current Git blobs; the personally read physical-p16 governance role 282 differs. No global alias, completed lens or checkpoint 3821 state is asserted.",
+      "discovery": "partial; all merge and nested-object orders, supported production state, native side-row behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace every source-row and nested subtree ordering, all non-durable measured items, true fungible stacks, native side-row behavior, stakeholder ledgers and global historical aliases. Independently assess all thirteen lenses; no repair or product validation."
+}

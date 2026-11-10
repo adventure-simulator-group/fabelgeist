@@ -288,6 +288,20 @@
         ],
         "record": "ASSESSMENT-L01-ENCOUNTER-MOVEMENT-95E.json",
         "severity": "unassigned pending supported encounter consequence and rule scope"
+      },
+      {
+        "id": "REVIEW-PARTY-MERGE-FOOD-REINITIALIZATION-001",
+        "severity": "P2 provisional; source-derived state conservation failure with actual reducer execution unverified",
+        "classification": "conditional source-derived food amount and provenance reset during successful party merge; no product execution",
+        "discovery": "partial; all merge and nested-object orders, supported production state, native side-row behavior and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Checkpoint 059 records the same party grant helper and notes merge as an error-erasure caller, and separately qualifies the subtree custody helper in a different lifecycle contract. The current food reconstruction occurs on a successful grant and is a distinct first-failure question, not an automatic alias of either historical record. The old party-grant record retains pr-working source attribution, open status and zero accepted unique-count change. Pr-working governance role 1220 and inventory-trade role 1225 match the current Git blobs; the personally read physical-p16 governance role 282 differs. No global alias, completed lens or checkpoint 3821 state is asserted.",
+        "historical_related_candidates": [
+          "SEGOVB-L12-PARTY-GRANT-ERROR-ERASURE",
+          "PL13-248-FIREPLACE-SUBTREE-DEATH-ESTATE-LIFECYCLE-PENDING"
+        ],
+        "record": "ASSESSMENT-L01-PARTY-MERGE-FOOD-95E.json"
       }
     ]
   }

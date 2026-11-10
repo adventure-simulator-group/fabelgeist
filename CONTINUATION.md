@@ -50,6 +50,9 @@ replay path and normal-client limits remain qualified.
 `ASSESSMENT-L01-ENCOUNTER-MOVEMENT-95E.json` records a source-level movement
 rule question in the strategic escape estimate, with physical inputs and
 actual encounter reachability explicitly distinguished.
+`ASSESSMENT-L01-PARTY-MERGE-FOOD-95E.json` records a conditional successful
+merge that recreates food rather than carrying its remaining material and
+provenance; the earlier grant-error record remains separately attributed.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
