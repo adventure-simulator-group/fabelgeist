@@ -1,0 +1,98 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 360,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/360",
+      "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+      "lines": 1762,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1762
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 361,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/361",
+      "sha256": "b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+      "lines": 81,
+      "new_personal_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 362,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/player.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/362",
+      "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+      "lines": 650,
+      "new_personal_read_ranges": [
+        [
+          1,
+          650
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 363,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/363",
+      "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "lines": 122,
+      "new_personal_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 364,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/364",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "lines": 38,
+      "new_personal_read_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical tactical motor retains a rollback motion snapshot, quickstep actuator and melee-lunge state, derives mass and limb attributes from the tactical player view, and applies bounded force or ground-velocity changes. Ordinary speed selection is delegated to a separate unread module; this body alone does not establish the complete fatigue, incapacitation, collision, prediction or replay contracts.",
+    "The historical quickstep actuator normalizes its direction, retains a start sample and scene origin, uses saturating sample subtraction and bounds post-action recovery. Motion interpolation checks typed displacement and velocity results while retaining raw acceleration and force inputs; configuration admission and intermediate finiteness require connected inspection.",
+    "The historical player view assembles attributes, limbs, stats, inventory and skills. Stats returns a neutral physical-skill-condition multiplier with a comment that fatigue and burden enter incapacitation elsewhere; limb injury, stored starting conditions, projection producers and actual consumer behavior remain open.",
+    "Scene-plan point admission checks both finite components including on deserialization, translated sums are readmitted, and scene velocity admits each signed speed independently. The spatial conversion source, transport and every numerical producer/consumer were not read in these roles. Source tests were read but not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current ordinary movement and incapacitation policy, rollback and quickstep/lunge authority, collision scheduling, finite input and intermediate admission, tactical player projections, scene conversions and all related producers and consumers. Reconcile historical aliases and independently assess every lens."
+}
