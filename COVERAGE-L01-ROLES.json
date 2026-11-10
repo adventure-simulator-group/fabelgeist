@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2220,
+    "unassessed": 2218,
     "lock-metadata-partial": 2,
     "bounded-current-trace-only": 180,
     "assessed-nonapplicable": 3,
     "full-historical-body-trace-open": 447,
-    "deleted-base-trace-open": 1
+    "deleted-base-trace-open": 3
   },
-  "first_unfinished": "Historical lock role 497 remains metadata-partial. Frozen pr-working text roles 498 and 499 were read, and PNG asset body 500 was scoped non-applicable; next unassessed role 501 has no original source hash and requires deleted/missing-state investigation. Independent lenses remain open.",
+  "first_unfinished": "Historical lock role 497 remains metadata-partial. Deleted pr-working asset roles 501 and 2416 have separately proved pre-deletion base bytes, not snapshot bodies. Continue at unassessed role 502; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -6708,7 +6708,9 @@
       "historical_sha256": null,
       "registry_pointer": "/files/501",
       "historical_object_available": false,
-      "status": "unassessed"
+      "status": "deleted-base-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-DELETED-501.json",
+      "qualification": "Exact pre-deletion base PNG inspected and base Git path proved; deleted snapshot remains bodyless. Asset mapping, current scope and independent lenses remain open."
     },
     {
       "original_index": 502,
@@ -29000,7 +29002,9 @@
       "historical_sha256": null,
       "registry_pointer": "/files/2416",
       "historical_object_available": false,
-      "status": "unassessed"
+      "status": "deleted-base-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-DELETED-2416.json",
+      "qualification": "Exact pre-deletion base PNG inspected and base Git path proved; deleted snapshot remains bodyless. Asset mapping, current scope and independent lenses remain open."
     },
     {
       "original_index": 2417,

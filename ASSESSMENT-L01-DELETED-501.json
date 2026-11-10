@@ -1,0 +1,82 @@
+{
+  "schema": "726-deleted-historical-base-read-v1",
+  "lens": 1,
+  "source_id": "pr-working:assets/equipment/procedural/icons/leather_belt--worn.png",
+  "original_index": 501,
+  "registry_pointer": "/files/501",
+  "snapshot": "pr-working",
+  "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "registry_state": "deleted",
+  "snapshot_sha256": null,
+  "historical_object_available": false,
+  "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "base_sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+  "base_git_blob": "ad6b2c733a9af51c8064b3ee729a14d2e7d0b094",
+  "base_bytes": 13625,
+  "preserved_base_bytes": "recovered/deleted-source-base-objects/5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+  "base_inspection": "The same exact 128 by 128 RGBA PNG bytes were hash-verified and visually inspected under role 500; this separate base path is independently verified in the base Git tree. No image renderer or product application was run.",
+  "commit_proof": {
+    "git_commit": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "sha256": "c641ff9fbb9e8502794b0318f4916068c7562c47044cc6040c244df5fe391414",
+    "bytes": 1221,
+    "preserved_bytes": "deleted-501-base-proof/commit.gz"
+  },
+  "tree_proof": [
+    {
+      "tree": "872a3e907813784f59411e0d2e14bb1e5ac55fb6",
+      "bytes": 1635,
+      "sha256": "2da61ed0dc839235c4286d89018414acf2b68eb184dfde74b23219b7c13d99c4",
+      "preserved_bytes": "deleted-501-base-proof/tree-00.gz",
+      "component": "assets",
+      "entry_mode": "40000",
+      "entry_kind": "tree",
+      "entry_oid": "bc170865f149e611a875abefc3cf865034bca1b7"
+    },
+    {
+      "tree": "bc170865f149e611a875abefc3cf865034bca1b7",
+      "bytes": 813,
+      "sha256": "f8f7f604d566f77e0fc9ed14b7b3bcc933225df15abb8398326b59c712f943b7",
+      "preserved_bytes": "deleted-501-base-proof/tree-01.gz",
+      "component": "equipment",
+      "entry_mode": "40000",
+      "entry_kind": "tree",
+      "entry_oid": "b135906a96d1549a336f7fb7be68575da2fac310"
+    },
+    {
+      "tree": "b135906a96d1549a336f7fb7be68575da2fac310",
+      "bytes": 80,
+      "sha256": "b5ed8cf1bd5dc6a65abb5487b92013109b1b08ae0bafa468e742c1212cf9a2a6",
+      "preserved_bytes": "deleted-501-base-proof/tree-02.gz",
+      "component": "procedural",
+      "entry_mode": "40000",
+      "entry_kind": "tree",
+      "entry_oid": "300ed81cfe4be6aa6e1df5fa65343bac69a82996"
+    },
+    {
+      "tree": "300ed81cfe4be6aa6e1df5fa65343bac69a82996",
+      "bytes": 27750,
+      "sha256": "c3d8cc08716555c312ad22653e305947cd1b6c57cc247ce454e5edf67424e97b",
+      "preserved_bytes": "deleted-501-base-proof/tree-03.gz",
+      "component": "icons",
+      "entry_mode": "40000",
+      "entry_kind": "tree",
+      "entry_oid": "dfee9b933c10fd22a5fd068317e99623c0901ecd"
+    },
+    {
+      "tree": "dfee9b933c10fd22a5fd068317e99623c0901ecd",
+      "bytes": 2803,
+      "sha256": "98c08bfc3293768ff6e8924624b07535908d2131bd1a1f3c73e70d80fab8854c",
+      "preserved_bytes": "deleted-501-base-proof/tree-04.gz",
+      "component": "leather_belt--worn.png",
+      "entry_mode": "100644",
+      "entry_kind": "blob",
+      "entry_oid": "ad6b2c733a9af51c8064b3ee729a14d2e7d0b094"
+    }
+  ],
+  "current_95e_path_status": "absent in current source tree",
+  "qualification": "The frozen pr-working registry records this distinct path deleted and has no snapshot body. The inspected bytes are pre-deletion base evidence at 3a50, not restored snapshot content or checkpoint 3821. Matching bytes at another path do not establish a rename, current semantic behavior or independent lens completion.",
+  "observations": [
+    "The base path held the same PNG content as the separately registered belt image; both deleted paths remain distinct identities. Asset selection and replacement consumers must be traced before assessing any rename or behavior."
+  ],
+  "remaining": "Assess the frozen deletion and replacement through actual asset paths and consumers, reconcile historical aliases, and independently assess all thirteen lenses."
+}
