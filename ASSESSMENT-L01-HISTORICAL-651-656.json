@@ -1,0 +1,133 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 651,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/651",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "lines": 341,
+      "new_personal_read_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 652,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/roof_tessellation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/652",
+      "sha256": "1b6392b23903162a4016dd207491880b8fc6d4b6242e1fe516eb8c92ce18634d",
+      "lines": 426,
+      "new_personal_read_ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 653,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/653",
+      "sha256": "a289edd3ee387aec2db5dc5cd65b84398c199844256bdba3f6cf1d3a8bb307a8",
+      "lines": 164,
+      "new_personal_read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 654,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/emblems.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/654",
+      "sha256": "22775a6695c6acd7655402ff33352ffc6e70a648f70dcf0e29b7d7cce474cf2e",
+      "lines": 86,
+      "new_personal_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 655,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/lettering.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/655",
+      "sha256": "123925e6214be34a423b07c88829feb1e52d9f177de4a3f4347116e34e2a4764",
+      "lines": 195,
+      "new_personal_read_ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 656,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/mounting.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/656",
+      "sha256": "b8304693c8e6698aff2016270d56d35725376c70af25d607855709aac82e0123",
+      "lines": 132,
+      "new_personal_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 651 owns finite architectural plan points, ordered convex polygons and dimensional hulls. It widens coordinates to f64 before orientation and area arithmetic; an extreme mixed-scale precision question and actual native callers require separately attributed current evidence. The included assertions were read only.",
+    "Role 652 derives roof surface triangles and cutout boundaries from semantic roof inputs; triangulation, tolerance, degenerate input and consumer guarantees remain separate from simply reading the body.",
+    "Roles 653\u2013656 define business-derived sign text and optional emblems, paint lettering into an image, and identify bracket support faces. Sign text/glyph coverage, size admission, structural support and actual serialized or rendering callers remain open. The font and image operations were not executed.",
+    "No product generation, build, test, audit, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace polygon arithmetic and actual supported domains, roof assembly admission, sign text and dimensions, native consumers, historical aliases and independently complete every lens."
+}
