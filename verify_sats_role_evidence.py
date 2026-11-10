@@ -1,0 +1,7 @@
+"""Verify the historical SATS timestamp source against the current lock."""
+import gzip,hashlib,json,tarfile,tomllib
+from pathlib import Path
+root=Path(__file__).resolve().parent; m=json.loads((root/'native-evidence/spacetimedb-sats-2.6.1/MANIFEST.json').read_text()); lock=gzip.decompress((root/m['current_lock_evidence']).read_bytes()); oid=hashlib.sha1(b'blob '+str(len(lock)).encode()+b'\0'+lock).hexdigest(); tree=dict(line.split('\t',1)[::-1] for line in (root/'main-advance-95e/current-tree.tsv').read_text().splitlines()); assert tree['Cargo.lock'].split()[-1]==oid; pk=[x for x in tomllib.loads(lock.decode())['package'] if x['name']==m['package'] and x['version']==m['version']]; assert len(pk)==1 and pk[0]['checksum']==m['sha256']; doc=json.loads((root/'ASSESSMENT-L01-HISTORICAL-495.json').read_text()); row=doc['historical_source_roles'][0]; r=json.loads((root/'COVERAGE-L01-ROLES.json').read_text())['roles'][495]
+with tarfile.open(root/'recovered/original-registry-source-archive/objects.tar.gz') as h,tarfile.open(root/'native-evidence/spacetimedb-sats-2.6.1'/m['archive']) as a:
+ b=h.extractfile(row['sha256']).read(); assert r['source_id']==row['source_id'] and r['historical_sha256']==row['sha256'] and hashlib.sha256(b).hexdigest()==row['sha256'] and a.extractfile(row['matching_archive_member']).read()==b and len(b.splitlines())==row['lines']==343 and row['new_personal_read_ranges']==[[1,343]] and r['status']=='full-historical-body-trace-open'
+print('verified historical SATS timestamp role and current lock archive binding')

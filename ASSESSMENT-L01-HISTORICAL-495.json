@@ -1,0 +1,32 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 495,
+      "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs",
+      "snapshot": "pinned-sdk",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/495",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "lines": 343,
+      "new_personal_read_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/spacetimedb-sats-2.6.1/MANIFEST.json",
+      "matching_archive_member": "spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact separately registered SATS source, matched to current lock-checksum archive. Actual application use, feature selection and independent lens coverage remain open. Source tests were read, not run."
+    }
+  ],
+  "observations": [
+    "Timestamp admits every i64 microsecond value through from_micros_since_unix_epoch. For negative values, to_duration_since_unix_epoch computes -micros before casting to u64; i64 minimum cannot be negated in signed i64, so behavior depends on overflow-check configuration. Actual supported producer range, conversions, product calls and build profile remain open; no panic or execution is asserted.",
+    "Checked timestamp arithmetic returns Option, whereas operator implementations unwrap checked outcomes. SystemTime conversion into Timestamp rejects pre-epoch input in the inspected source, while Timestamp-to-SystemTime has explicit checked branches. Native SystemTime platform behavior and application use require separate source review.",
+    "Source tests and property definitions were read, not run. The exact registered object matches the current lock-checksum archive, not proof of feature selection, execution or any independent lens completion. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current application timestamp producers and consumers, native profile and platform ranges, SATS admission, historical aliases and all independent lenses."
+}

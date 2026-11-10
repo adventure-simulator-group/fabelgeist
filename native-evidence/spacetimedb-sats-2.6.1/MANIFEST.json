@@ -1,0 +1,31 @@
+{
+  "schema": "726-native-archive-evidence-v1",
+  "package": "spacetimedb-sats",
+  "version": "2.6.1",
+  "archive": "spacetimedb-sats-2.6.1.crate",
+  "sha256": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+  "bytes": 118679,
+  "provenance": "Locally cached SATS archive verified against the separately preserved current 95e Cargo.lock.",
+  "qualification": "The registered Timestamp source was personally read; no feature resolution, clock call, decoder, product build or runtime execution.",
+  "inspected_members": [
+    {
+      "path": "spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "bytes": 13304
+    },
+    {
+      "path": "spacetimedb-sats-2.6.1/LICENSE",
+      "sha256": "5ef3fe1990c05675763c2a426ae5628aa7bdf1f073e3d2aa5ad817913e6b04f9",
+      "bytes": 11350
+    }
+  ],
+  "personally_inspected_ranges": {
+    "spacetimedb-sats-2.6.1/src/timestamp.rs": [
+      [
+        1,
+        343
+      ]
+    ]
+  },
+  "current_lock_evidence": "main-advance-95e/basis-wire-sources/01.source.gz"
+}
