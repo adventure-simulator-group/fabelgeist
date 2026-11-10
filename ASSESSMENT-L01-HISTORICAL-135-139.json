@@ -1,0 +1,64 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 135,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_economy.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/135",
+      "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "lines": 552,
+      "new_personal_read_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 historical role; source tests were read where present, not executed. Current source, connected scope, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 136,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/136",
+      "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "lines": 667,
+      "new_personal_read_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 historical role; source tests were read where present, not executed. Current source, connected scope, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 139,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_property.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/139",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "lines": 226,
+      "new_personal_read_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 historical role; source tests were read where present, not executed. Current source, connected scope, aliases and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical settlement economy maps service and stock profiles into visible locations and storefront eligibility, including explicit travel-provision exceptions.",
+    "Historical settlement population generates weighted age, profession, schedule and appearance decisions, requiring stated bridges for selected outcomes and retaining decision records.",
+    "Historical property code constructs settlement-scoped property IDs and validates catalog identity, geometry, reserve and capacity before household allocation; parsing and typed ID admission must be considered separately from aggregate validation.",
+    "Historical test source was read where present; no test result, current behavior, missing checkpoint 3821 status or complete producer trace is implied."
+  ],
+  "remaining": "Inspect all current populations, venues, persistence and housing consumers, alternate admission routes and historical aliases under each independent lens; no product code ran."
+}

@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2565,
+    "unassessed": 2562,
     "lock-metadata-partial": 2,
     "bounded-current-trace-only": 197,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 87
+    "full-historical-body-trace-open": 90
   },
-  "first_unfinished": "Original role 134 now has a full physical-p16 historical body read and prior bounded c100 observations; the next unread changed role is 135. Earlier dependencies, independent lenses and additional populations remain open.",
+  "first_unfinished": "Physical-p16 roles 135, 136 and 139 now have full historical body reads; 137, 138 and 140 were previously read. Role 141 has bounded current observations but its full historical body remains unread. Earlier dependencies and all independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -2043,7 +2043,9 @@
       "historical_sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
       "registry_pointer": "/files/135",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-135-139.json",
+      "qualification": "Full body read only for this physical-p16 identity; current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 136,
@@ -2053,7 +2055,9 @@
       "historical_sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
       "registry_pointer": "/files/136",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-135-139.json",
+      "qualification": "Full body read only for this physical-p16 identity; current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 137,
@@ -2087,7 +2091,9 @@
       "historical_sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
       "registry_pointer": "/files/139",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-135-139.json",
+      "qualification": "Full body read only for this physical-p16 identity; current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 140,
