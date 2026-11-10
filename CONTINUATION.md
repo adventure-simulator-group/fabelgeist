@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-SURFACE-CUT-95E.json` traces conditional UV-row and
+topology-reuse boundaries, including the same-source fresh-path safeguard.
+`ASSESSMENT-L01-HISTORICAL-834-843.json` records frozen cut and
+underlayer source reads; no geometry or product execution ran.
 `ASSESSMENT-L01-RIGID-SKIN-95E.json` traces a conditional row-bound
 failure and retains its earlier L12 and L13 qualifications.
 `ASSESSMENT-L01-HISTORICAL-825-833.json` records frozen runtime and
