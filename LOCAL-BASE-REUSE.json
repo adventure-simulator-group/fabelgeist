@@ -1,0 +1,122 @@
+{
+  "schema": "726-existing-local-evidence-reuse-v1",
+  "qualification": "All observations here concern read-only reuse of the user-identified local checkpoint 059 extraction and two older handoff collections. No file was overwritten. These historical records do not establish checkpoint 3821 authority, current audit coverage, adoption of proposals, or new personal source-read credit. The full transport remains available at the pinned original public commit.",
+  "original_handoff_commit": "eb407672813424d64ec31f208193969f5a62620c",
+  "local_handoff_readme_sha256": "41b8cb8c24594155442e2474566b65d900cdba7ab5bc80d98efac9fa9de9cea1",
+  "transport_manifest_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858",
+  "local_base_verification": {
+    "manifest_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858",
+    "expected_entries": 36487,
+    "counts": {
+      "matched": 36487,
+      "missing": 0,
+      "mismatch": 0,
+      "unsafe": 0
+    },
+    "failures": [],
+    "scope": "Read-only comparison to pinned checkpoint 059 transport; no later authority or source-read credit."
+  },
+  "independent_repeat": {
+    "expected": 36487,
+    "counts": {
+      "matched": 36487,
+      "missing": 0,
+      "mismatch": 0,
+      "unsafe": 0
+    },
+    "qualification": "Historical transport byte verification only; no source-read credit or later authority."
+  },
+  "reproduction": "python3 verify_local_checkpoint_059.py EVIDENCE_ROOT; requires the user-supplied directory and uses the preserved pinned transport manifest. The original handoff restoration procedure is in the pinned handoff README.",
+  "missing_final_hash_search": {
+    "targets": {
+      "checkpoint_3821": "5344407a722fb44ddde7ac5ffcf5fc77e63ee31e3e35253548f157c65d55e541",
+      "queue_4156": "f8cae3846353303bb996c4206c152260bee1b88be0ce0816a3b70a1cfb27c6ea",
+      "lens_2_state_028": "199a4a9479b5ed3491ccc6df6d5f667cf41db2f9745c26bff939348c9a2f4158",
+      "lens_12_state_008": "01ff18cca3dd9be3c117fd8e4ca55c872a4cbb7edd3805dabab296ff076f6b9c",
+      "lens_13_state_723": "e177a5f553ffb2e438702ac6e547c40475f42a0ffdbe014fe88283cfd38137e2"
+    },
+    "files_hashed": 18426,
+    "bytes_hashed": 5908726265,
+    "manifested_base_entries_excluded": 36487,
+    "matches": [],
+    "errors": [],
+    "qualification": "Read-only hash search of non-manifested regular files in the extracted checkpoint 059 directory and all regular files in the two named older handoff collections. Manifested base entries are separately checked against their original hashes; symlinks are not followed. This search cannot prove global absence or recover unrecorded serialization bytes."
+  },
+  "missing_dependency_hash_search": {
+    "target_distinct": 484,
+    "source": "DEPENDENCY-COVERAGE.json not_located_by_hash minus LATER-MATCHES.json",
+    "files_hashed": 18426,
+    "bytes_hashed": 5908726265,
+    "manifested_base_entries_skipped": 36487,
+    "symlinks_skipped": 0,
+    "matches": [],
+    "errors": [],
+    "qualification": "Read-only hash search of non-manifested regular files in extracted checkpoint 059 and every regular file in the two named older handoff collections. The separately verified original manifest has no matching hash among these 484. Hash matches are locators, not evidence of correct identity, final authority, adoption or source-read credit; the fixed inventory is not all missing records, and absence beyond these searched bytes is not established."
+  },
+  "historical_lens1_receipt": {
+    "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-094.json",
+    "sha256": "6cc5658053e31f714cd3fe79b856cf9a3fd954a9d7a9762dd7656434887e21bb",
+    "manifest_git_blob": "55e0c41b65a12cc42930788806f5df8588e76bae",
+    "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "attribution": "Root-adopted delegated independent Lens 1 source; original delegate attribution retained. This is not a new personal read of the original source bodies or another-lens credit.",
+    "scope": "Bounded Avian camera query API and maximum-distance/result boundary; three registered source rows, no global camera/native/runtime clearance. Historical selected state keeps nine P08 dispositions and broader all20/current/global aliases open.",
+    "related_hashes_verified": {
+      "predecessor_state": "334b352c14dfaea7f223c957ed9a4541fb24e9eea7749c6ddfb0a5a490ec2b03",
+      "baseline_state": "9a59636a70d00124cfac70d63dfd978d3f5774d3b11467ff11335530b5af6806",
+      "proposal": "04e856887ed346e8d138ddeeaf758eac9675e33e028bf623ba1daa46f6f4aa65",
+      "bundle": "560d5728799d6e8394d69714a95381cc58eb5cec40441b1cb2d1e68af24df996",
+      "ruleset_inert": "16df20467042cae28ed21bac012543c79ec46be7a2db9daafb38c88ab48e80f2",
+      "plan": "ec8018d64ad85535da41666c8003d61e5e421afccfe3fdb3eecfcc49d10ef7c2",
+      "delegate_verification": "913979d945a33a39dfc9f8bf60c58be458afd266d4924ef939cf54c09ecfcc48"
+    },
+    "source_rows": [
+      {
+        "registration": "PL1C-0011",
+        "path": "Cargo.lock",
+        "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+        "assessed_ranges": [
+          [
+            1232,
+            1257
+          ]
+        ],
+        "verification": "Git source bytes at historical revision match."
+      },
+      {
+        "registration": "PL1C-0012",
+        "archive_member": "avian3d-0.7.0/src/spatial_query/system_param.rs",
+        "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+        "assessed_ranges": [
+          [
+            111,
+            120
+          ],
+          [
+            176,
+            225
+          ],
+          [
+            523,
+            595
+          ]
+        ],
+        "original_registry_index": 487
+      },
+      {
+        "registration": "PL1C-0013",
+        "archive_member": "avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+        "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+        "assessed_ranges": [
+          [
+            412,
+            491
+          ]
+        ],
+        "original_registry_index": 486
+      }
+    ],
+    "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+    "archive_qualification": "The local archive SHA-256 matches the receipt and pinned Cargo.lock; both complete archive members match receipt hashes and are also in the published original registry source archive. No native runtime or broader source proof follows.",
+    "verifier_note": "Historical ruleset and helper were hash checked as inert bytes, not executed. Original exact receipt and supporting bytes are recoverable using the pinned original transport manifest and bundle; local absolute paths embedded in original records have not been republished in this summary."
+  }
+}
