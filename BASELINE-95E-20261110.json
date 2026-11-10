@@ -1,0 +1,88 @@
+{
+  "schema": "726-authoritative-continuation-after-main-advance-v1",
+  "status": "discovery incomplete; implementation and product validation prohibited",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "previous_source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "main_observation": "origin/main fetched on 2026-11-10 at this revision; recheck before claiming it remains current",
+  "transition_evidence": "MAIN-ADVANCE-95E.json",
+  "predecessor": {
+    "baseline": "main-advance-95e/predecessor-baseline.json.gz",
+    "progress": "main-advance-95e/predecessor-progress.json.gz",
+    "role_worklist": "main-advance-95e/predecessor-role-worklist.json.gz",
+    "publication_commit": "de54f5eca0c905eca6cb7573c96bd0e431bd90d7",
+    "qualification": "Frozen copies preserve prior records at c100. The visible predecessor files and assessment documents retain c100 attribution; no assessment has been silently relabeled."
+  },
+  "authority_rule": "This is the incomplete working continuation at 95e, not recovered checkpoint 3821. Recovered bytes, reconstructions, historical summaries and newly assessed work retain their separate provenance. All prior assessment, role, queue, ledger and source-delta obligations remain open until independently reconciled at this revision.",
+  "lens_names": [
+    "producer propagation",
+    "existing owners",
+    "admission",
+    "operations",
+    "aggregates",
+    "type ownership",
+    "redundant authority",
+    "behavior preservation",
+    "enum shapes",
+    "derivability",
+    "type granularity",
+    "raw strings",
+    "raw primitives"
+  ],
+  "lens_status": [
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete"
+  ],
+  "predecessor_delta_paths": 62,
+  "predecessor_delta_reconciliation": "The 62 c100 paths have identical Git tree entries or identical absence at 95e. Their prior per-lens states remain attributed to c100; identical bytes alone do not establish complete current-revision semantic coverage.",
+  "additional_source_delta": [
+    {
+      "status": "M",
+      "path": "world-runtime-release.lock.json",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ],
+      "qualification": "New direct-child transition. The source identity and JSON comparison are mechanically verified; all thirteen lens assessments and connected effects remain open."
+    }
+  ],
+  "historical_roles": {
+    "historical_original_roles_per_lens": 2853,
+    "overlays": 246,
+    "frozen_merged_paths": 38,
+    "shared_scopes": 196,
+    "mandatory_extensions_per_lens": 36,
+    "qualification": "Historical populations remain distinct and include registered extensions, migration families, exact aliases, connected scopes and current-source deltas. Counts are not audit completion."
+  },
+  "historical_queue_records_indexed": 3713,
+  "historical_queue_records_semantically_reconciled": 0,
+  "predecessor_ledger": {
+    "file": "main-advance-95e/predecessor-baseline.json.gz",
+    "entries": 45,
+    "status": "partial c100 connected entries; source and dependencies require explicit 95e reconciliation; no repair or product validation"
+  },
+  "recovery_qualification": "Checkpoint 059 bytes are recovered and hash-verified for that checkpoint. Final original checkpoint 3821 ledger and queue remain missing; reconstructed records and historical summaries are not promoted to final authority. A bounded older-collection search found no requested hash matches, without proving absence.",
+  "validation": "Evidence verification only. No repairs, product builds, product tests, runtime probes, release downloads or product validation.",
+  "next_step": "Reconcile the new lock transition and prior findings at 95e, continue all original roles, deltas, extensions and thirteen independent lenses, and complete the connected repair ledger before stopping at the implementation gate."
+}

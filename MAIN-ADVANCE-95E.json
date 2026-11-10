@@ -1,0 +1,125 @@
+{
+  "schema": "726-main-advance-evidence-v1",
+  "previous_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "observation": "Fetched origin/main on 2026-11-10; new commit is a direct child of the predecessor. The commit objects, trees and lockfile bytes are preserved for offline evidence verification. Current main may advance again.",
+  "commits": {
+    "previous": {
+      "path": "main-advance-95e/previous-commit.raw.gz",
+      "bytes": 1465,
+      "sha256": "be632daf3c18747f98e56c67ce8587d407f4cd1f6e17866d5cefcf86354f918a",
+      "git_commit": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "content_encoding": "gzip",
+      "uncompressed_bytes": 2176,
+      "uncompressed_sha256": "5797d04f22d888c64fb4f431919e2b0a91e9d6d7bd0e8a6bf3fcb64ede4ac825"
+    },
+    "current": {
+      "path": "main-advance-95e/current-commit.raw.gz",
+      "bytes": 856,
+      "sha256": "ae58b80082dea7773337a56a996c6bd431ebb1f351d8f93128f886d0c07651aa",
+      "git_commit": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "content_encoding": "gzip",
+      "uncompressed_bytes": 1078,
+      "uncompressed_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722"
+    }
+  },
+  "trees": {
+    "previous": {
+      "path": "main-advance-95e/previous-tree.tsv",
+      "bytes": 733262,
+      "sha256": "6fb76da46318d2880c531434a8877d9a6b0b425991cc041b77d221e0071031b7",
+      "git_tree": "eebc90135f93a17ab8a8f7ae238866fb37176409"
+    },
+    "current": {
+      "path": "main-advance-95e/current-tree.tsv",
+      "bytes": 733262,
+      "sha256": "020f2e9f9ef080e0a38facf92bad76e00e30f36aa0fd94249625806e76df400c",
+      "git_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+    }
+  },
+  "lockfiles": {
+    "previous": {
+      "path": "main-advance-95e/previous-world-runtime-release.lock.json",
+      "bytes": 1702,
+      "sha256": "924d2eabd367e57b968088cc91413b8d45853f413c65c88f6e0892d5d5fdb86e",
+      "git_blob": "f665c437d1ccab4bcf201e96d8a4289bf4140783"
+    },
+    "current": {
+      "path": "main-advance-95e/current-world-runtime-release.lock.json",
+      "bytes": 1685,
+      "sha256": "3eb701d0d85d1d3524b9712a341dd0e58fdca3d5a72bfedfb93dd3654859807a",
+      "git_blob": "c36d75155780d812ae15e95f6d7511a570260d47"
+    }
+  },
+  "tree_changes": [
+    {
+      "path": "world-runtime-release.lock.json",
+      "previous": [
+        "100644",
+        "blob",
+        "f665c437d1ccab4bcf201e96d8a4289bf4140783"
+      ],
+      "current": [
+        "100644",
+        "blob",
+        "c36d75155780d812ae15e95f6d7511a570260d47"
+      ]
+    }
+  ],
+  "unchanged_tree_entries": 6360,
+  "predecessor_snapshots": {
+    "predecessor-baseline": {
+      "path": "main-advance-95e/predecessor-baseline.json.gz",
+      "bytes": 7887,
+      "sha256": "ce2634528c7cc7e27c68b906065b69beeddde23b38816aaa92f0f19688a5556d",
+      "uncompressed_sha256": "1313ae7d8a719c1e20afc00987a259f4aebdedcc98ee3d53b8990e3bd5395530",
+      "uncompressed_bytes": 58084,
+      "source": "BASELINE-20261110.json"
+    },
+    "predecessor-progress": {
+      "path": "main-advance-95e/predecessor-progress.json.gz",
+      "bytes": 1569,
+      "sha256": "4fb02b9bec2c9b0b36173a3278fb32d240b7b17c3339e1a6511f3e4d5cf1c6a3",
+      "uncompressed_sha256": "03d1375a015f7662eabf9a900f40cb7299634003ac1e162c7da87369d88bd68b",
+      "uncompressed_bytes": 3680,
+      "source": "CONTINUATION-PROGRESS.json"
+    },
+    "predecessor-role-worklist": {
+      "path": "main-advance-95e/predecessor-role-worklist.json.gz",
+      "bytes": 185548,
+      "sha256": "c0ab9f48a94d0dad13014bd71929238e4194c2b26cb124de28b1eb06d37d7b86",
+      "uncompressed_sha256": "817c7707fa749a35bd4c37b55db83c9b8072638239a11c7c868fdbf4c0c488ad",
+      "uncompressed_bytes": 1406120,
+      "source": "COVERAGE-L01-ROLES.json"
+    }
+  },
+  "predecessor_publication_commit": "de54f5eca0c905eca6cb7573c96bd0e431bd90d7",
+  "lockfile_mechanical_summary": {
+    "old_schema": 1,
+    "new_schema": 2,
+    "old_release": "1544-20260903-geological-landforms",
+    "new_release": "1544-20261110-regional-roads-v2",
+    "old_archive_sha256": "30d65740ec2127b389f090ef3a32a8f86da699e4f151d408bf9ce100a56cadf5",
+    "new_archive_sha256": "375f2dcc7d476be78e0db25ac5d5f77b911b99b6cb8fad2c0ffe7d6af37bdf43",
+    "old_archive_size": 65393794,
+    "new_archive_size": 51946106,
+    "added_paths": [
+      "strategic-map/regional-roads-v1.json",
+      "strategic-map/regional-roads-v1.pack"
+    ],
+    "removed_paths": [
+      "strategic-map/strategic-map-tiles-v1.pack",
+      "strategic-map/strategic-map-v1.json"
+    ],
+    "changed_existing_paths": [
+      "strategic-map/STRATEGIC_MAP_DATA_LICENSE.md"
+    ],
+    "unchanged_existing_paths": [
+      "WORLD_RUNTIME_DATA_NOTICE.md",
+      "strategic-map/terrain-routing-v3.json",
+      "strategic-map/terrain-routing-v3.pack",
+      "world-1544.json"
+    ]
+  },
+  "qualification": "This is an identity and JSON inventory comparison only. No archive download, release verification, product execution, full lens assessment, runtime behavior or 3821 checkpoint authority is implied."
+}

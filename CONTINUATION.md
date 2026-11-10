@@ -1,14 +1,21 @@
 # Audit continuation
 
-This continuation uses `BASELINE-20261110.json` as its explicitly incomplete
-working authority at source revision
-`c100638b720a7281a5fc96f6a3c5c23d5dda85da`. It is not a restoration of the
-missing checkpoint 3821. All thirteen lenses and the connected repair ledger
-remain open; no implementation or product validation is authorized here.
+This continuation uses `BASELINE-95E-20261110.json` as its explicitly
+incomplete working authority at source revision
+`95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
+2026-11-10. Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
+parent, complete tree inventories, lockfile bytes and frozen predecessor
+records. It is not a restoration of the missing checkpoint 3821. All thirteen
+lenses and the connected repair ledger remain open; no implementation or
+product validation is authorized here.
 
-`CONTINUATION-PROGRESS.json` gives the present counts and qualifications.
-`COVERAGE-L01-ROLES.json` is the Lens 1 worklist of distinct original roles;
-`LOCKFILE-DELTA.json` preserves separate historical and current comparisons.
+`CONTINUATION-PROGRESS-95E.json` gives the current transition counts and
+qualifications. `BASELINE-20261110.json`, `CONTINUATION-PROGRESS.json`, and
+`COVERAGE-L01-ROLES.json` preserve work attributed to the predecessor revision
+`c100638b720a7281a5fc96f6a3c5c23d5dda85da`; their frozen copies record the
+transition checkpoint. The role file is the Lens 1 worklist of distinct
+original roles. `LOCKFILE-DELTA.json` preserves separate historical and
+predecessor comparisons of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
 entries into present findings. The `ASSESSMENT-*.json` records distinguish
 bounded current source observations from historical proposals and name the
