@@ -1,0 +1,50 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/foraging.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "git_blob": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8",
+      "bytes": 42888,
+      "lines": 1278,
+      "ranges": [
+        [
+          25,
+          510
+        ]
+      ],
+      "preserved_bytes": "source-evidence/foraging-bounds/current/crates/adventuresim-core/src/foraging.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/foraging/sampling.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "git_blob": "6276bf25e6e81a40f943e501a0ad3b967bee3909",
+      "bytes": 789,
+      "lines": 25,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "source-evidence/foraging-bounds/current/crates/adventuresim-core/src/foraging/sampling.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Bounded arithmetic for this current authored foraging resolve path; this is not complete Lens 1 coverage.",
+  "trace": [
+    "The inspected resolve function first requires whole-hour durations in 60..1440, a four-part terrain mixture normalized to 1000, 1..5 unique known selected sources, and at least one available resource per source. Each terrain component is checked <=1000 before the u16 sum, so its sum cannot exceed 4000. Habitat share is saturated and capped at 1000.",
+    "The current authored table contains 15 resources with positive minimum yields and maximum yields no greater than six. Thus resource_count is 1..15, source_count is 1..5, and the sampled yield range is positive in this path. Fractional and stealth draw bounds are explicitly 1000 and 1001; the distinct purpose streams are not interchangeable.",
+    "A conservative integer bound for expected_permille numerator is 2300 * 1440 * 1500 * 1000 * 1750 = 8,694,000,000,000,000, below u64::MAX. The denominator is at least 480,000,000,000 and at most 36,000,000,000,000 using 15 as a loose resource count bound. Consequently this inspected expression and its positive denominator do not overflow under those specific current inputs. This is source-derived arithmetic, not an executed product test.",
+    "The public helpers, interruption and training paths, static-table evolution, source ownership and semantic policy have not all been traced. Do not conclude that every foraging numeric operation or another historical variant is safe."
+  ],
+  "remaining": [
+    "Review all producer and consumer contracts, deliberate quantization, feature policy, other independent lenses and historical queue aliases. No product runtime, test or simulation ran."
+  ]
+}

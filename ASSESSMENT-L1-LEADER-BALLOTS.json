@@ -1,0 +1,76 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/leadership.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "git_blob": "a2c85a8a65f2fea94dd197dba58013eb3c8ddc06",
+      "bytes": 2824,
+      "lines": 89,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "preserved_bytes": "source-evidence/leader-ballots/current/crates/adventuresim-core/src/leadership.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          270,
+          330
+        ],
+        [
+          430,
+          482
+        ]
+      ],
+      "preserved_bytes": "source-evidence/leader-ballots/current/crates/adventuresim-stdb-module/src/strategic/governance.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          1570,
+          1586
+        ]
+      ],
+      "preserved_bytes": "source-evidence/leader-ballots/current/crates/adventuresim-stdb-module/src/strategic/authority_model.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Conditional aggregate ballot uniqueness contract; inspected normal persistence keys one ballot per party and voter.",
+  "trace": [
+    "elect_leader deduplicates living member IDs into a set but counts every input vote whose voter and candidate are living; it does not deduplicate voter IDs in its raw slice. For three living IDs [1,2,3] with leader 1 alive, two repeated (2,3) tuples give candidate 3 tally 2 and satisfy 2*100 >= 3*66, whereas the one unique ballot does not. This is a source-level constructed input, not an executed election.",
+    "The inspected strategic vote reducer and internal helper construct the table primary key from party ID and voter ID and update or insert by that key. The table declares that ID primary key, and the normalization reader passes collected party rows to elect_leader. That normal path gives one row per canonical party/voter key; other writers, corrupted retained rows, tuple call sites and key correctness remain open.",
+    "No authorization failure or observed voting outcome is claimed. The two-thirds-like policy encoded as 66/100 and the uniqueness of ballots are separate questions; an owner decision is needed before changing either."
+  ],
+  "repair_direction": "Trace every producer and storage boundary, define duplicate-voter admission and conflicting ballots explicitly, and preserve the current election threshold, tie-breaking and one-voter normal behavior unless separately changed by a design decision.",
+  "later_acceptance": [
+    "After separate repair authorization, verify duplicate and conflicting votes, living-member filtering, normal canonical stored ballots, threshold boundaries and tie-breaking."
+  ],
+  "remaining": [
+    "Establish actual duplicate reachability and finish all other aggregate-state and historic ledger reviews. No product build, test, database or runtime call ran."
+  ],
+  "discovery_status": "partial; duplicate slice counterexample, supported persistence path appears keyed",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

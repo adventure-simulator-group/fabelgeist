@@ -1640,12 +1640,28 @@
         "discovery": "partial; all aggregate bounds, alternate callers and invalid-state reachability open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "NEW-MISSION-AUTHORITY-ID-DESERIALIZATION-001",
+        "record": "ASSESSMENT-L1-MISSION-ID-SERDE.json",
+        "classification": "Serde transparent derive bypasses the validated constructors of four private authority-ID wrappers in source interpretation",
+        "discovery": "partial; macro feature resolution, actual typed deserialization consumers, production impact and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed"
+      },
+      {
+        "id": "REVIEW-LEADER-BALLOT-UNIQUENESS-001",
+        "record": "ASSESSMENT-L1-LEADER-BALLOTS.json",
+        "classification": "public election helper counts duplicate voter tuples; inspected normal persistence keys ballot by party and voter",
+        "discovery": "partial; all writers, direct callers, duplicate reachability and owner policy remain open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 role 108, remaining original source roles, partial current traces and mandatory scopes; complete all thirteen independent lenses and reconcile the connected ledger before implementation or product validation.",
+  "next_step": "Continue original Lens 1 role 112 and other unassessed historical and additional source scopes, then complete each independent lens and connected ledger without product implementation or validation.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"

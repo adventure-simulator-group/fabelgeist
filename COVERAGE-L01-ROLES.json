@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2608,
+    "unassessed": 2597,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 181,
+    "bounded-current-trace-only": 185,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 60
+    "full-historical-body-trace-open": 67
   },
-  "first_unfinished": "Original changed roles 106, 107, 109 and 110 have full physical-p16 body reads with connected scope open; role 108 remains unread. All 62 current deltas have dispositions but 46 remain partial; every independent lens, overlay, merged, shared and mandatory scope remains open.",
+  "first_unfinished": "Original changed roles 108, 111, 114, 115, 117, 118 and 120 have full historical body reads only; next unread changed role is 112. All 62 current deltas have dispositions but 46 are partial; every independent lens and mandatory additional scope remains open.",
   "roles": [
     {
       "original_index": 0,
@@ -1502,7 +1502,22 @@
       "historical_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
       "registry_pointer": "/files/108",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+      "qualification": "Full body read only for this exact physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open.",
+      "current_path": "crates/adventuresim-core/src/foraging.rs",
+      "current_git_blob": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-FORAGING-BOUNDS.json",
+          "ranges": [
+            [
+              25,
+              510
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 109,
@@ -1514,7 +1529,20 @@
       "historical_object_available": true,
       "status": "full-historical-body-trace-open",
       "historical_assessment": "ASSESSMENT-L01-HISTORICAL-106-110.json",
-      "qualification": "Entire historical body read only at this physical-p16 identity; current applicability, connected scope, other identities and independent lenses remain open."
+      "qualification": "Entire historical body read only at this physical-p16 identity; current applicability, connected scope, other identities and independent lenses remain open.",
+      "current_path": "crates/adventuresim-core/src/foraging/sampling.rs",
+      "current_git_blob": "6276bf25e6e81a40f943e501a0ad3b967bee3909",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-FORAGING-BOUNDS.json",
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 110,
@@ -1536,7 +1564,9 @@
       "historical_sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
       "registry_pointer": "/files/111",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+      "qualification": "Full body read only for this exact physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open."
     },
     {
       "original_index": 112,
@@ -1566,7 +1596,9 @@
       "historical_sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
       "registry_pointer": "/files/114",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+      "qualification": "Full body read only for this exact physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open."
     },
     {
       "original_index": 115,
@@ -1576,7 +1608,9 @@
       "historical_sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
       "registry_pointer": "/files/115",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+      "qualification": "Full body read only for this exact physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open."
     },
     {
       "original_index": 116,
@@ -1596,7 +1630,22 @@
       "historical_sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
       "registry_pointer": "/files/117",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+      "qualification": "Full body read only for this exact physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open.",
+      "current_path": "crates/adventuresim-core/src/leadership.rs",
+      "current_git_blob": "a2c85a8a65f2fea94dd197dba58013eb3c8ddc06",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-LEADER-BALLOTS.json",
+          "ranges": [
+            [
+              1,
+              38
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 118,
@@ -1606,7 +1655,9 @@
       "historical_sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
       "registry_pointer": "/files/118",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+      "qualification": "Full body read only for this exact physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open."
     },
     {
       "original_index": 119,
@@ -1628,7 +1679,22 @@
       "historical_sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
       "registry_pointer": "/files/120",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+      "qualification": "Full body read only for this exact physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open.",
+      "current_path": "crates/adventuresim-core/src/mission.rs",
+      "current_git_blob": "4cc46a9f8295c7f37e6e317bf7685d1baac117f9",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ID-SERDE.json",
+          "ranges": [
+            [
+              1,
+              105
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 121,
@@ -3318,6 +3384,15 @@
             [
               1486,
               1516
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-LEADER-BALLOTS.json",
+          "ranges": [
+            [
+              1570,
+              1586
             ]
           ]
         }
@@ -10859,7 +10934,21 @@
       "historical_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
       "registry_pointer": "/files/928",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/foraging.rs",
+      "current_git_blob": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-FORAGING-BOUNDS.json",
+          "ranges": [
+            [
+              25,
+              510
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 929,
@@ -10869,7 +10958,21 @@
       "historical_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
       "registry_pointer": "/files/929",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/foraging/sampling.rs",
+      "current_git_blob": "6276bf25e6e81a40f943e501a0ad3b967bee3909",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-FORAGING-BOUNDS.json",
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 930,
@@ -11100,7 +11203,21 @@
       "historical_sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
       "registry_pointer": "/files/949",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/leadership.rs",
+      "current_git_blob": "a2c85a8a65f2fea94dd197dba58013eb3c8ddc06",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-LEADER-BALLOTS.json",
+          "ranges": [
+            [
+              1,
+              38
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 950,
@@ -11160,7 +11277,21 @@
       "historical_sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
       "registry_pointer": "/files/955",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/mission.rs",
+      "current_git_blob": "4cc46a9f8295c7f37e6e317bf7685d1baac117f9",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ID-SERDE.json",
+          "ranges": [
+            [
+              1,
+              105
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 956,
@@ -14123,6 +14254,15 @@
               1516
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-LEADER-BALLOTS.json",
+          "ranges": [
+            [
+              1570,
+              1586
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -14419,6 +14559,19 @@
               1340
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-LEADER-BALLOTS.json",
+          "ranges": [
+            [
+              270,
+              330
+            ],
+            [
+              430,
+              482
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -14492,6 +14645,15 @@
             "2640-2648",
             "2692-2731",
             "2829-2904"
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ID-SERDE.json",
+          "ranges": [
+            [
+              1208,
+              1232
+            ]
           ]
         }
       ],
@@ -14689,6 +14851,15 @@
             [
               492,
               545
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ID-SERDE.json",
+          "ranges": [
+            [
+              245,
+              258
             ]
           ]
         }
@@ -31725,6 +31896,15 @@
             [
               492,
               545
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ID-SERDE.json",
+          "ranges": [
+            [
+              245,
+              258
             ]
           ]
         }

@@ -1,0 +1,122 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-108-120.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/mission.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "git_blob": "4cc46a9f8295c7f37e6e317bf7685d1baac117f9",
+      "bytes": 3506,
+      "lines": 106,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-id-serde/current/crates/adventuresim-core/src/mission.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.toml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+      "git_blob": "868b911e5d1fe98bfed681bde574227fb391a263",
+      "bytes": 7583,
+      "lines": 211,
+      "ranges": [
+        [
+          130,
+          140
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-id-serde/current/Cargo.toml.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+      "git_blob": "d62b34dfb1b85b925a09f34cde94e6015b0c6414",
+      "bytes": 1187,
+      "lines": 45,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-id-serde/current/crates/adventuresim-core/Cargo.toml.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          1208,
+          1232
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-id-serde/current/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          245,
+          258
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-id-serde/current/crates/adventuresim-stdb-module/src/tactical.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_source": {
+    "archive": "native-evidence/serde-derive-1.0.229/serde_derive-1.0.229.crate",
+    "manifest": "native-evidence/serde-derive-1.0.229/MANIFEST.json",
+    "member": "serde_derive-1.0.229/src/de.rs",
+    "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+    "bytes": 34045,
+    "personally_inspected_ranges": [
+      [
+        300,
+        325
+      ],
+      [
+        375,
+        425
+      ]
+    ],
+    "qualification": "Archive checksum matches the pinned lockfile; bounded derive implementation was inspected. No macro expansion, compilation, parser invocation or runtime check was performed."
+  },
+  "classification": "Source-level Serde admission bypass of four validated identifier wrappers; production deserialization reachability not established.",
+  "trace": [
+    "The authority_id macro defines MissionId, BattleId, HostileGroupId and OutcomeSourceId as private String wrappers. Each new constructor rejects an empty suffix, incorrect prefix, length above 128 bytes and disallowed ASCII. All four derive Deserialize with serde(transparent), without a try_from or custom deserialize annotation.",
+    "Pinned serde_derive 1.0.229 dispatches transparent containers to deserialize_transparent, deserializes the sole field, and maps it directly into the wrapper. Source interpretation therefore predicts that a deserializer accepting an empty string can construct the wrapper without invoking new, even though new rejects that value. Macro expansion and a parser were not run, and actual feature resolution remains unverified.",
+    "The inspected strategic inventory and tactical reducer paths separately call new on their raw IDs before continuing. A bounded repository search found those constructors and the wrapper definition, but no direct typed deserialization consumer for HostileGroupBinding; do not infer a currently exploitable reducer or authorization bypass. The bound/unbound aggregate is a separate ownership and behavior question."
+  ],
+  "repair_direction": "Trace every typed and nested deserialization boundary and intended ID wire contract. If separately authorized, ensure every admission route enforces the same canonical prefix, nonempty suffix, ASCII and byte length without introducing compatibility shims; preserve valid serialized string representations.",
+  "later_acceptance": [
+    "After separate repair authorization, verify each identifier through constructors and all deserializers with valid, empty, wrong-prefix, non-ASCII and overlength values, plus nested hostile-group bindings."
+  ],
+  "remaining": [
+    "Confirm macro feature resolution and all actual production uses; reconcile historical aliases and all independent admission and ownership lenses. No product build, test, database call or runtime probe was performed."
+  ],
+  "discovery_status": "partial; source-supported admission mismatch, production impact not demonstrated",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

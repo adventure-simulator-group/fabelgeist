@@ -1,0 +1,131 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 108,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/108",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "lines": 1278,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read for this exact physical-p16 role only. Source tests were read, not run; connected scope, current applicability, other role variants and every independent lens remain open."
+    },
+    {
+      "original_index": 111,
+      "source_id": "physical-p16:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/111",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "lines": 72,
+      "new_personal_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read for this exact physical-p16 role only. Source tests were read, not run; connected scope, current applicability, other role variants and every independent lens remain open."
+    },
+    {
+      "original_index": 114,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/114",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "lines": 18,
+      "new_personal_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read for this exact physical-p16 role only. Source tests were read, not run; connected scope, current applicability, other role variants and every independent lens remain open."
+    },
+    {
+      "original_index": 115,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/115",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "lines": 122,
+      "new_personal_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read for this exact physical-p16 role only. Source tests were read, not run; connected scope, current applicability, other role variants and every independent lens remain open."
+    },
+    {
+      "original_index": 117,
+      "source_id": "physical-p16:crates/adventuresim-core/src/leadership.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/117",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "lines": 89,
+      "new_personal_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read for this exact physical-p16 role only. Source tests were read, not run; connected scope, current applicability, other role variants and every independent lens remain open."
+    },
+    {
+      "original_index": 118,
+      "source_id": "physical-p16:crates/adventuresim-core/src/lib.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/118",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "lines": 138,
+      "new_personal_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read for this exact physical-p16 role only. Source tests were read, not run; connected scope, current applicability, other role variants and every independent lens remain open."
+    },
+    {
+      "original_index": 120,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/120",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "lines": 106,
+      "new_personal_read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read for this exact physical-p16 role only. Source tests were read, not run; connected scope, current applicability, other role variants and every independent lens remain open."
+    }
+  ],
+  "observations": [
+    "Role 108 covers constrained foraging duration, mixture, catalog, deterministic sampling, quantity arithmetic and planner rights; source tests were read only. Current numeric ranges are separately bounded in ASSESSMENT-L1-FORAGING-BOUNDS.json.",
+    "Role 111 is preparation-action vocabulary with stable string IDs and numeric codes. Role 114 historically deserializes catalogue dimensions through CuboidDimensions, and role 115 historically projects generated weapon lengths and coverage; preserve that historic type ownership and do not treat it as current catalogue behavior.",
+    "Role 117 counts qualifying leader ballots and breaks ties by ID; a separately traced current public API and its stored-ballot producer retain an open duplicate-vote contract. Role 118 is the historic module and prelude export surface, not a body-level review of those modules. Role 120 supplies four historic authority-ID wrappers and bounded receipt constants; its separately inspected current Serde admission path is recorded without promoting this historical body."
+  ],
+  "remaining": "Other historic source roles, constructor and consumer paths, queue aliases, current traces, and all independent lenses remain open. No product test ran."
+}
