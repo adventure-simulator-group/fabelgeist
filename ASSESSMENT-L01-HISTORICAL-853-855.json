@@ -1,0 +1,91 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 853,
+      "source_id": "pr-working:crates/adventuresim-core/src/alcohol.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/853",
+      "sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+      "lines": 776,
+      "new_personal_read_ranges": [
+        [
+          1,
+          776
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full body read of exact frozen historical source only; no product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 854,
+      "source_id": "pr-working:crates/adventuresim-core/src/animation_pack_id.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/854",
+      "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+      "lines": 43,
+      "new_personal_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full body read of exact frozen historical source only; no product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 855,
+      "source_id": "pr-working:crates/adventuresim-core/src/attribute.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/855",
+      "sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+      "lines": 164,
+      "new_personal_read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full body read of exact frozen historical source only; no product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 853 contains fixed-point alcohol, bounded rest and travel evening iterators and forecast ordering; tests were read, never executed.",
+    "Role 854 is an open authored AnimationPackId; its named presets alone do not establish a closed enum.",
+    "Role 855 exposes attribute values and limb calculations; producer admission, persistence, consumers, and LimbWeights remain connected work.",
+    "A separate recovered 059 Lens 13 receipt reports delegated reads of these historical roles; the present Lens 1 reads are personally attributed here and do not transfer or alter that earlier attribution."
+  ],
+  "remaining": "Continue at original role 856; all connected scopes, aliases, queue records and independent lenses remain open. Cargo lock roles 497 and 680 remain metadata-partial."
+}

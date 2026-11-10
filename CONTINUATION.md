@@ -130,6 +130,12 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-ALCOHOL-CALENDAR-95E.json` records a conditional catalog
+hydration contract question, bounded forecast and catalog safeguards, and an
+open calendar work-budget question; the earlier delegated receipt remains
+separately attributed. No product, forecast, clock or reducer ran.
+`ASSESSMENT-L01-HISTORICAL-853-855.json` records frozen alcohol,
+animation-identity and attribute source reads with tests read only.
 `ASSESSMENT-L01-WARDROBE-SAVE-95E.json` traces conditional local
 file truncation using separately qualified pinned toolchain evidence.
 `ASSESSMENT-L01-HISTORICAL-844-852.json` records frozen creator and

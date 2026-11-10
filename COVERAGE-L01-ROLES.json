@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1873,
+    "unassessed": 1870,
     "lock-metadata-partial": 3,
     "bounded-current-trace-only": 175,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 794,
+    "full-historical-body-trace-open": 797,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Historical Cargo.lock role 497 and nested creator lock role 680 remain metadata-partial; frozen bodies 844–848 and 850–852 were read at their original snapshot; role 849 remains separately nonapplicable. Continue at role 853; independent lenses remain open.",
+  "first_unfinished": "Historical Cargo.lock role 497 and nested creator lock role 680 remain metadata-partial; frozen bodies 853–855 were read at their original snapshot. Continue at role 856; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -11029,7 +11029,9 @@
       "historical_sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
       "registry_pointer": "/files/853",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-853-855.json",
+      "qualification": "Full body read of exact frozen historical source only; no product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
     },
     {
       "original_index": 854,
@@ -11039,7 +11041,9 @@
       "historical_sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
       "registry_pointer": "/files/854",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-853-855.json",
+      "qualification": "Full body read of exact frozen historical source only; no product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
     },
     {
       "original_index": 855,
@@ -11049,7 +11053,9 @@
       "historical_sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
       "registry_pointer": "/files/855",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-853-855.json",
+      "qualification": "Full body read of exact frozen historical source only; no product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
     },
     {
       "original_index": 856,
