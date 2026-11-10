@@ -1,0 +1,115 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 601,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/601",
+      "sha256": "af152ffe400f0ec3a3f3fe8f94a2d3c21220c8dd013bfbfcb084429b85877de6",
+      "lines": 495,
+      "new_personal_read_ranges": [
+        [
+          1,
+          495
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 602,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/602",
+      "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+      "lines": 274,
+      "new_personal_read_ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 603,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/occupied_storeys.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/603",
+      "sha256": "e45cc55e23a73758b66304cd2fa518b1cb291eb214df0e66787f9c9f13b58341",
+      "lines": 157,
+      "new_personal_read_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 604,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/orchestration.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/604",
+      "sha256": "a780f7423a92de85a7e0177797eac288dc0b4eb003a105b427b356d2b2b0c3ba",
+      "lines": 196,
+      "new_personal_read_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 605,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/605",
+      "sha256": "bfc0adfdc7ef954824b16575482226a60207a37fc09f9df184c033c1ab6ec06f",
+      "lines": 159,
+      "new_personal_read_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 601 contains gable aperture source tests for selection, enclosure, collision, roof editing and selected mutated states. Assertions and fixtures were read only, never executed; their existence proves neither a passing fixture nor all geometrical outcomes.",
+    "Role 602 assigns heating-bay roles by storey, admits positive rear offsets, detects conflicting or outside reservations, and selects door walls for specific room pairs. Room-index, footprint, optional programme and opening-wall admission require connected producer tracing.",
+    "Role 603 rejects empty room requirements and excessive room count before ordinary storey allocation, connects reservations and room allocation to wall and opening derivation, and deliberately clears generic grid walls for church and workplace ownership. The separate small-church early path, room-index guarantees and later consumers still need review.",
+    "Role 604 validates church and workplace programme shapes before assembling a plan and propagates fallible edit and generation operations. Editor opening dimensions have per-kind checks and conflicts, but source-defined accepted geometry and final semantic audit remain separate questions.",
+    "Role 605 skips missing child roofs or front faces, replaces a selected enclosure with an opening and adjusts roof support relationships. Whether a skipped front is a valid optional state, whether partial internal mutations can escape an error, and authoritative ID/geometry relationships require tracing.",
+    "No product generation, build, test, audit, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace heating reservations, room and wall ownership, roof-child admission and returned-error boundaries, all historical aliases and every independent lens."
+}
