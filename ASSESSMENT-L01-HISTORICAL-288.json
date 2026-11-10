@@ -1,0 +1,30 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 288,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/288",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "lines": 908,
+      "new_personal_read_ranges": [
+        [
+          1,
+          908
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; no current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical itinerary members combine living characters, injury-adjusted endurance, fatigue and an effective camp schedule; journey start and refresh forecast the active leg and reject truncated checkpoint forecasts. Separate current clock-exhaustion and training-finite traces retain their own source and reachability qualifications.",
+    "A current-camp predicate binds party off-settlement state, destination, incomplete movement and reached boundary; encounter resolution can establish an exact new camp. Camp identity uses party, departure and movement coordinate, while persisted route, weather and terrain spans support the active journey.",
+    "Movement previews one common safe prefix for every traveler, advances their time, then awards bounded interval terrain and oral-language training before advancing wilderness elapsed time. Camp rest merges contiguous actual intervals and forecasts separately. Admission, finite arithmetic, disease transitions and transaction behavior remain open.",
+    "Route position interpolates over distance and movement minutes, with fallback for zero distance or time; unfinished encounter and narrative challenge gates block changes. Source identity, geography, overflow and actual consumer contracts require connected review. No build, test or runtime probe ran."
+  ],
+  "remaining": "Trace current itinerary clock and terminal reachability, camp identity and fixture custody, exact route/digest/weather authority, movement and rest transactions, training finite bounds, geography and all encounter/travel callers; reconcile historical aliases and independently assess all lenses."
+}
