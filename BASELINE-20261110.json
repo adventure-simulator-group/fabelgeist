@@ -81,7 +81,7 @@
       "status": "M",
       "path": ".github/workflows/rust-quality.yml",
       "lens_status": [
-        "unassessed",
+        "partial bounded feature-command trace; remaining workflow open; ASSESSMENT-L01-WORKFLOW-FEATURE.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -119,7 +119,7 @@
       "status": "M",
       "path": "Cargo.toml",
       "lens_status": [
-        "unassessed",
+        "assessed: non-applicable to producer propagation at current manifest body; ASSESSMENT-L01-DELTA-MANIFESTS.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -176,7 +176,7 @@
       "status": "M",
       "path": "crates/adventuresim-character-creator/Cargo.toml",
       "lens_status": [
-        "unassessed",
+        "assessed: non-applicable to producer propagation at current manifest body; ASSESSMENT-L01-DELTA-MANIFESTS.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -195,7 +195,7 @@
       "status": "M",
       "path": "crates/adventuresim-procedural-textures/Cargo.toml",
       "lens_status": [
-        "unassessed",
+        "assessed: non-applicable to producer propagation at current manifest body; ASSESSMENT-L01-DELTA-MANIFESTS.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -214,7 +214,7 @@
       "status": "M",
       "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
       "lens_status": [
-        "unassessed",
+        "partial previously recorded connected inventory trace; full producer and alias graph open; ASSESSMENT-INVENTORY-LOOKUP.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -233,7 +233,7 @@
       "status": "A",
       "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
       "lens_status": [
-        "unassessed",
+        "partial previously recorded connected inventory trace; full producer and alias graph open; ASSESSMENT-INVENTORY-LOOKUP.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -917,7 +917,7 @@
       "status": "M",
       "path": "crates/fabelgeist-mhr/Cargo.toml",
       "lens_status": [
-        "unassessed",
+        "assessed: non-applicable to producer propagation at current manifest body; ASSESSMENT-L01-DELTA-MANIFESTS.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -936,7 +936,7 @@
       "status": "M",
       "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
       "lens_status": [
-        "unassessed",
+        "assessed: non-applicable to producer propagation at current manifest body; ASSESSMENT-L01-DELTA-MANIFESTS.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1221,7 +1221,7 @@
       "status": "M",
       "path": "vendor/bevy_ahoy/Cargo.toml",
       "lens_status": [
-        "unassessed",
+        "assessed: non-applicable to producer propagation at current manifest body; ASSESSMENT-L01-DELTA-MANIFESTS.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1397,7 +1397,7 @@
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue Lens 1 with the first unassessed current-source delta .github/workflows/rust-quality.yml and original source roles listed in COVERAGE-L01-ROLES.json; keep the lockfile dependency and other populations open.",
+  "next_step": "Continue Lens 1 with the unassessed current workflow and source delta and original source roles listed in COVERAGE-L01-ROLES.json; keep dependency feature selections and connected sources open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"

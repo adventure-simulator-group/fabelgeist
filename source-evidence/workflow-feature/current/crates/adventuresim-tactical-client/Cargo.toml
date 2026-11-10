@@ -1,0 +1,162 @@
+[package]
+name = "adventuresim-tactical-client"
+description = "Fabelgeist: Wasm game client"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[features]
+default = ["gameplay", "debug"]
+
+gameplay = []
+# Gizmos only draw debug overlays (debug.rs, the viewers, avian_debug).
+debug = ["bevy/debug", "bevy/bevy_remote", "bevy/bevy_gizmos", "bevy/bevy_gizmos_render", "adventuresim-tactical-core/avian_debug"]
+# Tracy profile with per-system spans, scheduled single-threaded like the
+# browser (see src/single_threaded.rs).
+tracy = ["bevy/trace_tracy", "bevy/trace"]
+# See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
+remote-types = ["debug"]
+# The animation viewer burns scenario labels into its review captures with
+# bevy_ui. The game has no Bevy UI (its HUD is DOM, see src/hud.rs), so only
+# that native capture tool enables it.
+capture-label = ["debug", "bevy/bevy_ui", "bevy/bevy_ui_render", "bevy/bevy_text", "bevy/default_font"]
+
+[dependencies]
+fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
+fabelgeist-geometry.workspace = true
+derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "from", "into", "deref"] }
+strum = { version = "0.27.2", features = ["derive"] }
+fabelgeist-rig.workspace = true
+thiserror.workspace = true
+adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
+fabelgeist-armor = { path = "../fabelgeist-armor" }
+
+adventuresim-procedural-materials.workspace = true
+anyhow = "1"
+# Explicit 2D + 3D rendering set instead of bevy's umbrella features: their
+# shared `common_api` adds bevy_text, and `ui` adds bevy_ui. The HUD is DOM in
+# the browser page (src/hud.rs), so neither is linked.
+bevy = { workspace = true, features = [
+    "default_app",
+    "std",
+    "bevy_animation",
+    "bevy_camera",
+    "bevy_color",
+    "bevy_image",
+    "bevy_mesh",
+    "bevy_shader",
+    "bevy_material",
+    "bevy_window",
+    "hdr",
+    "png",
+    "jpeg",
+    "bevy_sprite",
+    "bevy_render",
+    "bevy_core_pipeline",
+    "bevy_post_process",
+    "bevy_sprite_render",
+    "bevy_light",
+    "bevy_mikktspace",
+    "ktx2",
+    "morph_animation",
+    "morph",
+    "smaa_luts",
+    "tonemapping_luts",
+    "zstd_rust",
+    "bevy_anti_alias",
+    "bevy_gltf",
+    "bevy_pbr",
+    "gltf_animation",
+    "scene",
+    "bevy_winit",
+] }
+bevy_mod_outline.workspace = true
+adventuresim-core.workspace = true
+adventuresim-tactical-core = { workspace = true, features = ["meshgen"] }
+adventuresim-tactical-netcode = { workspace = true, features = ["client"] }
+adventuresim-weapon-model.workspace = true
+adventuresim-world-schema.workspace = true
+adventuresim-building-generator = { workspace = true, features = ["sign-render"] }
+adventuresim-procedural-textures.workspace = true
+adventuresim-plant-generator.workspace = true
+fabelgeist-determinism.workspace = true
+flate2.workspace = true
+libm.workspace = true
+clap.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+ciborium = "0.2"
+bytemuck = { version = "1", features = ["extern_crate_alloc"] }
+serde-saphyr.workspace = true
+postcard.workspace = true
+tracing.workspace = true
+web-time.workspace = true
+
+[target."cfg(not(target_family = \"wasm\"))".dependencies]
+# bevy's `default_platform` without `default_font` (bevy_text).
+bevy = { workspace = true, features = [
+    "bevy_gilrs",
+    "bevy_clipboard",
+    "multi_threaded",
+    "x11",
+    "wayland",
+    "custom_cursor",
+    "sysinfo_plugin",
+    "file_watcher",
+] }
+
+[target."cfg(target_family = \"wasm\")".dependencies]
+# Select the shared hashing backend only for the browser renderer graph.
+blake3 = { workspace = true, features = ["wasm32_simd"] }
+bevy = { workspace = true, features = ["web", "webgpu"] }
+console_error_panic_hook.workspace = true
+wasm-bindgen.workspace = true
+wasm-bindgen-futures = "0.4"
+
+[lints]
+workspace = true
+
+[build-dependencies]
+serde.workspace = true
+semver = "1"
+toml = "0.9"
+thiserror.workspace = true
+
+[lib]
+name = "adventuresim_tactical_client"
+path = "src/lib.rs"
+
+[[bin]]
+name = "adventuresim-tactical-client"
+doc = false
+required-features = ["gameplay"]
+
+[[bin]]
+name = "art-demo"
+path = "src/art_demo_main.rs"
+doc = false
+
+[[bin]]
+name = "animation-viewer"
+path = "src/animation_viewer_main.rs"
+doc = false
+required-features = ["capture-label"]
+
+[[bin]]
+name = "tactical-scene-viewer"
+path = "src/tactical_scene_viewer_main.rs"
+doc = false
+required-features = ["debug"]
+
+[[bin]]
+name = "tactical-sky-viewer"
+path = "src/tactical_sky_viewer_main.rs"
+doc = false
+required-features = ["debug"]
+
+[dev-dependencies]
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+fabelgeist-bvh = { path = "../fabelgeist-bvh", default-features = false }
+gltf = { version = "1.4", default-features = false, features = ["utils", "names"] }
+pollster = "0.4"

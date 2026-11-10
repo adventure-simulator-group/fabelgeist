@@ -1,0 +1,21 @@
+[package]
+name = "adventuresim-procedural-textures"
+description = "Deterministic procedural texture recipes for Fabelgeist"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[dependencies]
+bevy = { workspace = true, features = ["std", "bevy_render"] }
+fabelgeist-determinism.workspace = true
+flate2.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[target."cfg(not(target_family = \"wasm\"))".dependencies]
+bevy = { workspace = true, default-features = true, features = ["png"] }
+image = { workspace = true, features = ["png"] }
+
+[lints]
+workspace = true

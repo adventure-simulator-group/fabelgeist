@@ -1,0 +1,75 @@
+{
+  "schema": "726-bounded-lens1-workflow-feature-v1",
+  "lens": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "reported_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "current_sources": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "preserved_bytes": "source-evidence/workflow-feature/current/.github/workflows/rust-quality.yml.gz",
+      "sha256": "66d3b64c0065a71516b807075a23dd7092c6dae5f013666c9bcb8023d573f1f0",
+      "git_blob": "d7771b920d35d2b9bb44633e9d599363d1e8262d",
+      "bytes": 99830,
+      "lines": 1756,
+      "ranges": [
+        [
+          1449,
+          1452
+        ],
+        [
+          1517,
+          1525
+        ]
+      ],
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "preserved_bytes": "source-evidence/workflow-feature/current/crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "cd98942e0a1d2eef08c56cc153dab06df2e25976a93d63bd6c2e09fcb0dcde15",
+      "git_blob": "9d1b3f8f93b7c063b54f06812ba7375b17b0ae9b",
+      "bytes": 4922,
+      "lines": 162,
+      "ranges": [
+        [
+          9,
+          23
+        ],
+        [
+          140,
+          144
+        ]
+      ]
+    }
+  ],
+  "reported_selected_sources": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "preserved_bytes": "source-evidence/workflow-feature/reported-selected/.github/workflows/rust-quality.yml.gz",
+      "sha256": "ff78d8a4594c84a04c7661512c53991103ce9481aa8983a6b6ecff844fa39272",
+      "git_blob": "446860a84bdcc8c7807474e867ebdd20641d3023",
+      "bytes": 99814,
+      "lines": 1756,
+      "ranges": [],
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "preserved_bytes": "source-evidence/workflow-feature/reported-selected/crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "c39360e6d15abbb62a6ad11effb50a89f79796973498f87fd5dee1ee8770b8b2",
+      "git_blob": "1df3f01892ed8118991c728b186ef34129ca0544",
+      "bytes": 3950,
+      "lines": 129,
+      "ranges": []
+    }
+  ],
+  "observation": "The two changed animation-viewer workflow commands select capture-label instead of debug. The current manifest declares capture-label includes debug and Bevy UI/text/font features, and declares capture-label required for the animation-viewer binary. This is a static configuration and command comparison, not evidence that either command ran or that selected product behavior is correct.",
+  "qualification": "Only the stated current ranges and the recorded selected-to-current diff were inspected for this item. The remainder of the 1,756-line workflow, the referenced tests and animation, generated build/feature graph, original historical role 496 and all other lenses remain open. Do not infer a complete Lens 1 path disposition or product validation.",
+  "discovery_status": "partial; full workflow and connected code remain open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

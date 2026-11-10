@@ -1,0 +1,175 @@
+{
+  "schema": "726-lens1-current-delta-manifests-v1",
+  "lens": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "reported_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "classification": "Six current source-delta manifest bodies were inspected for producer propagation. Each body configures packages, dependencies, features, lints or profiles and does not itself construct or retain an application value.",
+  "records": [
+    {
+      "path": "Cargo.toml",
+      "current": {
+        "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+        "preserved_bytes": "source-evidence/delta-manifests/current/Cargo.toml",
+        "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+        "git_blob": "868b911e5d1fe98bfed681bde574227fb391a263",
+        "bytes": 7583,
+        "lines": 211
+      },
+      "reported_selected": {
+        "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+        "preserved_bytes": "source-evidence/delta-manifests/reported-selected/Cargo.toml",
+        "sha256": "f1fe1a1539e5d091112577726ac5723769c9a2bb098c149684e6810efe895881",
+        "git_blob": "1e797fa347804e56b1d4625d79c67ee39990df98",
+        "bytes": 7569,
+        "lines": 210
+      },
+      "personally_inspected_current_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "comparison": "The workspace dependency list removes bevy_flair; the development profile adds debug and incremental settings.",
+      "disposition": "non-applicable to producer propagation within the current manifest body only"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "current": {
+        "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+        "preserved_bytes": "source-evidence/delta-manifests/current/crates/adventuresim-character-creator/Cargo.toml",
+        "sha256": "8aee4aafb59673a4b7843c28a98b2b1d1b64f32f00cdf574d3fd945a9f970252",
+        "git_blob": "e27a6aec06c93f711b4807ede49aa8df427de0df",
+        "bytes": 3763,
+        "lines": 115
+      },
+      "reported_selected": {
+        "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+        "preserved_bytes": "source-evidence/delta-manifests/reported-selected/crates/adventuresim-character-creator/Cargo.toml",
+        "sha256": "63d6c669c0beb22c2df485aaccff7a09dc0a7d623e09191c7b0322a8689d3c72",
+        "git_blob": "1eceb552f0d16c2389d9c48dd3ad6a9b1b276971",
+        "bytes": 2960,
+        "lines": 80
+      },
+      "personally_inspected_current_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "comparison": "The offline-creator feature and Bevy dependency feature configuration change; egui dependencies become optional and a development profile is added.",
+      "disposition": "non-applicable to producer propagation within the current manifest body only"
+    },
+    {
+      "path": "crates/adventuresim-procedural-textures/Cargo.toml",
+      "current": {
+        "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+        "preserved_bytes": "source-evidence/delta-manifests/current/crates/adventuresim-procedural-textures/Cargo.toml",
+        "sha256": "6970ddc9487b56229ee256a5688b6687a7f44014493fc8abbd84620e6cce9b28",
+        "git_blob": "94b02d09d49cd3c22fc6a5f106f00f3f27ac278e",
+        "bytes": 604,
+        "lines": 21
+      },
+      "reported_selected": {
+        "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+        "preserved_bytes": "source-evidence/delta-manifests/reported-selected/crates/adventuresim-procedural-textures/Cargo.toml",
+        "sha256": "fbefe3c8465469414c9600c1e09b27c378726ae2a07249a78943f2b7e0d623a3",
+        "git_blob": "d5324ae7aa6b02ca7e4b742fc0e997dd6fd90e4e",
+        "bytes": 629,
+        "lines": 21
+      },
+      "personally_inspected_current_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "comparison": "The non-wasm Bevy dependency no longer explicitly sets default-features = true; actual resolved features remain unassessed.",
+      "disposition": "non-applicable to producer propagation within the current manifest body only"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.toml",
+      "current": {
+        "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+        "preserved_bytes": "source-evidence/delta-manifests/current/crates/fabelgeist-mhr/Cargo.toml",
+        "sha256": "7ac1a547fd9fbe280e15a57c5fa465a28452d70d52496a967233ed7b273c2c46",
+        "git_blob": "7a5e96330ff4f702bdae4a790387f67a654ebfd5",
+        "bytes": 932,
+        "lines": 31
+      },
+      "reported_selected": {
+        "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+        "preserved_bytes": "source-evidence/delta-manifests/reported-selected/crates/fabelgeist-mhr/Cargo.toml",
+        "sha256": "0f68663f7ede2ed9f24e7f893f9628888351b3df478fa1c5c2394fd65b4dd4df",
+        "git_blob": "733001c85797c5bbec9f3ff31e7a20022c340423",
+        "bytes": 862,
+        "lines": 26
+      },
+      "personally_inspected_current_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "comparison": "A development profile is added.",
+      "disposition": "non-applicable to producer propagation within the current manifest body only"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "current": {
+        "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+        "preserved_bytes": "source-evidence/delta-manifests/current/crates/fabelgeist-numpy-storage/Cargo.toml",
+        "sha256": "c9ba9257a6b31399df799b78032131904f1cd31aabdd682eccdecaef240caa8c",
+        "git_blob": "6648d9bc901f68fc028428d48f500fcfbc2017e4",
+        "bytes": 954,
+        "lines": 31
+      },
+      "reported_selected": {
+        "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+        "preserved_bytes": "source-evidence/delta-manifests/reported-selected/crates/fabelgeist-numpy-storage/Cargo.toml",
+        "sha256": "ce2e0dc6c3223dbcb146cc2d34f40374f5f0c3903350e244d588a9afc7e9a56a",
+        "git_blob": "b507ce91f202abdf227f674bfdd85e94e909312f",
+        "bytes": 884,
+        "lines": 26
+      },
+      "personally_inspected_current_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "comparison": "A development profile is added.",
+      "disposition": "non-applicable to producer propagation within the current manifest body only"
+    },
+    {
+      "path": "vendor/bevy_ahoy/Cargo.toml",
+      "current": {
+        "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+        "preserved_bytes": "source-evidence/delta-manifests/current/vendor/bevy_ahoy/Cargo.toml",
+        "sha256": "01c89a0e0b79fb3c3b4eeb375b06827df0e81d6696b3b2df8fdd282f4fa8c4ef",
+        "git_blob": "2bdaef9407b773d007a1a265beb5eb6a133dc818",
+        "bytes": 3931,
+        "lines": 197
+      },
+      "reported_selected": {
+        "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+        "preserved_bytes": "source-evidence/delta-manifests/reported-selected/vendor/bevy_ahoy/Cargo.toml",
+        "sha256": "0af44fe9858566889ace28db5ceb441b318c71d862c7ab539b5608cde311f00e",
+        "git_blob": "286295f32ee74a8933978c0369ed064f71f7d258",
+        "bytes": 3876,
+        "lines": 194
+      },
+      "personally_inspected_current_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "comparison": "Development profile options are added to the normalized vendored manifest.",
+      "disposition": "non-applicable to producer propagation within the current manifest body only"
+    }
+  ],
+  "qualification": "These are current path-body dispositions only. Dependency resolution, selected features, referenced code, generated artifacts, native APIs, all original historical source roles, and the other twelve lenses remain open. The earlier selected manifest bytes and text comparisons are preserved as context, not a new historical full-source review or checkpoint 3821 authority. No product build, test, metadata resolution or runtime probe was run.",
+  "discovery_status": "complete only for six current manifest bodies under Lens 1",
+  "repair_status": "none for these path-body dispositions",
+  "validation_status": "not performed"
+}
