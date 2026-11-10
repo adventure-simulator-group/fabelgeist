@@ -1,0 +1,95 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "id": "NEW-INV-LOOKUP-001",
+  "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "conditional source-derived behavior change; malformed-state reachability and policy unproven",
+  "lenses": "Producer propagation trace in progress; relevant to later behavior-preservation and aggregate-state lenses, which remain independently unassessed.",
+  "source_identities": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
+      "git_blob": "6392be9abac49ce8f6bfe66aa11eb9964c14b7ce",
+      "range": "1-56"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "ranges": [
+        "36-46",
+        "66-110",
+        "144-151",
+        "186-195",
+        "231-259",
+        "601-625"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/physical_object.rs",
+      "git_blob": "f909ea20d50d690978330d0d002d6f0d210fe561",
+      "range": "14-137"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "git_blob": "9b3721a9f00be8183915424b975aba69c9eda0ac",
+      "range": "11-57"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/object_custody.rs",
+      "git_blob": "d5aef64ef75ca9b2094925d4cc07ec11d6e7f788",
+      "ranges": [
+        "161-215",
+        "256-295"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/projections.rs",
+      "git_blob": "5f635b371add61bea86d59e9c7c1944f0b6ab894",
+      "range": "21-42"
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "git_blob": "c96fd85abbdb0abc133d2181ba0556f1f6066014",
+      "range": "historical object_for_row and insertion"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "range": "350-395"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "range": "490-525"
+    }
+  ],
+  "trace": [
+    "Normal personal and party inventory creation inserts a database row then inserts an object using that row item and location. Scope is a CarriedInventoryScope; its location contains a raw row ID and owner.",
+    "The lookup fetches a backing row by scope and row ID, extracts its item ID, and searches only inventory objects indexed by that item ID before matching scope and row ID. If the row is missing it instead scans all objects.",
+    "For an existing row with item A and a single object at that scope and row with item B, the historical scan returned that object; the new indexed lookup returns None. In ensure_food_material_object, the old result reaches the explicit mismatch rejection, whereas the new None branch can insert a second object. This is a source-level conditional counterexample, not an observed reachable database state.",
+    "With both matching A and mismatching B objects at the same scope and row, the former scan reported duplicate identities; the new filter can return only A. Separate object custody resolution scans all same-row aliases and rejects more than one, but lookup consumers do not uniformly call that check: deletion/reconciliation and the food-object initializer have direct paths.",
+    "The read-only food projection separately scans all object item IDs and requires one same-row object; it can disagree with the reducer lookup on the conditional state."
+  ],
+  "first_unresolved_contract": "Does the database admit, retain, or transiently create a mismatched item/object pairing, and must row lookup detect all same-row aliases independent of item identity? Inspect all insert, update, consumption and transaction boundaries and source policy before deciding a repair.",
+  "identity_propagation": "The database row ID is a native u64 from the persisted row, passed alongside the scope enum into object_for_row and compared to the location row_id; no checked row-ID owner has yet been established for this family. Full producers, consumers, and typed-owner fit remain unassessed. PhysicalObjectId refers to object identity, not necessarily row identity; do not conflate them.",
+  "historical_connections": [
+    {
+      "id": "Q-L12-67cc48fef45cac7ee3a0",
+      "relation": "related native custody/object admission obligation; exact alias not established"
+    },
+    {
+      "id": "Q-L12-b4d507c50e82a55abe7a",
+      "relation": "mentions object_for_row as an unread connected source for tool selection; exact alias not established"
+    }
+  ],
+  "next_evidence": [
+    "Trace every object and inventory row writer, item changes and transactions, including food, repair, fireplace, transfer and consumed-row paths.",
+    "Trace each lookup caller and its post-lookup checks, failure propagation and independent projection.",
+    "Reconcile later recovered inventory admission and corrupt-backing evidence against exact identities, without importing historical claims as current facts.",
+    "Complete same-lens row-identity producer-to-boundary trace; inspect candidate owners and use without presupposing that a raw database key is invalid."
+  ],
+  "repair_dependencies": "No repair selected. If the invalid-state defense is required, choose a canonical row-key uniqueness/admission strategy that preserves indexed performance and covers all same-row objects; coordinate schema ownership, lookup consumers, projections and transaction/error behavior. If an enforceable stronger invariant excludes the state, establish it for every writer and boundary first. This is a conditional repair direction, not an authorized implementation.",
+  "acceptance_criterion": "Once policy and reachability are decided, source-backed requirements must specify matching and mismatching object cases, duplicate same-row aliases, absent row reconciliation, both scopes, all relevant writers and consumers, and agreement with custody/projection; later product validation is outside this task.",
+  "discovery_status": "partial; no whole-path or lens completion claimed",
+  "repair_status": "not started",
+  "validation_status": "no product validation; no runtime reachability claim"
+}
