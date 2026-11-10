@@ -1,0 +1,65 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 202,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/202",
+      "sha256": "59669208fa577a62c9b73b3fab2c57202b442a12ef0447e846cf25451d48b8aa",
+      "lines": 207,
+      "new_personal_read_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 203,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/203",
+      "sha256": "27d71249019722ede09f0961c7c4880a6acf19f99cdb0ab909eafa7bd1370bfc",
+      "lines": 369,
+      "new_personal_read_ranges": [
+        [
+          1,
+          369
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 204,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/204",
+      "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "lines": 868,
+      "new_personal_read_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical guarded preparation fixture describes replay, interrupted attempts, digest and conservation checks; it was read only, so no fixture or test result is asserted.",
+    "Historical food consumption calculates partial-lot ratios, foodborne exposure and medicinal effects before updating needs and retaining or deleting inventory, lot and fractional amount rows. Exact rounding, custody, provenance and producer guarantees remain open.",
+    "Historical fireplace cooking admits typed fractions, checks item/party ownership and positive unique selections, assembles food, water and contamination contributions, then creates a dish with explicit return custody. Retrieval projects doneness and requires contamination-load conservation.",
+    "The historical vessel-cooking function documentation describes all nesting depths while its body explicitly selects direct contents; verify current contract and consumers separately before assigning behavior or documentation disposition. Preview and actual cooking inputs also need independent comparison.",
+    "Historical source tests and guarded fixtures were read, not executed. No current source, historical alias or recovered checkpoint 3821 status follows from these reads."
+  ],
+  "remaining": "Trace current food material and fraction admissions, fireplace custody, preparation replay, preview/dish calculations, direct versus nested contents, exposure and all downstream consumers; reconcile aliases and independently assess each lens."
+}
