@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2553,
+    "unassessed": 2552,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 196,
+    "bounded-current-trace-only": 195,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 100
+    "full-historical-body-trace-open": 102
   },
-  "first_unfinished": "Physical-p16 strategic action, currency and economy roles 148 through 150 now have full historical body reads. Role 151 has bounded current observations but its historical body remains unread. Earlier dependencies, current source scope and all independent lenses remain open.",
+  "first_unfinished": "Physical-p16 inventory and presence roles 151 and 152 now have full historical body reads; role 151 retains its bounded c100 evidence. The next unread changed role is 153. Earlier dependencies, current scope and independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -2252,7 +2252,7 @@
       "historical_sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
       "registry_pointer": "/files/151",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/src/strategic_inventory.rs",
       "current_git_blob": "9f29528cec924edd2801d66251bd82045f98f44a",
       "current_observations": [
@@ -2261,7 +2261,8 @@
           "ranges": "215-320"
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full body read only for this physical-p16 identity; any prior bounded c100 observations are retained and current, connected and independent lens scope remains open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-151-152.json"
     },
     {
       "original_index": 152,
@@ -2271,7 +2272,9 @@
       "historical_sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
       "registry_pointer": "/files/152",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-151-152.json",
+      "qualification": "Full body read only for this physical-p16 identity; any prior bounded c100 observations are retained and current, connected and independent lens scope remains open."
     },
     {
       "original_index": 153,

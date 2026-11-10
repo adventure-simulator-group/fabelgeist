@@ -1,0 +1,46 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 151,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_inventory.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/151",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "lines": 455,
+      "new_personal_read_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 historical role; source tests were read and not run. Any previous bounded current observations remain distinct; connected paths and independent lenses remain open."
+    },
+    {
+      "original_index": 152,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_presence.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/152",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "lines": 662,
+      "new_personal_read_ranges": [
+        [
+          1,
+          662
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 historical role; source tests were read and not run. Any previous bounded current observations remain distinct; connected paths and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical strategic inventory parses aligned trade quantities and party offers, selects unique merchant providers and plans nonzero personal/stake payments. Persisted IDs, merchant routes and transaction reducers require connected traces.",
+    "Historical strategic presence distinguishes coarse settlement membership from venues, residence occupancy and case-site/context facts projected at an observer frontier. Schedule and suppression decisions depend on caller-supplied authority facts.",
+    "Historical source tests were inspected without execution; no current completion or missing 3821 status is inferred."
+  ],
+  "remaining": "Trace current inventory reducers, place and presence fact producers, chronology and recipient policy, historical aliases and every independent lens."
+}
