@@ -1,0 +1,418 @@
+{
+  "schema": "726-bounded-lens1-source-assessment-v1",
+  "contract_id": "ROOT-PP-019",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "Inherited producer-propagation migration gap with bounded current source trace; extreme numerical reachability through accepted plans remains unresolved.",
+  "historical_authority": {
+    "queue_pointer": "baseline-059/queue.json#/entries/2",
+    "ledger_pointer": "baseline-059/ledger.json#/discovery_findings_and_dependencies/ROOT-PP-019",
+    "original_adopted_findings": {
+      "path": "evidence/audit03-delta/adopted-findings.json",
+      "sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+      "original_id_matches": 1,
+      "all_original_finding_fields_match_checkpoint_059": true,
+      "checkpoint_059_additional_fields": [
+        "continuation_evidence",
+        "canonical_dependency",
+        "currentness"
+      ]
+    },
+    "later_lens8_receipt": {
+      "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/batch-005-grounded-fixture-source-accounting.json",
+      "sha256": "4036601d7e4ff7619e2915ad61647834105ddf25576caa665a84064f117a95d2",
+      "qualification": "Historical Lens 8 connected accounting at its stated frozen/base sources; it explicitly reports no other-lens credit and no new unique finding. It is not current Lens 1 body coverage."
+    },
+    "qualification": "Both historic source records matched their original transport hashes read-only. The checkpoint 059 record is historical authority at that checkpoint. Original wave references and attributions are preserved in the registry rows below; byte equality is not a fresh complete source review or proof of later adoption."
+  },
+  "historical_original_to_current_source": [
+    {
+      "original_registry_index": 1803,
+      "historical_source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "historical_sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "historical_owner": "root",
+      "historical_scope_kind": "frozen_requested_change",
+      "historical_producer_source_proof": [
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/additional-sources-028.json",
+          "ranges": [
+            [
+              1,
+              407
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-CONFIG-PORTS-028"
+          ]
+        },
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              407
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-GEOMETRY-002"
+          ]
+        },
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+          "ranges": [
+            [
+              1,
+              407
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-CONFIG-PORTS-028"
+          ]
+        },
+        {
+          "shard": "rig",
+          "record": "wave-01/audit-producer-propagation/rig/supplemental-geometry-receivers-002.json",
+          "ranges": [
+            [
+              330,
+              407
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "RIG-SUPP-GEOMETRY-002"
+          ]
+        }
+      ],
+      "current_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "current_sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "current_git_blob": "c7e7c3b49f7c88910d1b8eb460e723e125f788b3",
+      "exact_bytes_match": true
+    },
+    {
+      "original_registry_index": 1831,
+      "historical_source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "historical_sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+      "historical_owner": "root",
+      "historical_scope_kind": "frozen_requested_change",
+      "historical_producer_source_proof": [
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              279
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-GROUNDING-022"
+          ]
+        },
+        {
+          "shard": "rig",
+          "record": "wave-01/audit-producer-propagation/rig/supplemental-geometry-sources.json",
+          "ranges": [
+            [
+              1,
+              279
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "RIG-SUPP-GEOMETRY-001"
+          ]
+        }
+      ],
+      "current_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "current_sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+      "current_git_blob": "f62390145f2ace932dd996a7fdd0c7bc804758e6",
+      "exact_bytes_match": true
+    },
+    {
+      "original_registry_index": 1845,
+      "historical_source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "historical_sha256": "98fff0a77a3fffd4da7a5753553311a5899c2a620dd707bd04db0fca4016bc8a",
+      "historical_owner": "root",
+      "historical_scope_kind": "frozen_requested_change",
+      "historical_producer_source_proof": [
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/additional-sources-028.json",
+          "ranges": [
+            [
+              1,
+              318
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-CONFIG-PORTS-028"
+          ]
+        },
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              318
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-GROUNDING-022"
+          ]
+        },
+        {
+          "shard": "root",
+          "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+          "ranges": [
+            [
+              1,
+              318
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "ROOT-PP-CONFIG-PORTS-028"
+          ]
+        },
+        {
+          "shard": "rig",
+          "record": "wave-01/audit-producer-propagation/rig/supplemental-geometry-receivers-002.json",
+          "ranges": [
+            [
+              120,
+              180
+            ],
+            [
+              275,
+              318
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "RIG-SUPP-GEOMETRY-002"
+          ]
+        }
+      ],
+      "current_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "current_sha256": "98fff0a77a3fffd4da7a5753553311a5899c2a620dd707bd04db0fca4016bc8a",
+      "current_git_blob": "dd33c56a1acbcdb1fb9dcf8e9919d37ea805439d",
+      "exact_bytes_match": true
+    }
+  ],
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "git_blob": "c7e7c3b49f7c88910d1b8eb460e723e125f788b3",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "ranges": [
+        [
+          77,
+          85
+        ],
+        [
+          112,
+          125
+        ],
+        [
+          150,
+          168
+        ],
+        [
+          172,
+          182
+        ],
+        [
+          201,
+          237
+        ],
+        [
+          269,
+          287
+        ],
+        [
+          304,
+          316
+        ],
+        [
+          379,
+          405
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "git_blob": "dd33c56a1acbcdb1fb9dcf8e9919d37ea805439d",
+      "sha256": "98fff0a77a3fffd4da7a5753553311a5899c2a620dd707bd04db0fca4016bc8a",
+      "ranges": [
+        [
+          23,
+          47
+        ],
+        [
+          49,
+          64
+        ],
+        [
+          107,
+          145
+        ],
+        [
+          154,
+          200
+        ],
+        [
+          203,
+          234
+        ],
+        [
+          237,
+          251
+        ],
+        [
+          254,
+          275
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "git_blob": "9a550bf89025e58876c9c9b821fa31c0ff7d4b08",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "ranges": [
+        [
+          6,
+          32
+        ],
+        [
+          35,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/compound.rs",
+      "git_blob": "f8dd66e3da1b119ad76575bb39182f0ac1358805",
+      "sha256": "22142125daa3ad166d22b90691982c18b7e3de421212d6d49f62079e9ec0b26b",
+      "ranges": [
+        [
+          110,
+          150
+        ],
+        [
+          225,
+          227
+        ],
+        [
+          270,
+          290
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/compound/profiles.rs",
+      "git_blob": "f985b075eb0b2bcd495ad7a66925aa1fec00613f",
+      "sha256": "6ab4bf585e63e8be980b2d6913fe980abd7d17f035499e321ada84e8b0bd2b0b",
+      "ranges": [
+        [
+          8,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "git_blob": "f62390145f2ace932dd996a7fdd0c7bc804758e6",
+      "sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+      "ranges": [
+        [
+          7,
+          48
+        ],
+        [
+          175,
+          204
+        ],
+        [
+          247,
+          258
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "git_blob": "7b20a13f624a0724a0b5071b01fcd036d4835597",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "ranges": [
+        [
+          207,
+          222
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "git_blob": "1391ac3030047ba89477fe576c06de1e7493f7b0",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "ranges": [
+        [
+          7,
+          12
+        ],
+        [
+          60,
+          73
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions/quantities.rs",
+      "git_blob": "7e53bb56d2a945b37175ccd300bcb9d9f5736c08",
+      "sha256": "1475ceeaa960729b38d723bc4c6f67ce42ec888798dd0e095b5b490073d0b379",
+      "ranges": [
+        [
+          42,
+          70
+        ],
+        [
+          120,
+          149
+        ]
+      ]
+    }
+  ],
+  "current_trace": [
+    "SupportElevation::from_metres requires finiteness, and CourtStair::height_at returns Option<Result<SupportElevation, GeometryError>>: out-of-flight coverage returns None, while a covered tread produces InvalidProjection when the computed datum is nonfinite. Its arithmetic subtracts endpoints and multiplies by the tread before dividing by the nonzero riser count.",
+    "CompoundSupportPlan::main_height uses find_map over stair coverage and applies Result::ok to the first covered stair. Thus a returned InvalidProjection becomes None at this API, and the court-profile fallback applies only when no stair returns a covered result, not after a covered stair error.",
+    "CompoundSupportPlan::elevations_at conditionally inserts main_height and can return an empty SurfaceElevations if its main-side height is absent and the independent passage/entry branches do not contribute. In that case validate_displacement_at folds an empty candidate iterator from 0.0 and can return Ok; the selected dispatcher example calls this diagnostic method. This is conditional control flow, not a demonstrated production failure.",
+    "PropertySupportMesh::from_compound_plan has a different receiver: for selected grid cells it converts None from main_height into a framed InvalidProjection diagnostic and returns Err. Its grid incorporates stair local cuts, and CompoundSupportPlan compilation invokes validate_bearings, which first builds a mesh. These checks may reject candidate plans before the point-query condition occurs; they are not yet a proof that every admitted point is total.",
+    "SceneTerrain::support_elevations_at for owned geometry calls the separately compiled BoundedSettlementTerrain query. The present inspection does not establish that the point-query failure passes directly into that compiled terrain, a collider, or actor inverse kinematics. Its distinct height filtering and mesh construction require their own receiver traces."
+  ],
+  "numeric_admission_qualification": "CourtStair compilation checks run, grade, riser count, required run and typed positive geometry; SupportGrade admits finite positive ratios. Finite leaf values alone neither prove nor disprove that an accepted plan can reach a nonfinite interpolated tread after these aggregate and mesh checks. No constructed valid plan, product execution or runtime witness is claimed.",
+  "connected_repair_direction": "Repair the whole stair/support sampling contract once with the invariant-operation/absence findings: either establish a total bounded interpolation over admitted endpoints with the canonical fraction owner and remove impossible error representation, or retain the existing typed error through the complete query/mesh/acceptance receiver graph. Do not discard GeometryError with .ok, fabricate elevation zero, treat an owned numerical failure as outside coverage, or weaken input guarantees. Preserve ordinary finite f32 result bits and real out-of-domain absence; identify and document intended behavior for extreme valid endpoints.",
+  "dependencies": [
+    "Current native plot-local rectangle/axis projection and local_cuts are actual numerical partition kernels whose complete bodies are read; do not duplicate scene/local typed authority merely from raw Vec2 syntax.",
+    "Rig bounded support receiving closure active; later invariant-operations/admission/aggregate/behavior lenses must resolve compile guarantee and chosen total/error contract before repair. Root owns whole shared main_height/elevations_at and CourtStair sampling; all affected existing callers must follow final API.",
+    "Independently trace mesh grid coverage and all plan admission/receiver branches to decide whether the operation is total for accepted inputs or must propagate its error.",
+    "Distinguish the point-query, mesh, compiled terrain, diagnostic and actor/IK receivers; do not assume they use the same implementation."
+  ],
+  "later_acceptance": "A required support arithmetic failure cannot become ordinary absence or successful empty support. Full connected query source completion and existing support/mesh/IK acceptance at same finalrevision; no new tests.",
+  "remaining": [
+    "Prove or disprove a reachable accepted-plan failure under actual compile and geometric partition contracts.",
+    "Trace complete support query, mesh, compiled terrain, diagnostics and actor/IK receiver paths, plus their exact historical aliases.",
+    "Review relevant operation, admission, aggregate and behavior lenses independently; matching frozen bytes grant no other-lens credit."
+  ],
+  "discovery_status": "partial bounded source trace; accepted-plan reachability, full receiver graph and exact aliases open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}
