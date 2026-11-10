@@ -1,0 +1,98 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 355,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/355",
+      "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "lines": 858,
+      "new_personal_read_ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 356,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/356",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "lines": 53,
+      "new_personal_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 357,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/357",
+      "sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "lines": 28,
+      "new_personal_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 358,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/358",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "lines": 17,
+      "new_personal_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 359,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/lib.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/359",
+      "sha256": "f0f319e706f85bf05b038d8e0387be8085c488aaa4b736609cb386eff9bd51e6",
+      "lines": 160,
+      "new_personal_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical tactical projection stores relationship membership plus cached held weapon and shield entities. Equip-slot hooks set or clear those caches; an explicit rebuild scans held equipment after an ownership rebind. Scene restoration and ordering claims in comments need independent verification against actual producers and consumers.",
+    "The historical inventory view selects attack-hand equipment by slot, folds armor layers, obtains timing from the shared melee helper and exposes raw weight, precision and weapon profile fields. Its inventory weight sums item property weights without an explicit quantity multiplication; whether the property is already projected as stack total, and all producers and weight consumers, remain open.",
+    "The historical item quantity component wraps the shared ItemQuantity and defaults to one; its constructor delegates admission to that shared type. Armor retains both authored coverage geometry and a covered-parts array, while topology carries stable placement and occupancy identifiers plus mapped attachment entities. Their aggregate relationships and serialization admission need connected tracing.",
+    "The historical crate prelude exports many shared tactical owners and a physics plugin; exports alone establish neither construction safety nor runtime use. Source tests were read but not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current inventory projection and stack-weight semantics, both sides of ownership and holding caches through scene restore and rebind, armor geometry and layering, topology mapping, item quantity admission and all affected producers and consumers. Reconcile historical aliases and independently assess every lens."
+}
