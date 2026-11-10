@@ -1,0 +1,92 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 671,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/671",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "lines": 142,
+      "new_personal_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption. Prior bounded c100 observations remain separately attributed."
+    },
+    {
+      "original_index": 672,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/672",
+      "sha256": "4d0e7f06245f70e6d3ae6904a2870cfea7f6a052fa5da512e1dd5a8768e1cbfc",
+      "lines": 99,
+      "new_personal_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption. Prior bounded c100 observations remain separately attributed."
+    },
+    {
+      "original_index": 673,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/673",
+      "sha256": "495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+      "lines": 175,
+      "new_personal_read_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption. Prior bounded c100 observations remain separately attributed."
+    },
+    {
+      "original_index": 674,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/flight.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/674",
+      "sha256": "0818457e8abbc4f4e47e831e9ecb51fa917ee6573d45329a524982523b982d3f",
+      "lines": 197,
+      "new_personal_read_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption. Prior bounded c100 observations remain separately attributed."
+    }
+  ],
+  "observations": [
+    "Roles 671\u2013672 define finite angles, normalized direction and rotation admission and include source assertions for type and serialization boundaries. The prior bounded current observation for role 671 retains its c100 attribution; tests were not executed.",
+    "Roles 673\u2013674 derive spiral members and landings from raw stair fields and a required tread count, then materialize checked cuboids and bearing interfaces. The count uses native f32-to-u16 casts and u16 sums; supported limits and potential overflow require separately attributed current producer/caller tracing.",
+    "No product generation, build, test, audit, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace stair input limits, required count arithmetic, editor and generator producers, supporting geometry, historical aliases and every independent lens."
+}
