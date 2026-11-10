@@ -11,12 +11,12 @@
   "status_counts": {
     "unassessed": 2255,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 181,
+    "bounded-current-trace-only": 180,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 412,
+    "full-historical-body-trace-open": 413,
     "deleted-base-trace-open": 1
   },
-  "first_unfinished": "Physical-p16 travel facade and database client roles 461 through 463 now have full historical body reads. Continue at role 464; earlier dependencies and independent lenses remain open.",
+  "first_unfinished": "Physical-p16 strategic database presentation role 464 now has a full historical body read. Prior bounded c100 observations retain their linked ranges. Continue at role 465; earlier dependencies and independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -6238,7 +6238,7 @@
       "historical_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
       "registry_pointer": "/files/464",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/strategic-web/src/spacetimedb/types.rs",
       "current_git_blob": "ce42cda69a75db55127fd1be1f94de09636bbdae",
       "current_observations": [
@@ -6265,7 +6265,8 @@
           ]
         }
       ],
-      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full historical body read for this physical-p16 role; previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-464.json"
     },
     {
       "original_index": 465,
