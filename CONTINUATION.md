@@ -151,6 +151,12 @@ source receipt retains its separate attribution and open numeric scope.
 `ASSESSMENT-L01-HISTORICAL-931-936.json` records separate frozen ingredient,
 containment, measurement and investigation source reads. Related current
 and independent-lens obligations remain open; tests were not run.
+`ASSESSMENT-L03-CATALOG-DIMENSIONS-95E.json` traces a conditional authored
+dimension narrowing gap and the selected tactical guard. The checked-in
+dimensions and earlier 059 question retain their separate qualifications.
+`ASSESSMENT-L01-HISTORICAL-937-947.json` records separate frozen catalogue,
+validation and reference source reads. Current and independent-lens work
+remains open; source tests and fixtures were not run.
 `ASSESSMENT-L01-UNARMED-95E.json` traces the strategic unarmed yield
 gate and selected empty-hand action work, retaining tactical safeguards
 and prior unarmed qualifications. No attack or encounter was run.

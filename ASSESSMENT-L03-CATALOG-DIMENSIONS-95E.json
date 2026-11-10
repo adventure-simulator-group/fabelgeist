@@ -1,0 +1,347 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 3,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected authored physical dimension validation, typed preflight, embedded catalogue and tactical physical guard. Independent admission and numeric lenses remain incomplete.",
+  "source_reasoning": "Static source and pinned decoder-source interpretation, IEEE-754 narrowing reasoning, and a read-only parse of checked-in authored JSON only; no product, parser under test, build, generated catalogue, fixture, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f9f05f97786b7fc59390d020755d905363fbe0ce",
+      "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "bytes": 72750,
+      "lines": 2059,
+      "ranges": [
+        [
+          240,
+          277
+        ],
+        [
+          676,
+          727
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f130a98ccef1742e9c59ecf2f0636e7b1959dbe8",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "bytes": 1298,
+      "lines": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b52bdfb043c8018a2c24c8d3355d16aea1748215",
+      "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+      "bytes": 18941,
+      "lines": 614,
+      "ranges": [
+        [
+          14,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "61fccd9b8df98aba9a0b7085fe635c88ff7d82c6",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "bytes": 19279,
+      "lines": 511,
+      "ranges": [
+        [
+          222,
+          284
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "bytes": 22289,
+      "lines": 614,
+      "ranges": [
+        [
+          20,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          6293,
+          6374
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "bytes": 28617,
+      "lines": 862,
+      "ranges": [
+        [
+          156,
+          210
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          775,
+          831
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "572b8fbbc7128b2450769629c320ad2ae9bea463",
+      "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+      "bytes": 39728,
+      "lines": 1126,
+      "ranges": [
+        [
+          200,
+          230
+        ],
+        [
+          504,
+          591
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "868b911e5d1fe98bfed681bde574227fb391a263",
+      "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+      "bytes": 7583,
+      "lines": 211,
+      "ranges": [
+        [
+          138,
+          138
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d62b34dfb1b85b925a09f34cde94e6015b0c6414",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+      "bytes": 1187,
+      "lines": 45,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6257e658501c2f34727ff07f10a7426476c14cff",
+      "sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "bytes": 373,
+      "lines": 19,
+      "ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-dimension-sources/11.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-173.json",
+      "sha256": "629785ae33f5d42449897c577519e77694bc00f482d00a12834ebb7b145c7799",
+      "bytes": 21615,
+      "git_blob": "5c3d24b403f0e7dab3426229cf0d82c5bced660a",
+      "preserved_bytes": "recovered/catalog-dimension-059/629785ae33f5d42449897c577519e77694bc00f482d00a12834ebb7b145c7799.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 Lens 13 delegated receipt with its original PR-working revision, pending scope and zero accepted unique-count change. It is not checkpoint 3821 authority."
+    }
+  ],
+  "native_sources": [
+    {
+      "package_manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+      "archive_member": "serde_json-1.0.151/src/value/de.rs",
+      "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+      "bytes": 41251,
+      "ranges": [
+        [
+          169,
+          193
+        ],
+        [
+          282,
+          314
+        ]
+      ]
+    },
+    {
+      "package_manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+      "archive_member": "serde_json-1.0.151/src/number.rs",
+      "sha256": "70b83c36286f6c58123f544f27db2b54a1135f928fe33b08b521b2997773f862",
+      "bytes": 25285,
+      "ranges": [
+        [
+          535,
+          546
+        ],
+        [
+          582,
+          599
+        ]
+      ]
+    },
+    {
+      "package_manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+      "archive_member": "serde_json-1.0.151/src/de.rs",
+      "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+      "bytes": 86840,
+      "ranges": [
+        [
+          109,
+          128
+        ],
+        [
+          319,
+          354
+        ],
+        [
+          623,
+          671
+        ],
+        [
+          1500,
+          1515
+        ]
+      ]
+    },
+    {
+      "package_manifest": "native-evidence/serde_core-1.0.229/MANIFEST.json",
+      "archive_member": "serde_core-1.0.229/src/de/impls.rs",
+      "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+      "bytes": 97134,
+      "ranges": [
+        [
+          129,
+          151
+        ],
+        [
+          222,
+          242
+        ],
+        [
+          450,
+          456
+        ]
+      ]
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/281",
+      "qualification": "PL13-175 already identified f64 physical dimensions to final f32 admission as an open connected obligation. Its 059 Lens 13 source attribution, pending cooking and attachment scopes and zero historical unique-count change remain unchanged."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 941,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "historical_sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-937-947.json",
+      "qualification": "Separate full historical Lens 1 read of the exact frozen PR-working object; its hash differs from the current source. Current selected ranges were inspected separately; no automatic independent-lens or checkpoint 3821 closure.",
+      "current_source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+    }
+  ],
+  "checked_in_source_observation": {
+    "method": "Read-only JSON inspection of all content/items/*.yaml blobs present in the pinned tree; not a build or generated catalogue.",
+    "files": [
+      "content/items/catalog.yaml"
+    ],
+    "dimension_components": 270,
+    "minimum_m": 0.025,
+    "example_item": "utility_knife",
+    "authored_dimensions_m": [
+      0.06,
+      0.28,
+      0.025
+    ],
+    "qualification": "These are source fields before generated weapon overrides, not proof of every runtime geometry or every historical content snapshot."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-CATALOG-PHYSICAL-DIMENSION-NARROWING-001",
+      "severity": "unassigned; hypothetical authored value and conditional tactical consequence, not an observed production incident",
+      "classification": "Selected 95e authoring admission gap linked to the earlier 059 catalogue numeric question; feature resolution and runtime decoding remain unverified.",
+      "trace": "validate_equipment checks each authored dimensions_m component as a finite positive f64, while EquipmentPhysical stores [f32; 3]. For a hypothetical 1e-100 component, the f64 predicate is true but IEEE-754 f32 narrowing yields zero. Under the pinned serde_json non-arbitrary-precision Value deserializer, the typed preflight dispatches the f64 to serde_core f32 visitor, which casts it without rejecting zero. validate_documents_with_sources checks only whether typed deserialization returned an error and discards the decoded value; compile_items serializes the original validated Value. This is a source-based conditional construction, not a run of the parser or validator. The separate positive_f32_in helper does check positivity after narrowing for its selected shield and surface callers, but the dimension check does not call it.",
+      "connected_path": "The checked-in utility knife has explicit left- and right-hand placements and positive dimensions. As a hypothetical author change only, replacing its x component with 1e-100 leaves the inspected f64 dimension predicate satisfied. The catalogue loader later deserializes embedded JSON; its generated melee recipe replaces y length and grip, not x. The tactical projection copies the x component into TacticalEquipmentPhysical even when instance geometry changes y. If runtime decoding produces x == 0 and such an item is in a hand with no children, TacticalEquipmentPhysical::is_valid is false and the selected drop path returns false before collider creation; the selected pickup path also filters invalid physical data. Other admission gates, item projection, actual supported setup and the decoder feature graph have not been executed or established.",
+      "safeguards_and_limits": "The pinned source catalogue contains 270 authored equipment dimension components and the smallest is 0.025 m; no current zero or tiny example is asserted. The build rejects many other malformed fields and requires the typed document to deserialize. The runtime has an explicit positive finite physical guard, preventing the selected invalid collider path rather than showing a physics failure. serde_json float_roundtrip is requested by the weapon-model dependency, and feature unification and the exact runtime decode were not resolved; the non-arbitrary-precision preflight branch and conditional runtime consequence must not be generalized to all builds.",
+      "connected_repair": "After complete producer and native-boundary discovery, require finite positive physical dimensions in their final stored representation at the owning authoring boundary, while preserving valid small representable geometry, generated melee y/grip replacement, signed offsets and legitimate zero grip for non-weapons. Carry the admitted physical geometry through catalogue loading, tactical projection, visual and collider consumers without compatibility paths.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover each dimension at zero, a positive value that underflows f32, the smallest representable positive boundary, ordinary authored values and large finite inputs across validation and actual embedded loading; verify selected hand, drop and pickup behavior with supported items.",
+      "discovery": "partial; all feature configurations, actual authored edits, numeric fields, content generation, tactical consumers and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
