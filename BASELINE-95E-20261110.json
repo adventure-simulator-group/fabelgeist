@@ -698,6 +698,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-CREATOR-SAVE-95E.json"
+      },
+      {
+        "id": "REVIEW-CREATOR-CORRECTIVE-CACHE-POLICY-001",
+        "severity": "P3 conditional policy question; effect on generated output is not established",
+        "classification": "current source trace of the same conditional first-failure question already recorded at recovered checkpoint 059; not a new unique historical defect",
+        "historical_related_candidates": [
+          "PL13-119-STUDIO-BODY-MODEL-KEY",
+          "L11-CURRENT-CREATOR-ACTUAL-MODEL-RELOAD-AND-DRAPE-WORKER",
+          "REVIEW-L11-CREATOR-CORRECTIVE-MODEL-CACHE-DEPENDENCY-POLICY"
+        ],
+        "relationship_qualification": "Recovered 059 delegated proposal, source disposition and queue record explicitly describe the same conditional cache-key first failure. Their original revision, agent attribution, open current-reconciliation status, output uncertainty and zero accepted unique-count change remain unchanged. Selected source hashes match 95e; frozen role 831 matches while role 832 differs. No independent-lens completion, global alias or checkpoint 3821 recovery is inferred.",
+        "discovery": "partial; actual asset offsets/network behavior, broader model identity, affected consumers, policy and global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-CORRECTIVE-CACHE-95E.json"
       }
     ]
   },

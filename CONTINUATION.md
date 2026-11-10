@@ -128,6 +128,11 @@ count overflow; no document, viewer or product code was run.
 `ASSESSMENT-L01-EDITOR-COMPAT-95E.json` records an explicit legacy
 part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
+`ASSESSMENT-L01-CORRECTIVE-CACHE-95E.json` reconnects a same-LOD
+body-cache key policy question to its 059 records and preserves the uncertainty
+about actual corrective output and assets.
+`ASSESSMENT-L01-HISTORICAL-700-705.json` records frozen export and morph
+source reads without executing product code.
 `ASSESSMENT-L01-ARMORY-SAFEGUARD-95E.json` records the nonempty
 placement safeguard on the inspected catalog-to-exhibit path; other state
 construction and mutation remain open.
