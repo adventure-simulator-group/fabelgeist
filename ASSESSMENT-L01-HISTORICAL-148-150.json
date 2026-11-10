@@ -1,0 +1,63 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 148,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/148",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "lines": 1209,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1209
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 historical role; source tests were read, not run. Current and connected scopes, other identities and independent lenses remain open."
+    },
+    {
+      "original_index": 149,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_currency.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/149",
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "lines": 40,
+      "new_personal_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 historical role; source tests were read, not run. Current and connected scopes, other identities and independent lenses remain open."
+    },
+    {
+      "original_index": 150,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_economy.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/150",
+      "sha256": "0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "lines": 143,
+      "new_personal_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 historical role; source tests were read, not run. Current and connected scopes, other identities and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical strategic-action code models contextual permission, typed coordinates, duration, interruptions, planning, snapshots and commit revalidation; its domain callers remain separate obligations.",
+    "Historical currency and merchant code assigns authored denomination IDs and computes prices, line totals, board fees and shared/personal payment splits. Their supported input ranges and current producer/consumer contracts require separate analysis.",
+    "Source test cases describe boundary and transaction scenarios but were not executed; historical reads do not establish present behavior or restore checkpoint 3821."
+  ],
+  "remaining": "Trace all current planner and financial producers, authority boundaries, actual supported input and output ranges, connected findings and thirteen independent lenses."
+}
