@@ -130,6 +130,11 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-GLB-LAYOUT-95E.json` distinguishes historical length
+casts from the current checked writer and links the separately attributed
+059 review; earlier texture writes remain open.
+`ASSESSMENT-L01-HISTORICAL-767-772.json` records frozen rigged-export
+source and tests, read without running them.
 `ASSESSMENT-L01-DRAPE-PREFIX-95E.json` records the inspected drape
 producer’s input-order safeguard; cache and partial-export policy stay open.
 `ASSESSMENT-L01-HISTORICAL-762-766.json` records frozen drape, catalog,

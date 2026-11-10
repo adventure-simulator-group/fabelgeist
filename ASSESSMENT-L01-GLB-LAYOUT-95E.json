@@ -1,0 +1,145 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded historical-to-current comparison of binary glTF (GLB) header-length admission; not an audit of the whole export transaction.",
+  "inspection_provenance": "The entire historical role 770 was personally read and hash-verified. Selected current source ranges were independently read and tied to current Git blobs. No export or product code ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "731c90cc25b4b51b2dc7290d14e5154e782a1111",
+      "sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+      "bytes": 2354,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/glb-layout-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a2837aa54db0331d325f93e2c168ed35e464bc6d",
+      "sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f",
+      "bytes": 2409,
+      "lines": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/glb-layout-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "40620301ac3d446306dbe76a92bcd7ec2966dd23",
+      "sha256": "a9f6695f0d792b48a94a12333c437769a0b6f6f262484c402327018a0e491ecc",
+      "bytes": 1636,
+      "lines": 55,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/glb-layout-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "85dfe90f90e6ab7dcdae56905d9b1fe3450eddb9",
+      "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+      "bytes": 66481,
+      "lines": 1780,
+      "ranges": [
+        [
+          588,
+          600
+        ],
+        [
+          818,
+          842
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/glb-layout-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "871cd5530d33eff964ae581abaaeb62c01afa56d",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "bytes": 8337,
+      "lines": 236,
+      "ranges": [
+        [
+          1,
+          23
+        ],
+        [
+          89,
+          171
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/glb-layout-sources/04.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_sources": [
+    {
+      "original_role_index": 770,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "current_sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+      "byte_identical": false,
+      "role_status": "full-historical-body-trace-open",
+      "qualification": "Frozen historical source retains its original PR-working revision and attribution; this differs from 95e and is not checkpoint 3821 evidence."
+    }
+  ],
+  "dispositions": [
+    {
+      "id": "NONFINDING-CURRENT-GLB-HEADER-WIDTH-001",
+      "disposition": "The frozen historical writer’s direct u32 length casts are not present in the inspected current GLB frame writer.",
+      "trace": "Historical role 770 calculates padded JSON, binary and total lengths, then directly casts each to u32. At 95e, PreparedGlb::new obtains a GlbLayout before forming the packet. ChunkLayout uses checked alignment and converts each padded length with u32::try_from; GlbLayout uses checked total additions and the same conversion for the container length. PreparedGlb reserves the admitted length and writes the admitted fields; write obtains this complete packet before creating the GLB directory or writing the GLB. Length and reservation failures have explicit error variants.",
+      "limits": "This bounded writer check does not prove the entire export is side-effect-free on failure: export_rigged_glb calls texture_images.finish first, and SharedTextures can create directories or write content-addressed images before the GLB packet is prepared. Earlier buffer construction, full format correctness, concurrent filesystem behavior, successful output and other exporter paths are unassessed. No serialization, export, filesystem operation, product test or runtime probe ran.",
+      "repair": "not applicable to the historical cast suspicion in the inspected current writer; no implementation",
+      "validation": "not performed; source-only evidence verification",
+      "historical_relationship": "Recovered checkpoint 059 already records a narrow checked framing and error-boundary nonfinding at e275, including earlier shared-texture publication and broader geometry limits. This independent 95e source inspection connects to that earlier record without changing its attribution, latest-target reconciliation status or unique count."
+    }
+  ],
+  "remaining": "Review buffer allocation and encoding boundaries, shared-texture publication and cleanup, other export callers, historical aliases and independent lenses.",
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L11-585.json",
+      "sha256": "07559b1c9c5e71529a85b96b1e3af3a983846808bc057fe09f01a884aa08bd3b",
+      "preserved_bytes": "recovered/glb-layout-059/07559b1c9c5e71529a85b96b1e3af3a983846808bc057fe09f01a884aa08bd3b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Recovered original bytes retain their earlier attribution; their hash match does not revalidate their entire supporting bundle."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-585.json",
+      "sha256": "bfb9788ef6ff0aca77deeb5f5000579f7aa8ce443b0d802d292d37aac6dc2347",
+      "preserved_bytes": "recovered/glb-layout-059/bfb9788ef6ff0aca77deeb5f5000579f7aa8ce443b0d802d292d37aac6dc2347.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Recovered original bytes retain their earlier attribution; their hash match does not revalidate their entire supporting bundle."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/current_connected_dispositions/102",
+      "id": "current-GLB-frame-admission-and-source-error-boundary",
+      "scope_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "qualification": "This is the recovered earlier 059 source disposition, not checkpoint 3821 or an automatic current-lens closure."
+    }
+  ]
+}
