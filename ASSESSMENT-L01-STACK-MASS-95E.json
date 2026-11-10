@@ -1,0 +1,502 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded strategic-to-tactical stack mass, selected downstream consumers and ammunition mutation; all other lens and connected discovery remains incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          280,
+          313
+        ],
+        [
+          329,
+          405
+        ],
+        [
+          405,
+          493
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          78,
+          90
+        ],
+        [
+          140,
+          150
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1806559e22bbf47846f34b178458f115313c0e7d",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "bytes": 2396,
+      "lines": 78,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "bytes": 15554,
+      "lines": 445,
+      "ranges": [
+        [
+          360,
+          393
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aa78704d023b241beb26434ade1efa48be43adf5",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "bytes": 1763,
+      "lines": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "bytes": 7706,
+      "lines": 241,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          777,
+          811
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0418cbc7c2c6f3a8f05c8a02683a25cff956803c",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "bytes": 5818,
+      "lines": 139,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "bytes": 28617,
+      "lines": 862,
+      "ranges": [
+        [
+          36,
+          65
+        ],
+        [
+          100,
+          108
+        ],
+        [
+          272,
+          289
+        ],
+        [
+          316,
+          329
+        ],
+        [
+          500,
+          530
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4cf8ab4c3b20cffa9fe65fdf08a836e2b8f9ba2d",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "bytes": 643,
+      "lines": 21,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "84ff9b3fb802512e3869953ecf4235c151a90ae0",
+      "sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "bytes": 761,
+      "lines": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "bytes": 21008,
+      "lines": 640,
+      "ranges": [
+        [
+          490,
+          529
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "bytes": 72173,
+      "lines": 1738,
+      "ranges": [
+        [
+          423,
+          462
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "004d3a47a975cf703c81a4140b1ff577283f895d",
+      "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722",
+      "bytes": 20762,
+      "lines": 523,
+      "ranges": [
+        [
+          169,
+          195
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "bytes": 5752,
+      "lines": 160,
+      "ranges": [
+        [
+          102,
+          155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "bytes": 39026,
+      "lines": 1148,
+      "ranges": [
+        [
+          210,
+          216
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "bytes": 10459,
+      "lines": 325,
+      "ranges": [
+        [
+          83,
+          119
+        ],
+        [
+          210,
+          265
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/16.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          692,
+          707
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/17.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/starting_character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "552ccde3ca27d125ef75b3609a3bd3bb76d5db83",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "bytes": 70536,
+      "lines": 1936,
+      "ranges": [
+        [
+          362,
+          369
+        ],
+        [
+          1206,
+          1270
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/18.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1b038461f411ea5c0cd39b2149bf724495835394",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "bytes": 3860,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/19.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/catalog/gameplay.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "050bb9a29a383a8d252d0d9223076710a6d150b5",
+      "sha256": "96dcb74c27c773f57fe1eae324bf2dfa054191f4bff01a3c7a8fc2d208fdcc7c",
+      "bytes": 63906,
+      "lines": 2904,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/stack-mass-sources/20.source.gz",
+      "content_encoding": "gzip",
+      "inspection": "Mechanically enumerated catalog_id values from parsed JSON; not claimed as a personal full-body source read."
+    }
+  ],
+  "inspection_provenance": "Selected source ranges personally read in the predecessor checkout, whose relevant source blobs are identical to 95e. The gameplay catalog IDs were mechanically enumerated from preserved JSON; no full-body read or product execution is implied.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_ids": [
+      "ADLER-L13-STACK-MASS-RECEIVER",
+      "PL13-STACK-MASS-CONNECTION"
+    ],
+    "historical_source_roles": [
+      {
+        "index": 1242,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+        "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "current_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2788,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+        "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "current_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "relation": "byte-match"
+      },
+      {
+        "index": 1136,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+        "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+        "current_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2810,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+        "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+        "current_sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2067,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "current_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "relation": "byte-match"
+      },
+      {
+        "index": 1877,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+        "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "current_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "relation": "byte-match"
+      },
+      {
+        "index": 1886,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+        "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+        "current_sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+        "relation": "byte-match"
+      },
+      {
+        "index": 221,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item.rs",
+        "sha256": "ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+        "current_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+        "relation": "different"
+      },
+      {
+        "index": 177,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/mass.rs",
+        "sha256": "f041c03c0717ed86e0918d7002f19d097d720976ff98ad591ad80a10711add01",
+        "current_sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+        "relation": "different"
+      },
+      {
+        "index": 411,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+        "current_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "relation": "different"
+      },
+      {
+        "index": 355,
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+        "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+        "current_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "relation": "different"
+      },
+      {
+        "index": 360,
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+        "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+        "current_sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+        "relation": "different"
+      },
+      {
+        "index": 1888,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+        "current_sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722",
+        "relation": "different"
+      }
+    ],
+    "qualification": "Historical revisions, statuses and accepted unique-count changes remain unchanged; a byte match does not upgrade a historical read to complete current or checkpoint 3821 coverage."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-TACTICAL-STACK-MASS-AGGREGATION-001",
+      "severity": "P2 provisional; source-derived physical mass discrepancy with runtime impact unverified",
+      "classification": "same first-failure family as checkpoint 059 ADLER stack-mass receiver and PL13 stack-mass connection, with current strategic, tactical and ammunition source trace",
+      "detail": "The strategic connected-player view emits each personal inventory row with its independent positive quantity and catalog Item. The tactical projection installs one ItemProperties.weight from a unit catalog or instance/holder mass and separately installs TacticalItemQuantity. InventoryView iterates inventory entities and sums each property weight once without using quantity. Assuming an ordinary carried non-measured fungible stack with quantity above one and unit mass w, tactical aggregation contributes w while the strategic dry carried-mass calculation contributes quantity times w. The tactical motor, sprint-speed calculation and fatigue/work consumers use the tactical aggregate; no server or game was run.",
+      "source_derived_example": "The authored arrow has 0.05 kg unit weight; a forester loadout specifies 28 arrows for the adult branch. For an otherwise successfully projected single 28-arrow personal row, with no food lot or fractional amount, no fireplace-rooted exclusion and no special weapon/holder appearance, the strategic dry mass is 1.40 kg for that row while the tactical aggregate is 0.05 kg, a 1.35 kg difference. The authored loadout supplies context, not proof that a particular deployed character, mission or row exists. Catalog JSON has no gameplay weapon design with catalog_id arrow, and connected holder appearance only handles scabbard and weapon_loop; unusual corrupt or alternate instance states remain outside this witness.",
+      "ammunition_lifecycle": "A traced accepted ranged shot finds an arrow entity and decrements TacticalItemQuantity if another remains, or despawns it at zero. Since inventory_weight reads only unchanged ItemProperties.weight, the row contribution remains 0.05 kg as quantity falls from 28 to 27 in the conditional example; the source does not prove actual shot ordering, replication timing, database consequence completion or gameplay frequency.",
+      "safeguards": "Zero quantity is rejected during tactical projection and quantity one naturally produces the same unit mass in the simple case. Weapon balance and weapon_weight also read ItemProperties.weight as an individual item property, so changing its meaning to stack total without tracing those consumers could introduce another error. Strategic mass separately handles food lots, fractional material, fireplace-rooted objects and contained water; their tactical transport and any reconciliation are not established by the simple-arrow witness.",
+      "connected_scope": "Strategic carried-mass authority and contained water, catalog and generated unit mass, measured food/fractional/containment state, connected-player schema and its generated bindings, tactical quantity and unit mass, ownership/cache iteration, ammo decrement/despawn, combat workload and movement/jump/force consumers, snapshot/replication and any final strategic consequences. Preserve transient tactical tick authority and existing ItemQuantity owner.",
+      "proposed_repair": "After exhaustive discovery, establish explicit unit versus effective carried mass at the shared projection and aggregation boundary. Account for quantity changes and each supported measured, food, contained-water and containment case without converting individual weapon mass consumers to stack totals or double counting. Use a clean schema and regenerate bindings if the schema changes; do not persist tactical tick state.",
+      "later_acceptance": "When validation is authorized, cover quantity one, positive fungible stacks and shot-by-shot decrements, generated equipment, fractional stock, food lots, held containers and water; confirm strategic and tactical physical mass agree at handoff under the intended ownership policy and that legitimate mass and limb effects remain separate from fatigue/incapacitation speed penalties.",
+      "historical_related_candidates": [
+        "ADLER-L13-STACK-MASS-RECEIVER",
+        "PL13-STACK-MASS-CONNECTION"
+      ],
+      "relationship_qualification": "Checkpoint 059 already records the same unit-mass versus quantity first failure and physics consumers, with zero accepted unique-count change and prior currentness unresolved. This is an independently attributed 95e trace, not a new unique historical defect. Selected pr-working and physical source identities are byte-matched or distinguished in historical_source_roles; old statuses are unchanged and no checkpoint 3821 credit follows.",
+      "discovery": "partial; exact admitted mission and component lifecycle, all measured/containment/water cases, native scheduling and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all ItemProperties consumers, generated/food/fractional/containment/water ownership and mutation, tactical projection and recovery lifecycle, actual mission admission and replication, and global historical aliases; independently assess all thirteen lenses. No repair or product validation."
+}
