@@ -16,7 +16,7 @@
       "historical_policy": [
         "Choose physicalboomrole nonnegative/positive or explicitnegativecamera mode; minimumrequirementnativebounds ordered beforeclamp, not universal signed-length rejection."
       ],
-      "current_status": "historical evidence only; current semantic assessment open"
+      "current_status": "partial bounded current-source assessment; related obligations and exact aliases remain open"
     },
     {
       "ordinal": 2,
@@ -27,7 +27,7 @@
       "historical_policy": [
         "Whether equal endpoints meansteptransition, disabledcloseframing orinvalidconfiguration; whetherreverseordering hasintendedmeaning. Defaultsvalidseparate."
       ],
-      "current_status": "historical evidence only; current semantic assessment open"
+      "current_status": "partial bounded current-source assessment; related obligations and exact aliases remain open"
     },
     {
       "ordinal": 3,
@@ -38,7 +38,7 @@
       "historical_policy": [
         "Is arbitrarycustommultiple-camera/controller use supported for tacticalrig/aim, or is singleton gameplayrelation an explicitmodulecontract?"
       ],
-      "current_status": "historical evidence only; current semantic assessment open"
+      "current_status": "partial bounded current-source assessment; related obligations and exact aliases remain open"
     },
     {
       "ordinal": 4,
@@ -74,7 +74,7 @@
       "historical_disposition": "rejected-broad-unstaged-camera-publication-suspicion",
       "checkpoint_059_queue_kind": "qualified-scoped-review-disposition",
       "historical_policy": [],
-      "current_status": "historical evidence only; current semantic assessment open"
+      "current_status": "partial bounded current-source assessment; related obligations and exact aliases remain open"
     },
     {
       "ordinal": 8,
@@ -86,7 +86,7 @@
         "Whichcamera-ownedscenebounds orrobustnormalizationpolicyadmitsderivedsegments? NativeAPIacceptanceisnotapplicationsegmentidentity.",
         "Doesapplicationneednativeunsupportedquery/failure distinction beyondtheexistingOptionAPI? No actualunsupportedshape failurewitness asserted."
       ],
-      "current_status": "historical evidence only; current semantic assessment open"
+      "current_status": "partial bounded current-source assessment; related obligations and exact aliases remain open"
     },
     {
       "ordinal": 9,
@@ -95,7 +95,7 @@
       "historical_disposition": "current-source-operation-removed-runtime-unvalidated",
       "checkpoint_059_queue_kind": "qualified-named-subcontract",
       "historical_policy": [],
-      "current_status": "historical evidence only; current semantic assessment open"
+      "current_status": "partial bounded current-source assessment; related obligations and exact aliases remain open"
     }
   ],
   "source_identity_comparison": [
@@ -380,7 +380,7 @@
       "proposal_ordinals": [
         1
       ],
-      "current_status": "external or installed source; separate package/toolchain verification required",
+      "current_status": "historical source hash matches separately preserved installed rust-src bytes; repository pins same nightly date, compiler execution not verified",
       "historical_reads": [
         {
           "proposal_ordinal": 1,
@@ -1219,7 +1219,7 @@
         6,
         8
       ],
-      "current_status": "external or installed source; separate package/toolchain verification required",
+      "current_status": "historical source member bytes verified and preserved in original registry archive; named package lock version/checksum match current, resolved features remain unverified",
       "historical_reads": [
         {
           "proposal_ordinal": 4,
@@ -1365,7 +1365,7 @@
       "proposal_ordinals": [
         8
       ],
-      "current_status": "external or installed source; separate package/toolchain verification required",
+      "current_status": "historical source member bytes verified and preserved in original registry archive; named package lock version/checksum match current, resolved features remain unverified",
       "historical_reads": [
         {
           "proposal_ordinal": 8,
@@ -1459,10 +1459,204 @@
       "git_blob": "38c9d27b5c3e87598570d9a58166493c8e2aad00",
       "range": "56-115",
       "observation": "Soft-occlusion query derives anchor-to-camera delta and length, substitutes NEG_Z on direction rejection, and publishes None when the query returns no hit. No-hit from a valid query is legitimate; the conditional issue is loss of the intended rejected nonzero segment. No supported ordinary failure is claimed."
+    },
+    {
+      "historical_proposal": 1,
+      "sources": [
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/config.rs",
+          "git_blob": "4e853deb276575ac76497583d65603c95cc1a5cb",
+          "range": "46-90"
+        },
+        {
+          "path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "git_blob": "1ca89018e525af6b5643767d87d80297ea0bb3b6",
+          "range": "11-21, 35-45"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/values.rs",
+          "git_blob": "fb32936596539cefe32daad2e01579c27db71e1a",
+          "range": "60-69"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+          "git_blob": "f09495195e69012bc7efcebdde7cac6e193735b2",
+          "range": "101-109, 114-146, 149-188"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+          "git_blob": "d63e4c8ad266ffd064e5a6ef95cc83e80a8b2cec",
+          "range": "19-95"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+          "git_blob": "d5dec33761ebcd8244c4730ca4ec92fefbb53d87",
+          "range": "35-58, 65-103"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+          "git_blob": "38c9d27b5c7e87598570d9a58166493c8e2aad00",
+          "range": "27-53, 56-82, 123-136"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+          "git_blob": "bf2eadcb0c887647c4c186f6020df785207f0a9a",
+          "range": "26-33, 90-110, 204-219, 223-228, 282-335"
+        }
+      ],
+      "native_source": {
+        "path": "native-evidence/rust-nightly-2026-07-13/library/core/src/num/f32.rs",
+        "sha256": "41d78dcc60e2f57fd8613ed4d62e6538cf2c6765ad5f57373f92ffc46ca2a026",
+        "range": "1534-1545, 1565-1581",
+        "qualification": "Installed rust-src bytes match the historical citation; the repository pins the same nightly date. No compiler execution or historical build identity is inferred."
+      },
+      "observation": "CameraProfile.distance retains SignedLength, whose constructor admits finite negatives. On a new observation the retained boom is initialized from the blended profile and used by sweet_spot_target. If the resulting allowed horizontal or vertical half-window is strictly negative, its clamp bounds are reversed and the pinned f32 clamp source specifies a panic before the CameraResult is returned. For example this condition is possible when a negative distance is combined with positive finite view and screen extents. Signed offsets and zero have separate legitimate roles; this is a camera boom-domain obligation, not a proposed global SignedLength restriction.",
+      "qualification": "The default positive profiles do not witness this case. Actual availability of a custom negative configuration and the intended negative or zero modes have not been established; no runtime was probed."
+    },
+    {
+      "historical_proposal": 2,
+      "sources": [
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+          "git_blob": "bf2eadcb0c887647c4c186f6020df785207f0a9a",
+          "range": "26-33, 90-110, 204-219, 223-228, 282-335"
+        },
+        {
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "git_blob": "e3f275dc4b938f000cc010be82743b1cb5169457",
+          "range": "62-72"
+        },
+        {
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "git_blob": "74f867e9f76d9f60dae0c7545e59b174f7ba66a5",
+          "range": "8-17"
+        }
+      ],
+      "native_source": {
+        "path": "native-evidence/rust-nightly-2026-07-13/library/core/src/num/f32.rs",
+        "sha256": "41d78dcc60e2f57fd8613ed4d62e6538cf2c6765ad5f57373f92ffc46ca2a026",
+        "range": "1534-1545, 1565-1581"
+      },
+      "observation": "CloseCameraProfile exposes two independently admitted signed endpoints. When start, full and sampled distance coincide, blend computes 0/0, and the cited f32 clamp preserves NaN when bounds are 0 and 1. The NaN is passed into affine composition; the endpoint then admits its resulting position through a finite-component check. The default endpoints 1.8 and 0.65 are distinct.",
+      "qualification": "The supported policy for equal or reversed custom endpoints and reachability of the exact sample remain open. This source trace does not claim a default-config failure or runtime behavior."
+    },
+    {
+      "historical_proposal": 3,
+      "sources": [
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera.rs",
+          "git_blob": "c76e8a840d7f5dae47601b39f85600514b1afc5a",
+          "range": "73-95"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+          "git_blob": "d63e4c8ad266ffd064e5a6ef95cc83e80a8b2cec",
+          "range": "19-95"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+          "git_blob": "d5dec33761ebcd8244c4730ca4ec92fefbb53d87",
+          "range": "35-58, 65-103"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/aim.rs",
+          "git_blob": "4b8587bf7ab0aa3e9adc42b7a68c3e0109778db6",
+          "range": "13-35, 89-93"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+          "git_blob": "3b4950e0711f02231d0c6f5434fc238f98d0bc65",
+          "range": "183-186, 202-224"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/player.rs",
+          "git_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+          "range": "432-445, 485-487"
+        }
+      ],
+      "observation": "Rig and aim state are singleton resources, while their systems iterate a relation-camera query. The shown normal presentation setup spawns one marked gameplay camera, and the local-player hook requires a Single marked camera before attaching its controller relation. With multiple relation cameras, the shared state is advanced or cleared in each iteration; that is a population policy question rather than evidence of a normal multi-camera failure.",
+      "qualification": "No claim that unrelated render cameras have the relation or that multi-camera use is supported or occurs. Historical broad suspicion remains rejected within the original stated scope; custom population policy and other setup paths are open."
+    },
+    {
+      "historical_proposal": 7,
+      "sources": [
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+          "git_blob": "bf2eadcb0c887647c4c186f6020df785207f0a9a",
+          "range": "26-33, 90-110, 204-219, 223-228, 282-335"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+          "git_blob": "d63e4c8ad266ffd064e5a6ef95cc83e80a8b2cec",
+          "range": "19-95"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+          "git_blob": "d5dec33761ebcd8244c4730ca4ec92fefbb53d87",
+          "range": "35-58, 65-103"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+          "git_blob": "38c9d27b5c7e87598570d9a58166493c8e2aad00",
+          "range": "27-53, 56-82, 123-136"
+        }
+      ],
+      "observation": "Placement stages a copy of boom recovery, performs the final sweep and checked position admission, then commits recovery. Rig observation uses a cloned or reset history and commits that history and camera translation only after prepare returns Ok. The separate profile blend is advanced before preparation and may already have changed on a later error.",
+      "qualification": "This supports the historical rejection of a broad unstaged pose-publication suspicion, not a guarantee that every camera state field is unchanged on error. A rejected nonzero sweep direction currently returning success remains the distinct proposal 4 issue; staging alone does not prove a valid sweep."
+    },
+    {
+      "historical_proposal": 8,
+      "sources": [
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+          "git_blob": "bf2eadcb0c887647c4c186f6020df785207f0a9a",
+          "range": "26-33, 90-110, 204-219, 223-228, 282-335"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/aim.rs",
+          "git_blob": "4b8587bf7ab0aa3e9adc42b7a68c3e0109778db6",
+          "range": "38-79"
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+          "git_blob": "38c9d27b5c7e87598570d9a58166493c8e2aad00",
+          "range": "27-53, 56-82, 123-136"
+        }
+      ],
+      "native_sources": [
+        {
+          "original_registry_index": 486,
+          "path": "recovered/original-registry-source-archive/objects.tar.gz",
+          "member_sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+          "member": "avian3d 0.7.0 src/spatial_query/shape_caster.rs",
+          "range": "407-464"
+        },
+        {
+          "original_registry_index": 487,
+          "path": "recovered/original-registry-source-archive/objects.tar.gz",
+          "member_sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+          "member": "avian3d 0.7.0 src/spatial_query/system_param.rs",
+          "range": "111-120, 176-225, 523-595"
+        }
+      ],
+      "observation": "The cited Avian ShapeCastConfig::from_max_distance stores its argument directly and its default uses Scalar::MAX; application segment identity is not established by that constructor. The inspected shape-cast candidate code skips both a Parry error and a no-hit result through the same branch, and its public result is Option<ShapeHitData>; another candidate may still yield a hit. The ray entry point also returns Option. Whether the application needs a separate cause or different segment bound is an open policy question.",
+      "qualification": "The exact historical archive members were inspected and the named current and historical Cargo.lock package version/checksum match. Resolved features, all transitive dependencies and any actual unsupported-shape incident are not proved. No native query was run."
+    },
+    {
+      "historical_proposal": 9,
+      "sources": [
+        {
+          "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+          "git_blob": "ff058c6ae1869eb397070bd963499c22b86d1a9a",
+          "range": "87-114"
+        }
+      ],
+      "observation": "The current assert_clear source unwraps the fallible contact query before asserting no contact or penetration within its tolerance. The same file blob occurs at historical assessed source e2755a732c84e67296b5e3441a4259a84f461b2f; this establishes this bounded source operation at both pins.",
+      "qualification": "This is an inspection of test source, not a test execution or a claim that every fixture or failure case is covered. Earlier defective-operation provenance remains the historical proposal's claim, not independently reconstructed here."
     }
   ],
-  "connected_repair_direction": "Reconcile the three distinct first operations under the camera-owned coherent segment construction and explicit zero/unavailable policies, while preserving checked final positions, valid no-hit and native unbounded-intent modes. Determine current native feature/call contracts and exact aliases before choosing shared repairs. The six other historical dispositions remain independently open for current semantic review.",
-  "acceptance": "Later authorized acceptance must distinguish exact-zero from rejected nonzero segments, preserve valid optional no-hit and final staged history, verify the actual chosen numerical boundaries, and cover each distinct sweep/aim/soft query path. No product tests, builds or runtime probes were run.",
+  "connected_repair_direction": "Reconcile the three distinct first operations under a camera-owned coherent segment construction and explicit zero/unavailable policies, while preserving checked final positions, valid no-hit and staged pose history. Decide camera boom admission, degenerate close framing and supported relation-camera population separately. Determine exact native features, query-cause needs and aliases before choosing shared repairs. Do not convert historical safeguard or fixture-source dispositions into fresh defects without additional evidence.",
+  "acceptance": "Later authorized acceptance must distinguish exact-zero from rejected nonzero segments, preserve signed offsets and valid no-hit, exercise chosen boom and close-profile policies, preserve staged pose publication and acknowledge separate blend-state advancement, and cover each distinct sweep/aim/soft query path. Establish intended single- or multi-camera behavior and native query-cause handling before specifying those cases. The current fixture source was inspected only. No product tests, builds or runtime probes were run.",
   "discovery_status": "three bounded current traces; nine historical records remain qualified, all family and lens coverage incomplete",
   "repair_status": "not started",
   "validation_status": "none; evidence and source inspection only"

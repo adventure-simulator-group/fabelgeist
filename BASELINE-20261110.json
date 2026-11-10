@@ -1291,10 +1291,67 @@
         "discovery": "partial; input reachability, numerical/native details and exact aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "ADLER-L11-CAMERA-PROFILE-INVARIANTS#l1-current-camera-negative-boom-domain",
+        "record": "ASSESSMENT-L1-CAMERA.json",
+        "classification": "historical conditional negative camera boom-domain source finding",
+        "discovery": "partial; source scope, intended policies and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed"
+      },
+      {
+        "id": "ADLER-L11-CAMERA-PROFILE-INVARIANTS#l1-current-camera-close-range-degenerate-policy",
+        "record": "ASSESSMENT-L1-CAMERA.json",
+        "classification": "historical close-camera aggregate configuration policy question",
+        "discovery": "partial; source scope, intended policies and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed"
+      },
+      {
+        "id": "REVIEW-L1-CAMERA-QUERY-POPULATION-HISTORY-POLICY",
+        "record": "ASSESSMENT-L1-CAMERA.json",
+        "classification": "historical scoped review disposition; custom query population policy open",
+        "discovery": "partial; source scope, intended policies and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed"
+      },
+      {
+        "id": "REVIEW-L1-CAMERA-FINAL-SWEEP-HISTORY-STAGING-SAFEGUARD",
+        "record": "ASSESSMENT-L1-CAMERA.json",
+        "classification": "historical scoped safeguard disposition; no broad unstaged defect asserted",
+        "discovery": "partial; source scope, intended policies and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "dependencies": [
+          "ADLER-L11-CAMERA-SEGMENT-ADMISSION#l1-current-camera-sweep-nonzero-direction-failure"
+        ]
+      },
+      {
+        "id": "REVIEW-L1-CAMERA-NATIVE-MAXDISTANCE-AND-OPTION-BOUNDARY",
+        "record": "ASSESSMENT-L1-CAMERA.json",
+        "classification": "historical native-query boundary policy question",
+        "discovery": "partial; source scope, intended policies and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "dependencies": [
+          "ADLER-L11-CAMERA-SEGMENT-ADMISSION#l1-current-camera-sweep-nonzero-direction-failure",
+          "ADLER-L11-CAMERA-SEGMENT-ADMISSION#l1-current-camera-aim-segment-pair",
+          "ADLER-L11-CAMERA-SEGMENT-ADMISSION#l1-current-camera-soft-occlusion-segment-pair"
+        ]
+      },
+      {
+        "id": "ADLER-L11-CAMERA-FIXTURE-ASSERT-RESULT#l1-current-camera-fixture-assert-operation",
+        "record": "ASSESSMENT-L1-CAMERA.json",
+        "classification": "historical fixture-operation disposition; source-only current observation",
+        "discovery": "partial; source scope, intended policies and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Recover or verify original evidence and selected states, enumerate and register original and current scopes, then assess sequentially by lens and populate connected ledger. Publish full new evidence at each checkpoint."
+  "next_step": "Recover or verify original evidence and selected states, enumerate and register original and current scopes, then assess sequentially by lens and populate connected ledger. Publish full new evidence at each checkpoint.",
+  "continuation_orientation": "CONTINUATION.md"
 }

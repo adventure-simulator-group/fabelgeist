@@ -1,23 +1,23 @@
 {
   "schema": "726-continuation-progress-v1",
   "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
-  "checkpoint_parent": "e5aa898fc6e9c6e97998b78f800a14d1145a8219",
+  "checkpoint_parent": "d938dafdc995a52523e9fa1493209993c8f52bc2",
   "historical_queue_records_indexed": 3713,
   "historical_unique_ids": 3713,
   "current_queue_records_semantically_reconciled": 0,
   "current_lenses_complete": 0,
   "current_revision_delta_paths": 62,
   "delta_lens_cells_assessed": 1,
-  "repair_ledger": "incomplete; three camera segment facets, the historical combat-sound finding, and two new inventory obligations have partial current traces; no repair started",
-  "recovery_verification": "Fresh shallow clone of parent checkpoint from GitHub on the same machine has the expected commit and passed python3 verify_recovered.py. This does not establish independent-machine recovery, full original transport extraction, source-read credit, or final authority.",
-  "original_evidence": "The exact checkpoint 059 ledger, queue, selector and all 13 selected-state bytes match their cited SHA-256 values and are preserved. The 36,487-file transport remains at its pinned original branch; full extraction was not repeated here.",
+  "repair_ledger": "incomplete; nine historical camera facets/dispositions, the historical combat-sound finding, and two new inventory obligations have partial current traces; no repair started",
+  "recovery_verification": "The shallow remote restoration was fetched to the parent checkpoint and verified on this machine. This does not establish independent-machine recovery, source-read credit or missing final authority.",
+  "original_evidence": "The exact checkpoint 059 ledger, queue, selector and all 13 selected-state bytes match their cited SHA-256 values and are preserved. The existing read-only local extraction of the 36,487-file original transport passed its complete manifest verification; the original transport is pinned remotely and was not overwritten.",
   "remaining": "Missing final checkpoint 3821 ledger and queue; historical summaries and reconstructed records retain all recovery-package qualifications. Assess each preserved entry, all later recoverable evidence and each independent lens and connected scope. No product validation or implementation.",
   "original_role_identities_indexed": 2853,
   "current_tree_entries_indexed": 6361,
   "inventory_qualification": "Mechanical inventory only; no source scope, applicability, independent-lens assessment or closure is implied.",
-  "prior_checkpoint_remote_verification": "Fetched c16ba347dbb016b1e4681ddf10f18a4fb108753e; recovery, selected-state, dependency and read-only local base verification passed on this machine.",
-  "new_assessments": "Nine checkpoint 059 camera dispositions matched their original proposal bytes; three segment facets received bounded current-source inspection. Project-source hash equality and matching named package checksums do not grant full current coverage.",
-  "partial_connected_assessments": 6,
+  "prior_checkpoint_remote_verification": "Fetched d938dafdc995a52523e9fa1493209993c8f52bc2; recovered package, selected states and preserved native dependency evidence were verified on this machine.",
+  "new_assessments": "Nine checkpoint 059 camera dispositions matched original proposal bytes and each received a bounded, qualified current source inspection. These remain partial: none closes the surrounding source scopes, connected obligations or alias reconciliation.",
+  "partial_connected_assessments": 12,
   "historical_selected_059_states_verified": 13,
   "snapshot_440_states_same_bytes_as_059": 10,
   "snapshot_440_selected_state_bytes_missing_lenses": [
@@ -33,5 +33,6 @@
   "older_collection_hash_matches": 0,
   "local_evidence_qualification": "Read-only source verification and bounded search; no new historical authority, current source credit or global absence claim.",
   "historical_camera_bundle_dispositions_verified": 9,
-  "current_camera_segment_facets_partially_assessed": 3
+  "current_camera_segment_facets_partially_assessed": 3,
+  "current_camera_other_facets_partially_assessed": 6
 }
