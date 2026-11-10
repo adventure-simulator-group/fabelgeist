@@ -62,6 +62,9 @@ it does not count the same failure as a new unique defect.
 `ASSESSMENT-L01-REPLAY-ARGUMENT-SAFEGUARD-95E.json` rejects a
 replay-argument suspicion for currently generated choices while keeping
 broader replay contracts open.
+`ASSESSMENT-L01-FURNITURE-SAFEGUARDS-95E.json` records bounded
+furniture identity and cap-winding nonfindings; other consumers and
+degenerate profiles remain open.
 `ASSESSMENT-L01-AI-CONFIG-95E.json` records conditional precision and
 ranged-deadband admission traces tied to earlier checkpoint 059 records.
 Committed defaults and unexecuted runtime assumptions are distinguished.
