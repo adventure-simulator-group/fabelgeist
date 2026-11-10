@@ -1,0 +1,27 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 270,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/270",
+      "sha256": "761099a162f432296e633e8d5a6f3e4092c08fb664bebb89dc3be7d725988444",
+      "lines": 24,
+      "new_personal_read_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full read of this exact physical-p16 role only. It does not establish current or other-lens coverage, historical aliases or runtime behavior."
+    }
+  ],
+  "observations": [
+    "Historical allied combatant loading refreshes strategic condition, then constructs combatants from each member and condition values. Exact condition and combatant admission, error propagation, tactical versus strategic ownership, and all callers remain open."
+  ],
+  "remaining": "Trace current allied combatant construction and every connected admission and boundary independently."
+}

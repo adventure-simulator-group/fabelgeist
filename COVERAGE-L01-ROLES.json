@@ -9,13 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2443,
+    "unassessed": 2441,
     "lock-metadata-partial": 2,
     "bounded-current-trace-only": 187,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 219
+    "full-historical-body-trace-open": 220,
+    "deleted-base-trace-open": 1
   },
-  "first_unfinished": "Physical-p16 strategic authority model role 269 now has a full historical body read; previous bounded c100 observations remain separately linked. Continue at role 270; earlier dependencies and independent lens scope remain open.",
+  "first_unfinished": "Physical-p16 role 270 has a full historical read; role 272 is a deletion with its a120 base body separately read and verified. Continue at role 271; the deleted replacement, earlier dependencies and independent lens scope remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -3815,7 +3816,9 @@
       "historical_sha256": "761099a162f432296e633e8d5a6f3e4092c08fb664bebb89dc3be7d725988444",
       "registry_pointer": "/files/270",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-270.json",
+      "qualification": "Full body read only for this physical-p16 role; current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 271,
@@ -3835,7 +3838,9 @@
       "historical_sha256": null,
       "registry_pointer": "/files/272",
       "historical_object_available": false,
-      "status": "unassessed"
+      "status": "deleted-base-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-DELETED-272.json",
+      "qualification": "Frozen physical-p16 role is deleted; recovered a120 base body read separately. Current and connected scope remain open."
     },
     {
       "original_index": 273,

@@ -1,0 +1,86 @@
+{
+  "schema": "726-deleted-historical-base-read-v1",
+  "lens": 1,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+  "original_index": 272,
+  "registry_pointer": "/files/272",
+  "snapshot": "physical-p16",
+  "registry_state": "deleted",
+  "snapshot_sha256": null,
+  "historical_object_available": false,
+  "base_revision": "a120390947c89b703dc74c4255a13c035d054c50",
+  "base_sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+  "base_git_blob": "6c1541b3ffab6a3a26941618591f16d82c7caea3",
+  "base_bytes": 867,
+  "base_lines": 29,
+  "new_personal_base_read_ranges": [
+    [
+      1,
+      29
+    ]
+  ],
+  "preserved_base_bytes": "recovered/deleted-source-base-objects/58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+  "commit_proof": {
+    "git_commit": "a120390947c89b703dc74c4255a13c035d054c50",
+    "sha256": "dea63c80f8b2ea55552e303dc94e7ca6c51dfb3749083adf2ee6255706e8fbc7",
+    "bytes": 293,
+    "preserved_bytes": "deleted-272-base-proof/commit.gz"
+  },
+  "tree_proof": [
+    {
+      "tree": "50447f5d2609cf22dc1eb22f33383304a6dec7f9",
+      "bytes": 1635,
+      "sha256": "015a8c2477ff7b41c3fa7b2bc80b9428d7aadd0f1457993c12f19189e768fbdb",
+      "preserved_bytes": "deleted-272-base-proof/tree-00.gz",
+      "component": "crates",
+      "entry_mode": "040000",
+      "entry_kind": "tree",
+      "entry_oid": "aba34ada7e8bcc09e35dc0e4fbf41c15667e36ab"
+    },
+    {
+      "tree": "aba34ada7e8bcc09e35dc0e4fbf41c15667e36ab",
+      "bytes": 2434,
+      "sha256": "9210983ac301b398b1efb15ea378891b53476ccfdf6e55e29ff231c3f0106323",
+      "preserved_bytes": "deleted-272-base-proof/tree-01.gz",
+      "component": "adventuresim-stdb-module",
+      "entry_mode": "040000",
+      "entry_kind": "tree",
+      "entry_oid": "65dfcd716db1da9640c8281cd4812d8c4ccc51da"
+    },
+    {
+      "tree": "65dfcd716db1da9640c8281cd4812d8c4ccc51da",
+      "bytes": 259,
+      "sha256": "6c0dd139903effef5a428ce3e4fad235378c6bf10720114b52d40796aa059cd9",
+      "preserved_bytes": "deleted-272-base-proof/tree-02.gz",
+      "component": "src",
+      "entry_mode": "040000",
+      "entry_kind": "tree",
+      "entry_oid": "59d2394afb5fbb08c8b1a747b0308c8a2191cb5c"
+    },
+    {
+      "tree": "59d2394afb5fbb08c8b1a747b0308c8a2191cb5c",
+      "bytes": 2645,
+      "sha256": "d55a09dc88eac80b4f5a8e6a1235aeb15ffd9e219fd610fc2042ea5da639e439",
+      "preserved_bytes": "deleted-272-base-proof/tree-03.gz",
+      "component": "strategic",
+      "entry_mode": "040000",
+      "entry_kind": "tree",
+      "entry_oid": "0a4333f9861715b4afdb043fe76af4d5f51900af"
+    },
+    {
+      "tree": "0a4333f9861715b4afdb043fe76af4d5f51900af",
+      "bytes": 1940,
+      "sha256": "1476d2e269d954a37d957c87ea437b094aa580f28bab6500520f28c709c03881",
+      "preserved_bytes": "deleted-272-base-proof/tree-04.gz",
+      "component": "combat_error.rs",
+      "entry_mode": "100644",
+      "entry_kind": "blob",
+      "entry_oid": "6c1541b3ffab6a3a26941618591f16d82c7caea3"
+    }
+  ],
+  "qualification": "The frozen physical-p16 registry records this path as deleted with no snapshot body. This is a full read of the recovered pre-deletion base at a120, not a physical-p16 source body or checkpoint 3821 state. Current 95e has the same Git blob but byte identity alone does not establish current semantic/lens coverage. Historical supplier claims retain their original attribution.",
+  "observations": [
+    "The earlier file defined a structured combat error wrapper preserving authored-threat and battle-resolution errors alongside a required-death case and string operation error. The frozen physical-p16 deletion and subsequent current same-blob presence require an actual caller and error-owner migration comparison; no removal, restoration, repair or runtime behavior is inferred."
+  ],
+  "remaining": "Assess the deletion against the frozen replacement, current callers and error boundaries, reconcile prior owner claims, and independently assess all thirteen lenses."
+}

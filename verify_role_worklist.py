@@ -64,9 +64,9 @@ for i, (role, original) in enumerate(zip(roles, registry)):
             raise ValueError('role identity mismatch: ' + str(i))
     if role['historical_object_available'] != (i in object_shas):
         raise ValueError('object-availability mismatch')
-    if role['status'] not in ('unassessed', 'bounded-current-trace-only', 'lock-metadata-partial', 'assessed-nonapplicable', 'full-historical-body-trace-open'):
+    if role['status'] not in ('unassessed', 'bounded-current-trace-only', 'lock-metadata-partial', 'assessed-nonapplicable', 'full-historical-body-trace-open', 'deleted-base-trace-open'):
         raise ValueError('invalid role status')
-    if role['status'] != 'unassessed':
+    if role['status'] not in ('unassessed', 'deleted-base-trace-open'):
         if i not in object_shas or object_shas[i] != role['historical_sha256']:
             raise ValueError('missing or incorrect historical object')
         needed.add(role['historical_sha256'])
@@ -139,6 +139,17 @@ for role in roles:
         if (matches[0]['lines'] != source_lines
                 or matches[0]['new_personal_read_ranges'] != [[1, source_lines]]):
             raise ValueError('historical body range mismatch')
+    elif status == 'deleted-base-trace-open':
+        original = registry[role['original_index']]
+        doc = json.loads((root / role['historical_assessment']).read_text())
+        if (original.get('state') != 'deleted' or role['historical_sha256'] is not None
+                or role['historical_object_available'] or doc['original_index'] != role['original_index']
+                or doc['source_id'] != role['source_id'] or doc['base_sha256'] != original.get('base_sha256')
+                or doc['registry_state'] != 'deleted' or doc['snapshot_sha256'] is not None):
+            raise ValueError('deleted role/base identity mismatch')
+        base_path = (root / doc['preserved_base_bytes']).resolve()
+        if not base_path.is_relative_to(root) or hashlib.sha256(base_path.read_bytes()).hexdigest() != doc['base_sha256']:
+            raise ValueError('deleted role base bytes mismatch')
     elif status == 'assessed-nonapplicable':
         doc = json.loads((root / role['assessment']).read_text())
         if not any(x['original_index'] == role['original_index'] and x['sha256'] == role['historical_sha256'] for x in doc['historical_source_roles']):

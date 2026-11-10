@@ -44,6 +44,8 @@ question without claiming supported production reachability.
 suspicion and a separately qualified missing-birth view/reducer question.
 `ASSESSMENT-L01-QUANTITY-TARGET-95E.json` traces a retained inventory target
 authority boundary to an earlier, separately attributed actor-admission record.
+`ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
+role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
