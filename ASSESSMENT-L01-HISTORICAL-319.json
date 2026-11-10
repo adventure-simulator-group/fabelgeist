@@ -1,0 +1,30 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 319,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/319",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "lines": 1188,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1188
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body including source tests read only for this exact physical-p16 role; no tests were executed and no current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical world-event requests distinguish foraging, case resolution and food/water infection with typed envelopes, actors, subjects, places and payloads, while persistence mirrors them in database-compatible forms. Canonical IDs, all source constructors, conversion admission and native consumers require connected inspection.",
+    "Commit validates the request and computes a domain-separated request fingerprint before looking up its private receipt. An exact digest replay returns without rebuilding mutable consequences; a changed request with the same event ID fails. A new request then validates the rebuilt envelope, consequence ordering and semantics, checks subordinate row conflicts, applies consequences and inserts the receipt last. Actual caller transaction semantics and all error handling remain open.",
+    "The case-resolution build captures participant identities after replay lookup; foraging and food/water paths use their own canonical consequence plans. Duplicate consequence identities and mismatched existing rows are rejected in the visible preflight. Numeric dose, immunity and fraction admission and all downstream infection, reputation and outcome owners require independent tracing.",
+    "Source tests describe fingerprint, ordering, semantic binding and receipt sequence, but were read only and do not prove execution. No product build, test or runtime probe ran."
+  ],
+  "remaining": "Trace current event/request IDs, complete planner and validated envelope contracts, exact replay and transaction behavior, all foraging/case/food-water producers and consequence consumers, bounded numeric admission, historical aliases and every independent lens."
+}
