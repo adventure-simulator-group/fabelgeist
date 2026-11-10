@@ -1,0 +1,63 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 301,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/authority_tests.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/301",
+      "sha256": "3e723b0e2fe8aff1ac257c3b4d77282b698f9f067a80d921c47d32535bf4e0e0",
+      "lines": 117,
+      "new_personal_read_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source fixture reducers were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 302,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/entropy.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/302",
+      "sha256": "f685dee9225286b7d1e39515f8c426ab2e04cb37b064c170298794a470e1e7c7",
+      "lines": 28,
+      "new_personal_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source fixture reducers were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 303,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/303",
+      "sha256": "c8ea9d3119f03244e607275388d82626801d0a346e2ebd829162822e13313ed4",
+      "lines": 59,
+      "new_personal_read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source fixture reducers were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The guarded historical treatment fixture source specifies assertions for committed receipt and resource changes, exact replay, conflicting soap selection, and interrupted treatment without a receipt. It is a fixture body read, not evidence that any assertion passed.",
+    "The projectile depth contribution wraps a sample from a named deterministic stream using transaction seed and character identity, scaled to hundredth-point steps. The documented contribution is dimensionless; its wider distribution, replay and all call sites need tracing.",
+    "A separately guarded projectile fixture specifies kind, limb, damage and finite extraction difficulty checks and rejects a retained projectile for zero hit damage. It was not executed and cannot establish current behavior or validate treatment."
+  ],
+  "remaining": "Trace current treatment, injury and projectile authority, seed ownership and all entropy consumers, fixture/production differences, exact historical aliases and all independent lenses; no product validation is authorized."
+}
