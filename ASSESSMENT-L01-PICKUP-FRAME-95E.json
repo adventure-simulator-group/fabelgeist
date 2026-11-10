@@ -215,6 +215,22 @@
       ],
       "preserved_bytes": "main-advance-95e/pickup-frame-sources/09.source.gz",
       "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "bytes": 22289,
+      "lines": 614,
+      "ranges": [
+        [
+          18,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/10.source.gz",
+      "content_encoding": "gzip"
     }
   ],
   "native_evidence": [
@@ -243,15 +259,15 @@
     ],
     "qualification": "Original 059 evidence remains unchanged; exact file identities do not transfer other-lens or checkpoint 3821 credit."
   },
-  "inspection_provenance": "Selected current source ranges personally inspected in c100 checkout with identical 95e tree entries; native ranges inspected from lock-checksum-bound archives. Source assertions were read, not run.",
+  "inspection_provenance": "Selected current source ranges personally inspected in c100 checkout with identical 95e tree entries; native ranges inspected from lock-checksum-bound archives. Source assertions were read, not run. The later correction personally inspected the catalog derivation source at the same current Git identity.",
   "candidates": [
     {
       "id": "REVIEW-PICKUP-ANCHOR-WORLD-PROJECTION-001",
       "severity": "P2 provisional; conditional pickup range disagreement for a rotated dropped item",
       "classification": "same first-failure family as recovered 059 pickup-anchor frame, traced with current catalog and native geometry source",
       "detail": "Server drop constructs a cuboid using physical dimensions as full extents, then a compound child at local -anchor_offset and spawns the dropped item with identity rotation and a dynamic rigid body. The pickup path later reads the item Transform but computes its center as translation minus the unrotated local offset. Range and terrain line-of-sight therefore use that helper position. The client selects scene items using GlobalTransform::transform_point(-anchor_offset), then sends a mapped Pickup action on release. The client and native compound pose apply rotation to the local offset; the server helper does not.",
-      "catalog_case": "For a projected non-parametric catalog halberd, dimensions are [0.16,2.1,0.08], grip-to-tip is 1.9 and local anchor offset is [0,-0.2,0]; current projection retains those catalog values if no accepted instance geometry replaces them and the source validity checks admit the resulting physical fields. With unit scale, a synchronized unparented item origin at (0,0,0), and an assumed +90 degree rotation about X, its local box center (0,+0.2,0) transforms to (0,0,+0.2). The server helper instead uses (0,+0.2,0). An actor at (0,0,2.15) is 1.95 m from the rotated center but approximately 2.159 m from the helper; the two-metre client targeting admits the former while server range rejects the latter. Given an empty hand, a clear client line of sight, a valid camera and no competing selection, the client can select and submit this target, conditional on the remaining action and network gates. This is source geometry and arithmetic only; no item, rotation, pickup, physics or runtime result was observed.",
-      "safeguards": "The dropped item starts at identity rotation, where both center calculations coincide. A vertical catalog offset is unchanged by yaw alone; the example requires pitch or roll. A dynamic rigid body can rotate in principle, but this trace does not establish that the particular supported item reaches the assumed pose, that client/server transforms are synchronized, or that the user sees the example. Server actor authority, sequence, revision, held-item and validity checks remain intact. The existing source assertion covers a nonzero offset without rotation; it was read, not run.",
+      "catalog_case": "The authored halberd row specifies dimensions [0.16,2.1,0.08], grip-to-tip 1.9 and local anchor [0,-0.2,0]. Those are authored values, not established final projected dimensions: item_catalog::catalog derives default melee design properties and overwrites the length and grip-to-tip before lookup, without overwriting the anchor offset. Projection then retains the anchor if there is no accepted instance geometry, but replaces its Y value when instance geometry is present. Conditional on the no-instance path, successful catalog derivation, a valid resulting physical record and an admitted synchronized unparented unit-scale item with origin (0,0,0) rotated +90 degrees about X, the local box center (0,+0.2,0) transforms to (0,0,+0.2); the server helper instead uses (0,+0.2,0). An actor at (0,0,2.15) is 1.95 m from the rotated center and approximately 2.159 m from the helper, placing the two-metre client/server range decisions on opposite sides. An empty hand, clear client line of sight, valid camera, no competing selection, remaining action gates and request delivery are also assumed. No derived dimensions, valid production item, rotation, pickup or runtime result was observed.",
+      "safeguards": "The dropped item starts at identity rotation, where both center calculations coincide. A vertical catalog offset is unchanged by yaw alone; the example requires pitch or roll. A dynamic rigid body can rotate in principle, but this trace does not establish that the particular supported item reaches the assumed pose, that client/server transforms are synchronized, or that the user sees the example. Server actor authority, sequence, revision, held-item and validity checks remain intact. Actual derived dimensions and the no-instance state have not been verified by product execution. The existing source assertion covers a nonzero offset without rotation; it was read, not run.",
       "connected_scope": "Catalog/parametric physical dimensions and local anchor, dropped compound collider and dynamic world pose, replicated client GlobalTransform and target selection, mapped request identity and optimistic concurrency, server world-space range and terrain line of sight, inventory transfer.",
       "proposed_repair": "After the complete audit and implementation authorization, project the same admitted local center through the captured authoritative item pose for both server range and line of sight; use the existing frame/physical owners and preserve identity-rotation drop construction, client selection and legitimate actor/sequence/revision safeguards. Establish unit-scale and parent/physics synchronization policy before choosing the exact transform owner.",
       "later_acceptance": "When product validation is authorized, cover identity orientation, admitted nonzero offsets, pitch/roll versus yaw, boundary range on both sides, clear and blocked terrain line of sight, client selection/server agreement, and valid authority/revision/hand behavior using the real drop and pickup path.",
@@ -259,10 +275,11 @@
         "ADLER-L11-PICKUP-ANCHOR-FRAME"
       ],
       "relationship_qualification": "Recovered 059 first-failure record and later historical qualifications retain original attribution, zero accepted unique-count change and incomplete status. Current server bytes match registered pr-working role 2048; current client bytes differ from historical pr-working role 1475. This separate 95e trace does not credit unread historical role bodies, other lenses or checkpoint 3821.",
-      "discovery": "partial; real rotated state, parent and scale policy, client/server timing, all physical producers, exact aliases and independent lenses remain open",
+      "discovery": "partial; actual derived catalog values and admission, real rotated state, parent and scale policy, client/server timing, all physical producers, exact aliases and independent lenses remain open",
       "repair": "not started",
       "validation": "not performed"
     }
   ],
-  "remaining": "Establish supported rotated dynamic state, transform and scale synchronization, all physical producers and historical aliases; independently assess every lens."
+  "remaining": "Establish supported rotated dynamic state, transform and scale synchronization, all physical producers and historical aliases; independently assess every lens.",
+  "correction": "CORRECTION-PICKUP-FRAME-95E.json"
 }

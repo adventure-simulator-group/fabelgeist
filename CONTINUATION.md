@@ -89,7 +89,8 @@ against a separately attributed checkpoint 059 finding.
 dependency buffer contract and the bounded safeguard in selected `Bytes` paths;
 product exposure is not established.
 `ASSESSMENT-L01-PICKUP-FRAME-95E.json` traces a conditional rotated-item
-pickup disagreement while preserving its earlier finding separately.
+pickup disagreement. `CORRECTION-PICKUP-FRAME-95E.json` preserves and corrects
+its earlier overstatement about derived catalog dimensions.
 `ASSESSMENT-L01-GRASS-MESH-95E.json` traces a conditional near-tier
 seed-head vertex mismatch to its separately attributed checkpoint 059 question.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
