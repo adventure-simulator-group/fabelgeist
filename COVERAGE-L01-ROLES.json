@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2572,
+    "unassessed": 2568,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 196,
+    "bounded-current-trace-only": 199,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 81
+    "full-historical-body-trace-open": 82
   },
-  "first_unfinished": "Original changed roles 125\u2013127 have exact full historical-body reads; 132, 137, 138 and 140 also have full historical reads. Next unread changed role is 128. All 62 current deltas have dispositions but 46 remain partial; earlier dependency roles, independent lenses and additional source populations remain open.",
+  "first_unfinished": "Original changed role 128 has a full physical-p16 body read and bounded current crossing trace; 129 has bounded-current evidence only. Next unread changed historical body is 129. All current delta paths have dispositions, 46 partial; earlier dependency roles, independent lenses and additional populations remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -1247,7 +1247,24 @@
         }
       ],
       "historical_assessment": "ASSESSMENT-L01-DISEASE-FULL.json",
-      "qualification": "Full read of this exact physical-p16 body is complete. Its previous partial record is retained; connected scope, current applicability, other roles and lens closure remain open."
+      "qualification": "Full read of this exact physical-p16 body is complete. Its previous partial record is retained; connected scope, current applicability, other roles and lens closure remain open.",
+      "current_path": "crates/adventuresim-core/src/disease.rs",
+      "current_git_blob": "ef1f37d455d1b8b7b7c14ddc8e13ba59960fe8f3",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-PHYSIOLOGY-CROSSING.json",
+          "ranges": [
+            [
+              1685,
+              1721
+            ],
+            [
+              1775,
+              1808
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 94,
@@ -1867,7 +1884,34 @@
       "historical_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
       "registry_pointer": "/files/128",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-128.json",
+      "qualification": "Full historical body read only for this exact physical-p16 identity; connected scope, current applicability, other variants and independent lenses remain open.",
+      "current_path": "crates/adventuresim-core/src/physiology.rs",
+      "current_git_blob": "8c1f399002e7aa3b3ae2365293cdf3bbb0d5266e",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-PHYSIOLOGY-CROSSING.json",
+          "ranges": [
+            [
+              130,
+              155
+            ],
+            [
+              345,
+              389
+            ],
+            [
+              650,
+              720
+            ],
+            [
+              800,
+              849
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 129,
@@ -10768,7 +10812,25 @@
       "historical_sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
       "registry_pointer": "/files/912",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/disease.rs",
+      "current_git_blob": "ef1f37d455d1b8b7b7c14ddc8e13ba59960fe8f3",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-PHYSIOLOGY-CROSSING.json",
+          "ranges": [
+            [
+              1685,
+              1721
+            ],
+            [
+              1775,
+              1808
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 913,
@@ -11575,7 +11637,33 @@
       "historical_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
       "registry_pointer": "/files/964",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/physiology.rs",
+      "current_git_blob": "8c1f399002e7aa3b3ae2365293cdf3bbb0d5266e",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-PHYSIOLOGY-CROSSING.json",
+          "ranges": [
+            [
+              130,
+              155
+            ],
+            [
+              345,
+              389
+            ],
+            [
+              650,
+              720
+            ],
+            [
+              800,
+              849
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 965,
@@ -13089,7 +13177,25 @@
       "historical_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
       "registry_pointer": "/files/1093",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "current_git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-PHYSIOLOGY-CROSSING.json",
+          "ranges": [
+            [
+              1735,
+              1753
+            ],
+            [
+              1770,
+              1820
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1094,

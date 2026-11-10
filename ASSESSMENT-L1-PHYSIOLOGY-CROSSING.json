@@ -1,0 +1,93 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-128.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/physiology.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "git_blob": "8c1f399002e7aa3b3ae2365293cdf3bbb0d5266e",
+      "bytes": 38543,
+      "lines": 1169,
+      "ranges": [
+        [
+          130,
+          155
+        ],
+        [
+          345,
+          389
+        ],
+        [
+          650,
+          720
+        ],
+        [
+          800,
+          849
+        ]
+      ],
+      "preserved_bytes": "source-evidence/physiology-crossing/current/crates/adventuresim-core/src/physiology.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/disease.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "git_blob": "ef1f37d455d1b8b7b7c14ddc8e13ba59960fe8f3",
+      "bytes": 125549,
+      "lines": 3842,
+      "ranges": [
+        [
+          1685,
+          1721
+        ],
+        [
+          1775,
+          1808
+        ]
+      ],
+      "preserved_bytes": "source-evidence/physiology-crossing/current/crates/adventuresim-core/src/disease.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "bytes": 101966,
+      "lines": 2950,
+      "ranges": [
+        [
+          1735,
+          1753
+        ],
+        [
+          1770,
+          1820
+        ]
+      ],
+      "preserved_bytes": "source-evidence/physiology-crossing/current/crates/adventuresim-stdb-module/src/disease.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Conditional structural-boundary assumption in terminal search; a constructed bounded aggregate can cross between nonterminal endpoints, while reachability with authored disease and intervention histories is unproven.",
+  "trace": [
+    "first_terminal_crossing returns the left endpoint when terminal, skips an interval entirely when its right endpoint is nonterminal, and otherwise binary-searches the terminal predicate. Its stated correctness assumption is that each meter is linear between structural boundaries.",
+    "MeterVector::add_bounded clamps each accumulation to [-1,2]; private disease meter values are also clamped. The inspected server caller builds structural points from interval ends, authored disease/event points and intervention start/stop/end, then samples the combined baseline, episode and intervention state. The inspected point-construction ranges do not themselves establish that every intermediate clamp kink is included.",
+    "A source-level constructed one-meter example uses structural endpoints 0 and 10, a constant baseline -0.02, two input components A(t)=min(2,0.3*t) and B(t)=1-0.1*t, and a constant intervention contribution -1, with the same successive [-1,2] clamps. The resulting values are approximately -0.02 at minute 0, 1 at minute 7, and 0.98 at minute 10. Thus both supplied endpoints are below the 1.0 terminal threshold while an interior point is terminal, so endpoint-only skipping would miss that constructed crossing. This is arithmetic evidence about a representable callback shape, not an executed product scenario.",
+    "The example does not establish that authored disease curves, phenotype bounds, real episode histories, intervention profiles and generated structural events can jointly produce that shape. Their exact constraints, integer rounding, chronological admissions and potential additional boundaries remain open; no actual missed death or user impact is claimed."
+  ],
+  "repair_direction": "Prove whether the authoritative combined state is monotone in terminal status between every emitted boundary, including clamp intersections and interacting conditions. If a separately authorized repair is needed, include the required derived breakpoints or use another bounded exact strategy while preserving deterministic earliest-minute and meter tie-breaking behavior.",
+  "later_acceptance": [
+    "After separate repair authorization, verify endpoint and interior peaks, simultaneous meters, multiple interventions, exact crossing/tie rules, interval partitioning and reachable authored disease histories."
+  ],
+  "remaining": [
+    "Derive a concrete admitted disease/intervention example or prove it impossible, reconcile all source and historical aliases, and complete independent lenses. No product build, tests, simulations, database calls or runtime probes ran."
+  ],
+  "discovery_status": "partial; mathematical counterexample to unconstrained callback/boundary assumption, no demonstrated supported disease history",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

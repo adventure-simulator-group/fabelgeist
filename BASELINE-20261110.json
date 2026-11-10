@@ -1679,12 +1679,20 @@
         "discovery": "partial; all offer producers, economic limits, supported reachability and historical aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "REVIEW-PHYSIOLOGY-TERMINAL-CROSSING-001",
+        "record": "ASSESSMENT-L1-PHYSIOLOGY-CROSSING.json",
+        "classification": "conditional endpoint-search assumption under clamped combined meter state; actual authored-history reachability unproved",
+        "discovery": "partial; prove structural-boundary completeness, actual trajectories, admissions and historical aliases",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 role 128, unassessed dependencies and other historical variants, partial current traces and additional populations; complete all independent lenses and the connected ledger before product implementation or validation.",
+  "next_step": "Continue original Lens 1 role 129, earlier dependency roles and remaining source populations; resolve the crossing proof, complete all independent lenses and reconcile the repair ledger before product implementation or validation.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
