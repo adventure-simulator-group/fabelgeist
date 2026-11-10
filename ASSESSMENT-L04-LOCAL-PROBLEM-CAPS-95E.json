@@ -1,0 +1,282 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected mixed-signed local-problem consequence aggregation, ID order, native settlement rows and price consumers. The operations lens remains incomplete.",
+  "source_reasoning": "Static source inspection and a manually specified arithmetic counterexample only; no generator, database, purchase, test, product build or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/local_problem.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "53496666c7f3c4a58e3342cf215a919b1c3facf9",
+      "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "bytes": 29321,
+      "lines": 865,
+      "ranges": [
+        [
+          1,
+          85
+        ],
+        [
+          280,
+          525
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/basis_points.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7d14430f5c167640c85eadaf467a87ff8c6e98b7",
+      "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "bytes": 4630,
+      "lines": 151,
+      "ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/local_problem.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "07eb287670a8babe2a3f45aee714e18593b1caf9",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "bytes": 95282,
+      "lines": 2518,
+      "ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          275,
+          322
+        ],
+        [
+          380,
+          430
+        ],
+        [
+          515,
+          565
+        ],
+        [
+          700,
+          805
+        ],
+        [
+          891,
+          915
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/solver.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e47c1e1291104a974d70517880bece2b96300d0e",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "bytes": 40679,
+      "lines": 979,
+      "ranges": [
+        [
+          540,
+          590
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/quests/generation.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c77b7a232f0a0916023bff438ca4c59d0a020a5",
+      "sha256": "d6ab2ca11fbfffd5e3fc8ec26846e42fc4c1093974440b28daac37fbbd5ad256",
+      "bytes": 20495,
+      "lines": 181,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bf9af89bd643c5f72ef92b42615c0ae9eb6e065",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "bytes": 61438,
+      "lines": 1443,
+      "ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          105,
+          120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "848dadf550fbd4a7ed4126d4c53c5c5a4493c4fd",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "bytes": 41036,
+      "lines": 1230,
+      "ranges": [
+        [
+          1198,
+          1225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          2355,
+          2410
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          2420,
+          2476
+        ],
+        [
+          2620,
+          2710
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "bytes": 101966,
+      "lines": 2950,
+      "ranges": [
+        [
+          2648,
+          2710
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/rendering.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "14a638dff84b04a71fa1e4a8e43bdcb38848644f",
+      "sha256": "e531b0e83c90c4cb9dffb531507b1eecb17ba623c8a93bdd3e1fdb92e8f65879",
+      "bytes": 15675,
+      "lines": 445,
+      "ranges": [
+        [
+          60,
+          80
+        ],
+        [
+          180,
+          206
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/trade/merchant.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a7db589d041703d714a9277ca24fc90ada3a1a9e",
+      "sha256": "04d54c2a6dc1b2e6bddce07a039a5cdc4da910365acf36223ff9fb9e3f461d32",
+      "bytes": 26707,
+      "lines": 415,
+      "ranges": [
+        [
+          204,
+          220
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/problem-cap-sources/11.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-176.json",
+      "sha256": "a6f1d5b6b9abbc2c6adda9928d5661ff9b4503baf6a559c731968b200cd72df6",
+      "bytes": 8813,
+      "git_blob": "52ba8bb447287e54511572c03188c3074748653e",
+      "preserved_bytes": "recovered/problem-cap-059/a6f1d5b6b9abbc2c6adda9928d5661ff9b4503baf6a559c731968b200cd72df6.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 Lens 13 delegated receipt for the original PR-working role, preserving its policy question, attribution and zero accepted unique-count change. It is not checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/284",
+      "qualification": "PL13-178 already identified sequential caps versus net-sum caps for mixed signed consequences as an unresolved policy/native-population question. This trace extends selected current source evidence, preserving the earlier attribution, wider scope and zero unique-count change."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 953,
+      "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+      "historical_sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-948-953.json",
+      "qualification": "Separate full historical Lens 1 read of the exact frozen PR-working body, byte-identical to the selected 95e source. Identical bytes do not transfer other lens credit or restore checkpoint 3821."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-LOCAL-PROBLEM-SIGNED-CAP-ORDER-001",
+      "severity": "unassigned; cap policy and supported coexistence of the mixed records remain unresolved",
+      "classification": "Source-derived public aggregate counterexample and selected current trade-consumer trace, extending the same earlier 059 open policy rather than asserting a new historical unique finding.",
+      "trace": "aggregate_consequences filters active unresolved rows, sorts their IDs lexically, takes at most three, scales each buy modifier by incident severity and mitigation, then clamps the running buy total to ±2500 basis points after every row. Thus the result is independent of input iteration order for distinct IDs, but changing which economic contribution owns an earlier opaque ID can change the result. aggregate uses a similar per-row signed clamp without incident scaling. No source states that ID order itself is an economic priority in these selected functions.",
+      "source_derived_example": "Consider exactly three active, unresolved rows with no mitigation: buy modifiers +1200 at incident count 5, +900 at count 1, and -200 at count 1. The first scales to +2400; the others remain +900 and -200. If their increasing IDs order the contributions +2400, +900, -200, the running totals are 2400, 2500, 2300. If increasing IDs instead order -200, +2400, +900, the totals are -200, 2200, 2500. Net sum then clamp would give 2500 for either. With a hypothetical pre-adjustment quote of 100, adjust_price yields 123 versus 125. These are representable API inputs and source arithmetic, not an executed generation, purchase or actual world state.",
+      "producers_and_consumers": "The local fallback generator contains the -200 smuggler effect and makes an opaque problem ID; ensure_settlement_problems only creates a fallback when no active problem is present. The quest catalogue includes +1200 recurring bandits and +900 loss consequences, which the solver copies into generated cases; materialize_generated_problem stores those effects and initial incident count, and the incident updater can raise a generated count. Generated problem IDs are separately derived scoped hashes. The selected settlement_effects and gateway view both load native rows and call the core aggregator; merchant purchase paths and the web quote apply the resulting buy modifier. The selected code does not prove these three rows coexist with the required chronology and ordering in an ordinary world.",
+      "safeguards_and_limits": "Sorting makes a fixed set of IDs deterministic and truncation intentionally bounds selected active rows. The example has exactly three so no truncation-selection ambiguity is needed. Actual coexistence, authority creation limits, incident schedules, hash order, full price-rounding policy and whether sequential clamping is intended remain open. Sell, disease and encounter fields have separate nonnegative or capped policies; this trace does not assert the same mixed-sign effect for them.",
+      "connected_repair": "Establish the intended semantics for combining positive and negative buy effects. If the intended policy is a cap on the net aggregate, accumulate in a sufficiently wide type and apply the cap once after the admitted active set is selected; preserve deterministic active selection, per-record incident scaling, mitigation, other independently bounded fields and current price rounding. If ID-ordered saturation is intentional, make that priority explicit and assess whether opaque identity is an appropriate authority.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover mixed-sign contributions before and after both caps, ID permutations, exactly three and excess active records, incident scaling, mitigation, and quote/purchase agreement using supported authority records.",
+      "discovery": "partial; cap policy, supported concurrent records, full active selection, all consumers and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

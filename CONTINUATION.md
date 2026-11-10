@@ -157,6 +157,12 @@ dimensions and earlier 059 question retain their separate qualifications.
 `ASSESSMENT-L01-HISTORICAL-937-947.json` records separate frozen catalogue,
 validation and reference source reads. Current and independent-lens work
 remains open; source tests and fixtures were not run.
+`ASSESSMENT-L04-LOCAL-PROBLEM-CAPS-95E.json` records the mixed-sign
+cap-order counterexample and selected trade consumers. The cap policy,
+supported coexistence and earlier 059 attribution remain explicit.
+`ASSESSMENT-L01-HISTORICAL-948-953.json` records separate frozen knowledge,
+leadership, life, speed and local-problem source reads. The speed snapshot
+differs from the current body; independent lenses remain open.
 `ASSESSMENT-L01-UNARMED-95E.json` traces the strategic unarmed yield
 gate and selected empty-hand action work, retaining tactical safeguards
 and prior unarmed qualifications. No attack or encounter was run.
