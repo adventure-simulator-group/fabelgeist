@@ -1,0 +1,97 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 470,
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "snapshot": "pinned-bevy-replicon-0.41.1",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/470",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "lines": 348,
+      "new_personal_read_ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/bevy-replicon-0.41.1-archive/MANIFEST.json",
+      "matching_archive_member": "bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "personal_read_provenance": "This role body personally read; duplicate role identity remains distinct.",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read for exact bytes; separate registered snapshot identity is retained. Package is checksum-bound to the current Cargo.lock, but feature resolution, application use, connected scope and independent lenses remain open. Source tests and examples were read, not run."
+    },
+    {
+      "original_index": 471,
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+      "snapshot": "pinned-bevy-replicon-0.41.1",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/471",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "lines": 1386,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1386
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/bevy-replicon-0.41.1-archive/MANIFEST.json",
+      "matching_archive_member": "bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "personal_read_provenance": "This role body personally read; duplicate role identity remains distinct.",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read for exact bytes; separate registered snapshot identity is retained. Package is checksum-bound to the current Cargo.lock, but feature resolution, application use, connected scope and independent lenses remain open. Source tests and examples were read, not run."
+    },
+    {
+      "original_index": 478,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "snapshot": "pinned-bevy_replicon-0.41.1",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/478",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "lines": 348,
+      "new_personal_read_ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/bevy-replicon-0.41.1-archive/MANIFEST.json",
+      "matching_archive_member": "bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "personal_read_provenance": "Body personally read as role 470; byte-for-byte identity with this separately registered role verified.",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read for exact bytes; separate registered snapshot identity is retained. Package is checksum-bound to the current Cargo.lock, but feature resolution, application use, connected scope and independent lenses remain open. Source tests and examples were read, not run."
+    },
+    {
+      "original_index": 479,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+      "snapshot": "pinned-bevy_replicon-0.41.1",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/479",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "lines": 1386,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1386
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/bevy-replicon-0.41.1-archive/MANIFEST.json",
+      "matching_archive_member": "bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "personal_read_provenance": "Body personally read as role 471; byte-for-byte identity with this separately registered role verified.",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read for exact bytes; separate registered snapshot identity is retained. Package is checksum-bound to the current Cargo.lock, but feature resolution, application use, connected scope and independent lenses remain open. Source tests and examples were read, not run."
+    }
+  ],
+  "observations": [
+    "RuleFns stores typed serialization, deserialization, in-place and consume functions, while the registry uses erased function pointers with a same-component-type safety requirement and a debug assertion. Default deserialization maps entities; in-place updates replace the component, while diff handling distinguishes snapshots from ordered buffered diffs. Actual registry registration, type identity, error contexts and supported application rules require separate traces.",
+    "consume_as_deserialize sets ignore_mapping true before calling the decoder and resets it on success, but an error returns before the reset. Whether the same context can be used after that error, and any application effect, require caller/error-path inspection; no failure or state leak is asserted.",
+    "Replication rules register components, filters and priority; matching requires every filter and component. The insertion implementation claims to preserve same-priority creation order but the tail case with several equal priorities needs the pinned native binary-search guarantee and actual consumers before assessing a defect. Examples and tests were read, not run.",
+    "Hyphenated and underscored snapshot names remain separate historical roles. Their respective files are byte-identical, so one personal reading of each exact body is explicitly associated with both roles without asserting any other revision or lens completion. Both match the locally recovered archive whose checksum is in current Cargo.lock; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace registry identity safety, receive error handling and context lifetime, same-priority ordering and selected rules, application registration, enabled features and historical aliases. Independently assess every lens."
+}

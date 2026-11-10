@@ -1,0 +1,10 @@
+"""Verify distinct recorded native roles against a current lock-bound archive."""
+import gzip,hashlib,json,tarfile,tomllib
+from pathlib import Path
+root=Path(__file__).resolve().parent; m=json.loads((root/'native-evidence/bevy-replicon-0.41.1-archive/MANIFEST.json').read_text()); lock=gzip.decompress((root/m['current_lock_evidence']).read_bytes()); blob=hashlib.sha1(b'blob '+str(len(lock)).encode()+b'\0'+lock).hexdigest(); tree=dict(line.split('\t',1)[::-1] for line in (root/'main-advance-95e/current-tree.tsv').read_text().splitlines()); assert tree['Cargo.lock'].split()[-1]==blob
+packages=tomllib.loads(lock.decode())['package']; found=[p for p in packages if p['name']==m['package'] and p['version']==m['version']]; assert len(found)==1 and found[0]['checksum']==m['sha256']; w=json.loads((root/'COVERAGE-L01-ROLES.json').read_text())['roles']; doc=json.loads((root/'ASSESSMENT-L01-HISTORICAL-470-471-478-479.json').read_text()); assert [r['original_index'] for r in doc['historical_source_roles']]==[470,471,478,479]
+with tarfile.open(root/'recovered/original-registry-source-archive/objects.tar.gz') as historic, tarfile.open(root/'native-evidence/bevy-replicon-0.41.1-archive'/m['archive']) as native:
+ for row in doc['historical_source_roles']:
+  r=w[row['original_index']]; body=historic.extractfile(row['sha256']).read(); assert r['source_id']==row['source_id'] and r['historical_sha256']==row['sha256'] and hashlib.sha256(body).hexdigest()==row['sha256'] and native.extractfile(row['matching_archive_member']).read()==body and len(body.splitlines())==row['lines'] and row['new_personal_read_ranges']==[[1,row['lines']]] and r['status']=='full-historical-body-trace-open'
+assert doc['historical_source_roles'][0]['sha256']==doc['historical_source_roles'][2]['sha256'] and doc['historical_source_roles'][1]['sha256']==doc['historical_source_roles'][3]['sha256'] and doc['historical_source_roles'][0]['snapshot']!=doc['historical_source_roles'][2]['snapshot']
+print('verified four distinct historical roles, two identical body pairs and current lock archive binding')

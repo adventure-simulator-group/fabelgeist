@@ -1,0 +1,47 @@
+{
+  "schema": "726-native-archive-evidence-v1",
+  "package": "bevy_replicon",
+  "version": "0.41.1",
+  "archive": "bevy_replicon-0.41.1.crate",
+  "sha256": "a25105650eb1b27c6ada888e06bb38ff7e326a94c7c5b4d75fb5aee50c5ae45e",
+  "bytes": 174508,
+  "provenance": "Locally cached crate archive, verified against the separately preserved Cargo.lock at current source revision 95e; the two distinct historical snapshot labels have byte-identical registered source members.",
+  "qualification": "Exact package and source bytes only; no compiled feature resolution, native scheduling, runtime execution or independent lens completion.",
+  "inspected_members": [
+    {
+      "path": "bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "bytes": 11816
+    },
+    {
+      "path": "bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "bytes": 46609
+    },
+    {
+      "path": "bevy_replicon-0.41.1/LICENSE-APACHE",
+      "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
+      "bytes": 10173
+    },
+    {
+      "path": "bevy_replicon-0.41.1/LICENSE-MIT",
+      "sha256": "44e960a99520ca181e916d491ed0bd05bcd2cab46a1602174221d0a224468e76",
+      "bytes": 1078
+    }
+  ],
+  "personally_inspected_ranges": {
+    "bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs": [
+      [
+        1,
+        348
+      ]
+    ],
+    "bevy_replicon-0.41.1/src/shared/replication/rules.rs": [
+      [
+        1,
+        1386
+      ]
+    ]
+  },
+  "current_lock_evidence": "main-advance-95e/basis-wire-sources/01.source.gz"
+}
