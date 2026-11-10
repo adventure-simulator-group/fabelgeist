@@ -1,0 +1,81 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 406,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/406",
+      "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "lines": 649,
+      "new_personal_read_ranges": [
+        [
+          1,
+          649
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 407,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/407",
+      "sha256": "734717189e02b8266dcc04626015d9fee4bb6e32d7a5816040db8d0a94d0f379",
+      "lines": 163,
+      "new_personal_read_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 408,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/408",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "lines": 431,
+      "new_personal_read_ranges": [
+        [
+          1,
+          431
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 409,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/409",
+      "sha256": "3454be3e36e9ce85770800d62425263aa87627bdcea264b6ab2803d24d3eeb02",
+      "lines": 167,
+      "new_personal_read_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical fixed-step duel harness constructs an isolated app, advances a bounded tick loop, and records timeout or terminal resolution and elapsed time. On an exhausted loop its initial final_tick sentinel and later +1 form the same conditional source issue already recorded at checkpoint 059; no duel was executed or current coverage inferred.",
+    "The historical iteration equipment fixture explicitly inserts a body-part EquipSlot on each armor entity, unlike the separately traced current normal connected-player projection that assigns only held hand slots. This difference is a fixture/source observation, not evidence that any iteration or production test passed.",
+    "Historical logging separates decisions, resolved contacts, armor surfaces, energy fields, condition changes and wounds; it derives report entries from post-consequence observations. Event completeness, no-observation cases, exact identities and current report consumers require independent connected inspection.",
+    "Source tests were read but not run. No tactical duel, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current timeout count and elapsed/report consumers, iteration fixture versus live projection, logging attribution and empty/missing event policy, and all prior aliases. Independently assess every lens without product validation."
+}
