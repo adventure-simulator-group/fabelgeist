@@ -1,0 +1,104 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 215,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/215",
+      "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+      "lines": 1381,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1381
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 216,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/216",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "lines": 43,
+      "new_personal_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 217,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/217",
+      "sha256": "98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "lines": 600,
+      "new_personal_read_ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 218,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/218",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "lines": 21,
+      "new_personal_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 219,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/219",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "lines": 241,
+      "new_personal_read_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical foraging validates a gateway terrain-package attestation against canonical location, normalizes source selection, plans and rechecks authority, then records an immutable attempt and concrete harvested material identities. The attestation producer and release digest have separate provenance and require complete current traces.",
+    "Historical foraging terminal preview uses injury and disease boundaries before clock advancement, while partial attempts do not emit full yield. Clock exhaustion and terminal/capability behavior require independent source and numerical assessment.",
+    "Historical herbalism stores an explicitly matured tincture process and medicinal carrier components, validates custody and dose before intervention, and consumes a measured ground ingredient. World versus personal clock, physical quantities, replay and treatment admissions remain open.",
+    "Historical inventory amount rows store raw millionth fractions and reconstruct ConsumableFractionMicros for consumption; transfer moves the raw stored amount. The prior bounded c100 observation for role 219 remains linked separately; all native admission and transfer paths remain open.",
+    "Historical source tests were read, not executed. These historical bodies grant no current 95e or checkpoint 3821 credit."
+  ],
+  "remaining": "Trace current environment attestation, forage request and output lineage, disease/injury time boundaries, tincture production/consumption and fixed-point amount admission across all consumers; reconcile aliases and independently assess each lens."
+}
