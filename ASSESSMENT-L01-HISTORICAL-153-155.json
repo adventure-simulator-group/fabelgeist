@@ -1,0 +1,63 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 153,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/153",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "lines": 1363,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1363
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read and not executed. Current sources, connected identities, historical aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 154,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_state.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/154",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "lines": 573,
+      "new_personal_read_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read and not executed. Current sources, connected identities, historical aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 155,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_state/vocabulary.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/155",
+      "sha256": "87baee6fe0607a7000600790507d24701630db771b54e221ce571cd98db34c13",
+      "lines": 104,
+      "new_personal_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read and not executed. Current sources, connected identities, historical aliases and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical schedule code calculates activity and training allocations, leisure spans and outcomes, with additional allocation logic in a separate module.",
+    "Historical strategic-state parsers relate flattened contract, mission, commitment, courtship, marriage and pregnancy fields to typed state variants; a separate vocabulary defines persisted lifecycle discriminants.",
+    "Source test bodies were inspected but not executed. Reading these files does not establish current reducer admission, chronology, downstream state or checkpoint 3821 status."
+  ],
+  "remaining": "Trace current schedule admissions, persistent row parsers and all producers/consumers, chronology and aggregate invariants, historical aliases and independent lenses."
+}
