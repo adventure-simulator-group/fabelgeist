@@ -26,6 +26,8 @@ clock-boundary nonprogress case with production reachability still open.
 `ASSESSMENT-L01-CHARACTER-RENAME-95E.json` records a conditional caller
 authority concern; deployed exposure and unauthorized invocation remain
 unverified.
+`ASSESSMENT-L01-RELIGIOUS-DEMAND-95E.json` records a conditional strategic
+demand failure and an unresolved demand-to-session ownership boundary.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its

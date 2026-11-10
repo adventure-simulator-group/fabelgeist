@@ -1,0 +1,258 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded demand producer, strategic web recipient and tactical/server identity trace. Other producers, authorization policies and independent lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          133,
+          150
+        ],
+        [
+          1457,
+          1514
+        ],
+        [
+          1548,
+          1557
+        ],
+        [
+          1611,
+          1693
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          61,
+          123
+        ],
+        [
+          2192,
+          2202
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          493,
+          564
+        ],
+        [
+          568,
+          604
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          904,
+          966
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/religion_party.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d09ee3bc035bd8b04a6a15993b9c9020dc65b73e",
+      "sha256": "72dc443abb7b08c90c9d3d5011156bf8d9249fef943b4271588974e792f7be79",
+      "bytes": 980,
+      "lines": 34,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/religion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "357b43e86b3352f95bd5364640a55557cb1a135c",
+      "sha256": "d07ad59ee68407bad48d139fb2efa42f01fc051db8038fc8bd1aa8ad7143d845",
+      "bytes": 2629,
+      "lines": 80,
+      "ranges": [
+        [
+          56,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d919fa22b01fe70b978fc79684a40e46c97e943",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "bytes": 12716,
+      "lines": 382,
+      "ranges": [
+        [
+          280,
+          289
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/spacetimedb/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c68589ff20851f657da1a519b5c77875a2f2c690",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "bytes": 8664,
+      "lines": 273,
+      "ranges": [
+        [
+          65,
+          94
+        ],
+        [
+          192,
+          219
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2608b1b8f024aaf7028af79fcba7d6ea6ffbcfa9",
+      "sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "bytes": 26656,
+      "lines": 762,
+      "ranges": [
+        [
+          69,
+          111
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/session.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "21d6f607f5a778eac502506df252cb5ef248257f",
+      "sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+      "bytes": 11327,
+      "lines": 355,
+      "ranges": [
+        [
+          162,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/router.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "81bd89ee2e3ac1f0966f26b37216955a7737d51c",
+      "sha256": "7d2566d75160332f84c1737a048d199b68e99e9ec0e504ef3dfea46f3c1c8ae2",
+      "bytes": 22923,
+      "lines": 586,
+      "ranges": [
+        [
+          347,
+          357
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/location_urls/patterns.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "84736fae737f9c20928e6eb767f0dd522c80ef6b",
+      "sha256": "cbe71f461a1ace891f293e332766a0d8028bbe81d0e8b9e2051fe74763ab7b78",
+      "bytes": 9782,
+      "lines": 148,
+      "ranges": [
+        [
+          120,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/app_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "45fb6631ffd528690d484a130e4f8f4fdc4c09a0",
+      "sha256": "3603053afda8d88e5903d8556885d3dd8b060f2d7f39d64aba258471a2637eef",
+      "bytes": 493,
+      "lines": 13,
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/religious-demand-sources/12.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected in the c100 source checkout; preserved 95e and c100 tree inventories bind identical current blobs. The separate physical-p16 body read retains its original attribution.",
+  "candidate": {
+    "id": "REVIEW-RELIGIOUS-DEMAND-TACTICAL-AUTHORITY-001",
+    "classification": "source-derived strategic action failure caused by comparing gateway sender to tactical-assignment identity; supported pending-demand reachability and runtime unverified",
+    "detail": "The strategic web form displays observe/refuse for a pending demand, and its selected-character route invokes resolve_religious_demand through the same authenticated database client that registered the nonzero strategic gateway. The reducer instead compares ctx.sender to Character.server. Character construction initializes server to Identity::ZERO; tactical enrollment sets it to the tactical server identity and mission leave clears it. Given a pending demand for an unassigned character, the registered nonzero gateway cannot equal that zero field, so the reducer source returns the player-only error before either choice is applied. The web handler logs an error and redirects. This is a source-derived conditional result; no database, web or runtime probe was performed.",
+    "safeguards": "The web page queries a pending demand for the selected character, and the route checks the session character against its character_id path. The reducer checks a living target, pending status, supported choice, and settlement/day constraints for observing a holy day. Registration requires a nonzero authenticated gateway identity. None of those facts establishes production demand creation or a demonstrated player failure.",
+    "connected_scope": "Condition refresh and demand creation/expiry; Character.server construction, enrollment and teardown; strategic gateway registration and client identity; session-selected character, route path and demand ownership; observing/refusing effects, authorization helper, simulation ownership and user-facing error handling. The web handler sends only demand_id and choice to the reducer and does not compare the demand row\u2019s character_id with the selected session character in its body; evaluate that relationship before changing the reducer gate.",
+    "proposed_repair": "After exhaustive discovery, use the appropriate strategic character-mutation authority rather than tactical assignment, and enforce the intended selected-character-to-demand relationship at the trusted browser boundary or an equivalent authoritative seam. Preserve pending-state, choice and holy-day checks, tactical isolation and intentional simulation access; do not add compatibility paths.",
+    "later_acceptance": "After product validation is authorized, exercise observe and refuse for a valid pending demand on an unassigned character through the authorized gateway; ensure the selected character cannot resolve another character\u2019s demand, unauthorized direct senders fail, and intended disposable simulation ownership works if allowed. Check expiry, same-day and settlement rules, failure reporting, and no unintended tactical state persistence.",
+    "related_candidates": [
+      "REVIEW-CHARACTER-RENAME-AUTHORITY-001"
+    ],
+    "relationship_qualification": "Both concern strategic character mutation authority but affect distinct reducer and browser boundaries; they are not established duplicates. No exact historical alias is established; historical queue remains unreconciled.",
+    "discovery": "partial; demand reachability, owner binding, all entry points, policy and historical aliases remain open",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "remaining": "Trace all demand producers, browser and direct clients, ownership mapping, tactical overlap, simulation policy and historical aliases; independently assess behavior, authority and aggregate-state lenses. No product validation or repair."
+}
