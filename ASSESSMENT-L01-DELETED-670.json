@@ -1,0 +1,89 @@
+{
+  "schema": "726-deleted-historical-base-read-v1",
+  "lens": 1,
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs",
+  "original_index": 670,
+  "registry_pointer": "/files/670",
+  "snapshot": "pr-working",
+  "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "registry_state": "deleted",
+  "snapshot_sha256": null,
+  "historical_object_available": false,
+  "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "base_sha256": "1c74872f4983d3d79a526dff9b345c9d8dfbbf1178e1caccdbcdd897f9fb3b28",
+  "base_git_blob": "e2fe150e7074f86162c651eaae1983e169b26fee",
+  "base_bytes": 2402,
+  "base_lines": 69,
+  "new_personal_base_read_ranges": [
+    [
+      1,
+      69
+    ]
+  ],
+  "preserved_base_bytes": "recovered/deleted-source-base-objects/1c74872f4983d3d79a526dff9b345c9d8dfbbf1178e1caccdbcdd897f9fb3b28",
+  "commit_proof": {
+    "git_commit": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "sha256": "c641ff9fbb9e8502794b0318f4916068c7562c47044cc6040c244df5fe391414",
+    "bytes": 1221,
+    "preserved_bytes": "deleted-669-670-base-proof/commit.gz"
+  },
+  "tree_proof": [
+    {
+      "tree": "872a3e907813784f59411e0d2e14bb1e5ac55fb6",
+      "bytes": 1635,
+      "sha256": "2da61ed0dc839235c4286d89018414acf2b68eb184dfde74b23219b7c13d99c4",
+      "preserved_bytes": "deleted-669-670-base-proof/tree-670-00.gz",
+      "component": "crates",
+      "entry_mode": "40000",
+      "entry_kind": "tree",
+      "entry_oid": "cf91797117033f89391b20b098a3cfcec3599774"
+    },
+    {
+      "tree": "cf91797117033f89391b20b098a3cfcec3599774",
+      "bytes": 2347,
+      "sha256": "8c9788f6b5fc7a7d2fe131397c112c21740eba7d6ca69ea2a979b4781ecb01dd",
+      "preserved_bytes": "deleted-669-670-base-proof/tree-670-01.gz",
+      "component": "adventuresim-building-generator",
+      "entry_mode": "40000",
+      "entry_kind": "tree",
+      "entry_oid": "6695092f0568b6cc0b5b10dbb2c804ee432c9547"
+    },
+    {
+      "tree": "6695092f0568b6cc0b5b10dbb2c804ee432c9547",
+      "bytes": 216,
+      "sha256": "d72a80bb1fb798fed20a5de93f3371f00108c9dfb3935150697dc4de83f6a112",
+      "preserved_bytes": "deleted-669-670-base-proof/tree-670-02.gz",
+      "component": "src",
+      "entry_mode": "40000",
+      "entry_kind": "tree",
+      "entry_oid": "0aa4c1d7c6f94ab022909dad9273f6797c9ca356"
+    },
+    {
+      "tree": "0aa4c1d7c6f94ab022909dad9273f6797c9ca356",
+      "bytes": 2129,
+      "sha256": "4f144891d4f4192a3a48d8bd6e04ad2da348663038cc6b6515cace44ab8eb35c",
+      "preserved_bytes": "deleted-669-670-base-proof/tree-670-03.gz",
+      "component": "spatial_geometry",
+      "entry_mode": "40000",
+      "entry_kind": "tree",
+      "entry_oid": "760324c011d8886ea006b3203aff356b5a23f153"
+    },
+    {
+      "tree": "760324c011d8886ea006b3203aff356b5a23f153",
+      "bytes": 399,
+      "sha256": "eb3db05ab28e253f37ee7ff01c8624e4c56d29813a97e7864056aef6110ba499",
+      "preserved_bytes": "deleted-669-670-base-proof/tree-670-04.gz",
+      "component": "measurement.rs",
+      "entry_mode": "100644",
+      "entry_kind": "blob",
+      "entry_oid": "e2fe150e7074f86162c651eaae1983e169b26fee"
+    }
+  ],
+  "current_95e_path_status": "absent in current source tree",
+  "qualification": "The frozen pr-working registry records this path as deleted with no snapshot body. This is a full read of separately recovered pre-deletion base bytes at 3a50, not a restored snapshot body or checkpoint 3821. Prior supplier claims retain their original attribution; current owner and migration semantics require independent tracing.",
+  "observations": [
+    "The pre-deletion base owns finite signed length and nonnegative area with checked deserialization; the pr-working snapshot deletes this path.",
+    "The current shared fabelgeist-geometry owner was separately inspected, but source relocation, exact behavior preservation and all consumers remain open."
+  ],
+  "remaining": "Assess the frozen deletion and actual replacement/consumers, reconcile historical owner and aliases, and independently assess all thirteen lenses."
+}

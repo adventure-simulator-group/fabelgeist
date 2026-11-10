@@ -127,6 +127,9 @@ role from its independently verified pre-deletion base revision and bytes.
 `ASSESSMENT-L01-DELETED-501.json` and `ASSESSMENT-L01-DELETED-2416.json`
 prove two distinct pre-deletion icon paths; their deleted-snapshot bodies
 remain absent and the matching bytes do not establish a rename.
+`ASSESSMENT-L01-DELETED-669.json` and `ASSESSMENT-L01-DELETED-670.json`
+prove and read separately attributed pre-deletion geometry source bytes; their
+frozen pr-working snapshot bodies are absent.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
