@@ -1,0 +1,340 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Public standing-clearance finite-difference failure and selected callers; independent lenses and all aliases remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-building-generator/src/interior/exterior_access.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a2970d3e9ab9359556aa67f81ed59f6ddfc1ab2e",
+      "sha256": "d894566a0df2de9fac64d4c280d294f9254efa76ee57571735fec57eb1213abf",
+      "bytes": 5939,
+      "lines": 150,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/interior.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6b2dd78df6ff308440857eb8249bb2a37a4e39c4",
+      "sha256": "6dfb61f15cc323392577e8773083c09ea549a3efaace1d3c92802e113ba026cd",
+      "bytes": 4816,
+      "lines": 129,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/interior/geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "884c0c55670969cb32c04e5e28e9fce2057d96fa",
+      "sha256": "ab00aade1ddd259c070bf761e9877e4c5f08ac7cf31913b4d7448ea389123509",
+      "bytes": 12154,
+      "lines": 317,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/interior/obstruction.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "df0468bb4610b721a59d1edd8312c5e955debce6",
+      "sha256": "8d952e88a1c730d20672d0ac7fe4e79cc14a7fab083ca6943dd22639d4a7ecf8",
+      "bytes": 6400,
+      "lines": 183,
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/collision.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a6c46810a4f99d21d7abcb28aba368f8a01654a",
+      "sha256": "59ae010bf4fbedc4f9daf16fc207e3f5ca674ff20a2c5d5b6b9699d291478f97",
+      "bytes": 16846,
+      "lines": 448,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4598cde9373fd11d4f5ab31e81e67c6121345514",
+      "sha256": "2d9a1cfbd92acc218b8fb3abaf6f579fde6217c2f3776ece0539c340602baec9",
+      "bytes": 3803,
+      "lines": 111,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "075230eedec0c547d9cd1e0f35792db508c7a7f4",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "bytes": 1025,
+      "lines": 29,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e3f275dc4b938f000cc010be82743b1cb5169457",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "bytes": 4747,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56ac7196a6cd62b5906f7c2d234aeb685f4df39e",
+      "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "bytes": 3660,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "74f867e9f76d9f60dae0c7545e59b174f7ba66a5",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "bytes": 1026,
+      "lines": 28,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "50e1c31321297a19b2c3b240c4a540bfbd0c7153",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "bytes": 5142,
+      "lines": 142,
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          82,
+          104
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1cb0d7f399f2c32fe44d67f5bdfcb04d4bd99fd9",
+      "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "bytes": 4298,
+      "lines": 126,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ca89018e525af6b5643767d87d80297ea0bb3b6",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "bytes": 3508,
+      "lines": 104,
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "141799cbeae6e2217c54e50e7182aebc45a3b162",
+      "sha256": "a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+      "bytes": 5305,
+      "lines": 130,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/church.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e9ab7015f705fb437a4ab0394db6c64efd48ba49",
+      "sha256": "4c7f3a60ae0b9d5235a28f6b98f9afe43ab8d1be3210f5a1e225c12310d4c464",
+      "bytes": 5936,
+      "lines": 145,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6d08f09d952d44091e3a7075bf4fbe749da7dd83",
+      "sha256": "3b24f23b5d97ab3d5972f16e995d7d8450f677065fbce6a69f4e080ca83d7216",
+      "bytes": 5524,
+      "lines": 146,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          2292,
+          2302
+        ],
+        [
+          5420,
+          5431
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standing-clearance-sources/16.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_dependencies": [
+    {
+      "manifest": "native-evidence/glam-0.32.1/MANIFEST.json",
+      "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+      "source_member": "glam-0.32.1/src/f32/vec2.rs",
+      "personally_inspected_ranges": [
+        [
+          1573,
+          1581
+        ]
+      ],
+      "qualification": "Lock-bound source: componentwise Vec2 subtraction. No feature resolution or product execution claimed."
+    }
+  ],
+  "inspection_provenance": "Selected source ranges personally read and preserved, bound to 95e Git tree and identical predecessor entries; frozen role 629 and checkpoint 059 retain independent attribution. No product code ran.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "ledger_pointer": "/discovery_findings_and_dependencies/SEGOVB-L13-STANDING-SLAB-FINITE-DIFFERENCE",
+    "id": "SEGOVB-L13-STANDING-SLAB-FINITE-DIFFERENCE",
+    "proposed_id": "PL13-055-STANDING-SLAB-FINITE-DIFFERENCE",
+    "historical_source_role": {
+      "index": 629,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/exterior_access.rs",
+      "sha256": "d894566a0df2de9fac64d4c280d294f9254efa76ee57571735fec57eb1213abf",
+      "assessment": "ASSESSMENT-L01-HISTORICAL-629-630.json",
+      "relation": "exact byte match"
+    },
+    "qualification": "Recovered 059 source and record are earlier evidence, not checkpoint 3821; no historical state is promoted."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-STANDING-CLEARANCE-FINITE-OVERFLOW-001",
+      "severity": "P2 provisional; an admitted extreme finite public clearance query can be reported clear when its segment crosses an ordinary obstacle",
+      "classification": "current source trace of the same first failure and example already recorded at recovered checkpoint 059; not a new unique historical defect",
+      "detail": "Position::from_metres and its deserializer admit any finite framed coordinates. StandingClearance::new checks projected obstacle bounds, but segment_intersects subtracts the native endpoints into Vec2 without admitting the result, then divides native slab numerators by that delta. Finite endpoint admission does not ensure finite intermediate subtraction. Position::displacement_to owns a checked displacement, but this operation does not use it.",
+      "conditional_case": "Use the recovered 059 example, M=f32::MAX; an upright unrotated cuboid centred at (0,0.9,0.5), sized (1,1.8,0.1), with floor 0 gives a finite projected and radius-expanded rectangle near x [-0.8,0.8], z [0.15,0.85]. The affine segment from (-M,0,0) to (M,0,1) crosses that rectangle near t=0.5. In the native slab code, x delta M - (-M) overflows to +infinity, while the two finite near-M x numerators divided by it yield zero. The x interval therefore leaves at 0; the z interval enters at a positive parameter, so the function rejects the intersection and is_clear returns true. This is source and IEEE-arithmetic reasoning, not an executed product operation or an observed plan.",
+      "consumer_and_safeguards": "The public API is re-exported from the interior module. Inspected callers use it for short conversation camera offsets, a church door-to-street approach, compound access against fixed obstacles, and access routes against front/rear buildings. Their distinct upstream production and geometry gates do not establish a supported extreme route; the ordinary staged conversation offset is 1.1 m. No generated city, blocked route, rendered scene, gameplay effect or runtime incident is claimed.",
+      "connected_scope": "StandingClearance operation admission or robust arithmetic, Position/Displacement ownership, obstruction projection, route and conversation callers, error propagation, zero-length and tangency semantics, and historical aliases.",
+      "proposed_repair": "After the audit and implementation authorization, choose a documented robust full admitted-domain computation or a checked/fallible operation policy at the actual slab boundary. Propagate any errors through all actual callers; preserve legitimate zero extents and ordinary route semantics, and avoid compatibility paths or arbitrary restrictions on unrelated geometry.",
+      "later_acceptance": "When product validation is authorized, cover this opposite-finite-endpoint example, ordinary short and rotated routes, zero-length segments, inclusive tangency and error propagation through the conversation, church and both property route paths.",
+      "historical_related_candidates": [
+        "SEGOVB-L13-STANDING-SLAB-FINITE-DIFFERENCE",
+        "PL13-055-STANDING-SLAB-FINITE-DIFFERENCE"
+      ],
+      "relationship_qualification": "The recovered 059 ledger already records this exact first failure, source hash, case and repair scope with accepted unique count change 0; its original status, attribution and revision are unchanged. This direct relation does not complete global alias reconciliation, mark any of the 3713 queue records semantically reconciled or restore checkpoint 3821.",
+      "discovery": "partial; supported real input reachability, complete callers, numeric policy, related aliases and all independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace supported route admission and complete callers, decide numeric operation policy, reconcile related historical aliases and independently complete all lenses."
+}

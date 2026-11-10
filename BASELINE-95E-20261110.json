@@ -597,6 +597,20 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-HEATING-FRAME-95E.json"
+      },
+      {
+        "id": "REVIEW-STANDING-CLEARANCE-FINITE-OVERFLOW-001",
+        "severity": "P2 provisional; an admitted extreme finite public clearance query can be reported clear when its segment crosses an ordinary obstacle",
+        "classification": "current source trace of the same first failure and example already recorded at recovered checkpoint 059; not a new unique historical defect",
+        "historical_related_candidates": [
+          "SEGOVB-L13-STANDING-SLAB-FINITE-DIFFERENCE",
+          "PL13-055-STANDING-SLAB-FINITE-DIFFERENCE"
+        ],
+        "relationship_qualification": "The recovered 059 ledger already records this exact first failure, source hash, case and repair scope with accepted unique count change 0; its original status, attribution and revision are unchanged. This direct relation does not complete global alias reconciliation, mark any of the 3713 queue records semantically reconciled or restore checkpoint 3821.",
+        "discovery": "partial; supported real input reachability, complete callers, numeric policy, related aliases and all independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-STANDING-CLEARANCE-95E.json"
       }
     ]
   },
