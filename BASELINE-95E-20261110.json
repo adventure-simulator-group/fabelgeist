@@ -415,6 +415,19 @@
           "REVIEW-SLOTLESS-PROTECTIVE-CONTACT-OMISSION-001"
         ],
         "record": "ASSESSMENT-L01-PROTECTION-TOPOLOGY-95E.json"
+      },
+      {
+        "id": "REVIEW-ITERATION-TIMEOUT-COUNT-001",
+        "severity": "P3 provisional; conditional diagnostic accounting discrepancy, no runtime result",
+        "classification": "same first-failure family as checkpoint 059 ADLER iteration timeout count, independently traced at a changed 30 Hz current revision",
+        "discovery": "partial; supported timeout roster, native scheduler behavior, all report consumers and exact historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Checkpoint 059 describes the same sentinel/count first failure at its historical 64 Hz and 11,520-update scope. The 95e source instead imports a 30 Hz tick and the source example above is separately attributed; the old numbers and zero accepted unique-count change remain untouched. The historical clock role 2056 matches current bytes, while the loop roles 406 and 2055 differ. No checkpoint 3821 credit follows.",
+        "historical_related_candidates": [
+          "ADLER-L11-ITERATION-TIMEOUT-TICK-COUNT"
+        ],
+        "record": "ASSESSMENT-L01-ITERATION-TIMEOUT-95E.json"
       }
     ]
   }

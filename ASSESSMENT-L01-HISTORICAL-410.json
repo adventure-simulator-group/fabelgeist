@@ -1,0 +1,29 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 410,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/main.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/410",
+      "sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+      "lines": 726,
+      "new_personal_read_ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical server entry loads scene and combat configuration before startup, sets a transient mission state, registers combat/equipment/bot and network systems, and separately schedules live strategic connectivity and feature-gated standalone world restoration. Startup errors, actor authorization and mission transitions require their own source traces.",
+    "The historical startup arguments use raw timeout and reconnect durations at native timer construction and an explicitly hidden environment value for a tactical claim. Admission, command-line error behavior and actual deployment configuration remain open; no value of a claim was inspected or recorded.",
+    "Historical debug world restore uses a component allowlist, entity remapping and a deferred flush before re-marking replicated items; its source tests and comments do not establish native restoration correctness. No server, dump, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current startup/CLI admission, native timer limits, sensitive claim transport without exposing values, strategic/tactical boundary, normal and standalone reconnect/restore sequencing and all dependent source roles. Reconcile historical aliases and independently assess every lens."
+}

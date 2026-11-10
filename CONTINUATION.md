@@ -73,6 +73,8 @@ source-assertion needle and qualified staged authorization trace.
 contact query and qualifies its relationship to an earlier clothing receipt.
 `ASSESSMENT-L01-PROTECTION-TOPOLOGY-95E.json` traces conditional stale
 protective layers across hand and worn equipment transitions.
+`ASSESSMENT-L01-ITERATION-TIMEOUT-95E.json` separates current 30 Hz
+timeout-count arithmetic from the historical 64 Hz source record.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons

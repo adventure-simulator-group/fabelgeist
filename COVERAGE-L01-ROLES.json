@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2307,
+    "unassessed": 2306,
     "lock-metadata-partial": 2,
     "bounded-current-trace-only": 183,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 358,
+    "full-historical-body-trace-open": 359,
     "deleted-base-trace-open": 1
   },
-  "first_unfinished": "Physical-p16 tactical iteration harness, fixture and logging roles 406 through 409 now have full historical body reads. Continue at role 410; earlier dependencies and independent lenses remain open.",
+  "first_unfinished": "Physical-p16 tactical server entry role 410 now has a full historical body read. Continue at role 411; earlier dependencies and independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -5538,7 +5538,9 @@
       "historical_sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
       "registry_pointer": "/files/410",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-410.json",
+      "qualification": "Full body read only for this physical-p16 role; current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 411,
