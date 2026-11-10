@@ -1,0 +1,30 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 281,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/281",
+      "sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "lines": 1463,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1463
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; no current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical travel interruption scans deterministic combat and narrative boundaries, rechecks actual movement, retains a scan cursor and materializes a roster only after the party reaches the boundary. Geography, current route, weather, endpoint fallbacks and all external time producers require separate review.",
+    "The encounter draft and committed choice calculate an abstract party speed from fatigue, physical burden/capacity, party size and terrain; the committed speed affects run availability. The governing movement rule and current core speed formula require a separate source-bound assessment; this historical body alone does not establish current policy, supported state or player-visible failure.",
+    "Encounter resolution checks strategic caller authority, exact receipt retry coordinates, party leadership or delegated protective recovery, current identity/revision and available choice. Surrender refreshes stale loss previews, removes eligible inventory and reconciles party stakes; autoresolve commits bounded strategic effects and keeps the battle itself transient. Their lower ownership, transactional behavior and source aliases remain open.",
+    "No product source, historical alias or checkpoint 3821 state is inferred from the body read; no fixture, build, test or runtime probe ran."
+  ],
+  "remaining": "Trace current encounter speed and movement policy, fatigue and burden owners, roster/tactical handoff, loss and stake conservation, receipt/preview revisions, travel cursor and route producers; reconcile historical aliases and independently assess all lenses."
+}
