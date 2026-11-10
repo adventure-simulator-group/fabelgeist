@@ -1,0 +1,115 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 333,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/333",
+      "sha256": "5da51367e584ae158ebf0c1b3b4edc472dbc542fe12aa8b52682c918e1f42b62",
+      "lines": 575,
+      "new_personal_read_ranges": [
+        [
+          1,
+          575
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and local prediction/diagnostics were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 334,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/acquisition.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/334",
+      "sha256": "2e7f4ea1406c4d400b369bb79f73a65677af168b00a1d8eecc0489dbd013f746",
+      "lines": 409,
+      "new_personal_read_ranges": [
+        [
+          1,
+          409
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and local prediction/diagnostics were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 335,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/335",
+      "sha256": "aaa9212aceb6edf4e5fbe62c3630c1d0dd02774cb3347740b2936d490049e610",
+      "lines": 199,
+      "new_personal_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and local prediction/diagnostics were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 336,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/336",
+      "sha256": "8d0d41365f804ba69b7249db78e85fd95f091405b565cbcc2144bb269d944cc6",
+      "lines": 454,
+      "new_personal_read_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and local prediction/diagnostics were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 337,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/contact.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/337",
+      "sha256": "c2ecfdb4af316c360a84cf28f9b9e0217b87f33150794971dd656ec47239a599",
+      "lines": 82,
+      "new_personal_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and local prediction/diagnostics were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 338,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/338",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "lines": 128,
+      "new_personal_read_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and local prediction/diagnostics were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical local-player code binds control by character identity, predicts facing and attack timing, emits ranged contact reports and uses the sequenced input stream for quicksteps. Tactical motion, damage and tick authority remain transient server responsibilities; local prediction and a reported hit are not proof of authoritative state.",
+    "Acquisition groups candidates by body, checks side and incapacitation, line of sight, angular threshold and movement-assisted arrival, then retains the selected hitbox and typed local strike point. Ray/contact and server replay, actual collision filters, admitted range and moving targets require connected review.",
+    "Attack timing separates native seconds and animation samples, uses checked finite conversion before rounded sample spans, and derives lunge delay/continuation timing from the animation clock. Attack startup observes weapon facts, can buffer a melee input, and sends a request only after predicted admission. Exact server timing, clock synchronization, overflow, buffer invalidation and consequences remain open.",
+    "Quickstep diagnostics log changes between local skeleton and actuator snapshots. Source tests and assertions were read only; no application, simulation, build, test or runtime probe ran."
+  ],
+  "remaining": "Trace current tactical input and authoritative server validation, attack target and obstruction semantics, timed animation/continuation and buffer lifecycle, scalar and clock bounds, quickstep snapshots and historical aliases; independently assess every lens without persisting tactical tick state."
+}
