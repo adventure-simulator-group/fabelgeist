@@ -1,0 +1,134 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 536,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/536",
+      "sha256": "b193dcfbc5c217956be084a3a209210d25e9577770e14850470461292970ebbc",
+      "lines": 912,
+      "new_personal_read_ranges": [
+        [
+          1,
+          912
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 537,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/axle.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/537",
+      "sha256": "a52c5fbd5d1c089183621dc0e4129831ea4182d070a79b627be7cdf00dc9c4bc",
+      "lines": 123,
+      "new_personal_read_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 538,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/bell.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/538",
+      "sha256": "5ec0558f29b7b43440811dbf37b2648d9096a07f66e7ab0eff5a00e78eee6ea5",
+      "lines": 205,
+      "new_personal_read_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 539,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/539",
+      "sha256": "59ae010bf4fbedc4f9daf16fc207e3f5ca674ff20a2c5d5b6b9699d291478f97",
+      "lines": 448,
+      "new_personal_read_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 540,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision/admission.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/540",
+      "sha256": "870d262a151d801eafe72f60e2711c2df146abdc84319c87a59580d131ab25b0",
+      "lines": 98,
+      "new_personal_read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 541,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/541",
+      "sha256": "2d9a1cfbd92acc218b8fb3abaf6f579fde6217c2f3776ece0539c340602baec9",
+      "lines": 111,
+      "new_personal_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 536 checks wall/opening IDs, host ownership, frame/profile consistency, sectional geometry, surface and support relationships. Its issues are diagnostics; whether a particular producer or consumer invokes and enforces them must be traced independently.",
+    "Roles 537 and 538 construct axle and bell render/collision parts, respectively. The frozen bell body computes an upright section without applying solid rotation, while the axle explicitly rotates its geometry. Earlier 059 role PL13-032-BELL-TILT-CONDITIONAL reasoning remains conditional on the actual supported transform owner; no tilt failure is assumed.",
+    "Role 539 selects fixed wall, floor, stair, heating and other semantic solid IDs for static collision, resolves them with filter_map, and builds checked collision parts; a missing selected ID can be omitted by that expression. Whether accepted plan admission or callers guarantee exact resolution remains an open connected question, including the 059 PL13-033-COLLISION-CHECKED-LEAVES qualification.",
+    "Role 540 deserializes a cuboid through its checked constructor, preserving the member ID on error; role 541 constructs finite frame-aware corners and enumerates 12 fixed edges. Their included assertions were read only and do not prove product execution or aggregate bounds consistency.",
+    "No building generation, collision construction, product build, test, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace accepted plan generation and audit disposition, missing selected IDs, collision consumers and bell transform ownership. Inspect referenced helper modules and all independent lenses separately."
+}
