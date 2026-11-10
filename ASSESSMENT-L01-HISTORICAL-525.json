@@ -1,0 +1,33 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/525",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "lines": 5632,
+      "new_personal_read_ranges": [
+        [
+          1,
+          5632
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen historical catalog only. It differs from current 95e and grants no current semantic coverage, other-lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "This JSON-compatible frozen catalog contains 184 item records with identifiers, display text, mass, exterior volume, value, tags, presentation and kind-dependent payloads. Numeric values, tags and optional capabilities must be traced to canonical admission, storage and consumers rather than mechanically wrapped.",
+    "Equipment entries describe materials, physical dimensions, local anchors, placements, occupancies, layering, protective surface spans and attachment points. Authored physical fields are not automatically final projected fields: current catalog and instance derivation are separately qualified in CORRECTION-PICKUP-FRAME-95E.json; historic producer behavior still requires its own source trace.",
+    "The historical lubeck_mark and eight other display-name values match the limited marker inventory in ASSESSMENT-L01-CATALOG-TEXT-95E.json. Their decoded historical text differs from 95e text; that record preserves both forms and its earlier partial-read checkpoint. Marker hits alone do not prove every intended name or historical alias.",
+    "No catalog build, product parser, asset generation, test or runtime probe ran."
+  ],
+  "remaining": "Trace actual historical catalog schema and validation, generated and instance physical overrides, equipment/food/currency/book producers and consumers, then reconcile current source separately. Independently assess all lenses."
+}
