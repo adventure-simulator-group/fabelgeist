@@ -1,0 +1,32 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 502,
+      "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/502",
+      "sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "lines": 694,
+      "new_personal_read_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of frozen pr-working manifest only. Identical current bytes do not grant current semantic coverage, other-lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "The frozen manifest associates item and placement IDs with generated GLB filenames, coverage, material, morph counts and triangle counts; some entries also carry armor generator versions, design hashes and UV-domain identifiers. Actual generator, schema admission, artifact freshness and loaders must be traced before deciding which fields own these facts.",
+    "The belt entry references belt--worn.glb for item belt and worn placement. This is a model asset record, not proof of the PNG icon lookup or of a rename from the separately deleted icon paths. Their base records remain distinct and no current UI behavior is inferred.",
+    "The current 95e manifest bytes match this historical source by SHA-256, but this does not transfer a semantic review to the current baseline. No asset generation, product build, test, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace manifest generation, validation, item/placement identity, GLB/icon path ownership, loader consumers and historical aliases. Independently assess every lens."
+}

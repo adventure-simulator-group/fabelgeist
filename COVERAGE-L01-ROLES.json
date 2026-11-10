@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2218,
+    "unassessed": 2217,
     "lock-metadata-partial": 2,
     "bounded-current-trace-only": 180,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 447,
+    "full-historical-body-trace-open": 448,
     "deleted-base-trace-open": 3
   },
-  "first_unfinished": "Historical lock role 497 remains metadata-partial. Deleted pr-working asset roles 501 and 2416 have separately proved pre-deletion base bytes, not snapshot bodies. Continue at unassessed role 502; independent lenses remain open.",
+  "first_unfinished": "Historical lock role 497 remains metadata-partial; frozen asset manifest role 502 was read. Continue at unassessed shader role 503; deleted roles and independent lens scopes remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -6720,7 +6720,9 @@
       "historical_sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
       "registry_pointer": "/files/502",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-502.json",
+      "qualification": "Full body read of exact frozen pr-working asset manifest. Current semantic applicability, asset consumers and independent lenses remain open."
     },
     {
       "original_index": 503,
