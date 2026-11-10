@@ -1,0 +1,446 @@
+{
+  "schema": "726-bounded-lens1-source-assessment-v1",
+  "contract_id": "SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+  "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "classification": "historical producer/consumer vocabulary mismatch with bounded current source continuation; real authored choice identified; runtime outcome reachability unproved",
+  "historical_ledger": "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+  "historical_queue": "baseline-059/queue.json#/entries/528",
+  "historical_receipts": [
+    {
+      "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-014.json",
+      "sha256": "62c4a123a52ea89e3c409de001821f1dfb965d047afdfc3fbc8422bec8d19bf2",
+      "registration": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-014.json",
+      "registration_sha256": "c9d5c53d40001afebd520c200f36a1c0755fb26649bce6d80dd059c464909c84",
+      "at_as_recorded": "2026-10-29T22:15:31.803294+00:00",
+      "family_as_recorded": "P02",
+      "kind_as_recorded": "Independent current capability/condition/native report schema/encounter completion packet",
+      "verified_in_read_only_local_extraction": true
+    },
+    {
+      "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-018.json",
+      "sha256": "83bd364d7f454988df68307707b1be307ae14356e964179c09c7c2b00194a290",
+      "registration": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-018.json",
+      "registration_sha256": "d0fd974c9bfa402808d2e56f0ad7d0640b6ea885714298217e5d93f87935badf",
+      "at_as_recorded": "2026-10-29T22:26:01.434655+00:00",
+      "family_as_recorded": "P02",
+      "kind_as_recorded": "Independent current encounter completion/governance and native error protocol",
+      "verified_in_read_only_local_extraction": true
+    },
+    {
+      "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-022.json",
+      "sha256": "2656784ba2619b10a954ff4547162a9e3b2ba7e6be2e5d83319bd6807441f750",
+      "registration": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-022.json",
+      "registration_sha256": "23a784c54a82ab0c179a7fc46eb70edbac3f980b64f2a02ae557a458ea83bae6",
+      "at_as_recorded": "2026-10-29T22:28:37.293527+00:00",
+      "family_as_recorded": "P02",
+      "kind_as_recorded": "Independent current battle outcome parser and narrative followup consumer",
+      "verified_in_read_only_local_extraction": true
+    },
+    {
+      "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-023.json",
+      "sha256": "90890edde979d7f2d9bdc82b317d3675b68ffdbbd8b17abcc40a93a8e27b1473",
+      "registration": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-023.json",
+      "registration_sha256": "22e8e44ec38ad831b5a40bd75135848e1955e7902878a5b505244ab4f92db5d4",
+      "at_as_recorded": "2026-10-29T22:29:13.317869+00:00",
+      "family_as_recorded": "P02",
+      "kind_as_recorded": "Independent current narrative followup admission and retained receipt schema",
+      "verified_in_read_only_local_extraction": true
+    },
+    {
+      "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-024.json",
+      "sha256": "5843aa5611bf5e5ad7d022999646d8c2e9e1ad330a73f2f9fac6cdbbc3600ed7",
+      "registration": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-024.json",
+      "registration_sha256": "c08818b6a68707802c532eec9333ea93d311cf4594ddbc7012f10f7dabd5c491",
+      "at_as_recorded": "2026-10-29T22:29:59.655599+00:00",
+      "family_as_recorded": "P02",
+      "kind_as_recorded": "Independent current narrative combat caller and terminal policy test source",
+      "verified_in_read_only_local_extraction": true
+    },
+    {
+      "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-020.json",
+      "sha256": "2ef8a8933ec0b3ab2a42c028f17b5f4d48e246570a18dbccd870a8ea7f74d5f9",
+      "registration": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-020.json",
+      "registration_sha256": "a8ec56db7447a4feb0b67827b8a58de6374bab73276c7265c58448cb092c693e",
+      "at_as_recorded": "2026-10-29T22:27:31.818714+00:00",
+      "family_as_recorded": "P02",
+      "kind_as_recorded": "Independent current locked native SpacetimeDB result and transaction contract",
+      "verified_in_read_only_local_extraction": true
+    },
+    {
+      "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-021.json",
+      "sha256": "63c550bf7a8cd56b13360718540723abe777db000a5e1ac8a718c5acbafdec99",
+      "registration": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-021.json",
+      "registration_sha256": "0bf2abcca8609ca33681c216d87294bbae69a0bd30e6d717ffc44a0e0dea1089",
+      "at_as_recorded": "2026-10-29T22:27:51.883146+00:00",
+      "family_as_recorded": "P02",
+      "kind_as_recorded": "Independent current locked native reducer decoder/dispatch completion",
+      "verified_in_read_only_local_extraction": true
+    }
+  ],
+  "historical_source_attribution": [
+    {
+      "registration": "ROOT-L1-CURRENT-052",
+      "lens": 1,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "prospective_ranges": [
+        [
+          1071,
+          1099
+        ]
+      ],
+      "fresh_personal_body_ranges": [
+        [
+          1071,
+          1099
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1071,
+          1099
+        ]
+      ],
+      "attribution": "Root Segovb personal independent L1 current prospective exact scoped untruncated read; no inherited/other-lens read credit"
+    },
+    {
+      "registration": "ROOT-L1-CURRENT-064",
+      "lens": 1,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "prospective_ranges": [
+        [
+          1181,
+          1463
+        ]
+      ],
+      "fresh_personal_body_ranges": [
+        [
+          1181,
+          1463
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1181,
+          1463
+        ]
+      ],
+      "attribution": "Root Segovb personal independent L1 current prospective exact scoped untruncated read; no inherited/other-lens read credit"
+    },
+    {
+      "registration": "ROOT-L1-CURRENT-075",
+      "lens": 1,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "git_blob": "40f7d3955836f480c1215589883f19490d9d670c",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "prospective_ranges": [
+        [
+          200,
+          240
+        ]
+      ],
+      "fresh_personal_body_ranges": [
+        [
+          200,
+          240
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          200,
+          240
+        ]
+      ],
+      "attribution": "Root Segovb personal independent L1 current prospective exact scoped untruncated read; no inherited/other-lens read credit"
+    },
+    {
+      "registration": "ROOT-L1-CURRENT-076",
+      "lens": 1,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "git_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "prospective_ranges": [
+        [
+          1024,
+          1140
+        ]
+      ],
+      "fresh_personal_body_ranges": [
+        [
+          1024,
+          1140
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1024,
+          1140
+        ]
+      ],
+      "attribution": "Root Segovb personal independent L1 current prospective exact scoped untruncated read; no inherited/other-lens read credit"
+    },
+    {
+      "registration": "ROOT-L1-CURRENT-077",
+      "lens": 1,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "git_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "prospective_ranges": [
+        [
+          900,
+          1023
+        ],
+        [
+          270,
+          304
+        ]
+      ],
+      "fresh_personal_body_ranges": [
+        [
+          900,
+          1023
+        ],
+        [
+          270,
+          304
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          900,
+          1023
+        ],
+        [
+          270,
+          304
+        ]
+      ],
+      "attribution": "Root Segovb personal independent L1 current prospective exact scoped untruncated read; no inherited/other-lens read credit"
+    },
+    {
+      "registration": "ROOT-L1-CURRENT-078",
+      "lens": 1,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "git_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "prospective_ranges": [
+        [
+          895,
+          899
+        ],
+        [
+          1464,
+          1768
+        ]
+      ],
+      "fresh_personal_body_ranges": [
+        [
+          895,
+          899
+        ],
+        [
+          1464,
+          1768
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          895,
+          899
+        ],
+        [
+          1464,
+          1768
+        ]
+      ],
+      "attribution": "Root Segovb personal independent L1 current prospective exact scoped untruncated read; no inherited/other-lens read credit"
+    },
+    {
+      "registration": "ROOT-L1-CURRENT-079",
+      "lens": 1,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "git_blob": "40f7d3955836f480c1215589883f19490d9d670c",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "prospective_ranges": [
+        [
+          2649,
+          2689
+        ]
+      ],
+      "fresh_personal_body_ranges": [
+        [
+          2649,
+          2689
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          2649,
+          2689
+        ]
+      ],
+      "attribution": "Root Segovb personal independent L1 current prospective exact scoped untruncated read; no inherited/other-lens read credit"
+    }
+  ],
+  "historical_qualification": "Exact receipt and registration bytes hash-match in the read-only extracted original transport. The original historical ledger, receipt bodies, qualifications, ranges and root attribution remain at their own revision and are recoverable from that pinned transport. Their historical reads are not newly assessed coverage or proof of checkpoint 3821 adoption. Native transaction claims in those records have not been independently re-established for current execution.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "ranges": [
+        [
+          311,
+          318
+        ],
+        [
+          725,
+          748
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "git_blob": "40f7d3955836f480c1215589883f19490d9d670c",
+      "ranges": [
+        [
+          180,
+          198
+        ],
+        [
+          212,
+          239
+        ],
+        [
+          662,
+          690
+        ],
+        [
+          992,
+          1008
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "git_blob": "61fccd9b8df98aba9a0b7085fe635c88ff7d82c6",
+      "ranges": [
+        [
+          139,
+          184
+        ],
+        [
+          206,
+          218
+        ]
+      ]
+    },
+    {
+      "path": "content/encounters/unlawful-bridge-custom.yaml",
+      "git_blob": "4b626519dba078c9b37543321933c7c0d8d7de04",
+      "ranges": [
+        [
+          1,
+          7
+        ],
+        [
+          61,
+          95
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "ranges": [
+        [
+          1018,
+          1055
+        ],
+        [
+          1065,
+          1096
+        ],
+        [
+          1182,
+          1220
+        ],
+        [
+          1244,
+          1269
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "git_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+      "ranges": [
+        [
+          275,
+          298
+        ],
+        [
+          895,
+          903
+        ],
+        [
+          917,
+          935
+        ],
+        [
+          949,
+          1010
+        ],
+        [
+          1024,
+          1061
+        ],
+        [
+          1091,
+          1136
+        ],
+        [
+          1549,
+          1570
+        ],
+        [
+          1698,
+          1713
+        ]
+      ]
+    }
+  ],
+  "current_trace": [
+    "A repository-authored encounter unlawful_bridge_custom_v1 has the challenge_to_arms choice with a start_combat transition and four authored payloads. The catalog compiler source enumerates .yaml files, parses and validates definitions, then emits the embedded catalog; the runtime lookup and challenge resolver select a definition and choice subject to their preconditions. This is a concrete authored-source witness, not proof a particular player selected it or that a build ran.",
+    "The transition calls materialize_narrative_combat, which retains outcome payloads in narrative_combat_followup_authority keyed to the strategic encounter. Combat resolution can classify both sides defeated as MutualIncapacitation, or neither defeated at the round limit as Timeout. The strategic battle producer maps those enum values to strings mutual_incapacitation and timeout and assigns the returned value as the encounter outcome.",
+    "For an encounter with a registered followup and no matching completed retry receipt, resolve_narrative_combat_followup deserializes the retained payload set and asks resolved_combat_outcome to interpret the outcome. That parser accepts victory, defeat/stalemate, avoided and surrendered, but returns Err for timeout and mutual_incapacitation. The followup call occurs before the displayed strategic encounter table update and resolution receipt insertion.",
+    "If no followup exists the consumer returns Ok; a matching retry receipt returns Ok before parsing. Earlier strategic battle steps call other state-writing functions before this point, so these source ranges alone do not establish committed partial effects or rollback behavior."
+  ],
+  "policy_and_repair_direction": "Preserve a single coherent relationship among BattleResolution, the wider strategic encounter outcome and the narrative payload owner. Determine intended narrative semantics for timeout and mutual incapacitation; do not silently map either to defeat or require a duplicate enum without a design decision. Reconcile retained payloads, encounter and followup receipts, effects, native schema/UI consumers and the related historical SEGOVB-L12-BATTLE-OUTCOME-PRIVATE-READMISSION as a possible connected obligation, not an established exact alias.",
+  "later_acceptance": "After separate authorization, verify every admitted battle terminal and optional no-followup/receipt retry path against the chosen semantics; preserve victory, defeat, escape and surrender effects, actor/payload identity and receipt consistency. Establish native reducer transaction behavior at the final selected revision. Current source reading is neither product validation nor an instruction to create new tests.",
+  "open_limits": [
+    "Supported gameplay reachability of timeout and mutual incapacitation in this authored combat is not established.",
+    "The authored content witness and build pipeline are source observations only; no build, test or runtime probe was performed.",
+    "Other producers, consumers, all exact aliases and the native transaction boundary remain to be reconciled; this is not a full lens or path closure."
+  ],
+  "discovery_status": "partial",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

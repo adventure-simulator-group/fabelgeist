@@ -1347,6 +1347,17 @@
         "discovery": "partial; source scope, intended policies and exact aliases remain open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+        "record": "ASSESSMENT-L1-NARRATIVE-COMBAT.json",
+        "classification": "historical producer/consumer vocabulary mismatch with bounded current source continuation; real authored choice identified; runtime outcome reachability unproved",
+        "discovery": "partial; terminal reachability, policy, native transaction and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "connected_candidates": [
+          "SEGOVB-L12-BATTLE-OUTCOME-PRIVATE-READMISSION"
+        ]
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
