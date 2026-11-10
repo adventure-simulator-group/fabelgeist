@@ -1,0 +1,254 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-THREAT-ID-ADMISSION-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "Public threat identifier admission/lookup contract mismatch, established by static source and pinned catalog inspection; no runtime execution.",
+  "historical_source_roles": [
+    {
+      "original_index": 73,
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_rewards.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/73",
+      "sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "lines": 31,
+      "new_personal_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body read at this exact physical-p16 historical role. Connected producer, recipient, present applicability, other snapshot roles and all lenses remain open."
+    },
+    {
+      "original_index": 74,
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_time.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/74",
+      "sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "lines": 95,
+      "new_personal_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body read at this exact physical-p16 historical role. Connected producer, recipient, present applicability, other snapshot roles and all lenses remain open."
+    },
+    {
+      "original_index": 75,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/75",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "lines": 1558,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1558
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body read at this exact physical-p16 historical role. Connected producer, recipient, present applicability, other snapshot roles and all lenses remain open."
+    },
+    {
+      "original_index": 76,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/error.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/76",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "lines": 51,
+      "new_personal_read_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body read at this exact physical-p16 historical role. Connected producer, recipient, present applicability, other snapshot roles and all lenses remain open."
+    },
+    {
+      "original_index": 77,
+      "source_id": "physical-p16:crates/adventuresim-core/src/body.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/77",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "lines": 179,
+      "new_personal_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body read at this exact physical-p16 historical role. Connected producer, recipient, present applicability, other snapshot roles and all lenses remain open."
+    }
+  ],
+  "historical_read_observations": {
+    "73": "The physical-p16 living-participant helper filters recorded IDs by a living-ID set and preserves recorded order and duplicates; callers and identity ownership remain open. Test bodies were read as source only.",
+    "74": "The physical-p16 BattleTime owner admits finite signed seconds and checks elapsed arithmetic; callers, mutation behavior and exact authority boundaries remain open.",
+    "75": "The physical-p16 bestiary includes the same byte-level ThreatId syntax admission, catalog-backed parse, shared description/evidence syntax, profile lookup and a large set of catalog and ranking paths. Its complete producer/consumer review remains open. Test bodies were read as source only.",
+    "76": "The physical-p16 UnknownThreatId error and related test source distinguish parsing unknown IDs and serde; tests were not run.",
+    "77": "The physical-p16 body owner defines body-part/side types and primitive limb weights, including normalization. Its producers, operation contracts, consumers and later lenses remain open."
+  },
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/bestiary.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "git_blob": "2c97f78c7e667eb250f14a0535bb297abeb9c547",
+      "bytes": 54113,
+      "lines": 1558,
+      "ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          205,
+          281
+        ],
+        [
+          475,
+          500
+        ],
+        [
+          877,
+          897
+        ]
+      ],
+      "preserved_bytes": "source-evidence/threat-identity/current/crates/adventuresim-core/src/bestiary.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/bestiary/error.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "git_blob": "df5b8d039b32e9cf16408086ef59da0c20e7c561",
+      "bytes": 1617,
+      "lines": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "preserved_bytes": "source-evidence/threat-identity/current/crates/adventuresim-core/src/bestiary/error.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "git_blob": "df5f6d116d5c52fdf9e1cfbebc08d06616a04b95",
+      "bytes": 62269,
+      "lines": 1630,
+      "ranges": [
+        [
+          23,
+          33
+        ],
+        [
+          320,
+          418
+        ],
+        [
+          585,
+          595
+        ],
+        [
+          842,
+          860
+        ]
+      ],
+      "preserved_bytes": "source-evidence/threat-identity/current/crates/adventuresim-core/src/quest_catalog.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "git_blob": "61fccd9b8df98aba9a0b7085fe635c88ff7d82c6",
+      "bytes": 19279,
+      "lines": 511,
+      "ranges": [
+        [
+          75,
+          140
+        ]
+      ],
+      "preserved_bytes": "source-evidence/threat-identity/current/crates/adventuresim-core/build.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/quests/bestiary.yaml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "90d87627259fc1034f5c063cd4ac0b90fcc82be4e716c30a33d3bda8b3117af5",
+      "git_blob": "cbb2da872087dfcef9ffa6569da78b4914a67cfc",
+      "bytes": 32501,
+      "lines": 156,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/threat-identity/current/content/quests/bestiary.yaml.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/quests/generation.yaml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "d6ab2ca11fbfffd5e3fc8ec26846e42fc4c1093974440b28daac37fbbd5ad256",
+      "git_blob": "3c77b7a232f0a0916023bff438ca4c59d0a020a5",
+      "bytes": 20495,
+      "lines": 181,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/threat-identity/current/content/quests/generation.yaml.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/quests/investigation.yaml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "cbc2e2744c54dc81a69f7e9ae2d3f7eef5ef8adc8842adde9cf20780a4c2640b",
+      "git_blob": "fee2233ce87d25b1be1335e8a119a773fdcd1d25",
+      "bytes": 13888,
+      "lines": 50,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/threat-identity/current/content/quests/investigation.yaml.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "static_catalog_inventory": {
+    "inputs": [
+      "content/quests/bestiary.yaml",
+      "content/quests/generation.yaml",
+      "content/quests/investigation.yaml"
+    ],
+    "qualification": "Mechanical JSON-subset inspection of pinned source documents only; not product parser execution, catalog validation or full source-read credit.",
+    "monster_entries": 25,
+    "example": "not_an_authored_threat",
+    "example_present": false
+  },
+  "trace": [
+    "ThreatId::try_new is public and checks length and allowed ASCII identifier characters, but does not check catalog membership. The sample not_an_authored_threat meets those syntactic checks. By contrast, ThreatId::from_str calls the syntax constructor and then requires catalog().monster(value); Deserialize uses FromStr.",
+    "ThreatId::profile delegates to profile(), which builds a map from catalog monsters and uses expect when a supplied ID is absent. The current build source collects the three top-level quest YAML documents; their pinned JSON-subset source contains 25 monster entries and no sample ID. If the catalog compiles as shown, constructing that syntax-valid ID with try_new and passing it to profile reaches the missing-map expect. This is a source-level API counterexample; no parser, build, caller, or panic was run.",
+    "ReportDescription and EvidenceKind deliberately reuse the same ThreatId byte representation and call its syntax-only constructor for open report/evidence identities. Tightening that shared routine to require monster membership would change those independent vocabularies. Named constants, authored extensions, all constructors and all consumers must be reconciled before selecting an owner or remedy.",
+    "Historical checkpoint 059 entries SEGOVB-L12-HOSTILE-THREAT-DROP-PRIVATE-READMISSION, SEGOVB-L12-GENERATED-THREAT-PRIVATE-READMISSION and Q-L12-d3c2d0c28c4cc6667828 mention related ThreatId/profile boundaries, but their first-failed contracts or scopes differ. They are possible related obligations, not established aliases or reconciled findings. The physical-p16 archive carries the same bestiary/error bytes as c100; it remains its original historical role, not checkpoint 3821 authority."
+  ],
+  "repair_direction": "Decide whether ThreatId promises catalog membership. If so, separate the shared syntax-only stable-ID representation from a catalog-validated threat identity and preserve open report/evidence IDs; alternatively make profile-dependent operations explicitly fallible for syntactic IDs. Trace catalog initialization, named constants, serialization, every constructor/caller and historical queue aliases before choosing a repair.",
+  "later_acceptance": [
+    "After separate implementation authorization, verify a syntax-valid unknown ID, a known ID, invalid syntax, public profile and regional lookups, serde, open report/evidence IDs, custom authored catalog entries, and initialization without recursive catalog construction.",
+    "Finish each independent lens and full connected producer/consumer graph before claiming audit closure."
+  ],
+  "remaining": [
+    "Trace all callers, catalog extension policy, FromStr and serde admission, named constants, error semantics and historical aliases.",
+    "The five historical bodies are initial reads with connected traces open, not closure.",
+    "No product build, test, parser, runtime probe or repair was performed."
+  ],
+  "discovery_status": "partial; complete admission, consumers and aliases open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

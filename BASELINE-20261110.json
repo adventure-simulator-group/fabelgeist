@@ -423,7 +423,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/camera.rs",
       "lens_status": [
-        "unassessed",
+        "assessed: current camera root body and direct capture numerical boundary; ASSESSMENT-L01-CAMERA-ROOT.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1482,12 +1482,26 @@
         "discovery": "partial; complete producers, admission, runtime reachability, consumers and aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "NEW-THREAT-ID-ADMISSION-001",
+        "record": "ASSESSMENT-L1-THREAT-IDENTITY.json",
+        "classification": "public syntax-only ThreatId admission conflicts with catalog-assuming profile operations",
+        "discovery": "partial; complete constructors, catalog policy, callers and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "related_historical_candidates": [
+          "SEGOVB-L12-HOSTILE-THREAT-DROP-PRIVATE-READMISSION",
+          "SEGOVB-L12-GENERATED-THREAT-PRIVATE-READMISSION",
+          "Q-L12-d3c2d0c28c4cc6667828"
+        ],
+        "relationship_qualification": "Related ThreatId/profile scopes only; not established aliases and not semantically reconciled."
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 role 73 and current delta camera.rs; keep historical combat, capture orbit, movement, admission and other connected scopes open.",
+  "next_step": "Continue first unread original Lens 1 changed role 78 and current delta loading_screen.rs; keep historical source traces, threat admission, camera modules and other connected work open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
