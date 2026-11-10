@@ -1416,12 +1416,20 @@
         "discovery": "partial; full producers, consumers, reachability and historical aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "NEW-COMBAT-BUILD-F32-ADMISSION-001",
+        "record": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+        "classification": "conditional f64-to-f32 generated combat configuration contract mismatch",
+        "discovery": "partial; f32 admission, all fields, connected consumers and alias scope open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue Lens 1 source and original role worklists; complete HUD, tick/count, combat, inventory, feature, native and report traces without transferring historical lens credit.",
+  "next_step": "Continue original Lens 1 changed-role inventory at 50 while retaining open role 47 and lock traces; assess untouched current delta README and connected combat configuration, tick/count and browser paths.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"

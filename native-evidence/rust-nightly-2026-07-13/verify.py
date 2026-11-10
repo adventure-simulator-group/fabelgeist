@@ -1,4 +1,5 @@
 """Verify preserved evidence members; this is not product validation."""
+import gzip
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
@@ -10,6 +11,10 @@ for item in manifest['files']:
     if relative.is_absolute() or '..' in relative.parts or relative.as_posix() != item['path']:
         raise ValueError('unsafe evidence path')
     data = (root / relative).read_bytes()
+    if item.get('content_encoding') == 'gzip':
+        data = gzip.decompress(data)
+    elif item.get('content_encoding') is not None:
+        raise ValueError('unknown evidence encoding')
     if len(data) != item['bytes'] or hashlib.sha256(data).hexdigest() != item['sha256']:
         raise ValueError('evidence mismatch: ' + item['path'])
 print('verified', len(manifest['files']), 'preserved archive members')

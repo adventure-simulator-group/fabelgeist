@@ -64,7 +64,7 @@ for i, (role, original) in enumerate(zip(roles, registry)):
             raise ValueError('role identity mismatch: ' + str(i))
     if role['historical_object_available'] != (i in object_shas):
         raise ValueError('object-availability mismatch')
-    if role['status'] not in ('unassessed', 'bounded-current-trace-only', 'lock-metadata-partial', 'assessed-nonapplicable'):
+    if role['status'] not in ('unassessed', 'bounded-current-trace-only', 'lock-metadata-partial', 'assessed-nonapplicable', 'full-historical-body-trace-open'):
         raise ValueError('invalid role status')
     if role['status'] != 'unassessed':
         if i not in object_shas or object_shas[i] != role['historical_sha256']:
@@ -123,6 +123,21 @@ for role in roles:
     elif status == 'lock-metadata-partial':
         if role['assessment'] != 'LOCKFILE-DELTA.json':
             raise ValueError('unexpected lock assessment')
+    elif status == 'full-historical-body-trace-open':
+        name = role['historical_assessment']
+        if Path(name).name != name:
+            raise ValueError('unsafe historical assessment name')
+        if name not in cached:
+            cached[name] = json.loads((root / name).read_text())
+        matches = [x for x in cached[name]['historical_source_roles']
+                   if x['original_index'] == role['original_index']]
+        if (len(matches) != 1 or matches[0]['source_id'] != role['source_id']
+                or matches[0]['sha256'] != role['historical_sha256']):
+            raise ValueError('historical body assessment identity mismatch')
+        source_lines = len(objects[role['historical_sha256']].splitlines())
+        if (matches[0]['lines'] != source_lines
+                or matches[0]['new_personal_read_ranges'] != [[1, source_lines]]):
+            raise ValueError('historical body range mismatch')
     elif status == 'assessed-nonapplicable':
         doc = json.loads((root / role['assessment']).read_text())
         if not any(x['original_index'] == role['original_index'] and x['sha256'] == role['historical_sha256'] for x in doc['historical_source_roles']):

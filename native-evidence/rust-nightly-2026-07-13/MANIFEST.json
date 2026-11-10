@@ -3,7 +3,7 @@
   "project": "Rust",
   "copyright": "The Rust Project Developers",
   "source": "Installed rust-src component for nightly-2026-07-13; complete selected source file and accompanying installed documentation license texts",
-  "qualification": "The selected source hash exactly matches the originally cited historical installed-native source. The repository pins the same toolchain date; this by itself does not prove which compiler or source was used for a historical or future build. Source bytes are evidence only; no compiler, product, or runtime validation performed.",
+  "qualification": "The originally preserved f32 source hash matches its historical installed-native citation. Added float parser, formatter and Reference documents are newly inspected installed copies, not historical receipts. The repository pins the same toolchain date, which does not prove the compiler or source used for any historical or future build. Source bytes are evidence only; no compiler, product, or runtime validation performed.",
   "files": [
     {
       "path": "library/core/src/num/f32.rs",
@@ -19,6 +19,27 @@
       "path": "LICENSE-MIT",
       "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
       "bytes": 1023
+    },
+    {
+      "path": "library/core/src/num/float_parse.rs.gz",
+      "sha256": "150aebbd81fa537c5b8161de94ada7bdc436c7087bfaa070787bd2ebc05aface",
+      "bytes": 4436,
+      "content_encoding": "gzip",
+      "provenance": "Newly inspected installed Rust toolchain source or reference documentation; not a historical read receipt."
+    },
+    {
+      "path": "library/core/src/fmt/float.rs.gz",
+      "sha256": "f6e5450c2d50bc2451bd3e1ed8c98a6eb03ea84b79b869b6d2a38b3c23f201e9",
+      "bytes": 9037,
+      "content_encoding": "gzip",
+      "provenance": "Newly inspected installed Rust toolchain source or reference documentation; not a historical read receipt."
+    },
+    {
+      "path": "reference/expressions/literal-expr.html.gz",
+      "sha256": "6cab97b4d173849c6f746dccd80dec58e2309b7049b0a251f271cb6f82e7bb2d",
+      "bytes": 81031,
+      "content_encoding": "gzip",
+      "provenance": "Newly inspected installed Rust toolchain source or reference documentation; not a historical read receipt."
     }
   ]
 }

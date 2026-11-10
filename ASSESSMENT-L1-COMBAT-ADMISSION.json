@@ -1,0 +1,444 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-COMBAT-BUILD-F32-ADMISSION-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "Conditional loss of a positive authored f64 contract when projected to f32; no build, generated file or product run observed.",
+  "historical_source_roles": [
+    {
+      "original_index": 47,
+      "source_id": "physical-p16:crates/adventuresim-core/build/combat_resolution.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/47",
+      "sha256": "79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
+      "lines": 275,
+      "new_personal_read_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "This is a new read of this exact historical role, not an assertion of final-checkpoint adoption or transferred credit to another role or lens."
+    },
+    {
+      "original_index": 80,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/80",
+      "sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "lines": 122,
+      "new_personal_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "This is a new read of this exact historical role, not an assertion of final-checkpoint adoption or transferred credit to another role or lens."
+    },
+    {
+      "original_index": 85,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/85",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "lines": 46,
+      "new_personal_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "This is a new read of this exact historical role, not an assertion of final-checkpoint adoption or transferred credit to another role or lens."
+    },
+    {
+      "original_index": 89,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/89",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "lines": 32,
+      "new_personal_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "This is a new read of this exact historical role, not an assertion of final-checkpoint adoption or transferred credit to another role or lens."
+    },
+    {
+      "original_index": 96,
+      "source_id": "physical-p16:crates/adventuresim-core/src/elapsed.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/96",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "lines": 131,
+      "new_personal_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "This is a new read of this exact historical role, not an assertion of final-checkpoint adoption or transferred credit to another role or lens."
+    },
+    {
+      "original_index": 119,
+      "source_id": "physical-p16:crates/adventuresim-core/src/linear_speed.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/119",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "lines": 178,
+      "new_personal_read_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "This is a new read of this exact historical role, not an assertion of final-checkpoint adoption or transferred credit to another role or lens."
+    }
+  ],
+  "historical_variant_qualification": "Physical-p16 generator and config bodies are preserved as separately identified historical variants. Their three SignedLength fields differ from pr-working/current, but this is not evidence they were selected later, a regression, a tested build or checkpoint 3821 authority. The imported fatigue, contact and elapsed bodies have equal bytes across some snapshots; equality does not transfer historical role credit.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "git_blob": "142f6775ebd567bbfdf47e5e8142d974ec3eb12d",
+      "bytes": 13579,
+      "lines": 275,
+      "ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/build/combat_resolution.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/config.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "69009bf458abab5d6affbd82ce193c159586c474cff8229b545a3f6c4d5e6677",
+      "git_blob": "cfb9a8f1f3b27115066d0a4ba9aeabc7f6a8e468",
+      "bytes": 5348,
+      "lines": 121,
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/src/combat/config.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "git_blob": "8650cd78f122744d5984b4b5747449deb1401af2",
+      "bytes": 1705,
+      "lines": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/src/combat/fatigue_config.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "git_blob": "1c64e33f72df1c5c5d59fffadda7255924225b3c",
+      "bytes": 1107,
+      "lines": 32,
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/src/combat/weapon_contact_config.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "git_blob": "11d15d656eba0778f47cbaf382fd9f5876715825",
+      "bytes": 7219,
+      "lines": 253,
+      "ranges": [
+        [
+          1,
+          253
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/src/linear_speed.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "bytes": 4147,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/src/elapsed.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "git_blob": "61fccd9b8df98aba9a0b7085fe635c88ff7d82c6",
+      "bytes": 19279,
+      "lines": 511,
+      "ranges": [
+        [
+          28,
+          36
+        ],
+        [
+          74,
+          78
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/build.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          25,
+          52
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/content/tactical/combat.yaml.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          637,
+          649
+        ],
+        [
+          920,
+          935
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/src/autoresolve.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
+      "bytes": 10073,
+      "lines": 329,
+      "ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          43,
+          123
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-core/src/autoresolve/joint_melee.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          417,
+          423
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-tactical-core/src/combat_config.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "git_blob": "70dd787c5f87370f4676d51434ec0825a81f65b9",
+      "bytes": 935,
+      "lines": 26,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-tactical-core/src/combat_config/defaults.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          27,
+          42
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-admission/crates/adventuresim-tactical-server/src/startup.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_evidence": [
+    {
+      "archive": "native-evidence/serde-saphyr-1.2.0/serde-saphyr-1.2.0.crate",
+      "members": [
+        {
+          "path": "serde-saphyr-1.2.0/src/de/deserializer.rs",
+          "ranges": [
+            [
+              978,
+              988
+            ]
+          ]
+        },
+        {
+          "path": "serde-saphyr-1.2.0/src/parse_scalars.rs",
+          "ranges": [
+            [
+              270,
+              288
+            ],
+            [
+              315,
+              333
+            ]
+          ]
+        },
+        {
+          "path": "serde-saphyr-1.2.0/src/de/options.rs",
+          "ranges": [
+            [
+              500,
+              515
+            ]
+          ]
+        }
+      ],
+      "qualification": "The exact pinned archive is preserved. Typed parser code delegates finite decimal values to the corresponding float FromStr path; no YAML parse or resolved-feature execution occurred."
+    },
+    {
+      "archive": "native-evidence/rust-nightly-2026-07-13/",
+      "members": [
+        {
+          "path": "library/core/src/num/float_parse.rs.gz",
+          "ranges": [
+            [
+              33,
+              60
+            ]
+          ]
+        },
+        {
+          "path": "library/core/src/fmt/float.rs.gz",
+          "ranges": [
+            [
+              180,
+              212
+            ]
+          ]
+        },
+        {
+          "path": "library/core/src/num/f32.rs",
+          "ranges": [
+            [
+              640,
+              644
+            ]
+          ]
+        },
+        {
+          "path": "reference/expressions/literal-expr.html.gz",
+          "section": "floating-point literal expressions"
+        }
+      ],
+      "qualification": "Installed source and reference documentation for the pinned date; no compiler run and no proof of which compiler made any historical build."
+    }
+  ],
+  "current_trace": [
+    "The build script parses autoresolve.combat_round_seconds as f64 and rejects values that are non-finite or not positive. It emits that same f64 using Debug formatting as an f32-suffixed source literal inside AnimationElapsed::from_seconds.",
+    "For a changed authored value such as 1e-100, with all other required inputs left admissible, source-level decimal and binary32 rounding imply a positive finite f64 and a zero f32 literal: this value is far below half the smallest binary32 subnormal. AnimationElapsed::from_seconds permits zero, so the generated expression does not itself reject that result. No input, code generation, compile or runtime scenario was executed. Whether the generated literal passes the selected compiler and lint configuration is not established; no successfully built or runnable counterexample is claimed.",
+    "AutoresolveParameters::validate rejects a zero combat_round_seconds, but the shown resolve_battle entry point takes EMBEDDED_AUTORESOLVE_PARAMETERS directly and does not call that validator before forwarding it. The selected joint-melee code derives its step count and window duration from that value. This establishes a conditional source path, not observed battle behavior.",
+    "Other emitted positive raw f32 fields and zero-accepting duration wrappers require the same f64-to-f32 admission review. PositiveSpeed differs: its constructor rejects zero, so an underflow there is not the same silent admitted state. The imported fatigue and contact objects are already f32 and their displayed validators execute in the build path; do not transfer the f64 argument to those fields.",
+    "The separate tactical default and external startup paths parse and validate TacticalCombatConfig, which invokes its autoresolve validator. Their validation does not by itself establish the strategic build-generated constant was revalidated."
+  ],
+  "related_historical_contracts": [
+    {
+      "id": "Q-L1-f3b0c7b970995519d050",
+      "pointer": "baseline-059/queue.json#/entries/687",
+      "relation": "This continues its build projection and imported validator investigation; complete producer/consumer graph and exact alias remain open."
+    },
+    {
+      "id": "Q-L1-4bf8b628e17b292c3fab",
+      "pointer": "baseline-059/queue.json#/entries/688",
+      "relation": "The separate duplicated authored-value authority question remains open; shared source context does not establish an alias."
+    }
+  ],
+  "repair_direction": "Establish the f32 value and the receiving field contract before emitting constants, then propagate the admitted quantity to strategic consumers and the actual source-generation boundary. Reconcile the separate runtime tactical validation and preserve legitimate numeric rounding, authored defaults and physical meanings. Do not choose a legacy compatibility path.",
+  "later_acceptance": [
+    "Positive-required generated values must not silently become zero after conversion; values that cannot be represented under the receiving contract need an explicit disposition.",
+    "Checked positive speed, elapsed-duration, raw scalar, fatigue and contact cases must each retain their distinct contracts and diagnostics; no uniform claim may erase their differences.",
+    "For a separately authorized later implementation, validate current defaults and controlled underflow/normal/boundary cases across build and tactical paths, with strategic consumers and unchanged numeric behavior reviewed."
+  ],
+  "remaining": [
+    "Establish compiler and lint handling of underflowing emitted literals before claiming a successful build or runtime impact.",
+    "Resolve intended minimum representable authored values and all generated parameters, recipients, numeric spellings, and authoritative configuration decisions.",
+    "Inspect full body and connected scopes of each relevant current and historical role and every independent lens.",
+    "No actual authored input, build, compiler, test, parser execution, runtime or gameplay behavior was run or changed."
+  ],
+  "discovery_status": "partial; native/source admission counterexample conditional on changed input; complete scope and policy open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

@@ -9,12 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2762,
+    "unassessed": 2751,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 87,
-    "assessed-nonapplicable": 2
+    "bounded-current-trace-only": 92,
+    "assessed-nonapplicable": 2,
+    "full-historical-body-trace-open": 6
   },
-  "first_unfinished": "Current source delta: .github/workflows/rust-quality.yml. Original changed-role inventory: 39 and 497 have only lock-metadata comparisons; after their unresolved dependency obligations, the next unassessed changed role by registry index is 47.",
+  "first_unfinished": "Current source delta: workflow has a bounded feature trace; first untouched Lens 1 delta is crates/adventuresim-tactical-client/README.md. Original changed roles 39/497 have only lock metadata, role 47 has a full historical body read with its trace open, and the next unread changed role by registry index is 50.",
   "roles": [
     {
       "original_index": 0,
@@ -507,7 +508,9 @@
       "historical_sha256": "79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
       "registry_pointer": "/files/47",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 48,
@@ -587,7 +590,25 @@
       "historical_sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
       "registry_pointer": "/files/55",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "current_git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              36
+            ],
+            [
+              43,
+              123
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 56,
@@ -837,7 +858,9 @@
       "historical_sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
       "registry_pointer": "/files/80",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 81,
@@ -887,7 +910,9 @@
       "historical_sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
       "registry_pointer": "/files/85",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 86,
@@ -927,7 +952,9 @@
       "historical_sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
       "registry_pointer": "/files/89",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 90,
@@ -997,7 +1024,9 @@
       "historical_sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
       "registry_pointer": "/files/96",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 97,
@@ -1227,7 +1256,9 @@
       "historical_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
       "registry_pointer": "/files/119",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 120,
@@ -8725,6 +8756,15 @@
               255
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              275
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -8812,6 +8852,19 @@
               649
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              637,
+              649
+            ],
+            [
+              920,
+              935
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -8864,7 +8917,25 @@
       "historical_sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
       "registry_pointer": "/files/862",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "current_git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              36
+            ],
+            [
+              43,
+              123
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 863,
@@ -9214,6 +9285,15 @@
               121
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              121
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -9266,7 +9346,21 @@
       "historical_sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
       "registry_pointer": "/files/899",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "current_git_blob": "8650cd78f122744d5984b4b5747449deb1401af2",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              46
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 900,
@@ -9326,7 +9420,21 @@
       "historical_sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
       "registry_pointer": "/files/905",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "current_git_blob": "1c64e33f72df1c5c5d59fffadda7255924225b3c",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              32
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 906,
@@ -9436,7 +9544,21 @@
       "historical_sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
       "registry_pointer": "/files/916",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/elapsed.rs",
+      "current_git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              131
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 917,
@@ -19540,6 +19662,15 @@
               25
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -21897,6 +22028,15 @@
             [
               27,
               67
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              27,
+              42
             ]
           ]
         }
@@ -26508,6 +26648,15 @@
       "current_observations": [
         {
           "assessment": "ASSESSMENT-L1-COMBAT-PROJECTION.json",
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
           "ranges": [
             [
               1,
