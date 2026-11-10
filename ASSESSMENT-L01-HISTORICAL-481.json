@@ -1,0 +1,33 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 481,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/481",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "lines": 1830,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1830
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact separately registered native role; matches current lock-checksum archive member. Feature resolution, product usage and independent lenses remain open; source tests/examples were read, not run."
+    }
+  ],
+  "observations": [
+    "Avian collider holds raw and scaled Parry shapes; AABB and spatial queries apply explicit pose to the scaled shape. Compound children retain local position and rotation, while cuboid constructor takes full extents and passes half extents to Parry. Actual application frames, transforms, physics feature selection and query scheduling require independent tracing.",
+    "The fallible-named constructor dispatcher can invoke panicking trimesh and heightfield constructors, and compound construction filter-maps unsuccessful child constructors before returning a nonempty result. Whether valid product inputs can reach those branches or any omission is unintended requires constructor admission and caller tracing; no panic or omission was observed.",
+    "On unsupported scale_shape, set_shape can retain its previous scaled shape after changing the raw shape; other scaling branches can log and supply a zero-size fallback. Mesh position chunking and 3D heightfield index operations also need native admission and supported input checks before any application defect claim. The source test and examples were read, not run.",
+    "The exact registered source matches the preserved current lock-checksum archive, but feature resolution, application reachability, all aliases and independent lens completion remain open. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace application constructors and validated geometry, scale failure producers and consumers, physics frames/schedules and native Parry semantics. Independently assess all lenses."
+}
