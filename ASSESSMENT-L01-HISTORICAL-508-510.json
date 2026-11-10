@@ -1,0 +1,74 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 508,
+      "source_id": "pr-working:assets/shaders/tactical_foliage.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/508",
+      "sha256": "e820d0090e4d3b180de4ebac4c8c5259559ca5b19b9709c1d284af8fe75f2eb9",
+      "lines": 507,
+      "new_personal_read_ranges": [
+        [
+          1,
+          507
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen shader only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 509,
+      "source_id": "pr-working:assets/shaders/tactical_grass_cull.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/509",
+      "sha256": "a6f23cd340f962c7323c929b1f552324b50bad4034471c6c871b3585b8dff9ad",
+      "lines": 37,
+      "new_personal_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen shader only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 510,
+      "source_id": "pr-working:assets/shaders/tactical_grass_instanced.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/510",
+      "sha256": "2d88c9d6787c5806e7c1bf6fde37f397e532773a16915e847af0ee5e12b07adc",
+      "lines": 315,
+      "new_personal_read_ranges": [
+        [
+          1,
+          315
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this exact frozen shader only; no current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 508 interprets negative V as rigid seed-head geometry with U as stalk-attachment height, and explicitly treats U=0.5 ribbon centers as zero width. It also branches on quality, mask, shape, and interaction uniform lanes. Producer geometry, feature selection and nondegenerate uniform contracts are not established solely by this body.",
+    "Role 509 resets instance counts, culls distance and frustum cases and atomically appends retained instances into batch offsets. Host allocation, batch ID domains, buffer lengths and dispatch/reset ordering require connected source review.",
+    "Role 510 describes a shared mesh vertex contract but clamps negative V to zero and computes width from radial root displacement, choosing side from U. Its shader source differs from the current 95e body; role 508 happens to have byte-identical current source. Neither fact grants current semantic coverage.",
+    "Recovered checkpoint 059 contract PL13-GRASS-MESH-NUMERIC-PORT-CONDITIONAL attributed this issue to an earlier conditional hypothesis with supported producer and current policy unassessed and zero historical unique count. That record remains unchanged and is not a checkpoint 3821 or current finding.",
+    "No shader compilation, rendering, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace host-side production and material selection for supported mesh vertex roles, coverage and instances; distinguish actual current shader source and policy from the historical hypothesis. Independently inspect GPU ABI, capacities and other lenses."
+}
