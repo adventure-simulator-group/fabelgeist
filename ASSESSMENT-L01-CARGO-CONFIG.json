@@ -1,0 +1,14 @@
+{
+  "schema": "726-source-assessment-v1",
+  "lens": 1,
+  "lens_name": "producer propagation",
+  "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "path": ".cargo/config.toml",
+  "git_blob": "7deb3e1205b1646008f8b3ba97e46d399ed9ccf2",
+  "assessed_scope": "entire 47-line Cargo configuration and its diff from ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "observation": "The file configures target linker, compiler flags and incremental builds. The delta changes the Windows linker command and removes profile settings. It defines no application producer, internal field, conversion or receiver for a bespoke value.",
+  "disposition": "Non-applicable for the producer-propagation lens at this exact file and revision; no finding or repair identified here. This does not assess the linked linker script, manifests, build behavior, other lenses, or any connected product source.",
+  "discovery_status": "complete for this exact path and lens only",
+  "repair_status": "none for this assessment",
+  "validation_status": "not performed; no product builds, tests or probes"
+}
