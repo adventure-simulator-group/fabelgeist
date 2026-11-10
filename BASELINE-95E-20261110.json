@@ -3,7 +3,7 @@
   "status": "discovery incomplete; implementation and product validation prohibited",
   "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
   "previous_source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
-  "main_observation": "origin/main fetched on 2026-11-10 at this revision; recheck before claiming it remains current",
+  "main_observation": "origin/main fetched at this revision on 2026-11-10 and directly rechecked by ls-remote at 21:42 UTC; it may advance.",
   "transition_evidence": "MAIN-ADVANCE-95E.json",
   "predecessor": {
     "baseline": "main-advance-95e/predecessor-baseline.json.gz",
@@ -570,7 +570,21 @@
           "PL13-033-COLLISION-CHECKED-LEAVES"
         ],
         "record": "ASSESSMENT-L01-COLLISION-SELECTION-95E.json"
+      },
+      {
+        "id": "REVIEW-ARTILLERY-ROUTE-DROPPED-JOINTS-001",
+        "severity": "P3 provisional; sampled path can cut an authored circulation corner if the resolver reaches the route-finalization loop",
+        "classification": "current source-derived route producer and audit trace related to, but not semantically reconciled with, checkpoint 059 PL13-042-ARTILLERY-RETAINED-NUMERICS",
+        "historical_related_candidates": [
+          "PL13-042-ARTILLERY-RETAINED-NUMERICS"
+        ],
+        "relationship_qualification": "059 raised a broader sample-gap/corridor question without an accepted alias; no historical queue entry is marked reconciled or newly unique on this basis. Frozen role 589 remains attributed to its own pr-working snapshot.",
+        "discovery": "partial; actual generated-plan reachability, surrounding geometry, complete audit outcome, corridor policy, navigation and historical alias reconciliation remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-ARTILLERY-ROUTE-95E.json"
       }
     ]
-  }
+  },
+  "latest_main_recheck": "MAIN-RECHECK-20261110-2142.json"
 }
