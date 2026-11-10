@@ -1,0 +1,78 @@
+{
+  "schema": "726-delta-path-assessment-v1",
+  "lens": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "reported_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "paths": [
+    "crates/strategic-web/tests/regional-map.browser.cjs",
+    "crates/strategic-web/tests/strategic-scene.browser.cjs"
+  ],
+  "current_sources": [
+    {
+      "path": "crates/strategic-web/tests/regional-map.browser.cjs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "6705bd715410e82539657747fea6e36b250956a7f566509ee950dbba48a10f6a",
+      "git_blob": "9d36176a3ed45d7e8f139105d8920e11c43c175d",
+      "bytes": 24307,
+      "lines": 348,
+      "ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "preserved_bytes": "source-evidence/browser-fixtures/current/crates/strategic-web/tests/regional-map.browser.cjs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "25b40b88b7bf24fd81bfceb46882f1a01ec02daf9b072a0aea8236ab3a284c5b",
+      "git_blob": "0275c6d5272648767f06e3cf48fbe68e72401d35",
+      "bytes": 39609,
+      "lines": 551,
+      "ranges": [
+        [
+          1,
+          551
+        ]
+      ],
+      "preserved_bytes": "source-evidence/browser-fixtures/current/crates/strategic-web/tests/strategic-scene.browser.cjs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "reported_selected_sources": [
+    {
+      "path": "crates/strategic-web/tests/regional-map.browser.cjs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "e6e042baa98f9c16aaf695910c6213d03d8eec947c20ed7c5f52a6ab3ae2c122",
+      "git_blob": "503ee0b6afc006b5dc1cbf3d360f63d2aeff4af9",
+      "bytes": 24063,
+      "lines": 345,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/browser-fixtures/reported-selected/crates/strategic-web/tests/regional-map.browser.cjs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "d81e56d4369d714a8cb955a4da905fcda52f0596641fc14329768b4fd5f74c91",
+      "git_blob": "6f56214b71c0d3ddb22ec7a5bf4f533e5bc4a738",
+      "bytes": 39529,
+      "lines": 551,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/browser-fixtures/reported-selected/crates/strategic-web/tests/strategic-scene.browser.cjs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "disposition": "partial: both complete current fixture bodies read as source; numeric values, native/browser boundaries and connected modules are not yet fully traced",
+  "trace": [
+    "The regional-map fixture diff serves the sound script and worklet and loads the sound script before the Wasm client. Its current test constructs numeric map coordinates, viewport dimensions, density, revisions, capacity examples and timing thresholds; these are fixture and browser/native values requiring separate role and boundary review.",
+    "The strategic-scene fixture diff loads the sound script in the journal and settlement fixtures before the renderer. Its mock tactical-entry path inserts data-character-id=\"100\", clicks the link, waits for tactical mode, and exits; the shown source does not assert an exact returned enter-tactical character ID or use a full-width character ID. This is a source observation, not a test failure or executed result.",
+    "The fixture also includes real-renderer and mock-bridge modes, browser API values, generated dimensions, diagnostics, timeouts and thresholds. Each belongs to a distinct role; reading this body does not establish any numerical or product behavior."
+  ],
+  "related_ledger_entries": [
+    "NEW-TACTICAL-ENTRY-CHARACTER-ID-001"
+  ],
+  "qualification": "Only the exact current fixture bodies and selected diff were inspected; source tests, browser, renderer and benchmarks were not run. Every other lens and dependent source role remains open."
+}

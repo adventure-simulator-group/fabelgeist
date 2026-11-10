@@ -71,9 +71,14 @@ if (hashlib.sha256(raw).hexdigest() != entry['sha256'] or len(raw.splitlines()) 
     raise ValueError('partial historical body mismatch')
 roles = json.loads((root / 'COVERAGE-L01-ROLES.json').read_text())['roles']
 role = roles[93]
-if role['status'] != 'unassessed' or role.get('partial_historical_observations') != [
+if role.get('partial_historical_observations') != [
         {'assessment':'ASSESSMENT-L01-DISEASE-PARTIAL.json','ranges':[[1,1280]]}]:
-    raise ValueError('partial historical read was promoted or lost')
+    raise ValueError('partial historical read was lost')
+if role['status'] == 'full-historical-body-trace-open':
+    if role.get('historical_assessment') != 'ASSESSMENT-L01-DISEASE-FULL.json':
+        raise ValueError('full historical read has no later evidence')
+elif role['status'] != 'unassessed':
+    raise ValueError('unexpected historical status')
 baseline = json.loads((root / 'BASELINE-20261110.json').read_text())
 progress = json.loads((root / 'CONTINUATION-PROGRESS.json').read_text())
 if sum(x['id'] == doc['contract_id'] and x['record'] == 'ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json'

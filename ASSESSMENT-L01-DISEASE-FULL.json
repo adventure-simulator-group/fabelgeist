@@ -1,0 +1,39 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 93,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/93",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "lines": 3842,
+      "new_personal_read_ranges": [
+        [
+          1,
+          3842
+        ]
+      ],
+      "incremental_personal_read_ranges": [
+        [
+          1,
+          1280
+        ],
+        [
+          1281,
+          3842
+        ]
+      ],
+      "previous_partial_record": "ASSESSMENT-L01-DISEASE-PARTIAL.json",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full source body read at this exact physical-p16 historical identity; tests were read only. The previously published partial record remains intact. This is not a completed lens or evidence of current/3821 behavior."
+    }
+  ],
+  "observations": [
+    "The historic file contains disease vocabulary, authored definitions and curves, exposure and deterministic acquisition, infection chronology, regional physiology and long source-test bodies. DiseaseId indexes the authored definition array in that revision, so enum/catalog ordering is a connected aggregate relationship to examine in its own lens rather than a demonstrated mismatch.",
+    "Elapsed disease age, stage boundaries and event times use several integer-to-float conversions; admission, extreme-value behavior, current callers and historical queue relations remain open. No product behavior is inferred from equal hash alone."
+  ],
+  "remaining": "All connected owners, precise arithmetic, registry variants, source callers and independent lenses remain open; no historical test was executed."
+}
