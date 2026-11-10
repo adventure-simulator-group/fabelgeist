@@ -1,0 +1,126 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "One forecast nonprogress boundary and selected clock/web/reducer sources, not complete time or independent lens coverage.",
+  "inspection_provenance": "The historical strategic-time body and selected c100 checkout ranges were inspected. Git trees prove the selected source bytes match 95e; each current observation is recorded separately from the historical role.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/strategic_time.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cb9f536cb9ea5069fe8b7b2a143dcab75e4d9d2d",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "bytes": 30716,
+      "lines": 860,
+      "ranges": [
+        [
+          171,
+          338
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/itinerary-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          90,
+          155
+        ],
+        [
+          249,
+          255
+        ],
+        [
+          266,
+          280
+        ],
+        [
+          303,
+          325
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/itinerary-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/travel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "af4995c8ba6e2ac114f961d526f75ecf298a18e2",
+      "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+      "bytes": 25323,
+      "lines": 696,
+      "ranges": [
+        [
+          275,
+          301
+        ],
+        [
+          405,
+          464
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/itinerary-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c12f381c26ad99b55cafc502f1352bae63bfdd4",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "bytes": 31853,
+      "lines": 908,
+      "ranges": [
+        [
+          1,
+          30
+        ],
+        [
+          113,
+          121
+        ],
+        [
+          135,
+          170
+        ],
+        [
+          616,
+          629
+        ],
+        [
+          665,
+          698
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/itinerary-sources/03.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "candidate": {
+    "id": "REVIEW-ITINERARY-CLOCK-NONPROGRESS-001",
+    "classification": "source-derived nonterminating boundary for an admitted public forecast input; supported production reachability unproved",
+    "trigger": "For start StrategicMinute::MAX, positive movement, a valid 480-minute daylight walking window and at least one member, the source arithmetic returns a window ending at MAX. The selected start is MAX, available duration is zero and saturating_add_minutes(1) remains MAX. No segment or movement is added, so the loop repeats without reaching its 512-segment cap. This is a source-level fixed-point argument; the forecast was never run.",
+    "producers_and_limits": "The web forecast constructs a StrategicMinute directly from a character-time row, then calls the helper for destination movement. Journey code also calls it using a departure minute or wrapped local minute. Neither inspected caller establishes that a supported game state can reach MAX with positive remaining movement; no observed hang, normal-world failure or external exploit is claimed.",
+    "connected_scope": "StrategicMinute admission and exhaustion policy, daytime and nighttime windows, itinerary forecast termination, web projections, party journey start/refresh, simulations and all remaining call sites.",
+    "proposed_repair": "After discovery confirms the clock policy, make zero progress at an exhausted clock terminate explicitly and propagate an appropriate typed exhaustion or incomplete-forecast outcome through all consumers; preserve ordinary walking and camp schedules.",
+    "later_acceptance": "After authorization, check maximum and near-maximum start values, positive and zero movement, day and night windows, segment-cap behavior and normal itinerary totals without hanging or emitting completion effects past the clock domain.",
+    "historical_related_candidate": {
+      "checkpoint": "059",
+      "ledger": "baseline-059/ledger.json",
+      "json_pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/306/contract",
+      "id": "PL13-212-ITINERARY-CLOCK-EXHAUSTION-NATIVE-PENDING",
+      "qualification": "Related historical pending proposal with original revision, attribution and qualifications retained; no exact alias, semantic reconciliation, final checkpoint or Lens 13 coverage is inferred."
+    },
+    "discovery": "partial; clock admission, supported reachability, all consumers and historical aliases remain open",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "arithmetic_evidence": "A deterministic integer calculation of the selected saturation fixed point is included in verify_itinerary_clock_trace.py. It checks evidence only and does not invoke the Rust function, a product runtime, or a test suite.",
+  "remaining": "Trace all clock producers, supported year domain, all forecast callers and exhaustion policy, reconcile historical candidates and complete all independent lenses."
+}

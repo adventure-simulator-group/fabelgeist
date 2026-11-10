@@ -1,0 +1,29 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 156,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/156",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "lines": 860,
+      "new_personal_read_ranges": [
+        [
+          1,
+          860
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests read, not run. Prior bounded c100 observations and separate bounded 95e findings retain their own provenance."
+    }
+  ],
+  "observations": [
+    "Historical strategic time code converts official time, computes travel windows, forecasts itinerary segments, fatigue and recovery, and includes a bounded output segment count.",
+    "The clock saturation and zero-progress itinerary branch require a separate current-caller and domain trace; a historical observation alone does not establish current behavior.",
+    "Source test code was read without execution; current scope, historical aliases and all independent lenses remain open."
+  ],
+  "remaining": "Continue source producers, calendar arithmetic and native forecast consumers; reconcile clock-domain policy and other historical roles independently."
+}

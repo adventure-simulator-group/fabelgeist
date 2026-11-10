@@ -11,11 +11,11 @@
   "status_counts": {
     "unassessed": 2549,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 195,
+    "bounded-current-trace-only": 194,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 105
+    "full-historical-body-trace-open": 106
   },
-  "first_unfinished": "Physical-p16 schedule and strategic lifecycle roles 153 through 155 now have full historical body reads. Role 156 has bounded current observations but its historical body remains unread. Earlier dependencies, current and independent lens scope remain open.",
+  "first_unfinished": "Physical-p16 strategic-time role 156 now has a full historical body read plus earlier bounded c100 observations. The next unread changed role is 157; earlier dependencies, current scope and independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -2320,7 +2320,7 @@
       "historical_sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
       "registry_pointer": "/files/156",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/src/strategic_time.rs",
       "current_git_blob": "cb9f536cb9ea5069fe8b7b2a143dcab75e4d9d2d",
       "current_observations": [
@@ -2346,7 +2346,8 @@
           ]
         }
       ],
-      "qualification": "Only cited current ranges were inspected; equality does not assess historical role, connected scope or any lens."
+      "qualification": "Full body read only for this physical-p16 role; previously recorded bounded c100 source observations remain separate. Current, connected and independent lens scope remains open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-156.json"
     },
     {
       "original_index": 157,
