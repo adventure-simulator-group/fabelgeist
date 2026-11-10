@@ -557,6 +557,19 @@
           "PL13-031-BOND-METRICS"
         ],
         "record": "ASSESSMENT-L01-BEARING-AREA-95E.json"
+      },
+      {
+        "id": "REVIEW-BUILDING-COLLISION-MISSING-HOST-001",
+        "severity": "P2 provisional; selected missing wall geometry can be silently omitted if an inconsistent plan reaches collision compilation",
+        "classification": "same conditional family as checkpoint 059 PL13-033-COLLISION-CHECKED-LEAVES, connected to current generation, optional audit and tactical collider sources",
+        "discovery": "partial; supported generation or ingress of an inconsistent plan, exact acceptance policy, all selected source families, other audit gates and actual collision effects remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "The 059 record remains a conditional aggregate/selection question with its original status and source revision. Frozen wall-audit and collision roles are byte-identical to current sources but do not grant other-lens or checkpoint 3821 credit.",
+        "historical_related_candidates": [
+          "PL13-033-COLLISION-CHECKED-LEAVES"
+        ],
+        "record": "ASSESSMENT-L01-COLLISION-SELECTION-95E.json"
       }
     ]
   }

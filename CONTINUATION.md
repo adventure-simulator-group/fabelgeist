@@ -97,6 +97,8 @@ seed-head vertex mismatch to its separately attributed checkpoint 059 question.
 display path and separately inventories historical and current encoded text.
 `ASSESSMENT-L01-BEARING-AREA-95E.json` connects a conditional support
 area mismatch to the separately attributed checkpoint 059 geometry question.
+`ASSESSMENT-L01-COLLISION-SELECTION-95E.json` traces a conditional missing
+wall-host selection through generation and the tactical collider boundary.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `ASSESSMENT-L01-DELETED-501.json` and `ASSESSMENT-L01-DELETED-2416.json`
