@@ -1,0 +1,104 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 205,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/205",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "lines": 656,
+      "new_personal_read_ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "qualification": "Full body read only for this exact physical-p16 role. Any previous bounded c100 source observations remain separately recorded on the worklist; this read does not close their connected scope, prove current 95e coverage, historical aliases or any independent lens."
+    },
+    {
+      "original_index": 206,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/206",
+      "sha256": "9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
+      "lines": 652,
+      "new_personal_read_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role. Any previous bounded c100 source observations remain separately recorded on the worklist; this read does not close their connected scope, prove current 95e coverage, historical aliases or any independent lens."
+    },
+    {
+      "original_index": 207,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/207",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "lines": 534,
+      "new_personal_read_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "qualification": "Full body read only for this exact physical-p16 role. Any previous bounded c100 source observations remain separately recorded on the worklist; this read does not close their connected scope, prove current 95e coverage, historical aliases or any independent lens."
+    },
+    {
+      "original_index": 208,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/208",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "lines": 84,
+      "new_personal_read_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role. Any previous bounded c100 source observations remain separately recorded on the worklist; this read does not close their connected scope, prove current 95e coverage, historical aliases or any independent lens."
+    },
+    {
+      "original_index": 209,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/model.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/209",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "lines": 151,
+      "new_personal_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "qualification": "Full body read only for this exact physical-p16 role. Any previous bounded c100 source observations remain separately recorded on the worklist; this read does not close their connected scope, prove current 95e coverage, historical aliases or any independent lens."
+    }
+  ],
+  "observations": [
+    "Historical fireplace custody verifies canonical fixture and station identities, original carried custody, object identity and camp transitions. Death cleanup resolves returns before mutating; actual transaction semantics and current caller coverage remain open.",
+    "Ingredient preparation binds actor, lot, material object, place, custody and attempt generation into receipts, plans and rechecks before and after waiting. A clipped attempt retains material and records a new generation; terminal and idempotency behavior require complete connected evidence.",
+    "Historical food lots map stable personal or party row identities to material totals and preserve contamination and medicine across splits. Several transfer helpers assume caller-provided quantities; exact admission, rounding, original row identity and provenance remain separate questions.",
+    "Historical model declares optional personal/party row references and parallel ingredient, contamination and medicine arrays. Their aggregate relationships are not established solely by the row fields and require independent assessment.",
+    "Prior bounded c100 observations for roles 205, 207 and 209 are retained verbatim; this historical body read adds no current 95e or checkpoint 3821 credit."
+  ],
+  "remaining": "Trace current fixture custody, source-object and lot identities, preparation receipt authority, split quantity admissions, conservation and all consumers; reconcile aliases and independently assess each lens."
+}

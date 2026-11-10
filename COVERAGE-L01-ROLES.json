@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2501,
+    "unassessed": 2499,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 194,
+    "bounded-current-trace-only": 191,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 154
+    "full-historical-body-trace-open": 159
   },
-  "first_unfinished": "Physical-p16 food authority tests, consumption and cooking roles 202 through 204 now have full historical body reads. Continue at role 205, retaining its earlier bounded current trace separately; earlier dependencies and independent lens scope remain open.",
+  "first_unfinished": "Physical-p16 fireplace custody and food roles 205 through 209 now have full historical body reads; prior bounded c100 observations remain separately linked. Continue at role 210; earlier dependencies and independent lens scope remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -2933,7 +2933,7 @@
       "historical_sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
       "registry_pointer": "/files/205",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
       "current_git_blob": "5c1f80f39e3233d3912f08168baf1dffae3429d0",
       "current_observations": [
@@ -2947,7 +2947,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full historical body read for this physical-p16 role; any previously linked bounded c100 observations retain their exact ranges and attribution. Current applicability, connected scope and independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-205-209.json"
     },
     {
       "original_index": 206,
@@ -2957,7 +2958,9 @@
       "historical_sha256": "9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
       "registry_pointer": "/files/206",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-205-209.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previously linked bounded c100 observations retain their exact ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 207,
@@ -2967,7 +2970,7 @@
       "historical_sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
       "registry_pointer": "/files/207",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
       "current_git_blob": "9b3721a9f00be8183915424b975aba69c9eda0ac",
       "current_observations": [
@@ -2989,7 +2992,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full historical body read for this physical-p16 role; any previously linked bounded c100 observations retain their exact ranges and attribution. Current applicability, connected scope and independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-205-209.json"
     },
     {
       "original_index": 208,
@@ -2999,7 +3003,9 @@
       "historical_sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
       "registry_pointer": "/files/208",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-205-209.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previously linked bounded c100 observations retain their exact ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 209,
@@ -3009,7 +3015,7 @@
       "historical_sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
       "registry_pointer": "/files/209",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/food/model.rs",
       "current_git_blob": "5ed3ad5655e51693f0ed66989bcf03b63a39c613",
       "current_observations": [
@@ -3018,7 +3024,8 @@
           "ranges": "1-15"
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full historical body read for this physical-p16 role; any previously linked bounded c100 observations retain their exact ranges and attribution. Current applicability, connected scope and independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-205-209.json"
     },
     {
       "original_index": 210,
