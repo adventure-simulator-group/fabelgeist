@@ -1,0 +1,114 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 624,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/624",
+      "sha256": "6dfb61f15cc323392577e8773083c09ea549a3efaace1d3c92802e113ba026cd",
+      "lines": 129,
+      "new_personal_read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 625,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/architecture.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/625",
+      "sha256": "ea8f3edc195be45a804f200cf4651c7855317fcb7726dfdc1dff0f256fb9bde7",
+      "lines": 281,
+      "new_personal_read_ranges": [
+        [
+          1,
+          281
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 626,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/budgets.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/626",
+      "sha256": "a767c9aff3ec12709517bf615d1f46bfc97bfbc85b1b8a4b7c4da138a263ce13",
+      "lines": 191,
+      "new_personal_read_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 627,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/church.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/627",
+      "sha256": "acda6fd16215547057139382ba949b935f7da6c3418ffa32674503dc5ba7932b",
+      "lines": 109,
+      "new_personal_read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 628,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/composition.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/628",
+      "sha256": "1188624c62cd4c5600de9468519c5d9bcdee9322130944848beea6ebb18522ed",
+      "lines": 116,
+      "new_personal_read_ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 624 defines typed interior placements and waypoints alongside public path indices and unmet budget counts. Serialized references are distinct from the checked coordinate leaves; actual layout validation and downstream use determine aggregate coherence, and included module declarations are not implicit body coverage.",
+    "Role 625 reconstructs a floor from architecture, support footprints, cells, doors, routes and obstacles. Its containment maps a native cell coordinate to i16 and also requires a physical floor support; the reachable coordinate range, conversion behavior, public caller admission and other gates must be traced before asserting a false membership result.",
+    "Role 626 computes capped furniture demand from authored room roles and settlement uses. Counts are targets subordinate to successful placement; an unmet count is an explicit legitimate state, not automatic data loss.",
+    "Roles 627\u2013628 reserve church route intersections and compose linked furnishing groups using cardinal facing and typed coordinate conversions. Route admission, room bounds, per-instance placement and the unexecuted source-test assertions remain separate checks.",
+    "No product generation, build, test, audit, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace layout validation, floor cell/coordinate admission and narrowing, navigation and support consumers, route and group identity, historical aliases and every independent lens."
+}
