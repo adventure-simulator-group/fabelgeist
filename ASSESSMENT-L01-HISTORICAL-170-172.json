@@ -1,0 +1,63 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 170,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/lib.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/170",
+      "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "lines": 1785,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1785
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No build, feature resolution, current coverage or independent lens completion is implied."
+    },
+    {
+      "original_index": 171,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/prompt.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/171",
+      "sha256": "ce7a0cb88c92661701e05af8240110971e02624dc1557a91cbb300ae94af94fb",
+      "lines": 37,
+      "new_personal_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No build, feature resolution, current coverage or independent lens completion is implied."
+    },
+    {
+      "original_index": 172,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/Cargo.toml",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/172",
+      "sha256": "36987a2d79efdb7b873694038158a9b7ca916a8d1cf332427e2023b5311d487f",
+      "lines": 32,
+      "new_personal_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No build, feature resolution, current coverage or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical dialogue runtime defines typed fragments, slots, effects and fact selection, including testimony projection and authored source references; server authority and web rendering remain separate scopes.",
+    "The separate prompt model carries respondent, mode, resolution and choice bounds. The historical SpacetimeDB module manifest declares crate dependencies and features, without proving selected features or a build result.",
+    "Historical test bodies were read but not executed; this does not establish current dialogue behavior, generated catalog contents or missing checkpoint 3821 status."
+  ],
+  "remaining": "Trace current dialogue producers, render and reducer boundaries, prompt persistence and all independent lenses; reconcile each historical role and aliases separately."
+}
