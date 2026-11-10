@@ -1,0 +1,208 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "REVIEW-TRIANGLE-COUNT-OWNER-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "reported_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "classification": "Unresolved count-owner and granularity question, not a demonstrated defect.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "ed476924038076fa25da5298c9bfb408b27eccc8210e5bbf01ddaa3c7cd6248d",
+      "git_blob": "2f2d500d8c8334accb9fea5059aa5bcc897d4a56",
+      "bytes": 16427,
+      "lines": 411,
+      "ranges": [
+        [
+          1,
+          411
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/presentation/mod.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "4b39a948e24517a32a421b021307c7d1d7dad7a152be348ac952a3c88384f961",
+      "git_blob": "5c4c2ec877cde64942136a8291aa2da4daf047d8",
+      "bytes": 12365,
+      "lines": 404,
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          48,
+          62
+        ],
+        [
+          200,
+          217
+        ],
+        [
+          238,
+          257
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/presentation/config.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "cc8671f457c73c8717f8d7cee40982b05ed06a5c1b0155ad5159a4f9a479afb7",
+      "git_blob": "69aa8ca73751a5ed1485dc014afd8a680bab8a0b",
+      "bytes": 57862,
+      "lines": 1506,
+      "ranges": [
+        [
+          205,
+          235
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/presentation/terrain.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "b2cee2e95142144d080ba8a82af82d52b5b53626c6217b990a8b65ad87cfdfd4",
+      "git_blob": "8d2b953b2b6d091ff765daa6c8ffd4fbd2670a81",
+      "bytes": 11447,
+      "lines": 336,
+      "ranges": [
+        [
+          25,
+          78
+        ],
+        [
+          115,
+          195
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "99813be3cffd0acf0740baf883593a97532fec9be5c8d6450afd7ca8fd055f34",
+      "git_blob": "e0bab25bf2bdef06915abe2a069beb2da59717b9",
+      "bytes": 10954,
+      "lines": 330,
+      "ranges": [
+        [
+          95,
+          155
+        ],
+        [
+          214,
+          230
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "dc974667febacd592df441d70ddd03394c8afc93ec7d59ae54f7730b6dd1dcff",
+      "git_blob": "b07a1afd62fccf6bdab06280e18219c52aa4c55f",
+      "bytes": 1044,
+      "lines": 35,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+      "git_blob": "9361ed8a2d2931a1bcf88fea73231642145c3efc",
+      "bytes": 5591,
+      "lines": 168,
+      "ranges": [
+        [
+          65,
+          88
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/presentation/vista/surface.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "e71c17fce89d8304542afd21ad84fde3cec70c08368bc21c27f318146268e48a",
+      "git_blob": "d52db95d007d142ba11b893f953b9a137f40e19d",
+      "bytes": 10783,
+      "lines": 295,
+      "ranges": [
+        [
+          145,
+          170
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "9f32fafdb5d230e4220d8fef7f9dee75b369f8f55d282708b73d55524f2bc7a5",
+      "git_blob": "d24f07981ee333071ca9daaed60230b9f8c48041",
+      "bytes": 16667,
+      "lines": 505,
+      "ranges": [
+        [
+          410,
+          435
+        ],
+        [
+          454,
+          505
+        ]
+      ],
+      "preserved_bytes": "source-evidence/triangle-count/current/crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "reported_selected_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "91114d781658e20bf295055c9eaf815a5b0e7fddf0ca56caa0a8723904c19a0d",
+      "git_blob": "9eda6f8ec3e23a40a9eb9d89a72d002fbfc382e2",
+      "bytes": 16400,
+      "lines": 411,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/triangle-count/reported-selected/crates/adventuresim-tactical-client/src/presentation/mod.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "trace": [
+    "The current presentation helper obtains a native mesh index or vertex count and divides by three, returning usize. Terrain and grass immediately place that number in different ECS components; a street preparation path retains a raw count with its mesh.",
+    "The census treats terrain counts as per-mesh counts and grass counts as triangles per tuft, multiplying by resident or drawn instance counts before aggregation. Those distinct roles, and native mesh/JSON arithmetic, mean a shared wrapper must not be assumed from the common primitive alone.",
+    "The facade also consumes the parsed graphics shadow-map size directly at the Bevy resource boundary; the shown parser applies a power-of-two and bounds check. Complete admission routes, all count consumers and native mesh semantics remain open. The selected-to-current facade delta changes a regional-map feature gate, not this helper."
+  ],
+  "repair_direction": "Trace all producers and consumers and decide whether a common per-mesh triangle quantity would add useful invariant or unit protection beneath the terrain/grass ECS markers, while keeping per-instance and aggregate counts distinct. Retain native usize at actual Mesh, multiplication and report boundaries where appropriate; do not create an owner solely to replace a cast or wrapper.",
+  "later_acceptance": [
+    "After separate implementation authorization if a change is warranted, verify per-mesh and per-tuft counts, instance multiplication, marker behavior, native mesh boundary and report output without changing numerical semantics."
+  ],
+  "remaining": [
+    "Trace all counts including street preparation, engine mesh topology assumptions, arithmetic bounds and census/report consumers, then determine whether any actionable type migration exists.",
+    "Other presentation modules, source roles and all independent lenses remain open.",
+    "No product build, tests, graphics runtime or repair was performed."
+  ],
+  "discovery_status": "partial; owner semantics and complete consumers open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

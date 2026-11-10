@@ -613,7 +613,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
       "lens_status": [
-        "unassessed",
+        "partial count-owner and graphics configuration trace; remaining presentation scope open; ASSESSMENT-L1-TRIANGLE-COUNTS.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1508,12 +1508,32 @@
           "Q-L12-d8bb5a34a78cf6dba087"
         ],
         "relationship_qualification": "Partial current trace of a named historical pending scope, not a proven alias or completed Lens 12 review."
+      },
+      {
+        "id": "NEW-CONTACT-PRECISION-PROPAGATION-001",
+        "record": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+        "classification": "checked contact precision lowered into internal f32 fields and reconstructed at combat consumers",
+        "discovery": "partial; actual boundaries, semantics, consumers and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "connected_candidates": [
+          "NEW-AUTORESOLVE-WEAPON-LENGTH-001",
+          "NEW-RECRUITMENT-ROLE-FIELDS-001"
+        ]
+      },
+      {
+        "id": "REVIEW-TRIANGLE-COUNT-OWNER-001",
+        "record": "ASSESSMENT-L1-TRIANGLE-COUNTS.json",
+        "classification": "unresolved semantic owner for per-mesh and per-tuft triangle counts",
+        "discovery": "partial; actual boundaries, semantics, consumers and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue first unread original Lens 1 changed role 79 and current delta presentation/mod.rs; keep recruitment policy, historical traces, loading lifecycle and other connected obligations open.",
+  "next_step": "Continue original Lens 1 changed role 81 and current delta tree presentation; keep contact precision, triangle-count owner, presentation and prior connected traces open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"

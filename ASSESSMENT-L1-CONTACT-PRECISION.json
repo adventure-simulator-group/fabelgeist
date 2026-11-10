@@ -1,0 +1,297 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-CONTACT-PRECISION-PROPAGATION-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "Source-backed unfinished internal propagation of an existing finite nonnegative contact precision owner; invalid-input or gameplay reachability not established.",
+  "historical_source_roles": [
+    {
+      "original_index": 79,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/79",
+      "sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "lines": 1137,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1137
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body read at this exact physical-p16 historical role; current applicability, complete connected trace, other snapshots and all lenses remain open."
+    }
+  ],
+  "historical_read_observations": {
+    "79": "The physical-p16 combat facade constructs ContactPrecision from the PlayerEquipment primitive at damage resolution and carries historical typed weapon-reach lengths through the attack kernel. It includes substantial test bodies read as source only. Current c100 has a separately inspected raw weapon-reach trait; the historical source is not an adopted current repair."
+  },
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "git_blob": "1e624b5584e9726832114aa652d6c4aef96b5ae9",
+      "bytes": 4606,
+      "lines": 113,
+      "ranges": [
+        [
+          8,
+          25
+        ],
+        [
+          39,
+          74
+        ],
+        [
+          84,
+          105
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-core/src/combat/weapon_contact.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "git_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+      "bytes": 22289,
+      "lines": 614,
+      "ranges": [
+        [
+          20,
+          65
+        ],
+        [
+          135,
+          160
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-core/src/item_catalog.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+      "git_blob": "0186d4895b4022c3fcdbda24b64713d2ed79e8ca",
+      "bytes": 4707,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-core/src/autoresolve/authored_weapon.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/model.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "git_blob": "d06567c39d00f2e8319772272807da6c86f48dfa",
+      "bytes": 11543,
+      "lines": 363,
+      "ranges": [
+        [
+          60,
+          80
+        ],
+        [
+          290,
+          306
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-core/src/autoresolve/model.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "git_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+      "bytes": 39225,
+      "lines": 1182,
+      "ranges": [
+        [
+          545,
+          559
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-core/src/equipment.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "f62198755e98ea753340c3fdb985f7d576cfbb9a15e33dbf8a8ca4ea1e42e567",
+      "git_blob": "d8df32ab0183692f481f29b5520ab9f98480c912",
+      "bytes": 2176,
+      "lines": 66,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-core/src/equipment/parametric_weapon.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "git_blob": "3ca56e4d56b5b0012e70bc5c506497e8a50fe745",
+      "bytes": 38950,
+      "lines": 1137,
+      "ranges": [
+        [
+          345,
+          369
+        ],
+        [
+          410,
+          440
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-core/src/combat.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/composite.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "git_blob": "781cb7f9131a02b3f9b2e157cf1c32382fe69f2a",
+      "bytes": 12330,
+      "lines": 386,
+      "ranges": [
+        [
+          337,
+          365
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-core/src/composite.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "git_blob": "0418cbc7c2c6f3a8f05c8a02683a25cff956803c",
+      "bytes": 5818,
+      "lines": 139,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          895,
+          906
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-tactical-server/src/player_projection.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "bytes": 28617,
+      "lines": 862,
+      "ranges": [
+        [
+          80,
+          103
+        ],
+        [
+          535,
+          570
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-tactical-core/src/inventory.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "git_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+      "bytes": 15554,
+      "lines": 445,
+      "ranges": [
+        [
+          335,
+          360
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-stdb-module/src/weapon_instance.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "bytes": 26410,
+      "lines": 694,
+      "ranges": [
+        [
+          570,
+          602
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-stdb-module/src/capability.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "git_blob": "b8acf8846028016dd5ff77c2a6dd6a100da593d2",
+      "bytes": 3145,
+      "lines": 85,
+      "ranges": [
+        [
+          27,
+          45
+        ]
+      ],
+      "preserved_bytes": "source-evidence/contact-precision/current/crates/adventuresim-stdb-module/src/capability/equipment_projection.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "trace": [
+    "The current recipe projection precision_for_design returns ContactPrecision, which asserts finite, nonnegative f32 and permits zero and values greater than one. The item catalog immediately extracts value() into the raw weapon precision field; authored melee projection copies that raw value into CombatWeapon, whose PlayerEquipment method returns f32. Current combat damage and composite gap targeting reconstruct ContactPrecision with an assertion.",
+    "A separate parametric path extracts the checked recipe precision into ParametricWeaponCombatGeometry::new, which checks the raw field again and stores f32. Conditioning later computes self.precision * effective_catalog_precision / base as f32; strategic equipment projection and tactical WeaponItem carry the result as f32 before PlayerEquipment and combat consumers. These are bounded source observations, not a proof that any admitted weapon produces a nonfinite value or panic.",
+    "The tactical WeaponItem has engine component/serialization roles, and catalog/database values may have native schema or wire constraints. Trace those boundaries before choosing representations. Recruitment requirement precision has a separate discrete half-step policy and must not be conflated with contact concentration."
+  ],
+  "repair_direction": "Trace every recipe/catalog, ranged/unarmed, parametric/conditioned, strategic and tactical producer, PlayerEquipment implementation and consumer. Retain ContactPrecision through internal APIs where it represents the same concentration, introduce checked arithmetic where conditioning can invalidate it, and project to primitives only at demonstrated native or wire boundaries. Preserve zero, values above one, existing operation order, and combat authority boundaries.",
+  "later_acceptance": [
+    "After separate implementation authorization, verify accepted zero and high precision, invalid or overflowing conditioned arithmetic, exact catalog and parametric projection behavior, native serialization, and strategic/tactical combat consumers without silently changing outcomes.",
+    "Reconcile related weapon-length and recruitment contracts and all historical aliases before closing the family."
+  ],
+  "remaining": [
+    "Trace all item and recipe admissions, all PlayerEquipment implementations, dynamic condition calculation, native/database boundaries and exact historical queue aliases.",
+    "The historical combat body was read, but its full connected scope and every lens remain open.",
+    "No product build, tests, simulation, runtime probe or repair was performed."
+  ],
+  "discovery_status": "partial; admissions, condition arithmetic, actual boundaries and aliases open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

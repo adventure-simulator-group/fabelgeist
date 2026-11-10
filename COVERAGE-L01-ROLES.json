@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2690,
+    "unassessed": 2677,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 126,
+    "bounded-current-trace-only": 138,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 33
+    "full-historical-body-trace-open": 34
   },
-  "first_unfinished": "Current source delta: loading screen root and view have scoped Lens 1 dispositions; first untouched Lens 1 delta is crates/adventuresim-tactical-client/src/presentation/mod.rs. Original roles 39/497 have only lock metadata; 33 exact historical bodies have open connected traces; next unread original changed role is 79.",
+  "first_unfinished": "Current source delta: presentation/mod.rs has a bounded count-owner trace; first untouched Lens 1 delta is crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs. Original roles 39/497 have only lock metadata; 34 exact historical bodies have open connected traces; next unread original changed role is 81.",
   "roles": [
     {
       "original_index": 0,
@@ -1001,7 +1001,9 @@
       "historical_sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
       "registry_pointer": "/files/79",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 80,
@@ -1117,7 +1119,21 @@
       "historical_sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
       "registry_pointer": "/files/90",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/composite.rs",
+      "current_git_blob": "781cb7f9131a02b3f9b2e157cf1c32382fe69f2a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              337,
+              365
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 91,
@@ -9199,6 +9215,15 @@
               127
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              1,
+              127
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -9510,6 +9535,19 @@
               306
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              60,
+              80
+            ],
+            [
+              290,
+              306
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -9779,7 +9817,25 @@
       "historical_sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
       "registry_pointer": "/files/891",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/combat.rs",
+      "current_git_blob": "3ca56e4d56b5b0012e70bc5c506497e8a50fe745",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              345,
+              369
+            ],
+            [
+              410,
+              440
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 892,
@@ -9961,6 +10017,23 @@
               113
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              8,
+              25
+            ],
+            [
+              39,
+              74
+            ],
+            [
+              84,
+              105
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -10017,7 +10090,21 @@
       "historical_sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
       "registry_pointer": "/files/907",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/composite.rs",
+      "current_git_blob": "781cb7f9131a02b3f9b2e157cf1c32382fe69f2a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              337,
+              365
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 908,
@@ -10195,6 +10282,15 @@
               575
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              545,
+              559
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -10367,7 +10463,25 @@
       "historical_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
       "registry_pointer": "/files/937",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/item_catalog.rs",
+      "current_git_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              20,
+              65
+            ],
+            [
+              135,
+              160
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 938,
@@ -11831,7 +11945,21 @@
       "historical_sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
       "registry_pointer": "/files/1076",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "current_git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              570,
+              602
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1077,
@@ -11851,7 +11979,21 @@
       "historical_sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
       "registry_pointer": "/files/1078",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "current_git_blob": "b8acf8846028016dd5ff77c2a6dd6a100da593d2",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              27,
+              45
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1079,
@@ -13924,7 +14066,21 @@
       "historical_sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
       "registry_pointer": "/files/1257",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "current_git_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              335,
+              360
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1258,
@@ -18288,7 +18444,21 @@
       "historical_sha256": "e71c17fce89d8304542afd21ad84fde3cec70c08368bc21c27f318146268e48a",
       "registry_pointer": "/files/1665",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs",
+      "current_git_blob": "d52db95d007d142ba11b893f953b9a137f40e19d",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TRIANGLE-COUNTS.json",
+          "ranges": [
+            [
+              145,
+              170
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1666,
@@ -18378,7 +18548,21 @@
       "historical_sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
       "registry_pointer": "/files/1674",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "current_git_blob": "9361ed8a2d2931a1bcf88fea73231642145c3efc",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TRIANGLE-COUNTS.json",
+          "ranges": [
+            [
+              65,
+              88
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1675,
@@ -20601,7 +20785,25 @@
       "historical_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
       "registry_pointer": "/files/1877",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "current_git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              80,
+              103
+            ],
+            [
+              535,
+              570
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1878,
@@ -22803,6 +23005,15 @@
             "726-775",
             "1994-2028"
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              895,
+              906
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -22835,7 +23046,21 @@
       "historical_sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
       "registry_pointer": "/files/2070",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "current_git_blob": "0418cbc7c2c6f3a8f05c8a02683a25cff956803c",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              1,
+              43
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2071,
@@ -30306,7 +30531,21 @@
       "historical_sha256": "f62198755e98ea753340c3fdb985f7d576cfbb9a15e33dbf8a8ca4ea1e42e567",
       "registry_pointer": "/files/2780",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "current_git_blob": "d8df32ab0183692f481f29b5520ab9f98480c912",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              1,
+              65
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2781,
