@@ -1,0 +1,28 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 129,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/129",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "lines": 1630,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1630
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full source body read only for this exact physical-p16 historical role; source tests were read and not executed. Existing bounded-current observations remain separate; connected scope, other identities and all independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical quest-catalog code defines authored monster, evidence, relation, dialogue and graph payloads, validates certain cross-references and scalar constraints, and uses source tests as fixtures. Its open string IDs, integer weights and closed-looking mechanics require their own producer, admission, ownership and raw-string traces.",
+    "Historic test source includes negative catalog-admission examples; reading them does not establish that those tests passed, that the current catalog uses identical data, or that checkpoint 3821 was recovered."
+  ],
+  "remaining": "All consumers, current and historical variants, authoring validators, persisted data, queue aliases and independent lenses remain open; no product code or test ran."
+}

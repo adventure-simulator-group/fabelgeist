@@ -27,20 +27,12 @@ search of older collections; an unsuccessful search is not proof of absence.
 For the recoverable evidence on this branch, verify from its root:
 
 ```sh
-python3 verify_recovered.py
-python3 verify_selected_states.py
-python3 verify_lock_inventory.py
-python3 verify_delta_sources.py
-python3 verify_role_worklist.py
-python3 verify_iteration_evidence.py
-python3 verify_hud_evidence.py
-python3 verify_combat_admission_evidence.py
-python3 verify_combat_rate_evidence.py
-python3 native-evidence/bevy-replicon-0.41.1/verify.py
-python3 native-evidence/rust-nightly-2026-07-13/verify.py
-python3 native-evidence/serde-saphyr-1.2.0/verify.py
-python3 native-evidence/serde-derive-1.0.229/verify.py
+python3 check_published_evidence.py
 ```
+
+The driver runs all published `verify_*.py` evidence checks and native archive
+checks. It excludes `verify_local_checkpoint_059.py`, which requires a separate
+read-only evidence-root argument as described below.
 
 These commands verify evidence bytes, not product behavior. The original
 36,487-file transport is available at its separately pinned historical

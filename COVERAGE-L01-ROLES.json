@@ -11,11 +11,11 @@
   "status_counts": {
     "unassessed": 2568,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 199,
+    "bounded-current-trace-only": 198,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 82
+    "full-historical-body-trace-open": 83
   },
-  "first_unfinished": "Original changed role 128 has a full physical-p16 body read and bounded current crossing trace; 129 has bounded-current evidence only. Next unread changed historical body is 129. All current delta paths have dispositions, 46 partial; earlier dependency roles, independent lenses and additional populations remain open.",
+  "first_unfinished": "Original changed role 129 now has a full physical-p16 historical body read plus retained bounded-current observations; next unread changed role is 130. All 62 current delta paths have dispositions but 46 are partial; earlier dependency roles, all independent lenses and additional populations remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -1921,7 +1921,7 @@
       "historical_sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
       "registry_pointer": "/files/129",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/src/quest_catalog.rs",
       "current_git_blob": "df5f6d116d5c52fdf9e1cfbebc08d06616a04b95",
       "current_observations": [
@@ -1947,7 +1947,8 @@
           ]
         }
       ],
-      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full body read only for this exact physical-p16 identity; prior bounded current observations are retained and current applicability, connected scope, other roles and independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-129.json"
     },
     {
       "original_index": 130,
