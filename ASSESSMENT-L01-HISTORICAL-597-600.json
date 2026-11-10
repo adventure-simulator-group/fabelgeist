@@ -1,0 +1,94 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 597,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/core.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/597",
+      "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "lines": 311,
+      "new_personal_read_ranges": [
+        [
+          1,
+          311
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 598,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/entrances.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/598",
+      "sha256": "ce2f4daf2f3578c5e59574e47854cdfd6daaf37efe151db858cf0c07afa7ee66",
+      "lines": 120,
+      "new_personal_read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 599,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/599",
+      "sha256": "1be479e7e00bad673b7608b4e8fb4a1d638a7205445b489748c5cf268b786b5c",
+      "lines": 386,
+      "new_personal_read_ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 600,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/obstacles.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/600",
+      "sha256": "a84f605cfca3a524cbe5b6b231454edb8330d4ab78ddf0d5d65c372f229196b1",
+      "lines": 119,
+      "new_personal_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 597 defines typed generation failures and separates ordinary generate from the editor-document path that explicitly audits the regenerated plan. Its grid-point rounding and document edit references require their actual caller bounds and owner semantics; reading the error enum does not prove all failures are preserved throughout the product.",
+    "Role 598 chooses south entrances and optional rear exits from wall and room requirements. It falls back to room index zero and later indexes requirements and wall room ordinals directly. Actual caller nonempty checks and allocation-origin ordinal guarantees must be traced before asserting a reachable panic; no missing entrance or invalid wall was produced here.",
+    "Role 599 selects optional gable windows against timber members and enclosure geometry, creates wall and opening records, and temporarily changes frame-member counters. The caller guards polygon length before its first-point access; member admission, zero-direction possibilities, restoration on error and whether partial builder mutation can escape require connected tracing.",
+    "Role 600 builds a first-by-ID map for resolved solids and silently omits timber members whose referenced solids are absent from that map before checking candidate overlap. This is a conditional question until actual frame-builder identity and accepted missing-member states are established. Its source test compares against a similarly looked-up exhaustive loop; the test body was read only, never run.",
+    "No product generation, build, test, audit, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace entrance admission and room ordinals, timber member-to-solid construction and optional aperture error boundaries, geometric owners, historical aliases and all independent lenses."
+}
