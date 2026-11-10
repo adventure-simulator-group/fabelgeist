@@ -151,5 +151,44 @@
       "evidence": "repair.rs 223-242, 381-421 and continuity.rs 449-486",
       "observation": "Repair enters escrow through the indexed lookup, then moves the row owner; restoration scans escrow objects and compares the object item to the order before changing its location. Estate transfer discovers object roots by location, rehomes them first, then updates remaining personal rows. Missing or corrupt object reachability and all callers remain open."
     }
-  ]
+  ],
+  "historical_draft_reconciliation": {
+    "category": "historical unreviewed implementation draft and historical self-report; not current implementation or newly validated behavior",
+    "draft_commit": "8e63dde856913bbc7bb49c35329dd1d99da692d7",
+    "sources": [
+      {
+        "path": "crates/adventuresim-core/src/physical_object.rs",
+        "git_blob": "7457a7378a3d4637be0daf3e4216272b68f8765a",
+        "range": "45-181"
+      },
+      {
+        "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+        "git_blob": "a94a24ab1410bb41064d9bcde4ea3286fbac501c",
+        "range": "67-98"
+      },
+      {
+        "path": "crates/adventuresim-stdb-module/src/inventory_container/backing_state.rs",
+        "git_blob": "8c7c18c130527b6a448b0257310e7b7ac5504a65",
+        "scope": "entire file"
+      }
+    ],
+    "direct_source_observations": [
+      "The draft defines distinct PersonalInventoryRowId and PartyInventoryRowId wrappers, and CarriedInventoryRowId owns the variant and corresponding ID. Their from_raw constructors accept any u64; they distinguish identity kinds, but do not validate positivity or existence.",
+      "The draft location fields carry these IDs and its object_for_row accepts the combined identity. That draft lookup scans all objects by carried row identity and rejects more than one match. Its fungible-row guard calls the lookup and checks associated amount, condition and lot state.",
+      "The current c100638 lookup, introduced after the draft source base, instead narrows using a backing row item index. Adoption of the historical draft would require a fresh integrated source assessment of that change and its cost/uniqueness policy; neither the old scan nor the typed draft by itself settles the conditional current behavior."
+    ],
+    "reported_progress": {
+      "source": "PROGRESS.md at 78b1d089cb5ee52df0b01c0bf6a020f049b8a126",
+      "sha256": "816ed9a01b1c54fb659a0b13afbbd5259f126534ad22dfdf120589cf54389eca",
+      "scope": "lines 765-825",
+      "summary": "The historical report describes draft stable-row and fungible backing guards, typed food and transfer APIs, selected prior draft scenarios, and outstanding missing-object/corrupt-backing and independent review. It is a report, not recovered final ledger or current-head proof."
+    },
+    "open_dependencies": [
+      "Evaluate all current row-ID producers and recipients against the candidate types, preserving separate personal, party and repair-row identities and their actual native database boundary.",
+      "Reconcile the typed migration with the newly indexed current lookup, its row uniqueness and corrupt-backing contract, consumer behavior, and performance requirement before choosing a connected remedy.",
+      "Compare exact historical queue and later evidence first contracts; common owner or remedy does not establish alias.",
+      "Revalidate draft source and all reported evidence against its exact revisions when relevant. No historical test report constitutes present validation."
+    ],
+    "authority_limit": "The draft is preserved, unreviewed and unvalidated at the current source pin. This comparison does not adopt its implementation, close a lens, prove zero is invalid, or credit any other lens."
+  }
 }
