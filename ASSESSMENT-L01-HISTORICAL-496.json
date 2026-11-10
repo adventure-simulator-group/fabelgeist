@@ -1,0 +1,32 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 496,
+      "source_id": "pr-working:.github/workflows/rust-quality.yml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus its recorded staged, unstaged and untracked state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/496",
+      "sha256": "5c2ceb3c325776e498988e77ac4244d1ad60ea11783ac9366e83c034933a1cde",
+      "lines": 393,
+      "new_personal_read_ranges": [
+        [
+          1,
+          393
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen pr-working variant only. Current 95e bytes differ; no current, checkpoint 3821, alias or independent lens credit is inferred. Workflow commands and tests were read, not executed."
+    }
+  ],
+  "observations": [
+    "The frozen workflow specifies push and pull-request path filters plus manual dispatch, pinned Rust and SpacetimeDB versions, formatting, binding verification, source quality gates and many targeted test commands. Reading these declarations does not establish that any CI job or product validation ran or passed.",
+    "Several scripted evidence steps compare a recorded revision and parse test result lines to require nonzero successful cells. Their actual scripts, command scopes, CI event and checkout identity, artifact behavior and current workflow differences require separate review; no gate completeness or bypass is asserted.",
+    "This registered pr-working source is tied to the original snapshot head plus recorded working state, and its SHA-256 differs from current 95e. It is not current authority or checkpoint 3821 evidence. No workflow command, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Independently inspect current workflow and triggering coverage, referenced scripts, actual gate behavior and historical aliases; assess all lenses without transferring source-reading credit."
+}
