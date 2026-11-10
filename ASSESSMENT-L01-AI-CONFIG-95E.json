@@ -1,0 +1,463 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded AI offense configuration admission and two consumer traces. Other AI fields, product reachability and independent lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          395,
+          710
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fa87f04653f0c38606b14d12102d74df2a770f17",
+      "sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "bytes": 1409,
+      "lines": 37,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "bytes": 28081,
+      "lines": 726,
+      "ranges": [
+        [
+          68,
+          90
+        ],
+        [
+          120,
+          143
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bot/offense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "020869f4865354051a5aee4af071d11513905e92",
+      "sha256": "eb77ed366461de7b58fa7111ba5a06c2d32e1b47617ff297e2ef0f25d8fae8c3",
+      "bytes": 9223,
+      "lines": 287,
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3ae9504947618fa2d8baec5b03da02f2d04ddb05",
+      "sha256": "3319be254a488cfacf2abfcea4c143c419090ebcd9b778b4dabdec7c95b85bb5",
+      "bytes": 11893,
+      "lines": 370,
+      "ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          165,
+          255
+        ],
+        [
+          325,
+          370
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "44f0357c8b9f507b16f398baf5ae612bcf65374d",
+      "sha256": "60b6f6c4256b2ef4d61e7c1c1cc052ef163e78deb6cb260504820e365ec76c5b",
+      "bytes": 1408,
+      "lines": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9babaeb87f67ff4538f37b6db819ccd150a8ea17",
+      "sha256": "ab5ef062d89204566f6f01b3c95ed45aecb640aae364883b7becefc6e9e4c854",
+      "bytes": 6160,
+      "lines": 198,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+      "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+      "bytes": 22323,
+      "lines": 674,
+      "ranges": [
+        [
+          20,
+          40
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          110,
+          132
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "70dd787c5f87370f4676d51434ec0825a81f65b9",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "bytes": 935,
+      "lines": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          9372,
+          9375
+        ],
+        [
+          9398,
+          9401
+        ],
+        [
+          9418,
+          9421
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "868b911e5d1fe98bfed681bde574227fb391a263",
+      "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+      "bytes": 7583,
+      "lines": 211,
+      "ranges": [
+        [
+          130,
+          142
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a3fc8d392f72cc9c45017dcfa454019a9cc5a5b3",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "bytes": 1228,
+      "lines": 44,
+      "ranges": [
+        [
+          18,
+          35
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23c4f98ac45463d38878bab3b8f81b0a4fb19ff2",
+      "sha256": "c966f29016d32aca39e17ea882e55271f208891ab003c331287114388a449a3a",
+      "bytes": 1408,
+      "lines": 55,
+      "ranges": [
+        [
+          24,
+          36
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ai-config-sources/15.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_sources": [
+    {
+      "manifest": "native-evidence/serde-saphyr-1.2.0/MANIFEST.json",
+      "archive_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+      "inspected_members": [
+        {
+          "path": "serde-saphyr-1.2.0/src/de/api.rs",
+          "sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+          "bytes": 33523,
+          "ranges": [
+            [
+              84,
+              90
+            ]
+          ]
+        },
+        {
+          "path": "serde-saphyr-1.2.0/src/de/options.rs",
+          "sha256": "d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+          "bytes": 28625,
+          "ranges": [
+            [
+              498,
+              515
+            ]
+          ]
+        },
+        {
+          "path": "serde-saphyr-1.2.0/src/de/deserializer.rs",
+          "sha256": "72b755ac168c5dd782c5b1bea90fce7488a9d4b9ba713fe26be33b553973362a",
+          "bytes": 126337,
+          "ranges": [
+            [
+              979,
+              985
+            ]
+          ]
+        },
+        {
+          "path": "serde-saphyr-1.2.0/src/parse_scalars.rs",
+          "sha256": "cf724ec89b4f506fa46193c9b2c1917b43356e02a342f11c9ccf45483dc3bebb",
+          "bytes": 23377,
+          "ranges": [
+            [
+              271,
+              337
+            ]
+          ]
+        }
+      ],
+      "qualification": "Source-byte identity and inspected source bodies are evidence; resolved feature graph, full tokenization and actual YAML acceptance are not established by these checks. No parser or product execution occurred."
+    },
+    {
+      "manifest": "native-evidence/serde_core-1.0.229/MANIFEST.json",
+      "archive_sha256": "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48",
+      "inspected_members": [
+        {
+          "path": "serde_core-1.0.229/src/de/impls.rs",
+          "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+          "bytes": 97134,
+          "ranges": [
+            [
+              154,
+              163
+            ],
+            [
+              450,
+              455
+            ]
+          ]
+        }
+      ],
+      "qualification": "Archive and source inspection only; no feature resolution, compilation or product execution."
+    },
+    {
+      "manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+      "archive_sha256": "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14",
+      "inspected_members": [
+        {
+          "path": "serde_json-1.0.151/src/ser.rs",
+          "sha256": "f2b8cc0b97e30c49dbc58698fa22c14a7d56ea616cdb57b067835a59af49a75f",
+          "bytes": 63877,
+          "ranges": [
+            [
+              155,
+              169
+            ]
+          ]
+        }
+      ],
+      "qualification": "Archive and source inspection only; no feature resolution, compilation or product execution."
+    }
+  ],
+  "inspection_provenance": "Selected current ranges were personally read in the predecessor checkout and 95e source; the preserved c100 and 95e trees bind identical blobs. Native archives are lock-checksum-matched source evidence only.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_ids": [
+      "ADLER-L11-AI-OFFENSE-CONFIG-ADMISSION",
+      "SEGOVB-L12-AI-PRECISION-ADMISSION-GAP"
+    ],
+    "matching_roles": [
+      {
+        "index": 1861,
+        "sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c"
+      },
+      {
+        "index": 2022,
+        "sha256": "3319be254a488cfacf2abfcea4c143c419090ebcd9b778b4dabdec7c95b85bb5"
+      },
+      {
+        "index": 2023,
+        "sha256": "60b6f6c4256b2ef4d61e7c1c1cc052ef163e78deb6cb260504820e365ec76c5b"
+      },
+      {
+        "index": 2027,
+        "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730"
+      },
+      {
+        "index": 2075,
+        "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983"
+      }
+    ],
+    "different_physical_roles": [
+      {
+        "index": 351,
+        "sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c"
+      },
+      {
+        "index": 352,
+        "sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7"
+      }
+    ],
+    "qualification": "Historical entries and source roles retain their original attribution, status and zero accepted unique-count change; same-failure relationships do not close the global queue or reconstruct checkpoint 3821."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-AI-PRECISION-CONFIG-ADMISSION-001",
+      "severity": "P2 provisional; conditional assertion failure inferred from source, not runtime-observed",
+      "classification": "same first-failure family as checkpoint 059 AI precision admission, with current source and pinned parser/serializer evidence",
+      "detail": "The current public AiOffenseConfig stores hit_precision as raw f32. Parent validation calls the child interval check, but neither checks this field for finiteness; its separate targeting.reported_hit_precision check is a different field. Assuming an otherwise valid config with nonfinite AI precision, validation and runtime snapshot admission do not reject that field. Both the melee start and ranged windup completion paths call ReportedPrecision::new(config.hit_precision).expect; the server constructor accepts every finite value and rejects nonfinite values, so reaching either branch with that retained value would encounter the assertion. No such server run or panic was observed.",
+      "dependency_qualification": "The pinned serde-saphyr 1.2.0 source routes typed f32 through parse_yaml12_float and its non-angle-conversion branch maps YAML .nan and .inf spellings to nonfinite values; default options disable angle conversion. The pinned serde_core f32 visitor returns a supplied f32 directly. The pinned serde_json 1.0.151 streaming serializer writes nonfinite f32 values as JSON null; the config digest uses serde_json::to_vec, so this source path can encode distinct nonfinite values identically if they reach that serializer. Complete YAML tokenization, resolved features, actual config loading, deployed panic behavior and digest consumers were not executed or proven. A programmatically constructed nonfinite field does not rely on parser reachability.",
+      "safeguards": "Committed tactical YAML uses finite AI precision 1.0. Configuration startup validates the aggregate and installs a snapshot, and the targeting precision field is separately checked; neither visible check validates the AI precision. The downstream ReportedPrecision contract intentionally admits every finite f32, including values outside 0..1; do not impose a new probability bound without a separate policy decision.",
+      "connected_scope": "AI config serde/public construction, aggregate validation, runtime snapshot and digest, melee and ranged intent creation, shared precision owner and server authority, loader/error reporting and deployed exposure.",
+      "proposed_repair": "After exhaustive discovery, admit a finite reported-precision value at the existing configuration boundary and carry its semantic contract into both intent producers using a dependency-neutral owner. Preserve all finite values and distinct typed causes; avoid duplicate owners and compatibility paths.",
+      "later_acceptance": "When product validation is authorized, verify invalid nonfinite AI precision is rejected at each supported admission route before publishing a config, all finite values retain existing semantics, both attack branches preserve the accepted value, and default configuration remains valid.",
+      "historical_related_candidates": [
+        "ADLER-L11-AI-OFFENSE-CONFIG-ADMISSION",
+        "SEGOVB-L12-AI-PRECISION-ADMISSION-GAP"
+      ],
+      "relationship_qualification": "Checkpoint 059 ADLER covers the broad AI offense admission family; SEGOVB identifies the same AI precision first failure and two intent consumers. The current child, phase, authority and startup blobs byte-match their pr-working source roles, but the historical parent and physical-p16 config/child bodies differ. This trace neither changes historical status nor adds a new unique defect or checkpoint 3821 credit.",
+      "discovery": "partial; deployment policy, actual configured values, downstream authority, feature resolution and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-AI-RANGED-STANDOFF-ADMISSION-001",
+      "severity": "P2 provisional; conditional no-fire branch derived from source for an altered config",
+      "classification": "same broad checkpoint 059 AI offense admission family, with a distinct negative-deadband first failure and source arithmetic witness",
+      "detail": "AiOffenseConfig.ranged_standoff_slop_metres is an unchecked f32: the child interval check visits minimum, maximum and a different melee fraction, while parent validation performs no independent slop check. In ranged pursuit the AI advances if distance exceeds standoff plus slop, retreats if distance plus slop is below standoff, and starts windup only in the remaining band. A negative slop makes those conditions cover all finite distances for the stated example, so this path never starts a ranged attack. This is conditional on a modified or programmatically supplied config and an actionable ranged bot; no product runtime was executed.",
+      "source_derived_example": "Using the committed minimum 1.5 m, maximum 12 m and reach fraction 0.5, assume a ranged weapon reach of 10 m and change only slop from the committed +0.5 m to -0.5 m. The computed standoff is 5 m. At any finite distance above 4.5 m the first branch advances; at or below 4.5 m the second branch retreats because distance minus 0.5 is below 5 m. The windup branch is therefore unreachable on that pursuit call. Actual admitted equipment, config loading, target trajectory and gameplay consequences remain unverified.",
+      "safeguards": "The committed slop and reach fraction are positive and the aggregate checks the interval ordering and melee reach fraction. The server requires an actionable ranged weapon and ammunition before selecting ranged pursuit. None of these visible safeguards enforces nonnegative finite slop. The exact policy for zero slop, range fractions and alternate modes remains open.",
+      "connected_scope": "AI offense typed distance/fraction admission, config loader and runtime resource, ranged weapon/ammo facts, standoff/approach/retreat/fire boundary, native tactical intent and all config consumers. Coordinate with, but do not collapse into, the separate AI precision contract.",
+      "proposed_repair": "After discovery, admit a finite nonnegative standoff tolerance at the owning config boundary and carry it to pursuit as a semantic distance. Independently establish the intended range/finite rules for related fields and preserve a zero-width valid band if policy allows it.",
+      "later_acceptance": "When product validation is authorized, reject negative and nonfinite slop before publication; exercise a positive-width and zero-width valid band, approach, retreat and fire decisions with real ranged equipment and existing valid defaults.",
+      "historical_related_candidates": [
+        "ADLER-L11-AI-OFFENSE-CONFIG-ADMISSION"
+      ],
+      "relationship_qualification": "Checkpoint 059 ADLER already names unchecked slop and ranged pursuit as an open source question. This 95e trace narrows it with a conditional source-derived branch witness; it does not rewrite the historical record or claim a new unique historical defect. The precision admission has a distinct first contract despite sharing the same config owner.",
+      "discovery": "partial; deployment policy, actual configured values, downstream authority, feature resolution and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace every AI configuration field, real loader/tokenization and feature graph, target and equipment state, server and downstream authority, digest consumers, native error reporting and global historical aliases. Independently assess all lenses; no repair or product validation."
+}

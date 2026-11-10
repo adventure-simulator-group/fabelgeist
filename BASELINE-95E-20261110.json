@@ -332,6 +332,33 @@
           "SEGOVB-L12-COND-IMMEDIATE-ACTIVITY-AMBIENT-LANGUAGE-SPAN"
         ],
         "record": "ASSESSMENT-L01-IMMEDIATE-LANGUAGE-95E.json"
+      },
+      {
+        "id": "REVIEW-AI-PRECISION-CONFIG-ADMISSION-001",
+        "severity": "P2 provisional; conditional assertion failure inferred from source, not runtime-observed",
+        "classification": "same first-failure family as checkpoint 059 AI precision admission, with current source and pinned parser/serializer evidence",
+        "discovery": "partial; deployment policy, actual configured values, downstream authority, feature resolution and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Checkpoint 059 ADLER covers the broad AI offense admission family; SEGOVB identifies the same AI precision first failure and two intent consumers. The current child, phase, authority and startup blobs byte-match their pr-working source roles, but the historical parent and physical-p16 config/child bodies differ. This trace neither changes historical status nor adds a new unique defect or checkpoint 3821 credit.",
+        "historical_related_candidates": [
+          "ADLER-L11-AI-OFFENSE-CONFIG-ADMISSION",
+          "SEGOVB-L12-AI-PRECISION-ADMISSION-GAP"
+        ],
+        "record": "ASSESSMENT-L01-AI-CONFIG-95E.json"
+      },
+      {
+        "id": "REVIEW-AI-RANGED-STANDOFF-ADMISSION-001",
+        "severity": "P2 provisional; conditional no-fire branch derived from source for an altered config",
+        "classification": "same broad checkpoint 059 AI offense admission family, with a distinct negative-deadband first failure and source arithmetic witness",
+        "discovery": "partial; deployment policy, actual configured values, downstream authority, feature resolution and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Checkpoint 059 ADLER already names unchecked slop and ranged pursuit as an open source question. This 95e trace narrows it with a conditional source-derived branch witness; it does not rewrite the historical record or claim a new unique historical defect. The precision admission has a distinct first contract despite sharing the same config owner.",
+        "historical_related_candidates": [
+          "ADLER-L11-AI-OFFENSE-CONFIG-ADMISSION"
+        ],
+        "record": "ASSESSMENT-L01-AI-CONFIG-95E.json"
       }
     ]
   }
