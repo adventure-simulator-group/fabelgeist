@@ -1,0 +1,64 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 316,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/316",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "lines": 152,
+      "new_personal_read_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and included source files are not credited by these reads. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 317,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/317",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "lines": 1353,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and included source files are not credited by these reads. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 318,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/318",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "lines": 28,
+      "new_personal_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and included source files are not credited by these reads. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Weapon and holder evaluation reconstructs a design from encoded recipe, checks generator version, digest length and transport bound, requires the expected catalog identity and compares every persisted projection against a fresh construction. Invalid evaluations return None here; actual consumers and any legitimate absent-versus-corrupt fallback remain to be traced. Source tests were read, not executed.",
+    "Historical contextual membership records bind context, location, character, role, ordinal, interval, revision and contact/treatment decisions. Materialization checks immutable roster identity; road combat can rebind already materialized characters. Case and hostile membership are observer- and time-relative while road and strategic encounter membership use active context authority. Includes do not grant read credit to their referenced bodies.",
+    "Contextual treatment handles self-action, exact context and revision claims, visible co-presence, explicit refusal and a narrow emergency bandage decision. Contact checks actor authority, receipt binding, contextual visibility and expected revision before recording social and awareness state. Saturating revision behavior, all retries, physical presence and actual clients remain open.",
+    "Roster closure sets left_at no earlier than entered_at and increments revision on an open row. The wrapper uses a default minute on clock-refresh error; whether this is reachable and policy-correct requires a connected source trace. Previously separately recorded dead-NPC presence safeguards remain independently attributed. No product build, test or runtime probe ran."
+  ],
+  "remaining": "Trace current recipe authentication, numeric limits and consumer fallback; all membership/presence producers and sender projections, roster cardinality and revision overflow, closure freshness, contact receipts, patient policy and exact source aliases; independently assess every lens."
+}
