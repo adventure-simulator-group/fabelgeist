@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2657,
+    "unassessed": 2649,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 146,
+    "bounded-current-trace-only": 152,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 46
+    "full-historical-body-trace-open": 48
   },
-  "first_unfinished": "Current Lens 1 delta: combat UI and wheel have bounded traces, including the deleted selected camera module; first untouched path is crates/adventuresim-tactical-core/src/physics/plugin.rs. Original roles 39/497 have only lock metadata; 46 exact historical bodies have open connected traces; next unread original changed role is 91.",
+  "first_unfinished": "Current Lens 1 delta: physics plugin has a bounded source and native API trace; first untouched path is crates/strategic-web/UNIFIED_RENDERER.md. Original roles 39/497 have only lock metadata; 48 exact historical bodies have open connected traces; next unread original changed role is 93.",
   "roles": [
     {
       "original_index": 0,
@@ -1171,7 +1171,26 @@
       "historical_sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
       "registry_pointer": "/files/91",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+      "qualification": "New full read at this exact physical-p16 identity only; connected scope, other revisions and all lens closure remain open.",
+      "current_path": "crates/adventuresim-core/src/courtship.rs",
+      "current_git_blob": "a45eb1d2ea770e3e33a7bf9401c7e2937892e69a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+          "ranges": [
+            [
+              19,
+              35
+            ],
+            [
+              628,
+              677
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 92,
@@ -1215,7 +1234,9 @@
       "historical_sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
       "registry_pointer": "/files/95",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+      "qualification": "New full read at this exact physical-p16 identity only; connected scope, other revisions and all lens closure remain open."
     },
     {
       "original_index": 96,
@@ -2795,7 +2816,21 @@
       "historical_sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
       "registry_pointer": "/files/239",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "current_git_blob": "fbc7ccadd3baf43cb922f63def0a87f7f3e8fbf8",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+          "ranges": [
+            [
+              380,
+              415
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
     },
     {
       "original_index": 240,
@@ -10192,7 +10227,25 @@
       "historical_sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
       "registry_pointer": "/files/908",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/courtship.rs",
+      "current_git_blob": "a45eb1d2ea770e3e33a7bf9401c7e2937892e69a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+          "ranges": [
+            [
+              19,
+              35
+            ],
+            [
+              628,
+              677
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
     },
     {
       "original_index": 909,
@@ -13002,7 +13055,21 @@
       "historical_sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
       "registry_pointer": "/files/1162",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "current_git_blob": "fbc7ccadd3baf43cb922f63def0a87f7f3e8fbf8",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+          "ranges": [
+            [
+              380,
+              415
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
     },
     {
       "original_index": 1163,
@@ -13032,7 +13099,21 @@
       "historical_sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
       "registry_pointer": "/files/1165",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "current_git_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+          "ranges": [
+            [
+              230,
+              330
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
     },
     {
       "original_index": 1166,
@@ -14258,7 +14339,21 @@
       "historical_sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
       "registry_pointer": "/files/1267",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+      "current_git_blob": "5f802580e84cb024e224e3d5cae92a7b9a542c7d",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+          "ranges": [
+            [
+              145,
+              185
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
     },
     {
       "original_index": 1268,
@@ -15565,7 +15660,21 @@
       "historical_sha256": "ba3c2942e73fcaac4b7698ec909382e907d0fd807f395e5f31509d904f910d6f",
       "registry_pointer": "/files/1395",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+      "current_git_blob": "d3633a1443dd6b3269d1f049e41b53b7407a20b8",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L01-PHYSICS-CONFIG.json",
+          "ranges": [
+            [
+              242,
+              268
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
     },
     {
       "original_index": 1396,
@@ -23131,6 +23240,15 @@
             [
               146,
               162
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L01-PHYSICS-CONFIG.json",
+          "ranges": [
+            [
+              145,
+              168
             ]
           ]
         }

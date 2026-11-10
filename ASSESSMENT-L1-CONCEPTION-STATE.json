@@ -1,0 +1,134 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "REVIEW-CONCEPTION-QUANTUM-STATE-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_source_roles": [
+    {
+      "original_index": 91,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/91",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "lines": 1153,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full-body read at this exact physical-p16 identity only; tests were read as source, not run. Current applicability, connected scope, other historical variants and all lens completion remain open."
+    },
+    {
+      "original_index": 95,
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/95",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "lines": 454,
+      "new_personal_read_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full-body read at this exact physical-p16 identity only; tests were read as source, not run. Current applicability, connected scope, other historical variants and all lens completion remain open."
+    }
+  ],
+  "historical_read_observations": {
+    "91": "The physical-p16 courtship source was read in full, including housing charge and morale, leisure interval coverage, deterministic child identity, conception planning and tests. The current separately inspected conception ranges have the same content hash, but historical source identity does not itself grant broader current or later-checkpoint coverage.",
+    "95": "The physical-p16 durability source was read in full; it contains mutable five-bin damage, impact profiles, normalization and source tests. Its current connected admissions, consumers and every lens remain open; this historical read is not a finding about current behavior."
+  },
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/courtship.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "git_blob": "a45eb1d2ea770e3e33a7bf9401c7e2937892e69a",
+      "bytes": 40371,
+      "lines": 1153,
+      "ranges": [
+        [
+          19,
+          35
+        ],
+        [
+          628,
+          677
+        ]
+      ],
+      "preserved_bytes": "source-evidence/conception-state/current/crates/adventuresim-core/src/courtship.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "git_blob": "fbc7ccadd3baf43cb922f63def0a87f7f3e8fbf8",
+      "bytes": 14490,
+      "lines": 496,
+      "ranges": [
+        [
+          380,
+          415
+        ]
+      ],
+      "preserved_bytes": "source-evidence/conception-state/current/crates/adventuresim-stdb-module/src/relationship/model.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "git_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+      "bytes": 23628,
+      "lines": 690,
+      "ranges": [
+        [
+          230,
+          330
+        ]
+      ],
+      "preserved_bytes": "source-evidence/conception-state/current/crates/adventuresim-stdb-module/src/relationship/reproduction.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+      "git_blob": "5f802580e84cb024e224e3d5cae92a7b9a542c7d",
+      "bytes": 23639,
+      "lines": 590,
+      "ranges": [
+        [
+          145,
+          185
+        ]
+      ],
+      "preserved_bytes": "source-evidence/conception-state/current/crates/adventuresim-strategic-sim/src/lifecycle/runner.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Representable unchecked internal conception checkpoint state, with silent remainder normalization and saturating trial identity; normal-state reachability of invalid values is not established.",
+  "trace": [
+    "ConceptionQuantumState publicly exposes an 8-bit conserved_joint_minutes and a 64-bit next_trial_ordinal. The planner uses a 60-minute quantum and reduces the supplied remainder modulo 60 before calculating crossings. A representable constructed remainder of 60 with zero additional minutes is therefore normalized to zero and produces no trial; whether such a value can be legitimately or corruptly admitted through current storage remains open.",
+    "The planner constructs trial ordinals and the next ordinal with saturating addition. If constructed at u64::MAX with at least two crossings, distinct returned trial positions receive the same ordinal. The strategic reducer forms receipt identity and random entropy from that ordinal and consults a receipt before insert; no claim is made that an ordinary chronologically bounded game can reach this state, or that database transaction behavior was observed.",
+    "The inspected reducer defaults a missing accrual to zero, passes stored fields into the planner, then writes the resulting remainder and ordinal back. The strategic simulation runner also consumes the planner; these bounded paths do not prove all table writers, admissions, temporal limits, data integrity, or historical queue aliases. PregnancyOrdinal is a separate count and must not be conflated with trial ordinal."
+  ],
+  "repair_direction": "Trace all internal and persisted constructors, chronology bounds, receipt and random-stream consumers, and all complete source and historical aliases. Decide the admitted remainder and exhaustion contracts explicitly, including whether invalid retained state should be rejected; retain valid zero and 0\u201359 remainders and checkpoint partitioning semantics. Preserve deterministic receipt identities and random streams for valid supported history. Follow generated binding instructions if a future schema change is authorized; do not add compatibility migrations.",
+  "later_acceptance": [
+    "After separate implementation authorization, verify supported remainder boundaries, arbitrary valid checkpoint partitioning, normal ordinal advance, exhaustion behavior and receipt identity with no silent full-hour loss.",
+    "Verify the strategic reducer, simulation and any database wire projections against the chosen admission contract."
+  ],
+  "remaining": [
+    "Establish whether invalid remainder or saturated ordinal is actually reachable in supported chronological state, and inspect all constructors, mutations, database boundaries and historical queue candidates.",
+    "No product repair, build, test, simulation, database call or runtime probe was performed."
+  ],
+  "discovery_status": "partial; representable counterexamples, not a demonstrated gameplay defect",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}
