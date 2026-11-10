@@ -1,0 +1,65 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 185,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/weapon_carry.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/185",
+      "sha256": "a2cebb11efa2e01cd7ec03b83131d6a176426be95d156ab8f426da0a552011d4",
+      "lines": 157,
+      "new_personal_read_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 186,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/186",
+      "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "lines": 2628,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2628
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 187,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/187",
+      "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "lines": 8,
+      "new_personal_read_ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical generated carry-kit assembly chooses a belt and procedural holders for at most two sheathable weapons, fits each holder and uses the equipment placement mutation; already equipped weapons are not moved. Exact current ownership, failure and identity contracts remain to be traced.",
+    "Historical condition code stores strategic needs, body and exposure inputs separately and derives party morale, incapacity, capability and display projections. Weather uses route or fixed coordinates and advances frostbite using elapsed event offsets; this read does not establish strategic/tactical authority or runtime correctness.",
+    "Historical holy-day demand resolution compares sender to Character.server; the character role documents that field as tactical assignment. Current behavior, all actual demand producers, recipient authority and supported reachability require separate examination; a historical read alone does not prove a defect.",
+    "Historical fear projection parses an enemy type into the existing ThreatId and maps its profile to a multiplier. The producer and retained source of the text remain open.",
+    "Historical test bodies were read, not executed. No current source, historical alias or recovered checkpoint 3821 status follows from these reads."
+  ],
+  "remaining": "Trace all current carry-kit, needs, exposure, morale and demand producers and consumers; verify recipient and clock authority and exact numeric boundaries; reconcile historical variants and assess each independent lens separately."
+}
