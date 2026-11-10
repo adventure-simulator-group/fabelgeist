@@ -1,0 +1,103 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 210,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/210",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "lines": 635,
+      "new_personal_read_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 211,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/projections.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/211",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "lines": 538,
+      "new_personal_read_ranges": [
+        [
+          1,
+          538
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 212,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/212",
+      "sha256": "acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "lines": 190,
+      "new_personal_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 213,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/213",
+      "sha256": "6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "lines": 89,
+      "new_personal_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 214,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/214",
+      "sha256": "635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "lines": 179,
+      "new_personal_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; test bodies were read where present, not run. Previous bounded c100 observations remain separately recorded on the worklist. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical preparation authority frames request coordinates and material/source digests, constructs a typed private material snapshot and validates an exact whole-lot conservation receipt. The full input, numeric conversion and serialization contracts require connected traces.",
+    "Historical gateway preparation projections independently derive carried object and custody, tool, generation and action information for settlement actors. Compare these views against the authoritative reducer and supported non-settlement contexts before assigning a behavior-preservation disposition.",
+    "Three historical test modules document intended direct vessel selection, custody, lot conservation and preparation replay. Their assertions were read as source only and do not establish any executed or passing test.",
+    "Prior bounded c100 observations for role 211 remain linked verbatim; these historical body reads grant no current 95e or checkpoint 3821 credit."
+  ],
+  "remaining": "Trace current request/digest admissions, whole-material conservation, projection-to-reducer equivalence, tool and custody authority, and all consumers; reconcile aliases and independently assess each lens."
+}
