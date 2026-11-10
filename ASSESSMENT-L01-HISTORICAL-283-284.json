@@ -1,0 +1,46 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 283,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/283",
+      "sha256": "f880f5a870da48b140f53c29d60b2663fe7e2f6b2ab1bac4d064ba884e8cab89",
+      "lines": 687,
+      "new_personal_read_ranges": [
+        [
+          1,
+          687
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 284,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/284",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "lines": 27,
+      "new_personal_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical hostile-negotiation projection is gateway-only and party-scoped; it selects the uniquely lowest eligible spokesman ordinal after time, life, role and context filters, requires a shared spoken language, and hides private group/case IDs.",
+    "The reducer authenticates the strategic actor, binds exact party, case site, active hostile group, spokesman, context and revision, rejects a bound mission, and rechecks mutable authority before committing a successful withdrawal. Receipt replay compares actor, site, spokesman, context and revision; refusal leaves the group active.",
+    "View and reducer use separately implemented language, presence and objective-capability checks. Their parity, caller authentication, generated provenance and resolution/receipt transactions remain connected work; historical source tests were read, not executed."
+  ],
+  "remaining": "Trace current view/reducer parity, language and life-state authority, objective eligibility, hostile resolution and tactical handoff, retry identity and all callers; reconcile historical aliases and independently assess all lenses."
+}
