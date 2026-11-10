@@ -1,0 +1,81 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 444,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/444",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "lines": 849,
+      "new_personal_read_ranges": [
+        [
+          1,
+          849
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 445,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names/error.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/445",
+      "sha256": "d61ede6d1993fc5dd57a526c714ccd91c133b235f1cd8dc86d019b11ae1c479a",
+      "lines": 34,
+      "new_personal_read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 446,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/446",
+      "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+      "lines": 169,
+      "new_personal_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 447,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/447",
+      "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "lines": 53,
+      "new_personal_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical name generation selects a repertoire by culture, religion and birth year, samples family and form from separate deterministic streams and either retains an inherited surname or selects one. The generated catalog, dependency sampler, actual demographic inputs and all callers are separate roles.",
+    "Historical PersonalNameIdentity uses distinct authored, resolved and unresolved variants; rendering calls validate before selecting culture/register/sex forms and constructing a bounded RenderedPersonalName. Semantic reference IDs are public string wrappers, while validation verifies catalog relationships and inherited surname metadata. An empty unresolved candidate set is intentionally allowed by a source test; ingress and persistence of identities before rendering remain open.",
+    "Historical SourcePackageDigest checks exactly 64 lowercase hexadecimal characters for construction and Serde admission. Its relationship to retained raw digest representations and real package content is separately traced; this type proves spelling, not file authenticity by itself.",
+    "Source tests were read, not run; no name generation, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace name catalog generation and digest, identity and inherited surname admission at storage boundaries, exact caller-specific resolution and display semantics, source package producer and consumer bindings, and historical aliases. Independently assess every lens."
+}
