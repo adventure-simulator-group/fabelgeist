@@ -130,6 +130,11 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-LIMB-WEIGHTS-95E.json` connects a prior pending question
+to the public default and normalization operation. Zero-weight policy and
+actual callers remain open; no gameplay failure is claimed.
+`ASSESSMENT-L01-HISTORICAL-879-886.json` records separate frozen source
+reads, including source-only tests; independent lenses remain open.
 `ASSESSMENT-L01-THREAT-SHIELD-95E.json` traces authored threat protection
 through selected shield-defense and power consumers. Actual battles and
 the intended shield/armor policy remain open.

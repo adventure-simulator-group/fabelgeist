@@ -1086,6 +1086,18 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-THREAT-SHIELD-95E.json"
+      },
+      {
+        "id": "REVIEW-LIMB-WEIGHT-ZERO-NORMALIZATION-001",
+        "severity": "P3 open public-operation contract; actual production call and zero-input policy not established",
+        "classification": "bounded 95e trace of earlier pending LimbWeights default/normalization question; not a new accepted historical unique finding",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/241"
+        ],
+        "discovery": "partial; zero policy, actual normalize callers, all consumers and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-LIMB-WEIGHTS-95E.json"
       }
     ]
   },

@@ -1,0 +1,184 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected public limb-weight default, normalization, preset producers and weighted consumers; reconnects an earlier pending 059 body-weight question.",
+  "source_reasoning": "Source inspection and symbolic IEEE floating-point reasoning only; no Rust method, fixture, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/body.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e1a5581b70bcb938cf867319dbdcc1ca06699c34",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "bytes": 5127,
+      "lines": 179,
+      "ranges": [
+        [
+          62,
+          68
+        ],
+        [
+          90,
+          96
+        ],
+        [
+          117,
+          143
+        ],
+        [
+          170,
+          178
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-weight-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/attribute.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce1245495a46daa03ea3cb97a95a709df2591d37",
+      "sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+      "bytes": 5676,
+      "lines": 164,
+      "ranges": [
+        [
+          102,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-weight-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/skill.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "bytes": 41590,
+      "lines": 1165,
+      "ranges": [
+        [
+          1132,
+          1163
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-weight-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/composite.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "781cb7f9131a02b3f9b2e157cf1c32382fe69f2a",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "bytes": 12330,
+      "lines": 386,
+      "ranges": [
+        [
+          261,
+          269
+        ],
+        [
+          276,
+          293
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-weight-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a0476f2a8fe6615c70e07d831fef7a926a39ca8",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8",
+      "bytes": 8807,
+      "lines": 226,
+      "ranges": [
+        [
+          75,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-weight-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/power.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f4c6df68225fa92dfbf3b8d372aeaa05afbb625e",
+      "sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "bytes": 6098,
+      "lines": 168,
+      "ranges": [
+        [
+          100,
+          123
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-weight-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/targeting.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b8bfc5cf6883356f2bb6ac2b61f6c9f34d53495c",
+      "sha256": "ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+      "bytes": 15755,
+      "lines": 427,
+      "ranges": [
+        [
+          105,
+          124
+        ],
+        [
+          140,
+          147
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-weight-sources/06.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-140.json",
+      "sha256": "b1877a1ad0349da8ddbd9ce96353fd4c1b35915b753717a743e5be077271c779",
+      "bytes": 9444,
+      "git_blob": "57366d3915dc255d94a2bf03bf486dd257f4b34b",
+      "preserved_bytes": "recovered/limb-weight-059/b1877a1ad0349da8ddbd9ce96353fd4c1b35915b753717a743e5be077271c779.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 transport receipt from the 2026-10-29 prior delegated review; preserves prior agent attribution, pending status and zero accepted unique-count change. It is not checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/241",
+      "qualification": "Prior body-weight/default/normalization, finite/sum/optional-zero policy and caller question remains pending; this bounded trace does not grant Lens 13 credit or close aliases."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 884,
+      "source_id": "pr-working:crates/adventuresim-core/src/body.rs",
+      "historical_sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-879-886.json",
+      "qualification": "Separate frozen PR-working Lens 1 body read; byte identity does not create other-lens or checkpoint 3821 credit."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-LIMB-WEIGHT-ZERO-NORMALIZATION-001",
+      "severity": "P3 open public-operation contract; actual production call and zero-input policy not established",
+      "classification": "New bounded 95e evidence for the existing 059 pending LimbWeights caller/normalization question, not a new accepted historical unique finding.",
+      "trace": "LimbWeights has four public f32 fields and derives Default, which gives four zero weights. Its public normalize sums the four fields and divides each field by that total without a zero or finite guard. Applied symbolically to the default, each numerator and the total are 0.0, so each 0.0/0.0 result is NaN under IEEE floating-point rules. The public attribute and physical-skill functions accept the same structure and use each weight in weighted calculations; for finite attributes and healthy inputs the raw unnormalized all-zero weights contribute zero. Preset both_arms, both_legs and all_equal produce positive unit sums, and the selected normal combat callers use these presets. No method was executed.",
+      "safeguards_and_limits": "The existing source does not specify whether a zero weight vector is a meaningful no-limb state, an invalid input to normalization, or intended to be replaced by another policy. No actual production call normalizing Default or consuming its result is demonstrated; selected preset call sites do not establish every consumer or cross-crate caller. Public field construction also permits other sums and nonfinite values, but their admitted policy and effect remain open. This is not a claim of an observed gameplay failure.",
+      "connected_repair": "Determine the semantic owner and admission/operation policy for finite weights, sums, and a legitimate zero/no-limb case across producers and attribute/skill consumers. Then make normalization explicitly total or fallible as appropriate, preserving valid individual zero weights and existing named presets rather than inventing a uniform fallback or forbidding zero without a design decision.",
+      "acceptance": "After separate implementation authorization, cover intended zero, positive and nonfinite inputs and named preset/weighted calculations according to the chosen policy; trace all callers and serialized boundaries first. Product validation remains deferred.",
+      "discovery": "partial; zero policy, actual callers, all consumers and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
