@@ -1,0 +1,248 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-AUTORESOLVE-WEAPON-LENGTH-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "Current source-backed raw weapon-length producer and interface propagation; historical typed variants remain separate evidence.",
+  "historical_source_roles": [
+    {
+      "original_index": 69,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/69",
+      "sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "lines": 364,
+      "new_personal_read_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact original physical-p16 role; connected tracing, current applicability, other snapshots and all lenses remain open."
+    },
+    {
+      "original_index": 70,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/power.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/70",
+      "sha256": "7469ca1e1a2a0c7bfa49292adac667ebbf5323f3dfd5f0e39e368e18f118d2a7",
+      "lines": 168,
+      "new_personal_read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact original physical-p16 role; connected tracing, current applicability, other snapshots and all lenses remain open."
+    },
+    {
+      "original_index": 71,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/71",
+      "sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "lines": 190,
+      "new_personal_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact original physical-p16 role; connected tracing, current applicability, other snapshots and all lenses remain open."
+    },
+    {
+      "original_index": 72,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/72",
+      "sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "lines": 139,
+      "new_personal_read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact original physical-p16 role; connected tracing, current applicability, other snapshots and all lenses remain open."
+    }
+  ],
+  "historical_read_observations": {
+    "69": "The physical-p16 combat model stores several weapon geometry values in SignedLength and exposes them through its historical PlayerEquipment implementation. It also has distinct melee/ranged equipment snapshots, skills and armor; current roles and behavior need separate assessment.",
+    "70": "The physical-p16 combat-power helper combines weapon, armor, health and readiness inputs into an observer-safe aggregate. It was read as source; output ownership and policy remain open.",
+    "71": "The physical-p16 threat producer decodes ThreatId, builds attributes and skills, and constructs weapon length and timing values, including a generated sidearm for ranged threats. Its full admission and consumers remain open.",
+    "72": "The physical-p16 timeline stores signed lengths for separation and displacement. Current c100 stores corresponding f32 fields; this historical variant does not establish that any later checkpoint implemented it."
+  },
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/model.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "git_blob": "d06567c39d00f2e8319772272807da6c86f48dfa",
+      "bytes": 11543,
+      "lines": 363,
+      "ranges": [
+        [
+          60,
+          80
+        ],
+        [
+          290,
+          306
+        ]
+      ],
+      "preserved_bytes": "source-evidence/weapon-length/current/crates/adventuresim-core/src/autoresolve/model.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+      "git_blob": "0186d4895b4022c3fcdbda24b64713d2ed79e8ca",
+      "bytes": 4707,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "preserved_bytes": "source-evidence/weapon-length/current/crates/adventuresim-core/src/autoresolve/authored_weapon.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "git_blob": "bb551123f207bbf86a7cb07a27ff135477606c43",
+      "bytes": 6405,
+      "lines": 187,
+      "ranges": [
+        [
+          22,
+          70
+        ],
+        [
+          105,
+          155
+        ]
+      ],
+      "preserved_bytes": "source-evidence/weapon-length/current/crates/adventuresim-core/src/autoresolve/threat.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "git_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+      "bytes": 39225,
+      "lines": 1182,
+      "ranges": [
+        [
+          540,
+          575
+        ]
+      ],
+      "preserved_bytes": "source-evidence/weapon-length/current/crates/adventuresim-core/src/equipment.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8",
+      "git_blob": "1a0476f2a8fe6615c70e07d831fef7a926a39ca8",
+      "bytes": 8807,
+      "lines": 226,
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "preserved_bytes": "source-evidence/weapon-length/current/crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "git_blob": "bc75db4a7293851dc731f5d32d48a840f24377a5",
+      "bytes": 4843,
+      "lines": 139,
+      "ranges": [
+        [
+          1,
+          24
+        ],
+        [
+          88,
+          96
+        ],
+        [
+          129,
+          139
+        ]
+      ],
+      "preserved_bytes": "source-evidence/weapon-length/current/crates/adventuresim-core/src/autoresolve/timeline.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/measurement.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "git_blob": "1ca89018e525af6b5643767d87d80297ea0bb3b6",
+      "bytes": 3508,
+      "lines": 104,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "source-evidence/weapon-length/current/crates/fabelgeist-geometry/src/measurement.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "git_blob": "2ce787e969bc6df118dd86a7285293cd3602e063",
+      "bytes": 1383,
+      "lines": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "preserved_bytes": "source-evidence/weapon-length/current/crates/fabelgeist-geometry/src/length.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "trace": [
+    "Current authored melee projection takes raw catalog reach, grip and dimensions and a generated recipe head length into raw f32 CombatWeapon geometry fields, while attack timing is retained as AnimationElapsed. The separate threat producer also constructs zero and positive raw geometry values.",
+    "Current PlayerEquipment returns raw f32 geometry, and the melee mobility consumer adds reach and computes preferred measures before retaining movement distance. Exact source ranges are cited; the remaining equipment implementations, numerical operations and consumers are open.",
+    "SignedLength is an existing finite signed-metres owner, but it permits negative values, while PositiveLength excludes zero. Weapon lengths and reach need their own documented zero, sign, unit and cross-field rules. Existing raw values and historical p16 use do not by themselves prove bad admitted inputs or mandate a particular type.",
+    "The physical-p16 model and timeline used SignedLength for related values, while the independently inspected c100 source uses raw f32. This is a snapshot comparison, not a claim that the lost checkpoint or selected current source contains the historical draft."
+  ],
+  "repair_direction": "Trace catalog admission, generated recipe properties, every CombatWeapon producer, PlayerEquipment implementation and mobility/contact/report consumer. Choose existing or newly justified zero-permitting finite metre owners per semantic role, preserve legitimate absent/ranged zero values and native arithmetic/serialization, and reconcile the connected movement and historical queue records before changing anything.",
+  "later_acceptance": [
+    "After separate implementation authorization, check valid zero and positive values, invalid and overflow boundaries, both melee/ranged threat and authored projections, trait callers, numeric behavior and relevant wire representations.",
+    "Complete the source and historical alias graph and the other lenses before claiming the connected repair or audit closure."
+  ],
+  "remaining": [
+    "Full producer, admission, numeric reachability, trait implementation and consumer graph remain open.",
+    "The four historical bodies are initial source reads with connected traces open.",
+    "No product build, test, runtime probe or repair was performed."
+  ],
+  "discovery_status": "partial; producer and trait graph, zero policy and aliases open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

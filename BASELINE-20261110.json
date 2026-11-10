@@ -385,7 +385,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
       "lens_status": [
-        "unassessed",
+        "partial bounded capture orbit and native parser trace; other producer paths open; ASSESSMENT-L1-CAPTURE-ORBIT.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1463,12 +1463,31 @@
           "NEW-COMBAT-STEP-RATE-001",
           "NEW-MELEE-MOVEMENT-LENGTH-001"
         ]
+      },
+      {
+        "id": "NEW-AUTORESOLVE-WEAPON-LENGTH-001",
+        "record": "ASSESSMENT-L1-WEAPON-LENGTH.json",
+        "classification": "raw authored weapon geometry retained through current combat equipment APIs",
+        "discovery": "partial; complete producers, admission, runtime reachability, consumers and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "dependencies": [
+          "NEW-MELEE-MOVEMENT-LENGTH-001"
+        ]
+      },
+      {
+        "id": "NEW-CAPTURE-ORBIT-ADMISSION-001",
+        "record": "ASSESSMENT-L1-CAPTURE-ORBIT.json",
+        "classification": "conditional non-finite capture angle and inspection report boundary",
+        "discovery": "partial; complete producers, admission, runtime reachability, consumers and aliases open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue first unread original Lens 1 changed role 69 and current delta animation_viewer_main.rs; keep prior historical traces, movement owner, report-window policy and other connected scope open.",
+  "next_step": "Continue original Lens 1 role 73 and current delta camera.rs; keep historical combat, capture orbit, movement, admission and other connected scopes open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
