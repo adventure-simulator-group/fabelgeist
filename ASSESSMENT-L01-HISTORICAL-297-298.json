@@ -1,0 +1,46 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 297,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/297",
+      "sha256": "ea82a6a6d486b3ab9be06fcd3627eb304db68230316556c7f90fb69eef6238b8",
+      "lines": 761,
+      "new_personal_read_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; the historical test file was inspected as source, not executed. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 298,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/298",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "lines": 346,
+      "new_personal_read_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; the historical test file was inspected as source, not executed. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical authority/trade/dialogue tests describe source expectations for actor admission, contract lifecycle, mission and case authority, receipt and projection boundaries, merchant provider, and ready versus staggered capacity. Reading assertions is not a passed test, behavioral proof or current-source coverage.",
+    "Historical travel planning separates validated WGS84 and abstract coordinate encodings, shortest paths that stop at the first settlement, and terrain route admission bound to the registered gateway package. It checks point/span bounds, endpoint proximity, geometry/distance, weather interval and continuous duration metadata before route use.",
+    "Route digest ownership and raw retention have a separate current partial trace; arithmetic saturation, geographic mode, return-route freshness and all route producer and consumer relationships remain open. No test, route, browser, database or product code was run."
+  ],
+  "remaining": "Trace current test-to-source applicability without executing tests, terrain digest and package provenance, route/weather/coordinate admission, interval and geometry arithmetic, strategic gateway and every journey consumer; reconcile historical aliases and independently assess all lenses."
+}
