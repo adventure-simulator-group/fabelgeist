@@ -1,0 +1,33 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 589,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/589",
+      "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+      "lines": 1859,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1859
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "The artillery-only generator constructs four curtain assemblies and iterates over at most four supplied rondels, their firing stations, earth clearances, parapets, stairs, drainage, a ditch, a bridge, a gate and route graph. Its dimensions and IDs are fixed for a project-specific fixture; upstream tower creation and downstream structural audits must establish complete applicable invariants.",
+    "The route-graph producer chooses coarse paths, then samples each pair with an exclusive upper step bound and omits step zero on all but the first pair. This means intermediate coarse vertices need not be retained; whether that affects a supported generated plan or an audited consumer requires a separately revision-bound trace. The renderer and route-checking kernel were not inferred from this historical body alone.",
+    "The bridge state removes a removable solid when denied but retains its ID in the assembly record. State-dependent consumers and the intended meaning of this reference must be traced before calling it dangling or a defect.",
+    "No product generation, build, test, simulation, rendering or runtime probe ran."
+  ],
+  "remaining": "Trace upstream tower and program admission, projection and collision owners, graph generation and route audit, bridge-state interpretation, all historical aliases and independent lenses."
+}
