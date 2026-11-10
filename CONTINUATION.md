@@ -139,6 +139,12 @@ independent-lens obligations remain open; source tests were not run.
 `ASSESSMENT-L01-HISTORICAL-917-925.json` records separate frozen encounter,
 equipment and essentials source reads and links the prior bounded speed trace.
 Current and independent-lens obligations remain open; tests were not run.
+`ASSESSMENT-L03-PREPARATION-RIGHTS-95E.json` records a symbolic planner
+decision-binding question and the selected native adapter safeguards. Its
+related checkpoint 059 receipt retains its original scope and attribution.
+`ASSESSMENT-L01-HISTORICAL-926-930.json` records separate frozen filth,
+food, foraging and preparation source reads. Related current traces retain
+their bounds and prior attribution; source tests were not run.
 `ASSESSMENT-L01-UNARMED-95E.json` traces the strategic unarmed yield
 gate and selected empty-hand action work, retaining tactical safeguards
 and prior unarmed qualifications. No attack or encounter was run.
