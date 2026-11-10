@@ -1,0 +1,115 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 400,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/400",
+      "sha256": "56528e5adcad8261b414b53f196d12dee6548aa5f75c494b6a92c087d016446a",
+      "lines": 1115,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1115
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 401,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/attachment.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/401",
+      "sha256": "d111cafcd0fbd3cecae5a066f6da8ce3ca7eaed114bde19daffad836153faed2",
+      "lines": 248,
+      "new_personal_read_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 402,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/environment.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/402",
+      "sha256": "ef1f175feb5018520f404d2525f6354086adf4ecb8767ee54d841801fa0fbe37",
+      "lines": 11,
+      "new_personal_read_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 403,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/fit.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/403",
+      "sha256": "4ba486d38eabcb85c3aa9ac546cc93bef6a830b083952cfa839aeae22ec56ba6",
+      "lines": 252,
+      "new_personal_read_ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 404,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/lifecycle.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/404",
+      "sha256": "54bed0494270888424e8718a31f26020931eed7fe695d34f4bcd8b682042d857",
+      "lines": 29,
+      "new_personal_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 405,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/405",
+      "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+      "lines": 95,
+      "new_personal_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical equipment requests require the controlled actor, bounded queue, newer sequence, matching revision and expected hand/destination before a transfer or world interaction. One queued action is processed per frame; network delivery, lifecycle cleanup and current chronology owners remain open.",
+    "Historical topology planning resolves deterministic occupied/empty attachments, checks capacities and fit conflicts before deferred changes, and rejects moving an item with children. A transfer between worn location and hand updates topology and EquipSlot but does not explicitly refresh ArmorItem; whether the protection consumer or another system reconciles it requires a connected current trace.",
+    "Historical pickup computes the world item centre by subtracting a local anchor offset from translation, while dropped items are dynamic and their collider contains that local offset. Checkpoint 059 already records a conditional orientation/frame concern; actual current physical transforms, authored offsets and native collision behavior remain independently open.",
+    "Historical reconnect removes queued work and rekeys last accepted sequence. Source tests were read but not run; no equipment action, physics query, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current equipment transfer and authoritative protection/appearance state, all supported placement and attachment transitions, sequence/revision admission, pickup coordinate frames, native collider and reconnect lifecycle; reconcile historical aliases and independently assess every lens."
+}
