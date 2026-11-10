@@ -56,6 +56,9 @@ provenance; the earlier grant-error record remains separately attributed.
 `ASSESSMENT-L01-PLANNED-EXPOSURE-95E.json` records a source-derived
 omission of weather state advancement in planned movement and treatment.
 The related checkpoint 059 questions retain their original open status.
+`ASSESSMENT-L01-IMMEDIATE-LANGUAGE-95E.json` connects a current
+short-activity language-gain trace to separately attributed earlier records;
+it does not count the same failure as a new unique defect.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
