@@ -1,0 +1,133 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 374,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/374",
+      "sha256": "8799ec6db566e8afa5b708f0f13cb671cd6ecdbd5e02ae02a75e9c237954b1ce",
+      "lines": 1248,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1248
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 375,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/375",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "lines": 287,
+      "new_personal_read_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 376,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/376",
+      "sha256": "4275e4b481c27b96b32ef6cf85927899c939af70d3aa8cf2f4094bbd8d80e7dd",
+      "lines": 302,
+      "new_personal_read_ranges": [
+        [
+          1,
+          302
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 377,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/377",
+      "sha256": "be9f3c237f25e8a4604f2eab6cf51a11b0e988d3b780ea7904884f0bb79a3e97",
+      "lines": 199,
+      "new_personal_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 378,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/378",
+      "sha256": "d779afa0fed93760d08b2dc0b0cea2701dcda4cca41f4be0d5d2b6106d16092d",
+      "lines": 370,
+      "new_personal_read_ranges": [
+        [
+          1,
+          370
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 379,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/379",
+      "sha256": "2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc",
+      "lines": 43,
+      "new_personal_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 380,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/380",
+      "sha256": "b65059c1af131b6b98f426067c5bf495ade564c4f8538987bbdce63dcc42a54d",
+      "lines": 48,
+      "new_personal_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical bot plugin materializes composable behavior packages and chains guard, aiming, recovery, offense and reaction systems after condition update. Source fixtures and tests describe intended composition and control-only scenarios; actual scheduler interactions, authority and current behavior remain open.",
+    "Historical defense selects nearest or explicitly targeted opponents, checks incapacitation and optional facing, samples a dodge choice and delay, then submits a shared defend intent when the timer finishes. Native event ordering, duplicate reactions and probability/config admission require connected tracing.",
+    "Historical offense selects a live non-yielded opposing target, obtains equipment/ammunition and lunge facts, maintains explicit pursuit, windup, guard, cooldown and withdrawal phases, and switches to melee when ranged prerequisites fail. Several errors stop movement or retain a phase; full state transitions and failure atomicity need independent review.",
+    "The historical melee and ranged phases consume raw AI precision and ranged deadband fields; a separately attributed 95e source trace already records conditional admission consequences and their relation to checkpoint 059. This historical body read does not promote its bytes or conclusions to checkpoint 3821.",
+    "Source tests were read but not run. No bot, server, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current behavior package admission and materialization, reaction and offense event ordering, bot target and movement authority, config validation, finite operations, terminal yielding and each consumer; reconcile historical aliases and independently assess all lenses."
+}
