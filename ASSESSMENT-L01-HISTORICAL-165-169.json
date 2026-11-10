@@ -1,0 +1,97 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 165,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/build.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/165",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "lines": 580,
+      "new_personal_read_ranges": [
+        [
+          1,
+          580
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; build and source test code was inspected, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 166,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/166",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "lines": 347,
+      "new_personal_read_ranges": [
+        [
+          1,
+          347
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; build and source test code was inspected, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 167,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema/policy.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/167",
+      "sha256": "a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae",
+      "lines": 102,
+      "new_personal_read_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; build and source test code was inspected, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 168,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/catalog_revision.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/168",
+      "sha256": "c84897e6fc426cb620908fdabf4a4e52302d05bb588da91361407ab2d32868fb",
+      "lines": 82,
+      "new_personal_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; build and source test code was inspected, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 169,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/169",
+      "sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "lines": 30,
+      "new_personal_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; build and source test code was inspected, not executed. Current source, connected paths, aliases and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical dialogue build source validates authoring roles, topic references, prompt cardinality, runtime slots and effects before emitting a catalog and source map; the build script was not executed.",
+    "Separate historical schema, policy, catalog-revision and condition modules define authored/persisted vocabularies, keyed facts and content identity. Their runtime and persistence producers and consumers remain separate.",
+    "Historical tests were read without execution; these source observations do not establish current generated assets, product behavior or checkpoint 3821 status."
+  ],
+  "remaining": "Trace current dialogue content, runtime admission and effect authority, source-map consumers, historical aliases and every independent lens."
+}
