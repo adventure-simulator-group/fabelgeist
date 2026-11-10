@@ -1,0 +1,98 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 350,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/350",
+      "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "lines": 310,
+      "new_personal_read_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 351,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/351",
+      "sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "lines": 827,
+      "new_personal_read_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 352,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/352",
+      "sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "lines": 37,
+      "new_personal_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 353,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/353",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "lines": 71,
+      "new_personal_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 354,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/354",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "lines": 132,
+      "new_personal_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical tactical combat distinguishes no lunge, forward lunge, quickstep and explicit non-arrival; interaction range and timing have checked typed outputs and conditional nonpositive-drive behavior. Actual current server/client callers, accepted inputs and terminal timing remain open.",
+    "The physical-p16 combat-config source imports the identifier SignedLength from two modules in its first eleven lines. This observation is confined to that historical byte state; no compiler was run, no build failure was observed, and no claim about the current revision follows. The 95e file differs and its beginning was separately inspected.",
+    "The historical config validates broad schema, movement, authority, hitbox, animation and selected AI relationships; the AI offense child omits checks for several independent fields. Checkpoint 059 already records this admission family. Current loader, dependency parsing and consumer effects require an independently attributed source trace.",
+    "Runtime snapshot installation validates then publishes config through a lock/version and thread-local animation cache; door access uses positional interior checks and per-character passage exemptions. Concurrency, physical-coordinate admission, caller authority and policy remain open. Source tests were read but not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current configuration loader and full admission, parser and consumers; melee lunge and timing, runtime snapshot synchronization, door interaction and collision ownership; preserve the historical duplicate-import qualification, reconcile exact aliases and independently assess every lens."
+}
