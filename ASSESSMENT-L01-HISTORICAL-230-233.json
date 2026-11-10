@@ -1,0 +1,81 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 230,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/230",
+      "sha256": "463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+      "lines": 2111,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 231,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/231",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "lines": 212,
+      "new_personal_read_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 232,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/232",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "lines": 37,
+      "new_personal_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 233,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/233",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "lines": 13,
+      "new_personal_read_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and guarded fixture bodies were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical outbreak authority preserves generated case, patient, source and remediation records privately and validates immutable replay against patient and water identities. Patient presentation reconstructs observer-relative history rather than relying solely on latest materialized presence flags.",
+    "Water collection binds capability, fixture, container and material lot, plans and rechecks inputs around elapsed time, then records volume, contamination and receipt. Proportional contribution transfer and consumption connect exact microliters to floating contamination and food exposure; numeric conservation and all native boundaries remain open.",
+    "Patient death chronology reconciles private disease terminal and carrier-attack timings; remediation releases context separately from health recovery. This scope is related to prior terminal-crossing and microbial work but no exact historical alias or runtime result is established.",
+    "Historical source tests and guarded patient lifecycle fixture were read, not executed. No current source, historical alias or recovered checkpoint 3821 status follows from these reads."
+  ],
+  "remaining": "Trace current water material and receipt identity, proportional rounding, source remediation, patient context and private terminal chronology across all producers and consumers; reconcile aliases and independently assess each lens."
+}
