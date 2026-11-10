@@ -1,0 +1,91 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 798,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/798",
+      "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "lines": 448,
+      "new_personal_read_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full body read of exact frozen historical source only; no device, product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 799,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/799",
+      "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "lines": 400,
+      "new_personal_read_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full body read of exact frozen historical source only; no device, product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 800,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/800",
+      "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "lines": 545,
+      "new_personal_read_ranges": [
+        [
+          1,
+          545
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full body read of exact frozen historical source only; no device, product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 798 records fixed-size scalp texture baking, mip levels and GPU upload/readback; public and numeric boundary obligations remain open.",
+    "Role 799 records scalp baking shader packing, drawing, blur and mip operations; device behavior, numerical bounds and complete producer contracts remain open.",
+    "Role 800 records GPU sampled-body-field grid, near-mesh filtering and a 20-bit packed filtered-triangle ordinal. A separately attributed 2026-10-27 Lens 11 receipt had already retained the capacity concern with no unique-finding increment; a bounded current-source Lens 1 trace is separate.",
+    "No GPU, shader, model, product build, test or runtime probe ran."
+  ],
+  "remaining": "Continue at original role 801; all connected source, aliases, queue records and independent lenses remain open. Cargo lock roles 497 and 680 remain metadata-partial."
+}

@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-HAIR-FIELD-95E.json` traces the conditional 20-bit
+filtered triangle capacity and preserves the earlier Lens 11 receipt.
+`ASSESSMENT-L01-HISTORICAL-798-800.json` records frozen bake and field
+source reads; no device or product execution ran.
 `ASSESSMENT-L01-HAIR-PIGMENT-95E.json` connects a conditional NaN
 pigment path to its 059 contract and locally installed toolchain evidence.
 `ASSESSMENT-L01-HISTORICAL-794-797.json` records frozen character and
