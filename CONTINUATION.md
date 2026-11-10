@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-RIGID-SKIN-95E.json` traces a conditional row-bound
+failure and retains its earlier L12 and L13 qualifications.
+`ASSESSMENT-L01-HISTORICAL-825-833.json` records frozen runtime and
+creator source reads; no device or product execution ran.
 `ASSESSMENT-L01-LOD-SAFEGUARD-95E.json` records the bounded checked
 LOD table-index nonfinding, leaving model and UI behavior open.
 `ASSESSMENT-L01-HISTORICAL-817-824.json` records frozen creator and
