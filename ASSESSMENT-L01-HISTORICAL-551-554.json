@@ -1,0 +1,94 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 551,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/doors.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/551",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "lines": 295,
+      "new_personal_read_ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 552,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/doors/admission_tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/552",
+      "sha256": "6f85090d8c5d624da30e2e2ebeb308b0a110340a189eac9bc4c13c28888e011a",
+      "lines": 51,
+      "new_personal_read_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 553,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/553",
+      "sha256": "c4d1d8c287ce1d87edbe8441dd8e4d8b23e18bbcb01281607920d8c02cf77b28",
+      "lines": 345,
+      "new_personal_read_ranges": [
+        [
+          1,
+          345
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 554,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/apparatus.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/554",
+      "sha256": "57a71101f8747cf04aefc87d9da7e8aaa1623dc4eed4cb2809ad0e43dd622c45",
+      "lines": 61,
+      "new_personal_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source, including source assertions where present; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 551 derives operable exterior door leaves from a resolved closure, rejects a missing selected closure, admits individual dimensions, finite positions, normalized directions and angles, and computes a fallible sweep radius. Individual direction admission alone does not establish their mutual perpendicularity or all aggregate leaf/frame relationships; actual producers and dynamic consumers remain untraced.",
+    "Role 552 is a separate source-assertion file for door leaf decoding and sweep overflow. Its cases were personally read but no assertions or product codec were executed.",
+    "Role 553 defines furniture kind/variant registries, cached recipe dispatch, local-frame geometry, support points and access clearances. The recipe cache retains per-key success or error, but key construction, all kind/variant enumeration, builder validation and world-instance identity require independent source review.",
+    "Role 554 dispatches apparatus recipes through an interior specification and constructs shared table/metal pieces. It does not by itself establish the dimensional bounds or collision treatment of the separately declared apparatus modules.",
+    "No door compilation, furniture generation, product build, test, simulation, rendering or runtime probe ran."
+  ],
+  "remaining": "Trace all door ingress/aggregate frame and dynamic action paths, furniture key/spec/builder ownership, instance scoping and distinct apparatus modules. Reconcile historical aliases and all independent lenses."
+}
