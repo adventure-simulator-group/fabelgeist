@@ -1,0 +1,98 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 388,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/388",
+      "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+      "lines": 1217,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1217
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 389,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/389",
+      "sha256": "d0d569ebb258a1695be5f608854f31be959f905e0e7d67fa0cdb9b374b7c2b26",
+      "lines": 292,
+      "new_personal_read_ranges": [
+        [
+          1,
+          292
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 390,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/390",
+      "sha256": "266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+      "lines": 287,
+      "new_personal_read_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 391,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/391",
+      "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "lines": 168,
+      "new_personal_read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 392,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/392",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "lines": 50,
+      "new_personal_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical defend ingress checks state, pose, direction and guard-dependent quickstep admission before charging workload and publishing a pending response. Its already-dodging branch accepts a request without a new actuator start; checkpoint 059 separately qualifies the legitimate prestarted-player acknowledgement and conditional repeated-request question. This body alone does not prove ordinary input replay or duplicate charges.",
+    "Historical melee start prepares recovery, target/contact, lunge and timing before beginning a skeleton attack, charging work and publishing authority plus pending contact. Unreachable arrival deliberately converts to an untargeted miss. Each producer, deferred command ordering and error boundary remains open.",
+    "The historical lunge plan observes finite scene poses, computes a shared geometry/arrival plan and installs forward or quickstep movement; timing uses rounded sample spans and saturating tick operations. Native collision geometry, exhausted-clock semantics and connected current clients were not fully assessed here.",
+    "Source tests were read but not run. No tactical combat, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current player prestarted-quickstep acknowledgement versus independently delivered defensive requests, action identity and work charging; inspect lunge geometry, native collision, authority sequencing and saturation as connected source scope. Reconcile aliases and independently assess all lenses."
+}
