@@ -79,8 +79,8 @@ original = ledger['discovery_findings_and_dependencies'][related['id']]
 if original['id'] != related['id'] or related['checkpoint'] != '059':
     raise ValueError('historical relation mismatch')
 entries = baseline['newly_assessed_ledger']['entries']
-if (len(entries) != 1 or entries[0]['id'] != candidate['id'] or
-        entries[0]['record'] != 'ASSESSMENT-L01-WORLD-RUNTIME-95E.json' or
-        progress['new_current_ledger_candidates'] != 1 or candidate['validation'] != 'not performed'):
+matches = [entry for entry in entries if entry['id'] == candidate['id']]
+if (len(matches) != 1 or matches[0]['record'] != 'ASSESSMENT-L01-WORLD-RUNTIME-95E.json' or
+        progress['new_current_ledger_candidates'] != len(entries) or candidate['validation'] != 'not performed'):
     raise ValueError('candidate ledger mismatch')
 print('verified eight revision-bound source snapshots, lock comparison and qualified historical relation')

@@ -1,0 +1,29 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 131,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/131",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "lines": 1230,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1230
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 historical role. Separate bounded current-source work is recorded at 95e; byte identity does not itself grant current or other-lens coverage."
+    }
+  ],
+  "observations": [
+    "Historical model declares quest-generation identifiers, open catalog IDs, witnesses, events, private case authority, actions, trails, testimony and projections.",
+    "The body includes separate checked and unchecked-looking ID construction routes that require a current producer, admission, persistence and recipient trace; no current impact is inferred from the historical body alone.",
+    "Witness reachability, replay and objective relationships extend into other modules and cannot be established from this model alone."
+  ],
+  "remaining": "All connected historical and current paths, queue aliases and independent lenses remain open; no product code or tests ran."
+}

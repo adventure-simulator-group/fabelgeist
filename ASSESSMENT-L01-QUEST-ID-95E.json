@@ -1,0 +1,229 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Quest generation identifier constructors, bounded producers and selected persisted-authority consumers; independent admission and other lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "848dadf550fbd4a7ed4126d4c53c5c5a4493c4fd",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "bytes": 41036,
+      "lines": 1230,
+      "ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          1150,
+          1188
+        ],
+        [
+          1200,
+          1230
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quest-id-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bf9af89bd643c5f72ef92b42615c0ae9eb6e065",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "bytes": 61438,
+      "lines": 1443,
+      "ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          100,
+          135
+        ],
+        [
+          805,
+          865
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quest-id-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/solver.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e47c1e1291104a974d70517880bece2b96300d0e",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "bytes": 40679,
+      "lines": 979,
+      "ranges": [
+        [
+          280,
+          305
+        ],
+        [
+          375,
+          395
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quest-id-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ac5dd5745378840c1655104fb71ec238b33fda0",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "bytes": 48415,
+      "lines": 1121,
+      "ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          197,
+          270
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quest-id-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quest-id-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bd1ffdf65672c95c22b7b04d463887fee2f124f5",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "bytes": 63916,
+      "lines": 1801,
+      "ranges": [
+        [
+          498,
+          519
+        ],
+        [
+          643,
+          725
+        ],
+        [
+          785,
+          887
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quest-id-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/capabilities.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a0675335c6d33fe15613737466870ae93dc0daf0",
+      "sha256": "6ef49eb46d226a645094323d9b637c290ec33b94068e634e865f3359188d2673",
+      "bytes": 48739,
+      "lines": 1343,
+      "ranges": [
+        [
+          625,
+          685
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quest-id-sources/06.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Model bytes were read historically in full and separately inspected from the c100 source checkout; the preserved 95e Git tree proves these selected bytes are identical at both revisions. The bounded current interpretation is recorded separately from the historical role read.",
+  "native_source": {
+    "package_manifest": "native-evidence/serde-derive-1.0.229/MANIFEST.json",
+    "archive_member": "serde_derive-1.0.229/src/de/tuple.rs",
+    "sha256": "5496ee711b935b17269960f4a0cfcb7d23de668db9489dfca7276ce1fcdf0f6f",
+    "bytes": 9435,
+    "ranges": [
+      [
+        12,
+        82
+      ],
+      [
+        135,
+        180
+      ]
+    ],
+    "entry_member": "serde_derive-1.0.229/src/de.rs",
+    "entry_ranges": [
+      [
+        306,
+        323
+      ]
+    ],
+    "qualification": "Pinned crate archive source interpretation only; no feature resolution, macro expansion, compilation or parser execution."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-QUEST-GENERATION-ID-ADMISSION-001",
+      "classification": "source-level public-constructor and derived-deserialization invariant gap; user-facing impact not established",
+      "detail": "Eleven id_type wrappers expose a public String tuple field. try_new rejects empty, >256-byte or disallowed strings, but callers can construct the public tuple directly. Pinned serde_derive source for a one-field tuple constructs the type around a deserialized field directly rather than invoking try_new; this is source interpretation, not a macro expansion or parser run.",
+      "safeguards": "Inspected normal assembly creates several IDs through private new, which calls try_new. Generated authority reads the stored manifest, performs aggregate validation and compares against replayed generation before the inspected view/reducer returns it. These observations do not prove all producer or admission paths safe.",
+      "connected_scope": "All eleven wrappers, constructors and deserialization; generated-case and factor-trace persistence, aggregate validation and replay, direct callers, outputs and native boundaries.",
+      "proposed_repair": "After complete discovery, make each owner retain its admitted invariant through every applicable constructor and deserialization route; adapt connected consumers without compatibility shims and preserve intended wire format only where required by current contracts.",
+      "later_acceptance": "Verify valid generated identifiers and supported serialization boundaries retain the intended representation; malformed empty, overlong and disallowed identifiers cannot enter through any supported admission path; verify authority replay and all consumers separately.",
+      "related_candidates": [
+        "NEW-MISSION-AUTHORITY-ID-DESERIALIZATION-001"
+      ],
+      "relationship_qualification": "Related admission pattern at different types and predecessor revision; not an established duplicate or historical alias.",
+      "discovery": "partial; all constructors, persistence inputs, consumers, supported reachability, policies and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-OPEN-CATALOG-CONST-ADMISSION-001",
+      "classification": "source-level inconsistent public admission and potential serialization round-trip mismatch; supported reachability not established",
+      "detail": "The public from_static(value: &str) checks only nonempty length <=63 and is callable with a runtime str, while try_new additionally requires lowercase ASCII digits or selected separators. Source interpretation predicts that from_static(\"Bad value\") constructs a value serialized as that string, but Deserialize routes it to try_new and rejects it; no parser or product code ran.",
+      "safeguards": "The inspected catalog consumers call try_new for authored site and circumstance IDs; constants shown in the macro invocations are not evidence that arbitrary runtime input reaches from_static.",
+      "connected_scope": "All four open_catalog_id instantiations, constants and public callers, authored data admission, serialization and all consumers. Determine whether const construction should enforce the same language or be restricted to proven literals.",
+      "proposed_repair": "After complete discovery, align every supported constructor and deserializer with the intended common ID syntax, retaining const construction only if it enforces that contract.",
+      "later_acceptance": "Valid current catalog IDs round-trip, and uppercase, spaces, non-ASCII, empty and oversized cases follow the explicitly selected common admission contract at every route.",
+      "related_candidates": [
+        "REVIEW-QUEST-GENERATION-ID-ADMISSION-001"
+      ],
+      "relationship_qualification": "Related constructor-invariant theme, distinct ID macros and contracts; no duplicate established.",
+      "discovery": "partial; all constructors, persistence inputs, consumers, supported reachability, policies and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all direct callers, generated and persisted sources, non-replay consumers and the independent admission, operations, aggregate and raw-string lenses. Preserve historical candidate attribution. No product validation or repairs.",
+  "serde_json_source": {
+    "package_manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+    "archive_member": "serde_json-1.0.151/src/de.rs",
+    "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+    "bytes": 86840,
+    "ranges": [
+      [
+        1720,
+        1735
+      ],
+      [
+        2709,
+        2714
+      ]
+    ],
+    "qualification": "Pinned source interpretation only; no dependency feature resolution, macro expansion or parser execution."
+  }
+}

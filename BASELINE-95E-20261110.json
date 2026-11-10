@@ -99,6 +99,30 @@
           "SEGOVB-L12-TERRAIN-SOURCE-DIGEST-PROPAGATION"
         ],
         "relationship_qualification": "Related checkpoint 059 scope only; original attribution preserved and no alias or reconciliation established."
+      },
+      {
+        "id": "REVIEW-QUEST-GENERATION-ID-ADMISSION-001",
+        "record": "ASSESSMENT-L01-QUEST-ID-95E.json",
+        "classification": "source-level public-constructor and derived-deserialization invariant gap; user-facing impact not established",
+        "discovery": "partial; all constructors, persistence inputs, consumers, supported reachability, policies and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "related_candidates": [
+          "NEW-MISSION-AUTHORITY-ID-DESERIALIZATION-001"
+        ],
+        "relationship_qualification": "Related admission pattern at different types and predecessor revision; not an established duplicate or historical alias."
+      },
+      {
+        "id": "REVIEW-OPEN-CATALOG-CONST-ADMISSION-001",
+        "record": "ASSESSMENT-L01-QUEST-ID-95E.json",
+        "classification": "source-level inconsistent public admission and potential serialization round-trip mismatch; supported reachability not established",
+        "discovery": "partial; all constructors, persistence inputs, consumers, supported reachability, policies and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "related_candidates": [
+          "REVIEW-QUEST-GENERATION-ID-ADMISSION-001"
+        ],
+        "relationship_qualification": "Related constructor-invariant theme, distinct ID macros and contracts; no duplicate established."
       }
     ]
   }

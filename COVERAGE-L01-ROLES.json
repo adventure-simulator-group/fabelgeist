@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2567,
+    "unassessed": 2566,
     "lock-metadata-partial": 2,
     "bounded-current-trace-only": 198,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 84
+    "full-historical-body-trace-open": 85
   },
-  "first_unfinished": "Original changed role 130 now has a full physical-p16 historical body read; next unread changed role is 131. Earlier dependency roles, all independent lenses and additional populations remain open; the 95e transition is recorded separately.",
+  "first_unfinished": "Original role 131 now has a full physical-p16 historical body read; role 132 was previously read, and the next unread changed role is 133. Earlier dependencies, independent lenses and additional populations remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -1970,7 +1970,9 @@
       "historical_sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
       "registry_pointer": "/files/131",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-131.json",
+      "qualification": "Full body read only for this exact physical-p16 historical identity; current applicability is separately traced at 95e, with connected scope, other roles and independent lenses open."
     },
     {
       "original_index": 132,
