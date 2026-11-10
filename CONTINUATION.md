@@ -23,6 +23,9 @@ an exploitable path. `ASSESSMENT-L01-TRAINING-FINITE-95E.json` records a
 conditional numeric boundary and an independently attributed historical
 proposal. `ASSESSMENT-L01-ITINERARY-CLOCK-95E.json` records a source-derived
 clock-boundary nonprogress case with production reachability still open.
+`ASSESSMENT-L01-CHARACTER-RENAME-95E.json` records a conditional caller
+authority concern; deployed exposure and unauthorized invocation remain
+unverified.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its

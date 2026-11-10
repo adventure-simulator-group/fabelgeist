@@ -1,0 +1,257 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded producer-to-durable-name path and caller-authority comparison. This observation may support other lenses later but completes none.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/character/name_reducers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c090f69057a2271b101fdf2a97820b65b08f836",
+      "sha256": "ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "bytes": 335,
+      "lines": 8,
+      "ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          53,
+          123
+        ],
+        [
+          317,
+          331
+        ],
+        [
+          2787,
+          2795
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character/name_identity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "50ec610ec55a2bb6866a823ae710f586d970991b",
+      "sha256": "1e4fa37b2fb89c3fa7ccca3c9c15a6c514044539ef4b97776e8ebb66cc7eccbc",
+      "bytes": 7534,
+      "lines": 242,
+      "ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          186,
+          204
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character/name_types.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "06ad1796929117fb12599585dcfb628734d6ba32",
+      "sha256": "698c97ddc6ffa8f8a1765775397dc10013ea5359f32a06b62845cf62ce0a946e",
+      "bytes": 3437,
+      "lines": 111,
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/person_names.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b4b2de2172d3b00702ba0a25287756ab29b6e992",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "bytes": 26575,
+      "lines": 849,
+      "ranges": [
+        [
+          95,
+          124
+        ],
+        [
+          166,
+          199
+        ],
+        [
+          351,
+          362
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9b7ee4f1ba51b783bc6cc73e5611608096ee5c9d",
+      "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+      "bytes": 5951,
+      "lines": 169,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          940,
+          966
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/update_character_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42a6a1270fd98f5403c807663c463f34ade66030",
+      "sha256": "74efd7193416dac1845156dddaec2980a1440a4d8debfb90ee0a29d324330f74",
+      "bytes": 2646,
+      "lines": 76,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/check_semantic_authorities.py",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "26daa080cd33b195bbb1a647c27c14ee22a231bd",
+      "sha256": "d879ae4f64001bf34a361c2efb168e23ebbf96436eb932d9d43dafe00f219b75",
+      "bytes": 17963,
+      "lines": 287,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          9761,
+          9789
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "868b911e5d1fe98bfed681bde574227fb391a263",
+      "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+      "bytes": 7583,
+      "lines": 211,
+      "ranges": [
+        [
+          170,
+          179
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "50c62bddee2b88c9d07e1a8ef6512648adf772e4",
+      "sha256": "6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "bytes": 2207,
+      "lines": 93,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/character-rename-sources/11.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected in the c100 source checkout or the hash-identical physical-p16 role; the preserved 95e and c100 tree inventories bind each current source blob. Current interpretation is recorded separately from the historical role reads.",
+  "native_source": {
+    "package_manifest": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+    "archive_member": "spacetimedb-2.6.1/src/lib.rs",
+    "sha256": "b4c9d8460c2b511a8ddd6bac50546cb06ab9e83daab5df6007605e4b65c65a00",
+    "bytes": 65084,
+    "ranges": [
+      [
+        456,
+        466
+      ],
+      [
+        528,
+        547
+      ],
+      [
+        678,
+        694
+      ]
+    ],
+    "qualification": "Pinned dependency documentation source only; not evidence of a deployed server or network policy."
+  },
+  "candidate": {
+    "id": "REVIEW-CHARACTER-RENAME-AUTHORITY-001",
+    "classification": "source-level caller-authorization gap at the semantic character-name mutation boundary; deployed exposure and actual unauthorized invocation unverified",
+    "detail": "At the pinned revision, the update_character reducer accepts a character ID and name, checks only that the target exists and is alive, then reads its existing semantic identity and updates both the character name projection and private semantic identity. Neither that reducer nor the traced assignment helpers inspect ctx.sender or call require_strategic_character_authority. The generated client exposes a remote reducer call, and the pinned SpacetimeDB documentation describes reducers as remotely invokable. If an independently authenticated caller can reach this reducer and knows an eligible ID, source predicts its valid requested name can replace that target\u2019s name without the gateway/owner check. No call or database operation was attempted.",
+    "safeguards": "Character and semantic identity tables are private; the broad character view checks the gateway identity. Missing/dead targets, missing/invalid identity or personality, invalid catalog references, and invalid rendered names fail on the traced path. The helper retains hereditary surname metadata and validates the rendered value. These controls do not themselves check the caller. Deployment networking, identity capabilities and any external gate have not been verified.",
+    "connected_scope": "Character ID producer and native transport, update_character public reducer, name identity reading/rendering/serialization, private rows and display projection, gateway and disposable simulation ownership policy, generated binding, all rename entry points, other character-creation or mutating reducers and deployment permissions. Distinguish these other families rather than treating them as proven duplicates.",
+    "proposed_repair": "After complete discovery, enforce the agreed character mutation authority at the earliest supported reducer entry and update every connected authorized producer and fixture to use the clean final API. Preserve the existing semantic identity validation, inherited surname and name projection contract. Do not add a compatibility path.",
+    "later_acceptance": "In an isolated environment after the user authorizes product validation, verify the gateway and intended disposable-simulation owner can perform allowed renames; a distinct unauthorized caller cannot alter either durable identity or name projection. Verify invalid names and identity data still fail without a partial update; validate intended browser and generated-client flows and other connected mutation entry points.",
+    "related_candidates": [],
+    "relationship_qualification": "No matching historical ID has been established; the historical queue remains unreconciled. The physical-p16 source body is not promoted to checkpoint 3821 or independently credited for another lens.",
+    "discovery": "partial; external authorization, exposure, supported invocation, connected mutation paths, policy and historical aliases remain open",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "remaining": "Trace external authorization, all rename and creation producers, policies, simulation ownership, public clients and historical queue aliases. Independently assess authority and behavior lenses. No product validation or repair."
+}
