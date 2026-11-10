@@ -1,0 +1,115 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 344,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/344",
+      "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+      "lines": 103,
+      "new_personal_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and declared modules or includes were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 345,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/345",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "lines": 135,
+      "new_personal_read_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and declared modules or includes were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 346,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_existing_owner_definition",
+      "registry_pointer": "/files/346",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "lines": 100,
+      "new_personal_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and declared modules or includes were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 347,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/347",
+      "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "lines": 86,
+      "new_personal_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and declared modules or includes were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 348,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_existing_owner_definition",
+      "registry_pointer": "/files/348",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "lines": 217,
+      "new_personal_read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and declared modules or includes were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 349,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/349",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "lines": 110,
+      "new_personal_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and declared modules or includes were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical auto-aim ranks admitted candidates by cursor alignment, then distance and stable key; the source explicitly includes a no-cursor-cone case, so an off-axis selection is not itself a demonstrated defect. Finite input admission and each caller's range/visibility checks remain open.",
+    "Animation angle, length, positive duration and response owners distinguish signed and nonnegative values, units, and serde admission. Their exposed arithmetic includes deliberate saturation or limit behavior in some cases; finite intermediate results, native boundary consumers and contract-preserving operations require independent review.",
+    "Animation sample ticks and spans are distinct, with checked, saturating and explicitly wrapping operations for different clock purposes. The module exports these owners and declares many children; reading its index does not credit child implementations or independent lenses.",
+    "Source tests were read but not run. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current targeting callers and finite range admission, each animation measurement's constructors/serde/operations/consumers, tick versus span conversion and exhaustion policies, module children and historical aliases; independently assess all thirteen lenses."
+}
