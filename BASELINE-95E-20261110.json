@@ -194,6 +194,18 @@
         "historical_related_candidates": [
           "SEGOVB-L12-INVENTORY-GRANT-ERROR-ERASURE"
         ]
+      },
+      {
+        "id": "REVIEW-WEDDING-CAPACITY-POSTWRITE-001",
+        "classification": "source-derived conditional partial wedding settlement after a capacity error is caught; supported state and transaction outcome not observed",
+        "discovery": "partial; exact supported state, all callers, transaction behavior, alternative paths and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Recovered checkpoint 059 already records this same first-failure family. Five pr-working bodies referenced there are byte-identical to the pinned 95e Git sources; the current trace adds an explicit conditional full-residence path and documents the outer success premise. The old record retains its original attribution, open status and zero accepted unique-count change; this is a newly assessed current trace, not an additional independent unique failure or restored checkpoint 3821 state. Global alias reconciliation remains open.",
+        "historical_related_candidates": [
+          "CONT-WEDDING-CAPACITY-POSTWRITE-ERROR"
+        ],
+        "record": "ASSESSMENT-L01-WEDDING-CAPACITY-95E.json"
       }
     ]
   }

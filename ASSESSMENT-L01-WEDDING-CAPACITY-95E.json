@@ -1,0 +1,290 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded global wedding queue, multi-person capacity and post-write error path. Independent lenses and remaining connected paths are incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6181873c7c538b9efe2dfcd6fec548ec61ba5578",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "bytes": 16999,
+      "lines": 481,
+      "ranges": [
+        [
+          1,
+          292
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ab02b767f457679d8cfc0b83355ec4790fe96c8",
+      "sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "bytes": 7684,
+      "lines": 217,
+      "ranges": [
+        [
+          63,
+          154
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "bytes": 49683,
+      "lines": 1455,
+      "ranges": [
+        [
+          488,
+          571
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b3cc72ecc77f0335cd5ecda773c70b3fe86afd6",
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "bytes": 8676,
+      "lines": 282,
+      "ranges": [
+        [
+          1,
+          72
+        ],
+        [
+          110,
+          123
+        ],
+        [
+          140,
+          189
+        ],
+        [
+          223,
+          243
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "99a8a95a4eb9460f51e1bf4617d57d57dc692564",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "bytes": 13026,
+      "lines": 377,
+      "ranges": [
+        [
+          265,
+          310
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b6699e06a7d607c12662906017129627e02c5676",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "bytes": 8876,
+      "lines": 267,
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/commitments.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "245a87d8379577dde4ef2a030132edcde24d7c1c",
+      "sha256": "ec754c7ccdd1dee1a7441ab99e805a8b36102e4db96b24cf221c0c3c369b48cc",
+      "bytes": 11826,
+      "lines": 332,
+      "ranges": [
+        [
+          38,
+          106
+        ],
+        [
+          202,
+          331
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "40f79017a0a45bb36f4f316333e78777960b0959",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "bytes": 4340,
+      "lines": 138,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "81c08813de2786955f13e9f6aba5c9b149721790",
+      "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "bytes": 22032,
+      "lines": 635,
+      "ranges": [
+        [
+          478,
+          510
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          518,
+          545
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "25901bf2f47ef863094b040e31b85e3679460a27",
+      "sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+      "bytes": 3987,
+      "lines": 106,
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/tests/lifecycle.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bcf0edb83df885979301acab2263a828daf23849",
+      "sha256": "ebcbeec9c7898b639d3c3ce24e558e9325bedd36684d570573475020ec4d7efd",
+      "bytes": 4668,
+      "lines": 126,
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wedding-capacity-sources/11.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected current ranges were personally inspected directly from the pinned 95e Git commit, except family.rs 1\u201352, read from the byte-identical physical-p16 role 236. Preserved c100 and 95e inventories bind identical current blobs. The historical physical-p16 role retains its attribution; the five matching historical roles below are pr-working.",
+  "native_source": {
+    "package_manifest": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+    "archive_member": "spacetimedb-2.6.1/src/lib.rs",
+    "ranges": [
+      [
+        456,
+        466
+      ],
+      [
+        528,
+        531
+      ]
+    ],
+    "qualification": "Pinned dependency source documentation only; no deployed transaction or product execution established."
+  },
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "pointer": "/discovery_findings_and_dependencies/CONT-WEDDING-CAPACITY-POSTWRITE-ERROR",
+    "matching_pr_working_roles": [
+      {
+        "original_index": 1160,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+        "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+        "registry_pointer": "/files/1160"
+      },
+      {
+        "original_index": 1161,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+        "sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+        "registry_pointer": "/files/1161"
+      },
+      {
+        "original_index": 1180,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+        "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+        "registry_pointer": "/files/1180"
+      },
+      {
+        "original_index": 1183,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+        "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+        "registry_pointer": "/files/1183"
+      },
+      {
+        "original_index": 1184,
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties.rs",
+        "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+        "registry_pointer": "/files/1184"
+      }
+    ],
+    "qualification": "Recovered checkpoint 059 record and original pr-working source roles, not checkpoint 3821. Their status and attribution remain unchanged; matching bytes do not complete any lens or global alias sweep."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-WEDDING-CAPACITY-POSTWRITE-001",
+      "classification": "source-derived conditional partial wedding settlement after a capacity error is caught; supported state and transaction outcome not observed",
+      "detail": "Assume a valid due engagement selected by the global lifecycle queue, an active candidate holding whose first participant already occupies the same property and holding, and a second participant not at that property when no capacity remains. After any applicable dowry payment, settle_due_weddings creates the new household and joins both people. The first residence admission is a no-op; the second calls the capacity check and returns an error. The global queue catches this error, cancels the commitment as ResidenceUnavailable, and records failure. If cancellation and the remainder of the enclosing scheduler succeed, pinned SpacetimeDB source documentation says successful reducers commit; source therefore predicts the earlier household changes survive a cancelled wedding. No database or reducer was executed.",
+      "additional_money_case": "If the planned paid dowry credit succeeds and the matching escrow is deleted before the capacity failure, cancellation sees no escrow to refund. The source predicts the recipient can retain that payment despite the cancellation, subject to all stated conditions and successful outer commit. Currency grant error-erasure is a separately recorded connected concern, not necessary to the household example.",
+      "safeguards": "The queue checks due state and processability, wedding settlement checks living participants, age and effective active residence, and occupancy checks capacity at all relevant future boundaries. A failing outer transaction would abort rather than commit. The supported production reachability of the exact filled-home scenario and actual native transaction outcome were not observed. Birth preflight and deliberate optional newborn housing failure have different contracts.",
+      "connected_scope": "Wedding reservation and due scheduling; effective-dated residence and full multi-person capacity admission; household/occupancy writes and rollback; dowry escrow, currency and terminal transitions; typed expected rejection versus unexpected commit failures; every caller that catches or propagates settlement errors and any later scheduler failure. Reconcile historical exact aliases independently.",
+      "proposed_repair": "After complete discovery, prepare the entire wedding against a consistent capacity and money state before durable writes, distinguish expected preflight rejection from unexpected commit failure, and propagate unexpected errors through the transaction boundary. Preserve effective-dated occupancy, deliberate birth housing policy and the sole strategic authority.",
+      "later_acceptance": "After product validation is authorized, verify a due wedding with an already-full residence cancels without changing either prior household, occupancy or dowry ownership, and verify a successful wedding conserves escrow and updates both people coherently. Verify an unexpected post-write failure aborts the outer transaction and distinct delayed-event ordering remains correct.",
+      "historical_related_candidates": [
+        "CONT-WEDDING-CAPACITY-POSTWRITE-ERROR"
+      ],
+      "relationship_qualification": "Recovered checkpoint 059 already records this same first-failure family. Five pr-working bodies referenced there are byte-identical to the pinned 95e Git sources; the current trace adds an explicit conditional full-residence path and documents the outer success premise. The old record retains its original attribution, open status and zero accepted unique-count change; this is a newly assessed current trace, not an additional independent unique failure or restored checkpoint 3821 state. Global alias reconciliation remains open.",
+      "discovery": "partial; exact supported state, all callers, transaction behavior, alternative paths and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace every wedding caller, reservation and capacity transition, typed error handling, dowry/currency path and supported reachable state; independently assess all thirteen lenses and complete exact historical aliases. No product validation or repair."
+}

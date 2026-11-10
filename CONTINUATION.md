@@ -31,6 +31,9 @@ demand failure and an unresolved demand-to-session ownership boundary.
 `ASSESSMENT-L01-INVENTORY-GRANT-95E.json` records a conditional caller
 authority concern and a source-derived grant-error erasure path linked to,
 but not substituted for, a recovered checkpoint 059 finding.
+`ASSESSMENT-L01-WEDDING-CAPACITY-95E.json` connects a conditional current
+capacity failure to its byte-matched, separately attributed checkpoint 059
+record. The connected repair and supported-state reachability remain open.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
