@@ -1,0 +1,73 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 621,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/621",
+      "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+      "lines": 268,
+      "new_personal_read_ranges": [
+        [
+          1,
+          268
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 622,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index/checked.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/622",
+      "sha256": "c22c004b9567bec8accd9108a2d1c0d3da7bec4f0e08068281b3c1e8179e02c9",
+      "lines": 28,
+      "new_personal_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 623,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/623",
+      "sha256": "5dbdcafe3866798548d26b03a8880417e25b5730dd9c4d2de43f81b19dc0faa3",
+      "lines": 457,
+      "new_personal_read_ranges": [
+        [
+          1,
+          457
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 621 builds candidate bounds from the union of yaw-only and fully oriented envelopes, partitions them with checked centre and extent operations, and returns overlapping source indices in sorted order. Its source tests cover selected order and extreme arithmetic cases but were read only; individual exact geometry predicates and all native callers remain separately open.",
+    "Role 622 implements fallible short-circuit any/all loops. A valid decisive result intentionally stops before later values; the first construction error encountered before that result is propagated. Caller ordering and whether skipped values require validation are distinct obligations.",
+    "Role 623 admits a normalized kitchen direction, constructs placement body and operating bounds from two transformed opposite local corners, and uses those bounds in clearance, support, roof and room selection. A general diagonal rotation is not automatically represented by two corners; checkpoint 059 PL13-053-HEATING-FRAME-AND-INTERIOR-REFERENCES left the cardinal-only assumption and actual supported wall path open. Current producer and consumer tracing is a separate newly assessed activity.",
+    "No product generation, build, test, audit, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace spatial-index predicates, admitted heating axes and actual generated or loaded callers, hearth geometry construction, historical aliases and every independent lens."
+}
