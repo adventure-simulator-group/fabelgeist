@@ -1,0 +1,31 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 480,
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/480",
+      "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "lines": 407,
+      "new_personal_read_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/Cargo.toml",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of the separately registered normalized registry manifest; matches the checksum-bound current archive member. Actual Cargo feature resolution and product usage are not inferred."
+    }
+  ],
+  "observations": [
+    "The registered file identifies itself as Cargo-normalized registry metadata for avian3d 0.7.0. Its declared defaults include 3d, f32, parry-f32, debug, joints, parallel, collider-from-mesh and optional integrations; parry-f32 itself enables default-collider. These declarations do not establish which features the application actually resolves, since dependency declarations and feature unification remain untraced.",
+    "The manifest lists library, example and benchmark feature requirements and optional dependencies; examples and benchmarks were not built or run. This exact registered manifest matches the preserved current Cargo.lock-checksum archive member, which does not grant current source or independent lens completion. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace application Cargo feature declarations and dependency graph without resolving/building; inspect relevant native implementations, all aliases and all independent lenses."
+}
