@@ -1,0 +1,30 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 465,
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/465",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "lines": 3812,
+      "new_personal_read_ranges": [
+        [
+          1,
+          3812
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run. No current 95e coverage, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical strategic character skill presentation builds multiple aggregate and expandable skill families, direct and correlated-hour tooltips, injury-adjusted rank displays, activity and schedule previews, and action availability from supplied views. Actual data producers, eligibility, UI interactions and current revision require separate connected tracing.",
+    "In this historical source the terrain family uses six displayed terrain entries and divides summed direct hours by six, while summed effective hours are divided by five before the aggregate tooltip is constructed. This is a source observation only: trace current bytes, effective-hour semantics, tooltip consumers, intended denominator and historical aliases before assessing a presentation defect; no runtime rendering or gameplay effect is asserted.",
+    "The source contains assertions for terrain leaf projections and other rendered rows, activity availability and scripts, but reading assertions is not execution and does not establish coverage of the terrain aggregate denominator. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace skill producers, correlations and aggregate semantics, tooltip and rank consumers, activity/schedule authoritative counterparts and historical aliases. Independently assess every lens."
+}
