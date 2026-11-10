@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-SAVED-DRAPE-95E.json` traces direct decoded wear
+and selected validated loaders; its illustrative input is reconstructed.
+`ASSESSMENT-L01-HISTORICAL-787-793.json` records frozen saved-drape
+and garment source reads, including tests read without running them.
 `ASSESSMENT-L01-PLATE-LINING-95E.json` traces a conditional public
 inner-face index issue and relates the prior under-plate contracts.
 `ASSESSMENT-L01-HISTORICAL-780-786.json` records frozen garment and
