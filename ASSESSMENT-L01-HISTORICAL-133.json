@@ -1,0 +1,29 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 133,
+      "source_id": "physical-p16:crates/adventuresim-core/src/reputation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/133",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "lines": 331,
+      "new_personal_read_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full source body read only for this physical-p16 historical role; source tests were read, not executed. Current producers and callers, aggregate contracts and all independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical reputation calculations use centipoints, bounded public reputation and a population-dependent local multiplier and propagation reach.",
+    "The graph traversal limits admitted nodes and resulting destinations; distance weighting distributes a bounded spill budget. The effect of the admission bound on supported current graphs requires a separate requirements, producer and consumer trace.",
+    "Historical source tests describe fallbacks, cyclic spill limits, graph admission bounds and unsettled charge fines; their presence does not establish test results or current behavior."
+  ],
+  "remaining": "Inspect all current graph/population producers, persisted reputation recipients, authority-fine charge ownership, independent lenses and historical aliases; no product code ran."
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 134,
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/134",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "lines": 2689,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2689
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 historical role; source tests were read and not executed. Prior bounded c100 observations remain separately attributed and do not close current paths or any independent lens."
+    }
+  ],
+  "observations": [
+    "Historical encounter catalog defines typed speaker backing, interactions, requirements, checks, effects and combat outcome payloads alongside raw authored identifiers and prose.",
+    "Its validator checks selected catalog identities, authored references, choices, character-system declarations, combat rewards, travel delay and presentation review; those source branches are not proof that all current producers or reducers preserve the same invariants.",
+    "The remaining body is source test code and content-specific expected scenarios. Reading it provides no test result, current behavior or checkpoint 3821 authority."
+  ],
+  "remaining": "Trace current catalog generation, all producers and reducers, data admission, runtime authority boundaries and historical aliases under each independent lens; no product execution occurred."
+}

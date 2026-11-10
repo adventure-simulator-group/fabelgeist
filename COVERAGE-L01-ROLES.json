@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2566,
+    "unassessed": 2565,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 198,
+    "bounded-current-trace-only": 197,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 85
+    "full-historical-body-trace-open": 87
   },
-  "first_unfinished": "Original role 131 now has a full physical-p16 historical body read; role 132 was previously read, and the next unread changed role is 133. Earlier dependencies, independent lenses and additional populations remain open.",
+  "first_unfinished": "Original role 134 now has a full physical-p16 historical body read and prior bounded c100 observations; the next unread changed role is 135. Earlier dependencies, independent lenses and additional populations remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -1994,7 +1994,9 @@
       "historical_sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
       "registry_pointer": "/files/133",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-133.json",
+      "qualification": "Full body read only for this physical-p16 historical role; current applicability, connected scope and other lenses remain open."
     },
     {
       "original_index": 134,
@@ -2004,7 +2006,7 @@
       "historical_sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
       "registry_pointer": "/files/134",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/src/road_encounter_catalog.rs",
       "current_git_blob": "40f7d3955836f480c1215589883f19490d9d670c",
       "current_observations": [
@@ -2030,7 +2032,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full body read only for this physical-p16 identity; previously recorded bounded c100 observations are retained. Current applicability, connected scope, other identities and independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-134.json"
     },
     {
       "original_index": 135,
