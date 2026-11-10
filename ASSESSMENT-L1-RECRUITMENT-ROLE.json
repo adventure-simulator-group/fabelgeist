@@ -1,0 +1,252 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-RECRUITMENT-ROLE-FIELDS-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "Current source-backed admission asymmetry and unused per-role fields; product policy and complete caller graph remain open.",
+  "historical_source_roles": [
+    {
+      "original_index": 78,
+      "source_id": "physical-p16:crates/adventuresim-core/src/capability.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/78",
+      "sha256": "80bba40bb933f538a8ad43a88ab0d13bb1cea44bf19486687e27896363dae7f0",
+      "lines": 554,
+      "new_personal_read_ranges": [
+        [
+          1,
+          554
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body read at this exact historical physical-p16 role; current variant, producer/consumer traces, other historical roles and all lenses remain open."
+    }
+  ],
+  "historical_read_observations": {
+    "78": "The physical-p16 capability module defines role requirements and participant capabilities, computes armor and numeric checks, and consumes their fields in meets(). Its historical test implementation uses a SignedLength weapon-reach trait that differs from current source; tests were read as source only."
+  },
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/capability.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82",
+      "git_blob": "a647ad16d41bc56abe565e012b17a5ef918a6d66",
+      "bytes": 19356,
+      "lines": 552,
+      "ranges": [
+        [
+          143,
+          208
+        ],
+        [
+          299,
+          312
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/adventuresim-core/src/capability.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "git_blob": "1e624b5584e9726832114aa652d6c4aef96b5ae9",
+      "bytes": 4606,
+      "lines": 113,
+      "ranges": [
+        [
+          52,
+          113
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/adventuresim-core/src/combat/weapon_contact.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          756,
+          788
+        ],
+        [
+          800,
+          833
+        ],
+        [
+          836,
+          850
+        ],
+        [
+          880,
+          888
+        ],
+        [
+          963,
+          987
+        ],
+        [
+          1018,
+          1032
+        ],
+        [
+          1102,
+          1111
+        ],
+        [
+          1332,
+          1340
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/adventuresim-stdb-module/src/strategic/governance.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          1486,
+          1516
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/adventuresim-stdb-module/src/strategic/authority_model.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "git_blob": "a913773bac6d8980357d7786a43bca67edefb430",
+      "bytes": 6013,
+      "lines": 173,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/adventuresim-stdb-module/src/strategic/approved_action.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/streams.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "07b827d6de030e024becdf33498ae858f561c957cef249f2bcf024566895b906",
+      "git_blob": "3a5241afb44695d1d326dc584e3e853c6ad2b03c",
+      "bytes": 2220,
+      "lines": 46,
+      "ranges": [
+        [
+          20,
+          35
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/streams.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/parties.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+      "git_blob": "218243ae0fd9abac57faeb4aa77ff0d2398369e0",
+      "bytes": 27498,
+      "lines": 878,
+      "ranges": [
+        [
+          77,
+          120
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/strategic-web/src/routes/parties.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/recruitment.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+      "git_blob": "d58d0746bc3529a11d754526d620da09a535e53a",
+      "bytes": 30285,
+      "lines": 587,
+      "ranges": [
+        [
+          284,
+          314
+        ],
+        [
+          420,
+          438
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/strategic-web/src/templates/recruitment.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/recruitment/preferences.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "5a2d50f0ce91e0922f6f88c59a993e2ccb240f386903dd584ab11b2258bff26d",
+      "git_blob": "06c3e2c9eb4834ead0cc28237e16fc76d2524bca",
+      "bytes": 1276,
+      "lines": 25,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/strategic-web/src/templates/recruitment/preferences.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "git_blob": "ce42cda69a75db55127fd1be1f94de09636bbdae",
+      "bytes": 90035,
+      "lines": 2523,
+      "ranges": [
+        [
+          1592,
+          1625
+        ]
+      ],
+      "preserved_bytes": "source-evidence/recruitment-role/current/crates/strategic-web/src/spacetimedb/types.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_related_scope": {
+    "checkpoint": "059",
+    "contract_id": "Q-L12-d8bb5a34a78cf6dba087",
+    "queue_pointer": "/entries/987",
+    "relationship": "That pending historical scope explicitly names RoleRequirements discarded fields, update/save admission, UI and core policy. This is a partial current source trace for that scope, not a reconstructed historical finding, alias decision, Lens 12 completion or later checkpoint authority."
+  },
+  "trace": [
+    "Current shared RoleRequirements carries six u8 rating fields: athletics, endurance, physiology, surgery, command and religion. CharacterCapabilities::meets compares all six when called directly.",
+    "The create_recruitment_role reducer rejects any of the six above five. The helper used by update_recruitment_role and save_recruitment_role checks only athletics and endurance, along with precision. Under valid authority, ownership and other reducer preconditions, a supplied physiology, surgery, command or religion value above five passes that helper and is assigned to a public role or saved-role record. This is a static path comparison; no reducer, transaction or database was run.",
+    "The ordinary web form exposes athletics and endurance as individual recommendations and explicitly supplies zero for the four other fields. The role detail view shows those same two; physiology, command and religion are separately presented as party aggregate checks. A join-request path copies stored requirements and sets the four fields to zero before calling meets. Thus these fields are ignored on that specific matching path; no claim is made that an ordinary UI currently imposes or displays them.",
+    "The native table and strategic-web projection retain all four fields, and the approved-action payload can carry RoleRequirements. Trace their full callers and policy before treating them as legacy, removing them, or asserting user-visible failure. The shared ContactPrecision type is finite and nonnegative, whereas recruitment precision admits a bounded half-step set; they are not automatically interchangeable."
+  ],
+  "repair_direction": "Establish whether the four per-role fields have any intended supported consumer. If they are obsolete under the party-level policy, remove them through the complete clean schema/API and generated-client workflow; if they remain supported, enforce one common admission contract and make each supported consumer honor the intended semantics. Preserve separate party aggregate checks, current meaningful recommendation behavior and legitimate value domains. Do not add migration shims.",
+  "later_acceptance": [
+    "After separate implementation authorization, verify create/update/save and approved-action paths share the chosen schema and admission, ordinary web form and native projection agree, and matching respects the intended individual versus party-level policy.",
+    "Regenerate database bindings through the repository workflow if the schema changes, and assess every related caller and historical queue entry before claiming closure."
+  ],
+  "remaining": [
+    "Trace exact strategic authorization, all direct native clients and saved-role/application consumers, approved-action routing, historical aliases and intended policy.",
+    "All other independent lenses, especially admission and aggregate-state relationships, remain open.",
+    "No reducer, product build, test, database, runtime probe or repair was performed."
+  ],
+  "discovery_status": "partial; intended schema, complete caller graph and aliases open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

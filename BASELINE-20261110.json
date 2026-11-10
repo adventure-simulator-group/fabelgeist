@@ -537,7 +537,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/loading_screen.rs",
       "lens_status": [
-        "unassessed",
+        "assessed: current loading file body and direct native/display boundaries; ASSESSMENT-L01-LOADING-GATE.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -556,7 +556,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/loading_screen/view.rs",
       "lens_status": [
-        "unassessed",
+        "assessed: current loading file body and direct native/display boundaries; ASSESSMENT-L01-LOADING-GATE.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1496,12 +1496,24 @@
           "Q-L12-d3c2d0c28c4cc6667828"
         ],
         "relationship_qualification": "Related ThreatId/profile scopes only; not established aliases and not semantically reconciled."
+      },
+      {
+        "id": "NEW-RECRUITMENT-ROLE-FIELDS-001",
+        "record": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+        "classification": "role creation versus update/save admission and four stored-but-cleared requirements",
+        "discovery": "partial; intended party/individual policy, all native callers and historical scope open",
+        "repair": "not started",
+        "validation": "not performed",
+        "related_historical_candidates": [
+          "Q-L12-d8bb5a34a78cf6dba087"
+        ],
+        "relationship_qualification": "Partial current trace of a named historical pending scope, not a proven alias or completed Lens 12 review."
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue first unread original Lens 1 changed role 78 and current delta loading_screen.rs; keep historical source traces, threat admission, camera modules and other connected work open.",
+  "next_step": "Continue first unread original Lens 1 changed role 79 and current delta presentation/mod.rs; keep recruitment policy, historical traces, loading lifecycle and other connected obligations open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"

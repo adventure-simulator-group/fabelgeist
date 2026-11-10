@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2701,
+    "unassessed": 2690,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 116,
+    "bounded-current-trace-only": 126,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 32
+    "full-historical-body-trace-open": 33
   },
-  "first_unfinished": "Current source delta: camera.rs body was assessed for Lens 1 only; first untouched Lens 1 delta is crates/adventuresim-tactical-client/src/loading_screen.rs. Original roles 39/497 have only lock metadata; 32 exact historical bodies have open connected traces; next unread original changed role is 78.",
+  "first_unfinished": "Current source delta: loading screen root and view have scoped Lens 1 dispositions; first untouched Lens 1 delta is crates/adventuresim-tactical-client/src/presentation/mod.rs. Original roles 39/497 have only lock metadata; 33 exact historical bodies have open connected traces; next unread original changed role is 79.",
   "roles": [
     {
       "original_index": 0,
@@ -989,7 +989,9 @@
       "historical_sha256": "80bba40bb933f538a8ad43a88ab0d13bb1cea44bf19486687e27896363dae7f0",
       "registry_pointer": "/files/78",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 79,
@@ -3048,6 +3050,15 @@
         {
           "assessment": "ASSESSMENT-ROW-IDENTITY.json",
           "ranges": "982-1001"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              1486,
+              1516
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -3270,7 +3281,21 @@
       "historical_sha256": "07b827d6de030e024becdf33498ae858f561c957cef249f2bcf024566895b906",
       "registry_pointer": "/files/291",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/streams.rs",
+      "current_git_blob": "3a5241afb44695d1d326dc584e3e853c6ad2b03c",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              20,
+              35
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 292,
@@ -5041,7 +5066,21 @@
       "historical_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
       "registry_pointer": "/files/464",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "current_git_blob": "ce42cda69a75db55127fd1be1f94de09636bbdae",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              1592,
+              1625
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 465,
@@ -9672,7 +9711,25 @@
       "historical_sha256": "6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82",
       "registry_pointer": "/files/886",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/capability.rs",
+      "current_git_blob": "a647ad16d41bc56abe565e012b17a5ef918a6d66",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              143,
+              208
+            ],
+            [
+              299,
+              312
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 887,
@@ -9892,7 +9949,21 @@
       "historical_sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
       "registry_pointer": "/files/903",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "current_git_blob": "1e624b5584e9726832114aa652d6c4aef96b5ae9",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              52,
+              113
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 904,
@@ -13133,7 +13204,21 @@
       "historical_sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
       "registry_pointer": "/files/1203",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "current_git_blob": "a913773bac6d8980357d7786a43bca67edefb430",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              1,
+              48
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1204,
@@ -13150,6 +13235,15 @@
         {
           "assessment": "ASSESSMENT-ROW-IDENTITY.json",
           "ranges": "982-1001"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              1486,
+              1516
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -13380,7 +13474,49 @@
       "historical_sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
       "registry_pointer": "/files/1220",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "current_git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              756,
+              788
+            ],
+            [
+              800,
+              833
+            ],
+            [
+              836,
+              850
+            ],
+            [
+              880,
+              888
+            ],
+            [
+              963,
+              987
+            ],
+            [
+              1018,
+              1032
+            ],
+            [
+              1102,
+              1111
+            ],
+            [
+              1332,
+              1340
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1221,
@@ -13494,7 +13630,21 @@
       "historical_sha256": "07b827d6de030e024becdf33498ae858f561c957cef249f2bcf024566895b906",
       "registry_pointer": "/files/1229",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/streams.rs",
+      "current_git_blob": "3a5241afb44695d1d326dc584e3e853c6ad2b03c",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              20,
+              35
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1230,
@@ -25989,7 +26139,21 @@
       "historical_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
       "registry_pointer": "/files/2389",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "current_git_blob": "ce42cda69a75db55127fd1be1f94de09636bbdae",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              1592,
+              1625
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2390,
@@ -30342,7 +30506,25 @@
       "historical_sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
       "registry_pointer": "/files/2800",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/strategic-web/src/templates/recruitment.rs",
+      "current_git_blob": "d58d0746bc3529a11d754526d620da09a535e53a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              284,
+              314
+            ],
+            [
+              420,
+              438
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2801,
@@ -30352,7 +30534,21 @@
       "historical_sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
       "registry_pointer": "/files/2801",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/strategic-web/src/routes/parties.rs",
+      "current_git_blob": "218243ae0fd9abac57faeb4aa77ff0d2398369e0",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              77,
+              120
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2802,
