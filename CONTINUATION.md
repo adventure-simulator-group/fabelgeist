@@ -108,6 +108,8 @@ area mismatch to the separately attributed checkpoint 059 geometry question.
 wall-host selection through generation and the tactical collider boundary.
 `ASSESSMENT-L01-ARTILLERY-ROUTE-95E.json` traces dropped coarse-route
 vertices to the stored clearance path; actual fixture impact remains open.
+`ASSESSMENT-L01-HEATING-FRAME-95E.json` records conditional diagonal
+hearth bounds and the cardinal generated-wall safeguard; reachability is open.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `ASSESSMENT-L01-DELETED-501.json` and `ASSESSMENT-L01-DELETED-2416.json`
