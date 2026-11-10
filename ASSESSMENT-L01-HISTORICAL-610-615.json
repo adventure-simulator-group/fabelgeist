@@ -1,0 +1,134 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 610,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/610",
+      "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+      "lines": 98,
+      "new_personal_read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 611,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/611",
+      "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "lines": 154,
+      "new_personal_read_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 612,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/appearance_tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/612",
+      "sha256": "0d36153306b8a78441d45e8227f2a2f54fa002346ed7328e16119d32af7a3697",
+      "lines": 208,
+      "new_personal_read_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 613,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/613",
+      "sha256": "b404568b0b0300bd88d8b21396aadf4673ba65ebf8be5b21310ba6b3379e48b0",
+      "lines": 285,
+      "new_personal_read_ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 614,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/programme.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/614",
+      "sha256": "3999316d3d77475ab5209ad988d62b7832e63d0a97a70fe56bc903dc3fa8e36c",
+      "lines": 84,
+      "new_personal_read_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 615,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/storey.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/615",
+      "sha256": "dce59e1f768ffe5e9d0c026d0eb717ca1dab99f11429a4ec8ab9eb7d04a7d8ed",
+      "lines": 82,
+      "new_personal_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 610 represents round tower shells with inner radius derived by subtracting wall thickness and connects a matching crown if present. The actual tower dimension admission, shape consumer and crown completeness determine whether an invalid inner radius or missing bond is reachable.",
+    "Roles 611, 613\u2013615 derive fixed small-church dimensions from kind and size, build its separately authored storey and roofs, and assemble fittings, belfry members and public route. Fixed finite dimensions narrow several arithmetic concerns, but caller programme/roof-pitch admission, final support graph and collision remain open.",
+    "Role 613 chooses parent nodes from broad overlap of existing solid bounds, creates support records and casts a wall count into a bay ordinal. The source body alone does not prove physical contact, a reachable ordinal overflow or a defective supported generated plan. Its fallible builder may mutate local structures before an error; caller ownership and return semantics govern whether that state escapes.",
+    "Role 612 contains source tests of pointed openings, collision, roofs and selected visual geometry. These test bodies were read only and never executed; fixture results and visual output are not claimed.",
+    "No product generation, build, test, audit, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace tower and roof-pitch admission, support/overlap and identity consumers, small-church programme entry paths, historical aliases and every independent lens."
+}
