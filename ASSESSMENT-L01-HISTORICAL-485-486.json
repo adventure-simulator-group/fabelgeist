@@ -1,0 +1,52 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 485,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/485",
+      "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+      "lines": 410,
+      "new_personal_read_ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this separately registered native source; matches current lock-checksum archive. Feature resolution, application usage and independent lenses remain open. Examples were read, not run."
+    },
+    {
+      "original_index": 486,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/486",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "lines": 612,
+      "new_personal_read_ranges": [
+        [
+          1,
+          612
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this separately registered native source; matches current lock-checksum archive. Feature resolution, application usage and independent lenses remain open. Examples were read, not run."
+    }
+  ],
+  "observations": [
+    "RayCaster and ShapeCaster retain both local and global origin/direction, apply an entity exclusion filter when configured and clear old hits before a cast. A one-hit limit invokes the dedicated first-hit query; larger limits invoke multi-hit queries. Actual global-coordinate update systems, native spatial query implementation and application callers remain open.",
+    "Shape casts carry shape rotation, max and target distance and penetration choices through a ShapeCastConfig. Both RayHits and ShapeHits expose hit vectors and sort by partial distance comparison with unwrap; native hit-value guarantees and supported callers are required before asserting a panic or ordering defect.",
+    "The ShapeCaster documentation contains conflicting default-hit-count wording, while its Default implementation explicitly sets one. This is a native source observation, not a product behavior finding. Examples were read, not run; archive match does not resolve features, execution or independent lens completion. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace global caster update and scheduling, native spatial queries, all application query filters/frames, hit-value admission and historical aliases. Independently assess all lenses."
+}
