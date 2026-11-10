@@ -955,7 +955,7 @@
       "status": "M",
       "path": "crates/strategic-web/UNIFIED_RENDERER.md",
       "lens_status": [
-        "unassessed",
+        "partial calendar/DOM and documentation source trace; broader scope remains open; ASSESSMENT-L1-STRATEGIC-CALENDAR.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -974,7 +974,7 @@
       "status": "M",
       "path": "crates/strategic-web/src/templates/layout/shell.rs",
       "lens_status": [
-        "unassessed",
+        "partial calendar/DOM and documentation source trace; broader scope remains open; ASSESSMENT-L1-STRATEGIC-CALENDAR.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1566,12 +1566,20 @@
         "discovery": "partial; admitted ranges, chronology, storage and aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "REVIEW-STRATEGIC-CALENDAR-PRECISION-001",
+        "record": "ASSESSMENT-L1-STRATEGIC-CALENDAR.json",
+        "classification": "conditional u64 strategic-minute precision loss across JavaScript number boundary",
+        "discovery": "partial; supported range, complete producers/consumers and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 role 93 and current delta UNIFIED_RENDERER.md. Keep conception, physics clock, durability and prior connected traces open.",
+  "next_step": "Continue original Lens 1 role 93 and current delta strategic-renderer.js. Keep strategic-calendar, renderer, conception and all prior connected traces open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
