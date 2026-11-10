@@ -1,0 +1,178 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded residence billing cursor, charge identity, arithmetic and currency boundary; other producers and independent lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "bytes": 49683,
+      "lines": 1455,
+      "ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          395,
+          402
+        ],
+        [
+          784,
+          940
+        ],
+        [
+          1105,
+          1155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-clock-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/acquisition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a84b6d6681297e7579c9ccb2602338a037344c59",
+      "sha256": "0670403c3803ddc826babcb20784e88c5165152e9c2bbd986b4e0ef33d40580d",
+      "bytes": 3325,
+      "lines": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-clock-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/courtship.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a45eb1d2ea770e3e33a7bf9401c7e2937892e69a",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "bytes": 40371,
+      "lines": 1153,
+      "ranges": [
+        [
+          19,
+          34
+        ],
+        [
+          148,
+          240
+        ],
+        [
+          292,
+          322
+        ],
+        [
+          324,
+          366
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-clock-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          82,
+          142
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-clock-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee806412841490aa876d39510c938ec0cec363",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "bytes": 4149,
+      "lines": 107,
+      "ranges": [
+        [
+          43,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-clock-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f28669757f5039d1344cf14f0912f4aec5152ff7",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "bytes": 3682,
+      "lines": 98,
+      "ranges": [
+        [
+          10,
+          36
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-clock-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          440,
+          515
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-clock-sources/06.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected directly from the pinned 95e Git commit; preserved c100 and 95e inventories bind identical blobs. The separately read physical-p16 residence body differs from the current Git blob.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/258/contract",
+    "proposed_id": "PL13-153-LIFECYCLE-EXHAUSTION-PENDING",
+    "qualification": "Recovered broad pending question at its original attribution; not a restored checkpoint 3821 finding or an established exact alias."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-RESIDENCE-BILLING-CLOCK-EXHAUSTION-001",
+      "classification": "source-derived conditional duplicate billing and dormant status at saturated strategic clock; supported production reachability unproved",
+      "detail": "Assume a character\u2019s personal minute is StrategicMinute::MAX, one active cheap owned holding has next_due_minute MAX, no occupants, no other active due holdings, no existing receipt for that due date, and the character has exactly eight units of accepted currency. The authored base charge is four. The first loop iteration records a paid receipt and deducts four from the local available counter; saturating MAX plus the 30-day period leaves next_due_minute at MAX. The same due date is selected again, the paid receipt already exists, but another four are deducted and counted as spent. A third selection records an unpaid receipt at the same date and makes the holding dormant. After the loop, eight units are debited if currency consumption and the enclosing transaction succeed. This follows source control flow and integer arithmetic only; no product or database was run.",
+      "safeguards": "The authored cheap, moderate and fancy owner and renter charges are positive, so this example is finite as funds run out; it is not an asserted infinite loop. Other holds, occupants and insufficient funds change the sequence. Acquisition and paid settlement use saturating clock arithmetic, while the core DuePeriods iterator uses checked addition and stops at overflow. Whether MAX personal time, a saturated due date and the stated state are reachable in a supported production run remains unproved. Any later transaction failure may roll back effects.",
+      "connected_scope": "Personal clock admission and advancement, residence acquisition and billing frontier, multi-holding ordering, paid/unpaid receipt identity and currency conservation, owner recovery and NPC caller error policy, and finite-time exhaustion in core due-period planning. Compare related historical lifetime questions but do not merge separate conception and itinerary owners solely for using saturating arithmetic.",
+      "proposed_repair": "After full discovery, define explicit exhausted-clock behavior for the canonical billing cursor and ensure a due period is settled at most once, with coherent receipt, balance and holding status. Preserve chronological ordering, finite-calendar policy and real unpaid outcomes without backwards-compatibility fallbacks.",
+      "later_acceptance": "After product validation is authorized, verify near-MAX and MAX acquisition/settlement with sufficient and insufficient funds, repeated settlement, multiple holdings and both owner/renter charges: no due date is debited twice, one valid outcome is recorded and exhaustion is explicit. Also verify ordinary chronological billing and recovery.",
+      "historical_related_candidates": [
+        "PL13-153-LIFECYCLE-EXHAUSTION-PENDING"
+      ],
+      "relationship_qualification": "Recovered checkpoint 059 records a broader conditional lifecycle exhaustion question and asks for native housing cursor/current-state tracing; it does not establish this present-day specific witness or an exact alias. Its source identities, revision and open status remain unchanged. The physical-p16 residence body read is different from the current 95e body and has no current coverage credit. Checkpoint 3821 final records remain missing.",
+      "related_candidates": [
+        "REVIEW-ITINERARY-CLOCK-NONPROGRESS-001"
+      ],
+      "discovery": "partial; clock admission, supported reachability, native transaction outcome, all callers and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace supported clock/state admission, all billing and recovery callers, core cursor exhaustion, transaction and economic boundaries; reconcile historical scope without conflating distinct clock owners and assess all thirteen lenses. No product validation or repair."
+}

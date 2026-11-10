@@ -37,6 +37,9 @@ record. The connected repair and supported-state reachability remain open.
 `ASSESSMENT-L01-REPAIR-SUBMISSION-95E.json` records a conditional caller
 authority concern and a bulk error-erasure trace related to a byte-matched
 checkpoint 059 record. Its earlier physical-p16 body is distinct.
+`ASSESSMENT-L01-RESIDENCE-CLOCK-95E.json` records a conditional repeated
+billing case at the maximum clock, related to a broader historical open
+question without claiming supported production reachability.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
