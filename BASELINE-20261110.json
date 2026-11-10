@@ -1,0 +1,1248 @@
+{
+  "schema": "726-authoritative-baseline-v1",
+  "status": "discovery incomplete; implementation gate false",
+  "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "source_revision_status": "clean detached checkout; remote main verified through GitHub on 2026-11-10",
+  "prior_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "recovery_commit": "8466101b8d1f79bbfb2224202a9d3d5dc1183dfc",
+  "authority_rule": "This file is the initial authority for the new continuation, not the missing checkpoint 3821. Historical records remain evidence at their own revisions. No historical count grants current-source discovery credit. Every lens and all connected obligations remain open until individually assessed and recorded.",
+  "historical_checkpoint_059": {
+    "commit": "eb407672813424d64ec31f208193969f5a62620c",
+    "ledger_path": "handoff/726-audit-20261030-adler/evidence/continuation-segovb/ledger.json",
+    "ledger_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+    "queue_path": "handoff/726-audit-20261030-adler/workflow-20261030/CLOSURE-QUEUE-100.json",
+    "queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "qualification": "Exact bytes checked locally; authoritative only for that historical checkpoint. All records require reconciliation; not a current closure assertion."
+  },
+  "later_recovery": {
+    "qualification": "The final original ledger, queue and checkpoint 3821 bytes remain missing. Reconstructed records, printed historical summaries, drafts and source objects retain the individual provenance and limits documented in the recovery package; no final adoption or audit credit inferred.",
+    "verifier": "python3 verify_recovered.py passed against the extracted recovery tree on this machine; this is not an independent-machine restoration.",
+    "independent_search": "A bounded filename search of the current recovery directory and /tmp found no independent final authority; no claim of exhaustive search."
+  },
+  "scope": {
+    "historical_original_roles_per_lens": 2853,
+    "overlays": 246,
+    "frozen_merged_paths": 38,
+    "shared_scopes": 196,
+    "mandatory_extensions_per_lens": 36,
+    "qualification": "Historical populations remain distinct and include registered extensions, migration families, exact aliases, connected scopes and current-source deltas. Counts are not audit completion."
+  },
+  "lens_names": [
+    "producer propagation",
+    "existing owners",
+    "admission",
+    "operations",
+    "aggregates",
+    "type ownership",
+    "redundant authority",
+    "behavior preservation",
+    "enum shapes",
+    "derivability",
+    "type granularity",
+    "raw strings",
+    "raw primitives"
+  ],
+  "lens_status": [
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete",
+    "incomplete"
+  ],
+  "source_delta": [
+    {
+      "status": "M",
+      "path": ".cargo/config.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": ".github/workflows/rust-quality.yml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "Cargo.lock",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "Cargo.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "DEPLOY.md",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "D",
+      "path": "assets/ui.css",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-procedural-textures/Cargo.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-stdb-module/static/sfx.js",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-stdb-module/static/sfx_worklet.js",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-stdb-module/static/tactical-hud.css",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-stdb-module/static/tactical-hud.js",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-stdb-module/static/tactical.html",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/README.md",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/camera.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/equipment/icons.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-tactical-client/src/equipment/slot_hud.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-tactical-client/src/hud.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/loading_screen.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/loading_screen/view.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/main.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-tactical-client/src/single_threaded.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-tactical-client/src/sound_output.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-tactical-client/src/sound_output/silent.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-tactical-client/src/sound_output/web.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/ui.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "D",
+      "path": "crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "D",
+      "path": "crates/adventuresim-tactical-client/src/ui/gameplay_camera.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "crates/adventuresim-tactical-client/src/ui/wheel.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/fabelgeist-mhr/Cargo.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/strategic-web/UNIFIED_RENDERER.md",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/strategic-web/src/templates/layout/shell.rs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/strategic-web/static/strategic-renderer.js",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/strategic-web/tests/regional-map.browser.cjs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "justfile",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "rust-quality-baseline.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "scripts/build-artifacts.md",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "scripts/build_wasm.py",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "scripts/cargo_artifacts.py",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "scripts/dev_stack.py",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "scripts/just_tasks.py",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "scripts/msvc_dev_linker.py",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "A",
+      "path": "scripts/rust-lld.cmd",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    },
+    {
+      "status": "M",
+      "path": "vendor/bevy_ahoy/Cargo.toml",
+      "lens_status": [
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed",
+        "unassessed"
+      ]
+    }
+  ],
+  "delta_qualification": "62 changed paths from prior selected revision. All 806 lens/path cells start unassessed; applicability and connected unchanged paths require individual assessment. This inventory does not establish coverage.",
+  "repair_ledger": {
+    "status": "incomplete",
+    "entries": [],
+    "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
+  },
+  "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
+  "next_step": "Recover or verify original evidence and selected states, enumerate and register original and current scopes, then assess sequentially by lens and populate connected ledger. Publish full new evidence at each checkpoint."
+}
