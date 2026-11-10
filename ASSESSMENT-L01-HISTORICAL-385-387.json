@@ -1,0 +1,64 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 385,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/385",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "lines": 308,
+      "new_personal_read_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 386,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/386",
+      "sha256": "c92333b6813f028d894f8de669a20b823341813213103079ddb3c038388e44d6",
+      "lines": 161,
+      "new_personal_read_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 387,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/387",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "lines": 255,
+      "new_personal_read_ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical consequence application mutates transient injury/imbalance and records selected party injury, ammunition and equipment-contact summaries. Contact stress is bounded and grouped by inventory identity; strategic receipt authentication and final application are outside this source body.",
+    "The historical equipment-contact query requires EquipSlot even when an armor impact supplies exact inventory identity, while the separately read historical inventory view permits armor without a legacy slot. Whether the actual connected-player projection produces such an item, any later slot insertion, and the current native receipt are independent trace questions; no historical runtime result is inferred.",
+    "Historical contact selection derives body-part/armor surface from a sample and checked timing; defense preparation separates a potential trade commit from response calculation and selects requested or passive defense. Geometry, timing, event ordering, all public construction paths and current consumers remain open.",
+    "Source tests were read but not run. No tactical combat, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current protective-equipment projection, slot presence, hit surface and contact identity through query, receipt admission and durability; reconcile the existing clothing receipt candidate without rewriting its historical attribution. Trace defense/clock/event dependencies and independently assess every lens."
+}
