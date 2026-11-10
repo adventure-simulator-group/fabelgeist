@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2644,
+    "unassessed": 2637,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 157,
+    "bounded-current-trace-only": 164,
     "assessed-nonapplicable": 2,
     "full-historical-body-trace-open": 48
   },
-  "first_unfinished": "Current Lens 1 delta: the renderer guide and strategic shell have a bounded calendar/DOM trace; first untouched path is crates/strategic-web/static/strategic-renderer.js. Original roles 39/497 have only lock metadata; 48 exact historical bodies have open connected traces; next unread original changed role is 93.",
+  "first_unfinished": "Current Lens 1 delta: strategic-renderer.js has a bounded tactical-entry identity trace; first untouched path is crates/strategic-web/tests/regional-map.browser.cjs. Historical role 93 has only lines 1\u20131280 read, with 1281\u20133842 open; roles 39/497 have only lock metadata and 48 exact historical bodies have open connected traces.",
   "roles": [
     {
       "original_index": 0,
@@ -1202,7 +1202,20 @@
       "historical_object_available": true,
       "status": "full-historical-body-trace-open",
       "historical_assessment": "ASSESSMENT-L01-HISTORICAL-90-99.json",
-      "qualification": "New full read at this exact physical-p16 identity only; connected trace, current applicability, other roles and independent lens closure remain open."
+      "qualification": "New full read at this exact physical-p16 identity only; connected trace, current applicability, other roles and independent lens closure remain open.",
+      "current_path": "crates/adventuresim-core/src/courtship/child_identity.rs",
+      "current_git_blob": "bef53b3343b0854a2e427f463bd420cc10d38e13",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 93,
@@ -1212,7 +1225,18 @@
       "historical_sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
       "registry_pointer": "/files/93",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "unassessed",
+      "partial_historical_observations": [
+        {
+          "assessment": "ASSESSMENT-L01-DISEASE-PARTIAL.json",
+          "ranges": [
+            [
+              1,
+              1280
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 94,
@@ -5211,6 +5235,19 @@
             [
               1592,
               1625
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              235,
+              251
+            ],
+            [
+              730,
+              790
             ]
           ]
         }
@@ -10303,7 +10340,21 @@
       "historical_sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
       "registry_pointer": "/files/909",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/courtship/child_identity.rs",
+      "current_git_blob": "bef53b3343b0854a2e427f463bd420cc10d38e13",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, other revisions, connected scope or any lens."
     },
     {
       "original_index": 910,
@@ -11385,7 +11436,25 @@
       "historical_sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
       "registry_pointer": "/files/1003",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/starting_character.rs",
+      "current_git_blob": "552ccde3ca27d125ef75b3609a3bd3bb76d5db83",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              379,
+              400
+            ],
+            [
+              590,
+              615
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, other revisions, connected scope or any lens."
     },
     {
       "original_index": 1004,
@@ -13185,6 +13254,19 @@
               330
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              1,
+              75
+            ],
+            [
+              445,
+              510
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
@@ -14149,7 +14231,21 @@
       "historical_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
       "registry_pointer": "/files/1242",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "current_git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              492,
+              545
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, other revisions, connected scope or any lens."
     },
     {
       "original_index": 1243,
@@ -21258,6 +21354,15 @@
               215
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              100,
+              116
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -22122,7 +22227,21 @@
       "historical_sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
       "registry_pointer": "/files/1973",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "current_git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              577,
+              624
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, other revisions, connected scope or any lens."
     },
     {
       "original_index": 1974,
@@ -22149,6 +22268,15 @@
         {
           "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
           "ranges": "410-431"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -23395,6 +23523,15 @@
             [
               895,
               906
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              945,
+              1047
             ]
           ]
         }
@@ -26569,7 +26706,25 @@
       "historical_sha256": "c4a54e247cf699583c7874b9ad0b29861fa8ea3b0d48b1572e10d52d19f83e1e",
       "registry_pointer": "/files/2369",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/strategic-web/src/routes/missions.rs",
+      "current_git_blob": "05c551d60fe66dfd80fc318a6c0a7077e6082d4a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              155,
+              190
+            ],
+            [
+              275,
+              290
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, other revisions, connected scope or any lens."
     },
     {
       "original_index": 2370,
@@ -26781,6 +26936,19 @@
               1625
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              235,
+              251
+            ],
+            [
+              730,
+              790
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -26843,7 +27011,21 @@
       "historical_sha256": "77df6dfebbf56847588ce02dcb339e40ea550e5f67e05ce4611e2d538981fec1",
       "registry_pointer": "/files/2395",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/strategic-web/src/templates/mission.rs",
+      "current_git_blob": "1b3bab411fee6b62197141e4dc39248467c116db",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              85,
+              148
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, other revisions, connected scope or any lens."
     },
     {
       "original_index": 2396,
@@ -31044,7 +31226,21 @@
       "historical_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
       "registry_pointer": "/files/2788",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "current_git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              492,
+              545
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, other revisions, connected scope or any lens."
     },
     {
       "original_index": 2789,

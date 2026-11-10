@@ -1,0 +1,27 @@
+{
+  "schema": "726-historical-partial-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 93,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/93",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "lines": 3842,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1280
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Only the first 1,280 lines of this exact physical-p16 body have been read; it remains unassessed. No current revision, later historical role, source-wide review, test or lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The bounded historical range includes disease definitions, transmission exposure, timeline work accounting and much of the authored catalog. Source and any examples have been read only; full admission, operations, owners and current applicability remain open."
+  ],
+  "remaining": "Read lines 1281\u20133842 and trace connected historical and current boundaries before changing this role disposition."
+}

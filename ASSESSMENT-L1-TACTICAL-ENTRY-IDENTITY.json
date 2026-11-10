@@ -1,0 +1,329 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-TACTICAL-ENTRY-CHARACTER-ID-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "reported_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "classification": "Source-backed lossy selected-character identity at persistent tactical entry; the outcome for any particular mission and server authorization remains unobserved.",
+  "current_sources": [
+    {
+      "path": "crates/strategic-web/static/strategic-renderer.js",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "c66112888fef6d6d7c5b597e2e6e89c9ab2223ca08b91af92e4366d6232b975d",
+      "git_blob": "4b43a2a1c14c60bb71ca9e127d59b7fd9794f50f",
+      "bytes": 11616,
+      "lines": 267,
+      "ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/strategic-web/static/strategic-renderer.js.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/mission.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "77df6dfebbf56847588ce02dcb339e40ea550e5f67e05ce4611e2d538981fec1",
+      "git_blob": "1b3bab411fee6b62197141e4dc39248467c116db",
+      "bytes": 8142,
+      "lines": 224,
+      "ranges": [
+        [
+          85,
+          148
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/strategic-web/src/templates/mission.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/missions.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "c4a54e247cf699583c7874b9ad0b29861fa8ea3b0d48b1572e10d52d19f83e1e",
+      "git_blob": "05c551d60fe66dfd80fc318a6c0a7077e6082d4a",
+      "bytes": 11052,
+      "lines": 340,
+      "ranges": [
+        [
+          155,
+          190
+        ],
+        [
+          275,
+          290
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/strategic-web/src/routes/missions.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "git_blob": "ce42cda69a75db55127fd1be1f94de09636bbdae",
+      "bytes": 90035,
+      "lines": 2523,
+      "ranges": [
+        [
+          235,
+          251
+        ],
+        [
+          730,
+          790
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/strategic-web/src/spacetimedb/types.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/starting_character.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "git_blob": "552ccde3ca27d125ef75b3609a3bd3bb76d5db83",
+      "bytes": 70536,
+      "lines": 1936,
+      "ranges": [
+        [
+          379,
+          400
+        ],
+        [
+          590,
+          615
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-core/src/starting_character.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/courtship/child_identity.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "git_blob": "bef53b3343b0854a2e427f463bd420cc10d38e13",
+      "bytes": 3225,
+      "lines": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-core/src/courtship/child_identity.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          68,
+          85
+        ],
+        [
+          1248,
+          1290
+        ],
+        [
+          1292,
+          1352
+        ],
+        [
+          2166,
+          2208
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-stdb-module/src/character.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "git_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+      "bytes": 23628,
+      "lines": 690,
+      "ranges": [
+        [
+          1,
+          75
+        ],
+        [
+          445,
+          510
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-stdb-module/src/relationship/reproduction.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+      "git_blob": "9b453eb2ed0b42e7680846a4c1b877c7dacc08a4",
+      "bytes": 17179,
+      "lines": 522,
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          189,
+          197
+        ],
+        [
+          260,
+          290
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-tactical-client/src/browser_runtime.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/main.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "3ac60ddec31bee62d284f9ff2d87bd3345e1ccf84ce3199e2f2dcdddb59ec6c4",
+      "git_blob": "d9216c050b33db12e144e3e2880a5682e3273a41",
+      "bytes": 22180,
+      "lines": 619,
+      "ranges": [
+        [
+          219,
+          224
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-tactical-client/src/main.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          577,
+          624
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-tactical-netcode/src/client.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "bytes": 15949,
+      "lines": 475,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-tactical-netcode/src/message.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+      "bytes": 21008,
+      "lines": 640,
+      "ranges": [
+        [
+          100,
+          116
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-tactical-core/src/player.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          945,
+          1047
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-tactical-server/src/player_projection.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          492,
+          545
+        ]
+      ],
+      "preserved_bytes": "source-evidence/tactical-entry/current/crates/adventuresim-stdb-module/src/tactical.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "reported_selected_sources": [
+    {
+      "path": "crates/strategic-web/static/strategic-renderer.js",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "b332b5d16d8ce35e4205f0a33d53ac70c0c314b7877cb0d7fc24ec6617abfd2e",
+      "git_blob": "a2b5f1bb18fb2973f57cf2b0e95ec5a797ad035e",
+      "bytes": 11426,
+      "lines": 264,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/tactical-entry/reported-selected/crates/strategic-web/static/strategic-renderer.js.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "trace": [
+    "The authorized mission page assigns its viewer.id to MissionServerView.character_id and emits the u64 as the ready link data-character-id attribute. The current persistent renderer converts that decimal attribute using Number before JSON.stringify sends enter-tactical to wasm_command. The Rust command expects u64 and the browser-runtime queue deserializes it; when no client is present, the decoded value becomes the local character and network client player_id. The netcode later constructs CharacterId and a JoinRequest from that player_id.",
+    "Binary64 represents 9007199254740992 and 9007199254740993 as the same value. If the mission link carries the latter, the inspected conversion sends a value that no longer identifies the original integer. This follows the numeric representation, not a browser, wasm, network or mission execution. Some high u64 values remain exactly representable; do not claim every high identity is changed.",
+    "This is not an abstract type range alone: current starting-character generation sets the high bit in generated candidate IDs, and the default generator sets a high prefix. The creation reducer inserts and grants the generated spec ID. Whether a particular selected generated ID has lost low bits and reaches the ready link has not been exercised; no particular character value was generated or queried.",
+    "The server consumes the requested identity and has a reconnect capability check, a mission state join gate, and a database enter_mission reducer. The inspected reducer checks server identity, character existence, assignment and, for non-temporary non-enemies, the mission-authorized party list and party membership. Those checks do not restore bits discarded by the browser. No authorization bypass, successful wrong enrollment, or precise server outcome has been established.",
+    "The selected-to-current renderer diff adds HUD installation before the Wasm boot. The lossy entry conversion is present in the current body and needs independent comparison of the selected body before attributing its introduction to that change. The renderer has additional numeric and forge-input obligations still untraced."
+  ],
+  "related_historical_candidates": [
+    {
+      "id": "PL13-238-WEB-ID-PENDING",
+      "source": "baseline-059/queue.json#/entries/2233",
+      "qualification": "Historical general web identity follow-up is a candidate connection, not an established alias or checkpoint 3821 record."
+    }
+  ],
+  "connected_candidates": [
+    "NEW-HUD-JOIN-IDENTITY-001",
+    "REVIEW-STRATEGIC-CALENDAR-PRECISION-001"
+  ],
+  "repair_direction": "Trace all selected-character ID producers, mission links, browser commands, Rust deserialization, standalone tactical entry, reconnect and server authorization. Retain identity losslessly through the web boundary and admit it as the correct character owner; preserve server-side membership, assignment and reconnect checks. Coordinate other JavaScript full-width identities without conflating character identity with ephemeral ECS entity joins or calendar instants.",
+  "later_acceptance": [
+    "After separate implementation authorization, verify exact round trips for generated and explicitly admitted character IDs, including adjacent integers above 2^53, zero policy and u64 boundaries; a ready mission link must request the exact selected character.",
+    "Verify unauthorized and mismatched identities remain rejected and reconnect behavior stays intact. Verify both persistent and standalone entry paths separately."
+  ],
+  "remaining": [
+    "Confirm the actual generated-ID low-bit distribution, exact selected-value reachability, all entry pathways and historical aliases. Trace the remaining renderer forge values and unreviewed behavior lenses.",
+    "No product repair, build, test, runtime, browser interaction, database access or mission call was performed."
+  ],
+  "discovery_status": "partial; source-backed conversion and high-bit producers, actual selected value and enrollment outcome open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}
