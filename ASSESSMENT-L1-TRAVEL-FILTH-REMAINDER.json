@@ -1,0 +1,92 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-106-110.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/filth.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "git_blob": "d375d693fb5a8498ff2be7303d023d088035c8bb",
+      "bytes": 19699,
+      "lines": 631,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "source-evidence/travel-filth/current/crates/adventuresim-core/src/filth.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "preserved_bytes": "source-evidence/travel-filth/current/crates/adventuresim-world-schema/src/calendar.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/filth.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "git_blob": "bc1c06067719a1dc4616de1737a938f03a4b6bd9",
+      "bytes": 24935,
+      "lines": 769,
+      "ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          142,
+          185
+        ]
+      ],
+      "preserved_bytes": "source-evidence/travel-filth/current/crates/adventuresim-stdb-module/src/filth.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "git_blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+      "bytes": 20026,
+      "lines": 582,
+      "ranges": [
+        [
+          190,
+          250
+        ]
+      ],
+      "preserved_bytes": "source-evidence/travel-filth/current/crates/adventuresim-stdb-module/src/time/advancement.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Conditional persisted travel-filth remainder admission and arithmetic contract; normal writer initializes and maintains a bounded remainder.",
+  "trace": [
+    "TravelFilthProgress stores a private u16 remainder_numerator. The inspected writer initializes missing state to zero and calls travel_dirt_accrual, whose result is numerator modulo the 1440-minute day, hence 0 through 1439. The same source hardcodes the rate 8 in that accrual and the boundary calculation while a floating TRAVEL_DIRT_PER_DAY constant is 8.0; current values agree, and one-shot rounding versus accrued remainders have different semantics.",
+    "The next boundary subtracts the persisted remainder from MINUTES_PER_DAY using ordinary u64 arithmetic before division. A constructed stored value of 1441 is representable in u16 but exceeds the day and would underflow that subtraction; actual underflow response depends on compiler settings. Normal initialization and the inspected writer do not produce 1441, and no admitted malformed stored state or running failure was established.",
+    "Travel advancement asks for the next dirt boundary before recording elapsed travel. Trace all table writes, hydration, chronology and data integrity paths before deciding whether a stronger remainder type or explicit rejection belongs at the owner boundary. This is related to, but not identical with, the conception-quantum remainder question."
+  ],
+  "repair_direction": "Establish the valid 0..1439 remainder invariant and consistent rate owner across persistence and callers. If a separately authorized repair is needed, preserve valid movement chunk partitioning and intentional rounding while rejecting or otherwise explicitly handling invalid state; do not introduce migration or compatibility paths.",
+  "later_acceptance": [
+    "After separate repair authorization, cover 0 and 1439, invalid 1440 and 1441, split and unsplit movement, and deterministic dirt deposits without changing legitimate gameplay."
+  ],
+  "remaining": [
+    "Prove whether an invalid persisted value is reachable and inspect every writer and caller. No product build, test, database call or runtime probe was performed."
+  ],
+  "discovery_status": "partial; representable invalid state is not shown reachable",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

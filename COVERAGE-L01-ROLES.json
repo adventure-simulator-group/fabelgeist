@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2617,
+    "unassessed": 2608,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 176,
+    "bounded-current-trace-only": 181,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 56
+    "full-historical-body-trace-open": 60
   },
-  "first_unfinished": "All 62 current delta paths have at least bounded Lens 1 dispositions, with 46 partial. Original changed roles 100 and 104 have full historical-body reads only; next unread original changed role is 106. Overlay, merged, shared and mandatory scopes and all independent lenses remain open.",
+  "first_unfinished": "Original changed roles 106, 107, 109 and 110 have full physical-p16 body reads with connected scope open; role 108 remains unread. All 62 current deltas have dispositions but 46 remain partial; every independent lens, overlay, merged, shared and mandatory scope remains open.",
   "roles": [
     {
       "original_index": 0,
@@ -1444,7 +1444,22 @@
       "historical_sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
       "registry_pointer": "/files/106",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-106-110.json",
+      "qualification": "Entire historical body read only at this physical-p16 identity; current applicability, connected scope, other identities and independent lenses remain open.",
+      "current_path": "crates/adventuresim-core/src/filth.rs",
+      "current_git_blob": "d375d693fb5a8498ff2be7303d023d088035c8bb",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TRAVEL-FILTH-REMAINDER.json",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 107,
@@ -1454,7 +1469,30 @@
       "historical_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
       "registry_pointer": "/files/107",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-106-110.json",
+      "qualification": "Entire historical body read only at this physical-p16 identity; current applicability, connected scope, other identities and independent lenses remain open.",
+      "current_path": "crates/adventuresim-core/src/food.rs",
+      "current_git_blob": "1b8f2794a247f5b894ee708ca699162f08c3d012",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MICROBIAL-AGGREGATES.json",
+          "ranges": [
+            [
+              140,
+              154
+            ],
+            [
+              322,
+              327
+            ],
+            [
+              371,
+              411
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 108,
@@ -1474,7 +1512,9 @@
       "historical_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
       "registry_pointer": "/files/109",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-106-110.json",
+      "qualification": "Entire historical body read only at this physical-p16 identity; current applicability, connected scope, other identities and independent lenses remain open."
     },
     {
       "original_index": 110,
@@ -1484,7 +1524,9 @@
       "historical_sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
       "registry_pointer": "/files/110",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-106-110.json",
+      "qualification": "Entire historical body read only at this physical-p16 identity; current applicability, connected scope, other identities and independent lenses remain open."
     },
     {
       "original_index": 111,
@@ -2599,6 +2641,15 @@
         {
           "assessment": "ASSESSMENT-ROW-IDENTITY.json",
           "ranges": "11-117"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MICROBIAL-AGGREGATES.json",
+          "ranges": [
+            [
+              260,
+              278
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -5031,6 +5082,15 @@
             [
               320,
               330
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TRAVEL-FILTH-REMAINDER.json",
+          "ranges": [
+            [
+              1,
+              15
             ]
           ]
         }
@@ -10743,7 +10803,21 @@
       "historical_sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
       "registry_pointer": "/files/926",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/filth.rs",
+      "current_git_blob": "d375d693fb5a8498ff2be7303d023d088035c8bb",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TRAVEL-FILTH-REMAINDER.json",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 927,
@@ -10753,7 +10827,29 @@
       "historical_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
       "registry_pointer": "/files/927",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/food.rs",
+      "current_git_blob": "1b8f2794a247f5b894ee708ca699162f08c3d012",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MICROBIAL-AGGREGATES.json",
+          "ranges": [
+            [
+              140,
+              154
+            ],
+            [
+              322,
+              327
+            ],
+            [
+              371,
+              411
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 928,
@@ -12731,7 +12827,25 @@
       "historical_sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
       "registry_pointer": "/files/1098",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/filth.rs",
+      "current_git_blob": "bc1c06067719a1dc4616de1737a938f03a4b6bd9",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TRAVEL-FILTH-REMAINDER.json",
+          "ranges": [
+            [
+              1,
+              65
+            ],
+            [
+              142,
+              185
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1099,
@@ -12788,6 +12902,23 @@
         {
           "assessment": "ASSESSMENT-INVENTORY-LOOKUP.json",
           "ranges": "690-732"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MICROBIAL-AGGREGATES.json",
+          "ranges": [
+            [
+              350,
+              460
+            ],
+            [
+              475,
+              495
+            ],
+            [
+              555,
+              580
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -12845,6 +12976,15 @@
         {
           "assessment": "ASSESSMENT-ROW-IDENTITY.json",
           "ranges": "11-117"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MICROBIAL-AGGREGATES.json",
+          "ranges": [
+            [
+              260,
+              278
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -13326,7 +13466,21 @@
       "historical_sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
       "registry_pointer": "/files/1148",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "current_git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MICROBIAL-AGGREGATES.json",
+          "ranges": [
+            [
+              700,
+              730
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1149,
@@ -14569,7 +14723,21 @@
       "historical_sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
       "registry_pointer": "/files/1245",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "current_git_blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TRAVEL-FILTH-REMAINDER.json",
+          "ranges": [
+            [
+              190,
+              250
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1246,
@@ -24795,6 +24963,15 @@
             [
               320,
               330
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TRAVEL-FILTH-REMAINDER.json",
+          "ranges": [
+            [
+              1,
+              15
             ]
           ]
         }
