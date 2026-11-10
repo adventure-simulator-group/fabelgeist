@@ -1,0 +1,31 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 443,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/443",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "lines": 4796,
+      "new_personal_read_ranges": [
+        [
+          1,
+          4796
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical world-schema defines bounded source text, geographic metadata, typed religion, drought, land use, terrain, hydrology, industry and source-provenance records. Many individual wrappers use checked Serde and aggregate profiles use validation; native SpacetimeDB derivations and boundary-wide enforcement require independent traces.",
+    "Historical TravelGeometryPoint exposes raw public E7 integers and derives Deserialize although longitude and latitude getters expect axis validation. This corresponds to recovered 059 ADLER-L11-TRAVEL-GEOMETRY-POINT-ADMISSION as a conditional admission concern; surrounding import validation, actual serialized callers and current behavior remain open.",
+    "Historical InferredIndustryProfile::new checks nonempty bounded sorted uniqueness while validate additionally rejects regional peat cutting; the inference producer caps peat at local. Whether any supported consumer accepts a constructor-created profile without validate requires a connected trace, not an automatic defect or behavior claim.",
+    "Historical RouteTerrain checks collection bounds and ordering, then validates contextual elevation, class, seasonal risks and encounter tags when route and length are supplied. Placeholder and raw native validation have distinct staging purposes. Cross-source identities, producer paths and every context invocation remain open.",
+    "Historical source tests were read, not run. No import, world build, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace source metadata and release identity, all aggregate context and native schema admissions, industry constructor versus validation and producers, travel geometry and route consumers, and original aliases. Independently assess every lens."
+}
