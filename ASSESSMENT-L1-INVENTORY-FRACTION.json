@@ -1,0 +1,88 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-112-116.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/inventory_measurement.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "git_blob": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a",
+      "bytes": 26593,
+      "lines": 804,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "preserved_bytes": "source-evidence/inventory-fraction/current/crates/adventuresim-core/src/inventory_measurement.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "bytes": 7706,
+      "lines": 241,
+      "ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "preserved_bytes": "source-evidence/inventory-fraction/current/crates/adventuresim-stdb-module/src/inventory_amount.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "f545d695b666086cb43166e8c7d28a2290272758191042c37530967a71184a21",
+      "git_blob": "33c054c300341617682865487edfc87c20a4ddb3",
+      "bytes": 8850,
+      "lines": 233,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "preserved_bytes": "source-evidence/inventory-fraction/current/crates/strategic-web/src/routes/settlements/rest_preview.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/trade/merchant.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "04d54c2a6dc1b2e6bddce07a039a5cdc4da910365acf36223ff9fb9e3f461d32",
+      "git_blob": "a7db589d041703d714a9277ca24fc90ada3a1a9e",
+      "bytes": 26707,
+      "lines": 415,
+      "ranges": [
+        [
+          250,
+          275
+        ]
+      ],
+      "preserved_bytes": "source-evidence/inventory-fraction/current/crates/strategic-web/src/templates/settlement/trade/merchant.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Conditional persisted/public fixed-point fraction admission contract and panic-on-invalid read; inspected initialization and consumption preserve bounds.",
+  "trace": [
+    "ConsumableFractionMicros has a private u32 and try_new rejects values greater than 1,000,000; zero and one whole are explicitly valid. Both public personal and party amount table records store the remaining fraction as raw u32. A representable row value of 1,000,001 is therefore outside the type contract; the inspected server persisted_fraction and two web presentation paths use expect after try_new, so such an invalid row would fail at those read sites. The public table declaration is not evidence that an external client may write it.",
+    "The inspected initialization writes WHOLE and both consumption paths take typed fractions, clamp the consumed amount to available, subtract with checked_sub, and write the resulting typed value or delete an empty row. Personal/party transfer copies a stored raw value, so its correctness depends on the existing row invariant. No normal invalid-state producer, corrupted row, browser failure or reducer execution has been established.",
+    "whole_divided_by asserts a nonzero divisor and rounds down in integer millionths; the inspected soap producer uses a positive capacity of 25. Do not equate the number of soap cleansing points, a fraction in millionths, inventory count and mass. All other writers, integrity assumptions, overflow semantics, projections and the linked inventory-lookup record remain open."
+  ],
+  "repair_direction": "Trace every personal and party amount constructor, transfer, persistence admission and presentation. Decide the ownership and failure contract for invalid stored fractions, preserving valid zero/whole semantics, intentional fraction rounding and transactional transfers; follow generated binding rules if a future authorized schema change is chosen, without compatibility or migration paths.",
+  "later_acceptance": [
+    "After separate repair authorization, cover zero, one, one-million, above-one-million, valid partial consumption, cross-owner transfer, soap points and web projections."
+  ],
+  "remaining": [
+    "Prove whether invalid state is reachable and reconcile all connected inventory and historical entries. No product build, test, browser, database call or runtime probe was performed."
+  ],
+  "discovery_status": "partial; representable invalid stored values and read-side panic sites, normal reachability unproved",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

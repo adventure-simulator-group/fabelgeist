@@ -1,0 +1,63 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 112,
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/112",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "lines": 804,
+      "new_personal_read_ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read for this exact physical-p16 role only; historical source tests were read and not run. Other variants, current applicability, linked contracts and all independent lenses remain open."
+    },
+    {
+      "original_index": 113,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/113",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "lines": 544,
+      "new_personal_read_ranges": [
+        [
+          1,
+          544
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read for this exact physical-p16 role only; historical source tests were read and not run. Other variants, current applicability, linked contracts and all independent lenses remain open."
+    },
+    {
+      "original_index": 116,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/116",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "lines": 623,
+      "new_personal_read_ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read for this exact physical-p16 role only; historical source tests were read and not run. Other variants, current applicability, linked contracts and all independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Role 112 contains checked inventory measurement and pricing arithmetic, a nonzero quantity wrapper, a millionth-unit consumable fraction, row/basis aggregate invariants and extensive source tests. The current fraction and persistence paths were separately inspected in bounded ranges; the historical module-level note about persistence is not a current schema verdict.",
+    "Role 113 historically delegates catalog projection and contains source tests for item IDs, placement topology, geometry and normalized weapon weights. The current catalogue body has a different revision shape; no current behavior is inferred from this historical read.",
+    "Role 116 historically uses CuboidDimensions and SignedLength in authored equipment physical geometry while many other schema values remain primitive; current schema and item ownership require separate source inspection and no later-checkpoint attribution is implied."
+  ],
+  "remaining": "All connected measurement admissions, authoritative writers, catalog versions, historical queue aliases and independent lenses remain open; no source tests were run."
+}

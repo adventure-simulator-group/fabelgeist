@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2597,
+    "unassessed": 2590,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 185,
+    "bounded-current-trace-only": 189,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 67
+    "full-historical-body-trace-open": 70
   },
-  "first_unfinished": "Original changed roles 108, 111, 114, 115, 117, 118 and 120 have full historical body reads only; next unread changed role is 112. All 62 current deltas have dispositions but 46 are partial; every independent lens and mandatory additional scope remains open.",
+  "first_unfinished": "Original changed roles 112, 113 and 116 have full physical-p16 body reads with linked scope open; next unread changed role is 121. All 62 current delta paths have dispositions, 46 partial; independent lenses and additional populations remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -1576,7 +1576,22 @@
       "historical_sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
       "registry_pointer": "/files/112",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-112-116.json",
+      "qualification": "Full historical body read only for this physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open.",
+      "current_path": "crates/adventuresim-core/src/inventory_measurement.rs",
+      "current_git_blob": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-INVENTORY-FRACTION.json",
+          "ranges": [
+            [
+              1,
+              115
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 113,
@@ -1586,7 +1601,9 @@
       "historical_sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
       "registry_pointer": "/files/113",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-112-116.json",
+      "qualification": "Full historical body read only for this physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open."
     },
     {
       "original_index": 114,
@@ -1620,7 +1637,9 @@
       "historical_sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
       "registry_pointer": "/files/116",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-112-116.json",
+      "qualification": "Full historical body read only for this physical-p16 identity; connected scope, current applicability, other variants and every independent lens remain open."
     },
     {
       "original_index": 117,
@@ -2856,7 +2875,21 @@
       "historical_sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
       "registry_pointer": "/files/219",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "current_git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-INVENTORY-FRACTION.json",
+          "ranges": [
+            [
+              1,
+              202
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 220,
@@ -11012,7 +11045,21 @@
       "historical_sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
       "registry_pointer": "/files/933",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/inventory_measurement.rs",
+      "current_git_blob": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-INVENTORY-FRACTION.json",
+          "ranges": [
+            [
+              1,
+              115
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 934,
@@ -13256,7 +13303,21 @@
       "historical_sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
       "registry_pointer": "/files/1118",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "current_git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-INVENTORY-FRACTION.json",
+          "ranges": [
+            [
+              1,
+              202
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1119,
@@ -27495,7 +27556,21 @@
       "historical_sha256": "f545d695b666086cb43166e8c7d28a2290272758191042c37530967a71184a21",
       "registry_pointer": "/files/2381",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "current_git_blob": "33c054c300341617682865487edfc87c20a4ddb3",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-INVENTORY-FRACTION.json",
+          "ranges": [
+            [
+              1,
+              15
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 2382,

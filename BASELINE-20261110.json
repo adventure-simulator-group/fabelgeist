@@ -1612,7 +1612,10 @@
         "classification": "public validator permits finite relative weights whose weighted f32 calculation can overflow; authored catalog path is normalized",
         "discovery": "partial; supported production reachability, all admissions, owner policy and historical aliases open",
         "repair": "not started",
-        "validation": "not performed"
+        "validation": "not performed",
+        "additional_assessments": [
+          "ASSESSMENT-L01-HISTORICAL-112-116.json"
+        ]
       },
       {
         "id": "REVIEW-ORDERED-SIGIL-POSITIONS-001",
@@ -1656,12 +1659,23 @@
         "discovery": "partial; all writers, direct callers, duplicate reachability and owner policy remain open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "REVIEW-CONSUMABLE-FRACTION-STATE-001",
+        "record": "ASSESSMENT-L1-INVENTORY-FRACTION.json",
+        "classification": "conditional raw persisted/public fraction admission and read-side expect; inspected normal initialization and typed consumption preserve bounds",
+        "discovery": "partial; all writers, transfers, invalid-state reachability, projections and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "connected_candidates": [
+          "NEW-INV-LOOKUP-001"
+        ]
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 role 112 and other unassessed historical and additional source scopes, then complete each independent lens and connected ledger without product implementation or validation.",
+  "next_step": "Continue original Lens 1 role 121 and all earlier unassessed dependency roles and mandatory scopes, complete independent lenses and reconcile connected ledger before implementation or product validation.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
