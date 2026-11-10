@@ -1,0 +1,80 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 161,
+      "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/161",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "lines": 500,
+      "new_personal_read_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read where present, not executed. Current applicability, connected source, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 162,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/162",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "lines": 958,
+      "new_personal_read_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read where present, not executed. Current applicability, connected source, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 163,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/field.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/163",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "lines": 61,
+      "new_personal_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read where present, not executed. Current applicability, connected source, aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 164,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/streams.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/164",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "lines": 11,
+      "new_personal_read_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read where present, not executed. Current applicability, connected source, aliases and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical water code contains a small simulator-only flow and distinct typed water collection rights, planning, volume and contaminant transfer paths. These should not be conflated with live persistent material authority.",
+    "Historical weather code computes versioned snapshots and fields from absolute time and position, including separate interpolation and random stream modules; domain bounds and native callers require independent tracing.",
+    "Historical source tests were read without execution. No present behavior, population completion or missing checkpoint 3821 status follows."
+  ],
+  "remaining": "Trace actual water and weather producers, simulation versus live storage, admitted coordinates and clock bounds, all recipients, historical aliases and independent lenses."
+}
