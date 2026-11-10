@@ -1,0 +1,157 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 3,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected investigation stable identifier constructor, derived JSON decoding, report processing, and generated-testimony staging. This is not a complete lens or a demonstrated production incident.",
+  "source_reasoning": "Static source inspection of the pinned derive and JSON sources, and a symbolic empty-string example only; no parser, macro expansion, compiler, database, product, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/investigation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db292e533405f8ea4a313f742cae6b25ec7808d9",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "bytes": 37029,
+      "lines": 1154,
+      "ranges": [
+        [
+          75,
+          111
+        ],
+        [
+          630,
+          717
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-id-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "20e160d016e79a9e59e0f4ed20d1cd373f7981f8",
+      "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "bytes": 19252,
+      "lines": 506,
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-id-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "261a5d088cff73b14c947fa8d85d039c9a80ea79",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "bytes": 65781,
+      "lines": 1771,
+      "ranges": [
+        [
+          760,
+          930
+        ],
+        [
+          1000,
+          1120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-id-sources/02.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-170.json",
+      "sha256": "210e0ff73a60190430798a8524393366b8748abef097067791fbfe4a4828aab7",
+      "bytes": 7144,
+      "git_blob": "7dec9c17828b54c5b9e1b83601035c657be60084",
+      "preserved_bytes": "recovered/investigation-id-059/210e0ff73a60190430798a8524393366b8748abef097067791fbfe4a4828aab7.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 Lens 13 delegated receipt for the historical PR-working source; original time, attribution, scope and zero accepted unique-count change are preserved. It is not checkpoint 3821 authority."
+    }
+  ],
+  "native_sources": [
+    {
+      "package_manifest": "native-evidence/serde-derive-1.0.229/MANIFEST.json",
+      "archive_member": "serde_derive-1.0.229/src/de/tuple.rs",
+      "sha256": "5496ee711b935b17269960f4a0cfcb7d23de668db9489dfca7276ce1fcdf0f6f",
+      "bytes": 9435,
+      "ranges": [
+        [
+          12,
+          82
+        ],
+        [
+          135,
+          180
+        ]
+      ],
+      "entry_member": "serde_derive-1.0.229/src/de.rs",
+      "entry_ranges": [
+        [
+          306,
+          323
+        ]
+      ],
+      "qualification": "Pinned macro source interpretation, not feature resolution or expansion."
+    },
+    {
+      "package_manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+      "archive_member": "serde_json-1.0.151/src/de.rs",
+      "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+      "bytes": 86840,
+      "ranges": [
+        [
+          1720,
+          1735
+        ],
+        [
+          2709,
+          2714
+        ]
+      ],
+      "qualification": "Pinned JSON source interpretation, not parser execution."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/279",
+      "qualification": "Earlier PL13-172 receipt covers this historical body and broader numeric, observer and retained-state questions, including source-record constructor bypass; it retains Lens 13 attribution and zero accepted unique-count change. Its numeric adapter, other records and aliases remain open."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 934,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+      "historical_sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-931-936.json",
+      "qualification": "Separate full historical Lens 1 body read of the exact PR-working object; no automatic independent-lens or checkpoint 3821 closure."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-INVESTIGATION-ID-DESERIALIZATION-001",
+      "severity": "unassigned; supported malformed input and user-facing impact are not established",
+      "classification": "Current source-derived checked-constructor versus derived-deserialization admission gap; selected generated staging preserves checked construction before serialization.",
+      "trace": "The stable_id macro defines twelve distinct private String tuple wrappers, including CaseId, EventId and PropositionId. Their public new rejects empty strings, values over 256 bytes and bytes outside ASCII letters, digits, hyphen, underscore, colon and dot. The wrappers derive Deserialize without a checked conversion. Pinned serde_derive source selects the newtype visitor and directly constructs the tuple after deserializing its field; pinned serde_json source delegates a newtype to that visitor. Source interpretation therefore predicts that decoding the JSON empty string as CaseId constructs a value that CaseId::new rejects. No parser or macro was run. The private field prevents ordinary direct tuple construction outside the owning module, which differs from the separately recorded public quest-generation ID wrappers.",
+      "connected_path": "PipelineInput derives Deserialize and contains CaseId, EventId and an AtomicProposition with PropositionId. process_report creates observation and recollection IDs with checked constructors and bounds selected text, but moves input.case_id unchanged into the Claim. The private stage_investigation_claim checks actor, separately bounds public receipt and label text, caps pipeline JSON at 8192 bytes, decodes the pipeline, then passes the claim case ID into event and claim authority rows if subsequent guards succeed. A symbolic otherwise-valid trusted pipeline with an empty case ID is thus not rechecked by that selected processing path; no insertion or request was executed and collision, existing authority, transactional and downstream behavior are not established.",
+      "safeguards_and_limits": "The only selected non-test staging call found in the tracked source is generated testimony: it validates the witness against the generated manifest, invokes the quest-generation authority validator and compares the manifest, constructs CaseId, EventId and PropositionId through their checked new functions, then serializes the pipeline for the private stage. The staging function is crate-private and documented as server-authored; this does not establish a browser-supplied malformed pipeline or invalid existing state. Other deserialization routes, every wrapper, authoritative persisted manifests and native consumers remain open.",
+      "connected_repair": "After complete discovery, ensure each stable-ID owner enforces its admitted syntax on every supported decode and construction path while preserving valid identifiers and intended wire shapes. Reconcile report/staging authority, generated replay, nested source records and all consumers; do not add compatibility aliases.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover empty, overlong, non-ASCII and disallowed identifiers through each supported construction and decoding boundary, and verify generated testimony and legitimate persisted records retain their behavior.",
+      "related_current_candidates": [
+        "REVIEW-QUEST-GENERATION-ID-ADMISSION-001",
+        "NEW-MISSION-AUTHORITY-ID-DESERIALIZATION-001"
+      ],
+      "relationship_qualification": "Same admission theme at different owners and source revisions; historical broader source-record observations remain separately attributed, with no unique historical count or exact alias asserted.",
+      "discovery": "partial; all decoder routes, every wrapper, private staging producers, supported state and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

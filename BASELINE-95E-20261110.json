@@ -1149,6 +1149,24 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L03-PREPARATION-RIGHTS-95E.json"
+      },
+      {
+        "id": "REVIEW-INVESTIGATION-ID-DESERIALIZATION-001",
+        "lens": 3,
+        "severity": "unassigned; supported malformed input and user-facing impact are not established",
+        "classification": "bounded 95e investigation stable-ID serde admission trace; selected generated producer uses checked constructors",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/279"
+        ],
+        "related_current_candidates": [
+          "REVIEW-QUEST-GENERATION-ID-ADMISSION-001",
+          "NEW-MISSION-AUTHORITY-ID-DESERIALIZATION-001"
+        ],
+        "relationship_qualification": "Related admission family across distinct owners and revisions; earlier PL13-172 remains independently attributed and is not final checkpoint authority.",
+        "discovery": "partial; all decode paths, supported malformed state, staging producers and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L03-INVESTIGATION-ID-95E.json"
       }
     ]
   },

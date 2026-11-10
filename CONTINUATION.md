@@ -145,6 +145,12 @@ related checkpoint 059 receipt retains its original scope and attribution.
 `ASSESSMENT-L01-HISTORICAL-926-930.json` records separate frozen filth,
 food, foraging and preparation source reads. Related current traces retain
 their bounds and prior attribution; source tests were not run.
+`ASSESSMENT-L03-INVESTIGATION-ID-95E.json` traces a constructor and decoding
+difference and the checked generated-testimony producer. Its earlier Lens 13
+source receipt retains its separate attribution and open numeric scope.
+`ASSESSMENT-L01-HISTORICAL-931-936.json` records separate frozen ingredient,
+containment, measurement and investigation source reads. Related current
+and independent-lens obligations remain open; tests were not run.
 `ASSESSMENT-L01-UNARMED-95E.json` traces the strategic unarmed yield
 gate and selected empty-hand action work, retaining tactical safeguards
 and prior unarmed qualifications. No attack or encounter was run.
@@ -168,8 +174,9 @@ frozen source reads, including source-only tests; no lens is complete.
 `ASSESSMENT-L01-ATTACK-IDENTITY-95E.json` reconnects the earlier packed
 attack-ID concern to current batch metadata, preserving the original 059
 receipts and a byte-identical older handoff Git cross-check. No roster
-collision or combat execution was observed. `ASSESSMENT-L01-HISTORICAL-863-865.json`
-records separate frozen melee source reads; its test code was read only.
+collision or combat execution was observed.
+`ASSESSMENT-L01-HISTORICAL-863-865.json` records separate frozen melee
+source reads; its test code was read only.
 `ASSESSMENT-L01-RANGED-FATIGUE-95E.json` traces missing selected ranged
 attack work in tactical and strategic paths and conditional strategic ranged
 defense work. Earlier general-fatigue and carryover records remain open.
