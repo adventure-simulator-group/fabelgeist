@@ -1,0 +1,173 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded source-assertion and ranged authorization staging trace only; all other lens and connected discovery remains incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "bytes": 39026,
+      "lines": 1148,
+      "ranges": [
+        [
+          759,
+          768
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-assertion-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "bytes": 10459,
+      "lines": 325,
+      "ranges": [
+        [
+          1,
+          120
+        ],
+        [
+          155,
+          265
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-assertion-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+      "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+      "bytes": 22323,
+      "lines": 674,
+      "ranges": [
+        [
+          562,
+          620
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-assertion-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/authority/ranged.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23a2af61c71cc94aaf68f91d7f7d914ab4221c93",
+      "sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+      "bytes": 1548,
+      "lines": 54,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-assertion-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "86b56c1b59ef2dc60abf602ca03a97afcff2b888",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "bytes": 9410,
+      "lines": 255,
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ranged-assertion-sources/04.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected current source ranges personally read in the predecessor checkout; preserved c100 and 95e trees bind identical blobs. String presence and order are source-byte verification, not execution of product tests.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_ids": [
+      "ADLER-L11-RANGED-AUTHORIZATION-SOURCE-TEST"
+    ],
+    "historical_source_roles": [
+      {
+        "index": 381,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat.rs",
+        "sha256": "a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+        "current_sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+        "relation": "different"
+      },
+      {
+        "index": 382,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+        "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+        "current_sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+        "relation": "different"
+      },
+      {
+        "index": 384,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority/ranged.rs",
+        "sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+        "current_sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+        "relation": "byte-match"
+      },
+      {
+        "index": 398,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+        "sha256": "e960a4f52cd7fa6f8d28da2983c5f066e216f0b74828295faa41b66bd436659e",
+        "current_sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+        "relation": "different"
+      },
+      {
+        "index": 2026,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs",
+        "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+        "current_sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2027,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/authority.rs",
+        "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+        "current_sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2044,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+        "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+        "current_sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+        "relation": "byte-match"
+      }
+    ],
+    "qualification": "Historical attribution, status and accepted unique-count changes remain unchanged; matching source does not constitute checkpoint 3821 or complete current audit coverage."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-RANGED-AUTHORIZATION-SOURCE-ASSERTION-001",
+      "severity": "P2 provisional; deterministic source-assertion mismatch, no test execution",
+      "classification": "same first-failure family as checkpoint 059 ADLER ranged authorization source test, independently traced at 95e",
+      "detail": "The cfg(test) source function ranged_rejections_happen_before_ammo_scan includes combat/ranged.rs as text and expects the exact substring q_ammo.iter().find. The bound 95e ranged source has no such substring: its helper uses ammunition.iter().find and the resolver invokes RangedAmmunition::find. Therefore, if this source test is compiled and invoked with these exact included bytes, the lookup returns None and its expect would panic before the ordering assertion. This is a deterministic source inference; no test, build or runtime failure was observed.",
+      "order": "The source separately establishes a semantic difference from the old textual ordering: validation consumes a snapshot of authority.permits and checks it before line of sight, cooldown admission and the read-only ammunition lookup. For a hit with ammunition, the resolver prepares fallible defense state before authorize_shot mutates the windup/cooldown; only afterward does it consume ammunition. A dry fire reaches authorization and then returns without ammunition. This trace does not establish Bevy event ordering, all mutation effects or gameplay outcomes.",
+      "safeguards": "The cheap gate rejects invalid target, side, state, range, aim and nonpermitting windup before the shown ammunition lookup; the fallible defense preparation can return before authorize_shot. The old test also expects authorization before the scan, so merely changing the textual needle would still encode the prior order. Do not infer a product authorization bypass or automatically move the scan across the mutation boundary.",
+      "connected_scope": "Source test and any broader quality gate, ranged cheap validation and permits, read-only ammo lookup, fallible defense preparation, single-use shot authority and cooldown, hit/miss/dry-fire ammunition consequences, event/scheduler behavior and related historical acceptance records.",
+      "proposed_repair": "After full discovery, reconcile the intended staged rejection and consumption contract with the source check. Replace brittle spelling/order assumptions with meaningful later-authorized coverage of invalid requests, fallible preparation, authorized hit/miss and dry-fire semantics, without sacrificing no-consume-on-error behavior.",
+      "later_acceptance": "When product validation is authorized, demonstrate that invalid requests do not mutate authority or ammunition, failed defense preparation leaves both available, successful hit/miss consumes the intended authority and ammunition once, and dry fire follows its explicit cooldown policy; run the corrected check at the final revision.",
+      "historical_related_candidates": [
+        "ADLER-L11-RANGED-AUTHORIZATION-SOURCE-TEST"
+      ],
+      "relationship_qualification": "Checkpoint 059 already records this exact missing needle and staged-order discrepancy with zero accepted unique-count change. Pr-working combat and ranged source roles 2026 and 2044 match 95e bytes, while physical-p16 roles 381 and 398 differ; the 95e assessment does not alter prior status, claim a new unique historical defect or credit checkpoint 3821.",
+      "discovery": "partial; full native observer scheduling, quality-gate compilation and invocation, defense failure modes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace native observer behavior, defense and ammunition failure paths, test compilation and actual gate only when authorized, and all related historical aliases. Independently assess all lenses; no repair or product validation."
+}

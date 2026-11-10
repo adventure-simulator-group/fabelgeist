@@ -67,6 +67,8 @@ ranged-deadband admission traces tied to earlier checkpoint 059 records.
 Committed defaults and unexecuted runtime assumptions are distinguished.
 `ASSESSMENT-L01-STACK-MASS-95E.json` connects current stack quantity and
 unit mass to tactical burden and an earlier checkpoint 059 finding.
+`ASSESSMENT-L01-RANGED-SOURCE-ASSERTION-95E.json` records a stale
+source-assertion needle and qualified staged authorization trace.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons

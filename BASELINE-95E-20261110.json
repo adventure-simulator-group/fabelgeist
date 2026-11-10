@@ -373,6 +373,19 @@
           "PL13-STACK-MASS-CONNECTION"
         ],
         "record": "ASSESSMENT-L01-STACK-MASS-95E.json"
+      },
+      {
+        "id": "REVIEW-RANGED-AUTHORIZATION-SOURCE-ASSERTION-001",
+        "severity": "P2 provisional; deterministic source-assertion mismatch, no test execution",
+        "classification": "same first-failure family as checkpoint 059 ADLER ranged authorization source test, independently traced at 95e",
+        "discovery": "partial; full native observer scheduling, quality-gate compilation and invocation, defense failure modes and global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Checkpoint 059 already records this exact missing needle and staged-order discrepancy with zero accepted unique-count change. Pr-working combat and ranged source roles 2026 and 2044 match 95e bytes, while physical-p16 roles 381 and 398 differ; the 95e assessment does not alter prior status, claim a new unique historical defect or credit checkpoint 3821.",
+        "historical_related_candidates": [
+          "ADLER-L11-RANGED-AUTHORIZATION-SOURCE-TEST"
+        ],
+        "record": "ASSESSMENT-L01-RANGED-SOURCE-ASSERTION-95E.json"
       }
     ]
   }
