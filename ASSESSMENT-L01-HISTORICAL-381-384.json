@@ -1,0 +1,82 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 381,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/381",
+      "sha256": "a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+      "lines": 1165,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 382,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/382",
+      "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "lines": 672,
+      "new_personal_read_ranges": [
+        [
+          1,
+          672
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 383,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority/clock.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/383",
+      "sha256": "e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+      "lines": 62,
+      "new_personal_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 384,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority/ranged.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/384",
+      "sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+      "lines": 54,
+      "new_personal_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical combat plugin registers intent and resolution observers and orders condition, ragdoll and pending melee contact systems; its transient consequence accumulator holds injury, ammunition and equipment contacts. The actual downstream consequence receipt and scheduler authority remain separate dependencies.",
+    "Historical melee authority stores an observed windup and active attack, gates target/body-part/time and cooldown, and consumes or transforms the committed state for hit, miss and defensive contact. Ranged authority tracks its own windup and cooldown; cheap gates separately check side, incapacitation, range, facing and permitted timing.",
+    "The historical precision owner admits all finite values without a probability clamp, and authority clock arithmetic uses saturating durations. Reachability and behavior at clock exhaustion, every externally admitted intent and finite intermediate need connected review; their existence here is not a current failure finding.",
+    "The historical combat source contains a textual ranged-order assertion. A separately attributed 95e source trace has verified its current missing needle and actual staged order; this historical read does not silently identify the different physical-p16 ranged body with current bytes.",
+    "Source tests were read but not run. No tactical combat, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace current intent sources, authority correlation and state consumption, clock exhaustion, precision propagation, event scheduling, combat consequence receipts and all historical aliases; independently assess every lens without product validation."
+}
