@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1844,
+    "unassessed": 1839,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 147,
+    "bounded-current-trace-only": 145,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 851,
+    "full-historical-body-trace-open": 858,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 901–909 have now been read. Continue at role 910; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 910–916 have now been read. Continue at role 917; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -12331,7 +12331,9 @@
       "historical_sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
       "registry_pointer": "/files/910",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-910-916.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 911,
@@ -12341,7 +12343,9 @@
       "historical_sha256": "e68ecc33496a7820aad7f54bccb03d86b407e59c97759223fe80ed6205c8894b",
       "registry_pointer": "/files/911",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-910-916.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 912,
@@ -12351,7 +12355,7 @@
       "historical_sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
       "registry_pointer": "/files/912",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/src/disease.rs",
       "current_git_blob": "ef1f37d455d1b8b7b7c14ddc8e13ba59960fe8f3",
       "current_observations": [
@@ -12369,7 +12373,9 @@
           ]
         }
       ],
-      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-910-916.json",
+      "historical_qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 913,
@@ -12379,7 +12385,9 @@
       "historical_sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
       "registry_pointer": "/files/913",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-910-916.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 914,
@@ -12389,7 +12397,9 @@
       "historical_sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
       "registry_pointer": "/files/914",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-910-916.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 915,
@@ -12399,7 +12409,9 @@
       "historical_sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
       "registry_pointer": "/files/915",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-910-916.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 916,
@@ -12409,7 +12421,7 @@
       "historical_sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
       "registry_pointer": "/files/916",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/src/elapsed.rs",
       "current_git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
       "current_observations": [
@@ -12432,7 +12444,9 @@
           ]
         }
       ],
-      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-910-916.json",
+      "historical_qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 917,

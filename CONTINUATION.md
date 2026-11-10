@@ -133,6 +133,9 @@ and shader source reads; no device or test ran.
 `ASSESSMENT-L01-HISTORICAL-901-909.json` records separate frozen combat,
 relationship and child-identity source reads. Current and independent-lens
 obligations remain open; source tests and examples were not run.
+`ASSESSMENT-L01-HISTORICAL-910-916.json` records separate frozen quest,
+dialogue, disease, durability and elapsed-time source reads. Current and
+independent-lens obligations remain open; source tests were not run.
 `ASSESSMENT-L01-UNARMED-95E.json` traces the strategic unarmed yield
 gate and selected empty-hand action work, retaining tactical safeguards
 and prior unarmed qualifications. No attack or encounter was run.
