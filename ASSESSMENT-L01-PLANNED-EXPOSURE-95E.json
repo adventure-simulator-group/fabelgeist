@@ -1,0 +1,330 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded planned movement and treatment exposure trace. Other clock paths, current state reachability and all independent lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "bytes": 20026,
+      "lines": 582,
+      "ranges": [
+        [
+          1,
+          146
+        ],
+        [
+          201,
+          265
+        ],
+        [
+          417,
+          582
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c12f381c26ad99b55cafc502f1352bae63bfdd4",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "bytes": 31853,
+      "lines": 908,
+      "ranges": [
+        [
+          544,
+          630
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "bytes": 54084,
+      "lines": 1463,
+      "ranges": [
+        [
+          591,
+          625
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "bytes": 39483,
+      "lines": 1029,
+      "ranges": [
+        [
+          260,
+          410
+        ],
+        [
+          685,
+          770
+        ],
+        [
+          895,
+          945
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "bytes": 50861,
+      "lines": 1435,
+      "ranges": [
+        [
+          812,
+          1180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "03609a93b2c43af5ab206347aa9ae11ce221a723",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "bytes": 10092,
+      "lines": 294,
+      "ranges": [
+        [
+          60,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          302,
+          390
+        ],
+        [
+          1350,
+          1375
+        ],
+        [
+          1883,
+          1998
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/survival.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d5e60fcc12c2fe1d0193a2c5395d69e37e8f558",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "bytes": 16181,
+      "lines": 430,
+      "ranges": [
+        [
+          1,
+          236
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/tests/clock_and_advancement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7fc18d7b18b7e0e47adad78834cafb7f70c854e6",
+      "sha256": "c916b4d1a36f3c4d5ca8bc2a6ea17dd56a8e0bea04b3b49a9b577ef485e5c1e9",
+      "bytes": 3874,
+      "lines": 105,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee806412841490aa876d39510c938ec0cec363",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "bytes": 4149,
+      "lines": 107,
+      "ranges": [
+        [
+          43,
+          93
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "bytes": 51100,
+      "lines": 1353,
+      "ranges": [
+        [
+          816,
+          930
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_action.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "83d7a923670bad6bce129e3880c7b364f26af9ee",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "bytes": 40262,
+      "lines": 1209,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/medical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad523058a0a171d121e6767009bb6000a336105d",
+      "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "bytes": 19434,
+      "lines": 567,
+      "ranges": [
+        [
+          282,
+          320
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "bytes": 14946,
+      "lines": 378,
+      "ranges": [
+        [
+          100,
+          215
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/clock.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42c114ce4ad6a791efe54af557c0fb88c909df38",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "bytes": 3763,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "495977b502b62adaa7a68a5c6ccf4d7aa7689a7d",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "bytes": 27540,
+      "lines": 741,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/planned-exposure-sources/15.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected in the predecessor checkout and 95e source; preserved c100 and 95e trees bind identical blobs. Reading the source test is not executing it.",
+  "historical_source": {
+    "checkpoint": "059",
+    "queue": "baseline-059/queue.json",
+    "contract_ids": [
+      "Q-L12-843033fa9ae083aacdd1",
+      "Q-L12-1ad3c91ebca72ed5f86f",
+      "Q-L12-2876d378d298464525b1"
+    ],
+    "matching_advancement_role_index": 1245,
+    "matching_advancement_sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+    "different_physical_p16_role_index": 305,
+    "different_physical_p16_sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+    "matching_journey_role_index": 1226,
+    "matching_journey_sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+    "matching_surgery_role_index": 1238,
+    "matching_surgery_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+    "qualification": "Earlier unresolved questions retain their own queue positions, status and attribution; related subject is not full semantic reconciliation."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-PLANNED-TIME-WEATHER-OMISSION-001",
+      "severity": "P2 provisional; material exposure-state omission inferred from source, with runtime behavior unverified",
+      "classification": "source-derived omitted weather and thermal state advancement during disease-planned party movement and treatment; no product execution",
+      "detail": "Ordinary travel and ordinary wait write the actual elapsed personal clock and then call apply_weather_exposure with respectively moving field shelter or the current indoor/field shelter. The corresponding disease-planned time and wait functions write the clock but contain no call to that seam. Party journeys call advance_party_movement, which selects a shared safe prefix and uses advance_travel_time_in_plan for each traveler. The treatment reducer aligns participants and advances each through advance_character_wait_time_in_plan. The inspected outer movement and treatment bodies do not apply weather for that planned interval. The weather seam owns advancing stored wetness, thermal strain and frostbite exposure, and the condition projection reads thermal strain as incapacitation. Camp rest explicitly applies exposure independently and is not evidence that travel or treatment intervals were covered.",
+      "source_derived_example": "Assume an authorized, living actor at a settlement has thermal strain -6000, an unbandaged cut and a bandage, effective self-treatment surgery skill 0, no contextual claim, and an otherwise successful, nonterminal 30-minute self-bandage. The core procedure duration is 30 minutes and self-action is allowed. Under the ordinary wait exposure rule, indoor thermal strain advances one unit toward zero each minute, yielding -5970; the planned wait path does not directly advance the exposure row and would leave -6000 absent some separately identified intervening exposure update. These values correspond to thermal incapacitation 0.2425 versus 0.25 under the source projection. No actual database state, user-facing result, supported reachability of the starting exposure, or product execution has been observed.",
+      "safeguards": "The action checks actor authority, living co-presence, exact receipt/replay binding, treatment eligibility and resources, clips to a common disease/injury boundary and revalidates treatment before effects. Interrupted waits can still commit an elapsed prefix without a treatment receipt. Camp rest has its own exposure application. Current weather, clock, lifecycle callbacks, route position, all planned callers, alternative exposure writers and end-to-end reachability require further connected review.",
+      "connected_scope": "Personal clock commit and planned/ordinary disease intervals; party travel shared prefix, route progress and chunking; treatment participant alignment and indoor versus field shelter; lifecycle or family callbacks; one exposure update per actual clipped interval, weather-location sampling, wetness/thermal/frostbite ownership, condition projection, replay and transaction/error handling; source assertion selectors and all call sites.",
+      "proposed_repair": "After exhaustive discovery, ensure every admitted elapsed planned movement and planned wait applies the authoritative exposure transition exactly once using the correct actual elapsed interval, route position and shelter, while preserving common terminal clipping, participant ordering, zero-duration behavior, chunk invariance and existing camp-rest ownership. Review the existing lexical source assertion so it distinguishes the planned and ordinary function bodies rather than counting the ordinary call across both.",
+      "later_acceptance": "When product validation is authorized, compare party planned movement and treatment waits with equivalent ordinary exposure intervals for indoor recovery and outdoor wetness, cold, heat and frostbite; include zero and terminal-clipped prefixes, multiple participants, chunked routes, clock exhaustion, interruptions and receipts. Verify no double exposure in independently owned camp rest or family advancement.",
+      "historical_related_candidates": [
+        "Q-L12-843033fa9ae083aacdd1",
+        "Q-L12-1ad3c91ebca72ed5f86f",
+        "Q-L12-2876d378d298464525b1"
+      ],
+      "relationship_qualification": "These three separately attributed checkpoint 059 queue questions explicitly left planned weather ownership and a lexical source-assertion limitation unresolved; this current trace develops that subject but does not close or overwrite them, prove a global alias, or grant checkpoint 3821 credit. Historical pr-working advancement role 1245 matches the current blob; physical-p16 role 305 has different bytes. Pr-working journey role 1226 and surgery role 1238 match their current source bytes. Related historical status and original revision/attribution remain unchanged.",
+      "discovery": "partial; outer lifecycle side effects, supported weather and treatment states, route partitioning, all callers and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all planned callers and lifecycle callbacks, exposure-location ownership and route partitioning, alternative state writers, actual supported interval/weather states and global historical aliases. Independently assess all thirteen lenses; no repair or product validation."
+}
