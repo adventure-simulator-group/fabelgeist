@@ -59,6 +59,9 @@ The related checkpoint 059 questions retain their original open status.
 `ASSESSMENT-L01-IMMEDIATE-LANGUAGE-95E.json` connects a current
 short-activity language-gain trace to separately attributed earlier records;
 it does not count the same failure as a new unique defect.
+`ASSESSMENT-L01-REPLAY-ARGUMENT-SAFEGUARD-95E.json` rejects a
+replay-argument suspicion for currently generated choices while keeping
+broader replay contracts open.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons

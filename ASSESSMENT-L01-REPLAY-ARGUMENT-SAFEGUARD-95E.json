@@ -1,0 +1,123 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded replay-promotion argument suspicion in the currently generated offline evaluator; not a full replay, current-source or lens assessment.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f61a39cd09b33c559e7a1f115255ba7b217f31ad",
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "bytes": 59967,
+      "lines": 1659,
+      "ranges": [
+        [
+          300,
+          455
+        ],
+        [
+          510,
+          555
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/replay-argument-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/investigation_eval/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "384ec64bc6c637cebbb9b322149b73607e102502",
+      "sha256": "1fe68adf4017c611f3511771f797d398633215917c6c2ea19434e0ae2e6849bb",
+      "bytes": 57200,
+      "lines": 1458,
+      "ranges": [
+        [
+          1,
+          140
+        ],
+        [
+          155,
+          200
+        ],
+        [
+          530,
+          555
+        ],
+        [
+          610,
+          730
+        ],
+        [
+          860,
+          905
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/replay-argument-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/investigation_eval/types.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3f9641c3e2e138404b4b7d6997325d30908946c3",
+      "sha256": "9decd52b1b06d2f20f0ef07bc2509058ad189e30df4a95526d7a34837bc68563",
+      "bytes": 13409,
+      "lines": 461,
+      "ranges": [
+        [
+          172,
+          225
+        ],
+        [
+          280,
+          285
+        ],
+        [
+          309,
+          335
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/replay-argument-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/investigation_eval/policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "41fe1e2659921e6fe0b4035d25c2d442d7a017cc",
+      "sha256": "f4db872f152bd6cfe6416e5abdb90c4ba2a5fb363cd24adb874fb8e822ede80e",
+      "bytes": 11047,
+      "lines": 313,
+      "ranges": [
+        [
+          135,
+          165
+        ],
+        [
+          215,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/replay-argument-sources/03.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected source ranges were personally read and tied to identical c100 and 95e Git blobs. The matching physical-p16 report was separately read in ASSESSMENT-L01-HISTORICAL-320.json; byte equality is not independent-lens or checkpoint 3821 coverage.",
+  "historical_source": {
+    "original_role_index": 320,
+    "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+    "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+    "assessment": "ASSESSMENT-L01-HISTORICAL-320.json",
+    "qualification": "The recovered physical-p16 role retains its own snapshot attribution and is not promoted into checkpoint 3821."
+  },
+  "dispositions": [
+    {
+      "id": "NONFINDING-REPLAY-PROMOTION-CURRENT-ARGUMENTS-001",
+      "disposition": "rejected for the inspected current evaluator-generated choices; broader replay contracts remain open",
+      "trace": "Promotion rebuilds PolicyDecision from public trace choice IDs with default arguments, and public events do not store selected arguments. However the current InvestigationEnvironment builds every legal choice through push_choice with ChoiceArguments.allowed empty; apply validates against that list and accepts only selection None when it is empty. Thus an accepted action generated through this environment cannot contain a nonempty selection for promotion to discard. The policy wire may parse a selection but that does not make it legal. No evaluation or replay was executed.",
+      "limits": "This is not proof of arbitrary externally constructed bundles, future choices that admit arguments, replay determinism, promotion outcome correctness, privacy, other native call paths or full historical alias reconciliation. If choices later admit selected arguments, the trace and promotion contract would need to preserve or reject them explicitly.",
+      "repair": "not applicable for the bounded present suspicion; no implementation",
+      "validation": "not performed; source-only evidence verification"
+    }
+  ],
+  "remaining": "Trace full replay identity, promotion joins, generated and externally supplied bundles, termination, limits and privacy; all other roles and independent lenses remain incomplete."
+}
