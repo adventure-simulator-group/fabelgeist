@@ -1098,8 +1098,22 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-LIMB-WEIGHTS-95E.json"
+      },
+      {
+        "id": "REVIEW-CASE-OBJECTIVE-EXPRESSION-ADMISSION-001",
+        "lens": 3,
+        "severity": "P2 conditional: an unchecked empty objective path is immediately satisfied",
+        "classification": "bounded 95e admission trace of objective expression, generated/developer validation, replay and outcome evaluation; exact historical aliases open",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/244",
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/248"
+        ],
+        "discovery": "partial; all admissions, full developer constraints, reachable stored values and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L03-OBJECTIVE-EXPRESSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261110-2323.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261110-2332.json"
 }

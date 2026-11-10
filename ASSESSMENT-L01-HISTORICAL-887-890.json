@@ -1,0 +1,116 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 887,
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/887",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "lines": 921,
+      "new_personal_read_ranges": [
+        [
+          1,
+          921
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 888,
+      "source_id": "pr-working:crates/adventuresim-core/src/celestial.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/888",
+      "sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "lines": 169,
+      "new_personal_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 889,
+      "source_id": "pr-working:crates/adventuresim-core/src/character_morph.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/889",
+      "sha256": "078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+      "lines": 73,
+      "new_personal_read_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 890,
+      "source_id": "pr-working:crates/adventuresim-core/src/character_proportions.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/890",
+      "sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+      "lines": 208,
+      "new_personal_read_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "Role 887 contains case objective construction, expression evaluation, facts and custody transitions. Its current admission path is separately examined under Lens 3; custody-version and exact-retry questions retain their original separate qualifications.",
+    "Roles 888–890 cover celestial directions, cosmetic morph identity and skeletal proportions. Their producers, field admissions and render consumers remain connected work.",
+    "All source tests and fixture code were read only; no product or runtime ran."
+  ],
+  "remaining": "Continue at original role 891; all independent lenses, connected scopes and historical aliases remain open."
+}

@@ -1,0 +1,336 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 3,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected ObjectiveExpression checked construction, public construction and deserialization, generated/developer admission, replay and case-outcome evaluation.",
+  "source_reasoning": "Static source inspection, standard empty-iterator reasoning and pinned serde-derive source interpretation only; no parser, compiler, macro expansion, generated case, database, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/case.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ecc98e559dc0656ae33e1588f7e733ea4c2cfaa5",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "bytes": 27224,
+      "lines": 921,
+      "ranges": [
+        [
+          12,
+          44
+        ],
+        [
+          129,
+          147
+        ],
+        [
+          336,
+          425
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/developer_quest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "405f69b7b59fb65034d1f9acd82832de303085d6",
+      "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+      "bytes": 98762,
+      "lines": 2492,
+      "ranges": [
+        [
+          45,
+          79
+        ],
+        [
+          128,
+          150
+        ],
+        [
+          152,
+          215
+        ],
+        [
+          301,
+          426
+        ],
+        [
+          452,
+          540
+        ],
+        [
+          838,
+          875
+        ],
+        [
+          1067,
+          1131
+        ],
+        [
+          1133,
+          1153
+        ],
+        [
+          1321,
+          1339
+        ],
+        [
+          1456,
+          1472
+        ],
+        [
+          1726,
+          1779
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ac5dd5745378840c1655104fb71ec238b33fda0",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "bytes": 48415,
+      "lines": 1121,
+      "ranges": [
+        [
+          1,
+          30
+        ],
+        [
+          197,
+          210
+        ],
+        [
+          980,
+          1020
+        ],
+        [
+          1078,
+          1121
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "848dadf550fbd4a7ed4126d4c53c5c5a4493c4fd",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "bytes": 41036,
+      "lines": 1230,
+      "ranges": [
+        [
+          1150,
+          1188
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bf9af89bd643c5f72ef92b42615c0ae9eb6e065",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "bytes": 61438,
+      "lines": 1443,
+      "ranges": [
+        [
+          520,
+          535
+        ],
+        [
+          1405,
+          1418
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          71,
+          137
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          643,
+          669
+        ],
+        [
+          2165,
+          2188
+        ],
+        [
+          2421,
+          2440
+        ],
+        [
+          2495,
+          2512
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "59c7882b45f9590acd8edcf1e156a609f33bf7ee",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "bytes": 59463,
+      "lines": 1677,
+      "ranges": [
+        [
+          910,
+          955
+        ],
+        [
+          957,
+          990
+        ],
+        [
+          1017,
+          1105
+        ],
+        [
+          1139,
+          1170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/developer_quests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "eb8699245be22de671199ea17a873ad0eb5b2980",
+      "sha256": "261235d96f2496ec23c47178d3a8d73c11fc0a1dd8fe99b072f300db92d618b5",
+      "bytes": 14646,
+      "lines": 376,
+      "ranges": [
+        [
+          1,
+          5
+        ],
+        [
+          41,
+          52
+        ],
+        [
+          255,
+          264
+        ],
+        [
+          267,
+          275
+        ],
+        [
+          311,
+          359
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/objective-admission-sources/08.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-142.json",
+      "sha256": "e7e758fa05113c0e2d82000c1b201aaf25fb430771369d835b8f846117cddedf",
+      "bytes": 10975,
+      "git_blob": "d5afc856eab99ccb24f6eb86e00baa7bdb8bda8c",
+      "preserved_bytes": "recovered/objective-admission-059/e7e758fa05113c0e2d82000c1b201aaf25fb430771369d835b8f846117cddedf.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 prior delegated receipt; preserves prior attribution, original revision, pending scope and zero accepted unique-count change. Not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-145.json",
+      "sha256": "79c2fd8e45c696358d2864ac8031af89d201317f719b421ade0218e094b56a7b",
+      "bytes": 29641,
+      "git_blob": "e59cf6055d40f5dd78abd155e88ef63c46d1c966",
+      "preserved_bytes": "recovered/objective-admission-059/79c2fd8e45c696358d2864ac8031af89d201317f719b421ade0218e094b56a7b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 prior delegated receipt; preserves prior attribution, original revision, pending scope and zero accepted unique-count change. Not checkpoint 3821 authority."
+    }
+  ],
+  "native_source": {
+    "package_manifest": "native-evidence/serde-derive-1.0.229/MANIFEST.json",
+    "archive_member": "serde_derive-1.0.229/src/de/struct_.rs",
+    "sha256": "7b26982ce59504a9bb5a18c3ab56eee2d75e70fd465774ff035d15c50452c118",
+    "bytes": 24472,
+    "ranges": [
+      [
+        16,
+        43
+      ],
+      [
+        365,
+        417
+      ]
+    ],
+    "qualification": "Pinned crate archive source only; no actual macro expansion, feature-resolution or parser execution."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/244",
+      "qualification": "Earlier broad case expression/fact authentication and dedup question; relationship to this exact admission issue remains to reconcile."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/248",
+      "qualification": "Earlier manual expression admission and other independent custody/version/retry questions; not automatically the same finding."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 887,
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "historical_sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-887-890.json",
+      "qualification": "Separate Lens 1 frozen PR-working full body read; the present bounded Lens 3 review does not complete either lens or checkpoint 3821."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-CASE-OBJECTIVE-EXPRESSION-ADMISSION-001",
+      "severity": "P2 conditional: an unchecked empty objective path is immediately satisfied",
+      "classification": "Current 95e admission-contract gap with a source-reasoned public counterexample; connected historical aliases and actual developer-case reachability remain open.",
+      "trace": "ObjectiveExpression::new rejects empty expressions, empty paths, more than 16 paths or 32 leaves, repeated objective IDs and zero Defeat counts. Both ObjectiveExpression.alternatives and ObjectivePath.objectives are public, and the derived Deserialize has no try_from or equivalent validation attribute. A direct public literal with one empty path therefore bypasses new; pinned serde-derive struct source also shows direct field construction for the ordinary derived decoding path. In evaluate, the empty path maps to an empty progress list and its all(Satisfied) predicate is vacuously true, so the expression reports Satisfied even with no facts. This is source and logical reasoning; no method or decoder ran.",
+      "connected_path": "DeveloperQuestDefinition carries ObjectiveExpression and the selected web and development-gated reducer deserialize it before compile. The checked-in authoring validator bounds collection sizes and validates IDs, references and custody; its selected objective loops operate on leaves. Generated-case validation checks that existing leaves have producers but its inspected objective handling also operates on leaves. A hypothetical otherwise valid, under-cap developer definition with an additional empty path supplies no new leaves to those checks; other full-input diagnostics and successful materialization have not been executed or independently established. The materializer serializes generated objectives into private CaseAuthority. Later generated provenance requires manifest equality and regeneration; because both replay and manifest use the supplied definition, that agreement alone is not the ObjectiveExpression::new shape check. Outcome ingestion parses the stored expression and, after an accepted source fact, evaluates it; if an empty path is present and other guards succeed, the case resolves and eligible accepted contracts become ready to report.",
+      "safeguards_and_limits": "Normal generated paths shown use ObjectiveExpression::new, and the direct standalone tactical and outbreak producers shown construct nonempty paths with positive counts. The reducer requires a development gateway and strategic character authority. The replay/equality check rejects disagreement between stored case and manifest, and the authoring and generation validators enforce other structural rules. No existing persisted malformed case, accepted developer request, particular source fact, reward, player-visible outcome or database execution has been observed. Direct empty-expression and zero-count modes, IDs, mutation after admission, all external/persistence routes, replay diagnostics, finale policy and historical aliases require separate tracing.",
+      "connected_repair": "Make one authoritative expression admission contract hold for the checked constructor, direct construction/mutation and serde decoding; reconcile developer compile, generated validation, stored authority/replay and evaluation with it. Preserve legitimate nonempty alternative paths, source-scoped fact attribution, contract and finale semantics, and useful admission errors. Do not add compatibility paths or reject valid alternatives solely because they are alternatives.",
+      "acceptance": "After separate implementation authorization, establish that empty expressions/paths, over-limit paths/leaves, duplicate objective IDs and zero defeat quantities are rejected through every supported construction and decoding path; valid alternatives and source-fact outcomes retain their intended semantics and replay. Validate any developer authoring and stored-authority scenario only after authorization.",
+      "discovery": "partial; all admission routes, complete developer constraints, stored-state reachability and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

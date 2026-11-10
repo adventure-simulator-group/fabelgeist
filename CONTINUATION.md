@@ -130,6 +130,11 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L03-OBJECTIVE-EXPRESSION-95E.json` traces an unchecked empty
+objective path through selected developer and authority boundaries. It
+retains replay safeguards and conditional reachability; Lens 3 remains open.
+`ASSESSMENT-L01-HISTORICAL-887-890.json` records separate frozen case and
+presentation source reads; source tests were not run.
 `ASSESSMENT-L01-LIMB-WEIGHTS-95E.json` connects a prior pending question
 to the public default and normalization operation. Zero-weight policy and
 actual callers remain open; no gameplay failure is claimed.
